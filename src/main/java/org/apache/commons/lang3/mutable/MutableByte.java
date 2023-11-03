@@ -76,104 +76,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     }
 
     /**
-     * Gets the value as a Byte instance.
-     *
-     * @return the value as a Byte, never null
-     */
-    @Override
-    public Byte getValue() {
-        return Byte.valueOf(this.value);
-    }
-
-    /**
-     * Sets the value.
-     *
-     * @param value  the value to set
-     */
-    public void setValue(final byte value) {
-        this.value = value;
-    }
-
-    /**
-     * Sets the value from any Number instance.
-     *
-     * @param value  the value to set, not null
-     * @throws NullPointerException if the object is null
-     */
-    @Override
-    public void setValue(final Number value) {
-        this.value = value.byteValue();
-    }
-
-    /**
-     * Increments the value.
-     *
-     * @since 2.2
-     */
-    public void increment() {
-        value++;
-    }
-
-    /**
-     * Increments this instance's value by 1; this method returns the value associated with the instance
-     * immediately prior to the increment operation. This method is not thread safe.
-     *
-     * @return the value associated with the instance before it was incremented
-     * @since 3.5
-     */
-    public byte getAndIncrement() {
-        final byte last = value;
-        value++;
-        return last;
-    }
-
-    /**
-     * Increments this instance's value by 1; this method returns the value associated with the instance
-     * immediately after the increment operation. This method is not thread safe.
-     *
-     * @return the value associated with the instance after it is incremented
-     * @since 3.5
-     */
-    public byte incrementAndGet() {
-        value++;
-        return value;
-    }
-
-    /**
-     * Decrements the value.
-     *
-     * @since 2.2
-     */
-    public void decrement() {
-        value--;
-    }
-
-    /**
-     * Decrements this instance's value by 1; this method returns the value associated with the instance
-     * immediately prior to the decrement operation. This method is not thread safe.
-     *
-     * @return the value associated with the instance before it was decremented
-     * @since 3.5
-     */
-    public byte getAndDecrement() {
-        final byte last = value;
-        value--;
-        return last;
-    }
-
-    /**
-     * Decrements this instance's value by 1; this method returns the value associated with the instance
-     * immediately after the decrement operation. This method is not thread safe.
-     *
-     * @return the value associated with the instance after it is decremented
-     * @since 3.5
-     */
-    public byte decrementAndGet() {
-        value--;
-        return value;
-    }
-
-    /**
      * Adds a value to the value of this instance.
      *
      * @param operand  the value to add, not null
@@ -192,27 +94,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      */
     public void add(final Number operand) {
         this.value += operand.byteValue();
-    }
-
-    /**
-     * Subtracts a value from the value of this instance.
-     *
-     * @param operand  the value to subtract, not null
-     * @since 2.2
-     */
-    public void subtract(final byte operand) {
-        this.value -= operand;
-    }
-
-    /**
-     * Subtracts a value from the value of this instance.
-     *
-     * @param operand  the value to subtract, not null
-     * @throws NullPointerException if the object is null
-     * @since 2.2
-     */
-    public void subtract(final Number operand) {
-        this.value -= operand.byteValue();
     }
 
     /**
@@ -239,6 +120,85 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      */
     public byte addAndGet(final Number operand) {
         this.value += operand.byteValue();
+        return value;
+    }
+
+    // shortValue relies on Number implementation
+    /**
+     * Returns the value of this MutableByte as a byte.
+     *
+     * @return the numeric value represented by this object after conversion to type byte.
+     */
+    @Override
+    public byte byteValue() {
+        return value;
+    }
+
+    /**
+     * Compares this mutable to another in ascending order.
+     *
+     * @param other  the other mutable to compare to, not null
+     * @return negative if this is less, zero if equal, positive if greater
+     */
+    @Override
+    public int compareTo(final MutableByte other) {
+        return NumberUtils.compare(this.value, other.value);
+    }
+
+    /**
+     * Decrements the value.
+     *
+     * @since 2.2
+     */
+    public void decrement() {
+        value--;
+    }
+
+    /**
+     * Decrements this instance's value by 1; this method returns the value associated with the instance
+     * immediately after the decrement operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance after it is decremented
+     * @since 3.5
+     */
+    public byte decrementAndGet() {
+        value--;
+        return value;
+    }
+
+    /**
+     * Returns the value of this MutableByte as a double.
+     *
+     * @return the numeric value represented by this object after conversion to type double.
+     */
+    @Override
+    public double doubleValue() {
+        return value;
+    }
+
+    /**
+     * Compares this object to the specified object. The result is {@code true} if and only if the argument is
+     * not {@code null} and is a {@link MutableByte} object that contains the same {@code byte} value
+     * as this object.
+     *
+     * @param obj  the object to compare with, null returns false
+     * @return {@code true} if the objects are the same; {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj instanceof MutableByte) {
+            return value == ((MutableByte) obj).byteValue();
+        }
+        return false;
+    }
+
+    /**
+     * Returns the value of this MutableByte as a float.
+     *
+     * @return the numeric value represented by this object after conversion to type float.
+     */
+    @Override
+    public float floatValue() {
         return value;
     }
 
@@ -271,14 +231,70 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
         return last;
     }
 
-    // shortValue relies on Number implementation
     /**
-     * Returns the value of this MutableByte as a byte.
+     * Decrements this instance's value by 1; this method returns the value associated with the instance
+     * immediately prior to the decrement operation. This method is not thread safe.
      *
-     * @return the numeric value represented by this object after conversion to type byte.
+     * @return the value associated with the instance before it was decremented
+     * @since 3.5
+     */
+    public byte getAndDecrement() {
+        final byte last = value;
+        value--;
+        return last;
+    }
+
+    /**
+     * Increments this instance's value by 1; this method returns the value associated with the instance
+     * immediately prior to the increment operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance before it was incremented
+     * @since 3.5
+     */
+    public byte getAndIncrement() {
+        final byte last = value;
+        value++;
+        return last;
+    }
+
+    /**
+     * Gets the value as a Byte instance.
+     *
+     * @return the value as a Byte, never null
      */
     @Override
-    public byte byteValue() {
+    public Byte getValue() {
+        return Byte.valueOf(this.value);
+    }
+
+    /**
+     * Returns a suitable hash code for this mutable.
+     *
+     * @return a suitable hash code
+     */
+    @Override
+    public int hashCode() {
+        return value;
+    }
+
+    /**
+     * Increments the value.
+     *
+     * @since 2.2
+     */
+    public void increment() {
+        value++;
+    }
+
+    /**
+     * Increments this instance's value by 1; this method returns the value associated with the instance
+     * immediately after the increment operation. This method is not thread safe.
+     *
+     * @return the value associated with the instance after it is incremented
+     * @since 3.5
+     */
+    public byte incrementAndGet() {
+        value++;
         return value;
     }
 
@@ -303,23 +319,44 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     }
 
     /**
-     * Returns the value of this MutableByte as a float.
+     * Sets the value.
      *
-     * @return the numeric value represented by this object after conversion to type float.
+     * @param value  the value to set
      */
-    @Override
-    public float floatValue() {
-        return value;
+    public void setValue(final byte value) {
+        this.value = value;
     }
 
     /**
-     * Returns the value of this MutableByte as a double.
+     * Sets the value from any Number instance.
      *
-     * @return the numeric value represented by this object after conversion to type double.
+     * @param value  the value to set, not null
+     * @throws NullPointerException if the object is null
      */
     @Override
-    public double doubleValue() {
-        return value;
+    public void setValue(final Number value) {
+        this.value = value.byteValue();
+    }
+
+    /**
+     * Subtracts a value from the value of this instance.
+     *
+     * @param operand  the value to subtract, not null
+     * @since 2.2
+     */
+    public void subtract(final byte operand) {
+        this.value -= operand;
+    }
+
+    /**
+     * Subtracts a value from the value of this instance.
+     *
+     * @param operand  the value to subtract, not null
+     * @throws NullPointerException if the object is null
+     * @since 2.2
+     */
+    public void subtract(final Number operand) {
+        this.value -= operand.byteValue();
     }
 
     /**
@@ -329,43 +366,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      */
     public Byte toByte() {
         return Byte.valueOf(byteValue());
-    }
-
-    /**
-     * Compares this object to the specified object. The result is {@code true} if and only if the argument is
-     * not {@code null} and is a {@link MutableByte} object that contains the same {@code byte} value
-     * as this object.
-     *
-     * @param obj  the object to compare with, null returns false
-     * @return {@code true} if the objects are the same; {@code false} otherwise.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj instanceof MutableByte) {
-            return value == ((MutableByte) obj).byteValue();
-        }
-        return false;
-    }
-
-    /**
-     * Returns a suitable hash code for this mutable.
-     *
-     * @return a suitable hash code
-     */
-    @Override
-    public int hashCode() {
-        return value;
-    }
-
-    /**
-     * Compares this mutable to another in ascending order.
-     *
-     * @param other  the other mutable to compare to, not null
-     * @return negative if this is less, zero if equal, positive if greater
-     */
-    @Override
-    public int compareTo(final MutableByte other) {
-        return NumberUtils.compare(this.value, other.value);
     }
 
     /**

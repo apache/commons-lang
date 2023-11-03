@@ -34,6 +34,55 @@ import org.apache.commons.lang3.reflect.MethodUtils;
  */
 public class EventUtils {
 
+    private static final class EventBindingInvocationHandler implements InvocationHandler {
+        private final Object target;
+        private final String methodName;
+        private final Set<String> eventTypes;
+
+        /**
+         * Creates a new instance of {@link EventBindingInvocationHandler}.
+         *
+         * @param target the target object for method invocations
+         * @param methodName the name of the method to be invoked
+         * @param eventTypes the names of the supported event types
+         */
+        EventBindingInvocationHandler(final Object target, final String methodName, final String[] eventTypes) {
+            this.target = target;
+            this.methodName = methodName;
+            this.eventTypes = new HashSet<>(Arrays.asList(eventTypes));
+        }
+
+        /**
+         * Checks whether a method for the passed in parameters can be found.
+         *
+         * @param method the listener method invoked
+         * @return a flag whether the parameters could be matched
+         */
+        private boolean hasMatchingParametersMethod(final Method method) {
+            return MethodUtils.getAccessibleMethod(target.getClass(), methodName, method.getParameterTypes()) != null;
+        }
+
+        /**
+         * Handles a method invocation on the proxy object.
+         *
+         * @param proxy the proxy instance
+         * @param method the method to be invoked
+         * @param parameters the parameters for the method invocation
+         * @return the result of the method call
+         * @throws Throwable if an error occurs
+         */
+        @Override
+        public Object invoke(final Object proxy, final Method method, final Object[] parameters) throws Throwable {
+            if (eventTypes.isEmpty() || eventTypes.contains(method.getName())) {
+                if (hasMatchingParametersMethod(method)) {
+                    return MethodUtils.invokeMethod(target, methodName, parameters);
+                }
+                return MethodUtils.invokeMethod(target, methodName);
+            }
+            return null;
+        }
+    }
+
     /**
      * Adds an event listener to the specified source.  This looks for an "add" method corresponding to the event
      * type (addActionListener, for example).
@@ -76,54 +125,5 @@ public class EventUtils {
         final L listener = listenerType.cast(Proxy.newProxyInstance(target.getClass().getClassLoader(),
                 new Class[] { listenerType }, new EventBindingInvocationHandler(target, methodName, eventTypes)));
         addEventListener(eventSource, listenerType, listener);
-    }
-
-    private static final class EventBindingInvocationHandler implements InvocationHandler {
-        private final Object target;
-        private final String methodName;
-        private final Set<String> eventTypes;
-
-        /**
-         * Creates a new instance of {@link EventBindingInvocationHandler}.
-         *
-         * @param target the target object for method invocations
-         * @param methodName the name of the method to be invoked
-         * @param eventTypes the names of the supported event types
-         */
-        EventBindingInvocationHandler(final Object target, final String methodName, final String[] eventTypes) {
-            this.target = target;
-            this.methodName = methodName;
-            this.eventTypes = new HashSet<>(Arrays.asList(eventTypes));
-        }
-
-        /**
-         * Handles a method invocation on the proxy object.
-         *
-         * @param proxy the proxy instance
-         * @param method the method to be invoked
-         * @param parameters the parameters for the method invocation
-         * @return the result of the method call
-         * @throws Throwable if an error occurs
-         */
-        @Override
-        public Object invoke(final Object proxy, final Method method, final Object[] parameters) throws Throwable {
-            if (eventTypes.isEmpty() || eventTypes.contains(method.getName())) {
-                if (hasMatchingParametersMethod(method)) {
-                    return MethodUtils.invokeMethod(target, methodName, parameters);
-                }
-                return MethodUtils.invokeMethod(target, methodName);
-            }
-            return null;
-        }
-
-        /**
-         * Checks whether a method for the passed in parameters can be found.
-         *
-         * @param method the listener method invoked
-         * @return a flag whether the parameters could be matched
-         */
-        private boolean hasMatchingParametersMethod(final Method method) {
-            return MethodUtils.getAccessibleMethod(target.getClass(), methodName, method.getParameterTypes()) != null;
-        }
     }
 }

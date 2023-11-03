@@ -33,76 +33,46 @@ import org.apache.commons.lang3.ClassUtils;
 final class MemberUtils {
     // TODO extract an interface to implement compareParameterSets(...)?
 
+    /**
+     *  A class providing a subset of the API of java.lang.reflect.Executable in Java 1.8,
+     * providing a common representation for function signatures for Constructors and Methods.
+     */
+    private static final class Executable {
+      private static Executable of(final Constructor<?> constructor) {
+          return new Executable(constructor);
+      }
+      private static Executable of(final Method method) {
+          return new Executable(method);
+      }
+
+      private final Class<?>[] parameterTypes;
+
+      private final boolean  isVarArgs;
+
+      private Executable(final Constructor<?> constructor) {
+        parameterTypes = constructor.getParameterTypes();
+        isVarArgs = constructor.isVarArgs();
+      }
+
+      private Executable(final Method method) {
+        parameterTypes = method.getParameterTypes();
+        isVarArgs = method.isVarArgs();
+      }
+
+      public Class<?>[] getParameterTypes() {
+          return parameterTypes;
+      }
+
+      public boolean isVarArgs() {
+          return isVarArgs;
+      }
+    }
+
     private static final int ACCESS_TEST = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
 
     /** Array of primitive number types ordered by "promotability" */
     private static final Class<?>[] ORDERED_PRIMITIVE_TYPES = { Byte.TYPE, Short.TYPE,
             Character.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
-
-    /**
-     * Default access superclass workaround.
-     *
-     * When a {@code public} class has a default access superclass with {@code public} members,
-     * these members are accessible. Calling them from compiled code works fine.
-     * Unfortunately, on some JVMs, using reflection to invoke these members
-     * seems to (wrongly) prevent access even when the modifier is {@code public}.
-     * Calling {@code setAccessible(true)} solves the problem but will only work from
-     * sufficiently privileged code. Better workarounds would be gratefully
-     * accepted.
-     * @param obj the AccessibleObject to set as accessible
-     * @return a boolean indicating whether the accessibility of the object was set to true.
-     */
-    static <T extends AccessibleObject> T setAccessibleWorkaround(final T obj) {
-        if (obj == null || obj.isAccessible()) {
-            return obj;
-        }
-        final Member m = (Member) obj;
-        if (!obj.isAccessible() && isPublic(m) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
-            try {
-                obj.setAccessible(true);
-                return obj;
-            } catch (final SecurityException ignored) {
-                // ignore in favor of subsequent IllegalAccessException
-            }
-        }
-        return obj;
-    }
-
-    /**
-     * Tests whether a given set of modifiers implies package access.
-     * @param modifiers to test
-     * @return {@code true} unless {@code package}/{@code protected}/{@code private} modifier detected
-     */
-    static boolean isPackageAccess(final int modifiers) {
-        return (modifiers & ACCESS_TEST) == 0;
-    }
-
-    /**
-     * Tests whether a {@link Member} is public.
-     * @param member Member to test
-     * @return {@code true} if {@code m} is public
-     */
-    static boolean isPublic(final Member member) {
-        return member != null && Modifier.isPublic(member.getModifiers());
-    }
-
-    /**
-     * Tests whether a {@link Member} is static.
-     * @param member Member to test
-     * @return {@code true} if {@code m} is static
-     */
-    static boolean isStatic(final Member member) {
-        return member != null && Modifier.isStatic(member.getModifiers());
-    }
-
-    /**
-     * Tests whether a {@link Member} is accessible.
-     * @param member Member to test
-     * @return {@code true} if {@code m} is accessible
-     */
-    static boolean isAccessible(final Member member) {
-        return isPublic(member) && !member.isSynthetic();
-    }
 
     /**
      * Compares the relative fitness of two Constructors in terms of how well they
@@ -154,52 +124,6 @@ final class MemberUtils {
         final float leftCost = getTotalTransformationCost(actual, left);
         final float rightCost = getTotalTransformationCost(actual, right);
         return Float.compare(leftCost, rightCost);
-    }
-
-    /**
-     * Returns the sum of the object transformation cost for each class in the
-     * source argument list.
-     * @param srcArgs The source arguments
-     * @param executable The executable to calculate transformation costs for
-     * @return The total transformation cost
-     */
-    private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Executable executable) {
-        final Class<?>[] destArgs = executable.getParameterTypes();
-        final boolean isVarArgs = executable.isVarArgs();
-
-        // "source" and "destination" are the actual and declared args respectively.
-        float totalCost = 0.0f;
-        final long normalArgsLen = isVarArgs ? destArgs.length - 1 : destArgs.length;
-        if (srcArgs.length < normalArgsLen) {
-            return Float.MAX_VALUE;
-        }
-        for (int i = 0; i < normalArgsLen; i++) {
-            totalCost += getObjectTransformationCost(srcArgs[i], destArgs[i]);
-        }
-        if (isVarArgs) {
-            // When isVarArgs is true, srcArgs and dstArgs may differ in length.
-            // There are two special cases to consider:
-            final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
-            final boolean explicitArrayForVarargs = srcArgs.length == destArgs.length && srcArgs[srcArgs.length - 1] != null
-                && srcArgs[srcArgs.length - 1].isArray();
-
-            final float varArgsCost = 0.001f;
-            final Class<?> destClass = destArgs[destArgs.length - 1].getComponentType();
-            if (noVarArgsPassed) {
-                // When no varargs passed, the best match is the most generic matching type, not the most specific.
-                totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
-            } else if (explicitArrayForVarargs) {
-                final Class<?> sourceClass = srcArgs[srcArgs.length - 1].getComponentType();
-                totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
-            } else {
-                // This is typical varargs case.
-                for (int i = destArgs.length - 1; i < srcArgs.length; i++) {
-                    final Class<?> srcClass = srcArgs[i];
-                    totalCost += getObjectTransformationCost(srcClass, destClass) + varArgsCost;
-                }
-            }
-        }
-        return totalCost;
     }
 
     /**
@@ -267,8 +191,59 @@ final class MemberUtils {
         return cost;
     }
 
-    static boolean isMatchingMethod(final Method method, final Class<?>[] parameterTypes) {
-      return isMatchingExecutable(Executable.of(method), parameterTypes);
+    /**
+     * Returns the sum of the object transformation cost for each class in the
+     * source argument list.
+     * @param srcArgs The source arguments
+     * @param executable The executable to calculate transformation costs for
+     * @return The total transformation cost
+     */
+    private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Executable executable) {
+        final Class<?>[] destArgs = executable.getParameterTypes();
+        final boolean isVarArgs = executable.isVarArgs();
+
+        // "source" and "destination" are the actual and declared args respectively.
+        float totalCost = 0.0f;
+        final long normalArgsLen = isVarArgs ? destArgs.length - 1 : destArgs.length;
+        if (srcArgs.length < normalArgsLen) {
+            return Float.MAX_VALUE;
+        }
+        for (int i = 0; i < normalArgsLen; i++) {
+            totalCost += getObjectTransformationCost(srcArgs[i], destArgs[i]);
+        }
+        if (isVarArgs) {
+            // When isVarArgs is true, srcArgs and dstArgs may differ in length.
+            // There are two special cases to consider:
+            final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
+            final boolean explicitArrayForVarargs = srcArgs.length == destArgs.length && srcArgs[srcArgs.length - 1] != null
+                && srcArgs[srcArgs.length - 1].isArray();
+
+            final float varArgsCost = 0.001f;
+            final Class<?> destClass = destArgs[destArgs.length - 1].getComponentType();
+            if (noVarArgsPassed) {
+                // When no varargs passed, the best match is the most generic matching type, not the most specific.
+                totalCost += getObjectTransformationCost(destClass, Object.class) + varArgsCost;
+            } else if (explicitArrayForVarargs) {
+                final Class<?> sourceClass = srcArgs[srcArgs.length - 1].getComponentType();
+                totalCost += getObjectTransformationCost(sourceClass, destClass) + varArgsCost;
+            } else {
+                // This is typical varargs case.
+                for (int i = destArgs.length - 1; i < srcArgs.length; i++) {
+                    final Class<?> srcClass = srcArgs[i];
+                    totalCost += getObjectTransformationCost(srcClass, destClass) + varArgsCost;
+                }
+            }
+        }
+        return totalCost;
+    }
+
+    /**
+     * Tests whether a {@link Member} is accessible.
+     * @param member Member to test
+     * @return {@code true} if {@code m} is accessible
+     */
+    static boolean isAccessible(final Member member) {
+        return isPublic(member) && !member.isSynthetic();
     }
 
     static boolean isMatchingConstructor(final Constructor<?> method, final Class<?>[] parameterTypes) {
@@ -300,39 +275,64 @@ final class MemberUtils {
         return false;
     }
 
+    static boolean isMatchingMethod(final Method method, final Class<?>[] parameterTypes) {
+      return isMatchingExecutable(Executable.of(method), parameterTypes);
+    }
+
     /**
-     *  A class providing a subset of the API of java.lang.reflect.Executable in Java 1.8,
-     * providing a common representation for function signatures for Constructors and Methods.
+     * Tests whether a given set of modifiers implies package access.
+     * @param modifiers to test
+     * @return {@code true} unless {@code package}/{@code protected}/{@code private} modifier detected
      */
-    private static final class Executable {
-      private final Class<?>[] parameterTypes;
-      private final boolean  isVarArgs;
+    static boolean isPackageAccess(final int modifiers) {
+        return (modifiers & ACCESS_TEST) == 0;
+    }
 
-      private static Executable of(final Method method) {
-          return new Executable(method);
-      }
+    /**
+     * Tests whether a {@link Member} is public.
+     * @param member Member to test
+     * @return {@code true} if {@code m} is public
+     */
+    static boolean isPublic(final Member member) {
+        return member != null && Modifier.isPublic(member.getModifiers());
+    }
 
-      private static Executable of(final Constructor<?> constructor) {
-          return new Executable(constructor);
-      }
+    /**
+     * Tests whether a {@link Member} is static.
+     * @param member Member to test
+     * @return {@code true} if {@code m} is static
+     */
+    static boolean isStatic(final Member member) {
+        return member != null && Modifier.isStatic(member.getModifiers());
+    }
 
-      private Executable(final Method method) {
-        parameterTypes = method.getParameterTypes();
-        isVarArgs = method.isVarArgs();
-      }
-
-      private Executable(final Constructor<?> constructor) {
-        parameterTypes = constructor.getParameterTypes();
-        isVarArgs = constructor.isVarArgs();
-      }
-
-      public Class<?>[] getParameterTypes() {
-          return parameterTypes;
-      }
-
-      public boolean isVarArgs() {
-          return isVarArgs;
-      }
+    /**
+     * Default access superclass workaround.
+     *
+     * When a {@code public} class has a default access superclass with {@code public} members,
+     * these members are accessible. Calling them from compiled code works fine.
+     * Unfortunately, on some JVMs, using reflection to invoke these members
+     * seems to (wrongly) prevent access even when the modifier is {@code public}.
+     * Calling {@code setAccessible(true)} solves the problem but will only work from
+     * sufficiently privileged code. Better workarounds would be gratefully
+     * accepted.
+     * @param obj the AccessibleObject to set as accessible
+     * @return a boolean indicating whether the accessibility of the object was set to true.
+     */
+    static <T extends AccessibleObject> T setAccessibleWorkaround(final T obj) {
+        if (obj == null || obj.isAccessible()) {
+            return obj;
+        }
+        final Member m = (Member) obj;
+        if (!obj.isAccessible() && isPublic(m) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
+            try {
+                obj.setAccessible(true);
+                return obj;
+            } catch (final SecurityException ignored) {
+                // ignore in favor of subsequent IllegalAccessException
+            }
+        }
+        return obj;
     }
 
 }

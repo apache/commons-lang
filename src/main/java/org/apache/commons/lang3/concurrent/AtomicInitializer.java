@@ -86,9 +86,6 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
 
     private static final Object NO_INIT = new Object();
 
-    /** Holds the reference to the managed object. */
-    private final AtomicReference<T> reference = new AtomicReference<>(getNoInit());
-
     /**
      * Creates a new builder.
      *
@@ -99,6 +96,9 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
     public static <T> Builder<AtomicInitializer<T>, T> builder() {
         return new Builder<>();
     }
+
+    /** Holds the reference to the managed object. */
+    private final AtomicReference<T> reference = new AtomicReference<>(getNoInit());
 
     /**
      * Constructs a new instance.
@@ -148,6 +148,14 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ConcurrentException getTypedException(Exception e) {
+        return new ConcurrentException(e);
+    }
+
+    /**
      * Tests whether this instance is initialized. Once initialized, always returns true.
      *
      * @return whether this instance is initialized. Once initialized, always returns true.
@@ -156,13 +164,5 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
     @Override
     public boolean isInitialized() {
         return reference.get() != NO_INIT;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected ConcurrentException getTypedException(Exception e) {
-        return new ConcurrentException(e);
     }
 }

@@ -112,18 +112,6 @@ public class ContextedException extends Exception implements ExceptionContext {
     }
 
     /**
-     * Instantiates ContextedException with cause, but without message.
-     * <p>
-     * The context information is stored using a default implementation.
-     *
-     * @param cause  the underlying cause of the exception, may be null
-     */
-    public ContextedException(final Throwable cause) {
-        super(cause);
-        exceptionContext = new DefaultExceptionContext();
-    }
-
-    /**
      * Instantiates ContextedException with cause and message.
      * <p>
      * The context information is stored using a default implementation.
@@ -152,6 +140,18 @@ public class ContextedException extends Exception implements ExceptionContext {
     }
 
     /**
+     * Instantiates ContextedException with cause, but without message.
+     * <p>
+     * The context information is stored using a default implementation.
+     *
+     * @param cause  the underlying cause of the exception, may be null
+     */
+    public ContextedException(final Throwable cause) {
+        super(cause);
+        exceptionContext = new DefaultExceptionContext();
+    }
+
+    /**
      * Adds information helpful to a developer in diagnosing and correcting the problem.
      * For the information to be meaningful, the value passed should have a reasonable
      * toString() implementation.
@@ -171,22 +171,19 @@ public class ContextedException extends Exception implements ExceptionContext {
     }
 
     /**
-     * Sets information helpful to a developer in diagnosing and correcting the problem.
-     * For the information to be meaningful, the value passed should have a reasonable
-     * toString() implementation.
-     * Any existing values with the same labels are removed before the new one is added.
-     * <p>
-     * Note: This exception is only serializable if the object added as value is serializable.
-     * </p>
-     *
-     * @param label  a textual label associated with information, {@code null} not recommended
-     * @param value  information needed to understand exception, may be {@code null}
-     * @return {@code this}, for method chaining, not {@code null}
+     * {@inheritDoc}
      */
     @Override
-    public ContextedException setContextValue(final String label, final Object value) {
-        exceptionContext.setContextValue(label, value);
-        return this;
+    public List<Pair<String, Object>> getContextEntries() {
+        return this.exceptionContext.getContextEntries();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<String> getContextLabels() {
+        return exceptionContext.getContextLabels();
     }
 
     /**
@@ -209,16 +206,8 @@ public class ContextedException extends Exception implements ExceptionContext {
      * {@inheritDoc}
      */
     @Override
-    public List<Pair<String, Object>> getContextEntries() {
-        return this.exceptionContext.getContextEntries();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<String> getContextLabels() {
-        return exceptionContext.getContextLabels();
+    public String getFormattedExceptionMessage(final String baseMessage) {
+        return exceptionContext.getFormattedExceptionMessage(baseMessage);
     }
 
     /**
@@ -244,10 +233,21 @@ public class ContextedException extends Exception implements ExceptionContext {
     }
 
     /**
-     * {@inheritDoc}
+     * Sets information helpful to a developer in diagnosing and correcting the problem.
+     * For the information to be meaningful, the value passed should have a reasonable
+     * toString() implementation.
+     * Any existing values with the same labels are removed before the new one is added.
+     * <p>
+     * Note: This exception is only serializable if the object added as value is serializable.
+     * </p>
+     *
+     * @param label  a textual label associated with information, {@code null} not recommended
+     * @param value  information needed to understand exception, may be {@code null}
+     * @return {@code this}, for method chaining, not {@code null}
      */
     @Override
-    public String getFormattedExceptionMessage(final String baseMessage) {
-        return exceptionContext.getFormattedExceptionMessage(baseMessage);
+    public ContextedException setContextValue(final String label, final Object value) {
+        exceptionContext.setContextValue(label, value);
+        return this;
     }
 }

@@ -117,25 +117,6 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * Sets the default {@link ToStringStyle} to use.
-     *
-     * <p>This method sets a singleton default value, typically for the whole JVM.
-     * Changing this default should generally only be done during application startup.
-     * It is recommended to pass a {@link ToStringStyle} to the constructor instead
-     * of changing this global default.</p>
-     *
-     * <p>This method is not intended for use from multiple threads.
-     * Internally, a {@code volatile} variable is used to provide the guarantee
-     * that the latest value set is the value returned from {@link #getDefaultStyle}.</p>
-     *
-     * @param style  the default {@link ToStringStyle}
-     * @throws NullPointerException if the style is {@code null}
-     */
-    public static void setDefaultStyle(final ToStringStyle style) {
-        defaultStyle = Objects.requireNonNull(style, "style");
-    }
-
-    /**
      * Uses {@link ReflectionToStringBuilder} to generate a
      * {@code toString} for the specified object.
      *
@@ -193,6 +174,25 @@ public class ToStringBuilder implements Builder<String> {
         final boolean outputTransients,
         final Class<? super T> reflectUpToClass) {
         return ReflectionToStringBuilder.toString(object, style, outputTransients, false, reflectUpToClass);
+    }
+
+    /**
+     * Sets the default {@link ToStringStyle} to use.
+     *
+     * <p>This method sets a singleton default value, typically for the whole JVM.
+     * Changing this default should generally only be done during application startup.
+     * It is recommended to pass a {@link ToStringStyle} to the constructor instead
+     * of changing this global default.</p>
+     *
+     * <p>This method is not intended for use from multiple threads.
+     * Internally, a {@code volatile} variable is used to provide the guarantee
+     * that the latest value set is the value returned from {@link #getDefaultStyle}.</p>
+     *
+     * @param style  the default {@link ToStringStyle}
+     * @throws NullPointerException if the style is {@code null}
+     */
+    public static void setDefaultStyle(final ToStringStyle style) {
+        defaultStyle = Objects.requireNonNull(style, "style");
     }
 
     /**
@@ -969,6 +969,21 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
+     * Returns the String that was build as an object representation. The
+     * default implementation utilizes the {@link #toString()} implementation.
+     *
+     * @return the String {@code toString}
+     *
+     * @see #toString()
+     *
+     * @since 3.0
+     */
+    @Override
+    public String build() {
+        return toString();
+    }
+
+    /**
      * Returns the {@link Object} being output.
      *
      * @return The object being output.
@@ -1015,20 +1030,5 @@ public class ToStringBuilder implements Builder<String> {
             style.appendEnd(this.getStringBuffer(), this.getObject());
         }
         return this.getStringBuffer().toString();
-    }
-
-    /**
-     * Returns the String that was build as an object representation. The
-     * default implementation utilizes the {@link #toString()} implementation.
-     *
-     * @return the String {@code toString}
-     *
-     * @see #toString()
-     *
-     * @since 3.0
-     */
-    @Override
-    public String build() {
-        return toString();
     }
 }

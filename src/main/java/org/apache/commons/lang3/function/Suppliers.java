@@ -36,6 +36,17 @@ public class Suppliers {
     private static Supplier NUL = () -> null;
 
     /**
+     * Null-safe call to {@link Supplier#get()}.
+     *
+     * @param <T> the type of results supplied by this supplier.
+     * @param supplier the supplier or null.
+     * @return Result of {@link Supplier#get()} or null.
+     */
+    public static <T> T get(final Supplier<T> supplier) {
+        return supplier == null ? null : supplier.get();
+    }
+
+    /**
      * Returns the singleton supplier that always returns null.
      * <p>
      * This supplier never throws an exception.
@@ -48,17 +59,6 @@ public class Suppliers {
     @SuppressWarnings("unchecked")
     public static <T> Supplier<T> nul() {
         return NUL;
-    }
-
-    /**
-     * Null-safe call to {@link Supplier#get()}.
-     *
-     * @param <T> the type of results supplied by this supplier.
-     * @param supplier the supplier or null.
-     * @return Result of {@link Supplier#get()} or null.
-     */
-    public static <T> T get(final Supplier<T> supplier) {
-        return supplier == null ? null : supplier.get();
     }
 
 }

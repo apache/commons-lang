@@ -85,6 +85,36 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * {@link DiffResult} when {@link #build()} is executed.
      * </p>
      *
+     * <p>
+     * This delegates to {@link #DiffBuilder(Object, Object, ToStringStyle, boolean)}
+     * with the testTriviallyEqual flag enabled.
+     * </p>
+     *
+     * @param lhs
+     *            {@code this} object
+     * @param rhs
+     *            the object to diff against
+     * @param style
+     *            the style will use when outputting the objects, {@code null}
+     *            uses the default
+     * @throws NullPointerException
+     *             if {@code lhs} or {@code rhs} is {@code null}
+     */
+    public DiffBuilder(final T lhs, final T rhs,
+            final ToStringStyle style) {
+
+            this(lhs, rhs, style, true);
+    }
+
+    /**
+     * Constructs a builder for the specified objects with the specified style.
+     *
+     * <p>
+     * If {@code lhs == rhs} or {@code lhs.equals(rhs)} then the builder will
+     * not evaluate any calls to {@code append(...)} and will return an empty
+     * {@link DiffResult} when {@link #build()} is executed.
+     * </p>
+     *
      * @param lhs
      *            {@code this} object
      * @param rhs
@@ -115,36 +145,6 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
         // Don't compare any fields if objects equal
         this.objectsTriviallyEqual = testTriviallyEqual && Objects.equals(lhs, rhs);
-    }
-
-    /**
-     * Constructs a builder for the specified objects with the specified style.
-     *
-     * <p>
-     * If {@code lhs == rhs} or {@code lhs.equals(rhs)} then the builder will
-     * not evaluate any calls to {@code append(...)} and will return an empty
-     * {@link DiffResult} when {@link #build()} is executed.
-     * </p>
-     *
-     * <p>
-     * This delegates to {@link #DiffBuilder(Object, Object, ToStringStyle, boolean)}
-     * with the testTriviallyEqual flag enabled.
-     * </p>
-     *
-     * @param lhs
-     *            {@code this} object
-     * @param rhs
-     *            the object to diff against
-     * @param style
-     *            the style will use when outputting the objects, {@code null}
-     *            uses the default
-     * @throws NullPointerException
-     *             if {@code lhs} or {@code rhs} is {@code null}
-     */
-    public DiffBuilder(final T lhs, final T rhs,
-            final ToStringStyle style) {
-
-            this(lhs, rhs, style, true);
     }
 
     /**
@@ -370,6 +370,49 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
                 }
             });
         }
+        return this;
+    }
+
+    /**
+     * Append diffs from another {@link DiffResult}.
+     *
+     * <p>
+     * This method is useful if you want to compare properties which are
+     * themselves Diffable and would like to know which specific part of
+     * it is different.
+     * </p>
+     *
+     * <pre>
+     * public class Person implements Diffable&lt;Person&gt; {
+     *   String name;
+     *   Address address; // implements Diffable&lt;Address&gt;
+     *
+     *   ...
+     *
+     *   public DiffResult diff(Person obj) {
+     *     return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
+     *       .append("name", this.name, obj.name)
+     *       .append("address", this.address.diff(obj.address))
+     *       .build();
+     *   }
+     * }
+     * </pre>
+     *
+     * @param fieldName
+     *            the field name
+     * @param diffResult
+     *            the {@link DiffResult} to append
+     * @return this
+     * @throws NullPointerException if field name is {@code null} or diffResult is {@code null}
+     * @since 3.5
+     */
+    public DiffBuilder<T> append(final String fieldName, final DiffResult<T> diffResult) {
+        validateFieldNameNotNull(fieldName);
+        Objects.requireNonNull(diffResult, "diffResult");
+        if (objectsTriviallyEqual) {
+            return this;
+        }
+        diffResult.getDiffs().forEach(diff -> append(fieldName + "." + diff.getFieldName(), diff.getLeft(), diff.getRight()));
         return this;
     }
 
@@ -678,82 +721,6 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     }
 
     /**
-     * Test if two {@code short}s are equal.
-     *
-     * @param fieldName
-     *            the field name
-     * @param lhs
-     *            the left-hand {@code short}
-     * @param rhs
-     *            the right-hand {@code short}
-     * @return this
-     * @throws NullPointerException
-     *             if field name is {@code null}
-     */
-    public DiffBuilder<T> append(final String fieldName, final short lhs,
-            final short rhs) {
-        validateFieldNameNotNull(fieldName);
-
-        if (objectsTriviallyEqual) {
-            return this;
-        }
-        if (lhs != rhs) {
-            diffs.add(new Diff<Short>(fieldName) {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public Short getLeft() {
-                    return Short.valueOf(lhs);
-                }
-
-                @Override
-                public Short getRight() {
-                    return Short.valueOf(rhs);
-                }
-            });
-        }
-        return this;
-    }
-
-    /**
-     * Test if two {@code short[]}s are equal.
-     *
-     * @param fieldName
-     *            the field name
-     * @param lhs
-     *            the left-hand {@code short[]}
-     * @param rhs
-     *            the right-hand {@code short[]}
-     * @return this
-     * @throws NullPointerException
-     *             if field name is {@code null}
-     */
-    public DiffBuilder<T> append(final String fieldName, final short[] lhs,
-            final short[] rhs) {
-        validateFieldNameNotNull(fieldName);
-
-        if (objectsTriviallyEqual) {
-            return this;
-        }
-        if (!Arrays.equals(lhs, rhs)) {
-            diffs.add(new Diff<Short[]>(fieldName) {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public Short[] getLeft() {
-                    return ArrayUtils.toObject(lhs);
-                }
-
-                @Override
-                public Short[] getRight() {
-                    return ArrayUtils.toObject(rhs);
-                }
-            });
-        }
-        return this;
-    }
-
-    /**
      * Test if two {@link Objects}s are equal.
      *
      * @param fieldName
@@ -875,45 +842,78 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     }
 
     /**
-     * Append diffs from another {@link DiffResult}.
-     *
-     * <p>
-     * This method is useful if you want to compare properties which are
-     * themselves Diffable and would like to know which specific part of
-     * it is different.
-     * </p>
-     *
-     * <pre>
-     * public class Person implements Diffable&lt;Person&gt; {
-     *   String name;
-     *   Address address; // implements Diffable&lt;Address&gt;
-     *
-     *   ...
-     *
-     *   public DiffResult diff(Person obj) {
-     *     return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
-     *       .append("name", this.name, obj.name)
-     *       .append("address", this.address.diff(obj.address))
-     *       .build();
-     *   }
-     * }
-     * </pre>
+     * Test if two {@code short}s are equal.
      *
      * @param fieldName
      *            the field name
-     * @param diffResult
-     *            the {@link DiffResult} to append
+     * @param lhs
+     *            the left-hand {@code short}
+     * @param rhs
+     *            the right-hand {@code short}
      * @return this
-     * @throws NullPointerException if field name is {@code null} or diffResult is {@code null}
-     * @since 3.5
+     * @throws NullPointerException
+     *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final DiffResult<T> diffResult) {
+    public DiffBuilder<T> append(final String fieldName, final short lhs,
+            final short rhs) {
         validateFieldNameNotNull(fieldName);
-        Objects.requireNonNull(diffResult, "diffResult");
+
         if (objectsTriviallyEqual) {
             return this;
         }
-        diffResult.getDiffs().forEach(diff -> append(fieldName + "." + diff.getFieldName(), diff.getLeft(), diff.getRight()));
+        if (lhs != rhs) {
+            diffs.add(new Diff<Short>(fieldName) {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public Short getLeft() {
+                    return Short.valueOf(lhs);
+                }
+
+                @Override
+                public Short getRight() {
+                    return Short.valueOf(rhs);
+                }
+            });
+        }
+        return this;
+    }
+
+    /**
+     * Test if two {@code short[]}s are equal.
+     *
+     * @param fieldName
+     *            the field name
+     * @param lhs
+     *            the left-hand {@code short[]}
+     * @param rhs
+     *            the right-hand {@code short[]}
+     * @return this
+     * @throws NullPointerException
+     *             if field name is {@code null}
+     */
+    public DiffBuilder<T> append(final String fieldName, final short[] lhs,
+            final short[] rhs) {
+        validateFieldNameNotNull(fieldName);
+
+        if (objectsTriviallyEqual) {
+            return this;
+        }
+        if (!Arrays.equals(lhs, rhs)) {
+            diffs.add(new Diff<Short[]>(fieldName) {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public Short[] getLeft() {
+                    return ArrayUtils.toObject(lhs);
+                }
+
+                @Override
+                public Short[] getRight() {
+                    return ArrayUtils.toObject(rhs);
+                }
+            });
+        }
         return this;
     }
 

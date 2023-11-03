@@ -30,8 +30,50 @@ import java.io.Writer;
 @Deprecated
 public class UnicodeEscaper extends CodePointTranslator {
 
+    /**
+     * Constructs a {@link UnicodeEscaper} above the specified value (exclusive).
+     *
+     * @param codePoint above which to escape
+     * @return the newly created {@link UnicodeEscaper} instance
+     */
+    public static UnicodeEscaper above(final int codePoint) {
+        return outsideOf(0, codePoint);
+    }
+    /**
+     * Constructs a {@link UnicodeEscaper} below the specified value (exclusive).
+     *
+     * @param codePoint below which to escape
+     * @return the newly created {@link UnicodeEscaper} instance
+     */
+    public static UnicodeEscaper below(final int codePoint) {
+        return outsideOf(codePoint, Integer.MAX_VALUE);
+    }
+    /**
+     * Constructs a {@link UnicodeEscaper} between the specified values (inclusive).
+     *
+     * @param codePointLow above which to escape
+     * @param codePointHigh below which to escape
+     * @return the newly created {@link UnicodeEscaper} instance
+     */
+    public static UnicodeEscaper between(final int codePointLow, final int codePointHigh) {
+        return new UnicodeEscaper(codePointLow, codePointHigh, true);
+    }
+
+    /**
+     * Constructs a {@link UnicodeEscaper} outside of the specified values (exclusive).
+     *
+     * @param codePointLow below which to escape
+     * @param codePointHigh above which to escape
+     * @return the newly created {@link UnicodeEscaper} instance
+     */
+    public static UnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh) {
+        return new UnicodeEscaper(codePointLow, codePointHigh, false);
+    }
+
     private final int below;
+
     private final int above;
+
     private final boolean between;
 
     /**
@@ -58,45 +100,16 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * Constructs a {@link UnicodeEscaper} below the specified value (exclusive).
+     * Converts the given code point to a hexadecimal string of the form {@code "\\uXXXX"}
      *
-     * @param codePoint below which to escape
-     * @return the newly created {@link UnicodeEscaper} instance
-     */
-    public static UnicodeEscaper below(final int codePoint) {
-        return outsideOf(codePoint, Integer.MAX_VALUE);
-    }
-
-    /**
-     * Constructs a {@link UnicodeEscaper} above the specified value (exclusive).
+     * @param codePoint
+     *            a Unicode code point
+     * @return the hexadecimal string for the given code point
      *
-     * @param codePoint above which to escape
-     * @return the newly created {@link UnicodeEscaper} instance
+     * @since 3.2
      */
-    public static UnicodeEscaper above(final int codePoint) {
-        return outsideOf(0, codePoint);
-    }
-
-    /**
-     * Constructs a {@link UnicodeEscaper} outside of the specified values (exclusive).
-     *
-     * @param codePointLow below which to escape
-     * @param codePointHigh above which to escape
-     * @return the newly created {@link UnicodeEscaper} instance
-     */
-    public static UnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh) {
-        return new UnicodeEscaper(codePointLow, codePointHigh, false);
-    }
-
-    /**
-     * Constructs a {@link UnicodeEscaper} between the specified values (inclusive).
-     *
-     * @param codePointLow above which to escape
-     * @param codePointHigh below which to escape
-     * @return the newly created {@link UnicodeEscaper} instance
-     */
-    public static UnicodeEscaper between(final int codePointLow, final int codePointHigh) {
-        return new UnicodeEscaper(codePointLow, codePointHigh, true);
+    protected String toUtf16Escape(final int codePoint) {
+        return "\\u" + hex(codePoint);
     }
 
     /**
@@ -123,18 +136,5 @@ public class UnicodeEscaper extends CodePointTranslator {
           out.write(HEX_DIGITS[(codePoint) & 15]);
         }
         return true;
-    }
-
-    /**
-     * Converts the given code point to a hexadecimal string of the form {@code "\\uXXXX"}
-     *
-     * @param codePoint
-     *            a Unicode code point
-     * @return the hexadecimal string for the given code point
-     *
-     * @since 3.2
-     */
-    protected String toUtf16Escape(final int codePoint) {
-        return "\\u" + hex(codePoint);
     }
 }

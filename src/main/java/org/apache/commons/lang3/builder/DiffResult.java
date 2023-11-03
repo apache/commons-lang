@@ -84,6 +84,16 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
+     * Returns an unmodifiable list of {@link Diff}s. The list may be empty if
+     * there were no differences between the objects.
+     *
+     * @return an unmodifiable list of {@link Diff}s
+     */
+    public List<Diff<?>> getDiffs() {
+        return Collections.unmodifiableList(diffList);
+    }
+
+    /**
      * Returns the object the right object has been compared to.
      *
      * @return the left object of the diff
@@ -91,6 +101,15 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      */
     public T getLeft() {
         return this.lhs;
+    }
+
+    /**
+     * Returns the number of differences between the two objects.
+     *
+     * @return the number of differences
+     */
+    public int getNumberOfDiffs() {
+        return diffList.size();
     }
 
     /**
@@ -104,31 +123,22 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * Returns an unmodifiable list of {@link Diff}s. The list may be empty if
-     * there were no differences between the objects.
-     *
-     * @return an unmodifiable list of {@link Diff}s
-     */
-    public List<Diff<?>> getDiffs() {
-        return Collections.unmodifiableList(diffList);
-    }
-
-    /**
-     * Returns the number of differences between the two objects.
-     *
-     * @return the number of differences
-     */
-    public int getNumberOfDiffs() {
-        return diffList.size();
-    }
-
-    /**
      * Returns the style used by the {@link #toString()} method.
      *
      * @return the style
      */
     public ToStringStyle getToStringStyle() {
         return style;
+    }
+
+    /**
+     * Returns an iterator over the {@link Diff} objects contained in this list.
+     *
+     * @return the iterator
+     */
+    @Override
+    public Iterator<Diff<?>> iterator() {
+        return diffList.iterator();
     }
 
     /**
@@ -188,15 +198,5 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
         });
 
         return String.format("%s %s %s", lhsBuilder.build(), DIFFERS_STRING, rhsBuilder.build());
-    }
-
-    /**
-     * Returns an iterator over the {@link Diff} objects contained in this list.
-     *
-     * @return the iterator
-     */
-    @Override
-    public Iterator<Diff<?>> iterator() {
-        return diffList.iterator();
     }
 }

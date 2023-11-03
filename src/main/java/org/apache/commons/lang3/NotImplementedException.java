@@ -69,11 +69,13 @@ public class NotImplementedException extends UnsupportedOperationException {
     /**
      * Constructs a NotImplementedException.
      *
-     * @param cause cause of the exception
+     * @param message description of the exception
+     * @param code code indicating a resource for more information regarding the lack of implementation
      * @since 3.2
      */
-    public NotImplementedException(final Throwable cause) {
-        this(cause, null);
+    public NotImplementedException(final String message, final String code) {
+        super(message);
+        this.code = code;
     }
 
     /**
@@ -91,12 +93,23 @@ public class NotImplementedException extends UnsupportedOperationException {
      * Constructs a NotImplementedException.
      *
      * @param message description of the exception
+     * @param cause cause of the exception
      * @param code code indicating a resource for more information regarding the lack of implementation
      * @since 3.2
      */
-    public NotImplementedException(final String message, final String code) {
-        super(message);
+    public NotImplementedException(final String message, final Throwable cause, final String code) {
+        super(message, cause);
         this.code = code;
+    }
+
+    /**
+     * Constructs a NotImplementedException.
+     *
+     * @param cause cause of the exception
+     * @since 3.2
+     */
+    public NotImplementedException(final Throwable cause) {
+        this(cause, null);
     }
 
     /**
@@ -108,19 +121,6 @@ public class NotImplementedException extends UnsupportedOperationException {
      */
     public NotImplementedException(final Throwable cause, final String code) {
         super(cause);
-        this.code = code;
-    }
-
-    /**
-     * Constructs a NotImplementedException.
-     *
-     * @param message description of the exception
-     * @param cause cause of the exception
-     * @param code code indicating a resource for more information regarding the lack of implementation
-     * @since 3.2
-     */
-    public NotImplementedException(final String message, final Throwable cause, final String code) {
-        super(message, cause);
         this.code = code;
     }
 

@@ -44,15 +44,6 @@ final class IDKey {
         }
 
         /**
-         * returns hash code - i.e. the system identity hash code.
-         * @return the hash code
-         */
-        @Override
-        public int hashCode() {
-           return id;
-        }
-
-        /**
          * checks if instances are equal
          * @param other The other object to compare to
          * @return if the instances are for the same object
@@ -69,4 +60,13 @@ final class IDKey {
             // Note that identity equals is used.
             return value == idKey.value;
          }
+
+        /**
+         * returns hash code - i.e. the system identity hash code.
+         * @return the hash code
+         */
+        @Override
+        public int hashCode() {
+           return id;
+        }
 }

@@ -43,17 +43,6 @@ public class ConcurrentException extends Exception {
 
     /**
      * Creates a new instance of {@link ConcurrentException} and initializes it
-     * with the given cause.
-     *
-     * @param cause the cause of this exception
-     * @throws IllegalArgumentException if the cause is not a checked exception
-     */
-    public ConcurrentException(final Throwable cause) {
-        super(ConcurrentUtils.checkedException(cause));
-    }
-
-    /**
-     * Creates a new instance of {@link ConcurrentException} and initializes it
      * with the given message and cause.
      *
      * @param msg the error message
@@ -62,5 +51,16 @@ public class ConcurrentException extends Exception {
      */
     public ConcurrentException(final String msg, final Throwable cause) {
         super(msg, ConcurrentUtils.checkedException(cause));
+    }
+
+    /**
+     * Creates a new instance of {@link ConcurrentException} and initializes it
+     * with the given cause.
+     *
+     * @param cause the cause of this exception
+     * @throws IllegalArgumentException if the cause is not a checked exception
+     */
+    public ConcurrentException(final Throwable cause) {
+        super(ConcurrentUtils.checkedException(cause));
     }
 }

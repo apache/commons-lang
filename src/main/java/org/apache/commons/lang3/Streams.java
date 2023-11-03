@@ -67,6 +67,55 @@ import org.apache.commons.lang3.Functions.FailablePredicate;
 public class Streams {
 
     /**
+     * A Collector type for arrays.
+     *
+     * @param <O> The array type.
+     * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.ArrayCollector}.
+     */
+    @Deprecated
+    public static class ArrayCollector<O> implements Collector<O, List<O>, O[]> {
+        private static final Set<Characteristics> characteristics = Collections.emptySet();
+        private final Class<O> elementType;
+
+        /**
+         * Constructs a new instance for the given element type.
+         *
+         * @param elementType The element type.
+         */
+        public ArrayCollector(final Class<O> elementType) {
+            this.elementType = elementType;
+        }
+
+        @Override
+        public BiConsumer<List<O>, O> accumulator() {
+            return List::add;
+        }
+
+        @Override
+        public Set<Characteristics> characteristics() {
+            return characteristics;
+        }
+
+        @Override
+        public BinaryOperator<List<O>> combiner() {
+            return (left, right) -> {
+                left.addAll(right);
+                return left;
+            };
+        }
+
+        @Override
+        public Function<List<O>, O[]> finisher() {
+            return list -> list.toArray(ArrayUtils.newInstance(elementType, list.size()));
+        }
+
+        @Override
+        public Supplier<List<O>> supplier() {
+            return ArrayList::new;
+        }
+    }
+
+    /**
      * A reduced, and simplified version of a {@link Stream} with
      * failable method signatures.
      * @param <O> The streams element type.
@@ -87,6 +136,58 @@ public class Streams {
         }
 
         /**
+         * Returns whether all elements of this stream match the provided predicate.
+         * May not evaluate the predicate on all elements if not necessary for
+         * determining the result.  If the stream is empty then {@code true} is
+         * returned and the predicate is not evaluated.
+         *
+         * <p>
+         * This is a short-circuiting terminal operation.
+         * </p>
+         *
+         * <p>
+         * Note
+         * This method evaluates the <em>universal quantification</em> of the
+         * predicate over the elements of the stream (for all x P(x)).  If the
+         * stream is empty, the quantification is said to be <em>vacuously
+         * satisfied</em> and is always {@code true} (regardless of P(x)).
+         * </p>
+         *
+         * @param predicate A non-interfering, stateless predicate to apply to
+         * elements of this stream
+         * @return {@code true} If either all elements of the stream match the
+         * provided predicate or the stream is empty, otherwise {@code false}.
+         */
+        public boolean allMatch(final FailablePredicate<O, ?> predicate) {
+            assertNotTerminated();
+            return stream().allMatch(Functions.asPredicate(predicate));
+        }
+
+        /**
+         * Returns whether any elements of this stream match the provided
+         * predicate.  May not evaluate the predicate on all elements if not
+         * necessary for determining the result.  If the stream is empty then
+         * {@code false} is returned and the predicate is not evaluated.
+         *
+         * <p>
+         * This is a short-circuiting terminal operation.
+         * </p>
+         *
+         * Note
+         * This method evaluates the <em>existential quantification</em> of the
+         * predicate over the elements of the stream (for some x P(x)).
+         *
+         * @param predicate A non-interfering, stateless predicate to apply to
+         * elements of this stream
+         * @return {@code true} if any elements of the stream match the provided
+         * predicate, otherwise {@code false}
+         */
+        public boolean anyMatch(final FailablePredicate<O, ?> predicate) {
+            assertNotTerminated();
+            return stream().anyMatch(Functions.asPredicate(predicate));
+        }
+
+        /**
          * Throws IllegalStateException if this stream is already terminated.
          *
          * @throws IllegalStateException if this stream is already terminated.
@@ -95,58 +196,6 @@ public class Streams {
             if (terminated) {
                 throw new IllegalStateException("This stream is already terminated.");
             }
-        }
-
-        /**
-         * Marks this stream as terminated.
-         *
-         * @throws IllegalStateException if this stream is already terminated.
-         */
-        protected void makeTerminated() {
-            assertNotTerminated();
-            terminated = true;
-        }
-
-        /**
-         * Returns a FailableStream consisting of the elements of this stream that match
-         * the given FailablePredicate.
-         *
-         * <p>
-         * This is an intermediate operation.
-         * </p>
-         *
-         * @param predicate a non-interfering, stateless predicate to apply to each
-         * element to determine if it should be included.
-         * @return the new stream
-         */
-        public FailableStream<O> filter(final FailablePredicate<O, ?> predicate){
-            assertNotTerminated();
-            stream = stream.filter(Functions.asPredicate(predicate));
-            return this;
-        }
-
-        /**
-         * Performs an action for each element of this stream.
-         *
-         * <p>
-         * This is an intermediate operation.
-         * </p>
-         *
-         * <p>
-         * The behavior of this operation is explicitly nondeterministic.
-         * For parallel stream pipelines, this operation does <em>not</em>
-         * guarantee to respect the encounter order of the stream, as doing so
-         * would sacrifice the benefit of parallelism.  For any given element, the
-         * action may be performed at whatever time and in whatever thread the
-         * library chooses.  If the action accesses shared state, it is
-         * responsible for providing the required synchronization.
-         * </p>
-         *
-         * @param action a non-interfering action to perform on the elements
-         */
-        public void forEach(final FailableConsumer<O, ?> action) {
-            makeTerminated();
-            stream().forEach(Functions.asConsumer(action));
         }
 
         /**
@@ -272,6 +321,75 @@ public class Streams {
         }
 
         /**
+         * Returns a FailableStream consisting of the elements of this stream that match
+         * the given FailablePredicate.
+         *
+         * <p>
+         * This is an intermediate operation.
+         * </p>
+         *
+         * @param predicate a non-interfering, stateless predicate to apply to each
+         * element to determine if it should be included.
+         * @return the new stream
+         */
+        public FailableStream<O> filter(final FailablePredicate<O, ?> predicate){
+            assertNotTerminated();
+            stream = stream.filter(Functions.asPredicate(predicate));
+            return this;
+        }
+
+        /**
+         * Performs an action for each element of this stream.
+         *
+         * <p>
+         * This is an intermediate operation.
+         * </p>
+         *
+         * <p>
+         * The behavior of this operation is explicitly nondeterministic.
+         * For parallel stream pipelines, this operation does <em>not</em>
+         * guarantee to respect the encounter order of the stream, as doing so
+         * would sacrifice the benefit of parallelism.  For any given element, the
+         * action may be performed at whatever time and in whatever thread the
+         * library chooses.  If the action accesses shared state, it is
+         * responsible for providing the required synchronization.
+         * </p>
+         *
+         * @param action a non-interfering action to perform on the elements
+         */
+        public void forEach(final FailableConsumer<O, ?> action) {
+            makeTerminated();
+            stream().forEach(Functions.asConsumer(action));
+        }
+
+        /**
+         * Marks this stream as terminated.
+         *
+         * @throws IllegalStateException if this stream is already terminated.
+         */
+        protected void makeTerminated() {
+            assertNotTerminated();
+            terminated = true;
+        }
+
+        /**
+         * Returns a stream consisting of the results of applying the given
+         * function to the elements of this stream.
+         *
+         * <p>
+         * This is an intermediate operation.
+         * </p>
+         *
+         * @param <R> The element type of the new stream
+         * @param mapper A non-interfering, stateless function to apply to each element
+         * @return the new stream
+         */
+        public <R> FailableStream<R> map(final FailableFunction<O, R, ?> mapper) {
+            assertNotTerminated();
+            return new FailableStream<>(stream.map(Functions.asFunction(mapper)));
+        }
+
+        /**
          * Performs a reduction on the elements of this stream, using the provided
          * identity value and an associative accumulation function, and returns
          * the reduced value.  This is equivalent to:
@@ -326,123 +444,12 @@ public class Streams {
         }
 
         /**
-         * Returns a stream consisting of the results of applying the given
-         * function to the elements of this stream.
-         *
-         * <p>
-         * This is an intermediate operation.
-         * </p>
-         *
-         * @param <R> The element type of the new stream
-         * @param mapper A non-interfering, stateless function to apply to each element
-         * @return the new stream
-         */
-        public <R> FailableStream<R> map(final FailableFunction<O, R, ?> mapper) {
-            assertNotTerminated();
-            return new FailableStream<>(stream.map(Functions.asFunction(mapper)));
-        }
-
-        /**
          * Converts the FailableStream into an equivalent stream.
          * @return A stream, which will return the same elements, which this FailableStream would return.
          */
         public Stream<O> stream() {
             return stream;
         }
-
-        /**
-         * Returns whether all elements of this stream match the provided predicate.
-         * May not evaluate the predicate on all elements if not necessary for
-         * determining the result.  If the stream is empty then {@code true} is
-         * returned and the predicate is not evaluated.
-         *
-         * <p>
-         * This is a short-circuiting terminal operation.
-         * </p>
-         *
-         * <p>
-         * Note
-         * This method evaluates the <em>universal quantification</em> of the
-         * predicate over the elements of the stream (for all x P(x)).  If the
-         * stream is empty, the quantification is said to be <em>vacuously
-         * satisfied</em> and is always {@code true} (regardless of P(x)).
-         * </p>
-         *
-         * @param predicate A non-interfering, stateless predicate to apply to
-         * elements of this stream
-         * @return {@code true} If either all elements of the stream match the
-         * provided predicate or the stream is empty, otherwise {@code false}.
-         */
-        public boolean allMatch(final FailablePredicate<O, ?> predicate) {
-            assertNotTerminated();
-            return stream().allMatch(Functions.asPredicate(predicate));
-        }
-
-        /**
-         * Returns whether any elements of this stream match the provided
-         * predicate.  May not evaluate the predicate on all elements if not
-         * necessary for determining the result.  If the stream is empty then
-         * {@code false} is returned and the predicate is not evaluated.
-         *
-         * <p>
-         * This is a short-circuiting terminal operation.
-         * </p>
-         *
-         * Note
-         * This method evaluates the <em>existential quantification</em> of the
-         * predicate over the elements of the stream (for some x P(x)).
-         *
-         * @param predicate A non-interfering, stateless predicate to apply to
-         * elements of this stream
-         * @return {@code true} if any elements of the stream match the provided
-         * predicate, otherwise {@code false}
-         */
-        public boolean anyMatch(final FailablePredicate<O, ?> predicate) {
-            assertNotTerminated();
-            return stream().anyMatch(Functions.asPredicate(predicate));
-        }
-    }
-
-    /**
-     * Converts the given {@link Stream stream} into a {@link FailableStream}.
-     * This is basically a simplified, reduced version of the {@link Stream}
-     * class, with the same underlying element stream, except that failable
-     * objects, like {@link FailablePredicate}, {@link FailableFunction}, or
-     * {@link FailableConsumer} may be applied, instead of
-     * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is
-     * to rewrite a code snippet like this:
-     * <pre>
-     *     final List&lt;O&gt; list;
-     *     final Method m;
-     *     final Function&lt;O,String&gt; mapper = (o) -&gt; {
-     *         try {
-     *             return (String) m.invoke(o);
-     *         } catch (Throwable t) {
-     *             throw Functions.rethrow(t);
-     *         }
-     *     };
-     *     final List&lt;String&gt; strList = list.stream()
-     *         .map(mapper).collect(Collectors.toList());
-     *  </pre>
-     *  as follows:
-     *  <pre>
-     *     final List&lt;O&gt; list;
-     *     final Method m;
-     *     final List&lt;String&gt; strList = Functions.stream(list.stream())
-     *         .map((o) -&gt; (String) m.invoke(o)).collect(Collectors.toList());
-     *  </pre>
-     *  While the second version may not be <em>quite</em> as
-     *  efficient (because it depends on the creation of additional,
-     *  intermediate objects, of type FailableStream), it is much more
-     *  concise, and readable, and meets the spirit of Lambdas better
-     *  than the first version.
-     * @param <O> The streams element type.
-     * @param stream The stream, which is being converted.
-     * @return The {@link FailableStream}, which has been created by
-     *   converting the stream.
-     */
-    public static <O> FailableStream<O> stream(final Stream<O> stream) {
-        return new FailableStream<>(stream);
     }
 
     /**
@@ -488,52 +495,45 @@ public class Streams {
     }
 
     /**
-     * A Collector type for arrays.
-     *
-     * @param <O> The array type.
-     * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.ArrayCollector}.
+     * Converts the given {@link Stream stream} into a {@link FailableStream}.
+     * This is basically a simplified, reduced version of the {@link Stream}
+     * class, with the same underlying element stream, except that failable
+     * objects, like {@link FailablePredicate}, {@link FailableFunction}, or
+     * {@link FailableConsumer} may be applied, instead of
+     * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is
+     * to rewrite a code snippet like this:
+     * <pre>
+     *     final List&lt;O&gt; list;
+     *     final Method m;
+     *     final Function&lt;O,String&gt; mapper = (o) -&gt; {
+     *         try {
+     *             return (String) m.invoke(o);
+     *         } catch (Throwable t) {
+     *             throw Functions.rethrow(t);
+     *         }
+     *     };
+     *     final List&lt;String&gt; strList = list.stream()
+     *         .map(mapper).collect(Collectors.toList());
+     *  </pre>
+     *  as follows:
+     *  <pre>
+     *     final List&lt;O&gt; list;
+     *     final Method m;
+     *     final List&lt;String&gt; strList = Functions.stream(list.stream())
+     *         .map((o) -&gt; (String) m.invoke(o)).collect(Collectors.toList());
+     *  </pre>
+     *  While the second version may not be <em>quite</em> as
+     *  efficient (because it depends on the creation of additional,
+     *  intermediate objects, of type FailableStream), it is much more
+     *  concise, and readable, and meets the spirit of Lambdas better
+     *  than the first version.
+     * @param <O> The streams element type.
+     * @param stream The stream, which is being converted.
+     * @return The {@link FailableStream}, which has been created by
+     *   converting the stream.
      */
-    @Deprecated
-    public static class ArrayCollector<O> implements Collector<O, List<O>, O[]> {
-        private static final Set<Characteristics> characteristics = Collections.emptySet();
-        private final Class<O> elementType;
-
-        /**
-         * Constructs a new instance for the given element type.
-         *
-         * @param elementType The element type.
-         */
-        public ArrayCollector(final Class<O> elementType) {
-            this.elementType = elementType;
-        }
-
-        @Override
-        public Supplier<List<O>> supplier() {
-            return ArrayList::new;
-        }
-
-        @Override
-        public BiConsumer<List<O>, O> accumulator() {
-            return List::add;
-        }
-
-        @Override
-        public BinaryOperator<List<O>> combiner() {
-            return (left, right) -> {
-                left.addAll(right);
-                return left;
-            };
-        }
-
-        @Override
-        public Function<List<O>, O[]> finisher() {
-            return list -> list.toArray(ArrayUtils.newInstance(elementType, list.size()));
-        }
-
-        @Override
-        public Set<Characteristics> characteristics() {
-            return characteristics;
-        }
+    public static <O> FailableStream<O> stream(final Stream<O> stream) {
+        return new FailableStream<>(stream);
     }
 
     /**

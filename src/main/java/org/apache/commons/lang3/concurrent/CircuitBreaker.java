@@ -41,24 +41,6 @@ package org.apache.commons.lang3.concurrent;
 public interface CircuitBreaker<T> {
 
     /**
-     * Tests the current open state of this circuit breaker. A return value of
-     * <strong>true</strong> means that the circuit breaker is currently open indicating a
-     * problem in the monitored subsystem.
-     *
-     * @return the current open state of this circuit breaker.
-     */
-    boolean isOpen();
-
-    /**
-     * Tests the current closed state of this circuit breaker. A return value of
-     * <strong>true</strong> means that the circuit breaker is currently closed. This
-     * means that everything is okay with the monitored subsystem.
-     *
-     * @return the current closed state of this circuit breaker.
-     */
-    boolean isClosed();
-
-    /**
      * Checks the state of this circuit breaker and changes it if necessary. The return
      * value indicates whether the circuit breaker is now in state <em>closed</em>; a value
      * of <strong>true</strong> typically means that the current operation can continue.
@@ -75,13 +57,6 @@ public interface CircuitBreaker<T> {
     void close();
 
     /**
-     * Opens this circuit breaker. Its state is changed to open. Depending on a concrete
-     * implementation, it may close itself again if the monitored subsystem becomes
-     * available. If this circuit breaker is already open, this method has no effect.
-     */
-    void open();
-
-    /**
      * Increments the monitored value and performs a check of the current state of this
      * circuit breaker. This method works like {@link #checkState()}, but the monitored
      * value is incremented before the state check is performed.
@@ -91,4 +66,29 @@ public interface CircuitBreaker<T> {
      * <strong>false</strong> otherwise
      */
     boolean incrementAndCheckState(T increment);
+
+    /**
+     * Tests the current closed state of this circuit breaker. A return value of
+     * <strong>true</strong> means that the circuit breaker is currently closed. This
+     * means that everything is okay with the monitored subsystem.
+     *
+     * @return the current closed state of this circuit breaker.
+     */
+    boolean isClosed();
+
+    /**
+     * Tests the current open state of this circuit breaker. A return value of
+     * <strong>true</strong> means that the circuit breaker is currently open indicating a
+     * problem in the monitored subsystem.
+     *
+     * @return the current open state of this circuit breaker.
+     */
+    boolean isOpen();
+
+    /**
+     * Opens this circuit breaker. Its state is changed to open. Depending on a concrete
+     * implementation, it may close itself again if the monitored subsystem becomes
+     * available. If this circuit breaker is already open, this method has no effect.
+     */
+    void open();
 }

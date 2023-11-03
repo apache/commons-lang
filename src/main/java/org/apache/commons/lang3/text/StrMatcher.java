@@ -39,244 +39,35 @@ import org.apache.commons.lang3.StringUtils;
 public abstract class StrMatcher {
 
     /**
-     * Matches the comma character.
+     * Class used to define a character for matching purposes.
      */
-    private static final StrMatcher COMMA_MATCHER = new CharMatcher(',');
-    /**
-     * Matches the tab character.
-     */
-    private static final StrMatcher TAB_MATCHER = new CharMatcher('\t');
-    /**
-     * Matches the space character.
-     */
-    private static final StrMatcher SPACE_MATCHER = new CharMatcher(' ');
-    /**
-     * Matches the same characters as StringTokenizer,
-     * namely space, tab, newline, formfeed.
-     */
-    private static final StrMatcher SPLIT_MATCHER = new CharSetMatcher(" \t\n\r\f".toCharArray());
-    /**
-     * Matches the String trim() whitespace characters.
-     */
-    private static final StrMatcher TRIM_MATCHER = new TrimMatcher();
-    /**
-     * Matches the double quote character.
-     */
-    private static final StrMatcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
-    /**
-     * Matches the double quote character.
-     */
-    private static final StrMatcher DOUBLE_QUOTE_MATCHER = new CharMatcher('"');
-    /**
-     * Matches the single or double quote character.
-     */
-    private static final StrMatcher QUOTE_MATCHER = new CharSetMatcher("'\"".toCharArray());
-    /**
-     * Matches no characters.
-     */
-    private static final StrMatcher NONE_MATCHER = new NoMatcher();
+    static final class CharMatcher extends StrMatcher {
+        /** The character to match. */
+        private final char ch;
 
-    /**
-     * Returns a matcher which matches the comma character.
-     *
-     * @return a matcher for a comma
-     */
-    public static StrMatcher commaMatcher() {
-        return COMMA_MATCHER;
-    }
-
-    /**
-     * Returns a matcher which matches the tab character.
-     *
-     * @return a matcher for a tab
-     */
-    public static StrMatcher tabMatcher() {
-        return TAB_MATCHER;
-    }
-
-    /**
-     * Returns a matcher which matches the space character.
-     *
-     * @return a matcher for a space
-     */
-    public static StrMatcher spaceMatcher() {
-        return SPACE_MATCHER;
-    }
-
-    /**
-     * Matches the same characters as StringTokenizer,
-     * namely space, tab, newline and formfeed.
-     *
-     * @return the split matcher
-     */
-    public static StrMatcher splitMatcher() {
-        return SPLIT_MATCHER;
-    }
-
-    /**
-     * Matches the String trim() whitespace characters.
-     *
-     * @return the trim matcher
-     */
-    public static StrMatcher trimMatcher() {
-        return TRIM_MATCHER;
-    }
-
-    /**
-     * Returns a matcher which matches the single quote character.
-     *
-     * @return a matcher for a single quote
-     */
-    public static StrMatcher singleQuoteMatcher() {
-        return SINGLE_QUOTE_MATCHER;
-    }
-
-    /**
-     * Returns a matcher which matches the double quote character.
-     *
-     * @return a matcher for a double quote
-     */
-    public static StrMatcher doubleQuoteMatcher() {
-        return DOUBLE_QUOTE_MATCHER;
-    }
-
-    /**
-     * Returns a matcher which matches the single or double quote character.
-     *
-     * @return a matcher for a single or double quote
-     */
-    public static StrMatcher quoteMatcher() {
-        return QUOTE_MATCHER;
-    }
-
-    /**
-     * Matches no characters.
-     *
-     * @return a matcher that matches nothing
-     */
-    public static StrMatcher noneMatcher() {
-        return NONE_MATCHER;
-    }
-
-    /**
-     * Constructor that creates a matcher from a character.
-     *
-     * @param ch  the character to match, must not be null
-     * @return a new Matcher for the given char
-     */
-    public static StrMatcher charMatcher(final char ch) {
-        return new CharMatcher(ch);
-    }
-
-    /**
-     * Constructor that creates a matcher from a set of characters.
-     *
-     * @param chars  the characters to match, null or empty matches nothing
-     * @return a new matcher for the given char[]
-     */
-    public static StrMatcher charSetMatcher(final char... chars) {
-        if (ArrayUtils.isEmpty(chars)) {
-            return NONE_MATCHER;
+        /**
+         * Constructor that creates a matcher that matches a single character.
+         *
+         * @param ch  the character to match
+         */
+        CharMatcher(final char ch) {
+            this.ch = ch;
         }
-        if (chars.length == 1) {
-            return new CharMatcher(chars[0]);
+
+        /**
+         * Returns whether or not the given character matches.
+         *
+         * @param buffer  the text content to match against, do not change
+         * @param pos  the starting position for the match, valid for buffer
+         * @param bufferStart  the first active index in the buffer, valid for buffer
+         * @param bufferEnd  the end index of the active buffer, valid for buffer
+         * @return the number of matching characters, zero for no match
+         */
+        @Override
+        public int isMatch(final char[] buffer, final int pos, final int bufferStart, final int bufferEnd) {
+            return ch == buffer[pos] ? 1 : 0;
         }
-        return new CharSetMatcher(chars);
     }
-
-    /**
-     * Constructor that creates a matcher from a string representing a set of characters.
-     *
-     * @param chars  the characters to match, null or empty matches nothing
-     * @return a new Matcher for the given characters
-     */
-    public static StrMatcher charSetMatcher(final String chars) {
-        if (StringUtils.isEmpty(chars)) {
-            return NONE_MATCHER;
-        }
-        if (chars.length() == 1) {
-            return new CharMatcher(chars.charAt(0));
-        }
-        return new CharSetMatcher(chars.toCharArray());
-    }
-
-    /**
-     * Constructor that creates a matcher from a string.
-     *
-     * @param str  the string to match, null or empty matches nothing
-     * @return a new Matcher for the given String
-     */
-    public static StrMatcher stringMatcher(final String str) {
-        if (StringUtils.isEmpty(str)) {
-            return NONE_MATCHER;
-        }
-        return new StringMatcher(str);
-    }
-
-    /**
-     * Constructor.
-     */
-    protected StrMatcher() {
-    }
-
-    /**
-     * Returns the number of matching characters, zero for no match.
-     * <p>
-     * This method is called to check for a match.
-     * The parameter {@code pos} represents the current position to be
-     * checked in the string {@code buffer} (a character array which must
-     * not be changed).
-     * The API guarantees that {@code pos} is a valid index for {@code buffer}.
-     * </p>
-     * <p>
-     * The character array may be larger than the active area to be matched.
-     * Only values in the buffer between the specified indices may be accessed.
-     * </p>
-     * <p>
-     * The matching code may check one character or many.
-     * It may check characters preceding {@code pos} as well as those
-     * after, so long as no checks exceed the bounds specified.
-     * </p>
-     * <p>
-     * It must return zero for no match, or a positive number if a match was found.
-     * The number indicates the number of characters that matched.
-     * </p>
-     *
-     * @param buffer  the text content to match against, do not change
-     * @param pos  the starting position for the match, valid for buffer
-     * @param bufferStart  the first active index in the buffer, valid for buffer
-     * @param bufferEnd  the end index (exclusive) of the active buffer, valid for buffer
-     * @return the number of matching characters, zero for no match
-     */
-    public abstract int isMatch(char[] buffer, int pos, int bufferStart, int bufferEnd);
-
-    /**
-     * Returns the number of matching characters, zero for no match.
-     * <p>
-     * This method is called to check for a match.
-     * The parameter {@code pos} represents the current position to be
-     * checked in the string {@code buffer} (a character array which must
-     * not be changed).
-     * The API guarantees that {@code pos} is a valid index for {@code buffer}.
-     * </p>
-     * <p>
-     * The matching code may check one character or many.
-     * It may check characters preceding {@code pos} as well as those after.
-     * </p>
-     * <p>
-     * It must return zero for no match, or a positive number if a match was found.
-     * The number indicates the number of characters that matched.
-     * </p>
-     *
-     * @param buffer  the text content to match against, do not change
-     * @param pos  the starting position for the match, valid for buffer
-     * @return the number of matching characters, zero for no match
-     * @since 2.4
-     */
-    public int isMatch(final char[] buffer, final int pos) {
-        return isMatch(buffer, pos, 0, buffer.length);
-    }
-
     /**
      * Class used to define a set of characters for matching purposes.
      */
@@ -307,25 +98,19 @@ public abstract class StrMatcher {
             return Arrays.binarySearch(chars, buffer[pos]) >= 0 ? 1 : 0;
         }
     }
-
     /**
-     * Class used to define a character for matching purposes.
+     * Class used to match no characters.
      */
-    static final class CharMatcher extends StrMatcher {
-        /** The character to match. */
-        private final char ch;
+    static final class NoMatcher extends StrMatcher {
 
         /**
-         * Constructor that creates a matcher that matches a single character.
-         *
-         * @param ch  the character to match
+         * Constructs a new instance of {@link NoMatcher}.
          */
-        CharMatcher(final char ch) {
-            this.ch = ch;
+        NoMatcher() {
         }
 
         /**
-         * Returns whether or not the given character matches.
+         * Always returns {@code false}.
          *
          * @param buffer  the text content to match against, do not change
          * @param pos  the starting position for the match, valid for buffer
@@ -335,10 +120,9 @@ public abstract class StrMatcher {
          */
         @Override
         public int isMatch(final char[] buffer, final int pos, final int bufferStart, final int bufferEnd) {
-            return ch == buffer[pos] ? 1 : 0;
+            return 0;
         }
     }
-
     /**
      * Class used to define a set of characters for matching purposes.
      */
@@ -384,33 +168,6 @@ public abstract class StrMatcher {
         }
 
     }
-
-    /**
-     * Class used to match no characters.
-     */
-    static final class NoMatcher extends StrMatcher {
-
-        /**
-         * Constructs a new instance of {@link NoMatcher}.
-         */
-        NoMatcher() {
-        }
-
-        /**
-         * Always returns {@code false}.
-         *
-         * @param buffer  the text content to match against, do not change
-         * @param pos  the starting position for the match, valid for buffer
-         * @param bufferStart  the first active index in the buffer, valid for buffer
-         * @param bufferEnd  the end index of the active buffer, valid for buffer
-         * @return the number of matching characters, zero for no match
-         */
-        @Override
-        public int isMatch(final char[] buffer, final int pos, final int bufferStart, final int bufferEnd) {
-            return 0;
-        }
-    }
-
     /**
      * Class used to match whitespace as per trim().
      */
@@ -436,5 +193,248 @@ public abstract class StrMatcher {
             return buffer[pos] <= 32 ? 1 : 0;
         }
     }
+    /**
+     * Matches the comma character.
+     */
+    private static final StrMatcher COMMA_MATCHER = new CharMatcher(',');
+    /**
+     * Matches the tab character.
+     */
+    private static final StrMatcher TAB_MATCHER = new CharMatcher('\t');
+    /**
+     * Matches the space character.
+     */
+    private static final StrMatcher SPACE_MATCHER = new CharMatcher(' ');
+    /**
+     * Matches the same characters as StringTokenizer,
+     * namely space, tab, newline, formfeed.
+     */
+    private static final StrMatcher SPLIT_MATCHER = new CharSetMatcher(" \t\n\r\f".toCharArray());
+
+    /**
+     * Matches the String trim() whitespace characters.
+     */
+    private static final StrMatcher TRIM_MATCHER = new TrimMatcher();
+
+    /**
+     * Matches the double quote character.
+     */
+    private static final StrMatcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
+
+    /**
+     * Matches the double quote character.
+     */
+    private static final StrMatcher DOUBLE_QUOTE_MATCHER = new CharMatcher('"');
+
+    /**
+     * Matches the single or double quote character.
+     */
+    private static final StrMatcher QUOTE_MATCHER = new CharSetMatcher("'\"".toCharArray());
+
+    /**
+     * Matches no characters.
+     */
+    private static final StrMatcher NONE_MATCHER = new NoMatcher();
+
+    /**
+     * Constructor that creates a matcher from a character.
+     *
+     * @param ch  the character to match, must not be null
+     * @return a new Matcher for the given char
+     */
+    public static StrMatcher charMatcher(final char ch) {
+        return new CharMatcher(ch);
+    }
+
+    /**
+     * Constructor that creates a matcher from a set of characters.
+     *
+     * @param chars  the characters to match, null or empty matches nothing
+     * @return a new matcher for the given char[]
+     */
+    public static StrMatcher charSetMatcher(final char... chars) {
+        if (ArrayUtils.isEmpty(chars)) {
+            return NONE_MATCHER;
+        }
+        if (chars.length == 1) {
+            return new CharMatcher(chars[0]);
+        }
+        return new CharSetMatcher(chars);
+    }
+
+    /**
+     * Constructor that creates a matcher from a string representing a set of characters.
+     *
+     * @param chars  the characters to match, null or empty matches nothing
+     * @return a new Matcher for the given characters
+     */
+    public static StrMatcher charSetMatcher(final String chars) {
+        if (StringUtils.isEmpty(chars)) {
+            return NONE_MATCHER;
+        }
+        if (chars.length() == 1) {
+            return new CharMatcher(chars.charAt(0));
+        }
+        return new CharSetMatcher(chars.toCharArray());
+    }
+
+    /**
+     * Returns a matcher which matches the comma character.
+     *
+     * @return a matcher for a comma
+     */
+    public static StrMatcher commaMatcher() {
+        return COMMA_MATCHER;
+    }
+
+    /**
+     * Returns a matcher which matches the double quote character.
+     *
+     * @return a matcher for a double quote
+     */
+    public static StrMatcher doubleQuoteMatcher() {
+        return DOUBLE_QUOTE_MATCHER;
+    }
+
+    /**
+     * Matches no characters.
+     *
+     * @return a matcher that matches nothing
+     */
+    public static StrMatcher noneMatcher() {
+        return NONE_MATCHER;
+    }
+
+    /**
+     * Returns a matcher which matches the single or double quote character.
+     *
+     * @return a matcher for a single or double quote
+     */
+    public static StrMatcher quoteMatcher() {
+        return QUOTE_MATCHER;
+    }
+
+    /**
+     * Returns a matcher which matches the single quote character.
+     *
+     * @return a matcher for a single quote
+     */
+    public static StrMatcher singleQuoteMatcher() {
+        return SINGLE_QUOTE_MATCHER;
+    }
+
+    /**
+     * Returns a matcher which matches the space character.
+     *
+     * @return a matcher for a space
+     */
+    public static StrMatcher spaceMatcher() {
+        return SPACE_MATCHER;
+    }
+
+    /**
+     * Matches the same characters as StringTokenizer,
+     * namely space, tab, newline and formfeed.
+     *
+     * @return the split matcher
+     */
+    public static StrMatcher splitMatcher() {
+        return SPLIT_MATCHER;
+    }
+
+    /**
+     * Constructor that creates a matcher from a string.
+     *
+     * @param str  the string to match, null or empty matches nothing
+     * @return a new Matcher for the given String
+     */
+    public static StrMatcher stringMatcher(final String str) {
+        if (StringUtils.isEmpty(str)) {
+            return NONE_MATCHER;
+        }
+        return new StringMatcher(str);
+    }
+
+    /**
+     * Returns a matcher which matches the tab character.
+     *
+     * @return a matcher for a tab
+     */
+    public static StrMatcher tabMatcher() {
+        return TAB_MATCHER;
+    }
+
+    /**
+     * Matches the String trim() whitespace characters.
+     *
+     * @return the trim matcher
+     */
+    public static StrMatcher trimMatcher() {
+        return TRIM_MATCHER;
+    }
+
+    /**
+     * Constructor.
+     */
+    protected StrMatcher() {
+    }
+
+    /**
+     * Returns the number of matching characters, zero for no match.
+     * <p>
+     * This method is called to check for a match.
+     * The parameter {@code pos} represents the current position to be
+     * checked in the string {@code buffer} (a character array which must
+     * not be changed).
+     * The API guarantees that {@code pos} is a valid index for {@code buffer}.
+     * </p>
+     * <p>
+     * The matching code may check one character or many.
+     * It may check characters preceding {@code pos} as well as those after.
+     * </p>
+     * <p>
+     * It must return zero for no match, or a positive number if a match was found.
+     * The number indicates the number of characters that matched.
+     * </p>
+     *
+     * @param buffer  the text content to match against, do not change
+     * @param pos  the starting position for the match, valid for buffer
+     * @return the number of matching characters, zero for no match
+     * @since 2.4
+     */
+    public int isMatch(final char[] buffer, final int pos) {
+        return isMatch(buffer, pos, 0, buffer.length);
+    }
+
+    /**
+     * Returns the number of matching characters, zero for no match.
+     * <p>
+     * This method is called to check for a match.
+     * The parameter {@code pos} represents the current position to be
+     * checked in the string {@code buffer} (a character array which must
+     * not be changed).
+     * The API guarantees that {@code pos} is a valid index for {@code buffer}.
+     * </p>
+     * <p>
+     * The character array may be larger than the active area to be matched.
+     * Only values in the buffer between the specified indices may be accessed.
+     * </p>
+     * <p>
+     * The matching code may check one character or many.
+     * It may check characters preceding {@code pos} as well as those
+     * after, so long as no checks exceed the bounds specified.
+     * </p>
+     * <p>
+     * It must return zero for no match, or a positive number if a match was found.
+     * The number indicates the number of characters that matched.
+     * </p>
+     *
+     * @param buffer  the text content to match against, do not change
+     * @param pos  the starting position for the match, valid for buffer
+     * @param bufferStart  the first active index in the buffer, valid for buffer
+     * @param bufferEnd  the end index (exclusive) of the active buffer, valid for buffer
+     * @return the number of matching characters, zero for no match
+     */
+    public abstract int isMatch(char[] buffer, int pos, int bufferStart, int bufferEnd);
 
 }

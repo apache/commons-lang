@@ -36,23 +36,6 @@ import java.util.TimeZone;
 public interface DatePrinter {
 
     /**
-     * Formats a millisecond {@code long} value.
-     *
-     * @param millis  the millisecond value to format
-     * @return the formatted string
-     * @since 2.1
-     */
-    String format(long millis);
-
-    /**
-     * Formats a {@link Date} object using a {@link GregorianCalendar}.
-     *
-     * @param date  the date to format
-     * @return the formatted string
-     */
-    String format(Date date);
-
-    /**
      * Formats a {@link Calendar} object.
      * The TimeZone set on the Calendar is only used to adjust the time offset.
      * The TimeZone specified during the construction of the Parser will determine the TimeZone
@@ -64,28 +47,18 @@ public interface DatePrinter {
     String format(Calendar calendar);
 
     /**
-     * Formats a millisecond {@code long} value into the
-     * supplied {@link StringBuffer}.
+     * Formats a {@link Calendar} object into the supplied {@link Appendable}.
+     * The TimeZone set on the Calendar is only used to adjust the time offset.
+     * The TimeZone specified during the construction of the Parser will determine the TimeZone
+     * used in the formatted string.
      *
-     * @param millis  the millisecond value to format
+     * @param calendar  the calendar to format
      * @param buf  the buffer to format into
+     * @param <B> the Appendable class type, usually StringBuilder or StringBuffer.
      * @return the specified string buffer
-     * @deprecated Use {{@link #format(long, Appendable)}.
+     * @since 3.5
      */
-    @Deprecated
-    StringBuffer format(long millis, StringBuffer buf);
-
-    /**
-     * Formats a {@link Date} object into the
-     * supplied {@link StringBuffer} using a {@link GregorianCalendar}.
-     *
-     * @param date  the date to format
-     * @param buf  the buffer to format into
-     * @return the specified string buffer
-     * @deprecated Use {{@link #format(Date, Appendable)}.
-     */
-    @Deprecated
-    StringBuffer format(Date date, StringBuffer buf);
+    <B extends Appendable> B format(Calendar calendar, B buf);
 
     /**
      * Formats a {@link Calendar} object into the supplied {@link StringBuffer}.
@@ -102,16 +75,12 @@ public interface DatePrinter {
     StringBuffer format(Calendar calendar, StringBuffer buf);
 
     /**
-     * Formats a millisecond {@code long} value into the
-     * supplied {@link Appendable}.
+     * Formats a {@link Date} object using a {@link GregorianCalendar}.
      *
-     * @param millis  the millisecond value to format
-     * @param buf  the buffer to format into
-     * @param <B> the Appendable class type, usually StringBuilder or StringBuffer.
-     * @return the specified string buffer
-     * @since 3.5
+     * @param date  the date to format
+     * @return the formatted string
      */
-    <B extends Appendable> B format(long millis, B buf);
+    String format(Date date);
 
     /**
      * Formats a {@link Date} object into the
@@ -126,19 +95,69 @@ public interface DatePrinter {
     <B extends Appendable> B format(Date date, B buf);
 
     /**
-     * Formats a {@link Calendar} object into the supplied {@link Appendable}.
-     * The TimeZone set on the Calendar is only used to adjust the time offset.
-     * The TimeZone specified during the construction of the Parser will determine the TimeZone
-     * used in the formatted string.
+     * Formats a {@link Date} object into the
+     * supplied {@link StringBuffer} using a {@link GregorianCalendar}.
      *
-     * @param calendar  the calendar to format
+     * @param date  the date to format
+     * @param buf  the buffer to format into
+     * @return the specified string buffer
+     * @deprecated Use {{@link #format(Date, Appendable)}.
+     */
+    @Deprecated
+    StringBuffer format(Date date, StringBuffer buf);
+
+    /**
+     * Formats a millisecond {@code long} value.
+     *
+     * @param millis  the millisecond value to format
+     * @return the formatted string
+     * @since 2.1
+     */
+    String format(long millis);
+
+    /**
+     * Formats a millisecond {@code long} value into the
+     * supplied {@link Appendable}.
+     *
+     * @param millis  the millisecond value to format
      * @param buf  the buffer to format into
      * @param <B> the Appendable class type, usually StringBuilder or StringBuffer.
      * @return the specified string buffer
      * @since 3.5
      */
-    <B extends Appendable> B format(Calendar calendar, B buf);
+    <B extends Appendable> B format(long millis, B buf);
 
+    /**
+     * Formats a millisecond {@code long} value into the
+     * supplied {@link StringBuffer}.
+     *
+     * @param millis  the millisecond value to format
+     * @param buf  the buffer to format into
+     * @return the specified string buffer
+     * @deprecated Use {{@link #format(long, Appendable)}.
+     */
+    @Deprecated
+    StringBuffer format(long millis, StringBuffer buf);
+
+
+    /**
+     * Formats a {@link Date}, {@link Calendar} or
+     * {@link Long} (milliseconds) object.
+     *
+     * @param obj  the object to format
+     * @param toAppendTo  the buffer to append to
+     * @param pos  the position - ignored
+     * @return the buffer passed in
+     * @see java.text.DateFormat#format(Object, StringBuffer, FieldPosition)
+     */
+    StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos);
+
+    /**
+     * Gets the locale used by this printer.
+     *
+     * @return the locale
+     */
+    Locale getLocale();
 
     // Accessors
     /**
@@ -156,23 +175,4 @@ public interface DatePrinter {
      * @return the time zone
      */
     TimeZone getTimeZone();
-
-    /**
-     * Gets the locale used by this printer.
-     *
-     * @return the locale
-     */
-    Locale getLocale();
-
-    /**
-     * Formats a {@link Date}, {@link Calendar} or
-     * {@link Long} (milliseconds) object.
-     *
-     * @param obj  the object to format
-     * @param toAppendTo  the buffer to append to
-     * @param pos  the position - ignored
-     * @return the buffer passed in
-     * @see java.text.DateFormat#format(Object, StringBuffer, FieldPosition)
-     */
-    StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos);
 }

@@ -148,6 +148,14 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
     }
 
     /**
+     * Gets an Exception with a type of E as defined by a concrete subclass of this class.
+     *
+     * @param e The actual exception that was thrown
+     * @return a new exception with the actual type of E, that wraps e.
+     */
+    protected abstract E getTypedException(Exception e);
+
+    /**
      * Creates and initializes the object managed by this {@code
      * ConcurrentInitializer}. This method is called by {@link #get()} when the object is accessed for the first time. An implementation can focus on the
      * creation of the object. No synchronization is needed, as this is already handled by {@code get()}.
@@ -186,13 +194,5 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
      * @return true if all initialization is complete, otherwise false
      */
     protected abstract boolean isInitialized();
-
-    /**
-     * Gets an Exception with a type of E as defined by a concrete subclass of this class.
-     *
-     * @param e The actual exception that was thrown
-     * @return a new exception with the actual type of E, that wraps e.
-     */
-    protected abstract E getTypedException(Exception e);
 
 }

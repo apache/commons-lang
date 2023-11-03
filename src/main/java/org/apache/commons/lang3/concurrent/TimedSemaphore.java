@@ -231,63 +231,6 @@ public class TimedSemaphore {
     }
 
     /**
-     * Returns the limit enforced by this semaphore. The limit determines how
-     * many invocations of {@link #acquire()} are allowed within the monitored
-     * period.
-     *
-     * @return the limit
-     */
-    public final synchronized int getLimit() {
-        return limit;
-    }
-
-    /**
-     * Sets the limit. This is the number of times the {@link #acquire()} method
-     * can be called within the time period specified. If this limit is reached,
-     * further invocations of {@link #acquire()} will block. Setting the limit
-     * to a value &lt;= {@link #NO_LIMIT} will cause the limit to be disabled,
-     * i.e. an arbitrary number of{@link #acquire()} invocations is allowed in
-     * the time period.
-     *
-     * @param limit the limit
-     */
-    public final synchronized void setLimit(final int limit) {
-        this.limit = limit;
-    }
-
-    /**
-     * Initializes a shutdown. After that the object cannot be used anymore.
-     * This method can be invoked an arbitrary number of times. All invocations
-     * after the first one do not have any effect.
-     */
-    public synchronized void shutdown() {
-        if (!shutdown) {
-
-            if (ownExecutor) {
-                // if the executor was created by this instance, it has
-                // to be shutdown
-                getExecutorService().shutdownNow();
-            }
-            if (task != null) {
-                task.cancel(false);
-            }
-
-            shutdown = true;
-        }
-    }
-
-    /**
-     * Tests whether the {@link #shutdown()} method has been called on this
-     * object. If this method returns <b>true</b>, this instance cannot be used
-     * any longer.
-     *
-     * @return a flag whether a shutdown has been performed
-     */
-    public synchronized boolean isShutdown() {
-        return shutdown;
-    }
-
-    /**
      * Acquires a permit from this semaphore. This method will block if
      * the limit for the current period has already been reached. If
      * {@link #shutdown()} has already been invoked, calling this method will
@@ -311,33 +254,32 @@ public class TimedSemaphore {
     }
 
     /**
-     * Tries to acquire a permit from this semaphore. If the limit of this semaphore has
-     * not yet been reached, a permit is acquired, and this method returns
-     * <strong>true</strong>. Otherwise, this method returns immediately with the result
-     * <strong>false</strong>.
+     * Internal helper method for acquiring a permit. This method checks whether currently
+     * a permit can be acquired and - if so - increases the internal counter. The return
+     * value indicates whether a permit could be acquired. This method must be called with
+     * the lock of this object held.
      *
-     * @return <strong>true</strong> if a permit could be acquired; <strong>false</strong>
-     * otherwise
-     * @throws IllegalStateException if this semaphore is already shut down
-     * @since 3.5
+     * @return a flag whether a permit could be acquired
      */
-    public synchronized boolean tryAcquire() {
-        prepareAcquire();
-        return acquirePermit();
+    private boolean acquirePermit() {
+        if (getLimit() <= NO_LIMIT || acquireCount < getLimit()) {
+            acquireCount++;
+            return true;
+        }
+        return false;
     }
 
     /**
-     * Returns the number of (successful) acquire invocations during the last
-     * period. This is the number of times the {@link #acquire()} method was
-     * called without blocking. This can be useful for testing or debugging
-     * purposes or to determine a meaningful threshold value. If a limit is set,
-     * the value returned by this method won't be greater than this limit.
-     *
-     * @return the number of non-blocking invocations of the {@link #acquire()}
-     * method
+     * The current time period is finished. This method is called by the timer
+     * used internally to monitor the time period. It resets the counter and
+     * releases the threads waiting for this barrier.
      */
-    public synchronized int getLastAcquiresPerPeriod() {
-        return lastCallsPerPeriod;
+    synchronized void endOfPeriod() {
+        lastCallsPerPeriod = acquireCount;
+        totalAcquireCount += acquireCount;
+        periodCount++;
+        acquireCount = 0;
+        notifyAll();
     }
 
     /**
@@ -380,6 +322,40 @@ public class TimedSemaphore {
     }
 
     /**
+     * Returns the executor service used by this instance.
+     *
+     * @return the executor service
+     */
+    protected ScheduledExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    /**
+     * Returns the number of (successful) acquire invocations during the last
+     * period. This is the number of times the {@link #acquire()} method was
+     * called without blocking. This can be useful for testing or debugging
+     * purposes or to determine a meaningful threshold value. If a limit is set,
+     * the value returned by this method won't be greater than this limit.
+     *
+     * @return the number of non-blocking invocations of the {@link #acquire()}
+     * method
+     */
+    public synchronized int getLastAcquiresPerPeriod() {
+        return lastCallsPerPeriod;
+    }
+
+    /**
+     * Returns the limit enforced by this semaphore. The limit determines how
+     * many invocations of {@link #acquire()} are allowed within the monitored
+     * period.
+     *
+     * @return the limit
+     */
+    public final synchronized int getLimit() {
+        return limit;
+    }
+
+    /**
      * Returns the time period. This is the time monitored by this semaphore.
      * Only a given number of invocations of the {@link #acquire()} method is
      * possible in this period.
@@ -400,36 +376,14 @@ public class TimedSemaphore {
     }
 
     /**
-     * Returns the executor service used by this instance.
+     * Tests whether the {@link #shutdown()} method has been called on this
+     * object. If this method returns <b>true</b>, this instance cannot be used
+     * any longer.
      *
-     * @return the executor service
+     * @return a flag whether a shutdown has been performed
      */
-    protected ScheduledExecutorService getExecutorService() {
-        return executorService;
-    }
-
-    /**
-     * Starts the timer. This method is called when {@link #acquire()} is called
-     * for the first time. It schedules a task to be executed at fixed rate to
-     * monitor the time period specified.
-     *
-     * @return a future object representing the task scheduled
-     */
-    protected ScheduledFuture<?> startTimer() {
-        return getExecutorService().scheduleAtFixedRate(this::endOfPeriod, getPeriod(), getPeriod(), getUnit());
-    }
-
-    /**
-     * The current time period is finished. This method is called by the timer
-     * used internally to monitor the time period. It resets the counter and
-     * releases the threads waiting for this barrier.
-     */
-    synchronized void endOfPeriod() {
-        lastCallsPerPeriod = acquireCount;
-        totalAcquireCount += acquireCount;
-        periodCount++;
-        acquireCount = 0;
-        notifyAll();
+    public synchronized boolean isShutdown() {
+        return shutdown;
     }
 
     /**
@@ -447,18 +401,64 @@ public class TimedSemaphore {
     }
 
     /**
-     * Internal helper method for acquiring a permit. This method checks whether currently
-     * a permit can be acquired and - if so - increases the internal counter. The return
-     * value indicates whether a permit could be acquired. This method must be called with
-     * the lock of this object held.
+     * Sets the limit. This is the number of times the {@link #acquire()} method
+     * can be called within the time period specified. If this limit is reached,
+     * further invocations of {@link #acquire()} will block. Setting the limit
+     * to a value &lt;= {@link #NO_LIMIT} will cause the limit to be disabled,
+     * i.e. an arbitrary number of{@link #acquire()} invocations is allowed in
+     * the time period.
      *
-     * @return a flag whether a permit could be acquired
+     * @param limit the limit
      */
-    private boolean acquirePermit() {
-        if (getLimit() <= NO_LIMIT || acquireCount < getLimit()) {
-            acquireCount++;
-            return true;
+    public final synchronized void setLimit(final int limit) {
+        this.limit = limit;
+    }
+
+    /**
+     * Initializes a shutdown. After that the object cannot be used anymore.
+     * This method can be invoked an arbitrary number of times. All invocations
+     * after the first one do not have any effect.
+     */
+    public synchronized void shutdown() {
+        if (!shutdown) {
+
+            if (ownExecutor) {
+                // if the executor was created by this instance, it has
+                // to be shutdown
+                getExecutorService().shutdownNow();
+            }
+            if (task != null) {
+                task.cancel(false);
+            }
+
+            shutdown = true;
         }
-        return false;
+    }
+
+    /**
+     * Starts the timer. This method is called when {@link #acquire()} is called
+     * for the first time. It schedules a task to be executed at fixed rate to
+     * monitor the time period specified.
+     *
+     * @return a future object representing the task scheduled
+     */
+    protected ScheduledFuture<?> startTimer() {
+        return getExecutorService().scheduleAtFixedRate(this::endOfPeriod, getPeriod(), getPeriod(), getUnit());
+    }
+
+    /**
+     * Tries to acquire a permit from this semaphore. If the limit of this semaphore has
+     * not yet been reached, a permit is acquired, and this method returns
+     * <strong>true</strong>. Otherwise, this method returns immediately with the result
+     * <strong>false</strong>.
+     *
+     * @return <strong>true</strong> if a permit could be acquired; <strong>false</strong>
+     * otherwise
+     * @throws IllegalStateException if this semaphore is already shut down
+     * @since 3.5
+     */
+    public synchronized boolean tryAcquire() {
+        prepareAcquire();
+        return acquirePermit();
     }
 }

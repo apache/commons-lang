@@ -31,10 +31,6 @@ public class Consumers {
     @SuppressWarnings("rawtypes")
     private static final Consumer NOP = Function.identity()::apply;
 
-    private Consumers() {
-        // No instances.
-    }
-
     /**
      * Gets the NOP Consumer singleton.
      *
@@ -44,6 +40,10 @@ public class Consumers {
     @SuppressWarnings("unchecked")
     public static <T> Consumer<T> nop() {
         return NOP;
+    }
+
+    private Consumers() {
+        // No instances.
     }
 
 }

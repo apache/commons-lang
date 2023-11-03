@@ -61,6 +61,15 @@ public abstract class Diff<T> extends Pair<T, T> {
     }
 
     /**
+     * Gets the name of the field.
+     *
+     * @return the field name
+     */
+    public final String getFieldName() {
+        return fieldName;
+    }
+
+    /**
      * Gets the type of the field.
      *
      * @return the field type
@@ -70,12 +79,15 @@ public abstract class Diff<T> extends Pair<T, T> {
     }
 
     /**
-     * Gets the name of the field.
+     * Throws {@link UnsupportedOperationException}.
      *
-     * @return the field name
+     * @param value
+     *            ignored
+     * @return nothing
      */
-    public final String getFieldName() {
-        return fieldName;
+    @Override
+    public final T setValue(final T value) {
+        throw new UnsupportedOperationException("Cannot alter Diff object.");
     }
 
     /**
@@ -91,17 +103,5 @@ public abstract class Diff<T> extends Pair<T, T> {
     @Override
     public final String toString() {
         return String.format("[%s: %s, %s]", fieldName, getLeft(), getRight());
-    }
-
-    /**
-     * Throws {@link UnsupportedOperationException}.
-     *
-     * @param value
-     *            ignored
-     * @return nothing
-     */
-    @Override
-    public final T setValue(final T value) {
-        throw new UnsupportedOperationException("Cannot alter Diff object.");
     }
 }

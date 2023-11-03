@@ -58,51 +58,6 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
     }
 
     /**
-     * Directly returns the object that was passed to the constructor. This is
-     * the same object as returned by {@code get()}. However, this method does
-     * not declare that it throws an exception.
-     *
-     * @return the object managed by this initializer
-     */
-    public final T getObject() {
-        return object;
-    }
-
-    /**
-     * Returns the object managed by this initializer. This implementation just
-     * returns the object passed to the constructor.
-     *
-     * @return the object managed by this initializer
-     * @throws ConcurrentException if an error occurs
-     */
-    @Override
-    public T get() throws ConcurrentException {
-        return getObject();
-    }
-
-    /**
-     * As a {@link ConstantInitializer} is initialized on construction this will
-     * always return true.
-     *
-     * @return true.
-     * @since 3.14.0
-     */
-    public boolean isInitialized() {
-        return true;
-    }
-
-    /**
-     * Returns a hash code for this object. This implementation returns the hash
-     * code of the managed object.
-     *
-     * @return a hash code for this object
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(object);
-    }
-
-    /**
      * Compares this object with another one. This implementation returns
      * <b>true</b> if and only if the passed in object is an instance of
      * {@link ConstantInitializer} which refers to an object equals to the
@@ -122,6 +77,51 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
 
         final ConstantInitializer<?> c = (ConstantInitializer<?>) obj;
         return Objects.equals(getObject(), c.getObject());
+    }
+
+    /**
+     * Returns the object managed by this initializer. This implementation just
+     * returns the object passed to the constructor.
+     *
+     * @return the object managed by this initializer
+     * @throws ConcurrentException if an error occurs
+     */
+    @Override
+    public T get() throws ConcurrentException {
+        return getObject();
+    }
+
+    /**
+     * Directly returns the object that was passed to the constructor. This is
+     * the same object as returned by {@code get()}. However, this method does
+     * not declare that it throws an exception.
+     *
+     * @return the object managed by this initializer
+     */
+    public final T getObject() {
+        return object;
+    }
+
+    /**
+     * Returns a hash code for this object. This implementation returns the hash
+     * code of the managed object.
+     *
+     * @return a hash code for this object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(object);
+    }
+
+    /**
+     * As a {@link ConstantInitializer} is initialized on construction this will
+     * always return true.
+     *
+     * @return true.
+     * @since 3.14.0
+     */
+    public boolean isInitialized() {
+        return true;
     }
 
     /**

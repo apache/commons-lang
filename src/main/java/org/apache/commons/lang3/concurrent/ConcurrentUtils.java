@@ -33,10 +33,156 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 public class ConcurrentUtils {
 
     /**
-     * Private constructor so that no instances can be created. This class
-     * contains only static utility methods.
+     * A specialized {@link Future} implementation which wraps a constant value.
+     * @param <T> the type of the value wrapped by this class
      */
-    private ConcurrentUtils() {
+    static final class ConstantFuture<T> implements Future<T> {
+        /** The constant value. */
+        private final T value;
+
+        /**
+         * Creates a new instance of {@link ConstantFuture} and initializes it
+         * with the constant value.
+         *
+         * @param value the value (may be <b>null</b>)
+         */
+        ConstantFuture(final T value) {
+            this.value = value;
+        }
+
+        /**
+         * {@inheritDoc} The cancel operation is not supported. This
+         * implementation always returns <b>false</b>.
+         */
+        @Override
+        public boolean cancel(final boolean mayInterruptIfRunning) {
+            return false;
+        }
+
+        /**
+         * {@inheritDoc} This implementation just returns the constant value.
+         */
+        @Override
+        public T get() {
+            return value;
+        }
+
+        /**
+         * {@inheritDoc} This implementation just returns the constant value; it
+         * does not block, therefore the timeout has no meaning.
+         */
+        @Override
+        public T get(final long timeout, final TimeUnit unit) {
+            return value;
+        }
+
+        /**
+         * {@inheritDoc} This implementation always returns <b>false</b>; there
+         * is no background process which could be cancelled.
+         */
+        @Override
+        public boolean isCancelled() {
+            return false;
+        }
+
+        /**
+         * {@inheritDoc} This implementation always returns <b>true</b> because
+         * the constant object managed by this {@link Future} implementation is
+         * always available.
+         */
+        @Override
+        public boolean isDone() {
+            return true;
+        }
+    }
+
+    /**
+     * Tests whether the specified {@link Throwable} is a checked exception. If
+     * not, an exception is thrown.
+     *
+     * @param ex the {@link Throwable} to check
+     * @return a flag whether the passed in exception is a checked exception
+     * @throws IllegalArgumentException if the {@link Throwable} is not a
+     * checked exception
+     */
+    static Throwable checkedException(final Throwable ex) {
+        Validate.isTrue(ExceptionUtils.isChecked(ex), "Not a checked exception: " + ex);
+        return ex;
+    }
+
+    /**
+     * Gets an implementation of {@link Future} that is immediately done
+     * and returns the specified constant value.
+     *
+     * <p>
+     * This can be useful to return a simple constant immediately from the
+     * concurrent processing, perhaps as part of avoiding nulls.
+     * A constant future can also be useful in testing.
+     * </p>
+     *
+     * @param <T> the type of the value used by this {@link Future} object
+     * @param value  the constant value to return, may be null
+     * @return an instance of Future that will return the value, never null
+     */
+    public static <T> Future<T> constantFuture(final T value) {
+        return new ConstantFuture<>(value);
+    }
+
+    /**
+     * Checks if a concurrent map contains a key and creates a corresponding
+     * value if not. This method first checks the presence of the key in the
+     * given map. If it is already contained, its value is returned. Otherwise
+     * the {@code get()} method of the passed in {@link ConcurrentInitializer}
+     * is called. With the resulting object
+     * {@link #putIfAbsent(ConcurrentMap, Object, Object)} is called. This
+     * handles the case that in the meantime another thread has added the key to
+     * the map. Both the map and the initializer can be <b>null</b>; in this
+     * case this method simply returns <b>null</b>.
+     *
+     * @param <K> the type of the keys of the map
+     * @param <V> the type of the values of the map
+     * @param map the map to be modified
+     * @param key the key of the value to be added
+     * @param init the {@link ConcurrentInitializer} for creating the value
+     * @return the value stored in the map after this operation; this may or may
+     * not be the object created by the {@link ConcurrentInitializer}
+     * @throws ConcurrentException if the initializer throws an exception
+     */
+    public static <K, V> V createIfAbsent(final ConcurrentMap<K, V> map, final K key,
+            final ConcurrentInitializer<V> init) throws ConcurrentException {
+        if (map == null || init == null) {
+            return null;
+        }
+
+        final V value = map.get(key);
+        if (value == null) {
+            return putIfAbsent(map, key, init.get());
+        }
+        return value;
+    }
+
+    /**
+     * Checks if a concurrent map contains a key and creates a corresponding
+     * value if not, suppressing checked exceptions. This method calls
+     * {@code createIfAbsent()}. If a {@link ConcurrentException} is thrown, it
+     * is caught and re-thrown as a {@link ConcurrentRuntimeException}.
+     *
+     * @param <K> the type of the keys of the map
+     * @param <V> the type of the values of the map
+     * @param map the map to be modified
+     * @param key the key of the value to be added
+     * @param init the {@link ConcurrentInitializer} for creating the value
+     * @return the value stored in the map after this operation; this may or may
+     * not be the object created by the {@link ConcurrentInitializer}
+     * @throws ConcurrentRuntimeException if the initializer throws an exception
+     */
+    public static <K, V> V createIfAbsentUnchecked(final ConcurrentMap<K, V> map,
+            final K key, final ConcurrentInitializer<V> init) {
+        try {
+            return createIfAbsent(map, key, init);
+        } catch (final ConcurrentException cex) {
+            throw new ConcurrentRuntimeException(cex.getCause());
+        }
     }
 
     /**
@@ -131,20 +277,6 @@ public class ConcurrentUtils {
     }
 
     /**
-     * Tests whether the specified {@link Throwable} is a checked exception. If
-     * not, an exception is thrown.
-     *
-     * @param ex the {@link Throwable} to check
-     * @return a flag whether the passed in exception is a checked exception
-     * @throws IllegalArgumentException if the {@link Throwable} is not a
-     * checked exception
-     */
-    static Throwable checkedException(final Throwable ex) {
-        Validate.isTrue(ExceptionUtils.isChecked(ex), "Not a checked exception: " + ex);
-        return ex;
-    }
-
-    /**
      * Invokes the specified {@link ConcurrentInitializer} and returns the
      * object produced by the initializer. This method just invokes the {@code
      * get()} method of the given {@link ConcurrentInitializer}. It is
@@ -225,142 +357,10 @@ public class ConcurrentUtils {
     }
 
     /**
-     * Checks if a concurrent map contains a key and creates a corresponding
-     * value if not. This method first checks the presence of the key in the
-     * given map. If it is already contained, its value is returned. Otherwise
-     * the {@code get()} method of the passed in {@link ConcurrentInitializer}
-     * is called. With the resulting object
-     * {@link #putIfAbsent(ConcurrentMap, Object, Object)} is called. This
-     * handles the case that in the meantime another thread has added the key to
-     * the map. Both the map and the initializer can be <b>null</b>; in this
-     * case this method simply returns <b>null</b>.
-     *
-     * @param <K> the type of the keys of the map
-     * @param <V> the type of the values of the map
-     * @param map the map to be modified
-     * @param key the key of the value to be added
-     * @param init the {@link ConcurrentInitializer} for creating the value
-     * @return the value stored in the map after this operation; this may or may
-     * not be the object created by the {@link ConcurrentInitializer}
-     * @throws ConcurrentException if the initializer throws an exception
+     * Private constructor so that no instances can be created. This class
+     * contains only static utility methods.
      */
-    public static <K, V> V createIfAbsent(final ConcurrentMap<K, V> map, final K key,
-            final ConcurrentInitializer<V> init) throws ConcurrentException {
-        if (map == null || init == null) {
-            return null;
-        }
-
-        final V value = map.get(key);
-        if (value == null) {
-            return putIfAbsent(map, key, init.get());
-        }
-        return value;
-    }
-
-    /**
-     * Checks if a concurrent map contains a key and creates a corresponding
-     * value if not, suppressing checked exceptions. This method calls
-     * {@code createIfAbsent()}. If a {@link ConcurrentException} is thrown, it
-     * is caught and re-thrown as a {@link ConcurrentRuntimeException}.
-     *
-     * @param <K> the type of the keys of the map
-     * @param <V> the type of the values of the map
-     * @param map the map to be modified
-     * @param key the key of the value to be added
-     * @param init the {@link ConcurrentInitializer} for creating the value
-     * @return the value stored in the map after this operation; this may or may
-     * not be the object created by the {@link ConcurrentInitializer}
-     * @throws ConcurrentRuntimeException if the initializer throws an exception
-     */
-    public static <K, V> V createIfAbsentUnchecked(final ConcurrentMap<K, V> map,
-            final K key, final ConcurrentInitializer<V> init) {
-        try {
-            return createIfAbsent(map, key, init);
-        } catch (final ConcurrentException cex) {
-            throw new ConcurrentRuntimeException(cex.getCause());
-        }
-    }
-
-    /**
-     * Gets an implementation of {@link Future} that is immediately done
-     * and returns the specified constant value.
-     *
-     * <p>
-     * This can be useful to return a simple constant immediately from the
-     * concurrent processing, perhaps as part of avoiding nulls.
-     * A constant future can also be useful in testing.
-     * </p>
-     *
-     * @param <T> the type of the value used by this {@link Future} object
-     * @param value  the constant value to return, may be null
-     * @return an instance of Future that will return the value, never null
-     */
-    public static <T> Future<T> constantFuture(final T value) {
-        return new ConstantFuture<>(value);
-    }
-
-    /**
-     * A specialized {@link Future} implementation which wraps a constant value.
-     * @param <T> the type of the value wrapped by this class
-     */
-    static final class ConstantFuture<T> implements Future<T> {
-        /** The constant value. */
-        private final T value;
-
-        /**
-         * Creates a new instance of {@link ConstantFuture} and initializes it
-         * with the constant value.
-         *
-         * @param value the value (may be <b>null</b>)
-         */
-        ConstantFuture(final T value) {
-            this.value = value;
-        }
-
-        /**
-         * {@inheritDoc} This implementation always returns <b>true</b> because
-         * the constant object managed by this {@link Future} implementation is
-         * always available.
-         */
-        @Override
-        public boolean isDone() {
-            return true;
-        }
-
-        /**
-         * {@inheritDoc} This implementation just returns the constant value.
-         */
-        @Override
-        public T get() {
-            return value;
-        }
-
-        /**
-         * {@inheritDoc} This implementation just returns the constant value; it
-         * does not block, therefore the timeout has no meaning.
-         */
-        @Override
-        public T get(final long timeout, final TimeUnit unit) {
-            return value;
-        }
-
-        /**
-         * {@inheritDoc} This implementation always returns <b>false</b>; there
-         * is no background process which could be cancelled.
-         */
-        @Override
-        public boolean isCancelled() {
-            return false;
-        }
-
-        /**
-         * {@inheritDoc} The cancel operation is not supported. This
-         * implementation always returns <b>false</b>.
-         */
-        @Override
-        public boolean cancel(final boolean mayInterruptIfRunning) {
-            return false;
-        }
+    private ConcurrentUtils() {
     }
 
 }

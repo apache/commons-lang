@@ -29,111 +29,6 @@ import java.util.concurrent.atomic.AtomicReference;
 public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
 
     /**
-     * The name of the <em>open</em> property as it is passed to registered
-     * change listeners.
-     */
-    public static final String PROPERTY_NAME = "open";
-
-    /** The current state of this circuit breaker. */
-    protected final AtomicReference<State> state = new AtomicReference<>(State.CLOSED);
-
-    /** An object for managing change listeners registered at this instance. */
-    private final PropertyChangeSupport changeSupport;
-
-    /**
-     * Creates an {@link AbstractCircuitBreaker}. It also creates an internal {@link PropertyChangeSupport}.
-     */
-    public AbstractCircuitBreaker() {
-        changeSupport = new PropertyChangeSupport(this);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isOpen() {
-        return isOpen(state.get());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isClosed() {
-        return !isOpen();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract boolean checkState();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract boolean incrementAndCheckState(T increment);
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void close() {
-        changeState(State.CLOSED);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void open() {
-        changeState(State.OPEN);
-    }
-
-    /**
-     * Converts the given state value to a boolean <em>open</em> property.
-     *
-     * @param state the state to be converted
-     * @return the boolean open flag
-     */
-    protected static boolean isOpen(final State state) {
-        return state == State.OPEN;
-    }
-
-    /**
-     * Changes the internal state of this circuit breaker. If there is actually a change
-     * of the state value, all registered change listeners are notified.
-     *
-     * @param newState the new state to be set
-     */
-    protected void changeState(final State newState) {
-        if (state.compareAndSet(newState.oppositeState(), newState)) {
-            changeSupport.firePropertyChange(PROPERTY_NAME, !isOpen(newState), isOpen(newState));
-        }
-    }
-
-    /**
-     * Adds a change listener to this circuit breaker. This listener is notified whenever
-     * the state of this circuit breaker changes. If the listener is
-     * <strong>null</strong>, it is silently ignored.
-     *
-     * @param listener the listener to be added
-     */
-    public void addChangeListener(final PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    /**
-     * Removes the specified change listener from this circuit breaker.
-     *
-     * @param listener the listener to be removed
-     */
-    public void removeChangeListener(final PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
-    }
-
-    /**
      * An internal enumeration representing the different states of a circuit
      * breaker. This class also contains some logic for performing state
      * transitions. This is done to avoid complex if-conditions in the code of
@@ -170,6 +65,111 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
          * @return the opposite state
          */
         public abstract State oppositeState();
+    }
+
+    /**
+     * The name of the <em>open</em> property as it is passed to registered
+     * change listeners.
+     */
+    public static final String PROPERTY_NAME = "open";
+
+    /**
+     * Converts the given state value to a boolean <em>open</em> property.
+     *
+     * @param state the state to be converted
+     * @return the boolean open flag
+     */
+    protected static boolean isOpen(final State state) {
+        return state == State.OPEN;
+    }
+
+    /** The current state of this circuit breaker. */
+    protected final AtomicReference<State> state = new AtomicReference<>(State.CLOSED);
+
+    /** An object for managing change listeners registered at this instance. */
+    private final PropertyChangeSupport changeSupport;
+
+    /**
+     * Creates an {@link AbstractCircuitBreaker}. It also creates an internal {@link PropertyChangeSupport}.
+     */
+    public AbstractCircuitBreaker() {
+        changeSupport = new PropertyChangeSupport(this);
+    }
+
+    /**
+     * Adds a change listener to this circuit breaker. This listener is notified whenever
+     * the state of this circuit breaker changes. If the listener is
+     * <strong>null</strong>, it is silently ignored.
+     *
+     * @param listener the listener to be added
+     */
+    public void addChangeListener(final PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    /**
+     * Changes the internal state of this circuit breaker. If there is actually a change
+     * of the state value, all registered change listeners are notified.
+     *
+     * @param newState the new state to be set
+     */
+    protected void changeState(final State newState) {
+        if (state.compareAndSet(newState.oppositeState(), newState)) {
+            changeSupport.firePropertyChange(PROPERTY_NAME, !isOpen(newState), isOpen(newState));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean checkState();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void close() {
+        changeState(State.CLOSED);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract boolean incrementAndCheckState(T increment);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isClosed() {
+        return !isOpen();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isOpen() {
+        return isOpen(state.get());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void open() {
+        changeState(State.OPEN);
+    }
+
+    /**
+     * Removes the specified change listener from this circuit breaker.
+     *
+     * @param listener the listener to be removed
+     */
+    public void removeChangeListener(final PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
 
 }

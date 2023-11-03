@@ -28,10 +28,6 @@ import org.apache.commons.lang3.ObjectUtils;
  */
 public class TimeZones {
 
-    /** Do not instantiate. */
-    private TimeZones() {
-    }
-
     /**
      * A public version of {@link java.util.TimeZone}'s package private {@code GMT_ID} field.
      */
@@ -53,6 +49,10 @@ public class TimeZones {
      */
     public static TimeZone toTimeZone(final TimeZone timeZone) {
         return ObjectUtils.getIfNull(timeZone, TimeZone::getDefault);
+    }
+
+    /** Do not instantiate. */
+    private TimeZones() {
     }
 
 }

@@ -198,15 +198,6 @@ public class DateFormatUtils {
             = FastDateFormat.getInstance("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
 
     /**
-     * DateFormatUtils instances should NOT be constructed in standard programming.
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     */
-    public DateFormatUtils() {
-    }
-
-    /**
      * Formats a calendar into a specific pattern. The TimeZone from the calendar
      * will be used for formatting.
      *
@@ -410,6 +401,15 @@ public class DateFormatUtils {
 
     private static TimeZone getTimeZone(final Calendar calendar) {
         return calendar == null ? null : calendar.getTimeZone();
+    }
+
+    /**
+     * DateFormatUtils instances should NOT be constructed in standard programming.
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
+     */
+    public DateFormatUtils() {
     }
 
 }

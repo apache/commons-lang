@@ -1409,15 +1409,6 @@ public class ClassUtils {
     }
 
     /**
-     * Tests whether a {@link Class} is public.
-     * @param cls Class to test.
-     * @return {@code true} if {@code cls} is public.
-     * @since 3.13.0
-     */
-    public static boolean isPublic(final Class<?> cls) {
-        return Modifier.isPublic(cls.getModifiers());
-    }
-    /**
      * Returns whether the given {@code type} is a primitive or primitive wrapper ({@link Boolean}, {@link Byte},
      * {@link Character}, {@link Short}, {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
      *
@@ -1432,7 +1423,6 @@ public class ClassUtils {
         }
         return type.isPrimitive() || isPrimitiveWrapper(type);
     }
-
     /**
      * Returns whether the given {@code type} is a primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character},
      * {@link Short}, {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
@@ -1444,6 +1434,16 @@ public class ClassUtils {
      */
     public static boolean isPrimitiveWrapper(final Class<?> type) {
         return wrapperPrimitiveMap.containsKey(type);
+    }
+
+    /**
+     * Tests whether a {@link Class} is public.
+     * @param cls Class to test.
+     * @return {@code true} if {@code cls} is public.
+     * @since 3.13.0
+     */
+    public static boolean isPublic(final Class<?> cls) {
+        return Modifier.isPublic(cls.getModifiers());
     }
 
     /**

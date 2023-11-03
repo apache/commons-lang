@@ -80,12 +80,116 @@ import org.apache.commons.lang3.Validate;
 public class DurationFormatUtils {
 
     /**
-     * DurationFormatUtils instances should NOT be constructed in standard programming.
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
+     * Element that is parsed from the format pattern.
      */
-    public DurationFormatUtils() {
+    static class Token {
+
+        /** Empty array. */
+        private static final Token[] EMPTY_ARRAY = {};
+
+        /**
+         * Helper method to determine if a set of tokens contain a value
+         *
+         * @param tokens set to look in
+         * @param value to look for
+         * @return boolean {@code true} if contained
+         */
+        static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
+            return Stream.of(tokens).anyMatch(token -> token.getValue() == value);
+        }
+
+        private final Object value;
+        private int count;
+        private int optionalIndex = -1;
+
+        /**
+         * Wraps a token around a value. A value would be something like a 'Y'.
+         *
+         * @param value value to wrap, non-null.
+         * @param optional whether the token is optional
+         * @param optionalIndex the index of the optional token within the pattern
+         */
+        Token(final Object value, final boolean optional, final int optionalIndex) {
+            this.value = Objects.requireNonNull(value, "value");
+            this.count = 1;
+            if (optional) {
+                this.optionalIndex = optionalIndex;
+            }
+        }
+
+        /**
+         * Supports equality of this Token to another Token.
+         *
+         * @param obj2 Object to consider equality of
+         * @return boolean {@code true} if equal
+         */
+        @Override
+        public boolean equals(final Object obj2) {
+            if (obj2 instanceof Token) {
+                final Token tok2 = (Token) obj2;
+                if (this.value.getClass() != tok2.value.getClass()) {
+                    return false;
+                }
+                if (this.count != tok2.count) {
+                    return false;
+                }
+                if (this.value instanceof StringBuilder) {
+                    return this.value.toString().equals(tok2.value.toString());
+                }
+                if (this.value instanceof Number) {
+                    return this.value.equals(tok2.value);
+                }
+                return this.value == tok2.value;
+            }
+            return false;
+        }
+
+        /**
+         * Gets the current number of values represented
+         *
+         * @return int number of values represented
+         */
+        int getCount() {
+            return count;
+        }
+
+        /**
+         * Gets the particular value this token represents.
+         *
+         * @return Object value, non-null.
+         */
+        Object getValue() {
+            return value;
+        }
+
+        /**
+         * Returns a hash code for the token equal to the
+         * hash code for the token's value. Thus 'TT' and 'TTTT'
+         * will have the same hash code.
+         *
+         * @return The hash code for the token
+         */
+        @Override
+        public int hashCode() {
+            return this.value.hashCode();
+        }
+
+        /**
+         * Adds another one of the value
+         */
+        void increment() {
+            count++;
+        }
+
+        /**
+         * Represents this token as a String.
+         *
+         * @return String representation of the token
+         */
+        @Override
+        public String toString() {
+            return StringUtils.repeat(this.value.toString(), this.count);
+        }
     }
 
     /**
@@ -97,33 +201,123 @@ public class DurationFormatUtils {
      */
     public static final String ISO_EXTENDED_FORMAT_PATTERN = "'P'yyyy'Y'M'M'd'DT'H'H'm'M's.SSS'S'";
 
-    /**
-     * Formats the time gap as a string.
-     *
-     * <p>The format used is ISO 8601-like: {@code HH:mm:ss.SSS}.</p>
-     *
-     * @param durationMillis  the duration to format
-     * @return the formatted duration, not null
-     * @throws IllegalArgumentException if durationMillis is negative
-     */
-    public static String formatDurationHMS(final long durationMillis) {
-        return formatDuration(durationMillis, "HH:mm:ss.SSS");
-    }
+    static final String y = "y";
+
+    static final String M = "M";
+
+    static final String d = "d";
+
+    static final String H = "H";
+
+    static final String m = "m";
+
+    static final String s = "s";
+
+    static final String S = "S";
 
     /**
-     * Formats the time gap as a string.
+     * The internal method to do the formatting.
      *
-     * <p>The format used is the ISO 8601 period format.</p>
-     *
-     * <p>This method formats durations using the days and lower fields of the
-     * ISO format pattern, such as P7D6TH5M4.321S.</p>
-     *
-     * @param durationMillis  the duration to format
-     * @return the formatted duration, not null
-     * @throws IllegalArgumentException if durationMillis is negative
+     * @param tokens  the tokens
+     * @param years  the number of years
+     * @param months  the number of months
+     * @param days  the number of days
+     * @param hours  the number of hours
+     * @param minutes  the number of minutes
+     * @param seconds  the number of seconds
+     * @param milliseconds  the number of millis
+     * @param padWithZeros  whether to pad
+     * @return the formatted string
      */
-    public static String formatDurationISO(final long durationMillis) {
-        return formatDuration(durationMillis, ISO_EXTENDED_FORMAT_PATTERN, false);
+    static String format(final Token[] tokens, final long years, final long months, final long days, final long hours, final long minutes,
+            final long seconds,
+            final long milliseconds, final boolean padWithZeros) {
+        final StringBuilder buffer = new StringBuilder();
+        boolean lastOutputSeconds = false;
+        boolean lastOutputZero = false;
+        int optionalStart = -1;
+        boolean firstOptionalNonLiteral = false;
+        int optionalIndex = -1;
+        boolean inOptional = false;
+        for (final Token token : tokens) {
+            final Object value = token.getValue();
+            final boolean isLiteral = value instanceof StringBuilder;
+            final int count = token.getCount();
+            if (optionalIndex != token.optionalIndex) {
+              optionalIndex = token.optionalIndex;
+              if (optionalIndex > -1) {
+                //entering new optional block
+                optionalStart = buffer.length();
+                lastOutputZero = false;
+                inOptional = true;
+                firstOptionalNonLiteral = false;
+              } else {
+                //leaving optional block
+                inOptional = false;
+              }
+            }
+            if (isLiteral) {
+               if (!inOptional || !lastOutputZero) {
+                     buffer.append(value.toString());
+               }
+            } else if (value.equals(y)) {
+                lastOutputSeconds = false;
+                lastOutputZero = years == 0;
+                if (!inOptional || !lastOutputZero) {
+                    buffer.append(paddedValue(years, padWithZeros, count));
+                }
+            } else if (value.equals(M)) {
+                lastOutputSeconds = false;
+                lastOutputZero = months == 0;
+                if (!inOptional || !lastOutputZero) {
+                    buffer.append(paddedValue(months, padWithZeros, count));
+                }
+            } else if (value.equals(d)) {
+                lastOutputSeconds = false;
+                lastOutputZero = days == 0;
+                if (!inOptional || !lastOutputZero) {
+                    buffer.append(paddedValue(days, padWithZeros, count));
+                }
+            } else if (value.equals(H)) {
+                lastOutputSeconds = false;
+                lastOutputZero = hours == 0;
+                if (!inOptional || !lastOutputZero) {
+                    buffer.append(paddedValue(hours, padWithZeros, count));
+                }
+            } else if (value.equals(m)) {
+                lastOutputSeconds = false;
+                lastOutputZero = minutes == 0;
+                if (!inOptional || !lastOutputZero) {
+                    buffer.append(paddedValue(minutes, padWithZeros, count));
+                }
+            } else if (value.equals(s)) {
+                lastOutputSeconds = true;
+                lastOutputZero = seconds == 0;
+                if (!inOptional || !lastOutputZero) {
+                    buffer.append(paddedValue(seconds, padWithZeros, count));
+                }
+            } else if (value.equals(S)) {
+                lastOutputZero = milliseconds == 0;
+                if (!inOptional || !lastOutputZero) {
+                    if (lastOutputSeconds) {
+                        // ensure at least 3 digits are displayed even if padding is not selected
+                        final int width = padWithZeros ? Math.max(3, count) : 3;
+                        buffer.append(paddedValue(milliseconds, true, width));
+                    } else {
+                        buffer.append(paddedValue(milliseconds, padWithZeros, count));
+                    }
+                }
+                lastOutputSeconds = false;
+            }
+            //as soon as we hit first nonliteral in optional, check for literal prefix
+            if (inOptional && !isLiteral && !firstOptionalNonLiteral){
+                firstOptionalNonLiteral = true;
+                if (lastOutputZero) {
+                    buffer.delete(optionalStart, buffer.length());
+                }
+            }
+        }
+        return buffer.toString();
     }
 
     /**
@@ -186,6 +380,33 @@ public class DurationFormatUtils {
     }
 
     /**
+     * Formats the time gap as a string.
+     *
+     * <p>The format used is ISO 8601-like: {@code HH:mm:ss.SSS}.</p>
+     *
+     * @param durationMillis  the duration to format
+     * @return the formatted duration, not null
+     * @throws IllegalArgumentException if durationMillis is negative
+     */
+    public static String formatDurationHMS(final long durationMillis) {
+        return formatDuration(durationMillis, "HH:mm:ss.SSS");
+    }
+    /**
+     * Formats the time gap as a string.
+     *
+     * <p>The format used is the ISO 8601 period format.</p>
+     *
+     * <p>This method formats durations using the days and lower fields of the
+     * ISO format pattern, such as P7D6TH5M4.321S.</p>
+     *
+     * @param durationMillis  the duration to format
+     * @return the formatted duration, not null
+     * @throws IllegalArgumentException if durationMillis is negative
+     */
+    public static String formatDurationISO(final long durationMillis) {
+        return formatDuration(durationMillis, ISO_EXTENDED_FORMAT_PATTERN, false);
+    }
+    /**
      * Formats an elapsed time into a pluralization correct string.
      *
      * <p>This method formats durations using the days and lower fields of the
@@ -246,21 +467,6 @@ public class DurationFormatUtils {
         duration = StringUtils.replaceOnce(duration, " 1 days", " 1 day");
         return duration.trim();
     }
-
-    /**
-     * Formats the time gap as a string.
-     *
-     * <p>The format used is the ISO 8601 period format.</p>
-     *
-     * @param startMillis  the start of the duration to format
-     * @param endMillis  the end of the duration to format
-     * @return the formatted duration, not null
-     * @throws IllegalArgumentException if startMillis is greater than endMillis
-     */
-    public static String formatPeriodISO(final long startMillis, final long endMillis) {
-        return formatPeriod(startMillis, endMillis, ISO_EXTENDED_FORMAT_PATTERN, false, TimeZone.getDefault());
-    }
-
     /**
      * Formats the time gap as a string, using the specified format.
      * Padding the left-hand side of numbers with zeroes is optional.
@@ -274,7 +480,6 @@ public class DurationFormatUtils {
     public static String formatPeriod(final long startMillis, final long endMillis, final String format) {
         return formatPeriod(startMillis, endMillis, format, true, TimeZone.getDefault());
     }
-
     /**
      * <p>Formats the time gap as a string, using the specified format.
      * Padding the left-hand side of numbers with zeroes is optional and
@@ -430,134 +635,19 @@ public class DurationFormatUtils {
 
         return format(tokens, years, months, days, hours, minutes, seconds, milliseconds, padWithZeros);
     }
-
     /**
-     * The internal method to do the formatting.
+     * Formats the time gap as a string.
      *
-     * @param tokens  the tokens
-     * @param years  the number of years
-     * @param months  the number of months
-     * @param days  the number of days
-     * @param hours  the number of hours
-     * @param minutes  the number of minutes
-     * @param seconds  the number of seconds
-     * @param milliseconds  the number of millis
-     * @param padWithZeros  whether to pad
-     * @return the formatted string
-     */
-    static String format(final Token[] tokens, final long years, final long months, final long days, final long hours, final long minutes,
-            final long seconds,
-            final long milliseconds, final boolean padWithZeros) {
-        final StringBuilder buffer = new StringBuilder();
-        boolean lastOutputSeconds = false;
-        boolean lastOutputZero = false;
-        int optionalStart = -1;
-        boolean firstOptionalNonLiteral = false;
-        int optionalIndex = -1;
-        boolean inOptional = false;
-        for (final Token token : tokens) {
-            final Object value = token.getValue();
-            final boolean isLiteral = value instanceof StringBuilder;
-            final int count = token.getCount();
-            if (optionalIndex != token.optionalIndex) {
-              optionalIndex = token.optionalIndex;
-              if (optionalIndex > -1) {
-                //entering new optional block
-                optionalStart = buffer.length();
-                lastOutputZero = false;
-                inOptional = true;
-                firstOptionalNonLiteral = false;
-              } else {
-                //leaving optional block
-                inOptional = false;
-              }
-            }
-            if (isLiteral) {
-               if (!inOptional || !lastOutputZero) {
-                     buffer.append(value.toString());
-               }
-            } else if (value.equals(y)) {
-                lastOutputSeconds = false;
-                lastOutputZero = years == 0;
-                if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(years, padWithZeros, count));
-                }
-            } else if (value.equals(M)) {
-                lastOutputSeconds = false;
-                lastOutputZero = months == 0;
-                if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(months, padWithZeros, count));
-                }
-            } else if (value.equals(d)) {
-                lastOutputSeconds = false;
-                lastOutputZero = days == 0;
-                if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(days, padWithZeros, count));
-                }
-            } else if (value.equals(H)) {
-                lastOutputSeconds = false;
-                lastOutputZero = hours == 0;
-                if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(hours, padWithZeros, count));
-                }
-            } else if (value.equals(m)) {
-                lastOutputSeconds = false;
-                lastOutputZero = minutes == 0;
-                if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(minutes, padWithZeros, count));
-                }
-            } else if (value.equals(s)) {
-                lastOutputSeconds = true;
-                lastOutputZero = seconds == 0;
-                if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(seconds, padWithZeros, count));
-                }
-            } else if (value.equals(S)) {
-                lastOutputZero = milliseconds == 0;
-                if (!inOptional || !lastOutputZero) {
-                    if (lastOutputSeconds) {
-                        // ensure at least 3 digits are displayed even if padding is not selected
-                        final int width = padWithZeros ? Math.max(3, count) : 3;
-                        buffer.append(paddedValue(milliseconds, true, width));
-                    } else {
-                        buffer.append(paddedValue(milliseconds, padWithZeros, count));
-                    }
-                }
-                lastOutputSeconds = false;
-            }
-            //as soon as we hit first nonliteral in optional, check for literal prefix
-            if (inOptional && !isLiteral && !firstOptionalNonLiteral){
-                firstOptionalNonLiteral = true;
-                if (lastOutputZero) {
-                    buffer.delete(optionalStart, buffer.length());
-                }
-            }
-        }
-        return buffer.toString();
-    }
-
-    /**
-     * Converts a {@code long} to a {@link String} with optional
-     * zero padding.
+     * <p>The format used is the ISO 8601 period format.</p>
      *
-     * @param value the value to convert
-     * @param padWithZeros whether to pad with zeroes
-     * @param count the size to pad to (ignored if {@code padWithZeros} is false)
-     * @return the string result
+     * @param startMillis  the start of the duration to format
+     * @param endMillis  the end of the duration to format
+     * @return the formatted duration, not null
+     * @throws IllegalArgumentException if startMillis is greater than endMillis
      */
-    private static String paddedValue(final long value, final boolean padWithZeros, final int count) {
-        final String longString = Long.toString(value);
-        return padWithZeros ? StringUtils.leftPad(longString, count, '0') : longString;
+    public static String formatPeriodISO(final long startMillis, final long endMillis) {
+        return formatPeriod(startMillis, endMillis, ISO_EXTENDED_FORMAT_PATTERN, false, TimeZone.getDefault());
     }
-
-    static final String y = "y";
-    static final String M = "M";
-    static final String d = "d";
-    static final String H = "H";
-    static final String m = "m";
-    static final String s = "s";
-    static final String S = "S";
-
     /**
      * Parses a classic date format string into Tokens
      *
@@ -656,116 +746,26 @@ public class DurationFormatUtils {
     }
 
     /**
-     * Element that is parsed from the format pattern.
+     * Converts a {@code long} to a {@link String} with optional
+     * zero padding.
+     *
+     * @param value the value to convert
+     * @param padWithZeros whether to pad with zeroes
+     * @param count the size to pad to (ignored if {@code padWithZeros} is false)
+     * @return the string result
      */
-    static class Token {
+    private static String paddedValue(final long value, final boolean padWithZeros, final int count) {
+        final String longString = Long.toString(value);
+        return padWithZeros ? StringUtils.leftPad(longString, count, '0') : longString;
+    }
 
-        /** Empty array. */
-        private static final Token[] EMPTY_ARRAY = {};
-
-        /**
-         * Helper method to determine if a set of tokens contain a value
-         *
-         * @param tokens set to look in
-         * @param value to look for
-         * @return boolean {@code true} if contained
-         */
-        static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
-            return Stream.of(tokens).anyMatch(token -> token.getValue() == value);
-        }
-
-        private final Object value;
-        private int count;
-        private int optionalIndex = -1;
-
-        /**
-         * Wraps a token around a value. A value would be something like a 'Y'.
-         *
-         * @param value value to wrap, non-null.
-         * @param optional whether the token is optional
-         * @param optionalIndex the index of the optional token within the pattern
-         */
-        Token(final Object value, final boolean optional, final int optionalIndex) {
-            this.value = Objects.requireNonNull(value, "value");
-            this.count = 1;
-            if (optional) {
-                this.optionalIndex = optionalIndex;
-            }
-        }
-
-        /**
-         * Adds another one of the value
-         */
-        void increment() {
-            count++;
-        }
-
-        /**
-         * Gets the current number of values represented
-         *
-         * @return int number of values represented
-         */
-        int getCount() {
-            return count;
-        }
-
-        /**
-         * Gets the particular value this token represents.
-         *
-         * @return Object value, non-null.
-         */
-        Object getValue() {
-            return value;
-        }
-
-        /**
-         * Supports equality of this Token to another Token.
-         *
-         * @param obj2 Object to consider equality of
-         * @return boolean {@code true} if equal
-         */
-        @Override
-        public boolean equals(final Object obj2) {
-            if (obj2 instanceof Token) {
-                final Token tok2 = (Token) obj2;
-                if (this.value.getClass() != tok2.value.getClass()) {
-                    return false;
-                }
-                if (this.count != tok2.count) {
-                    return false;
-                }
-                if (this.value instanceof StringBuilder) {
-                    return this.value.toString().equals(tok2.value.toString());
-                }
-                if (this.value instanceof Number) {
-                    return this.value.equals(tok2.value);
-                }
-                return this.value == tok2.value;
-            }
-            return false;
-        }
-
-        /**
-         * Returns a hash code for the token equal to the
-         * hash code for the token's value. Thus 'TT' and 'TTTT'
-         * will have the same hash code.
-         *
-         * @return The hash code for the token
-         */
-        @Override
-        public int hashCode() {
-            return this.value.hashCode();
-        }
-
-        /**
-         * Represents this token as a String.
-         *
-         * @return String representation of the token
-         */
-        @Override
-        public String toString() {
-            return StringUtils.repeat(this.value.toString(), this.count);
-        }
+    /**
+     * DurationFormatUtils instances should NOT be constructed in standard programming.
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
+     */
+    public DurationFormatUtils() {
     }
 
 }

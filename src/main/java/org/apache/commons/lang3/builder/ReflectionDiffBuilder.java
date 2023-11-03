@@ -108,6 +108,49 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         this.diffBuilder = new DiffBuilder<>(lhs, rhs, style);
     }
 
+    private boolean accept(final Field field) {
+        if (field.getName().indexOf(ClassUtils.INNER_CLASS_SEPARATOR_CHAR) != -1) {
+            return false;
+        }
+        if (Modifier.isTransient(field.getModifiers())) {
+            return false;
+        }
+        if (Modifier.isStatic(field.getModifiers())) {
+            return false;
+        }
+        if (this.excludeFieldNames != null
+                && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
+            // Reject fields from the getExcludeFieldNames list.
+            return false;
+        }
+        return !field.isAnnotationPresent(DiffExclude.class);
+    }
+
+
+    private void appendFields(final Class<?> clazz) {
+        for (final Field field : FieldUtils.getAllFields(clazz)) {
+            if (accept(field)) {
+                try {
+                    diffBuilder.append(field.getName(), FieldUtils.readField(field, left, true), FieldUtils.readField(field, right, true));
+                } catch (final IllegalAccessException e) {
+                    // this can't happen. Would get a Security exception instead
+                    // throw a runtime exception in case the impossible happens.
+                    throw new IllegalArgumentException("Unexpected IllegalAccessException: " + e.getMessage(), e);
+                }
+            }
+        }
+    }
+
+    @Override
+    public DiffResult<T> build() {
+        if (left.equals(right)) {
+            return diffBuilder.build();
+        }
+
+        appendFields(left.getClass());
+        return diffBuilder.build();
+    }
+
     /**
      * Gets the field names that should be excluded from the diff.
      *
@@ -117,7 +160,6 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     public String[] getExcludeFieldNames() {
         return this.excludeFieldNames.clone();
     }
-
 
     /**
      * Sets the field names to exclude.
@@ -135,48 +177,6 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
             this.excludeFieldNames = ArraySorter.sort(ReflectionToStringBuilder.toNoNullStringArray(excludeFieldNamesParam));
         }
         return this;
-    }
-
-    @Override
-    public DiffResult<T> build() {
-        if (left.equals(right)) {
-            return diffBuilder.build();
-        }
-
-        appendFields(left.getClass());
-        return diffBuilder.build();
-    }
-
-    private void appendFields(final Class<?> clazz) {
-        for (final Field field : FieldUtils.getAllFields(clazz)) {
-            if (accept(field)) {
-                try {
-                    diffBuilder.append(field.getName(), FieldUtils.readField(field, left, true), FieldUtils.readField(field, right, true));
-                } catch (final IllegalAccessException e) {
-                    // this can't happen. Would get a Security exception instead
-                    // throw a runtime exception in case the impossible happens.
-                    throw new IllegalArgumentException("Unexpected IllegalAccessException: " + e.getMessage(), e);
-                }
-            }
-        }
-    }
-
-    private boolean accept(final Field field) {
-        if (field.getName().indexOf(ClassUtils.INNER_CLASS_SEPARATOR_CHAR) != -1) {
-            return false;
-        }
-        if (Modifier.isTransient(field.getModifiers())) {
-            return false;
-        }
-        if (Modifier.isStatic(field.getModifiers())) {
-            return false;
-        }
-        if (this.excludeFieldNames != null
-                && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
-            // Reject fields from the getExcludeFieldNames list.
-            return false;
-        }
-        return !field.isAnnotationPresent(DiffExclude.class);
     }
 
 }

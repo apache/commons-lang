@@ -88,9 +88,6 @@ public class CharSet implements Serializable {
         COMMON.put("0-9", ASCII_NUMERIC);
     }
 
-    /** The set of CharRange objects. */
-    private final Set<CharRange> set = Collections.synchronizedSet(new HashSet<>());
-
     /**
      * Factory method to create a new CharSet using a special syntax.
      *
@@ -165,6 +162,9 @@ public class CharSet implements Serializable {
         return new CharSet(setStrs);
     }
 
+    /** The set of CharRange objects. */
+    private final Set<CharRange> set = Collections.synchronizedSet(new HashSet<>());
+
     /**
      * Constructs a new CharSet using the set syntax.
      * Each string is merged in with the set.
@@ -211,18 +211,6 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * Gets the internal set as an array of CharRange objects.
-     *
-     * @return an array of immutable CharRange objects
-     * @since 2.0
-     */
-// NOTE: This is no longer public as CharRange is no longer a public class.
-//       It may be replaced when CharSet moves to Range.
-    /*public*/ CharRange[] getCharRanges() {
-        return set.toArray(CharRange.EMPTY_ARRAY);
-    }
-
-    /**
      * Does the {@link CharSet} contain the specified
      * character {@code ch}.
      *
@@ -257,6 +245,18 @@ public class CharSet implements Serializable {
         }
         final CharSet other = (CharSet) obj;
         return set.equals(other.set);
+    }
+
+    /**
+     * Gets the internal set as an array of CharRange objects.
+     *
+     * @return an array of immutable CharRange objects
+     * @since 2.0
+     */
+// NOTE: This is no longer public as CharRange is no longer a public class.
+//       It may be replaced when CharSet moves to Range.
+    /*public*/ CharRange[] getCharRanges() {
+        return set.toArray(CharRange.EMPTY_ARRAY);
     }
 
     /**

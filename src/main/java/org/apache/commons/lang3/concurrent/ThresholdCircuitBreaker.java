@@ -76,15 +76,6 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     }
 
     /**
-     * Gets the threshold.
-     *
-     * @return the threshold
-     */
-    public long getThreshold() {
-        return threshold;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -101,6 +92,15 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     public void close() {
         super.close();
         this.used.set(INITIAL_COUNT);
+    }
+
+    /**
+     * Gets the threshold.
+     *
+     * @return the threshold
+     */
+    public long getThreshold() {
+        return threshold;
     }
 
     /**

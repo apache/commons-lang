@@ -167,35 +167,6 @@ public class StrSubstitutor {
     public static final StrMatcher DEFAULT_VALUE_DELIMITER = StrMatcher.stringMatcher(":-");
 
     /**
-     * Stores the escape character.
-     */
-    private char escapeChar;
-    /**
-     * Stores the variable prefix.
-     */
-    private StrMatcher prefixMatcher;
-    /**
-     * Stores the variable suffix.
-     */
-    private StrMatcher suffixMatcher;
-    /**
-     * Stores the default variable value delimiter
-     */
-    private StrMatcher valueDelimiterMatcher;
-    /**
-     * Variable resolution is delegated to an implementor of VariableResolver.
-     */
-    private StrLookup<?> variableResolver;
-    /**
-     * The flag whether substitution in variable names is enabled.
-     */
-    private boolean enableSubstitutionInVariables;
-    /**
-     * Whether escapes should be preserved.  Default is false;
-     */
-    private boolean preserveEscapes;
-
-    /**
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the map.
      *
@@ -207,7 +178,6 @@ public class StrSubstitutor {
     public static <V> String replace(final Object source, final Map<String, V> valueMap) {
         return new StrSubstitutor(valueMap).replace(source);
     }
-
     /**
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the map. This method allows to specify a
@@ -224,7 +194,6 @@ public class StrSubstitutor {
     public static <V> String replace(final Object source, final Map<String, V> valueMap, final String prefix, final String suffix) {
         return new StrSubstitutor(valueMap, prefix, suffix).replace(source);
     }
-
     /**
      * Replaces all the occurrences of variables in the given source object with their matching
      * values from the properties.
@@ -246,7 +215,6 @@ public class StrSubstitutor {
         }
         return replace(source, valueMap);
     }
-
     /**
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the system properties.
@@ -257,6 +225,38 @@ public class StrSubstitutor {
     public static String replaceSystemProperties(final Object source) {
         return new StrSubstitutor(StrLookup.systemPropertiesLookup()).replace(source);
     }
+    /**
+     * Stores the escape character.
+     */
+    private char escapeChar;
+    /**
+     * Stores the variable prefix.
+     */
+    private StrMatcher prefixMatcher;
+    /**
+     * Stores the variable suffix.
+     */
+    private StrMatcher suffixMatcher;
+
+    /**
+     * Stores the default variable value delimiter
+     */
+    private StrMatcher valueDelimiterMatcher;
+
+    /**
+     * Variable resolution is delegated to an implementor of VariableResolver.
+     */
+    private StrLookup<?> variableResolver;
+
+    /**
+     * The flag whether substitution in variable names is enabled.
+     */
+    private boolean enableSubstitutionInVariables;
+
+    /**
+     * Whether escapes should be preserved.  Default is false;
+     */
+    private boolean preserveEscapes;
 
     /**
      * Creates a new instance with defaults for variable prefix and suffix
@@ -406,45 +406,106 @@ public class StrSubstitutor {
     }
 
     /**
-     * Replaces all the occurrences of variables with their matching values
-     * from the resolver using the given source string as a template.
+     * Checks if the specified variable is already in the stack (list) of variables.
      *
-     * @param source  the string to replace in, null returns null
-     * @return the result of the replace operation
+     * @param varName  the variable name to check
+     * @param priorVariables  the list of prior variables
      */
-    public String replace(final String source) {
-        if (source == null) {
-            return null;
+    private void checkCyclicSubstitution(final String varName, final List<String> priorVariables) {
+        if (!priorVariables.contains(varName)) {
+            return;
         }
-        final StrBuilder buf = new StrBuilder(source);
-        if (!substitute(buf, 0, source.length())) {
-            return source;
-        }
-        return buf.toString();
+        final StrBuilder buf = new StrBuilder(256);
+        buf.append("Infinite loop in property interpolation of ");
+        buf.append(priorVariables.remove(0));
+        buf.append(": ");
+        buf.appendWithSeparators(priorVariables, "->");
+        throw new IllegalStateException(buf.toString());
     }
 
     /**
-     * Replaces all the occurrences of variables with their matching values
-     * from the resolver using the given source string as a template.
+     * Returns the escape character.
+     *
+     * @return the character used for escaping variable references
+     */
+    public char getEscapeChar() {
+        return this.escapeChar;
+    }
+
+    /**
+     * Gets the variable default value delimiter matcher currently in use.
      * <p>
-     * Only the specified portion of the string will be processed.
-     * The rest of the string is not processed, and is not returned.
+     * The variable default value delimiter is the character or characters that delimit the
+     * variable name and the variable default value. This delimiter is expressed in terms of a matcher
+     * allowing advanced variable default value delimiter matches.
+     * </p>
+     * <p>
+     * If it returns null, then the variable default value resolution is disabled.
      * </p>
      *
-     * @param source  the string to replace in, null returns null
-     * @param offset  the start offset within the array, must be valid
-     * @param length  the length within the array to be processed, must be valid
-     * @return the result of the replace operation
+     * @return the variable default value delimiter matcher in use, may be null
+     * @since 3.2
      */
-    public String replace(final String source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        if (!substitute(buf, 0, length)) {
-            return source.substring(offset, offset + length);
-        }
-        return buf.toString();
+    public StrMatcher getValueDelimiterMatcher() {
+        return valueDelimiterMatcher;
+    }
+
+    /**
+     * Gets the variable prefix matcher currently in use.
+     * <p>
+     * The variable prefix is the character or characters that identify the
+     * start of a variable. This prefix is expressed in terms of a matcher
+     * allowing advanced prefix matches.
+     * </p>
+     *
+     * @return the prefix matcher in use
+     */
+    public StrMatcher getVariablePrefixMatcher() {
+        return prefixMatcher;
+    }
+
+    /**
+     * Gets the VariableResolver that is used to lookup variables.
+     *
+     * @return the VariableResolver
+     */
+    public StrLookup<?> getVariableResolver() {
+        return this.variableResolver;
+    }
+
+    /**
+     * Gets the variable suffix matcher currently in use.
+     * <p>
+     * The variable suffix is the character or characters that identify the
+     * end of a variable. This suffix is expressed in terms of a matcher
+     * allowing advanced suffix matches.
+     * </p>
+     *
+     * @return the suffix matcher in use
+     */
+    public StrMatcher getVariableSuffixMatcher() {
+        return suffixMatcher;
+    }
+
+    /**
+     * Returns a flag whether substitution is done in variable names.
+     *
+     * @return the substitution in variable names flag
+     * @since 3.0
+     */
+    public boolean isEnableSubstitutionInVariables() {
+        return enableSubstitutionInVariables;
+    }
+
+    /**
+     * Returns the flag controlling whether escapes are preserved during
+     * substitution.
+     *
+     * @return the preserve escape flag
+     * @since 3.5
+     */
+    public boolean isPreserveEscapes() {
+        return preserveEscapes;
     }
 
     /**
@@ -479,46 +540,6 @@ public class StrSubstitutor {
      * @return the result of the replace operation
      */
     public String replace(final char[] source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        substitute(buf, 0, length);
-        return buf.toString();
-    }
-
-    /**
-     * Replaces all the occurrences of variables with their matching values
-     * from the resolver using the given source buffer as a template.
-     * The buffer is not altered by this method.
-     *
-     * @param source  the buffer to use as a template, not changed, null returns null
-     * @return the result of the replace operation
-     */
-    public String replace(final StringBuffer source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(source.length()).append(source);
-        substitute(buf, 0, buf.length());
-        return buf.toString();
-    }
-
-    /**
-     * Replaces all the occurrences of variables with their matching values
-     * from the resolver using the given source buffer as a template.
-     * The buffer is not altered by this method.
-     * <p>
-     * Only the specified portion of the buffer will be processed.
-     * The rest of the buffer is not processed, and is not returned.
-     * </p>
-     *
-     * @param source  the buffer to use as a template, not changed, null returns null
-     * @param offset  the start offset within the array, must be valid
-     * @param length  the length within the array to be processed, must be valid
-     * @return the result of the replace operation
-     */
-    public String replace(final StringBuffer source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
@@ -568,6 +589,23 @@ public class StrSubstitutor {
     }
 
     /**
+     * Replaces all the occurrences of variables in the given source object with
+     * their matching values from the resolver. The input source object is
+     * converted to a string using {@code toString} and is not altered.
+     *
+     * @param source  the source to replace in, null returns null
+     * @return the result of the replace operation
+     */
+    public String replace(final Object source) {
+        if (source == null) {
+            return null;
+        }
+        final StrBuilder buf = new StrBuilder().append(source);
+        substitute(buf, 0, buf.length());
+        return buf.toString();
+    }
+
+    /**
      * Replaces all the occurrences of variables with their matching values
      * from the resolver using the given source builder as a template.
      * The builder is not altered by this method.
@@ -608,20 +646,119 @@ public class StrSubstitutor {
     }
 
     /**
-     * Replaces all the occurrences of variables in the given source object with
-     * their matching values from the resolver. The input source object is
-     * converted to a string using {@code toString} and is not altered.
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source string as a template.
      *
-     * @param source  the source to replace in, null returns null
+     * @param source  the string to replace in, null returns null
      * @return the result of the replace operation
      */
-    public String replace(final Object source) {
+    public String replace(final String source) {
         if (source == null) {
             return null;
         }
-        final StrBuilder buf = new StrBuilder().append(source);
+        final StrBuilder buf = new StrBuilder(source);
+        if (!substitute(buf, 0, source.length())) {
+            return source;
+        }
+        return buf.toString();
+    }
+
+    /**
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source string as a template.
+     * <p>
+     * Only the specified portion of the string will be processed.
+     * The rest of the string is not processed, and is not returned.
+     * </p>
+     *
+     * @param source  the string to replace in, null returns null
+     * @param offset  the start offset within the array, must be valid
+     * @param length  the length within the array to be processed, must be valid
+     * @return the result of the replace operation
+     */
+    public String replace(final String source, final int offset, final int length) {
+        if (source == null) {
+            return null;
+        }
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        if (!substitute(buf, 0, length)) {
+            return source.substring(offset, offset + length);
+        }
+        return buf.toString();
+    }
+
+    /**
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source buffer as a template.
+     * The buffer is not altered by this method.
+     *
+     * @param source  the buffer to use as a template, not changed, null returns null
+     * @return the result of the replace operation
+     */
+    public String replace(final StringBuffer source) {
+        if (source == null) {
+            return null;
+        }
+        final StrBuilder buf = new StrBuilder(source.length()).append(source);
         substitute(buf, 0, buf.length());
         return buf.toString();
+    }
+
+    /**
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source buffer as a template.
+     * The buffer is not altered by this method.
+     * <p>
+     * Only the specified portion of the buffer will be processed.
+     * The rest of the buffer is not processed, and is not returned.
+     * </p>
+     *
+     * @param source  the buffer to use as a template, not changed, null returns null
+     * @param offset  the start offset within the array, must be valid
+     * @param length  the length within the array to be processed, must be valid
+     * @return the result of the replace operation
+     */
+    public String replace(final StringBuffer source, final int offset, final int length) {
+        if (source == null) {
+            return null;
+        }
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        substitute(buf, 0, length);
+        return buf.toString();
+    }
+
+    /**
+     * Replaces all the occurrences of variables within the given source
+     * builder with their matching values from the resolver.
+     *
+     * @param source  the builder to replace in, updated, null returns zero
+     * @return true if altered
+     */
+    public boolean replaceIn(final StrBuilder source) {
+        if (source == null) {
+            return false;
+        }
+        return substitute(source, 0, source.length());
+    }
+
+    /**
+     * Replaces all the occurrences of variables within the given source
+     * builder with their matching values from the resolver.
+     * <p>
+     * Only the specified portion of the builder will be processed.
+     * The rest of the builder is not processed, but it is not deleted.
+     * </p>
+     *
+     * @param source  the builder to replace in, null returns zero
+     * @param offset  the start offset within the array, must be valid
+     * @param length  the length within the builder to be processed, must be valid
+     * @return true if altered
+     */
+    public boolean replaceIn(final StrBuilder source, final int offset, final int length) {
+        if (source == null) {
+            return false;
+        }
+        return substitute(source, offset, length);
     }
 
     /**
@@ -709,37 +846,235 @@ public class StrSubstitutor {
     }
 
     /**
-     * Replaces all the occurrences of variables within the given source
-     * builder with their matching values from the resolver.
+     * Internal method that resolves the value of a variable.
+     * <p>
+     * Most users of this class do not need to call this method. This method is
+     * called automatically by the substitution process.
+     * </p>
+     * <p>
+     * Writers of subclasses can override this method if they need to alter
+     * how each substitution occurs. The method is passed the variable's name
+     * and must return the corresponding value. This implementation uses the
+     * {@link #getVariableResolver()} with the variable's name as the key.
+     * </p>
      *
-     * @param source  the builder to replace in, updated, null returns zero
-     * @return true if altered
+     * @param variableName  the name of the variable, not null
+     * @param buf  the buffer where the substitution is occurring, not null
+     * @param startPos  the start position of the variable including the prefix, valid
+     * @param endPos  the end position of the variable including the suffix, valid
+     * @return the variable's value or <b>null</b> if the variable is unknown
      */
-    public boolean replaceIn(final StrBuilder source) {
-        if (source == null) {
-            return false;
+    protected String resolveVariable(final String variableName, final StrBuilder buf, final int startPos, final int endPos) {
+        final StrLookup<?> resolver = getVariableResolver();
+        if (resolver == null) {
+            return null;
         }
-        return substitute(source, 0, source.length());
+        return resolver.lookup(variableName);
     }
 
     /**
-     * Replaces all the occurrences of variables within the given source
-     * builder with their matching values from the resolver.
+     * Sets a flag whether substitution is done in variable names. If set to
+     * <b>true</b>, the names of variables can contain other variables which are
+     * processed first before the original variable is evaluated, e.g.
+     * {@code ${jre-${java.version}}}. The default value is <b>false</b>.
+     *
+     * @param enableSubstitutionInVariables the new value of the flag
+     * @since 3.0
+     */
+    public void setEnableSubstitutionInVariables(
+            final boolean enableSubstitutionInVariables) {
+        this.enableSubstitutionInVariables = enableSubstitutionInVariables;
+    }
+
+    /**
+     * Sets the escape character.
+     * If this character is placed before a variable reference in the source
+     * text, this variable will be ignored.
+     *
+     * @param escapeCharacter  the escape character (0 for disabling escaping)
+     */
+    public void setEscapeChar(final char escapeCharacter) {
+        this.escapeChar = escapeCharacter;
+    }
+
+    /**
+     * Sets a flag controlling whether escapes are preserved during
+     * substitution.  If set to <b>true</b>, the escape character is retained
+     * during substitution (e.g. {@code $${this-is-escaped}} remains
+     * {@code $${this-is-escaped}}).  If set to <b>false</b>, the escape
+     * character is removed during substitution (e.g.
+     * {@code $${this-is-escaped}} becomes
+     * {@code ${this-is-escaped}}).  The default value is <b>false</b>
+     *
+     * @param preserveEscapes true if escapes are to be preserved
+     * @since 3.5
+     */
+    public void setPreserveEscapes(final boolean preserveEscapes) {
+        this.preserveEscapes = preserveEscapes;
+    }
+
+    /**
+     * Sets the variable default value delimiter to use.
      * <p>
-     * Only the specified portion of the builder will be processed.
-     * The rest of the builder is not processed, but it is not deleted.
+     * The variable default value delimiter is the character or characters that delimit the
+     * variable name and the variable default value. This method allows a single character
+     * variable default value delimiter to be easily set.
      * </p>
      *
-     * @param source  the builder to replace in, null returns zero
-     * @param offset  the start offset within the array, must be valid
-     * @param length  the length within the builder to be processed, must be valid
-     * @return true if altered
+     * @param valueDelimiter  the variable default value delimiter character to use
+     * @return this, to enable chaining
+     * @since 3.2
      */
-    public boolean replaceIn(final StrBuilder source, final int offset, final int length) {
-        if (source == null) {
-            return false;
+    public StrSubstitutor setValueDelimiter(final char valueDelimiter) {
+        return setValueDelimiterMatcher(StrMatcher.charMatcher(valueDelimiter));
+    }
+
+    /**
+     * Sets the variable default value delimiter to use.
+     * <p>
+     * The variable default value delimiter is the character or characters that delimit the
+     * variable name and the variable default value. This method allows a string
+     * variable default value delimiter to be easily set.
+     * </p>
+     * <p>
+     * If the {@code valueDelimiter} is null or empty string, then the variable default
+     * value resolution becomes disabled.
+     * </p>
+     *
+     * @param valueDelimiter  the variable default value delimiter string to use, may be null or empty
+     * @return this, to enable chaining
+     * @since 3.2
+     */
+    public StrSubstitutor setValueDelimiter(final String valueDelimiter) {
+        if (StringUtils.isEmpty(valueDelimiter)) {
+            setValueDelimiterMatcher(null);
+            return this;
         }
-        return substitute(source, offset, length);
+        return setValueDelimiterMatcher(StrMatcher.stringMatcher(valueDelimiter));
+    }
+
+    /**
+     * Sets the variable default value delimiter matcher to use.
+     * <p>
+     * The variable default value delimiter is the character or characters that delimit the
+     * variable name and the variable default value. This delimiter is expressed in terms of a matcher
+     * allowing advanced variable default value delimiter matches.
+     * </p>
+     * <p>
+     * If the {@code valueDelimiterMatcher} is null, then the variable default value resolution
+     * becomes disabled.
+     * </p>
+     *
+     * @param valueDelimiterMatcher  variable default value delimiter matcher to use, may be null
+     * @return this, to enable chaining
+     * @since 3.2
+     */
+    public StrSubstitutor setValueDelimiterMatcher(final StrMatcher valueDelimiterMatcher) {
+        this.valueDelimiterMatcher = valueDelimiterMatcher;
+        return this;
+    }
+
+    /**
+     * Sets the variable prefix to use.
+     * <p>
+     * The variable prefix is the character or characters that identify the
+     * start of a variable. This method allows a single character prefix to
+     * be easily set.
+     * </p>
+     *
+     * @param prefix  the prefix character to use
+     * @return this, to enable chaining
+     */
+    public StrSubstitutor setVariablePrefix(final char prefix) {
+        return setVariablePrefixMatcher(StrMatcher.charMatcher(prefix));
+    }
+
+    /**
+     * Sets the variable prefix to use.
+     * <p>
+     * The variable prefix is the character or characters that identify the
+     * start of a variable. This method allows a string prefix to be easily set.
+     * </p>
+     *
+     * @param prefix  the prefix for variables, not null
+     * @return this, to enable chaining
+     * @throws NullPointerException if the prefix is null
+     */
+    public StrSubstitutor setVariablePrefix(final String prefix) {
+        return setVariablePrefixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(prefix)));
+    }
+
+    /**
+     * Sets the variable prefix matcher currently in use.
+     * <p>
+     * The variable prefix is the character or characters that identify the
+     * start of a variable. This prefix is expressed in terms of a matcher
+     * allowing advanced prefix matches.
+     * </p>
+     *
+     * @param prefixMatcher  the prefix matcher to use, null ignored
+     * @return this, to enable chaining
+     * @throws NullPointerException if the prefix matcher is null
+     */
+    public StrSubstitutor setVariablePrefixMatcher(final StrMatcher prefixMatcher) {
+        this.prefixMatcher = Objects.requireNonNull(prefixMatcher, "prefixMatcher");
+        return this;
+    }
+
+    /**
+     * Sets the VariableResolver that is used to lookup variables.
+     *
+     * @param variableResolver  the VariableResolver
+     */
+    public void setVariableResolver(final StrLookup<?> variableResolver) {
+        this.variableResolver = variableResolver;
+    }
+
+    /**
+     * Sets the variable suffix to use.
+     * <p>
+     * The variable suffix is the character or characters that identify the
+     * end of a variable. This method allows a single character suffix to
+     * be easily set.
+     * </p>
+     *
+     * @param suffix  the suffix character to use
+     * @return this, to enable chaining
+     */
+    public StrSubstitutor setVariableSuffix(final char suffix) {
+        return setVariableSuffixMatcher(StrMatcher.charMatcher(suffix));
+    }
+
+    /**
+     * Sets the variable suffix to use.
+     * <p>
+     * The variable suffix is the character or characters that identify the
+     * end of a variable. This method allows a string suffix to be easily set.
+     * </p>
+     *
+     * @param suffix  the suffix for variables, not null
+     * @return this, to enable chaining
+     * @throws NullPointerException if the suffix is null
+     */
+    public StrSubstitutor setVariableSuffix(final String suffix) {
+        return setVariableSuffixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(suffix)));
+    }
+
+    /**
+     * Sets the variable suffix matcher currently in use.
+     * <p>
+     * The variable suffix is the character or characters that identify the
+     * end of a variable. This suffix is expressed in terms of a matcher
+     * allowing advanced suffix matches.
+     * </p>
+     *
+     * @param suffixMatcher  the suffix matcher to use, null ignored
+     * @return this, to enable chaining
+     * @throws NullPointerException if the suffix matcher is null
+     */
+    public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher) {
+        this.suffixMatcher = Objects.requireNonNull(suffixMatcher);
+        return this;
     }
 
     /**
@@ -906,340 +1241,5 @@ public class StrSubstitutor {
             return altered ? 1 : 0;
         }
         return lengthChange;
-    }
-
-    /**
-     * Checks if the specified variable is already in the stack (list) of variables.
-     *
-     * @param varName  the variable name to check
-     * @param priorVariables  the list of prior variables
-     */
-    private void checkCyclicSubstitution(final String varName, final List<String> priorVariables) {
-        if (!priorVariables.contains(varName)) {
-            return;
-        }
-        final StrBuilder buf = new StrBuilder(256);
-        buf.append("Infinite loop in property interpolation of ");
-        buf.append(priorVariables.remove(0));
-        buf.append(": ");
-        buf.appendWithSeparators(priorVariables, "->");
-        throw new IllegalStateException(buf.toString());
-    }
-
-    /**
-     * Internal method that resolves the value of a variable.
-     * <p>
-     * Most users of this class do not need to call this method. This method is
-     * called automatically by the substitution process.
-     * </p>
-     * <p>
-     * Writers of subclasses can override this method if they need to alter
-     * how each substitution occurs. The method is passed the variable's name
-     * and must return the corresponding value. This implementation uses the
-     * {@link #getVariableResolver()} with the variable's name as the key.
-     * </p>
-     *
-     * @param variableName  the name of the variable, not null
-     * @param buf  the buffer where the substitution is occurring, not null
-     * @param startPos  the start position of the variable including the prefix, valid
-     * @param endPos  the end position of the variable including the suffix, valid
-     * @return the variable's value or <b>null</b> if the variable is unknown
-     */
-    protected String resolveVariable(final String variableName, final StrBuilder buf, final int startPos, final int endPos) {
-        final StrLookup<?> resolver = getVariableResolver();
-        if (resolver == null) {
-            return null;
-        }
-        return resolver.lookup(variableName);
-    }
-
-    /**
-     * Returns the escape character.
-     *
-     * @return the character used for escaping variable references
-     */
-    public char getEscapeChar() {
-        return this.escapeChar;
-    }
-
-    /**
-     * Sets the escape character.
-     * If this character is placed before a variable reference in the source
-     * text, this variable will be ignored.
-     *
-     * @param escapeCharacter  the escape character (0 for disabling escaping)
-     */
-    public void setEscapeChar(final char escapeCharacter) {
-        this.escapeChar = escapeCharacter;
-    }
-
-    /**
-     * Gets the variable prefix matcher currently in use.
-     * <p>
-     * The variable prefix is the character or characters that identify the
-     * start of a variable. This prefix is expressed in terms of a matcher
-     * allowing advanced prefix matches.
-     * </p>
-     *
-     * @return the prefix matcher in use
-     */
-    public StrMatcher getVariablePrefixMatcher() {
-        return prefixMatcher;
-    }
-
-    /**
-     * Sets the variable prefix matcher currently in use.
-     * <p>
-     * The variable prefix is the character or characters that identify the
-     * start of a variable. This prefix is expressed in terms of a matcher
-     * allowing advanced prefix matches.
-     * </p>
-     *
-     * @param prefixMatcher  the prefix matcher to use, null ignored
-     * @return this, to enable chaining
-     * @throws NullPointerException if the prefix matcher is null
-     */
-    public StrSubstitutor setVariablePrefixMatcher(final StrMatcher prefixMatcher) {
-        this.prefixMatcher = Objects.requireNonNull(prefixMatcher, "prefixMatcher");
-        return this;
-    }
-
-    /**
-     * Sets the variable prefix to use.
-     * <p>
-     * The variable prefix is the character or characters that identify the
-     * start of a variable. This method allows a single character prefix to
-     * be easily set.
-     * </p>
-     *
-     * @param prefix  the prefix character to use
-     * @return this, to enable chaining
-     */
-    public StrSubstitutor setVariablePrefix(final char prefix) {
-        return setVariablePrefixMatcher(StrMatcher.charMatcher(prefix));
-    }
-
-    /**
-     * Sets the variable prefix to use.
-     * <p>
-     * The variable prefix is the character or characters that identify the
-     * start of a variable. This method allows a string prefix to be easily set.
-     * </p>
-     *
-     * @param prefix  the prefix for variables, not null
-     * @return this, to enable chaining
-     * @throws NullPointerException if the prefix is null
-     */
-    public StrSubstitutor setVariablePrefix(final String prefix) {
-        return setVariablePrefixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(prefix)));
-    }
-
-    /**
-     * Gets the variable suffix matcher currently in use.
-     * <p>
-     * The variable suffix is the character or characters that identify the
-     * end of a variable. This suffix is expressed in terms of a matcher
-     * allowing advanced suffix matches.
-     * </p>
-     *
-     * @return the suffix matcher in use
-     */
-    public StrMatcher getVariableSuffixMatcher() {
-        return suffixMatcher;
-    }
-
-    /**
-     * Sets the variable suffix matcher currently in use.
-     * <p>
-     * The variable suffix is the character or characters that identify the
-     * end of a variable. This suffix is expressed in terms of a matcher
-     * allowing advanced suffix matches.
-     * </p>
-     *
-     * @param suffixMatcher  the suffix matcher to use, null ignored
-     * @return this, to enable chaining
-     * @throws NullPointerException if the suffix matcher is null
-     */
-    public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher) {
-        this.suffixMatcher = Objects.requireNonNull(suffixMatcher);
-        return this;
-    }
-
-    /**
-     * Sets the variable suffix to use.
-     * <p>
-     * The variable suffix is the character or characters that identify the
-     * end of a variable. This method allows a single character suffix to
-     * be easily set.
-     * </p>
-     *
-     * @param suffix  the suffix character to use
-     * @return this, to enable chaining
-     */
-    public StrSubstitutor setVariableSuffix(final char suffix) {
-        return setVariableSuffixMatcher(StrMatcher.charMatcher(suffix));
-    }
-
-    /**
-     * Sets the variable suffix to use.
-     * <p>
-     * The variable suffix is the character or characters that identify the
-     * end of a variable. This method allows a string suffix to be easily set.
-     * </p>
-     *
-     * @param suffix  the suffix for variables, not null
-     * @return this, to enable chaining
-     * @throws NullPointerException if the suffix is null
-     */
-    public StrSubstitutor setVariableSuffix(final String suffix) {
-        return setVariableSuffixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(suffix)));
-    }
-
-    /**
-     * Gets the variable default value delimiter matcher currently in use.
-     * <p>
-     * The variable default value delimiter is the character or characters that delimit the
-     * variable name and the variable default value. This delimiter is expressed in terms of a matcher
-     * allowing advanced variable default value delimiter matches.
-     * </p>
-     * <p>
-     * If it returns null, then the variable default value resolution is disabled.
-     * </p>
-     *
-     * @return the variable default value delimiter matcher in use, may be null
-     * @since 3.2
-     */
-    public StrMatcher getValueDelimiterMatcher() {
-        return valueDelimiterMatcher;
-    }
-
-    /**
-     * Sets the variable default value delimiter matcher to use.
-     * <p>
-     * The variable default value delimiter is the character or characters that delimit the
-     * variable name and the variable default value. This delimiter is expressed in terms of a matcher
-     * allowing advanced variable default value delimiter matches.
-     * </p>
-     * <p>
-     * If the {@code valueDelimiterMatcher} is null, then the variable default value resolution
-     * becomes disabled.
-     * </p>
-     *
-     * @param valueDelimiterMatcher  variable default value delimiter matcher to use, may be null
-     * @return this, to enable chaining
-     * @since 3.2
-     */
-    public StrSubstitutor setValueDelimiterMatcher(final StrMatcher valueDelimiterMatcher) {
-        this.valueDelimiterMatcher = valueDelimiterMatcher;
-        return this;
-    }
-
-    /**
-     * Sets the variable default value delimiter to use.
-     * <p>
-     * The variable default value delimiter is the character or characters that delimit the
-     * variable name and the variable default value. This method allows a single character
-     * variable default value delimiter to be easily set.
-     * </p>
-     *
-     * @param valueDelimiter  the variable default value delimiter character to use
-     * @return this, to enable chaining
-     * @since 3.2
-     */
-    public StrSubstitutor setValueDelimiter(final char valueDelimiter) {
-        return setValueDelimiterMatcher(StrMatcher.charMatcher(valueDelimiter));
-    }
-
-    /**
-     * Sets the variable default value delimiter to use.
-     * <p>
-     * The variable default value delimiter is the character or characters that delimit the
-     * variable name and the variable default value. This method allows a string
-     * variable default value delimiter to be easily set.
-     * </p>
-     * <p>
-     * If the {@code valueDelimiter} is null or empty string, then the variable default
-     * value resolution becomes disabled.
-     * </p>
-     *
-     * @param valueDelimiter  the variable default value delimiter string to use, may be null or empty
-     * @return this, to enable chaining
-     * @since 3.2
-     */
-    public StrSubstitutor setValueDelimiter(final String valueDelimiter) {
-        if (StringUtils.isEmpty(valueDelimiter)) {
-            setValueDelimiterMatcher(null);
-            return this;
-        }
-        return setValueDelimiterMatcher(StrMatcher.stringMatcher(valueDelimiter));
-    }
-
-    /**
-     * Gets the VariableResolver that is used to lookup variables.
-     *
-     * @return the VariableResolver
-     */
-    public StrLookup<?> getVariableResolver() {
-        return this.variableResolver;
-    }
-
-    /**
-     * Sets the VariableResolver that is used to lookup variables.
-     *
-     * @param variableResolver  the VariableResolver
-     */
-    public void setVariableResolver(final StrLookup<?> variableResolver) {
-        this.variableResolver = variableResolver;
-    }
-
-    /**
-     * Returns a flag whether substitution is done in variable names.
-     *
-     * @return the substitution in variable names flag
-     * @since 3.0
-     */
-    public boolean isEnableSubstitutionInVariables() {
-        return enableSubstitutionInVariables;
-    }
-
-    /**
-     * Sets a flag whether substitution is done in variable names. If set to
-     * <b>true</b>, the names of variables can contain other variables which are
-     * processed first before the original variable is evaluated, e.g.
-     * {@code ${jre-${java.version}}}. The default value is <b>false</b>.
-     *
-     * @param enableSubstitutionInVariables the new value of the flag
-     * @since 3.0
-     */
-    public void setEnableSubstitutionInVariables(
-            final boolean enableSubstitutionInVariables) {
-        this.enableSubstitutionInVariables = enableSubstitutionInVariables;
-    }
-
-    /**
-     * Returns the flag controlling whether escapes are preserved during
-     * substitution.
-     *
-     * @return the preserve escape flag
-     * @since 3.5
-     */
-    public boolean isPreserveEscapes() {
-        return preserveEscapes;
-    }
-
-    /**
-     * Sets a flag controlling whether escapes are preserved during
-     * substitution.  If set to <b>true</b>, the escape character is retained
-     * during substitution (e.g. {@code $${this-is-escaped}} remains
-     * {@code $${this-is-escaped}}).  If set to <b>false</b>, the escape
-     * character is removed during substitution (e.g.
-     * {@code $${this-is-escaped}} becomes
-     * {@code ${this-is-escaped}}).  The default value is <b>false</b>
-     *
-     * @param preserveEscapes true if escapes are to be preserved
-     * @since 3.5
-     */
-    public void setPreserveEscapes(final boolean preserveEscapes) {
-        this.preserveEscapes = preserveEscapes;
     }
 }

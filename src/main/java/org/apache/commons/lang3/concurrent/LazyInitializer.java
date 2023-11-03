@@ -149,6 +149,14 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ConcurrentException getTypedException(Exception e) {
+        return new ConcurrentException(e);
+    }
+
+    /**
      * Tests whether this instance is initialized. Once initialized, always returns true.
      *
      * @return whether this instance is initialized. Once initialized, always returns true.
@@ -157,14 +165,6 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
     @Override
     public boolean isInitialized() {
         return object != NO_INIT;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected ConcurrentException getTypedException(Exception e) {
-        return new ConcurrentException(e);
     }
 
 }

@@ -30,116 +30,6 @@ import org.apache.commons.lang3.Validate;
 public class IEEE754rUtils {
 
      /**
-     * Returns the minimum value in an array.
-     *
-     * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty
-     * @since 3.4 Changed signature from min(double[]) to min(double...)
-     */
-    public static double min(final double... array) {
-        Objects.requireNonNull(array, "array");
-        Validate.isTrue(array.length != 0, "Array cannot be empty.");
-
-        // Finds and returns min
-        double min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            min = min(array[i], min);
-        }
-
-        return min;
-    }
-
-    /**
-     * Returns the minimum value in an array.
-     *
-     * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty
-     * @since 3.4 Changed signature from min(float[]) to min(float...)
-     */
-    public static float min(final float... array) {
-        Objects.requireNonNull(array, "array");
-        Validate.isTrue(array.length != 0, "Array cannot be empty.");
-
-        // Finds and returns min
-        float min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            min = min(array[i], min);
-        }
-
-        return min;
-    }
-
-    /**
-     * Gets the minimum of three {@code double} values.
-     *
-     * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
-     *
-     * @param a  value 1
-     * @param b  value 2
-     * @param c  value 3
-     * @return  the smallest of the values
-     */
-    public static double min(final double a, final double b, final double c) {
-        return min(min(a, b), c);
-    }
-
-    /**
-     * Gets the minimum of two {@code double} values.
-     *
-     * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
-     *
-     * @param a  value 1
-     * @param b  value 2
-     * @return  the smallest of the values
-     */
-    public static double min(final double a, final double b) {
-        if (Double.isNaN(a)) {
-            return b;
-        }
-        if (Double.isNaN(b)) {
-            return a;
-        }
-        return Math.min(a, b);
-    }
-
-    /**
-     * Gets the minimum of three {@code float} values.
-     *
-     * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
-     *
-     * @param a  value 1
-     * @param b  value 2
-     * @param c  value 3
-     * @return  the smallest of the values
-     */
-    public static float min(final float a, final float b, final float c) {
-        return min(min(a, b), c);
-    }
-
-    /**
-     * Gets the minimum of two {@code float} values.
-     *
-     * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
-     *
-     * @param a  value 1
-     * @param b  value 2
-     * @return  the smallest of the values
-     */
-    public static float min(final float a, final float b) {
-        if (Float.isNaN(a)) {
-            return b;
-        }
-        if (Float.isNaN(b)) {
-            return a;
-        }
-        return Math.min(a, b);
-    }
-
-    /**
      * Returns the maximum value in an array.
      *
      * @param array  an array, must not be null or empty
@@ -159,6 +49,39 @@ public class IEEE754rUtils {
         }
 
         return max;
+    }
+
+    /**
+     * Gets the maximum of two {@code double} values.
+     *
+     * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @return  the largest of the values
+     */
+    public static double max(final double a, final double b) {
+        if (Double.isNaN(a)) {
+            return b;
+        }
+        if (Double.isNaN(b)) {
+            return a;
+        }
+        return Math.max(a, b);
+    }
+
+    /**
+     * Gets the maximum of three {@code double} values.
+     *
+     * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static double max(final double a, final double b, final double c) {
+        return max(max(a, b), c);
     }
 
     /**
@@ -184,21 +107,7 @@ public class IEEE754rUtils {
     }
 
     /**
-     * Gets the maximum of three {@code double} values.
-     *
-     * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
-     *
-     * @param a  value 1
-     * @param b  value 2
-     * @param c  value 3
-     * @return  the largest of the values
-     */
-    public static double max(final double a, final double b, final double c) {
-        return max(max(a, b), c);
-    }
-
-    /**
-     * Gets the maximum of two {@code double} values.
+     * Gets the maximum of two {@code float} values.
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
      *
@@ -206,11 +115,11 @@ public class IEEE754rUtils {
      * @param b  value 2
      * @return  the largest of the values
      */
-    public static double max(final double a, final double b) {
-        if (Double.isNaN(a)) {
+    public static float max(final float a, final float b) {
+        if (Float.isNaN(a)) {
             return b;
         }
-        if (Double.isNaN(b)) {
+        if (Float.isNaN(b)) {
             return a;
         }
         return Math.max(a, b);
@@ -231,22 +140,113 @@ public class IEEE754rUtils {
     }
 
     /**
-     * Gets the maximum of two {@code float} values.
+     * Returns the minimum value in an array.
+     *
+     * @param array  an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from min(double[]) to min(double...)
+     */
+    public static double min(final double... array) {
+        Objects.requireNonNull(array, "array");
+        Validate.isTrue(array.length != 0, "Array cannot be empty.");
+
+        // Finds and returns min
+        double min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            min = min(array[i], min);
+        }
+
+        return min;
+    }
+
+    /**
+     * Gets the minimum of two {@code double} values.
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
      *
      * @param a  value 1
      * @param b  value 2
-     * @return  the largest of the values
+     * @return  the smallest of the values
      */
-    public static float max(final float a, final float b) {
+    public static double min(final double a, final double b) {
+        if (Double.isNaN(a)) {
+            return b;
+        }
+        if (Double.isNaN(b)) {
+            return a;
+        }
+        return Math.min(a, b);
+    }
+
+    /**
+     * Gets the minimum of three {@code double} values.
+     *
+     * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static double min(final double a, final double b, final double c) {
+        return min(min(a, b), c);
+    }
+
+    /**
+     * Returns the minimum value in an array.
+     *
+     * @param array  an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws NullPointerException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from min(float[]) to min(float...)
+     */
+    public static float min(final float... array) {
+        Objects.requireNonNull(array, "array");
+        Validate.isTrue(array.length != 0, "Array cannot be empty.");
+
+        // Finds and returns min
+        float min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            min = min(array[i], min);
+        }
+
+        return min;
+    }
+
+    /**
+     * Gets the minimum of two {@code float} values.
+     *
+     * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @return  the smallest of the values
+     */
+    public static float min(final float a, final float b) {
         if (Float.isNaN(a)) {
             return b;
         }
         if (Float.isNaN(b)) {
             return a;
         }
-        return Math.max(a, b);
+        return Math.min(a, b);
+    }
+
+    /**
+     * Gets the minimum of three {@code float} values.
+     *
+     * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static float min(final float a, final float b, final float c) {
+        return min(min(a, b), c);
     }
 
 }

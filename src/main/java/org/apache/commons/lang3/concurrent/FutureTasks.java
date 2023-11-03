@@ -26,10 +26,6 @@ import java.util.concurrent.FutureTask;
  */
 public class FutureTasks {
 
-    private FutureTasks() {
-        // No instances needed.
-    }
-
     /**
      * Creates a {@link FutureTask} and runs the given {@link Callable}.
      *
@@ -41,5 +37,9 @@ public class FutureTasks {
         final FutureTask<V> futureTask = new FutureTask<>(callable);
         futureTask.run();
         return futureTask;
+    }
+
+    private FutureTasks() {
+        // No instances needed.
     }
 }

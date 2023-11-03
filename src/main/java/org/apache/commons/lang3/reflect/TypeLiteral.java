@@ -108,6 +108,11 @@ public abstract class TypeLiteral<T> implements Typed<T> {
     }
 
     @Override
+    public Type getType() {
+        return value;
+    }
+
+    @Override
     public int hashCode() {
         return 37 << 4 | value.hashCode();
     }
@@ -115,10 +120,5 @@ public abstract class TypeLiteral<T> implements Typed<T> {
     @Override
     public String toString() {
         return toString;
-    }
-
-    @Override
-    public Type getType() {
-        return value;
     }
 }

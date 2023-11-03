@@ -92,143 +92,21 @@ public final class Fraction extends Number implements Comparable<Fraction> {
 
 
     /**
-     * The numerator number part of the fraction (the three in three sevenths).
-     */
-    private final int numerator;
-    /**
-     * The denominator number part of the fraction (the seven in three sevenths).
-     */
-    private final int denominator;
-
-    /**
-     * Cached output hashCode (class is immutable).
-     */
-    private transient int hashCode;
-    /**
-     * Cached output toString (class is immutable).
-     */
-    private transient String toString;
-    /**
-     * Cached output toProperString (class is immutable).
-     */
-    private transient String toProperString;
-
-    /**
-     * Constructs a {@link Fraction} instance with the 2 parts
-     * of a fraction Y/Z.
+     * Add two integers, checking for overflow.
      *
-     * @param numerator  the numerator, for example the three in 'three sevenths'
-     * @param denominator  the denominator, for example the seven in 'three sevenths'
+     * @param x an addend
+     * @param y an addend
+     * @return the sum {@code x+y}
+     * @throws ArithmeticException if the result can not be represented as
+     * an int
      */
-    private Fraction(final int numerator, final int denominator) {
-        this.numerator = numerator;
-        this.denominator = denominator;
+    private static int addAndCheck(final int x, final int y) {
+        final long s = (long) x + (long) y;
+        if (s < Integer.MIN_VALUE || s > Integer.MAX_VALUE) {
+            throw new ArithmeticException("overflow: add");
+        }
+        return (int) s;
     }
-
-    /**
-     * Creates a {@link Fraction} instance with the 2 parts
-     * of a fraction Y/Z.
-     *
-     * <p>Any negative signs are resolved to be on the numerator.</p>
-     *
-     * @param numerator  the numerator, for example the three in 'three sevenths'
-     * @param denominator  the denominator, for example the seven in 'three sevenths'
-     * @return a new fraction instance
-     * @throws ArithmeticException if the denominator is {@code zero}
-     * or the denominator is {@code negative} and the numerator is {@code Integer#MIN_VALUE}
-     */
-    public static Fraction getFraction(int numerator, int denominator) {
-        if (denominator == 0) {
-            throw new ArithmeticException("The denominator must not be zero");
-        }
-        if (denominator < 0) {
-            if (numerator == Integer.MIN_VALUE || denominator == Integer.MIN_VALUE) {
-                throw new ArithmeticException("overflow: can't negate");
-            }
-            numerator = -numerator;
-            denominator = -denominator;
-        }
-        return new Fraction(numerator, denominator);
-    }
-
-    /**
-     * Creates a {@link Fraction} instance with the 3 parts
-     * of a fraction X Y/Z.
-     *
-     * <p>The negative sign must be passed in on the whole number part.</p>
-     *
-     * @param whole  the whole number, for example the one in 'one and three sevenths'
-     * @param numerator  the numerator, for example the three in 'one and three sevenths'
-     * @param denominator  the denominator, for example the seven in 'one and three sevenths'
-     * @return a new fraction instance
-     * @throws ArithmeticException if the denominator is {@code zero}
-     * @throws ArithmeticException if the denominator is negative
-     * @throws ArithmeticException if the numerator is negative
-     * @throws ArithmeticException if the resulting numerator exceeds
-     *  {@code Integer.MAX_VALUE}
-     */
-    public static Fraction getFraction(final int whole, final int numerator, final int denominator) {
-        if (denominator == 0) {
-            throw new ArithmeticException("The denominator must not be zero");
-        }
-        if (denominator < 0) {
-            throw new ArithmeticException("The denominator must not be negative");
-        }
-        if (numerator < 0) {
-            throw new ArithmeticException("The numerator must not be negative");
-        }
-        final long numeratorValue;
-        if (whole < 0) {
-            numeratorValue = whole * (long) denominator - numerator;
-        } else {
-            numeratorValue = whole * (long) denominator + numerator;
-        }
-        if (numeratorValue < Integer.MIN_VALUE || numeratorValue > Integer.MAX_VALUE) {
-            throw new ArithmeticException("Numerator too large to represent as an Integer.");
-        }
-        return new Fraction((int) numeratorValue, denominator);
-    }
-
-    /**
-     * Creates a reduced {@link Fraction} instance with the 2 parts
-     * of a fraction Y/Z.
-     *
-     * <p>For example, if the input parameters represent 2/4, then the created
-     * fraction will be 1/2.</p>
-     *
-     * <p>Any negative signs are resolved to be on the numerator.</p>
-     *
-     * @param numerator  the numerator, for example the three in 'three sevenths'
-     * @param denominator  the denominator, for example the seven in 'three sevenths'
-     * @return a new fraction instance, with the numerator and denominator reduced
-     * @throws ArithmeticException if the denominator is {@code zero}
-     */
-    public static Fraction getReducedFraction(int numerator, int denominator) {
-        if (denominator == 0) {
-            throw new ArithmeticException("The denominator must not be zero");
-        }
-        if (numerator == 0) {
-            return ZERO; // normalize zero.
-        }
-        // allow 2^k/-2^31 as a valid fraction (where k>0)
-        if (denominator == Integer.MIN_VALUE && (numerator & 1) == 0) {
-            numerator /= 2;
-            denominator /= 2;
-        }
-        if (denominator < 0) {
-            if (numerator == Integer.MIN_VALUE || denominator == Integer.MIN_VALUE) {
-                throw new ArithmeticException("overflow: can't negate");
-            }
-            numerator = -numerator;
-            denominator = -denominator;
-        }
-        // simplify fraction.
-        final int gcd = greatestCommonDivisor(numerator, denominator);
-        numerator /= gcd;
-        denominator /= gcd;
-        return new Fraction(numerator, denominator);
-    }
-
     /**
      * Creates a {@link Fraction} instance from a {@code double} value.
      *
@@ -292,6 +170,68 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
+     * Creates a {@link Fraction} instance with the 2 parts
+     * of a fraction Y/Z.
+     *
+     * <p>Any negative signs are resolved to be on the numerator.</p>
+     *
+     * @param numerator  the numerator, for example the three in 'three sevenths'
+     * @param denominator  the denominator, for example the seven in 'three sevenths'
+     * @return a new fraction instance
+     * @throws ArithmeticException if the denominator is {@code zero}
+     * or the denominator is {@code negative} and the numerator is {@code Integer#MIN_VALUE}
+     */
+    public static Fraction getFraction(int numerator, int denominator) {
+        if (denominator == 0) {
+            throw new ArithmeticException("The denominator must not be zero");
+        }
+        if (denominator < 0) {
+            if (numerator == Integer.MIN_VALUE || denominator == Integer.MIN_VALUE) {
+                throw new ArithmeticException("overflow: can't negate");
+            }
+            numerator = -numerator;
+            denominator = -denominator;
+        }
+        return new Fraction(numerator, denominator);
+    }
+    /**
+     * Creates a {@link Fraction} instance with the 3 parts
+     * of a fraction X Y/Z.
+     *
+     * <p>The negative sign must be passed in on the whole number part.</p>
+     *
+     * @param whole  the whole number, for example the one in 'one and three sevenths'
+     * @param numerator  the numerator, for example the three in 'one and three sevenths'
+     * @param denominator  the denominator, for example the seven in 'one and three sevenths'
+     * @return a new fraction instance
+     * @throws ArithmeticException if the denominator is {@code zero}
+     * @throws ArithmeticException if the denominator is negative
+     * @throws ArithmeticException if the numerator is negative
+     * @throws ArithmeticException if the resulting numerator exceeds
+     *  {@code Integer.MAX_VALUE}
+     */
+    public static Fraction getFraction(final int whole, final int numerator, final int denominator) {
+        if (denominator == 0) {
+            throw new ArithmeticException("The denominator must not be zero");
+        }
+        if (denominator < 0) {
+            throw new ArithmeticException("The denominator must not be negative");
+        }
+        if (numerator < 0) {
+            throw new ArithmeticException("The numerator must not be negative");
+        }
+        final long numeratorValue;
+        if (whole < 0) {
+            numeratorValue = whole * (long) denominator - numerator;
+        } else {
+            numeratorValue = whole * (long) denominator + numerator;
+        }
+        if (numeratorValue < Integer.MIN_VALUE || numeratorValue > Integer.MAX_VALUE) {
+            throw new ArithmeticException("Numerator too large to represent as an Integer.");
+        }
+        return new Fraction((int) numeratorValue, denominator);
+    }
+    /**
      * Creates a Fraction from a {@link String}.
      *
      * <p>The formats accepted are:</p>
@@ -343,203 +283,43 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
-     * Gets the numerator part of the fraction.
+     * Creates a reduced {@link Fraction} instance with the 2 parts
+     * of a fraction Y/Z.
      *
-     * <p>This method may return a value greater than the denominator, an
-     * improper fraction, such as the seven in 7/4.</p>
+     * <p>For example, if the input parameters represent 2/4, then the created
+     * fraction will be 1/2.</p>
      *
-     * @return the numerator fraction part
+     * <p>Any negative signs are resolved to be on the numerator.</p>
+     *
+     * @param numerator  the numerator, for example the three in 'three sevenths'
+     * @param denominator  the denominator, for example the seven in 'three sevenths'
+     * @return a new fraction instance, with the numerator and denominator reduced
+     * @throws ArithmeticException if the denominator is {@code zero}
      */
-    public int getNumerator() {
-        return numerator;
-    }
-
-    /**
-     * Gets the denominator part of the fraction.
-     *
-     * @return the denominator fraction part
-     */
-    public int getDenominator() {
-        return denominator;
-    }
-
-    /**
-     * Gets the proper numerator, always positive.
-     *
-     * <p>An improper fraction 7/4 can be resolved into a proper one, 1 3/4.
-     * This method returns the 3 from the proper fraction.</p>
-     *
-     * <p>If the fraction is negative such as -7/4, it can be resolved into
-     * -1 3/4, so this method returns the positive proper numerator, 3.</p>
-     *
-     * @return the numerator fraction part of a proper fraction, always positive
-     */
-    public int getProperNumerator() {
-        return Math.abs(numerator % denominator);
-    }
-
-    /**
-     * Gets the proper whole part of the fraction.
-     *
-     * <p>An improper fraction 7/4 can be resolved into a proper one, 1 3/4.
-     * This method returns the 1 from the proper fraction.</p>
-     *
-     * <p>If the fraction is negative such as -7/4, it can be resolved into
-     * -1 3/4, so this method returns the positive whole part -1.</p>
-     *
-     * @return the whole fraction part of a proper fraction, that includes the sign
-     */
-    public int getProperWhole() {
-        return numerator / denominator;
-    }
-
-    /**
-     * Gets the fraction as an {@code int}. This returns the whole number
-     * part of the fraction.
-     *
-     * @return the whole number fraction part
-     */
-    @Override
-    public int intValue() {
-        return numerator / denominator;
-    }
-
-    /**
-     * Gets the fraction as a {@code long}. This returns the whole number
-     * part of the fraction.
-     *
-     * @return the whole number fraction part
-     */
-    @Override
-    public long longValue() {
-        return (long) numerator / denominator;
-    }
-
-    /**
-     * Gets the fraction as a {@code float}. This calculates the fraction
-     * as the numerator divided by denominator.
-     *
-     * @return the fraction as a {@code float}
-     */
-    @Override
-    public float floatValue() {
-        return (float) numerator / (float) denominator;
-    }
-
-    /**
-     * Gets the fraction as a {@code double}. This calculates the fraction
-     * as the numerator divided by denominator.
-     *
-     * @return the fraction as a {@code double}
-     */
-    @Override
-    public double doubleValue() {
-        return (double) numerator / (double) denominator;
-    }
-
-    /**
-     * Reduce the fraction to the smallest values for the numerator and
-     * denominator, returning the result.
-     *
-     * <p>For example, if this fraction represents 2/4, then the result
-     * will be 1/2.</p>
-     *
-     * @return a new reduced fraction instance, or this if no simplification possible
-     */
-    public Fraction reduce() {
+    public static Fraction getReducedFraction(int numerator, int denominator) {
+        if (denominator == 0) {
+            throw new ArithmeticException("The denominator must not be zero");
+        }
         if (numerator == 0) {
-            return equals(ZERO) ? this : ZERO;
+            return ZERO; // normalize zero.
         }
-        final int gcd = greatestCommonDivisor(Math.abs(numerator), denominator);
-        if (gcd == 1) {
-            return this;
+        // allow 2^k/-2^31 as a valid fraction (where k>0)
+        if (denominator == Integer.MIN_VALUE && (numerator & 1) == 0) {
+            numerator /= 2;
+            denominator /= 2;
         }
-        return getFraction(numerator / gcd, denominator / gcd);
-    }
-
-    /**
-     * Gets a fraction that is the inverse (1/fraction) of this one.
-     *
-     * <p>The returned fraction is not reduced.</p>
-     *
-     * @return a new fraction instance with the numerator and denominator
-     *         inverted.
-     * @throws ArithmeticException if the fraction represents zero.
-     */
-    public Fraction invert() {
-        if (numerator == 0) {
-            throw new ArithmeticException("Unable to invert zero.");
-        }
-        if (numerator==Integer.MIN_VALUE) {
-            throw new ArithmeticException("overflow: can't negate numerator");
-        }
-        if (numerator<0) {
-            return new Fraction(-denominator, -numerator);
-        }
-        return new Fraction(denominator, numerator);
-    }
-
-    /**
-     * Gets a fraction that is the negative (-fraction) of this one.
-     *
-     * <p>The returned fraction is not reduced.</p>
-     *
-     * @return a new fraction instance with the opposite signed numerator
-     */
-    public Fraction negate() {
-        // the positive range is one smaller than the negative range of an int.
-        if (numerator==Integer.MIN_VALUE) {
-            throw new ArithmeticException("overflow: too large to negate");
-        }
-        return new Fraction(-numerator, denominator);
-    }
-
-    /**
-     * Gets a fraction that is the positive equivalent of this one.
-     * <p>More precisely: {@code (fraction &gt;= 0 ? this : -fraction)}</p>
-     *
-     * <p>The returned fraction is not reduced.</p>
-     *
-     * @return {@code this} if it is positive, or a new positive fraction
-     *  instance with the opposite signed numerator
-     */
-    public Fraction abs() {
-        if (numerator >= 0) {
-            return this;
-        }
-        return negate();
-    }
-
-    /**
-     * Gets a fraction that is raised to the passed in power.
-     *
-     * <p>The returned fraction is in reduced form.</p>
-     *
-     * @param power  the power to raise the fraction to
-     * @return {@code this} if the power is one, {@link #ONE} if the power
-     * is zero (even if the fraction equals ZERO) or a new fraction instance
-     * raised to the appropriate power
-     * @throws ArithmeticException if the resulting numerator or denominator exceeds
-     *  {@code Integer.MAX_VALUE}
-     */
-    public Fraction pow(final int power) {
-        if (power == 1) {
-            return this;
-        }
-        if (power == 0) {
-            return ONE;
-        }
-        if (power < 0) {
-            if (power == Integer.MIN_VALUE) { // MIN_VALUE can't be negated.
-                return this.invert().pow(2).pow(-(power / 2));
+        if (denominator < 0) {
+            if (numerator == Integer.MIN_VALUE || denominator == Integer.MIN_VALUE) {
+                throw new ArithmeticException("overflow: can't negate");
             }
-            return this.invert().pow(-power);
+            numerator = -numerator;
+            denominator = -denominator;
         }
-        final Fraction f = this.multiplyBy(this);
-        if (power % 2 == 0) { // if even...
-            return f.pow(power / 2);
-        }
-        return f.pow(power / 2).multiplyBy(this);
+        // simplify fraction.
+        final int gcd = greatestCommonDivisor(numerator, denominator);
+        numerator /= gcd;
+        denominator /= gcd;
+        return new Fraction(numerator, denominator);
     }
 
     /**
@@ -645,23 +425,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
-     * Add two integers, checking for overflow.
-     *
-     * @param x an addend
-     * @param y an addend
-     * @return the sum {@code x+y}
-     * @throws ArithmeticException if the result can not be represented as
-     * an int
-     */
-    private static int addAndCheck(final int x, final int y) {
-        final long s = (long) x + (long) y;
-        if (s < Integer.MIN_VALUE || s > Integer.MAX_VALUE) {
-            throw new ArithmeticException("overflow: add");
-        }
-        return (int) s;
-    }
-
-    /**
      * Subtract two integers, checking for overflow.
      *
      * @param x the minuend
@@ -679,6 +442,59 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
+     * The numerator number part of the fraction (the three in three sevenths).
+     */
+    private final int numerator;
+
+    /**
+     * The denominator number part of the fraction (the seven in three sevenths).
+     */
+    private final int denominator;
+
+    /**
+     * Cached output hashCode (class is immutable).
+     */
+    private transient int hashCode;
+
+    /**
+     * Cached output toString (class is immutable).
+     */
+    private transient String toString;
+
+    /**
+     * Cached output toProperString (class is immutable).
+     */
+    private transient String toProperString;
+
+    /**
+     * Constructs a {@link Fraction} instance with the 2 parts
+     * of a fraction Y/Z.
+     *
+     * @param numerator  the numerator, for example the three in 'three sevenths'
+     * @param denominator  the denominator, for example the seven in 'three sevenths'
+     */
+    private Fraction(final int numerator, final int denominator) {
+        this.numerator = numerator;
+        this.denominator = denominator;
+    }
+
+    /**
+     * Gets a fraction that is the positive equivalent of this one.
+     * <p>More precisely: {@code (fraction &gt;= 0 ? this : -fraction)}</p>
+     *
+     * <p>The returned fraction is not reduced.</p>
+     *
+     * @return {@code this} if it is positive, or a new positive fraction
+     *  instance with the opposite signed numerator
+     */
+    public Fraction abs() {
+        if (numerator >= 0) {
+            return this;
+        }
+        return negate();
+    }
+
+    /**
      * Adds the value of this fraction to another, returning the result in reduced form.
      * The algorithm follows Knuth, 4.5.1.
      *
@@ -690,20 +506,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     public Fraction add(final Fraction fraction) {
         return addSub(fraction, true /* add */);
-    }
-
-    /**
-     * Subtracts the value of another fraction from the value of this one,
-     * returning the result in reduced form.
-     *
-     * @param fraction  the fraction to subtract, must not be {@code null}
-     * @return a {@link Fraction} instance with the resulting values
-     * @throws NullPointerException if the fraction is {@code null}
-     * @throws ArithmeticException if the resulting numerator or denominator
-     *   cannot be represented in an {@code int}.
-     */
-    public Fraction subtract(final Fraction fraction) {
-        return addSub(fraction, false /* subtract */);
     }
 
     /**
@@ -755,81 +557,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
-     * Multiplies the value of this fraction by another, returning the
-     * result in reduced form.
-     *
-     * @param fraction  the fraction to multiply by, must not be {@code null}
-     * @return a {@link Fraction} instance with the resulting values
-     * @throws NullPointerException if the fraction is {@code null}
-     * @throws ArithmeticException if the resulting numerator or denominator exceeds
-     *  {@code Integer.MAX_VALUE}
-     */
-    public Fraction multiplyBy(final Fraction fraction) {
-        Objects.requireNonNull(fraction, "fraction");
-        if (numerator == 0 || fraction.numerator == 0) {
-            return ZERO;
-        }
-        // knuth 4.5.1
-        // make sure we don't overflow unless the result *must* overflow.
-        final int d1 = greatestCommonDivisor(numerator, fraction.denominator);
-        final int d2 = greatestCommonDivisor(fraction.numerator, denominator);
-        return getReducedFraction(mulAndCheck(numerator / d1, fraction.numerator / d2),
-                mulPosAndCheck(denominator / d2, fraction.denominator / d1));
-    }
-
-    /**
-     * Divide the value of this fraction by another.
-     *
-     * @param fraction  the fraction to divide by, must not be {@code null}
-     * @return a {@link Fraction} instance with the resulting values
-     * @throws NullPointerException if the fraction is {@code null}
-     * @throws ArithmeticException if the fraction to divide by is zero
-     * @throws ArithmeticException if the resulting numerator or denominator exceeds
-     *  {@code Integer.MAX_VALUE}
-     */
-    public Fraction divideBy(final Fraction fraction) {
-        Objects.requireNonNull(fraction, "fraction");
-        if (fraction.numerator == 0) {
-            throw new ArithmeticException("The fraction to divide by must not be zero");
-        }
-        return multiplyBy(fraction.invert());
-    }
-
-    /**
-     * Compares this fraction to another object to test if they are equal..
-     *
-     * <p>To be equal, both values must be equal. Thus 2/4 is not equal to 1/2.</p>
-     *
-     * @param obj the reference object with which to compare
-     * @return {@code true} if this object is equal
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof Fraction)) {
-            return false;
-        }
-        final Fraction other = (Fraction) obj;
-        return getNumerator() == other.getNumerator() && getDenominator() == other.getDenominator();
-    }
-
-    /**
-     * Gets a hashCode for the fraction.
-     *
-     * @return a hash code value for this object
-     */
-    @Override
-    public int hashCode() {
-        if (hashCode == 0) {
-            // hash code update should be atomic.
-            hashCode = 37 * (37 * 17 + getNumerator()) + getDenominator();
-        }
-        return hashCode;
-    }
-
-    /**
      * Compares this object to another based on size.
      *
      * <p>Note: this class has a natural ordering that is inconsistent
@@ -857,18 +584,276 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
-     * Gets the fraction as a {@link String}.
+     * Divide the value of this fraction by another.
      *
-     * <p>The format used is '<i>numerator</i>/<i>denominator</i>' always.
+     * @param fraction  the fraction to divide by, must not be {@code null}
+     * @return a {@link Fraction} instance with the resulting values
+     * @throws NullPointerException if the fraction is {@code null}
+     * @throws ArithmeticException if the fraction to divide by is zero
+     * @throws ArithmeticException if the resulting numerator or denominator exceeds
+     *  {@code Integer.MAX_VALUE}
+     */
+    public Fraction divideBy(final Fraction fraction) {
+        Objects.requireNonNull(fraction, "fraction");
+        if (fraction.numerator == 0) {
+            throw new ArithmeticException("The fraction to divide by must not be zero");
+        }
+        return multiplyBy(fraction.invert());
+    }
+
+    /**
+     * Gets the fraction as a {@code double}. This calculates the fraction
+     * as the numerator divided by denominator.
      *
-     * @return a {@link String} form of the fraction
+     * @return the fraction as a {@code double}
      */
     @Override
-    public String toString() {
-        if (toString == null) {
-            toString = getNumerator() + "/" + getDenominator();
+    public double doubleValue() {
+        return (double) numerator / (double) denominator;
+    }
+
+    /**
+     * Compares this fraction to another object to test if they are equal..
+     *
+     * <p>To be equal, both values must be equal. Thus 2/4 is not equal to 1/2.</p>
+     *
+     * @param obj the reference object with which to compare
+     * @return {@code true} if this object is equal
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == this) {
+            return true;
         }
-        return toString;
+        if (!(obj instanceof Fraction)) {
+            return false;
+        }
+        final Fraction other = (Fraction) obj;
+        return getNumerator() == other.getNumerator() && getDenominator() == other.getDenominator();
+    }
+
+    /**
+     * Gets the fraction as a {@code float}. This calculates the fraction
+     * as the numerator divided by denominator.
+     *
+     * @return the fraction as a {@code float}
+     */
+    @Override
+    public float floatValue() {
+        return (float) numerator / (float) denominator;
+    }
+
+    /**
+     * Gets the denominator part of the fraction.
+     *
+     * @return the denominator fraction part
+     */
+    public int getDenominator() {
+        return denominator;
+    }
+
+    /**
+     * Gets the numerator part of the fraction.
+     *
+     * <p>This method may return a value greater than the denominator, an
+     * improper fraction, such as the seven in 7/4.</p>
+     *
+     * @return the numerator fraction part
+     */
+    public int getNumerator() {
+        return numerator;
+    }
+
+    /**
+     * Gets the proper numerator, always positive.
+     *
+     * <p>An improper fraction 7/4 can be resolved into a proper one, 1 3/4.
+     * This method returns the 3 from the proper fraction.</p>
+     *
+     * <p>If the fraction is negative such as -7/4, it can be resolved into
+     * -1 3/4, so this method returns the positive proper numerator, 3.</p>
+     *
+     * @return the numerator fraction part of a proper fraction, always positive
+     */
+    public int getProperNumerator() {
+        return Math.abs(numerator % denominator);
+    }
+
+    /**
+     * Gets the proper whole part of the fraction.
+     *
+     * <p>An improper fraction 7/4 can be resolved into a proper one, 1 3/4.
+     * This method returns the 1 from the proper fraction.</p>
+     *
+     * <p>If the fraction is negative such as -7/4, it can be resolved into
+     * -1 3/4, so this method returns the positive whole part -1.</p>
+     *
+     * @return the whole fraction part of a proper fraction, that includes the sign
+     */
+    public int getProperWhole() {
+        return numerator / denominator;
+    }
+
+    /**
+     * Gets a hashCode for the fraction.
+     *
+     * @return a hash code value for this object
+     */
+    @Override
+    public int hashCode() {
+        if (hashCode == 0) {
+            // hash code update should be atomic.
+            hashCode = 37 * (37 * 17 + getNumerator()) + getDenominator();
+        }
+        return hashCode;
+    }
+
+    /**
+     * Gets the fraction as an {@code int}. This returns the whole number
+     * part of the fraction.
+     *
+     * @return the whole number fraction part
+     */
+    @Override
+    public int intValue() {
+        return numerator / denominator;
+    }
+
+    /**
+     * Gets a fraction that is the inverse (1/fraction) of this one.
+     *
+     * <p>The returned fraction is not reduced.</p>
+     *
+     * @return a new fraction instance with the numerator and denominator
+     *         inverted.
+     * @throws ArithmeticException if the fraction represents zero.
+     */
+    public Fraction invert() {
+        if (numerator == 0) {
+            throw new ArithmeticException("Unable to invert zero.");
+        }
+        if (numerator==Integer.MIN_VALUE) {
+            throw new ArithmeticException("overflow: can't negate numerator");
+        }
+        if (numerator<0) {
+            return new Fraction(-denominator, -numerator);
+        }
+        return new Fraction(denominator, numerator);
+    }
+
+    /**
+     * Gets the fraction as a {@code long}. This returns the whole number
+     * part of the fraction.
+     *
+     * @return the whole number fraction part
+     */
+    @Override
+    public long longValue() {
+        return (long) numerator / denominator;
+    }
+
+    /**
+     * Multiplies the value of this fraction by another, returning the
+     * result in reduced form.
+     *
+     * @param fraction  the fraction to multiply by, must not be {@code null}
+     * @return a {@link Fraction} instance with the resulting values
+     * @throws NullPointerException if the fraction is {@code null}
+     * @throws ArithmeticException if the resulting numerator or denominator exceeds
+     *  {@code Integer.MAX_VALUE}
+     */
+    public Fraction multiplyBy(final Fraction fraction) {
+        Objects.requireNonNull(fraction, "fraction");
+        if (numerator == 0 || fraction.numerator == 0) {
+            return ZERO;
+        }
+        // knuth 4.5.1
+        // make sure we don't overflow unless the result *must* overflow.
+        final int d1 = greatestCommonDivisor(numerator, fraction.denominator);
+        final int d2 = greatestCommonDivisor(fraction.numerator, denominator);
+        return getReducedFraction(mulAndCheck(numerator / d1, fraction.numerator / d2),
+                mulPosAndCheck(denominator / d2, fraction.denominator / d1));
+    }
+
+    /**
+     * Gets a fraction that is the negative (-fraction) of this one.
+     *
+     * <p>The returned fraction is not reduced.</p>
+     *
+     * @return a new fraction instance with the opposite signed numerator
+     */
+    public Fraction negate() {
+        // the positive range is one smaller than the negative range of an int.
+        if (numerator==Integer.MIN_VALUE) {
+            throw new ArithmeticException("overflow: too large to negate");
+        }
+        return new Fraction(-numerator, denominator);
+    }
+
+    /**
+     * Gets a fraction that is raised to the passed in power.
+     *
+     * <p>The returned fraction is in reduced form.</p>
+     *
+     * @param power  the power to raise the fraction to
+     * @return {@code this} if the power is one, {@link #ONE} if the power
+     * is zero (even if the fraction equals ZERO) or a new fraction instance
+     * raised to the appropriate power
+     * @throws ArithmeticException if the resulting numerator or denominator exceeds
+     *  {@code Integer.MAX_VALUE}
+     */
+    public Fraction pow(final int power) {
+        if (power == 1) {
+            return this;
+        }
+        if (power == 0) {
+            return ONE;
+        }
+        if (power < 0) {
+            if (power == Integer.MIN_VALUE) { // MIN_VALUE can't be negated.
+                return this.invert().pow(2).pow(-(power / 2));
+            }
+            return this.invert().pow(-power);
+        }
+        final Fraction f = this.multiplyBy(this);
+        if (power % 2 == 0) { // if even...
+            return f.pow(power / 2);
+        }
+        return f.pow(power / 2).multiplyBy(this);
+    }
+
+    /**
+     * Reduce the fraction to the smallest values for the numerator and
+     * denominator, returning the result.
+     *
+     * <p>For example, if this fraction represents 2/4, then the result
+     * will be 1/2.</p>
+     *
+     * @return a new reduced fraction instance, or this if no simplification possible
+     */
+    public Fraction reduce() {
+        if (numerator == 0) {
+            return equals(ZERO) ? this : ZERO;
+        }
+        final int gcd = greatestCommonDivisor(Math.abs(numerator), denominator);
+        if (gcd == 1) {
+            return this;
+        }
+        return getFraction(numerator / gcd, denominator / gcd);
+    }
+
+    /**
+     * Subtracts the value of another fraction from the value of this one,
+     * returning the result in reduced form.
+     *
+     * @param fraction  the fraction to subtract, must not be {@code null}
+     * @return a {@link Fraction} instance with the resulting values
+     * @throws NullPointerException if the fraction is {@code null}
+     * @throws ArithmeticException if the resulting numerator or denominator
+     *   cannot be represented in an {@code int}.
+     */
+    public Fraction subtract(final Fraction fraction) {
+        return addSub(fraction, false /* subtract */);
     }
 
     /**
@@ -904,5 +889,20 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             }
         }
         return toProperString;
+    }
+
+    /**
+     * Gets the fraction as a {@link String}.
+     *
+     * <p>The format used is '<i>numerator</i>/<i>denominator</i>' always.
+     *
+     * @return a {@link String} form of the fraction
+     */
+    @Override
+    public String toString() {
+        if (toString == null) {
+            toString = getNumerator() + "/" + getDenominator();
+        }
+        return toString;
     }
 }

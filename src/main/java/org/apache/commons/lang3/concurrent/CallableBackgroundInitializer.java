@@ -97,19 +97,6 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
     }
 
     /**
-     * Performs initialization in a background thread. This implementation
-     * delegates to the {@link Callable} passed at construction time of this
-     * object.
-     *
-     * @return the result of the initialization
-     * @throws Exception if an error occurs
-     */
-    @Override
-    protected T initialize() throws Exception {
-        return callable.call();
-    }
-
-    /**
      * Tests the passed in {@link Callable} and throws an exception if it is
      * undefined.
      *
@@ -127,5 +114,18 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
     protected Exception getTypedException(Exception e) {
         //This Exception object will be used for type comparison in AbstractConcurrentInitializer.initialize but not thrown
         return new Exception(e);
+    }
+
+    /**
+     * Performs initialization in a background thread. This implementation
+     * delegates to the {@link Callable} passed at construction time of this
+     * object.
+     *
+     * @return the result of the initialization
+     * @throws Exception if an error occurs
+     */
+    @Override
+    protected T initialize() throws Exception {
+        return callable.call();
     }
 }

@@ -26,17 +26,6 @@ import org.apache.commons.lang3.BooleanUtils;
 public class InheritanceUtils {
 
     /**
-     * {@link InheritanceUtils} instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as
-     * {@code MethodUtils.getAccessibleMethod(method)}.
-     *
-     * <p>This constructor is {@code public} to permit tools that require a JavaBean
-     * instance to operate.</p>
-     */
-    public InheritanceUtils() {
-    }
-
-    /**
      * Returns the number of inheritance hops between two classes.
      *
      * @param child the child class, may be {@code null}
@@ -62,5 +51,16 @@ public class InheritanceUtils {
         }
         d += distance(cParent, parent);
         return d > 0 ? d + 1 : -1;
+    }
+
+    /**
+     * {@link InheritanceUtils} instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as
+     * {@code MethodUtils.getAccessibleMethod(method)}.
+     *
+     * <p>This constructor is {@code public} to permit tools that require a JavaBean
+     * instance to operate.</p>
+     */
+    public InheritanceUtils() {
     }
 }

@@ -68,6 +68,43 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
+     * Returns the value of this MutableBoolean as a boolean.
+     *
+     * @return the boolean value represented by this object.
+     */
+    public boolean booleanValue() {
+        return value;
+    }
+
+    /**
+     * Compares this mutable to another in ascending order.
+     *
+     * @param other  the other mutable to compare to, not null
+     * @return negative if this is less, zero if equal, positive if greater
+     *  where false is less than true
+     */
+    @Override
+    public int compareTo(final MutableBoolean other) {
+        return BooleanUtils.compare(this.value, other.value);
+    }
+
+    /**
+     * Compares this object to the specified object. The result is {@code true} if and only if the argument is
+     * not {@code null} and is an {@link MutableBoolean} object that contains the same
+     * {@code boolean} value as this object.
+     *
+     * @param obj  the object to compare with, null returns false
+     * @return {@code true} if the objects are the same; {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj instanceof MutableBoolean) {
+            return value == ((MutableBoolean) obj).booleanValue();
+        }
+        return false;
+    }
+
+    /**
      * Gets the value as a Boolean instance.
      *
      * @return the value as a Boolean, never null
@@ -78,12 +115,33 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
-     * Sets the value.
+     * Returns a suitable hash code for this mutable.
      *
-     * @param value  the value to set
+     * @return the hash code returned by {@code Boolean.TRUE} or {@code Boolean.FALSE}
      */
-    public void setValue(final boolean value) {
-        this.value = value;
+    @Override
+    public int hashCode() {
+        return value ? Boolean.TRUE.hashCode() : Boolean.FALSE.hashCode();
+    }
+
+    /**
+     * Checks if the current value is {@code false}.
+     *
+     * @return {@code true} if the current value is {@code false}
+     * @since 2.5
+     */
+    public boolean isFalse() {
+        return !value;
+    }
+
+    /**
+     * Checks if the current value is {@code true}.
+     *
+     * @return {@code true} if the current value is {@code true}
+     * @since 2.5
+     */
+    public boolean isTrue() {
+        return value;
     }
 
     /**
@@ -105,6 +163,15 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
+     * Sets the value.
+     *
+     * @param value  the value to set
+     */
+    public void setValue(final boolean value) {
+        this.value = value;
+    }
+
+    /**
      * Sets the value from any Boolean instance.
      *
      * @param value  the value to set, not null
@@ -116,35 +183,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
-     * Checks if the current value is {@code true}.
-     *
-     * @return {@code true} if the current value is {@code true}
-     * @since 2.5
-     */
-    public boolean isTrue() {
-        return value;
-    }
-
-    /**
-     * Checks if the current value is {@code false}.
-     *
-     * @return {@code true} if the current value is {@code false}
-     * @since 2.5
-     */
-    public boolean isFalse() {
-        return !value;
-    }
-
-    /**
-     * Returns the value of this MutableBoolean as a boolean.
-     *
-     * @return the boolean value represented by this object.
-     */
-    public boolean booleanValue() {
-        return value;
-    }
-
-    /**
      * Gets this mutable as an instance of Boolean.
      *
      * @return a Boolean instance containing the value from this mutable, never null
@@ -152,44 +190,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      */
     public Boolean toBoolean() {
         return Boolean.valueOf(booleanValue());
-    }
-
-    /**
-     * Compares this object to the specified object. The result is {@code true} if and only if the argument is
-     * not {@code null} and is an {@link MutableBoolean} object that contains the same
-     * {@code boolean} value as this object.
-     *
-     * @param obj  the object to compare with, null returns false
-     * @return {@code true} if the objects are the same; {@code false} otherwise.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj instanceof MutableBoolean) {
-            return value == ((MutableBoolean) obj).booleanValue();
-        }
-        return false;
-    }
-
-    /**
-     * Returns a suitable hash code for this mutable.
-     *
-     * @return the hash code returned by {@code Boolean.TRUE} or {@code Boolean.FALSE}
-     */
-    @Override
-    public int hashCode() {
-        return value ? Boolean.TRUE.hashCode() : Boolean.FALSE.hashCode();
-    }
-
-    /**
-     * Compares this mutable to another in ascending order.
-     *
-     * @param other  the other mutable to compare to, not null
-     * @return negative if this is less, zero if equal, positive if greater
-     *  where false is less than true
-     */
-    @Override
-    public int compareTo(final MutableBoolean other) {
-        return BooleanUtils.compare(this.value, other.value);
     }
 
     /**

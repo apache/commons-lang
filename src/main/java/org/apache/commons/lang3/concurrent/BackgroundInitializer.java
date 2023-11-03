@@ -101,6 +101,12 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
          */
         private ExecutorService externalExecutor;
 
+        @SuppressWarnings("unchecked")
+        @Override
+        public I get() {
+            return (I) new BackgroundInitializer(getInitializer(), getCloser(), externalExecutor);
+        }
+
         /**
          * Sets the external executor service for executing tasks. null is an permitted value.
          *
@@ -114,12 +120,49 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
             return asThis();
         }
 
-        @SuppressWarnings("unchecked")
-        @Override
-        public I get() {
-            return (I) new BackgroundInitializer(getInitializer(), getCloser(), externalExecutor);
+    }
+
+    private class InitializationTask implements Callable<T> {
+        /** Stores the executor service to be destroyed at the end. */
+        private final ExecutorService execFinally;
+
+        /**
+         * Creates a new instance of {@link InitializationTask} and initializes
+         * it with the {@link ExecutorService} to be destroyed at the end.
+         *
+         * @param exec the {@link ExecutorService}
+         */
+        InitializationTask(final ExecutorService exec) {
+            execFinally = exec;
         }
 
+        /**
+         * Initiates initialization and returns the result.
+         *
+         * @return the result object
+         * @throws Exception if an error occurs
+         */
+        @Override
+        public T call() throws Exception {
+            try {
+                return initialize();
+            } finally {
+                if (execFinally != null) {
+                    execFinally.shutdown();
+                }
+            }
+        }
+    }
+
+    /**
+     * Creates a new builder.
+     *
+     * @param <T> the type of object to build.
+     * @return a new builder.
+     * @since 3.14.0
+     */
+    public static <T> Builder<BackgroundInitializer<T>, T> builder() {
+        return new Builder<>();
     }
 
     /** The external executor service for executing tasks. */
@@ -154,17 +197,6 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     }
 
     /**
-     * Creates a new builder.
-     *
-     * @param <T> the type of object to build.
-     * @return a new builder.
-     * @since 3.14.0
-     */
-    public static <T> Builder<BackgroundInitializer<T>, T> builder() {
-        return new Builder<>();
-    }
-
-    /**
      * Constructs a new instance.
      *
      * @param initializer the initializer supplier called by {@link #initialize()}.
@@ -177,12 +209,118 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     }
 
     /**
+     * Creates the {@link ExecutorService} to be used. This method is called if
+     * no {@link ExecutorService} was provided at construction time.
+     *
+     * @return the {@link ExecutorService} to be used
+     */
+    private ExecutorService createExecutor() {
+        return Executors.newFixedThreadPool(getTaskCount());
+    }
+
+    /**
+     * Creates a task for the background initialization. The {@link Callable}
+     * object returned by this method is passed to the {@link ExecutorService}.
+     * This implementation returns a task that invokes the {@link #initialize()}
+     * method. If a temporary {@link ExecutorService} is used, it is destroyed
+     * at the end of the task.
+     *
+     * @param execDestroy the {@link ExecutorService} to be destroyed by the
+     * task
+     * @return a task for the background initialization
+     */
+    private Callable<T> createTask(final ExecutorService execDestroy) {
+        return new InitializationTask(execDestroy);
+    }
+
+    /**
+     * Returns the result of the background initialization. This method blocks
+     * until initialization is complete. If the background processing caused a
+     * runtime exception, it is directly thrown by this method. Checked
+     * exceptions, including {@link InterruptedException} are wrapped in a
+     * {@link ConcurrentException}. Calling this method before {@link #start()}
+     * was called causes an {@link IllegalStateException} exception to be
+     * thrown.
+     *
+     * @return the object produced by this initializer
+     * @throws ConcurrentException if a checked exception occurred during
+     * background processing
+     * @throws IllegalStateException if {@link #start()} has not been called
+     */
+    @Override
+    public T get() throws ConcurrentException {
+        try {
+            return getFuture().get();
+        } catch (final ExecutionException execex) {
+            ConcurrentUtils.handleCause(execex);
+            return null; // should not be reached
+        } catch (final InterruptedException iex) {
+            // reset interrupted state
+            Thread.currentThread().interrupt();
+            throw new ConcurrentException(iex);
+        }
+    }
+
+    /**
+     * Returns the {@link ExecutorService} that is actually used for executing
+     * the background task. This method can be called after {@link #start()}
+     * (before {@code start()} it returns <b>null</b>). If an external executor
+     * was set, this is also the active executor. Otherwise this method returns
+     * the temporary executor that was created by this object.
+     *
+     * @return the {@link ExecutorService} for executing the background task
+     */
+    protected final synchronized ExecutorService getActiveExecutor() {
+        return executor;
+    }
+
+    /**
      * Returns the external {@link ExecutorService} to be used by this class.
      *
      * @return the {@link ExecutorService}
      */
     public final synchronized ExecutorService getExternalExecutor() {
         return externalExecutor;
+    }
+
+    /**
+     * Returns the {@link Future} object that was created when {@link #start()}
+     * was called. Therefore this method can only be called after {@code
+     * start()}.
+     *
+     * @return the {@link Future} object wrapped by this initializer
+     * @throws IllegalStateException if {@link #start()} has not been called
+     */
+    public synchronized Future<T> getFuture() {
+        if (future == null) {
+            throw new IllegalStateException("start() must be called first!");
+        }
+
+        return future;
+    }
+
+    /**
+     * Returns the number of background tasks to be created for this
+     * initializer. This information is evaluated when a temporary {@code
+     * ExecutorService} is created. This base implementation returns 1. Derived
+     * classes that do more complex background processing can override it. This
+     * method is called from a synchronized block by the {@link #start()}
+     * method. Therefore overriding methods should be careful with obtaining
+     * other locks and return as fast as possible.
+     *
+     * @return the number of background tasks required by this initializer
+     */
+    protected int getTaskCount() {
+        return 1;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Exception getTypedException(Exception e) {
+        //This Exception object will be used for type comparison in AbstractConcurrentInitializer.initialize but not thrown
+        return new Exception(e);
     }
 
     /**
@@ -272,143 +410,5 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
         }
 
         return false;
-    }
-
-    /**
-     * Returns the result of the background initialization. This method blocks
-     * until initialization is complete. If the background processing caused a
-     * runtime exception, it is directly thrown by this method. Checked
-     * exceptions, including {@link InterruptedException} are wrapped in a
-     * {@link ConcurrentException}. Calling this method before {@link #start()}
-     * was called causes an {@link IllegalStateException} exception to be
-     * thrown.
-     *
-     * @return the object produced by this initializer
-     * @throws ConcurrentException if a checked exception occurred during
-     * background processing
-     * @throws IllegalStateException if {@link #start()} has not been called
-     */
-    @Override
-    public T get() throws ConcurrentException {
-        try {
-            return getFuture().get();
-        } catch (final ExecutionException execex) {
-            ConcurrentUtils.handleCause(execex);
-            return null; // should not be reached
-        } catch (final InterruptedException iex) {
-            // reset interrupted state
-            Thread.currentThread().interrupt();
-            throw new ConcurrentException(iex);
-        }
-    }
-
-    /**
-     * Returns the {@link Future} object that was created when {@link #start()}
-     * was called. Therefore this method can only be called after {@code
-     * start()}.
-     *
-     * @return the {@link Future} object wrapped by this initializer
-     * @throws IllegalStateException if {@link #start()} has not been called
-     */
-    public synchronized Future<T> getFuture() {
-        if (future == null) {
-            throw new IllegalStateException("start() must be called first!");
-        }
-
-        return future;
-    }
-
-    /**
-     * Returns the {@link ExecutorService} that is actually used for executing
-     * the background task. This method can be called after {@link #start()}
-     * (before {@code start()} it returns <b>null</b>). If an external executor
-     * was set, this is also the active executor. Otherwise this method returns
-     * the temporary executor that was created by this object.
-     *
-     * @return the {@link ExecutorService} for executing the background task
-     */
-    protected final synchronized ExecutorService getActiveExecutor() {
-        return executor;
-    }
-
-    /**
-     * Returns the number of background tasks to be created for this
-     * initializer. This information is evaluated when a temporary {@code
-     * ExecutorService} is created. This base implementation returns 1. Derived
-     * classes that do more complex background processing can override it. This
-     * method is called from a synchronized block by the {@link #start()}
-     * method. Therefore overriding methods should be careful with obtaining
-     * other locks and return as fast as possible.
-     *
-     * @return the number of background tasks required by this initializer
-     */
-    protected int getTaskCount() {
-        return 1;
-    }
-
-    /**
-     * Creates a task for the background initialization. The {@link Callable}
-     * object returned by this method is passed to the {@link ExecutorService}.
-     * This implementation returns a task that invokes the {@link #initialize()}
-     * method. If a temporary {@link ExecutorService} is used, it is destroyed
-     * at the end of the task.
-     *
-     * @param execDestroy the {@link ExecutorService} to be destroyed by the
-     * task
-     * @return a task for the background initialization
-     */
-    private Callable<T> createTask(final ExecutorService execDestroy) {
-        return new InitializationTask(execDestroy);
-    }
-
-    /**
-     * Creates the {@link ExecutorService} to be used. This method is called if
-     * no {@link ExecutorService} was provided at construction time.
-     *
-     * @return the {@link ExecutorService} to be used
-     */
-    private ExecutorService createExecutor() {
-        return Executors.newFixedThreadPool(getTaskCount());
-    }
-
-    private class InitializationTask implements Callable<T> {
-        /** Stores the executor service to be destroyed at the end. */
-        private final ExecutorService execFinally;
-
-        /**
-         * Creates a new instance of {@link InitializationTask} and initializes
-         * it with the {@link ExecutorService} to be destroyed at the end.
-         *
-         * @param exec the {@link ExecutorService}
-         */
-        InitializationTask(final ExecutorService exec) {
-            execFinally = exec;
-        }
-
-        /**
-         * Initiates initialization and returns the result.
-         *
-         * @return the result object
-         * @throws Exception if an error occurs
-         */
-        @Override
-        public T call() throws Exception {
-            try {
-                return initialize();
-            } finally {
-                if (execFinally != null) {
-                    execFinally.shutdown();
-                }
-            }
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected Exception getTypedException(Exception e) {
-        //This Exception object will be used for type comparison in AbstractConcurrentInitializer.initialize but not thrown
-        return new Exception(e);
     }
 }

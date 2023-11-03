@@ -35,6 +35,15 @@ public class CircuitBreakingException extends RuntimeException {
     }
 
     /**
+     * Creates a new instance of {@link CircuitBreakingException} and initializes it with the given message.
+     *
+     * @param message the error message
+     */
+    public CircuitBreakingException(final String message) {
+        super(message);
+    }
+
+    /**
      * Creates a new instance of {@link CircuitBreakingException} and initializes it with the given message and cause.
      *
      * @param message the error message
@@ -42,15 +51,6 @@ public class CircuitBreakingException extends RuntimeException {
      */
     public CircuitBreakingException(final String message, final Throwable cause) {
         super(message, cause);
-    }
-
-    /**
-     * Creates a new instance of {@link CircuitBreakingException} and initializes it with the given message.
-     *
-     * @param message the error message
-     */
-    public CircuitBreakingException(final String message) {
-        super(message);
     }
 
     /**

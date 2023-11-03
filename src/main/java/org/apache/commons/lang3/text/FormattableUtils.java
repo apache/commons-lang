@@ -45,28 +45,6 @@ public class FormattableUtils {
     private static final String SIMPLEST_FORMAT = "%s";
 
     /**
-     * {@link FormattableUtils} instances should NOT be constructed in
-     * standard programming. Instead, the methods of the class should be invoked
-     * statically.
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
-     */
-    public FormattableUtils() {
-    }
-
-    /**
-     * Gets the default formatted representation of the specified
-     * {@link Formattable}.
-     *
-     * @param formattable  the instance to convert to a string, not null
-     * @return the resulting string, not null
-     */
-    public static String toString(final Formattable formattable) {
-        return String.format(SIMPLEST_FORMAT, formattable);
-    }
-
-    /**
      * Handles the common {@link Formattable} operations of truncate-pad-append,
      * with no ellipsis on precision overflow, and padding width underflow with
      * spaces.
@@ -101,24 +79,6 @@ public class FormattableUtils {
     }
 
     /**
-     * Handles the common {@link Formattable} operations of truncate-pad-append,
-     * padding width underflow with spaces.
-     *
-     * @param seq  the string to handle, not null
-     * @param formatter  the destination formatter, not null
-     * @param flags  the flags for formatting, see {@link Formattable}
-     * @param width  the width of the output, see {@link Formattable}
-     * @param precision  the precision of the output, see {@link Formattable}
-     * @param ellipsis  the ellipsis to use when precision dictates truncation, null or
-     *  empty causes a hard truncation
-     * @return the {@code formatter} instance, not null
-     */
-    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
-            final int precision, final CharSequence ellipsis) {
-        return append(seq, formatter, flags, width, precision, ' ', ellipsis);
-    }
-
-    /**
      * Handles the common {@link Formattable} operations of truncate-pad-append.
      *
      * @param seq  the string to handle, not null
@@ -146,6 +106,46 @@ public class FormattableUtils {
         }
         formatter.format(buf.toString());
         return formatter;
+    }
+
+    /**
+     * Handles the common {@link Formattable} operations of truncate-pad-append,
+     * padding width underflow with spaces.
+     *
+     * @param seq  the string to handle, not null
+     * @param formatter  the destination formatter, not null
+     * @param flags  the flags for formatting, see {@link Formattable}
+     * @param width  the width of the output, see {@link Formattable}
+     * @param precision  the precision of the output, see {@link Formattable}
+     * @param ellipsis  the ellipsis to use when precision dictates truncation, null or
+     *  empty causes a hard truncation
+     * @return the {@code formatter} instance, not null
+     */
+    public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
+            final int precision, final CharSequence ellipsis) {
+        return append(seq, formatter, flags, width, precision, ' ', ellipsis);
+    }
+
+    /**
+     * Gets the default formatted representation of the specified
+     * {@link Formattable}.
+     *
+     * @param formattable  the instance to convert to a string, not null
+     * @return the resulting string, not null
+     */
+    public static String toString(final Formattable formattable) {
+        return String.format(SIMPLEST_FORMAT, formattable);
+    }
+
+    /**
+     * {@link FormattableUtils} instances should NOT be constructed in
+     * standard programming. Instead, the methods of the class should be invoked
+     * statically.
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
+     */
+    public FormattableUtils() {
     }
 
 }

@@ -75,12 +75,6 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
 
     private static final Object NO_INIT = new Object();
 
-    /** A guard which ensures that initialize() is called only once. */
-    private final AtomicReference<AtomicSafeInitializer<T>> factory = new AtomicReference<>();
-
-    /** Holds the reference to the managed object. */
-    private final AtomicReference<T> reference = new AtomicReference<>(getNoInit());
-
     /**
      * Creates a new builder.
      *
@@ -91,6 +85,12 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
     public static <T> Builder<AtomicSafeInitializer<T>, T> builder() {
         return new Builder<>();
     }
+
+    /** A guard which ensures that initialize() is called only once. */
+    private final AtomicReference<AtomicSafeInitializer<T>> factory = new AtomicReference<>();
+
+    /** Holds the reference to the managed object. */
+    private final AtomicReference<T> reference = new AtomicReference<>(getNoInit());
 
     /**
      * Constructs a new instance.
@@ -136,6 +136,14 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected ConcurrentException getTypedException(Exception e) {
+        return new ConcurrentException(e);
+    }
+
+    /**
      * Tests whether this instance is initialized. Once initialized, always returns true.
      *
      * @return whether this instance is initialized. Once initialized, always returns true.
@@ -144,13 +152,5 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
     @Override
     public boolean isInitialized() {
         return reference.get() != NO_INIT;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected ConcurrentException getTypedException(Exception e) {
-        return new ConcurrentException(e);
     }
 }

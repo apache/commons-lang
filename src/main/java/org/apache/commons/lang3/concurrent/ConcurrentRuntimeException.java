@@ -46,17 +46,6 @@ public class ConcurrentRuntimeException extends RuntimeException {
 
     /**
      * Creates a new instance of {@link ConcurrentRuntimeException} and
-     * initializes it with the given cause.
-     *
-     * @param cause the cause of this exception
-     * @throws IllegalArgumentException if the cause is not a checked exception
-     */
-    public ConcurrentRuntimeException(final Throwable cause) {
-        super(ConcurrentUtils.checkedException(cause));
-    }
-
-    /**
-     * Creates a new instance of {@link ConcurrentRuntimeException} and
      * initializes it with the given message and cause.
      *
      * @param msg the error message
@@ -65,5 +54,16 @@ public class ConcurrentRuntimeException extends RuntimeException {
      */
     public ConcurrentRuntimeException(final String msg, final Throwable cause) {
         super(msg, ConcurrentUtils.checkedException(cause));
+    }
+
+    /**
+     * Creates a new instance of {@link ConcurrentRuntimeException} and
+     * initializes it with the given cause.
+     *
+     * @param cause the cause of this exception
+     * @throws IllegalArgumentException if the cause is not a checked exception
+     */
+    public ConcurrentRuntimeException(final Throwable cause) {
+        super(ConcurrentUtils.checkedException(cause));
     }
 }
