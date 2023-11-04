@@ -6122,6 +6122,28 @@ public class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testTextIndexesOfInt() {
+        int[] array = null;
+        final BitSet emptySet = new BitSet();
+        final BitSet testSet = new BitSet();
+        assertEquals(emptySet, ArrayUtils.indexesOf(array, 0));
+        array = new int[]{0, 1, 2, 3, 0};
+        testSet.set(0);
+        testSet.set(4);
+        assertEquals(testSet, ArrayUtils.indexesOf(array, 0));
+        testSet.clear();
+        testSet.set(1);
+        assertEquals(testSet, ArrayUtils.indexesOf(array, 1));
+        testSet.clear();
+        testSet.set(2);
+        assertEquals(testSet, ArrayUtils.indexesOf(array, 2));
+        testSet.clear();
+        testSet.set(3);
+        assertEquals(testSet, ArrayUtils.indexesOf(array, 3));
+        assertEquals(emptySet, ArrayUtils.indexesOf(array, 99));
+    }
+
+    @Test
     public void testToMap() {
         Map<?, ?> map = ArrayUtils.toMap(new String[][]{{"foo", "bar"}, {"hello", "world"}});
 
@@ -6558,27 +6580,5 @@ public class ArrayUtilsTest extends AbstractLangTest {
         final Object[] array = {1, null, "test"};
         assertArrayEquals(new String[]{"1", "valueForNullElements", "test"},
                 ArrayUtils.toStringArray(array, "valueForNullElements"));
-    }
-
-    @Test
-    public void textIndexesOfInt() {
-        int[] array = null;
-        final BitSet emptySet = new BitSet();
-        final BitSet testSet = new BitSet();
-        assertEquals(emptySet, ArrayUtils.indexesOf(array, 0));
-        array = new int[]{0, 1, 2, 3, 0};
-        testSet.set(0);
-        testSet.set(4);
-        assertEquals(testSet, ArrayUtils.indexesOf(array, 0));
-        testSet.clear();
-        testSet.set(1);
-        assertEquals(testSet, ArrayUtils.indexesOf(array, 1));
-        testSet.clear();
-        testSet.set(2);
-        assertEquals(testSet, ArrayUtils.indexesOf(array, 2));
-        testSet.clear();
-        testSet.set(3);
-        assertEquals(testSet, ArrayUtils.indexesOf(array, 3));
-        assertEquals(emptySet, ArrayUtils.indexesOf(array, 99));
     }
 }
