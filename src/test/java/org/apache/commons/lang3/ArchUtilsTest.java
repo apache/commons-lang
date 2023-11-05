@@ -104,11 +104,11 @@ public class ArchUtilsTest extends AbstractLangTest {
         assertTrue(processor.isAarch64());
 
         processor = ArchUtils.getProcessor(RISCV_32);
-        assertEqualsTypeNotNull(Processor.Type.RISCV, processor);
+        assertEqualsTypeNotNull(Processor.Type.RISC_V, processor);
         assertTrue(processor.isRISCV());
 
         processor = ArchUtils.getProcessor(RISCV_64);
-        assertEqualsTypeNotNull(Processor.Type.RISCV, processor);
+        assertEqualsTypeNotNull(Processor.Type.RISC_V, processor);
         assertTrue(processor.isRISCV());
     }
 

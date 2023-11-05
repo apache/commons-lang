@@ -121,11 +121,11 @@ public class ArchUtils {
     }
 
     private static void init_RISCV_32Bit() {
-        addProcessors(new Processor(Processor.Arch.BIT_32, Processor.Type.RISCV), "riscv32");
+        addProcessors(new Processor(Processor.Arch.BIT_32, Processor.Type.RISC_V), "riscv32");
     }
 
     private static void init_RISCV_64Bit() {
-        addProcessors(new Processor(Processor.Arch.BIT_64, Processor.Type.RISCV), "riscv64");
+        addProcessors(new Processor(Processor.Arch.BIT_64, Processor.Type.RISC_V), "riscv64");
     }
 
     private static void init_X86_32Bit() {

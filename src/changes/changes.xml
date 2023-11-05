@@ -79,6 +79,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ExceptionUtils.throwUnchecked(T) where T extends Throwable, and deprecate Object version.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ExceptionUtils.rethrowRuntimeException(T), and deprecate rethrow(T).</action>
     <action issue="LANG-1716" type="add" dev="ggregory" due-to="Benjamin Confino, Gary Gregory">ConcurrentInitializer implementations can now be instantiated and configured with allocation and release lambdas.</action>
+    <action issue="LANG-1717" type="add" dev="ggregory" due-to="Levi Zim, Gary Gregory">Add support for RISC-V in ArchUtils #1128.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 58 to 64.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump org.easymock:easymock from 5.1.0 to 5.2.0 #1104.</action>

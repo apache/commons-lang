@@ -112,7 +112,7 @@ public class Processor {
          *
          * @since 3.14.0
          */
-        RISCV("RISC-V"),
+        RISC_V("RISC-V"),
 
         /**
          * Unknown architecture.
@@ -236,11 +236,11 @@ public class Processor {
     /**
      * Tests if {@link Processor} is type of RISC-V.
      *
-     * @return {@code true}. if {@link Processor} is {@link Type#RISCV}, else {@code false}.
+     * @return {@code true}. if {@link Processor} is {@link Type#RISC_V}, else {@code false}.
      * @since 3.14.0
      */
     public boolean isRISCV() {
-        return Type.RISCV == type;
+        return Type.RISC_V == type;
     }
 
     @Override
