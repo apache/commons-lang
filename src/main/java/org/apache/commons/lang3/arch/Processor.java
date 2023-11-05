@@ -109,6 +109,8 @@ public class Processor {
 
         /**
          * RISC-V architecture.
+         *
+         * @since 3.14.0
          */
         RISCV("RISC-V"),
 
@@ -235,6 +237,7 @@ public class Processor {
      * Tests if {@link Processor} is type of RISC-V.
      *
      * @return {@code true}. if {@link Processor} is {@link Type#RISCV}, else {@code false}.
+     * @since 3.14.0
      */
     public boolean isRISCV() {
         return Type.RISCV == type;
