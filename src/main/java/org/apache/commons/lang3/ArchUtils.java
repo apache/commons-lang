@@ -96,6 +96,8 @@ public class ArchUtils {
         init_PPC_32Bit();
         init_PPC_64Bit();
         init_Aarch_64Bit();
+        init_RISCV_32Bit();
+        init_RISCV_64Bit();
     }
 
     private static void init_Aarch_64Bit() {
@@ -116,6 +118,14 @@ public class ArchUtils {
 
     private static void init_PPC_64Bit() {
         addProcessors(new Processor(Processor.Arch.BIT_64, Processor.Type.PPC), "ppc64", "power64", "powerpc64", "power_pc64", "power_rs64");
+    }
+
+    private static void init_RISCV_32Bit() {
+        addProcessors(new Processor(Processor.Arch.BIT_32, Processor.Type.RISCV), "riscv32");
+    }
+
+    private static void init_RISCV_64Bit() {
+        addProcessors(new Processor(Processor.Arch.BIT_64, Processor.Type.RISCV), "riscv64");
     }
 
     private static void init_X86_32Bit() {
