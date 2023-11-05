@@ -19,9 +19,11 @@ package org.apache.commons.lang3.reflect.testbed;
 /**
  */
 class Parent implements Foo {
+
     public String s = "s";
     protected boolean b;
     int i;
+
     @SuppressWarnings("unused")
     private final double d = 0.0;
 
