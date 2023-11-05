@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ReflectionToStringBuilderExcludeTest extends AbstractLangTest {
 
-    class TestFixture {
+    final class TestFixture {
         @SuppressWarnings("unused")
         private final String secretField = SECRET_VALUE;
 

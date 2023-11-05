@@ -42,13 +42,13 @@ import org.junit.jupiter.api.Test;
 public class ValidateTest extends AbstractLangTest {
 
     @Nested
-    class ExclusiveBetween {
+    final class ExclusiveBetween {
 
         @Nested
-        class WithComparable {
+        final class WithComparable {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -84,7 +84,7 @@ public class ValidateTest extends AbstractLangTest {
                 }
             }
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -126,10 +126,10 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithDouble {
+        final class WithDouble {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -165,7 +165,7 @@ public class ValidateTest extends AbstractLangTest {
                 }
             }
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -207,10 +207,10 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithLong {
+        final class WithLong {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -246,7 +246,7 @@ public class ValidateTest extends AbstractLangTest {
                 }
             }
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -289,10 +289,10 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class Finite {
+    final class Finite {
 
         @Nested
-        class WithMessage {
+        final class WithMessage {
 
             @Test
             void shouldNotThrowExceptionForFiniteValue() {
@@ -319,7 +319,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithoutMessage {
+        final class WithoutMessage {
 
             @Test
             void shouldNotThrowExceptionForFiniteValue() {
@@ -347,13 +347,13 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class InclusiveBetween {
+    final class InclusiveBetween {
 
         @Nested
-        class WithComparable {
+        final class WithComparable {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -385,7 +385,7 @@ public class ValidateTest extends AbstractLangTest {
                 }
             }
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -423,10 +423,10 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithDouble {
+        final class WithDouble {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -458,7 +458,7 @@ public class ValidateTest extends AbstractLangTest {
                 }
             }
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -496,10 +496,10 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithLong {
+        final class WithLong {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -531,7 +531,7 @@ public class ValidateTest extends AbstractLangTest {
                 }
             }
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionWhenValueIsBetweenBounds() {
@@ -570,10 +570,10 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class IsAssignable {
+    final class IsAssignable {
 
         @Nested
-        class WithMessage {
+        final class WithMessage {
 
             @Test
             void shouldNotThrowExceptionWhenClassIsAssignable() {
@@ -589,7 +589,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithoutMessage {
+        final class WithoutMessage {
 
             @Test
             void shouldNotThrowExceptionWhenClassIsAssignable() {
@@ -623,10 +623,10 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class IsInstanceOf {
+    final class IsInstanceOf {
 
         @Nested
-        class WithMessage {
+        final class WithMessage {
 
             @Test
             void shouldNotThrowExceptionWhenValueIsInstanceOfClass() {
@@ -641,7 +641,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithMessageTemplate {
+        final class WithMessageTemplate {
 
             @Test
             void shouldNotThrowExceptionWhenValueIsInstanceOfClass() {
@@ -657,7 +657,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithoutMessage {
+        final class WithoutMessage {
 
             @Test
             void shouldNotThrowExceptionWhenValueIsInstanceOfClass() {
@@ -673,10 +673,10 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class IsTrue {
+    final class IsTrue {
 
         @Nested
-        class WithDoubleTemplate {
+        final class WithDoubleTemplate {
 
             @Test
             void shouldNotThrowForTrueExpression() {
@@ -691,7 +691,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithLongTemplate {
+        final class WithLongTemplate {
 
             @Test
             void shouldNotThrowForTrueExpression() {
@@ -706,7 +706,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithMessage {
+        final class WithMessage {
 
             @Test
             void shouldNotThrowForTrueExpression() {
@@ -727,7 +727,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithObjectTemplate {
+        final class WithObjectTemplate {
 
             @Test
             void shouldNotThrowForTrueExpression() {
@@ -743,7 +743,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithoutMessage {
+        final class WithoutMessage {
 
             @Test
             void shouldNotThrowForTrueExpression() {
@@ -760,10 +760,10 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class MatchesPattern {
+    final class MatchesPattern {
 
         @Nested
-        class WithMessage {
+        final class WithMessage {
 
             @Test
             void shouldNotThrowExceptionWhenStringMatchesPattern() {
@@ -778,7 +778,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithoutMessage {
+        final class WithoutMessage {
 
             @Test
             void shouldNotThrowExceptionWhenStringMatchesPattern() {
@@ -794,13 +794,13 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class NoNullElements {
+    final class NoNullElements {
 
         @Nested
-        class WithArray {
+        final class WithArray {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionForNonEmptyArray() {
@@ -828,7 +828,7 @@ public class ValidateTest extends AbstractLangTest {
             }
 
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionForNonEmptyArray() {
@@ -856,10 +856,10 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithCollection {
+        final class WithCollection {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionForNonEmptyCollection() {
@@ -887,7 +887,7 @@ public class ValidateTest extends AbstractLangTest {
             }
 
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionForNonEmptyCollection() {
@@ -917,10 +917,10 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class NotBlank {
+    final class NotBlank {
 
         @Nested
-        class WithMessage {
+        final class WithMessage {
 
             @Test
             void shouldNotThrowExceptionForNonEmptyString() {
@@ -968,7 +968,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithoutMessage {
+        final class WithoutMessage {
 
             @Test
             void shouldNotThrowExceptionForNonEmptyString() {
@@ -1017,13 +1017,13 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class NotEmpty {
+    final class NotEmpty {
 
         @Nested
-        class WithArray {
+        final class WithArray {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionForArrayContainingNullReference() {
@@ -1050,7 +1050,7 @@ public class ValidateTest extends AbstractLangTest {
             }
 
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionForArrayContainingNullReference() {
@@ -1078,10 +1078,10 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithCharSequence {
+        final class WithCharSequence {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionForNonEmptyString() {
@@ -1107,7 +1107,7 @@ public class ValidateTest extends AbstractLangTest {
             }
 
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionForNonEmptyString() {
@@ -1134,10 +1134,10 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithCollection {
+        final class WithCollection {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionForCollectionContainingNullReference() {
@@ -1164,7 +1164,7 @@ public class ValidateTest extends AbstractLangTest {
             }
 
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionForCollectionContainingNullReference() {
@@ -1192,10 +1192,10 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithMap {
+        final class WithMap {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionForMapContainingNullMapping() {
@@ -1222,7 +1222,7 @@ public class ValidateTest extends AbstractLangTest {
             }
 
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionForMapContainingNullMapping() {
@@ -1251,10 +1251,10 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class NotNaN {
+    final class NotNaN {
 
         @Nested
-        class WithMessage {
+        final class WithMessage {
 
             @Test
             void shouldNotThrowExceptionForNegativeInfinity() {
@@ -1279,7 +1279,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithoutMessage {
+        final class WithoutMessage {
 
             @Test
             void shouldNotThrowExceptionForNegativeInfinity() {
@@ -1305,10 +1305,10 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class NotNull {
+    final class NotNull {
 
         @Nested
-        class WithMessage {
+        final class WithMessage {
 
             @Test
             void shouldNotThrowForNonNullReference() {
@@ -1328,7 +1328,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithoutMessage {
+        final class WithoutMessage {
 
             @Test
             void shouldNotThrowForNonNullReference() {
@@ -1349,7 +1349,7 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class UtilClassConventions {
+    final class UtilClassConventions {
 
         @Test
         void hasOnlyOnePublicConstructor() {
@@ -1374,13 +1374,13 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class ValidIndex {
+    final class ValidIndex {
 
         @Nested
-        class WithArray {
+        final class WithArray {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionForValidIndex() {
@@ -1414,7 +1414,7 @@ public class ValidateTest extends AbstractLangTest {
             }
 
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionForValidIndex() {
@@ -1448,10 +1448,10 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithCharSequence {
+        final class WithCharSequence {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionForValidIndex() {
@@ -1484,7 +1484,7 @@ public class ValidateTest extends AbstractLangTest {
             }
 
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionForValidIndex() {
@@ -1518,10 +1518,10 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WithCollection {
+        final class WithCollection {
 
             @Nested
-            class WithMessage {
+            final class WithMessage {
 
                 @Test
                 void shouldNotThrowExceptionForValidIndex() {
@@ -1555,7 +1555,7 @@ public class ValidateTest extends AbstractLangTest {
             }
 
             @Nested
-            class WithoutMessage {
+            final class WithoutMessage {
 
                 @Test
                 void shouldNotThrowExceptionForValidIndex() {
@@ -1592,10 +1592,10 @@ public class ValidateTest extends AbstractLangTest {
     }
 
     @Nested
-    class ValidState {
+    final class ValidState {
 
         @Nested
-        class WithoutMessage {
+        final class WithoutMessage {
 
             @Test
             void shouldNotThrowExceptionForTrueExpression() {
@@ -1610,7 +1610,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        class WitMessage {
+        final class WitMessage {
             @Test
             void shouldNotThrowExceptionForValidIndex() {
                 Validate.validState(true, "The Message");

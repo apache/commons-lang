@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ReflectionToStringBuilderMutateInspectConcurrencyTest extends AbstractLangTest {
 
-    class InspectingClient implements Runnable {
+    final class InspectingClient implements Runnable {
         private final TestFixture testFixture;
 
         InspectingClient(final TestFixture testFixture) {
@@ -50,7 +50,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest extends Abstr
         }
     }
 
-    class MutatingClient implements Runnable {
+    final class MutatingClient implements Runnable {
         private final TestFixture testFixture;
         private final Random random = new Random();
 
@@ -68,7 +68,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest extends Abstr
         }
     }
 
-    class TestFixture {
+    final class TestFixture {
         private final LinkedList<Integer> listField = new LinkedList<>();
         private final Random random = new Random();
         private final int N = 100;

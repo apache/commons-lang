@@ -31,7 +31,7 @@ import org.apache.commons.lang3.exception.UncheckedInterruptedException;
  * @see Future
  * @since 3.13.0
  */
-class UncheckedFutureImpl<V> extends AbstractFutureProxy<V> implements UncheckedFuture<V> {
+final class UncheckedFutureImpl<V> extends AbstractFutureProxy<V> implements UncheckedFuture<V> {
 
     UncheckedFutureImpl(final Future<V> future) {
         super(future);

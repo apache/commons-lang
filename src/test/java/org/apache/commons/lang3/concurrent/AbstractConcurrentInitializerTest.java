@@ -69,7 +69,7 @@ public abstract class AbstractConcurrentInitializerTest extends AbstractLangTest
         final ConcurrentInitializer<Object> initializer = createInitializer();
         final int threadCount = 20;
         final CountDownLatch startLatch = new CountDownLatch(1);
-        class GetThread extends Thread {
+        final class GetThread extends Thread {
             Object object;
 
             @Override

@@ -32,7 +32,7 @@ import java.nio.charset.UnsupportedCharsetException;
  *
  * @since 3.10
  */
-class Charsets {
+final class Charsets {
 
     /**
      * Returns the given {@code charset} or the default Charset if {@code charset} is null.

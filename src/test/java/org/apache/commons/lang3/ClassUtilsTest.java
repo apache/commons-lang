@@ -272,7 +272,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("java.lang.String[][][][]", ClassUtils.getCanonicalName(String[][][][].class));
 
         // Inner types
-        class Named {
+        final class Named {
             // empty
         }
         assertEquals(StringUtils.EMPTY, ClassUtils.getCanonicalName(new Object() {
@@ -317,7 +317,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("java.lang.String[][][][]", ClassUtils.getCanonicalName(String[][][][].class, "X"));
 
         // Inner types
-        class Named {
+        final class Named {
             // empty
         }
         assertEquals("X", ClassUtils.getCanonicalName(new Object() {
@@ -369,7 +369,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("[[[[Ljava.lang.String;", ClassUtils.getName(String[][][][].class));
 
         // Inner types
-        class Named {
+        final class Named {
             // empty
         }
         assertEquals("org.apache.commons.lang3.ClassUtilsTest$3", ClassUtils.getName(new Object() {
@@ -388,7 +388,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("<null>", ClassUtils.getName(null, "<null>"));
 
         // Inner types
-        class Named {
+        final class Named {
             // empty
         }
         assertEquals("org.apache.commons.lang3.ClassUtilsTest$4", ClassUtils.getName(new Object() {
@@ -407,7 +407,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("", ClassUtils.getPackageCanonicalName(int[][].class));
 
         // Inner types
-        class Named {
+        final class Named {
             // empty
         }
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName(new Object() {
@@ -428,7 +428,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("", ClassUtils.getPackageCanonicalName(new int[0][0], "<null>"));
 
         // Inner types
-        class Named {
+        final class Named {
             // empty
         }
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName(new Object() {
@@ -481,7 +481,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("java.lang", ClassUtils.getPackageName(String[][][][].class));
 
         // On-the-fly types
-        class Named {
+        final class Named {
             // empty
         }
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(new Object() {
@@ -514,7 +514,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("int[][]", ClassUtils.getShortCanonicalName(int[][].class));
 
         // Inner types
-        class Named {
+        final class Named {
             // empty
         }
         assertEquals("", ClassUtils.getShortCanonicalName(new Object() {
@@ -536,7 +536,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("int[][]", ClassUtils.getShortCanonicalName(new int[0][0], "<null>"));
 
         // Inner types
-        class Named {
+        final class Named {
             // empty
         }
         assertEquals("", ClassUtils.getShortCanonicalName(new Object() {
@@ -619,7 +619,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("String[][][][]", ClassUtils.getShortClassName(String[][][][].class));
 
         // Inner types
-        class Named {
+        final class Named {
             // empty
         }
         // WARNING: this is fragile, implementation may change, naming is not guaranteed
@@ -639,7 +639,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("<null>", ClassUtils.getShortClassName(null, "<null>"));
 
         // Inner types
-        class Named {
+        final class Named {
             // empty
         }
         // WARNING: this is fragile, implementation may change, naming is not guaranteed
@@ -695,7 +695,7 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("String[][][][]", ClassUtils.getSimpleName(String[][][][].class));
 
         // On-the-fly types
-        class Named {
+        final class Named {
             // empty
         }
         assertEquals("", ClassUtils.getSimpleName(new Object() {

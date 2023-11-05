@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
 
-    class TestFeature {
+    final class TestFeature {
         @SuppressWarnings("unused")
         private final String field1 = VALUES[0];
 

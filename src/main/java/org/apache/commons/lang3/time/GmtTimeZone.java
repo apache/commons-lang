@@ -25,7 +25,7 @@ import java.util.TimeZone;
  *
  * @since 3.7
  */
-class GmtTimeZone extends TimeZone {
+final class GmtTimeZone extends TimeZone {
 
     private static final int MILLISECONDS_PER_MINUTE = 60 * 1000;
     private static final int MINUTES_PER_HOUR = 60;

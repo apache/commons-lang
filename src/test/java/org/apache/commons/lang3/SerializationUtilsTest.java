@@ -41,7 +41,7 @@ import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ClassNotFoundSerialization implements Serializable {
+final class ClassNotFoundSerialization implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

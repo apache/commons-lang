@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * Package-private reflection code.
  */
-class Reflection {
+final class Reflection {
 
     /**
      * Delegates to {@link Field#get(Object)} and rethrows {@link IllegalAccessException} as {@link IllegalArgumentException}.

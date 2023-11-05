@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ReflectionToStringBuilderExcludeWithAnnotationTest extends AbstractLangTest {
 
-    class TestFixture {
+    final class TestFixture {
         @ToStringExclude
         private final String excludedField = EXCLUDED_FIELD_VALUE;
 

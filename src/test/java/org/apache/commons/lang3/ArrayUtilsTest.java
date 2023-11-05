@@ -222,7 +222,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
             }
         }
 
-        class LANG1261ChildObject extends LANG1261ParentObject {
+        final class LANG1261ChildObject extends LANG1261ParentObject {
             // empty.
         }
 

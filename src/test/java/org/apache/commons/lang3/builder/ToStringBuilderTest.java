@@ -37,7 +37,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
      * Test fixture for ReflectionToStringBuilder.toString() for statics.
      */
     @SuppressWarnings("unused")
-    class InheritedReflectionStaticFieldsFixture extends SimpleReflectionStaticFieldsFixture {
+    final class InheritedReflectionStaticFieldsFixture extends SimpleReflectionStaticFieldsFixture {
         static final String staticString2 = "staticString2";
         static final int staticInt2 = 67890;
     }
@@ -45,7 +45,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
      * Points out failure to print anything from appendToString methods using MULTI_LINE_STYLE.
      * See issue LANG-372.
      */
-    class MultiLineTestObject {
+    final class MultiLineTestObject {
         Integer i = Integer.valueOf(31337);
         @Override
         public String toString() {
@@ -62,7 +62,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     static class Outer {
-        class Inner {
+        final class Inner {
             @Override
             public String toString() {
                 return ToStringBuilder.reflectionToString(this);
@@ -78,7 +78,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     /**
      * Tests ReflectionToStringBuilder.toString() for statics.
      */
-    class ReflectionStaticFieldsFixture {
+    final class ReflectionStaticFieldsFixture {
         static final String staticString = "staticString";
         static final int staticInt = 12345;
         static final transient String staticTransientString = "staticTransientString";

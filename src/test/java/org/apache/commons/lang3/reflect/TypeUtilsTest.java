@@ -56,7 +56,7 @@ import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-class AAAClass extends AAClass<String> {
+final class AAAClass extends AAClass<String> {
     public class BBBClass extends BBClass<String> {
         // empty
     }
@@ -72,7 +72,7 @@ class AAClass<T> {
 
 @SuppressWarnings("rawtypes")
 //raw types, where used, are used purposely
-class AClass extends AAClass<String>.BBClass<Number> {
+final class AClass extends AAClass<String>.BBClass<Number> {
 
     @SuppressWarnings("unused") // Unused type parameter for test
     public interface AInterface<T> {

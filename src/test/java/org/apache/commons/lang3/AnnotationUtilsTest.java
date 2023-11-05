@@ -102,7 +102,7 @@ public class AnnotationUtilsTest extends AbstractLangTest {
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD})
     public @interface TestMethodAnnotation {
-        class None extends Throwable {
+        final class None extends Throwable {
 
             private static final long serialVersionUID = 1L;
         }
