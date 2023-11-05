@@ -418,7 +418,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Parse format into Strategies
      */
-    private class StrategyParser {
+    private final class StrategyParser {
         private final Calendar definingCalendar;
         private int currentIdx;
 
