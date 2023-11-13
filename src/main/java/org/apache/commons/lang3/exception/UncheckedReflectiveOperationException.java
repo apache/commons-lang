@@ -28,7 +28,7 @@ public class UncheckedReflectiveOperationException extends UncheckedException {
     /**
      * Constructs an instance initialized to the given {@code cause}.
      *
-     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method). (A @{code null} value
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method). (A {@code null} value
      *        is permitted, and indicates that the cause is nonexistent or unknown.)
      */
     public UncheckedReflectiveOperationException(final Throwable cause) {

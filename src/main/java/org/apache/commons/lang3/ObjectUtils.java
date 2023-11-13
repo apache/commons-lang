@@ -684,7 +684,7 @@ public class ObjectUtils {
      * @param <T> the type of the return values
      * @param suppliers  the suppliers returning the values to test.
      *                   {@code null} values are ignored.
-     *                   Suppliers may return {@code null} or a value of type @{code T}
+     *                   Suppliers may return {@code null} or a value of type {@code T}
      * @return the first return value from {@code suppliers} which is not {@code null},
      *  or {@code null} if there are no non-null values
      * @since 3.10
