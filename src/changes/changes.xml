@@ -51,7 +51,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="remeio">Rename variable names from 'clss' to 'clazz' #1087.</action>
     <action                   type="fix" dev="ggregory" due-to="remeio">[Javadoc] ComparableUtils'c1' to 'comparable1', 'c2' to '</action>
     <action                   type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">[Javadoc] Remove 2.1 specific comment #1091.</action>
-    <action issue="LANG-1704" type="fix" dev="ggregory" due-to="Sung Ho Yoon">[Javadoc] Fix Incorrect Description in Processor isAarch64() #1093.</action>
+    <action issue="LANG-1704" type="fix" dev="ggregory" due-to="Dan Ziemba, Gilles Sadowski, Alex Herbert, Gary Gregory">ImmutablePair and ImmutableTriple implementation don't match final in Javadoc.</action>
+    <action                   type="fix" dev="ggregory" due-to="Sung Ho Yoon">[Javadoc] Fix Incorrect Description in Processor isAarch64() #1093.</action>
     <action                   type="fix" dev="ggregory" due-to="ljacqu">[Javadoc] Point to right getShortClassName flavor in Javadoc for relevant notes #1097.</action>
     <action                   type="fix" dev="ggregory" due-to="hduelme">Improve performance of StringUtils.isMixedCase() #1096.</action>
     <action issue="LANG-1706" type="fix" dev="ggregory" due-to="Alberto Fernández">ThreadUtils find methods should not return null items #1098.</action>
