@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.Assertions;
@@ -340,7 +341,12 @@ public class EnumUtilsTest extends AbstractLangTest {
     @Test
     public void test_getEnumMap() {
         final Map<String, Traffic> test = EnumUtils.getEnumMap(Traffic.class);
-        assertEquals("{RED=RED, AMBER=AMBER, GREEN=GREEN}", test.toString(), "getEnumMap not created correctly");
+        final Map<String, Traffic> expected = new HashMap() {{
+            put("RED", Traffic.RED);
+            put("AMBER", Traffic.AMBER);
+            put("GREEN", Traffic.GREEN);
+        }};
+        assertEquals(expected, test, "getEnumMap not created correctly");
         assertEquals(3, test.size());
         assertTrue(test.containsKey("RED"));
         assertEquals(Traffic.RED, test.get("RED"));
@@ -354,8 +360,21 @@ public class EnumUtilsTest extends AbstractLangTest {
     @Test
     public void test_getEnumMap_keyFunction() {
         final Map<Integer, Month> test = EnumUtils.getEnumMap(Month.class, Month::getId);
-        assertEquals("{1=JAN, 2=FEB, 3=MAR, 4=APR, 5=MAY, 6=JUN, 7=JUL, 8=AUG, 9=SEP, 10=OCT, 11=NOV, 12=DEC}", test.toString(),
-                "getEnumMap not created correctly");
+        final Map<Integer, Month> expected = new HashMap() {{
+            put(1, Month.JAN);
+            put(2, Month.FEB);
+            put(3, Month.MAR);
+            put(4, Month.APR);
+            put(5, Month.MAY);
+            put(6, Month.JUN);
+            put(7, Month.JUL);
+            put(8, Month.AUG);
+            put(9, Month.SEP);
+            put(10, Month.OCT);
+            put(11, Month.NOV);
+            put(12, Month.DEC);
+        }};
+        assertEquals(expected, test, "getEnumMap not created correctly");
         assertEquals(12, test.size());
         assertFalse(test.containsKey(0));
         assertTrue(test.containsKey(1));
