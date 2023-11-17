@@ -85,6 +85,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 58 to 64.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump org.easymock:easymock from 5.1.0 to 5.2.0 #1104.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-text from 1.10.0 to 1.11.0.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump org.codehaus.mojo:exec-maven-plugin from 3.1.0 to 3.1.1 #1135.</action>
   </release>
   <release version="3.13.0" date="2023-07-23" description="New features and bug fixes (Java 8 or above).">
     <!-- FIX -->
