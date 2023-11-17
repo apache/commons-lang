@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import org.apache.commons.lang3.exception.CustomCheckedException;
 import org.apache.commons.lang3.exception.CustomUncheckedException;
@@ -31,11 +32,10 @@ import org.junit.jupiter.api.Test;
  * Tests {@link MethodInvokers#asFailableBiFunction(Method)}.
  */
 public class MethodInvokersFailableBiFunctionTest extends MethodFixtures {
-
     @Test
     public void testApply1Arg() throws Throwable {
         // Use a local variable typed to the interface to make sure we compile.
-        final FailableBiFunction<MethodFixtures, String, String[], Throwable> func = MethodInvokers.asFailableBiFunction(getMethodForGetString1ArgChecked());
+        final FailableBiFunction<MethodFixtures, String, String, Throwable> func = MethodInvokers.asFailableBiFunction(getMethodForGetString1ArgChecked());
         assertEquals(INSTANCE.getString1ArgChecked("A"), func.apply(INSTANCE, "A"));
     }
 

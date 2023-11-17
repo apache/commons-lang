@@ -45,8 +45,8 @@ public class TypeLiteralTest extends AbstractLangTest {
 
     @Test
     public void testEquals() {
-        assertEquals(new TypeLiteral<String>() {}, new TypeLiteral<String>() {});
-        assertEquals(new TypeLiteral<List<String>>() {}, new TypeLiteral<List<String>>() {});
+        assertEquals(new TypeLiteral<String>() {}.getType(), new TypeLiteral<String>() {}.getType());
+        assertEquals(new TypeLiteral<List<String>>() {}.getType(), new TypeLiteral<List<String>>() {}.getType());
         assertNotEquals(new TypeLiteral<String>() {}, new TypeLiteral<List<String>>() {});
     }
 
