@@ -608,6 +608,7 @@
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
     <commons.release.version>3.14.0</commons.release.version>
+    <commons.release.next>3.14.1</commons.release.next>
     <commons.release.desc>(Java 8+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>

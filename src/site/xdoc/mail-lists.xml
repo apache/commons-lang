@@ -59,9 +59,9 @@ limitations under the License.
       </p>
       <p>
         Questions related to the usage of Apache Commons Lang should be posted to the
-        <a href="https://mail-archives.apache.org/mod_mbox/commons-user/">User List</a>.
+        <a href="https://lists.apache.org/list.html?user@commons.apache.org">User List</a>.
         <br />
-        The <a href="https://mail-archives.apache.org/mod_mbox/commons-dev/">Developer List</a>
+        The <a href="https://lists.apache.org/list.html?dev@commons.apache.org">Developer List</a>
         is for questions and discussion related to the development of Apache Commons Lang.
         <br />
         Please do not cross-post; developers are also subscribed to the user list.
@@ -70,8 +70,10 @@ limitations under the License.
         to subscribe.
       </p>
       <p>
-        <strong>Note:</strong> please don't send patches or attachments to any of the mailing lists.
+        <strong>Note:</strong> please don't send patches or attachments to any of the mailing lists;
+        most of the lists are set up to drop attachments.
         Patches are best handled via the <a href="issue-tracking.html">Issue Tracking</a> system.
+        If you have a GitHub account, most components also accept PRs (pull requests).
         Otherwise, please upload the file to a public server and include the URL in the mail.
       </p>
     </section>
@@ -105,12 +107,11 @@ limitations under the License.
           <td><a href="mailto:user-subscribe@commons.apache.org">Subscribe</a></td>
           <td><a href="mailto:user-unsubscribe@commons.apache.org">Unsubscribe</a></td>
           <td><a href="mailto:user@commons.apache.org?subject=[lang]">Post</a></td>
-          <td><a href="https://mail-archives.apache.org/mod_mbox/commons-user/">mail-archives.apache.org</a><br />
+          <td>
               <a href="https://lists.apache.org/list.html?user@commons.apache.org">lists.apache.org</a>
           </td>
-          <td><a href="https://markmail.org/list/org.apache.commons.users/">markmail.org</a><br />
-              <a href="https://www.mail-archive.com/user@commons.apache.org/">www.mail-archive.com</a><br />
-              <a href="https://news.gmane.org/gmane.comp.jakarta.commons.devel">news.gmane.org</a>
+          <td>
+              <a href="https://www.mail-archive.com/user@commons.apache.org/">www.mail-archive.com</a>
           </td>
         </tr>
 
@@ -125,12 +126,11 @@ limitations under the License.
           <td><a href="mailto:dev-subscribe@commons.apache.org">Subscribe</a></td>
           <td><a href="mailto:dev-unsubscribe@commons.apache.org">Unsubscribe</a></td>
           <td><a href="mailto:dev@commons.apache.org?subject=[lang]">Post</a></td>
-          <td><a href="https://mail-archives.apache.org/mod_mbox/commons-dev/">mail-archives.apache.org</a><br />
+          <td>
               <a href="https://lists.apache.org/list.html?dev@commons.apache.org">lists.apache.org</a>
           </td>
-          <td><a href="https://markmail.org/list/org.apache.commons.dev/">markmail.org</a><br />
-              <a href="https://www.mail-archive.com/dev@commons.apache.org/">www.mail-archive.com</a><br />
-              <a href="https://news.gmane.org/gmane.comp.jakarta.commons.devel">news.gmane.org</a>
+          <td>
+              <a href="https://www.mail-archive.com/dev@commons.apache.org/">www.mail-archive.com</a>
           </td>
         </tr>
 
@@ -145,10 +145,10 @@ limitations under the License.
           <td><a href="mailto:issues-subscribe@commons.apache.org">Subscribe</a></td>
           <td><a href="mailto:issues-unsubscribe@commons.apache.org">Unsubscribe</a></td>
           <td><i>read only</i></td>
-          <td><a href="https://mail-archives.apache.org/mod_mbox/commons-issues/">mail-archives.apache.org</a><br />
+          <td>
               <a href="https://lists.apache.org/list.html?issues@commons.apache.org">lists.apache.org</a>
           </td>
-          <td><a href="https://markmail.org/list/org.apache.commons.issues/">markmail.org</a><br />
+          <td>
               <a href="https://www.mail-archive.com/issues@commons.apache.org/">www.mail-archive.com</a>
           </td>
         </tr>
@@ -164,10 +164,10 @@ limitations under the License.
           <td><a href="mailto:commits-subscribe@commons.apache.org">Subscribe</a></td>
           <td><a href="mailto:commits-unsubscribe@commons.apache.org">Unsubscribe</a></td>
           <td><i>read only</i></td>
-          <td><a href="https://mail-archives.apache.org/mod_mbox/commons-commits/">mail-archives.apache.org</a><br />
+          <td>
               <a href="https://lists.apache.org/list.html?commits@commons.apache.org">lists.apache.org</a>
           </td>
-          <td><a href="https://markmail.org/list/org.apache.commons.commits/">markmail.org</a><br />
+          <td>
               <a href="https://www.mail-archive.com/commits@commons.apache.org/">www.mail-archive.com</a>
           </td>
         </tr>
@@ -199,13 +199,11 @@ limitations under the License.
           <td><a class="externalLink" href="mailto:announce-subscribe@apache.org">Subscribe</a></td>
           <td><a class="externalLink" href="mailto:announce-unsubscribe@apache.org">Unsubscribe</a></td>
           <td><i>read only</i></td>
-          <td><a class="externalLink" href="https://mail-archives.apache.org/mod_mbox/www-announce/">mail-archives.apache.org</a><br />
+          <td>
               <a class="externalLink" href="https://lists.apache.org/list.html?announce@apache.org">lists.apache.org</a>
           </td>
-          <td><a class="externalLink" href="https://markmail.org/list/org.apache.announce/">markmail.org</a><br />
-              <a class="externalLink" href="https://old.nabble.com/Apache-News-and-Announce-f109.html">old.nabble.com</a><br />
-              <a class="externalLink" href="https://www.mail-archive.com/announce@apache.org/">www.mail-archive.com</a><br />
-              <a class="externalLink" href="https://news.gmane.org/gmane.comp.apache.announce">news.gmane.org</a>
+          <td>
+              <a class="externalLink" href="https://www.mail-archive.com/announce@apache.org/">www.mail-archive.com</a>
           </td>
         </tr>
       </table>

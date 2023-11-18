@@ -16,6 +16,86 @@ limitations under the License.
 
 
                         Apache Commons Lang
+                        Version 3.14.0
+                        Release Notes
+
+
+This document contains the release notes for the 3.14.0 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
+
+Lang 3.9 and onwards now targets Java 8, making use of features that arrived with Java 8.
+
+For the advice on upgrading from 2.x to 3.x, see the following page: 
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+New features and bug fixes (Java 8 or above).
+
+Changes in this version include:
+
+New features:
+o            Add Functions#function(Function). Thanks to Rob Spoor, Gary Gregory.
+o            Add FailableFunction#function(FailableFunction). Thanks to Rob Spoor, Gary Gregory.
+o            Add CalendarUtils.getInstance(). Thanks to Gary Gregory.
+o            Add syntax for optional tokens to DurationFormatUtils #1062. Thanks to Dan Watson.
+o            Add ArrayFill. Thanks to Gary Gregory.
+o            Add FastDateParser.TimeZoneStrategy.TzInfo.toString(). Thanks to Gary Gregory.
+o            Add LocaleUtils.isLanguageUndetermined(Locale). Thanks to Gary Gregory.
+o            Add ObjectUtils.toString(Supplier<Object>, Supplier<String>). Thanks to Gary Gregory.
+o            Add LazyInitializer.isInitialized(). Thanks to Gary Gregory.
+o            Add ConcurrentInitializer#isInitialized() #1120. Thanks to Benjamin Confino, Gary Gregory.
+o            Add Streams.failableStream(T...). Thanks to Gary Gregory.
+o            Add FailableSupplier.nul(). Thanks to Gary Gregory.
+o            Add Suppliers.nul(). Thanks to Gary Gregory.
+o            Add ExceptionUtils.throwUnchecked(T) where T extends Throwable, and deprecate Object version. Thanks to Gary Gregory.
+o            Add ExceptionUtils.rethrowRuntimeException(T), and deprecate rethrow(T). Thanks to Gary Gregory.
+o LANG-1716: ConcurrentInitializer implementations can now be instantiated and configured with allocation and release lambdas. Thanks to Benjamin Confino, Gary Gregory.
+o LANG-1717: Add support for RISC-V in ArchUtils #1128. Thanks to Levi Zim, Gary Gregory.
+
+Fixed Bugs:
+o            Rename variable names from 'clss' to 'clazz' #1087. Thanks to remeio.
+o            [Javadoc] ComparableUtils'c1' to 'comparable1', 'c2' to ' Thanks to remeio.
+o            [Javadoc] Remove 2.1 specific comment #1091. Thanks to Elliotte Rusty Harold.
+o LANG-1704: [Javadoc] Fix Incorrect Description in Processor isAarch64() #1093. Thanks to Sung Ho Yoon.
+o            [Javadoc] Point to right getShortClassName flavor in Javadoc for relevant notes #1097. Thanks to ljacqu.
+o            Improve performance of StringUtils.isMixedCase() #1096. Thanks to hduelme.
+o LANG-1706: ThreadUtils find methods should not return null items #1098. Thanks to Alberto Fernández.
+o LANG-1710: ReflectionToStringBuilder changes in version 3.13.0 has broken the logic for overriding classes. Thanks to Shashank Sharma, Gary Gregory, Oksana.
+o            Return "null" instead of NPE in ClassLoaderUtils.toString(ClassLoader). Thanks to Gary Gregory.
+o            Return "null" instead of NPE in ClassLoaderUtils.toString(URLClassLoader). Thanks to Gary Gregory.
+o            Return ToStringStyle.nullText instead of NPE for ReflectionToStringBuilder.toString(). Thanks to Gary Gregory.
+o            Fix ThresholdCircuitBreaker#checkState() #1100. Thanks to yichinzhu, Gary Gregory.
+o            Use ConcurrentInitializer implementations without subclassing. #1123. Thanks to Benjamin Confino, Gary Gregory.
+o            Update critical value for chi-square test #1125. Thanks to Alex Herbert.
+o            Fix Javadoc syntax errors #1129. Thanks to Sung Ho Yoon.
+
+Changes:
+o            Bump commons-parent from 58 to 64. Thanks to Gary Gregory.
+o            Bump org.easymock:easymock from 5.1.0 to 5.2.0 #1104. Thanks to Gary Gregory.
+o            Bump commons-text from 1.10.0 to 1.11.0. Thanks to Gary Gregory.
+o            Bump org.codehaus.mojo:exec-maven-plugin from 3.1.0 to 3.1.1 #1135. Thanks to Gary Gregory.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+-Apache Commons Team
+
+-----------------------------------------------------------------------------
+
+                        Apache Commons Lang
                         Version 3.13.0
                         Release Notes
 
