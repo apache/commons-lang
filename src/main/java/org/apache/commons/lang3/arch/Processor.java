@@ -225,15 +225,6 @@ public class Processor {
     }
 
     /**
-     * Tests if {@link Processor} is type of x86.
-     *
-     * @return {@code true}, if {@link Processor} is {@link Type#X86}, else {@code false}.
-     */
-    public boolean isX86() {
-        return Type.X86 == type;
-    }
-
-    /**
      * Tests if {@link Processor} is type of RISC-V.
      *
      * @return {@code true}. if {@link Processor} is {@link Type#RISC_V}, else {@code false}.
@@ -241,6 +232,15 @@ public class Processor {
      */
     public boolean isRISCV() {
         return Type.RISC_V == type;
+    }
+
+    /**
+     * Tests if {@link Processor} is type of x86.
+     *
+     * @return {@code true}, if {@link Processor} is {@link Type#X86}, else {@code false}.
+     */
+    public boolean isX86() {
+        return Type.X86 == type;
     }
 
     @Override
