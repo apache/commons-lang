@@ -296,8 +296,7 @@ public class ExceptionUtils {
      *
      * <p>From version 2.2, this method handles recursive cause structures
      * that might otherwise cause infinite loops. If the throwable parameter
-     * has a cause of itself, then null will be returned. If the throwable
-     * parameter cause chain loops, the last element in the chain before the
+     * cause chain loops, the last element in the chain before the
      * loop is returned.</p>
      *
      * @param throwable  the throwable to get the root cause for, may be null
