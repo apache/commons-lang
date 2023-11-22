@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -340,7 +341,11 @@ public class EnumUtilsTest extends AbstractLangTest {
     @Test
     public void test_getEnumMap() {
         final Map<String, Traffic> test = EnumUtils.getEnumMap(Traffic.class);
-        assertEquals("{RED=RED, AMBER=AMBER, GREEN=GREEN}", test.toString(), "getEnumMap not created correctly");
+        final Map<String, Traffic> expected = new HashMap<>();
+        expected.put("RED", Traffic.RED);
+        expected.put("AMBER", Traffic.AMBER);
+        expected.put("GREEN", Traffic.GREEN);
+        assertEquals(expected, test, "getEnumMap not created correctly");
         assertEquals(3, test.size());
         assertTrue(test.containsKey("RED"));
         assertEquals(Traffic.RED, test.get("RED"));
@@ -354,8 +359,20 @@ public class EnumUtilsTest extends AbstractLangTest {
     @Test
     public void test_getEnumMap_keyFunction() {
         final Map<Integer, Month> test = EnumUtils.getEnumMap(Month.class, Month::getId);
-        assertEquals("{1=JAN, 2=FEB, 3=MAR, 4=APR, 5=MAY, 6=JUN, 7=JUL, 8=AUG, 9=SEP, 10=OCT, 11=NOV, 12=DEC}", test.toString(),
-                "getEnumMap not created correctly");
+        final Map<Integer, Month> expected = new HashMap<>();
+        expected.put(1, Month.JAN);
+        expected.put(2, Month.FEB);
+        expected.put(3, Month.MAR);
+        expected.put(4, Month.APR);
+        expected.put(5, Month.MAY);
+        expected.put(6, Month.JUN);
+        expected.put(7, Month.JUL);
+        expected.put(8, Month.AUG);
+        expected.put(9, Month.SEP);
+        expected.put(10, Month.OCT);
+        expected.put(11, Month.NOV);
+        expected.put(12, Month.DEC);
+        assertEquals(expected, test, "getEnumMap not created correctly");
         assertEquals(12, test.size());
         assertFalse(test.containsKey(0));
         assertTrue(test.containsKey(1));
