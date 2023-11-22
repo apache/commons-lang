@@ -288,17 +288,17 @@ public class ExceptionUtils {
     }
 
     /**
-     * Introspects the {@link Throwable} to obtain the root cause.
+     * Walks the {@link Throwable} to obtain its root cause.
      *
-     * <p>This method walks through the exception chain to the last element,
-     * "root" of the tree, using {@link Throwable#getCause()}, and
+     * <p>This method walks through the exception chain until the last element,
+     * the root cause of the chain, using {@link Throwable#getCause()}, and
      * returns that exception.</p>
      *
-     * <p>From version 2.2, this method handles recursive cause structures
-     * that might otherwise cause infinite loops. If the throwable parameter
-     * has a cause of itself, then null will be returned. If the throwable
-     * parameter cause chain loops, the last element in the chain before the
-     * loop is returned.</p>
+     * <p>This method handles recursive cause chains that might
+     * otherwise cause infinite loops. The cause chain is processed until
+     * the end, or until the next item in the chain is already
+     * processed. If we detect a loop, then return the element before the loop.</p>
+
      *
      * @param throwable  the throwable to get the root cause for, may be null
      * @return the root cause of the {@link Throwable},
@@ -477,13 +477,13 @@ public class ExceptionUtils {
      * A throwable with one cause will return {@code 2} and so on.
      * A {@code null} throwable will return {@code 0}.</p>
      *
-     * <p>From version 2.2, this method handles recursive cause structures
+     * <p>This method handles recursive cause chains
      * that might otherwise cause infinite loops. The cause chain is
-     * processed until the end is reached, or until the next item in the
-     * chain is already in the result set.</p>
+     * processed until the end, or until the next item in the
+     * chain is already in the result.</p>
      *
      * @param throwable  the throwable to inspect, may be null
-     * @return the count of throwables, zero if null input
+     * @return the count of throwables, zero on null input
      */
     public static int getThrowableCount(final Throwable throwable) {
         return getThrowableList(throwable).size();
@@ -499,10 +499,10 @@ public class ExceptionUtils {
      * two elements. - the input throwable and the cause throwable.
      * A {@code null} throwable will return a list of size zero.</p>
      *
-     * <p>This method handles recursive cause structures that might
+     * <p>This method handles recursive cause chains that might
      * otherwise cause infinite loops. The cause chain is processed until
-     * the end is reached, or until the next item in the chain is already
-     * in the result set.</p>
+     * the end, or until the next item in the chain is already
+     * in the result list.</p>
      *
      * @param throwable  the throwable to inspect, may be null
      * @return the list of throwables, never null
@@ -527,10 +527,10 @@ public class ExceptionUtils {
      * two elements. - the input throwable and the cause throwable.
      * A {@code null} throwable will return an array of size zero.</p>
      *
-     * <p>From version 2.2, this method handles recursive cause structures
+     * <p>This method handles recursive cause chains
      * that might otherwise cause infinite loops. The cause chain is
-     * processed until the end is reached, or until the next item in the
-     * chain is already in the result set.</p>
+     * processed until the end, or until the next item in the
+     * chain is already in the result array.</p>
      *
      * @see #getThrowableList(Throwable)
      * @param throwable  the throwable to inspect, may be null
@@ -887,8 +887,8 @@ public class ExceptionUtils {
      * </p>
      *
      * <p>
-     * This method handles recursive cause structures that might otherwise cause infinite loops. The cause chain is
-     * processed until the end is reached, or until the next item in the chain is already in the result set.
+     * This method handles recursive cause chains that might otherwise cause infinite loops. The cause chain is
+     * processed until the end, or until the next item in the chain is already in the result.
      * </p>
      *
      * @param throwable The Throwable to traverse
