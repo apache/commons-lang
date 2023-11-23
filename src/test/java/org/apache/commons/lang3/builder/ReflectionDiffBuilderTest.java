@@ -30,6 +30,31 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @SuppressWarnings("unused")
+    private static class TypeTestEntityClass implements Diffable<TypeTestEntityClass> {
+
+        private Long id;
+        private String field1;
+
+        @Override
+        public DiffResult<TypeTestEntityClass> diff(TypeTestEntityClass obj) {
+            return new ReflectionDiffBuilder(this, obj, SHORT_STYLE, false).build();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            TypeTestEntityClass that = (TypeTestEntityClass) obj;
+            return new EqualsBuilder().append(id, that.id).build();
+        }
+
+        @Override
+        public int hashCode() {
+            return new HashCodeBuilder(17, 37).append(id).toHashCode();
+        }
+    }
+
+    @SuppressWarnings("unused")
     private static class TypeTestClass implements Diffable<TypeTestClass> {
         private static int staticField;
         private final ToStringStyle style = SHORT_STYLE;
@@ -182,6 +207,20 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         assertNotNull(excludeFieldNames);
         assertEquals(1, excludeFieldNames.length);
         assertEquals("charField", excludeFieldNames[0]);
+    }
+
+    @Test
+    public void testEqualsObjectDiff() {
+        final TypeTestEntityClass firstObject = new TypeTestEntityClass();
+        firstObject.id = 1L;
+        firstObject.field1 = "a";
+
+        final TypeTestEntityClass secondObject = new TypeTestEntityClass();
+        secondObject.id = 1L;
+        secondObject.field1 = "b";
+
+        final DiffResult list = firstObject.diff(secondObject);
+        assertEquals(1, list.getNumberOfDiffs());
     }
 
 }

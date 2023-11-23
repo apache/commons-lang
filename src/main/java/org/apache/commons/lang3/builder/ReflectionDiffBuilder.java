@@ -75,6 +75,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
 
     private final T left;
     private final T right;
+    private final boolean testTriviallyEqual;
     private final DiffBuilder<T> diffBuilder;
 
     /**
@@ -103,9 +104,38 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      *             if {@code lhs} or {@code rhs} is {@code null}
      */
     public ReflectionDiffBuilder(final T lhs, final T rhs, final ToStringStyle style) {
+        this(lhs, rhs, style, true);
+    }
+
+    /**
+     * Constructs a builder for the specified objects with the specified style.
+     *
+     * <p>
+     * If {@code lhs == rhs} or {@code lhs.equals(rhs)} then the builder will
+     * not evaluate any calls to {@code append(...)} and will return an empty
+     * {@link DiffResult} when {@link #build()} is executed.
+     * </p>
+     * @param lhs
+     *            {@code this} object
+     * @param rhs
+     *            the object to diff against
+     * @param style
+     *            the style will use when outputting the objects, {@code null}
+     *            uses the default
+     * @param testTriviallyEqual
+     *            If true, this will test if lhs and rhs are the same or equal.
+     *            All of the append(fieldName, lhs, rhs) methods will abort
+     *            without creating a field {@link Diff} if the trivially equal
+     *            test is enabled and returns true.  The result of this test
+     *            is never changed throughout the life of this {@link ReflectionDiffBuilder}
+     * @throws IllegalArgumentException
+     *             if {@code lhs} or {@code rhs} is {@code null}
+     */
+    public ReflectionDiffBuilder(final T lhs, final T rhs, final ToStringStyle style, boolean testTriviallyEqual) {
         this.left = lhs;
         this.right = rhs;
-        this.diffBuilder = new DiffBuilder<>(lhs, rhs, style);
+        this.testTriviallyEqual = testTriviallyEqual;
+        this.diffBuilder = new DiffBuilder<>(lhs, rhs, style, testTriviallyEqual);
     }
 
     private boolean accept(final Field field) {
@@ -143,7 +173,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
 
     @Override
     public DiffResult<T> build() {
-        if (left.equals(right)) {
+        if (testTriviallyEqual && left.equals(right)) {
             return diffBuilder.build();
         }
 
