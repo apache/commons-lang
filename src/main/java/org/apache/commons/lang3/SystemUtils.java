@@ -1945,7 +1945,7 @@ public class SystemUtils {
     /**
      * Decides if the Java version matches.
      *
-     * @param versionPrefix the prefix for the java version
+     * @param versionPrefix the prefix for the Java version
      * @return true if matches, or false if not or can't determine
      */
     private static boolean getJavaVersionMatches(final String versionPrefix) {

@@ -172,7 +172,7 @@ public enum JavaVersion {
     JAVA_21(21, "21"),
 
     /**
-     * The most recent java version. Mainly introduced to avoid to break when a new version of Java is used.
+     * The most recent Java version. Mainly introduced to avoid to break when a new version of Java is used.
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
 

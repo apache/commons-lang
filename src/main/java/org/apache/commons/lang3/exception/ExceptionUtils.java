@@ -107,14 +107,14 @@ public class ExceptionUtils {
      *  }
      * </pre>
      * <p>
-     * One downside to using this approach is that the java compiler will not
+     * One downside to using this approach is that the Java compiler will not
      * allow invoking code to specify a checked exception in a catch clause
      * unless there is some code path within the try block that has invoked a
      * method declared with that checked exception. If the invoking site wishes
      * to catch the shaded checked exception, it must either invoke the shaded
      * code through a method re-declaring the desired checked exception, or
      * catch Exception and use the {@code instanceof} operator. Either of these
-     * techniques are required when interacting with non-java jvm code such as
+     * techniques are required when interacting with non-Java jvm code such as
      * Jython, Scala, or Groovy, since these languages do not consider any
      * exceptions as checked.
      * </p>
@@ -125,7 +125,7 @@ public class ExceptionUtils {
      * @return Never actually returned, this generic type matches any type
      *         which the calling site requires. "Returning" the results of this
      *         method, as done in the propagateExample above, will satisfy the
-     *         java compiler requirement that all code paths return a value.
+     *         Java compiler requirement that all code paths return a value.
      * @since 3.14.0
      * @see #wrapAndThrow(Throwable)
      */
@@ -849,14 +849,14 @@ public class ExceptionUtils {
      *  }
      * </pre>
      * <p>
-     * One downside to using this approach is that the java compiler will not
+     * One downside to using this approach is that the Java compiler will not
      * allow invoking code to specify a checked exception in a catch clause
      * unless there is some code path within the try block that has invoked a
      * method declared with that checked exception. If the invoking site wishes
      * to catch the shaded checked exception, it must either invoke the shaded
      * code through a method re-declaring the desired checked exception, or
      * catch Exception and use the {@code instanceof} operator. Either of these
-     * techniques are required when interacting with non-java jvm code such as
+     * techniques are required when interacting with non-Java jvm code such as
      * Jython, Scala, or Groovy, since these languages do not consider any
      * exceptions as checked.
      * </p>
@@ -867,7 +867,7 @@ public class ExceptionUtils {
      * @return Never actually returned, this generic type matches any type
      *         which the calling site requires. "Returning" the results of this
      *         method, as done in the propagateExample above, will satisfy the
-     *         java compiler requirement that all code paths return a value.
+     *         Java compiler requirement that all code paths return a value.
      * @since 3.5
      * @see #wrapAndThrow(Throwable)
      * @deprecated Use {@link #asRuntimeException(Throwable)}.
@@ -1080,7 +1080,7 @@ public class ExceptionUtils {
      * @param <R> The type of the returned value.
      * @return Never actually returned, this generic type matches any type
      *         which the calling site requires. "Returning" the results of this
-     *         method will satisfy the java compiler requirement that all code
+     *         method will satisfy the Java compiler requirement that all code
      *         paths return a value.
      * @since 3.5
      * @see #asRuntimeException(Throwable)
