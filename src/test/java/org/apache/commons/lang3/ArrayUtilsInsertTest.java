@@ -53,7 +53,6 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new boolean[]{true, false, true, false, true, false}, ArrayUtils.insert(array.length, array, values));
     }
 
-
     @Test
     public void testInsertBytes() {
         final byte[] array = {1, 2, 3};
@@ -176,7 +175,6 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new String[]{"a", "b", "c", "d", "e", "f"}, ArrayUtils.insert(array.length, array, values));
     }
 
-
     @Test
     public void testInsertInts() {
         final int[] array = {1, 2, 3};
@@ -201,7 +199,6 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new int[]{1, 2, 3, 4, 5, 6}, ArrayUtils.insert(array.length, array, values));
     }
 
-
     @Test
     public void testInsertLongs() {
         final long[] array = {1, 2, 3};
@@ -225,7 +222,6 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new long[]{1, 4, 5, 6, 2, 3}, ArrayUtils.insert(1, array, values));
         assertArrayEquals(new long[]{1, 2, 3, 4, 5, 6}, ArrayUtils.insert(array.length, array, values));
     }
-
 
     @Test
     public void testInsertShorts() {

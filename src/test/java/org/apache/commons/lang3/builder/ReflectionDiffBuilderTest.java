@@ -56,7 +56,6 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         private String annotatedField = "a";
         private String excludedField = "a";
 
-
         @Override
         public DiffResult diff(final TypeTestClass obj) {
             return new ReflectionDiffBuilder(this, obj, style).setExcludeFieldNames("excludedField").build();

@@ -132,7 +132,6 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         assertNull(StringEscapeUtils.escapeCsv(null));
     }
 
-
     @Test
     public void testEscapeCsvWriter() throws Exception {
         checkCsvEscapeWriter("foo.bar",            "foo.bar");

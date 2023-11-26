@@ -214,7 +214,6 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     /** The text to work on. */
     private char[] chars;
 
-
     /** The parsed tokens */
     private String[] tokens;
 
@@ -229,7 +228,6 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
 
     /** The ignored matcher */
     private StrMatcher ignoredMatcher = StrMatcher.noneMatcher();
-
 
     /** The trimmer matcher */
     private StrMatcher trimmerMatcher = StrMatcher.noneMatcher();

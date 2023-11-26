@@ -299,7 +299,6 @@ public class ToStringBuilderTest extends AbstractLangTest {
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(null, array).toString());
     }
 
-
     @Test
     public void testAppendByteArrayWithFieldNameAndFullDetatil() {
         final byte[] array = { 1, 2, -3, 4 };
@@ -529,7 +528,6 @@ public class ToStringBuilderTest extends AbstractLangTest {
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
     }
 
-
     @Test
     public void testBooleanArrayArray() {
         boolean[][] array = {{true, false}, null, {false}};
@@ -556,7 +554,6 @@ public class ToStringBuilderTest extends AbstractLangTest {
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
     }
-
 
     @Test
     public void testByteArrayArray() {
@@ -798,7 +795,6 @@ public class ToStringBuilderTest extends AbstractLangTest {
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
     }
 
-
     @Test
     public void testObjectBuild() {
         final Integer i3 = Integer.valueOf(3);
@@ -944,7 +940,6 @@ public class ToStringBuilderTest extends AbstractLangTest {
         array = null;
         assertReflectionArray("<null>", array);
     }
-
 
     /**
      * Test wrapper for char primitive.

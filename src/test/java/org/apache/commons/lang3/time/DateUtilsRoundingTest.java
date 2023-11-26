@@ -58,7 +58,6 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
     @SuppressWarnings("deprecation")
     FastDateFormat fdf = DateFormatUtils.ISO_DATETIME_FORMAT;
 
-
     /**
      * When using this basetest all extremes are tested.<br>
      * It will test the Date, Calendar and Object-implementation<br>

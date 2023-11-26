@@ -756,7 +756,6 @@ public class ObjectUtils {
         return Integer.toHexString(Objects.hashCode(object));
     }
 
-
     /**
      * Gets the hash code for multiple objects.
      *
@@ -936,7 +935,6 @@ public class ObjectUtils {
               .append(AT_SIGN)
               .append(hexString);
     }
-
 
     // Constants (LANG-816):
     /*
@@ -1163,7 +1161,6 @@ public class ObjectUtils {
         }
         return result;
     }
-
 
     /**
      * Find the most frequently occurring item.

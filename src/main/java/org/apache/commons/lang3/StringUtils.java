@@ -4470,7 +4470,6 @@ public class StringUtils {
         return join(subList.iterator(), separator);
     }
 
-
     /**
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      *

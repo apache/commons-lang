@@ -225,7 +225,6 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
         }
     }
 
-
     private void testNewLastIndexOfSingle(final CharSequence a, final CharSequence b) {
         final int maxa = Math.max(a.length(), b.length());
         for (int i = -maxa - 10; i <= maxa + 10; i++) {

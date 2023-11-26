@@ -387,7 +387,6 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         assertEquals("Message with placeholder 'DUMMY'", emf2.format(new Object[] {"DUMMY"}));
     }
 
-
     /**
      * Test Bug LANG-477 - out of memory error with escaped quote
      */

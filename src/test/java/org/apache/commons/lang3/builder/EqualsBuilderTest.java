@@ -37,7 +37,6 @@ import org.junit.jupiter.api.Test;
  */
 public class EqualsBuilderTest extends AbstractLangTest {
 
-
     public static class TestACanEqualB {
         private final int a;
 

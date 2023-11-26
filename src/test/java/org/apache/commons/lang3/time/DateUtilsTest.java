@@ -956,7 +956,6 @@ public class DateUtilsTest extends AbstractLangTest {
                 DateUtils.round(date2, DateUtils.SEMI_MONTH),
                 "round semimonth-2 failed");
 
-
         assertEquals(dateParser.parse("February 13, 2002"),
                 DateUtils.round(date1, Calendar.DATE),
                 "round date-1 failed");

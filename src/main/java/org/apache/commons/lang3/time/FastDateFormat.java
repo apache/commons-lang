@@ -537,7 +537,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
 
     // Parsing
 
-
     /**
      * Formats a millisecond {@code long} value into the
      * supplied {@link StringBuffer}.

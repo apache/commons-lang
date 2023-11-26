@@ -603,7 +603,6 @@ public class ArrayUtilsRemoveTest extends AbstractLangTest {
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
     }
 
-
     @Test
     public void testRemoveElementLongArray() {
         long[] array;

@@ -90,7 +90,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     public static final Fraction FOUR_FIFTHS = new Fraction(4, 5);
 
-
     /**
      * Add two integers, checking for overflow.
      *

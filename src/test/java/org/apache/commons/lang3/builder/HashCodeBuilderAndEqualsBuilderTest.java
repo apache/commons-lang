@@ -28,7 +28,6 @@ import org.junit.jupiter.api.Test;
  */
 public class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
 
-
     static class AllTransientFixture {
         transient int i;
         transient char c;
@@ -133,6 +132,5 @@ public class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
     public void testIntegerWithTransients() {
         testInteger(true);
     }
-
 
 }

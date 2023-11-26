@@ -4608,7 +4608,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(2, array[3]);
     }
 
-
     @Test
     public void testShiftInt() {
         final int[] array = {1, 2, 3, 4};
@@ -5319,7 +5318,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         final int[] midSubarray = {11, 12, 13, 14};
         final int[] rightSubarray = {12, 13, 14, 15};
 
-
         assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, 0, 4)), "0 start, mid end");
 
         assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, 0, array.length)), "0 start, length end");
@@ -5328,7 +5326,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
 
         assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, array.length)),
                 "mid start, length end");
-
 
         assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
 

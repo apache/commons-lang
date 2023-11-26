@@ -18,7 +18,6 @@ package org.apache.commons.lang3;
 
 import java.util.UUID;
 
-
 /**
  * Static methods to convert a type into another, with endianness and bit ordering awareness.
  *

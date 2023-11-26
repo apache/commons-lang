@@ -42,7 +42,6 @@ public class MutableTripleTest extends AbstractLangTest {
         assertEquals("hello", triple2.getRight());
     }
 
-
     @Test
     public void testDefault() {
         final MutableTriple<Integer, String, Boolean> triple = new MutableTriple<>();

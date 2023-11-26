@@ -676,7 +676,6 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("abc", s);
     }
 
-
     @Test
     public void testDefaultIfEmpty_CharBuffers() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
@@ -696,7 +695,6 @@ public class StringUtilsTest extends AbstractLangTest {
         final StringBuffer s = StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL"));
         assertEquals("abc", s.toString());
     }
-
 
     @Test
     public void testDefaultIfEmpty_StringBuilders() {
@@ -745,7 +743,6 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("", StringUtils.difference("abc", "abc"));
         assertEquals("you are a robot", StringUtils.difference("i am a robot", "you are a robot"));
     }
-
 
     @Test
     public void testDifferenceAt_StringArray() {
@@ -1181,7 +1178,6 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("2", StringUtils.join(MIXED_TYPE_LIST, '/', 1, 2));
         assertEquals("", StringUtils.join(MIXED_TYPE_LIST, '/', 2, 1));
     }
-
 
     @Test
     public void testJoin_ArrayOfBooleans() {

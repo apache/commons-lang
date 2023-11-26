@@ -238,7 +238,6 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         assertEqualDuration("48", new int[] { 1992, 1, 29, 0, 0, 0 },
                 new int[] { 1996, 1, 29, 0, 0, 0 }, "M");
 
-
         // this seems odd - and will fail if I throw it in as a brute force
         // below as it expects the answer to be 12. It's a tricky edge case
         assertEqualDuration("11", new int[] { 1996, 1, 29, 0, 0, 0 },
@@ -445,7 +444,6 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         }
     }
 
-
     @Test
     public void testFormatNegativeDuration() {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(-5000, "S", true));
@@ -610,7 +608,6 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         assertEquals("61.00999", DurationFormatUtils.formatDuration(61999, "s.SSSSS"));
         assertEquals("1 01999", DurationFormatUtils.formatDuration(61999, "m SSSSS"));
     }
-
 
     @Test
     public void testLANG984() { // Long durations

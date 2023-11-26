@@ -85,7 +85,6 @@ public class NumberUtils {
      */
     public static final Long LONG_INT_MIN_VALUE = Long.valueOf(Integer.MIN_VALUE);
 
-
     /**
      * Compares two {@code byte} values numerically. This is the same functionality as provided in Java 7.
      *

@@ -291,7 +291,6 @@ public class FractionTest extends AbstractLangTest {
         assertThrows(ArithmeticException.class, () -> negative.divideBy(negative.invert())); // Should overflow
     }
 
-
     @Test
     public void testEquals() {
         Fraction f1;
@@ -684,7 +683,6 @@ public class FractionTest extends AbstractLangTest {
         f = f1.multiplyBy(f2);
         assertEquals(6, f.getNumerator());
         assertEquals(25, f.getDenominator());
-
 
         f1 = Fraction.getFraction(0, 5);
         f2 = Fraction.getFraction(2, 7);

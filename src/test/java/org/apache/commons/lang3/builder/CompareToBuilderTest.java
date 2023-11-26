@@ -30,7 +30,6 @@ import org.junit.jupiter.api.Test;
  */
 public class CompareToBuilderTest extends AbstractLangTest {
 
-
     static class TestObject implements Comparable<TestObject> {
         private int a;
         TestObject(final int a) {
@@ -996,7 +995,6 @@ public class CompareToBuilderTest extends AbstractLangTest {
         }
         array3[1][2] = 100;
         array3[1][2] = 100;
-
 
         assertEquals(0, new CompareToBuilder().append(array1, array1).toComparison());
         assertEquals(0, new CompareToBuilder().append(array1, array2).toComparison());

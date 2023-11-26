@@ -1308,7 +1308,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         maxLengthEstimate = len;
     }
 
-
     /**
      * Creates a new Calendar instance.
      * @return a new Calendar instance.

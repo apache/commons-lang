@@ -139,7 +139,6 @@ public interface DatePrinter {
     @Deprecated
     StringBuffer format(long millis, StringBuffer buf);
 
-
     /**
      * Formats a {@link Date}, {@link Calendar} or
      * {@link Long} (milliseconds) object.

@@ -384,7 +384,6 @@ public class EqualsBuilder implements Builder<Boolean> {
         bypassReflectionClasses.add(String.class); //hashCode field being lazy but not transient
     }
 
-
     /**
      * Test if two {@code booleans}s are equal.
      *

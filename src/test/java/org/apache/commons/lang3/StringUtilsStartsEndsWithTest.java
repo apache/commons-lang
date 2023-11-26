@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - StartsWith/EndsWith methods
  */
@@ -32,7 +31,6 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
     private static final String FOO    = "FOO";
     private static final String BAR    = "BAR";
     private static final String FOOBAR = "FOOBAR";
-
 
     /**
      * Test StringUtils.endsWith()
@@ -130,7 +128,6 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
                 "endsWith(\u03B1\u03B2\u03B3\u03B4, \u0393)");
     }
 
-
     /**
      * Test StringUtils.startsWith()
      */
@@ -195,6 +192,5 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
         assertFalse(StringUtils.startsWithIgnoreCase(foobar, BAR), "startsWithIgnoreCase(foobar, BAR)");
         assertFalse(StringUtils.startsWithIgnoreCase(FOOBAR, bar), "startsWithIgnoreCase(FOOBAR, bar)");
     }
-
 
 }

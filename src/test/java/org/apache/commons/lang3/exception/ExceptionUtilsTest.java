@@ -126,7 +126,6 @@ public class ExceptionUtilsTest extends AbstractLangTest {
 
     private ExceptionWithCause cyclicCause;
 
-
     private Throwable jdkNoCause;
 
     private NestableException nested;

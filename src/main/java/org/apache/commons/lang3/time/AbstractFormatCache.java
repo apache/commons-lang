@@ -83,7 +83,6 @@ abstract class AbstractFormatCache<F extends Format> {
             return hashCode;
         }
 
-
     }
 
     /**

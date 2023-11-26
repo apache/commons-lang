@@ -128,7 +128,6 @@ public class ConstructorUtilsTest extends AbstractLangTest {
         classCache = new HashMap<>();
     }
 
-
     private void expectMatchingAccessibleConstructorParameterTypes(final Class<?> cls,
             final Class<?>[] requestTypes, final Class<?>[] actualTypes) {
         final Constructor<?> c = ConstructorUtils.getMatchingAccessibleConstructor(cls,

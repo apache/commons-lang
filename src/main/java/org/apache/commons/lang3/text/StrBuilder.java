@@ -801,7 +801,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         return this;
     }
 
-
     /**
      * Appends each item in an array to the builder without any separators.
      * Appending a null array will have no effect.

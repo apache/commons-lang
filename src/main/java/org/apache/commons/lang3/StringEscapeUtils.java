@@ -759,7 +759,6 @@ public class StringEscapeUtils {
         return UNESCAPE_JSON.translate(input);
     }
 
-
     /**
      * Unescapes a string containing XML entity escapes to a string
      * containing the actual Unicode characters corresponding to the

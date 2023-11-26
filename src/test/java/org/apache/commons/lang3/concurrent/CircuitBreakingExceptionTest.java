@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.apache.commons.lang3.exception.AbstractExceptionTest;
 import org.junit.jupiter.api.Test;
 
-
 /**
  * JUnit tests for {@link CircuitBreakingException}.
  */

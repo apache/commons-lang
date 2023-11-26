@@ -70,5 +70,4 @@ public class EntityArraysTest extends AbstractLangTest {
         assertTrue(success, "One or more errors detected");
     }
 
-
 }

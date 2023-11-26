@@ -508,7 +508,6 @@ public class DurationFormatUtils {
             final TimeZone timezone) {
         Validate.isTrue(startMillis <= endMillis, "startMillis must not be greater than endMillis");
 
-
         // Used to optimise for differences under 28 days and
         // called formatDuration(millis, format); however this did not work
         // over leap years.

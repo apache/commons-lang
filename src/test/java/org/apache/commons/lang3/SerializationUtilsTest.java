@@ -71,7 +71,6 @@ public class SerializationUtilsTest extends AbstractLangTest {
         iMap.put("BAR", iInteger);
     }
 
-
     @Test
     public void testClone() {
         final Object test = SerializationUtils.clone(iMap);
@@ -91,7 +90,6 @@ public class SerializationUtilsTest extends AbstractLangTest {
         final Object test = SerializationUtils.clone(null);
         assertNull(test);
     }
-
 
     @Test
     public void testCloneUnserializable() {
@@ -150,7 +148,6 @@ public class SerializationUtilsTest extends AbstractLangTest {
         final Object test = SerializationUtils.deserialize(streamReal.toByteArray());
         assertNull(test);
     }
-
 
     @Test
     public void testDeserializeClassCastException() {
@@ -276,7 +273,6 @@ public class SerializationUtilsTest extends AbstractLangTest {
         assertArrayEquals(realBytes, testBytes);
     }
 
-
     @Test
     public void testSerializeBytesNull() throws Exception {
         final byte[] testBytes = SerializationUtils.serialize(null);
@@ -329,7 +325,6 @@ public class SerializationUtilsTest extends AbstractLangTest {
         assertEquals(testBytes.length, realBytes.length);
         assertArrayEquals(realBytes, testBytes);
     }
-
 
     @Test
     public void testSerializeStreamNullNull() {

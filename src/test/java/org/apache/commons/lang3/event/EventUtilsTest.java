@@ -113,7 +113,6 @@ public class EventUtilsTest extends AbstractLangTest {
         }
     }
 
-
     public static class PropertyChangeSource {
         private final EventListenerSupport<PropertyChangeListener> listeners = EventListenerSupport.create(PropertyChangeListener.class);
 
@@ -137,7 +136,6 @@ public class EventUtilsTest extends AbstractLangTest {
             listeners.fire().propertyChange(new PropertyChangeEvent(this, "property", oldValue, property));
         }
     }
-
 
     @Test
     public void testAddEventListener() {
@@ -182,7 +180,6 @@ public class EventUtilsTest extends AbstractLangTest {
         assertEquals("Class " + src.getClass().getName() + " does not have a public add" + VetoableChangeListener.class.getSimpleName() + " method which takes a parameter of type " + VetoableChangeListener.class.getName() + ".",
                 e.getMessage());
     }
-
 
     @Test
     public void testBindEventsToMethod() {

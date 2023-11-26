@@ -413,7 +413,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         return new ReflectionToStringBuilder(object).setExcludeFieldNames(excludeFieldNames).toString();
     }
 
-
     /**
      * Builds a String for a toString method including the given field names.
      *

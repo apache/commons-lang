@@ -38,7 +38,6 @@ public class DateUtilsFragmentTest extends AbstractLangTest {
     private Date aDate;
     private Calendar aCalendar;
 
-
     @BeforeEach
     public void setUp() {
         aCalendar = Calendar.getInstance();
@@ -324,7 +323,6 @@ testResult);
         testResult = DateUtils.getFragmentInMinutes(aDate, Calendar.DAY_OF_YEAR);
         assertEquals(expectedValue, testResult);
     }
-
 
     @Test
     public void testMinutesOfHourWithCalendar() {

@@ -269,7 +269,6 @@ public class SystemPropertiesTest {
         assertNotNull(SystemProperties.getOsName());
     }
 
-
     @Test
     public void testGetOsVersion() {
         assertNotNull(SystemProperties.getOsVersion());

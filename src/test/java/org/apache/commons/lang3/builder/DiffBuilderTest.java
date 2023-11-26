@@ -30,7 +30,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 
-
 /**
  * Unit tests {@link DiffBuilder}.
  */

@@ -32,7 +32,6 @@ public class StringUtilsSubstringTest extends AbstractLangTest {
     private static final String FOOBAR = "foobar";
     private static final String SENTENCE = "foo bar baz";
 
-
     @Test
     public void testCountMatches_char() {
         assertEquals(0, StringUtils.countMatches(null, 'D'));

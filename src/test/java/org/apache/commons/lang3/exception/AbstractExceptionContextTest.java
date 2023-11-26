@@ -34,7 +34,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 /**
  * Abstract test of an ExceptionContext implementation.
  */
@@ -50,7 +49,6 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     protected static final String TEST_MESSAGE = "Test Message";
 
     protected T exceptionContext;
-
 
     @BeforeEach
     public void setUp() throws Exception {

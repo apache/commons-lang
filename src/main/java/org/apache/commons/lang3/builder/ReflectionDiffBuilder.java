@@ -126,7 +126,6 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         return !field.isAnnotationPresent(DiffExclude.class);
     }
 
-
     private void appendFields(final Class<?> clazz) {
         for (final Field field : FieldUtils.getAllFields(clazz)) {
             if (accept(field)) {

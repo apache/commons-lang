@@ -501,7 +501,6 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         assertEquals("", r1, "random(0).equals(\"\")");
     }
 
-
     /**
      * Test homogeneity of random strings generated --
      * i.e., test that characters show up with expected frequencies

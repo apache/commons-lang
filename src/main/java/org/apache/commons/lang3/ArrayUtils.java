@@ -778,7 +778,6 @@ public class ArrayUtils {
         return (T[]) add(array, index, element, clazz);
     }
 
-
     /**
      * Copies the given array and adds the given element at the end of the new array.
      * <p>
@@ -3521,7 +3520,6 @@ public class ArrayUtils {
         return getLength(array1) == getLength(array2);
     }
 
-
     /**
      * Checks whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
@@ -4079,7 +4077,6 @@ public class ArrayUtils {
         }
         return INDEX_NOT_FOUND;
     }
-
 
     /**
      * Finds the last index of the given value within the array.
@@ -8285,7 +8282,6 @@ public class ArrayUtils {
     public static void swap(final boolean[] array, final int offset1, final int offset2) {
         swap(array, offset1, offset2, 1);
     }
-
 
     /**
      * Swaps a series of elements in the given boolean array.
