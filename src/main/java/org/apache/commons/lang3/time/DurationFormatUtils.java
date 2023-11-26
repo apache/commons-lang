@@ -512,7 +512,7 @@ public class DurationFormatUtils {
         // called formatDuration(millis, format); however this did not work
         // over leap years.
         // TODO: Compare performance to see if anything was lost by
-        // losing this optimisation.
+        // losing this optimization.
 
         final Token[] tokens = lexx(format);
 
