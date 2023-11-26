@@ -478,7 +478,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a String to a boolean (optimised for performance).
+     * Converts a String to a boolean (optimized for performance).
      *
      * <p>{@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'} or {@code 'yes'}
      * (case insensitive) will return {@code true}. Otherwise,
