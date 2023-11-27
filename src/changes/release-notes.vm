@@ -37,13 +37,13 @@ limitations under the License.
                         Release Notes
 
 
-This document contains the release notes for the ${version} version of Apache Commons Lang.
-Commons Lang is a set of utility functions and reusable components that should be of use in any 
-Java environment.
+The Apache Commons team is pleased to announce Apache Commons Lang Version ${version}.
 
-Lang 3.9 and onwards now targets Java 8, making use of features that arrived with Java 8.
+Commons Lang is a set of utility functions and reusable components that should be of use in any Java environment.
 
-For the advice on upgrading from 2.x to 3.x, see the following page: 
+Starting with Commons Lang 3.9, we target Java 8, making use of those features.
+
+For advice on upgrading from 2.x to 3.x, see:
 
     https://commons.apache.org/lang/article3_0.html
 
