@@ -788,6 +788,7 @@ public class Conversion {
      * @param nHex the number of Chars to convert
      * @return a byte containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 8}
+     * @throws StringIndexOutOfBoundsException if {@code srcPos + nHex > src.length}
      */
     public static byte hexToByte(final String src, final int srcPos, final byte dstInit, final int dstPos,
             final int nHex) {
@@ -819,6 +820,7 @@ public class Conversion {
      * @param nHex the number of Chars to convert
      * @return an int containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 32}
+     * @throws StringIndexOutOfBoundsException if {@code srcPos + nHex > src.length}
      */
     public static int hexToInt(final String src, final int srcPos, final int dstInit, final int dstPos, final int nHex) {
         if (0 == nHex) {
@@ -849,6 +851,7 @@ public class Conversion {
      * @param nHex the number of Chars to convert
      * @return a long containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 64}
+     * @throws StringIndexOutOfBoundsException if {@code srcPos + nHex > src.length}
      */
     public static long hexToLong(final String src, final int srcPos, final long dstInit, final int dstPos,
             final int nHex) {
@@ -880,6 +883,7 @@ public class Conversion {
      * @param nHex the number of Chars to convert
      * @return a short containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 16}
+     * @throws StringIndexOutOfBoundsException if {@code srcPos + nHex > src.length}
      */
     public static short hexToShort(final String src, final int srcPos, final short dstInit, final int dstPos,
             final int nHex) {
