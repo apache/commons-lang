@@ -79,7 +79,7 @@ For information on previous releases see the <a href="changes-report.html">Relea
 <section name="Getting Involved">
 <p>
 The <a href="mail-lists.html">commons developer mailing list</a> is the main channel of communication for contributors. Please remember that the lists are shared between all commons components, so prefix your email by [lang]. </p>
-<p>You can also visit the #apache-commons IRC channel on irc.freenode.net or peruse <a href="issue-tracking.html">JIRA</a>. Specific links of interest for JIRA are:</p>
+<p>You can also peruse <a href="issue-tracking.html">JIRA</a>. Specific links of interest for JIRA are:</p>
 <ul>
 <li>Ideas looking for code: <a href="https://issues.apache.org/jira/issues/?jql=project%20%3D%20LANG%20AND%20resolution%20%3D%20Unresolved%20AND%20fixVersion%20%3D%20%22Patch%20Needed%22%20ORDER%20BY%20priority%20DESC">Patch Needed</a></li>
 <li>Issues with patches, looking for reviews: <a href="https://issues.apache.org/jira/issues/?jql=fixVersion%20%3D%20%22Review%20Patch%22%20AND%20project%20%3D%20LANG%20AND%20resolution%20%3D%20Unresolved%20ORDER%20BY%20priority%20DESC">Review Patch</a></li>
