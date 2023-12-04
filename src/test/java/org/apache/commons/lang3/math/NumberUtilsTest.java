@@ -1746,6 +1746,6 @@ public class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     public void testInvalidNumber() {
-        NumberUtils.createNumber("E123e.3");
+        assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("E123e.3"));
     }
 }
