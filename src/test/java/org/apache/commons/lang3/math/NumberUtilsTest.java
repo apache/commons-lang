@@ -1743,4 +1743,9 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(12345, NumberUtils.toShort("12345", (short) 5), "toShort(String, short) 1 failed");
         assertEquals(5, NumberUtils.toShort("1234.5", (short) 5), "toShort(String, short) 2 failed");
     }
+
+    @Test
+    public void testInvalidNumber() {
+        NumberUtils.createNumber("E123e.3");
+    }
 }
