@@ -361,7 +361,7 @@ public class NumberUtils {
         final boolean requestType = !Character.isDigit(lastChar) && lastChar != '.';
         if (decPos > -1) { // there is a decimal point
             if (expPos > -1) { // there is an exponent
-                if (expPos < decPos || expPos > length) { // prevents double exponent causing IOOBE
+                if (expPos <= decPos || expPos > length) { // prevents double exponent causing IOOBE
                     throw new NumberFormatException(str + " is not a valid number.");
                 }
                 dec = str.substring(decPos + 1, expPos);
