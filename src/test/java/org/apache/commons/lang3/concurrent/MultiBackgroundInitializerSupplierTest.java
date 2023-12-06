@@ -99,7 +99,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
         final AbstractChildBackgroundInitializer childOne = createChildBackgroundInitializer();
         final AbstractChildBackgroundInitializer childTwo = createChildBackgroundInitializer();
 
-        assertFalse(initializer.isInitialized(), "Initalized without having anything to initalize");
+        assertFalse(initializer.isInitialized(), "Initialized without having anything to initialize");
 
         initializer.addInitializer("child one", childOne);
         initializer.addInitializer("child two", childTwo);

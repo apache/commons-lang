@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest {
 
     /**
-     * A concrete implementation of BackgroundInitializer. It is designed as a warpper so the test can
+     * A concrete implementation of BackgroundInitializer. It is designed as a wrapper so the test can
      * use the same builder pattern that real code will.
      */
     protected static final class SupplierBackgroundInitializerTestImpl extends AbstractBackgroundInitializerTestImpl {

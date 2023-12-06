@@ -45,7 +45,7 @@ public class ArrayUtilsSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSetAll_Suppiler() {
+    public void testSetAll_Supplier() {
         final Supplier<?> nullSupplier = null;
         assertNull(ArrayUtils.setAll(null, nullSupplier));
         assertArrayEquals(null, ArrayUtils.setAll(null, nullSupplier));

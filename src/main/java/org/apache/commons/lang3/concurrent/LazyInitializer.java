@@ -88,7 +88,7 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
     }
 
     /**
-     * A unique value indicating an un-initialzed instance.
+     * A unique value indicating an un-initialized instance.
      */
     private static final Object NO_INIT = new Object();
 

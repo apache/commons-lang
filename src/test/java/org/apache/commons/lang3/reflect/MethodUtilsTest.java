@@ -379,7 +379,7 @@ public class MethodUtilsTest extends AbstractLangTest {
         }
 
         // These varOverloadEcho and varOverloadEchoStatic methods are designed to verify that
-        // not only is the correct overloaded variant invoked, but that the varags arguments
+        // not only is the correct overloaded variant invoked, but that the varargs arguments
         // are also delivered correctly to the method.
         public ImmutablePair<String, Object[]> varOverloadEcho(final String... args) {
             return new ImmutablePair<>("String...", args);

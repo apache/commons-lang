@@ -35,7 +35,7 @@ public class MethodInvokersFailableBiFunctionTest extends MethodFixtures {
     @Test
     public void testApply1Arg() throws Throwable {
         // Use a local variable typed to the interface to make sure we compile.
-        final FailableBiFunction<MethodFixtures, String, String[], Throwable> func = MethodInvokers.asFailableBiFunction(getMethodForGetString1ArgChecked());
+        final FailableBiFunction<MethodFixtures, String, String, Throwable> func = MethodInvokers.asFailableBiFunction(getMethodForGetString1ArgChecked());
         assertEquals(INSTANCE.getString1ArgChecked("A"), func.apply(INSTANCE, "A"));
     }
 

@@ -114,7 +114,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_no_differences_diff_exluded_field_and_exclude_annotated_field() {
+    public void test_no_differences_diff_excluded_field_and_exclude_annotated_field() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.excludedField = "b";
         firstObject.annotatedField = "b";

@@ -301,10 +301,10 @@ public class BackgroundInitializerTest extends AbstractLangTest {
         init.enableLatch();
         init.start();
         assertTrue(init.isStarted(), "Not started"); //Started and Initialized should return opposite values
-        assertFalse(init.isInitialized(), "Initalized before releasing latch");
+        assertFalse(init.isInitialized(), "Initialized before releasing latch");
         init.releaseLatch();
         init.get(); //to ensure the initialize thread has completed.
-        assertTrue(init.isInitialized(), "Not initalized after releasing latch");
+        assertTrue(init.isInitialized(), "Not initialized after releasing latch");
     }
 
     /**

@@ -431,7 +431,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
         childOne.enableLatch();
         childTwo.enableLatch();
 
-        assertFalse(initializer.isInitialized(), "Initalized without having anything to initalize");
+        assertFalse(initializer.isInitialized(), "Initialized without having anything to initialize");
 
         initializer.addInitializer("child one", childOne);
         initializer.addInitializer("child two", childTwo);
@@ -448,15 +448,15 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
             }
         }
 
-        assertFalse(initializer.isInitialized(), "Initalized with two children running");
+        assertFalse(initializer.isInitialized(), "Initialized with two children running");
 
         childOne.releaseLatch();
         childOne.get(); //ensure this child finishes initializing
-        assertFalse(initializer.isInitialized(), "Initalized with one child running");
+        assertFalse(initializer.isInitialized(), "Initialized with one child running");
 
         childTwo.releaseLatch();
         childTwo.get(); //ensure this child finishes initializing
-        assertTrue(initializer.isInitialized(), "Not initalized with no children running");
+        assertTrue(initializer.isInitialized(), "Not initialized with no children running");
     }
 
     /**

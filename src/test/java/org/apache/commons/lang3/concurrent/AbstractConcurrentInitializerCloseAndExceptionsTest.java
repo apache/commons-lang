@@ -100,7 +100,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
 
     /**
      * This method tests that if AbstractConcurrentInitializer.close catches a
-     * RuntimeException it will throw it withuot wrapping it in a ConcurrentException
+     * RuntimeException it will throw it without wrapping it in a ConcurrentException
      */
     @SuppressWarnings("rawtypes")
     @Test
@@ -176,9 +176,9 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
                 CloseableObject::new,
                 CloseableObject::close);
 
-        CloseableObject cloesableObject = initializer.get();
-        assertFalse(cloesableObject.isClosed());
+        CloseableObject closeableObject = initializer.get();
+        assertFalse(closeableObject.isClosed());
         ((AbstractConcurrentInitializer) initializer).close();
-        assertTrue(cloesableObject.isClosed());
+        assertTrue(closeableObject.isClosed());
     }
 }
