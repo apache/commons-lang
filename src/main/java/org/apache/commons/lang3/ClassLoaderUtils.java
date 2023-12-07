@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 public class ClassLoaderUtils {
 
-    private static final URL[] EMPTY_URL_ARRAY = new URL[] {};
+    private static final URL[] EMPTY_URL_ARRAY = {};
 
     /**
      * Gets the system class loader's URLs, if any.

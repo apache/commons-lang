@@ -236,7 +236,7 @@ public enum JavaVersion {
             return JAVA_21;
         default:
             final float v = toFloatVersion(versionStr);
-            if ((v - 1.) < 1.) { // then we need to check decimals > .9
+            if (v - 1. < 1.) { // then we need to check decimals > .9
                 final int firstComma = Math.max(versionStr.indexOf('.'), versionStr.indexOf(','));
                 final int end = Math.max(versionStr.length(), versionStr.indexOf(',', firstComma));
                 if (Float.parseFloat(versionStr.substring(firstComma + 1, end)) > .9f) {

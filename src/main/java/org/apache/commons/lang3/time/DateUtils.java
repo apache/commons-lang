@@ -398,7 +398,7 @@ public class DateUtils {
     private static long getFragment(final Calendar calendar, final int fragment, final TimeUnit unit) {
         Objects.requireNonNull(calendar, "calendar");
         long result = 0;
-        final int offset = (unit == TimeUnit.DAYS) ? 0 : 1;
+        final int offset = unit == TimeUnit.DAYS ? 0 : 1;
 
         // Fragments bigger than a day require a breakdown to days
         switch (fragment) {
@@ -1122,7 +1122,7 @@ public class DateUtils {
         // truncate seconds
         final int seconds = val.get(Calendar.SECOND);
         if (!done && (ModifyType.TRUNCATE == modType || seconds < 30)) {
-            time = time - (seconds * 1000L);
+            time = time - seconds * 1000L;
         }
         if (field == Calendar.MINUTE) {
             done = true;
@@ -1131,7 +1131,7 @@ public class DateUtils {
         // truncate minutes
         final int minutes = val.get(Calendar.MINUTE);
         if (!done && (ModifyType.TRUNCATE == modType || minutes < 30)) {
-            time = time - (minutes * 60000L);
+            time = time - minutes * 60000L;
         }
 
         // reset time
@@ -1220,7 +1220,7 @@ public class DateUtils {
                 //Calculate the offset from the minimum allowed value
                 offset = val.get(aField[0]) - min;
                 //Set roundUp if this is more than half way between the minimum and maximum
-                roundUp = offset > ((max - min) / 2);
+                roundUp = offset > (max - min) / 2;
             }
             //We need to remove this field
             if (offset != 0) {
