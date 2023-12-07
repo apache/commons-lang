@@ -360,4 +360,13 @@ public class SerializationUtilsTest extends AbstractLangTest {
         assertThrows(SerializationException.class, () -> SerializationUtils.serialize(iMap, streamTest));
     }
 
+    @Test
+    public void testNegativeByteArray() throws IOException {
+        final byte[] byteArray = {
+            (byte) -84, (byte) -19, (byte) 0, (byte) 5, (byte) 125, (byte) -19, (byte) 0,
+            (byte) 5, (byte) 115, (byte) 114, (byte) -1, (byte) 97, (byte) 122, (byte) -48, (byte) -65
+        };
+
+        assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(new ByteArrayInputStream(byteArray)));
+    }
 }

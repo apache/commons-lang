@@ -207,7 +207,7 @@ public class SerializationUtils {
             @SuppressWarnings("unchecked")
             final T obj = (T) in.readObject();
             return obj;
-        } catch (final ClassNotFoundException | IOException ex) {
+        } catch (final ClassNotFoundException | IOException | NegativeArraySizeException ex) {
             throw new SerializationException(ex);
         }
     }
