@@ -275,7 +275,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendBooleanArrayWithFieldNameAndFullDetatil() {
+    public void testAppendBooleanArrayWithFieldNameAndFullDetail() {
         final boolean[] array = { true, false, false };
         assertEquals(baseStr + "[flags={true,false,false}]",
                 new ToStringBuilder(base).append("flags", array, true).toString());
@@ -300,7 +300,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendByteArrayWithFieldNameAndFullDetatil() {
+    public void testAppendByteArrayWithFieldNameAndFullDetail() {
         final byte[] array = { 1, 2, -3, 4 };
         assertEquals(baseStr + "[values={1,2,-3,4}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -324,7 +324,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendCharArrayWithFieldNameAndFullDetatil() {
+    public void testAppendCharArrayWithFieldNameAndFullDetail() {
         final char[] array = { 'A', '2', '_', 'D' };
         assertEquals(baseStr + "[chars={A,2,_,D}]", new ToStringBuilder(base).append("chars", array, true).toString());
         assertEquals(baseStr + "[letters=<size=4>]",
@@ -347,7 +347,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendDoubleArrayWithFieldNameAndFullDetatil() {
+    public void testAppendDoubleArrayWithFieldNameAndFullDetail() {
         final double[] array = { 1.0, 2.9876, -3.00001, 4.3 };
         assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -371,7 +371,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendFloatArrayWithFieldNameAndFullDetatil() {
+    public void testAppendFloatArrayWithFieldNameAndFullDetail() {
         final float[] array = { 1.0f, 2.9876f, -3.00001f, 4.3f };
         assertEquals(baseStr + "[values={1.0,2.9876,-3.00001,4.3}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -394,7 +394,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendIntArrayWithFieldNameAndFullDetatil() {
+    public void testAppendIntArrayWithFieldNameAndFullDetail() {
         final int[] array = { 1, 2, -3, 4 };
         assertEquals(baseStr + "[values={1,2,-3,4}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -417,7 +417,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendLongArrayWithFieldNameAndFullDetatil() {
+    public void testAppendLongArrayWithFieldNameAndFullDetail() {
         final long[] array = { 1, 2, -3, 4 };
         assertEquals(baseStr + "[values={1,2,-3,4}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -441,7 +441,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendObjectArrayWithFieldNameAndFullDetatil() {
+    public void testAppendObjectArrayWithFieldNameAndFullDetail() {
        final Object[] array = { null, base, new int[] { 3, 6 } };
        assertEquals(baseStr + "[values={<null>,5,{3,6}}]",
                new ToStringBuilder(base).append("values", array, true).toString());
@@ -466,7 +466,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendShortArrayWithFieldNameAndFullDetatil() {
+    public void testAppendShortArrayWithFieldNameAndFullDetail() {
         final short[] array = { 1, 2, -3, 4 };
         assertEquals(baseStr + "[values={1,2,-3,4}]",
                 new ToStringBuilder(base).append("values", array, true).toString());
@@ -1048,7 +1048,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionhortArrayArray() {
+    public void testReflectionShort2DArray() {
         short[][] array = { { 1, 2 }, null, { 5 } };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
@@ -1158,7 +1158,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionyteArray() {
+    public void testReflectionByteArray() {
         byte[] array = { 1, 2, -3, 4 };
         final String baseString = this.toBaseString(array);
         assertEquals(baseString + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));

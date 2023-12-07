@@ -935,7 +935,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     @Test
     @Disabled("TODO")
-    public void testIsAssignableGenericArrayTypeToWildercardType() {
+    public void testIsAssignableGenericArrayTypeToWildcardType() {
         final Class<Constructor> rawClass = Constructor.class;
         final Class<Insets> typeArgClass = Insets.class;
         // Builds a ParameterizedType for Constructor<Insets>

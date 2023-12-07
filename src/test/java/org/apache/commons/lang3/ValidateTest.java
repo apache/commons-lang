@@ -137,14 +137,14 @@ public class ValidateTest extends AbstractLangTest {
                 }
 
                 @Test
-                void shouldThrowIllegalArgumentExcdeptionWhenValueIsLowerBound() {
+                void shouldThrowIllegalArgumentExceptionWhenValueIsLowerBound() {
                     final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
                         () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
 
                 @Test
-                void shouldThrowIllegalArgumentExcdeptionWhenValueIsUpperBound() {
+                void shouldThrowIllegalArgumentExceptionWhenValueIsUpperBound() {
                     final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
                         () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND, "MSG"));
                     assertEquals("MSG", ex.getMessage());
@@ -173,14 +173,14 @@ public class ValidateTest extends AbstractLangTest {
                 }
 
                 @Test
-                void shouldThrowIllegalArgumentExcdeptionWhenValueIsLowerBound() {
+                void shouldThrowIllegalArgumentExceptionWhenValueIsLowerBound() {
                     final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
                         () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, LOWER_BOUND));
                     assertEquals("The value 0.1 is not in the specified exclusive range of 0.1 to 3.1", ex.getMessage());
                 }
 
                 @Test
-                void shouldThrowIllegalArgumentExcdeptionWhenValueIsUpperBound() {
+                void shouldThrowIllegalArgumentExceptionWhenValueIsUpperBound() {
                     final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
                         () -> Validate.exclusiveBetween(LOWER_BOUND, UPPER_BOUND, UPPER_BOUND));
                     assertEquals("The value 3.1 is not in the specified exclusive range of 0.1 to 3.1", ex.getMessage());
@@ -581,7 +581,7 @@ public class ValidateTest extends AbstractLangTest {
             }
 
             @Test
-            void shouldThrowIllegalArgumentExceptionWithGiventMessageWhenClassIsNotAssignable() {
+            void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenClassIsNotAssignable() {
                 final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
                     () -> Validate.isAssignableFrom(List.class, String.class, "MSG"));
                 assertEquals("MSG", ex.getMessage());
@@ -1358,7 +1358,7 @@ public class ValidateTest extends AbstractLangTest {
         }
 
         @Test
-        void instancesCanBeConstrcuted() {
+        void instancesCanBeConstructed() {
             assertNotNull(new Validate());
         }
 

@@ -97,7 +97,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     public static class Builder<I extends BackgroundInitializer<T>, T> extends AbstractBuilder<I, T, Builder<I, T>, Exception> {
 
         /**
-         * The external executor service for executing tasks. null is an permitted value.
+         * The external executor service for executing tasks. null is a permitted value.
          */
         private ExecutorService externalExecutor;
 
@@ -108,7 +108,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
         }
 
         /**
-         * Sets the external executor service for executing tasks. null is an permitted value.
+         * Sets the external executor service for executing tasks. null is a permitted value.
          *
          * @see org.apache.commons.lang3.concurrent.BackgroundInitializer#setExternalExecutor(ExecutorService)
          *
