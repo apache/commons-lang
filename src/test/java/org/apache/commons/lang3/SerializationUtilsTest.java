@@ -242,6 +242,16 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testNegativeByteArray() throws IOException {
+        final byte[] byteArray = {
+            (byte) -84, (byte) -19, (byte) 0, (byte) 5, (byte) 125, (byte) -19, (byte) 0,
+            (byte) 5, (byte) 115, (byte) 114, (byte) -1, (byte) 97, (byte) 122, (byte) -48, (byte) -65
+        };
+
+        assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(new ByteArrayInputStream(byteArray)));
+    }
+
+    @Test
     public void testPrimitiveTypeClassSerialization() {
         final Class<?>[] primitiveTypes = { byte.class, short.class, int.class, long.class, float.class, double.class,
                 boolean.class, char.class, void.class };
@@ -358,15 +368,5 @@ public class SerializationUtilsTest extends AbstractLangTest {
         final ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         iMap.put(new Object(), new Object());
         assertThrows(SerializationException.class, () -> SerializationUtils.serialize(iMap, streamTest));
-    }
-
-    @Test
-    public void testNegativeByteArray() throws IOException {
-        final byte[] byteArray = {
-            (byte) -84, (byte) -19, (byte) 0, (byte) 5, (byte) 125, (byte) -19, (byte) 0,
-            (byte) 5, (byte) 115, (byte) 114, (byte) -1, (byte) 97, (byte) 122, (byte) -48, (byte) -65
-        };
-
-        assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(new ByteArrayInputStream(byteArray)));
     }
 }

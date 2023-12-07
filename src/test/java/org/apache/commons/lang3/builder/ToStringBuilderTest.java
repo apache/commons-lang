@@ -933,6 +933,15 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
+    public void testReflectionByteArray() {
+        byte[] array = { 1, 2, -3, 4 };
+        final String baseString = this.toBaseString(array);
+        assertEquals(baseString + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    @Test
     public void testReflectionByteArrayArray() {
         byte[][] array = { { 1, 2 }, null, { 5 } };
         final String baseString = this.toBaseString(array);
@@ -1048,15 +1057,6 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionShort2DArray() {
-        short[][] array = { { 1, 2 }, null, { 5 } };
-        final String baseString = this.toBaseString(array);
-        assertEquals(baseString + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
-        array = null;
-        assertReflectionArray("<null>", array);
-    }
-
-    @Test
     public void testReflectionIntArray() {
         int[] array = { 1, 2, -3, 4 };
         final String baseString = this.toBaseString(array);
@@ -1129,6 +1129,15 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
+    public void testReflectionShort2DArray() {
+        short[][] array = { { 1, 2 }, null, { 5 } };
+        final String baseString = this.toBaseString(array);
+        assertEquals(baseString + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    @Test
     public void testReflectionShortArray() {
         short[] array = { 1, 2, -3, 4 };
         final String baseString = this.toBaseString(array);
@@ -1155,15 +1164,6 @@ public class ToStringBuilderTest extends AbstractLangTest {
         assertEquals(
             this.toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
             this.toStringWithStatics(instance1, null, ReflectionStaticFieldsFixture.class));
-    }
-
-    @Test
-    public void testReflectionByteArray() {
-        byte[] array = { 1, 2, -3, 4 };
-        final String baseString = this.toBaseString(array);
-        assertEquals(baseString + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
-        array = null;
-        assertReflectionArray("<null>", array);
     }
 
     /**
