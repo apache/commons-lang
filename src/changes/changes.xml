@@ -52,6 +52,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1721" type="fix" dev="ggregory" due-to="Arthur Chan, Gary Gregory">Fix wrong number check that cause StringIndexOutOfBoundsException #1140.</action>
     <action issue="LANG-1722" type="fix" dev="ggregory" due-to="Arthur Chan">Rethrow NegativeArraySizeException as SerializationException in SerializationUtils.deserialize(InputStream) #1141.</action>
     <action                   type="fix" dev="ggregory" due-to="Paranoïd User">Minor grammar fixes #1143.</action>
+    <!-- UPDATE -->
+    <action                   type="update" dev="sebb" due-to="Dependabot">Bump commons-parent from 64 to 65.</action>
     <!-- REMOVE -->
     <action                   type="remove" dev="ggregory" due-to="Paranoïd User">Drop obsolete JDK 13 Maven profile #1142.</action>
   </release>
