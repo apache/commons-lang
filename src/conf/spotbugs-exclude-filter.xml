@@ -42,6 +42,24 @@
     <Bug pattern="REFLF_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_FIELD" />
   </Match>
 
+  <!-- TODO Cannot be done without breaking binary compat. -->
+  <Match>
+    <Class name="org.apache.commons.lang3.tuple.MutablePair" />
+    <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
+  </Match>
+
+  <!-- TODO Cannot be done without breaking binary compat. -->
+  <Match>
+    <Class name="org.apache.commons.lang3.tuple.MutableTriple" />
+    <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
+  </Match>
+
+  <!-- Class is deprecated; not worth the effort to fix -->
+  <Match>
+  <Class name="org.apache.commons.lang3.ThreadUtils$ThreadIdPredicate" />
+    <Bug pattern="CT_CONSTRUCTOR_THROW" />
+  </Match>
+
   <!-- https://github.com/spotbugs/spotbugs/issues/1504 -->
   <Match>
     <Class name="org.apache.commons.lang3.ArrayUtils" />

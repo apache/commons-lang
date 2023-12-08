@@ -60,7 +60,8 @@ public class SerializationUtils {
      * <p>For more in-depth information about the problem for which this
      * class here is a workaround, see the JIRA issue LANG-626.</p>
      */
-     static class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
+     static final class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
+        // Note: This is final to avoid Spotbugs CT_CONSTRUCTOR_THROW
         private static final Map<String, Class<?>> primitiveTypes =
                 new HashMap<>();
 
