@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 package org.apache.commons.lang3.math;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -722,8 +721,9 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInvalidNumber() {
+    public void testInvalidNumber() throws Exception {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("E123e.3"));
+        assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("-"));
     }
 
     /**
