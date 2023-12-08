@@ -254,7 +254,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output a padded number.
      */
-    private final static class PaddedNumberField implements NumberRule {
+    private static final class PaddedNumberField implements NumberRule {
         // Note: This is final to avoid Spotbugs CT_CONSTRUCTOR_THROW
         private final int field;
         private final int size;
@@ -286,7 +286,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * {@inheritDoc}
          */
         @Override
-        public final void appendTo(final Appendable buffer, final int value) throws IOException {
+        public /* final */ void appendTo(final Appendable buffer, final int value) throws IOException {
+            // Checkstyle complains about redundant qualifier
             appendFullDigits(buffer, value, size);
         }
 
