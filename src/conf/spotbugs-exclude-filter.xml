@@ -54,7 +54,7 @@
     <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
   </Match>
 
-  <!-- Class is deprecated; not worth the effort to fix -->
+  <!-- https://github.com/spotbugs/spotbugs/issues/2710 -->
   <Match>
   <Class name="org.apache.commons.lang3.ThreadUtils$ThreadIdPredicate" />
     <Bug pattern="CT_CONSTRUCTOR_THROW" />
