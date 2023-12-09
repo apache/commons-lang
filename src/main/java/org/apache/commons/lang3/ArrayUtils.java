@@ -1366,13 +1366,12 @@ public class ArrayUtils {
     }
 
     /**
-     * Clones an array returning a typecast result and handling
-     * {@code null}.
+     * Clones an array or returns {@code null}.
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to clone, may be {@code null}
+     * @param array the array to clone, may be {@code null}
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static boolean[] clone(final boolean[] array) {
@@ -1380,13 +1379,12 @@ public class ArrayUtils {
     }
 
     /**
-     * Clones an array returning a typecast result and handling
-     * {@code null}.
+     * Clones an array or returns {@code null}.
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to clone, may be {@code null}
+     * @param array the array to clone, may be {@code null}
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static byte[] clone(final byte[] array) {
@@ -1394,13 +1392,12 @@ public class ArrayUtils {
     }
 
     /**
-     * Clones an array returning a typecast result and handling
-     * {@code null}.
+     * Clones an array or returns {@code null}.
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to clone, may be {@code null}
+     * @param array the array to clone, may be {@code null}
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static char[] clone(final char[] array) {
@@ -1408,13 +1405,12 @@ public class ArrayUtils {
     }
 
     /**
-     * Clones an array returning a typecast result and handling
-     * {@code null}.
+     * Clones an array or returns {@code null}.
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to clone, may be {@code null}
+     * @param array the array to clone, may be {@code null}
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static double[] clone(final double[] array) {
@@ -1422,13 +1418,12 @@ public class ArrayUtils {
     }
 
     /**
-     * Clones an array returning a typecast result and handling
-     * {@code null}.
+     * Clones an array or returns {@code null}.
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to clone, may be {@code null}
+     * @param array the array to clone, may be {@code null}
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static float[] clone(final float[] array) {
@@ -1436,13 +1431,12 @@ public class ArrayUtils {
     }
 
     /**
-     * Clones an array returning a typecast result and handling
-     * {@code null}.
+     * Clones an array or returns {@code null}.
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to clone, may be {@code null}
+     * @param array the array to clone, may be {@code null}
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static int[] clone(final int[] array) {
@@ -1450,13 +1444,12 @@ public class ArrayUtils {
     }
 
     /**
-     * Clones an array returning a typecast result and handling
-     * {@code null}.
+     * Clones an array or returns {@code null}.
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to clone, may be {@code null}
+     * @param array the array to clone, may be {@code null}
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static long[] clone(final long[] array) {
@@ -1464,13 +1457,12 @@ public class ArrayUtils {
     }
 
     /**
-     * Clones an array returning a typecast result and handling
-     * {@code null}.
+     * Clones an array or returns {@code null}.
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to clone, may be {@code null}
+     * @param array the array to clone, may be {@code null}
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static short[] clone(final short[] array) {
@@ -1478,18 +1470,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Shallow clones an array returning a typecast result and handling
-     * {@code null}.
+     * Shallow clones an array or returns {@code null}.
      * <p>
-     * The objects in the array are not cloned, thus there is no special
-     * handling for multi-dimensional arrays.
+     * The objects in the array are not cloned, thus there is no special handling for multi-dimensional arrays.
      * </p>
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param <T> the component type of the array
-     * @param array  the array to shallow clone, may be {@code null}
+     * @param <T>   the component type of the array
+     * @param array the array to shallow clone, may be {@code null}
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static <T> T[] clone(final T[] array) {
