@@ -835,11 +835,12 @@ public class ArrayUtils {
      * ArrayUtils.addAll(array1, null)   = cloned copy of array1
      * ArrayUtils.addAll(null, array2)   = cloned copy of array2
      * ArrayUtils.addAll([], [])         = []
+     * ArrayUtils.addAll(null, null)     = null
      * </pre>
      *
      * @param array1  the first array whose elements are added to the new array.
      * @param array2  the second array whose elements are added to the new array.
-     * @return The new boolean[] array.
+     * @return The new boolean[] array or {@code null}.
      * @since 2.1
      */
     public static boolean[] addAll(final boolean[] array1, final boolean... array2) {
@@ -866,11 +867,12 @@ public class ArrayUtils {
      * ArrayUtils.addAll(array1, null)   = cloned copy of array1
      * ArrayUtils.addAll(null, array2)   = cloned copy of array2
      * ArrayUtils.addAll([], [])         = []
+     * ArrayUtils.addAll(null, null)     = null
      * </pre>
      *
      * @param array1  the first array whose elements are added to the new array.
      * @param array2  the second array whose elements are added to the new array.
-     * @return The new byte[] array.
+     * @return The new byte[] array or {@code null}.
      * @since 2.1
      */
     public static byte[] addAll(final byte[] array1, final byte... array2) {
@@ -897,11 +899,12 @@ public class ArrayUtils {
      * ArrayUtils.addAll(array1, null)   = cloned copy of array1
      * ArrayUtils.addAll(null, array2)   = cloned copy of array2
      * ArrayUtils.addAll([], [])         = []
+     * ArrayUtils.addAll(null, null)     = null
      * </pre>
      *
      * @param array1  the first array whose elements are added to the new array.
      * @param array2  the second array whose elements are added to the new array.
-     * @return The new char[] array.
+     * @return The new char[] array or {@code null}.
      * @since 2.1
      */
     public static char[] addAll(final char[] array1, final char... array2) {
@@ -928,11 +931,12 @@ public class ArrayUtils {
      * ArrayUtils.addAll(array1, null)   = cloned copy of array1
      * ArrayUtils.addAll(null, array2)   = cloned copy of array2
      * ArrayUtils.addAll([], [])         = []
+     * ArrayUtils.addAll(null, null)     = null
      * </pre>
      *
      * @param array1  the first array whose elements are added to the new array.
      * @param array2  the second array whose elements are added to the new array.
-     * @return The new double[] array.
+     * @return The new double[] array or {@code null}.
      * @since 2.1
      */
     public static double[] addAll(final double[] array1, final double... array2) {
@@ -959,11 +963,12 @@ public class ArrayUtils {
      * ArrayUtils.addAll(array1, null)   = cloned copy of array1
      * ArrayUtils.addAll(null, array2)   = cloned copy of array2
      * ArrayUtils.addAll([], [])         = []
+     * ArrayUtils.addAll(null, null)     = null
      * </pre>
      *
      * @param array1  the first array whose elements are added to the new array.
      * @param array2  the second array whose elements are added to the new array.
-     * @return The new float[] array.
+     * @return The new float[] array or {@code null}.
      * @since 2.1
      */
     public static float[] addAll(final float[] array1, final float... array2) {
@@ -990,11 +995,12 @@ public class ArrayUtils {
      * ArrayUtils.addAll(array1, null)   = cloned copy of array1
      * ArrayUtils.addAll(null, array2)   = cloned copy of array2
      * ArrayUtils.addAll([], [])         = []
+     * ArrayUtils.addAll(null, null)     = null
      * </pre>
      *
      * @param array1  the first array whose elements are added to the new array.
      * @param array2  the second array whose elements are added to the new array.
-     * @return The new int[] array.
+     * @return The new int[] array or {@code null}.
      * @since 2.1
      */
     public static int[] addAll(final int[] array1, final int... array2) {
@@ -1021,11 +1027,12 @@ public class ArrayUtils {
      * ArrayUtils.addAll(array1, null)   = cloned copy of array1
      * ArrayUtils.addAll(null, array2)   = cloned copy of array2
      * ArrayUtils.addAll([], [])         = []
+     * ArrayUtils.addAll(null, null)     = null
      * </pre>
      *
      * @param array1  the first array whose elements are added to the new array.
      * @param array2  the second array whose elements are added to the new array.
-     * @return The new long[] array.
+     * @return The new long[] array or {@code null}.
      * @since 2.1
      */
     public static long[] addAll(final long[] array1, final long... array2) {
@@ -1052,11 +1059,12 @@ public class ArrayUtils {
      * ArrayUtils.addAll(array1, null)   = cloned copy of array1
      * ArrayUtils.addAll(null, array2)   = cloned copy of array2
      * ArrayUtils.addAll([], [])         = []
+     * ArrayUtils.addAll(null, null)     = null
      * </pre>
      *
      * @param array1  the first array whose elements are added to the new array.
      * @param array2  the second array whose elements are added to the new array.
-     * @return The new short[] array.
+     * @return The new short[] array or {@code null}.
      * @since 2.1
      */
     public static short[] addAll(final short[] array1, final short... array2) {
@@ -1084,6 +1092,7 @@ public class ArrayUtils {
      * ArrayUtils.addAll(array1, null)   = cloned copy of array1
      * ArrayUtils.addAll(null, array2)   = cloned copy of array2
      * ArrayUtils.addAll([], [])         = []
+     * ArrayUtils.addAll(null, null)     = null
      * ArrayUtils.addAll([null], [null]) = [null, null]
      * ArrayUtils.addAll(["a", "b", "c"], ["1", "2", "3"]) = ["a", "b", "c", "1", "2", "3"]
      * </pre>
