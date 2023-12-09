@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 package org.apache.commons.lang3.math;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
