@@ -151,7 +151,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@link BigDecimal}.
+     * Creates a {@link BigDecimal} from a {@link String}.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
@@ -171,14 +171,16 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@link BigInteger};
-     * since 3.2 it handles hexadecimal (0x or #) and octal (0) notations.
+     * Creates a {@link BigInteger} from a {@link String}.
+     *
+     * Handles hexadecimal (0x or #) and octal (0) notations.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
      * @param str  a {@link String} to convert, may be null
      * @return converted {@link BigInteger} (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
+     * @since 3.2
      */
     public static BigInteger createBigInteger(final String str) {
         if (str == null) {
@@ -213,7 +215,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@link Double}.
+     * Creates a {@link Double} from a {@link String}.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
@@ -229,7 +231,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@link Float}.
+     * Creates a {@link Float} from a {@link String}.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
@@ -245,8 +247,9 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@link Integer}, handling
-     * hexadecimal (0xhhhh) and octal (0dddd) notations.
+     * Creates an {@link Integer} from a {@link String}.
+     *
+     * Handles hexadecimal (0xhhhh) and octal (0dddd) notations.
      * N.B. a leading zero means octal; spaces are not trimmed.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
@@ -264,8 +267,9 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@link Long};
-     * since 3.1 it handles hexadecimal (0Xhhhh) and octal (0ddd) notations.
+     * Creates a {@link Long} from a {@link String}.
+     *
+     * Handles hexadecimal (0Xhhhh) and octal (0ddd) notations.
      * N.B. a leading zero means octal; spaces are not trimmed.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
@@ -273,6 +277,7 @@ public class NumberUtils {
      * @param str  a {@link String} to convert, may be null
      * @return converted {@link Long} (or null if the input is null)
      * @throws NumberFormatException if the value cannot be converted
+     * @since 3.1
      */
     public static Long createLong(final String str) {
         if (str == null) {
@@ -282,7 +287,7 @@ public class NumberUtils {
     }
 
     /**
-     * Turns a string value into a java.lang.Number.
+     * Creates a {@link Number} from a {@link String}.
      *
      * <p>If the string starts with {@code 0x} or {@code -0x} (lower or upper case) or {@code #} or {@code -#}, it
      * will be interpreted as a hexadecimal Integer - or Long, if the number of digits after the
@@ -485,7 +490,7 @@ public class NumberUtils {
     }
 
      /**
-     * Utility method for {@link #createNumber(java.lang.String)}.
+     * Utility method for {@link #createNumber(String)}.
      *
      * <p>Returns mantissa of the given number.</p>
      *
