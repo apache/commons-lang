@@ -498,10 +498,7 @@ public class NumberUtils {
          final char firstChar = str.charAt(0);
          final boolean hasSign = firstChar == '-' || firstChar == '+';
          final int length = str.length();
-         if (length <= (hasSign ? 1 : 0)) {
-             throw new NumberFormatException(str + " is not a valid number.");
-         }
-         if (length < stopPos) {
+         if (length <= (hasSign ? 1 : 0) || length < stopPos) {
              throw new NumberFormatException(str + " is not a valid number.");
          }
          return hasSign ? str.substring(1, stopPos) : str.substring(0, stopPos);
