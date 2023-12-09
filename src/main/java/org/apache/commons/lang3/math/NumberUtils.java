@@ -495,18 +495,16 @@ public class NumberUtils {
      * @throws NumberFormatException if no mantissa can be retrieved
      */
     private static String getMantissa(final String str, final int stopPos) {
-        final char firstChar = str.charAt(0);
-        final boolean hasSign = firstChar == '-' || firstChar == '+';
-
-        if (str.length() <= (hasSign? 1 : 0)) {
-           throw new NumberFormatException(str + " is not a valid number.");
-        }
-
-        if (str.length() < stopPos) {
-           throw new NumberFormatException(str + " is not a valid number.");
-        }
-
-        return hasSign ? str.substring(1, stopPos) : str.substring(0, stopPos);
+         final char firstChar = str.charAt(0);
+         final boolean hasSign = firstChar == '-' || firstChar == '+';
+         final int length = str.length();
+         if (length <= (hasSign ? 1 : 0)) {
+             throw new NumberFormatException(str + " is not a valid number.");
+         }
+         if (length < stopPos) {
+             throw new NumberFormatException(str + " is not a valid number.");
+         }
+         return hasSign ? str.substring(1, stopPos) : str.substring(0, stopPos);
     }
 
     /**
