@@ -946,7 +946,7 @@ public class TypeUtils {
      * {@link java.util.Hashtable Hashtable} are also both {@link Object}.
      * In cases where the interface specified by {@code toClass} is
      * (indirectly) implemented more than once (e.g. where {@code toClass}
-     * specifies the interface {@link java.lang.Iterable Iterable} and
+     * specifies the interface {@link Iterable Iterable} and
      * {@code type} specifies a parameterized type that implements both
      * {@link java.util.Set Set} and {@link java.util.Collection Collection}),
      * this method will look at the inheritance hierarchy of only one of the

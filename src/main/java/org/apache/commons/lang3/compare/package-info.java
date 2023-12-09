@@ -16,7 +16,7 @@
  */
 
 /**
- * Provides classes to work with the {@link java.lang.Comparable} and {@link java.util.Comparator} interfaces.
+ * Provides classes to work with the {@link Comparable} and {@link java.util.Comparator} interfaces.
  *
  * @since 3.10
  */

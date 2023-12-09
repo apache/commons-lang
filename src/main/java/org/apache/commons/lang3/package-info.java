@@ -38,7 +38,7 @@
  * <h2>String manipulation - StringUtils, StringEscapeUtils, RandomStringUtils</h2>
  *
  * <p>Lang has a series of String utilities.
- * The first is {@link org.apache.commons.lang3.StringUtils}, oodles and oodles of functions which tweak, transform, squeeze and cuddle {@link java.lang.String java.lang.Strings}.
+ * The first is {@link org.apache.commons.lang3.StringUtils}, oodles and oodles of functions which tweak, transform, squeeze and cuddle {@link String java.lang.Strings}.
  * In addition to StringUtils, there are a series of other String manipulating classes; {@link org.apache.commons.lang3.RandomStringUtils} and {@link org.apache.commons.lang3.StringEscapeUtils StringEscapeUtils}.
  * RandomStringUtils speaks for itself.
  * It's provides ways in which to generate pieces of text, such as might be used for default passwords.
@@ -72,7 +72,7 @@
  *
  * <h3>Assorted functions - ObjectUtils, ClassUtils, ArrayUtils, BooleanUtils</h3>
  *
- * <p>Would you believe it, {@link org.apache.commons.lang3.ObjectUtils} contains handy functions for Objects, mainly null-safe implementations of the methods on {@link java.lang.Object}.</p>
+ * <p>Would you believe it, {@link org.apache.commons.lang3.ObjectUtils} contains handy functions for Objects, mainly null-safe implementations of the methods on {@link Object}.</p>
  *
  * <p>{@link org.apache.commons.lang3.ClassUtils} is largely a set of helper methods for reflection.
  * Of special note are the comparators hidden away in ClassUtils, useful for sorting Class and Package objects by name; however they merely sort alphabetically and don't understand the common habit of sorting {@code java} and {@code javax} first.</p>

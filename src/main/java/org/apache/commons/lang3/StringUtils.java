@@ -36,7 +36,7 @@ import org.apache.commons.lang3.stream.LangCollectors;
 import org.apache.commons.lang3.stream.Streams;
 
 /**
- * Operations on {@link java.lang.String} that are
+ * Operations on {@link String} that are
  * {@code null} safe.
  *
  * <ul>
