@@ -51,7 +51,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Saiharshith Karuneegar Ramesh, Gary Gregory">Fixed two non-deterministic tests in EnumUtilsTest.java #1131.</action>
     <action issue="LANG-1721" type="fix" dev="ggregory" due-to="Arthur Chan, Gary Gregory">Fix wrong number check that cause StringIndexOutOfBoundsException #1140.</action>
     <action issue="LANG-1722" type="fix" dev="ggregory" due-to="Arthur Chan">Rethrow NegativeArraySizeException as SerializationException in SerializationUtils.deserialize(InputStream) #1141.</action>
-    <action issue="LANG-1723" type="fix" dev="ggregory" due-to="Arthur Chan">Throw NumberFormatException instead of IndexOutOfBoundsException in NumberUtils.getMantissa(String, int) #1145.</action>
+    <action issue="LANG-1723" type="fix" dev="ggregory" due-to="Arthur Chan, Gary Gregory">Throw NumberFormatException instead of IndexOutOfBoundsException in NumberUtils.getMantissa(String, int) #1145.</action>
     <action                   type="fix" dev="ggregory" due-to="Paranoïd User">Minor grammar fixes #1143.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="sebb" due-to="Dependabot">Bump commons-parent from 64 to 65.</action>
