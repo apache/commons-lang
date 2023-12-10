@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Character encoding names required of every implementation of the Java platform.
@@ -44,7 +45,7 @@ public class CharEncoding {
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String ISO_8859_1 = "ISO-8859-1";
+    public static final String ISO_8859_1 = StandardCharsets.ISO_8859_1.name();
 
     /**
      * Seven-bit ASCII, also known as ISO646-US, also known as the Basic Latin block
@@ -52,7 +53,7 @@ public class CharEncoding {
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String US_ASCII = "US-ASCII";
+    public static final String US_ASCII = StandardCharsets.US_ASCII.name();
 
     /**
      * Sixteen-bit Unicode Transformation Format, byte order specified by a mandatory initial
@@ -60,28 +61,28 @@ public class CharEncoding {
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String UTF_16 = "UTF-16";
+    public static final String UTF_16 = StandardCharsets.UTF_16.name();
 
     /**
      * Sixteen-bit Unicode Transformation Format, big-endian byte order.
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String UTF_16BE = "UTF-16BE";
+    public static final String UTF_16BE = StandardCharsets.UTF_16BE.name();
 
     /**
      * Sixteen-bit Unicode Transformation Format, little-endian byte order.
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String UTF_16LE = "UTF-16LE";
+    public static final String UTF_16LE = StandardCharsets.UTF_16LE.name();
 
     /**
      * Eight-bit Unicode Transformation Format.
      *
      * <p>Every implementation of the Java platform is required to support this character encoding.</p>
      */
-    public static final String UTF_8 = "UTF-8";
+    public static final String UTF_8 = StandardCharsets.UTF_8.name();
 
     /**
      * Returns whether the named charset is supported.
