@@ -51,7 +51,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
      */
     private double chiSquare(final int[] expected, final int[] observed) {
         double sumSq = 0.0d;
-        double dev = 0.0d;
+        double dev;
         for (int i = 0; i < observed.length; i++) {
             dev = observed[i] - expected[i];
             sumSq += dev * dev / expected[i];
@@ -511,7 +511,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     public void testRandomStringUtilsHomog() {
         final String set = "abc";
         final char[] chars = set.toCharArray();
-        String gen = "";
+        String gen;
         final int[] counts = {0, 0, 0};
         final int[] expected = {200, 200, 200};
         for (int i = 0; i < 100; i++) {

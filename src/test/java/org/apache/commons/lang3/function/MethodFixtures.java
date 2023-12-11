@@ -124,7 +124,7 @@ class MethodFixtures extends AbstractLangTest {
     @AfterEach
     public void clear() {
         value1 = null;
-        value1 = null;
+        value2 = null;
         valueArray = null;
     }
 

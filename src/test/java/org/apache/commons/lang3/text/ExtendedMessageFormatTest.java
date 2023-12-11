@@ -203,7 +203,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         buffer.append(locale);
         buffer.append("]");
         final MessageFormat mf = createMessageFormat(pattern, locale);
-        ExtendedMessageFormat emf = null;
+        ExtendedMessageFormat emf;
         if (locale == null) {
             emf = new ExtendedMessageFormat(pattern);
         } else {
@@ -415,9 +415,9 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         for (final Locale locale : testLocales) {
             final MessageFormat builtins = createMessageFormat(builtinsPattern, locale);
             final String expectedPattern = extendedPattern + builtins.toPattern();
-            DateFormat df = null;
-            NumberFormat nf = null;
-            ExtendedMessageFormat emf = null;
+            DateFormat df;
+            NumberFormat nf;
+            ExtendedMessageFormat emf;
             if (locale == null) {
                 df = DateFormat.getDateInstance(DateFormat.SHORT);
                 nf = NumberFormat.getCurrencyInstance();
