@@ -61,7 +61,8 @@ Fixed Bugs:
 o            Rename variable names from 'clss' to 'clazz' #1087. Thanks to remeio.
 o            [Javadoc] ComparableUtils'c1' to 'comparable1', 'c2' to ' Thanks to remeio.
 o            [Javadoc] Remove 2.1 specific comment #1091. Thanks to Elliotte Rusty Harold.
-o LANG-1704: [Javadoc] Fix Incorrect Description in Processor isAarch64() #1093. Thanks to Sung Ho Yoon.
+o LANG-1704: ImmutablePair and ImmutableTriple implementation don't match final in Javadoc. Thanks to Dan Ziemba, Gilles Sadowski, Alex Herbert, Gary Gregory.
+o            [Javadoc] Fix Incorrect Description in Processor isAarch64() #1093. Thanks to Sung Ho Yoon.
 o            [Javadoc] Point to right getShortClassName flavor in Javadoc for relevant notes #1097. Thanks to ljacqu.
 o            Improve performance of StringUtils.isMixedCase() #1096. Thanks to hduelme.
 o LANG-1706: ThreadUtils find methods should not return null items #1098. Thanks to Alberto Fernández.
