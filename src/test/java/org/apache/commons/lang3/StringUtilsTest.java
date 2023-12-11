@@ -73,16 +73,16 @@ public class StringUtilsTest extends AbstractLangTest {
         final StringBuilder ntr = new StringBuilder();
         for (int i = 0; i < Character.MAX_VALUE; i++) {
             if (Character.isWhitespace((char) i)) {
-                ws.append(String.valueOf((char) i));
+                ws.append((char) i);
                 if (i > 32) {
-                    ntr.append(String.valueOf((char) i));
+                    ntr.append((char) i);
                 }
             } else if (i < 40) {
-                nws.append(String.valueOf((char) i));
+                nws.append((char) i);
             }
         }
         for (int i = 0; i <= 32; i++) {
-            tr.append(String.valueOf((char) i));
+            tr.append((char) i);
         }
         WHITESPACE = ws.toString();
         NON_WHITESPACE = nws.toString();

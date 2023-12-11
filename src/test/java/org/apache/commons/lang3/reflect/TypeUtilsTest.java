@@ -236,14 +236,10 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
         if (expected) {
             assertTrue(isAssignable,
-                    "[" + i1 + ", " + i2 + "]: From "
-                                + String.valueOf(type2) + " to "
-                                + String.valueOf(type1));
+                    "[" + i1 + ", " + i2 + "]: From " + type2 + " to " + type1);
         } else {
             assertFalse(isAssignable,
-                    "[" + i1 + ", " + i2 + "]: From "
-                                + String.valueOf(type2) + " to "
-                                + String.valueOf(type1));
+                    "[" + i1 + ", " + i2 + "]: From " + type2 + " to " + type1);
         }
     }
 

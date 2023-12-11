@@ -136,9 +136,9 @@ public class FastDateParserSDFTest extends AbstractLangTest {
             fdfE = e.getClass();
         }
         if (valid) {
-            assertEquals(expectedTime, actualTime, locale.toString()+" "+formattedDate +"\n");
+            assertEquals(expectedTime, actualTime, locale + " " + formattedDate + "\n");
         } else {
-            assertEquals(sdfE, fdfE, locale.toString()+" "+formattedDate + " expected same Exception ");
+            assertEquals(sdfE, fdfE, locale + " " + formattedDate + " expected same Exception ");
         }
     }
 
@@ -173,7 +173,7 @@ public class FastDateParserSDFTest extends AbstractLangTest {
             final int endIndex = fdfP.getIndex();
             final int length = formattedDate.length();
             assertEquals(length, endIndex, "Expected FDF to parse full string " + fdfP);
-            assertEquals(expectedTime, actualTime, locale.toString()+" "+formattedDate +"\n");
+            assertEquals(expectedTime, actualTime, locale +" "+formattedDate +"\n");
         } else {
             assertNotEquals(-1, fdferrorIndex, "Test data error: expected FDF parse to fail, but got " + actualTime);
             assertTrue(sdferrorIndex - fdferrorIndex <= 4,

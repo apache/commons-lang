@@ -994,9 +994,9 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
         sb.appendSeparator(standardSeparator, startSeparator);  // no effect
         assertEquals(String.valueOf(startSeparator), sb.toString());
         sb.append(foo);
-        assertEquals(String.valueOf(startSeparator) + foo, sb.toString());
+        assertEquals(startSeparator + foo, sb.toString());
         sb.appendSeparator(standardSeparator, startSeparator);
-        assertEquals(String.valueOf(startSeparator) + foo + standardSeparator, sb.toString());
+        assertEquals(startSeparator + foo + standardSeparator, sb.toString());
     }
 
     @Test

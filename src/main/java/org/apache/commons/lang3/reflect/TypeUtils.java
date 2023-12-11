@@ -1591,7 +1591,7 @@ public class TypeUtils {
             if (useOwner instanceof Class<?>) {
                 builder.append(((Class<?>) useOwner).getName());
             } else {
-                builder.append(useOwner.toString());
+                builder.append(useOwner);
             }
             builder.append('.').append(raw.getSimpleName());
         }

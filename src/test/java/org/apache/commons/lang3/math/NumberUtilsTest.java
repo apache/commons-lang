@@ -646,7 +646,7 @@ public class NumberUtilsTest extends AbstractLangTest {
         // Requested type is parsed as zero but the value is not zero
         final Double nonZero1 = Double.valueOf(((double) Float.MIN_VALUE) / 2);
         assertEquals(nonZero1, NumberUtils.createNumber(nonZero1.toString()));
-        assertEquals(nonZero1, NumberUtils.createNumber(nonZero1.toString() + "F"));
+        assertEquals(nonZero1, NumberUtils.createNumber(nonZero1 + "F"));
         // Smallest double is 4.9e-324.
         // Test a number with zero before and/or after the decimal place to hit edge cases.
         final BigDecimal nonZero2 = new BigDecimal("4.9e-325");
@@ -1433,14 +1433,14 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.createNumber("+001.797693134862315759e+308") instanceof BigDecimal);
         //LANG-1613
         assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_NORMAL)) instanceof Double);
-        assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_NORMAL) + "D") instanceof Double);
-        assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_NORMAL) + "F") instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.MIN_NORMAL + "D") instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.MIN_NORMAL + "F") instanceof Double);
         assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_VALUE)) instanceof Double);
-        assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_VALUE) + "D") instanceof Double);
-        assertTrue(NumberUtils.createNumber(Double.toString(Double.MIN_VALUE) + "F") instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.MIN_VALUE + "D") instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.MIN_VALUE + "F") instanceof Double);
         assertTrue(NumberUtils.createNumber(Double.toString(Double.MAX_VALUE)) instanceof Double);
-        assertTrue(NumberUtils.createNumber(Double.toString(Double.MAX_VALUE) + "D") instanceof Double);
-        assertTrue(NumberUtils.createNumber(Double.toString(Double.MAX_VALUE) + "F") instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.MAX_VALUE + "D") instanceof Double);
+        assertTrue(NumberUtils.createNumber(Double.MAX_VALUE + "F") instanceof Double);
         assertTrue(NumberUtils.createNumber("4.9e-324D") instanceof Double);
         assertTrue(NumberUtils.createNumber("4.9e-324F") instanceof Double);
     }

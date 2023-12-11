@@ -209,8 +209,8 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         } else {
             emf = new ExtendedMessageFormat(pattern, locale);
         }
-        assertEquals(mf.format(args), emf.format(args), "format "    + buffer.toString());
-        assertEquals(mf.toPattern(), emf.toPattern(), "toPattern " + buffer.toString());
+        assertEquals(mf.format(args), emf.format(args), "format "    + buffer);
+        assertEquals(mf.toPattern(), emf.toPattern(), "toPattern " + buffer);
     }
 
     /**

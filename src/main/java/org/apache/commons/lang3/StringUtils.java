@@ -438,7 +438,7 @@ public class StringUtils {
                 }
             }
         }
-        return str + suffix.toString();
+        return str + suffix;
     }
 
     /**
@@ -5681,7 +5681,7 @@ public class StringUtils {
                 }
             }
         }
-        return prefix.toString() + str;
+        return prefix + str;
     }
 
     /**
