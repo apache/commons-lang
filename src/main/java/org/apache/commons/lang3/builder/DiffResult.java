@@ -44,12 +44,11 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      */
     public static final String OBJECTS_SAME_STRING = StringUtils.EMPTY;
 
-    private static final String DIFFERS_STRING = "differs from";
-
     private final List<Diff<?>> diffList;
     private final T lhs;
     private final T rhs;
     private final ToStringStyle style;
+    private final String toStringFormat;
 
     /**
      * Creates a {@link DiffResult} containing the differences between two
@@ -65,23 +64,16 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      *            the style to use for the {@link #toString()} method. May be
      *            {@code null}, in which case
      *            {@link ToStringStyle#DEFAULT_STYLE} is used
-     * @throws NullPointerException if {@code lhs}, {@code rhs} or {@code diffs} is {@code null}
+     * @param toStringFormat
+     *            Two-argument format string for {@link String#format(String, Object...)}, for example {@code "%s differs from %s"}.
+     * @throws NullPointerException if {@code lhs}, {@code rhs} or {@code diffs} are {@code null}.
      */
-    DiffResult(final T lhs, final T rhs, final List<Diff<?>> diffList,
-            final ToStringStyle style) {
-        Objects.requireNonNull(lhs, "lhs");
-        Objects.requireNonNull(rhs, "rhs");
-        Objects.requireNonNull(diffList, "diffList");
-
-        this.diffList = diffList;
-        this.lhs = lhs;
-        this.rhs = rhs;
-
-        if (style == null) {
-            this.style = ToStringStyle.DEFAULT_STYLE;
-        } else {
-            this.style = style;
-        }
+    DiffResult(final T lhs, final T rhs, final List<Diff<?>> diffList, final ToStringStyle style, final String toStringFormat) {
+        this.diffList = Objects.requireNonNull(diffList, "diffList");
+        this.lhs = Objects.requireNonNull(lhs, "lhs");
+        this.rhs = Objects.requireNonNull(rhs, "rhs");
+        this.style = Objects.requireNonNull(style, "style");
+        this.toStringFormat = Objects.requireNonNull(toStringFormat, "toStringFormat");
     }
 
     /**
@@ -198,6 +190,6 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
             rhsBuilder.append(diff.getFieldName(), diff.getRight());
         });
 
-        return String.format("%s %s %s", lhsBuilder.build(), DIFFERS_STRING, rhsBuilder.build());
+        return String.format(toStringFormat, lhsBuilder.build(), rhsBuilder.build());
     }
 }

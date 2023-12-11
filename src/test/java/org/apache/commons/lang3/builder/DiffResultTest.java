@@ -52,11 +52,18 @@ public class DiffResultTest extends AbstractLangTest {
                     .build();
         }
     }
+    private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
+
     private static final SimpleClass SIMPLE_FALSE = new SimpleClass(false);
 
     private static final SimpleClass SIMPLE_TRUE = new SimpleClass(true);
 
-    private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
+    @Test
+    public void testDefaultStyle() {
+        final DiffResult<SimpleClass> diffResult = new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(),
+                ToStringStyle.DEFAULT_STYLE, DiffBuilder.TO_STRING_FORMAT);
+        assertEquals(ToStringStyle.DEFAULT_STYLE, diffResult.getToStringStyle());
+    }
 
     @Test
     public void testIterator() {
@@ -66,7 +73,7 @@ public class DiffResultTest extends AbstractLangTest {
         final List<Diff<?>> diffs = lhs.diff(rhs).getDiffs();
         final Iterator<Diff<?>> expectedIterator = diffs.iterator();
 
-        final DiffResult<SimpleClass> list = new DiffResult<>(lhs, rhs, diffs, SHORT_STYLE);
+        final DiffResult<SimpleClass> list = new DiffResult<>(lhs, rhs, diffs, SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT);
         final Iterator<Diff<?>> iterator = list.iterator();
 
         while (iterator.hasNext()) {
@@ -81,7 +88,7 @@ public class DiffResultTest extends AbstractLangTest {
         final SimpleClass right = new SimpleClass(false);
 
         final List<Diff<?>> diffs = left.diff(right).getDiffs();
-        final DiffResult diffResult = new DiffResult(left, right, diffs, SHORT_STYLE);
+        final DiffResult diffResult = new DiffResult(left, right, diffs, SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT);
 
         assertEquals(left, diffResult.getLeft());
         assertEquals(right, diffResult.getRight());
@@ -94,7 +101,7 @@ public class DiffResultTest extends AbstractLangTest {
 
         final List<Diff<?>> diffs = lhs.diff(rhs).getDiffs();
 
-        final DiffResult<SimpleClass> list = new DiffResult<>(lhs, rhs, diffs, SHORT_STYLE);
+        final DiffResult<SimpleClass> list = new DiffResult<>(lhs, rhs, diffs, SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT);
         assertEquals(diffs, list.getDiffs());
         assertEquals(1, list.getNumberOfDiffs());
         assertThrows(UnsupportedOperationException.class, () -> list.getDiffs().remove(0));
@@ -110,26 +117,19 @@ public class DiffResultTest extends AbstractLangTest {
     @Test
     public void testNullLhs() {
         assertThrows(NullPointerException.class,
-            () -> new DiffResult<>(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
+            () -> new DiffResult<>(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT));
     }
 
     @Test
     public void testNullList() {
         assertThrows(NullPointerException.class,
-            () -> new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE));
+            () -> new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE, null));
     }
 
     @Test
     public void testNullRhs() {
         assertThrows(NullPointerException.class,
-            () -> new DiffResult<>(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE));
-    }
-
-    @Test
-    public void testNullStyle() {
-        final DiffResult<SimpleClass> diffResult = new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, SIMPLE_TRUE
-                .diff(SIMPLE_FALSE).getDiffs(), null);
-        assertEquals(ToStringStyle.DEFAULT_STYLE, diffResult.getToStringStyle());
+            () -> new DiffResult<>(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT));
     }
 
     @Test

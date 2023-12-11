@@ -70,11 +70,14 @@ import org.apache.commons.lang3.ObjectUtils;
  */
 public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
+    static final String TO_STRING_FORMAT = "%s differs from %s";
+
     private final List<Diff<?>> diffs;
     private final boolean objectsTriviallyEqual;
     private final T left;
     private final T right;
     private final ToStringStyle style;
+    private final String toStringFormat;
 
     /**
      * Constructs a builder for the specified objects with the specified style.
@@ -100,10 +103,8 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if {@code lhs} or {@code rhs} is {@code null}
      */
-    public DiffBuilder(final T lhs, final T rhs,
-            final ToStringStyle style) {
-
-            this(lhs, rhs, style, true);
+    public DiffBuilder(final T lhs, final T rhs, final ToStringStyle style) {
+        this(lhs, rhs, style, true);
     }
 
     /**
@@ -132,17 +133,12 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      *             if {@code lhs} or {@code rhs} is {@code null}
      * @since 3.4
      */
-    public DiffBuilder(final T lhs, final T rhs,
-            final ToStringStyle style, final boolean testTriviallyEqual) {
-
-        Objects.requireNonNull(lhs, "lhs");
-        Objects.requireNonNull(rhs, "rhs");
-
+    public DiffBuilder(final T lhs, final T rhs, final ToStringStyle style, final boolean testTriviallyEqual) {
+        this.left = Objects.requireNonNull(lhs, "lhs");
+        this.right = Objects.requireNonNull(rhs, "rhs");
         this.diffs = new ArrayList<>();
-        this.left = lhs;
-        this.right = rhs;
-        this.style = style;
-
+        this.toStringFormat = DiffBuilder.TO_STRING_FORMAT;
+        this.style = style != null ? style : ToStringStyle.DEFAULT_STYLE;
         // Don't compare any fields if objects equal
         this.objectsTriviallyEqual = testTriviallyEqual && Objects.equals(lhs, rhs);
     }
@@ -160,8 +156,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final boolean lhs,
-            final boolean rhs) {
+    public DiffBuilder<T> append(final String fieldName, final boolean lhs, final boolean rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -198,8 +193,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final boolean[] lhs,
-            final boolean[] rhs) {
+    public DiffBuilder<T> append(final String fieldName, final boolean[] lhs, final boolean[] rhs) {
         validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
             return this;
@@ -235,8 +229,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final byte lhs,
-            final byte rhs) {
+    public DiffBuilder<T> append(final String fieldName, final byte lhs, final byte rhs) {
         validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
             return this;
@@ -272,8 +265,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final byte[] lhs,
-            final byte[] rhs) {
+    public DiffBuilder<T> append(final String fieldName, final byte[] lhs, final byte[] rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -310,8 +302,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final char lhs,
-            final char rhs) {
+    public DiffBuilder<T> append(final String fieldName, final char lhs, final char rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -348,8 +339,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final char[] lhs,
-            final char[] rhs) {
+    public DiffBuilder<T> append(final String fieldName, final char[] lhs, final char[] rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -429,8 +419,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final double lhs,
-            final double rhs) {
+    public DiffBuilder<T> append(final String fieldName, final double lhs, final double rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -467,8 +456,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final double[] lhs,
-            final double[] rhs) {
+    public DiffBuilder<T> append(final String fieldName, final double[] lhs, final double[] rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -543,8 +531,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final float[] lhs,
-            final float[] rhs) {
+    public DiffBuilder<T> append(final String fieldName, final float[] lhs, final float[] rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -581,8 +568,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final int lhs,
-            final int rhs) {
+    public DiffBuilder<T> append(final String fieldName, final int lhs, final int rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -619,8 +605,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final int[] lhs,
-            final int[] rhs) {
+    public DiffBuilder<T> append(final String fieldName, final int[] lhs, final int[] rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -657,8 +642,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final long lhs,
-            final long rhs) {
+    public DiffBuilder<T> append(final String fieldName, final long lhs, final long rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -695,8 +679,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final long[] lhs,
-            final long[] rhs) {
+    public DiffBuilder<T> append(final String fieldName, final long[] lhs, final long[] rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -733,8 +716,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final Object lhs,
-            final Object rhs) {
+    public DiffBuilder<T> append(final String fieldName, final Object lhs, final Object rhs) {
         validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
             return this;
@@ -815,8 +797,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final Object[] lhs,
-            final Object[] rhs) {
+    public DiffBuilder<T> append(final String fieldName, final Object[] lhs, final Object[] rhs) {
         validateFieldNameNotNull(fieldName);
         if (objectsTriviallyEqual) {
             return this;
@@ -854,8 +835,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final short lhs,
-            final short rhs) {
+    public DiffBuilder<T> append(final String fieldName, final short lhs, final short rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -892,8 +872,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException
      *             if field name is {@code null}
      */
-    public DiffBuilder<T> append(final String fieldName, final short[] lhs,
-            final short[] rhs) {
+    public DiffBuilder<T> append(final String fieldName, final short[] lhs, final short[] rhs) {
         validateFieldNameNotNull(fieldName);
 
         if (objectsTriviallyEqual) {
@@ -926,7 +905,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      */
     @Override
     public DiffResult<T> build() {
-        return new DiffResult<>(left, right, diffs, style);
+        return new DiffResult<>(left, right, diffs, style, toStringFormat);
     }
 
     private void validateFieldNameNotNull(final String fieldName) {
