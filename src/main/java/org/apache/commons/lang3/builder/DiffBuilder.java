@@ -149,9 +149,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code boolean}
+     *            the left-hand side {@code boolean}
      * @param rhs
-     *            the right-hand {@code boolean}
+     *            the right-hand side {@code boolean}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -186,9 +186,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code boolean[]}
+     *            the left-hand side {@code boolean[]}
      * @param rhs
-     *            the right-hand {@code boolean[]}
+     *            the right-hand side {@code boolean[]}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -222,9 +222,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code byte}
+     *            the left-hand side {@code byte}
      * @param rhs
-     *            the right-hand {@code byte}
+     *            the right-hand side {@code byte}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -258,9 +258,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code byte[]}
+     *            the left-hand side {@code byte[]}
      * @param rhs
-     *            the right-hand {@code byte[]}
+     *            the right-hand side {@code byte[]}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -295,9 +295,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code char}
+     *            the left-hand side {@code char}
      * @param rhs
-     *            the right-hand {@code char}
+     *            the right-hand side {@code char}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -332,9 +332,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code char[]}
+     *            the left-hand side {@code char[]}
      * @param rhs
-     *            the right-hand {@code char[]}
+     *            the right-hand side {@code char[]}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -412,9 +412,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code double}
+     *            the left-hand side {@code double}
      * @param rhs
-     *            the right-hand {@code double}
+     *            the right-hand side {@code double}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -449,9 +449,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code double[]}
+     *            the left-hand side {@code double[]}
      * @param rhs
-     *            the right-hand {@code double[]}
+     *            the right-hand side {@code double[]}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -486,9 +486,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code float}
+     *            the left-hand side {@code float}
      * @param rhs
-     *            the right-hand {@code float}
+     *            the right-hand side {@code float}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -524,9 +524,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code float[]}
+     *            the left-hand side {@code float[]}
      * @param rhs
-     *            the right-hand {@code float[]}
+     *            the right-hand side {@code float[]}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -561,9 +561,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code int}
+     *            the left-hand side {@code int}
      * @param rhs
-     *            the right-hand {@code int}
+     *            the right-hand side {@code int}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -598,9 +598,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code int[]}
+     *            the left-hand side {@code int[]}
      * @param rhs
-     *            the right-hand {@code int[]}
+     *            the right-hand side {@code int[]}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -635,9 +635,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code long}
+     *            the left-hand side {@code long}
      * @param rhs
-     *            the right-hand {@code long}
+     *            the right-hand side {@code long}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -672,9 +672,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code long[]}
+     *            the left-hand side {@code long[]}
      * @param rhs
-     *            the right-hand {@code long[]}
+     *            the right-hand side {@code long[]}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -709,9 +709,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@link Object}
+     *            the left-hand side {@link Object}
      * @param rhs
-     *            the right-hand {@link Object}
+     *            the right-hand side {@link Object}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -790,9 +790,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code Object[]}
+     *            the left-hand side {@code Object[]}
      * @param rhs
-     *            the right-hand {@code Object[]}
+     *            the right-hand side {@code Object[]}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -828,9 +828,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code short}
+     *            the left-hand side {@code short}
      * @param rhs
-     *            the right-hand {@code short}
+     *            the right-hand side {@code short}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}
@@ -865,9 +865,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @param fieldName
      *            the field name
      * @param lhs
-     *            the left-hand {@code short[]}
+     *            the left-hand side {@code short[]}
      * @param rhs
-     *            the right-hand {@code short[]}
+     *            the right-hand side {@code short[]}
      * @return this
      * @throws NullPointerException
      *             if field name is {@code null}

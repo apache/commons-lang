@@ -1168,7 +1168,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
      *
      * @param to             a TestObject
      * @param toBis          a TestObject, equal to to and toTer
-     * @param toTer          left-hand side, equal to to and toBis
+     * @param toTer          left-hand side side, equal to to and toBis
      * @param to2            a different TestObject
      * @param oToChange      a TestObject that will be changed
      * @param testTransients whether to test transient instance variables

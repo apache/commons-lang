@@ -829,7 +829,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /**
      * Appends an object to the builder padding on the left to a fixed width.
      * The {@code String.valueOf} of the {@code int} value is used.
-     * If the formatted value is larger than the length, the left-hand side is lost.
+     * If the formatted value is larger than the length, the left-hand side side is lost.
      *
      * @param value  the value to append
      * @param width  the fixed field width, zero or negative has no effect
@@ -843,7 +843,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /**
      * Appends an object to the builder padding on the left to a fixed width.
      * The {@code toString} of the object is used.
-     * If the object is larger than the length, the left-hand side is lost.
+     * If the object is larger than the length, the left-hand side side is lost.
      * If the object is null, the null text value is used.
      *
      * @param obj  the object to append, null uses null text
@@ -876,7 +876,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /**
      * Appends an object to the builder padding on the right to a fixed length.
      * The {@code String.valueOf} of the {@code int} value is used.
-     * If the object is larger than the length, the right-hand side is lost.
+     * If the object is larger than the length, the right-hand side side is lost.
      *
      * @param value  the value to append
      * @param width  the fixed field width, zero or negative has no effect
@@ -890,7 +890,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /**
      * Appends an object to the builder padding on the right to a fixed length.
      * The {@code toString} of the object is used.
-     * If the object is larger than the length, the right-hand side is lost.
+     * If the object is larger than the length, the right-hand side side is lost.
      * If the object is null, null text value is used.
      *
      * @param obj  the object to append, null uses null text

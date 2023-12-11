@@ -3284,8 +3284,8 @@ public class ArrayUtils {
      * Multi-dimensional primitive arrays are also handled correctly by this method.
      * </p>
      *
-     * @param array1  the left-hand array to compare, may be {@code null}
-     * @param array2  the right-hand array to compare, may be {@code null}
+     * @param array1  the left-hand side array to compare, may be {@code null}
+     * @param array2  the right-hand side array to compare, may be {@code null}
      * @return {@code true} if the arrays are equal
      * @deprecated this method has been replaced by {@code java.util.Objects.deepEquals(Object, Object)} and will be
      * removed from future releases.

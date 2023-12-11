@@ -40,8 +40,8 @@ public class Range<T> implements Serializable {
         /**
          * Comparable based compare implementation.
          *
-         * @param obj1 left-hand side of comparison
-         * @param obj2 right-hand side of comparison
+         * @param obj1 left-hand side side of comparison
+         * @param obj2 right-hand side side of comparison
          * @return negative, 0, positive comparison value
          */
         @Override
