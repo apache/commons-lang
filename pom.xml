@@ -26,7 +26,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
-  <version>3.14.1-SNAPSHOT</version>
+  <version>3.15.0-SNAPSHOT</version>
   <name>Apache Commons Lang</name>
 
   <inceptionYear>2001</inceptionYear>
@@ -47,7 +47,7 @@
     <connection>scm:git:http://gitbox.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</developerConnection>
     <url>https://gitbox.apache.org/repos/asf?p=commons-lang.git</url>
-    <tag>rel/commons-lang-3.14.0</tag>
+    <tag>rel/commons-lang-3.15.0</tag>
   </scm>
 
   <developers>
@@ -607,8 +607,8 @@
     <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.14.1</commons.release.version>
-    <commons.release.next>3.14.2</commons.release.next>
+    <commons.release.version>3.15.0</commons.release.version>
+    <commons.release.next>3.15.1</commons.release.next>
     <commons.release.desc>(Java 8+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>

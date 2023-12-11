@@ -34,6 +34,7 @@ public class DiffResultTest extends AbstractLangTest {
     private static final class EmptyClass {
         // empty
     }
+
     private static final class SimpleClass implements Diffable<SimpleClass> {
         static String getFieldName() {
             return "booleanField";
@@ -47,11 +48,10 @@ public class DiffResultTest extends AbstractLangTest {
 
         @Override
         public DiffResult<SimpleClass> diff(final SimpleClass obj) {
-            return new DiffBuilder<>(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
-                    .append(getFieldName(), booleanField, obj.booleanField)
-                    .build();
+            return new DiffBuilder<>(this, obj, ToStringStyle.SHORT_PREFIX_STYLE).append(getFieldName(), booleanField, obj.booleanField).build();
         }
     }
+
     private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
 
     private static final SimpleClass SIMPLE_FALSE = new SimpleClass(false);
@@ -101,63 +101,80 @@ public class DiffResultTest extends AbstractLangTest {
 
         final List<Diff<?>> diffs = lhs.diff(rhs).getDiffs();
 
-        final DiffResult<SimpleClass> list = new DiffResult<>(lhs, rhs, diffs, SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT);
-        assertEquals(diffs, list.getDiffs());
-        assertEquals(1, list.getNumberOfDiffs());
-        assertThrows(UnsupportedOperationException.class, () -> list.getDiffs().remove(0));
+        final DiffResult<SimpleClass> result = new DiffResult<>(lhs, rhs, diffs, SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT);
+        assertEquals(diffs, result.getDiffs());
+        assertEquals(1, result.getNumberOfDiffs());
+        assertThrows(UnsupportedOperationException.class, () -> result.getDiffs().remove(0));
     }
 
     @Test
     public void testNoDifferencesString() {
-        final DiffResult<SimpleClass> diffResult = new DiffBuilder<>(SIMPLE_TRUE, SIMPLE_TRUE,
-                SHORT_STYLE).build();
+        final DiffResult<SimpleClass> diffResult = DiffBuilder.<SimpleClass>builder().setLeft(SIMPLE_TRUE).setRight(SIMPLE_TRUE).setStyle(SHORT_STYLE).build()
+                .build();
         assertEquals(DiffResult.OBJECTS_SAME_STRING, diffResult.toString());
     }
 
     @Test
     public void testNullLhs() {
         assertThrows(NullPointerException.class,
-            () -> new DiffResult<>(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT));
+                () -> new DiffResult<>(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT));
     }
 
     @Test
     public void testNullList() {
-        assertThrows(NullPointerException.class,
-            () -> new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE, null));
+        assertThrows(NullPointerException.class, () -> new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE, null));
     }
 
     @Test
     public void testNullRhs() {
         assertThrows(NullPointerException.class,
-            () -> new DiffResult<>(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT));
+                () -> new DiffResult<>(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT));
     }
 
     @Test
     public void testToStringOutput() {
-        final DiffResult<EmptyClass> list = new DiffBuilder<>(new EmptyClass(), new EmptyClass(),
-                ToStringStyle.SHORT_PREFIX_STYLE).append("test", false, true)
+        // @formatter:off
+        final DiffResult<EmptyClass> result = DiffBuilder.<EmptyClass>builder()
+                .setLeft(new EmptyClass())
+                .setRight(new EmptyClass())
+                .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
+                .build()
+                .append("test", false, true)
                 .build();
-        assertEquals(
-                "DiffResultTest.EmptyClass[test=false] differs from DiffResultTest.EmptyClass[test=true]",
-                list.toString());
+        // @formatter:on
+        assertEquals("DiffResultTest.EmptyClass[test=false] differs from DiffResultTest.EmptyClass[test=true]", result.toString());
+    }
+
+    @Test
+    public void testToStringFormat() {
+        // @formatter:off
+        final DiffResult<EmptyClass> result = DiffBuilder.<EmptyClass>builder()
+                .setLeft(new EmptyClass())
+                .setRight(new EmptyClass())
+                .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
+                .setToStringFormat("%s <> %s")
+                .build()
+                .append("test", false, true)
+                .build();
+        // @formatter:on
+        assertEquals("DiffResultTest.EmptyClass[test=false] <> DiffResultTest.EmptyClass[test=true]", result.toString());
     }
 
     @Test
     public void testToStringSpecifyStyleOutput() {
-        final DiffResult<SimpleClass> list = SIMPLE_FALSE.diff(SIMPLE_TRUE);
-        assertEquals(list.getToStringStyle(), SHORT_STYLE);
+        final DiffResult<SimpleClass> result = SIMPLE_FALSE.diff(SIMPLE_TRUE);
+        assertEquals(result.getToStringStyle(), SHORT_STYLE);
 
-        final String lhsString = new ToStringBuilder(SIMPLE_FALSE,
-                ToStringStyle.MULTI_LINE_STYLE).append(
-                SimpleClass.getFieldName(), SIMPLE_FALSE.booleanField).build();
+        // @formatter:off
+        final String lhsString = new ToStringBuilder(SIMPLE_FALSE, ToStringStyle.MULTI_LINE_STYLE)
+                .append(SimpleClass.getFieldName(), SIMPLE_FALSE.booleanField)
+                .build();
 
-        final String rhsString = new ToStringBuilder(SIMPLE_TRUE,
-                ToStringStyle.MULTI_LINE_STYLE).append(
-                SimpleClass.getFieldName(), SIMPLE_TRUE.booleanField).build();
+        final String rhsString = new ToStringBuilder(SIMPLE_TRUE, ToStringStyle.MULTI_LINE_STYLE)
+                .append(SimpleClass.getFieldName(), SIMPLE_TRUE.booleanField)
+                .build();
+        // @formatter:on
 
-        final String expectedOutput = String.format("%s differs from %s", lhsString,
-                rhsString);
-        assertEquals(expectedOutput,
-                list.toString(ToStringStyle.MULTI_LINE_STYLE));
+        assertEquals(String.format("%s differs from %s", lhsString, rhsString), result.toString(ToStringStyle.MULTI_LINE_STYLE));
     }
 }

@@ -105,7 +105,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     public ReflectionDiffBuilder(final T lhs, final T rhs, final ToStringStyle style) {
         this.left = lhs;
         this.right = rhs;
-        this.diffBuilder = new DiffBuilder<>(lhs, rhs, style);
+        this.diffBuilder = DiffBuilder.<T>builder().setLeft(lhs).setRight(rhs).setStyle(style).build();
     }
 
     private boolean accept(final Field field) {
