@@ -58,16 +58,28 @@ public class DiffBuilderTest extends AbstractLangTest {
 
         @Override
         public DiffResult<TypeTestClass> diff(final TypeTestClass obj) {
-            return new DiffBuilder<>(this, obj, style).append("boolean", booleanField, obj.booleanField)
-                    .append("booleanArray", booleanArrayField, obj.booleanArrayField).append("byte", byteField, obj.byteField)
-                    .append("byteArray", byteArrayField, obj.byteArrayField).append("char", charField, obj.charField)
-                    .append("charArray", charArrayField, obj.charArrayField).append("double", doubleField, obj.doubleField)
-                    .append("doubleArray", doubleArrayField, obj.doubleArrayField).append("float", floatField, obj.floatField)
-                    .append("floatArray", floatArrayField, obj.floatArrayField).append("int", intField, obj.intField)
-                    .append("intArray", intArrayField, obj.intArrayField).append("long", longField, obj.longField)
-                    .append("longArray", longArrayField, obj.longArrayField).append("short", shortField, obj.shortField)
-                    .append("shortArray", shortArrayField, obj.shortArrayField).append("objectField", objectField, obj.objectField)
-                    .append("objectArrayField", objectArrayField, obj.objectArrayField).build();
+            // @formatter:off
+            return new DiffBuilder<>(this, obj, style)
+                    .append("boolean", booleanField, obj.booleanField)
+                    .append("booleanArray", booleanArrayField, obj.booleanArrayField)
+                    .append("byte", byteField, obj.byteField)
+                    .append("byteArray", byteArrayField, obj.byteArrayField)
+                    .append("char", charField, obj.charField)
+                    .append("charArray", charArrayField, obj.charArrayField)
+                    .append("double", doubleField, obj.doubleField)
+                    .append("doubleArray", doubleArrayField, obj.doubleArrayField)
+                    .append("float", floatField, obj.floatField)
+                    .append("floatArray", floatArrayField, obj.floatArrayField)
+                    .append("int", intField, obj.intField)
+                    .append("intArray", intArrayField, obj.intArrayField)
+                    .append("long", longField, obj.longField)
+                    .append("longArray", longArrayField, obj.longArrayField)
+                    .append("short", shortField, obj.shortField)
+                    .append("shortArray", shortArrayField, obj.shortArrayField)
+                    .append("objectField", objectField, obj.objectField)
+                    .append("objectArrayField", objectArrayField, obj.objectArrayField)
+                    .build();
+            // @formatter:on
         }
 
         @Override
