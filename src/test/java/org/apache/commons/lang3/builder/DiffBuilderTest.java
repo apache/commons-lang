@@ -38,46 +38,36 @@ public class DiffBuilderTest extends AbstractLangTest {
     private static final class TypeTestClass implements Diffable<TypeTestClass> {
         private ToStringStyle style = SHORT_STYLE;
         private boolean booleanField = true;
-        private boolean[] booleanArrayField = {true};
+        private boolean[] booleanArrayField = { true };
         private byte byteField = (byte) 0xFF;
-        private byte[] byteArrayField = {(byte) 0xFF};
+        private byte[] byteArrayField = { (byte) 0xFF };
         private char charField = 'a';
-        private char[] charArrayField = {'a'};
+        private char[] charArrayField = { 'a' };
         private double doubleField = 1.0;
-        private double[] doubleArrayField = {1.0};
+        private double[] doubleArrayField = { 1.0 };
         private float floatField = 1.0f;
-        private float[] floatArrayField = {1.0f};
+        private float[] floatArrayField = { 1.0f };
         private int intField = 1;
-        private int[] intArrayField = {1};
+        private int[] intArrayField = { 1 };
         private long longField = 1L;
-        private long[] longArrayField = {1L};
+        private long[] longArrayField = { 1L };
         private short shortField = 1;
-        private short[] shortArrayField = {1};
+        private short[] shortArrayField = { 1 };
         private Object objectField;
-        private Object[] objectArrayField = {null};
+        private Object[] objectArrayField = { null };
 
         @Override
         public DiffResult<TypeTestClass> diff(final TypeTestClass obj) {
-            return new DiffBuilder<>(this, obj, style)
-                .append("boolean", booleanField, obj.booleanField)
-                .append("booleanArray", booleanArrayField, obj.booleanArrayField)
-                .append("byte", byteField, obj.byteField)
-                .append("byteArray", byteArrayField, obj.byteArrayField)
-                .append("char", charField, obj.charField)
-                .append("charArray", charArrayField, obj.charArrayField)
-                .append("double", doubleField, obj.doubleField)
-                .append("doubleArray", doubleArrayField, obj.doubleArrayField)
-                .append("float", floatField, obj.floatField)
-                .append("floatArray", floatArrayField, obj.floatArrayField)
-                .append("int", intField, obj.intField)
-                .append("intArray", intArrayField, obj.intArrayField)
-                .append("long", longField, obj.longField)
-                .append("longArray", longArrayField, obj.longArrayField)
-                .append("short", shortField, obj.shortField)
-                .append("shortArray", shortArrayField, obj.shortArrayField)
-                .append("objectField", objectField, obj.objectField)
-                .append("objectArrayField", objectArrayField, obj.objectArrayField)
-                .build();
+            return new DiffBuilder<>(this, obj, style).append("boolean", booleanField, obj.booleanField)
+                    .append("booleanArray", booleanArrayField, obj.booleanArrayField).append("byte", byteField, obj.byteField)
+                    .append("byteArray", byteArrayField, obj.byteArrayField).append("char", charField, obj.charField)
+                    .append("charArray", charArrayField, obj.charArrayField).append("double", doubleField, obj.doubleField)
+                    .append("doubleArray", doubleArrayField, obj.doubleArrayField).append("float", floatField, obj.floatField)
+                    .append("floatArray", floatArrayField, obj.floatArrayField).append("int", intField, obj.intField)
+                    .append("intArray", intArrayField, obj.intArrayField).append("long", longField, obj.longField)
+                    .append("longArray", longArrayField, obj.longArrayField).append("short", shortField, obj.shortField)
+                    .append("shortArray", shortArrayField, obj.shortArrayField).append("objectField", objectField, obj.objectField)
+                    .append("objectArrayField", objectArrayField, obj.objectArrayField).build();
         }
 
         @Override
@@ -101,7 +91,7 @@ public class DiffBuilderTest extends AbstractLangTest {
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertEquals(Boolean.class, diff.getType());
+        assertEquals(Boolean.class, diff.getType(), () -> diff.getType().getClass().toString());
         assertEquals(Boolean.TRUE, diff.getLeft());
         assertEquals(Boolean.FALSE, diff.getRight());
     }
@@ -110,14 +100,12 @@ public class DiffBuilderTest extends AbstractLangTest {
     public void testBooleanArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
-        class2.booleanArrayField = new boolean[] {false, false};
+        class2.booleanArrayField = new boolean[] { false, false };
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertArrayEquals(ArrayUtils.toObject(class1.booleanArrayField),
-                (Object[]) diff.getLeft());
-        assertArrayEquals(ArrayUtils.toObject(class2.booleanArrayField),
-                (Object[]) diff.getRight());
+        assertArrayEquals(ArrayUtils.toObject(class1.booleanArrayField), (Object[]) diff.getLeft());
+        assertArrayEquals(ArrayUtils.toObject(class2.booleanArrayField), (Object[]) diff.getRight());
     }
 
     @Test
@@ -128,6 +116,7 @@ public class DiffBuilderTest extends AbstractLangTest {
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
+        assertEquals(Byte.class, diff.getType(), () -> diff.getType().getClass().toString());
         assertEquals(Byte.valueOf(class1.byteField), diff.getLeft());
         assertEquals(Byte.valueOf(class2.byteField), diff.getRight());
     }
@@ -136,29 +125,21 @@ public class DiffBuilderTest extends AbstractLangTest {
     public void testByteArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
-        class2.byteArrayField= new byte[] {0x01, 0x02};
+        class2.byteArrayField = new byte[] { 0x01, 0x02 };
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertArrayEquals(ArrayUtils.toObject(class1.byteArrayField),
-                (Object[]) diff.getLeft());
-        assertArrayEquals(ArrayUtils.toObject(class2.byteArrayField),
-                (Object[]) diff.getRight());
+        assertArrayEquals(ArrayUtils.toObject(class1.byteArrayField), (Object[]) diff.getLeft());
+        assertArrayEquals(ArrayUtils.toObject(class2.byteArrayField), (Object[]) diff.getRight());
     }
 
     @Test
     public void testByteArrayEqualAsObject() {
-        final DiffResult<String> list = new DiffBuilder<>("String1", "String2", SHORT_STYLE)
-            .append("foo", new boolean[] {false}, new boolean[] {false})
-            .append("foo", new byte[] {0x01}, new byte[] {0x01})
-            .append("foo", new char[] {'a'}, new char[] {'a'})
-            .append("foo", new double[] {1.0}, new double[] {1.0})
-            .append("foo", new float[] {1.0F}, new float[] {1.0F})
-            .append("foo", new int[] {1}, new int[] {1})
-            .append("foo", new long[] {1L}, new long[] {1L})
-            .append("foo", new short[] {1}, new short[] {1})
-            .append("foo", new Object[] {1, "two"}, new Object[] {1, "two"})
-            .build();
+        final DiffResult<String> list = new DiffBuilder<>("String1", "String2", SHORT_STYLE).append("foo", new boolean[] { false }, new boolean[] { false })
+                .append("foo", new byte[] { 0x01 }, new byte[] { 0x01 }).append("foo", new char[] { 'a' }, new char[] { 'a' })
+                .append("foo", new double[] { 1.0 }, new double[] { 1.0 }).append("foo", new float[] { 1.0F }, new float[] { 1.0F })
+                .append("foo", new int[] { 1 }, new int[] { 1 }).append("foo", new long[] { 1L }, new long[] { 1L })
+                .append("foo", new short[] { 1 }, new short[] { 1 }).append("foo", new Object[] { 1, "two" }, new Object[] { 1, "two" }).build();
 
         assertEquals(0, list.getNumberOfDiffs());
     }
@@ -179,14 +160,12 @@ public class DiffBuilderTest extends AbstractLangTest {
     public void testCharArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
-        class2.charArrayField = new char[] {'f', 'o', 'o'};
+        class2.charArrayField = new char[] { 'f', 'o', 'o' };
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertArrayEquals(ArrayUtils.toObject(class1.charArrayField),
-                (Object[]) diff.getLeft());
-        assertArrayEquals(ArrayUtils.toObject(class2.charArrayField),
-                (Object[]) diff.getRight());
+        assertArrayEquals(ArrayUtils.toObject(class1.charArrayField), (Object[]) diff.getLeft());
+        assertArrayEquals(ArrayUtils.toObject(class2.charArrayField), (Object[]) diff.getRight());
     }
 
     @Test
@@ -195,9 +174,7 @@ public class DiffBuilderTest extends AbstractLangTest {
         final TypeTestClass class2 = new TypeTestClass();
         class2.intField = 2;
 
-        final DiffResult<TypeTestClass> list = new DiffBuilder<>(class1, class2, SHORT_STYLE)
-            .append("prop1", class1.diff(class2))
-            .build();
+        final DiffResult<TypeTestClass> list = new DiffBuilder<>(class1, class2, SHORT_STYLE).append("prop1", class1.diff(class2)).build();
         assertEquals(1, list.getNumberOfDiffs());
         assertEquals("prop1.int", list.getDiffs().get(0).getFieldName());
     }
@@ -218,14 +195,12 @@ public class DiffBuilderTest extends AbstractLangTest {
     public void testDoubleArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
-        class2.doubleArrayField = new double[] {3.0, 2.9, 2.8};
+        class2.doubleArrayField = new double[] { 3.0, 2.9, 2.8 };
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertArrayEquals(ArrayUtils.toObject(class1.doubleArrayField),
-                (Object[]) diff.getLeft());
-        assertArrayEquals(ArrayUtils.toObject(class2.doubleArrayField),
-                (Object[]) diff.getRight());
+        assertArrayEquals(ArrayUtils.toObject(class1.doubleArrayField), (Object[]) diff.getLeft());
+        assertArrayEquals(ArrayUtils.toObject(class2.doubleArrayField), (Object[]) diff.getRight());
     }
 
     @Test
@@ -244,14 +219,12 @@ public class DiffBuilderTest extends AbstractLangTest {
     public void testFloatArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
-        class2.floatArrayField = new float[] {3.0F, 2.9F, 2.8F};
+        class2.floatArrayField = new float[] { 3.0F, 2.9F, 2.8F };
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertArrayEquals(ArrayUtils.toObject(class1.floatArrayField),
-                (Object[]) diff.getLeft());
-        assertArrayEquals(ArrayUtils.toObject(class2.floatArrayField),
-                (Object[]) diff.getRight());
+        assertArrayEquals(ArrayUtils.toObject(class1.floatArrayField), (Object[]) diff.getLeft());
+        assertArrayEquals(ArrayUtils.toObject(class2.floatArrayField), (Object[]) diff.getRight());
     }
 
     @Test
@@ -270,14 +243,12 @@ public class DiffBuilderTest extends AbstractLangTest {
     public void testIntArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
-        class2.intArrayField = new int[] {3, 2, 1};
+        class2.intArrayField = new int[] { 3, 2, 1 };
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertArrayEquals(ArrayUtils.toObject(class1.intArrayField),
-                (Object[]) diff.getLeft());
-        assertArrayEquals(ArrayUtils.toObject(class2.intArrayField),
-                (Object[]) diff.getRight());
+        assertArrayEquals(ArrayUtils.toObject(class1.intArrayField), (Object[]) diff.getLeft());
+        assertArrayEquals(ArrayUtils.toObject(class2.intArrayField), (Object[]) diff.getRight());
     }
 
     @Test
@@ -296,14 +267,12 @@ public class DiffBuilderTest extends AbstractLangTest {
     public void testLongArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
-        class2.longArrayField = new long[] {3L, 2L, 1L};
+        class2.longArrayField = new long[] { 3L, 2L, 1L };
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertArrayEquals(ArrayUtils.toObject(class1.longArrayField),
-                (Object[]) diff.getLeft());
-        assertArrayEquals(ArrayUtils.toObject(class2.longArrayField),
-                (Object[]) diff.getRight());
+        assertArrayEquals(ArrayUtils.toObject(class1.longArrayField), (Object[]) diff.getLeft());
+        assertArrayEquals(ArrayUtils.toObject(class2.longArrayField), (Object[]) diff.getRight());
     }
 
     @Test
@@ -342,7 +311,7 @@ public class DiffBuilderTest extends AbstractLangTest {
     public void testObjectArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
-        class2.objectArrayField = new Object[] {"string", 1, 2};
+        class2.objectArrayField = new Object[] { "string", 1, 2 };
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
@@ -354,8 +323,8 @@ public class DiffBuilderTest extends AbstractLangTest {
     public void testObjectArrayEqual() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
-        class1.objectArrayField = new Object[] {"string", 1, 2};
-        class2.objectArrayField = new Object[] {"string", 1, 2};
+        class1.objectArrayField = new Object[] { "string", 1, 2 };
+        class2.objectArrayField = new Object[] { "string", 1, 2 };
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(0, list.getNumberOfDiffs());
     }
@@ -412,9 +381,7 @@ public class DiffBuilderTest extends AbstractLangTest {
     @Test
     public void testSameObjectIgnoresAppends() {
         final TypeTestClass testClass = new TypeTestClass();
-        final DiffResult<TypeTestClass> list = new DiffBuilder<>(testClass, testClass, SHORT_STYLE)
-            .append("ignored", false, true)
-            .build();
+        final DiffResult<TypeTestClass> list = new DiffBuilder<>(testClass, testClass, SHORT_STYLE).append("ignored", false, true).build();
         assertEquals(0, list.getNumberOfDiffs());
     }
 
@@ -434,23 +401,19 @@ public class DiffBuilderTest extends AbstractLangTest {
     public void testShortArray() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
-        class2.shortArrayField = new short[] {3, 2, 1};
+        class2.shortArrayField = new short[] { 3, 2, 1 };
         final DiffResult<TypeTestClass> list = class1.diff(class2);
         assertEquals(1, list.getNumberOfDiffs());
         final Diff<?> diff = list.getDiffs().get(0);
-        assertArrayEquals(ArrayUtils.toObject(class1.shortArrayField),
-                (Object[]) diff.getLeft());
-        assertArrayEquals(ArrayUtils.toObject(class2.shortArrayField),
-                (Object[]) diff.getRight());
+        assertArrayEquals(ArrayUtils.toObject(class1.shortArrayField), (Object[]) diff.getLeft());
+        assertArrayEquals(ArrayUtils.toObject(class2.shortArrayField), (Object[]) diff.getRight());
     }
 
     @Test
     public void testSimilarObjectIgnoresAppends() {
         final TypeTestClass testClass1 = new TypeTestClass();
         final TypeTestClass testClass2 = new TypeTestClass();
-        final DiffResult<TypeTestClass> list = new DiffBuilder<>(testClass1, testClass2, SHORT_STYLE)
-            .append("ignored", false, true)
-            .build();
+        final DiffResult<TypeTestClass> list = new DiffBuilder<>(testClass1, testClass2, SHORT_STYLE).append("ignored", false, true).build();
         assertEquals(0, list.getNumberOfDiffs());
     }
 
