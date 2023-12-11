@@ -73,7 +73,9 @@ public abstract class Diff<T> extends Pair<T, T> {
      * Gets the type of the field.
      *
      * @return the field type
+     * @deprecated Unused, will be removed in 4.0.0.
      */
+    @Deprecated
     public final Type getType() {
         return type;
     }
