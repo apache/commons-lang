@@ -32,7 +32,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * To use this class, write code as follows:
  * </p>
  *
- * <pre>
+ * <pre>{@code
  * public class Person implements Diffable&lt;Person&gt; {
  *   String name;
  *   int age;
@@ -42,14 +42,18 @@ import org.apache.commons.lang3.ObjectUtils;
  *
  *   public DiffResult diff(Person obj) {
  *     // No need for null check, as NullPointerException correct if obj is null
- *     return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
+ *     return new DiffBuilder.<Person>builder()
+ *         .setLeft(this)
+ *         .setRight(obj)
+ *         .setStyle(ToStringStyle.SHORT_PREFIX_STYLE))
+ *         .build()
  *       .append("name", this.name, obj.name)
  *       .append("age", this.age, obj.age)
  *       .append("smoker", this.smoker, obj.smoker)
  *       .build();
  *   }
  * }
- * </pre>
+ * }</pre>
  *
  * <p>
  * The {@link ToStringStyle} passed to the constructor is embedded in the returned {@link DiffResult} and influences the style of the
@@ -572,6 +576,24 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     @Override
     public DiffResult<T> build() {
         return new DiffResult<>(left, right, diffs, style, toStringFormat);
+    }
+
+    /**
+     * Gets the left object.
+     *
+     * @return the left object.
+     */
+    T getLeft() {
+        return left;
+    }
+
+    /**
+     * Gets the right object.
+     *
+     * @return the right object.
+     */
+    T getRight() {
+        return right;
     }
 
 }

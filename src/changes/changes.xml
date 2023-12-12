@@ -50,6 +50,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory, Dennis Baerten">Customize text pattern in DiffResult#toString().</action>
     <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add DiffBuilder.Builder</action>
     <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add DiffBuilder.builder()</action>
+    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add ReflectionDiffBuilder.Builder</action>
+    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add ReflectionDiffBuilder.builder()</action>
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="Miklós Karakó, Gary Gregory">Improve Javadoc in ExceptionUtils #1136.</action>
     <action                   type="fix" dev="ggregory" due-to="Saiharshith Karuneegar Ramesh, Gary Gregory">Fixed two non-deterministic tests in EnumUtilsTest.java #1131.</action>
@@ -62,7 +64,10 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="sebb" due-to="Dependabot">Bump commons-parent from 64 to 65.</action>
     <!-- REMOVE -->
     <action                   type="remove" dev="ggregory" due-to="Paranoïd User">Drop obsolete JDK 13 Maven profile #1142.</action>
-    <action                   type="remove" dev="ggregory" due-to="Gary Gregory">Deprecate org.apache.commons.lang3.builder.Diff.getType().</action>
+    <action                   type="remove" dev="ggregory" due-to="Gary Gregory">Deprecate Diff.getType().</action>
+    <action                   type="remove" dev="ggregory" due-to="Gary Gregory">Deprecate DiffBuilder.DiffBuilder(T, T, ToStringStyle).</action>
+    <action                   type="remove" dev="ggregory" due-to="Gary Gregory">Deprecate DiffBuilder.DiffBuilder(T, T, ToStringStyle, boolean).</action>
+    <action                   type="remove" dev="ggregory" due-to="Gary Gregory">Deprecate ReflectionDiffBuilder.ReflectionDiffBuilder(T, T, ToStringStyle).</action>
   </release>
   <release version="3.14.0" date="2023-11-18" description="New features and bug fixes (Java 8 or above).">
     <!-- FIX -->

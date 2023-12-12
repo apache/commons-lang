@@ -29,16 +29,14 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  * Assists in implementing {@link Diffable#diff(Object)} methods.
  *
  * <p>
- * All non-static, non-transient fields (including inherited fields)
- * of the objects to diff are discovered using reflection and compared
- * for differences.
+ * All non-static, non-transient fields (including inherited fields) of the objects to diff are discovered using reflection and compared for differences.
  * </p>
  *
  * <p>
  * To use this class, write code as follows:
  * </p>
  *
- * <pre>
+ * <pre>{@code
  * public class Person implements Diffable&lt;Person&gt; {
  *   String name;
  *   int age;
@@ -47,23 +45,27 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  *
  *   public DiffResult diff(Person obj) {
  *     // No need for null check, as NullPointerException correct if obj is null
- *     return new ReflectionDiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
+ *     return new ReflectionDiffBuilder.<Person>builder()
+ *       .setDiffBuilder(DiffBuilder.<Person>builder()
+ *           .setLeft(this)
+ *           .setRight(obj)
+ *           .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
+ *           .build())
+ *       .setExcludeFieldNames("userName", "password")
  *       .build();
  *   }
  * }
- * </pre>
+ * }</pre>
  *
  * <p>
- * The {@link ToStringStyle} passed to the constructor is embedded in the
- * returned {@link DiffResult} and influences the style of the
- * {@code DiffResult.toString()} method. This style choice can be overridden by
- * calling {@link DiffResult#toString(ToStringStyle)}.
+ * The {@link ToStringStyle} passed to the constructor is embedded in the returned {@link DiffResult} and influences the style of the
+ * {@code DiffResult.toString()} method. This style choice can be overridden by calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
  * <p>
  * See {@link DiffBuilder} for a non-reflection based version of this class.
  * </p>
- * @param <T>
- *            type of the left and right object to diff.
+ *
+ * @param <T> type of the left and right object to diff.
  * @see Diffable
  * @see Diff
  * @see DiffResult
@@ -73,39 +75,98 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  */
 public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
 
-    private final T left;
-    private final T right;
+    /**
+     * Constructs a new instance.
+     *
+     * @param <T> type of the left and right object.
+     * @since 3.15.0
+     */
+    public static final class Builder<T> {
+
+        private String[] excludeFieldNames = ArrayUtils.EMPTY_STRING_ARRAY;
+        private DiffBuilder<T> diffBuilder;
+
+        /**
+         * Builds a new configured {@link ReflectionDiffBuilder}.
+         *
+         * @return a new configured {@link ReflectionDiffBuilder}.
+         */
+        public ReflectionDiffBuilder<T> build() {
+            return new ReflectionDiffBuilder<>(diffBuilder, excludeFieldNames);
+        }
+
+        /**
+         * Sets the DiffBuilder.
+         *
+         * @param diffBuilder the DiffBuilder.
+         * @return this.
+         */
+        public Builder<T> setDiffBuilder(final DiffBuilder<T> diffBuilder) {
+            this.diffBuilder = diffBuilder;
+            return this;
+        }
+
+        /**
+         * Sets field names to exclude from output. Intended for fields like {@code "password"} or {@code "lastModificationDate"}.
+         *
+         * @param excludeFieldNames field names to exclude.
+         * @return this.
+         */
+        public Builder<T> setExcludeFieldNames(final String... excludeFieldNames) {
+            this.excludeFieldNames = toExcludeFieldNames(excludeFieldNames);
+            return this;
+        }
+
+    }
+
+    /**
+     * Constructs a new {@link Builder}.
+     *
+     * @param <T> type of the left and right object.
+     * @return a new {@link Builder}.
+     * @since 3.15.0
+     */
+    public static <T> Builder<T> builder() {
+        return new Builder<>();
+    }
+
+    private static String[] toExcludeFieldNames(final String[] excludeFieldNames) {
+        if (excludeFieldNames == null) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        // clone and remove nulls
+        return ArraySorter.sort(ReflectionToStringBuilder.toNoNullStringArray(excludeFieldNames));
+    }
+
     private final DiffBuilder<T> diffBuilder;
 
     /**
      * Field names to exclude from output. Intended for fields like {@code "password"} or {@code "lastModificationDate"}.
-     *
-     * @since 3.13.0
      */
     private String[] excludeFieldNames;
+
+    private ReflectionDiffBuilder(final DiffBuilder<T> diffBuilder, final String[] excludeFieldNames) {
+        this.diffBuilder = diffBuilder;
+        this.excludeFieldNames = excludeFieldNames;
+    }
 
     /**
      * Constructs a builder for the specified objects with the specified style.
      *
      * <p>
-     * If {@code lhs == rhs} or {@code lhs.equals(rhs)} then the builder will
-     * not evaluate any calls to {@code append(...)} and will return an empty
+     * If {@code left == right} or {@code left.equals(right)} then the builder will not evaluate any calls to {@code append(...)} and will return an empty
      * {@link DiffResult} when {@link #build()} is executed.
      * </p>
-     * @param lhs
-     *            {@code this} object
-     * @param rhs
-     *            the object to diff against
-     * @param style
-     *            the style will use when outputting the objects, {@code null}
-     *            uses the default
-     * @throws IllegalArgumentException
-     *             if {@code lhs} or {@code rhs} is {@code null}
+     *
+     * @param left  {@code this} object.
+     * @param right the object to diff against.
+     * @param style the style will use when outputting the objects, {@code null} uses the default
+     * @throws IllegalArgumentException if {@code left} or {@code right} is {@code null}.
+     * @deprecated Use {@link Builder}.
      */
-    public ReflectionDiffBuilder(final T lhs, final T rhs, final ToStringStyle style) {
-        this.left = lhs;
-        this.right = rhs;
-        this.diffBuilder = DiffBuilder.<T>builder().setLeft(lhs).setRight(rhs).setStyle(style).build();
+    @Deprecated
+    public ReflectionDiffBuilder(final T left, final T right, final ToStringStyle style) {
+        this(DiffBuilder.<T>builder().setLeft(left).setRight(right).setStyle(style).build(), null);
     }
 
     private boolean accept(final Field field) {
@@ -118,8 +179,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         if (Modifier.isStatic(field.getModifiers())) {
             return false;
         }
-        if (this.excludeFieldNames != null
-                && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
+        if (this.excludeFieldNames != null && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
             // Reject fields from the getExcludeFieldNames list.
             return false;
         }
@@ -130,7 +190,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         for (final Field field : FieldUtils.getAllFields(clazz)) {
             if (accept(field)) {
                 try {
-                    diffBuilder.append(field.getName(), FieldUtils.readField(field, left, true), FieldUtils.readField(field, right, true));
+                    diffBuilder.append(field.getName(), readField(field, getLeft()), readField(field, getRight()));
                 } catch (final IllegalAccessException e) {
                     // this can't happen. Would get a Security exception instead
                     // throw a runtime exception in case the impossible happens.
@@ -142,11 +202,11 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
 
     @Override
     public DiffResult<T> build() {
-        if (left.equals(right)) {
+        if (getLeft().equals(getRight())) {
             return diffBuilder.build();
         }
 
-        appendFields(left.getClass());
+        appendFields(getLeft().getClass());
         return diffBuilder.build();
     }
 
@@ -160,21 +220,29 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         return this.excludeFieldNames.clone();
     }
 
+    private T getLeft() {
+        return diffBuilder.getLeft();
+    }
+
+    private T getRight() {
+        return diffBuilder.getRight();
+    }
+
+    private Object readField(final Field field, final Object target) throws IllegalAccessException {
+        return FieldUtils.readField(field, target, true);
+    }
+
     /**
      * Sets the field names to exclude.
      *
-     * @param excludeFieldNamesParam
-     *            The field names to exclude from the diff or {@code null}.
+     * @param excludeFieldNames The field names to exclude from the diff or {@code null}.
      * @return {@code this}
      * @since 3.13.0
+     * @deprecated Use {@link Builder#setExcludeFieldNames(String[])}.
      */
-    public ReflectionDiffBuilder<T> setExcludeFieldNames(final String... excludeFieldNamesParam) {
-        if (excludeFieldNamesParam == null) {
-            this.excludeFieldNames = ArrayUtils.EMPTY_STRING_ARRAY;
-        } else {
-            // clone and remove nulls
-            this.excludeFieldNames = ArraySorter.sort(ReflectionToStringBuilder.toNoNullStringArray(excludeFieldNamesParam));
-        }
+    @Deprecated
+    public ReflectionDiffBuilder<T> setExcludeFieldNames(final String... excludeFieldNames) {
+        this.excludeFieldNames = toExcludeFieldNames(excludeFieldNames);
         return this;
     }
 
