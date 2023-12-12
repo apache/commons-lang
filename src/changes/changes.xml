@@ -60,6 +60,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1723" type="fix" dev="ggregory" due-to="Arthur Chan, Gary Gregory">Throw NumberFormatException instead of IndexOutOfBoundsException in NumberUtils.getMantissa(String, int) #1145.</action>
     <action                   type="fix" dev="ggregory" due-to="Paranoïd User">Minor grammar fixes #1143.</action>
     <action issue="LANG-1713" type="fix" dev="ggregory" due-to="John Hendrikx, Gary Gregory">ArrayUtils will return null when adding two null arrays, but undocumented.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Let parent POM figure out commons.spdx.version.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="sebb" due-to="Dependabot">Bump commons-parent from 64 to 65.</action>
     <!-- REMOVE -->
