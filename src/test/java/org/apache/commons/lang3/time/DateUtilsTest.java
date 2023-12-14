@@ -789,7 +789,7 @@ public class DateUtilsTest extends AbstractLangTest {
         assertThrows(ClassCastException.class, () -> DateUtils.iterator("", DateUtils.RANGE_WEEK_CENTER));
     }
 
-    /** https://issues.apache.org/jira/browse/LANG-530 */
+    /** See https://issues.apache.org/jira/browse/LANG-530 */
     @SuppressWarnings("deprecation")
     @Test
     public void testLang530() throws ParseException {
