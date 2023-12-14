@@ -149,7 +149,7 @@ public abstract class StrLookup<V> {
     }
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      */
     protected StrLookup() {
     }

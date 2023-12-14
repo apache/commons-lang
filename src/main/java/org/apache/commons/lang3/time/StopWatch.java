@@ -233,7 +233,7 @@ public class StopWatch {
     private long stopTimeNanos;
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      */
     public StopWatch() {
         this(null);

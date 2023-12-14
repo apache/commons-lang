@@ -302,7 +302,7 @@ public enum JavaVersion {
     private final String name;
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      *
      * @param value  the float value
      * @param name  the standard name, not null

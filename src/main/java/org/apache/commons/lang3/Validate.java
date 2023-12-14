@@ -1248,7 +1248,7 @@ public class Validate {
     }
 
     /**
-     * Constructor. This class should not normally be instantiated.
+     * Constructs a new instance. This class should not normally be instantiated.
      */
     public Validate() {
     }

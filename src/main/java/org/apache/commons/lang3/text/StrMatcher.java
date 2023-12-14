@@ -374,7 +374,7 @@ public abstract class StrMatcher {
     }
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      */
     protected StrMatcher() {
     }

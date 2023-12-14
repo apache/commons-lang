@@ -80,7 +80,7 @@ public class SerializationUtils {
         private final ClassLoader classLoader;
 
         /**
-         * Constructor.
+         * Constructs a new instance.
          * @param in The {@link InputStream}.
          * @param classLoader classloader to use
          * @throws IOException if an I/O error occurs while reading stream header.

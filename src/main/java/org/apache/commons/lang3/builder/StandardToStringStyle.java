@@ -41,7 +41,7 @@ public class StandardToStringStyle extends ToStringStyle {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      */
     public StandardToStringStyle() {
     }

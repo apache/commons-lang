@@ -76,7 +76,7 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
     private int spaces = 2;
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      */
     public MultilineRecursiveToStringStyle() {
         resetIndent();

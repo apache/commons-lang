@@ -84,7 +84,7 @@ public abstract class ToStringStyle implements Serializable {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Constructor.
+         * Constructs a new instance.
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
@@ -120,7 +120,7 @@ public abstract class ToStringStyle implements Serializable {
         private static final String FIELD_NAME_QUOTE = "\"";
 
         /**
-         * Constructor.
+         * Constructs a new instance.
          *
          * <p>
          * Use the static constant rather than instantiating.
@@ -440,7 +440,7 @@ public abstract class ToStringStyle implements Serializable {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Constructor.
+         * Constructs a new instance.
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
@@ -474,7 +474,7 @@ public abstract class ToStringStyle implements Serializable {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Constructor.
+         * Constructs a new instance.
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
@@ -506,7 +506,7 @@ public abstract class ToStringStyle implements Serializable {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Constructor.
+         * Constructs a new instance.
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
@@ -537,7 +537,7 @@ public abstract class ToStringStyle implements Serializable {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Constructor.
+         * Constructs a new instance.
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
@@ -568,7 +568,7 @@ public abstract class ToStringStyle implements Serializable {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Constructor.
+         * Constructs a new instance.
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
@@ -864,7 +864,7 @@ public abstract class ToStringStyle implements Serializable {
     private String summaryObjectEndText = ">";
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      */
     protected ToStringStyle() {
     }
