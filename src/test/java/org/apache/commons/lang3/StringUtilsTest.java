@@ -3037,7 +3037,7 @@ public class StringUtilsTest extends AbstractLangTest {
         // sanity check end
         assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.defaultCharset()));
         assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.forName(encoding)));
-        encoding = "UTF-16";
+        encoding = StandardCharsets.UTF_16.name();
         expectedBytes = expectedString.getBytes(Charset.forName(encoding));
         assertEquals(expectedString, StringUtils.toEncodedString(expectedBytes, Charset.forName(encoding)));
     }
@@ -3097,7 +3097,7 @@ public class StringUtilsTest extends AbstractLangTest {
         // sanity check end
         assertEquals(expectedString, StringUtils.toString(expectedBytes, null));
         assertEquals(expectedString, StringUtils.toString(expectedBytes, SystemUtils.FILE_ENCODING));
-        final String encoding = "UTF-16";
+        final String encoding = StandardCharsets.UTF_16.name();
         expectedBytes = expectedString.getBytes(Charset.forName(encoding));
         assertEquals(expectedString, StringUtils.toString(expectedBytes, encoding));
     }
