@@ -39,13 +39,13 @@ public class CharsetsTest extends AbstractLangTest {
     public void testToCharset_String() {
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset((String) null));
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset(Charset.defaultCharset().name()));
-        Assertions.assertEquals(StandardCharsets.UTF_8, Charsets.toCharset("UTF-8"));
+        Assertions.assertEquals(StandardCharsets.UTF_8, Charsets.toCharset(StandardCharsets.UTF_8.name()));
     }
 
     @Test
     public void testToCharsetName() {
         Assertions.assertEquals(Charset.defaultCharset().name(), Charsets.toCharsetName((String) null));
-        Assertions.assertEquals("UTF-8", Charsets.toCharsetName("UTF-8"));
+        Assertions.assertEquals("UTF-8", Charsets.toCharsetName(StandardCharsets.UTF_8.name()));
     }
 
 }
