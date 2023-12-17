@@ -19,7 +19,7 @@ package org.apache.commons.lang3;
 import java.io.File;
 
 /**
- * Helpers for {@code java.lang.System}.
+ * Helpers for {@link System}.
  *
  * <p>
  * If a system property cannot be read due to security restrictions, the corresponding field in this class will be set

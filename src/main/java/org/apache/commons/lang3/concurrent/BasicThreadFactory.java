@@ -54,7 +54,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * threads. This can impact the exit behavior of the current Java application
  * because the JVM shuts down if there are only daemon threads running.</li>
  * <li>The priority of the thread. Here an integer value can be provided. The
- * {@code java.lang.Thread} class defines constants for valid ranges of priority
+ * {@link Thread} class defines constants for valid ranges of priority
  * values.</li>
  * <li>The {@link UncaughtExceptionHandler} for the thread. This handler is
  * called if an uncaught exception occurs within the thread.</li>

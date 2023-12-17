@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.time.DurationUtils;
 
 /**
- * Helpers for {@code java.lang.Thread} and {@code java.lang.ThreadGroup}.
+ * Helpers for {@link Thread} and {@link ThreadGroup}.
  *
  * <p>
  * #ThreadSafe#

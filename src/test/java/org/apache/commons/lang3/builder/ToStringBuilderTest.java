@@ -1265,7 +1265,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
      * <p>Transient fields are not output.</p>
      *
      * <p>Superclass fields will be appended up to and including the specified superclass.
-     * A null superclass is treated as {@code java.lang.Object}.</p>
+     * A null superclass is treated as {@link Object}.</p>
      *
      * <p>If the style is {@code null}, the default
      * {@code ToStringStyle} is used.</p>

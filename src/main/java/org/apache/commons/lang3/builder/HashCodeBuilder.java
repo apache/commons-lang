@@ -544,8 +544,8 @@ public class HashCodeBuilder implements Builder<Integer> {
      * </p>
      * <p>
      * This is in contrast to the standard {@code java.lang.Boolean.hashCode} handling, which computes
-     * a {@code hashCode} value of {@code 1231} for {@code java.lang.Boolean} instances
-     * that represent {@code true} or {@code 1237} for {@code java.lang.Boolean} instances
+     * a {@code hashCode} value of {@code 1231} for {@link Boolean} instances
+     * that represent {@code true} or {@code 1237} for {@link Boolean} instances
      * that represent {@code false}.
      * </p>
      * <p>

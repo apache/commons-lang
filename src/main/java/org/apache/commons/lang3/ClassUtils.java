@@ -982,7 +982,7 @@ public class ClassUtils {
      *
      * <p>
      * Note that this method differs from {@link #getSimpleName(Class)} in that this will return, for example
-     * {@code "Map.Entry"} whilst the {@code java.lang.Class} variant will simply return {@code "Entry"}. In this example
+     * {@code "Map.Entry"} whilst the {@link Class} variant will simply return {@code "Entry"}. In this example
      * the argument {@code className} is the string {@code java.util.Map$Entry} (note the {@code $} sign.
      * </p>
      *

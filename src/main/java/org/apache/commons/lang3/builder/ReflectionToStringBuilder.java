@@ -296,7 +296,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * <p>
      * Superclass fields will be appended up to and including the specified superclass. A null superclass is treated as
-     * {@code java.lang.Object}.
+     * {@link Object}.
      * </p>
      *
      * <p>
@@ -353,7 +353,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * <p>
      * Superclass fields will be appended up to and including the specified superclass. A null superclass is treated as
-     * {@code java.lang.Object}.
+     * {@link Object}.
      * </p>
      *
      * <p>
