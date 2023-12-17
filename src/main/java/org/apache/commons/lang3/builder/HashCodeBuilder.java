@@ -543,7 +543,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * This adds {@code 1} when true, and {@code 0} when false to the {@code hashCode}.
      * </p>
      * <p>
-     * This is in contrast to the standard {@code java.lang.Boolean.hashCode} handling, which computes
+     * This is in contrast to the standard {@link Boolean#hashCode()} handling, which computes
      * a {@code hashCode} value of {@code 1231} for {@link Boolean} instances
      * that represent {@code true} or {@code 1237} for {@link Boolean} instances
      * that represent {@code false}.

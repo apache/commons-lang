@@ -45,7 +45,7 @@ import org.apache.commons.lang3.function.FailableFunction;
 import org.apache.commons.lang3.function.FailablePredicate;
 
 /**
- * Provides utility functions, and classes for working with the {@code java.util.stream} package, or more generally,
+ * Provides utility functions, and classes for working with the {@link java.util.stream} package, or more generally,
  * with Java 8 lambdas. More specifically, it attempts to address the fact that lambdas are supposed not to throw
  * Exceptions, at least not checked Exceptions, AKA instances of {@link Exception}. This enforces the use of constructs
  * like:

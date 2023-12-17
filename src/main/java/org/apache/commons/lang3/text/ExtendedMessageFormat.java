@@ -30,12 +30,12 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
- * Extends {@code java.text.MessageFormat} to allow pluggable/additional formatting
+ * Extends {@link java.text.MessageFormat} to allow pluggable/additional formatting
  * options for embedded format elements.  Client code should specify a registry
  * of {@link FormatFactory} instances associated with {@link String}
  * format names.  This registry will be consulted when the format elements are
  * parsed from the message pattern.  In this way custom patterns can be specified,
- * and the formats supported by {@code java.text.MessageFormat} can be overridden
+ * and the formats supported by {@link java.text.MessageFormat} can be overridden
  * at the format and/or format style level (see MessageFormat).  A "format element"
  * embedded in the message pattern is specified (<b>()?</b> signifies optionality):<br>
  * <code>{</code><i>argument-number</i><b>(</b>{@code ,}<i>format-name</i><b>
@@ -43,7 +43,7 @@ import org.apache.commons.lang3.Validate;
  *
  * <p>
  * <i>format-name</i> and <i>format-style</i> values are trimmed of surrounding whitespace
- * in the manner of {@code java.text.MessageFormat}.  If <i>format-name</i> denotes
+ * in the manner of {@link java.text.MessageFormat}.  If <i>format-name</i> denotes
  * {@code FormatFactory formatFactoryInstance} in {@code registry}, a {@link Format}
  * matching <i>format-name</i> and <i>format-style</i> is requested from
  * {@code formatFactoryInstance}.  If this is successful, the {@link Format}
@@ -56,7 +56,7 @@ import org.apache.commons.lang3.Validate;
  * {@link UnsupportedOperationException} if called.
  * </p>
  *
- * <p>Limitations inherited from {@code java.text.MessageFormat}:</p>
+ * <p>Limitations inherited from {@link java.text.MessageFormat}:</p>
  * <ul>
  * <li>When using "choice" subformats, support for nested formatting instructions is limited
  *     to that provided by the base class.</li>

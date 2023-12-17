@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 /**
- * Provides utility classes to complement those in {@code java.util.stream}.
+ * Provides utility classes to complement those in {@link java.util.stream}.
  *
  * <p>Contains utilities to allow streaming of failable functional interfaces from the
  * {@code org.apache.commons.lang3.functions} package allowing streaming of functional expressions

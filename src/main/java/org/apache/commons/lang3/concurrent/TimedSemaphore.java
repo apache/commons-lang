@@ -28,7 +28,7 @@ import org.apache.commons.lang3.Validate;
  * permits in a given time frame.
  *
  * <p>
- * This class is similar to the {@code java.util.concurrent.Semaphore} class
+ * This class is similar to the {@link java.util.concurrent.Semaphore} class
  * provided by the JDK in that it manages a configurable number of permits.
  * Using the {@link #acquire()} method a permit can be requested by a thread.
  * However, there is an additional timing dimension: there is no {@code

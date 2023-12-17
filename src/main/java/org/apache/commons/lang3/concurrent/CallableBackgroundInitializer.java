@@ -31,7 +31,7 @@ import java.util.concurrent.ExecutorService;
  * {@link Callable} is executed in the background thread.
  * </p>
  * <p>
- * The {@code java.util.concurrent.Callable} interface is a standard mechanism
+ * The {@link java.util.concurrent.Callable} interface is a standard mechanism
  * of the JDK to define tasks to be executed by another thread. The {@code
  * CallableBackgroundInitializer} class allows combining this standard interface
  * with the background initializer API.
