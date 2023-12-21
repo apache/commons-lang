@@ -39,11 +39,11 @@ import java.util.UUID;
  * </ul>
  * <p>
  * Endianness field: little-endian is the default, in this case the field is absent. In case of
- * big endian, the field is "Be".<br> Bit ordering: Lsb0 is the default, in this case the field
+ * big-endian, the field is "Be".<br> Bit ordering: Lsb0 is the default, in this case the field
  * is absent. In case of Msb0, the field is "Msb0".
  * </p>
  * <p>
- * Example: intBeMsb0ToHex convert an int with big endian byte order and Msb0 bit order into its
+ * Example: intBeMsb0ToHex convert an int with big-endian byte order and Msb0 bit order into its
  * hexadecimal string representation
  * </p>
  * <p>
@@ -79,7 +79,7 @@ public class Conversion {
     private static final boolean[] FFFF = {false, false, false, false};
 
     /**
-     * Converts the first 4 bits of a binary (represented as boolean array) in big endian Msb0
+     * Converts the first 4 bits of a binary (represented as boolean array) in big-endian Msb0
      * bit ordering to a hexadecimal digit.
      *
      * <p>
@@ -97,7 +97,7 @@ public class Conversion {
     }
 
     /**
-     * Converts a binary (represented as boolean array) in big endian Msb0 bit ordering to a
+     * Converts a binary (represented as boolean array) in big-endian Msb0 bit ordering to a
      * hexadecimal digit.
      *
      * <p>
