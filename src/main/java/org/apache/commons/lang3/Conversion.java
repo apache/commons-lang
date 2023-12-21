@@ -38,7 +38,7 @@ import java.util.UUID;
  * <li>uuid</li>
  * </ul>
  * <p>
- * Endianness field: little endian is the default, in this case the field is absent. In case of
+ * Endianness field: little-endian is the default, in this case the field is absent. In case of
  * big endian, the field is "Be".<br> Bit ordering: Lsb0 is the default, in this case the field
  * is absent. In case of Msb0, the field is "Msb0".
  * </p>
@@ -52,7 +52,7 @@ import java.util.UUID;
  * you should not need to use "Be" and "Msb0" methods.
  * </p>
  * <p>
- * Development status: work on going, only a part of the little endian, Lsb0 methods implemented
+ * Development status: work on going, only a part of the little-endian, Lsb0 methods implemented
  * so far.
  * </p>
  *
@@ -404,7 +404,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an array of byte into an int using the default (little endian, Lsb0) byte and bit
+     * Converts an array of byte into an int using the default (little-endian, Lsb0) byte and bit
      * ordering.
      *
      * @param src the byte array to convert
@@ -437,7 +437,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an array of byte into a long using the default (little endian, Lsb0) byte and
+     * Converts an array of byte into a long using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the byte array to convert
@@ -470,7 +470,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an array of byte into a short using the default (little endian, Lsb0) byte and
+     * Converts an array of byte into a short using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the byte array to convert
@@ -503,7 +503,7 @@ public class Conversion {
     }
 
     /**
-     * Converts bytes from an array into a UUID using the default (little endian, Lsb0) byte and
+     * Converts bytes from an array into a UUID using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the byte array to convert
@@ -521,7 +521,7 @@ public class Conversion {
     }
 
     /**
-     * Converts a byte into an array of boolean using the default (little endian, Lsb0) byte and
+     * Converts a byte into an array of boolean using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the byte to convert
@@ -551,7 +551,7 @@ public class Conversion {
     }
 
     /**
-     * Converts a byte into an array of Char using the default (little endian, Lsb0) byte and
+     * Converts a byte into an array of Char using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the byte to convert
@@ -777,7 +777,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an array of Char into a byte using the default (little endian, Lsb0) byte and
+     * Converts an array of Char into a byte using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the hexadecimal string to convert
@@ -808,7 +808,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an array of Char into an int using the default (little endian, Lsb0) byte and bit
+     * Converts an array of Char into an int using the default (little-endian, Lsb0) byte and bit
      * ordering.
      *
      * @param src the hexadecimal string to convert
@@ -838,7 +838,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an array of Char into a long using the default (little endian, Lsb0) byte and
+     * Converts an array of Char into a long using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the hexadecimal string to convert
@@ -869,7 +869,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an array of Char into a short using the default (little endian, Lsb0) byte and
+     * Converts an array of Char into a short using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the hexadecimal string to convert
@@ -900,7 +900,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an array of int into a long using the default (little endian, Lsb0) byte and bit
+     * Converts an array of int into a long using the default (little-endian, Lsb0) byte and bit
      * ordering.
      *
      * @param src the int array to convert
@@ -933,7 +933,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an int into an array of boolean using the default (little endian, Lsb0) byte and
+     * Converts an int into an array of boolean using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the int to convert
@@ -963,7 +963,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an int into an array of byte using the default (little endian, Lsb0) byte and bit
+     * Converts an int into an array of byte using the default (little-endian, Lsb0) byte and bit
      * ordering.
      *
      * @param src the int to convert
@@ -993,7 +993,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an int into an array of Char using the default (little endian, Lsb0) byte and bit
+     * Converts an int into an array of Char using the default (little-endian, Lsb0) byte and bit
      * ordering.
      *
      * @param src the int to convert
@@ -1111,7 +1111,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an int into an array of short using the default (little endian, Lsb0) byte and
+     * Converts an int into an array of short using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the int to convert
@@ -1141,7 +1141,7 @@ public class Conversion {
     }
 
     /**
-     * Converts a long into an array of boolean using the default (little endian, Lsb0) byte and
+     * Converts a long into an array of boolean using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the long to convert
@@ -1171,7 +1171,7 @@ public class Conversion {
     }
 
     /**
-     * Converts a long into an array of byte using the default (little endian, Lsb0) byte and
+     * Converts a long into an array of byte using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the long to convert
@@ -1201,7 +1201,7 @@ public class Conversion {
     }
 
     /**
-     * Converts a long into an array of Char using the default (little endian, Lsb0) byte and
+     * Converts a long into an array of Char using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the long to convert
@@ -1238,7 +1238,7 @@ public class Conversion {
     }
 
     /**
-     * Converts a long into an array of int using the default (little endian, Lsb0) byte and bit
+     * Converts a long into an array of int using the default (little-endian, Lsb0) byte and bit
      * ordering.
      *
      * @param src the long to convert
@@ -1268,7 +1268,7 @@ public class Conversion {
     }
 
     /**
-     * Converts a long into an array of short using the default (little endian, Lsb0) byte and
+     * Converts a long into an array of short using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the long to convert
@@ -1298,7 +1298,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an array of short into an int using the default (little endian, Lsb0) byte and
+     * Converts an array of short into an int using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the short array to convert
@@ -1331,7 +1331,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an array of short into a long using the default (little endian, Lsb0) byte and
+     * Converts an array of short into a long using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the short array to convert
@@ -1364,7 +1364,7 @@ public class Conversion {
     }
 
     /**
-     * Converts a short into an array of boolean using the default (little endian, Lsb0) byte
+     * Converts a short into an array of boolean using the default (little-endian, Lsb0) byte
      * and bit ordering.
      *
      * @param src the short to convert
@@ -1395,7 +1395,7 @@ public class Conversion {
     }
 
     /**
-     * Converts a short into an array of byte using the default (little endian, Lsb0) byte and
+     * Converts a short into an array of byte using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the short to convert
@@ -1425,7 +1425,7 @@ public class Conversion {
     }
 
     /**
-     * Converts a short into an array of Char using the default (little endian, Lsb0) byte and
+     * Converts a short into an array of Char using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the short to convert
@@ -1462,7 +1462,7 @@ public class Conversion {
     }
 
     /**
-     * Converts UUID into an array of byte using the default (little endian, Lsb0) byte and bit
+     * Converts UUID into an array of byte using the default (little-endian, Lsb0) byte and bit
      * ordering.
      *
      * @param src the UUID to convert
