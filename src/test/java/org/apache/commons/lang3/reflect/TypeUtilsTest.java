@@ -315,6 +315,26 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
     }
 
+    /** This non-static inner class is parameterized. */
+    private class MyInnerClass<T> {
+    }
+
+    /** The inner class is used as a return type from a method. */
+    private <U> MyInnerClass<U> aMethod() {
+        return null;
+    }
+
+    @Test
+    public void test_LANG_1702() throws NoSuchMethodException, SecurityException {
+        final Type type = TypeUtilsTest.class.getDeclaredMethod("aMethod").getGenericReturnType();
+
+        // any map will do
+        final Map<TypeVariable<?>, Type> typeArguments = Collections.emptyMap();
+
+        // this fails with a stack overflow
+        final Type unrolledType = TypeUtils.unrollVariables(typeArguments, type);
+    }
+
     @Test
     public void testContainsTypeVariables() throws Exception {
         assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m0").getGenericReturnType()));
