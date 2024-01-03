@@ -315,11 +315,11 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
     }
 
-    // this non-static inner class is parameterized
+    /** This non-static inner class is parameterized. */
     private class MyInnerClass<T> {
     }
 
-    // the inner class is used as a return type from a method
+    /** The inner class is used as a return type from a method. */
     private <U> MyInnerClass<U> aMethod() {
         return null;
     }
