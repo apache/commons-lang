@@ -870,9 +870,7 @@ public class ExceptionUtils {
      *         Java compiler requirement that all code paths return a value.
      * @since 3.5
      * @see #wrapAndThrow(Throwable)
-     * @deprecated Use {@link #asRuntimeException(Throwable)}.
      */
-    @Deprecated
     public static <T> T rethrow(final Throwable throwable) {
         // claim that the typeErasure invocation throws a RuntimeException
         return ExceptionUtils.<T, RuntimeException>eraseType(throwable);
