@@ -814,20 +814,22 @@ public class ExceptionUtils {
     }
 
     /**
-     * Use to throw a checked exception without adding the exception to the throws
+     * Throws the given (usually checked) exception without adding the exception to the throws
      * clause of the calling method. This method prevents throws clause
-     * pollution and reduces the clutter of "Caused by" exceptions in the
+     * inflation and reduces the clutter of "Caused by" exceptions in the
      * stack trace.
      * <p>
-     * The use of this technique may be controversial, but exceedingly useful to
-     * library developers.
+     * The use of this technique may be controversial, but useful.
      * </p>
      * <pre>
-     *  public int propagateExample { // note that there is no throws clause
+     *  // There is no throws clause in the method signature.
+     *  public int propagateExample() {
      *      try {
-     *          return invocation(); // throws IOException
-     *      } catch (Exception e) {
-     *          return ExceptionUtils.rethrow(e);  // propagates a checked exception
+     *          // throws SomeCheckedException.
+     *          return invocation();
+     *      } catch (SomeCheckedException e) {
+     *          // Propagates a checked exception and compiles to return an int.
+     *          return ExceptionUtils.rethrow(e);
      *      }
      *  }
      * </pre>
@@ -836,15 +838,19 @@ public class ExceptionUtils {
      * checked exception in a RuntimeException:
      * </p>
      * <pre>
-     *  public int wrapExample { // note that there is no throws clause
+     *  // There is no throws clause in the method signature.
+     *  public int wrapExample() {
      *      try {
-     *          return invocation(); // throws IOException
+     *          // throws IOException.
+     *          return invocation();
      *      } catch (Error e) {
      *          throw e;
      *      } catch (RuntimeException e) {
-     *          throw e;  // wraps a checked exception
+     *          // Throws an unchecked exception.
+     *          throw e;
      *      } catch (Exception e) {
-     *          throw new UndeclaredThrowableException(e);  // wraps a checked exception
+     *          // wraps a checked exception.
+     *          throw new UndeclaredThrowableException(e);
      *      }
      *  }
      * </pre>
@@ -863,8 +869,8 @@ public class ExceptionUtils {
      *
      * @param throwable
      *            The throwable to rethrow.
-     * @param <T> The type of the returned value.
-     * @return Never actually returned, this generic type matches any type
+     * @param <T> The type of the return value.
+     * @return Never actually returns, this generic type matches any type
      *         which the calling site requires. "Returning" the results of this
      *         method, as done in the propagateExample above, will satisfy the
      *         Java compiler requirement that all code paths return a value.
