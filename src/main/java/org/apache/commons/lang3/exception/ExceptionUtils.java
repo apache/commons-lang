@@ -72,21 +72,26 @@ public class ExceptionUtils {
     static final String WRAPPED_MARKER = " [wrapped] ";
 
     /**
-     * Use to throws a checked exception without adding the exception to the throws
+     * Throws the given (usually checked) exception without adding the exception to the throws
      * clause of the calling method. This method prevents throws clause
-     * pollution and reduces the clutter of "Caused by" exceptions in the
+     * inflation and reduces the clutter of "Caused by" exceptions in the
      * stack trace.
      * <p>
-     * The use of this technique may be controversial, but exceedingly useful to
-     * library developers.
+     * The use of this technique may be controversial, but useful.
      * </p>
      * <pre>
-     *  public int propagateExample { // note that there is no throws clause
+     *  // There is no throws clause in the method signature.
+     *  public int propagateExample {
      *      try {
-     *          return invocation(); // throws IOException
+     *          // Throws IOException
+     *          invocation();
      *      } catch (Exception e) {
-     *          return ExceptionUtils.rethrowRuntimeException(e);  // propagates a checked exception
+     *          // Propagates a checked exception.
+     *          throw ExceptionUtils.asRuntimeException(e);
      *      }
+     *      // more processing
+     *      ...
+     *      return value;
      *  }
      * </pre>
      * <p>
@@ -94,16 +99,23 @@ public class ExceptionUtils {
      * checked exception in a RuntimeException:
      * </p>
      * <pre>
-     *  public int wrapExample { // note that there is no throws clause
+     *  // There is no throws clause in the method signature.
+     *  public int wrapExample() {
      *      try {
-     *          return invocation(); // throws IOException
+     *          // throws IOException.
+     *          invocation();
      *      } catch (Error e) {
      *          throw e;
      *      } catch (RuntimeException e) {
-     *          throw e;  // wraps a checked exception
+     *          // Throws an unchecked exception.
+     *          throw e;
      *      } catch (Exception e) {
-     *          throw new UndeclaredThrowableException(e);  // wraps a checked exception
+     *          // Wraps a checked exception.
+     *          throw new UndeclaredThrowableException(e);
      *      }
+     *      // more processing
+     *      ...
+     *      return value;
      *  }
      * </pre>
      * <p>
