@@ -795,7 +795,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 8) {
-            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greater than or equal to 8");
+            throw new IllegalArgumentException("(nHex-1)*4+dstPos is greater than or equal to 8");
         }
         byte out = dstInit;
         for (int i = 0; i < nHex; i++) {
