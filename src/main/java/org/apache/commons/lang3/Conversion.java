@@ -777,7 +777,7 @@ public class Conversion {
     }
 
     /**
-     * Converts an array of Char into a byte using the default (little-endian, Lsb0) byte and
+     * Converts a hexadecimal string into a byte using the default (little-endian, Lsb0) byte and
      * bit ordering.
      *
      * @param src the hexadecimal string to convert
@@ -787,7 +787,7 @@ public class Conversion {
      * @param dstPos the position of the lsb, in bits, in the result byte
      * @param nHex the number of Chars to convert
      * @return a byte containing the selected bits
-     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 8}
+     * @throws IllegalArgumentException if {@code (nHex-1)*4+dstPos >= 8}
      */
     public static byte hexToByte(final String src, final int srcPos, final byte dstInit, final int dstPos,
             final int nHex) {
@@ -795,7 +795,7 @@ public class Conversion {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 8) {
-            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greater or equal to than 8");
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greater than or equal to 8");
         }
         byte out = dstInit;
         for (int i = 0; i < nHex; i++) {
