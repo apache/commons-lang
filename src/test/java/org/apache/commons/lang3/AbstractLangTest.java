@@ -31,10 +31,6 @@ public class AbstractLangTest {
      */
     @AfterEach
     public void after() {
-        validateNullToStringStyleRegistry();
-    }
-
-    void validateNullToStringStyleRegistry() {
         assertNull(ToStringStyle.getRegistry(), "Expected null, actual: " + ToStringStyle.getRegistry());
     }
 
