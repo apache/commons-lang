@@ -95,6 +95,9 @@ public class EventListenerSupport<L> implements Serializable {
         }
     }
 
+    /**
+     * An invocation handler used to dispatch the event(s) to all the listeners.
+     */
     protected class QuietProxyInvocationHandler implements InvocationHandler {
 
         @Override
@@ -253,7 +256,7 @@ public class EventListenerSupport<L> implements Serializable {
      * to the managed listeners.  Subclasses can override to provide custom behavior.
      * @return QuietProxyInvocationHandler
      */
-    protected InvocationHandler createQietInvocationHandler() {
+    protected InvocationHandler createQuietInvocationHandler() {
         return new QuietProxyInvocationHandler();
     }
 
@@ -266,7 +269,7 @@ public class EventListenerSupport<L> implements Serializable {
         proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader,
                 new Class[] { listenerInterface }, createInvocationHandler()));
         quietProxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader,
-                new Class[] { listenerInterface }, createQietInvocationHandler()));
+                new Class[] { listenerInterface }, createQuietInvocationHandler()));
     }
 
     /**
@@ -291,7 +294,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @return a proxy object which can be used to call listener methods on all
      * of the registered event listeners
      */
-    public L fireQuietly() {
+    public L fireAll() {
         return quietProxy;
     }
 

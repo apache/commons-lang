@@ -230,6 +230,11 @@ public class EventListenerSupportTest extends AbstractLangTest {
         listenerSupport.addListener(new ExceptionThrowingListener() {
 
             @Override
+            public void nothing() {
+
+            }
+
+            @Override
             public void declaredError() throws Error {
                 throw new Error();
             }
@@ -266,14 +271,16 @@ public class EventListenerSupportTest extends AbstractLangTest {
 
         });
 
-        listenerSupport.fireQuietly().declaredError();
-        listenerSupport.fireQuietly().declaredRuntime();
-        listenerSupport.fireQuietly().declaredThrowable();
-        listenerSupport.fireQuietly().declaredIo();
-        listenerSupport.fireQuietly().declaredException();
-        listenerSupport.fireQuietly().undeclaredRuntime();
-        listenerSupport.fireQuietly().undeclaredNotImplemented();
+        listenerSupport.fireAll().nothing();
+        listenerSupport.fireAll().declaredError();
+        listenerSupport.fireAll().declaredRuntime();
+        listenerSupport.fireAll().declaredThrowable();
+        listenerSupport.fireAll().declaredIo();
+        listenerSupport.fireAll().declaredException();
+        listenerSupport.fireAll().undeclaredRuntime();
+        listenerSupport.fireAll().undeclaredNotImplemented();
 
+        listenerSupport.fire().nothing();
         assertThrows(UndeclaredThrowableException.class, () -> listenerSupport.fire().declaredError());
         assertThrows(UndeclaredThrowableException.class, () -> listenerSupport.fire().declaredRuntime());
         assertThrows(InvocationTargetException.class, () -> listenerSupport.fire().declaredThrowable());
@@ -285,6 +292,8 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     public interface ExceptionThrowingListener {
+
+        void nothing();
 
         void declaredError() throws Error;
 
