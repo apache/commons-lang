@@ -31,6 +31,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -220,5 +221,35 @@ public class EventListenerSupportTest extends AbstractLangTest {
         eventListenerSupport.fire().vetoableChange(ignore);
         eventListenerSupport.fire().vetoableChange(respond);
         EasyMock.verify(listener);
+    }
+
+    @Test
+    public void testQuietInvocationHandling() throws Exception {
+        final EventListenerSupport<ExceptionThrowingListener> listenerSupport = EventListenerSupport.create(ExceptionThrowingListener.class);
+        listenerSupport.addListener(new ExceptionThrowingListener() {
+            @Override
+            public void throwsChecked() throws Exception {
+                throw new Exception();
+            }
+
+            @Override
+            public void throwsUnchecked() throws RuntimeException {
+                throw new RuntimeException();
+            }
+        });
+        listenerSupport.fireQuietly().throwsChecked();
+        listenerSupport.fireQuietly().throwsUnchecked();
+
+        assertThrows(InvocationTargetException.class, () -> listenerSupport.fire().throwsChecked());
+        assertThrows(UndeclaredThrowableException.class, () -> listenerSupport.fire().throwsUnchecked());
+
+    }
+
+    public interface ExceptionThrowingListener {
+
+        void throwsChecked() throws Exception;
+
+        void throwsUnchecked() throws RuntimeException;
+
     }
 }

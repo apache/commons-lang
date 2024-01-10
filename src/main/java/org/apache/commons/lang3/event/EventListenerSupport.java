@@ -95,6 +95,23 @@ public class EventListenerSupport<L> implements Serializable {
         }
     }
 
+    protected class QuietProxyInvocationHandler implements InvocationHandler {
+
+        @Override
+        public Object invoke(final Object unusedProxy, final Method method, final Object[] args)
+                throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            for (final L listener : listeners) {
+                try {
+                    method.invoke(listener, args);
+                } catch (InvocationTargetException t) {
+                    //hide invocation exceptions
+                }
+            }
+            return null;
+        }
+
+    }
+
     /** Serialization version */
     private static final long serialVersionUID = 3593265990380473632L;
 
@@ -130,6 +147,13 @@ public class EventListenerSupport<L> implements Serializable {
      * object will be sent to all registered listeners.
      */
     private transient L proxy;
+
+    /**
+     * The proxy representing the collection of listeners. Calls to this proxy
+     * object will be sent to all registered listeners. Exceptions thrown by listeners
+     * will not be propagated by this proxy;
+     */
+    private transient L quietProxy;
 
     /**
      * Empty typed array for #getListeners().
@@ -225,6 +249,15 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
+     * Create the {@link InvocationHandler} responsible for quietly broadcasting calls
+     * to the managed listeners.  Subclasses can override to provide custom behavior.
+     * @return QuietProxyInvocationHandler
+     */
+    protected InvocationHandler createQietInvocationHandler() {
+        return new QuietProxyInvocationHandler();
+    }
+
+    /**
      * Create the proxy object.
      * @param listenerInterface the class of the listener interface
      * @param classLoader the class loader to be used
@@ -232,6 +265,8 @@ public class EventListenerSupport<L> implements Serializable {
     private void createProxy(final Class<L> listenerInterface, final ClassLoader classLoader) {
         proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader,
                 new Class[] { listenerInterface }, createInvocationHandler()));
+        quietProxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader,
+                new Class[] { listenerInterface }, createQietInvocationHandler()));
     }
 
     /**
@@ -244,6 +279,19 @@ public class EventListenerSupport<L> implements Serializable {
      */
     public L fire() {
         return proxy;
+    }
+
+    /**
+     * Returns a proxy object which can be used to call listener methods on all
+     * of the registered event listeners. All calls made to this proxy will be
+     * forwarded to all registered listeners. Exceptions returned by invoked
+     * listener methods will not be propagated.
+     *
+     * @return a proxy object which can be used to call listener methods on all
+     * of the registered event listeners
+     */
+    public L fireQuietly() {
+        return quietProxy;
     }
 
     /**
