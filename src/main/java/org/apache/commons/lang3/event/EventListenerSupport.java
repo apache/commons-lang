@@ -285,7 +285,8 @@ public class EventListenerSupport<L> implements Serializable {
      * Returns a proxy object which can be used to call listener methods on all
      * of the registered event listeners. All calls made to this proxy will be
      * forwarded to all registered listeners. Exceptions returned by invoked
-     * listener methods will not be propagated.
+     * listener methods will not be propagated, and will not prevent further
+     * listeners from being invoked.
      *
      * @return a proxy object which can be used to call listener methods on all
      * of the registered event listeners
