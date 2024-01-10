@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.NotImplementedException;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
@@ -224,32 +225,80 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testQuietInvocationHandling() throws Exception {
+    public void testQuietInvocationHandling() throws Throwable {
         final EventListenerSupport<ExceptionThrowingListener> listenerSupport = EventListenerSupport.create(ExceptionThrowingListener.class);
         listenerSupport.addListener(new ExceptionThrowingListener() {
+
             @Override
-            public void throwsChecked() throws Exception {
+            public void declaredError() throws Error {
+                throw new Error();
+            }
+
+            @Override
+            public void declaredRuntime() throws RuntimeException {
+                throw new RuntimeException();
+            }
+
+            @Override
+            public void declaredThrowable() throws Throwable {
+                throw new Throwable();
+            }
+
+            @Override
+            public void declaredIo() throws IOException {
+                throw new IOException();
+            }
+
+            @Override
+            public void declaredException() throws Exception {
                 throw new Exception();
             }
 
             @Override
-            public void throwsUnchecked() throws RuntimeException {
+            public void undeclaredRuntime() {
                 throw new RuntimeException();
             }
-        });
-        listenerSupport.fireQuietly().throwsChecked();
-        listenerSupport.fireQuietly().throwsUnchecked();
 
-        assertThrows(InvocationTargetException.class, () -> listenerSupport.fire().throwsChecked());
-        assertThrows(UndeclaredThrowableException.class, () -> listenerSupport.fire().throwsUnchecked());
+            @Override
+            public void undeclaredNotImplemented() {
+                throw new NotImplementedException();
+            }
+
+        });
+
+        listenerSupport.fireQuietly().declaredError();
+        listenerSupport.fireQuietly().declaredRuntime();
+        listenerSupport.fireQuietly().declaredThrowable();
+        listenerSupport.fireQuietly().declaredIo();
+        listenerSupport.fireQuietly().declaredException();
+        listenerSupport.fireQuietly().undeclaredRuntime();
+        listenerSupport.fireQuietly().undeclaredNotImplemented();
+
+        assertThrows(UndeclaredThrowableException.class, () -> listenerSupport.fire().declaredError());
+        assertThrows(UndeclaredThrowableException.class, () -> listenerSupport.fire().declaredRuntime());
+        assertThrows(InvocationTargetException.class, () -> listenerSupport.fire().declaredThrowable());
+        assertThrows(UndeclaredThrowableException.class, () -> listenerSupport.fire().declaredIo());
+        assertThrows(InvocationTargetException.class, () -> listenerSupport.fire().declaredException());
+        assertThrows(UndeclaredThrowableException.class, () -> listenerSupport.fire().undeclaredRuntime());
+        assertThrows(UndeclaredThrowableException.class, () -> listenerSupport.fire().undeclaredNotImplemented());
 
     }
 
     public interface ExceptionThrowingListener {
 
-        void throwsChecked() throws Exception;
+        void declaredError() throws Error;
 
-        void throwsUnchecked() throws RuntimeException;
+        void declaredRuntime() throws RuntimeException;
+
+        void declaredThrowable() throws Throwable;
+
+        void declaredIo() throws IOException;
+
+        void declaredException() throws Exception;
+
+        void undeclaredRuntime();
+
+        void undeclaredNotImplemented();
 
     }
 }
