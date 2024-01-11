@@ -23,8 +23,6 @@ import java.lang.reflect.Method;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.exception.CustomCheckedException;
 import org.apache.commons.lang3.exception.CustomUncheckedException;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 
 class MethodFixtures extends AbstractLangTest {
 
@@ -119,14 +117,6 @@ class MethodFixtures extends AbstractLangTest {
     private String value2;
 
     private String[] valueArray;
-
-    @BeforeEach
-    @AfterEach
-    public void clear() {
-        value1 = null;
-        value2 = null;
-        valueArray = null;
-    }
 
     public String geStringtVarStringArgs(final String... strings) {
         return "XYZ";
