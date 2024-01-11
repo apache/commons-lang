@@ -229,20 +229,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;
 
-    public void delegateBooleanAssertion(final Type[] types, final int i2, final int i1, final boolean expected) {
-        final Type type1 = types[i1];
-        final Type type2 = types[i2];
-        final boolean isAssignable = TypeUtils.isAssignable(type2, type1);
-
-        if (expected) {
-            assertTrue(isAssignable,
-                    "[" + i1 + ", " + i2 + "]: From " + type2 + " to " + type1);
-        } else {
-            assertFalse(isAssignable,
-                    "[" + i1 + ", " + i2 + "]: From " + type2 + " to " + type1);
-        }
-    }
-
     public void dummyMethod(final List list0, final List<Object> list1, final List<?> list2,
             final List<? super Object> list3, final List<String> list4, final List<? extends String> list5,
             final List<? super String> list6, final List[] list7, final List<Object>[] list8, final List<?>[] list9,
@@ -535,144 +521,15 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertFalse(TypeUtils.isArrayType(String.class));
     }
 
-    @SuppressWarnings("boxing") // deliberately used here
     @Test
-    public void testIsAssignable() throws SecurityException, NoSuchMethodException,
-            NoSuchFieldException {
-        final Class<?> clazz = getClass();
-        final Method method = clazz.getMethod("dummyMethod", List.class, List.class, List.class,
-                List.class, List.class, List.class, List.class, List[].class, List[].class,
-                List[].class, List[].class, List[].class, List[].class, List[].class);
-        final Type[] types = method.getGenericParameterTypes();
-        delegateBooleanAssertion(types, 0, 0, true);
-        delegateBooleanAssertion(types, 0, 1, true);
-        delegateBooleanAssertion(types, 1, 0, true);
-        delegateBooleanAssertion(types, 0, 2, true);
-        delegateBooleanAssertion(types, 2, 0, true);
-        delegateBooleanAssertion(types, 0, 3, true);
-        delegateBooleanAssertion(types, 3, 0, true);
-        delegateBooleanAssertion(types, 0, 4, true);
-        delegateBooleanAssertion(types, 4, 0, true);
-        delegateBooleanAssertion(types, 0, 5, true);
-        delegateBooleanAssertion(types, 5, 0, true);
-        delegateBooleanAssertion(types, 0, 6, true);
-        delegateBooleanAssertion(types, 6, 0, true);
-        delegateBooleanAssertion(types, 1, 1, true);
-        delegateBooleanAssertion(types, 1, 2, true);
-        delegateBooleanAssertion(types, 2, 1, false);
-        delegateBooleanAssertion(types, 1, 3, true);
-        delegateBooleanAssertion(types, 3, 1, false);
-        delegateBooleanAssertion(types, 1, 4, false);
-        delegateBooleanAssertion(types, 4, 1, false);
-        delegateBooleanAssertion(types, 1, 5, false);
-        delegateBooleanAssertion(types, 5, 1, false);
-        delegateBooleanAssertion(types, 1, 6, true);
-        delegateBooleanAssertion(types, 6, 1, false);
-        delegateBooleanAssertion(types, 2, 2, true);
-        delegateBooleanAssertion(types, 2, 3, false);
-        delegateBooleanAssertion(types, 3, 2, true);
-        delegateBooleanAssertion(types, 2, 4, false);
-        delegateBooleanAssertion(types, 4, 2, true);
-        delegateBooleanAssertion(types, 2, 5, false);
-        delegateBooleanAssertion(types, 5, 2, true);
-        delegateBooleanAssertion(types, 2, 6, false);
-        delegateBooleanAssertion(types, 6, 2, true);
-        delegateBooleanAssertion(types, 3, 3, true);
-        delegateBooleanAssertion(types, 3, 4, false);
-        delegateBooleanAssertion(types, 4, 3, false);
-        delegateBooleanAssertion(types, 3, 5, false);
-        delegateBooleanAssertion(types, 5, 3, false);
-        delegateBooleanAssertion(types, 3, 6, true);
-        delegateBooleanAssertion(types, 6, 3, false);
-        delegateBooleanAssertion(types, 4, 4, true);
-        delegateBooleanAssertion(types, 4, 5, true);
-        delegateBooleanAssertion(types, 5, 4, false);
-        delegateBooleanAssertion(types, 4, 6, true);
-        delegateBooleanAssertion(types, 6, 4, false);
-        delegateBooleanAssertion(types, 5, 5, true);
-        delegateBooleanAssertion(types, 5, 6, false);
-        delegateBooleanAssertion(types, 6, 5, false);
-        delegateBooleanAssertion(types, 6, 6, true);
-        delegateBooleanAssertion(types, 7, 7, true);
-        delegateBooleanAssertion(types, 7, 8, true);
-        delegateBooleanAssertion(types, 8, 7, true);
-        delegateBooleanAssertion(types, 7, 9, true);
-        delegateBooleanAssertion(types, 9, 7, true);
-        delegateBooleanAssertion(types, 7, 10, true);
-        delegateBooleanAssertion(types, 10, 7, true);
-        delegateBooleanAssertion(types, 7, 11, true);
-        delegateBooleanAssertion(types, 11, 7, true);
-        delegateBooleanAssertion(types, 7, 12, true);
-        delegateBooleanAssertion(types, 12, 7, true);
-        delegateBooleanAssertion(types, 7, 13, true);
-        delegateBooleanAssertion(types, 13, 7, true);
-        delegateBooleanAssertion(types, 8, 8, true);
-        delegateBooleanAssertion(types, 8, 9, true);
-        delegateBooleanAssertion(types, 9, 8, false);
-        delegateBooleanAssertion(types, 8, 10, true);
-        delegateBooleanAssertion(types, 10, 8, false);
-        delegateBooleanAssertion(types, 8, 11, false);
-        delegateBooleanAssertion(types, 11, 8, false);
-        delegateBooleanAssertion(types, 8, 12, false);
-        delegateBooleanAssertion(types, 12, 8, false);
-        delegateBooleanAssertion(types, 8, 13, true);
-        delegateBooleanAssertion(types, 13, 8, false);
-        delegateBooleanAssertion(types, 9, 9, true);
-        delegateBooleanAssertion(types, 9, 10, false);
-        delegateBooleanAssertion(types, 10, 9, true);
-        delegateBooleanAssertion(types, 9, 11, false);
-        delegateBooleanAssertion(types, 11, 9, true);
-        delegateBooleanAssertion(types, 9, 12, false);
-        delegateBooleanAssertion(types, 12, 9, true);
-        delegateBooleanAssertion(types, 9, 13, false);
-        delegateBooleanAssertion(types, 13, 9, true);
-        delegateBooleanAssertion(types, 10, 10, true);
-        delegateBooleanAssertion(types, 10, 11, false);
-        delegateBooleanAssertion(types, 11, 10, false);
-        delegateBooleanAssertion(types, 10, 12, false);
-        delegateBooleanAssertion(types, 12, 10, false);
-        delegateBooleanAssertion(types, 10, 13, true);
-        delegateBooleanAssertion(types, 13, 10, false);
-        delegateBooleanAssertion(types, 11, 11, true);
-        delegateBooleanAssertion(types, 11, 12, true);
-        delegateBooleanAssertion(types, 12, 11, false);
-        delegateBooleanAssertion(types, 11, 13, true);
-        delegateBooleanAssertion(types, 13, 11, false);
-        delegateBooleanAssertion(types, 12, 12, true);
-        delegateBooleanAssertion(types, 12, 13, false);
-        delegateBooleanAssertion(types, 13, 12, false);
-        delegateBooleanAssertion(types, 13, 13, true);
-        final Type disType = getClass().getField("dis").getGenericType();
-        // Reporter.log( ( ( ParameterizedType ) disType
-        // ).getOwnerType().getClass().toString() );
-        final Type datType = getClass().getField("dat").getGenericType();
-        final Type daType = getClass().getField("da").getGenericType();
-        final Type uhderType = getClass().getField("uhder").getGenericType();
-        final Type dingType = getClass().getField("ding").getGenericType();
-        final Type testerType = getClass().getField("tester").getGenericType();
-        final Type tester2Type = getClass().getField("tester2").getGenericType();
-        final Type dat2Type = getClass().getField("dat2").getGenericType();
-        final Type dat3Type = getClass().getField("dat3").getGenericType();
-        dis = dat;
-        assertTrue(TypeUtils.isAssignable(datType, disType));
-        assertFalse(TypeUtils.isAssignable(daType, disType));
-        dis = uhder;
-        assertTrue(TypeUtils.isAssignable(uhderType, disType));
-        dis = ding;
-        assertFalse(TypeUtils.isAssignable(dingType, disType),
-                String.format("type %s not assignable to %s!", dingType, disType));
-        dis = tester;
-        assertTrue(TypeUtils.isAssignable(testerType, disType));
-        assertFalse(TypeUtils.isAssignable(tester2Type, disType));
-        assertFalse(TypeUtils.isAssignable(dat2Type, datType));
-        assertFalse(TypeUtils.isAssignable(datType, dat2Type));
-        assertFalse(TypeUtils.isAssignable(dat3Type, datType));
+    public void testIsAssignableClasses() {
         assertTrue(TypeUtils.isAssignable(char.class, double.class));
         assertTrue(TypeUtils.isAssignable(byte.class, double.class));
         assertTrue(TypeUtils.isAssignable(short.class, double.class));
         assertTrue(TypeUtils.isAssignable(int.class, double.class));
         assertTrue(TypeUtils.isAssignable(long.class, double.class));
         assertTrue(TypeUtils.isAssignable(float.class, double.class));
+
         assertTrue(TypeUtils.isAssignable(int.class, long.class));
         assertTrue(TypeUtils.isAssignable(Integer.class, long.class));
         assertFalse(TypeUtils.isAssignable(int.class, Long.class));
@@ -681,68 +538,226 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.isAssignable(int.class, Integer.class));
         assertTrue(TypeUtils.isAssignable(int.class, Number.class));
         assertTrue(TypeUtils.isAssignable(int.class, Object.class));
-        final Type intComparableType = getClass().getField("intComparable").getGenericType();
-        intComparable = 1;
-        assertTrue(TypeUtils.isAssignable(int.class, intComparableType));
         assertTrue(TypeUtils.isAssignable(int.class, Comparable.class));
         assertTrue(TypeUtils.isAssignable(int.class, Serializable.class));
-        final Type longComparableType = getClass().getField("longComparable").getGenericType();
-        // longComparable = 1;
-        assertFalse(TypeUtils.isAssignable(int.class, longComparableType));
-        // longComparable = Integer.valueOf( 0 );
-        assertFalse(TypeUtils.isAssignable(Integer.class, longComparableType));
+
         assertFalse(TypeUtils.isAssignable(int[].class, long[].class));
-        final Integer[] ia = null;
-        final Type caType = getClass().getField("intWildcardComparable").getGenericType();
-        intWildcardComparable = ia;
-        assertTrue(TypeUtils.isAssignable(Integer[].class, caType));
         assertFalse(TypeUtils.isAssignable(Integer[].class, int[].class));
         assertFalse(TypeUtils.isAssignable(int[].class, Object[].class));
         assertTrue(TypeUtils.isAssignable(Integer[].class, Object[].class));
-        final Type bClassType = AClass.class.getField("bClass").getGenericType();
-        final Type cClassType = AClass.class.getField("cClass").getGenericType();
-        final Type dClassType = AClass.class.getField("dClass").getGenericType();
-        final Type eClassType = AClass.class.getField("eClass").getGenericType();
-        final Type fClassType = AClass.class.getField("fClass").getGenericType();
-        final AClass aClass = new AClass(new AAClass<>());
-        aClass.bClass = aClass.cClass;
+    }
+
+    @Test
+    public void testIsAssignableGenericComparableTypes() throws NoSuchFieldException {
+        final Type intComparableType = getClass().getField("intComparable").getGenericType();
+        assertTrue(TypeUtils.isAssignable(int.class, intComparableType));
+
+        final Type longComparableType = getClass().getField("longComparable").getGenericType();
+        assertFalse(TypeUtils.isAssignable(int.class, longComparableType));
+        assertFalse(TypeUtils.isAssignable(Integer.class, longComparableType));
+
+        final Type intComparableArrayType = getClass().getField("intWildcardComparable").getGenericType();
+        assertTrue(TypeUtils.isAssignable(Integer[].class, intComparableArrayType));
+    }
+
+    @Test
+    public void testIsAssignableGenericListTypes() throws SecurityException, NoSuchMethodException {
+        final Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
+            List.class, List.class, List.class, List.class, List[].class, List[].class,
+            List[].class, List[].class, List[].class, List[].class, List[].class);
+
+        /*
+         *  0: List
+         *  1: List<Object>
+         *  2: List<?>
+         *  3: List<? super Object>
+         *  4: List<String>
+         *  5: List<? extends String>
+         *  6: List<? super String>
+         */
+        final Type[] types = method.getGenericParameterTypes();
+
+        assertTrue(TypeUtils.isAssignable(types[0], types[0]));
+        assertTrue(TypeUtils.isAssignable(types[0], types[1]));
+        assertTrue(TypeUtils.isAssignable(types[1], types[0]));
+        assertTrue(TypeUtils.isAssignable(types[0], types[2]));
+        assertTrue(TypeUtils.isAssignable(types[2], types[0]));
+        assertTrue(TypeUtils.isAssignable(types[0], types[3]));
+        assertTrue(TypeUtils.isAssignable(types[3], types[0]));
+        assertTrue(TypeUtils.isAssignable(types[0], types[4]));
+        assertTrue(TypeUtils.isAssignable(types[4], types[0]));
+        assertTrue(TypeUtils.isAssignable(types[0], types[5]));
+        assertTrue(TypeUtils.isAssignable(types[5], types[0]));
+        assertTrue(TypeUtils.isAssignable(types[0], types[6]));
+        assertTrue(TypeUtils.isAssignable(types[6], types[0]));
+
+        assertTrue(TypeUtils.isAssignable(types[1], types[1]));
+        assertTrue(TypeUtils.isAssignable(types[1], types[2]));
+        assertFalse(TypeUtils.isAssignable(types[2], types[1]));
+        assertTrue(TypeUtils.isAssignable(types[1], types[3]));
+        assertFalse(TypeUtils.isAssignable(types[3], types[1]));
+        assertFalse(TypeUtils.isAssignable(types[1], types[4]));
+        assertFalse(TypeUtils.isAssignable(types[4], types[1]));
+        assertFalse(TypeUtils.isAssignable(types[1], types[5]));
+        assertFalse(TypeUtils.isAssignable(types[5], types[1]));
+        assertTrue(TypeUtils.isAssignable(types[1], types[6]));
+        assertFalse(TypeUtils.isAssignable(types[6], types[1]));
+
+        assertTrue(TypeUtils.isAssignable(types[2], types[2]));
+        assertFalse(TypeUtils.isAssignable(types[2], types[3]));
+        assertTrue(TypeUtils.isAssignable(types[3], types[2]));
+        assertFalse(TypeUtils.isAssignable(types[2], types[4]));
+        assertTrue(TypeUtils.isAssignable(types[4], types[2]));
+        assertFalse(TypeUtils.isAssignable(types[2], types[5]));
+        assertTrue(TypeUtils.isAssignable(types[5], types[2]));
+        assertFalse(TypeUtils.isAssignable(types[2], types[6]));
+        assertTrue(TypeUtils.isAssignable(types[6], types[2]));
+
+        assertTrue(TypeUtils.isAssignable(types[3], types[3]));
+        assertFalse(TypeUtils.isAssignable(types[3], types[4]));
+        assertFalse(TypeUtils.isAssignable(types[4], types[3]));
+        assertFalse(TypeUtils.isAssignable(types[3], types[5]));
+        assertFalse(TypeUtils.isAssignable(types[5], types[3]));
+        assertTrue(TypeUtils.isAssignable(types[3], types[6]));
+        assertFalse(TypeUtils.isAssignable(types[6], types[3]));
+
+        assertTrue(TypeUtils.isAssignable(types[4], types[4]));
+        assertTrue(TypeUtils.isAssignable(types[4], types[5]));
+        assertFalse(TypeUtils.isAssignable(types[5], types[4]));
+        assertTrue(TypeUtils.isAssignable(types[4], types[6]));
+        assertFalse(TypeUtils.isAssignable(types[6], types[4]));
+
+        assertTrue(TypeUtils.isAssignable(types[5], types[5]));
+        assertFalse(TypeUtils.isAssignable(types[5], types[6]));
+        assertFalse(TypeUtils.isAssignable(types[6], types[5]));
+        assertTrue(TypeUtils.isAssignable(types[6], types[6]));
+    }
+
+    @Test
+    public void testIsAssignableGenericListArrays() throws SecurityException, NoSuchMethodException {
+        final Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
+            List.class, List.class, List.class, List.class, List[].class, List[].class,
+            List[].class, List[].class, List[].class, List[].class, List[].class);
+
+        /*
+         *  7: List[]
+         *  8: List<Object>[]
+         *  9: List<?>[]
+         * 10: List<? super Object>[]
+         * 11: List<String>[]
+         * 12: List<? extends String>[]
+         * 13: List<? super String>[]
+         */
+        final Type[] types = method.getGenericParameterTypes();
+
+        assertTrue(TypeUtils.isAssignable(types[7], types[7]));
+        assertTrue(TypeUtils.isAssignable(types[7], types[8]));
+        assertTrue(TypeUtils.isAssignable(types[8], types[7]));
+        assertTrue(TypeUtils.isAssignable(types[7], types[9]));
+        assertTrue(TypeUtils.isAssignable(types[9], types[7]));
+        assertTrue(TypeUtils.isAssignable(types[7], types[10]));
+        assertTrue(TypeUtils.isAssignable(types[10], types[7]));
+        assertTrue(TypeUtils.isAssignable(types[7], types[11]));
+        assertTrue(TypeUtils.isAssignable(types[11], types[7]));
+        assertTrue(TypeUtils.isAssignable(types[7], types[12]));
+        assertTrue(TypeUtils.isAssignable(types[12], types[7]));
+        assertTrue(TypeUtils.isAssignable(types[7], types[13]));
+        assertTrue(TypeUtils.isAssignable(types[13], types[7]));
+
+        assertTrue(TypeUtils.isAssignable(types[8], types[8]));
+        assertTrue(TypeUtils.isAssignable(types[8], types[9]));
+        assertFalse(TypeUtils.isAssignable(types[9], types[8]));
+        assertTrue(TypeUtils.isAssignable(types[8], types[10]));
+        assertFalse(TypeUtils.isAssignable(types[10], types[8]));
+        assertFalse(TypeUtils.isAssignable(types[8], types[11]));
+        assertFalse(TypeUtils.isAssignable(types[11], types[8]));
+        assertFalse(TypeUtils.isAssignable(types[8], types[12]));
+        assertFalse(TypeUtils.isAssignable(types[12], types[8]));
+        assertTrue(TypeUtils.isAssignable(types[8], types[13]));
+        assertFalse(TypeUtils.isAssignable(types[13], types[8]));
+
+        assertTrue(TypeUtils.isAssignable(types[9], types[9]));
+        assertFalse(TypeUtils.isAssignable(types[9], types[10]));
+        assertTrue(TypeUtils.isAssignable(types[10], types[9]));
+        assertFalse(TypeUtils.isAssignable(types[9], types[11]));
+        assertTrue(TypeUtils.isAssignable(types[11], types[9]));
+        assertFalse(TypeUtils.isAssignable(types[9], types[12]));
+        assertTrue(TypeUtils.isAssignable(types[12], types[9]));
+        assertFalse(TypeUtils.isAssignable(types[9], types[13]));
+        assertTrue(TypeUtils.isAssignable(types[13], types[9]));
+
+        assertTrue(TypeUtils.isAssignable(types[10], types[10]));
+        assertFalse(TypeUtils.isAssignable(types[10], types[11]));
+        assertFalse(TypeUtils.isAssignable(types[11], types[10]));
+        assertFalse(TypeUtils.isAssignable(types[10], types[12]));
+        assertFalse(TypeUtils.isAssignable(types[12], types[10]));
+        assertTrue(TypeUtils.isAssignable(types[10], types[13]));
+        assertFalse(TypeUtils.isAssignable(types[13], types[10]));
+
+        assertTrue(TypeUtils.isAssignable(types[11], types[11]));
+        assertTrue(TypeUtils.isAssignable(types[11], types[12]));
+        assertFalse(TypeUtils.isAssignable(types[12], types[11]));
+        assertTrue(TypeUtils.isAssignable(types[11], types[13]));
+        assertFalse(TypeUtils.isAssignable(types[13], types[11]));
+
+        assertTrue(TypeUtils.isAssignable(types[12], types[12]));
+        assertFalse(TypeUtils.isAssignable(types[12], types[13]));
+        assertFalse(TypeUtils.isAssignable(types[13], types[12]));
+        assertTrue(TypeUtils.isAssignable(types[13], types[13]));
+    }
+
+    @Test
+    public void testIsAssignableDirectClassHierarchy() throws NoSuchFieldException {
+        final Type bClassType = AClass.class.getField("bClass").getGenericType(); // B is superclass
+        final Type cClassType = AClass.class.getField("cClass").getGenericType(); // C subclass of B
+        final Type dClassType = AClass.class.getField("dClass").getGenericType(); // D subclass of C
+        final Type eClassType = AClass.class.getField("eClass").getGenericType(); // E subclass of D
+        final Type fClassType = AClass.class.getField("fClass").getGenericType(); // F subclass of E
+
         assertTrue(TypeUtils.isAssignable(cClassType, bClassType));
-        aClass.bClass = aClass.dClass;
         assertTrue(TypeUtils.isAssignable(dClassType, bClassType));
-        aClass.bClass = aClass.eClass;
         assertTrue(TypeUtils.isAssignable(eClassType, bClassType));
-        aClass.bClass = aClass.fClass;
         assertTrue(TypeUtils.isAssignable(fClassType, bClassType));
-        aClass.cClass = aClass.dClass;
+
         assertTrue(TypeUtils.isAssignable(dClassType, cClassType));
-        aClass.cClass = aClass.eClass;
         assertTrue(TypeUtils.isAssignable(eClassType, cClassType));
-        aClass.cClass = aClass.fClass;
         assertTrue(TypeUtils.isAssignable(fClassType, cClassType));
-        aClass.dClass = aClass.eClass;
+
         assertTrue(TypeUtils.isAssignable(eClassType, dClassType));
-        aClass.dClass = aClass.fClass;
         assertTrue(TypeUtils.isAssignable(fClassType, dClassType));
-        aClass.eClass = aClass.fClass;
+
         assertTrue(TypeUtils.isAssignable(fClassType, eClassType));
     }
 
-    private void testIsAssignable(final Class testUnassignableClass) {
-        final Class<Constructor> rawClass = Constructor.class;
-        final Class<Insets> typeArgClass = Insets.class;
-        // Builds a ParameterizedType for Constructor<Insets>
-        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
-        assertEquals(rawClass, paramType.getRawType());
-        assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
+    @Test
+    public void testIsAssignableGenericClassHierarchy() throws NoSuchFieldException {
+        /*
+         *            <<This>>
+         *      /      /     \     \
+         * <<And>>   That   Other   Tester
+         *      \   /         |
+         *       The        Thing
+         */
+        final Type disType = getClass().getField("dis").getGenericType();       // This is superinterface
+        final Type datType = getClass().getField("dat").getGenericType();       // That implements This
+        final Type dat2Type = getClass().getField("dat2").getGenericType();
+        final Type dat3Type = getClass().getField("dat3").getGenericType();
+        final Type daType = getClass().getField("da").getGenericType();         // The extends That and implements And
+        final Type uhderType = getClass().getField("uhder").getGenericType();   // Other implements This
+        final Type dingType = getClass().getField("ding").getGenericType();     // Thing extends Other
+        final Type testerType = getClass().getField("tester").getGenericType(); // Tester implements This
+        final Type tester2Type = getClass().getField("tester2").getGenericType();
 
-        assertFalse(testUnassignableClass.isAssignableFrom(paramType.getClass()));
-        assertFalse(paramType.getClass().isAssignableFrom(testUnassignableClass));
+        assertTrue(TypeUtils.isAssignable(datType, disType));
+        assertFalse(TypeUtils.isAssignable(daType, disType));
+        assertTrue(TypeUtils.isAssignable(uhderType, disType));
+        assertFalse(TypeUtils.isAssignable(dingType, disType));
+        assertTrue(TypeUtils.isAssignable(testerType, disType));
+        assertFalse(TypeUtils.isAssignable(tester2Type, disType));
 
-        final GenericArrayType arrayType = TypeUtils.genericArrayType(paramType);
-        assertFalse(TypeUtils.isAssignable(arrayType, paramType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", arrayType, paramType));
-        assertFalse(TypeUtils.isAssignable(paramType, arrayType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, arrayType));
+        assertFalse(TypeUtils.isAssignable(dat2Type, datType));
+        assertFalse(TypeUtils.isAssignable(datType, dat2Type));
+        assertFalse(TypeUtils.isAssignable(dat3Type, datType));
     }
 
     @Test
