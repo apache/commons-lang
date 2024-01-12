@@ -29,6 +29,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -724,6 +725,13 @@ public class ValidateTest extends AbstractLangTest {
                 final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isTrue(false, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
+
+            @Test
+            void shouldThrowExceptionWithGivenMalformedMessageForFalseExpression() {
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> Validate.isTrue(false, "MSG %d", "bad arg"));
+                assertEquals("MSG %d\nValues: [bad arg]", ex.getMessage());
+                assertTrue(ex.getSuppressed()[0] instanceof IllegalFormatException);
+            }
         }
 
         @Nested
@@ -821,6 +829,13 @@ public class ValidateTest extends AbstractLangTest {
                 }
 
                 @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageAndValuesForArrayWithNullElement() {
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.noNullElements(new String[] {"a", null}, "MSG %s at %d", "arg"));
+                    assertEquals("MSG arg at 1", ex.getMessage());
+                }
+
+                @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
                     final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.noNullElements((Object[]) null, "MSG"));
                     assertEquals("array", ex.getMessage());
@@ -877,6 +892,13 @@ public class ValidateTest extends AbstractLangTest {
                     final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
                         () -> Validate.noNullElements(Collections.singleton(null), "MSG"));
                     assertEquals("MSG", ex.getMessage());
+                }
+
+                @Test
+                void shouldThrowIllegalArgumentExceptionWithGivenMessageAndValuesForCollectionWithNullElement() {
+                    final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                        () -> Validate.noNullElements(Collections.singleton(null), "MSG %s at %d", "arg"));
+                    assertEquals("MSG arg at 0", ex.getMessage());
                 }
 
                 @Test
