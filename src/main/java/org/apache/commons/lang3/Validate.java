@@ -23,7 +23,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 /**
@@ -244,30 +243,19 @@ public class Validate {
     }
 
     /**
-     * Gets the message using {@link String#format(String, Object...) String.format(message, values)}
-     * if the values are not empty, otherwise return the message unformatted.
-     * This method exists to allow validation methods declaring a String message and varargs parameters
-     * to be used without any message parameters when the message contains special characters,
-     * e.g. {@code Validate.isTrue(false, "%Failed%")}.
-     *
-     * @param message the {@link String#format(String, Object...)} exception message if invalid, not null
-     * @param values the optional values for the formatted message
-     * @return formatted message using {@link String#format(String, Object...) String.format(message, values)}
-     * if the values are not empty, otherwise return the unformatted message.
-     * @throws IllegalFormatException if formatting fails
-     */
-    private static String getMessage(final String message, final Object... values) throws IllegalFormatException {
-        return ArrayUtils.isEmpty(values) ? message : String.format(message, values);
-    }
-
-    /**
      * Creates an exception with a formatted exception message, using a fallback message in case
      * formatting fails. This method makes sure that even if formatting fails the original {@code message}
      * and {@code values} are preserved.
+     *
+     * <p>If {@code values} is empty, {@code message} is used without any formatting.
      */
     private static <E extends Exception> E createException(final Function<String, E> exceptionConstructor, final String message, final Object... values) {
+        if (ArrayUtils.isEmpty(values)) {
+            return exceptionConstructor.apply(message);
+        }
+
         try {
-            final String formattedMessage = getMessage(message, values);
+            final String formattedMessage = String.format(message, values);
             return exceptionConstructor.apply(formattedMessage);
         } catch (final IllegalFormatException formatException) {
             final String fallbackMessage = message + "\nValues: " + Arrays.toString(values);
@@ -798,7 +786,7 @@ public class Validate {
      * @since 3.0
      */
     public static <T extends CharSequence> T notBlank(final T chars, final String message, final Object... values) {
-        Objects.requireNonNull(chars, toSupplier(message, values));
+        notNull(chars, message, values);
         if (StringUtils.isBlank(chars)) {
             throw createException(IllegalArgumentException::new, message, values);
         }
@@ -883,7 +871,7 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T extends Collection<?>> T notEmpty(final T collection, final String message, final Object... values) {
-        Objects.requireNonNull(collection, toSupplier(message, values));
+        notNull(collection, message, values);
         if (collection.isEmpty()) {
             throw createException(IllegalArgumentException::new, message, values);
         }
@@ -907,7 +895,7 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T extends Map<?, ?>> T notEmpty(final T map, final String message, final Object... values) {
-        Objects.requireNonNull(map, toSupplier(message, values));
+        notNull(map, message, values);
         if (map.isEmpty()) {
             throw createException(IllegalArgumentException::new, message, values);
         }
@@ -931,7 +919,7 @@ public class Validate {
      * @see #notEmpty(CharSequence)
      */
     public static <T extends CharSequence> T notEmpty(final T chars, final String message, final Object... values) {
-        Objects.requireNonNull(chars, toSupplier(message, values));
+        notNull(chars, message, values);
         if (chars.length() == 0) {
             throw createException(IllegalArgumentException::new, message, values);
         }
@@ -975,7 +963,7 @@ public class Validate {
      * @see #notEmpty(Object[])
      */
     public static <T> T[] notEmpty(final T[] array, final String message, final Object... values) {
-        Objects.requireNonNull(array, toSupplier(message, values));
+        notNull(array, message, values);
         if (array.length == 0) {
             throw createException(IllegalArgumentException::new, message, values);
         }
@@ -1055,11 +1043,10 @@ public class Validate {
      * @see Objects#requireNonNull(Object)
      */
     public static <T> T notNull(final T object, final String message, final Object... values) {
-        return Objects.requireNonNull(object, toSupplier(message, values));
-    }
-
-    private static Supplier<String> toSupplier(final String message, final Object... values) {
-        return () -> getMessage(message, values);
+        if (object == null) {
+            throw createException(NullPointerException::new, message, values);
+        }
+        return object;
     }
 
     /**
