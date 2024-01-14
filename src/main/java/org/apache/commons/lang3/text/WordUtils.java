@@ -523,7 +523,7 @@ public class WordUtils {
      *   <td>20</td>
      *   <td>"\n"</td>
      *   <td>true</td>
-     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apach\ne.org"</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttps://commons.apach\ne.org"</td>
      *  </tr>
      * </table>
      *
@@ -608,7 +608,7 @@ public class WordUtils {
      *   <td>"\n"</td>
      *   <td>true</td>
      *   <td>" "</td>
-     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttp://commons.apach\ne.org"</td>
+     *   <td>"Click here to jump\nto the commons\nwebsite -\nhttps://commons.apach\ne.org"</td>
      *  </tr>
      *  <tr>
      *   <td>"flammable/inflammable"</td>
