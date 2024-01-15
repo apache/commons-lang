@@ -976,7 +976,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             int digit = 0;
             while (value != 0) {
                 work[digit++] = (char) (value % 10 + '0');
-                value = value / 10;
+                value /= 10;
             }
 
             // pad with zeros
