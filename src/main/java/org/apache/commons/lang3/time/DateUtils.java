@@ -1113,7 +1113,7 @@ public class DateUtils {
         // truncate milliseconds
         final int millisecs = val.get(Calendar.MILLISECOND);
         if (ModifyType.TRUNCATE == modType || millisecs < 500) {
-            time = time - millisecs;
+            time -= millisecs;
         }
         if (field == Calendar.SECOND) {
             done = true;

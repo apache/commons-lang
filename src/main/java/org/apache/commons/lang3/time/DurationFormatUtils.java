@@ -361,19 +361,19 @@ public class DurationFormatUtils {
 
         if (Token.containsTokenWithValue(tokens, d)) {
             days = milliseconds / DateUtils.MILLIS_PER_DAY;
-            milliseconds = milliseconds - (days * DateUtils.MILLIS_PER_DAY);
+            milliseconds -= days * DateUtils.MILLIS_PER_DAY;
         }
         if (Token.containsTokenWithValue(tokens, H)) {
             hours = milliseconds / DateUtils.MILLIS_PER_HOUR;
-            milliseconds = milliseconds - (hours * DateUtils.MILLIS_PER_HOUR);
+            milliseconds -= hours * DateUtils.MILLIS_PER_HOUR;
         }
         if (Token.containsTokenWithValue(tokens, m)) {
             minutes = milliseconds / DateUtils.MILLIS_PER_MINUTE;
-            milliseconds = milliseconds - (minutes * DateUtils.MILLIS_PER_MINUTE);
+            milliseconds -= minutes * DateUtils.MILLIS_PER_MINUTE;
         }
         if (Token.containsTokenWithValue(tokens, s)) {
             seconds = milliseconds / DateUtils.MILLIS_PER_SECOND;
-            milliseconds = milliseconds - (seconds * DateUtils.MILLIS_PER_SECOND);
+            milliseconds -= seconds * DateUtils.MILLIS_PER_SECOND;
         }
 
         return format(tokens, 0, 0, days, hours, minutes, seconds, milliseconds, padWithZeros);
