@@ -87,7 +87,7 @@ public class MethodUtils {
                     && !ClassUtils.isAssignable(aClass, toClass, false)) {
                 answer++;
             } else {
-                answer = answer + 2;
+                answer += 2;
             }
         }
 
