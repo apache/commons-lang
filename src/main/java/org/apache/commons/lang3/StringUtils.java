@@ -3916,6 +3916,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
+     * @throws ArrayIndexOutOfBoundsException if {@code startIndex < 0 || endIndex >= array.length}
      * @since 3.12.0
      */
     public static String join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -3991,6 +3992,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
+     * @throws ArrayIndexOutOfBoundsException if {@code startIndex < 0 || endIndex >= array.length}
      * @since 3.2
      */
     public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4066,6 +4068,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
+     * @throws ArrayIndexOutOfBoundsException if {@code startIndex < 0 || endIndex >= array.length}
      * @since 3.2
      */
     public static String join(final char[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4141,6 +4144,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
+     * @throws ArrayIndexOutOfBoundsException if {@code startIndex < 0 || endIndex >= array.length}
      * @since 3.2
      */
     public static String join(final double[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4216,6 +4220,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
+     * @throws ArrayIndexOutOfBoundsException if {@code startIndex < 0 || endIndex >= array.length}
      * @since 3.2
      */
     public static String join(final float[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4418,6 +4423,7 @@ public class StringUtils {
      * @param endIndex the index to stop joining from (exclusive). It is
      * an error to pass in an end index past the end of the list
      * @return the joined String, {@code null} if null list input
+     * @throws ArrayIndexOutOfBoundsException if {@code startIndex < 0 || endIndex >= list.size()}
      * @since 3.8
      */
     public static String join(final List<?> list, final char separator, final int startIndex, final int endIndex) {
@@ -4456,6 +4462,7 @@ public class StringUtils {
      * @param endIndex the index to stop joining from (exclusive). It is
      * an error to pass in an end index past the end of the list
      * @return the joined String, {@code null} if null list input
+     * @throws ArrayIndexOutOfBoundsException if {@code startIndex < 0 || endIndex >= list.size()}
      * @since 3.8
      */
     public static String join(final List<?> list, final String separator, final int startIndex, final int endIndex) {
@@ -4728,6 +4735,7 @@ public class StringUtils {
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array
      * @return the joined String, {@code null} if null array input
+     * @throws ArrayIndexOutOfBoundsException if {@code startIndex < 0 || endIndex >= array.length}
      * @since 3.2
      */
     public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
