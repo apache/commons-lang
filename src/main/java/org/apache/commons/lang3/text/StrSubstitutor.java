@@ -538,6 +538,7 @@ public class StrSubstitutor {
      * @param offset  the start offset within the array, must be valid
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
+     * @throws StringIndexOutOfBoundsException if {@code offset < 0 || offset + length >= source.length}
      */
     public String replace(final char[] source, final int offset, final int length) {
         if (source == null) {
@@ -577,6 +578,7 @@ public class StrSubstitutor {
      * @param offset  the start offset within the array, must be valid
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
+     * @throws StringIndexOutOfBoundsException if {@code offset < 0 || offset + length >= source.length}
      * @since 3.2
      */
     public String replace(final CharSequence source, final int offset, final int length) {
@@ -675,6 +677,7 @@ public class StrSubstitutor {
      * @param offset  the start offset within the array, must be valid
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
+     * @throws StringIndexOutOfBoundsException if {@code offset < 0 || offset + length >= source.length}
      */
     public String replace(final String source, final int offset, final int length) {
         if (source == null) {
@@ -717,6 +720,7 @@ public class StrSubstitutor {
      * @param offset  the start offset within the array, must be valid
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
+     * @throws StringIndexOutOfBoundsException if {@code offset < 0 || offset + length >= source.length}
      */
     public String replace(final StringBuffer source, final int offset, final int length) {
         if (source == null) {
@@ -753,6 +757,7 @@ public class StrSubstitutor {
      * @param offset  the start offset within the array, must be valid
      * @param length  the length within the builder to be processed, must be valid
      * @return true if altered
+     * @throws StringIndexOutOfBoundsException if {@code offset < 0 || offset + length >= source.length}
      */
     public boolean replaceIn(final StrBuilder source, final int offset, final int length) {
         if (source == null) {
@@ -789,6 +794,7 @@ public class StrSubstitutor {
      * @param offset  the start offset within the array, must be valid
      * @param length  the length within the buffer to be processed, must be valid
      * @return true if altered
+     * @throws StringIndexOutOfBoundsException if {@code offset < 0 || offset + length >= source.length}
      */
     public boolean replaceIn(final StringBuffer source, final int offset, final int length) {
         if (source == null) {
