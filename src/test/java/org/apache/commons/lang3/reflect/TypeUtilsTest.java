@@ -825,9 +825,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     public void testIsInstance() throws NoSuchFieldException {
         final Type intComparableType = getClass().getField("intComparable").getGenericType();
         final Type uriComparableType = getClass().getField("uriComparable").getGenericType();
-        intComparable = 1;
         assertTrue(TypeUtils.isInstance(1, intComparableType));
-        // uriComparable = 1;
         assertFalse(TypeUtils.isInstance(1, uriComparableType));
     }
 
