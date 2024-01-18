@@ -103,12 +103,18 @@ public class EventListenerSupport<L> implements Serializable {
         @Override
         public Object invoke(final Object unusedProxy, final Method method, final Object[] args)
                 throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            //TODO decide out how to handle hiding these exceptions
+            List<InvocationTargetException> exceptions = new ArrayList<>();
             for (final L listener : listeners) {
                 try {
                     method.invoke(listener, args);
-                } catch (InvocationTargetException t) {
-                    //hide invocation exceptions
+                } catch (InvocationTargetException e) {
+                    exceptions.add(e);
+                    throw e;
                 }
+            }
+            if (exceptions.size() > 0) {
+                throw exceptions.get(0);
             }
             return null;
         }
