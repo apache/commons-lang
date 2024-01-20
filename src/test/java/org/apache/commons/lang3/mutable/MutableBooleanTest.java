@@ -29,7 +29,6 @@ import org.junit.jupiter.api.Test;
 /**
  * JUnit tests.
  *
- * @since 2.2
  * @see MutableBoolean
  */
 public class MutableBooleanTest extends AbstractLangTest {

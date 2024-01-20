@@ -40,7 +40,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Test case for {@link ExtendedMessageFormat}.
  *
- * @since 2.4
  */
 @Deprecated
 public class ExtendedMessageFormatTest extends AbstractLangTest {

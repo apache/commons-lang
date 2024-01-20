@@ -39,7 +39,6 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 /**
  * Unit tests {@link org.apache.commons.lang3.time.FastDatePrinter}.
  *
- * @since 3.0
  */
 public class FastDatePrinterTest extends AbstractLangTest {
 

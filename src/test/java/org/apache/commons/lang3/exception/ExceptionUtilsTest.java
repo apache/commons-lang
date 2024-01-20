@@ -47,7 +47,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.exception.ExceptionUtils}.
  *
- * @since 1.0
  */
 public class ExceptionUtilsTest extends AbstractLangTest {
 

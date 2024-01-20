@@ -33,7 +33,6 @@ import org.junit.jupiter.api.Test;
  *
  * @see <a href="https://issues.apache.org/jira/browse/LANG-762">[LANG-762] Handle or document ReflectionToStringBuilder
  *      and ToStringBuilder for collections that are not thread safe</a>
- * @since 3.1
  */
 public class ReflectionToStringBuilderMutateInspectConcurrencyTest extends AbstractLangTest {
 

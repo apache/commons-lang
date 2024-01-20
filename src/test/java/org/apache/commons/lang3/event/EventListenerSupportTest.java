@@ -41,7 +41,6 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 /**
- * @since 3.0
  */
 public class EventListenerSupportTest extends AbstractLangTest {
 

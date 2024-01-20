@@ -22,7 +22,6 @@ import java.util.TimeZone;
 /**
  * Unit tests for the print methods of FastDateFormat
  *
- * @since 3.2
  */
 public class FastDateFormat_PrinterTest extends FastDatePrinterTest {
 
