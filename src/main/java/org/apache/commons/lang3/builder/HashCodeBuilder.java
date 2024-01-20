@@ -507,7 +507,6 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * Uses two hard coded choices for the constants needed to build a {@code hashCode}.
-     *
      */
     public HashCodeBuilder() {
         iConstant = 37;

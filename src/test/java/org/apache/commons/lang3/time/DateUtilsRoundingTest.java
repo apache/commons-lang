@@ -38,7 +38,6 @@ import org.junit.jupiter.api.Test;
  * A month with 28 days will be rounded up from the 15th
  * A month with 29 or 30 days will be rounded up from the 16th
  * A month with 31 days will be rounded up from the 17th
- *
  */
 public class DateUtilsRoundingTest extends AbstractLangTest {
 
@@ -620,7 +619,6 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
 
     /**
      * Test DateUtils.truncate()-method with Calendar.SECOND
-     *
      */
     @Test
     public void testTruncateMilliSecond() {

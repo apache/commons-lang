@@ -686,7 +686,6 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * A registry of objects used by {@code reflectionToString} methods
      * to detect cyclical object references and avoid infinite loops.
-     *
      */
     private static final ThreadLocal<WeakHashMap<Object, Object>> REGISTRY = new ThreadLocal<>();
     /*

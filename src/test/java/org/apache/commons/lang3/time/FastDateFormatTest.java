@@ -45,7 +45,6 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.FastDateFormat}.
- *
  */
 public class FastDateFormatTest extends AbstractLangTest {
     private static final int NTHREADS = 10;

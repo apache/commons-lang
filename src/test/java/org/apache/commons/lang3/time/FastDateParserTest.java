@@ -49,7 +49,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.time.FastDateParser}.
- *
  */
 public class FastDateParserTest extends AbstractLangTest {
 

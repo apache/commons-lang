@@ -100,7 +100,6 @@ public class BasicThreadFactory implements ThreadFactory {
      * chaining is supported. Refer to the documentation of {@code
      * BasicThreadFactory} for a usage example.
      * </p>
-     *
      */
     public static class Builder
         implements org.apache.commons.lang3.builder.Builder<BasicThreadFactory> {

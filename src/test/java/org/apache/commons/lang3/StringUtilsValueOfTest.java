@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link StringUtils}'s valueOf() methods.
- *
  */
 public class StringUtilsValueOfTest extends AbstractLangTest {
 

@@ -458,7 +458,6 @@ public class LocaleUtilsTest extends AbstractLangTest {
 
     /**
      * Test for 3-chars locale, further details at LANG-915
-     *
      */
     @Test
     public void testThreeCharsLocale() {

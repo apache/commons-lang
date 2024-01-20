@@ -765,7 +765,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
         /**
          * Constructs an instance of {@link UnpaddedMonthField}.
-         *
          */
         UnpaddedMonthField() {
         }
