@@ -852,4 +852,14 @@ public final class SystemProperties {
     public static String getUserTimezone() {
         return getProperty(USER_TIMEZONE);
     }
+
+    /**
+     * Make private in 4.0.
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public SystemProperties() {
+        // empty
+    }
 }
