@@ -126,4 +126,14 @@ public class EventUtils {
                 new Class[] { listenerType }, new EventBindingInvocationHandler(target, methodName, eventTypes)));
         addEventListener(eventSource, listenerType, listener);
     }
+
+    /**
+     * Make private in 4.0.
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public EventUtils() {
+        // empty
+    }
 }
