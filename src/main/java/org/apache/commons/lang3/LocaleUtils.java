@@ -357,8 +357,12 @@ public class LocaleUtils {
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
+     *
+     * @deprecated TODO Make private in 4.0.
      */
+    @Deprecated
     public LocaleUtils() {
+        // empty
     }
 
 }
