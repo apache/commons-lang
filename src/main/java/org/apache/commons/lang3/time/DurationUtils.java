@@ -219,4 +219,13 @@ public class DurationUtils {
         return ObjectUtils.defaultIfNull(duration, Duration.ZERO);
     }
 
+    /**
+     * Make private in 4.0.
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public DurationUtils() {
+        // empty
+    }
 }
