@@ -480,4 +480,13 @@ public class RegExUtils {
         return dotAllMatcher(regex, text).replaceAll(replacement);
     }
 
+    /**
+     * Make private in 4.0.
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public RegExUtils() {
+        // empty
+    }
 }
