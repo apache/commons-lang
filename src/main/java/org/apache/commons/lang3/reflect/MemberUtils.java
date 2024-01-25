@@ -335,13 +335,4 @@ final class MemberUtils {
         return obj;
     }
 
-    /**
-     * Make private in 4.0.
-     *
-     * @deprecated TODO Make private in 4.0.
-     */
-    @Deprecated
-    public MemberUtils() {
-        // empty
-    }
 }
