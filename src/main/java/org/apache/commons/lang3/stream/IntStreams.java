@@ -48,4 +48,13 @@ public class IntStreams {
         return IntStream.rangeClosed(0, endInclusive);
     }
 
+    /**
+     * Make private in 4.0.
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public IntStreams() {
+        // empty
+    }
 }
