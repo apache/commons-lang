@@ -31,7 +31,7 @@ public class LazyInitializerSupplierTest extends AbstractConcurrentInitializerCl
      */
     @Override
     protected ConcurrentInitializer<Object> createInitializer() {
-        return LazyInitializer.<Object>builder().setInitializer(() -> new Object()).get();
+        return LazyInitializer.<Object>builder().setInitializer(Object::new).get();
     }
 
     @Override

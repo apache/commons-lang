@@ -563,7 +563,7 @@ public class ObjectUtilsTest extends AbstractLangTest {
 
         assertThrows(
                 NullPointerException.class,
-                () -> ObjectUtils.identityToString((Appendable) (new StringBuilder()), null));
+                () -> ObjectUtils.identityToString((Appendable) new StringBuilder(), null));
     }
 
     @Test

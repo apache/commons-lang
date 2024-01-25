@@ -95,7 +95,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
 
     protected static class CloseableCounter {
         // A convenience for testing that a CloseableCounter typed as Object has a specific initializeCalls value
-        public static CloseableCounter wrapInteger(int i) {
+        public static CloseableCounter wrapInteger(final int i) {
             return new CloseableCounter().setInitializeCalls(i);
         }
 
@@ -130,7 +130,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
             return closed;
         }
 
-        public CloseableCounter setInitializeCalls(int i) {
+        public CloseableCounter setInitializeCalls(final int i) {
             initializeCalls = i;
             return this;
         }
@@ -437,9 +437,9 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
         initializer.addInitializer("child two", childTwo);
         initializer.start();
 
-        long startTime = System.currentTimeMillis();
-        long waitTime = 3000;
-        long endTime = startTime + waitTime;
+        final long startTime = System.currentTimeMillis();
+        final long waitTime = 3000;
+        final long endTime = startTime + waitTime;
         //wait for the children to start
         while (! childOne.isStarted() || ! childTwo.isStarted()) {
             if (System.currentTimeMillis() > endTime) {

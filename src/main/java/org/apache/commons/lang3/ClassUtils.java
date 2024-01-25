@@ -528,7 +528,7 @@ public class ClassUtils {
      */
     public static Class<?> getClass(final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
         try {
-            Class<?> clazz = namePrimitiveMap.get(className);
+            final Class<?> clazz = namePrimitiveMap.get(className);
             return clazz != null ? clazz : Class.forName(toCanonicalName(className), initialize, classLoader);
         } catch (final ClassNotFoundException ex) {
             // allow path separators (.) as inner class name separators

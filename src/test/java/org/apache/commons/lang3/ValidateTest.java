@@ -837,7 +837,7 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnSameInstance() {
-                    final String[] expected = new String[] {"a", "b"};
+                    final String[] expected = {"a", "b"};
                     assertSame(expected, Validate.noNullElements(expected));
                 }
 
@@ -1032,7 +1032,7 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final String[] expected = new String[] {"hi"};
+                    final String[] expected = {"hi"};
                     assertSame(expected, Validate.notEmpty(expected, "MSG"));
                 }
 
@@ -1059,7 +1059,7 @@ public class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldReturnTheSameInstance() {
-                    final String[] expected = new String[] {"hi"};
+                    final String[] expected = {"hi"};
                     assertSame(expected, Validate.notEmpty(expected));
                 }
 

@@ -86,7 +86,7 @@ public class ClassUtilsTest extends AbstractLangTest {
     }
 
     private static final class Inner {
-        private final class DeeplyNested {
+        private static final class DeeplyNested {
             // empty
         }
     }

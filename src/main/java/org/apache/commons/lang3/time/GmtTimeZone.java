@@ -35,7 +35,7 @@ final class GmtTimeZone extends TimeZone {
     static final long serialVersionUID = 1L;
 
     private static StringBuilder twoDigits(final StringBuilder sb, final int n) {
-        return sb.append((char) ('0' + (n / 10))).append((char) ('0' + (n % 10)));
+        return sb.append((char) ('0' + n / 10)).append((char) ('0' + n % 10));
     }
     private final int offset;
 
@@ -48,7 +48,7 @@ final class GmtTimeZone extends TimeZone {
         if (minutes >= MINUTES_PER_HOUR) {
             throw new IllegalArgumentException(minutes + " minutes out of range");
         }
-        final int milliseconds = (minutes + (hours * MINUTES_PER_HOUR)) * MILLISECONDS_PER_MINUTE;
+        final int milliseconds = (minutes + hours * MINUTES_PER_HOUR) * MILLISECONDS_PER_MINUTE;
         offset = negate ? -milliseconds : milliseconds;
         // @formatter:off
         zoneId = twoDigits(twoDigits(new StringBuilder(9)

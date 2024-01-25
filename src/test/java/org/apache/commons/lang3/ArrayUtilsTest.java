@@ -45,7 +45,7 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class ArrayUtilsTest extends AbstractLangTest {
 
-    private final class TestClass {
+    private static final class TestClass {
         // empty
     }
 
@@ -284,13 +284,13 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testContainsDouble() {
         double[] array = null;
-        assertFalse(ArrayUtils.contains(array, (double) 1));
+        assertFalse(ArrayUtils.contains(array, 1));
         array = new double[]{0, 1, 2, 3, 0};
-        assertTrue(ArrayUtils.contains(array, (double) 0));
-        assertTrue(ArrayUtils.contains(array, (double) 1));
-        assertTrue(ArrayUtils.contains(array, (double) 2));
-        assertTrue(ArrayUtils.contains(array, (double) 3));
-        assertFalse(ArrayUtils.contains(array, (double) 99));
+        assertTrue(ArrayUtils.contains(array, 0));
+        assertTrue(ArrayUtils.contains(array, 1));
+        assertTrue(ArrayUtils.contains(array, 2));
+        assertTrue(ArrayUtils.contains(array, 3));
+        assertFalse(ArrayUtils.contains(array, 99));
     }
 
     @Test
@@ -305,7 +305,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testContainsDoubleTolerance() {
         double[] array = null;
-        assertFalse(ArrayUtils.contains(array, (double) 1, (double) 0));
+        assertFalse(ArrayUtils.contains(array, 1, 0));
         array = new double[]{0, 1, 2, 3, 0};
         assertFalse(ArrayUtils.contains(array, 4.0, 0.33));
         assertFalse(ArrayUtils.contains(array, 2.5, 0.49));
@@ -317,13 +317,13 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testContainsFloat() {
         float[] array = null;
-        assertFalse(ArrayUtils.contains(array, (float) 1));
+        assertFalse(ArrayUtils.contains(array, 1));
         array = new float[]{0, 1, 2, 3, 0};
-        assertTrue(ArrayUtils.contains(array, (float) 0));
-        assertTrue(ArrayUtils.contains(array, (float) 1));
-        assertTrue(ArrayUtils.contains(array, (float) 2));
-        assertTrue(ArrayUtils.contains(array, (float) 3));
-        assertFalse(ArrayUtils.contains(array, (float) 99));
+        assertTrue(ArrayUtils.contains(array, 0));
+        assertTrue(ArrayUtils.contains(array, 1));
+        assertTrue(ArrayUtils.contains(array, 2));
+        assertTrue(ArrayUtils.contains(array, 3));
+        assertFalse(ArrayUtils.contains(array, 99));
     }
 
     @Test
@@ -716,7 +716,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
         array = new double[]{0, 1, 2, 3, 0};
         testSet.set(0);
         testSet.set(4);
-        assertEquals(testSet, ArrayUtils.indexesOf(array, (double) 0, 0.3));
+        assertEquals(testSet, ArrayUtils.indexesOf(array, 0, 0.3));
         testSet.clear();
         testSet.set(3);
         assertEquals(testSet, ArrayUtils.indexesOf(array, 4.15, 2.0));
@@ -755,14 +755,14 @@ public class ArrayUtilsTest extends AbstractLangTest {
         double[] array = null;
         final BitSet emptySet = new BitSet();
         final BitSet testSet = new BitSet();
-        assertEquals(emptySet, ArrayUtils.indexesOf(array, (double) 0, 0, (double) 0));
+        assertEquals(emptySet, ArrayUtils.indexesOf(array, 0, 0, 0));
         array = new double[0];
-        assertEquals(emptySet, ArrayUtils.indexesOf(array, (double) 0, 0, (double) 0));
+        assertEquals(emptySet, ArrayUtils.indexesOf(array, 0, 0, 0));
         array = new double[]{0, 1, 2, 3, 0};
         testSet.set(4);
-        assertEquals(testSet, ArrayUtils.indexesOf(array, (double) 0, 1, 0.3));
+        assertEquals(testSet, ArrayUtils.indexesOf(array, 0, 1, 0.3));
         testSet.set(0);
-        assertEquals(testSet, ArrayUtils.indexesOf(array, (double) 0, 0, 0.3));
+        assertEquals(testSet, ArrayUtils.indexesOf(array, 0, 0, 0.3));
         testSet.clear();
         testSet.set(2);
         assertEquals(testSet, ArrayUtils.indexesOf(array, 2, 0, 0.35));
@@ -1070,16 +1070,16 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testIndexOfDouble() {
         double[] array = null;
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0));
         array = new double[0];
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0));
         array = new double[]{0, 1, 2, 3, 0};
-        assertEquals(0, ArrayUtils.indexOf(array, (double) 0));
-        assertEquals(1, ArrayUtils.indexOf(array, (double) 1));
-        assertEquals(2, ArrayUtils.indexOf(array, (double) 2));
-        assertEquals(3, ArrayUtils.indexOf(array, (double) 3));
-        assertEquals(3, ArrayUtils.indexOf(array, (double) 3, -1));
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 99));
+        assertEquals(0, ArrayUtils.indexOf(array, 0));
+        assertEquals(1, ArrayUtils.indexOf(array, 1));
+        assertEquals(2, ArrayUtils.indexOf(array, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 3));
+        assertEquals(3, ArrayUtils.indexOf(array, 3, -1));
+        assertEquals(-1, ArrayUtils.indexOf(array, 99));
     }
 
     @Test
@@ -1099,7 +1099,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
         array = new double[0];
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, (double) 0));
         array = new double[]{0, 1, 2, 3, 0};
-        assertEquals(0, ArrayUtils.indexOf(array, (double) 0, 0.3));
+        assertEquals(0, ArrayUtils.indexOf(array, 0, 0.3));
         assertEquals(2, ArrayUtils.indexOf(array, 2.2, 0.35));
         assertEquals(3, ArrayUtils.indexOf(array, 4.15, 2.0));
         assertEquals(1, ArrayUtils.indexOf(array, 1.00001324, 0.0001));
@@ -1109,29 +1109,29 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testIndexOfDoubleWithStartIndex() {
         double[] array = null;
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 2));
         array = new double[0];
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 2));
         array = new double[]{0, 1, 2, 3, 0};
-        assertEquals(4, ArrayUtils.indexOf(array, (double) 0, 2));
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 1, 2));
-        assertEquals(2, ArrayUtils.indexOf(array, (double) 2, 2));
-        assertEquals(3, ArrayUtils.indexOf(array, (double) 3, 2));
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 99, 0));
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 6));
+        assertEquals(4, ArrayUtils.indexOf(array, 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 1, 2));
+        assertEquals(2, ArrayUtils.indexOf(array, 2, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 3, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 99, 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 6));
     }
 
     @SuppressWarnings("cast")
     @Test
     public void testIndexOfDoubleWithStartIndexTolerance() {
         double[] array = null;
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 2, (double) 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 2, 0));
         array = new double[0];
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 2, (double) 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 2, 0));
         array = new double[]{0, 1, 2, 3, 0};
-        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 99, 0.3));
-        assertEquals(0, ArrayUtils.indexOf(array, (double) 0, 0, 0.3));
-        assertEquals(4, ArrayUtils.indexOf(array, (double) 0, 3, 0.3));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 99, 0.3));
+        assertEquals(0, ArrayUtils.indexOf(array, 0, 0, 0.3));
+        assertEquals(4, ArrayUtils.indexOf(array, 0, 3, 0.3));
         assertEquals(2, ArrayUtils.indexOf(array, 2.2, 0, 0.35));
         assertEquals(3, ArrayUtils.indexOf(array, 4.15, 0, 2.0));
         assertEquals(1, ArrayUtils.indexOf(array, 1.00001324, 0, 0.0001));
@@ -1143,15 +1143,15 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testIndexOfFloat() {
         float[] array = null;
-        assertEquals(-1, ArrayUtils.indexOf(array, (float) 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0));
         array = new float[0];
-        assertEquals(-1, ArrayUtils.indexOf(array, (float) 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0));
         array = new float[]{0, 1, 2, 3, 0};
-        assertEquals(0, ArrayUtils.indexOf(array, (float) 0));
-        assertEquals(1, ArrayUtils.indexOf(array, (float) 1));
-        assertEquals(2, ArrayUtils.indexOf(array, (float) 2));
-        assertEquals(3, ArrayUtils.indexOf(array, (float) 3));
-        assertEquals(-1, ArrayUtils.indexOf(array, (float) 99));
+        assertEquals(0, ArrayUtils.indexOf(array, 0));
+        assertEquals(1, ArrayUtils.indexOf(array, 1));
+        assertEquals(2, ArrayUtils.indexOf(array, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 3));
+        assertEquals(-1, ArrayUtils.indexOf(array, 99));
     }
 
     @Test
@@ -1166,17 +1166,17 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testIndexOfFloatWithStartIndex() {
         float[] array = null;
-        assertEquals(-1, ArrayUtils.indexOf(array, (float) 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 2));
         array = new float[0];
-        assertEquals(-1, ArrayUtils.indexOf(array, (float) 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 2));
         array = new float[]{0, 1, 2, 3, 0};
-        assertEquals(4, ArrayUtils.indexOf(array, (float) 0, 2));
-        assertEquals(-1, ArrayUtils.indexOf(array, (float) 1, 2));
-        assertEquals(2, ArrayUtils.indexOf(array, (float) 2, 2));
-        assertEquals(3, ArrayUtils.indexOf(array, (float) 3, 2));
-        assertEquals(3, ArrayUtils.indexOf(array, (float) 3, -1));
-        assertEquals(-1, ArrayUtils.indexOf(array, (float) 99, 0));
-        assertEquals(-1, ArrayUtils.indexOf(array, (float) 0, 6));
+        assertEquals(4, ArrayUtils.indexOf(array, 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 1, 2));
+        assertEquals(2, ArrayUtils.indexOf(array, 2, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 3, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 3, -1));
+        assertEquals(-1, ArrayUtils.indexOf(array, 99, 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 6));
     }
 
     @Test
@@ -1762,15 +1762,15 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testLastIndexOfDouble() {
         double[] array = null;
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0));
         array = new double[0];
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0));
         array = new double[]{0, 1, 2, 3, 0};
-        assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0));
-        assertEquals(1, ArrayUtils.lastIndexOf(array, (double) 1));
-        assertEquals(2, ArrayUtils.lastIndexOf(array, (double) 2));
-        assertEquals(3, ArrayUtils.lastIndexOf(array, (double) 3));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 99));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 0));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 1));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 2));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, 3));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
     }
 
     @SuppressWarnings("cast")
@@ -1781,7 +1781,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
         array = new double[0];
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, (double) 0));
         array = new double[]{0, 1, 2, 3, 0};
-        assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0, 0.3));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 0, 0.3));
         assertEquals(2, ArrayUtils.lastIndexOf(array, 2.2, 0.35));
         assertEquals(3, ArrayUtils.lastIndexOf(array, 4.15, 2.0));
         assertEquals(1, ArrayUtils.lastIndexOf(array, 1.00001324, 0.0001));
@@ -1791,31 +1791,31 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testLastIndexOfDoubleWithStartIndex() {
         double[] array = null;
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0, 2));
         array = new double[0];
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0, 2));
         array = new double[]{0, 1, 2, 3, 0};
-        assertEquals(0, ArrayUtils.lastIndexOf(array, (double) 0, 2));
-        assertEquals(1, ArrayUtils.lastIndexOf(array, (double) 1, 2));
-        assertEquals(2, ArrayUtils.lastIndexOf(array, (double) 2, 2));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 3, 2));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 3, -1));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 99));
-        assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0, 88));
+        assertEquals(0, ArrayUtils.lastIndexOf(array, 0, 2));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 1, 2));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 2, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 3, -1));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 0, 88));
     }
 
     @SuppressWarnings("cast")
     @Test
     public void testLastIndexOfDoubleWithStartIndexTolerance() {
         double[] array = null;
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, 2, (double) 0));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0, 2, 0));
         array = new double[0];
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, 2, (double) 0));
-        array = new double[]{(double) 3};
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 1, 0, (double) 0));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0, 2, 0));
+        array = new double[]{3};
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 1, 0, 0));
         array = new double[]{0, 1, 2, 3, 0};
-        assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0, 99, 0.3));
-        assertEquals(0, ArrayUtils.lastIndexOf(array, (double) 0, 3, 0.3));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 0, 99, 0.3));
+        assertEquals(0, ArrayUtils.lastIndexOf(array, 0, 3, 0.3));
         assertEquals(2, ArrayUtils.lastIndexOf(array, 2.2, 3, 0.35));
         assertEquals(3, ArrayUtils.lastIndexOf(array, 4.15, array.length, 2.0));
         assertEquals(1, ArrayUtils.lastIndexOf(array, 1.00001324, array.length, 0.0001));
@@ -1826,32 +1826,32 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testLastIndexOfFloat() {
         float[] array = null;
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 0));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0));
         array = new float[0];
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 0));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0));
         array = new float[]{0, 1, 2, 3, 0};
-        assertEquals(4, ArrayUtils.lastIndexOf(array, (float) 0));
-        assertEquals(1, ArrayUtils.lastIndexOf(array, (float) 1));
-        assertEquals(2, ArrayUtils.lastIndexOf(array, (float) 2));
-        assertEquals(3, ArrayUtils.lastIndexOf(array, (float) 3));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 99));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 0));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 1));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 2));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, 3));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
     }
 
     @SuppressWarnings("cast")
     @Test
     public void testLastIndexOfFloatWithStartIndex() {
         float[] array = null;
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 0, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0, 2));
         array = new float[0];
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 0, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0, 2));
         array = new float[]{0, 1, 2, 3, 0};
-        assertEquals(0, ArrayUtils.lastIndexOf(array, (float) 0, 2));
-        assertEquals(1, ArrayUtils.lastIndexOf(array, (float) 1, 2));
-        assertEquals(2, ArrayUtils.lastIndexOf(array, (float) 2, 2));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 3, 2));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 3, -1));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 99));
-        assertEquals(4, ArrayUtils.lastIndexOf(array, (float) 0, 88));
+        assertEquals(0, ArrayUtils.lastIndexOf(array, 0, 2));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 1, 2));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 2, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 3, -1));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 0, 88));
     }
 
     @Test

@@ -123,42 +123,42 @@ public class StandardToStringStyleTest extends AbstractLangTest {
 
     @Test
     public void testDefaultIsArrayContentDetail() {
-        assertTrue((new StandardToStringStyle()).isArrayContentDetail());
+        assertTrue(new StandardToStringStyle().isArrayContentDetail());
     }
 
     @Test
     public void testDefaultIsFieldSeparatorAtEnd() {
-        assertFalse((new StandardToStringStyle()).isFieldSeparatorAtEnd());
+        assertFalse(new StandardToStringStyle().isFieldSeparatorAtEnd());
     }
 
     @Test
     public void testDefaultIsFieldSeparatorAtStart() {
-        assertFalse((new StandardToStringStyle()).isFieldSeparatorAtStart());
+        assertFalse(new StandardToStringStyle().isFieldSeparatorAtStart());
     }
 
     @Test
     public void testDefaultValueOfFullDetail() {
-        assertTrue((new StandardToStringStyle()).isDefaultFullDetail());
+        assertTrue(new StandardToStringStyle().isDefaultFullDetail());
     }
 
     @Test
     public void testDefaultValueOfUseClassName() {
-        assertTrue((new StandardToStringStyle()).isUseClassName());
+        assertTrue(new StandardToStringStyle().isUseClassName());
     }
 
     @Test
     public void testDefaultValueOfUseFieldNames() {
-        assertTrue((new StandardToStringStyle()).isUseFieldNames());
+        assertTrue(new StandardToStringStyle().isUseFieldNames());
     }
 
     @Test
     public void testDefaultValueOfUseIdentityHashCode() {
-        assertTrue((new StandardToStringStyle()).isUseIdentityHashCode());
+        assertTrue(new StandardToStringStyle().isUseIdentityHashCode());
     }
 
     @Test
     public void testDefaultValueOfUseShortClassName() {
-        assertFalse((new StandardToStringStyle()).isUseShortClassName());
+        assertFalse(new StandardToStringStyle().isUseShortClassName());
     }
 
     @Test

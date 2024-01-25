@@ -288,10 +288,10 @@ public class MultiBackgroundInitializer
     public void close() throws ConcurrentException {
         ConcurrentException exception = null;
 
-        for (BackgroundInitializer<?> child : childInitializers.values()) {
+        for (final BackgroundInitializer<?> child : childInitializers.values()) {
             try {
                 child.close();
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 if (exception == null) {
                     exception = new ConcurrentException();
                 }

@@ -94,7 +94,7 @@ public class RandomUtils {
             return startInclusive;
         }
 
-        return startInclusive + ((endExclusive - startInclusive) * random().nextDouble());
+        return startInclusive + (endExclusive - startInclusive) * random().nextDouble();
     }
 
     /**
@@ -129,7 +129,7 @@ public class RandomUtils {
             return startInclusive;
         }
 
-        return startInclusive + ((endExclusive - startInclusive) * random().nextFloat());
+        return startInclusive + (endExclusive - startInclusive) * random().nextFloat();
     }
 
     /**
@@ -193,7 +193,7 @@ public class RandomUtils {
         do {
             bits = random().nextLong() >>> 1;
             val  = bits % n;
-        } while (bits - val + (n - 1) < 0);
+        } while (bits - val + n - 1 < 0);
 
         return val;
     }

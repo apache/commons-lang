@@ -627,7 +627,7 @@ public class FastDateParserTest extends AbstractLangTest {
             }
         }
         // SDF and FDF should produce equivalent results
-        assertEquals((f == null), (s == null), "Should both or neither throw Exceptions");
+        assertEquals(f == null, s == null, "Should both or neither throw Exceptions");
         assertEquals(dsdf, dfdp, "Parsed dates should be equal");
     }
 

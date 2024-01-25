@@ -117,16 +117,16 @@ public class RangeTest extends AbstractLangTest {
         final DerivedComparableA derivedComparableA = new DerivedComparableA();
         final DerivedComparableB derivedComparableB = new DerivedComparableB();
 
-        Range<AbstractComparable> mixed = Range.between(derivedComparableA, derivedComparableB, null);
+        final Range<AbstractComparable> mixed = Range.between(derivedComparableA, derivedComparableB, null);
         assertTrue(mixed.contains(derivedComparableA));
 
-        Range<AbstractComparable> same = Range.between(derivedComparableA, derivedComparableA, null);
+        final Range<AbstractComparable> same = Range.between(derivedComparableA, derivedComparableA, null);
         assertTrue(same.contains(derivedComparableA));
 
-        Range<DerivedComparableA> rangeA = Range.between(derivedComparableA, derivedComparableA, null);
+        final Range<DerivedComparableA> rangeA = Range.between(derivedComparableA, derivedComparableA, null);
         assertTrue(rangeA.contains(derivedComparableA));
 
-        Range<DerivedComparableB> rangeB = Range.is(derivedComparableB, null);
+        final Range<DerivedComparableB> rangeB = Range.is(derivedComparableB, null);
         assertTrue(rangeB.contains(derivedComparableB));
     }
 

@@ -63,7 +63,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
 
     private void assertEscapeJava(String message, final String expected, final String original) throws IOException {
         final String converted = StringEscapeUtils.escapeJava(original);
-        message = "escapeJava(String) failed" + (message == null ? "" : (": " + message));
+        message = "escapeJava(String) failed" + (message == null ? "" : ": " + message);
         assertEquals(expected, converted, message);
 
         final StringWriter writer = new StringWriter();
@@ -81,7 +81,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
 
         assertEquals(expected, actual,
                 "unescape(String) failed" +
-                (message == null ? "" : (": " + message)) +
+                (message == null ? "" : ": " + message) +
                 ": expected '" + StringEscapeUtils.escapeJava(expected) +
                 // we escape this so we can see it in the error message
                 "' actual '" + StringEscapeUtils.escapeJava(actual) + "'");
@@ -488,8 +488,8 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
             final Character c1 = Character.valueOf(i);
             final Character c2 = Character.valueOf((char) (i+1));
             final String expected = c1.toString() + c2;
-            final String escapedC1 = "&#x" + Integer.toHexString((c1.charValue())) + ";";
-            final String escapedC2 = "&#x" + Integer.toHexString((c2.charValue())) + ";";
+            final String escapedC1 = "&#x" + Integer.toHexString(c1.charValue()) + ";";
+            final String escapedC2 = "&#x" + Integer.toHexString(c2.charValue()) + ";";
             assertEquals(expected, StringEscapeUtils.unescapeHtml4(escapedC1 + escapedC2), "hex number unescape index " + (int) i);
         }
     }

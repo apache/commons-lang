@@ -52,7 +52,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     private double chiSquare(final int[] expected, final int[] observed) {
         double sumSq = 0.0d;
         for (int i = 0; i < observed.length; i++) {
-            double dev = observed[i] - expected[i];
+            final double dev = observed[i] - expected[i];
             sumSq += dev * dev / expected[i];
         }
         return sumSq;
@@ -416,7 +416,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         r1 = RandomStringUtils.randomAscii(50);
         assertEquals(50, r1.length(), "randomAscii(50) length");
         for (int i = 0; i < r1.length(); i++) {
-            assertThat("char >= 32 && <= 127", ((int) r1.charAt(i)), allOf(greaterThanOrEqualTo(32), lessThanOrEqualTo(127)));
+            assertThat("char >= 32 && <= 127", (int) r1.charAt(i), allOf(greaterThanOrEqualTo(32), lessThanOrEqualTo(127)));
         }
         r2 = RandomStringUtils.randomAscii(50);
         assertFalse(r1.equals(r2), "!r1.equals(r2)");
@@ -513,7 +513,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         final int[] counts = {0, 0, 0};
         final int[] expected = {200, 200, 200};
         for (int i = 0; i < 100; i++) {
-            String gen = RandomStringUtils.random(6, chars);
+            final String gen = RandomStringUtils.random(6, chars);
             for (int j = 0; j < 6; j++) {
                 switch (gen.charAt(j)) {
                     case 'a': {

@@ -83,7 +83,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
     }
 
     private DurationFormatUtils.Token createTokenWithCount(final Object value, final int count) {
-        DurationFormatUtils.Token token = new DurationFormatUtils.Token(value, false, -1);
+        final DurationFormatUtils.Token token = new DurationFormatUtils.Token(value, false, -1);
         for (int i = 1; i < count; i++) {
             token.increment();
         }
@@ -92,7 +92,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
 
     @Test
     public void testAlternatingLiteralOptionals() {
-        String format = "['d'dH'h'][m'm']['s's]['ms'S]";
+        final String format = "['d'dH'h'][m'm']['s's]['ms'S]";
 
         assertEquals("d1",
             DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), format));

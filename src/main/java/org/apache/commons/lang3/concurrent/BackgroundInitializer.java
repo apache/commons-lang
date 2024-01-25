@@ -318,7 +318,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * {@inheritDoc}
      */
     @Override
-    protected Exception getTypedException(Exception e) {
+    protected Exception getTypedException(final Exception e) {
         //This Exception object will be used for type comparison in AbstractConcurrentInitializer.initialize but not thrown
         return new Exception(e);
     }

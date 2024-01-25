@@ -665,19 +665,19 @@ public class StrBuilderTest extends AbstractLangTest {
         assertTrue(sb1.equals(sb2));
         assertTrue(sb1.equals(sb1));
         assertTrue(sb2.equals(sb2));
-        assertEquals(sb1, (Object) sb2);
+        assertEquals(sb1, sb2);
 
         sb1.append("abc");
         assertFalse(sb1.equals(sb2));
-        assertNotEquals(sb1, (Object) sb2);
+        assertNotEquals(sb1, sb2);
 
         sb2.append("ABC");
         assertFalse(sb1.equals(sb2));
-        assertNotEquals(sb1, (Object) sb2);
+        assertNotEquals(sb1, sb2);
 
         sb2.clear().append("abc");
         assertTrue(sb1.equals(sb2));
-        assertEquals(sb1, (Object) sb2);
+        assertEquals(sb1, sb2);
 
         assertNotEquals(sb1, Integer.valueOf(1));
         assertNotEquals("abc", sb1);

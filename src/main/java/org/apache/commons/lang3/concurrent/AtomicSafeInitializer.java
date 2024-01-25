@@ -139,7 +139,7 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
      * {@inheritDoc}
      */
     @Override
-    protected ConcurrentException getTypedException(Exception e) {
+    protected ConcurrentException getTypedException(final Exception e) {
         return new ConcurrentException(e);
     }
 

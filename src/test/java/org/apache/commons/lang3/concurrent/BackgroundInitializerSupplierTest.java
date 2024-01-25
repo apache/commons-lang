@@ -40,29 +40,27 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
     protected static final class SupplierBackgroundInitializerTestImpl extends AbstractBackgroundInitializerTestImpl {
 
         SupplierBackgroundInitializerTestImpl() {
-            super();
-            setSupplierAndCloser((CloseableCounter cc) -> cc.close());
+            setSupplierAndCloser((final CloseableCounter cc) -> cc.close());
         }
 
         SupplierBackgroundInitializerTestImpl(final ExecutorService exec) {
             super(exec);
-            setSupplierAndCloser((CloseableCounter cc) -> cc.close());
+            setSupplierAndCloser((final CloseableCounter cc) -> cc.close());
         }
 
-        SupplierBackgroundInitializerTestImpl(FailableConsumer<?, ?> consumer) {
-            super();
+        SupplierBackgroundInitializerTestImpl(final FailableConsumer<?, ?> consumer) {
             setSupplierAndCloser(consumer);
         }
 
-        private void setSupplierAndCloser(FailableConsumer<?, ?> consumer) {
+        private void setSupplierAndCloser(final FailableConsumer<?, ?> consumer) {
             try {
                 // Use reflection here because the constructors we need are private
-                FailableSupplier<?, ?> supplier = () -> initializeInternal();
-                Field initializer = AbstractConcurrentInitializer.class.getDeclaredField("initializer");
+                final FailableSupplier<?, ?> supplier = this::initializeInternal;
+                final Field initializer = AbstractConcurrentInitializer.class.getDeclaredField("initializer");
                 initializer.setAccessible(true);
                 initializer.set(this, supplier);
 
-                Field closer = AbstractConcurrentInitializer.class.getDeclaredField("closer");
+                final Field closer = AbstractConcurrentInitializer.class.getDeclaredField("closer");
                 closer.setAccessible(true);
                 closer.set(this, consumer);
             } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
@@ -71,10 +69,12 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
         }
     }
 
+    @Override
     protected AbstractBackgroundInitializerTestImpl getBackgroundInitializerTestImpl() {
         return new SupplierBackgroundInitializerTestImpl();
     }
 
+    @Override
     protected SupplierBackgroundInitializerTestImpl getBackgroundInitializerTestImpl(final ExecutorService exec) {
         return new SupplierBackgroundInitializerTestImpl(exec);
     }
@@ -106,7 +106,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
     public void testCloseWithCheckedException() throws Exception {
 
         final IOException ioException = new IOException();
-        final FailableConsumer<?, ?> IOExceptionConsumer = (CloseableCounter cc) -> {
+        final FailableConsumer<?, ?> IOExceptionConsumer = (final CloseableCounter cc) -> {
             throw ioException;
         };
 
@@ -116,7 +116,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
         try {
             init.close();
             fail();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertThat(e, instanceOf(ConcurrentException.class));
             assertSame(ioException, e.getCause());
         }
@@ -131,7 +131,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
     public void testCloseWithRuntimeException() throws Exception {
 
         final NullPointerException npe = new NullPointerException();
-        final FailableConsumer<?, ?> NullPointerExceptionConsumer = (CloseableCounter cc) -> {
+        final FailableConsumer<?, ?> NullPointerExceptionConsumer = (final CloseableCounter cc) -> {
             throw npe;
         };
 
@@ -141,7 +141,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
         try {
             init.close();
             fail();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertSame(npe, e);
         }
     }

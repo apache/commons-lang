@@ -136,7 +136,7 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
 
     @Test
     public void test_toStringIncludeNullArrayMultiplesValues() {
-        final String toString = ReflectionToStringBuilder.toStringInclude(new TestFeature(), new String[] {null, null, null, null});
+        final String toString = ReflectionToStringBuilder.toStringInclude(new TestFeature(), null, null, null, null);
         this.validateAllFieldsPresent(toString);
     }
 
@@ -193,8 +193,8 @@ public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
     @Test
     public void test_toStringSetIncludeWithArrayWithMultipleNullFields() {
         final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
-        builder.setExcludeFieldNames(new String[] {FIELDS[1], FIELDS[4]});
-        builder.setIncludeFieldNames(new String[] {null, null, null});
+        builder.setExcludeFieldNames(FIELDS[1], FIELDS[4]);
+        builder.setIncludeFieldNames(null, null, null);
         final String toString = builder.toString();
         this.validateIncludeFieldsPresent(toString, new String[]{FIELDS[0], FIELDS[2], FIELDS[3]}, new String[]{VALUES[0], VALUES[2], VALUES[3]});
     }

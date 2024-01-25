@@ -36,7 +36,7 @@ final class Reflection {
     static Object getUnchecked(final Field field, final Object obj) {
         try {
             return Objects.requireNonNull(field, "field").get(obj);
-        } catch (IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
             throw new IllegalArgumentException(e);
         }
     }

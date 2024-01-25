@@ -128,13 +128,13 @@ public class HashCodeBuilderTest extends AbstractLangTest {
 
     static class TestObjectWithMultipleFields {
         @SuppressWarnings("unused")
-        private int one;
+        private final int one;
 
         @SuppressWarnings("unused")
-        private int two;
+        private final int two;
 
         @SuppressWarnings("unused")
-        private int three;
+        private final int three;
 
         TestObjectWithMultipleFields(final int one, final int two, final int three) {
             this.one = one;

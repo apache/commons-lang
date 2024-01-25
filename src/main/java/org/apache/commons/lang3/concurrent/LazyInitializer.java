@@ -152,7 +152,7 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
      * {@inheritDoc}
      */
     @Override
-    protected ConcurrentException getTypedException(Exception e) {
+    protected ConcurrentException getTypedException(final Exception e) {
         return new ConcurrentException(e);
     }
 

@@ -130,10 +130,10 @@ public class UnicodeEscaper extends CodePointTranslator {
             out.write(toUtf16Escape(codePoint));
         } else {
           out.write("\\u");
-          out.write(HEX_DIGITS[(codePoint >> 12) & 15]);
-          out.write(HEX_DIGITS[(codePoint >> 8) & 15]);
-          out.write(HEX_DIGITS[(codePoint >> 4) & 15]);
-          out.write(HEX_DIGITS[(codePoint) & 15]);
+          out.write(HEX_DIGITS[codePoint >> 12 & 15]);
+          out.write(HEX_DIGITS[codePoint >> 8 & 15]);
+          out.write(HEX_DIGITS[codePoint >> 4 & 15]);
+          out.write(HEX_DIGITS[codePoint & 15]);
         }
         return true;
     }

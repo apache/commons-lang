@@ -33,12 +33,12 @@ public class ReflectionToStringBuilderCustomImplementationTest extends AbstractL
 
         private static final String CUSTOM_PREFIX = "prefix:";
 
-        public CustomReflectionToStringBuilder(Object object, ToStringStyle toStringStyle) {
+        public CustomReflectionToStringBuilder(final Object object, final ToStringStyle toStringStyle) {
             super(object, toStringStyle);
         }
 
         @Override
-        protected Object getValue(Field field) throws IllegalAccessException {
+        protected Object getValue(final Field field) throws IllegalAccessException {
             return CUSTOM_PREFIX + super.getValue(field);
         }
     }

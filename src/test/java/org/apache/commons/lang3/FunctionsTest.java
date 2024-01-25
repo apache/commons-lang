@@ -227,42 +227,42 @@ public class FunctionsTest extends AbstractLangTest {
 
         public void testDouble(final double i) throws Throwable {
             test(throwable);
-            acceptedPrimitiveObject1 = (P) ((Double) i);
+            acceptedPrimitiveObject1 = (P) (Double) i;
         }
 
         public double testDoubleDouble(final double i, final double j) throws Throwable {
             test(throwable);
-            acceptedPrimitiveObject1 = (P) ((Double) i);
-            acceptedPrimitiveObject2 = (P) ((Double) j);
+            acceptedPrimitiveObject1 = (P) (Double) i;
+            acceptedPrimitiveObject2 = (P) (Double) j;
             return 3d;
         }
 
         public void testInt(final int i) throws Throwable {
             test(throwable);
-            acceptedPrimitiveObject1 = (P) ((Integer) i);
+            acceptedPrimitiveObject1 = (P) (Integer) i;
         }
 
         public void testLong(final long i) throws Throwable {
             test(throwable);
-            acceptedPrimitiveObject1 = (P) ((Long) i);
+            acceptedPrimitiveObject1 = (P) (Long) i;
         }
 
         public void testObjDouble(final T object, final double i) throws Throwable {
             test(throwable);
             acceptedObject = object;
-            acceptedPrimitiveObject1 = (P) ((Double) i);
+            acceptedPrimitiveObject1 = (P) (Double) i;
         }
 
         public void testObjInt(final T object, final int i) throws Throwable {
             test(throwable);
             acceptedObject = object;
-            acceptedPrimitiveObject1 = (P) ((Integer) i);
+            acceptedPrimitiveObject1 = (P) (Integer) i;
         }
 
         public void testObjLong(final T object, final long i) throws Throwable {
             test(throwable);
             acceptedObject = object;
-            acceptedPrimitiveObject1 = (P) ((Long) i);
+            acceptedPrimitiveObject1 = (P) (Long) i;
         }
     }
 

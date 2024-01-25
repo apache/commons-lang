@@ -644,7 +644,7 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(new BigDecimal("1.7976931348623159e+308"), NumberUtils.createNumber("1.7976931348623159e+308"));
 
         // Requested type is parsed as zero but the value is not zero
-        final Double nonZero1 = Double.valueOf(((double) Float.MIN_VALUE) / 2);
+        final Double nonZero1 = Double.valueOf((double) Float.MIN_VALUE / 2);
         assertEquals(nonZero1, NumberUtils.createNumber(nonZero1.toString()));
         assertEquals(nonZero1, NumberUtils.createNumber(nonZero1 + "F"));
         // Smallest double is 4.9e-324.

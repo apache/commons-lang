@@ -116,7 +116,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                 // An exception will be thrown and the test will fail if parsing isn't successful
                 try {
                     parser.parse(tzDisplay);
-                } catch (ParseException e) {
+                } catch (final ParseException e) {
                     // Hack Start
                     // See failures on GitHub Actions builds for Java 17.
                     final String localeStr = locale.toString();
@@ -131,7 +131,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                                 localeStr, tzDisplay);
                         assumeTrue(false, localeStr);
                         continue;
-                    } else if (SystemUtils.IS_JAVA_11
+                    }
+                    if (SystemUtils.IS_JAVA_11
                             && (localeStr.contains("_") || "Coordinated Universal Time".equals(tzDisplay))) {
                         Java11Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
@@ -167,7 +168,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
             final String displayName = timeZone.getDisplayName(locale);
             try {
                 parser.parse(displayName);
-            } catch (ParseException e) {
+            } catch (final ParseException e) {
                 // Missing "Zulu" or something else in broken JDK's GH builds?
                 fail(String.format("%s: with locale = %s, id = '%s', timeZone = %s, displayName = '%s', parser = '%s'", e, locale, id, timeZone, displayName,
                         parser.toStringAll()), e);

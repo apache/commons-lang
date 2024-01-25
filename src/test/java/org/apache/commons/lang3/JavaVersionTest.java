@@ -63,7 +63,7 @@ public class JavaVersionTest extends AbstractLangTest {
         assertEquals(JAVA_1_7, get("1.7"), "1.7 failed");
         assertEquals(JAVA_1_8, get("1.8"), "1.8 failed");
 
-        int lastSupportedVersion = Integer.parseInt(JavaVersion.values()[JavaVersion.values().length - 2].toString());
+        final int lastSupportedVersion = Integer.parseInt(JavaVersion.values()[JavaVersion.values().length - 2].toString());
         for (int i = 9; i <= lastSupportedVersion; i++) {
             assertEquals(JavaVersion.class.getField("JAVA_" + i).get(null), get("" + i), i + " failed");
         }

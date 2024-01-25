@@ -43,13 +43,13 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
     private static final class SupplierChildBackgroundInitializer extends AbstractChildBackgroundInitializer {
 
         SupplierChildBackgroundInitializer() {
-            this((CloseableCounter cc) -> cc.close());
+            this((final CloseableCounter cc) -> cc.close());
         }
 
-        SupplierChildBackgroundInitializer(FailableConsumer<?, ?> consumer) {
+        SupplierChildBackgroundInitializer(final FailableConsumer<?, ?> consumer) {
             try {
                 // Use reflection here because the constructors we need are private
-                final FailableSupplier<?, ?> supplier = () -> initializeInternal();
+                final FailableSupplier<?, ?> supplier = this::initializeInternal;
                 final Field initializer = AbstractConcurrentInitializer.class.getDeclaredField("initializer");
                 initializer.setAccessible(true);
                 initializer.set(this, supplier);
@@ -80,10 +80,10 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
     public void setUpException() throws Exception {
         npe = new NullPointerException();
         ioException = new IOException();
-        ioExceptionConsumer = (CloseableCounter cc) -> {
+        ioExceptionConsumer = (final CloseableCounter cc) -> {
             throw ioException;
         };
-        nullPointerExceptionConsumer = (CloseableCounter cc) -> {
+        nullPointerExceptionConsumer = (final CloseableCounter cc) -> {
             throw npe;
         };
     }
@@ -109,9 +109,9 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
 
         initializer.start();
 
-        long startTime = System.currentTimeMillis();
-        long waitTime = 3000;
-        long endTime = startTime + waitTime;
+        final long startTime = System.currentTimeMillis();
+        final long waitTime = 3000;
+        final long endTime = startTime + waitTime;
         //wait for the children to start
         while (!childOne.isStarted() || !childTwo.isStarted()) {
             if (System.currentTimeMillis() > endTime) {
@@ -131,7 +131,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
 
         try {
             initializer.close();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             fail();
         }
 
@@ -151,9 +151,9 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
         initializer.addInitializer("child one", childOne);
         initializer.start();
 
-        long startTime = System.currentTimeMillis();
-        long waitTime = 3000;
-        long endTime = startTime + waitTime;
+        final long startTime = System.currentTimeMillis();
+        final long waitTime = 3000;
+        final long endTime = startTime + waitTime;
         //wait for the children to start
         while (! childOne.isStarted()) {
             if (System.currentTimeMillis() > endTime) {
@@ -166,7 +166,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
         try {
             initializer.close();
             fail();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertThat(e, instanceOf(ConcurrentException.class));
             assertSame(ioException, e.getSuppressed()[0]);
         }
@@ -184,9 +184,9 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
         initializer.addInitializer("child one", childOne);
         initializer.start();
 
-        long startTime = System.currentTimeMillis();
-        long waitTime = 3000;
-        long endTime = startTime + waitTime;
+        final long startTime = System.currentTimeMillis();
+        final long waitTime = 3000;
+        final long endTime = startTime + waitTime;
         //wait for the children to start
         while (! childOne.isStarted()) {
             if (System.currentTimeMillis() > endTime) {
@@ -199,7 +199,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
         try {
             initializer.close();
             fail();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             assertThat(e, instanceOf(ConcurrentException.class));
             assertSame(npe, e.getSuppressed()[0]);
         }
@@ -240,12 +240,12 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
         try {
             initializer.close();
             fail();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // We don't actually know which order the children will be closed in
             boolean foundChildOneException = false;
             boolean foundChildTwoException = false;
 
-            for (Throwable t : e.getSuppressed()) {
+            for (final Throwable t : e.getSuppressed()) {
                 if (t.equals(ioException)) {
                     foundChildOneException = true;
                 }

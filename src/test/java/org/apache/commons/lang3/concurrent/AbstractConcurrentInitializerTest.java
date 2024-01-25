@@ -128,7 +128,7 @@ public abstract class AbstractConcurrentInitializerTest extends AbstractLangTest
     public void testisInitialized() throws Throwable {
         final ConcurrentInitializer<Object> initializer = createInitializer();
         if (initializer instanceof AbstractConcurrentInitializer) {
-            AbstractConcurrentInitializer castedInitializer = (AbstractConcurrentInitializer) initializer;
+            final AbstractConcurrentInitializer castedInitializer = (AbstractConcurrentInitializer) initializer;
             assertFalse(castedInitializer.isInitialized(), "was initialized before get()");
             assertNotNull(castedInitializer.get(), "No managed object");
             assertTrue(castedInitializer.isInitialized(), "was not initialized after get()");

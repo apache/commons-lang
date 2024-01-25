@@ -149,7 +149,7 @@ public class EnumUtils {
         Collections.addAll(condensed, values);
         final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
         for (final E value : condensed) {
-            result[value.ordinal() / Long.SIZE] |= 1L << (value.ordinal() % Long.SIZE);
+            result[value.ordinal() / Long.SIZE] |= 1L << value.ordinal() % Long.SIZE;
         }
         ArrayUtils.reverse(result);
         return result;
@@ -178,7 +178,7 @@ public class EnumUtils {
         values.forEach(constant -> condensed.add(Objects.requireNonNull(constant, NULL_ELEMENTS_NOT_PERMITTED)));
         final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
         for (final E value : condensed) {
-            result[value.ordinal() / Long.SIZE] |= 1L << (value.ordinal() % Long.SIZE);
+            result[value.ordinal() / Long.SIZE] |= 1L << value.ordinal() % Long.SIZE;
         }
         ArrayUtils.reverse(result);
         return result;
@@ -412,7 +412,7 @@ public class EnumUtils {
         ArrayUtils.reverse(lvalues);
         for (final E constant : enumClass.getEnumConstants()) {
             final int block = constant.ordinal() / Long.SIZE;
-            if (block < lvalues.length && (lvalues[block] & 1L << (constant.ordinal() % Long.SIZE)) != 0) {
+            if (block < lvalues.length && (lvalues[block] & 1L << constant.ordinal() % Long.SIZE) != 0) {
                 results.add(constant);
             }
         }

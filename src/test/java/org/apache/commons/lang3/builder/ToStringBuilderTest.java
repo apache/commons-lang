@@ -258,7 +258,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
 
     @Test
     public void testAppendAsObjectToStringNullPointerException() {
-        ToStringBuilder builder = new ToStringBuilder(1);
+        final ToStringBuilder builder = new ToStringBuilder(1);
         assertThrows(NullPointerException.class, () -> builder.appendAsObjectToString(null));
         builder.toString();
     }

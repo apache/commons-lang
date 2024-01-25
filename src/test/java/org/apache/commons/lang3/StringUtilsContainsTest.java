@@ -167,10 +167,10 @@ public class StringUtilsContainsTest extends AbstractLangTest {
         assertFalse(StringUtils.containsAny("", new String[] { "hello" }));
         assertFalse(StringUtils.containsAny("hello, goodbye", (String[]) null));
         assertFalse(StringUtils.containsAny("hello, goodbye", new String[0]));
-        assertTrue(StringUtils.containsAny("hello, goodbye", new String[]{"hello", "goodbye"}));
-        assertTrue(StringUtils.containsAny("hello, goodbye", new String[]{"hello", "Goodbye"}));
-        assertFalse(StringUtils.containsAny("hello, goodbye", new String[]{"Hello", "Goodbye"}));
-        assertFalse(StringUtils.containsAny("hello, goodbye", new String[]{"Hello", null}));
+        assertTrue(StringUtils.containsAny("hello, goodbye", new String[] { "hello", "goodbye" }));
+        assertTrue(StringUtils.containsAny("hello, goodbye", new String[] { "hello", "Goodbye" }));
+        assertFalse(StringUtils.containsAny("hello, goodbye", new String[] { "Hello", "Goodbye" }));
+        assertFalse(StringUtils.containsAny("hello, goodbye", new String[] { "Hello", null }));
         assertFalse(StringUtils.containsAny("hello, null", new String[] { "Hello", null }));
         // Javadoc examples:
         assertTrue(StringUtils.containsAny("abcd", "ab", null));

@@ -30,7 +30,7 @@ public class AtomicInitializerSupplierTest extends AbstractConcurrentInitializer
      */
     @Override
     protected ConcurrentInitializer<Object> createInitializer() {
-        return AtomicInitializer.<Object>builder().setInitializer(() -> new Object()).get();
+        return AtomicInitializer.<Object>builder().setInitializer(Object::new).get();
     }
 
     @Override

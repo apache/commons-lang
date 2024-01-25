@@ -80,7 +80,7 @@ public class CharUtilsTest extends AbstractLangTest {
         assertFalse(CharUtils.isAsciiAlpha(CHAR_COPY));
 
         for (int i = 0; i < 196; i++) {
-            if ((i >= 'A' && i <= 'Z') || (i >= 'a' && i <= 'z')) {
+            if (i >= 'A' && i <= 'Z' || i >= 'a' && i <= 'z') {
                 assertTrue(CharUtils.isAsciiAlpha((char) i));
             } else {
                 assertFalse(CharUtils.isAsciiAlpha((char) i));
@@ -116,7 +116,7 @@ public class CharUtilsTest extends AbstractLangTest {
         assertFalse(CharUtils.isAsciiAlphanumeric(CHAR_COPY));
 
         for (int i = 0; i < 196; i++) {
-            if ((i >= 'A' && i <= 'Z') || (i >= 'a' && i <= 'z') || (i >= '0' && i <= '9')) {
+            if (i >= 'A' && i <= 'Z' || i >= 'a' && i <= 'z' || i >= '0' && i <= '9') {
                 assertTrue(CharUtils.isAsciiAlphanumeric((char) i));
             } else {
                 assertFalse(CharUtils.isAsciiAlphanumeric((char) i));

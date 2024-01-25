@@ -316,7 +316,7 @@ public class BitField {
      *  parameter replacing the old bits
      */
     public int setValue(final int holder, final int value) {
-        return (holder & ~mask) | ((value << shiftCount) & mask);
+        return holder & ~mask | value << shiftCount & mask;
     }
 
 }

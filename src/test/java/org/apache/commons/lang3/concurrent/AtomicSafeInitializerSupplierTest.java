@@ -72,9 +72,8 @@ public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitial
             protected Object initialize() {
                 if (firstRun.getAndSet(false)) {
                     return null;
-                } else {
-                    return new Object();
                 }
+                return new Object();
             }
         };
 
