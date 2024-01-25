@@ -826,4 +826,14 @@ public class Streams {
     public static <T> Collector<T, ?, T[]> toArray(final Class<T> pElementType) {
         return new ArrayCollector<>(pElementType);
     }
+    
+    /**
+     * Make private in 4.0.
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public Streams() {
+        // empty
+    }
 }
