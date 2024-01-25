@@ -65,14 +65,52 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1726" type="fix" dev="ggregory" due-to="Václav Haisman, Gary Gregory">Undeprecate ExceptionUtils.rethrow(Throwable).</action>
     <action issue="LANG-1702" type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">Test the Conversion class #1155.</action>
     <action                   type="fix" dev="ggregory" due-to="ParanoidUser, Elliotte Rusty Harold, Gary Gregory">Address minor redundancies after code inspection #1148.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate AnnotationUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ArchUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ArrayUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate BooleanUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate CharSequenceUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate CharSetUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate CharUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ClassLoaderUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ClassPathUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ClassUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ConstructorUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate DateFormatUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate DateUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate Diff.getType().</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate DiffBuilder.DiffBuilder(T, T, ToStringStyle).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate DiffBuilder.DiffBuilder(T, T, ToStringStyle, boolean).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate DurationFormatUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate DurationUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate EnumUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate EventUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate FieldUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate IEEE754rUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate InheritanceUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate IntStreams 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate LocaleUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate LockingVisitors 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate MemberUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate MethodUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumberUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ObjectUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate RandomStringUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate RandomUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ReflectionDiffBuilder.ReflectionDiffBuilder(T, T, ToStringStyle).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate RegExUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate SerializationUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate Streams 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate StringEscapeUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate StringUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate Suppliers 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate SystemProperties 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ThreadUtils 0-argument constructor.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate TypeUtils 0-argument constructor.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="sebb" due-to="Dependabot">Bump commons-parent from 64 to 65.</action>
     <!-- REMOVE -->
     <action                   type="remove" dev="ggregory" due-to="Paranoïd User">Drop obsolete JDK 13 Maven profile #1142.</action>
-    <action                   type="remove" dev="ggregory" due-to="Gary Gregory">Deprecate Diff.getType().</action>
-    <action                   type="remove" dev="ggregory" due-to="Gary Gregory">Deprecate DiffBuilder.DiffBuilder(T, T, ToStringStyle).</action>
-    <action                   type="remove" dev="ggregory" due-to="Gary Gregory">Deprecate DiffBuilder.DiffBuilder(T, T, ToStringStyle, boolean).</action>
-    <action                   type="remove" dev="ggregory" due-to="Gary Gregory">Deprecate ReflectionDiffBuilder.ReflectionDiffBuilder(T, T, ToStringStyle).</action>
   </release>
   <release version="3.14.0" date="2023-11-18" description="New features and bug fixes (Java 8 or above).">
     <!-- FIX -->
