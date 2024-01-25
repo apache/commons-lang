@@ -77,4 +77,14 @@ public class ClassLoaderUtils {
     public static String toString(final URLClassLoader classLoader) {
         return classLoader != null ? classLoader + Arrays.toString(classLoader.getURLs()) : "null";
     }
+
+    /**
+     * Make private in 4.0.
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public ClassLoaderUtils() {
+        // empty
+    }
 }
