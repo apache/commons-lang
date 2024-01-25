@@ -63,7 +63,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1713" type="fix" dev="ggregory" due-to="John Hendrikx, Gary Gregory">ArrayUtils will return null when adding two null arrays, but undocumented.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Let parent POM figure out commons.spdx.version.</action>
     <action issue="LANG-1726" type="fix" dev="ggregory" due-to="Václav Haisman, Gary Gregory">Undeprecate ExceptionUtils.rethrow(Throwable).</action>
-    <action issue="LANG-1702" type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">Test the Conversion class #1155.</action> 
+    <action issue="LANG-1702" type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">Test the Conversion class #1155.</action>
+    <action                   type="fix" dev="ggregory" due-to="ParanoidUser, Elliotte Rusty Harold, Gary Gregory">Address minor redundancies after code inspection #1148.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="sebb" due-to="Dependabot">Bump commons-parent from 64 to 65.</action>
     <!-- REMOVE -->
