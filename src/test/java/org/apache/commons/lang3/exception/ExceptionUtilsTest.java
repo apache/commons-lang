@@ -695,7 +695,6 @@ public class ExceptionUtilsTest extends AbstractLangTest {
         ExceptionUtils.printRootCauseStackTrace(null, new PrintStream(out));
         assertEquals(0, out.toString().length());
 
-        out = new ByteArrayOutputStream(1024);
         assertThrows(
                 NullPointerException.class,
                 () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintStream) null));
@@ -719,7 +718,6 @@ public class ExceptionUtilsTest extends AbstractLangTest {
         ExceptionUtils.printRootCauseStackTrace(null, new PrintWriter(writer));
         assertEquals(0, writer.getBuffer().length());
 
-        writer = new StringWriter(1024);
         assertThrows(
                 NullPointerException.class,
                 () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintWriter) null));

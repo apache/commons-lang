@@ -201,14 +201,14 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         buffer.append(locale);
         buffer.append("]");
         final MessageFormat mf = createMessageFormat(pattern, locale);
-        ExtendedMessageFormat emf = null;
+        ExtendedMessageFormat emf;
         if (locale == null) {
             emf = new ExtendedMessageFormat(pattern);
         } else {
             emf = new ExtendedMessageFormat(pattern, locale);
         }
-        assertEquals(mf.format(args), emf.format(args), "format "    + buffer.toString());
-        assertEquals(mf.toPattern(), emf.toPattern(), "toPattern " + buffer.toString());
+        assertEquals(mf.format(args), emf.format(args), "format "    + buffer);
+        assertEquals(mf.toPattern(), emf.toPattern(), "toPattern " + buffer);
     }
 
     /**
@@ -395,46 +395,66 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         assertEquals("it's a dummy test!", emf.format(new Object[] {"DUMMY"}));
     }
     /**
-     * Test extended and built in formats.
+     * Test extended and built-in formats with available locales.
      */
     @Test
-    public void testExtendedAndBuiltInFormats() {
+    public void testExtendedAndBuiltInFormatsWithAvailableLocales() {
+        final String extendedPattern = "Name: {0,upper} ";
+        final String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
+        final String pattern = extendedPattern + builtinsPattern;
+
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
         final Object[] args = {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
-        final String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
-        final String extendedPattern = "Name: {0,upper} ";
-        final String pattern = extendedPattern + builtinsPattern;
 
         final HashSet<Locale> testLocales = new HashSet<>(Arrays.asList(DateFormat.getAvailableLocales()));
         testLocales.retainAll(Arrays.asList(NumberFormat.getAvailableLocales()));
-        testLocales.add(null);
 
         for (final Locale locale : testLocales) {
             final MessageFormat builtins = createMessageFormat(builtinsPattern, locale);
             final String expectedPattern = extendedPattern + builtins.toPattern();
-            DateFormat df = null;
-            NumberFormat nf = null;
-            ExtendedMessageFormat emf = null;
-            if (locale == null) {
-                df = DateFormat.getDateInstance(DateFormat.SHORT);
-                nf = NumberFormat.getCurrencyInstance();
-                emf = new ExtendedMessageFormat(pattern, registry);
-            } else {
-                df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-                nf = NumberFormat.getCurrencyInstance(locale);
-                emf = new ExtendedMessageFormat(pattern, locale, registry);
-            }
+            final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, locale, registry);
+            assertEquals(expectedPattern, emf.toPattern(), "pattern comparison for locale " + locale);
+
+            final DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+            final NumberFormat nf = NumberFormat.getCurrencyInstance(locale);
             final StringBuilder expected = new StringBuilder();
             expected.append("Name: ");
-            expected.append(args[0].toString().toUpperCase(Locale.ROOT));
+            expected.append(args[0].toString().toUpperCase(locale));
             expected.append(" DOB: ");
             expected.append(df.format(args[1]));
             expected.append(" Salary: ");
             expected.append(nf.format(args[2]));
-            assertEquals(expectedPattern, emf.toPattern(), "pattern comparison for locale " + locale);
             assertEquals(expected.toString(), emf.format(args), String.valueOf(locale));
         }
+    }
+    /**
+     * Test extended and built-in formats with the default locale.
+     */
+    @Test
+    public void testExtendedAndBuiltInFormatsWithDefaultLocale() {
+        final String extendedPattern = "Name: {0,upper} ";
+        final String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
+        final String pattern = extendedPattern + builtinsPattern;
+
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
+        final MessageFormat builtins = createMessageFormat(builtinsPattern, null);
+        final String expectedPattern = extendedPattern + builtins.toPattern();
+        assertEquals(expectedPattern, emf.toPattern(), "pattern comparison for default locale");
+
+        final Calendar cal = Calendar.getInstance();
+        cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
+        final Object[] args = {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
+        final DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+        final NumberFormat nf = NumberFormat.getCurrencyInstance();
+        final StringBuilder expected = new StringBuilder();
+        expected.append("Name: ");
+        expected.append(args[0].toString().toUpperCase());
+        expected.append(" DOB: ");
+        expected.append(df.format(args[1]));
+        expected.append(" Salary: ");
+        expected.append(nf.format(args[2]));
+        assertEquals(expected.toString(), emf.format(args));
     }
     /**
      * Test extended formats.

@@ -219,7 +219,7 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
             if (random.nextDouble() < 0.5) {
                 original.append(random.nextInt() % 10);
             } else {
-                original = new StringBuilder().append(String.valueOf(random.nextInt() % 100)).append(original);
+                original = new StringBuilder().append(random.nextInt() % 100).append(original);
             }
             testNewLastIndexOfSingle(original, seg);
         }

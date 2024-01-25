@@ -82,7 +82,7 @@ public class DateUtilsTest extends AbstractLangTest {
     private static void assertWeekIterator(final Iterator<?> it, final Calendar start, final Calendar end) {
         Calendar cal = (Calendar) it.next();
         assertCalendarsEquals("", start, cal, 0);
-        Calendar last = null;
+        Calendar last;
         int count = 1;
         while (it.hasNext()) {
             //Check this is just a date (no time component)

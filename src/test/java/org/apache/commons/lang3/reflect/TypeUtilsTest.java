@@ -229,33 +229,8 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;
 
-    public void delegateBooleanAssertion(final Type[] types, final int i2, final int i1, final boolean expected) {
-        final Type type1 = types[i1];
-        final Type type2 = types[i2];
-        final boolean isAssignable = TypeUtils.isAssignable(type2, type1);
-
-        if (expected) {
-            assertTrue(isAssignable,
-                    "[" + i1 + ", " + i2 + "]: From "
-                                + String.valueOf(type2) + " to "
-                                + String.valueOf(type1));
-        } else {
-            assertFalse(isAssignable,
-                    "[" + i1 + ", " + i2 + "]: From "
-                                + String.valueOf(type2) + " to "
-                                + String.valueOf(type1));
-        }
-    }
-
-    public void dummyMethod(final List list0, final List<Object> list1, final List<?> list2,
-            final List<? super Object> list3, final List<String> list4, final List<? extends String> list5,
-            final List<? super String> list6, final List[] list7, final List<Object>[] list8, final List<?>[] list9,
-            final List<? super Object>[] list10, final List<String>[] list11, final List<? extends String>[] list12,
-            final List<? super String>[] list13) {
-    }
-
     @Test
-    public void test_LANG_1114() throws Exception {
+    public void test_LANG_1114() throws NoSuchFieldException {
         final Type nonWildcardType = getClass().getDeclaredField("wildcardComparable").getGenericType();
         final Type wildcardType = ((ParameterizedType) nonWildcardType).getActualTypeArguments()[0];
 
@@ -264,7 +239,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void test_LANG_1190() throws Exception {
+    public void test_LANG_1190() throws NoSuchMethodException {
         final Type fromType = ClassWithSuperClassWithGenericType.class.getDeclaredMethod("methodWithGenericReturnType").getGenericReturnType();
         final Type failingToType = TypeUtils.wildcardType().withLowerBounds(ClassWithSuperClassWithGenericType.class).build();
 
@@ -272,7 +247,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void test_LANG_1348() throws Exception {
+    public void test_LANG_1348() throws NoSuchMethodException {
         final Method method = Enum.class.getMethod("valueOf", Class.class, String.class);
         assertEquals("T extends java.lang.Enum<T>", TypeUtils.toString(method.getGenericReturnType()));
     }
@@ -336,7 +311,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsTypeVariables() throws Exception {
+    public void testContainsTypeVariables() throws NoSuchMethodException {
         assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m0").getGenericReturnType()));
         assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m1").getGenericReturnType()));
         assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m2").getGenericReturnType()));
@@ -358,8 +333,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testDetermineTypeVariableAssignments() throws SecurityException,
-            NoSuchFieldException {
+    public void testDetermineTypeVariableAssignments() throws NoSuchFieldException {
         final ParameterizedType iterableType = (ParameterizedType) getClass().getField("iterable")
                 .getGenericType();
         final Map<TypeVariable<?>, Type> typeVarAssigns = TypeUtils.determineTypeArguments(TreeSet.class,
@@ -376,7 +350,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testGenericArrayType() throws Exception {
+    public void testGenericArrayType() throws NoSuchFieldException {
         final Type expected = getClass().getField("intWildcardComparable").getGenericType();
         final GenericArrayType actual =
             TypeUtils.genericArrayType(TypeUtils.parameterize(Comparable.class, TypeUtils.wildcardType()
@@ -386,27 +360,38 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testGetArrayComponentType() throws Exception {
-        final Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
-                List.class, List.class, List.class, List.class, List[].class, List[].class,
-                List[].class, List[].class, List[].class, List[].class, List[].class);
+    public void testGetArrayComponentType() throws NoSuchFieldException {
+        final Type rawListType = GenericTypeHolder.class.getDeclaredField("rawList").getGenericType();
+        final Type objectListType = GenericTypeHolder.class.getDeclaredField("objectList").getGenericType();
+        final Type unboundListType = GenericTypeHolder.class.getDeclaredField("unboundList").getGenericType();
+        final Type superObjectListType = GenericTypeHolder.class.getDeclaredField("superObjectList").getGenericType();
+        final Type stringListType = GenericTypeHolder.class.getDeclaredField("stringList").getGenericType();
+        final Type subStringListType = GenericTypeHolder.class.getDeclaredField("subStringList").getGenericType();
+        final Type superStringListType = GenericTypeHolder.class.getDeclaredField("superStringList").getGenericType();
 
-        final Type[] types = method.getGenericParameterTypes();
+        assertNull(TypeUtils.getArrayComponentType(rawListType));
+        assertNull(TypeUtils.getArrayComponentType(objectListType));
+        assertNull(TypeUtils.getArrayComponentType(unboundListType));
+        assertNull(TypeUtils.getArrayComponentType(superObjectListType));
+        assertNull(TypeUtils.getArrayComponentType(stringListType));
+        assertNull(TypeUtils.getArrayComponentType(subStringListType));
+        assertNull(TypeUtils.getArrayComponentType(superStringListType));
 
-        assertNull(TypeUtils.getArrayComponentType(types[0]));
-        assertNull(TypeUtils.getArrayComponentType(types[1]));
-        assertNull(TypeUtils.getArrayComponentType(types[2]));
-        assertNull(TypeUtils.getArrayComponentType(types[3]));
-        assertNull(TypeUtils.getArrayComponentType(types[4]));
-        assertNull(TypeUtils.getArrayComponentType(types[5]));
-        assertNull(TypeUtils.getArrayComponentType(types[6]));
-        assertEquals(types[0], TypeUtils.getArrayComponentType(types[7]));
-        assertEquals(types[1], TypeUtils.getArrayComponentType(types[8]));
-        assertEquals(types[2], TypeUtils.getArrayComponentType(types[9]));
-        assertEquals(types[3], TypeUtils.getArrayComponentType(types[10]));
-        assertEquals(types[4], TypeUtils.getArrayComponentType(types[11]));
-        assertEquals(types[5], TypeUtils.getArrayComponentType(types[12]));
-        assertEquals(types[6], TypeUtils.getArrayComponentType(types[13]));
+        final Type rawListTypeArray = GenericTypeHolder.class.getDeclaredField("rawListArray").getGenericType();
+        final Type objectListTypeArray = GenericTypeHolder.class.getDeclaredField("objectListArray").getGenericType();
+        final Type unboundListTypeArray = GenericTypeHolder.class.getDeclaredField("unboundListArray").getGenericType();
+        final Type superObjectListTypeArray = GenericTypeHolder.class.getDeclaredField("superObjectListArray").getGenericType();
+        final Type stringListTypeArray = GenericTypeHolder.class.getDeclaredField("stringListArray").getGenericType();
+        final Type subStringListTypeArray = GenericTypeHolder.class.getDeclaredField("subStringListArray").getGenericType();
+        final Type superStringListTypeArray = GenericTypeHolder.class.getDeclaredField("superStringListArray").getGenericType();
+
+        assertEquals(rawListType, TypeUtils.getArrayComponentType(rawListTypeArray));
+        assertEquals(objectListType, TypeUtils.getArrayComponentType(objectListTypeArray));
+        assertEquals(unboundListType, TypeUtils.getArrayComponentType(unboundListTypeArray));
+        assertEquals(superObjectListType, TypeUtils.getArrayComponentType(superObjectListTypeArray));
+        assertEquals(stringListType, TypeUtils.getArrayComponentType(stringListTypeArray));
+        assertEquals(subStringListType, TypeUtils.getArrayComponentType(subStringListTypeArray));
+        assertEquals(superStringListType, TypeUtils.getArrayComponentType(superStringListTypeArray));
     }
 
     @Test
@@ -431,7 +416,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testGetRawType() throws SecurityException, NoSuchFieldException {
+    public void testGetRawType() throws NoSuchFieldException {
         final Type stringParentFieldType = GenericTypeHolder.class.getDeclaredField("stringParent").getGenericType();
         final Type integerParentFieldType = GenericTypeHolder.class.getDeclaredField("integerParent").getGenericType();
         final Type foosFieldType = GenericTypeHolder.class.getDeclaredField("foos").getGenericType();
@@ -451,7 +436,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
      * Tests https://issues.apache.org/jira/browse/LANG-1697
      */
     @Test
-    public void testGetRawType_LANG_1697() throws NoSuchFieldException {
+    public void testGetRawType_LANG_1697() {
         assertEquals(int[].class, TypeUtils.getRawType(TypeUtils.genericArrayType(Integer.TYPE), Integer.TYPE));
         // LANG-1697:
         assertNull(TypeUtils.getRawType(TypeUtils.genericArrayType(TypeUtils.WILDCARD_ALL), null));
@@ -511,27 +496,38 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testIsArrayGenericTypes() throws Exception {
-        final Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
-                List.class, List.class, List.class, List.class, List[].class, List[].class,
-                List[].class, List[].class, List[].class, List[].class, List[].class);
+    public void testIsArrayGenericTypes() throws NoSuchFieldException {
+        final Type rawListType = GenericTypeHolder.class.getDeclaredField("rawList").getGenericType();
+        final Type objectListType = GenericTypeHolder.class.getDeclaredField("objectList").getGenericType();
+        final Type unboundListType = GenericTypeHolder.class.getDeclaredField("unboundList").getGenericType();
+        final Type superObjectListType = GenericTypeHolder.class.getDeclaredField("superObjectList").getGenericType();
+        final Type stringListType = GenericTypeHolder.class.getDeclaredField("stringList").getGenericType();
+        final Type subStringListType = GenericTypeHolder.class.getDeclaredField("subStringList").getGenericType();
+        final Type superStringListType = GenericTypeHolder.class.getDeclaredField("superStringList").getGenericType();
 
-        final Type[] types = method.getGenericParameterTypes();
+        assertFalse(TypeUtils.isArrayType(rawListType));
+        assertFalse(TypeUtils.isArrayType(objectListType));
+        assertFalse(TypeUtils.isArrayType(unboundListType));
+        assertFalse(TypeUtils.isArrayType(superObjectListType));
+        assertFalse(TypeUtils.isArrayType(stringListType));
+        assertFalse(TypeUtils.isArrayType(subStringListType));
+        assertFalse(TypeUtils.isArrayType(superStringListType));
 
-        assertFalse(TypeUtils.isArrayType(types[0]));
-        assertFalse(TypeUtils.isArrayType(types[1]));
-        assertFalse(TypeUtils.isArrayType(types[2]));
-        assertFalse(TypeUtils.isArrayType(types[3]));
-        assertFalse(TypeUtils.isArrayType(types[4]));
-        assertFalse(TypeUtils.isArrayType(types[5]));
-        assertFalse(TypeUtils.isArrayType(types[6]));
-        assertTrue(TypeUtils.isArrayType(types[7]));
-        assertTrue(TypeUtils.isArrayType(types[8]));
-        assertTrue(TypeUtils.isArrayType(types[9]));
-        assertTrue(TypeUtils.isArrayType(types[10]));
-        assertTrue(TypeUtils.isArrayType(types[11]));
-        assertTrue(TypeUtils.isArrayType(types[12]));
-        assertTrue(TypeUtils.isArrayType(types[13]));
+        final Type rawListTypeArray = GenericTypeHolder.class.getDeclaredField("rawListArray").getGenericType();
+        final Type objectListTypeArray = GenericTypeHolder.class.getDeclaredField("objectListArray").getGenericType();
+        final Type unboundListTypeArray = GenericTypeHolder.class.getDeclaredField("unboundListArray").getGenericType();
+        final Type superObjectListTypeArray = GenericTypeHolder.class.getDeclaredField("superObjectListArray").getGenericType();
+        final Type stringListTypeArray = GenericTypeHolder.class.getDeclaredField("stringListArray").getGenericType();
+        final Type subStringListTypeArray = GenericTypeHolder.class.getDeclaredField("subStringListArray").getGenericType();
+        final Type superStringListTypeArray = GenericTypeHolder.class.getDeclaredField("superStringListArray").getGenericType();
+
+        assertTrue(TypeUtils.isArrayType(rawListTypeArray));
+        assertTrue(TypeUtils.isArrayType(objectListTypeArray));
+        assertTrue(TypeUtils.isArrayType(unboundListTypeArray));
+        assertTrue(TypeUtils.isArrayType(superObjectListTypeArray));
+        assertTrue(TypeUtils.isArrayType(stringListTypeArray));
+        assertTrue(TypeUtils.isArrayType(subStringListTypeArray));
+        assertTrue(TypeUtils.isArrayType(superStringListTypeArray));
     }
 
     @Test
@@ -559,360 +555,229 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertFalse(TypeUtils.isArrayType(String.class));
     }
 
-    @SuppressWarnings("boxing") // deliberately used here
     @Test
-    public void testIsAssignable() throws SecurityException, NoSuchMethodException,
-            NoSuchFieldException {
-        List list0 = null;
-        List<Object> list1;
-        List<?> list2;
-        List<? super Object> list3;
-        List<String> list4;
-        List<? extends String> list5;
-        List<? super String> list6;
-        List[] list7 = null;
-        List<Object>[] list8;
-        List<?>[] list9;
-        List<? super Object>[] list10;
-        List<String>[] list11;
-        List<? extends String>[] list12;
-        List<? super String>[] list13;
-        final Class<?> clazz = getClass();
-        final Method method = clazz.getMethod("dummyMethod", List.class, List.class, List.class,
-                List.class, List.class, List.class, List.class, List[].class, List[].class,
-                List[].class, List[].class, List[].class, List[].class, List[].class);
-        final Type[] types = method.getGenericParameterTypes();
-//        list0 = list0;
-        delegateBooleanAssertion(types, 0, 0, true);
-        list1 = list0;
-        delegateBooleanAssertion(types, 0, 1, true);
-        list0 = list1;
-        delegateBooleanAssertion(types, 1, 0, true);
-        list2 = list0;
-        delegateBooleanAssertion(types, 0, 2, true);
-        list0 = list2;
-        delegateBooleanAssertion(types, 2, 0, true);
-        list3 = list0;
-        delegateBooleanAssertion(types, 0, 3, true);
-        list0 = list3;
-        delegateBooleanAssertion(types, 3, 0, true);
-        list4 = list0;
-        delegateBooleanAssertion(types, 0, 4, true);
-        list0 = list4;
-        delegateBooleanAssertion(types, 4, 0, true);
-        list5 = list0;
-        delegateBooleanAssertion(types, 0, 5, true);
-        list0 = list5;
-        delegateBooleanAssertion(types, 5, 0, true);
-        list6 = list0;
-        delegateBooleanAssertion(types, 0, 6, true);
-        list0 = list6;
-        delegateBooleanAssertion(types, 6, 0, true);
-//        list1 = list1;
-        delegateBooleanAssertion(types, 1, 1, true);
-        list2 = list1;
-        delegateBooleanAssertion(types, 1, 2, true);
-        list1 = (List<Object>) list2;
-        delegateBooleanAssertion(types, 2, 1, false);
-        list3 = list1;
-        delegateBooleanAssertion(types, 1, 3, true);
-        list1 = (List<Object>) list3;
-        delegateBooleanAssertion(types, 3, 1, false);
-        // list4 = list1;
-        delegateBooleanAssertion(types, 1, 4, false);
-        // list1 = list4;
-        delegateBooleanAssertion(types, 4, 1, false);
-        // list5 = list1;
-        delegateBooleanAssertion(types, 1, 5, false);
-        // list1 = list5;
-        delegateBooleanAssertion(types, 5, 1, false);
-        list6 = list1;
-        delegateBooleanAssertion(types, 1, 6, true);
-        list1 = (List<Object>) list6;
-        delegateBooleanAssertion(types, 6, 1, false);
-//        list2 = list2;
-        delegateBooleanAssertion(types, 2, 2, true);
-        list2 = list3;
-        delegateBooleanAssertion(types, 2, 3, false);
-        list2 = list4;
-        delegateBooleanAssertion(types, 3, 2, true);
-        list3 = (List<? super Object>) list2;
-        delegateBooleanAssertion(types, 2, 4, false);
-        list2 = list5;
-        delegateBooleanAssertion(types, 4, 2, true);
-        list4 = (List<String>) list2;
-        delegateBooleanAssertion(types, 2, 5, false);
-        list2 = list6;
-        delegateBooleanAssertion(types, 5, 2, true);
-        list5 = (List<? extends String>) list2;
-        delegateBooleanAssertion(types, 2, 6, false);
-//        list3 = list3;
-        delegateBooleanAssertion(types, 6, 2, true);
-        list6 = (List<? super String>) list2;
-        delegateBooleanAssertion(types, 3, 3, true);
-        // list4 = list3;
-        delegateBooleanAssertion(types, 3, 4, false);
-        // list3 = list4;
-        delegateBooleanAssertion(types, 4, 3, false);
-        // list5 = list3;
-        delegateBooleanAssertion(types, 3, 5, false);
-        // list3 = list5;
-        delegateBooleanAssertion(types, 5, 3, false);
-        list6 = list3;
-        delegateBooleanAssertion(types, 3, 6, true);
-        list3 = (List<? super Object>) list6;
-        delegateBooleanAssertion(types, 6, 3, false);
-//        list4 = list4;
-        delegateBooleanAssertion(types, 4, 4, true);
-        list5 = list4;
-        delegateBooleanAssertion(types, 4, 5, true);
-        list4 = (List<String>) list5;
-        delegateBooleanAssertion(types, 5, 4, false);
-        list6 = list4;
-        delegateBooleanAssertion(types, 4, 6, true);
-        list4 = (List<String>) list6;
-        delegateBooleanAssertion(types, 6, 4, false);
-//        list5 = list5;
-        delegateBooleanAssertion(types, 5, 5, true);
-        list6 = (List<? super String>) list5;
-        delegateBooleanAssertion(types, 5, 6, false);
-        list5 = (List<? extends String>) list6;
-        delegateBooleanAssertion(types, 6, 5, false);
-//        list6 = list6;
-        delegateBooleanAssertion(types, 6, 6, true);
-
-//        list7 = list7;
-        delegateBooleanAssertion(types, 7, 7, true);
-        list8 = list7;
-        delegateBooleanAssertion(types, 7, 8, true);
-        list7 = list8;
-        delegateBooleanAssertion(types, 8, 7, true);
-        list9 = list7;
-        delegateBooleanAssertion(types, 7, 9, true);
-        list7 = list9;
-        delegateBooleanAssertion(types, 9, 7, true);
-        list10 = list7;
-        delegateBooleanAssertion(types, 7, 10, true);
-        list7 = list10;
-        delegateBooleanAssertion(types, 10, 7, true);
-        list11 = list7;
-        delegateBooleanAssertion(types, 7, 11, true);
-        list7 = list11;
-        delegateBooleanAssertion(types, 11, 7, true);
-        list12 = list7;
-        delegateBooleanAssertion(types, 7, 12, true);
-        list7 = list12;
-        delegateBooleanAssertion(types, 12, 7, true);
-        list13 = list7;
-        delegateBooleanAssertion(types, 7, 13, true);
-        list7 = list13;
-        delegateBooleanAssertion(types, 13, 7, true);
-//        list8 = list8;
-        delegateBooleanAssertion(types, 8, 8, true);
-        list9 = list8;
-        delegateBooleanAssertion(types, 8, 9, true);
-        list8 = (List<Object>[]) list9;
-        delegateBooleanAssertion(types, 9, 8, false);
-        list10 = list8;
-        delegateBooleanAssertion(types, 8, 10, true);
-        list8 = (List<Object>[]) list10; // NOTE cast is required by Sun Java, but not by Eclipse
-        delegateBooleanAssertion(types, 10, 8, false);
-        // list11 = list8;
-        delegateBooleanAssertion(types, 8, 11, false);
-        // list8 = list11;
-        delegateBooleanAssertion(types, 11, 8, false);
-        // list12 = list8;
-        delegateBooleanAssertion(types, 8, 12, false);
-        // list8 = list12;
-        delegateBooleanAssertion(types, 12, 8, false);
-        list13 = list8;
-        delegateBooleanAssertion(types, 8, 13, true);
-        list8 = (List<Object>[]) list13;
-        delegateBooleanAssertion(types, 13, 8, false);
-//        list9 = list9;
-        delegateBooleanAssertion(types, 9, 9, true);
-        list10 = (List<? super Object>[]) list9;
-        delegateBooleanAssertion(types, 9, 10, false);
-        list9 = list10;
-        delegateBooleanAssertion(types, 10, 9, true);
-        list11 = (List<String>[]) list9;
-        delegateBooleanAssertion(types, 9, 11, false);
-        list9 = list11;
-        delegateBooleanAssertion(types, 11, 9, true);
-        list12 = (List<? extends String>[]) list9;
-        delegateBooleanAssertion(types, 9, 12, false);
-        list9 = list12;
-        delegateBooleanAssertion(types, 12, 9, true);
-        list13 = (List<? super String>[]) list9;
-        delegateBooleanAssertion(types, 9, 13, false);
-        list9 = list13;
-        delegateBooleanAssertion(types, 13, 9, true);
-//        list10 = list10;
-        delegateBooleanAssertion(types, 10, 10, true);
-        // list11 = list10;
-        delegateBooleanAssertion(types, 10, 11, false);
-        // list10 = list11;
-        delegateBooleanAssertion(types, 11, 10, false);
-        // list12 = list10;
-        delegateBooleanAssertion(types, 10, 12, false);
-        // list10 = list12;
-        delegateBooleanAssertion(types, 12, 10, false);
-        list13 = list10;
-        delegateBooleanAssertion(types, 10, 13, true);
-        list10 = (List<? super Object>[]) list13;
-        delegateBooleanAssertion(types, 13, 10, false);
-//        list11 = list11;
-        delegateBooleanAssertion(types, 11, 11, true);
-        list12 = list11;
-        delegateBooleanAssertion(types, 11, 12, true);
-        list11 = (List<String>[]) list12;
-        delegateBooleanAssertion(types, 12, 11, false);
-        list13 = list11;
-        delegateBooleanAssertion(types, 11, 13, true);
-        list11 = (List<String>[]) list13;
-        delegateBooleanAssertion(types, 13, 11, false);
-//        list12 = list12;
-        delegateBooleanAssertion(types, 12, 12, true);
-        list13 = (List<? super String>[]) list12;
-        delegateBooleanAssertion(types, 12, 13, false);
-        list12 = (List<? extends String>[]) list13;
-        delegateBooleanAssertion(types, 13, 12, false);
-//        list13 = list13;
-        delegateBooleanAssertion(types, 13, 13, true);
-        final Type disType = getClass().getField("dis").getGenericType();
-        // Reporter.log( ( ( ParameterizedType ) disType
-        // ).getOwnerType().getClass().toString() );
-        final Type datType = getClass().getField("dat").getGenericType();
-        final Type daType = getClass().getField("da").getGenericType();
-        final Type uhderType = getClass().getField("uhder").getGenericType();
-        final Type dingType = getClass().getField("ding").getGenericType();
-        final Type testerType = getClass().getField("tester").getGenericType();
-        final Type tester2Type = getClass().getField("tester2").getGenericType();
-        final Type dat2Type = getClass().getField("dat2").getGenericType();
-        final Type dat3Type = getClass().getField("dat3").getGenericType();
-        dis = dat;
-        assertTrue(TypeUtils.isAssignable(datType, disType));
-        // dis = da;
-        assertFalse(TypeUtils.isAssignable(daType, disType));
-        dis = uhder;
-        assertTrue(TypeUtils.isAssignable(uhderType, disType));
-        dis = ding;
-        assertFalse(TypeUtils.isAssignable(dingType, disType),
-                String.format("type %s not assignable to %s!", dingType, disType));
-        dis = tester;
-        assertTrue(TypeUtils.isAssignable(testerType, disType));
-        // dis = tester2;
-        assertFalse(TypeUtils.isAssignable(tester2Type, disType));
-        // dat = dat2;
-        assertFalse(TypeUtils.isAssignable(dat2Type, datType));
-        // dat2 = dat;
-        assertFalse(TypeUtils.isAssignable(datType, dat2Type));
-        // dat = dat3;
-        assertFalse(TypeUtils.isAssignable(dat3Type, datType));
-        final char ch = 0;
-        final boolean bo = false;
-        final byte by = 0;
-        final short sh = 0;
-        int in = 0;
-        long lo = 0;
-        final float fl = 0;
-        double du;
-        du = ch;
+    public void testIsAssignableClasses() {
         assertTrue(TypeUtils.isAssignable(char.class, double.class));
-        du = by;
         assertTrue(TypeUtils.isAssignable(byte.class, double.class));
-        du = sh;
         assertTrue(TypeUtils.isAssignable(short.class, double.class));
-        du = in;
         assertTrue(TypeUtils.isAssignable(int.class, double.class));
-        du = lo;
         assertTrue(TypeUtils.isAssignable(long.class, double.class));
-        du = fl;
         assertTrue(TypeUtils.isAssignable(float.class, double.class));
-        lo = in;
+
         assertTrue(TypeUtils.isAssignable(int.class, long.class));
-        lo = Integer.valueOf(0);
         assertTrue(TypeUtils.isAssignable(Integer.class, long.class));
-        // Long lngW = 1;
         assertFalse(TypeUtils.isAssignable(int.class, Long.class));
-        // lngW = Integer.valueOf( 0 );
         assertFalse(TypeUtils.isAssignable(Integer.class, Long.class));
-        in = Integer.valueOf(0);
         assertTrue(TypeUtils.isAssignable(Integer.class, int.class));
-        final Integer inte = in;
         assertTrue(TypeUtils.isAssignable(int.class, Integer.class));
         assertTrue(TypeUtils.isAssignable(int.class, Number.class));
         assertTrue(TypeUtils.isAssignable(int.class, Object.class));
-        final Type intComparableType = getClass().getField("intComparable").getGenericType();
-        intComparable = 1;
-        assertTrue(TypeUtils.isAssignable(int.class, intComparableType));
         assertTrue(TypeUtils.isAssignable(int.class, Comparable.class));
-        final Serializable ser = 1;
         assertTrue(TypeUtils.isAssignable(int.class, Serializable.class));
-        final Type longComparableType = getClass().getField("longComparable").getGenericType();
-        // longComparable = 1;
-        assertFalse(TypeUtils.isAssignable(int.class, longComparableType));
-        // longComparable = Integer.valueOf( 0 );
-        assertFalse(TypeUtils.isAssignable(Integer.class, longComparableType));
-        // int[] ia;
-        // long[] la = ia;
+
         assertFalse(TypeUtils.isAssignable(int[].class, long[].class));
-        final Integer[] ia = null;
-        final Type caType = getClass().getField("intWildcardComparable").getGenericType();
-        intWildcardComparable = ia;
-        assertTrue(TypeUtils.isAssignable(Integer[].class, caType));
-        // int[] ina = ia;
         assertFalse(TypeUtils.isAssignable(Integer[].class, int[].class));
-        final int[] ina = null;
-        final Object[] oa;
-        // oa = ina;
         assertFalse(TypeUtils.isAssignable(int[].class, Object[].class));
-        oa = new Integer[0];
         assertTrue(TypeUtils.isAssignable(Integer[].class, Object[].class));
-        final Type bClassType = AClass.class.getField("bClass").getGenericType();
-        final Type cClassType = AClass.class.getField("cClass").getGenericType();
-        final Type dClassType = AClass.class.getField("dClass").getGenericType();
-        final Type eClassType = AClass.class.getField("eClass").getGenericType();
-        final Type fClassType = AClass.class.getField("fClass").getGenericType();
-        final AClass aClass = new AClass(new AAClass<>());
-        aClass.bClass = aClass.cClass;
+    }
+
+    @Test
+    public void testIsAssignableGenericComparableTypes() throws NoSuchFieldException {
+        final Type intComparableType = getClass().getField("intComparable").getGenericType();
+        assertTrue(TypeUtils.isAssignable(int.class, intComparableType));
+
+        final Type longComparableType = getClass().getField("longComparable").getGenericType();
+        assertFalse(TypeUtils.isAssignable(int.class, longComparableType));
+        assertFalse(TypeUtils.isAssignable(Integer.class, longComparableType));
+
+        final Type intComparableArrayType = getClass().getField("intWildcardComparable").getGenericType();
+        assertTrue(TypeUtils.isAssignable(Integer[].class, intComparableArrayType));
+    }
+
+    @Test
+    public void testIsAssignableGenericListTypes() throws NoSuchFieldException {
+        final Type rawListType = GenericTypeHolder.class.getDeclaredField("rawList").getGenericType();
+        final Type objectListType = GenericTypeHolder.class.getDeclaredField("objectList").getGenericType();
+        final Type unboundListType = GenericTypeHolder.class.getDeclaredField("unboundList").getGenericType();
+        final Type superObjectListType = GenericTypeHolder.class.getDeclaredField("superObjectList").getGenericType();
+        final Type stringListType = GenericTypeHolder.class.getDeclaredField("stringList").getGenericType();
+        final Type subStringListType = GenericTypeHolder.class.getDeclaredField("subStringList").getGenericType();
+        final Type superStringListType = GenericTypeHolder.class.getDeclaredField("superStringList").getGenericType();
+
+        assertTrue(TypeUtils.isAssignable(rawListType, rawListType));
+        assertTrue(TypeUtils.isAssignable(rawListType, objectListType));
+        assertTrue(TypeUtils.isAssignable(objectListType, rawListType));
+        assertTrue(TypeUtils.isAssignable(rawListType, unboundListType));
+        assertTrue(TypeUtils.isAssignable(unboundListType, rawListType));
+        assertTrue(TypeUtils.isAssignable(rawListType, superObjectListType));
+        assertTrue(TypeUtils.isAssignable(superObjectListType, rawListType));
+        assertTrue(TypeUtils.isAssignable(rawListType, stringListType));
+        assertTrue(TypeUtils.isAssignable(stringListType, rawListType));
+        assertTrue(TypeUtils.isAssignable(rawListType, subStringListType));
+        assertTrue(TypeUtils.isAssignable(subStringListType, rawListType));
+        assertTrue(TypeUtils.isAssignable(rawListType, superStringListType));
+        assertTrue(TypeUtils.isAssignable(superStringListType, rawListType));
+
+        assertTrue(TypeUtils.isAssignable(objectListType, objectListType));
+        assertTrue(TypeUtils.isAssignable(objectListType, unboundListType));
+        assertFalse(TypeUtils.isAssignable(unboundListType, objectListType));
+        assertTrue(TypeUtils.isAssignable(objectListType, superObjectListType));
+        assertFalse(TypeUtils.isAssignable(superObjectListType, objectListType));
+        assertFalse(TypeUtils.isAssignable(objectListType, stringListType));
+        assertFalse(TypeUtils.isAssignable(stringListType, objectListType));
+        assertFalse(TypeUtils.isAssignable(objectListType, subStringListType));
+        assertFalse(TypeUtils.isAssignable(subStringListType, objectListType));
+        assertTrue(TypeUtils.isAssignable(objectListType, superStringListType));
+        assertFalse(TypeUtils.isAssignable(superStringListType, objectListType));
+
+        assertTrue(TypeUtils.isAssignable(unboundListType, unboundListType));
+        assertFalse(TypeUtils.isAssignable(unboundListType, superObjectListType));
+        assertTrue(TypeUtils.isAssignable(superObjectListType, unboundListType));
+        assertFalse(TypeUtils.isAssignable(unboundListType, stringListType));
+        assertTrue(TypeUtils.isAssignable(stringListType, unboundListType));
+        assertFalse(TypeUtils.isAssignable(unboundListType, subStringListType));
+        assertTrue(TypeUtils.isAssignable(subStringListType, unboundListType));
+        assertFalse(TypeUtils.isAssignable(unboundListType, superStringListType));
+        assertTrue(TypeUtils.isAssignable(superStringListType, unboundListType));
+
+        assertTrue(TypeUtils.isAssignable(superObjectListType, superObjectListType));
+        assertFalse(TypeUtils.isAssignable(superObjectListType, stringListType));
+        assertFalse(TypeUtils.isAssignable(stringListType, superObjectListType));
+        assertFalse(TypeUtils.isAssignable(superObjectListType, subStringListType));
+        assertFalse(TypeUtils.isAssignable(subStringListType, superObjectListType));
+        assertTrue(TypeUtils.isAssignable(superObjectListType, superStringListType));
+        assertFalse(TypeUtils.isAssignable(superStringListType, superObjectListType));
+
+        assertTrue(TypeUtils.isAssignable(stringListType, stringListType));
+        assertTrue(TypeUtils.isAssignable(stringListType, subStringListType));
+        assertFalse(TypeUtils.isAssignable(subStringListType, stringListType));
+        assertTrue(TypeUtils.isAssignable(stringListType, superStringListType));
+        assertFalse(TypeUtils.isAssignable(superStringListType, stringListType));
+
+        assertTrue(TypeUtils.isAssignable(subStringListType, subStringListType));
+        assertFalse(TypeUtils.isAssignable(subStringListType, superStringListType));
+        assertFalse(TypeUtils.isAssignable(superStringListType, subStringListType));
+        assertTrue(TypeUtils.isAssignable(superStringListType, superStringListType));
+    }
+
+    @Test
+    public void testIsAssignableGenericListArrays() throws NoSuchFieldException {
+        final Type rawListTypeArray = GenericTypeHolder.class.getDeclaredField("rawListArray").getGenericType();
+        final Type objectListTypeArray = GenericTypeHolder.class.getDeclaredField("objectListArray").getGenericType();
+        final Type unboundListTypeArray = GenericTypeHolder.class.getDeclaredField("unboundListArray").getGenericType();
+        final Type superObjectListTypeArray = GenericTypeHolder.class.getDeclaredField("superObjectListArray").getGenericType();
+        final Type stringListTypeArray = GenericTypeHolder.class.getDeclaredField("stringListArray").getGenericType();
+        final Type subStringListTypeArray = GenericTypeHolder.class.getDeclaredField("subStringListArray").getGenericType();
+        final Type superStringListTypeArray = GenericTypeHolder.class.getDeclaredField("superStringListArray").getGenericType();
+
+        assertTrue(TypeUtils.isAssignable(rawListTypeArray, rawListTypeArray));
+        assertTrue(TypeUtils.isAssignable(rawListTypeArray, objectListTypeArray));
+        assertTrue(TypeUtils.isAssignable(objectListTypeArray, rawListTypeArray));
+        assertTrue(TypeUtils.isAssignable(rawListTypeArray, unboundListTypeArray));
+        assertTrue(TypeUtils.isAssignable(unboundListTypeArray, rawListTypeArray));
+        assertTrue(TypeUtils.isAssignable(rawListTypeArray, superObjectListTypeArray));
+        assertTrue(TypeUtils.isAssignable(superObjectListTypeArray, rawListTypeArray));
+        assertTrue(TypeUtils.isAssignable(rawListTypeArray, stringListTypeArray));
+        assertTrue(TypeUtils.isAssignable(stringListTypeArray, rawListTypeArray));
+        assertTrue(TypeUtils.isAssignable(rawListTypeArray, subStringListTypeArray));
+        assertTrue(TypeUtils.isAssignable(subStringListTypeArray, rawListTypeArray));
+        assertTrue(TypeUtils.isAssignable(rawListTypeArray, superStringListTypeArray));
+        assertTrue(TypeUtils.isAssignable(superStringListTypeArray, rawListTypeArray));
+
+        assertTrue(TypeUtils.isAssignable(objectListTypeArray, objectListTypeArray));
+        assertTrue(TypeUtils.isAssignable(objectListTypeArray, unboundListTypeArray));
+        assertFalse(TypeUtils.isAssignable(unboundListTypeArray, objectListTypeArray));
+        assertTrue(TypeUtils.isAssignable(objectListTypeArray, superObjectListTypeArray));
+        assertFalse(TypeUtils.isAssignable(superObjectListTypeArray, objectListTypeArray));
+        assertFalse(TypeUtils.isAssignable(objectListTypeArray, stringListTypeArray));
+        assertFalse(TypeUtils.isAssignable(stringListTypeArray, objectListTypeArray));
+        assertFalse(TypeUtils.isAssignable(objectListTypeArray, subStringListTypeArray));
+        assertFalse(TypeUtils.isAssignable(subStringListTypeArray, objectListTypeArray));
+        assertTrue(TypeUtils.isAssignable(objectListTypeArray, superStringListTypeArray));
+        assertFalse(TypeUtils.isAssignable(superStringListTypeArray, objectListTypeArray));
+
+        assertTrue(TypeUtils.isAssignable(unboundListTypeArray, unboundListTypeArray));
+        assertFalse(TypeUtils.isAssignable(unboundListTypeArray, superObjectListTypeArray));
+        assertTrue(TypeUtils.isAssignable(superObjectListTypeArray, unboundListTypeArray));
+        assertFalse(TypeUtils.isAssignable(unboundListTypeArray, stringListTypeArray));
+        assertTrue(TypeUtils.isAssignable(stringListTypeArray, unboundListTypeArray));
+        assertFalse(TypeUtils.isAssignable(unboundListTypeArray, subStringListTypeArray));
+        assertTrue(TypeUtils.isAssignable(subStringListTypeArray, unboundListTypeArray));
+        assertFalse(TypeUtils.isAssignable(unboundListTypeArray, superStringListTypeArray));
+        assertTrue(TypeUtils.isAssignable(superStringListTypeArray, unboundListTypeArray));
+
+        assertTrue(TypeUtils.isAssignable(superObjectListTypeArray, superObjectListTypeArray));
+        assertFalse(TypeUtils.isAssignable(superObjectListTypeArray, stringListTypeArray));
+        assertFalse(TypeUtils.isAssignable(stringListTypeArray, superObjectListTypeArray));
+        assertFalse(TypeUtils.isAssignable(superObjectListTypeArray, subStringListTypeArray));
+        assertFalse(TypeUtils.isAssignable(subStringListTypeArray, superObjectListTypeArray));
+        assertTrue(TypeUtils.isAssignable(superObjectListTypeArray, superStringListTypeArray));
+        assertFalse(TypeUtils.isAssignable(superStringListTypeArray, superObjectListTypeArray));
+
+        assertTrue(TypeUtils.isAssignable(stringListTypeArray, stringListTypeArray));
+        assertTrue(TypeUtils.isAssignable(stringListTypeArray, subStringListTypeArray));
+        assertFalse(TypeUtils.isAssignable(subStringListTypeArray, stringListTypeArray));
+        assertTrue(TypeUtils.isAssignable(stringListTypeArray, superStringListTypeArray));
+        assertFalse(TypeUtils.isAssignable(superStringListTypeArray, stringListTypeArray));
+
+        assertTrue(TypeUtils.isAssignable(subStringListTypeArray, subStringListTypeArray));
+        assertFalse(TypeUtils.isAssignable(subStringListTypeArray, superStringListTypeArray));
+        assertFalse(TypeUtils.isAssignable(superStringListTypeArray, subStringListTypeArray));
+        assertTrue(TypeUtils.isAssignable(superStringListTypeArray, superStringListTypeArray));
+    }
+
+    @Test
+    public void testIsAssignableDirectClassHierarchy() throws NoSuchFieldException {
+        final Type bClassType = AClass.class.getField("bClass").getGenericType(); // B is superclass
+        final Type cClassType = AClass.class.getField("cClass").getGenericType(); // C subclass of B
+        final Type dClassType = AClass.class.getField("dClass").getGenericType(); // D subclass of C
+        final Type eClassType = AClass.class.getField("eClass").getGenericType(); // E subclass of D
+        final Type fClassType = AClass.class.getField("fClass").getGenericType(); // F subclass of E
+
         assertTrue(TypeUtils.isAssignable(cClassType, bClassType));
-        aClass.bClass = aClass.dClass;
         assertTrue(TypeUtils.isAssignable(dClassType, bClassType));
-        aClass.bClass = aClass.eClass;
         assertTrue(TypeUtils.isAssignable(eClassType, bClassType));
-        aClass.bClass = aClass.fClass;
         assertTrue(TypeUtils.isAssignable(fClassType, bClassType));
-        aClass.cClass = aClass.dClass;
+
         assertTrue(TypeUtils.isAssignable(dClassType, cClassType));
-        aClass.cClass = aClass.eClass;
         assertTrue(TypeUtils.isAssignable(eClassType, cClassType));
-        aClass.cClass = aClass.fClass;
         assertTrue(TypeUtils.isAssignable(fClassType, cClassType));
-        aClass.dClass = aClass.eClass;
+
         assertTrue(TypeUtils.isAssignable(eClassType, dClassType));
-        aClass.dClass = aClass.fClass;
         assertTrue(TypeUtils.isAssignable(fClassType, dClassType));
-        aClass.eClass = aClass.fClass;
+
         assertTrue(TypeUtils.isAssignable(fClassType, eClassType));
     }
 
-    private void testIsAssignable(final Class testUnassignableClass) {
-        final Class<Constructor> rawClass = Constructor.class;
-        final Class<Insets> typeArgClass = Insets.class;
-        // Builds a ParameterizedType for Constructor<Insets>
-        final ParameterizedType paramType = TypeUtils.parameterize(rawClass, typeArgClass);
-        assertEquals(rawClass, paramType.getRawType());
-        assertEquals(typeArgClass, paramType.getActualTypeArguments()[0]);
+    @Test
+    public void testIsAssignableGenericClassHierarchy() throws NoSuchFieldException {
+        /*
+         *            <<This>>
+         *      /      /     \     \
+         * <<And>>   That   Other   Tester
+         *      \   /         |
+         *       The        Thing
+         */
+        final Type disType = getClass().getField("dis").getGenericType();       // This is superinterface
+        final Type datType = getClass().getField("dat").getGenericType();       // That implements This
+        final Type dat2Type = getClass().getField("dat2").getGenericType();
+        final Type dat3Type = getClass().getField("dat3").getGenericType();
+        final Type daType = getClass().getField("da").getGenericType();         // The extends That and implements And
+        final Type uhderType = getClass().getField("uhder").getGenericType();   // Other implements This
+        final Type dingType = getClass().getField("ding").getGenericType();     // Thing extends Other
+        final Type testerType = getClass().getField("tester").getGenericType(); // Tester implements This
+        final Type tester2Type = getClass().getField("tester2").getGenericType();
 
-        assertFalse(testUnassignableClass.isAssignableFrom(paramType.getClass()));
-        assertFalse(paramType.getClass().isAssignableFrom(testUnassignableClass));
+        assertTrue(TypeUtils.isAssignable(datType, disType));
+        assertFalse(TypeUtils.isAssignable(daType, disType));
+        assertTrue(TypeUtils.isAssignable(uhderType, disType));
+        assertFalse(TypeUtils.isAssignable(dingType, disType));
+        assertTrue(TypeUtils.isAssignable(testerType, disType));
+        assertFalse(TypeUtils.isAssignable(tester2Type, disType));
 
-        final GenericArrayType arrayType = TypeUtils.genericArrayType(paramType);
-        assertFalse(TypeUtils.isAssignable(arrayType, paramType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", arrayType, paramType));
-        assertFalse(TypeUtils.isAssignable(paramType, arrayType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, arrayType));
+        assertFalse(TypeUtils.isAssignable(dat2Type, datType));
+        assertFalse(TypeUtils.isAssignable(datType, dat2Type));
+        assertFalse(TypeUtils.isAssignable(dat3Type, datType));
     }
 
     @Test
@@ -977,12 +842,10 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     @SuppressWarnings("boxing") // boxing is deliberate here
     @Test
-    public void testIsInstance() throws SecurityException, NoSuchFieldException {
+    public void testIsInstance() throws NoSuchFieldException {
         final Type intComparableType = getClass().getField("intComparable").getGenericType();
         final Type uriComparableType = getClass().getField("uriComparable").getGenericType();
-        intComparable = 1;
         assertTrue(TypeUtils.isInstance(1, intComparableType));
-        // uriComparable = 1;
         assertFalse(TypeUtils.isInstance(1, uriComparableType));
     }
 
@@ -999,7 +862,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testParameterize() throws Exception {
+    public void testParameterize() throws NoSuchFieldException {
         final ParameterizedType stringComparableType = TypeUtils.parameterize(Comparable.class, String.class);
         assertTrue(TypeUtils.equals(getClass().getField("stringComparable").getGenericType(),
             stringComparableType));
@@ -1028,7 +891,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testParameterizeWithOwner() throws Exception {
+    public void testParameterizeWithOwner() throws NoSuchFieldException {
         final Type owner = TypeUtils.parameterize(TypeUtilsTest.class, String.class);
         final ParameterizedType dat2Type = TypeUtils.parameterizeWithOwner(owner, That.class, String.class, String.class);
         assertTrue(TypeUtils.equals(getClass().getField("dat2").getGenericType(), dat2Type));
@@ -1064,8 +927,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testTypesSatisfyVariables() throws SecurityException,
-            NoSuchMethodException {
+    public void testTypesSatisfyVariables() throws NoSuchMethodException {
         final Map<TypeVariable<?>, Type> typeVarAssigns = new HashMap<>();
         final Integer max = TypeUtilsTest.<Integer>stub();
         typeVarAssigns.put(getClass().getMethod("stub").getTypeParameters()[0], Integer.class);
@@ -1096,7 +958,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    public void testWildcardType() throws Exception {
+    public void testWildcardType() throws NoSuchFieldException {
         final WildcardType simpleWildcard = TypeUtils.wildcardType().withUpperBounds(String.class).build();
         final Field cClass = AClass.class.getField("cClass");
         assertTrue(TypeUtils.equals(((ParameterizedType) cClass.getGenericType()).getActualTypeArguments()[0],

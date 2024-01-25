@@ -357,7 +357,7 @@ public class FractionTest extends AbstractLangTest {
         assertEquals(1, f.getDenominator());
 
         // normal
-        Fraction f2 = null;
+        Fraction f2;
         for (int i = 1; i <= 100; i++) {  // denominator
             for (int j = 1; j <= i; j++) {  // numerator
                 f = Fraction.getFraction((double) j / (double) i);
@@ -1036,7 +1036,6 @@ public class FractionTest extends AbstractLangTest {
         assertThrows(
                 ArithmeticException.class,
                 () -> Fraction.getFraction(1, Integer.MAX_VALUE).subtract(Fraction.getFraction(1, Integer.MAX_VALUE - 1)));
-            f = f1.subtract(f2);
 
         // denominator should not be a multiple of 2 or 3 to trigger overflow
         assertThrows(

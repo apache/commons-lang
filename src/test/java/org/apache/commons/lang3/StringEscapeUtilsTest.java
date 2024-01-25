@@ -487,7 +487,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         for (char i = Character.MIN_VALUE; i < Character.MAX_VALUE; i++) {
             final Character c1 = Character.valueOf(i);
             final Character c2 = Character.valueOf((char) (i+1));
-            final String expected = c1.toString() + c2.toString();
+            final String expected = c1.toString() + c2;
             final String escapedC1 = "&#x" + Integer.toHexString((c1.charValue())) + ";";
             final String escapedC2 = "&#x" + Integer.toHexString((c2.charValue())) + ";";
             assertEquals(expected, StringEscapeUtils.unescapeHtml4(escapedC1 + escapedC2), "hex number unescape index " + (int) i);

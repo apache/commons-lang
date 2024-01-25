@@ -333,9 +333,9 @@ public class JsonToStringStyleTest extends AbstractLangTest {
 
         assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append(now).toString());
 
-        assertEquals("{\"now\":\"" + now.toString() +"\"}", new ToStringBuilder(base).append("now", now)
+        assertEquals("{\"now\":\"" + now +"\"}", new ToStringBuilder(base).append("now", now)
                 .toString());
-        assertEquals("{\"now\":\"" + now.toString() +"\",\"after\":\"" + afterNow.toString() + "\"}", new ToStringBuilder(base).append("now", now).append("after", afterNow)
+        assertEquals("{\"now\":\"" + now +"\",\"after\":\"" + afterNow + "\"}", new ToStringBuilder(base).append("now", now).append("after", afterNow)
                 .toString());
     }
 

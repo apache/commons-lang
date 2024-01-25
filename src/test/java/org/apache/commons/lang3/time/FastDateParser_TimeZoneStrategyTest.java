@@ -145,7 +145,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                     }
                     // Hack End
                     fail(String.format("%s: with locale = %s, zIndex = %,d, tzDisplay = '%s', parser = '%s'", e,
-                            localeStr, zIndex, tzDisplay, parser.toString()), e);
+                            localeStr, zIndex, tzDisplay, parser), e);
                 }
             }
         }
