@@ -249,4 +249,13 @@ public class IEEE754rUtils {
         return min(min(a, b), c);
     }
 
+    /**
+     * Make private in 4.0.
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public IEEE754rUtils() {
+        // empty
+    }
 }
