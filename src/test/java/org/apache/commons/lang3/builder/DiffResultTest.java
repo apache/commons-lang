@@ -132,20 +132,6 @@ public class DiffResultTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToStringOutput() {
-        // @formatter:off
-        final DiffResult<EmptyClass> result = DiffBuilder.<EmptyClass>builder()
-                .setLeft(new EmptyClass())
-                .setRight(new EmptyClass())
-                .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
-                .build()
-                .append("test", false, true)
-                .build();
-        // @formatter:on
-        assertEquals("DiffResultTest.EmptyClass[test=false] differs from DiffResultTest.EmptyClass[test=true]", result.toString());
-    }
-
-    @Test
     public void testToStringFormat() {
         // @formatter:off
         final DiffResult<EmptyClass> result = DiffBuilder.<EmptyClass>builder()
@@ -158,6 +144,20 @@ public class DiffResultTest extends AbstractLangTest {
                 .build();
         // @formatter:on
         assertEquals("DiffResultTest.EmptyClass[test=false] <> DiffResultTest.EmptyClass[test=true]", result.toString());
+    }
+
+    @Test
+    public void testToStringOutput() {
+        // @formatter:off
+        final DiffResult<EmptyClass> result = DiffBuilder.<EmptyClass>builder()
+                .setLeft(new EmptyClass())
+                .setRight(new EmptyClass())
+                .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
+                .build()
+                .append("test", false, true)
+                .build();
+        // @formatter:on
+        assertEquals("DiffResultTest.EmptyClass[test=false] differs from DiffResultTest.EmptyClass[test=true]", result.toString());
     }
 
     @Test

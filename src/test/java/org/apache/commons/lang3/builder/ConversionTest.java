@@ -31,13 +31,13 @@ class ConversionTest {
     }
 
     @Test
-    void testHexToByte_nullString() {
-        assertThrows(NullPointerException.class, () -> Conversion.hexToByte(null, 0, (byte) 0, 0, 2));
+    void testHexToByte_IllegalArgument() {
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByte("A0", 0, (byte) 0, 4, 2));
     }
 
     @Test
-    void testHexToByte_IllegalArgument() {
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByte("A0", 0, (byte) 0, 4, 2));
+    void testHexToByte_nullString() {
+        assertThrows(NullPointerException.class, () -> Conversion.hexToByte(null, 0, (byte) 0, 0, 2));
     }
 
 }
