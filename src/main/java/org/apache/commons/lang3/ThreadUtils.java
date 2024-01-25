@@ -570,13 +570,15 @@ public class ThreadUtils {
     }
 
     /**
-     * ThreadUtils instances should NOT be constructed in standard programming. Instead, the class should be used as
-     * {@code ThreadUtils.getAllThreads()}
-     *
+     * ThreadUtils instances should NOT be constructed in standard programming. Instead, the class should be used as {@code ThreadUtils.getAllThreads()}
      * <p>
      * This constructor is public to permit tools that require a JavaBean instance to operate.
      * </p>
+     *
+     * @deprecated TODO Make private in 4.0.
      */
+    @Deprecated
     public ThreadUtils() {
+        // empty
     }
 }
