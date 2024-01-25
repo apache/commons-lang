@@ -61,4 +61,13 @@ public class Suppliers {
         return NUL;
     }
 
+    /**
+     * Make private in 4.0.
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public Suppliers() {
+        // empty
+    }
 }
