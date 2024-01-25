@@ -389,11 +389,11 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.abbreviateMiddle(null, null, 0)      = null
-     * StringUtils.abbreviateMiddle("abc", null, 0)      = "abc"
-     * StringUtils.abbreviateMiddle("abc", ".", 0)      = "abc"
-     * StringUtils.abbreviateMiddle("abc", ".", 3)      = "abc"
-     * StringUtils.abbreviateMiddle("abcdef", ".", 4)     = "ab.f"
+     * StringUtils.abbreviateMiddle(null, null, 0)    = null
+     * StringUtils.abbreviateMiddle("abc", null, 0)   = "abc"
+     * StringUtils.abbreviateMiddle("abc", ".", 0)    = "abc"
+     * StringUtils.abbreviateMiddle("abc", ".", 3)    = "abc"
+     * StringUtils.abbreviateMiddle("abcdef", ".", 4) = "ab.f"
      * </pre>
      *
      * @param str  the String to abbreviate, may be null
@@ -446,21 +446,21 @@ public class StringUtils {
      * already end with any of the suffixes.
      *
      * <pre>
-     * StringUtils.appendIfMissing(null, null) = null
-     * StringUtils.appendIfMissing("abc", null) = "abc"
-     * StringUtils.appendIfMissing("", "xyz") = "xyz"
-     * StringUtils.appendIfMissing("abc", "xyz") = "abcxyz"
+     * StringUtils.appendIfMissing(null, null)      = null
+     * StringUtils.appendIfMissing("abc", null)     = "abc"
+     * StringUtils.appendIfMissing("", "xyz"        = "xyz"
+     * StringUtils.appendIfMissing("abc", "xyz")    = "abcxyz"
      * StringUtils.appendIfMissing("abcxyz", "xyz") = "abcxyz"
      * StringUtils.appendIfMissing("abcXYZ", "xyz") = "abcXYZxyz"
      * </pre>
      * <p>With additional suffixes,</p>
      * <pre>
-     * StringUtils.appendIfMissing(null, null, null) = null
-     * StringUtils.appendIfMissing("abc", null, null) = "abc"
-     * StringUtils.appendIfMissing("", "xyz", null) = "xyz"
+     * StringUtils.appendIfMissing(null, null, null)       = null
+     * StringUtils.appendIfMissing("abc", null, null)      = "abc"
+     * StringUtils.appendIfMissing("", "xyz", null)        = "xyz"
      * StringUtils.appendIfMissing("abc", "xyz", new CharSequence[]{null}) = "abcxyz"
-     * StringUtils.appendIfMissing("abc", "xyz", "") = "abc"
-     * StringUtils.appendIfMissing("abc", "xyz", "mno") = "abcxyz"
+     * StringUtils.appendIfMissing("abc", "xyz", "")       = "abc"
+     * StringUtils.appendIfMissing("abc", "xyz", "mno")    = "abcxyz"
      * StringUtils.appendIfMissing("abcxyz", "xyz", "mno") = "abcxyz"
      * StringUtils.appendIfMissing("abcmno", "xyz", "mno") = "abcmno"
      * StringUtils.appendIfMissing("abcXYZ", "xyz", "mno") = "abcXYZxyz"
@@ -484,21 +484,21 @@ public class StringUtils {
      * already end, case-insensitive, with any of the suffixes.
      *
      * <pre>
-     * StringUtils.appendIfMissingIgnoreCase(null, null) = null
-     * StringUtils.appendIfMissingIgnoreCase("abc", null) = "abc"
-     * StringUtils.appendIfMissingIgnoreCase("", "xyz") = "xyz"
-     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz") = "abcxyz"
+     * StringUtils.appendIfMissingIgnoreCase(null, null)      = null
+     * StringUtils.appendIfMissingIgnoreCase("abc", null)     = "abc"
+     * StringUtils.appendIfMissingIgnoreCase("", "xyz")       = "xyz"
+     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz")    = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abcxyz", "xyz") = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abcXYZ", "xyz") = "abcXYZ"
      * </pre>
      * <p>With additional suffixes,</p>
      * <pre>
-     * StringUtils.appendIfMissingIgnoreCase(null, null, null) = null
-     * StringUtils.appendIfMissingIgnoreCase("abc", null, null) = "abc"
-     * StringUtils.appendIfMissingIgnoreCase("", "xyz", null) = "xyz"
+     * StringUtils.appendIfMissingIgnoreCase(null, null, null)       = null
+     * StringUtils.appendIfMissingIgnoreCase("abc", null, null)      = "abc"
+     * StringUtils.appendIfMissingIgnoreCase("", "xyz", null)        = "xyz"
      * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", new CharSequence[]{null}) = "abcxyz"
-     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "") = "abc"
-     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "mno") = "abcxyz"
+     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "")       = "abc"
+     * StringUtils.appendIfMissingIgnoreCase("abc", "xyz", "mno")    = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abcxyz", "xyz", "mno") = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abcmno", "xyz", "mno") = "abcmno"
      * StringUtils.appendIfMissingIgnoreCase("abcXYZ", "xyz", "mno") = "abcXYZ"
@@ -525,10 +525,10 @@ public class StringUtils {
      * A {@code null} input String returns {@code null}.</p>
      *
      * <pre>
-     * StringUtils.capitalize(null)  = null
-     * StringUtils.capitalize("")    = ""
-     * StringUtils.capitalize("cat") = "Cat"
-     * StringUtils.capitalize("cAt") = "CAt"
+     * StringUtils.capitalize(null)    = null
+     * StringUtils.capitalize("")      = ""
+     * StringUtils.capitalize("cat")   = "Cat"
+     * StringUtils.capitalize("cAt")   = "CAt"
      * StringUtils.capitalize("'cat'") = "'cat'"
      * </pre>
      *
@@ -1208,10 +1208,10 @@ public class StringUtils {
      * <p>A {@code null} CharSequence will return {@code false}.
      *
      * <pre>
-     * StringUtils.containsIgnoreCase(null, *) = false
-     * StringUtils.containsIgnoreCase(*, null) = false
-     * StringUtils.containsIgnoreCase("", "") = true
-     * StringUtils.containsIgnoreCase("abc", "") = true
+     * StringUtils.containsIgnoreCase(null, *)    = false
+     * StringUtils.containsIgnoreCase(*, null)    = false
+     * StringUtils.containsIgnoreCase("", "")     = true
+     * StringUtils.containsIgnoreCase("abc", "")  = true
      * StringUtils.containsIgnoreCase("abc", "a") = true
      * StringUtils.containsIgnoreCase("abc", "z") = false
      * StringUtils.containsIgnoreCase("abc", "A") = true
@@ -1426,11 +1426,11 @@ public class StringUtils {
      * <p>A {@code null} or empty ("") String input returns {@code 0}.</p>
      *
      * <pre>
-     * StringUtils.countMatches(null, *)       = 0
-     * StringUtils.countMatches("", *)         = 0
-     * StringUtils.countMatches("abba", 0)  = 0
-     * StringUtils.countMatches("abba", 'a')   = 2
-     * StringUtils.countMatches("abba", 'b')  = 2
+     * StringUtils.countMatches(null, *)     = 0
+     * StringUtils.countMatches("", *)       = 0
+     * StringUtils.countMatches("abba", 0)   = 0
+     * StringUtils.countMatches("abba", 'a') = 2
+     * StringUtils.countMatches("abba", 'b') = 2
      * StringUtils.countMatches("abba", 'x') = 0
      * </pre>
      *
@@ -1460,13 +1460,13 @@ public class StringUtils {
      * <p>A {@code null} or empty ("") String input returns {@code 0}.</p>
      *
      * <pre>
-     * StringUtils.countMatches(null, *)       = 0
-     * StringUtils.countMatches("", *)         = 0
-     * StringUtils.countMatches("abba", null)  = 0
-     * StringUtils.countMatches("abba", "")    = 0
-     * StringUtils.countMatches("abba", "a")   = 2
-     * StringUtils.countMatches("abba", "ab")  = 1
-     * StringUtils.countMatches("abba", "xxx") = 0
+     * StringUtils.countMatches(null, *)        = 0
+     * StringUtils.countMatches("", *)          = 0
+     * StringUtils.countMatches("abba", null)   = 0
+     * StringUtils.countMatches("abba", "")     = 0
+     * StringUtils.countMatches("abba", "a")    = 2
+     * StringUtils.countMatches("abba", "ab")   = 1
+     * StringUtils.countMatches("abba", "xxx")  = 0
      * StringUtils.countMatches("ababa", "aba") = 1
      * </pre>
      *
@@ -1630,15 +1630,15 @@ public class StringUtils {
      * {@code difference("i am a machine", "i am a robot") -> "robot"}.</p>
      *
      * <pre>
-     * StringUtils.difference(null, null) = null
-     * StringUtils.difference("", "") = ""
-     * StringUtils.difference("", "abc") = "abc"
-     * StringUtils.difference("abc", "") = ""
-     * StringUtils.difference("abc", "abc") = ""
-     * StringUtils.difference("abc", "ab") = ""
-     * StringUtils.difference("ab", "abxyz") = "xyz"
+     * StringUtils.difference(null, null)       = null
+     * StringUtils.difference("", "")           = ""
+     * StringUtils.difference("", "abc")        = "abc"
+     * StringUtils.difference("abc", "")        = ""
+     * StringUtils.difference("abc", "abc")     = ""
+     * StringUtils.difference("abc", "ab")      = ""
+     * StringUtils.difference("ab", "abxyz")    = "xyz"
      * StringUtils.difference("abcde", "abxyz") = "xyz"
-     * StringUtils.difference("abcde", "xyz") = "xyz"
+     * StringUtils.difference("abcde", "xyz")   = "xyz"
      * </pre>
      *
      * @param str1  the first String, may be null
@@ -1716,14 +1716,14 @@ public class StringUtils {
      * Check if a CharSequence ends with any of the provided case-sensitive suffixes.
      *
      * <pre>
-     * StringUtils.endsWithAny(null, null)      = false
+     * StringUtils.endsWithAny(null, null)                  = false
      * StringUtils.endsWithAny(null, new String[] {"abc"})  = false
-     * StringUtils.endsWithAny("abcxyz", null)     = false
+     * StringUtils.endsWithAny("abcxyz", null)              = false
      * StringUtils.endsWithAny("abcxyz", new String[] {""}) = true
      * StringUtils.endsWithAny("abcxyz", new String[] {"xyz"}) = true
      * StringUtils.endsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
-     * StringUtils.endsWithAny("abcXYZ", "def", "XYZ") = true
-     * StringUtils.endsWithAny("abcXYZ", "def", "xyz") = false
+     * StringUtils.endsWithAny("abcXYZ", "def", "XYZ")      = true
+     * StringUtils.endsWithAny("abcXYZ", "def", "xyz")      = false
      * </pre>
      *
      * @param sequence  the CharSequence to check, may be null
@@ -2018,22 +2018,22 @@ public class StringUtils {
      * {@code getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) -&gt; "i am a "}</p>
      *
      * <pre>
-     * StringUtils.getCommonPrefix(null) = ""
-     * StringUtils.getCommonPrefix(new String[] {}) = ""
-     * StringUtils.getCommonPrefix(new String[] {"abc"}) = "abc"
-     * StringUtils.getCommonPrefix(new String[] {null, null}) = ""
-     * StringUtils.getCommonPrefix(new String[] {"", ""}) = ""
-     * StringUtils.getCommonPrefix(new String[] {"", null}) = ""
+     * StringUtils.getCommonPrefix(null)                             = ""
+     * StringUtils.getCommonPrefix(new String[] {})                  = ""
+     * StringUtils.getCommonPrefix(new String[] {"abc"})             = "abc"
+     * StringUtils.getCommonPrefix(new String[] {null, null})        = ""
+     * StringUtils.getCommonPrefix(new String[] {"", ""})            = ""
+     * StringUtils.getCommonPrefix(new String[] {"", null})          = ""
      * StringUtils.getCommonPrefix(new String[] {"abc", null, null}) = ""
      * StringUtils.getCommonPrefix(new String[] {null, null, "abc"}) = ""
-     * StringUtils.getCommonPrefix(new String[] {"", "abc"}) = ""
-     * StringUtils.getCommonPrefix(new String[] {"abc", ""}) = ""
-     * StringUtils.getCommonPrefix(new String[] {"abc", "abc"}) = "abc"
-     * StringUtils.getCommonPrefix(new String[] {"abc", "a"}) = "a"
-     * StringUtils.getCommonPrefix(new String[] {"ab", "abxyz"}) = "ab"
-     * StringUtils.getCommonPrefix(new String[] {"abcde", "abxyz"}) = "ab"
-     * StringUtils.getCommonPrefix(new String[] {"abcde", "xyz"}) = ""
-     * StringUtils.getCommonPrefix(new String[] {"xyz", "abcde"}) = ""
+     * StringUtils.getCommonPrefix(new String[] {"", "abc"})         = ""
+     * StringUtils.getCommonPrefix(new String[] {"abc", ""})         = ""
+     * StringUtils.getCommonPrefix(new String[] {"abc", "abc"})      = "abc"
+     * StringUtils.getCommonPrefix(new String[] {"abc", "a"})        = "a"
+     * StringUtils.getCommonPrefix(new String[] {"ab", "abxyz"})     = "ab"
+     * StringUtils.getCommonPrefix(new String[] {"abcde", "abxyz"})  = "ab"
+     * StringUtils.getCommonPrefix(new String[] {"abcde", "xyz"})    = ""
+     * StringUtils.getCommonPrefix(new String[] {"xyz", "abcde"})    = ""
      * StringUtils.getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) = "i am a "
      * </pre>
      *
@@ -2070,12 +2070,12 @@ public class StringUtils {
      * <p>An empty ("") String will be returned if no digits found in {@code str}.</p>
      *
      * <pre>
-     * StringUtils.getDigits(null)  = null
-     * StringUtils.getDigits("")    = ""
-     * StringUtils.getDigits("abc") = ""
-     * StringUtils.getDigits("1000$") = "1000"
-     * StringUtils.getDigits("1123~45") = "112345"
-     * StringUtils.getDigits("(541) 754-3010") = "5417543010"
+     * StringUtils.getDigits(null)                 = null
+     * StringUtils.getDigits("")                   = ""
+     * StringUtils.getDigits("abc")                = ""
+     * StringUtils.getDigits("1000$")              = "1000"
+     * StringUtils.getDigits("1123~45")            = "112345"
+     * StringUtils.getDigits("(541) 754-3010")     = "5417543010"
      * StringUtils.getDigits("\u0967\u0968\u0969") = "\u0967\u0968\u0969"
      * </pre>
      *
@@ -2961,22 +2961,22 @@ public class StringUtils {
      * {@code indexOfDifference(new String[] {"i am a machine", "i am a robot"}) -> 7}</p>
      *
      * <pre>
-     * StringUtils.indexOfDifference(null) = -1
-     * StringUtils.indexOfDifference(new String[] {}) = -1
-     * StringUtils.indexOfDifference(new String[] {"abc"}) = -1
-     * StringUtils.indexOfDifference(new String[] {null, null}) = -1
-     * StringUtils.indexOfDifference(new String[] {"", ""}) = -1
-     * StringUtils.indexOfDifference(new String[] {"", null}) = 0
+     * StringUtils.indexOfDifference(null)                             = -1
+     * StringUtils.indexOfDifference(new String[] {})                  = -1
+     * StringUtils.indexOfDifference(new String[] {"abc"})             = -1
+     * StringUtils.indexOfDifference(new String[] {null, null})        = -1
+     * StringUtils.indexOfDifference(new String[] {"", ""})            = -1
+     * StringUtils.indexOfDifference(new String[] {"", null})          = 0
      * StringUtils.indexOfDifference(new String[] {"abc", null, null}) = 0
      * StringUtils.indexOfDifference(new String[] {null, null, "abc"}) = 0
-     * StringUtils.indexOfDifference(new String[] {"", "abc"}) = 0
-     * StringUtils.indexOfDifference(new String[] {"abc", ""}) = 0
-     * StringUtils.indexOfDifference(new String[] {"abc", "abc"}) = -1
-     * StringUtils.indexOfDifference(new String[] {"abc", "a"}) = 1
-     * StringUtils.indexOfDifference(new String[] {"ab", "abxyz"}) = 2
-     * StringUtils.indexOfDifference(new String[] {"abcde", "abxyz"}) = 2
-     * StringUtils.indexOfDifference(new String[] {"abcde", "xyz"}) = 0
-     * StringUtils.indexOfDifference(new String[] {"xyz", "abcde"}) = 0
+     * StringUtils.indexOfDifference(new String[] {"", "abc"})         = 0
+     * StringUtils.indexOfDifference(new String[] {"abc", ""})         = 0
+     * StringUtils.indexOfDifference(new String[] {"abc", "abc"})      = -1
+     * StringUtils.indexOfDifference(new String[] {"abc", "a"})        = 1
+     * StringUtils.indexOfDifference(new String[] {"ab", "abxyz"})     = 2
+     * StringUtils.indexOfDifference(new String[] {"abcde", "abxyz"})  = 2
+     * StringUtils.indexOfDifference(new String[] {"abcde", "xyz"})    = 0
+     * StringUtils.indexOfDifference(new String[] {"xyz", "abcde"})    = 0
      * StringUtils.indexOfDifference(new String[] {"i am a machine", "i am a robot"}) = 7
      * </pre>
      *
@@ -3051,14 +3051,14 @@ public class StringUtils {
      * {@code indexOfDifference("i am a machine", "i am a robot") -> 7}</p>
      *
      * <pre>
-     * StringUtils.indexOfDifference(null, null) = -1
-     * StringUtils.indexOfDifference("", "") = -1
-     * StringUtils.indexOfDifference("", "abc") = 0
-     * StringUtils.indexOfDifference("abc", "") = 0
-     * StringUtils.indexOfDifference("abc", "abc") = -1
-     * StringUtils.indexOfDifference("ab", "abxyz") = 2
+     * StringUtils.indexOfDifference(null, null)       = -1
+     * StringUtils.indexOfDifference("", "")           = -1
+     * StringUtils.indexOfDifference("", "abc")        = 0
+     * StringUtils.indexOfDifference("abc", "")        = 0
+     * StringUtils.indexOfDifference("abc", "abc")     = -1
+     * StringUtils.indexOfDifference("ab", "abxyz")    = 2
      * StringUtils.indexOfDifference("abcde", "abxyz") = 2
-     * StringUtils.indexOfDifference("abcde", "xyz") = 0
+     * StringUtils.indexOfDifference("abcde", "xyz")   = 0
      * </pre>
      *
      * @param cs1  the first CharSequence, may be null
@@ -3800,7 +3800,7 @@ public class StringUtils {
      * StringUtils.isNumericSpace("  ")   = true
      * StringUtils.isNumericSpace("123")  = true
      * StringUtils.isNumericSpace("12 3") = true
-     * StringUtils.isNumericSpace("\u0967\u0968\u0969")  = true
+     * StringUtils.isNumericSpace("\u0967\u0968\u0969")   = true
      * StringUtils.isNumericSpace("\u0967\u0968 \u0969")  = true
      * StringUtils.isNumericSpace("ab2c") = false
      * StringUtils.isNumericSpace("12-3") = false
@@ -3870,10 +3870,10 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)              = null
-     * StringUtils.join([], *)                = ""
-     * StringUtils.join([null], *)            = ""
-     * StringUtils.join([false, false], ';')  = "false;false"
+     * StringUtils.join(null, *)             = null
+     * StringUtils.join([], *)               = ""
+     * StringUtils.join([null], *)           = ""
+     * StringUtils.join([false, false], ';') = "false;false"
      * </pre>
      *
      * @param array
@@ -3899,10 +3899,10 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)                   = null
-     * StringUtils.join([], *)                     = ""
-     * StringUtils.join([null], *)                 = ""
-     * StringUtils.join([true, false, true], ';')  = "true;false;true"
+     * StringUtils.join(null, *)                  = null
+     * StringUtils.join([], *)                    = ""
+     * StringUtils.join([null], *)                = ""
+     * StringUtils.join([true, false, true], ';') = "true;false;true"
      * </pre>
      *
      * @param array
@@ -3943,9 +3943,9 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
+     * StringUtils.join(null, *)         = null
+     * StringUtils.join([], *)           = ""
+     * StringUtils.join([null], *)       = ""
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
@@ -3973,9 +3973,9 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
+     * StringUtils.join(null, *)         = null
+     * StringUtils.join([], *)           = ""
+     * StringUtils.join([null], *)       = ""
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
@@ -4018,9 +4018,9 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
+     * StringUtils.join(null, *)         = null
+     * StringUtils.join([], *)           = ""
+     * StringUtils.join([null], *)       = ""
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
@@ -4048,9 +4048,9 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
+     * StringUtils.join(null, *)         = null
+     * StringUtils.join([], *)           = ""
+     * StringUtils.join([null], *)       = ""
      * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
      * StringUtils.join([1, 2, 3], null) = "123"
      * </pre>
