@@ -136,4 +136,14 @@ public class ArchUtils {
         addProcessors(new Processor(Processor.Arch.BIT_64, Processor.Type.X86), "x86_64", "amd64", "em64t", "universal");
     }
 
+    /**
+     * Make private in 4.0.
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public ArchUtils() {
+        // empty
+    }
+
 }
