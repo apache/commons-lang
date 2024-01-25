@@ -383,4 +383,13 @@ public class LockingVisitors {
         return new LockingVisitors.StampedLockVisitor<>(object, new StampedLock());
     }
 
+    /**
+     * Make private in 4.0.
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public LockingVisitors() {
+        // empty
+    }
 }
