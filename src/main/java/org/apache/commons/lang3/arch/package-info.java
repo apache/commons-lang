@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
  * Provides classes to work with the values of the os.arch system property.
  * @since 3.6
