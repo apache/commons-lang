@@ -33,6 +33,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.function.FailableConsumer;
 
 /**
  * An EventListenerSupport object can be used to manage a list of event
@@ -74,6 +76,25 @@ public class EventListenerSupport<L> implements Serializable {
      */
     protected class ProxyInvocationHandler implements InvocationHandler {
 
+        private final FailableConsumer<Throwable, IllegalAccessException> handler;
+
+        /**
+         * Constructs a new instance.
+         */
+        public ProxyInvocationHandler() {
+            this(ExceptionUtils::rethrow);
+        }
+
+        /**
+         * Constructs a new instance.
+         *
+         * @param handler Handles Throwables.
+         * @since 3.15.0
+         */
+        public ProxyInvocationHandler(FailableConsumer<Throwable, IllegalAccessException> handler) {
+            this.handler = Objects.requireNonNull(handler);
+        }
+
         /**
          * Propagates the method call to all registered listeners in place of the proxy listener object.
          *
@@ -89,9 +110,26 @@ public class EventListenerSupport<L> implements Serializable {
         public Object invoke(final Object unusedProxy, final Method method, final Object[] args)
                 throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
             for (final L listener : listeners) {
-                method.invoke(listener, args);
+                try {
+                    method.invoke(listener, args);
+                } catch (final Throwable t) {
+                    handle(t);
+                }
             }
             return null;
+        }
+
+        /**
+         * Handles an exception thrown by a listener. By default rethrows the given Throwable.
+         *
+         * @param t The Throwable
+         * @throws IllegalAccessException thrown by the listener.
+         * @throws IllegalArgumentException thrown by the listener.
+         * @throws InvocationTargetException thrown by the listener.
+         * @since 3.15.0
+         */
+        protected void handle(final Throwable t) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            handler.accept(t);
         }
     }
 
