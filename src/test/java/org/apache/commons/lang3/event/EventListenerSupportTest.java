@@ -20,6 +20,7 @@ package org.apache.commons.lang3.event;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
@@ -31,12 +32,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
@@ -220,4 +224,29 @@ public class EventListenerSupportTest extends AbstractLangTest {
         eventListenerSupport.fire().vetoableChange(respond);
         EasyMock.verify(listener);
     }
+
+    /**
+     * Tests that throwing an exception from a listener stops calling the remaining listeners.
+     */
+    @Test
+    public void testThrowingListener() {
+        final AtomicInteger count = new AtomicInteger();
+        final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
+        final int vetoLimit = 1;
+        for (int i = 0; i < 10; ++i) {
+            listenerSupport.addListener(evt -> {
+                if (count.incrementAndGet() > vetoLimit) {
+                    throw new PropertyVetoException(count.toString(), evt);
+                }
+            });
+        }
+        assertEquals(10, listenerSupport.getListenerCount());
+        assertEquals(0, count.get());
+        final Exception e = assertThrows(UndeclaredThrowableException.class,
+                () -> listenerSupport.fire().vetoableChange(new PropertyChangeEvent(new Date(), "Day", 0, 1)));
+        final Throwable rootCause = ExceptionUtils.getRootCause(e);
+        assertTrue(rootCause instanceof PropertyVetoException);
+        assertEquals(vetoLimit + 1, count.get());
+    }
+
 }
