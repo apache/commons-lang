@@ -65,6 +65,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1726" type="fix" dev="ggregory" due-to="Václav Haisman, Gary Gregory">Undeprecate ExceptionUtils.rethrow(Throwable).</action>
     <action issue="LANG-1702" type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">Test the Conversion class #1155.</action>
     <action                   type="fix" dev="ggregory" due-to="ParanoidUser, Elliotte Rusty Harold, Gary Gregory">Address minor redundancies after code inspection #1148.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Allow EventListenerSupport to handle (and ignore) exception from listeners allowing invocation of all listeners #1167.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate AnnotationUtils 0-argument constructor.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ArchUtils 0-argument constructor.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ArrayUtils 0-argument constructor.</action>
