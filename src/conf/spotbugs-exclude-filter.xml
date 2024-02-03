@@ -36,6 +36,11 @@
     </Or>
   </Match>
 
+  <Match>
+    <!-- TODO ? -->
+    <Bug pattern="CT_CONSTRUCTOR_THROW" />
+  </Match>
+
   <!-- TODO Can any of these be done without breaking binary compatibility? -->
   <Match>
     <Class name="org.apache.commons.lang3.reflect.FieldUtils" />
