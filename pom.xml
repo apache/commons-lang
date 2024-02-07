@@ -53,7 +53,7 @@
   <scm>
     <connection>scm:git:http://gitbox.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</developerConnection>
-    <url>https://github.com/apache/commons-lang/</url>
+    <url>https://github.com/apache/commons-lang</url>
     <tag>rel/commons-lang-3.15.0</tag>
   </scm>
 
