@@ -56,7 +56,7 @@ public class FastDateFormatTest extends AbstractLangTest {
 
     private AtomicLongArray measureTime(final Format printer, final Format parser) throws InterruptedException {
         final ExecutorService pool = Executors.newFixedThreadPool(NTHREADS);
-        final AtomicInteger failures = new AtomicInteger(0);
+        final AtomicInteger failures = new AtomicInteger();
         final AtomicLongArray totalElapsed = new AtomicLongArray(2);
         try {
             for (int i = 0; i < NTHREADS; ++i) {
