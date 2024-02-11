@@ -45,9 +45,6 @@ public class StringEscapeUtils {
 
     /* ESCAPE TRANSLATORS */
 
-    // TODO: Create a parent class - 'SinglePassTranslator' ?
-    //       It would handle the index checking + length returning,
-    //       and could also have an optimization check method.
     static class CsvEscaper extends CharSequenceTranslator {
 
         private static final char CSV_DELIMITER = ',';
