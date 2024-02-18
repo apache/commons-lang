@@ -391,6 +391,7 @@ public class DurationFormatUtils {
     public static String formatDurationHMS(final long durationMillis) {
         return formatDuration(durationMillis, "HH:mm:ss.SSS");
     }
+
     /**
      * Formats the time gap as a string.
      *
@@ -406,6 +407,7 @@ public class DurationFormatUtils {
     public static String formatDurationISO(final long durationMillis) {
         return formatDuration(durationMillis, ISO_EXTENDED_FORMAT_PATTERN, false);
     }
+
     /**
      * Formats an elapsed time into a pluralization correct string.
      *
@@ -467,6 +469,7 @@ public class DurationFormatUtils {
         duration = StringUtils.replaceOnce(duration, " 1 days", " 1 day");
         return duration.trim();
     }
+
     /**
      * Formats the time gap as a string, using the specified format.
      * Padding the left-hand side side of numbers with zeroes is optional.
@@ -480,6 +483,7 @@ public class DurationFormatUtils {
     public static String formatPeriod(final long startMillis, final long endMillis, final String format) {
         return formatPeriod(startMillis, endMillis, format, true, TimeZone.getDefault());
     }
+
     /**
      * <p>Formats the time gap as a string, using the specified format.
      * Padding the left-hand side side of numbers with zeroes is optional and
@@ -634,6 +638,7 @@ public class DurationFormatUtils {
 
         return format(tokens, years, months, days, hours, minutes, seconds, milliseconds, padWithZeros);
     }
+
     /**
      * Formats the time gap as a string.
      *
@@ -647,6 +652,7 @@ public class DurationFormatUtils {
     public static String formatPeriodISO(final long startMillis, final long endMillis) {
         return formatPeriod(startMillis, endMillis, ISO_EXTENDED_FORMAT_PATTERN, false, TimeZone.getDefault());
     }
+
     /**
      * Parses a classic date format string into Tokens
      *
