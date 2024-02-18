@@ -262,9 +262,7 @@ public class ObjectUtils {
                         + obj.getClass().getName(), e.getCause());
                 }
             }
-            @SuppressWarnings("unchecked") // OK because input is of type T
-            final T checked = (T) result;
-            return checked;
+            return (T) result;
         }
 
         return null;
@@ -1109,9 +1107,7 @@ public class ObjectUtils {
         Objects.requireNonNull(comparator, "comparator");
         final TreeSet<T> treeSet = new TreeSet<>(comparator);
         Collections.addAll(treeSet, items);
-        @SuppressWarnings("unchecked") //we know all items added were T instances
-        final T result = (T) treeSet.toArray()[(treeSet.size() - 1) / 2];
-        return result;
+        return (T) treeSet.toArray()[(treeSet.size() - 1) / 2];
     }
 
     /**
@@ -1130,9 +1126,7 @@ public class ObjectUtils {
         Validate.noNullElements(items);
         final TreeSet<T> sort = new TreeSet<>();
         Collections.addAll(sort, items);
-        @SuppressWarnings("unchecked") //we know all items added were T instances
-        final T result = (T) sort.toArray()[(sort.size() - 1) / 2];
-        return result;
+        return (T) sort.toArray()[(sort.size() - 1) / 2];
     }
 
     /**

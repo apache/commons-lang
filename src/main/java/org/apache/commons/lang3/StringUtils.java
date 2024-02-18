@@ -623,8 +623,7 @@ public class StringUtils {
             return str;
         }
         str = leftPad(str, strLen + pads / 2, padChar);
-        str = rightPad(str, size, padChar);
-        return str;
+        return rightPad(str, size, padChar);
     }
 
     /**
@@ -666,8 +665,7 @@ public class StringUtils {
             return str;
         }
         str = leftPad(str, strLen + pads / 2, padStr);
-        str = rightPad(str, size, padStr);
-        return str;
+        return rightPad(str, size, padStr);
     }
 
     /**

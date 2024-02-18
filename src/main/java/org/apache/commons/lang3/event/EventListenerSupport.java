@@ -91,7 +91,7 @@ public class EventListenerSupport<L> implements Serializable {
          * @param handler Handles Throwables.
          * @since 3.15.0
          */
-        public ProxyInvocationHandler(FailableConsumer<Throwable, IllegalAccessException> handler) {
+        public ProxyInvocationHandler(final FailableConsumer<Throwable, IllegalAccessException> handler) {
             this.handler = Objects.requireNonNull(handler);
         }
 
