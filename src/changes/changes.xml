@@ -109,7 +109,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ThreadUtils 0-argument constructor.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate TypeUtils 0-argument constructor.</action>
     <!-- UPDATE -->
-    <action                   type="update" dev="sebb" due-to="Dependabot">Bump commons-parent from 64 to 65.</action>
+    <action                   type="update" dev="sebb" due-to="Dependabot">Bump commons-parent from 64 to 66.</action>
     <!-- REMOVE -->
     <action                   type="remove" dev="ggregory" due-to="Paranoïd User">Drop obsolete JDK 13 Maven profile #1142.</action>
   </release>
