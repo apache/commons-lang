@@ -5293,7 +5293,6 @@ public class ArrayUtils {
      * @param array source
      * @param indices to remove
      * @return new array of same type minus elements specified by unique values of {@code indices}
-     * @since 3.0.1
      */
     // package protected for access by unit tests
     static Object removeAll(final Object array, final int... indices) {
