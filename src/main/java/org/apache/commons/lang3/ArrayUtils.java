@@ -5296,6 +5296,9 @@ public class ArrayUtils {
      */
     // package protected for access by unit tests
     static Object removeAll(final Object array, final int... indices) {
+        if (array == null) {
+            return null;
+        }
         final int length = getLength(array);
         int diff = 0; // number of distinct indexes, i.e. number of entries that will be removed
         final int[] clonedIndices = ArraySorter.sort(clone(indices));
@@ -5319,7 +5322,7 @@ public class ArrayUtils {
 
         // create result array
         final Object result = Array.newInstance(array.getClass().getComponentType(), length - diff);
-        if (diff < length) {
+        if (diff < length && clonedIndices != null) {
             int end = length; // index just after last copy
             int dest = length - diff; // number of entries so far not copied
             for (int i = clonedIndices.length - 1; i >= 0; i--) {

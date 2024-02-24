@@ -18,11 +18,15 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests {@link ArraySorter}.
+ */
 public class ArraySorterTest extends AbstractLangTest {
 
     @Test
@@ -31,6 +35,7 @@ public class ArraySorterTest extends AbstractLangTest {
         final byte[] array2 = array1.clone();
         Arrays.sort(array1);
         assertArrayEquals(array1, ArraySorter.sort(array2));
+        assertNull(ArraySorter.sort((byte[]) null));
     }
 
     @Test
@@ -39,6 +44,7 @@ public class ArraySorterTest extends AbstractLangTest {
         final char[] array2 = array1.clone();
         Arrays.sort(array1);
         assertArrayEquals(array1, ArraySorter.sort(array2));
+        assertNull(ArraySorter.sort((char[]) null));
     }
 
     @Test
@@ -47,6 +53,7 @@ public class ArraySorterTest extends AbstractLangTest {
         final String[] array2 = array1.clone();
         Arrays.sort(array1);
         assertArrayEquals(array1, ArraySorter.sort(array2, String::compareTo));
+        assertNull(ArraySorter.sort((String[]) null));
     }
 
     @Test
@@ -55,6 +62,7 @@ public class ArraySorterTest extends AbstractLangTest {
         final double[] array2 = array1.clone();
         Arrays.sort(array1);
         assertArrayEquals(array1, ArraySorter.sort(array2));
+        assertNull(ArraySorter.sort((double[]) null));
     }
 
     @Test
@@ -63,6 +71,7 @@ public class ArraySorterTest extends AbstractLangTest {
         final float[] array2 = array1.clone();
         Arrays.sort(array1);
         assertArrayEquals(array1, ArraySorter.sort(array2));
+        assertNull(ArraySorter.sort((float[]) null));
     }
 
     @Test
@@ -71,6 +80,7 @@ public class ArraySorterTest extends AbstractLangTest {
         final int[] array2 = array1.clone();
         Arrays.sort(array1);
         assertArrayEquals(array1, ArraySorter.sort(array2));
+        assertNull(ArraySorter.sort((int[]) null));
     }
 
     @Test
@@ -79,6 +89,7 @@ public class ArraySorterTest extends AbstractLangTest {
         final long[] array2 = array1.clone();
         Arrays.sort(array1);
         assertArrayEquals(array1, ArraySorter.sort(array2));
+        assertNull(ArraySorter.sort((long[]) null));
     }
 
     @Test
@@ -87,6 +98,7 @@ public class ArraySorterTest extends AbstractLangTest {
         final String[] array2 = array1.clone();
         Arrays.sort(array1);
         assertArrayEquals(array1, ArraySorter.sort(array2));
+        assertNull(ArraySorter.sort((String[]) null));
     }
 
     @Test
@@ -95,6 +107,7 @@ public class ArraySorterTest extends AbstractLangTest {
         final short[] array2 = array1.clone();
         Arrays.sort(array1);
         assertArrayEquals(array1, ArraySorter.sort(array2));
+        assertNull(ArraySorter.sort((short[]) null));
     }
 
 }

@@ -35,7 +35,9 @@ public class ArraySorter {
      * @see Arrays#sort(byte[])
      */
     public static byte[] sort(final byte[] array) {
-        Arrays.sort(array);
+        if (array != null) {
+            Arrays.sort(array);
+        }
         return array;
     }
 
@@ -47,7 +49,9 @@ public class ArraySorter {
      * @see Arrays#sort(char[])
      */
     public static char[] sort(final char[] array) {
-        Arrays.sort(array);
+        if (array != null) {
+            Arrays.sort(array);
+        }
         return array;
     }
 
@@ -59,7 +63,9 @@ public class ArraySorter {
      * @see Arrays#sort(double[])
      */
     public static double[] sort(final double[] array) {
-        Arrays.sort(array);
+        if (array != null) {
+            Arrays.sort(array);
+        }
         return array;
     }
 
@@ -71,7 +77,9 @@ public class ArraySorter {
      * @see Arrays#sort(float[])
      */
     public static float[] sort(final float[] array) {
-        Arrays.sort(array);
+        if (array != null) {
+            Arrays.sort(array);
+        }
         return array;
     }
 
@@ -83,7 +91,9 @@ public class ArraySorter {
      * @see Arrays#sort(int[])
      */
     public static int[] sort(final int[] array) {
-        Arrays.sort(array);
+        if (array != null) {
+            Arrays.sort(array);
+        }
         return array;
     }
 
@@ -95,7 +105,9 @@ public class ArraySorter {
      * @see Arrays#sort(long[])
      */
     public static long[] sort(final long[] array) {
-        Arrays.sort(array);
+        if (array != null) {
+            Arrays.sort(array);
+        }
         return array;
     }
 
@@ -107,7 +119,9 @@ public class ArraySorter {
      * @see Arrays#sort(short[])
      */
     public static short[] sort(final short[] array) {
-        Arrays.sort(array);
+        if (array != null) {
+            Arrays.sort(array);
+        }
         return array;
     }
 
@@ -120,7 +134,9 @@ public class ArraySorter {
      * @see Arrays#sort(Object[])
      */
     public static <T> T[] sort(final T[] array) {
-        Arrays.sort(array);
+        if (array != null) {
+            Arrays.sort(array);
+        }
         return array;
     }
 
@@ -135,7 +151,9 @@ public class ArraySorter {
      * @see Arrays#sort(Object[])
      */
     public static <T> T[] sort(final T[] array, final Comparator<? super T> comparator) {
-        Arrays.sort(array, comparator);
+        if (array != null) {
+            Arrays.sort(array, comparator);
+        }
         return array;
     }
 
