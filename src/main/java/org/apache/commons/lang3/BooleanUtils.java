@@ -136,6 +136,7 @@ public class BooleanUtils {
 
     /**
      * Returns a new array of possible values (like an enum would).
+     *
      * @return a new array of possible values (like an enum would).
      * @since 3.12.0
      */
