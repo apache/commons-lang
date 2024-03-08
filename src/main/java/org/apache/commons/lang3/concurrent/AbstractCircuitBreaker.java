@@ -86,14 +86,21 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     /** The current state of this circuit breaker. */
     protected final AtomicReference<State> state = new AtomicReference<>(State.CLOSED);
 
+    /**
+     * Monitor for usages of change support to enable lazy initialization of that field.
+     * This lets us require the {@code java.desktop} module statically, significantly reducing
+     * the jlink-ed size of all downstream apache commons libraries.
+     */
+    private final Object changeSupportMonitor = new Object();
+
     /** An object for managing change listeners registered at this instance. */
-    private final PropertyChangeSupport changeSupport;
+    private PropertyChangeSupport changeSupport;
 
     /**
      * Creates an {@link AbstractCircuitBreaker}. It also creates an internal {@link PropertyChangeSupport}.
      */
     public AbstractCircuitBreaker() {
-        changeSupport = new PropertyChangeSupport(this);
+        changeSupport = null;
     }
 
     /**
@@ -101,10 +108,21 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
      * the state of this circuit breaker changes. If the listener is
      * <strong>null</strong>, it is silently ignored.
      *
+     * <p>
+     * If the {@code java.desktop} module is not present in the JRE,
+     * calling this method will throw an exception.
+     * </p>
+     *
      * @param listener the listener to be added
      */
     public void addChangeListener(final PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
+        synchronized (changeSupportMonitor) {
+            if (changeSupport == null) {
+                changeSupport = new PropertyChangeSupport(this);
+            }
+
+            changeSupport.addPropertyChangeListener(listener);
+        }
     }
 
     /**
@@ -115,7 +133,11 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
      */
     protected void changeState(final State newState) {
         if (state.compareAndSet(newState.oppositeState(), newState)) {
-            changeSupport.firePropertyChange(PROPERTY_NAME, !isOpen(newState), isOpen(newState));
+            synchronized (changeSupportMonitor) {
+                if (changeSupport != null) {
+                    changeSupport.firePropertyChange(PROPERTY_NAME, !isOpen(newState), isOpen(newState));
+                }
+            }
         }
     }
 
@@ -169,7 +191,11 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
      * @param listener the listener to be removed
      */
     public void removeChangeListener(final PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
+        synchronized (changeSupportMonitor) {
+            if (changeSupport != null) {
+                changeSupport.removePropertyChangeListener(listener);
+            }
+        }
     }
 
 }
