@@ -96,6 +96,19 @@ public class EventListenerSupport<L> implements Serializable {
         }
 
         /**
+         * Handles an exception thrown by a listener. By default rethrows the given Throwable.
+         *
+         * @param t The Throwable
+         * @throws IllegalAccessException thrown by the listener.
+         * @throws IllegalArgumentException thrown by the listener.
+         * @throws InvocationTargetException thrown by the listener.
+         * @since 3.15.0
+         */
+        protected void handle(final Throwable t) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            handler.accept(t);
+        }
+
+        /**
          * Propagates the method call to all registered listeners in place of the proxy listener object.
          *
          * @param unusedProxy the proxy object representing a listener on which the invocation was called; not used
@@ -117,19 +130,6 @@ public class EventListenerSupport<L> implements Serializable {
                 }
             }
             return null;
-        }
-
-        /**
-         * Handles an exception thrown by a listener. By default rethrows the given Throwable.
-         *
-         * @param t The Throwable
-         * @throws IllegalAccessException thrown by the listener.
-         * @throws IllegalArgumentException thrown by the listener.
-         * @throws InvocationTargetException thrown by the listener.
-         * @since 3.15.0
-         */
-        protected void handle(final Throwable t) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-            handler.accept(t);
         }
     }
 
