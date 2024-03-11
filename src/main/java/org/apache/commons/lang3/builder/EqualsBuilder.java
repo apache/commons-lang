@@ -16,14 +16,15 @@
  */
 package org.apache.commons.lang3.builder;
 
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
@@ -1016,11 +1017,31 @@ public class EqualsBuilder implements Builder<Boolean> {
         try {
             register(lhs, rhs);
             final Field[] fields = clazz.getDeclaredFields();
-            AccessibleObject.setAccessible(fields, true);
-            for (int i = 0; i < fields.length && isEquals; i++) {
-                final Field field = fields[i];
-                if (!ArrayUtils.contains(excludeFields, field.getName())
-                    && !field.getName().contains("$")
+
+            // Create a HashSet from excludeFields for more efficient access, check if excludeFields is null first
+            final Set<String> excludeFieldsSet = excludeFields != null ? new HashSet<>(Arrays.asList(excludeFields)) : new HashSet<>();
+
+            final List<Field> accessibleFields = Arrays.stream(fields)
+                    .filter(field -> {
+                        // Check if the field name is contained in the excludeFieldsSet HashSet
+                        if (!excludeFieldsSet.contains(field.getName())) {
+                            try {
+                                // Try to set the field to 'accessible'
+                                field.setAccessible(true);
+                                return true;
+                            } catch (Exception e) {
+                                // In case of an exception, ignore this field
+                                return false;
+                            }
+                        }
+                        // If the field name is not in excludeFieldsSet, ignore this field
+                        return false;
+                    })
+                    .collect(Collectors.toList());
+
+            for (int i = 0; i < accessibleFields.size() && isEquals; i++) {
+                final Field field = accessibleFields.get(i);
+                if (!field.getName().contains("$")
                     && (testTransients || !Modifier.isTransient(field.getModifiers()))
                     && !Modifier.isStatic(field.getModifiers())
                     && !field.isAnnotationPresent(EqualsExclude.class)) {
