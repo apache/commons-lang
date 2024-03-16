@@ -16,7 +16,7 @@
  */
 package org.apache.commons.lang3;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.jupiter.api.AfterEach;
@@ -31,7 +31,7 @@ public class AbstractLangTest {
      */
     @AfterEach
     public void after() {
-        assertNull(ToStringStyle.getRegistry(), "Expected null, actual: " + ToStringStyle.getRegistry());
+        assertTrue(ToStringStyle.getRegistry().isEmpty(), "Expected null, actual: " + ToStringStyle.getRegistry());
     }
 
 }
