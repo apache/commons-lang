@@ -32,7 +32,7 @@ import org.apache.commons.lang3.tuple.Pair;
 /**
  * Assists in implementing {@link Object#equals(Object)} methods.
  *
- * <p> This class provides methods to build a good equals method for any
+ * <p>This class provides methods to build a good equals method for any
  * class. It follows rules laid out in
  * <a href="https://www.oracle.com/java/technologies/effectivejava.html">Effective Java</a>
  * , by Joshua Bloch. In particular the rule for comparing {@code doubles},
@@ -66,7 +66,7 @@ import org.apache.commons.lang3.tuple.Pair;
  *  }
  * </pre>
  *
- * <p> Alternatively, there is a method that uses reflection to determine
+ * <p>Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method,
  * {@code reflectionEquals}, uses {@code AccessibleObject.setAccessible} to
  * change the visibility of the fields. This will fail under a security
@@ -74,7 +74,7 @@ import org.apache.commons.lang3.tuple.Pair;
  * also slower than testing explicitly.  Non-primitive fields are compared using
  * {@code equals()}.</p>
  *
- * <p> A typical invocation for this method would look like:</p>
+ * <p>A typical invocation for this method would look like:</p>
  * <pre>
  * public boolean equals(Object obj) {
  *   return EqualsBuilder.reflectionEquals(this, obj);
@@ -121,9 +121,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return the pair
      */
     static Pair<IDKey, IDKey> getRegisterPair(final Object lhs, final Object rhs) {
-        final IDKey left = new IDKey(lhs);
-        final IDKey right = new IDKey(rhs);
-        return Pair.of(left, right);
+        return Pair.of(new IDKey(lhs), new IDKey(rhs));
     }
 
     /**
@@ -152,9 +150,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         final Set<Pair<IDKey, IDKey>> registry = getRegistry();
         final Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
         final Pair<IDKey, IDKey> swappedPair = Pair.of(pair.getRight(), pair.getLeft());
-
-        return registry != null
-                && (registry.contains(pair) || registry.contains(swappedPair));
+        return registry != null && (registry.contains(pair) || registry.contains(swappedPair));
     }
 
     /**
@@ -228,13 +224,15 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == null || rhs == null) {
             return false;
         }
+        // @formatter:off
         return new EqualsBuilder()
-                    .setExcludeFields(excludeFields)
-                    .setReflectUpToClass(reflectUpToClass)
-                    .setTestTransients(testTransients)
-                    .setTestRecursive(testRecursive)
-                    .reflectionAppend(lhs, rhs)
-                    .isEquals();
+            .setExcludeFields(excludeFields)
+            .setReflectUpToClass(reflectUpToClass)
+            .setTestTransients(testTransients)
+            .setTestRecursive(testRecursive)
+            .reflectionAppend(lhs, rhs)
+            .isEquals();
+        // @formatter:on
     }
 
     /**
@@ -296,6 +294,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final Collection<String> excludeFields) {
         return reflectionEquals(lhs, rhs, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
     }
+
     /**
      * This method uses reflection to determine if the two {@link Object}s
      * are equal.
@@ -321,6 +320,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final String... excludeFields) {
         return reflectionEquals(lhs, rhs, false, null, excludeFields);
     }
+
     /**
      * Registers the given object pair.
      * Used by the reflection methods to avoid infinite loops.
@@ -334,14 +334,15 @@ public class EqualsBuilder implements Builder<Boolean> {
             registry = new HashSet<>();
             REGISTRY.set(registry);
         }
-        final Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
-        registry.add(pair);
+        registry.add(getRegisterPair(lhs, rhs));
     }
+
     /**
      * Unregisters the given object pair.
      *
      * <p>
      * Used by the reflection methods to avoid infinite loops.
+     * </p>
      *
      * @param lhs {@code this} object to unregister
      * @param rhs the other object to unregister
@@ -356,6 +357,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             }
         }
     }
+
     /**
      * If the fields tested are equals.
      * The default value is {@code true}.
@@ -462,11 +464,11 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -507,11 +509,11 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -558,11 +560,11 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -609,11 +611,11 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -654,11 +656,11 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -668,7 +670,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Test if two {@code long} s are equal.
+     * Test if two {@code long}s are equal.
      *
      * @param lhs
      *                  the left-hand side {@code long}
@@ -701,11 +703,11 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -733,7 +735,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         final Class<?> lhsClass = lhs.getClass();
@@ -771,11 +773,11 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -816,11 +818,11 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -840,7 +842,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         // then we 'Switch' on type of array, to dispatch to the correct handler
         // This handles multidimensional arrays of the same depth
         if (lhs.getClass() != rhs.getClass()) {
-            this.setEquals(false);
+            setEquals(false);
         } else if (lhs instanceof long[]) {
             append((long[]) lhs, (long[]) rhs);
         } else if (lhs instanceof int[]) {
@@ -899,7 +901,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return boolean
      */
     public boolean isEquals() {
-        return this.isEquals;
+        return isEquals;
     }
 
     /**
@@ -1028,11 +1030,12 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Reset the EqualsBuilder so you can use the same object again
+     * Reset the EqualsBuilder so you can use the same object again.
+     *
      * @since 2.5
      */
     public void reset() {
-        this.isEquals = true;
+        isEquals = true;
     }
 
     /**
@@ -1043,6 +1046,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * Prominent example being {@link String} class with its hash code cache field. Due to the importance
      * of the {@link String} class, it is included in the default bypasses classes. Usually, if you use
      * your own set of classes here, remember to include {@link String} class, too.</p>
+     *
      * @param bypassReflectionClasses  classes to bypass reflection test
      * @return this
      * @see #setTestRecursive(boolean)
@@ -1065,6 +1069,7 @@ public class EqualsBuilder implements Builder<Boolean> {
 
     /**
      * Sets field names to be excluded by reflection tests.
+     *
      * @param excludeFields the fields to exclude
      * @return this
      * @since 3.6
@@ -1076,6 +1081,7 @@ public class EqualsBuilder implements Builder<Boolean> {
 
     /**
      * Sets the superclass to reflect up to at reflective tests.
+     *
      * @param reflectUpToClass the super class to reflect up to
      * @return this
      * @since 3.6
@@ -1089,6 +1095,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * Sets whether to test fields recursively, instead of using their equals method, when reflectively comparing objects.
      * String objects, which cache a hash value, are automatically excluded from recursive testing.
      * You may specify other exceptions by calling {@link #setBypassReflectionClasses(List)}.
+     *
      * @param testRecursive whether to do a recursive test
      * @return this
      * @see #setBypassReflectionClasses(List)
@@ -1101,6 +1108,7 @@ public class EqualsBuilder implements Builder<Boolean> {
 
     /**
      * Sets whether to include transient fields when reflectively comparing objects.
+     *
      * @param testTransients whether to test transient fields
      * @return this
      * @since 3.6
