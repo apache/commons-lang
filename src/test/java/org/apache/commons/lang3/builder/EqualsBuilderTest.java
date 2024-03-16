@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
@@ -543,11 +542,8 @@ public class EqualsBuilderTest extends AbstractLangTest {
         refX3.setObjectReference(x3);
 
         assertEquals(x1, x2);
-        assertNull(EqualsBuilder.getRegistry());
         assertNotEquals(x1, x3);
-        assertNull(EqualsBuilder.getRegistry());
         assertNotEquals(x2, x3);
-        assertNull(EqualsBuilder.getRegistry());
     }
 
     @Test

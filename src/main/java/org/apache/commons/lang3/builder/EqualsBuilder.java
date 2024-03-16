@@ -93,7 +93,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @since 3.0
      */
-    private static final ThreadLocal<Set<Pair<IDKey, IDKey>>> REGISTRY = new ThreadLocal<>();
+    private static final ThreadLocal<Set<Pair<IDKey, IDKey>>> REGISTRY = ThreadLocal.withInitial(HashSet::new);
 
     /*
      * NOTE: we cannot store the actual objects in a HashSet, as that would use the very hashCode()
@@ -329,12 +329,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs the other object to register
      */
     private static void register(final Object lhs, final Object rhs) {
-        Set<Pair<IDKey, IDKey>> registry = getRegistry();
-        if (registry == null) {
-            registry = new HashSet<>();
-            REGISTRY.set(registry);
-        }
-        registry.add(getRegisterPair(lhs, rhs));
+        getRegistry().add(getRegisterPair(lhs, rhs));
     }
 
     /**
@@ -350,11 +345,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      */
     private static void unregister(final Object lhs, final Object rhs) {
         final Set<Pair<IDKey, IDKey>> registry = getRegistry();
-        if (registry != null) {
-            registry.remove(getRegisterPair(lhs, rhs));
-            if (registry.isEmpty()) {
-                REGISTRY.remove();
-            }
+        registry.remove(getRegisterPair(lhs, rhs));
+        if (registry.isEmpty()) {
+            REGISTRY.remove();
         }
     }
 
