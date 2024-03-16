@@ -1139,6 +1139,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
         final TestObject o2 = new TestObject(5);
         assertTrue(new EqualsBuilder().reflectionAppend(o1, o1).build());
         assertFalse(new EqualsBuilder().reflectionAppend(o1, o2).build());
+        assertFalse(new EqualsBuilder().reflectionAppend(o1, o2).reflectionAppend(o1, o1).build());
 
         o2.setA(4);
         assertTrue(new EqualsBuilder().reflectionAppend(o1, o2).build());
@@ -1413,6 +1414,8 @@ public class EqualsBuilderTest extends AbstractLangTest {
         assertFalse(new EqualsBuilder().appendSuper(false).append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().appendSuper(true).append(o1, o2).isEquals());
         assertFalse(new EqualsBuilder().appendSuper(false).append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().appendSuper(false).append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).appendSuper(false).isEquals());
     }
 
     @Test
