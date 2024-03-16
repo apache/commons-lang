@@ -438,10 +438,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return this
      */
     public EqualsBuilder append(final byte lhs, final byte rhs) {
-        if (!isEquals) {
-            return this;
+        if (isEquals) {
+            isEquals = lhs == rhs;
         }
-        isEquals = lhs == rhs;
         return this;
     }
 
@@ -484,10 +483,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return this
      */
     public EqualsBuilder append(final char lhs, final char rhs) {
-        if (!isEquals) {
-            return this;
+        if (isEquals) {
+            isEquals = lhs == rhs;
         }
-        isEquals = lhs == rhs;
         return this;
     }
 
@@ -536,10 +534,10 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return this
      */
     public EqualsBuilder append(final double lhs, final double rhs) {
-        if (!isEquals) {
-            return this;
+        if (isEquals) {
+            return append(Double.doubleToLongBits(lhs), Double.doubleToLongBits(rhs));
         }
-        return append(Double.doubleToLongBits(lhs), Double.doubleToLongBits(rhs));
+        return this;
     }
 
     /**
@@ -587,10 +585,10 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return this
      */
     public EqualsBuilder append(final float lhs, final float rhs) {
-        if (!isEquals) {
-            return this;
+        if (isEquals) {
+            return append(Float.floatToIntBits(lhs), Float.floatToIntBits(rhs));
         }
-        return append(Float.floatToIntBits(lhs), Float.floatToIntBits(rhs));
+        return this;
     }
 
     /**
@@ -632,10 +630,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return this
      */
     public EqualsBuilder append(final int lhs, final int rhs) {
-        if (!isEquals) {
-            return this;
+        if (isEquals) {
+            isEquals = lhs == rhs;
         }
-        isEquals = lhs == rhs;
         return this;
     }
 
@@ -680,10 +677,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return this
      */
     public EqualsBuilder append(final long lhs, final long rhs) {
-        if (!isEquals) {
-            return this;
+        if (isEquals) {
+            isEquals = lhs == rhs;
         }
-        isEquals = lhs == rhs;
         return this;
     }
 
@@ -796,10 +792,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return this
      */
     public EqualsBuilder append(final short lhs, final short rhs) {
-        if (!isEquals) {
-            return this;
+        if (isEquals) {
+            isEquals = lhs == rhs;
         }
-        isEquals = lhs == rhs;
         return this;
     }
 
