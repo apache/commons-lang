@@ -20,53 +20,55 @@ package org.apache.commons.lang3.builder;
 // adapted from org.apache.axis.utils.IDKey
 
 /**
- * Wrap an identity key (System.identityHashCode())
- * so that an object can only be equal() to itself.
+ * Wrap an identity key (System.identityHashCode()) so that an object can only be equal() to itself.
  *
- * This is necessary to disambiguate the occasional duplicate
- * identityHashCodes that can occur.
+ * This is necessary to disambiguate the occasional duplicate identityHashCodes that can occur.
  */
 final class IDKey {
-        private final Object value;
-        private final int id;
 
-        /**
-         * Constructor for IDKey
-         * @param value The value
-         */
-        IDKey(final Object value) {
-            // This is the Object hash code
-            this.id = System.identityHashCode(value);
-            // There have been some cases (LANG-459) that return the
-            // same identity hash code for different objects.  So
-            // the value is also added to disambiguate these cases.
-            this.value = value;
+    private final Object value;
+    private final int id;
+
+    /**
+     * Constructs new instance.
+     *
+     * @param value The value
+     */
+    IDKey(final Object value) {
+        // This is the Object hash code
+        this.id = System.identityHashCode(value);
+        // There have been some cases (LANG-459) that return the
+        // same identity hash code for different objects. So
+        // the value is also added to disambiguate these cases.
+        this.value = value;
+    }
+
+    /**
+     * Tests if instances are equal.
+     *
+     * @param other The other object to compare to
+     * @return if the instances are for the same object
+     */
+    @Override
+    public boolean equals(final Object other) {
+        if (!(other instanceof IDKey)) {
+            return false;
         }
-
-        /**
-         * checks if instances are equal
-         * @param other The other object to compare to
-         * @return if the instances are for the same object
-         */
-        @Override
-        public boolean equals(final Object other) {
-            if (!(other instanceof IDKey)) {
-                return false;
-            }
-            final IDKey idKey = (IDKey) other;
-            if (id != idKey.id) {
-                return false;
-            }
-            // Note that identity equals is used.
-            return value == idKey.value;
-         }
-
-        /**
-         * returns hash code - i.e. the system identity hash code.
-         * @return the hash code
-         */
-        @Override
-        public int hashCode() {
-           return id;
+        final IDKey idKey = (IDKey) other;
+        if (id != idKey.id) {
+            return false;
         }
+        // Note that identity equals is used.
+        return value == idKey.value;
+    }
+
+    /**
+     * Gets the hash code, the system identity hash code.
+     *
+     * @return the hash code.
+     */
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
