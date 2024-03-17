@@ -344,6 +344,7 @@ public class StringUtils {
         if (isAnyEmpty(str, abbrevMarker)) {
             return str;
         }
+        System.out.println("test commit");
         final int abbrevMarkerLength = abbrevMarker.length();
         final int minAbbrevWidth = abbrevMarkerLength + 1;
         final int minAbbrevWidthOffset = abbrevMarkerLength + abbrevMarkerLength + 1;
