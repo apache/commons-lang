@@ -79,6 +79,7 @@ public abstract class CharSequenceTranslator {
      * @param out Writer to translate the text to
      * @return int count of code points consumed
      * @throws IOException if and only if the Writer produces an IOException
+     * @throws StringIndexOutOfBoundsException if {@code index < 0 || index >= input.length()}
      */
     public abstract int translate(CharSequence input, int index, Writer out) throws IOException;
 
