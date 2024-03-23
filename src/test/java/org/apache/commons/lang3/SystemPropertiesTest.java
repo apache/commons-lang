@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -45,8 +46,8 @@ public class SystemPropertiesTest {
             System.setProperty(key, Boolean.toString(Boolean.TRUE));
             assertEquals(Boolean.TRUE, SystemProperties.getBoolean(key, () -> false));
             assertEquals(Boolean.TRUE, SystemProperties.getBoolean(absentKey, () -> Boolean.TRUE));
-            assertEquals(false, SystemProperties.getBoolean(absentKey, () -> false));
-            assertEquals(false, SystemProperties.getBoolean(absentKey, null));
+            assertFalse(SystemProperties.getBoolean(absentKey, () -> false));
+            assertFalse(SystemProperties.getBoolean(absentKey, null));
         } finally {
             System.clearProperty(key);
         }
