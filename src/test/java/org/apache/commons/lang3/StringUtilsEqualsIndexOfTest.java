@@ -234,6 +234,60 @@ public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
     }
 
     @Test
+    public void testEqualsAll() {
+        assertFalse(StringUtils.equalsAll(FOO));
+        assertFalse(StringUtils.equalsAll(FOO, new String[]{}));
+
+        assertTrue(StringUtils.equalsAll(FOO, FOO));
+        assertFalse(StringUtils.equalsAll(FOO, BAR, new String(new char[] { 'f', 'o', 'o' })));
+        assertFalse(StringUtils.equalsAll(FOO, BAR, new String(new char[] { 'f', 'O', 'O' })));
+        assertFalse(StringUtils.equalsAll(FOO, BAR));
+        assertFalse(StringUtils.equalsAll(FOO, BAR, null));
+        assertFalse(StringUtils.equalsAll(null, FOO));
+        assertFalse(StringUtils.equalsAll(FOO, FOOBAR));
+        assertFalse(StringUtils.equalsAll(FOOBAR, FOO));
+
+        assertTrue(StringUtils.equalsAll(null, null, null));
+        assertFalse(StringUtils.equalsAll(null, FOO, BAR, FOOBAR));
+        assertFalse(StringUtils.equalsAll(FOO, null, BAR));
+        assertFalse(StringUtils.equalsAll(FOO, BAR, null, "", FOO, BAR));
+        assertFalse(StringUtils.equalsAll(FOO, FOO.toUpperCase(Locale.ROOT)));
+
+        assertFalse(StringUtils.equalsAll(null, (CharSequence[]) null));
+        assertTrue(StringUtils.equalsAll(FOO, new CustomCharSequence("foo")));
+        assertTrue(StringUtils.equalsAll(FOO, new StringBuilder("foo")));
+        assertTrue(StringUtils.equalsAll(FOO, new StringBuilder("foo")), "FOO".toLowerCase(Locale.ROOT));
+        assertFalse(StringUtils.equalsAll(FOO, new CustomCharSequence("fOo")));
+        assertFalse(StringUtils.equalsAll(FOO, new StringBuilder("fOo")));
+    }
+
+    @Test
+    public void testEqualsAllIgnoreCase() {
+        assertFalse(StringUtils.equalsAllIgnoreCase(FOO));
+        assertFalse(StringUtils.equalsAllIgnoreCase(FOO, new String[]{}));
+
+        assertTrue(StringUtils.equalsAllIgnoreCase(FOO, FOO));
+        assertTrue(StringUtils.equalsAllIgnoreCase(FOO, FOO.toUpperCase(Locale.ROOT)));
+        assertTrue(StringUtils.equalsAllIgnoreCase(FOO, FOO, new String(new char[]{'f', 'o', 'o'})));
+        assertFalse(StringUtils.equalsAllIgnoreCase(FOO, BAR, new String(new char[]{'f', 'O', 'O'})));
+        assertFalse(StringUtils.equalsAllIgnoreCase(FOO, BAR));
+        assertFalse(StringUtils.equalsAllIgnoreCase(FOO, BAR, null));
+        assertFalse(StringUtils.equalsAllIgnoreCase(null, FOO));
+        assertFalse(StringUtils.equalsAllIgnoreCase(FOO, FOOBAR));
+        assertFalse(StringUtils.equalsAllIgnoreCase(FOOBAR, FOO));
+
+        assertTrue(StringUtils.equalsAllIgnoreCase(null, null, null));
+        assertFalse(StringUtils.equalsAllIgnoreCase(null, FOO, BAR, FOOBAR));
+        assertFalse(StringUtils.equalsAllIgnoreCase(FOO, null, BAR));
+        assertFalse(StringUtils.equalsAllIgnoreCase(FOO, BAR, null, "", FOO.toUpperCase(Locale.ROOT), BAR));
+        assertTrue(StringUtils.equalsAllIgnoreCase(FOO, FOO.toUpperCase(Locale.ROOT)));
+
+        assertFalse(StringUtils.equalsAllIgnoreCase(null, (CharSequence[]) null));
+        assertTrue(StringUtils.equalsAllIgnoreCase(FOO, new CustomCharSequence("fOo")), "foO");
+        assertTrue(StringUtils.equalsAllIgnoreCase(FOO, new StringBuilder("fOo"), "foO", "Foo"));
+    }
+
+    @Test
     public void testEqualsIgnoreCase() {
         assertTrue(StringUtils.equalsIgnoreCase(null, null));
         assertTrue(StringUtils.equalsIgnoreCase(FOO, FOO));
