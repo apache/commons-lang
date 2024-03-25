@@ -1876,6 +1876,67 @@ public class StringUtils {
     }
 
     /**
+     * Compares given CharSequences vararg of {@code searchStrings} to a {@code string},
+     * returning {@code true} if all of CharSequences vararg of {@code searchStrings} is equal to {@code string}.
+     *
+     * <pre>
+     * StringUtils.equalsAll(null, (CharSequence[]) null) = false
+     * StringUtils.equalsAll(null, null, null)    = true
+     * StringUtils.equalsAll(null, "abc", "def")  = false
+     * StringUtils.equalsAll("abc", null, "abc")  = false
+     * StringUtils.equalsAll("abc", "abc", "abc") = true
+     * StringUtils.equalsAll("abc", "ABC", "abc") = false
+     * </pre>
+     *
+     * @param string to compare, may be {@code null}.
+     * @param searchStrings a vararg of strings, may be {@code null}.
+     * @return {@code true} if the string is equal (case-sensitive) to all other element of {@code searchStrings};
+     * {@code false} if {@code searchStrings} is null or contains no matches.
+     * @since 3.5
+     */
+    public static boolean equalsAll(final CharSequence string, final CharSequence... searchStrings) {
+        if (ArrayUtils.isNotEmpty(searchStrings)) {
+            boolean equalsAll = true;
+            for (final CharSequence next : searchStrings) {
+                equalsAll = equalsAll && equals(string, next);
+            }
+            return equalsAll;
+        }
+        return false;
+    }
+
+    /**
+     * Compares given CharSequences vararg of {@code searchStrings} to a {@code string},
+     * returning {@code true} if all of CharSequences vararg of {@code searchStrings} is equal to {@code string}, ignoring case.
+     *
+     * <pre>
+     * StringUtils.equalsAllIgnoreCase(null, (CharSequence[]) null) = false
+     * StringUtils.equalsAllIgnoreCase(null, null, null)    = true
+     * StringUtils.equalsAllIgnoreCase(null, "abc", "def")  = false
+     * StringUtils.equalsAllIgnoreCase("abc", null, "def")  = false
+     * StringUtils.equalsAllIgnoreCase("abc", "abc", "abc") = true
+     * StringUtils.equalsAllIgnoreCase("abc", "ABC", "abc") = true
+     * StringUtils.equalsAllIgnoreCase("abc", "AbC", "aBc") = true
+     * </pre>
+     *
+     * @param string to compare, may be {@code null}.
+     * @param searchStrings a vararg of strings, may be {@code null}.
+     * @return {@code true} if the string is equal (case-insensitive) to all other element of {@code searchStrings};
+     * {@code false} if {@code searchStrings} is null or contains no matches.
+     * @since 3.5
+     */
+    public static boolean equalsAllIgnoreCase(final CharSequence string, final CharSequence... searchStrings) {
+        if (ArrayUtils.isNotEmpty(searchStrings)) {
+            boolean equalsAllIgnoreCase = true;
+            for (final CharSequence next : searchStrings) {
+                equalsAllIgnoreCase = equalsAllIgnoreCase && equalsIgnoreCase(string, next);
+            }
+            return equalsAllIgnoreCase;
+        }
+        return false;
+    }
+
+    /**
      * Compares two CharSequences, returning {@code true} if they represent
      * equal sequences of characters, ignoring case.
      *
