@@ -39,7 +39,7 @@
   LTS releases.
   These are 8, 11, 17 and 21 currently, see:
   https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
-  
+
   Please ensure your build environment is up-to-date and kindly report any build issues.
   </description>
 
@@ -111,7 +111,7 @@
       <email>ggregory at apache.org</email>
       <url>https://www.garygregory.com</url>
       <organization>The Apache Software Foundation</organization>
-      <organizationUrl>https://www.apache.org/</organizationUrl>      
+      <organizationUrl>https://www.apache.org/</organizationUrl>
       <roles>
         <role>PMC Member</role>
       </roles>
@@ -775,6 +775,38 @@
           <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.moditect</groupId>
+        <artifactId>moditect-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-module-infos</id>
+            <phase>package</phase>
+            <goals>
+              <goal>add-module-info</goal>
+            </goals>
+            <configuration>
+              <jvmVersion>${moditect.java.version}</jvmVersion>
+              <outputDirectory>${project.build.directory}</outputDirectory>
+              <overwriteExistingFiles>true</overwriteExistingFiles>
+              <failOnWarning>false</failOnWarning>
+              <module>
+                <moduleInfo>
+                  <name>${commons.module.name}</name>
+                  <exports>
+                    *;
+                  </exports>
+                  <requires>
+                    static java.desktop;
+                    *;
+                  </requires>
+                  <addServiceUses>${commons.moditect-maven-plugin.addServiceUses}</addServiceUses>
+                </moduleInfo>
+              </module>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
@@ -945,10 +977,10 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <excludes>
-                <exclude>org/apache/commons/lang3/time/Java15BugFastDateParserTest.java</exclude>               
+                <exclude>org/apache/commons/lang3/time/Java15BugFastDateParserTest.java</exclude>
               </excludes>
             </configuration>
-          </plugin>        
+          </plugin>
         </plugins>
       </build>
     </profile>
