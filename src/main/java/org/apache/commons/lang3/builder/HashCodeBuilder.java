@@ -17,14 +17,16 @@
 
 package org.apache.commons.lang3.builder;
 
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
@@ -184,10 +186,30 @@ public class HashCodeBuilder implements Builder<Integer> {
             register(object);
             // The elements in the returned array are not sorted and are not in any particular order.
             final Field[] fields = ArraySorter.sort(clazz.getDeclaredFields(), Comparator.comparing(Field::getName));
-            AccessibleObject.setAccessible(fields, true);
-            for (final Field field : fields) {
-                if (!ArrayUtils.contains(excludeFields, field.getName())
-                    && !field.getName().contains("$")
+
+            // Create a HashSet from excludeFields for more efficient access, check if excludeFields is null first
+            final Set<String> excludeFieldsSet = excludeFields != null ? new HashSet<>(Arrays.asList(excludeFields)) : new HashSet<>();
+
+            final List<Field> accessibleFields = Arrays.stream(fields)
+                    .filter(field -> {
+                        // Check if the field name is contained in the excludeFieldsSet HashSet
+                        if (!excludeFieldsSet.contains(field.getName())) {
+                            try {
+                                // Try to set the field to 'accessible'
+                                field.setAccessible(true);
+                                return true;
+                            } catch (Exception e) {
+                                // In case of an exception, ignore this field
+                                return false;
+                            }
+                        }
+                        // If the field name is not in excludeFieldsSet, ignore this field
+                        return false;
+                    })
+                    .collect(Collectors.toList());
+
+            for (final Field field : accessibleFields) {
+                if (!field.getName().contains("$")
                     && (useTransients || !Modifier.isTransient(field.getModifiers()))
                     && !Modifier.isStatic(field.getModifiers())
                     && !field.isAnnotationPresent(HashCodeExclude.class)) {

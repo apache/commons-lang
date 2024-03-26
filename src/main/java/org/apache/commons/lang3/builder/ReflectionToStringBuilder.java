@@ -17,13 +17,14 @@
 
 package org.apache.commons.lang3.builder;
 
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
@@ -646,8 +647,21 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         }
         // The elements in the returned array are not sorted and are not in any particular order.
         final Field[] fields = ArraySorter.sort(clazz.getDeclaredFields(), Comparator.comparing(Field::getName));
-        AccessibleObject.setAccessible(fields, true);
-        for (final Field field : fields) {
+
+        final List<Field> accessibleFields = Arrays.stream(fields)
+                .filter(field -> {
+                    try {
+                        // Try to set the field to 'accessible'
+                        field.setAccessible(true);
+                        return true;
+                    } catch (Exception e) {
+                        // In case of an exception, ignore this field
+                        return false;
+                    }
+                })
+                .collect(Collectors.toList());
+
+        for (final Field field : accessibleFields) {
             final String fieldName = field.getName();
             if (this.accept(field)) {
                 try {
