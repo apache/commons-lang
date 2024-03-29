@@ -81,23 +81,19 @@ public class StreamsTest extends AbstractLangTest {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Failable.stream(input).map(Integer::valueOf).filter(asIntPredicate(null)).collect(Collectors.toList());
         assertEvenNumbers(output);
-
         return Stream.of(
-
             dynamicTest("IllegalArgumentException", () -> {
                 final IllegalArgumentException iae = new IllegalArgumentException("Invalid argument: " + 5);
                 final Executable testMethod = () -> Failable.stream(input).map(Integer::valueOf).filter(asIntPredicate(iae)).collect(Collectors.toList());
                 final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
                 assertThat(thrown.getMessage(), is(equalTo("Invalid argument: " + 5)));
             }),
-
             dynamicTest("OutOfMemoryError", () -> {
                 final OutOfMemoryError oome = new OutOfMemoryError();
                 final Executable testMethod = () -> Failable.stream(input).map(Integer::valueOf).filter(asIntPredicate(oome)).collect(Collectors.toList());
                 final OutOfMemoryError thrown = assertThrows(OutOfMemoryError.class, testMethod);
                 assertThat(thrown.getMessage(), is(nullValue()));
             }),
-
             dynamicTest("SAXException", () -> {
                 final SAXException se = new SAXException();
                 final Executable testMethod = () -> Failable.stream(input).map(Integer::valueOf).filter(asIntPredicate(se)).collect(Collectors.toList());
@@ -109,23 +105,19 @@ public class StreamsTest extends AbstractLangTest {
     @TestFactory
     public Stream<DynamicTest> simpleStreamForEachFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
-
         return Stream.of(
-
             dynamicTest("IllegalArgumentException", () -> {
                 final IllegalArgumentException ise = new IllegalArgumentException();
                 final Executable testMethod = () -> Failable.stream(input).forEach(asIntConsumer(ise));
                 final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
                 assertThat(thrown.getMessage(), is(nullValue()));
             }),
-
             dynamicTest("OutOfMemoryError", () -> {
                 final OutOfMemoryError oome = new OutOfMemoryError();
                 final Executable oomeTestMethod = () -> Failable.stream(input).forEach(asIntConsumer(oome));
                 final OutOfMemoryError oomeThrown = assertThrows(OutOfMemoryError.class, oomeTestMethod);
                 assertThat(oomeThrown.getMessage(), is(nullValue()));
             }),
-
             dynamicTest("SAXException", () -> {
                 final SAXException se = new SAXException();
                 final Executable seTestMethod = () -> Failable.stream(input).forEach(asIntConsumer(se));
