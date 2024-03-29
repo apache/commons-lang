@@ -580,6 +580,18 @@ public class Streams {
     }
 
     /**
+     * Shorthand for {@code Streams.failableStream(value == null ? Stream.empty() : Stream.of(value))}.
+     *
+     * @param <T> the type of stream elements.
+     * @param value the single element of the new stream, may be {@code null}.
+     * @return the new FailableStream on {@code value} or an empty stream.
+     * @since 3.15.0
+     */
+    public static <T> FailableStream<T> failableStream(final T value) {
+        return failableStream(value == null ? Stream.empty() : Stream.of(value));
+    }
+
+    /**
      * Shorthand for {@code Streams.failableStream(Streams.of(arrayValues))}.
      *
      * @param <T> the type of stream elements.

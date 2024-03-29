@@ -60,6 +60,10 @@ public class FailableStreamTest {
         return Streams.failableStream(strings).map(this::failable).collect(Collectors.toList()).toArray(new String[0]);
     }
 
+    private String[] toArray(final String string) {
+        return Streams.failableStream(string).map(this::failable).collect(Collectors.toList()).toArray(new String[0]);
+    }
+
     private String[] toArray(final String... strings) {
         return Streams.failableStream(strings).map(this::failable).collect(Collectors.toList()).toArray(new String[0]);
     }
