@@ -204,6 +204,14 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testNonNull() {
+        assertEquals(0, Streams.nonNull().collect(Collectors.toList()).size());
+        assertEquals(1, Streams.nonNull("A").collect(Collectors.toList()).size());
+        assertEquals(1, Streams.nonNull("A", null).collect(Collectors.toList()).size());
+        assertEquals(1, Streams.nonNull(null, "A").collect(Collectors.toList()).size());
+    }
+
+    @Test
     public void testSimpleStreamFilter() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Failable.stream(input).map(Integer::valueOf).filter(i -> (i.intValue() % 2 == 0)).collect(Collectors.toList());

@@ -54,6 +54,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add ReflectionDiffBuilder.builder().</action>
     <action issue="LANG-1702" type="add" dev="ggregory" due-to="Elliotte Rusty Harold">Add test in TypeUtilsTest #1151.</action>
     <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.failableStream(T), non-varargs variant.</action>
+    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.nonNull(T), non-varargs variant.</action>
+    
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="Miklós Karakó, Gary Gregory">Improve Javadoc in ExceptionUtils #1136.</action>
     <action                   type="fix" dev="ggregory" due-to="Saiharshith Karuneegar Ramesh, Gary Gregory">Fixed two non-deterministic tests in EnumUtilsTest.java #1131.</action>
