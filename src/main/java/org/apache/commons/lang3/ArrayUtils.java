@@ -4288,6 +4288,27 @@ public class ArrayUtils {
      * Defensive programming technique to change a {@code null}
      * reference to an empty one.
      * <p>
+     * This method returns a default array for a {@code null} input array.
+     * </p>
+     * <p>
+     * As a memory optimizing technique an empty array passed in will be overridden with
+     * the empty {@code public static} references in this class.
+     * </p>
+     *
+     * @param <T> The array type.
+     * @param array  the array to check for {@code null} or empty
+     * @param defaultArray A default array, usually empty.
+     * @return the same array, or defaultArray if {@code null} or empty input.
+     * @since 3.15.0
+     */
+    public static  <T> T[] nullTo(final T[] array, final T[] defaultArray) {
+        return isEmpty(array) ? defaultArray : array;
+    }
+
+    /**
+     * Defensive programming technique to change a {@code null}
+     * reference to an empty one.
+     * <p>
      * This method returns an empty array for a {@code null} input array.
      * </p>
      * <p>
@@ -4319,7 +4340,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Boolean[] nullToEmpty(final Boolean[] array) {
-        return isEmpty(array) ? EMPTY_BOOLEAN_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_BOOLEAN_OBJECT_ARRAY);
     }
 
     /**
@@ -4357,7 +4378,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Byte[] nullToEmpty(final Byte[] array) {
-        return isEmpty(array) ? EMPTY_BYTE_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_BYTE_OBJECT_ARRAY);
     }
 
     /**
@@ -4395,7 +4416,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Character[] nullToEmpty(final Character[] array) {
-        return isEmpty(array) ? EMPTY_CHARACTER_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_CHARACTER_OBJECT_ARRAY);
     }
 
     /**
@@ -4414,7 +4435,7 @@ public class ArrayUtils {
      * @since 3.2
      */
     public static Class<?>[] nullToEmpty(final Class<?>[] array) {
-        return isEmpty(array) ? EMPTY_CLASS_ARRAY : array;
+        return nullTo(array, EMPTY_CLASS_ARRAY);
     }
 
     /**
@@ -4452,7 +4473,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Double[] nullToEmpty(final Double[] array) {
-        return isEmpty(array) ? EMPTY_DOUBLE_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_DOUBLE_OBJECT_ARRAY);
     }
 
     /**
@@ -4490,7 +4511,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Float[] nullToEmpty(final Float[] array) {
-        return isEmpty(array) ? EMPTY_FLOAT_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_FLOAT_OBJECT_ARRAY);
     }
 
     /**
@@ -4528,7 +4549,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Integer[] nullToEmpty(final Integer[] array) {
-        return isEmpty(array) ? EMPTY_INTEGER_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_INTEGER_OBJECT_ARRAY);
     }
 
     /**
@@ -4566,7 +4587,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Long[] nullToEmpty(final Long[] array) {
-        return isEmpty(array) ? EMPTY_LONG_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_LONG_OBJECT_ARRAY);
     }
 
     /**
@@ -4585,7 +4606,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Object[] nullToEmpty(final Object[] array) {
-        return isEmpty(array) ? EMPTY_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_OBJECT_ARRAY);
     }
 
     /**
@@ -4623,7 +4644,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Short[] nullToEmpty(final Short[] array) {
-        return isEmpty(array) ? EMPTY_SHORT_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_SHORT_OBJECT_ARRAY);
     }
 
     /**
@@ -4642,7 +4663,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static String[] nullToEmpty(final String[] array) {
-        return isEmpty(array) ? EMPTY_STRING_ARRAY : array;
+        return nullTo(array, EMPTY_STRING_ARRAY);
     }
 
     /**
