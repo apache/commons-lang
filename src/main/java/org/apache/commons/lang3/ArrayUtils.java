@@ -1375,6 +1375,27 @@ public class ArrayUtils {
     }
 
     /**
+     * A fluent version of {@link System#arraycopy(Object, int, Object, int, int)} that returns the destination array.
+     *
+     * @param <T>       the type
+     * @param source    the source array.
+     * @param sourcePos starting position in the source array.
+     * @param dest      the destination array.
+     * @param destPos   starting position in the destination data.
+     * @param length    the number of array elements to be copied.
+     * @return dest
+     * @throws IndexOutOfBoundsException if copying would cause access of data outside array bounds.
+     * @throws ArrayStoreException       if an element in the <code>src</code> array could not be stored into the <code>dest</code> array because of a type
+     *                                   mismatch.
+     * @throws NullPointerException      if either <code>src</code> or <code>dest</code> is <code>null</code>.
+     * @since 3.15.0
+     */
+    public static <T> T arraycopy(final T source, final int sourcePos, final T dest, final int destPos, final int length) {
+        System.arraycopy(source, sourcePos, dest, destPos, length);
+        return dest;
+    }
+
+    /**
      * Clones an array or returns {@code null}.
      * <p>
      * This method returns {@code null} for a {@code null} input array.
@@ -8144,8 +8165,7 @@ public class ArrayUtils {
         }
 
         final int[] subarray = new int[newSize];
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, subarray, 0, newSize);
     }
 
     /**
@@ -8185,8 +8205,7 @@ public class ArrayUtils {
         }
 
         final long[] subarray = new long[newSize];
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, subarray, 0, newSize);
     }
 
     /**
@@ -8226,8 +8245,7 @@ public class ArrayUtils {
         }
 
         final short[] subarray = new short[newSize];
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, subarray, 0, newSize);
     }
 
     /**
@@ -8276,8 +8294,7 @@ public class ArrayUtils {
             return newInstance(type, 0);
         }
         final T[] subarray = newInstance(type, newSize);
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, subarray, 0, newSize);
     }
 
     /**

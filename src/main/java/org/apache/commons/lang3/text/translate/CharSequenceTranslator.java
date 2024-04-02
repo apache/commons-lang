@@ -23,6 +23,8 @@ import java.io.Writer;
 import java.util.Locale;
 import java.util.Objects;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 /**
  * An API for translating text.
  * Its core use is to escape and unescape text. Because escaping and unescaping
@@ -132,8 +134,7 @@ public abstract class CharSequenceTranslator {
     public final CharSequenceTranslator with(final CharSequenceTranslator... translators) {
         final CharSequenceTranslator[] newArray = new CharSequenceTranslator[translators.length + 1];
         newArray[0] = this;
-        System.arraycopy(translators, 0, newArray, 1, translators.length);
-        return new AggregateTranslator(newArray);
+        return new AggregateTranslator(ArrayUtils.arraycopy(translators, 0, newArray, 1, translators.length));
     }
 
 }

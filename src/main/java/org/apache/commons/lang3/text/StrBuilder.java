@@ -1915,8 +1915,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (destination == null || destination.length < len) {
             destination = new char[len];
         }
-        System.arraycopy(buffer, 0, destination, 0, len);
-        return destination;
+        return ArrayUtils.arraycopy(buffer, 0, destination, 0, len);
     }
 
     /**
@@ -2939,8 +2938,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
         final char[] chars = new char[size];
-        System.arraycopy(buffer, 0, chars, 0, size);
-        return chars;
+        return ArrayUtils.arraycopy(buffer, 0, chars, 0, size);
     }
 
     /**
@@ -2960,8 +2958,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
         final char[] chars = new char[len];
-        System.arraycopy(buffer, startIndex, chars, 0, len);
-        return chars;
+        return ArrayUtils.arraycopy(buffer, startIndex, chars, 0, len);
     }
 
     /**
