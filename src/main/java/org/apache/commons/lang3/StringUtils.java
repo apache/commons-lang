@@ -5347,8 +5347,7 @@ public class StringUtils {
             min = first;
         }
         final int range = Math.max(max.length() / 2 - 1, 0);
-        final int[] matchIndexes = new int[min.length()];
-        Arrays.fill(matchIndexes, -1);
+        final int[] matchIndexes = ArrayFill.fill(new int[min.length()], -1);
         final boolean[] matchFlags = new boolean[max.length()];
         int matches = 0;
         for (int mi = 0; mi < min.length(); mi++) {
