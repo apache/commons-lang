@@ -6183,9 +6183,7 @@ public class StringUtils {
         if (repeat <= 0) {
             return EMPTY;
         }
-        final char[] buf = new char[repeat];
-        Arrays.fill(buf, ch);
-        return new String(buf);
+        return new String(ArrayFill.fill(new char[repeat], ch));
     }
 
     /**
