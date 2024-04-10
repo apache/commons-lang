@@ -56,8 +56,8 @@ public class PairTest extends AbstractLangTest {
         final Pair<String, String> pair1 = Pair.of("A", "D");
         final Pair<String, String> pair2 = Pair.of("B", "C");
         final Map<String, String> map = new HashMap<>();
-        assertEquals(null, pair1.apply(map::put));
-        assertEquals(null, pair2.apply(map::put));
+        assertNull(pair1.apply(map::put));
+        assertNull(pair2.apply(map::put));
         assertEquals("D", map.get("A"));
         assertEquals("C", map.get("B"));
         assertEquals("D", pair1.apply(map::put));

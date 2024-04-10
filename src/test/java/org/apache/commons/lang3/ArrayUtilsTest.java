@@ -2342,6 +2342,12 @@ public class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testNullToShortObject() {
+        @SuppressWarnings("boxing") final Short[] original = {1, 2};
+        assertArrayEquals(original, ArrayUtils.nullTo(original, ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY));
+    }
+
+    @Test
     public void testReverse() {
         final StringBuffer str1 = new StringBuffer("pick");
         final String str2 = "a";

@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
@@ -380,25 +379,29 @@ public class EqualsBuilderTest extends AbstractLangTest {
         final boolean o2 = false;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
     }
 
     @Test
     public void testBooleanArray() {
-        boolean[] obj1 = new boolean[2];
+        final boolean[] obj1 = new boolean[2];
         obj1[0] = true;
         obj1[1] = false;
-        boolean[] obj2 = new boolean[2];
+        final boolean[] obj2 = new boolean[2];
         obj2[0] = true;
         obj2[1] = false;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[1] = true;
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertFalse(new EqualsBuilder().append(obj1, obj2).append(obj1, obj1).isEquals());
 
-        obj2 = null;
-        assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
-        obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        final boolean[] nullArr1 = null;
+        final boolean[] nullArr2 = null;
+        assertFalse(new EqualsBuilder().append(obj1, nullArr2).isEquals());
+        assertFalse(new EqualsBuilder().append(nullArr1, obj2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr1).isEquals());
     }
 
     @Test
@@ -425,25 +428,29 @@ public class EqualsBuilderTest extends AbstractLangTest {
         final byte o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
     }
 
     @Test
     public void testByteArray() {
-        byte[] obj1 = new byte[2];
+        final byte[] obj1 = new byte[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        byte[] obj2 = new byte[2];
+        final byte[] obj2 = new byte[2];
         obj2[0] = 5;
         obj2[1] = 6;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[1] = 7;
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertFalse(new EqualsBuilder().append(obj1, obj2).append(obj1, obj1).isEquals());
 
-        obj2 = null;
-        assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
-        obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        final byte[] nullArr1 = null;
+        final byte[] nullArr2 = null;
+        assertFalse(new EqualsBuilder().append(obj1, nullArr2).isEquals());
+        assertFalse(new EqualsBuilder().append(nullArr1, obj2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr1).isEquals());
     }
 
     @Test
@@ -470,25 +477,29 @@ public class EqualsBuilderTest extends AbstractLangTest {
         final char o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
     }
 
     @Test
     public void testCharArray() {
-        char[] obj1 = new char[2];
+        final char[] obj1 = new char[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        char[] obj2 = new char[2];
+        final char[] obj2 = new char[2];
         obj2[0] = 5;
         obj2[1] = 6;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[1] = 7;
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertFalse(new EqualsBuilder().append(obj1, obj2).append(obj1, obj1).isEquals());
 
-        obj2 = null;
-        assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
-        obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        final char[] nullArr1 = null;
+        final char[] nullArr2 = null;
+        assertFalse(new EqualsBuilder().append(obj1, nullArr2).isEquals());
+        assertFalse(new EqualsBuilder().append(nullArr1, obj2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr1).isEquals());
     }
 
     @Test
@@ -531,11 +542,8 @@ public class EqualsBuilderTest extends AbstractLangTest {
         refX3.setObjectReference(x3);
 
         assertEquals(x1, x2);
-        assertNull(EqualsBuilder.getRegistry());
         assertNotEquals(x1, x3);
-        assertNull(EqualsBuilder.getRegistry());
         assertNotEquals(x2, x3);
-        assertNull(EqualsBuilder.getRegistry());
     }
 
     @Test
@@ -544,6 +552,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
         final double o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().append(o1, Double.NaN).isEquals());
         assertTrue(new EqualsBuilder().append(Double.NaN, Double.NaN).isEquals());
         assertTrue(new EqualsBuilder().append(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY).isEquals());
@@ -551,21 +560,24 @@ public class EqualsBuilderTest extends AbstractLangTest {
 
     @Test
     public void testDoubleArray() {
-        double[] obj1 = new double[2];
+        final double[] obj1 = new double[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        double[] obj2 = new double[2];
+        final double[] obj2 = new double[2];
         obj2[0] = 5;
         obj2[1] = 6;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[1] = 7;
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertFalse(new EqualsBuilder().append(obj1, obj2).append(obj1, obj1).isEquals());
 
-        obj2 = null;
-        assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
-        obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        final double[] nullArr1 = null;
+        final double[] nullArr2 = null;
+        assertFalse(new EqualsBuilder().append(obj1, nullArr2).isEquals());
+        assertFalse(new EqualsBuilder().append(nullArr1, obj2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr1).isEquals());
     }
 
     @Test
@@ -592,6 +604,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
         final float o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().append(o1, Float.NaN).isEquals());
         assertTrue(new EqualsBuilder().append(Float.NaN, Float.NaN).isEquals());
         assertTrue(new EqualsBuilder().append(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY).isEquals());
@@ -599,21 +612,24 @@ public class EqualsBuilderTest extends AbstractLangTest {
 
     @Test
     public void testFloatArray() {
-        float[] obj1 = new float[2];
+        final float[] obj1 = new float[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        float[] obj2 = new float[2];
+        final float[] obj2 = new float[2];
         obj2[0] = 5;
         obj2[1] = 6;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[1] = 7;
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertFalse(new EqualsBuilder().append(obj1, obj2).append(obj1, obj1).isEquals());
 
-        obj2 = null;
-        assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
-        obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        final float[] nullArr1 = null;
+        final float[] nullArr2 = null;
+        assertFalse(new EqualsBuilder().append(obj1, nullArr2).isEquals());
+        assertFalse(new EqualsBuilder().append(nullArr1, obj2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr1).isEquals());
     }
 
     @Test
@@ -640,25 +656,29 @@ public class EqualsBuilderTest extends AbstractLangTest {
         final int o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
     }
 
     @Test
     public void testIntArray() {
-        int[] obj1 = new int[2];
+        final int[] obj1 = new int[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        int[] obj2 = new int[2];
+        final int[] obj2 = new int[2];
         obj2[0] = 5;
         obj2[1] = 6;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[1] = 7;
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertFalse(new EqualsBuilder().append(obj1, obj2).append(obj1, obj1).isEquals());
 
-        obj2 = null;
-        assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
-        obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        final int[] nullArr1 = null;
+        final int[] nullArr2 = null;
+        assertFalse(new EqualsBuilder().append(obj1, nullArr2).isEquals());
+        assertFalse(new EqualsBuilder().append(nullArr1, obj2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr1).isEquals());
     }
 
     @Test
@@ -704,25 +724,29 @@ public class EqualsBuilderTest extends AbstractLangTest {
         final long o2 = 2L;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
     }
 
     @Test
     public void testLongArray() {
-        long[] obj1 = new long[2];
+        final long[] obj1 = new long[2];
         obj1[0] = 5L;
         obj1[1] = 6L;
-        long[] obj2 = new long[2];
+        final long[] obj2 = new long[2];
         obj2[0] = 5L;
         obj2[1] = 6L;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[1] = 7;
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertFalse(new EqualsBuilder().append(obj1, obj2).append(obj1, obj1).isEquals());
 
-        obj2 = null;
-        assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
-        obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        final long[] nullArr1 = null;
+        final long[] nullArr2 = null;
+        assertFalse(new EqualsBuilder().append(obj1, nullArr2).isEquals());
+        assertFalse(new EqualsBuilder().append(nullArr1, obj2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr1).isEquals());
     }
 
     @Test
@@ -759,6 +783,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
         assertTrue(new EqualsBuilder().append(array1, array2).isEquals());
         ((long[]) array1[1])[1] = 0;
         assertFalse(new EqualsBuilder().append(array1, array2).isEquals());
+        assertFalse(new EqualsBuilder().append(array1, array2).append(array1, array2).isEquals());
     }
 
     @Test
@@ -927,11 +952,11 @@ public class EqualsBuilderTest extends AbstractLangTest {
 
     @Test
     public void testObjectArray() {
-        TestObject[] obj1 = new TestObject[3];
+        final TestObject[] obj1 = new TestObject[3];
         obj1[0] = new TestObject(4);
         obj1[1] = new TestObject(5);
         obj1[2] = null;
-        TestObject[] obj2 = new TestObject[3];
+        final TestObject[] obj2 = new TestObject[3];
         obj2[0] = new TestObject(4);
         obj2[1] = new TestObject(5);
         obj2[2] = null;
@@ -941,6 +966,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[1].setA(6);
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertFalse(new EqualsBuilder().append(obj1, obj2).append(obj1, obj1).isEquals());
         obj1[1].setA(5);
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[2] = obj1[1];
@@ -948,10 +974,12 @@ public class EqualsBuilderTest extends AbstractLangTest {
         obj1[2] = null;
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
 
-        obj2 = null;
-        assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
-        obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        final TestObject[] nullArr1 = null;
+        final TestObject[] nullArr2 = null;
+        assertFalse(new EqualsBuilder().append(obj1, nullArr2).isEquals());
+        assertFalse(new EqualsBuilder().append(nullArr1, obj2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr1).isEquals());
     }
 
     @Test
@@ -1107,6 +1135,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
         final TestObject o2 = new TestObject(5);
         assertTrue(new EqualsBuilder().reflectionAppend(o1, o1).build());
         assertFalse(new EqualsBuilder().reflectionAppend(o1, o2).build());
+        assertFalse(new EqualsBuilder().reflectionAppend(o1, o2).reflectionAppend(o1, o1).build());
 
         o2.setA(4);
         assertTrue(new EqualsBuilder().reflectionAppend(o1, o2).build());
@@ -1330,25 +1359,29 @@ public class EqualsBuilderTest extends AbstractLangTest {
         final short o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
     }
 
     @Test
     public void testShortArray() {
-        short[] obj1 = new short[2];
+        final short[] obj1 = new short[2];
         obj1[0] = 5;
         obj1[1] = 6;
-        short[] obj2 = new short[2];
+        final short[] obj2 = new short[2];
         obj2[0] = 5;
         obj2[1] = 6;
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[1] = 7;
         assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
+        assertFalse(new EqualsBuilder().append(obj1, obj2).append(obj1, obj1).isEquals());
 
-        obj2 = null;
-        assertFalse(new EqualsBuilder().append(obj1, obj2).isEquals());
-        obj1 = null;
-        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        final short[] nullArr1 = null;
+        final short[] nullArr2 = null;
+        assertFalse(new EqualsBuilder().append(obj1, nullArr2).isEquals());
+        assertFalse(new EqualsBuilder().append(nullArr1, obj2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr2).isEquals());
+        assertTrue(new EqualsBuilder().append(nullArr1, nullArr1).isEquals());
     }
 
     @Test
@@ -1377,6 +1410,8 @@ public class EqualsBuilderTest extends AbstractLangTest {
         assertFalse(new EqualsBuilder().appendSuper(false).append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().appendSuper(true).append(o1, o2).isEquals());
         assertFalse(new EqualsBuilder().appendSuper(false).append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().appendSuper(false).append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).appendSuper(false).isEquals());
     }
 
     @Test

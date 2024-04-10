@@ -568,25 +568,23 @@ public class MethodUtils {
      * @since 3.5
      */
     static Object[] getVarArgs(final Object[] args, final Class<?>[] methodParameterTypes) {
-        if (args.length == methodParameterTypes.length && (args[args.length - 1] == null ||
-                args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1]))) {
+        if (args.length == methodParameterTypes.length
+                && (args[args.length - 1] == null || args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1]))) {
             // The args array is already in the canonical form for the method.
             return args;
         }
 
         // Construct a new array matching the method's declared parameter types.
-        final Object[] newArgs = new Object[methodParameterTypes.length];
-
         // Copy the normal (non-varargs) parameters
-        System.arraycopy(args, 0, newArgs, 0, methodParameterTypes.length - 1);
+        final Object[] newArgs = ArrayUtils.arraycopy(args, 0, 0, methodParameterTypes.length - 1, () -> new Object[methodParameterTypes.length]);
 
         // Construct a new array for the variadic parameters
         final Class<?> varArgComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
         final int varArgLength = args.length - methodParameterTypes.length + 1;
 
-        Object varArgsArray = Array.newInstance(ClassUtils.primitiveToWrapper(varArgComponentType), varArgLength);
         // Copy the variadic arguments into the varargs array.
-        System.arraycopy(args, methodParameterTypes.length - 1, varArgsArray, 0, varArgLength);
+        Object varArgsArray = ArrayUtils.arraycopy(args, methodParameterTypes.length - 1, 0, varArgLength,
+                s -> Array.newInstance(ClassUtils.primitiveToWrapper(varArgComponentType), varArgLength));
 
         if (varArgComponentType.isPrimitive()) {
             // unbox from wrapper type to primitive type

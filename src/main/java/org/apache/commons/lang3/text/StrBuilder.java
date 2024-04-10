@@ -1145,7 +1145,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Appends the new line string to this string builder.
      * <p>
      * The new line string can be altered using {@link #setNewLineText(String)}.
-     * This might be used to force the output to always use Unix line endings
+     * This might be used to force the output to always use UNIX line endings
      * even when on Windows.
      * </p>
      *
@@ -1832,9 +1832,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder ensureCapacity(final int capacity) {
         if (capacity > buffer.length) {
-            final char[] old = buffer;
-            buffer = new char[capacity * 2];
-            System.arraycopy(old, 0, buffer, 0, size);
+            buffer = ArrayUtils.arraycopy(buffer, 0, 0, size, () -> new char[capacity * 2]);
         }
         return this;
     }
@@ -1915,8 +1913,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (destination == null || destination.length < len) {
             destination = new char[len];
         }
-        System.arraycopy(buffer, 0, destination, 0, len);
-        return destination;
+        return ArrayUtils.arraycopy(buffer, 0, destination, 0, len);
     }
 
     /**
@@ -2469,9 +2466,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder minimizeCapacity() {
         if (buffer.length > length()) {
-            final char[] old = buffer;
-            buffer = new char[length()];
-            System.arraycopy(old, 0, buffer, 0, size);
+            buffer = ArrayUtils.arraycopy(buffer, 0, 0, size, () -> new char[length()]);
         }
         return this;
     }
@@ -2938,9 +2933,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (size == 0) {
             return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
-        final char[] chars = new char[size];
-        System.arraycopy(buffer, 0, chars, 0, size);
-        return chars;
+        return ArrayUtils.arraycopy(buffer, 0, 0, size, char[]::new);
     }
 
     /**
@@ -2959,9 +2952,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (len == 0) {
             return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
-        final char[] chars = new char[len];
-        System.arraycopy(buffer, startIndex, chars, 0, len);
-        return chars;
+        return ArrayUtils.arraycopy(buffer, startIndex, 0, len, char[]::new);
     }
 
     /**

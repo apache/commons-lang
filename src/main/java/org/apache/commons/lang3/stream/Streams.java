@@ -580,6 +580,18 @@ public class Streams {
     }
 
     /**
+     * Shorthand for {@code Streams.failableStream(value == null ? Stream.empty() : Stream.of(value))}.
+     *
+     * @param <T> the type of stream elements.
+     * @param value the single element of the new stream, may be {@code null}.
+     * @return the new FailableStream on {@code value} or an empty stream.
+     * @since 3.15.0
+     */
+    public static <T> FailableStream<T> failableStream(final T value) {
+        return failableStream(streamOf(value));
+    }
+
+    /**
      * Shorthand for {@code Streams.failableStream(Streams.of(arrayValues))}.
      *
      * @param <T> the type of stream elements.
@@ -626,6 +638,18 @@ public class Streams {
      */
     public static <E> Stream<E> nonNull(final Collection<E> collection) {
         return of(collection).filter(Objects::nonNull);
+    }
+
+    /**
+     * Streams the non-null element.
+     *
+     * @param <E> the type of elements in the collection.
+     * @param array the element to stream or null.
+     * @return A non-null stream that filters out a null element.
+     * @since 3.15.0
+     */
+    public static <E> Stream<E> nonNull(final E array) {
+        return nonNull(streamOf(array));
     }
 
     /**
@@ -814,6 +838,10 @@ public class Streams {
     @Deprecated
     public static <T> FailableStream<T> stream(final Stream<T> stream) {
         return failableStream(stream);
+    }
+
+    private static <T> Stream<T> streamOf(final T value) {
+        return value == null ? Stream.empty() : Stream.of(value);
     }
 
     /**

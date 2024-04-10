@@ -687,7 +687,7 @@ public abstract class ToStringStyle implements Serializable {
      * A registry of objects used by {@code reflectionToString} methods
      * to detect cyclical object references and avoid infinite loops.
      */
-    private static final ThreadLocal<WeakHashMap<Object, Object>> REGISTRY = new ThreadLocal<>();
+    private static final ThreadLocal<WeakHashMap<Object, Object>> REGISTRY = ThreadLocal.withInitial(WeakHashMap::new);
     /*
      * Note that objects of this class are generally shared between threads, so
      * an instance variable would not be suitable here.
@@ -718,8 +718,7 @@ public abstract class ToStringStyle implements Serializable {
      *             object.
      */
     static boolean isRegistered(final Object value) {
-        final Map<Object, Object> m = getRegistry();
-        return m != null && m.containsKey(value);
+        return getRegistry().containsKey(value);
     }
 
     /**
@@ -731,10 +730,6 @@ public abstract class ToStringStyle implements Serializable {
      */
     static void register(final Object value) {
         if (value != null) {
-            final Map<Object, Object> m = getRegistry();
-            if (m == null) {
-                REGISTRY.set(new WeakHashMap<>());
-            }
             getRegistry().put(value, null);
         }
     }
@@ -752,11 +747,9 @@ public abstract class ToStringStyle implements Serializable {
     static void unregister(final Object value) {
         if (value != null) {
             final Map<Object, Object> m = getRegistry();
-            if (m != null) {
-                m.remove(value);
-                if (m.isEmpty()) {
-                    REGISTRY.remove();
-                }
+            m.remove(value);
+            if (m.isEmpty()) {
+                REGISTRY.remove();
             }
         }
     }

@@ -1384,12 +1384,8 @@ public class ClassUtils {
         if (!ArrayUtils.isSameLength(classArray, toClassArray)) {
             return false;
         }
-        if (classArray == null) {
-            classArray = ArrayUtils.EMPTY_CLASS_ARRAY;
-        }
-        if (toClassArray == null) {
-            toClassArray = ArrayUtils.EMPTY_CLASS_ARRAY;
-        }
+        classArray = ArrayUtils.nullToEmpty(classArray);
+        toClassArray = ArrayUtils.nullToEmpty(toClassArray);
         for (int i = 0; i < classArray.length; i++) {
             if (!isAssignable(classArray[i], toClassArray[i], autoboxing)) {
                 return false;

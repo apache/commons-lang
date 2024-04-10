@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
@@ -214,6 +215,16 @@ public class DiffBuilderTest extends AbstractLangTest {
         final DiffResult<TypeTestClass> list = new DiffBuilder<>(class1, class2, SHORT_STYLE).append("prop1", class1.diff(class2)).build();
         assertEquals(1, list.getNumberOfDiffs());
         assertEquals("prop1.int", list.getDiffs().get(0).getFieldName());
+    }
+
+    @Test
+    public void testDiffResultEquals() {
+        final TypeTestClass class1 = new TypeTestClass();
+        class1.intField = 2;
+
+        final DiffResult<TypeTestClass> list = new DiffBuilder<>(class1, class1, SHORT_STYLE).append("prop1", class1.diff(class1)).build();
+        assertEquals(0, list.getNumberOfDiffs());
+        assertTrue(list.getDiffs().isEmpty());
     }
 
     @Test

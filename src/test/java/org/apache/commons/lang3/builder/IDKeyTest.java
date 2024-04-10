@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,24 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+package org.apache.commons.lang3.builder;
 
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
- * All tests subclass this test.
+ * Tests {@link IDKey}.
  */
-public class AbstractLangTest {
+public class IDKeyTest {
 
-    /**
-     * All tests should leave the {@link ToStringStyle} registry empty.
-     */
-    @AfterEach
-    public void after() {
-        assertTrue(ToStringStyle.getRegistry().isEmpty(), "Expected null, actual: " + ToStringStyle.getRegistry());
+    @Test
+    public void testEquals() {
+        assertEquals(new IDKey("1"), new IDKey("1"));
+        assertNotEquals(new IDKey("1"), new IDKey("2"));
+        assertNotEquals(new IDKey("1"), "2");
     }
 
 }

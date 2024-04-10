@@ -120,7 +120,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @since 2.3
      */
-    private static final ThreadLocal<Set<IDKey>> REGISTRY = new ThreadLocal<>();
+    private static final ThreadLocal<Set<IDKey>> REGISTRY = ThreadLocal.withInitial(HashSet::new);
 
     /*
      * NOTE: we cannot store the actual objects in a HashSet, as that would use the very hashCode()
@@ -489,12 +489,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *            The object to register.
      */
     private static void register(final Object value) {
-        Set<IDKey> registry = getRegistry();
-        if (registry == null) {
-            registry = new HashSet<>();
-            REGISTRY.set(registry);
-        }
-        registry.add(new IDKey(value));
+        getRegistry().add(new IDKey(value));
     }
 
     /**
@@ -502,6 +497,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * <p>
      * Used by the reflection methods to avoid infinite loops.
+     * </p>
      *
      * @param value
      *            The object to unregister.
@@ -509,11 +505,9 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     private static void unregister(final Object value) {
         final Set<IDKey> registry = getRegistry();
-        if (registry != null) {
-            registry.remove(new IDKey(value));
-            if (registry.isEmpty()) {
-                REGISTRY.remove();
-            }
+        registry.remove(new IDKey(value));
+        if (registry.isEmpty()) {
+            REGISTRY.remove();
         }
     }
 

@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
@@ -659,8 +660,7 @@ public class ArrayUtils {
         if (index > length || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + length);
         }
-        final Object result = Array.newInstance(clazz, length + 1);
-        System.arraycopy(array, 0, result, 0, index);
+        final Object result = arraycopy(array, 0, 0, index, () -> Array.newInstance(clazz, length + 1));
         Array.set(result, index, element);
         if (index < length) {
             System.arraycopy(array, index, result, index + 1, length - index);
@@ -1114,21 +1114,18 @@ public class ArrayUtils {
             return clone(array1);
         }
         final Class<T> type1 = getComponentType(array1);
-        final T[] joinedArray = newInstance(type1, array1.length + array2.length);
-        System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+        final T[] joinedArray = arraycopy(array1, 0, 0, array1.length, () -> newInstance(type1, array1.length + array2.length));
         try {
             System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
         } catch (final ArrayStoreException ase) {
             // Check if problem was due to incompatible types
             /*
-             * We do this here, rather than before the copy because:
-             * - it would be a wasted check most of the time
-             * - safer, in case check turns out to be too strict
+             * We do this here, rather than before the copy because: - it would be a wasted check most of the time - safer, in case check turns out to be too
+             * strict
              */
             final Class<?> type2 = array2.getClass().getComponentType();
             if (!type1.isAssignableFrom(type2)) {
-                throw new IllegalArgumentException("Cannot store " + type2.getName() + " in an array of "
-                        + type1.getName(), ase);
+                throw new IllegalArgumentException("Cannot store " + type2.getName() + " in an array of " + type1.getName(), ase);
             }
             throw ase; // No, so rethrow original
         }
@@ -1372,6 +1369,67 @@ public class ArrayUtils {
      */
     public static <T> T[] addFirst(final T[] array, final T element) {
         return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+    /**
+     * A fluent version of {@link System#arraycopy(Object, int, Object, int, int)} that returns the destination array.
+     *
+     * @param <T>       the type
+     * @param source    the source array.
+     * @param sourcePos starting position in the source array.
+     * @param dest      the destination array.
+     * @param destPos   starting position in the destination data.
+     * @param length    the number of array elements to be copied.
+     * @return dest
+     * @throws IndexOutOfBoundsException if copying would cause access of data outside array bounds.
+     * @throws ArrayStoreException       if an element in the <code>src</code> array could not be stored into the <code>dest</code> array because of a type
+     *                                   mismatch.
+     * @throws NullPointerException      if either <code>src</code> or <code>dest</code> is <code>null</code>.
+     * @since 3.15.0
+     */
+    public static <T> T arraycopy(final T source, final int sourcePos, final T dest, final int destPos, final int length) {
+        System.arraycopy(source, sourcePos, dest, destPos, length);
+        return dest;
+    }
+
+    /**
+     * A fluent version of {@link System#arraycopy(Object, int, Object, int, int)} that returns the destination array.
+     *
+     * @param <T>       the type.
+     * @param source    the source array.
+     * @param sourcePos starting position in the source array.
+     * @param destPos   starting position in the destination data.
+     * @param length    the number of array elements to be copied.
+     * @param allocator allocates the array to populate and return.
+     * @return dest
+     * @throws IndexOutOfBoundsException if copying would cause access of data outside array bounds.
+     * @throws ArrayStoreException       if an element in the <code>src</code> array could not be stored into the <code>dest</code> array because of a type
+     *                                   mismatch.
+     * @throws NullPointerException      if either <code>src</code> or <code>dest</code> is <code>null</code>.
+     * @since 3.15.0
+     */
+    public static <T> T arraycopy(final T source, final int sourcePos, final int destPos, final int length, final Function<Integer, T> allocator) {
+        return arraycopy(source, sourcePos, allocator.apply(length), destPos, length);
+    }
+
+    /**
+     * A fluent version of {@link System#arraycopy(Object, int, Object, int, int)} that returns the destination array.
+     *
+     * @param <T>       the type.
+     * @param source    the source array.
+     * @param sourcePos starting position in the source array.
+     * @param destPos   starting position in the destination data.
+     * @param length    the number of array elements to be copied.
+     * @param allocator allocates the array to populate and return.
+     * @return dest
+     * @throws IndexOutOfBoundsException if copying would cause access of data outside array bounds.
+     * @throws ArrayStoreException       if an element in the <code>src</code> array could not be stored into the <code>dest</code> array because of a type
+     *                                   mismatch.
+     * @throws NullPointerException      if either <code>src</code> or <code>dest</code> is <code>null</code>.
+     * @since 3.15.0
+     */
+    public static <T> T arraycopy(final T source, final int sourcePos, final int destPos, final int length, final Supplier<T> allocator) {
+        return arraycopy(source, sourcePos, allocator.get(), destPos, length);
     }
 
     /**
@@ -4288,6 +4346,27 @@ public class ArrayUtils {
      * Defensive programming technique to change a {@code null}
      * reference to an empty one.
      * <p>
+     * This method returns a default array for a {@code null} input array.
+     * </p>
+     * <p>
+     * As a memory optimizing technique an empty array passed in will be overridden with
+     * the empty {@code public static} references in this class.
+     * </p>
+     *
+     * @param <T> The array type.
+     * @param array  the array to check for {@code null} or empty
+     * @param defaultArray A default array, usually empty.
+     * @return the same array, or defaultArray if {@code null} or empty input.
+     * @since 3.15.0
+     */
+    public static  <T> T[] nullTo(final T[] array, final T[] defaultArray) {
+        return isEmpty(array) ? defaultArray : array;
+    }
+
+    /**
+     * Defensive programming technique to change a {@code null}
+     * reference to an empty one.
+     * <p>
      * This method returns an empty array for a {@code null} input array.
      * </p>
      * <p>
@@ -4319,7 +4398,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Boolean[] nullToEmpty(final Boolean[] array) {
-        return isEmpty(array) ? EMPTY_BOOLEAN_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_BOOLEAN_OBJECT_ARRAY);
     }
 
     /**
@@ -4357,7 +4436,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Byte[] nullToEmpty(final Byte[] array) {
-        return isEmpty(array) ? EMPTY_BYTE_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_BYTE_OBJECT_ARRAY);
     }
 
     /**
@@ -4395,7 +4474,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Character[] nullToEmpty(final Character[] array) {
-        return isEmpty(array) ? EMPTY_CHARACTER_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_CHARACTER_OBJECT_ARRAY);
     }
 
     /**
@@ -4414,7 +4493,7 @@ public class ArrayUtils {
      * @since 3.2
      */
     public static Class<?>[] nullToEmpty(final Class<?>[] array) {
-        return isEmpty(array) ? EMPTY_CLASS_ARRAY : array;
+        return nullTo(array, EMPTY_CLASS_ARRAY);
     }
 
     /**
@@ -4452,7 +4531,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Double[] nullToEmpty(final Double[] array) {
-        return isEmpty(array) ? EMPTY_DOUBLE_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_DOUBLE_OBJECT_ARRAY);
     }
 
     /**
@@ -4490,7 +4569,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Float[] nullToEmpty(final Float[] array) {
-        return isEmpty(array) ? EMPTY_FLOAT_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_FLOAT_OBJECT_ARRAY);
     }
 
     /**
@@ -4528,7 +4607,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Integer[] nullToEmpty(final Integer[] array) {
-        return isEmpty(array) ? EMPTY_INTEGER_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_INTEGER_OBJECT_ARRAY);
     }
 
     /**
@@ -4566,7 +4645,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Long[] nullToEmpty(final Long[] array) {
-        return isEmpty(array) ? EMPTY_LONG_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_LONG_OBJECT_ARRAY);
     }
 
     /**
@@ -4585,7 +4664,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Object[] nullToEmpty(final Object[] array) {
-        return isEmpty(array) ? EMPTY_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_OBJECT_ARRAY);
     }
 
     /**
@@ -4623,7 +4702,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static Short[] nullToEmpty(final Short[] array) {
-        return isEmpty(array) ? EMPTY_SHORT_OBJECT_ARRAY : array;
+        return nullTo(array, EMPTY_SHORT_OBJECT_ARRAY);
     }
 
     /**
@@ -4642,7 +4721,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static String[] nullToEmpty(final String[] array) {
-        return isEmpty(array) ? EMPTY_STRING_ARRAY : array;
+        return nullTo(array, EMPTY_STRING_ARRAY);
     }
 
     /**
@@ -8121,10 +8200,7 @@ public class ArrayUtils {
         if (newSize <= 0) {
             return EMPTY_INT_ARRAY;
         }
-
-        final int[] subarray = new int[newSize];
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, 0, newSize, int[]::new);
     }
 
     /**
@@ -8162,10 +8238,7 @@ public class ArrayUtils {
         if (newSize <= 0) {
             return EMPTY_LONG_ARRAY;
         }
-
-        final long[] subarray = new long[newSize];
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, 0, newSize, long[]::new);
     }
 
     /**
@@ -8203,10 +8276,7 @@ public class ArrayUtils {
         if (newSize <= 0) {
             return EMPTY_SHORT_ARRAY;
         }
-
-        final short[] subarray = new short[newSize];
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, 0, newSize, short[]::new);
     }
 
     /**
@@ -8254,9 +8324,7 @@ public class ArrayUtils {
         if (newSize <= 0) {
             return newInstance(type, 0);
         }
-        final T[] subarray = newInstance(type, newSize);
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, 0, newSize, () -> newInstance(type, newSize));
     }
 
     /**

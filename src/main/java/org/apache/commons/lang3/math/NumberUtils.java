@@ -1493,7 +1493,7 @@ public class NumberUtils {
      * value is returned.</p>
      *
      * <pre>
-     *   NumberUtils.toFloat(null, 1.1f)   = 1.0f
+     *   NumberUtils.toFloat(null, 1.1f)   = 1.1f
      *   NumberUtils.toFloat("", 1.1f)     = 1.1f
      *   NumberUtils.toFloat("1.5", 0.0f)  = 1.5f
      * </pre>
