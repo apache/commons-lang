@@ -22,7 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.stream.Streams.FailableStream;
@@ -32,6 +35,13 @@ import org.junit.jupiter.api.Test;
  * Tests {@link FailableStream}.
  */
 public class FailableStreamTest {
+
+    private Integer failable(final Map.Entry<String, AtomicInteger> value) throws IOException {
+        if (value == new Object()) {
+            throw new IOException();
+        }
+        return Integer.valueOf(value.getValue().incrementAndGet());
+    }
 
     private String failable(final String value) throws IOException {
         if (value == new Object()) {
@@ -56,6 +66,18 @@ public class FailableStreamTest {
         assertArrayEquals(new String[] { "a", "b", "c" }, toArray(Arrays.asList("A", "B", "C")));
     }
 
+    @Test
+    public void testFailableStreamOfMap() {
+        final Map<String, AtomicInteger> map = new LinkedHashMap<>();
+        assertArrayEquals(new Integer[] {}, toArrayMap(map));
+        map.put("a", new AtomicInteger(1));
+        assertArrayEquals(new Integer[] { 2 }, toArrayMap(map));
+        map.put("b", new AtomicInteger(2));
+        assertArrayEquals(new Integer[] { 3, 3 }, toArrayMap(map));
+        map.put("c", new AtomicInteger(3));
+        assertArrayEquals(new Integer[] { 4, 4, 4 }, toArrayMap(map));
+    }
+
     private String[] toArray(final Collection<String> strings) {
         return Streams.failableStream(strings).map(this::failable).collect(Collectors.toList()).toArray(new String[0]);
     }
@@ -66,5 +88,9 @@ public class FailableStreamTest {
 
     private String[] toArray(final String... strings) {
         return Streams.failableStream(strings).map(this::failable).collect(Collectors.toList()).toArray(new String[0]);
+    }
+
+    private Integer[] toArrayMap(final Map<String, AtomicInteger> map) {
+        return Streams.failableStream(map.entrySet()).map(this::failable).collect(Collectors.toList()).toArray(new Integer[0]);
     }
 }
