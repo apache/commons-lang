@@ -1374,27 +1374,6 @@ public class ArrayUtils {
     /**
      * A fluent version of {@link System#arraycopy(Object, int, Object, int, int)} that returns the destination array.
      *
-     * @param <T>       the type
-     * @param source    the source array.
-     * @param sourcePos starting position in the source array.
-     * @param dest      the destination array.
-     * @param destPos   starting position in the destination data.
-     * @param length    the number of array elements to be copied.
-     * @return dest
-     * @throws IndexOutOfBoundsException if copying would cause access of data outside array bounds.
-     * @throws ArrayStoreException       if an element in the <code>src</code> array could not be stored into the <code>dest</code> array because of a type
-     *                                   mismatch.
-     * @throws NullPointerException      if either <code>src</code> or <code>dest</code> is <code>null</code>.
-     * @since 3.15.0
-     */
-    public static <T> T arraycopy(final T source, final int sourcePos, final T dest, final int destPos, final int length) {
-        System.arraycopy(source, sourcePos, dest, destPos, length);
-        return dest;
-    }
-
-    /**
-     * A fluent version of {@link System#arraycopy(Object, int, Object, int, int)} that returns the destination array.
-     *
      * @param <T>       the type.
      * @param source    the source array.
      * @param sourcePos starting position in the source array.
@@ -1430,6 +1409,27 @@ public class ArrayUtils {
      */
     public static <T> T arraycopy(final T source, final int sourcePos, final int destPos, final int length, final Supplier<T> allocator) {
         return arraycopy(source, sourcePos, allocator.get(), destPos, length);
+    }
+
+    /**
+     * A fluent version of {@link System#arraycopy(Object, int, Object, int, int)} that returns the destination array.
+     *
+     * @param <T>       the type
+     * @param source    the source array.
+     * @param sourcePos starting position in the source array.
+     * @param dest      the destination array.
+     * @param destPos   starting position in the destination data.
+     * @param length    the number of array elements to be copied.
+     * @return dest
+     * @throws IndexOutOfBoundsException if copying would cause access of data outside array bounds.
+     * @throws ArrayStoreException       if an element in the <code>src</code> array could not be stored into the <code>dest</code> array because of a type
+     *                                   mismatch.
+     * @throws NullPointerException      if either <code>src</code> or <code>dest</code> is <code>null</code>.
+     * @since 3.15.0
+     */
+    public static <T> T arraycopy(final T source, final int sourcePos, final T dest, final int destPos, final int length) {
+        System.arraycopy(source, sourcePos, dest, destPos, length);
+        return dest;
     }
 
     /**
@@ -1844,22 +1844,17 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final boolean[] array, final boolean valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-
         if (array == null) {
             return bitSet;
         }
-
         while (startIndex < array.length) {
             startIndex = indexOf(array, valueToFind, startIndex);
-
             if (startIndex == INDEX_NOT_FOUND) {
                 break;
             }
-
             bitSet.set(startIndex);
             ++startIndex;
         }
-
         return bitSet;
     }
 
@@ -1895,18 +1890,14 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final byte[] array, final byte valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-
         if (array == null) {
             return bitSet;
         }
-
         while (startIndex < array.length) {
             startIndex = indexOf(array, valueToFind, startIndex);
-
             if (startIndex == INDEX_NOT_FOUND) {
                 break;
             }
-
             bitSet.set(startIndex);
             ++startIndex;
         }
@@ -1946,22 +1937,17 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final char[] array, final char valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-
         if (array == null) {
             return bitSet;
         }
-
         while (startIndex < array.length) {
             startIndex = indexOf(array, valueToFind, startIndex);
-
             if (startIndex == INDEX_NOT_FOUND) {
                 break;
             }
-
             bitSet.set(startIndex);
             ++startIndex;
         }
-
         return bitSet;
     }
 
@@ -2018,22 +2004,17 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-
         if (array == null) {
             return bitSet;
         }
-
         while (startIndex < array.length) {
             startIndex = indexOf(array, valueToFind, startIndex);
-
             if (startIndex == INDEX_NOT_FOUND) {
                 break;
             }
-
             bitSet.set(startIndex);
             ++startIndex;
         }
-
         return bitSet;
     }
 
@@ -2060,22 +2041,17 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
         final BitSet bitSet = new BitSet();
-
         if (array == null) {
             return bitSet;
         }
-
         while (startIndex < array.length) {
             startIndex = indexOf(array, valueToFind, startIndex, tolerance);
-
             if (startIndex == INDEX_NOT_FOUND) {
                 break;
             }
-
             bitSet.set(startIndex);
             ++startIndex;
         }
-
         return bitSet;
     }
 
@@ -2111,22 +2087,17 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final float[] array, final float valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-
         if (array == null) {
             return bitSet;
         }
-
         while (startIndex < array.length) {
             startIndex = indexOf(array, valueToFind, startIndex);
-
             if (startIndex == INDEX_NOT_FOUND) {
                 break;
             }
-
             bitSet.set(startIndex);
             ++startIndex;
         }
-
         return bitSet;
     }
 
@@ -2162,22 +2133,18 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final int[] array, final int valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-
         if (array == null) {
             return bitSet;
         }
-
         while (startIndex < array.length) {
             startIndex = indexOf(array, valueToFind, startIndex);
 
             if (startIndex == INDEX_NOT_FOUND) {
                 break;
             }
-
             bitSet.set(startIndex);
             ++startIndex;
         }
-
         return bitSet;
     }
 
@@ -2213,22 +2180,17 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final long[] array, final long valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-
         if (array == null) {
             return bitSet;
         }
-
         while (startIndex < array.length) {
             startIndex = indexOf(array, valueToFind, startIndex);
-
             if (startIndex == INDEX_NOT_FOUND) {
                 break;
             }
-
             bitSet.set(startIndex);
             ++startIndex;
         }
-
         return bitSet;
     }
 
@@ -2264,22 +2226,17 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final Object[] array, final Object objectToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-
         if (array == null) {
             return bitSet;
         }
-
         while (startIndex < array.length) {
             startIndex = indexOf(array, objectToFind, startIndex);
-
             if (startIndex == INDEX_NOT_FOUND) {
                 break;
             }
-
             bitSet.set(startIndex);
             ++startIndex;
         }
-
         return bitSet;
     }
 
@@ -2315,22 +2272,17 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final short[] array, final short valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-
         if (array == null) {
             return bitSet;
         }
-
         while (startIndex < array.length) {
             startIndex = indexOf(array, valueToFind, startIndex);
-
             if (startIndex == INDEX_NOT_FOUND) {
                 break;
             }
-
             bitSet.set(startIndex);
             ++startIndex;
         }
-
         return bitSet;
     }
 
@@ -2366,14 +2318,11 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null}
      *  array input
      */
-    public static int indexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
+    public static int indexOf(final boolean[] array, final boolean valueToFind, final int startIndex) {
         if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
+        for (int i = max0(startIndex); i < array.length; i++) {
             if (valueToFind == array[i]) {
                 return i;
             }
@@ -2412,14 +2361,11 @@ public class ArrayUtils {
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
-    public static int indexOf(final byte[] array, final byte valueToFind, int startIndex) {
+    public static int indexOf(final byte[] array, final byte valueToFind, final int startIndex) {
         if (array == null) {
             return INDEX_NOT_FOUND;
         }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
+        for (int i = max0(startIndex); i < array.length; i++) {
             if (valueToFind == array[i]) {
                 return i;
             }
@@ -2460,14 +2406,11 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      * @since 2.1
      */
-    public static int indexOf(final char[] array, final char valueToFind, int startIndex) {
+    public static int indexOf(final char[] array, final char valueToFind, final int startIndex) {
         if (array == null) {
             return INDEX_NOT_FOUND;
         }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
+        for (int i = max0(startIndex); i < array.length; i++) {
             if (valueToFind == array[i]) {
                 return i;
             }
@@ -2524,15 +2467,12 @@ public class ArrayUtils {
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
-    public static int indexOf(final double[] array, final double valueToFind, int startIndex) {
+    public static int indexOf(final double[] array, final double valueToFind, final int startIndex) {
         if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
         final boolean searchNaN = Double.isNaN(valueToFind);
-        for (int i = startIndex; i < array.length; i++) {
+        for (int i = max0(startIndex); i < array.length; i++) {
             final double element = array[i];
             if (valueToFind == element || searchNaN && Double.isNaN(element)) {
                 return i;
@@ -2560,16 +2500,13 @@ public class ArrayUtils {
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
-    public static int indexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
+    public static int indexOf(final double[] array, final double valueToFind, final int startIndex, final double tolerance) {
         if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
         final double min = valueToFind - tolerance;
         final double max = valueToFind + tolerance;
-        for (int i = startIndex; i < array.length; i++) {
+        for (int i = max0(startIndex); i < array.length; i++) {
             if (array[i] >= min && array[i] <= max) {
                 return i;
             }
@@ -2608,15 +2545,12 @@ public class ArrayUtils {
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
-    public static int indexOf(final float[] array, final float valueToFind, int startIndex) {
+    public static int indexOf(final float[] array, final float valueToFind, final int startIndex) {
         if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
         final boolean searchNaN = Float.isNaN(valueToFind);
-        for (int i = startIndex; i < array.length; i++) {
+        for (int i = max0(startIndex); i < array.length; i++) {
             final float element = array[i];
             if (valueToFind == element || searchNaN && Float.isNaN(element)) {
                 return i;
@@ -2656,14 +2590,11 @@ public class ArrayUtils {
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
-    public static int indexOf(final int[] array, final int valueToFind, int startIndex) {
+    public static int indexOf(final int[] array, final int valueToFind, final int startIndex) {
         if (array == null) {
             return INDEX_NOT_FOUND;
         }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
+        for (int i = max0(startIndex); i < array.length; i++) {
             if (valueToFind == array[i]) {
                 return i;
             }
@@ -2702,14 +2633,11 @@ public class ArrayUtils {
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
-    public static int indexOf(final long[] array, final long valueToFind, int startIndex) {
+    public static int indexOf(final long[] array, final long valueToFind, final int startIndex) {
         if (array == null) {
             return INDEX_NOT_FOUND;
         }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
+        for (int i = max0(startIndex); i < array.length; i++) {
             if (valueToFind == array[i]) {
                 return i;
             }
@@ -2752,9 +2680,7 @@ public class ArrayUtils {
         if (array == null) {
             return INDEX_NOT_FOUND;
         }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
+        startIndex = max0(startIndex);
         if (objectToFind == null) {
             for (int i = startIndex; i < array.length; i++) {
                 if (array[i] == null) {
@@ -2802,14 +2728,11 @@ public class ArrayUtils {
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
-    public static int indexOf(final short[] array, final short valueToFind, int startIndex) {
+    public static int indexOf(final short[] array, final short valueToFind, final int startIndex) {
         if (array == null) {
             return INDEX_NOT_FOUND;
         }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
+        for (int i = max0(startIndex); i < array.length; i++) {
             if (valueToFind == array[i]) {
                 return i;
             }
@@ -2846,9 +2769,7 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-
         final boolean[] result = new boolean[array.length + values.length];
-
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -2888,9 +2809,7 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-
         final byte[] result = new byte[array.length + values.length];
-
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -2930,9 +2849,7 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-
         final char[] result = new char[array.length + values.length];
-
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -2972,9 +2889,7 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-
         final double[] result = new double[array.length + values.length];
-
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -3014,9 +2929,7 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-
         final float[] result = new float[array.length + values.length];
-
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -3056,9 +2969,7 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-
         final int[] result = new int[array.length + values.length];
-
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -3098,9 +3009,7 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-
         final long[] result = new long[array.length + values.length];
-
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -3140,9 +3049,7 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-
         final short[] result = new short[array.length + values.length];
-
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -3182,7 +3089,6 @@ public class ArrayUtils {
          * array to the caller. We also avoid relying on the type of the vararg
          * array, by inspecting the component type of 'array'.
          */
-
         if (array == null) {
             return null;
         }
@@ -3192,11 +3098,9 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
         }
-
         final Class<T> type = getComponentType(array);
         final int length = array.length + values.length;
         final T[] result = newInstance(type, length);
-
         System.arraycopy(values, 0, result, index, values.length);
         if (index > 0) {
             System.arraycopy(array, 0, result, 0, index);
@@ -3618,7 +3522,6 @@ public class ArrayUtils {
         if (getLength(array) < 2) {
             return true;
         }
-
         boolean previous = array[0];
         final int n = array.length;
         for (int i = 1; i < n; i++) {
@@ -3626,7 +3529,6 @@ public class ArrayUtils {
             if (BooleanUtils.compare(previous, current) > 0) {
                 return false;
             }
-
             previous = current;
         }
         return true;
@@ -3643,7 +3545,6 @@ public class ArrayUtils {
         if (getLength(array) < 2) {
             return true;
         }
-
         byte previous = array[0];
         final int n = array.length;
         for (int i = 1; i < n; i++) {
@@ -3651,7 +3552,6 @@ public class ArrayUtils {
             if (NumberUtils.compare(previous, current) > 0) {
                 return false;
             }
-
             previous = current;
         }
         return true;
@@ -3668,7 +3568,6 @@ public class ArrayUtils {
         if (getLength(array) < 2) {
             return true;
         }
-
         char previous = array[0];
         final int n = array.length;
         for (int i = 1; i < n; i++) {
@@ -3676,7 +3575,6 @@ public class ArrayUtils {
             if (CharUtils.compare(previous, current) > 0) {
                 return false;
             }
-
             previous = current;
         }
         return true;
@@ -3693,7 +3591,6 @@ public class ArrayUtils {
         if (getLength(array) < 2) {
             return true;
         }
-
         double previous = array[0];
         final int n = array.length;
         for (int i = 1; i < n; i++) {
@@ -3701,7 +3598,6 @@ public class ArrayUtils {
             if (Double.compare(previous, current) > 0) {
                 return false;
             }
-
             previous = current;
         }
         return true;
@@ -3718,7 +3614,6 @@ public class ArrayUtils {
         if (getLength(array) < 2) {
             return true;
         }
-
         float previous = array[0];
         final int n = array.length;
         for (int i = 1; i < n; i++) {
@@ -3726,7 +3621,6 @@ public class ArrayUtils {
             if (Float.compare(previous, current) > 0) {
                 return false;
             }
-
             previous = current;
         }
         return true;
@@ -3743,7 +3637,6 @@ public class ArrayUtils {
         if (getLength(array) < 2) {
             return true;
         }
-
         int previous = array[0];
         final int n = array.length;
         for (int i = 1; i < n; i++) {
@@ -3751,7 +3644,6 @@ public class ArrayUtils {
             if (NumberUtils.compare(previous, current) > 0) {
                 return false;
             }
-
             previous = current;
         }
         return true;
@@ -3768,7 +3660,6 @@ public class ArrayUtils {
         if (getLength(array) < 2) {
             return true;
         }
-
         long previous = array[0];
         final int n = array.length;
         for (int i = 1; i < n; i++) {
@@ -3776,7 +3667,6 @@ public class ArrayUtils {
             if (NumberUtils.compare(previous, current) > 0) {
                 return false;
             }
-
             previous = current;
         }
         return true;
@@ -3793,7 +3683,6 @@ public class ArrayUtils {
         if (getLength(array) < 2) {
             return true;
         }
-
         short previous = array[0];
         final int n = array.length;
         for (int i = 1; i < n; i++) {
@@ -3801,7 +3690,6 @@ public class ArrayUtils {
             if (NumberUtils.compare(previous, current) > 0) {
                 return false;
             }
-
             previous = current;
         }
         return true;
@@ -3842,7 +3730,6 @@ public class ArrayUtils {
             if (comparator.compare(previous, current) > 0) {
                 return false;
             }
-
             previous = current;
         }
         return true;
@@ -4327,6 +4214,10 @@ public class ArrayUtils {
         return INDEX_NOT_FOUND;
     }
 
+    private static int max0(int other) {
+        return Math.max(0, other);
+    }
+
     /**
      * Delegates to {@link Array#newInstance(Class,int)} using generics.
      *
@@ -4742,7 +4633,6 @@ public class ArrayUtils {
         if (type == null) {
             throw new IllegalArgumentException("The type must not be null");
         }
-
         if (array == null) {
             return type.cast(Array.newInstance(type.getComponentType(), 0));
         }
@@ -5012,13 +4902,11 @@ public class ArrayUtils {
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + length);
         }
-
         final Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
         System.arraycopy(array, 0, result, 0, index);
         if (index < length - 1) {
             System.arraycopy(array, index + 1, result, index, length - index - 1);
         }
-
         return result;
     }
 
@@ -5337,7 +5225,6 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-
         final int srcLength = getLength(array);
         // No need to check maxIndex here, because method only currently called from removeElements()
         // which guarantee to generate only valid bit entries.
@@ -5381,7 +5268,6 @@ public class ArrayUtils {
         final int length = getLength(array);
         int diff = 0; // number of distinct indexes, i.e. number of entries that will be removed
         final int[] clonedIndices = ArraySorter.sort(clone(indices));
-
         // identify length of result array
         if (isNotEmpty(clonedIndices)) {
             int i = clonedIndices.length;
@@ -5398,7 +5284,6 @@ public class ArrayUtils {
                 prevIndex = index;
             }
         }
-
         // create result array
         final Object result = Array.newInstance(array.getClass().getComponentType(), length - diff);
         if (diff < length && clonedIndices != null) {
@@ -7101,12 +6986,8 @@ public class ArrayUtils {
         if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -7119,7 +7000,6 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int nOffset = n - offset;
-
             if (offset > nOffset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
@@ -7176,12 +7056,8 @@ public class ArrayUtils {
         if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -7194,7 +7070,6 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int nOffset = n - offset;
-
             if (offset > nOffset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
@@ -7251,12 +7126,8 @@ public class ArrayUtils {
         if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -7269,7 +7140,6 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int nOffset = n - offset;
-
             if (offset > nOffset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
@@ -7326,12 +7196,8 @@ public class ArrayUtils {
         if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -7344,7 +7210,6 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int nOffset = n - offset;
-
             if (offset > nOffset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
@@ -7401,12 +7266,8 @@ public class ArrayUtils {
         if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -7419,7 +7280,6 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int nOffset = n - offset;
-
             if (offset > nOffset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
@@ -7476,12 +7336,8 @@ public class ArrayUtils {
         if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -7494,7 +7350,6 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int nOffset = n - offset;
-
             if (offset > nOffset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
@@ -7551,12 +7406,8 @@ public class ArrayUtils {
         if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -7569,7 +7420,6 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int nOffset = n - offset;
-
             if (offset > nOffset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
@@ -7626,12 +7476,8 @@ public class ArrayUtils {
         if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -7644,7 +7490,6 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int nOffset = n - offset;
-
             if (offset > nOffset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
@@ -7701,12 +7546,8 @@ public class ArrayUtils {
         if (array == null || startIndexInclusive >= array.length - 1 || endIndexExclusive <= 0) {
             return;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         int n = endIndexExclusive - startIndexInclusive;
         if (n <= 1) {
             return;
@@ -7719,7 +7560,6 @@ public class ArrayUtils {
         // see https://beradrian.wordpress.com/2015/04/07/shift-an-array-in-on-in-place/
         while (n > 1 && offset > 0) {
             final int nOffset = n - offset;
-
             if (offset > nOffset) {
                 swap(array, startIndexInclusive, startIndexInclusive + n - nOffset,  nOffset);
                 n = offset;
@@ -7985,20 +7825,13 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_BOOLEAN_ARRAY;
         }
-
-        final boolean[] subarray = new boolean[newSize];
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, 0, newSize, boolean[]::new);
     }
 
     /**
@@ -8026,20 +7859,13 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_BYTE_ARRAY;
         }
-
-        final byte[] subarray = new byte[newSize];
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, 0, newSize, byte[]::new);
     }
 
     /**
@@ -8067,20 +7893,13 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_CHAR_ARRAY;
         }
-
-        final char[] subarray = new char[newSize];
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, 0, newSize, char[]::new);
     }
 
     /**
@@ -8108,20 +7927,13 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_DOUBLE_ARRAY;
         }
-
-        final double[] subarray = new double[newSize];
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, 0, newSize, double[]::new);
     }
 
     /**
@@ -8149,20 +7961,13 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_FLOAT_ARRAY;
         }
-
-        final float[] subarray = new float[newSize];
-        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
-        return subarray;
+        return arraycopy(array, startIndexInclusive, 0, newSize, float[]::new);
     }
 
     /**
@@ -8190,12 +7995,8 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_INT_ARRAY;
@@ -8228,12 +8029,8 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_LONG_ARRAY;
@@ -8266,12 +8063,8 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
             return EMPTY_SHORT_ARRAY;
@@ -8313,12 +8106,8 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
+        startIndexInclusive = max0(startIndexInclusive);
+        endIndexExclusive = Math.min(endIndexExclusive, array.length);
         final int newSize = endIndexExclusive - startIndexInclusive;
         final Class<T> type = getComponentType(array);
         if (newSize <= 0) {
@@ -8380,12 +8169,8 @@ public class ArrayUtils {
         if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
+        offset1 = max0(offset1);
+        offset2 = max0(offset2);
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
             final boolean aux = array[offset1];
@@ -8447,12 +8232,8 @@ public class ArrayUtils {
         if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
+        offset1 = max0(offset1);
+        offset2 = max0(offset2);
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
             final byte aux = array[offset1];
@@ -8514,12 +8295,8 @@ public class ArrayUtils {
         if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
+        offset1 = max0(offset1);
+        offset2 = max0(offset2);
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
             final char aux = array[offset1];
@@ -8581,12 +8358,8 @@ public class ArrayUtils {
         if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
+        offset1 = max0(offset1);
+        offset2 = max0(offset2);
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
             final double aux = array[offset1];
@@ -8648,12 +8421,8 @@ public class ArrayUtils {
         if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
+        offset1 = max0(offset1);
+        offset2 = max0(offset2);
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
             final float aux = array[offset1];
@@ -8716,12 +8485,8 @@ public class ArrayUtils {
         if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
+        offset1 = max0(offset1);
+        offset2 = max0(offset2);
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
             final int aux = array[offset1];
@@ -8783,12 +8548,8 @@ public class ArrayUtils {
         if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
+        offset1 = max0(offset1);
+        offset2 = max0(offset2);
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
             final long aux = array[offset1];
@@ -8850,12 +8611,8 @@ public class ArrayUtils {
         if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
+        offset1 = max0(offset1);
+        offset2 = max0(offset2);
         len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
         for (int i = 0; i < len; i++, offset1++, offset2++) {
             final Object aux = array[offset1];
@@ -8917,12 +8674,8 @@ public class ArrayUtils {
         if (isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
+        offset1 = max0(offset1);
+        offset2 = max0(offset2);
         if (offset1 == offset2) {
             return;
         }
