@@ -171,6 +171,14 @@
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
+    <!-- JaCoCo: Don't make code coverage worse than: -->
+    <commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
+    <commons.jacoco.classRatio>0.98</commons.jacoco.classRatio>
+    <commons.jacoco.instructionRatio>0.95</commons.jacoco.instructionRatio>
+    <commons.jacoco.methodRatio>0.95</commons.jacoco.methodRatio>
+    <commons.jacoco.branchRatio>0.92</commons.jacoco.branchRatio>
+    <commons.jacoco.lineRatio>0.95</commons.jacoco.lineRatio>
+    <commons.jacoco.complexityRatio>0.90</commons.jacoco.complexityRatio>
   </properties>
 
   <build>
