@@ -8119,7 +8119,8 @@ public class StringUtils {
     /**
      * Removes diacritics (~= accents) from a string. The case will not be altered.
      * <p>For instance, '&agrave;' will be replaced by 'a'.</p>
-     * <p>Note that ligatures will be left as is.</p>
+     * <p>Decomposes ligatures and digraphs per the KD column in the
+     * <a href = "https://www.unicode.org/charts/normalization/">Unicode Normalization Chart.</a></p>
      *
      * <pre>
      * StringUtils.stripAccents(null)                = null
