@@ -89,14 +89,28 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
         assertEquals("eclair", StringUtils.stripAccents("\u00E9clair"), "Failed to handle easy example");
         assertEquals("ALOSZZCN aloszzcn", StringUtils.stripAccents("\u0104\u0141\u00D3\u015A\u017B\u0179\u0106\u0143 "
                 + "\u0105\u0142\u00F3\u015B\u017C\u017A\u0107\u0144"));
+        assertEquals("The cafe\u2019s pinata gave me deja vu.", StringUtils
+                .stripAccents("The caf\u00e9\u2019s pi\u00f1ata gave me d\u00e9j\u00e0 vu."),
+                "Failed to handle accented text");
+        assertEquals("fluid quest", StringUtils.stripAccents("\ufb02uid que\ufb06"), "Failed to handle ligatures");
+        assertEquals("a b c 1 2 3", StringUtils
+                .stripAccents("\u1d43 \u1d47 \u1d9c \u00b9 \u00b2 \u00b3"), "Failed to handle superscript text");
+        assertEquals("math italic", StringUtils
+                .stripAccents("\uD835\uDC5A\uD835\uDC4E\uD835\uDC61\u210E " +
+                              "\uD835\uDC56\uD835\uDC61\uD835\uDC4E\uD835\uDC59\uD835\uDC56\uD835\uDC50"),
+                "Failed to handle UTF32 example");
+        assertEquals("\uD83D\uDF01 \uD83D\uDF02 \uD83D\uDF03 \uD83D\uDF04", StringUtils
+                .stripAccents("\uD83D\uDF01 \uD83D\uDF02 \uD83D\uDF03 \uD83D\uDF04"),
+                "Failed to handle non-accented text");
     }
 
     @Test
     @Disabled
     public void testStripAccents_Korean() {
         // LANG-1655
-        final String input = "잊지마 넌 흐린 어둠사이 왼손으로 그린 별 하나";
-        assertEquals(input, StringUtils.stripAccents(input), "Failed to handle non-accented text");
+        final String input = "\uC78A\uC9C0\uB9C8 \uB10C \uD750\uB9B0 \uC5B4\uB460\uC0AC\uC774 " +
+                             "\uC67C\uC190\uC73C\uB85C \uADF8\uB9B0 \uBCC4 \uD558\uB098";
+        assertEquals(input, StringUtils.stripAccents(input), "Failed to handle Korean text");
 
     }
 

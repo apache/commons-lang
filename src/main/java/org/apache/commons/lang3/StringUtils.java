@@ -8119,7 +8119,8 @@ public class StringUtils {
     /**
      * Removes diacritics (~= accents) from a string. The case will not be altered.
      * <p>For instance, '&agrave;' will be replaced by 'a'.</p>
-     * <p>Note that ligatures will be left as is.</p>
+     * <p>Decomposes ligatures and digraphs per the KD column in the
+     * <a href = "https://www.unicode.org/charts/normalization/">Unicode Normalization Chart.</a></p>
      *
      * <pre>
      * StringUtils.stripAccents(null)                = null
@@ -8135,12 +8136,11 @@ public class StringUtils {
      */
     // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their unaccented equivalent (and uncommitted bug fix: https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
     public static String stripAccents(final String input) {
-        if (input == null) {
-            return null;
+        if (isEmpty(input)) {
+            return input;
         }
-        final StringBuilder decomposed = new StringBuilder(Normalizer.normalize(input, Normalizer.Form.NFD));
+        final StringBuilder decomposed = new StringBuilder(Normalizer.normalize(input, Normalizer.Form.NFKD));
         convertRemainingAccentCharacters(decomposed);
-        // Note that this doesn't correctly remove ligatures...
         return STRIP_ACCENTS_PATTERN.matcher(decomposed).replaceAll(EMPTY);
     }
 
