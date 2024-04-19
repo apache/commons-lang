@@ -40,7 +40,7 @@ import java.util.Random;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
+ * Unit tests {@link ArrayUtils}.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class ArrayUtilsTest extends AbstractLangTest {

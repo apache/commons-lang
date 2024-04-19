@@ -30,7 +30,7 @@ import java.lang.reflect.Modifier;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.CharSet}.
+ * Unit tests {@link CharSet}.
  */
 public class CharSetTest extends AbstractLangTest {
 

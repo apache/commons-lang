@@ -51,7 +51,7 @@ final class ClassNotFoundSerialization implements Serializable {
 }
 
 /**
- * Unit tests {@link org.apache.commons.lang3.SerializationUtils}.
+ * Unit tests {@link SerializationUtils}.
  */
 public class SerializationUtilsTest extends AbstractLangTest {
 

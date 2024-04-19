@@ -27,7 +27,7 @@ import java.util.regex.PatternSyntaxException;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@link org.apache.commons.lang3.RegExUtils}.
+ * Tests {@link RegExUtils}.
  */
 public class RegExUtilsTest extends AbstractLangTest {
 

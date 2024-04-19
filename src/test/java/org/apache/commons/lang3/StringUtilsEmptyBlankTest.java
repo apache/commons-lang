@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.StringUtils} - Empty/Blank methods
+ * Unit tests {@link StringUtils} - Empty/Blank methods
  */
 public class StringUtilsEmptyBlankTest extends AbstractLangTest {
 

@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.StringUtils} - IsX methods
+ * Unit tests {@link StringUtils} - IsX methods
  */
 public class StringUtilsIsTest extends AbstractLangTest {
 
