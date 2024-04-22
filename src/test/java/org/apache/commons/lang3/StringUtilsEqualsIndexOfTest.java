@@ -719,6 +719,36 @@ public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
     }
 
     @Test
+    public void testNotEqual() {
+        final CharSequence fooCs = new StringBuilder(FOO), barCs = new StringBuilder(BAR), foobarCs = new StringBuilder(FOOBAR);
+        assertFalse(StringUtils.notEqual(null, null));
+        assertFalse(StringUtils.notEqual(fooCs, fooCs));
+        assertFalse(StringUtils.notEqual(fooCs, new StringBuilder(FOO)));
+        assertFalse(StringUtils.notEqual(fooCs, new String(new char[] { 'f', 'o', 'o' })));
+        assertFalse(StringUtils.notEqual(fooCs, new CustomCharSequence(FOO)));
+        assertFalse(StringUtils.notEqual(new CustomCharSequence(FOO), fooCs));
+        assertTrue(StringUtils.notEqual(fooCs, new String(new char[] { 'f', 'O', 'O' })));
+        assertTrue(StringUtils.notEqual(fooCs, barCs));
+        assertTrue(StringUtils.notEqual(fooCs, null));
+        assertTrue(StringUtils.notEqual(null, fooCs));
+        assertTrue(StringUtils.notEqual(fooCs, foobarCs));
+        assertTrue(StringUtils.notEqual(foobarCs, fooCs));
+    }
+
+    @Test
+    public void testNotEqualIgnoreCase() {
+        assertFalse(StringUtils.notEqualIgnoreCase(null, null));
+        assertFalse(StringUtils.notEqualIgnoreCase(FOO, FOO));
+        assertFalse(StringUtils.notEqualIgnoreCase(FOO, new String(new char[] { 'f', 'o', 'o' })));
+        assertFalse(StringUtils.notEqualIgnoreCase(FOO, new String(new char[] { 'f', 'O', 'O' })));
+        assertTrue(StringUtils.notEqualIgnoreCase(FOO, BAR));
+        assertTrue(StringUtils.notEqualIgnoreCase(FOO, null));
+        assertTrue(StringUtils.notEqualIgnoreCase(null, FOO));
+        assertFalse(StringUtils.notEqualIgnoreCase("", ""));
+        assertTrue(StringUtils.notEqualIgnoreCase("abcd", "abcd "));
+    }
+
+    @Test
     public void testOrdinalIndexOf() {
         assertEquals(-1, StringUtils.ordinalIndexOf(null, null, Integer.MIN_VALUE));
         assertEquals(-1, StringUtils.ordinalIndexOf("", null, Integer.MIN_VALUE));
