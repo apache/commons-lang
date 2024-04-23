@@ -5504,6 +5504,54 @@ public class StringUtils {
     }
 
     /**
+     * Compares two CharSequences, returning {@code true} if they represent
+     * not equal sequences of characters.
+     *
+     * <p>{@code null}s are handled without exceptions. Two {@code null}
+     * references are considered to be equal. The comparison is <strong>case-sensitive</strong>.</p>
+     *
+     * <pre>
+     * StringUtils.notEqual(null, null)   = false
+     * StringUtils.notEqual(null, "abc")  = true
+     * StringUtils.notEqual("abc", null)  = true
+     * StringUtils.notEqual("abc", "abc") = false
+     * StringUtils.notEqual("abc", "ABC") = true
+     * </pre>
+     *
+     * @param cs1  the first CharSequence, may be {@code null}
+     * @param cs2  the second CharSequence, may be {@code null}
+     * @return {@code false} if the CharSequences are equal (case-sensitive), or both {@code null}
+     * @see #notEqualIgnoreCase(CharSequence, CharSequence)
+     */
+    public static boolean notEqual(final CharSequence cs1, final CharSequence cs2) {
+        return !equals(cs1, cs2);
+    }
+
+    /**
+     * Compares two CharSequences, returning {@code true} if they represent
+     * not equal sequences of characters, ignoring case.
+     *
+     * <p>{@code null}s are handled without exceptions. Two {@code null}
+     * references are considered equal. The comparison is <strong>case insensitive</strong>.</p>
+     *
+     * <pre>
+     * StringUtils.notEqualIgnoreCase(null, null)   = false
+     * StringUtils.notEqualIgnoreCase(null, "abc")  = true
+     * StringUtils.notEqualIgnoreCase("abc", null)  = true
+     * StringUtils.notEqualIgnoreCase("abc", "abc") = false
+     * StringUtils.notEqualIgnoreCase("abc", "ABC") = false
+     * </pre>
+     *
+     * @param cs1  the first CharSequence, may be {@code null}
+     * @param cs2  the second CharSequence, may be {@code null}
+     * @return {@code false} if the CharSequences are equal (case-insensitive), or both {@code null}
+     * @see #notEqual(CharSequence, CharSequence)
+     */
+    public static boolean notEqualIgnoreCase(final CharSequence cs1, final CharSequence cs2) {
+        return !equalsIgnoreCase(cs1, cs2);
+    }
+
+    /**
      * Finds the n-th index within a CharSequence, handling {@code null}.
      * This method uses {@link String#indexOf(String)} if possible.
      * <p><b>Note:</b> The code starts looking for a match at the start of the target,
