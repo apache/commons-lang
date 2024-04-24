@@ -30,6 +30,7 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.function.Function;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -97,68 +98,87 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.compare((short) 213, (short) 32) > 0);
     }
 
-    private boolean isParsableByte(final String s) {
-        final NumberFormat instance = NumberFormat.getInstance();
-        instance.setParseIntegerOnly(false);
+    private boolean isApplyNonNull(final String s, final Function<String, ?> function) {
         try {
-            instance.parse(s);
+            assertNotNull(function.apply(s));
+            return true;
+        } catch (final Exception e) {
+            if (!s.matches(".*\\s.*")) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
+
+    private boolean isNumberFormatParsable(final String s) {
+        final NumberFormat instance = NumberFormat.getInstance();
+        try {
+            // Stops parsing when a space is found, then returns an object.
+            assertNotNull(instance.parse(s));
+            return true;
         } catch (final ParseException e) {
             return false;
         }
+    }
+
+    private boolean isNumberIntegerOnlyFormatParsable(final String s) {
+        final NumberFormat instance = NumberFormat.getInstance();
+        instance.setParseIntegerOnly(true);
         try {
-            Byte.parseByte(s);
-        } catch (final NumberFormatException e) {
+            // Stops parsing when a space is found, then returns an object.
+            assertNotNull(instance.parse(s));
+            return true;
+        } catch (final ParseException e) {
             return false;
         }
-        return NumberUtils.isParsable(s);
+    }
+
+    private boolean isParsableByte(final String s) {
+        final boolean parsable = NumberUtils.isParsable(s);
+        assertTrue(isNumberFormatParsable(s), s);
+        assertTrue(isNumberIntegerOnlyFormatParsable(s), s);
+        assertEquals(parsable, isApplyNonNull(s, Byte::parseByte), s);
+        return parsable;
+    }
+
+    private boolean isParsableFloat(final String s) {
+        final boolean parsable = NumberUtils.isParsable(s);
+        assertTrue(isNumberFormatParsable(s), s);
+        assertTrue(isNumberIntegerOnlyFormatParsable(s), s);
+        assertEquals(parsable, isApplyNonNull(s, Float::parseFloat), s);
+        return parsable;
+    }
+
+    private boolean isParsableDouble(final String s) {
+        final boolean parsable = NumberUtils.isParsable(s);
+        assertTrue(isNumberFormatParsable(s), s);
+        assertTrue(isNumberIntegerOnlyFormatParsable(s), s);
+        assertEquals(parsable, isApplyNonNull(s, Double::parseDouble), s);
+        return parsable;
     }
 
     private boolean isParsableInteger(final String s) {
-        final NumberFormat instance = NumberFormat.getInstance();
-        instance.setParseIntegerOnly(false);
-        try {
-            instance.parse(s);
-        } catch (final ParseException e) {
-            return false;
-        }
-        try {
-            Integer.parseInt(s);
-        } catch (final NumberFormatException e) {
-            return false;
-        }
-        return NumberUtils.isParsable(s);
+        final boolean parsable = NumberUtils.isParsable(s);
+        assertTrue(isNumberFormatParsable(s), s);
+        assertTrue(isNumberIntegerOnlyFormatParsable(s), s);
+        assertEquals(parsable, isApplyNonNull(s, Integer::parseInt), s);
+        return parsable;
     }
 
     private boolean isParsableLong(final String s) {
-        final NumberFormat instance = NumberFormat.getInstance();
-        instance.setParseIntegerOnly(false);
-        try {
-            instance.parse(s);
-        } catch (final ParseException e) {
-            return false;
-        }
-        try {
-            Long.parseLong(s);
-        } catch (final NumberFormatException e) {
-            return false;
-        }
-        return NumberUtils.isParsable(s);
+        final boolean parsable = NumberUtils.isParsable(s);
+        assertTrue(isNumberFormatParsable(s), s);
+        assertTrue(isNumberIntegerOnlyFormatParsable(s), s);
+        assertEquals(parsable, isApplyNonNull(s, Long::parseLong), s);
+        return parsable;
     }
 
     private boolean isParsableShort(final String s) {
-        final NumberFormat instance = NumberFormat.getInstance();
-        instance.setParseIntegerOnly(false);
-        try {
-            instance.parse(s);
-        } catch (final ParseException e) {
-            return false;
-        }
-        try {
-            Short.parseShort(s);
-        } catch (final NumberFormatException e) {
-            return false;
-        }
-        return NumberUtils.isParsable(s);
+        final boolean parsable = NumberUtils.isParsable(s);
+        assertTrue(isNumberFormatParsable(s), s);
+        assertTrue(isNumberIntegerOnlyFormatParsable(s), s);
+        assertEquals(parsable, isApplyNonNull(s, Short::parseShort), s);
+        return parsable;
     }
 
     /**
@@ -1029,6 +1049,24 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertFalse(isParsableByte("1 2 3"));
         assertTrue(isParsableByte("１２３"));
         assertFalse(isParsableByte("１ ２ ３"));
+    }
+
+    @Test
+    public void testLang1729IsParsableDouble() {
+        assertTrue(isParsableDouble("1"));
+        assertFalse(isParsableDouble("1 2 3"));
+        // TODO Expected to be fixed in Java 23
+        // assertTrue(isParsableDouble("１２３"));
+        assertFalse(isParsableDouble("１ ２ ３"));
+    }
+
+    @Test
+    public void testLang1729IsParsableFloat() {
+        assertTrue(isParsableFloat("1"));
+        assertFalse(isParsableFloat("1 2 3"));
+        // TODO Expected to be fixed in Java 23
+        // assertTrue(isParsableFloat("１２３"));
+        assertFalse(isParsableFloat("１ ２ ３"));
     }
 
     @Test
