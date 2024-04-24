@@ -35,6 +35,11 @@ import java.io.File;
 public class SystemUtils {
 
     /**
+     * The regex to split version strings.
+     */
+    private static final String VERSION_SPLIT_REGEX = "\\.";
+
+    /**
      * The prefix String for all Windows OS.
      */
     private static final String OS_NAME_WINDOWS_PREFIX = "Windows";
@@ -2148,8 +2153,8 @@ public class SystemUtils {
         }
         // Compare parts of the version string instead of using String.startsWith(String) because otherwise
         // osVersionPrefix 10.1 would also match osVersion 10.10
-        final String[] versionPrefixParts = osVersionPrefix.split("\\.");
-        final String[] versionParts = osVersion.split("\\.");
+        final String[] versionPrefixParts = osVersionPrefix.split(VERSION_SPLIT_REGEX);
+        final String[] versionParts = osVersion.split(VERSION_SPLIT_REGEX);
         for (int i = 0; i < Math.min(versionPrefixParts.length, versionParts.length); i++) {
             if (!versionPrefixParts[i].equals(versionParts[i])) {
                 return false;
