@@ -32,7 +32,6 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 
 import org.apache.commons.lang3.AbstractLangTest;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -98,7 +97,7 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.compare((short) 213, (short) 32) > 0);
     }
 
-    private boolean isIntParsable(final String s) {
+    private boolean isIntegerParsable(final String s) {
         final NumberFormat instance = NumberFormat.getInstance();
         instance.setParseIntegerOnly(false);
         try {
@@ -842,22 +841,6 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertFalse(NumberUtils.isDigits("abc"), "isDigits(String) neg 4 failed");
     }
 
-    @Test
-    public void testIsIntParsableLang1729() {
-        assertTrue(isIntParsable("1"));
-        assertFalse(isIntParsable("1 2 3"));
-        assertTrue(isIntParsable("１２３"));
-        assertFalse(isIntParsable("１ ２ ３"));
-    }
-
-    @Test
-    public void testIsLongParsableLang1729() {
-        assertTrue(isLongParsable("1"));
-        assertFalse(isLongParsable("1 2 3"));
-        assertTrue(isLongParsable("１２３"));
-        assertFalse(isLongParsable("１ ２ ３"));
-    }
-
     /**
      * Tests isCreatable(String) and tests that createNumber(String) returns a valid number iff isCreatable(String)
      * returns false.
@@ -1006,6 +989,22 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testLANG1252() {
         compareIsCreatableWithCreateNumber("+2", true);
         compareIsCreatableWithCreateNumber("+2.0", true);
+    }
+
+    @Test
+    public void testLang1729IsParsableInteger() {
+        assertTrue(isIntegerParsable("1"));
+        assertFalse(isIntegerParsable("1 2 3"));
+        assertTrue(isIntegerParsable("１２３"));
+        assertFalse(isIntegerParsable("１ ２ ３"));
+    }
+
+    @Test
+    public void testLang1729IsParsableLong() {
+        assertTrue(isLongParsable("1"));
+        assertFalse(isLongParsable("1 2 3"));
+        assertTrue(isLongParsable("１２３"));
+        assertFalse(isLongParsable("１ ２ ３"));
     }
 
     @Test
