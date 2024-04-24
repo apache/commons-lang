@@ -129,6 +129,22 @@ public class NumberUtilsTest extends AbstractLangTest {
         return NumberUtils.isParsable(s);
     }
 
+    private boolean isShortParsable(final String s) {
+        final NumberFormat instance = NumberFormat.getInstance();
+        instance.setParseIntegerOnly(false);
+        try {
+            instance.parse(s);
+        } catch (final ParseException e) {
+            return false;
+        }
+        try {
+            Short.parseShort(s);
+        } catch (final NumberFormatException e) {
+            return false;
+        }
+        return NumberUtils.isParsable(s);
+    }
+
     /**
      * Test for {@link NumberUtils#toDouble(BigDecimal)}
      */
@@ -1005,6 +1021,14 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertFalse(isLongParsable("1 2 3"));
         assertTrue(isLongParsable("１２３"));
         assertFalse(isLongParsable("１ ２ ３"));
+    }
+
+    @Test
+    public void testLang1729IsParsableShort() {
+        assertTrue(isShortParsable("1"));
+        assertFalse(isShortParsable("1 2 3"));
+        assertTrue(isShortParsable("１２３"));
+        assertFalse(isShortParsable("１ ２ ３"));
     }
 
     @Test
