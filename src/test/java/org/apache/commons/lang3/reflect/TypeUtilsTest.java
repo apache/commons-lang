@@ -56,6 +56,16 @@ import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test fixture for https://issues.apache.org/jira/browse/LANG-1524
+ */
+class AAAAClass<T extends AAAAClass.BBBBClass.CCCClass> {
+    public static class BBBBClass {
+        public static class CCCClass {
+        }
+    }
+}
+
 final class AAAClass extends AAClass<String> {
     public class BBBClass extends BBClass<String> {
         // empty
@@ -259,6 +269,13 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     public void test_LANG_1348() throws NoSuchMethodException {
         final Method method = Enum.class.getMethod("valueOf", Class.class, String.class);
         assertEquals("T extends java.lang.Enum<T>", TypeUtils.toString(method.getGenericReturnType()));
+    }
+
+    @Test
+    public void test_LANG_1524() {
+        assertEquals("AAAAClass(cycle).BBBBClass.CCCClass", TypeUtils.toString(AAAAClass.BBBBClass.CCCClass.class));
+        assertEquals("AAAAClass(cycle).BBBBClass", TypeUtils.toString(AAAAClass.BBBBClass.class));
+        assertEquals("AAAAClass(cycle)", TypeUtils.toString(AAAAClass.class));
     }
 
     /**

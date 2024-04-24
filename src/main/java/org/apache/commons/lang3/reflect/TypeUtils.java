@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.GenericDeclaration;
@@ -325,15 +326,15 @@ public class TypeUtils {
      *
      * @param cls {@link Class} to format
      * @return String
-     * @since 3.2
      */
     private static String classToString(final Class<?> cls) {
         if (cls.isArray()) {
             return toString(cls.getComponentType()) + "[]";
         }
-
+        if (isCyclical(cls)) {
+            return cls.getSimpleName() + "(cycle)";
+        }
         final StringBuilder buf = new StringBuilder();
-
         if (cls.getEnclosingClass() != null) {
             buf.append(classToString(cls.getEnclosingClass())).append('.').append(cls.getSimpleName());
         } else {
@@ -1424,6 +1425,24 @@ public class TypeUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * Tests whether the class contains a cyclical reference in the qualified name of a class. If any of the type parameters of A class is extending X class
+     * which is in scope of A class, then it forms cycle.
+     *
+     * @param cls the class to test.
+     * @return whether the class contains a cyclical reference.
+     */
+    private static boolean isCyclical(final Class<?> cls) {
+        for (final TypeVariable<?> typeParameter : cls.getTypeParameters()) {
+            for (final AnnotatedType annotatedBound : typeParameter.getAnnotatedBounds()) {
+                if (annotatedBound.getType().getTypeName().contains(cls.getName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
