@@ -1278,78 +1278,78 @@ public class SystemUtilsTest extends AbstractLangTest {
     @Test
     public void testOSMatchesName() {
         String osName = null;
-        assertFalse(SystemUtils.isOSNameMatch(osName, "Windows"));
+        assertFalse(SystemUtils.isOsNameMatch(osName, "Windows"));
         osName = "";
-        assertFalse(SystemUtils.isOSNameMatch(osName, "Windows"));
+        assertFalse(SystemUtils.isOsNameMatch(osName, "Windows"));
         osName = "Windows 95";
-        assertTrue(SystemUtils.isOSNameMatch(osName, "Windows"));
+        assertTrue(SystemUtils.isOsNameMatch(osName, "Windows"));
         osName = "Windows NT";
-        assertTrue(SystemUtils.isOSNameMatch(osName, "Windows"));
+        assertTrue(SystemUtils.isOsNameMatch(osName, "Windows"));
         osName = "OS/2";
-        assertFalse(SystemUtils.isOSNameMatch(osName, "Windows"));
+        assertFalse(SystemUtils.isOsNameMatch(osName, "Windows"));
     }
 
     @Test
     public void testOSMatchesNameAndVersion() {
         String osName = null;
         String osVersion = null;
-        assertFalse(SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        assertFalse(SystemUtils.isOsMatch(osName, osVersion, "Windows 9", "4.1"));
         osName = "";
         osVersion = "";
-        assertFalse(SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        assertFalse(SystemUtils.isOsMatch(osName, osVersion, "Windows 9", "4.1"));
         osName = "Windows 95";
         osVersion = "4.0";
-        assertFalse(SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        assertFalse(SystemUtils.isOsMatch(osName, osVersion, "Windows 9", "4.1"));
         osName = "Windows 95";
         osVersion = "4.1";
-        assertTrue(SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        assertTrue(SystemUtils.isOsMatch(osName, osVersion, "Windows 9", "4.1"));
         osName = "Windows 98";
         osVersion = "4.1";
-        assertTrue(SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        assertTrue(SystemUtils.isOsMatch(osName, osVersion, "Windows 9", "4.1"));
         osName = "Windows NT";
         osVersion = "4.0";
-        assertFalse(SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        assertFalse(SystemUtils.isOsMatch(osName, osVersion, "Windows 9", "4.1"));
         osName = "OS/2";
         osVersion = "4.0";
-        assertFalse(SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        assertFalse(SystemUtils.isOsMatch(osName, osVersion, "Windows 9", "4.1"));
     }
 
     @Test
     public void testOsVersionMatches() {
         String osVersion = null;
-        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
+        assertFalse(SystemUtils.isOsVersionMatch(osVersion, "10.1"));
 
         osVersion = "";
-        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
+        assertFalse(SystemUtils.isOsVersionMatch(osVersion, "10.1"));
 
         osVersion = "10";
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.1"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.1.1"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.10"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.10.1"));
 
         osVersion = "10.1";
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
-        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
-        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.1"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.1.1"));
+        assertFalse(SystemUtils.isOsVersionMatch(osVersion, "10.10"));
+        assertFalse(SystemUtils.isOsVersionMatch(osVersion, "10.10.1"));
 
         osVersion = "10.1.1";
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
-        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
-        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.1"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.1.1"));
+        assertFalse(SystemUtils.isOsVersionMatch(osVersion, "10.10"));
+        assertFalse(SystemUtils.isOsVersionMatch(osVersion, "10.10.1"));
 
         osVersion = "10.10";
-        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
-        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
+        assertFalse(SystemUtils.isOsVersionMatch(osVersion, "10.1"));
+        assertFalse(SystemUtils.isOsVersionMatch(osVersion, "10.1.1"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.10"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.10.1"));
 
         osVersion = "10.10.1";
-        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1"));
-        assertFalse(SystemUtils.isOSVersionMatch(osVersion, "10.1.1"));
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10"));
-        assertTrue(SystemUtils.isOSVersionMatch(osVersion, "10.10.1"));
+        assertFalse(SystemUtils.isOsVersionMatch(osVersion, "10.1"));
+        assertFalse(SystemUtils.isOsVersionMatch(osVersion, "10.1.1"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.10"));
+        assertTrue(SystemUtils.isOsVersionMatch(osVersion, "10.10.1"));
     }
 }
