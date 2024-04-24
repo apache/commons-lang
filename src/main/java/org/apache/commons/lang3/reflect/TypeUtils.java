@@ -51,7 +51,6 @@ public class TypeUtils {
 
     /**
      * GenericArrayType implementation class.
-     * @since 3.2
      */
     private static final class GenericArrayTypeImpl implements GenericArrayType {
         private final Type componentType;
@@ -101,7 +100,6 @@ public class TypeUtils {
 
     /**
      * ParameterizedType implementation class.
-     * @since 3.2
      */
     private static final class ParameterizedTypeImpl implements ParameterizedType {
         private final Class<?> raw;
@@ -177,6 +175,7 @@ public class TypeUtils {
 
     /**
      * {@link WildcardType} builder.
+     *
      * @since 3.2
      */
     public static class WildcardTypeBuilder implements Builder<WildcardType> {
@@ -220,7 +219,6 @@ public class TypeUtils {
 
     /**
      * WildcardType implementation class.
-     * @since 3.2
      */
     private static final class WildcardTypeImpl implements WildcardType {
         private final Type[] upperBounds;
@@ -283,6 +281,7 @@ public class TypeUtils {
 
     /**
      * A wildcard instance matching {@code ?}.
+     *
      * @since 3.2
      */
     public static final WildcardType WILDCARD_ALL = wildcardType().withUpperBounds(Object.class).build();
@@ -294,7 +293,6 @@ public class TypeUtils {
      * @param sep separator
      * @param types to append
      * @return {@code builder}
-     * @since 3.2
      */
     private static <T> StringBuilder appendAllTo(final StringBuilder builder, final String sep,
         @SuppressWarnings("unchecked") final T... types) {
@@ -459,7 +457,6 @@ public class TypeUtils {
      * @param genericArrayType LHS
      * @param type RHS
      * @return boolean
-     * @since 3.2
      */
     private static boolean equals(final GenericArrayType genericArrayType, final Type type) {
         return type instanceof GenericArrayType
@@ -472,7 +469,6 @@ public class TypeUtils {
      * @param parameterizedType LHS
      * @param type RHS
      * @return boolean
-     * @since 3.2
      */
     private static boolean equals(final ParameterizedType parameterizedType, final Type type) {
         if (type instanceof ParameterizedType) {
@@ -515,7 +511,6 @@ public class TypeUtils {
      * @param type1 LHS
      * @param type2 RHS
      * @return boolean
-     * @since 3.2
      */
     private static boolean equals(final Type[] type1, final Type[] type2) {
         if (type1.length == type2.length) {
@@ -535,7 +530,6 @@ public class TypeUtils {
      * @param wildcardType LHS
      * @param type RHS
      * @return boolean
-     * @since 3.2
      */
     private static boolean equals(final WildcardType wildcardType, final Type type) {
         if (type instanceof WildcardType) {
@@ -593,7 +587,6 @@ public class TypeUtils {
      *
      * @param genericArrayType {@link GenericArrayType} to format
      * @return String
-     * @since 3.2
      */
     private static String genericArrayTypeToString(final GenericArrayType genericArrayType) {
         return String.format("%s[]", toString(genericArrayType.getGenericComponentType()));
@@ -1596,7 +1589,6 @@ public class TypeUtils {
      *
      * @param parameterizedType {@link ParameterizedType} to format
      * @return String
-     * @since 3.2
      */
     private static String parameterizedTypeToString(final ParameterizedType parameterizedType) {
         final StringBuilder builder = new StringBuilder();
@@ -1798,7 +1790,6 @@ public class TypeUtils {
      *
      * @param typeVariable {@link TypeVariable} to format
      * @return String
-     * @since 3.2
      */
     private static String typeVariableToString(final TypeVariable<?> typeVariable) {
         final StringBuilder buf = new StringBuilder(typeVariable.getName());
@@ -1816,7 +1807,6 @@ public class TypeUtils {
      * @param typeArguments assignments {@link Map}
      * @param bounds in which to expand variables
      * @return {@code bounds} with any variables reassigned
-     * @since 3.2
      */
     private static Type[] unrollBounds(final Map<TypeVariable<?>, Type> typeArguments, final Type[] bounds) {
         Type[] result = bounds;
@@ -1839,7 +1829,6 @@ public class TypeUtils {
      * @param typeVariable the type variable to look up
      * @param typeVarAssigns the map used for the look-up
      * @return Type or {@code null} if some variable was not in the map
-     * @since 3.2
      */
     private static Type unrollVariableAssignments(TypeVariable<?> typeVariable, final Map<TypeVariable<?>, Type> typeVarAssigns) {
         Type result;
@@ -1911,7 +1900,6 @@ public class TypeUtils {
      *
      * @param wildcardType {@link WildcardType} to format
      * @return String
-     * @since 3.2
      */
     private static String wildcardTypeToString(final WildcardType wildcardType) {
         final StringBuilder buf = new StringBuilder().append('?');
