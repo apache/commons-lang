@@ -114,6 +114,22 @@ public class NumberUtilsTest extends AbstractLangTest {
         return NumberUtils.isParsable(s);
     }
 
+    private boolean isLongParsable(final String s) {
+        final NumberFormat instance = NumberFormat.getInstance();
+        instance.setParseIntegerOnly(false);
+        try {
+            instance.parse(s);
+        } catch (final ParseException e) {
+            return false;
+        }
+        try {
+            Long.parseLong(s);
+        } catch (final NumberFormatException e) {
+            return false;
+        }
+        return NumberUtils.isParsable(s);
+    }
+
     /**
      * Test for {@link NumberUtils#toDouble(BigDecimal)}
      */
@@ -826,6 +842,22 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertFalse(NumberUtils.isDigits("abc"), "isDigits(String) neg 4 failed");
     }
 
+    @Test
+    public void testIsIntParsableLang1729() {
+        assertTrue(isIntParsable("1"));
+        assertFalse(isIntParsable("1 2 3"));
+        assertTrue(isIntParsable("１２３"));
+        assertFalse(isIntParsable("１ ２ ３"));
+    }
+
+    @Test
+    public void testIsLongParsableLang1729() {
+        assertTrue(isLongParsable("1"));
+        assertFalse(isLongParsable("1 2 3"));
+        assertTrue(isLongParsable("１２３"));
+        assertFalse(isLongParsable("１ ２ ３"));
+    }
+
     /**
      * Tests isCreatable(String) and tests that createNumber(String) returns a valid number iff isCreatable(String)
      * returns false.
@@ -955,15 +987,6 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.isParsable("-018"));
         assertTrue(NumberUtils.isParsable("-018.2"));
         assertTrue(NumberUtils.isParsable("-.236"));
-    }
-
-    @Test
-    @Disabled("Passes on OpenJDK 64-Bit Server VM (build 23-ea+18-1469, mixed mode, sharing)")
-    public void testIsParsableLang1729() {
-        assertTrue(isIntParsable("1"));
-        assertFalse(isIntParsable("1 2 3"));
-        assertTrue(isIntParsable("１２３"));
-        assertFalse(isIntParsable("１ ２ ３"));
     }
 
     @Test
