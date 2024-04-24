@@ -18,18 +18,6 @@
  */
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.JavaVersion.JAVA_0_9;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_2;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_3;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_5;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_6;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_7;
-import static org.apache.commons.lang3.JavaVersion.JAVA_1_8;
-import static org.apache.commons.lang3.JavaVersion.JAVA_RECENT;
-import static org.apache.commons.lang3.JavaVersion.get;
-import static org.apache.commons.lang3.JavaVersion.getJavaVersion;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -43,40 +31,49 @@ public class JavaVersionTest extends AbstractLangTest {
 
     @Test
     public void testAtLeast() {
-        assertFalse(JAVA_1_2.atLeast(JAVA_1_5), "1.2 at least 1.5 passed");
-        assertTrue(JAVA_1_5.atLeast(JAVA_1_2), "1.5 at least 1.2 failed");
-        assertFalse(JAVA_1_6.atLeast(JAVA_1_7), "1.6 at least 1.7 passed");
+        assertFalse(JavaVersion.JAVA_1_2.atLeast(JavaVersion.JAVA_1_5), "1.2 at least 1.5 passed");
+        assertTrue(JavaVersion.JAVA_1_5.atLeast(JavaVersion.JAVA_1_2), "1.5 at least 1.2 failed");
+        assertFalse(JavaVersion.JAVA_1_6.atLeast(JavaVersion.JAVA_1_7), "1.6 at least 1.7 passed");
 
-        assertTrue(JAVA_0_9.atLeast(JAVA_1_5), "0.9 at least 1.5 failed");
-        assertFalse(JAVA_0_9.atLeast(JAVA_1_6), "0.9 at least 1.6 passed");
+        assertTrue(JavaVersion.JAVA_0_9.atLeast(JavaVersion.JAVA_1_5), "0.9 at least 1.5 failed");
+        assertFalse(JavaVersion.JAVA_0_9.atLeast(JavaVersion.JAVA_1_6), "0.9 at least 1.6 passed");
     }
 
     @Test
     public void testGetJavaVersion() throws Exception {
-        assertEquals(JAVA_0_9, get("0.9"), "0.9 failed");
-        assertEquals(JAVA_1_1, get("1.1"), "1.1 failed");
-        assertEquals(JAVA_1_2, get("1.2"), "1.2 failed");
-        assertEquals(JAVA_1_3, get("1.3"), "1.3 failed");
-        assertEquals(JAVA_1_4, get("1.4"), "1.4 failed");
-        assertEquals(JAVA_1_5, get("1.5"), "1.5 failed");
-        assertEquals(JAVA_1_6, get("1.6"), "1.6 failed");
-        assertEquals(JAVA_1_7, get("1.7"), "1.7 failed");
-        assertEquals(JAVA_1_8, get("1.8"), "1.8 failed");
+        assertEquals(JavaVersion.JAVA_0_9, JavaVersion.get("0.9"), "0.9 failed");
+        assertEquals(JavaVersion.JAVA_1_1, JavaVersion.get("1.1"), "1.1 failed");
+        assertEquals(JavaVersion.JAVA_1_2, JavaVersion.get("1.2"), "1.2 failed");
+        assertEquals(JavaVersion.JAVA_1_3, JavaVersion.get("1.3"), "1.3 failed");
+        assertEquals(JavaVersion.JAVA_1_4, JavaVersion.get("1.4"), "1.4 failed");
+        assertEquals(JavaVersion.JAVA_1_5, JavaVersion.get("1.5"), "1.5 failed");
+        assertEquals(JavaVersion.JAVA_1_6, JavaVersion.get("1.6"), "1.6 failed");
+        assertEquals(JavaVersion.JAVA_1_7, JavaVersion.get("1.7"), "1.7 failed");
+        assertEquals(JavaVersion.JAVA_1_8, JavaVersion.get("1.8"), "1.8 failed");
+        assertEquals(JavaVersion.JAVA_9, JavaVersion.get("9"));
+        assertEquals(JavaVersion.JAVA_10, JavaVersion.get("10"));
+        assertEquals(JavaVersion.JAVA_11, JavaVersion.get("11"));
+        assertEquals(JavaVersion.JAVA_12, JavaVersion.get("12"));
+        assertEquals(JavaVersion.JAVA_13, JavaVersion.get("13"));
+        assertEquals(JavaVersion.JAVA_14, JavaVersion.get("14"));
+        assertEquals(JavaVersion.JAVA_15, JavaVersion.get("15"));
+        assertEquals(JavaVersion.JAVA_16, JavaVersion.get("16"));
+        assertEquals(JavaVersion.JAVA_17, JavaVersion.get("17"));
+        assertEquals(JavaVersion.JAVA_18, JavaVersion.get("18"));
+        assertEquals(JavaVersion.JAVA_19, JavaVersion.get("19"));
+        assertEquals(JavaVersion.JAVA_20, JavaVersion.get("20"));
+        assertEquals(JavaVersion.JAVA_21, JavaVersion.get("21"));
+        assertEquals(JavaVersion.JAVA_22, JavaVersion.get("22"));
 
-        final int lastSupportedVersion = Integer.parseInt(JavaVersion.values()[JavaVersion.values().length - 2].toString());
-        for (int i = 9; i <= lastSupportedVersion; i++) {
-            assertEquals(JavaVersion.class.getField("JAVA_" + i).get(null), get("" + i), i + " failed");
-        }
-
-        assertEquals(JAVA_RECENT, get("1.10"), "1.10 failed");
-        // assertNull("2.10 unexpectedly worked", get("2.10"));
-        assertEquals(get("1.5"), getJavaVersion("1.5"), "Wrapper method failed");
-        assertEquals(JAVA_RECENT, get("22"), "Unhandled"); // LANG-1384
+        assertEquals(JavaVersion.JAVA_RECENT, JavaVersion.get("1.10"), "1.10 failed");
+        // assertNull("2.10 unexpectedly worked", JavaVersion.get("2.10"));
+        assertEquals(JavaVersion.get("1.5"), JavaVersion.getJavaVersion("1.5"), "Wrapper method failed");
+        assertEquals(JavaVersion.JAVA_RECENT, JavaVersion.get("23"), "Unhandled"); // LANG-1384
     }
 
     @Test
     public void testToString() {
-        assertEquals("1.2", JAVA_1_2.toString());
+        assertEquals("1.2", JavaVersion.JAVA_1_2.toString());
     }
 
 }

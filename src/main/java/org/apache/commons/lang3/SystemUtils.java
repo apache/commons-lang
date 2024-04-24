@@ -1110,6 +1110,19 @@ public class SystemUtils {
      */
     public static final boolean IS_JAVA_21 = getJavaVersionMatches("21");
 
+    /**
+     * Is {@code true} if this is Java version 22 (also 22.x versions).
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_VERSION} is {@code null}.
+     * </p>
+     * <p>
+     * This value is initialized when the class is loaded.
+     * </p>
+     *
+     * @since 3.15.0
+     */
+    public static final boolean IS_JAVA_22 = getJavaVersionMatches("22");
+
     // Operating system checks
     // -----------------------------------------------------------------------
     // These MUST be declared after those above as they depend on the

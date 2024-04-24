@@ -172,6 +172,13 @@ public enum JavaVersion {
     JAVA_21(21, "21"),
 
     /**
+     * Java 22.
+     *
+     * @since 3.15.0
+     */
+    JAVA_22(22, "22"),
+
+    /**
      * The most recent Java version. Mainly introduced to avoid to break when a new version of Java is used.
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
@@ -234,6 +241,8 @@ public enum JavaVersion {
             return JAVA_20;
         case "21":
             return JAVA_21;
+        case "22":
+            return JAVA_22;
         default:
             final float v = toFloatVersion(versionStr);
             if (v - 1. < 1.) { // then we need to check decimals > .9
