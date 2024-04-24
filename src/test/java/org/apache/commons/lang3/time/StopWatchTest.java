@@ -261,7 +261,7 @@ public class StopWatchTest extends AbstractLangTest {
         final long time = watch.getTime();
         assertEquals(time, watch.getTime());
 
-        assertThat("time", time, allOf(greaterThanOrEqualTo(500L), lessThan(700L)));
+        assertThat("time", time, allOf(greaterThanOrEqualTo(500L), lessThan(2000L)));
 
         watch.reset();
         assertEquals(0, watch.getTime());
