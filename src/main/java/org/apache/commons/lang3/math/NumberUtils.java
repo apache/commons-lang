@@ -1832,14 +1832,15 @@ public class NumberUtils {
     private static boolean withDecimalsParsing(final String str, final int beginIdx) {
         int decimalPoints = 0;
         for (int i = beginIdx; i < str.length(); i++) {
-            final boolean isDecimalPoint = str.charAt(i) == '.';
+            final char ch = str.charAt(i);
+            final boolean isDecimalPoint = ch == '.';
             if (isDecimalPoint) {
                 decimalPoints++;
             }
             if (decimalPoints > 1) {
                 return false;
             }
-            if (!isDecimalPoint && !Character.isDigit(str.charAt(i))) {
+            if (!isDecimalPoint && !Character.isDigit(ch)) {
                 return false;
             }
         }
