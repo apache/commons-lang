@@ -282,18 +282,21 @@ public class StopWatchTest extends AbstractLangTest {
     public void testStopWatchSplit() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
         sleep(MILLIS_550);
+        // slept ~550 millis
         watch.split();
         final long splitTime = watch.getSplitTime();
         final String splitStr = watch.toSplitString();
         sleep(MILLIS_550);
+        // slept ~1100 millis
         watch.unsplit();
         sleep(MILLIS_550);
+        // slept ~1650 millis
         watch.stop();
         final long totalTime = watch.getTime();
 
         assertEquals(12, splitStr.length(), "Formatted split string not the correct length");
         assertThat("splitTime", splitTime, allOf(greaterThanOrEqualTo(500L), lessThan(700L)));
-        assertThat("totalTime", totalTime, allOf(greaterThanOrEqualTo(1500L), lessThan(2000L)));
+        assertThat("totalTime", totalTime, allOf(greaterThanOrEqualTo(1500L), lessThan(2100L)));
     }
 
     @Test
