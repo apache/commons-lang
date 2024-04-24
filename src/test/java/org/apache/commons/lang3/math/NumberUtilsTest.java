@@ -97,7 +97,23 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.compare((short) 213, (short) 32) > 0);
     }
 
-    private boolean isIntegerParsable(final String s) {
+    private boolean isParsableByte(final String s) {
+        final NumberFormat instance = NumberFormat.getInstance();
+        instance.setParseIntegerOnly(false);
+        try {
+            instance.parse(s);
+        } catch (final ParseException e) {
+            return false;
+        }
+        try {
+            Byte.parseByte(s);
+        } catch (final NumberFormatException e) {
+            return false;
+        }
+        return NumberUtils.isParsable(s);
+    }
+
+    private boolean isParsableInteger(final String s) {
         final NumberFormat instance = NumberFormat.getInstance();
         instance.setParseIntegerOnly(false);
         try {
@@ -113,7 +129,7 @@ public class NumberUtilsTest extends AbstractLangTest {
         return NumberUtils.isParsable(s);
     }
 
-    private boolean isLongParsable(final String s) {
+    private boolean isParsableLong(final String s) {
         final NumberFormat instance = NumberFormat.getInstance();
         instance.setParseIntegerOnly(false);
         try {
@@ -129,7 +145,7 @@ public class NumberUtilsTest extends AbstractLangTest {
         return NumberUtils.isParsable(s);
     }
 
-    private boolean isShortParsable(final String s) {
+    private boolean isParsableShort(final String s) {
         final NumberFormat instance = NumberFormat.getInstance();
         instance.setParseIntegerOnly(false);
         try {
@@ -1008,27 +1024,35 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testLang1729IsParsableByte() {
+        assertTrue(isParsableByte("1"));
+        assertFalse(isParsableByte("1 2 3"));
+        assertTrue(isParsableByte("１２３"));
+        assertFalse(isParsableByte("１ ２ ３"));
+    }
+
+    @Test
     public void testLang1729IsParsableInteger() {
-        assertTrue(isIntegerParsable("1"));
-        assertFalse(isIntegerParsable("1 2 3"));
-        assertTrue(isIntegerParsable("１２３"));
-        assertFalse(isIntegerParsable("１ ２ ３"));
+        assertTrue(isParsableInteger("1"));
+        assertFalse(isParsableInteger("1 2 3"));
+        assertTrue(isParsableInteger("１２３"));
+        assertFalse(isParsableInteger("１ ２ ３"));
     }
 
     @Test
     public void testLang1729IsParsableLong() {
-        assertTrue(isLongParsable("1"));
-        assertFalse(isLongParsable("1 2 3"));
-        assertTrue(isLongParsable("１２３"));
-        assertFalse(isLongParsable("１ ２ ３"));
+        assertTrue(isParsableLong("1"));
+        assertFalse(isParsableLong("1 2 3"));
+        assertTrue(isParsableLong("１２３"));
+        assertFalse(isParsableLong("１ ２ ３"));
     }
 
     @Test
     public void testLang1729IsParsableShort() {
-        assertTrue(isShortParsable("1"));
-        assertFalse(isShortParsable("1 2 3"));
-        assertTrue(isShortParsable("１２３"));
-        assertFalse(isShortParsable("１ ２ ３"));
+        assertTrue(isParsableShort("1"));
+        assertFalse(isParsableShort("1 2 3"));
+        assertTrue(isParsableShort("１２３"));
+        assertFalse(isParsableShort("１ ２ ３"));
     }
 
     @Test
