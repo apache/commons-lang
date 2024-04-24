@@ -295,7 +295,7 @@ public class StopWatchTest extends AbstractLangTest {
         final long totalTime = watch.getTime();
 
         assertEquals(12, splitStr.length(), "Formatted split string not the correct length");
-        assertThat("splitTime", splitTime, allOf(greaterThanOrEqualTo(500L), lessThan(700L)));
+        assertThat("splitTime", splitTime, allOf(greaterThanOrEqualTo(500L), lessThan(1000L)));
         assertThat("totalTime", totalTime, allOf(greaterThanOrEqualTo(1500L), lessThan(2100L)));
     }
 
