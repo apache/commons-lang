@@ -28,8 +28,11 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -93,6 +96,22 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.compare((short) -3, (short) 0) < 0);
         assertEquals(0, NumberUtils.compare((short) 113, (short) 113));
         assertTrue(NumberUtils.compare((short) 213, (short) 32) > 0);
+    }
+
+    private boolean isIntParsable(final String s) {
+        final NumberFormat instance = NumberFormat.getInstance();
+        instance.setParseIntegerOnly(false);
+        try {
+            instance.parse(s);
+        } catch (final ParseException e) {
+            return false;
+        }
+        try {
+            Integer.parseInt(s);
+        } catch (final NumberFormatException e) {
+            return false;
+        }
+        return NumberUtils.isParsable(s);
     }
 
     /**
@@ -936,6 +955,15 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.isParsable("-018"));
         assertTrue(NumberUtils.isParsable("-018.2"));
         assertTrue(NumberUtils.isParsable("-.236"));
+    }
+
+    @Test
+    @Disabled("Passes on OpenJDK 64-Bit Server VM (build 23-ea+18-1469, mixed mode, sharing)")
+    public void testIsParsableLang1729() {
+        assertTrue(isIntParsable("1"));
+        assertFalse(isIntParsable("1 2 3"));
+        assertTrue(isIntParsable("１２３"));
+        assertFalse(isIntParsable("１ ２ ３"));
     }
 
     @Test
