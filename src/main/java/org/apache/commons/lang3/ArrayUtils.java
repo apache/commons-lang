@@ -2763,7 +2763,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (ArrayUtils.isEmpty(values)) {
+        if (isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -2803,7 +2803,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (ArrayUtils.isEmpty(values)) {
+        if (isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -2843,7 +2843,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (ArrayUtils.isEmpty(values)) {
+        if (isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -2883,7 +2883,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (ArrayUtils.isEmpty(values)) {
+        if (isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -2923,7 +2923,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (ArrayUtils.isEmpty(values)) {
+        if (isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -2963,7 +2963,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (ArrayUtils.isEmpty(values)) {
+        if (isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -3003,7 +3003,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (ArrayUtils.isEmpty(values)) {
+        if (isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -3043,7 +3043,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (ArrayUtils.isEmpty(values)) {
+        if (isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -3092,7 +3092,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        if (ArrayUtils.isEmpty(values)) {
+        if (isEmpty(values)) {
             return clone(array);
         }
         if (index < 0 || index > array.length) {
@@ -8705,8 +8705,8 @@ public class ArrayUtils {
      * For example, an array of Strings can be created:
      * </p>
      * <pre>
-    String[] array = ArrayUtils.toArray("1", "2");
-    String[] emptyArray = ArrayUtils.&lt;String&gt;toArray();
+     * String[] array = ArrayUtils.toArray("1", "2");
+     * String[] emptyArray = ArrayUtils.&lt;String&gt;toArray();
      * </pre>
      * <p>
      * The method is typically used in scenarios, where the caller itself uses generic types
