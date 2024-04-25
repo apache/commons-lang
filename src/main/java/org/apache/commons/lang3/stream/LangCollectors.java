@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Implementations of {@link Collector} that implement various useful reduction operations.
+ * Implementations of {@link Collector} that implement various reduction operations.
  * <p>
  * This class is called {@code LangCollectors} instead of {@code Collectors} to avoid clashes with {@link Collectors}.
  * </p>
