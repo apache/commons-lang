@@ -174,7 +174,7 @@ public final class LangCollectors {
      *
      * <pre>
      * Stream.of(Long.valueOf(1), null, Long.valueOf(3))
-     *   .collect(LangCollectors.joining("-", "[", "]", o -> Objects.toString(o, "NUL")))
+     *   .collect(LangCollectors.joining("-", "[", "]", o -&gt; Objects.toString(o, "NUL")))
      * returns "[1-NUL-3]"
      * </pre>
      *
