@@ -82,7 +82,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * @since 3.11
      */
     public static <L, R> Pair<L, R> left(final L left) {
-        return ImmutablePair.of(left, null);
+        return of(left, null);
     }
 
     /**
@@ -161,7 +161,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * @since 3.11
      */
     public static <L, R> Pair<L, R> right(final R right) {
-        return ImmutablePair.of(null, right);
+        return of(null, right);
     }
 
     /** Left object */
