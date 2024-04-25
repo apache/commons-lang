@@ -564,8 +564,8 @@ public class ThreadUtils {
     public static void sleepQuietly(final Duration duration) {
         try {
             sleep(duration);
-        } catch (final InterruptedException e) {
-            // be quiet.
+        } catch (final InterruptedException ignore) {
+            // Ignore & be quiet.
         }
     }
 
