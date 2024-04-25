@@ -162,28 +162,27 @@ public final class LangCollectors {
     }
 
     /**
-     * Returns a {@code Collector} that concatenates the input elements, separated by the specified delimiter, with the
-     * specified prefix and suffix, in encounter order.
+     * Returns a {@code Collector} that concatenates the input elements, separated by the specified delimiter, with the specified prefix and suffix, in
+     * encounter order.
      * <p>
-     * This is a variation of {@link Collectors#joining(CharSequence, CharSequence, CharSequence)} that works with any
-     * element class, not just {@code CharSequence}.
+     * This is a variation of {@link Collectors#joining(CharSequence, CharSequence, CharSequence)} that works with any element class, not just
+     * {@code CharSequence}.
      * </p>
      * <p>
      * For example:
      * </p>
      *
-     * <pre>
+     * <pre>{@code
      * Stream.of(Long.valueOf(1), null, Long.valueOf(3))
-     *   .collect(LangCollectors.joining("-", "[", "]", o -&gt; Objects.toString(o, "NUL")))
+     *   .collect(LangCollectors.joining("-", "[", "]", o -> Objects.toString(o, "NUL")))
      * returns "[1-NUL-3]"
-     * </pre>
+     * }</pre>
      *
      * @param delimiter the delimiter to be used between each element
-     * @param prefix the sequence of characters to be used at the beginning of the joined result
-     * @param suffix the sequence of characters to be used at the end of the joined result
-     * @param toString A function that takes an Object and returns a non-null String.
-     * @return A {@code Collector} which concatenates CharSequence elements, separated by the specified delimiter, in
-     *         encounter order
+     * @param prefix    the sequence of characters to be used at the beginning of the joined result
+     * @param suffix    the sequence of characters to be used at the end of the joined result
+     * @param toString  A function that takes an Object and returns a non-null String.
+     * @return A {@code Collector} which concatenates CharSequence elements, separated by the specified delimiter, in encounter order
      */
     public static Collector<Object, ?, String> joining(final CharSequence delimiter, final CharSequence prefix, final CharSequence suffix,
         final Function<Object, String> toString) {
