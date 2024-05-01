@@ -108,6 +108,16 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void test_toBoolean_int_boolean() {
+        assertTrue(BooleanUtils.toBoolean(Integer.valueOf(1), true));
+        assertTrue(BooleanUtils.toBoolean(Integer.valueOf(2), true));
+        assertFalse(BooleanUtils.toBoolean(Integer.valueOf(0), true));
+        assertTrue(BooleanUtils.toBoolean(Integer.valueOf(-1), true));
+        assertTrue(BooleanUtils.toBoolean(null, true));
+        assertFalse(BooleanUtils.toBoolean(null, false));
+    }
+
+    @Test
     public void test_toBoolean_int_int_int() {
         assertTrue(BooleanUtils.toBoolean(6, 6, 7));
         assertFalse(BooleanUtils.toBoolean(7, 6, 7));

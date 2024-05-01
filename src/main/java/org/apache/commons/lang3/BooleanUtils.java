@@ -415,6 +415,30 @@ public class BooleanUtils {
     }
 
     /**
+     * Converts an Integer to a boolean handling {@code null}.
+     *
+     * <pre>
+     *   BooleanUtils.toBoolean(Integer.valueOf(1), true) = true
+     *   BooleanUtils.toBoolean(Integer.valueOf(2), true) = true
+     *   BooleanUtils.toBoolean(Integer.valueOf(0), true) = false
+     *   BooleanUtils.toBoolean(Integer.valueOf(-1), true) = true
+     *   BooleanUtils.toBoolean(null, true) = true
+     *   BooleanUtils.toBoolean(null, false) = false
+     * </pre>
+     *
+     * @param value the {@link Integer} to convert
+     * @param valueIfNull the boolean value to return, if the {@code value} is {@code null}
+     * @return {@code true} or {@code false}
+     */
+    public static boolean toBoolean(final Integer value, final boolean valueIfNull) {
+        if (value == null) {
+            return valueIfNull;
+        }
+
+        return value != 0;
+    }
+
+    /**
      * Converts an int to a boolean specifying the conversion values.
      *
      * <p>If the {@code trueValue} and {@code falseValue} are the same number then
