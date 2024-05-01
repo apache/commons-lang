@@ -48,18 +48,19 @@ The <action> type attribute can be add,update,fix,remove.
   <release version="3.15.0" date="202Y-MM-DD" description="New features and bug fixes (Java 8 or above).">
     <!-- ADD -->
     <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory, Dennis Baerten">Customize text pattern in DiffResult#toString().</action>
-    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add DiffBuilder.Builder.</action>
-    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add DiffBuilder.builder().</action>
-    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add ReflectionDiffBuilder.Builder.</action>
-    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add ReflectionDiffBuilder.builder().</action>
-    <action issue="LANG-1702" type="add" dev="ggregory" due-to="Elliotte Rusty Harold">Add test in TypeUtilsTest #1151.</action>
-    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.failableStream(T), non-varargs variant.</action>
-    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.nonNull(T), non-varargs variant.</action>
-    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayUtils.nullTo(T[], T[]).</action>
-    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add T ArrayUtils.arraycopy(T, int, T, int, int) fluent style.</action>
-    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add T ArrayUtils.arraycopy(T, int, int, int, Function) fluent style.</action>
-    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_22.</action>
-    <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_22.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DiffBuilder.Builder.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DiffBuilder.builder().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ReflectionDiffBuilder.Builder.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ReflectionDiffBuilder.builder().</action>
+    <action                   type="add" dev="ggregory" due-to="Elliotte Rusty Harold">Add test in TypeUtilsTest #1151.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.failableStream(T), non-varargs variant.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Streams.nonNull(T), non-varargs variant.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayUtils.nullTo(T[], T[]).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add T ArrayUtils.arraycopy(T, int, T, int, int) fluent style.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add T ArrayUtils.arraycopy(T, int, int, int, Function) fluent style.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_22.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_22.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.getUserName(Supplier&lt;String&gt;).</action>
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="Miklós Karakó, Gary Gregory">Improve Javadoc in ExceptionUtils #1136.</action>
     <action                   type="fix" dev="ggregory" due-to="Saiharshith Karuneegar Ramesh, Gary Gregory">Fixed two non-deterministic tests in EnumUtilsTest.java #1131.</action>

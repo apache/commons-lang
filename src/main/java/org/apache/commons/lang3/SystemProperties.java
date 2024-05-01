@@ -847,6 +847,20 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
+     * @param defaultValue get this Supplier when the property is empty or throws SecurityException.
+     * @return the current value from the system properties map.
+     * @since 3.15.0
+     */
+    public static String getUserName(final Supplier<String> defaultValue) {
+        return getProperty(USER_NAME, defaultValue);
+    }
+
+    /**
+     * Gets the current value from the system properties map.
+     * <p>
+     * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
+     * </p>
+     *
      * @return the current value from the system properties map.
      */
     public static String getUserTimezone() {

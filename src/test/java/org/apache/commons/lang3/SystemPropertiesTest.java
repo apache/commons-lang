@@ -303,6 +303,10 @@ public class SystemPropertiesTest {
     @Test
     public void testGetUserName() {
         assertNotNull(SystemProperties.getUserName());
+        assertNotNull(SystemProperties.getUserName(() -> ""));
+        assertNotNull(SystemProperties.getUserName(() -> "User"));
+        assertNotNull(SystemProperties.getUserName(() -> null));
+        assertNotNull(SystemProperties.getUserName(null));
     }
 
     @Test
