@@ -681,6 +681,20 @@ public final class SystemProperties {
     }
 
     /**
+     * Gets the current value from the system properties map.
+     * <p>
+     * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
+     * </p>
+     *
+     * @param defaultIfAbsent get this Supplier when the property is empty or throws SecurityException.
+     * @return the current value from the system properties map.
+     * @since 3.15.0
+     */
+    public static String getLineSeparator(final Supplier<String> defaultIfAbsent) {
+        return getProperty(LINE_SEPARATOR, defaultIfAbsent);
+    }
+
+    /**
      * Gets the current value for the property named {@code key} as a {@code long}.
      *
      * @param key
@@ -762,22 +776,22 @@ public final class SystemProperties {
      * </p>
      *
      * @param property        the system property name.
-     * @param defaultValue get this Supplier when the property is empty or throws SecurityException.
+     * @param defaultIfAbsent get this Supplier when the property is empty or throws SecurityException.
      * @return the system property value or {@code null} if a security problem occurs
      */
-    static String getProperty(final String property, final Supplier<String> defaultValue) {
+    static String getProperty(final String property, final Supplier<String> defaultIfAbsent) {
         try {
             if (StringUtils.isEmpty(property)) {
-                return defaultValue.get();
+                return defaultIfAbsent.get();
             }
             final String value = System.getProperty(property);
-            return StringUtils.getIfEmpty(value, defaultValue);
+            return StringUtils.getIfEmpty(value, defaultIfAbsent);
         } catch (final SecurityException ignore) {
             // We are not allowed to look at this property.
             //
             // System.err.println("Caught a SecurityException reading the system property '" + property
             // + "'; the SystemUtils property value will default to null.");
-            return defaultValue.get();
+            return defaultIfAbsent.get();
         }
     }
 
