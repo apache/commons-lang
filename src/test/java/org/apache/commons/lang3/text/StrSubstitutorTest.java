@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.SystemProperties;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -670,11 +671,11 @@ public class StrSubstitutorTest extends AbstractLangTest {
     @Test
     public void testStaticReplaceSystemProperties() {
         final StrBuilder buf = new StrBuilder();
-        buf.append("Hi ").append(System.getProperty("user.name"));
+        buf.append("Hi ").append(SystemProperties.getUserName());
         buf.append(", you are working with ");
-        buf.append(System.getProperty("os.name"));
+        buf.append(SystemProperties.getOsName());
         buf.append(", your home directory is ");
-        buf.append(System.getProperty("user.home")).append('.');
+        buf.append(SystemProperties.getUserHome()).append('.');
         assertEquals(buf.toString(), StrSubstitutor.replaceSystemProperties("Hi ${user.name}, you are "
             + "working with ${os.name}, your home "
             + "directory is ${user.home}."));
