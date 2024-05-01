@@ -185,6 +185,11 @@ public class SystemPropertiesTest {
     }
 
     @Test
+    public void testGetJavaSpecificationVersionSupplier() {
+        assertNotNull(SystemProperties.getJavaSpecificationVersion(() -> "99.0"));
+    }
+
+    @Test
     public void testGetJavaUtilPrefsPreferencesFactory() {
         assertNull(SystemProperties.getJavaUtilPrefsPreferencesFactory());
     }
