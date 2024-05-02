@@ -267,7 +267,6 @@ public enum JavaVersion {
      * @return the corresponding enumeration constant or <b>null</b> if the
      * version is unknown
      */
-    // helper for static importing
     static JavaVersion getJavaVersion(final String versionStr) {
         return get(versionStr);
     }
