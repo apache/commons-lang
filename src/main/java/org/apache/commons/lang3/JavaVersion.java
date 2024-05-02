@@ -330,7 +330,7 @@ public enum JavaVersion {
     }
 
     /**
-     * Whether this version of Java is at least the version of Java passed in.
+     * Tests whether this version of Java is at least the version of Java passed in.
      *
      * <p>For example:<br>
      *  {@code myVersion.atLeast(JavaVersion.JAVA_1_4)}</p>
@@ -343,7 +343,7 @@ public enum JavaVersion {
     }
 
     /**
-     * Whether this version of Java is at most the version of Java passed in.
+     * Tests whether this version of Java is at most the version of Java passed in.
      *
      * <p>For example:<br>
      *  {@code myVersion.atMost(JavaVersion.JAVA_1_4)}</p>
