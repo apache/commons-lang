@@ -282,6 +282,10 @@ public enum JavaVersion {
         return v > 0 ? v : 99f;
     }
 
+    static String[] split(final String value) {
+        return value.split(VERSION_SPLIT_REGEX);
+    }
+
     /**
      * Parses a float value from a String.
      *
@@ -293,7 +297,7 @@ public enum JavaVersion {
         if (!value.contains(".")) {
             return NumberUtils.toFloat(value, defaultReturnValue);
         }
-        final String[] toParse = value.split("\\.");
+        final String[] toParse = split(value);
         if (toParse.length >= 2) {
             return NumberUtils.toFloat(toParse[0] + '.' + toParse[1], defaultReturnValue);
         }
@@ -309,6 +313,11 @@ public enum JavaVersion {
      * The standard name.
      */
     private final String name;
+
+    /**
+     * The regex to split version strings.
+     */
+    private static final String VERSION_SPLIT_REGEX = "\\.";
 
     /**
      * Constructs a new instance.
