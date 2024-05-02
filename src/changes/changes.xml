@@ -63,7 +63,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.getUserName(Supplier&lt;String&gt;).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.getLineSeparator(Supplier&lt;String&gt;).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.getJavaSpecificationVersion(Supplier&lt;String&gt;).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties constants for system properties as of Java 22.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties constants and methods for system properties as of Java 22.</action>
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="Miklós Karakó, Gary Gregory">Improve Javadoc in ExceptionUtils #1136.</action>
     <action                   type="fix" dev="ggregory" due-to="Saiharshith Karuneegar Ramesh, Gary Gregory">Fixed two non-deterministic tests in EnumUtilsTest.java #1131.</action>
