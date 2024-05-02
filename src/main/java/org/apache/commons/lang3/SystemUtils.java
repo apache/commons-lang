@@ -17,7 +17,6 @@
 package org.apache.commons.lang3;
 
 import java.io.File;
-import java.util.function.Supplier;
 
 /**
  * Helpers for {@link System}.
@@ -2042,11 +2041,11 @@ public class SystemUtils {
      * access to the specified system property.
      * @see SystemProperties#getUserName()
      * @since 3.10
-     * @deprecated Use {@link SystemProperties#getUserName(Supplier)}.
+     * @deprecated Use {@link SystemProperties#getUserName(String)}.
      */
     @Deprecated
     public static String getUserName(final String defaultValue) {
-        return System.getProperty(SystemProperties.USER_NAME, defaultValue);
+        return SystemProperties.getUserName(defaultValue);
     }
 
     /**

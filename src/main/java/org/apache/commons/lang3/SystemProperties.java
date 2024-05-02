@@ -2335,7 +2335,7 @@ public final class SystemProperties {
      * @return the current value from the system properties map.
      * @since 3.15.0
      */
-    public static String getJavaSpecificationVersion(final Supplier<String> defaultValue) {
+    public static String getJavaSpecificationVersion(final String defaultValue) {
         return getProperty(JAVA_SPECIFICATION_VERSION, defaultValue);
     }
 
@@ -3735,6 +3735,20 @@ public final class SystemProperties {
     }
 
     /**
+     * Gets a System property, defaulting to {@code null} if the property cannot be read.
+     * <p>
+     * If a {@link SecurityException} is caught, the return value is {@code null}.
+     * </p>
+     *
+     * @param property        the system property name.
+     * @param defaultIfAbsent use this value when the property is empty or throws SecurityException.
+     * @return the system property value or {@code null} if a security problem occurs
+     */
+    static String getProperty(final String property, final String defaultIfAbsent) {
+        return getProperty(property, () -> defaultIfAbsent);
+    }
+
+    /**
      * Gets the current value from the system properties map.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
@@ -3986,7 +4000,7 @@ public final class SystemProperties {
      * @return the current value from the system properties map.
      * @since 3.15.0
      */
-    public static String getUserName(final Supplier<String> defaultValue) {
+    public static String getUserName(final String defaultValue) {
         return getProperty(USER_NAME, defaultValue);
     }
 

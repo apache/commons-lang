@@ -278,7 +278,7 @@ public enum JavaVersion {
      * @return the value of {@code java.specification.version} system property or 99.0 if it is not set.
      */
     private static float maxVersion() {
-        final float v = toFloatVersion(SystemProperties.getJavaSpecificationVersion(() -> "99.0"));
+        final float v = toFloatVersion(SystemProperties.getJavaSpecificationVersion("99.0"));
         return v > 0 ? v : 99f;
     }
 

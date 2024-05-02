@@ -46,10 +46,6 @@ public class SystemPropertiesTest {
         return SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_11);
     }
 
-    private boolean isJava21OrGreater() {
-        return SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21);
-    }
-
     @Test
     public void testActualKeys() {
         basicKeyCheck(SystemProperties.APPLE_AWT_ENABLE_TEMPLATE_IMAGES);
@@ -590,7 +586,7 @@ public class SystemPropertiesTest {
 
     @Test
     public void testGetJavaSpecificationVersionSupplier() {
-        assertNotNull(SystemProperties.getJavaSpecificationVersion(() -> "99.0"));
+        assertNotNull(SystemProperties.getJavaSpecificationVersion("99.0"));
     }
 
     @Test
@@ -716,9 +712,8 @@ public class SystemPropertiesTest {
     @Test
     public void testGetUserName() {
         assertNotNull(SystemProperties.getUserName());
-        assertNotNull(SystemProperties.getUserName(() -> ""));
-        assertNotNull(SystemProperties.getUserName(() -> "User"));
-        assertNotNull(SystemProperties.getUserName(() -> null));
+        assertNotNull(SystemProperties.getUserName(""));
+        assertNotNull(SystemProperties.getUserName("User"));
         assertNotNull(SystemProperties.getUserName(null));
     }
 
