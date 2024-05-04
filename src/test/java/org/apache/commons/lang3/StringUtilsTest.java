@@ -359,7 +359,7 @@ public class StringUtilsTest extends AbstractLangTest {
         assertAbbreviateWithAbbrevMarkerAndOffset("abcdefghi*", "*", 2, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("abcdef{{{{", "{{{{", 4, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("abcdef____", "____", 5, 10);
-        assertAbbreviateWithAbbrevMarkerAndOffset(" == fghijk == ", " == ", 5, 10);
+        assertAbbreviateWithAbbrevMarkerAndOffset("==fghijk==", "==", 5, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("___ghij___", "___", 6, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("/ghijklmno", "/", 7, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("/ghijklmno", "/", 8, 10);
