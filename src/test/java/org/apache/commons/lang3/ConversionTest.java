@@ -501,7 +501,7 @@ public class ConversionTest extends AbstractLangTest {
             false}, Conversion.byteToBinary((byte) 0x95, 2, new boolean[13], 0, 6));
         // assertArrayEquals(new boolean[]{false, false, false, true, true, false, true, true,
         // false, false, false, false, false}, Conversion.byteToBinary((byte) 0x95, 2, new
-        // boolean[13], 3, 7));//rejected by assertion
+        // boolean[13], 3, 7)); //rejected by assertion
         assertArrayEquals(new boolean[]{
             false, false, false, true, false, true, false, false, true, false, false, false,
             false}, Conversion.byteToBinary((byte) 0x95, 2, new boolean[13], 3, 6));
@@ -523,7 +523,7 @@ public class ConversionTest extends AbstractLangTest {
         assertEquals("70000", Conversion.byteToHex((byte) 0xEF, 1, "00000", 0, 1));
         assertEquals("b0000", Conversion.byteToHex((byte) 0xEF, 2, "00000", 0, 1));
         assertEquals("000df", Conversion.byteToHex((byte) 0xEF, 3, "00000", 3, 2));
-        // assertEquals("00000", Conversion.byteToHex((byte) 0xEF, 4, "00000", 3, 2));//rejected by
+        // assertEquals("00000", Conversion.byteToHex((byte) 0xEF, 4, "00000", 3, 2)); //rejected by
         // assertion
         assertEquals("000e0", Conversion.byteToHex((byte) 0xEF, 4, "00000", 3, 1));
         assertEquals("fe", Conversion.byteToHex((byte) 0xEF, 0, "", 0, 2));
@@ -838,7 +838,7 @@ public class ConversionTest extends AbstractLangTest {
         // true, true, false, true, true, false, false, true, true, true, true, false, true,
         // false, true, false, true, false, false, false, false, true, false, false, false,
         // false, false, false, false}, Conversion.intToBinary(0x90ABCDEF, 2, new boolean[37],
-        // 3, 31));//rejected by assertion
+        // 3, 31)); //rejected by assertion
         assertArrayEquals(
             new boolean[]{
                 false, false, false, true, true, false, true, true, true, true, false, true,
@@ -920,7 +920,7 @@ public class ConversionTest extends AbstractLangTest {
                 -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 4));
         // assertArrayEquals(new
         // byte[]{(byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x5E, (byte) 0x85, (byte) 0xFC, (byte) 0x00, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}, Conversion.intToByteArray(0x90ABCDEF, 13, new
-        // byte[]{-1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 4));//rejected by assertion
+        // byte[]{-1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 4)); //rejected by assertion
         assertArrayEquals(
             new byte[]{
                 (byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x5E, (byte) 0x85, (byte) 0xFC,
@@ -980,7 +980,7 @@ public class ConversionTest extends AbstractLangTest {
             "fffdb97512ffffffffffffff",
             Conversion.intToHex(0x90ABCDEF, 3, "ffffffffffffffffffffffff", 3, 8));
         // assertEquals("ffffffffffffffffffffffff", Conversion.intToHex(0x90ABCDEF,
-        // 4, "ffffffffffffffffffffffff", 3, 8));//rejected by assertion
+        // 4, "ffffffffffffffffffffffff", 3, 8)); //rejected by assertion
         assertEquals(
             "fffedcba09ffffffffffffff",
             Conversion.intToHex(0x90ABCDEF, 4, "ffffffffffffffffffffffff", 3, 7));
@@ -1058,7 +1058,7 @@ public class ConversionTest extends AbstractLangTest {
             Conversion.intToShortArray(0x12345678, 0, new short[]{-1, -1, -1, -1}, 0, 2));
         // assertArrayEquals(new
         // short[]{(short) 0x5678, (short) 0x1234, (short) 0x5678, (short) 0xFFFF}, Conversion.intToShortArray(0x12345678,
-        // 0, new short[]{-1, -1, -1, -1}, 0, 3));//rejected by assertion
+        // 0, new short[]{-1, -1, -1, -1}, 0, 3)); //rejected by assertion
         // assertArrayEquals(new
         // short[]{(short) 0x5678, (short) 0x1234, (short) 0x5678, (short) 0x1234}, Conversion.intToShortArray(0x12345678,
         // 0, new short[]{-1, -1, -1, -1}, 0, 4));
@@ -1088,10 +1088,10 @@ public class ConversionTest extends AbstractLangTest {
             Conversion.intToShortArray(0x12345678, 4, new short[]{-1, -1, -1, -1}, 2, 1));
         // assertArrayEquals(new
         // short[]{(short) 0xE6F7, (short) 0x4855, (short) 0x2B3C, (short) 0x091A}, Conversion.intToShortArray(0x12345678,
-        // 1, new short[]{-1, -1, -1, -1}, 0, 4));//rejected by assertion
+        // 1, new short[]{-1, -1, -1, -1}, 0, 4)); //rejected by assertion
         // assertArrayEquals(new
         // short[]{(short) 0x2B3C}, Conversion.intToShortArray(0x12345678, 33, new
-        // short[]{0}, 0, 1));//rejected by assertion
+        // short[]{0}, 0, 1)); //rejected by assertion
         assertArrayEquals(
             new short[]{(short) 0x091A},
             Conversion.intToShortArray(0x12345678, 17, new short[]{0}, 0, 1));
@@ -1208,7 +1208,7 @@ public class ConversionTest extends AbstractLangTest {
         // false, true, false, false, false, true, false, true, true, false, false, false, true,
         // false, false, true, false, false, false
         // , false, false, false, false}, Conversion.longToBinary(0x1234567890ABCDEFL, 2, new
-        // boolean[69], 3, 63));//rejected by assertion
+        // boolean[69], 3, 63)); //rejected by assertion
         assertArrayEquals(
             new boolean[]{
                 false, false, false, true, true, false, true, true, true, true, false, true,
@@ -1320,7 +1320,7 @@ public class ConversionTest extends AbstractLangTest {
                 -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 8));
         // assertArrayEquals(new
         // byte[]{(byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x5E, (byte) 0x85, (byte) 0xC4, (byte) 0xB3, (byte) 0xA2, (byte) 0x91, (byte) 0x00, (byte) 0x00}, Conversion.longToByteArray(0x1234567890ABCDEFL, 13, new
-        // byte[]{-1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 8));//rejected by assertion
+        // byte[]{-1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 8)); //rejected by assertion
         assertArrayEquals(
             new byte[]{
                 (byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x5E, (byte) 0x85, (byte) 0xC4,
@@ -1379,7 +1379,7 @@ public class ConversionTest extends AbstractLangTest {
         assertEquals(
             "fffdb975121fca86420fffff",
             Conversion.longToHex(0x1234567890ABCDEFL, 3, "ffffffffffffffffffffffff", 3, 16));
-        // assertEquals("ffffffffffffffffffffffff", Conversion.longToHex(0x1234567890ABCDEFL, 4, "ffffffffffffffffffffffff", 3, 16));//rejected
+        // assertEquals("ffffffffffffffffffffffff", Conversion.longToHex(0x1234567890ABCDEFL, 4, "ffffffffffffffffffffffff", 3, 16)); //rejected
         // by assertion
         assertEquals(
             "fffedcba0987654321ffffff",
@@ -1411,7 +1411,7 @@ public class ConversionTest extends AbstractLangTest {
             Conversion.longToIntArray(0x1234567890ABCDEFL, 0, new int[]{-1, -1, -1, -1}, 0, 2));
         // assertArrayEquals(new
         // int[]{0x90ABCDEF, 0x12345678, 0x90ABCDEF, 0x12345678}, Conversion.longToIntArray(0x1234567890ABCDEFL,
-        // 0, new int[]{-1, -1, -1, -1}, 0, 4));//rejected by assertion
+        // 0, new int[]{-1, -1, -1, -1}, 0, 4)); //rejected by assertion
         // assertArrayEquals(new
         // int[]{0xFFFFFFFF, 0x90ABCDEF, 0x12345678, 0x90ABCDEF}, Conversion.longToIntArray(0x1234567890ABCDEFL,
         // 0, new int[]{-1, -1, -1, -1}, 1, 3));
@@ -1438,7 +1438,7 @@ public class ConversionTest extends AbstractLangTest {
             Conversion.longToIntArray(0x1234567890ABCDEFL, 4, new int[]{-1, -1, -1, -1}, 2, 1));
         // assertArrayEquals(new
         // int[]{0x4855E6F7, 0x091A2B3C, 0x4855E6F7, 0x091A2B3C}, Conversion.longToIntArray(0x1234567890ABCDEFL,
-        // 1, new int[]{-1, -1, -1, -1}, 0, 4));//rejected by assertion
+        // 1, new int[]{-1, -1, -1, -1}, 0, 4)); //rejected by assertion
         assertArrayEquals(
             new int[]{0x091A2B3C},
             Conversion.longToIntArray(0x1234567890ABCDEFL, 33, new int[]{0}, 0, 1));
@@ -1619,7 +1619,7 @@ public class ConversionTest extends AbstractLangTest {
         // assertArrayEquals(new boolean[]{false, false, false, true, true, false, true, true,
         // true, true, false, true, true, false, false, true, false, false, false, false,
         // false}, Conversion.shortToBinary((short) 0xCDEF, 2, new boolean[21],
-        // 3, 15));//rejected by
+        // 3, 15)); //rejected by
         // assertion
         assertArrayEquals(
             new boolean[]{
@@ -1681,7 +1681,7 @@ public class ConversionTest extends AbstractLangTest {
                 -1, 0, -1, -1, -1, -1, -1}, 3, 2));
         // assertArrayEquals(new
         // byte[]{(byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0x5E, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}, Conversion.shortToByteArray((short) 0xCDEF, 13, new
-        // byte[]{-1, 0, -1, -1, -1, -1, -1}, 3, 2));//rejected by assertion
+        // byte[]{-1, 0, -1, -1, -1, -1, -1}, 3, 2)); //rejected by assertion
         assertArrayEquals(
             new byte[]{
                 (byte) 0xFF, (byte) 0x00, (byte) 0xFF, (byte) 0xFE, (byte) 0xFF, (byte) 0xFF,
@@ -1728,7 +1728,7 @@ public class ConversionTest extends AbstractLangTest {
             "fffdb9ffffffffffffffffff",
             Conversion.shortToHex((short) 0xCDEF, 3, "ffffffffffffffffffffffff", 3, 4));
         // assertEquals("ffffffffffffffffffffffff", Conversion.shortToHex((short) 0xCDEF,
-        // 4, "ffffffffffffffffffffffff", 3, 4));//rejected by assertion
+        // 4, "ffffffffffffffffffffffff", 3, 4)); //rejected by assertion
         assertEquals(
             "fffedcffffffffffffffffff",
             Conversion.shortToHex((short) 0xCDEF, 4, "ffffffffffffffffffffffff", 3, 3));
