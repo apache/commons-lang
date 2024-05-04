@@ -257,8 +257,7 @@ public class ConstructorUtils {
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
         final Constructor<T> ctor = getAccessibleConstructor(cls, parameterTypes);
         if (ctor == null) {
-            throw new NoSuchMethodException(
-                "No such accessible constructor on object: "+ cls.getName());
+            throw new NoSuchMethodException("No such accessible constructor on object: " + cls.getName());
         }
         return ctor.newInstance(args);
     }

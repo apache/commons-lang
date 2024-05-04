@@ -1713,7 +1713,7 @@ public class TypeUtils {
                 buf.insert(0, c.getSimpleName()).insert(0, '.');
                 c = c.getEnclosingClass();
             }
-        } else if (d instanceof Type) {// not possible as of now
+        } else if (d instanceof Type) { // not possible as of now
             buf.append(toString((Type) d));
         } else {
             buf.append(d);

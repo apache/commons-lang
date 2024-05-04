@@ -332,7 +332,7 @@ public class Streams {
          * element to determine if it should be included.
          * @return the new stream
          */
-        public FailableStream<O> filter(final FailablePredicate<O, ?> predicate){
+        public FailableStream<O> filter(final FailablePredicate<O, ?> predicate) {
             assertNotTerminated();
             stream = stream.filter(Functions.asPredicate(predicate));
             return this;

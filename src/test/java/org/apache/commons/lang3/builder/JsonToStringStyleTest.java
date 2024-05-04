@@ -333,70 +333,57 @@ public class JsonToStringStyleTest extends AbstractLangTest {
 
         assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append(now).toString());
 
-        assertEquals("{\"now\":\"" + now +"\"}", new ToStringBuilder(base).append("now", now)
-                .toString());
-        assertEquals("{\"now\":\"" + now +"\",\"after\":\"" + afterNow + "\"}", new ToStringBuilder(base).append("now", now).append("after", afterNow)
-                .toString());
+        assertEquals("{\"now\":\"" + now + "\"}", new ToStringBuilder(base).append("now", now).toString());
+        assertEquals("{\"now\":\"" + now + "\",\"after\":\"" + afterNow + "\"}",
+                new ToStringBuilder(base).append("now", now).append("after", afterNow).toString());
     }
 
     @Test
     public void testDoubleArray() {
-        final double[] array = {1, 2, -3, 4};
+        final double[] array = { 1, 2, -3, 4 };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
 
-        assertEquals("{\"doubleArray\":[1.0,2.0,-3.0,4.0]}", toStringBuilder.append("doubleArray", array)
-                .toString());
+        assertEquals("{\"doubleArray\":[1.0,2.0,-3.0,4.0]}", toStringBuilder.append("doubleArray", array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
     }
 
     @Test
     public void testFloatArray() {
-        final float[] array = {1, 2, -3, 4};
+        final float[] array = { 1, 2, -3, 4 };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
 
-        assertEquals("{\"floatArray\":[1.0,2.0,-3.0,4.0]}", toStringBuilder.append("floatArray", array)
-                .toString());
+        assertEquals("{\"floatArray\":[1.0,2.0,-3.0,4.0]}", toStringBuilder.append("floatArray", array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
     }
 
     @Test
     public void testIntArray() {
-        final int[] array = {1, 2, -3, 4};
+        final int[] array = { 1, 2, -3, 4 };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
 
-        assertEquals("{\"intArray\":[1,2,-3,4]}", toStringBuilder.append("intArray", array)
-                .toString());
+        assertEquals("{\"intArray\":[1,2,-3,4]}", toStringBuilder.append("intArray", array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
     }
 
     @Test
@@ -444,39 +431,32 @@ public class JsonToStringStyleTest extends AbstractLangTest {
 
     @Test
     public void testLongArray() {
-        final long[] array = {1, 2, -3, 4};
+        final long[] array = { 1, 2, -3, 4 };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
 
-        assertEquals("{\"longArray\":[1,2,-3,4]}", toStringBuilder.append("longArray", array)
-                .toString());
+        assertEquals("{\"longArray\":[1,2,-3,4]}", toStringBuilder.append("longArray", array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((long[]) null).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
     }
 
     @Test
     public void testLongArrayArray() {
-        final long[][] array = {{1, 2}, null, {5}};
+        final long[][] array = { { 1, 2 }, null, { 5 } };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((long[][]) null).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((long[][]) null).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
     }
 
     @Test
@@ -498,18 +478,16 @@ public class JsonToStringStyleTest extends AbstractLangTest {
         baseMap.put("k1", "v1");
         baseMap.put("k2", innerMap);
 
-        final InnerMapObject object = new InnerMapObject(){
+        final InnerMapObject object = new InnerMapObject() {
             @Override
             public String toString() {
-                return new ToStringBuilder(this).append("pid", this.pid)
-                        .append("map", this.map).toString();
+                return new ToStringBuilder(this).append("pid", this.pid).append("map", this.map).toString();
             }
         };
         object.pid = "dummy-text";
         object.map = baseMap;
 
-        assertEquals("{\"object\":{\"pid\":\"dummy-text\",\"map\":{\"k1\":\"v1\"," +
-                        "\"k2\":{\"k2.1\":\"v2.1\",\"k2.2\":\"v2.2\"}}}}",
+        assertEquals("{\"object\":{\"pid\":\"dummy-text\",\"map\":{\"k1\":\"v1\"," + "\"k2\":{\"k2.1\":\"v2.1\",\"k2.2\":\"v2.2\"}}}}",
                 new ToStringBuilder(base).append("object", object).toString());
     }
 
@@ -518,9 +496,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
         final Person p = new Person() {
             @Override
             public String toString() {
-                return new ToStringBuilder(this).append("name", this.name)
-                    .append("age", this.age).append("smoker", this.smoker)
-                    .toString();
+                return new ToStringBuilder(this).append("name", this.name).append("age", this.age).append("smoker", this.smoker).toString();
             }
         };
         p.name = "Jane Doe";
@@ -528,14 +504,11 @@ public class JsonToStringStyleTest extends AbstractLangTest {
         p.smoker = true;
 
         final NestingPerson nestP = new NestingPerson();
-        nestP.pid="#1@Jane";
+        nestP.pid = "#1@Jane";
         nestP.person = p;
 
-        assertEquals(
-                "{\"pid\":\"#1@Jane\",\"person\":{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true}}",
-                new ToStringBuilder(nestP).append("pid", nestP.pid)
-                        .append("person", nestP.person)
-                        .toString());
+        assertEquals("{\"pid\":\"#1@Jane\",\"person\":{\"name\":\"Jane Doe\",\"age\":25,\"smoker\":true}}",
+                new ToStringBuilder(nestP).append("pid", nestP.pid).append("person", nestP.person).toString());
     }
 
     @Test
@@ -545,91 +518,55 @@ public class JsonToStringStyleTest extends AbstractLangTest {
 
     @Test
     public void testObject() {
-
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((Object) null).toString());
+        assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append((Object) null).toString());
 
         assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append(i3).toString());
 
-        assertEquals("{\"a\":null}",
-                new ToStringBuilder(base).append("a", (Object) null).toString());
-        assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", i3)
-                .toString());
-        assertEquals("{\"a\":3,\"b\":4}",
-                new ToStringBuilder(base).append("a", i3).append("b", i4)
-                        .toString());
+        assertEquals("{\"a\":null}", new ToStringBuilder(base).append("a", (Object) null).toString());
+        assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", i3).toString());
+        assertEquals("{\"a\":3,\"b\":4}", new ToStringBuilder(base).append("a", i3).append("b", i4).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> new ToStringBuilder(base).append("a", i3, false).toString());
+        assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append("a", i3, false).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class,
-                () -> new ToStringBuilder(base).append("a", new ArrayList<>(), false).toString());
+        assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append("a", new ArrayList<>(), false).toString());
 
-        assertEquals(
-                "{\"a\":[]}",
-                new ToStringBuilder(base).append("a", new ArrayList<>(),
-                        true).toString());
+        assertEquals("{\"a\":[]}", new ToStringBuilder(base).append("a", new ArrayList<>(), true).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class,
-                () -> new ToStringBuilder(base).append("a", new HashMap<>(), false).toString());
+        assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append("a", new HashMap<>(), false).toString());
 
-        assertEquals(
-                "{\"a\":{}}",
-                new ToStringBuilder(base).append("a",
-                        new HashMap<>(), true).toString());
+        assertEquals("{\"a\":{}}", new ToStringBuilder(base).append("a", new HashMap<>(), true).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class,
-                () -> new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
+        assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
 
-        assertEquals(
-                "{\"a\":[]}",
-                new ToStringBuilder(base).append("a", (Object) new String[0],
-                        true).toString());
+        assertEquals("{\"a\":[]}", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class,
-                () -> new ToStringBuilder(base).append("a", (Object) new int[]{1, 2, 3}, false).toString());
+        assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append("a", (Object) new int[] { 1, 2, 3 }, false).toString());
 
-        assertEquals(
-                "{\"a\":[1,2,3]}",
-                new ToStringBuilder(base).append("a",
-                        (Object) new int[]{1, 2, 3}, true).toString());
+        assertEquals("{\"a\":[1,2,3]}", new ToStringBuilder(base).append("a", (Object) new int[] { 1, 2, 3 }, true).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class,
-                () -> new ToStringBuilder(base).append("a", (Object) new String[]{"v", "x", "y", "z"}, false).toString());
+        assertThrows(UnsupportedOperationException.class,
+                () -> new ToStringBuilder(base).append("a", (Object) new String[] { "v", "x", "y", "z" }, false).toString());
 
-        assertEquals(
-                "{\"a\":[\"v\",\"x\",\"y\",\"z\"]}",
-                new ToStringBuilder(base).append("a",
-                        (Object) new String[]{"v", "x", "y", "z"}, true)
-                        .toString());
+        assertEquals("{\"a\":[\"v\",\"x\",\"y\",\"z\"]}", new ToStringBuilder(base).append("a", (Object) new String[] { "v", "x", "y", "z" }, true).toString());
     }
 
     @Test
     public void testObjectArray() {
-        final Object[] array = {null, base, new int[]{3, 6}};
+        final Object[] array = { null, base, new int[] { 3, 6 } };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
         assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append(array).toString());
 
-        assertEquals("{\"objectArray\":[null,5,[3,6]]}", toStringBuilder.append("objectArray", array)
-                .toString());
+        assertEquals("{\"objectArray\":[null,5,[3,6]]}", toStringBuilder.append("objectArray", array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object[]) null).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object[]) null).toString());
 
-        assertThrows(
-                UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
+        assertThrows(UnsupportedOperationException.class, () -> toStringBuilder.append((Object) array).toString());
     }
 
     @Test
@@ -638,11 +575,10 @@ public class JsonToStringStyleTest extends AbstractLangTest {
         map.put("k1", "value1");
         map.put("k2", 2);
 
-        final InnerMapObject object = new InnerMapObject(){
+        final InnerMapObject object = new InnerMapObject() {
             @Override
             public String toString() {
-                return new ToStringBuilder(this).append("pid", this.pid)
-                        .append("map", this.map).toString();
+                return new ToStringBuilder(this).append("pid", this.pid).append("map", this.map).toString();
             }
         };
         object.pid = "dummy-text";

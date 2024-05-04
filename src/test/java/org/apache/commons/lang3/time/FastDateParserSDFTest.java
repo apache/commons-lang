@@ -42,6 +42,7 @@ public class FastDateParserSDFTest extends AbstractLangTest {
     private static final TimeZone timeZone = TimeZone.getDefault();
 
     public static Stream<Arguments> data() {
+        // @formatter:off
         return Stream.of(
                 // General Time zone tests
                 Arguments.of("z yyyy", "GMT 2010",       Locale.UK, true), // no offset specified, but this is allowed as a TimeZone name
@@ -103,13 +104,14 @@ public class FastDateParserSDFTest extends AbstractLangTest {
                 Arguments.of( "hh", "48",    Locale.UK, true), // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
                 Arguments.of( "kk", "48",    Locale.UK, true)  // Hour in day (1-24), i.e. midnight is 24, not 0
         );
+        // @formatter:on
     }
 
     private void checkParse(final String formattedDate, final String format, final Locale locale, final boolean valid) {
         final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
         sdf.setTimeZone(timeZone);
         final DateParser fdf = new FastDateParser(format, timeZone, locale);
-        Date expectedTime=null;
+        Date expectedTime = null;
         Class<?> sdfE = null;
         try {
             expectedTime = sdf.parse(formattedDate);
@@ -173,11 +175,10 @@ public class FastDateParserSDFTest extends AbstractLangTest {
             final int endIndex = fdfP.getIndex();
             final int length = formattedDate.length();
             assertEquals(length, endIndex, "Expected FDF to parse full string " + fdfP);
-            assertEquals(expectedTime, actualTime, locale +" "+formattedDate +"\n");
+            assertEquals(expectedTime, actualTime, locale + " " + formattedDate + "\n");
         } else {
             assertNotEquals(-1, fdferrorIndex, "Test data error: expected FDF parse to fail, but got " + actualTime);
-            assertTrue(sdferrorIndex - fdferrorIndex <= 4,
-                    "FDF error index ("+ fdferrorIndex + ") should approximate SDF index (" + sdferrorIndex + ")");
+            assertTrue(sdferrorIndex - fdferrorIndex <= 4, "FDF error index (" + fdferrorIndex + ") should approximate SDF index (" + sdferrorIndex + ")");
         }
     }
 

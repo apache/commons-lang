@@ -731,10 +731,10 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (numerator == 0) {
             throw new ArithmeticException("Unable to invert zero.");
         }
-        if (numerator==Integer.MIN_VALUE) {
+        if (numerator == Integer.MIN_VALUE) {
             throw new ArithmeticException("overflow: can't negate numerator");
         }
-        if (numerator<0) {
+        if (numerator < 0) {
             return new Fraction(-denominator, -numerator);
         }
         return new Fraction(denominator, numerator);
@@ -770,8 +770,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         // make sure we don't overflow unless the result *must* overflow.
         final int d1 = greatestCommonDivisor(numerator, fraction.denominator);
         final int d2 = greatestCommonDivisor(fraction.numerator, denominator);
-        return getReducedFraction(mulAndCheck(numerator / d1, fraction.numerator / d2),
-                mulPosAndCheck(denominator / d2, fraction.denominator / d1));
+        return getReducedFraction(mulAndCheck(numerator / d1, fraction.numerator / d2), mulPosAndCheck(denominator / d2, fraction.denominator / d1));
     }
 
     /**
@@ -783,7 +782,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     public Fraction negate() {
         // the positive range is one smaller than the negative range of an int.
-        if (numerator==Integer.MIN_VALUE) {
+        if (numerator == Integer.MIN_VALUE) {
             throw new ArithmeticException("overflow: too large to negate");
         }
         return new Fraction(-numerator, denominator);
@@ -875,7 +874,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             } else if ((numerator > 0 ? -numerator : numerator) < -denominator) {
                 // note that we do the magnitude comparison test above with
                 // NEGATIVE (not positive) numbers, since negative numbers
-                // have a larger range. otherwise numerator==Integer.MIN_VALUE
+                // have a larger range. otherwise numerator == Integer.MIN_VALUE
                 // is handled incorrectly.
                 final int properNumerator = getProperNumerator();
                 if (properNumerator == 0) {

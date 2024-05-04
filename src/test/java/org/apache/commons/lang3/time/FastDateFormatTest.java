@@ -273,13 +273,11 @@ public class FastDateFormatTest extends AbstractLangTest {
     public void testParseSync() throws InterruptedException {
         final String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";
         final SimpleDateFormat inner = new SimpleDateFormat(pattern);
-        final Format sdf= new Format() {
+        final Format sdf = new Format() {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public StringBuffer format(final Object obj,
-                    final StringBuffer toAppendTo,
-                    final FieldPosition fieldPosition) {
+            public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition fieldPosition) {
                 synchronized (this) {
                     return inner.format(obj, toAppendTo, fieldPosition);
                 }
@@ -292,13 +290,13 @@ public class FastDateFormatTest extends AbstractLangTest {
                 }
             }
         };
-        final AtomicLongArray sdfTime= measureTime(sdf, sdf);
+        final AtomicLongArray sdfTime = measureTime(sdf, sdf);
 
         final Format fdf = FastDateFormat.getInstance(pattern);
-        final AtomicLongArray fdfTime= measureTime(fdf, fdf);
+        final AtomicLongArray fdfTime = measureTime(fdf, fdf);
 
-        //System.out.println(">>FastDateFormatTest: FastDatePrinter:"+fdfTime.get(0)+"  SimpleDateFormat:"+sdfTime.get(0));
-        //System.out.println(">>FastDateFormatTest: FastDateParser:"+fdfTime.get(1)+"  SimpleDateFormat:"+sdfTime.get(1));
+        // System.out.println(">>FastDateFormatTest: FastDatePrinter:"+fdfTime.get(0)+" SimpleDateFormat:"+sdfTime.get(0));
+        // System.out.println(">>FastDateFormatTest: FastDateParser:"+fdfTime.get(1)+" SimpleDateFormat:"+sdfTime.get(1));
     }
 
     @Test

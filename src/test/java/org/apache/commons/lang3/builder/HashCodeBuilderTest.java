@@ -173,7 +173,7 @@ public class HashCodeBuilderTest extends AbstractLangTest {
 
         @Override
         public int hashCode() {
-            return b*17 + super.hashCode();
+            return b * 17 + super.hashCode();
         }
 
     }

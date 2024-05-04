@@ -307,7 +307,6 @@ public class Streams {
          * Performs a mutable reduction operation on the elements of this FailableStream. A mutable reduction is one in which
          * the reduced value is a mutable result container, such as an {@link ArrayList}, and elements are incorporated by
          * updating the state of the result rather than by replacing the result. This produces a result equivalent to:
-         *
          * <pre>
          * {@code
          *     R result = supplier.get();
@@ -316,29 +315,25 @@ public class Streams {
          *     return result;
          * }
          * </pre>
-         *
          * <p>
          * Like {@link #reduce(Object, BinaryOperator)}, {@code collect} operations can be parallelized without requiring
          * additional synchronization.
          * </p>
-         *
          * <p>
          * This is a terminal operation.
          * </p>
-         *
+         * <p>
          * Note There are many existing classes in the JDK whose signatures are well-suited for use with method references as
          * arguments to {@code collect()}. For example, the following will accumulate strings into an {@link ArrayList}:
-         *
+         * </p>
          * <pre>
          * {@code
          *     List<String> asList = stringStream.collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
          * }
          * </pre>
-         *
          * <p>
          * The following will take a stream of strings and concatenates them into a single string:
          * </p>
-         *
          * <pre>
          * {@code
          *     String concat = stringStream.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
@@ -362,7 +357,6 @@ public class Streams {
 
         /**
          * Returns a FailableStream consisting of the elements of this stream that match the given FailablePredicate.
-         *
          * <p>
          * This is an intermediate operation.
          * </p>
@@ -379,11 +373,9 @@ public class Streams {
 
         /**
          * Performs an action for each element of this stream.
-         *
          * <p>
          * This is a terminal operation.
          * </p>
-         *
          * <p>
          * The behavior of this operation is explicitly nondeterministic. For parallel stream pipelines, this operation does
          * <em>not</em> guarantee to respect the encounter order of the stream, as doing so would sacrifice the benefit of

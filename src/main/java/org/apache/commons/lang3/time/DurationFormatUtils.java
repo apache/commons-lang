@@ -310,7 +310,7 @@ public class DurationFormatUtils {
                 lastOutputSeconds = false;
             }
             //as soon as we hit first nonliteral in optional, check for literal prefix
-            if (inOptional && !isLiteral && !firstOptionalNonLiteral){
+            if (inOptional && !isLiteral && !firstOptionalNonLiteral) {
                 firstOptionalNonLiteral = true;
                 if (lastOutputZero) {
                     buffer.delete(optionalStart, buffer.length());
@@ -680,14 +680,14 @@ public class DurationFormatUtils {
             // TODO: Need to handle escaping of '
             case '[':
                 if (inOptional) {
-                  throw new IllegalArgumentException("Nested optional block at index: "+i);
+                    throw new IllegalArgumentException("Nested optional block at index: " + i);
                 }
                 optionalIndex++;
                 inOptional = true;
                 break;
             case ']':
                 if (!inOptional) {
-                  throw new IllegalArgumentException("Attempting to close unopened optional block at index: "+i);
+                    throw new IllegalArgumentException("Attempting to close unopened optional block at index: " + i);
                 }
                 inOptional = false;
                 break;

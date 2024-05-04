@@ -80,11 +80,9 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         final String actual = StringEscapeUtils.unescapeJava(original);
 
         assertEquals(expected, actual,
-                "unescape(String) failed" +
-                (message == null ? "" : ": " + message) +
-                ": expected '" + StringEscapeUtils.escapeJava(expected) +
+                "unescape(String) failed" + (message == null ? "" : ": " + message) + ": expected '" + StringEscapeUtils.escapeJava(expected) +
                 // we escape this so we can see it in the error message
-                "' actual '" + StringEscapeUtils.escapeJava(actual) + "'");
+                        "' actual '" + StringEscapeUtils.escapeJava(actual) + "'");
 
         final StringWriter writer = new StringWriter();
         StringEscapeUtils.UNESCAPE_JAVA.translate(original, writer);
@@ -122,23 +120,23 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
 
     @Test
     public void testEscapeCsvString() {
-        assertEquals("foo.bar",            StringEscapeUtils.escapeCsv("foo.bar"));
-        assertEquals("\"foo,bar\"",        StringEscapeUtils.escapeCsv("foo,bar"));
-        assertEquals("\"foo\nbar\"",       StringEscapeUtils.escapeCsv("foo\nbar"));
-        assertEquals("\"foo\rbar\"",       StringEscapeUtils.escapeCsv("foo\rbar"));
-        assertEquals("\"foo\"\"bar\"",     StringEscapeUtils.escapeCsv("foo\"bar"));
+        assertEquals("foo.bar", StringEscapeUtils.escapeCsv("foo.bar"));
+        assertEquals("\"foo,bar\"", StringEscapeUtils.escapeCsv("foo,bar"));
+        assertEquals("\"foo\nbar\"", StringEscapeUtils.escapeCsv("foo\nbar"));
+        assertEquals("\"foo\rbar\"", StringEscapeUtils.escapeCsv("foo\rbar"));
+        assertEquals("\"foo\"\"bar\"", StringEscapeUtils.escapeCsv("foo\"bar"));
         assertEquals("foo\uD84C\uDFB4bar", StringEscapeUtils.escapeCsv("foo\uD84C\uDFB4bar"));
-        assertEquals("",   StringEscapeUtils.escapeCsv(""));
+        assertEquals("", StringEscapeUtils.escapeCsv(""));
         assertNull(StringEscapeUtils.escapeCsv(null));
     }
 
     @Test
     public void testEscapeCsvWriter() throws Exception {
-        checkCsvEscapeWriter("foo.bar",            "foo.bar");
-        checkCsvEscapeWriter("\"foo,bar\"",        "foo,bar");
-        checkCsvEscapeWriter("\"foo\nbar\"",       "foo\nbar");
-        checkCsvEscapeWriter("\"foo\rbar\"",       "foo\rbar");
-        checkCsvEscapeWriter("\"foo\"\"bar\"",     "foo\"bar");
+        checkCsvEscapeWriter("foo.bar", "foo.bar");
+        checkCsvEscapeWriter("\"foo,bar\"", "foo,bar");
+        checkCsvEscapeWriter("\"foo\nbar\"", "foo\nbar");
+        checkCsvEscapeWriter("\"foo\rbar\"", "foo\rbar");
+        checkCsvEscapeWriter("\"foo\"\"bar\"", "foo\"bar");
         checkCsvEscapeWriter("foo\uD84C\uDFB4bar", "foo\uD84C\uDFB4bar");
         checkCsvEscapeWriter("", null);
         checkCsvEscapeWriter("", "");
@@ -163,10 +161,9 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         // Some random Japanese Unicode characters
         final String original = "\u304B\u304C\u3068";
         final String escaped = StringEscapeUtils.escapeHtml4(original);
-        assertEquals(original, escaped,
-                "Hiragana character Unicode behavior should not be being escaped by escapeHtml4");
+        assertEquals(original, escaped, "Hiragana character Unicode behavior should not be being escaped by escapeHtml4");
 
-        final String unescaped = StringEscapeUtils.unescapeHtml4( escaped );
+        final String unescaped = StringEscapeUtils.unescapeHtml4(escaped);
 
         assertEquals(escaped, unescaped, "Hiragana character Unicode behavior has changed - expected no unescaping");
     }
@@ -198,10 +195,10 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
 
         final String original = new String(data, StandardCharsets.UTF_8);
 
-        final String escaped = StringEscapeUtils.escapeHtml4( original );
+        final String escaped = StringEscapeUtils.escapeHtml4(original);
         assertEquals(original, escaped, "High Unicode should not have been escaped");
 
-        final String unescaped = StringEscapeUtils.unescapeHtml4( escaped );
+        final String unescaped = StringEscapeUtils.unescapeHtml4(escaped);
         assertEquals(original, unescaped, "High Unicode should have been unchanged");
 
 // TODO: I think this should hold, needs further investigation
@@ -235,12 +232,9 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         assertEscapeJava("\\u0001", "\u0001");
         assertEscapeJava("Should use capitalized Unicode hex", "\\uABCD", "\uabcd");
 
-        assertEscapeJava("He didn't say, \\\"stop!\\\"",
-                "He didn't say, \"stop!\"");
-        assertEscapeJava("non-breaking space", "This space is non-breaking:" + "\\u00A0",
-                "This space is non-breaking:\u00a0");
-        assertEscapeJava("\\uABCD\\u1234\\u012C",
-                "\uABCD\u1234\u012C");
+        assertEscapeJava("He didn't say, \\\"stop!\\\"", "He didn't say, \"stop!\"");
+        assertEscapeJava("non-breaking space", "This space is non-breaking:" + "\\u00A0", "This space is non-breaking:\u00a0");
+        assertEscapeJava("\\uABCD\\u1234\\u012C", "\uABCD\u1234\u012C");
     }
 
     /**
@@ -254,8 +248,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         final String actual = StringEscapeUtils.escapeJava(input);
 
         /*
-         * In 2.4 StringEscapeUtils.escapeJava(String) escapes '/' characters, which are not a valid character to escape
-         * in a Java string.
+         * In 2.4 StringEscapeUtils.escapeJava(String) escapes '/' characters, which are not a valid character to escape in a Java string.
          */
         assertEquals(expected, actual);
     }
@@ -269,7 +262,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         assertEquals("He didn't say, \\\"stop!\\\"", StringEscapeUtils.escapeJson("He didn't say, \"stop!\""));
 
         final String expected = "\\\"foo\\\" isn't \\\"bar\\\". specials: \\b\\r\\n\\f\\t\\\\\\/";
-        final String input ="\"foo\" isn't \"bar\". specials: \b\r\n\f\t\\/";
+        final String input = "\"foo\" isn't \"bar\". specials: \b\r\n\f\t\\/";
 
         assertEquals(expected, StringEscapeUtils.escapeJson(input));
     }
@@ -281,12 +274,9 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
 
         assertEquals("\u00A1", StringEscapeUtils.escapeXml("\u00A1"), "XML should not escape >0x7f values");
         assertEquals("\u00A0", StringEscapeUtils.unescapeXml("&#160;"), "XML should be able to unescape >0x7f values");
-        assertEquals("\u00A0", StringEscapeUtils.unescapeXml("&#0160;"),
-                "XML should be able to unescape >0x7f values with one leading 0");
-        assertEquals("\u00A0", StringEscapeUtils.unescapeXml("&#00160;"),
-                "XML should be able to unescape >0x7f values with two leading 0s");
-        assertEquals("\u00A0", StringEscapeUtils.unescapeXml("&#000160;"),
-                "XML should be able to unescape >0x7f values with three leading 0s");
+        assertEquals("\u00A0", StringEscapeUtils.unescapeXml("&#0160;"), "XML should be able to unescape >0x7f values with one leading 0");
+        assertEquals("\u00A0", StringEscapeUtils.unescapeXml("&#00160;"), "XML should be able to unescape >0x7f values with two leading 0s");
+        assertEquals("\u00A0", StringEscapeUtils.unescapeXml("&#000160;"), "XML should be able to unescape >0x7f values with three leading 0s");
 
         assertEquals("ain't", StringEscapeUtils.unescapeXml("ain&apos;t"));
         assertEquals("ain&apos;t", StringEscapeUtils.escapeXml("ain't"));
@@ -309,12 +299,9 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         assertEquals("a\tb\rc\nd", StringEscapeUtils.escapeXml10("a\tb\rc\nd"), "XML 1.0 should not escape \t \n \r");
         assertEquals("ab", StringEscapeUtils.escapeXml10("a\u0000\u0001\u0008\u000b\u000c\u000e\u001fb"),
                 "XML 1.0 should omit most #x0-x8 | #xb | #xc | #xe-#x19");
-        assertEquals("a\ud7ff  \ue000b", StringEscapeUtils.escapeXml10("a\ud7ff\ud800 \udfff \ue000b"),
-                "XML 1.0 should omit #xd800-#xdfff");
-        assertEquals("a\ufffdb", StringEscapeUtils.escapeXml10("a\ufffd\ufffe\uffffb"),
-                "XML 1.0 should omit #xfffe | #xffff");
-        assertEquals("a\u007e&#127;&#132;\u0085&#134;&#159;\u00a0b",
-                StringEscapeUtils.escapeXml10("a\u007e\u007f\u0084\u0085\u0086\u009f\u00a0b"),
+        assertEquals("a\ud7ff  \ue000b", StringEscapeUtils.escapeXml10("a\ud7ff\ud800 \udfff \ue000b"), "XML 1.0 should omit #xd800-#xdfff");
+        assertEquals("a\ufffdb", StringEscapeUtils.escapeXml10("a\ufffd\ufffe\uffffb"), "XML 1.0 should omit #xfffe | #xffff");
+        assertEquals("a\u007e&#127;&#132;\u0085&#134;&#159;\u00a0b", StringEscapeUtils.escapeXml10("a\u007e\u007f\u0084\u0085\u0086\u009f\u00a0b"),
                 "XML 1.0 should escape #x7f-#x84 | #x86 - #x9f, for XML 1.1 compatibility");
     }
 
@@ -323,16 +310,12 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         assertEquals("a&lt;b&gt;c&quot;d&apos;e&amp;f", StringEscapeUtils.escapeXml11("a<b>c\"d'e&f"));
         assertEquals("a\tb\rc\nd", StringEscapeUtils.escapeXml11("a\tb\rc\nd"), "XML 1.1 should not escape \t \n \r");
         assertEquals("ab", StringEscapeUtils.escapeXml11("a\u0000b"), "XML 1.1 should omit #x0");
-        assertEquals("a&#1;&#8;&#11;&#12;&#14;&#31;b",
-                StringEscapeUtils.escapeXml11("a\u0001\u0008\u000b\u000c\u000e\u001fb"),
+        assertEquals("a&#1;&#8;&#11;&#12;&#14;&#31;b", StringEscapeUtils.escapeXml11("a\u0001\u0008\u000b\u000c\u000e\u001fb"),
                 "XML 1.1 should escape #x1-x8 | #xb | #xc | #xe-#x19");
-        assertEquals("a\u007e&#127;&#132;\u0085&#134;&#159;\u00a0b",
-                StringEscapeUtils.escapeXml11("a\u007e\u007f\u0084\u0085\u0086\u009f\u00a0b"),
+        assertEquals("a\u007e&#127;&#132;\u0085&#134;&#159;\u00a0b", StringEscapeUtils.escapeXml11("a\u007e\u007f\u0084\u0085\u0086\u009f\u00a0b"),
                 "XML 1.1 should escape #x7F-#x84 | #x86-#x9F");
-        assertEquals("a\ud7ff  \ue000b", StringEscapeUtils.escapeXml11("a\ud7ff\ud800 \udfff \ue000b"),
-                "XML 1.1 should omit #xd800-#xdfff");
-        assertEquals("a\ufffdb", StringEscapeUtils.escapeXml11("a\ufffd\ufffe\uffffb"),
-                "XML 1.1 should omit #xfffe | #xffff");
+        assertEquals("a\ud7ff  \ue000b", StringEscapeUtils.escapeXml11("a\ud7ff\ud800 \udfff \ue000b"), "XML 1.1 should omit #xd800-#xdfff");
+        assertEquals("a\ufffdb", StringEscapeUtils.escapeXml11("a\ufffd\ufffe\uffffb"), "XML 1.1 should omit #xfffe | #xffff");
     }
 
     @Test
@@ -340,9 +323,9 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         // https://www.w3.org/TR/xml/#charsets says:
         // Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] /* any Unicode character,
         // excluding the surrogate blocks, FFFE, and FFFF. */
-        final CharSequenceTranslator escapeXml = StringEscapeUtils.ESCAPE_XML
-                .with(NumericEntityEscaper.below(9), NumericEntityEscaper.between(0xB, 0xC), NumericEntityEscaper.between(0xE, 0x19),
-                        NumericEntityEscaper.between(0xD800, 0xDFFF), NumericEntityEscaper.between(0xFFFE, 0xFFFF), NumericEntityEscaper.above(0x110000));
+        final CharSequenceTranslator escapeXml = StringEscapeUtils.ESCAPE_XML.with(NumericEntityEscaper.below(9), NumericEntityEscaper.between(0xB, 0xC),
+                NumericEntityEscaper.between(0xE, 0x19), NumericEntityEscaper.between(0xD800, 0xDFFF), NumericEntityEscaper.between(0xFFFE, 0xFFFF),
+                NumericEntityEscaper.above(0x110000));
 
         assertEquals("&#0;&#1;&#2;&#3;&#4;&#5;&#6;&#7;&#8;", escapeXml.translate("\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008"));
         assertEquals("\t", escapeXml.translate("\t")); // 0x9
@@ -358,23 +341,19 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
      * <p>
      * From https://www.w3.org/International/questions/qa-escapes
      * </p>
-     * <blockquote>
-     * Supplementary characters are those Unicode characters that have code points higher than the characters in
-     * the Basic Multilingual Plane (BMP). In UTF-16 a supplementary character is encoded using two 16-bit surrogate code points from the
-     * BMP. Because of this, some people think that supplementary characters need to be represented using two escapes, but this is incorrect
-     * - you must use the single, code point value for that character. For example, use &amp;&#35;x233B4&#59; rather than
-     * &amp;&#35;xD84C&#59;&amp;&#35;xDFB4&#59;.
-     * </blockquote>
+     * <blockquote> Supplementary characters are those Unicode characters that have code points higher than the characters in the Basic Multilingual Plane
+     * (BMP). In UTF-16 a supplementary character is encoded using two 16-bit surrogate code points from the BMP. Because of this, some people think that
+     * supplementary characters need to be represented using two escapes, but this is incorrect - you must use the single, code point value for that character.
+     * For example, use &amp;&#35;x233B4&#59; rather than &amp;&#35;xD84C&#59;&amp;&#35;xDFB4&#59;. </blockquote>
+     *
      * @see <a href="https://www.w3.org/International/questions/qa-escapes">Using character escapes in markup and CSS</a>
      * @see <a href="https://issues.apache.org/jira/browse/LANG-728">LANG-728</a>
      */
     @Test
     public void testEscapeXmlSupplementaryCharacters() {
-        final CharSequenceTranslator escapeXml =
-            StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE) );
+        final CharSequenceTranslator escapeXml = StringEscapeUtils.ESCAPE_XML.with(NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE));
 
-        assertEquals("&#144308;", escapeXml.translate("\uD84C\uDFB4"),
-                "Supplementary character must be represented using a single escape");
+        assertEquals("&#144308;", escapeXml.translate("\uD84C\uDFB4"), "Supplementary character must be represented using a single escape");
 
         assertEquals("a b c &#144308;", escapeXml.translate("a b c \uD84C\uDFB4"),
                 "Supplementary characters mixed with basic characters should be encoded correctly");
@@ -388,8 +367,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     /**
      * Tests https://issues.apache.org/jira/browse/LANG-708
      *
-     * @throws IOException
-     *             if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Test
     public void testLang708() throws IOException {
@@ -441,30 +419,30 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
 
     @Test
     public void testUnescapeCsvString() {
-        assertEquals("foo.bar",              StringEscapeUtils.unescapeCsv("foo.bar"));
-        assertEquals("foo,bar",              StringEscapeUtils.unescapeCsv("\"foo,bar\""));
-        assertEquals("foo\nbar",             StringEscapeUtils.unescapeCsv("\"foo\nbar\""));
-        assertEquals("foo\rbar",             StringEscapeUtils.unescapeCsv("\"foo\rbar\""));
-        assertEquals("foo\"bar",             StringEscapeUtils.unescapeCsv("\"foo\"\"bar\""));
-        assertEquals("foo\uD84C\uDFB4bar",   StringEscapeUtils.unescapeCsv("foo\uD84C\uDFB4bar"));
-        assertEquals("",   StringEscapeUtils.unescapeCsv(""));
+        assertEquals("foo.bar", StringEscapeUtils.unescapeCsv("foo.bar"));
+        assertEquals("foo,bar", StringEscapeUtils.unescapeCsv("\"foo,bar\""));
+        assertEquals("foo\nbar", StringEscapeUtils.unescapeCsv("\"foo\nbar\""));
+        assertEquals("foo\rbar", StringEscapeUtils.unescapeCsv("\"foo\rbar\""));
+        assertEquals("foo\"bar", StringEscapeUtils.unescapeCsv("\"foo\"\"bar\""));
+        assertEquals("foo\uD84C\uDFB4bar", StringEscapeUtils.unescapeCsv("foo\uD84C\uDFB4bar"));
+        assertEquals("", StringEscapeUtils.unescapeCsv(""));
         assertNull(StringEscapeUtils.unescapeCsv(null));
 
-        assertEquals("\"foo.bar\"",          StringEscapeUtils.unescapeCsv("\"foo.bar\""));
+        assertEquals("\"foo.bar\"", StringEscapeUtils.unescapeCsv("\"foo.bar\""));
     }
 
     @Test
     public void testUnescapeCsvWriter() throws Exception {
-        checkCsvUnescapeWriter("foo.bar",            "foo.bar");
-        checkCsvUnescapeWriter("foo,bar",            "\"foo,bar\"");
-        checkCsvUnescapeWriter("foo\nbar",           "\"foo\nbar\"");
-        checkCsvUnescapeWriter("foo\rbar",           "\"foo\rbar\"");
-        checkCsvUnescapeWriter("foo\"bar",           "\"foo\"\"bar\"");
+        checkCsvUnescapeWriter("foo.bar", "foo.bar");
+        checkCsvUnescapeWriter("foo,bar", "\"foo,bar\"");
+        checkCsvUnescapeWriter("foo\nbar", "\"foo\nbar\"");
+        checkCsvUnescapeWriter("foo\rbar", "\"foo\rbar\"");
+        checkCsvUnescapeWriter("foo\"bar", "\"foo\"\"bar\"");
         checkCsvUnescapeWriter("foo\uD84C\uDFB4bar", "foo\uD84C\uDFB4bar");
         checkCsvUnescapeWriter("", null);
         checkCsvUnescapeWriter("", "");
 
-        checkCsvUnescapeWriter("\"foo.bar\"",        "\"foo.bar\"");
+        checkCsvUnescapeWriter("\"foo.bar\"", "\"foo.bar\"");
     }
 
     @Test
@@ -486,7 +464,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         // Test all Character values:
         for (char i = Character.MIN_VALUE; i < Character.MAX_VALUE; i++) {
             final Character c1 = Character.valueOf(i);
-            final Character c2 = Character.valueOf((char) (i+1));
+            final Character c2 = Character.valueOf((char) (i + 1));
             final String expected = c1.toString() + c2;
             final String escapedC1 = "&#x" + Integer.toHexString(c1.charValue()) + ";";
             final String escapedC2 = "&#x" + Integer.toHexString(c2.charValue()) + ";";
@@ -531,7 +509,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
         assertUnescapeJava("\u123425foo\ntest\b", "\\u123425foo\\ntest\\b");
         assertUnescapeJava("'\foo\teste\r", "\\'\\foo\\teste\\r");
         assertUnescapeJava("", "\\");
-        //foo
+        // foo
         assertUnescapeJava("lowercase Unicode", "\uABCDx", "\\uabcdx");
         assertUnescapeJava("uppercase Unicode", "\uABCDx", "\\uABCDx");
         assertUnescapeJava("Unicode as final character", "\uABCD", "\\uabcd");
@@ -545,7 +523,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
 
         assertEquals("He didn't say, \"stop!\"", StringEscapeUtils.unescapeJson("He didn't say, \\\"stop!\\\""));
 
-        final String expected ="\"foo\" isn't \"bar\". specials: \b\r\n\f\t\\/";
+        final String expected = "\"foo\" isn't \"bar\". specials: \b\r\n\f\t\\/";
         final String input = "\\\"foo\\\" isn't \\\"bar\\\". specials: \\b\\r\\n\\f\\t\\\\\\/";
 
         assertEquals(expected, StringEscapeUtils.unescapeJson(input));
@@ -563,8 +541,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
      */
     @Test
     public void testUnescapeXmlSupplementaryCharacters() {
-        assertEquals("\uD84C\uDFB4", StringEscapeUtils.unescapeXml("&#144308;"),
-                "Supplementary character must be represented using a single escape");
+        assertEquals("\uD84C\uDFB4", StringEscapeUtils.unescapeXml("&#144308;"), "Supplementary character must be represented using a single escape");
 
         assertEquals("a b c \uD84C\uDFB4", StringEscapeUtils.unescapeXml("a b c &#144308;"),
                 "Supplementary characters mixed with basic characters should be decoded correctly");

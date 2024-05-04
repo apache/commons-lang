@@ -43,7 +43,7 @@ public class ImmutablePairTest extends AbstractLangTest {
     public void testBasic() {
         ImmutablePair<Integer, String> oldPair = new ImmutablePair<>(0, "foo");
         ImmutablePair<Integer, String> nowPair;
-        for (int i=0; i<4; i++) {
+        for (int i = 0; i < 4; i++) {
             nowPair = ImmutablePair.of(oldPair);
             assertEquals(0, nowPair.left.intValue());
             assertEquals(0, nowPair.getLeft().intValue());
@@ -55,7 +55,7 @@ public class ImmutablePairTest extends AbstractLangTest {
 
         ImmutablePair<Object, String> oldPair2 = new ImmutablePair<>(null, "bar");
         ImmutablePair<Object, String> nowPair2;
-        for (int i=0; i<4; i++) {
+        for (int i = 0; i < 4; i++) {
             nowPair2 = ImmutablePair.of(oldPair2);
             assertNull(nowPair2.left);
             assertNull(nowPair2.getLeft());

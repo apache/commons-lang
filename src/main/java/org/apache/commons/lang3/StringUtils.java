@@ -361,7 +361,7 @@ public class StringUtils {
         if (strLen - offset < maxWidth - abbrevMarkerLength) {
             offset = strLen - (maxWidth - abbrevMarkerLength);
         }
-        if (offset <= abbrevMarkerLength+1) {
+        if (offset <= abbrevMarkerLength + 1) {
             return str.substring(0, maxWidth - abbrevMarkerLength) + abbrevMarker;
         }
         if (maxWidth < minAbbrevWidthOffset) {
@@ -403,17 +403,13 @@ public class StringUtils {
      * @since 2.5
      */
     public static String abbreviateMiddle(final String str, final String middle, final int length) {
-        if (isAnyEmpty(str, middle) || length >= str.length() || length < middle.length()+2) {
+        if (isAnyEmpty(str, middle) || length >= str.length() || length < middle.length() + 2) {
             return str;
         }
-
-        final int targetSting = length-middle.length();
-        final int startOffset = targetSting/2+targetSting%2;
-        final int endOffset = str.length()-targetSting/2;
-
-        return str.substring(0, startOffset) +
-            middle +
-            str.substring(endOffset);
+        final int targetSting = length - middle.length();
+        final int startOffset = targetSting / 2 + targetSting % 2;
+        final int endOffset = str.length() - targetSting / 2;
+        return str.substring(0, startOffset) + middle + str.substring(endOffset);
     }
 
     /**
@@ -9393,7 +9389,7 @@ public class StringUtils {
      *            the string to be wrapped, may be {@code null}
      * @param wrapWith
      *            the char that will wrap {@code str}
-     * @return the wrapped string, or {@code null} if {@code str==null}
+     * @return the wrapped string, or {@code null} if {@code str == null}
      * @since 3.4
      */
     public static String wrap(final String str, final char wrapWith) {
@@ -9463,7 +9459,7 @@ public class StringUtils {
      *            the string to be wrapped, may be {@code null}
      * @param wrapWith
      *            the char that will wrap {@code str}
-     * @return the wrapped string, or {@code null} if {@code str==null}
+     * @return the wrapped string, or {@code null} if {@code str == null}
      * @since 3.5
      */
     public static String wrapIfMissing(final String str, final char wrapWith) {
@@ -9513,7 +9509,7 @@ public class StringUtils {
      *            the string to be wrapped, may be {@code null}
      * @param wrapWith
      *            the string that will wrap {@code str}
-     * @return the wrapped string, or {@code null} if {@code str==null}
+     * @return the wrapped string, or {@code null} if {@code str == null}
      * @since 3.5
      */
     public static String wrapIfMissing(final String str, final String wrapWith) {

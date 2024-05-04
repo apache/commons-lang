@@ -359,7 +359,7 @@ public class StringUtilsTest extends AbstractLangTest {
         assertAbbreviateWithAbbrevMarkerAndOffset("abcdefghi*", "*", 2, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("abcdef{{{{", "{{{{", 4, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("abcdef____", "____", 5, 10);
-        assertAbbreviateWithAbbrevMarkerAndOffset("==fghijk==", "==", 5, 10);
+        assertAbbreviateWithAbbrevMarkerAndOffset(" == fghijk == ", " == ", 5, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("___ghij___", "___", 6, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("/ghijklmno", "/", 7, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("/ghijklmno", "/", 8, 10);
@@ -1367,7 +1367,7 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("", StringUtils.join(EMPTY_STRING_LIST, null));
         assertEquals("", StringUtils.join(EMPTY_STRING_LIST, ""));
 
-        assertEquals("", StringUtils.join(MIXED_STRING_LIST, "", 0, MIXED_STRING_LIST.size()- 1));
+        assertEquals("", StringUtils.join(MIXED_STRING_LIST, "", 0, MIXED_STRING_LIST.size() - 1));
     }
 
     @ParameterizedTest

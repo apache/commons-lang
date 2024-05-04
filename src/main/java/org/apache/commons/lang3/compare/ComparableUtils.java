@@ -240,5 +240,7 @@ public class ComparableUtils {
         return ObjectUtils.compare(comparable1, comparable2, true) < 0 ? comparable1 : comparable2;
     }
 
-    private ComparableUtils() {}
+    private ComparableUtils() {
+        // empty
+    }
 }

@@ -55,8 +55,8 @@ public class FastTimeZoneTest extends AbstractLangTest {
         assertEquals(HOURS_2, FastTimeZone.getGmtTimeZone("2:00").getRawOffset());
         assertEquals(MINUTES_59, FastTimeZone.getGmtTimeZone("00:59").getRawOffset());
         assertEquals(MINUTES_5, FastTimeZone.getGmtTimeZone("00:5").getRawOffset());
-        assertEquals(HOURS_23+MINUTES_59, FastTimeZone.getGmtTimeZone("23:59").getRawOffset());
-        assertEquals(HOURS_2+MINUTES_5, FastTimeZone.getGmtTimeZone("2:5").getRawOffset());
+        assertEquals(HOURS_23 + MINUTES_59, FastTimeZone.getGmtTimeZone("23:59").getRawOffset());
+        assertEquals(HOURS_2 + MINUTES_5, FastTimeZone.getGmtTimeZone("2:5").getRawOffset());
     }
 
     @Test
@@ -65,8 +65,8 @@ public class FastTimeZoneTest extends AbstractLangTest {
         assertEquals(HOURS_2, FastTimeZone.getGmtTimeZone("0200").getRawOffset());
         assertEquals(MINUTES_59, FastTimeZone.getGmtTimeZone("0059").getRawOffset());
         assertEquals(MINUTES_5, FastTimeZone.getGmtTimeZone("0005").getRawOffset());
-        assertEquals(HOURS_23+MINUTES_59, FastTimeZone.getGmtTimeZone("2359").getRawOffset());
-        assertEquals(HOURS_2+MINUTES_5, FastTimeZone.getGmtTimeZone("0205").getRawOffset());
+        assertEquals(HOURS_23 + MINUTES_59, FastTimeZone.getGmtTimeZone("2359").getRawOffset());
+        assertEquals(HOURS_2 + MINUTES_5, FastTimeZone.getGmtTimeZone("0205").getRawOffset());
     }
 
     @Test

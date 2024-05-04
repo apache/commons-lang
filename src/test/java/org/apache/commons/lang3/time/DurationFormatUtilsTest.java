@@ -72,12 +72,12 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         c.set(year, month, day, 0, 0, 0);
         final int[] array1 = { year, month, day, 0, 0, 0 };
         final int[] array2 = { year, month, day, 0, 0, 0 };
-        for (int i=0; i < FOUR_YEARS; i++) {
+        for (int i = 0; i < FOUR_YEARS; i++) {
             array2[0] = c.get(Calendar.YEAR);
             array2[1] = c.get(Calendar.MONTH);
             array2[2] = c.get(Calendar.DAY_OF_MONTH);
             final String tmpMsg = msg + array2[0] + "-" + array2[1] + "-" + array2[2] + " at ";
-            assertEqualDuration(tmpMsg + i, Integer.toString(i), array1, array2, format );
+            assertEqualDuration(tmpMsg + i, Integer.toString(i), array1, array2, format);
             c.add(calendarType, 1);
         }
     }
@@ -93,37 +93,17 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
     @Test
     public void testAlternatingLiteralOptionals() {
         final String format = "['d'dH'h'][m'm']['s's]['ms'S]";
-
-        assertEquals("d1",
-            DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), format));
-
-        assertEquals("1h",
-            DurationFormatUtils.formatDuration(Duration.ofHours(1).toMillis(), format));
-
-        assertEquals("1m",
-            DurationFormatUtils.formatDuration(Duration.ofMinutes(1).toMillis(), format));
-
-        assertEquals("s1",
-            DurationFormatUtils.formatDuration(Duration.ofSeconds(1).toMillis(), format));
-
-        assertEquals("ms001",
-            DurationFormatUtils.formatDuration(Duration.ofMillis(1).toMillis(), format));
-
-        assertEquals("d1s1",
-            DurationFormatUtils.formatDuration(Duration.ofDays(1).plusSeconds(1).toMillis(), format));
-
-        assertEquals("d11h",
-            DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).toMillis(), format));
-
-        assertEquals("d11h1m",
-            DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).plusMinutes(1).toMillis(), format));
-
-        assertEquals("d11h1ms1",
-            DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).plusMinutes(1).plusSeconds(1).toMillis(), format));
-
+        assertEquals("d1", DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), format));
+        assertEquals("1h", DurationFormatUtils.formatDuration(Duration.ofHours(1).toMillis(), format));
+        assertEquals("1m", DurationFormatUtils.formatDuration(Duration.ofMinutes(1).toMillis(), format));
+        assertEquals("s1", DurationFormatUtils.formatDuration(Duration.ofSeconds(1).toMillis(), format));
+        assertEquals("ms001", DurationFormatUtils.formatDuration(Duration.ofMillis(1).toMillis(), format));
+        assertEquals("d1s1", DurationFormatUtils.formatDuration(Duration.ofDays(1).plusSeconds(1).toMillis(), format));
+        assertEquals("d11h", DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).toMillis(), format));
+        assertEquals("d11h1m", DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).plusMinutes(1).toMillis(), format));
+        assertEquals("d11h1ms1", DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).plusMinutes(1).plusSeconds(1).toMillis(), format));
         assertEquals("d11h1ms1ms001",
-            DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).plusMinutes(1).plusSeconds(1).plusMillis(1).toMillis(), format));
-
+                DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).plusMinutes(1).plusSeconds(1).plusMillis(1).toMillis(), format));
     }
 
     /** See https://issues.apache.org/bugzilla/show_bug.cgi?id=38401 */
@@ -613,7 +593,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
     public void testLANG984() { // Long durations
         assertEquals("0", DurationFormatUtils.formatDuration(0, "S"));
         assertEquals(Integer.toString(Integer.MAX_VALUE), DurationFormatUtils.formatDuration(Integer.MAX_VALUE, "S"));
-        long maxIntPlus=Integer.MAX_VALUE;
+        long maxIntPlus = Integer.MAX_VALUE;
         maxIntPlus++;
         assertEquals(Long.toString(maxIntPlus), DurationFormatUtils.formatDuration(maxIntPlus, "S"));
         assertEquals(Long.toString(Long.MAX_VALUE), DurationFormatUtils.formatDuration(Long.MAX_VALUE, "S"));
@@ -622,27 +602,27 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
     @Test
     public void testLexx() {
         // tests each constant
-        assertArrayEquals(new DurationFormatUtils.Token[]{
+        assertArrayEquals(new DurationFormatUtils.Token[] {
             createTokenWithCount(DurationFormatUtils.y, 1),
             createTokenWithCount(DurationFormatUtils.M, 1),
             createTokenWithCount(DurationFormatUtils.d, 1),
             createTokenWithCount(DurationFormatUtils.H, 1),
             createTokenWithCount(DurationFormatUtils.m, 1),
             createTokenWithCount(DurationFormatUtils.s, 1),
-            createTokenWithCount(DurationFormatUtils.S, 1)}, DurationFormatUtils.lexx("yMdHmsS"));
+            createTokenWithCount(DurationFormatUtils.S, 1) }, DurationFormatUtils.lexx("yMdHmsS"));
 
         // tests the ISO 8601-like
-        assertArrayEquals(new DurationFormatUtils.Token[]{
+        assertArrayEquals(new DurationFormatUtils.Token[] {
             createTokenWithCount(DurationFormatUtils.H, 2),
             createTokenWithCount(new StringBuilder(":"), 1),
             createTokenWithCount(DurationFormatUtils.m, 2),
             createTokenWithCount(new StringBuilder(":"), 1),
             createTokenWithCount(DurationFormatUtils.s, 2),
             createTokenWithCount(new StringBuilder("."), 1),
-            createTokenWithCount(DurationFormatUtils.S, 3)}, DurationFormatUtils.lexx("HH:mm:ss.SSS"));
+            createTokenWithCount(DurationFormatUtils.S, 3) }, DurationFormatUtils.lexx("HH:mm:ss.SSS"));
 
         // test the iso extended format
-        assertArrayEquals(new DurationFormatUtils.Token[]{
+        assertArrayEquals(new DurationFormatUtils.Token[] {
             createTokenWithCount(new StringBuilder("P"), 1),
             createTokenWithCount(DurationFormatUtils.y, 4),
             createTokenWithCount(new StringBuilder("Y"), 1),
@@ -657,8 +637,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
             createTokenWithCount(DurationFormatUtils.s, 1),
             createTokenWithCount(new StringBuilder("."), 1),
             createTokenWithCount(DurationFormatUtils.S, 3),
-            createTokenWithCount(new StringBuilder("S"), 1)}, DurationFormatUtils
-                .lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN));
+            createTokenWithCount(new StringBuilder("S"), 1) }, DurationFormatUtils.lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN));
 
         // test failures in equals
         final DurationFormatUtils.Token token = createTokenWithCount(DurationFormatUtils.y, 4);
@@ -671,25 +650,17 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
 
     @Test
     public void testLiteralPrefixOptionalToken() {
-      assertEquals(
-          DurationFormatUtils.formatDuration(10000L, "s's'"),
-          DurationFormatUtils.formatDuration(10000L, "['['d']']['<'H'>']['{'m'}']s's'"));
-      assertEquals(
-          DurationFormatUtils.formatDuration(10000L, "s's'"),
-          DurationFormatUtils.formatDuration(10000L, "['{'m'}']s's'"));
+        assertEquals(DurationFormatUtils.formatDuration(10000L, "s's'"), DurationFormatUtils.formatDuration(10000L, "['['d']']['<'H'>']['{'m'}']s's'"));
+        assertEquals(DurationFormatUtils.formatDuration(10000L, "s's'"), DurationFormatUtils.formatDuration(10000L, "['{'m'}']s's'"));
     }
 
     // Testing the under a day range in DurationFormatUtils.formatPeriod
     @Test
     public void testLowDurations() {
-        for (int hr=0; hr < 24; hr++) {
-            for (int min=0; min < 60; min++) {
-                for (int sec=0; sec < 60; sec++) {
-                    assertEqualDuration(hr + ":" + min + ":" + sec,
-                                         new int[] { 2000, 0, 1, 0, 0, 0, 0 },
-                                         new int[] { 2000, 0, 1, hr, min, sec },
-                                         "H:m:s"
-                                       );
+        for (int hr = 0; hr < 24; hr++) {
+            for (int min = 0; min < 60; min++) {
+                for (int sec = 0; sec < 60; sec++) {
+                    assertEqualDuration(hr + ":" + min + ":" + sec, new int[] { 2000, 0, 1, 0, 0, 0, 0 }, new int[] { 2000, 0, 1, hr, min, sec }, "H:m:s");
                 }
             }
         }
@@ -697,14 +668,10 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
 
     @Test
     public void testMultipleOptionalBlocks() {
-
-      assertEquals(
-          DurationFormatUtils.formatDuration(Duration.ofHours(1).toMillis(), "'[['H']]'"),
-          DurationFormatUtils.formatDuration(Duration.ofHours(1).toMillis(), "['{'d'}']['[['H']]']"));
-
-      assertEquals(
-          DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), "['{'d'}']"),
-          DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), "['{'d'}']['['H']']"));
+        assertEquals(DurationFormatUtils.formatDuration(Duration.ofHours(1).toMillis(), "'[['H']]'"),
+                DurationFormatUtils.formatDuration(Duration.ofHours(1).toMillis(), "['{'d'}']['[['H']]']"));
+        assertEquals(DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), "['{'d'}']"),
+                DurationFormatUtils.formatDuration(Duration.ofDays(1).toMillis(), "['{'d'}']['['H']']"));
     }
 
     @Test

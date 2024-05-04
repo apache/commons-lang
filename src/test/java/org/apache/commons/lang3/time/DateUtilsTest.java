@@ -1661,13 +1661,13 @@ public class DateUtilsTest extends AbstractLangTest {
     @Test
     public void testWeekIterator() {
         final Calendar now = Calendar.getInstance();
-        for (int i = 0; i< 7; i++) {
+        for (int i = 0; i < 7; i++) {
             final Calendar today = DateUtils.truncate(now, Calendar.DATE);
             final Calendar sunday = DateUtils.truncate(now, Calendar.DATE);
             sunday.add(Calendar.DATE, 1 - sunday.get(Calendar.DAY_OF_WEEK));
             final Calendar monday = DateUtils.truncate(now, Calendar.DATE);
             if (monday.get(Calendar.DAY_OF_WEEK) == 1) {
-                //This is sunday... roll back 6 days
+                // This is sunday... roll back 6 days
                 monday.add(Calendar.DATE, -6);
             } else {
                 monday.add(Calendar.DATE, 2 - monday.get(Calendar.DAY_OF_WEEK));

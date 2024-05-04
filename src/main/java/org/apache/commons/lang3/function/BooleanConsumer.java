@@ -30,7 +30,7 @@ import java.util.function.IntConsumer;
 public interface BooleanConsumer {
 
     /** NOP singleton */
-    BooleanConsumer NOP = t -> {/* NOP */};
+    BooleanConsumer NOP = t -> { /* NOP */ };
 
     /**
      * Returns The NOP singleton.

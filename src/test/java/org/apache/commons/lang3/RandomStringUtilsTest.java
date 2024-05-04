@@ -46,6 +46,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
 
     /**
      * Computes Chi-Square statistic given observed and expected counts
+     *
      * @param observed array of observed frequency counts
      * @param expected array of expected frequency counts
      */
@@ -59,9 +60,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Test for LANG-1286. Creates situation where old code would
-     * overflow a char and result in a code point outside the specified
-     * range.
+     * Test for LANG-1286. Creates situation where old code would overflow a char and result in a code point outside the specified range.
      */
     @Test
     public void testCharOverflow() {
@@ -69,8 +68,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         final int end = Integer.MAX_VALUE;
 
         @SuppressWarnings("serial")
-        final
-        Random fixedRandom = new Random() {
+        final Random fixedRandom = new Random() {
             @Override
             public int nextInt(final int n) {
                 // Prevents selection of 'start' as the character
@@ -95,7 +93,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
 
     @Test
     public void testExceptions() {
-        final char[] DUMMY = {'a'}; // valid char array
+        final char[] DUMMY = { 'a' }; // valid char array
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, true, true));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, DUMMY));
@@ -104,9 +102,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, (String) null));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY));
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random()));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random()));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 48, false, true));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 65, true, false));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomAlphabetic(-1));
@@ -117,8 +113,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Checks if the string got by {@link RandomStringUtils#random(int)}
-     * can be converted to UTF-8 and back without loss.
+     * Checks if the string got by {@link RandomStringUtils#random(int)} can be converted to UTF-8 and back without loss.
      *
      * @see <a href="https://issues.apache.org/jira/browse/LANG-100">LANG-100</a>
      */
@@ -131,12 +126,11 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         final String copy = new String(bytes, charset);
 
         // for a verbose compare:
-        for (int i=0; i < orig.length() && i < copy.length(); i++) {
+        for (int i = 0; i < orig.length() && i < copy.length(); i++) {
             final char o = orig.charAt(i);
             final char c = copy.charAt(i);
-            assertEquals(o, c,
-                    "differs at " + i + "(" + Integer.toHexString(Character.valueOf(o).hashCode()) + "," +
-                            Integer.toHexString(Character.valueOf(c).hashCode()) + ")");
+            assertEquals(o, c, "differs at " + i + "(" + Integer.toHexString(Character.valueOf(o).hashCode()) + ","
+                    + Integer.toHexString(Character.valueOf(c).hashCode()) + ")");
         }
         // compare length also
         assertEquals(orig.length(), copy.length());
@@ -147,26 +141,24 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     @Test
     public void testLANG805() {
         final long seedMillis = System.currentTimeMillis();
-        assertEquals("aaa", RandomStringUtils.random(3, 0, 0, false, false, new char[]{'a'}, new Random(seedMillis)));
+        assertEquals("aaa", RandomStringUtils.random(3, 0, 0, false, false, new char[] { 'a' }, new Random(seedMillis)));
     }
 
     @Test
     public void testLANG807() {
-        final IllegalArgumentException ex =
-                assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(3, 5, 5, false, false));
+        final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(3, 5, 5, false, false));
         final String msg = ex.getMessage();
         assertTrue(msg.contains("start"), "Message (" + msg + ") must contain 'start'");
         assertTrue(msg.contains("end"), "Message (" + msg + ") must contain 'end'");
     }
 
     /**
-     * Make sure boundary alpha characters are generated by randomAlphabetic
-     * This test will fail randomly with probability = 4 * (51/52)**1000 ~ 1.58E-8
+     * Make sure boundary alpha characters are generated by randomAlphabetic This test will fail randomly with probability = 4 * (51/52)**1000 ~ 1.58E-8
      */
     @Test
     public void testRandomAlphabetic() {
-        final char[] testChars = {'a', 'z', 'A', 'Z'};
-        final boolean[] found = {false, false, false, false};
+        final char[] testChars = { 'a', 'z', 'A', 'Z' };
+        final boolean[] found = { false, false, false, false };
         for (int i = 0; i < LOOP_COUNT; i++) {
             final String randString = RandomStringUtils.randomAlphabetic(10);
             for (int j = 0; j < testChars.length; j++) {
@@ -176,9 +168,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             }
         }
         for (int i = 0; i < testChars.length; i++) {
-            assertTrue(found[i],
-                    "alphanumeric character not generated in 1000 attempts: " + testChars[i] +
-                            " -- repeated failures indicate a problem ");
+            assertTrue(found[i], "alphanumeric character not generated in 1000 attempts: " + testChars[i] + " -- repeated failures indicate a problem ");
         }
     }
 
@@ -208,13 +198,12 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Make sure boundary alphanumeric characters are generated by randomAlphaNumeric
-     * This test will fail randomly with probability = 6 * (61/62)**1000 ~ 5.2E-7
+     * Make sure boundary alphanumeric characters are generated by randomAlphaNumeric This test will fail randomly with probability = 6 * (61/62)**1000 ~ 5.2E-7
      */
     @Test
     public void testRandomAlphaNumeric() {
-        final char[] testChars = {'a', 'z', 'A', 'Z', '0', '9'};
-        final boolean[] found = {false, false, false, false, false, false};
+        final char[] testChars = { 'a', 'z', 'A', 'Z', '0', '9' };
+        final boolean[] found = { false, false, false, false, false, false };
         for (int i = 0; i < LOOP_COUNT; i++) {
             final String randString = RandomStringUtils.randomAlphanumeric(10);
             for (int j = 0; j < testChars.length; j++) {
@@ -224,9 +213,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             }
         }
         for (int i = 0; i < testChars.length; i++) {
-            assertTrue(found[i],
-                    "alphanumeric character not generated in 1000 attempts: " +
-                            testChars[i] + " -- repeated failures indicate a problem ");
+            assertTrue(found[i], "alphanumeric character not generated in 1000 attempts: " + testChars[i] + " -- repeated failures indicate a problem ");
         }
     }
 
@@ -256,13 +243,12 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Make sure 32 and 127 are generated by randomNumeric
-     * This test will fail randomly with probability = 2*(95/96)**1000 ~ 5.7E-5
+     * Make sure 32 and 127 are generated by randomNumeric This test will fail randomly with probability = 2*(95/96)**1000 ~ 5.7E-5
      */
     @Test
     public void testRandomAscii() {
-        final char[] testChars = {(char) 32, (char) 126};
-        final boolean[] found = {false, false};
+        final char[] testChars = { (char) 32, (char) 126 };
+        final boolean[] found = { false, false };
         // Test failures have been observed on GitHub builds with a 100 limit.
         for (int i = 0; i < LOOP_COUNT; i++) {
             final String randString = RandomStringUtils.randomAscii(10);
@@ -273,9 +259,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             }
         }
         for (int i = 0; i < testChars.length; i++) {
-            assertTrue(found[i],
-                    "ascii character not generated in 1000 attempts: " + (int) testChars[i] +
-                            " -- repeated failures indicate a problem");
+            assertTrue(found[i], "ascii character not generated in 1000 attempts: " + (int) testChars[i] + " -- repeated failures indicate a problem");
         }
     }
 
@@ -330,13 +314,12 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Make sure '0' and '9' are generated by randomNumeric
-     * This test will fail randomly with probability = 2 * (9/10)**1000 ~ 3.5E-46
+     * Make sure '0' and '9' are generated by randomNumeric This test will fail randomly with probability = 2 * (9/10)**1000 ~ 3.5E-46
      */
     @Test
     public void testRandomNumeric() {
-        final char[] testChars = {'0', '9'};
-        final boolean[] found = {false, false};
+        final char[] testChars = { '0', '9' };
+        final boolean[] found = { false, false };
         for (int i = 0; i < LOOP_COUNT; i++) {
             final String randString = RandomStringUtils.randomNumeric(10);
             for (int j = 0; j < testChars.length; j++) {
@@ -346,9 +329,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             }
         }
         for (int i = 0; i < testChars.length; i++) {
-            assertTrue(found[i],
-                    "digit not generated in 1000 attempts: " + testChars[i] +
-                            " -- repeated failures indicate a problem ");
+            assertTrue(found[i], "digit not generated in 1000 attempts: " + testChars[i] + " -- repeated failures indicate a problem ");
         }
     }
 
@@ -501,36 +482,34 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Test homogeneity of random strings generated --
-     * i.e., test that characters show up with expected frequencies
-     * in generated strings.  Will fail randomly about 1 in 100,000 times.
-     * Repeated failures indicate a problem.
+     * Test homogeneity of random strings generated -- i.e., test that characters show up with expected frequencies in generated strings. Will fail randomly
+     * about 1 in 100,000 times. Repeated failures indicate a problem.
      */
     @Test
     public void testRandomStringUtilsHomog() {
         final String set = "abc";
         final char[] chars = set.toCharArray();
-        final int[] counts = {0, 0, 0};
-        final int[] expected = {200, 200, 200};
+        final int[] counts = { 0, 0, 0 };
+        final int[] expected = { 200, 200, 200 };
         for (int i = 0; i < 100; i++) {
             final String gen = RandomStringUtils.random(6, chars);
             for (int j = 0; j < 6; j++) {
                 switch (gen.charAt(j)) {
-                    case 'a': {
-                        counts[0]++;
-                        break;
-                    }
-                    case 'b': {
-                        counts[1]++;
-                        break;
-                    }
-                    case 'c': {
-                        counts[2]++;
-                        break;
-                    }
-                    default: {
-                        fail("generated character not in set");
-                    }
+                case 'a': {
+                    counts[0]++;
+                    break;
+                }
+                case 'b': {
+                    counts[1]++;
+                    break;
+                }
+                case 'c': {
+                    counts[2]++;
+                    break;
+                }
+                default: {
+                    fail("generated character not in set");
+                }
                 }
             }
         }
@@ -540,4 +519,3 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         assertThat("test homogeneity -- will fail about 1 in 100,000 times", chiSquare(expected, counts), lessThan(23.025850929940457d));
     }
 }
-

@@ -40,8 +40,8 @@ public class HashSetvBitSetTest extends AbstractLangTest {
     private static int[] extractIndices(final BitSet coll) {
         final int[] result = new int[coll.cardinality()];
         int i = 0;
-        int j=0;
-        while ((j=coll.nextSetBit(j)) != -1) {
+        int j = 0;
+        while ((j = coll.nextSetBit(j)) != -1) {
             result[i++] = j++;
         }
         return result;

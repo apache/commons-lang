@@ -51,7 +51,7 @@ import org.apache.commons.lang3.ClassUtils;
  * <code>Person@7f54[ <br>
  * &nbsp; name=Stephen, <br>
  * &nbsp; age=29, <br>
- * &nbsp; smoker=false, <br>
+ * &nbsp; smokealse, <br>
  * &nbsp; job=Job@43cd2[ <br>
  * &nbsp; &nbsp; title=Manager <br>
  * &nbsp;  ] <br>

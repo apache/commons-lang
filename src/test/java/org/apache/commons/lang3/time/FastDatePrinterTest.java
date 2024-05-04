@@ -42,14 +42,14 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 public class FastDatePrinterTest extends AbstractLangTest {
 
     private enum Expected1806 {
-        India(INDIA, "+05", "+0530", "+05:30"), Greenwich(TimeZones.GMT, "Z", "Z", "Z"), NewYork(
-                NEW_YORK, "-05", "-0500", "-05:00");
+        India(INDIA, "+05", "+0530", "+05:30"), Greenwich(TimeZones.GMT, "Z", "Z", "Z"), NewYork(NEW_YORK, "-05", "-0500", "-05:00");
 
         final TimeZone zone;
 
         final String one;
         final String two;
         final String three;
+
         Expected1806(final TimeZone zone, final String one, final String two, final String three) {
             this.zone = zone;
             this.one = one;
@@ -57,6 +57,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
             this.three = three;
         }
     }
+
     private static final String YYYY_MM_DD = "yyyy/MM/dd";
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
     private static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
@@ -93,9 +94,10 @@ public class FastDatePrinterTest extends AbstractLangTest {
 
     /**
      * Override this method in derived tests to change the construction of instances
-     * @param format the format string to use
+     *
+     * @param format   the format string to use
      * @param timeZone the time zone to use
-     * @param locale the locale to use
+     * @param locale   the locale to use
      * @return the DatePrinter to use for testing
      */
     protected DatePrinter getInstance(final String format, final TimeZone timeZone, final Locale locale) {
@@ -117,6 +119,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
             assertEquals(trial.three, printer.format(cal));
         }
     }
+
     @Test
     public void test1806Argument() {
         assertThrows(IllegalArgumentException.class, () -> getInstance("XXXX"));
@@ -155,8 +158,8 @@ public class FastDatePrinterTest extends AbstractLangTest {
 
     @Test
     public void testEquals() {
-        final DatePrinter printer1= getInstance(YYYY_MM_DD);
-        final DatePrinter printer2= getInstance(YYYY_MM_DD);
+        final DatePrinter printer1 = getInstance(YYYY_MM_DD);
+        final DatePrinter printer2 = getInstance(YYYY_MM_DD);
 
         assertEquals(printer1, printer2);
         assertEquals(printer1.hashCode(), printer2.hashCode());
@@ -203,8 +206,8 @@ public class FastDatePrinterTest extends AbstractLangTest {
         assertEquals("-04:00", fdf.format(cal2));
         assertEquals("-04:00", fdf.format(millis2));
 
-        final String pattern = "GGGG GGG GG G yyyy yyy yy y MMMM MMM MM M LLLL LLL LL L" +
-                " dddd ddd dd d DDDD DDD DD D EEEE EEE EE E aaaa aaa aa a zzzz zzz zz z";
+        final String pattern = "GGGG GGG GG G yyyy yyy yy y MMMM MMM MM M LLLL LLL LL L"
+                + " dddd ddd dd d DDDD DDD DD D EEEE EEE EE E aaaa aaa aa a zzzz zzz zz z";
         fdf = getInstance(pattern);
         sdf = new SimpleDateFormat(pattern);
         // SDF bug fix starting with Java 7
@@ -279,8 +282,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     /**
-     * According to LANG-916 (https://issues.apache.org/jira/browse/LANG-916),
-     * the format method did contain a bug: it did not use the TimeZone data.
+     * According to LANG-916 (https://issues.apache.org/jira/browse/LANG-916), the format method did contain a bug: it did not use the TimeZone data.
      *
      * This method test that the bug is fixed.
      */
@@ -308,7 +310,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
 
     @Test
     public void testLocaleMatches() {
-        final DatePrinter printer= getInstance(YYYY_MM_DD, SWEDEN);
+        final DatePrinter printer = getInstance(YYYY_MM_DD, SWEDEN);
         assertEquals(SWEDEN, printer.getLocale());
     }
 
@@ -344,7 +346,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
 
     @Test
     public void testPatternMatches() {
-        final DatePrinter printer= getInstance(YYYY_MM_DD);
+        final DatePrinter printer = getInstance(YYYY_MM_DD);
         assertEquals(YYYY_MM_DD, printer.getPattern());
     }
 
@@ -366,8 +368,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     /**
-     * testLowYearPadding showed that the date was buggy
-     * This test confirms it, getting 366 back as a date
+     * testLowYearPadding showed that the date was buggy This test confirms it, getting 366 back as a date
      */
     @Test
     public void testSimpleDate() {
@@ -421,13 +422,13 @@ public class FastDatePrinterTest extends AbstractLangTest {
 
     @Test
     public void testTimeZoneMatches() {
-        final DatePrinter printer= getInstance(YYYY_MM_DD, NEW_YORK);
+        final DatePrinter printer = getInstance(YYYY_MM_DD, NEW_YORK);
         assertEquals(NEW_YORK, printer.getTimeZone());
     }
 
     @Test
     public void testToStringContainsName() {
-        final DatePrinter printer= getInstance(YYYY_MM_DD);
+        final DatePrinter printer = getInstance(YYYY_MM_DD);
         assertTrue(printer.toString().startsWith("FastDate"));
     }
 

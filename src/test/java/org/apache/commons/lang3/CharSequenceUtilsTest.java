@@ -56,7 +56,7 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
 
     }
 
-    static class TestData{
+    static class TestData {
         final String source;
         final boolean ignoreCase;
         final int toffset;
@@ -65,8 +65,9 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
         final int len;
         final boolean expected;
         final Class<? extends Throwable> throwable;
-        TestData(final String source, final boolean ignoreCase, final int toffset,
-                final String other, final int ooffset, final int len, final boolean expected) {
+
+        TestData(final String source, final boolean ignoreCase, final int toffset, final String other, final int ooffset, final int len,
+                final boolean expected) {
             this.source = source;
             this.ignoreCase = ignoreCase;
             this.toffset = toffset;
@@ -76,8 +77,9 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
             this.expected = expected;
             this.throwable = null;
         }
-        TestData(final String source, final boolean ignoreCase, final int toffset,
-                final String other, final int ooffset, final int len, final Class<? extends Throwable> throwable) {
+
+        TestData(final String source, final boolean ignoreCase, final int toffset, final String other, final int ooffset, final int len,
+                final Class<? extends Throwable> throwable) {
             this.source = source;
             this.ignoreCase = ignoreCase;
             this.toffset = toffset;
@@ -87,11 +89,12 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
             this.expected = false;
             this.throwable = throwable;
         }
+
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder();
             sb.append(source).append("[").append(toffset).append("]");
-            sb.append(ignoreCase? " caseblind ":" samecase ");
+            sb.append(ignoreCase ? " caseblind " : " samecase ");
             sb.append(other).append("[").append(ooffset).append("]");
             sb.append(" ").append(len).append(" => ");
             if (throwable != null) {
@@ -142,23 +145,26 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
     }
 
     private static final TestData[] TEST_DATA = {
-            //          Source  IgnoreCase Offset Other  Offset Length Result
-            new TestData("",    true,      -1,    "",    -1,    -1,    false),
-            new TestData("",    true,      0,     "",    0,     1,     false),
-            new TestData("a",   true,      0,     "abc", 0,     0,     true),
-            new TestData("a",   true,      0,     "abc", 0,     1,     true),
-            new TestData("a",   true,      0,     null,  0,     0,     NullPointerException.class),
-            new TestData(null,  true,      0,     null,  0,     0,     NullPointerException.class),
-            new TestData(null,  true,      0,     "",    0,     0,     NullPointerException.class),
-            new TestData("Abc", true,      0,     "abc", 0,     3,     true),
-            new TestData("Abc", false,     0,     "abc", 0,     3,     false),
-            new TestData("Abc", true,      1,     "abc", 1,     2,     true),
-            new TestData("Abc", false,     1,     "abc", 1,     2,     true),
-            new TestData("Abcd", true,      1,     "abcD", 1,     2,     true),
-            new TestData("Abcd", false,     1,     "abcD", 1,     2,     true),
+            // @formatter:off
+            //           Source  IgnoreCase Offset Other  Offset Length Result
+            new TestData("",     true,      -1,     "",    -1,    -1,    false),
+            new TestData("",     true,       0,     "",     0,     1,    false),
+            new TestData("a",    true,       0,     "abc",  0,     0,    true),
+            new TestData("a",    true,       0,     "abc",  0,     1,    true),
+            new TestData("a",    true,       0,     null,   0,     0,    NullPointerException.class),
+            new TestData(null,   true,       0,     null,   0,     0,    NullPointerException.class),
+            new TestData(null,   true,       0,     "",     0,     0,    NullPointerException.class),
+            new TestData("Abc",  true,       0,     "abc",  0,     3,    true),
+            new TestData("Abc",  false,      0,     "abc",  0,     3,    false),
+            new TestData("Abc",  true,       1,     "abc",  1,     2,    true),
+            new TestData("Abc",  false,      1,     "abc",  1,     2,    true),
+            new TestData("Abcd", true,       1,     "abcD", 1,     2,    true),
+            new TestData("Abcd", false,      1,     "abcD", 1,     2,    true),
+            // @formatter:on
     };
 
     static Stream<Arguments> lastIndexWithStandardCharSequence() {
+        // @formatter:off
         return Stream.of(
             arguments("abc", "b", 2, 1),
             arguments(new StringBuilder("abc"), "b", 2, 1),
@@ -168,6 +174,7 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
             arguments(new StringBuffer("abc"), new StringBuffer("b"), 2, 1),
             arguments(new StringBuilder("abc"), new StringBuffer("b"), 2, 1)
         );
+        // @formatter:on
     }
 
     @Test
@@ -182,8 +189,7 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("lastIndexWithStandardCharSequence")
-    public void testLastIndexOfWithDifferentCharSequences(final CharSequence cs, final CharSequence search, final int start,
-                                                          final int expected) {
+    public void testLastIndexOfWithDifferentCharSequences(final CharSequence cs, final CharSequence search, final int start, final int expected) {
         assertEquals(expected, CharSequenceUtils.lastIndexOf(cs, search, start));
     }
 
@@ -240,11 +246,9 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
     }
 
     private void testNewLastIndexOfSingleSingle(final CharSequence a, final CharSequence b, final int start) {
-        assertEquals(
-                a.toString().lastIndexOf(b.toString(), start),
+        assertEquals(a.toString().lastIndexOf(b.toString(), start),
                 CharSequenceUtils.lastIndexOf(new WrapperString(a.toString()), new WrapperString(b.toString()), start),
-                "testNewLastIndexOf fails! original : " + a + " seg : " + b + " start : " + start
-        );
+                "testNewLastIndexOf fails! original : " + a + " seg : " + b + " start : " + start);
     }
 
     @Test
