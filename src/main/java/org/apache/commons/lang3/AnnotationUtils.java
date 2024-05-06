@@ -43,6 +43,7 @@ import org.apache.commons.lang3.exception.UncheckedException;
  * @since 3.0
  */
 public class AnnotationUtils {
+    
 
     /**
      * A style that prints annotations as recommended.
