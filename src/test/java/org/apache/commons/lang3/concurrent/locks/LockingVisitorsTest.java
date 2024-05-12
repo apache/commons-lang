@@ -93,8 +93,10 @@ public class LockingVisitorsTest extends AbstractLangTest {
         final AtomicInteger res = new AtomicInteger();
         final ReadWriteLock rwLock = new ReentrantReadWriteLock();
         LockingVisitors.create(res, rwLock).acceptReadLocked(AtomicInteger::incrementAndGet);
+        LockingVisitors.create(res, rwLock).acceptReadLocked(null);
         assertEquals(1, res.get());
         LockingVisitors.create(res, rwLock).acceptWriteLocked(AtomicInteger::incrementAndGet);
+        LockingVisitors.create(res, rwLock).acceptWriteLocked(null);
         assertEquals(2, res.get());
     }
 

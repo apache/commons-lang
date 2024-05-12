@@ -26,6 +26,7 @@ import java.util.function.Supplier;
 import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableFunction;
+import org.apache.commons.lang3.function.Suppliers;
 
 /**
  * Combines the monitor and visitor pattern to work with {@link java.util.concurrent.locks.Lock locked objects}. Locked
@@ -262,10 +263,12 @@ public class LockingVisitors {
          * @see #acceptWriteLocked(FailableConsumer)
          */
         protected void lockAcceptUnlock(final Supplier<Lock> lockSupplier, final FailableConsumer<O, ?> consumer) {
-            final Lock lock = lockSupplier.get();
+            final Lock lock = Objects.requireNonNull(Suppliers.get(lockSupplier), "lock");
             lock.lock();
             try {
-                consumer.accept(object);
+                if (consumer != null) {
+                    consumer.accept(object);
+                }
             } catch (final Throwable t) {
                 throw Failable.rethrow(t);
             } finally {
@@ -289,7 +292,7 @@ public class LockingVisitors {
          * @see #applyWriteLocked(FailableFunction)
          */
         protected <T> T lockApplyUnlock(final Supplier<Lock> lockSupplier, final FailableFunction<O, T, ?> function) {
-            final Lock lock = lockSupplier.get();
+            final Lock lock = Objects.requireNonNull(Suppliers.get(lockSupplier), "lock");
             lock.lock();
             try {
                 return function.apply(object);
