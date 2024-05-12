@@ -128,6 +128,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate SystemUtils.getUserName(String) in favor of SystemProperties.getUserName(Supplier).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make LockVisitor.acceptReadLocked(FailableConsumer) null-safe.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make LockVisitor.applyWriteLocked(FailableConsumer) null-safe.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make ObjectUtils.getFirstNonNull(Supplier...) null-safe.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="sebb" due-to="Dependabot">Bump commons-parent from 64 to 69 #1194.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump org.codehaus.mojo:exec-maven-plugin from 3.1.1 to 3.2.0 #1175.</action>

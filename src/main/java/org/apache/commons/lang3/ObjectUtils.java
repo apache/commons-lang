@@ -689,7 +689,7 @@ public class ObjectUtils {
      */
     @SafeVarargs
     public static <T> T getFirstNonNull(final Supplier<T>... suppliers) {
-        return Streams.of(suppliers).map(s -> s != null ? s.get() : null).filter(Objects::nonNull).findFirst().orElse(null);
+        return Streams.of(suppliers).filter(Objects::nonNull).map(Supplier::get).filter(Objects::nonNull).findFirst().orElse(null);
     }
 
     /**
