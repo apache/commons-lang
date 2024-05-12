@@ -36,6 +36,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.function.Suppliers;
@@ -72,7 +73,15 @@ public class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testArraycopy() {
+    public void testArraycopyFunction() {
+        String[] arr = { "a", "b" };
+        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(null, 0, 0, 1, i -> new String[3]));
+        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, i -> null));
+        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, (Function<Integer, String[]>) null));
+    }
+
+    @Test
+    public void testArraycopySupplier() {
         String[] arr = { "a", "b" };
         assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(null, 0, 0, 1, () -> new String[3]));
         assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, Suppliers.nul()));
