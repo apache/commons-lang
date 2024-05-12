@@ -257,7 +257,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     }
 
     private <F> DiffBuilder<T> add(final String fieldName, final Supplier<F> left, final Supplier<F> right, final Class<F> type) {
-        diffs.add(new SDiff<>(Objects.requireNonNull(fieldName, "fieldName"), left, right, type));
+        diffs.add(new SDiff<>(fieldName, left, right, type));
         return this;
     }
 
