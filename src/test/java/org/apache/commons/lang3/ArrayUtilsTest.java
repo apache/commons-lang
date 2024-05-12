@@ -36,7 +36,9 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Supplier;
 
+import org.apache.commons.lang3.function.Suppliers;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -67,6 +69,14 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertFalse(ArrayUtils.isEquals(array3, array1));
         assertFalse(ArrayUtils.isEquals(array1, array2));
         assertFalse(ArrayUtils.isEquals(array2, array1));
+    }
+
+    @Test
+    public void testArraycopy() {
+        String[] arr = { "a", "b" };
+        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(null, 0, 0, 1, () -> new String[3]));
+        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, Suppliers.nul()));
+        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, (Supplier<String[]>) null));
     }
 
     /**
