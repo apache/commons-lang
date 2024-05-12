@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.builder;
 
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Works with {@link ToStringBuilder} to create a "deep" {@code toString}.
@@ -206,12 +207,8 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
      * @param spaces how far to indent
      * @return a StringBuilder with {spaces} leading space characters.
      */
-    private StringBuilder spacer(final int spaces) {
-        final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < spaces; i++) {
-            sb.append(" ");
-        }
-        return sb;
+    private String spacer(final int spaces) {
+        return StringUtils.repeat(' ', spaces);
     }
 
 }
