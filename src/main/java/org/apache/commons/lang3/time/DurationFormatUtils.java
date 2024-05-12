@@ -257,9 +257,9 @@ public class DurationFormatUtils {
               }
             }
             if (isLiteral) {
-               if (!inOptional || !lastOutputZero) {
-                     buffer.append(value.toString());
-               }
+                if (!inOptional || !lastOutputZero) {
+                    buffer.append(value.toString());
+                }
             } else if (value.equals(y)) {
                 lastOutputSeconds = false;
                 lastOutputZero = years == 0;
