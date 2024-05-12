@@ -159,23 +159,23 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     private static final class SDiff<T> extends Diff<T> {
 
         private static final long serialVersionUID = 1L;
-        private final transient Supplier<T> leftS;
-        private final transient Supplier<T> rightS;
+        private final transient Supplier<T> leftSupplier;
+        private final transient Supplier<T> rightSupplier;
 
-        private SDiff(final String fieldName, final Supplier<T> leftS, final Supplier<T> rightS, final Class<T> type) {
+        private SDiff(final String fieldName, final Supplier<T> leftSupplier, final Supplier<T> rightSupplier, final Class<T> type) {
             super(fieldName, type);
-            this.leftS = leftS;
-            this.rightS = rightS;
+            this.leftSupplier = leftSupplier;
+            this.rightSupplier = rightSupplier;
         }
 
         @Override
         public T getLeft() {
-            return leftS.get();
+            return leftSupplier.get();
         }
 
         @Override
         public T getRight() {
-            return rightS.get();
+            return rightSupplier.get();
         }
 
     }
