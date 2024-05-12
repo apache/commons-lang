@@ -3721,7 +3721,7 @@ public final class SystemProperties {
     static String getProperty(final String property, final Supplier<String> defaultIfAbsent) {
         try {
             if (StringUtils.isEmpty(property)) {
-                return defaultIfAbsent.get();
+                return Suppliers.get(defaultIfAbsent);
             }
             final String value = System.getProperty(property);
             return StringUtils.getIfEmpty(value, defaultIfAbsent);

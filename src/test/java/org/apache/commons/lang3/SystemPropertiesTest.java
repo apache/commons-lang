@@ -647,6 +647,7 @@ public class SystemPropertiesTest {
     @Test
     public void testGetLineSeparator() {
         assertNotNull(SystemProperties.getLineSeparator());
+        assertNotNull(SystemProperties.getLineSeparator(null));
         assertNotNull(SystemProperties.getLineSeparator(() -> ""));
         assertNotNull(SystemProperties.getLineSeparator(() -> "\n"));
         assertNotNull(SystemProperties.getLineSeparator(() -> null));
