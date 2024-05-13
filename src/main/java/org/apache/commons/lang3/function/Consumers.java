@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
- * Provides {@link Consumer} instances and utilities for working with {@link Consumer}
+ * Provides {@link Consumer} instances and utilities for working with {@link Consumer}.
  *
  * @since 3.13.0
  */
@@ -35,7 +35,7 @@ public class Consumers {
      * Gets the NOP Consumer singleton.
      *
      * @param <T> type type to consume.
-     * @return the NOP Consumer singleton..
+     * @return the NOP Consumer singleton.
      */
     @SuppressWarnings("unchecked")
     public static <T> Consumer<T> nop() {
@@ -50,9 +50,9 @@ public class Consumers {
      * Applies the given {@link Consumer} action to the object if the object is not null. If the object is null, it does
      * nothing.
      *
-     * @param object the object to be consumed
-     * @param consumer the consumer to consume
-     * @param <T> the type of the argument the consumer accepts
+     * @param object the object to be consumed.
+     * @param consumer the consumer to consume.
+     * @param <T> the type of the argument the consumer accepts.
      */
     public static <T> void acceptIfNotNull(final T object, final Consumer<T> consumer) {
         if (object != null) {

@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class FunctionsTest {
 
     /**
-     * Tests {@link Functions#function(Function)}
+     * Tests {@link Functions#function(Function)}.
      */
     @Test
     public void testFunction() {
@@ -40,7 +40,7 @@ public class FunctionsTest {
     }
 
     /**
-     * Tests {@link Functions#applyIfNotNull(Object, Function)}
+     * Tests {@link Functions#applyIfNotNull(Object, Function)}.
      */
     @Test
     public void testApplyIfNotNull() {

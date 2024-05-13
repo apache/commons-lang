@@ -51,7 +51,7 @@ public class ConsumersTest extends AbstractLangTest {
     }
 
     /**
-     * Tests {@link Consumers#acceptIfNotNull(Object, Consumer)}
+     * Tests {@link Consumers#acceptIfNotNull(Object, Consumer)}.
      */
     @Test
     public void testAcceptIfNotNull() {
