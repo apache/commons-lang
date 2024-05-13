@@ -20,7 +20,7 @@ package org.apache.commons.lang3.function;
 import java.util.function.Function;
 
 /**
- * Factory for {@link Function}.
+ * Factory for {@link Function}. Provides utilities for working with {@link Function}
  *
  * @since 3.14.0
  */
@@ -40,5 +40,19 @@ public final class Functions {
 
     private Functions() {
         // no instances needed.
+    }
+
+    /**
+     * Applies the {@link Function} on the object if the object is not {@code null}. If the object is {@code null}, it
+     * does nothing.
+     *
+     * @param object the object to apply the function
+     * @param function the function to apply
+     * @param <T> the type of the argument the function applies
+     * @param <R> the type of the result the function returns
+     * @return the value the function returns If the object is null; null otherwise
+     */
+    public static <T, R> R applyIfNotNull(final T object, final Function<T, R> function) {
+        return object != null ? function.apply(object) : null;
     }
 }

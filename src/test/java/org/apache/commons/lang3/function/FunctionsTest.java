@@ -17,14 +17,35 @@
 
 package org.apache.commons.lang3.function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
 
+import java.util.function.Function;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
+/**
+ * Tests {@link Functions}.
+ */
 public class FunctionsTest {
 
+    /**
+     * Tests {@link Functions#function(Function)}
+     */
     @Test
     public void testFunction() {
         assertEquals("foo", Functions.function(String::valueOf).andThen(String::toString).apply("foo"));
+    }
+
+    /**
+     * Tests {@link Functions#applyIfNotNull(Object, Function)}
+     */
+    @Test
+    public void testApplyIfNotNull() {
+        assertEquals("jay-bae", Functions.applyIfNotNull("jay", string -> string.concat("-bae")));
+        assertDoesNotThrow(() -> Functions.applyIfNotNull((String) null, string -> fail()));
+        assertNull(Functions.applyIfNotNull((String) null, string -> string.concat("abc")));
     }
 }

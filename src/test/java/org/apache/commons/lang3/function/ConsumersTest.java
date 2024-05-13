@@ -23,6 +23,10 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
  * Tests {@link Consumers}.
  */
@@ -46,4 +50,15 @@ public class ConsumersTest extends AbstractLangTest {
         Consumers.nop().accept("");
     }
 
+    /**
+     * Tests {@link Consumers#acceptIfNotNull(Object, Consumer)}
+     */
+    @Test
+    public void testAcceptIfNotNull() {
+        StringBuilder builder = new StringBuilder("jay");
+        Consumers.acceptIfNotNull(builder, sb -> sb.append("-bae"));
+        assertEquals("jay-bae", builder.toString());
+
+        assertDoesNotThrow(() -> Consumers.acceptIfNotNull((String) null, string -> fail()));
+    }
 }
