@@ -58,10 +58,13 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test fixture for https://issues.apache.org/jira/browse/LANG-1524
+ *
+ * @param <T> Test fixture type. 
  */
 class AAAAClass<T extends AAAAClass.BBBBClass.CCCClass> {
     public static class BBBBClass {
         public static class CCCClass {
+            // empty
         }
     }
 }
