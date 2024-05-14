@@ -158,7 +158,7 @@ abstract class Test1<G> {
 /**
  * Test TypeUtils
  */
-@SuppressWarnings({ "unchecked", "unused", "rawtypes" })
+@SuppressWarnings({ "unused", "rawtypes" })
 //raw types, where used, are used purposely
 public class TypeUtilsTest<B> extends AbstractLangTest {
 
