@@ -77,14 +77,14 @@ final class AAAClass extends AAClass<String> {
 
 /**
  * Test fixture.
- * 
+ *
  * @param <T> Test fixture type, unused type parameter for test.
  */
 class AAClass<T> {
 
     /**
      * Test fixture.
-     * 
+     *
      * @param <S> Test fixture type, unused type parameter for test.
      */
     public class BBClass<S> {
