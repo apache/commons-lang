@@ -1453,6 +1453,15 @@ public class StringUtils {
                 // MODIFIER LETTER SMALL U BAR
                 decomposed.setCharAt(i, 'u');
                 break;
+            // T with stroke
+            case '\u0166':
+                // LATIN CAPITAL LETTER T WITH STROKE
+                decomposed.setCharAt(i, 'T');
+                break;
+            case '\u0167':
+                // LATIN SMALL LETTER T WITH STROKE
+                decomposed.setCharAt(i, 't');
+                break;
             default:
                 break;
             }
