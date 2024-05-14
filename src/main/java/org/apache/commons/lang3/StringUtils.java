@@ -1406,14 +1406,22 @@ public class StringUtils {
 
     private static void convertRemainingAccentCharacters(final StringBuilder decomposed) {
         for (int i = 0; i < decomposed.length(); i++) {
-            if (decomposed.charAt(i) == '\u0141') {
+            final char charAt = decomposed.charAt(i);
+            switch (charAt) {
+            case '\u0141':
                 decomposed.setCharAt(i, 'L');
-            } else if (decomposed.charAt(i) == '\u0142') {
+                break;
+            case '\u0142':
                 decomposed.setCharAt(i, 'l');
-            } else if (decomposed.charAt(i) == '\u0110') {
+                break;
+            case '\u0110':
                 decomposed.setCharAt(i, 'D');
-            } else if (decomposed.charAt(i) == '\u0111') {
+                break;
+            case '\u0111':
                 decomposed.setCharAt(i, 'd');
+                break;
+            default:
+                break;
             }
         }
     }
