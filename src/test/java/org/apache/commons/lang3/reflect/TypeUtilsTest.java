@@ -156,7 +156,9 @@ abstract class Test1<G> {
 }
 
 /**
- * Test TypeUtils
+ * Tests {@link TypeUtils}.
+ *
+ * @param <B> Type for test fixtures.
  */
 @SuppressWarnings({ "unused", "rawtypes" })
 //raw types, where used, are used purposely
