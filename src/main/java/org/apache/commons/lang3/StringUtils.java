@@ -1420,6 +1420,7 @@ public class StringUtils {
             case '\u0111':
                 decomposed.setCharAt(i, 'd');
                 break;
+            // I with bar
             case '\u0197':
                 decomposed.setCharAt(i, 'I');
                 break;
@@ -1434,6 +1435,23 @@ public class StringUtils {
                 break;
             case '\u1DA7':
                 decomposed.setCharAt(i, 'I');
+                break;
+            // U with bar
+            case '\u0244':
+                // LATIN CAPITAL LETTER U BAR
+                decomposed.setCharAt(i, 'U');
+                break;
+            case '\u0289':
+                // LATIN SMALL LETTER U BAR
+                decomposed.setCharAt(i, 'u');
+                break;
+            case '\u1D7E':
+                // LATIN SMALL CAPITAL LETTER U WITH STROKE
+                decomposed.setCharAt(i, 'U');
+                break;
+            case '\u1DB6':
+                // MODIFIER LETTER SMALL U BAR
+                decomposed.setCharAt(i, 'u');
                 break;
             default:
                 break;

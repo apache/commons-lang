@@ -111,6 +111,11 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
+    public void testStripAccentsUWithBar() {
+        assertEquals("U u U u", StringUtils.stripAccents("\u0244 \u0289 \u1D7E \u1DB6"));
+    }
+
+    @Test
     public void testStripAll() {
         // test stripAll method, merely an array version of the above strip
         final String[] empty = {};
