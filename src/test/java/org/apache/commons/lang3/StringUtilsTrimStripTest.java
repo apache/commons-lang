@@ -101,9 +101,8 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     @Disabled
     public void testStripAccents_Korean() {
         // LANG-1655
-        final String input = "\uC78A\uC9C0\uB9C8 \uB10C \uD750\uB9B0 \uC5B4\uB460\uC0AC\uC774 " + "\uC67C\uC190\uC73C\uB85C \uADF8\uB9B0 \uBCC4 \uD558\uB098";
+        final String input = "\uC78A\uC9C0\uB9C8 \uB10C \uD750\uB9B0 \uC5B4\uB460\uC0AC\uC774 \uC67C\uC190\uC73C\uB85C \uADF8\uB9B0 \uBCC4 \uD558\uB098";
         assertEquals(input, StringUtils.stripAccents(input), "Failed to handle Korean text");
-
     }
 
     @Test
