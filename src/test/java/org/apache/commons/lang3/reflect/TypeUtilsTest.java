@@ -163,6 +163,7 @@ abstract class Test1<G> {
 public class TypeUtilsTest<B> extends AbstractLangTest {
 
     public interface And<K, V> extends This<Number, Number> {
+        // empty
     }
 
     public static class ClassWithSuperClassWithGenericType extends ArrayList<Object> {
@@ -175,24 +176,31 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     /** This non-static inner class is parameterized. */
     private class MyInnerClass<T> {
+        // empty
     }
 
     public class Other<T> implements This<String, T> {
+        // empty
     }
 
     public class Tester implements This<String, B> {
+        // empty
     }
 
     public class That<K, V> implements This<K, V> {
+        // empty
     }
 
     public class The<K, V> extends That<Number, Number> implements And<String, String> {
+        // empty
     }
 
     public class Thing<Q> extends Other<B> {
+        // empty
     }
 
     public interface This<K, V> {
+        // empty
     }
 
     public static Comparable<String> stringComparable;
