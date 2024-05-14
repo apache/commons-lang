@@ -84,8 +84,8 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
         assertEquals("", StringUtils.stripAccents(""), "Failed empty String");
         assertEquals("control", StringUtils.stripAccents("control"), "Failed to handle non-accented text");
         assertEquals("eclair", StringUtils.stripAccents("\u00E9clair"), "Failed to handle easy example");
-        assertEquals("ALOSZZCN aloszzcn",
-                StringUtils.stripAccents("\u0104\u0141\u00D3\u015A\u017B\u0179\u0106\u0143 \u0105\u0142\u00F3\u015B\u017C\u017A\u0107\u0144"));
+        assertEquals("ALOSZZCND aloszzcnd",
+                StringUtils.stripAccents("\u0104\u0141\u00D3\u015A\u017B\u0179\u0106\u0143\u0110 \u0105\u0142\u00F3\u015B\u017C\u017A\u0107\u0144\u0111"));
         assertEquals("The cafe\u2019s pinata gave me deja vu.", StringUtils.stripAccents("The caf\u00e9\u2019s pi\u00f1ata gave me d\u00e9j\u00e0 vu."),
                 "Failed to handle accented text");
         assertEquals("fluid quest", StringUtils.stripAccents("\ufb02uid que\ufb06"), "Failed to handle ligatures");

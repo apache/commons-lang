@@ -1410,6 +1410,10 @@ public class StringUtils {
                 decomposed.setCharAt(i, 'L');
             } else if (decomposed.charAt(i) == '\u0142') {
                 decomposed.setCharAt(i, 'l');
+            } else if (decomposed.charAt(i) == '\u0110') {
+                decomposed.setCharAt(i, 'D');
+            } else if (decomposed.charAt(i) == '\u0111') {
+                decomposed.setCharAt(i, 'd');
             }
         }
     }
