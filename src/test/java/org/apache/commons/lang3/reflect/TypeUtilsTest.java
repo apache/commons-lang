@@ -59,7 +59,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test fixture for https://issues.apache.org/jira/browse/LANG-1524
  *
- * @param <T> Test fixture type. 
+ * @param <T> Test fixture type, unused type parameter for test.
  */
 class AAAAClass<T extends AAAAClass.BBBBClass.CCCClass> {
     public static class BBBBClass {
@@ -75,9 +75,18 @@ final class AAAClass extends AAClass<String> {
     }
 }
 
-@SuppressWarnings("unused") // Unused type parameter for test
+/**
+ * Test fixture.
+ * 
+ * @param <T> Test fixture type, unused type parameter for test.
+ */
 class AAClass<T> {
 
+    /**
+     * Test fixture.
+     * 
+     * @param <S> Test fixture type, unused type parameter for test.
+     */
     public class BBClass<S> {
         // empty
     }
