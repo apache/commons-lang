@@ -1414,10 +1414,13 @@ public class StringUtils {
             case '\u0142':
                 decomposed.setCharAt(i, 'l');
                 break;
+            // D with stroke
             case '\u0110':
+                // LATIN CAPITAL LETTER D WITH STROKE
                 decomposed.setCharAt(i, 'D');
                 break;
             case '\u0111':
+                // LATIN SMALL LETTER D WITH STROKE
                 decomposed.setCharAt(i, 'd');
                 break;
             // I with bar
