@@ -51,6 +51,7 @@ public final class Functions {
      * @param <T> the type of the argument the function applies.
      * @param <R> the type of the result the function returns.
      * @return the value the function returns If the object is null; null otherwise.
+     * @since 3.15.0
      */
     public static <T, R> R applyIfNotNull(final T object, final Function<T, R> function) {
         return object != null ? function.apply(object) : null;

@@ -53,6 +53,7 @@ public class Consumers {
      * @param object the object to be consumed.
      * @param consumer the consumer to consume.
      * @param <T> the type of the argument the consumer accepts.
+     * @since 3.15.0
      */
     public static <T> void acceptIfNotNull(final T object, final Consumer<T> consumer) {
         if (object != null) {
