@@ -140,6 +140,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-text from 1.11.0 to 1.12.0 #1200.</action> 
     <!-- REMOVE -->
     <action                   type="remove" dev="ggregory" due-to="Paranoïd User">Drop obsolete JDK 13 Maven profile #1142.</action>
+    <action                   type="add" dev="jochen">Added the annotations package, including the Insecure, and Safe annotations.</action>
   </release>
   <release version="3.14.0" date="2023-11-18" description="New features and bug fixes (Java 8 or above).">
     <!-- FIX -->
