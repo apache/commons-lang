@@ -30,7 +30,7 @@
  *   <dd>By annotating a variable with {@code @Safe}, the API user
  *     declares, that the variable contains trusted input, that can be
  *     used as a parameter in an invocation of a constructor, or method,
- *     that is annotated with {@code @Trusted}.</dd>
+ *     that is annotated with {@code @Insecure}.</dd>
  * </dl>
  * @since 3.15
  */

@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * This annotation is used to indicate, that a variable, field, or parameter
  * contains a safe value. If so, the annotated element may be used in an
  * invocation of a constructor, or method, which is annotated with
- * {@code @Trusted}.
+ * {@code @Insecure}.
  *
  * For example, suggest the following method declaration:
  * <pre>
