@@ -161,7 +161,7 @@ public class CharSetUtils {
     }
 
     /**
-     * Implementation of delete and keep
+     * Implements delete and keep.
      *
      * @param str String to modify characters within
      * @param set String[] set of characters to modify
