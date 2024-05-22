@@ -134,6 +134,15 @@ public class PairTest extends AbstractLangTest {
         final Entry<Integer, String> entry = map.entrySet().iterator().next();
         assertEquals(pair, entry);
         assertEquals(pair.hashCode(), entry.hashCode());
+        // LANG-1736:
+        map.clear();
+        map.put(0, "value1");
+        map.put(1, "value2");
+        map.entrySet().forEach(e -> {
+            final Pair<Integer, String> p = ImmutablePair.of(e.getKey(), e.getValue());
+            assertEquals(p, e);
+            assertEquals(p.hashCode(), e.hashCode());
+        });
     }
 
     @Test
