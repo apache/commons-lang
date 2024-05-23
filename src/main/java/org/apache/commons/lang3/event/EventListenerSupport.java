@@ -175,7 +175,7 @@ public class EventListenerSupport<L> implements Serializable {
     private transient L[] prototypeArray;
 
     /**
-     * Create a new EventListenerSupport instance.
+     * Constructs a new EventListenerSupport instance.
      * Serialization-friendly constructor.
      */
     private EventListenerSupport() {
@@ -219,10 +219,6 @@ public class EventListenerSupport<L> implements Serializable {
         initializeTransientFields(listenerInterface, classLoader);
     }
 
-//**********************************************************************************************************************
-// Other Methods
-//**********************************************************************************************************************
-
     /**
      * Registers an event listener.
      *
@@ -236,7 +232,7 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Registers an event listener.  Will not add a pre-existing listener
+     * Registers an event listener. Will not add a pre-existing listener
      * object to the list if {@code allowDuplicate} is false.
      *
      * @param listener the event listener (may not be {@code null}).
@@ -254,8 +250,9 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Create the {@link InvocationHandler} responsible for broadcasting calls
-     * to the managed listeners.  Subclasses can override to provide custom behavior.
+     * Creates the {@link InvocationHandler} responsible for broadcasting calls
+     * to the managed listeners. Subclasses can override to provide custom behavior.
+     *
      * @return ProxyInvocationHandler
      */
     protected InvocationHandler createInvocationHandler() {
@@ -263,7 +260,8 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Create the proxy object.
+     * Creates the proxy object.
+     *
      * @param listenerInterface the class of the listener interface
      * @param classLoader the class loader to be used
      */
@@ -285,7 +283,7 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Returns the number of registered listeners.
+     * Gets the number of registered listeners.
      *
      * @return the number of registered listeners.
      */
@@ -304,7 +302,8 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Initialize transient fields.
+     * Initializes transient fields.
+     *
      * @param listenerInterface the class of the listener interface
      * @param classLoader the class loader to be used
      */
@@ -315,7 +314,8 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Deserialize.
+     * Deserializes.
+     *
      * @param objectInputStream the input stream
      * @throws IOException if an IO error occurs
      * @throws ClassNotFoundException if the class cannot be resolved
@@ -323,11 +323,8 @@ public class EventListenerSupport<L> implements Serializable {
     private void readObject(final ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
         final L[] srcListeners = (L[]) objectInputStream.readObject();
-
         this.listeners = new CopyOnWriteArrayList<>(srcListeners);
-
         final Class<L> listenerInterface = ArrayUtils.getComponentType(srcListeners);
-
         initializeTransientFields(listenerInterface, Thread.currentThread().getContextClassLoader());
     }
 
@@ -345,13 +342,13 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Serialize.
+     * Serializes.
+     *
      * @param objectOutputStream the output stream
      * @throws IOException if an IO error occurs
      */
     private void writeObject(final ObjectOutputStream objectOutputStream) throws IOException {
         final ArrayList<L> serializableListeners = new ArrayList<>();
-
         // don't just rely on instanceof Serializable:
         ObjectOutputStream testObjectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
         for (final L listener : listeners) {
