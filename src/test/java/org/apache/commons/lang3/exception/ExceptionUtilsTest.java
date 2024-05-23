@@ -739,7 +739,6 @@ public class ExceptionUtilsTest extends AbstractLangTest {
         assertThrows(NullPointerException.class, () -> ExceptionUtils.removeCommonFrames(null, null));
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void testRethrow() {
         final Exception expected = new InterruptedException();
