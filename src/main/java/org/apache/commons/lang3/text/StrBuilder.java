@@ -272,7 +272,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /** Current size of the buffer. */
     protected int size; // TODO make private?
 
-    /** The new line. */
+    /**
+     * The new line, {@code null} means use the system default from {@link System#lineSeparator()}.
+     */
     private String newLine;
 
     /** The null text. */
@@ -1142,14 +1144,18 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Appends the new line string to this string builder.
+     * Appends this builder's new line string to this builder.
      * <p>
-     * The new line string can be altered using {@link #setNewLineText(String)}.
-     * This might be used to force the output to always use UNIX line endings
-     * even when on Windows.
+     * By default, the new line is the system default from {@link System#lineSeparator()}.
+     * </p>
+     * <p>
+     * The new line string can be changed using {@link #setNewLineText(String)}. For example, you can use this to force the output to always use UNIX line
+     * endings even when on Windows.
      * </p>
      *
-     * @return this, to enable chaining
+     * @return this
+     * @see #getNewLineText()
+     * @see #setNewLineText(String)
      */
     public StrBuilder appendNewLine() {
         if (newLine == null)  {
@@ -1940,9 +1946,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Gets the text to be appended when a new line is added.
+     * Gets the text to be appended when a {@link #appendNewLine() new line} is added.
      *
-     * @return the new line text, null means use system default
+     * @return The new line text, {@code null} means use the system default from {@link System#lineSeparator()}.
      */
     public String getNewLineText() {
         return newLine;
@@ -2811,10 +2817,10 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Sets the text to be appended when a new line is added.
+     * Sets the text to be appended when {@link #appendNewLine() new line} is called.
      *
-     * @param newLine  the new line text, null means use system default
-     * @return this, to enable chaining
+     * @param newLine the new line text, {@code null} means use the system default from {@link System#lineSeparator()}.
+     * @return this.
      */
     public StrBuilder setNewLineText(final String newLine) {
         this.newLine = newLine;
