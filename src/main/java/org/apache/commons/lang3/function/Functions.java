@@ -20,7 +20,7 @@ package org.apache.commons.lang3.function;
 import java.util.function.Function;
 
 /**
- * Factory for {@link Function}. Provides utilities for working with {@link Function}.
+ * Factory for {@link Function}.
  *
  * @since 3.14.0
  */

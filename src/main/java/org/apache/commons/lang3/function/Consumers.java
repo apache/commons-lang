@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
- * Provides {@link Consumer} instances and utilities for working with {@link Consumer}.
+ * Provides {@link Consumer} instances.
  *
  * @since 3.13.0
  */
