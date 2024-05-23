@@ -92,6 +92,7 @@ public abstract class CharSequenceTranslator {
      * @param writer Writer to translate the text to
      * @throws IOException if and only if the Writer produces an IOException
      */
+    @SuppressWarnings("resource") // Caller closes writer
     public final void translate(final CharSequence input, final Writer writer) throws IOException {
         Objects.requireNonNull(writer, "writer");
         if (input == null) {
