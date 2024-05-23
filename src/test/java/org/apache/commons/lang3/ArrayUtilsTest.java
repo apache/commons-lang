@@ -299,7 +299,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertFalse(ArrayUtils.contains(array, 'e'));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testContainsDouble() {
         double[] array = null;
@@ -320,7 +319,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertTrue(ArrayUtils.contains(a, Double.NaN));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testContainsDoubleTolerance() {
         double[] array = null;
@@ -332,7 +330,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertTrue(ArrayUtils.contains(array, 2.5, 0.51));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testContainsFloat() {
         float[] array = null;
@@ -723,7 +720,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 99));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexesOfDoubleTolerance() {
         double[] array = null;
@@ -768,7 +764,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(emptySet, ArrayUtils.indexesOf(array, 99, 0));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexesOfDoubleWithStartIndexTolerance() {
         double[] array = null;
@@ -1085,7 +1080,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(-1, ArrayUtils.indexOf(array, 'a', 6));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexOfDouble() {
         double[] array = null;
@@ -1110,7 +1104,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
 
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexOfDoubleTolerance() {
         double[] array = null;
@@ -1124,7 +1117,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(1, ArrayUtils.indexOf(array, 1.00001324, 0.0001));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexOfDoubleWithStartIndex() {
         double[] array = null;
@@ -1140,7 +1132,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(-1, ArrayUtils.indexOf(array, 0, 6));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexOfDoubleWithStartIndexTolerance() {
         double[] array = null;
@@ -1158,7 +1149,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(1, ArrayUtils.indexOf(array, 1.00001324, -300, 0.0001));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexOfFloat() {
         float[] array = null;
@@ -1181,7 +1171,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(2, ArrayUtils.indexOf(array, Float.POSITIVE_INFINITY));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testIndexOfFloatWithStartIndex() {
         float[] array = null;
@@ -1777,7 +1766,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(4, ArrayUtils.lastIndexOf(array, 'a', 88));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testLastIndexOfDouble() {
         double[] array = null;
@@ -1792,7 +1780,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testLastIndexOfDoubleTolerance() {
         double[] array = null;
@@ -1806,7 +1793,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(1, ArrayUtils.lastIndexOf(array, 1.00001324, 0.0001));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testLastIndexOfDoubleWithStartIndex() {
         double[] array = null;
@@ -1823,7 +1809,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(4, ArrayUtils.lastIndexOf(array, 0, 88));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testLastIndexOfDoubleWithStartIndexTolerance() {
         double[] array = null;
@@ -1841,7 +1826,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(-1, ArrayUtils.lastIndexOf(array, 4.15, -200, 2.0));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testLastIndexOfFloat() {
         float[] array = null;
@@ -1856,7 +1840,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
     }
 
-    @SuppressWarnings("cast")
     @Test
     public void testLastIndexOfFloatWithStartIndex() {
         float[] array = null;
