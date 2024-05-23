@@ -746,7 +746,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * @param array
      *            the array to add to the {@code toString}
-     * @return this
+     * @return {@code this} instance.
      */
     public ReflectionToStringBuilder reflectionAppendArray(final Object array) {
         this.getStyle().reflectionAppendArrayDetail(this.getStringBuffer(), null, array);

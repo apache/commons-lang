@@ -547,7 +547,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param value
      *            the boolean to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final boolean value) {
         iTotal = iTotal * iConstant + (value ? 0 : 1);
@@ -559,7 +559,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param array
      *            the array to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final boolean[] array) {
         if (array == null) {
@@ -577,7 +577,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param value
      *            the byte to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final byte value) {
         iTotal = iTotal * iConstant + value;
@@ -589,7 +589,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param array
      *            the array to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final byte[] array) {
         if (array == null) {
@@ -607,7 +607,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param value
      *            the char to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final char value) {
         iTotal = iTotal * iConstant + value;
@@ -619,7 +619,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param array
      *            the array to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final char[] array) {
         if (array == null) {
@@ -637,7 +637,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param value
      *            the double to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final double value) {
         return append(Double.doubleToLongBits(value));
@@ -648,7 +648,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param array
      *            the array to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final double[] array) {
         if (array == null) {
@@ -666,7 +666,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param value
      *            the float to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final float value) {
         iTotal = iTotal * iConstant + Float.floatToIntBits(value);
@@ -678,7 +678,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param array
      *            the array to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final float[] array) {
         if (array == null) {
@@ -696,7 +696,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param value
      *            the int to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final int value) {
         iTotal = iTotal * iConstant + value;
@@ -708,7 +708,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param array
      *            the array to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final int[] array) {
         if (array == null) {
@@ -726,7 +726,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param value
      *            the long to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     // NOTE: This method uses >> and not >>> as Effective Java and
     //       Long.hashCode do. Ideally we should switch to >>> at
@@ -742,7 +742,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param array
      *            the array to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final long[] array) {
         if (array == null) {
@@ -760,7 +760,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param object
      *            the Object to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final Object object) {
         if (object == null) {
@@ -781,7 +781,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param array
      *            the array to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final Object[] array) {
         if (array == null) {
@@ -799,7 +799,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param value
      *            the short to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final short value) {
         iTotal = iTotal * iConstant + value;
@@ -811,7 +811,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param array
      *            the array to add to the {@code hashCode}
-     * @return this
+     * @return {@code this} instance.
      */
     public HashCodeBuilder append(final short[] array) {
         if (array == null) {
@@ -860,7 +860,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @param superHashCode
      *            the result of calling {@code super.hashCode()}
-     * @return this
+     * @return {@code this} instance.
      * @since 2.0
      */
     public HashCodeBuilder appendSuper(final int superHashCode) {

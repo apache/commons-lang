@@ -99,7 +99,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
          * Sets the DiffBuilder.
          *
          * @param diffBuilder the DiffBuilder.
-         * @return this.
+         * @return {@code this} instance.
          */
         public Builder<T> setDiffBuilder(final DiffBuilder<T> diffBuilder) {
             this.diffBuilder = diffBuilder;
@@ -110,7 +110,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
          * Sets field names to exclude from output. Intended for fields like {@code "password"} or {@code "lastModificationDate"}.
          *
          * @param excludeFieldNames field names to exclude.
-         * @return this.
+         * @return {@code this} instance.
          */
         public Builder<T> setExcludeFieldNames(final String... excludeFieldNames) {
             this.excludeFieldNames = toExcludeFieldNames(excludeFieldNames);

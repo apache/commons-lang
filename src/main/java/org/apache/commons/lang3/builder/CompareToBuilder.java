@@ -338,7 +338,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return this
+     * @return {@code this} instance.
       */
     public CompareToBuilder append(final boolean lhs, final boolean rhs) {
         if (comparison != 0) {
@@ -368,7 +368,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final boolean[] lhs, final boolean[] rhs) {
         if (comparison != 0) {
@@ -401,7 +401,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final byte lhs, final byte rhs) {
         if (comparison != 0) {
@@ -424,7 +424,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final byte[] lhs, final byte[] rhs) {
         if (comparison != 0) {
@@ -457,7 +457,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final char lhs, final char rhs) {
         if (comparison != 0) {
@@ -480,7 +480,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final char[] lhs, final char[] rhs) {
         if (comparison != 0) {
@@ -518,7 +518,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final double lhs, final double rhs) {
         if (comparison != 0) {
@@ -541,7 +541,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final double[] lhs, final double[] rhs) {
         if (comparison != 0) {
@@ -579,7 +579,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final float lhs, final float rhs) {
         if (comparison != 0) {
@@ -602,7 +602,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final float[] lhs, final float[] rhs) {
         if (comparison != 0) {
@@ -635,7 +635,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final int lhs, final int rhs) {
         if (comparison != 0) {
@@ -658,7 +658,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final int[] lhs, final int[] rhs) {
         if (comparison != 0) {
@@ -691,7 +691,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final long lhs, final long rhs) {
         if (comparison != 0) {
@@ -714,7 +714,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final long[] lhs, final long[] rhs) {
         if (comparison != 0) {
@@ -756,7 +756,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side object
      * @param rhs  right-hand side object
-     * @return this
+     * @return {@code this} instance.
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      */
@@ -784,7 +784,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand side object
      * @param comparator  {@link Comparator} used to compare the objects,
      *  {@code null} means treat lhs as {@link Comparable}
-     * @return this
+     * @return {@code this} instance.
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      * @since 2.0
@@ -836,7 +836,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return this
+     * @return {@code this} instance.
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      */
@@ -862,7 +862,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand side array
      * @param comparator  {@link Comparator} to use to compare the array elements,
      *  {@code null} means to treat {@code lhs} elements as {@link Comparable}.
-     * @return this
+     * @return {@code this} instance.
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      * @since 2.0
@@ -898,7 +898,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final short lhs, final short rhs) {
         if (comparison != 0) {
@@ -921,7 +921,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return this
+     * @return {@code this} instance.
      */
     public CompareToBuilder append(final short[] lhs, final short[] rhs) {
         if (comparison != 0) {
@@ -980,7 +980,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * result of the superclass.
      *
      * @param superCompareTo  result of calling {@code super.compareTo(Object)}
-     * @return this
+     * @return {@code this} instance.
      * @since 2.0
      */
     public CompareToBuilder appendSuper(final int superCompareTo) {

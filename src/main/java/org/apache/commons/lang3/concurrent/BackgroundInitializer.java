@@ -113,7 +113,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
          * @see org.apache.commons.lang3.concurrent.BackgroundInitializer#setExternalExecutor(ExecutorService)
          *
          * @param externalExecutor the {@link ExecutorService} to be used.
-         * @return this
+         * @return {@code this} instance.
          */
         public Builder<I, T> setExternalExecutor(final ExecutorService externalExecutor) {
             this.externalExecutor = externalExecutor;
