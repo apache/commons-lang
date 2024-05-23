@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>69</version>
+    <version>70</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
@@ -190,7 +190,10 @@
           <version>${commons.pmd.version}</version>
           <configuration>
             <targetJdk>${maven.compiler.target}</targetJdk>
-            <excludeFromFailureFile>src/conf/exclude-pmd.properties</excludeFromFailureFile>
+            <excludeFromFailureFile>src/conf/pmd-exclude.properties</excludeFromFailureFile>
+            <rulesets>
+              <ruleset>src/conf/pmd-ruleset.xml</ruleset>
+            </rulesets>
           </configuration>
         </plugin>
         <plugin>

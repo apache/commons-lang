@@ -203,4 +203,18 @@
     <Method name="requireNonNull" />
     <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" />
   </Match>
+  <!-- What can be done?-->
+  <Match>
+    <Class name="org.apache.commons.lang3.event.EventListenerSupport" />
+    <Method name="readObject" />
+    <Bug pattern="MC_OVERRIDABLE_METHOD_CALL_IN_READ_OBJECT" />
+  </Match>
+  <!-- Fundamental disagreement with SB: It should be OK to have predefined instances and allow new instances. -->
+  <Match>
+    <Bug pattern="SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR" />
+  </Match>
+  <!-- Fundamental disagreement with SB: It should be OK to have predefined instances and allow new instances. -->
+  <Match>
+    <Bug pattern="SING_SINGLETON_IMPLEMENTS_SERIALIZABLE" />
+  </Match>
 </FindBugsFilter>
