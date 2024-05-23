@@ -486,7 +486,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the bits from the specified {@code fromIndex} (inclusive) to the specified {@code toIndex} (exclusive) to
+     * Sets the bits from the specified {@code fromIndex} (inclusive) to the specified {@code toIndex} (inclusive) to
      * {@code true}.
      *
      * @param fromIndex index of the first bit to be set
