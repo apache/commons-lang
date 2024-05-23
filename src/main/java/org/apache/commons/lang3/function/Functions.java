@@ -43,17 +43,18 @@ public final class Functions {
     }
 
     /**
-     * Applies the {@link Function} on the object if the object is not {@code null}. If the object is {@code null}, it
-     * does nothing.
+     * Applies the {@link Function} on the object if the object and the function are not {@code null}. Otherwise, do
+     * nothing.
      *
      * @param object the object to apply the function.
      * @param function the function to apply.
      * @param <T> the type of the argument the function applies.
      * @param <R> the type of the result the function returns.
-     * @return the value the function returns If the object is null; null otherwise.
+     * @return the value the function returns if the object and the function are not {@code null}; {@code null}
+     * otherwise.
      * @since 3.15.0
      */
     public static <T, R> R applyIfNotNull(final T object, final Function<T, R> function) {
-        return object != null ? function.apply(object) : null;
+        return object != null && function != null ? function.apply(object) : null;
     }
 }

@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -44,8 +43,8 @@ public class FunctionsTest {
      */
     @Test
     public void testApplyIfNotNull() {
-        assertEquals("jay-bae", Functions.applyIfNotNull("jay", string -> string.concat("-bae")));
-        assertDoesNotThrow(() -> Functions.applyIfNotNull((String) null, string -> fail()));
-        assertNull(Functions.applyIfNotNull((String) null, string -> string.concat("abc")));
+        assertEquals("foo-bar", Functions.applyIfNotNull("foo", string -> string.concat("-bar")));
+        assertNull(Functions.applyIfNotNull("foo", null));
+        assertNull(Functions.applyIfNotNull((String) null, string -> fail()));
     }
 }
