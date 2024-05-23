@@ -28,23 +28,49 @@ import org.junit.jupiter.api.Test;
 
 /**
  * <p>
- * An abstract base class for tests of concrete {@code ConcurrentInitializer}
- * implementations.
+ * An abstract base class for tests of concrete {@code ConcurrentInitializer} implementations.
  * </p>
  * <p>
- * This class provides some basic tests for initializer implementations. Derived
- * class have to create a {@link ConcurrentInitializer} object on which the
- * tests are executed.
+ * This class provides some basic tests for initializer implementations. Derived class have to create a {@link ConcurrentInitializer} object on which the tests
+ * are executed.
  * </p>
+ *
+ * @param <T> Domain type.
  */
-public abstract class AbstractConcurrentInitializerTest extends AbstractLangTest {
+public abstract class AbstractConcurrentInitializerTest<T> extends AbstractLangTest {
+
+    static final class GetThread extends Thread {
+
+        private Object object;
+        private final CountDownLatch startLatch;
+        private final ConcurrentInitializer<?> initializer;
+
+        GetThread(final CountDownLatch startLatch, final ConcurrentInitializer<?> initializer) {
+            this.startLatch = startLatch;
+            this.initializer = initializer;
+        }
+
+        @Override
+        public void run() {
+            try {
+                // wait until all threads are ready for maximum parallelism
+                startLatch.await();
+                // access the initializer
+                object = initializer.get();
+            } catch (final InterruptedException iex) {
+                // ignore
+            } catch (final ConcurrentException cex) {
+                object = cex;
+            }
+        }
+    }
+
     /**
-     * Creates the {@link ConcurrentInitializer} object to be tested. This
-     * method is called whenever the test fixture needs to be obtained.
+     * Creates the {@link ConcurrentInitializer} object to be tested. This method is called whenever the test fixture needs to be obtained.
      *
      * @return the initializer object to be tested
      */
-    protected abstract ConcurrentInitializer<Object> createInitializer();
+    protected abstract ConcurrentInitializer<T> createInitializer();
 
     /**
      * Tests a simple invocation of the get() method.
@@ -57,39 +83,19 @@ public abstract class AbstractConcurrentInitializerTest extends AbstractLangTest
     }
 
     /**
-     * Tests whether get() can be invoked from multiple threads concurrently.
-     * Always the same object should be returned.
+     * Tests whether get() can be invoked from multiple threads concurrently. Always the same object should be returned.
      *
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
-     * @throws InterruptedException because the threading API my throw it.
+     * @throws InterruptedException                                    because the threading API my throw it.
      */
     @Test
-    public void testGetConcurrent() throws ConcurrentException,
-            InterruptedException {
-        final ConcurrentInitializer<Object> initializer = createInitializer();
+    public void testGetConcurrent() throws ConcurrentException, InterruptedException {
+        final ConcurrentInitializer<T> initializer = createInitializer();
         final int threadCount = 20;
         final CountDownLatch startLatch = new CountDownLatch(1);
-        final class GetThread extends Thread {
-            Object object;
-
-            @Override
-            public void run() {
-                try {
-                    // wait until all threads are ready for maximum parallelism
-                    startLatch.await();
-                    // access the initializer
-                    object = initializer.get();
-                } catch (final InterruptedException iex) {
-                    // ignore
-                } catch (final ConcurrentException cex) {
-                    object = cex;
-                }
-            }
-        }
-
         final GetThread[] threads = new GetThread[threadCount];
         for (int i = 0; i < threadCount; i++) {
-            threads[i] = new GetThread();
+            threads[i] = new GetThread(startLatch, initializer);
             threads[i].start();
         }
 
@@ -107,14 +113,13 @@ public abstract class AbstractConcurrentInitializerTest extends AbstractLangTest
     }
 
     /**
-     * Tests whether sequential get() invocations always return the same
-     * instance.
+     * Tests whether sequential get() invocations always return the same instance.
      *
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
      */
     @Test
     public void testGetMultipleTimes() throws ConcurrentException {
-        final ConcurrentInitializer<Object> initializer = createInitializer();
+        final ConcurrentInitializer<T> initializer = createInitializer();
         final Object obj = initializer.get();
         for (int i = 0; i < 10; i++) {
             assertEquals(obj, initializer.get(), "Got different object at " + i);
@@ -123,12 +128,15 @@ public abstract class AbstractConcurrentInitializerTest extends AbstractLangTest
 
     /**
      * Tests a simple invocation of the isInitialized() method.
+     *
+     * @throws Throwable on test failure.
      */
     @Test
     public void testisInitialized() throws Throwable {
-        final ConcurrentInitializer<Object> initializer = createInitializer();
+        final ConcurrentInitializer<T> initializer = createInitializer();
         if (initializer instanceof AbstractConcurrentInitializer) {
-            final AbstractConcurrentInitializer castedInitializer = (AbstractConcurrentInitializer) initializer;
+            @SuppressWarnings("unchecked")
+            final AbstractConcurrentInitializer<T, Exception> castedInitializer = (AbstractConcurrentInitializer<T, Exception>) initializer;
             assertFalse(castedInitializer.isInitialized(), "was initialized before get()");
             assertNotNull(castedInitializer.get(), "No managed object");
             assertTrue(castedInitializer.isInitialized(), "was not initialized after get()");

@@ -18,40 +18,41 @@ package org.apache.commons.lang3.concurrent;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@code AtomicInitializer}.
  */
-public class AtomicInitializerTest extends AbstractConcurrentInitializerTest {
+public class AtomicInitializerNonObjectTest extends AbstractConcurrentInitializerTest<Integer> {
+
     /**
      * Returns the initializer to be tested.
      *
      * @return the {@code AtomicInitializer}
      */
     @Override
-    protected ConcurrentInitializer<Object> createInitializer() {
-        return new AtomicInitializer<Object>() {
+    protected ConcurrentInitializer<Integer> createInitializer() {
+        return new AtomicInitializer<Integer>() {
             @Override
-            protected Object initialize() {
-                return new Object();
+            protected Integer initialize() {
+                return new Integer(0);
             }
         };
     }
 
     @Test
     public void testGetThatReturnsNullFirstTime() throws ConcurrentException {
-        final AtomicInitializer<Object> initializer = new AtomicInitializer<Object>() {
-            final AtomicBoolean firstRun = new AtomicBoolean(true);
+        final AtomicInitializer<Integer> initializer = new AtomicInitializer<Integer>() {
+            final AtomicInteger firstRun = new AtomicInteger(1);
 
             @Override
-            protected Object initialize() {
-                if (firstRun.getAndSet(false)) {
+            protected Integer initialize() {
+                if (firstRun.getAndSet(0) == 1) {
                     return null;
                 }
-                return new Object();
+                return new Integer(0);
             }
         };
 
