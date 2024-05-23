@@ -995,7 +995,6 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    @SuppressWarnings("cast")
     public void testRemoveElementDoubleArray() {
         double[] array;
 
@@ -1051,7 +1050,6 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    @SuppressWarnings("cast")
     public void testRemoveElementFloatArray() {
         float[] array;
 
