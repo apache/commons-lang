@@ -220,7 +220,6 @@
             <notimestamp>true</notimestamp>
             <links>
               <link>https://commons.apache.org/proper/commons-text/apidocs</link>
-              <link>https://docs.oracle.com/javase/8/docs/api</link>
               <link>https://docs.oracle.com/javaee/6/api</link>
             </links>
             <validateLinks>true</validateLinks>
@@ -326,7 +325,6 @@
           <notimestamp>true</notimestamp>
           <links>
             <link>https://commons.apache.org/proper/commons-text/apidocs</link>
-            <link>https://docs.oracle.com/javase/8/docs/api</link>
             <link>https://docs.oracle.com/javaee/6/api</link>
           </links>
           <validateLinks>true</validateLinks>
