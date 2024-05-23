@@ -545,7 +545,6 @@ public class ArrayUtilsRemoveTest extends AbstractLangTest {
     }
 
     @Test
-    @SuppressWarnings("cast")
     public void testRemoveElementDoubleArray() {
         double[] array;
         array = ArrayUtils.removeElement(null, (double) 1);
@@ -565,7 +564,6 @@ public class ArrayUtilsRemoveTest extends AbstractLangTest {
     }
 
     @Test
-    @SuppressWarnings("cast")
     public void testRemoveElementFloatArray() {
         float[] array;
         array = ArrayUtils.removeElement((float[]) null, 1);
