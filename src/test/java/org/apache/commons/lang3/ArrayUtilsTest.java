@@ -260,7 +260,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertTrue(ArrayUtils.containsAny(array, "2"));
         assertTrue(ArrayUtils.containsAny(array, "3"));
         assertFalse(ArrayUtils.containsAny(array, "notInArray"));
-        assertTrue(ArrayUtils.containsAny(array, (Object) new String[] { null }));
+        assertTrue(ArrayUtils.containsAny(array, (Object[]) new String[] { null }));
     }
 
     @Test
