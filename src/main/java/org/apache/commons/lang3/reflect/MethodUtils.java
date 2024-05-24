@@ -96,24 +96,16 @@ public class MethodUtils {
     }
 
     /**
-     * Gets an accessible method (that is, one that can be invoked via
-     * reflection) with given name and parameters. If no such method
-     * can be found, return {@code null}.
-     * This is just a convenience wrapper for
-     * {@link #getAccessibleMethod(Method)}.
+     * Gets an accessible method (that is, one that can be invoked via reflection) with given name and parameters. If no such method can be found, return
+     * {@code null}. This is just a convenience wrapper for {@link #getAccessibleMethod(Method)}.
      *
-     * @param cls get method from this class
-     * @param methodName get method with this name
+     * @param cls            get method from this class
+     * @param methodName     get method with this name
      * @param parameterTypes with these parameters types
      * @return The accessible method
      */
-    public static Method getAccessibleMethod(final Class<?> cls, final String methodName,
-        final Class<?>... parameterTypes) {
-        try {
-            return getAccessibleMethod(cls.getMethod(methodName, parameterTypes));
-        } catch (final NoSuchMethodException e) {
-            return null;
-        }
+    public static Method getAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
+        return getAccessibleMethod(getMethodObject(cls, methodName, parameterTypes));
     }
 
     /**
@@ -121,7 +113,7 @@ public class MethodUtils {
      * reflection) that implements the specified Method. If no such method
      * can be found, return {@code null}.
      *
-     * @param method The method that we wish to call
+     * @param method The method that we wish to call, may be null.
      * @return The accessible method
      */
     public static Method getAccessibleMethod(Method method) {
@@ -211,11 +203,7 @@ public class MethodUtils {
         Class<?> parentClass = cls.getSuperclass();
         while (parentClass != null) {
             if (ClassUtils.isPublic(parentClass)) {
-                try {
-                    return parentClass.getMethod(methodName, parameterTypes);
-                } catch (final NoSuchMethodException e) {
-                    return null;
-                }
+                return getMethodObject(parentClass, methodName, parameterTypes);
             }
             parentClass = parentClass.getSuperclass();
         }
@@ -267,7 +255,7 @@ public class MethodUtils {
      * @param <A>
      *            the annotation type
      * @param method
-     *            the {@link Method} to query
+     *            the {@link Method} to query, may be null.
      * @param annotationCls
      *            the {@link Annotation} to check if is present on the method
      * @param searchSupers
@@ -332,10 +320,9 @@ public class MethodUtils {
      */
     public static Method getMatchingAccessibleMethod(final Class<?> cls,
         final String methodName, final Class<?>... parameterTypes) {
-        try {
-            return MemberUtils.setAccessibleWorkaround(cls.getMethod(methodName, parameterTypes));
-        } catch (final NoSuchMethodException ignored) {
-            // Swallow the exception
+        final Method candidate = getMethodObject(cls, methodName, parameterTypes);
+        if (candidate != null) {
+            return MemberUtils.setAccessibleWorkaround(candidate);
         }
         // search through all methods
         final Method[] methods = cls.getMethods();
@@ -435,6 +422,24 @@ public class MethodUtils {
                         cls.getName(),
                         bestCandidates.stream().map(Method::toString).collect(Collectors.joining(",", "[", "]")))
         );
+    }
+
+    /**
+     * Gets a Method or null if a {@link Class#getMethod(String, Class...) documented} exception is thrown.
+     *
+     * @param cls Receiver for {@link Class#getMethod(String, Class...)}.
+     * @param name the name of the method
+     * @param parameterTypes the list of parameters
+     * @return a Method or null.
+     * @since 3.15.0
+     * @see Class#getMethod(String, Class...)
+     */
+    public static Method getMethodObject(final Class<?> cls, final String name, final Class<?>... parameterTypes) {
+        try {
+            return cls.getMethod(name, parameterTypes);
+        } catch (final NoSuchMethodException | SecurityException e) {
+            return null;
+        }
     }
 
     /**
