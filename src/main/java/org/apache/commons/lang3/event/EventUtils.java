@@ -18,7 +18,6 @@
 package org.apache.commons.lang3.event;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
@@ -96,16 +95,10 @@ public class EventUtils {
     public static <L> void addEventListener(final Object eventSource, final Class<L> listenerType, final L listener) {
         try {
             MethodUtils.invokeMethod(eventSource, "add" + listenerType.getSimpleName(), listener);
-        } catch (final NoSuchMethodException e) {
-            throw new IllegalArgumentException("Class " + eventSource.getClass().getName()
-                    + " does not have a public add" + listenerType.getSimpleName()
+        } catch (final ReflectiveOperationException e) {
+            throw new IllegalArgumentException("Unable to add listener for class " + eventSource.getClass().getName()
+                    + " and public add" + listenerType.getSimpleName()
                     + " method which takes a parameter of type " + listenerType.getName() + ".");
-        } catch (final IllegalAccessException e) {
-            throw new IllegalArgumentException("Class " + eventSource.getClass().getName()
-                    + " does not have an accessible add" + listenerType.getSimpleName ()
-                    + " method which takes a parameter of type " + listenerType.getName() + ".");
-        } catch (final InvocationTargetException e) {
-            throw new IllegalArgumentException("Unable to add listener.", e.getCause());
         }
     }
 

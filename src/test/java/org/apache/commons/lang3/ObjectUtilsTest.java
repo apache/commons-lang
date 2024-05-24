@@ -286,6 +286,8 @@ public class ObjectUtilsTest extends AbstractLangTest {
     public void testCloneOfUncloneable() {
         final UncloneableString string = new UncloneableString("apache");
         final CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.clone(string));
+        assertNotNull(e);
+        assertNotNull(e.getCause());
         assertEquals(NoSuchMethodException.class, e.getCause().getClass());
     }
 
@@ -819,8 +821,9 @@ public class ObjectUtilsTest extends AbstractLangTest {
     @Test
     public void testPossibleCloneOfUncloneable() {
         final UncloneableString string = new UncloneableString("apache");
-        final CloneFailedException e = assertThrows(CloneFailedException.class,
-                () -> ObjectUtils.cloneIfPossible(string));
+        final CloneFailedException e = assertThrows(CloneFailedException.class, () -> ObjectUtils.cloneIfPossible(string));
+        assertNotNull(e);
+        assertNotNull(e.getCause());
         assertEquals(NoSuchMethodException.class, e.getCause().getClass());
     }
 

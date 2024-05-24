@@ -235,8 +235,9 @@ public class ObjectUtils {
     public static <T> T clone(final T obj) {
         if (obj instanceof Cloneable) {
             final Object result;
+            final Class<? extends Object> objClass = obj.getClass();
             if (isArray(obj)) {
-                final Class<?> componentType = obj.getClass().getComponentType();
+                final Class<?> componentType = objClass.getComponentType();
                 if (componentType.isPrimitive()) {
                     int length = Array.getLength(obj);
                     result = Array.newInstance(componentType, length);
@@ -248,10 +249,9 @@ public class ObjectUtils {
                 }
             } else {
                 try {
-                    final Method clone = obj.getClass().getMethod("clone");
-                    result = clone.invoke(obj);
+                    result = objClass.getMethod("clone").invoke(obj);
                 } catch (final ReflectiveOperationException e) {
-                    throw new CloneFailedException("Exception cloning Cloneable type " + obj.getClass().getName(), e.getCause());
+                    throw new CloneFailedException("Exception cloning Cloneable type " + objClass.getName(), e);
                 }
             }
             return (T) result;
