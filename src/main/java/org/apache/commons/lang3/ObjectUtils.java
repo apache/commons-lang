@@ -250,16 +250,8 @@ public class ObjectUtils {
                 try {
                     final Method clone = obj.getClass().getMethod("clone");
                     result = clone.invoke(obj);
-                } catch (final NoSuchMethodException e) {
-                    throw new CloneFailedException("Cloneable type "
-                        + obj.getClass().getName()
-                        + " has no clone method", e);
-                } catch (final IllegalAccessException e) {
-                    throw new CloneFailedException("Cannot clone Cloneable type "
-                        + obj.getClass().getName(), e);
-                } catch (final InvocationTargetException e) {
-                    throw new CloneFailedException("Exception cloning Cloneable type "
-                        + obj.getClass().getName(), e.getCause());
+                } catch (final ReflectiveOperationException e) {
+                    throw new CloneFailedException("Exception cloning Cloneable type " + obj.getClass().getName(), e.getCause());
                 }
             }
             return (T) result;
