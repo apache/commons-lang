@@ -19,8 +19,6 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -114,7 +112,7 @@ public class ObjectUtils {
     public static final Null NULL = new Null();
 
     /**
-     * Checks if all values in the array are not {@code nulls}.
+     * Tests if all values in the array are not {@code nulls}.
      *
      * <p>
      * If any value is {@code null} or the array is {@code null} then
@@ -143,7 +141,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Checks if all values in the given array are {@code null}.
+     * Tests if all values in the given array are {@code null}.
      *
      * <p>
      * If all the values are {@code null} or the array is {@code null}
@@ -169,7 +167,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Checks if any value in the given array is not {@code null}.
+     * Tests if any value in the given array is not {@code null}.
      *
      * <p>
      * If all the values are {@code null} or the array is {@code null}
@@ -196,7 +194,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Checks if any value in the given array is {@code null}.
+     * Tests if any value in the given array is {@code null}.
      *
      * <p>
      * If any of the values are {@code null} or the array is {@code null},
@@ -224,7 +222,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Clone an object.
+     * Clones an object.
      *
      * @param <T> the type of the object
      * @param obj  the object to clone, null returns null
@@ -261,7 +259,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Clone an object if possible.
+     * Clones an object if possible.
      *
      * <p>This method is similar to {@link #clone(Object)}, but will return the provided
      * instance as the return value instead of {@code null} if the instance
@@ -324,7 +322,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -345,7 +343,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -366,7 +364,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -387,7 +385,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -408,7 +406,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -429,7 +427,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -450,7 +448,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -471,7 +469,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -492,7 +490,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -514,7 +512,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -541,7 +539,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
