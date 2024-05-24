@@ -60,9 +60,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add T ArrayUtils.arraycopy(T, int, int, int, Function) fluent style.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_22.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_22.</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.getUserName(Supplier&lt;String&gt;).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.getLineSeparator(Supplier&lt;String&gt;).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.getJavaSpecificationVersion(Supplier&lt;String&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getUserName(Supplier&lt;String&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getLineSeparator(Supplier&lt;String&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getJavaSpecificationVersion(Supplier&lt;String&gt;).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties constants and methods for system properties as of Java 22.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add MethodUtils.getMethodObject(Class, String, Class...).</action>
     <!-- FIX -->
