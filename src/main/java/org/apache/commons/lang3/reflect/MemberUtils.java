@@ -239,7 +239,8 @@ final class MemberUtils {
 
     /**
      * Tests whether a {@link Member} is accessible.
-     * @param member Member to test
+     *
+     * @param member Member to test, may be null.
      * @return {@code true} if {@code m} is accessible
      */
     static boolean isAccessible(final Member member) {
@@ -247,7 +248,7 @@ final class MemberUtils {
     }
 
     static boolean isMatchingConstructor(final Constructor<?> method, final Class<?>[] parameterTypes) {
-      return isMatchingExecutable(Executable.of(method), parameterTypes);
+        return isMatchingExecutable(Executable.of(method), parameterTypes);
     }
 
     private static boolean isMatchingExecutable(final Executable method, final Class<?>[] parameterTypes) {
@@ -255,7 +256,6 @@ final class MemberUtils {
         if (ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true)) {
             return true;
         }
-
         if (method.isVarArgs()) {
             int i;
             for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
@@ -271,7 +271,6 @@ final class MemberUtils {
             }
             return true;
         }
-
         return false;
     }
 
@@ -281,6 +280,7 @@ final class MemberUtils {
 
     /**
      * Tests whether a given set of modifiers implies package access.
+     *
      * @param modifiers to test
      * @return {@code true} unless {@code package}/{@code protected}/{@code private} modifier detected
      */
@@ -290,7 +290,8 @@ final class MemberUtils {
 
     /**
      * Tests whether a {@link Member} is public.
-     * @param member Member to test
+     *
+     * @param member Member to test, may be null.
      * @return {@code true} if {@code m} is public
      */
     static boolean isPublic(final Member member) {
@@ -299,7 +300,8 @@ final class MemberUtils {
 
     /**
      * Tests whether a {@link Member} is static.
-     * @param member Member to test
+     *
+     * @param member Member to test, may be null.
      * @return {@code true} if {@code m} is static
      */
     static boolean isStatic(final Member member) {
@@ -308,7 +310,7 @@ final class MemberUtils {
 
     /**
      * Default access superclass workaround.
-     *
+     * <p>
      * When a {@code public} class has a default access superclass with {@code public} members,
      * these members are accessible. Calling them from compiled code works fine.
      * Unfortunately, on some JVMs, using reflection to invoke these members
@@ -316,7 +318,9 @@ final class MemberUtils {
      * Calling {@code setAccessible(true)} solves the problem but will only work from
      * sufficiently privileged code. Better workarounds would be gratefully
      * accepted.
-     * @param obj the AccessibleObject to set as accessible
+     * </p>
+     *
+     * @param obj the AccessibleObject to set as accessible, may be null.
      * @return a boolean indicating whether the accessibility of the object was set to true.
      */
     static <T extends AccessibleObject> T setAccessibleWorkaround(final T obj) {
