@@ -19,7 +19,6 @@ package org.apache.commons.lang3.exception;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
@@ -258,7 +257,7 @@ public class ExceptionUtils {
             if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
                 try {
                     return (Throwable) method.invoke(throwable);
-                } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException ignored) {
+                } catch (final ReflectiveOperationException ignored) {
                     // exception ignored
                 }
             }
