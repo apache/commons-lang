@@ -146,90 +146,59 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
     public void testEdgeDurations() {
         // This test case must use a time zone without DST
         TimeZone.setDefault(FastTimeZone.getGmtTimeZone());
-        assertEqualDuration("01", new int[] { 2006, 0, 15, 0, 0, 0 },
-                             new int[] { 2006, 2, 10, 0, 0, 0 }, "MM");
-        assertEqualDuration("12", new int[] { 2005, 0, 15, 0, 0, 0 },
-                             new int[] { 2006, 0, 15, 0, 0, 0 }, "MM");
-        assertEqualDuration("12", new int[] { 2005, 0, 15, 0, 0, 0 },
-                             new int[] { 2006, 0, 16, 0, 0, 0 }, "MM");
-        assertEqualDuration("11", new int[] { 2005, 0, 15, 0, 0, 0 },
-                             new int[] { 2006, 0, 14, 0, 0, 0 }, "MM");
+        assertEqualDuration("01", new int[] { 2006, 0, 15, 0, 0, 0 }, new int[] { 2006, 2, 10, 0, 0, 0 }, "MM");
+        assertEqualDuration("12", new int[] { 2005, 0, 15, 0, 0, 0 }, new int[] { 2006, 0, 15, 0, 0, 0 }, "MM");
+        assertEqualDuration("12", new int[] { 2005, 0, 15, 0, 0, 0 }, new int[] { 2006, 0, 16, 0, 0, 0 }, "MM");
+        assertEqualDuration("11", new int[] { 2005, 0, 15, 0, 0, 0 }, new int[] { 2006, 0, 14, 0, 0, 0 }, "MM");
 
-        assertEqualDuration("01 26", new int[] { 2006, 0, 15, 0, 0, 0 },
-                             new int[] { 2006, 2, 10, 0, 0, 0 }, "MM dd");
-        assertEqualDuration("54", new int[] { 2006, 0, 15, 0, 0, 0 },
-                             new int[] { 2006, 2, 10, 0, 0, 0 }, "dd");
+        assertEqualDuration("01 26", new int[] { 2006, 0, 15, 0, 0, 0 }, new int[] { 2006, 2, 10, 0, 0, 0 }, "MM dd");
+        assertEqualDuration("54", new int[] { 2006, 0, 15, 0, 0, 0 }, new int[] { 2006, 2, 10, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("09 12", new int[] { 2006, 1, 20, 0, 0, 0 },
-                             new int[] { 2006, 11, 4, 0, 0, 0 }, "MM dd");
-        assertEqualDuration("287", new int[] { 2006, 1, 20, 0, 0, 0 },
-                             new int[] { 2006, 11, 4, 0, 0, 0 }, "dd");
+        assertEqualDuration("09 12", new int[] { 2006, 1, 20, 0, 0, 0 }, new int[] { 2006, 11, 4, 0, 0, 0 }, "MM dd");
+        assertEqualDuration("287", new int[] { 2006, 1, 20, 0, 0, 0 }, new int[] { 2006, 11, 4, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("11 30", new int[] { 2006, 0, 2, 0, 0, 0 },
-                             new int[] { 2007, 0, 1, 0, 0, 0 }, "MM dd");
-        assertEqualDuration("364", new int[] { 2006, 0, 2, 0, 0, 0 },
-                             new int[] { 2007, 0, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("11 30", new int[] { 2006, 0, 2, 0, 0, 0 }, new int[] { 2007, 0, 1, 0, 0, 0 }, "MM dd");
+        assertEqualDuration("364", new int[] { 2006, 0, 2, 0, 0, 0 }, new int[] { 2007, 0, 1, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("12 00", new int[] { 2006, 0, 1, 0, 0, 0 },
-                             new int[] { 2007, 0, 1, 0, 0, 0 }, "MM dd");
-        assertEqualDuration("365", new int[] { 2006, 0, 1, 0, 0, 0 },
-                             new int[] { 2007, 0, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("12 00", new int[] { 2006, 0, 1, 0, 0, 0 }, new int[] { 2007, 0, 1, 0, 0, 0 }, "MM dd");
+        assertEqualDuration("365", new int[] { 2006, 0, 1, 0, 0, 0 }, new int[] { 2007, 0, 1, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("31", new int[] { 2006, 0, 1, 0, 0, 0 },
-                new int[] { 2006, 1, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("31", new int[] { 2006, 0, 1, 0, 0, 0 }, new int[] { 2006, 1, 1, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("92", new int[] { 2005, 9, 1, 0, 0, 0 },
-                new int[] { 2006, 0, 1, 0, 0, 0 }, "dd");
-        assertEqualDuration("77", new int[] { 2005, 9, 16, 0, 0, 0 },
-                new int[] { 2006, 0, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("92", new int[] { 2005, 9, 1, 0, 0, 0 }, new int[] { 2006, 0, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("77", new int[] { 2005, 9, 16, 0, 0, 0 }, new int[] { 2006, 0, 1, 0, 0, 0 }, "dd");
 
         // test month larger in start than end
-        assertEqualDuration("136", new int[] { 2005, 9, 16, 0, 0, 0 },
-                new int[] { 2006, 2, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("136", new int[] { 2005, 9, 16, 0, 0, 0 }, new int[] { 2006, 2, 1, 0, 0, 0 }, "dd");
         // test when start in leap year
-        assertEqualDuration("136", new int[] { 2004, 9, 16, 0, 0, 0 },
-                new int[] { 2005, 2, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("136", new int[] { 2004, 9, 16, 0, 0, 0 }, new int[] { 2005, 2, 1, 0, 0, 0 }, "dd");
         // test when end in leap year
-        assertEqualDuration("137", new int[] { 2003, 9, 16, 0, 0, 0 },
-                new int[] { 2004, 2, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("137", new int[] { 2003, 9, 16, 0, 0, 0 }, new int[] { 2004, 2, 1, 0, 0, 0 }, "dd");
         // test when end in leap year but less than end of feb
-        assertEqualDuration("135", new int[] { 2003, 9, 16, 0, 0, 0 },
-                new int[] { 2004, 1, 28, 0, 0, 0 }, "dd");
+        assertEqualDuration("135", new int[] { 2003, 9, 16, 0, 0, 0 }, new int[] { 2004, 1, 28, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("364", new int[] { 2007, 0, 2, 0, 0, 0 },
-                new int[] { 2008, 0, 1, 0, 0, 0 }, "dd");
-        assertEqualDuration("729", new int[] { 2006, 0, 2, 0, 0, 0 },
-                new int[] { 2008, 0, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("364", new int[] { 2007, 0, 2, 0, 0, 0 }, new int[] { 2008, 0, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("729", new int[] { 2006, 0, 2, 0, 0, 0 }, new int[] { 2008, 0, 1, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("365", new int[] { 2007, 2, 2, 0, 0, 0 },
-                new int[] { 2008, 2, 1, 0, 0, 0 }, "dd");
-        assertEqualDuration("333", new int[] { 2007, 1, 2, 0, 0, 0 },
-                new int[] { 2008, 0, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("365", new int[] { 2007, 2, 2, 0, 0, 0 }, new int[] { 2008, 2, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("333", new int[] { 2007, 1, 2, 0, 0, 0 }, new int[] { 2008, 0, 1, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("28", new int[] { 2008, 1, 2, 0, 0, 0 },
-                new int[] { 2008, 2, 1, 0, 0, 0 }, "dd");
-        assertEqualDuration("393", new int[] { 2007, 1, 2, 0, 0, 0 },
-                new int[] { 2008, 2, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("28", new int[] { 2008, 1, 2, 0, 0, 0 }, new int[] { 2008, 2, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("393", new int[] { 2007, 1, 2, 0, 0, 0 }, new int[] { 2008, 2, 1, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("369", new int[] { 2004, 0, 29, 0, 0, 0 },
-                new int[] { 2005, 1, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("369", new int[] { 2004, 0, 29, 0, 0, 0 }, new int[] { 2005, 1, 1, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("338", new int[] { 2004, 1, 29, 0, 0, 0 },
-                new int[] { 2005, 1, 1, 0, 0, 0 }, "dd");
+        assertEqualDuration("338", new int[] { 2004, 1, 29, 0, 0, 0 }, new int[] { 2005, 1, 1, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("28", new int[] { 2004, 2, 8, 0, 0, 0 },
-                new int[] { 2004, 3, 5, 0, 0, 0 }, "dd");
+        assertEqualDuration("28", new int[] { 2004, 2, 8, 0, 0, 0 }, new int[] { 2004, 3, 5, 0, 0, 0 }, "dd");
 
-        assertEqualDuration("48", new int[] { 1992, 1, 29, 0, 0, 0 },
-                new int[] { 1996, 1, 29, 0, 0, 0 }, "M");
+        assertEqualDuration("48", new int[] { 1992, 1, 29, 0, 0, 0 }, new int[] { 1996, 1, 29, 0, 0, 0 }, "M");
 
         // this seems odd - and will fail if I throw it in as a brute force
         // below as it expects the answer to be 12. It's a tricky edge case
-        assertEqualDuration("11", new int[] { 1996, 1, 29, 0, 0, 0 },
-                new int[] { 1997, 1, 28, 0, 0, 0 }, "M");
+        assertEqualDuration("11", new int[] { 1996, 1, 29, 0, 0, 0 }, new int[] { 1997, 1, 28, 0, 0, 0 }, "M");
         // again - this seems odd
-        assertEqualDuration("11 28", new int[] { 1996, 1, 29, 0, 0, 0 },
-                new int[] { 1997, 1, 28, 0, 0, 0 }, "M d");
+        assertEqualDuration("11 28", new int[] { 1996, 1, 29, 0, 0, 0 }, new int[] { 1997, 1, 28, 0, 0, 0 }, "M d");
 
     }
 
