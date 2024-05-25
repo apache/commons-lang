@@ -117,6 +117,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
                              new int[] { 2006, 1, 26, 10, 47, 34 }, "yyyy/MM/dd HH:mm:ss SSS");
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testConstructor() {
         assertNotNull(new DurationFormatUtils());
