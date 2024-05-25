@@ -519,8 +519,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
     // https://issues.apache.org/jira/browse/LANG-281
     @Test
     public void testJiraLang281() {
-        assertEqualDuration("09", new int[] { 2005, 11, 31, 0, 0, 0 },
-                             new int[] { 2006, 9, 6, 0, 0, 0 }, "MM");
+        assertEqualDuration("09", new int[] { 2005, 11, 31, 0, 0, 0 }, new int[] { 2006, 9, 6, 0, 0, 0 }, "MM");
     }
 
     /**
