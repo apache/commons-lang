@@ -84,8 +84,11 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
 
     private DurationFormatUtils.Token createTokenWithCount(final CharSequence value, final int count) {
         final DurationFormatUtils.Token token = new DurationFormatUtils.Token(value, false, -1);
+        // To help debugging, toString() on a Token should never blow up.
+        assertNotNull(token.toString());
         for (int i = 1; i < count; i++) {
             token.increment();
+            assertNotNull(token.toString());
         }
         return token;
     }
