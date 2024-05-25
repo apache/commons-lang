@@ -32,6 +32,7 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.time.DurationFormatUtils.Token;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultTimeZone;
 
@@ -644,8 +645,12 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
 
         // test failures in equals
         final DurationFormatUtils.Token token = createTokenWithCount(DurationFormatUtils.y, 4);
+        assertEquals(token, token);
+        assertEquals(token.hashCode(), token.hashCode());
         assertNotEquals(token, new Object(), "Token equal to non-Token class. ");
-        assertNotEquals(token, createTokenWithCount("", 1), "Token equal to Token with wrong value class. ");
+        final Token token2 = createTokenWithCount("", 1);
+        assertNotEquals(token, token2, "Token equal to Token with wrong value class. ");
+        assertNotEquals(token.hashCode(), token2.hashCode());
         assertNotEquals(token, createTokenWithCount(DurationFormatUtils.y, 1), "Token equal to Token with different count. ");
         final DurationFormatUtils.Token numToken = createTokenWithCount("1", 4);
         assertEquals(numToken, numToken, "Token with Number value not equal to itself. ");
