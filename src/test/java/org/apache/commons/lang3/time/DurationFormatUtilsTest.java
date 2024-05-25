@@ -523,15 +523,18 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
                              new int[] { 2006, 9, 6, 0, 0, 0 }, "MM");
     }
 
-    // Takes a minute to run, so generally turned off
-//    public void testBrutally() {
-//        Calendar c = Calendar.getInstance();
-//        c.set(2004, 0, 1, 0, 0, 0);
-//        for (int i=0; i < FOUR_YEARS; i++) {
-//            bruteForce(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), "d", Calendar.DAY_OF_MONTH );
-//            c.add(Calendar.DAY_OF_MONTH, 1);
-//        }
-//    }
+    /**
+     * Takes 8 seconds to run.
+     */
+    @Test
+    public void testFourYears() {
+        Calendar c = Calendar.getInstance();
+        c.set(2004, 0, 1, 0, 0, 0);
+        for (int i = 0; i < FOUR_YEARS; i++) {
+            bruteForce(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), "d", Calendar.DAY_OF_MONTH);
+            c.add(Calendar.DAY_OF_MONTH, 1);
+        }
+    }
 
     @Test
     public void testLANG815() {
