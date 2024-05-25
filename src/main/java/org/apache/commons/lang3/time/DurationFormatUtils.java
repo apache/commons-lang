@@ -538,7 +538,7 @@ public class DurationFormatUtils {
 
         // each initial estimate is adjusted in case it is under 0
         while (milliseconds < 0) {
-            milliseconds += 1000;
+            milliseconds += DateUtils.MILLIS_PER_SECOND;
             seconds -= 1;
         }
         while (seconds < 0) {
@@ -632,7 +632,7 @@ public class DurationFormatUtils {
             minutes = 0;
         }
         if (!Token.containsTokenWithValue(tokens, s)) {
-            milliseconds += 1000 * seconds;
+            milliseconds += DateUtils.MILLIS_PER_SECOND * seconds;
             seconds = 0;
         }
 
