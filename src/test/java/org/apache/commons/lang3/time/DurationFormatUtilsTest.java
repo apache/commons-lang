@@ -82,7 +82,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         }
     }
 
-    private DurationFormatUtils.Token createTokenWithCount(final Object value, final int count) {
+    private DurationFormatUtils.Token createTokenWithCount(final CharSequence value, final int count) {
         final DurationFormatUtils.Token token = new DurationFormatUtils.Token(value, false, -1);
         for (int i = 1; i < count; i++) {
             token.increment();
@@ -642,9 +642,9 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         // test failures in equals
         final DurationFormatUtils.Token token = createTokenWithCount(DurationFormatUtils.y, 4);
         assertNotEquals(token, new Object(), "Token equal to non-Token class. ");
-        assertNotEquals(token, createTokenWithCount(new Object(), 1), "Token equal to Token with wrong value class. ");
+        assertNotEquals(token, createTokenWithCount("", 1), "Token equal to Token with wrong value class. ");
         assertNotEquals(token, createTokenWithCount(DurationFormatUtils.y, 1), "Token equal to Token with different count. ");
-        final DurationFormatUtils.Token numToken = createTokenWithCount(Integer.valueOf(1), 4);
+        final DurationFormatUtils.Token numToken = createTokenWithCount("1", 4);
         assertEquals(numToken, numToken, "Token with Number value not equal to itself. ");
     }
 

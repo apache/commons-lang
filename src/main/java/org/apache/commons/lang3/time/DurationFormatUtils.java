@@ -98,7 +98,7 @@ public class DurationFormatUtils {
             return Stream.of(tokens).anyMatch(token -> token.getValue() == value);
         }
 
-        private final Object value;
+        private final CharSequence value;
         private int count;
         private int optionalIndex = -1;
 
@@ -109,7 +109,7 @@ public class DurationFormatUtils {
          * @param optional whether the token is optional
          * @param optionalIndex the index of the optional token within the pattern
          */
-        Token(final Object value, final boolean optional, final int optionalIndex) {
+        Token(final CharSequence value, final boolean optional, final int optionalIndex) {
             this.value = Objects.requireNonNull(value, "value");
             this.count = 1;
             if (optional) {
