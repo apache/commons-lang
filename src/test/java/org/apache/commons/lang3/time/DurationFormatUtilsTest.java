@@ -204,12 +204,8 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
 
     @Test
     public void testEmptyOptionals() {
-      assertEquals(
-          "",
-          DurationFormatUtils.formatDuration(0L, "[d'd'][H'h'][m'm'][s's']"));
-      assertEquals(
-          "",
-          DurationFormatUtils.formatDuration(0L, "['d''h''m''s's]"));
+        assertEquals("", DurationFormatUtils.formatDuration(0L, "[d'd'][H'h'][m'm'][s's']"));
+        assertEquals("", DurationFormatUtils.formatDuration(0L, "['d''h''m''s's]"));
     }
 
     @Test
