@@ -534,6 +534,8 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         assertEquals("P1Y1M2DT10H30M0.000S", text);
         // want a way to say 'don't print the seconds in format()' or other fields for that matter:
         // assertEquals("P1Y2M3DT10H30M", text);
+        //
+        // TODO Jacoco shows missing coverage for internal negative days
     }
 
     @Test
