@@ -461,11 +461,16 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         cal.set(Calendar.MILLISECOND, 0);
         time = cal.getTime().getTime();
         assertEquals("40", DurationFormatUtils.formatPeriod(time1970, time, "yM"));
+        assertEquals("4 years 0 months", DurationFormatUtils.formatPeriod(time1970, time, "y' ''years' M 'months'"));
         assertEquals("4 years 0 months", DurationFormatUtils.formatPeriod(time1970, time, "y' years 'M' months'"));
+        assertEquals("4years 0months", DurationFormatUtils.formatPeriod(time1970, time, "y'years 'M'months'"));
         assertEquals("04/00", DurationFormatUtils.formatPeriod(time1970, time, "yy/MM"));
         assertEquals("48", DurationFormatUtils.formatPeriod(time1970, time, "M"));
         assertEquals("48", DurationFormatUtils.formatPeriod(time1970, time, "MM"));
         assertEquals("048", DurationFormatUtils.formatPeriod(time1970, time, "MMM"));
+        // no date in result
+        assertEquals("hello", DurationFormatUtils.formatPeriod(time1970, time, "'hello'"));
+        assertEquals("helloworld", DurationFormatUtils.formatPeriod(time1970, time, "'hello''world'"));
     }
 
     @Test
