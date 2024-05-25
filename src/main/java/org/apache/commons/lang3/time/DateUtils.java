@@ -131,7 +131,7 @@ public class DateUtils {
      * Number of milliseconds in a standard second.
      * @since 2.1
      */
-    public static final long MILLIS_PER_SECOND = 1000;
+    public static final long MILLIS_PER_SECOND = 1_000;
     /**
      * Number of milliseconds in a standard minute.
      * @since 2.1
