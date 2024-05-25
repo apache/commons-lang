@@ -30,9 +30,9 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-13]
         java: [ 8, 11, 17, 21, 22 ]
         experimental: [false]
-        include:
-          - java: 23-ea
-            experimental: true
+#        include:
+#          - java: 23-ea
+#            experimental: true
 
     steps:
     - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
