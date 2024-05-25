@@ -79,6 +79,12 @@ import org.apache.commons.lang3.Validate;
  */
 public class DurationFormatUtils {
 
+    private static final int MINUTES_PER_HOUR = 60;
+
+    private static final int SECONDS_PER_MINUTES = 60;
+
+    private static final int HOURS_PER_DAY = 24;
+
     /**
      * Element that is parsed from the format pattern.
      */
@@ -542,15 +548,15 @@ public class DurationFormatUtils {
             seconds -= 1;
         }
         while (seconds < 0) {
-            seconds += 60;
+            seconds += SECONDS_PER_MINUTES;
             minutes -= 1;
         }
         while (minutes < 0) {
-            minutes += 60;
+            minutes += MINUTES_PER_HOUR;
             hours -= 1;
         }
         while (hours < 0) {
-            hours += 24;
+            hours += HOURS_PER_DAY;
             days -= 1;
         }
 
@@ -620,15 +626,15 @@ public class DurationFormatUtils {
         // number of months and get the real count and not just 0->11.
 
         if (!Token.containsTokenWithValue(tokens, d)) {
-            hours += 24 * days;
+            hours += HOURS_PER_DAY * days;
             days = 0;
         }
         if (!Token.containsTokenWithValue(tokens, H)) {
-            minutes += 60 * hours;
+            minutes += MINUTES_PER_HOUR * hours;
             hours = 0;
         }
         if (!Token.containsTokenWithValue(tokens, m)) {
-            seconds += 60 * minutes;
+            seconds += SECONDS_PER_MINUTES * minutes;
             minutes = 0;
         }
         if (!Token.containsTokenWithValue(tokens, s)) {
