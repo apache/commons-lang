@@ -54,7 +54,7 @@ public final class Functions {
      * otherwise.
      * @since 3.15.0
      */
-    public static <T, R> R applyIfNotNull(final T object, final Function<T, R> function) {
+    public static <T, R> R apply(final T object, final Function<T, R> function) {
         return object != null && function != null ? function.apply(object) : null;
     }
 }

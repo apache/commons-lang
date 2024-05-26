@@ -50,18 +50,18 @@ public class ConsumersTest extends AbstractLangTest {
     }
 
     /**
-     * Tests {@link Consumers#acceptIfNotNull(Object, Consumer)}.
+     * Tests {@link Consumers#accept(Object, Consumer)}.
      */
     @Test
-    public void testAcceptIfNotNull() {
+    public void testAccept() {
         final StringBuilder builder = new StringBuilder("foo");
-        Consumers.acceptIfNotNull(builder, sb -> sb.append("-bar"));
+        Consumers.accept(builder, sb -> sb.append("-bar"));
         assertEquals("foo-bar", builder.toString());
 
-        Consumers.acceptIfNotNull((String) null, string -> fail());
+        Consumers.accept((String) null, string -> fail());
 
         final StringBuilder builder2 = new StringBuilder("foo");
-        Consumers.acceptIfNotNull(builder2, null);
+        Consumers.accept(builder2, null);
         assertEquals("foo", builder2.toString());
     }
 }

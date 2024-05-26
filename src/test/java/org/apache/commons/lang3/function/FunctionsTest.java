@@ -39,12 +39,12 @@ public class FunctionsTest {
     }
 
     /**
-     * Tests {@link Functions#applyIfNotNull(Object, Function)}.
+     * Tests {@link Functions#apply(Object, Function)}.
      */
     @Test
-    public void testApplyIfNotNull() {
-        assertEquals("foo-bar", Functions.applyIfNotNull("foo", string -> string.concat("-bar")));
-        assertNull(Functions.applyIfNotNull("foo", null));
-        assertNull(Functions.applyIfNotNull((String) null, string -> fail()));
+    public void testApply() {
+        assertEquals("foo-bar", Functions.apply("foo", string -> string.concat("-bar")));
+        assertNull(Functions.apply("foo", null));
+        assertNull(Functions.apply((String) null, string -> fail()));
     }
 }
