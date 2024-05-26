@@ -304,23 +304,15 @@ public class CharUtils {
     }
 
     /**
-     * Converts the character to a Character.
+     * Delegates to {@link Character#valueOf(char)}.
      *
-     * <p>For ASCII 7 bit characters, this uses a cache that will return the
-     * same Character object each time.</p>
-     *
-     * <pre>
-     *   CharUtils.toCharacterObject(' ')  = ' '
-     *   CharUtils.toCharacterObject('A')  = 'A'
-     * </pre>
-     *
-     * @deprecated Java 5 introduced {@link Character#valueOf(char)} which caches chars 0 through 127.
-     * @param ch  the character to convert
-     * @return a Character of the specified character
+     * @param c the character to convert
+     * @return a {@code Character} representing {@code c}.
+     * @deprecated Use {@link Character#valueOf(char)}.
      */
     @Deprecated
-    public static Character toCharacterObject(final char ch) {
-        return Character.valueOf(ch);
+    public static Character toCharacterObject(final char c) {
+        return Character.valueOf(c);
     }
 
     /**
