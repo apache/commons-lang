@@ -474,6 +474,21 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testSingleQuotes() {
+        final Calendar cal1970 = Calendar.getInstance();
+        cal1970.set(1970, Calendar.JANUARY, 1, 0, 0, 0);
+        cal1970.set(Calendar.MILLISECOND, 0);
+        final long time1970 = cal1970.getTime().getTime();
+        long time = time1970 + 60 * 1000;
+        // empty quoted strings: '' should now generate a single quote
+        assertEquals("'", DurationFormatUtils.formatPeriod(time1970, time, "''"));
+        assertEquals("a'", DurationFormatUtils.formatPeriod(time1970, time, "'a'''"));
+        assertEquals("'b", DurationFormatUtils.formatPeriod(time1970, time, "'''b'"));
+        assertEquals("a'b", DurationFormatUtils.formatPeriod(time1970, time, "'a''''b'"));
+        assertEquals("01' 04sec",DurationFormatUtils.formatDuration(64000L, "mm'' ss'sec'"));
+    }
+
+    @Test
     public void testFormatPeriodeStartGreaterEnd() {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatPeriod(5000, 2500, "yy/MM"));
     }
