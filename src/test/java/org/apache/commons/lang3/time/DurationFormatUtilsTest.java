@@ -485,7 +485,7 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         assertEquals("a'", DurationFormatUtils.formatPeriod(time1970, time, "'a'''"));
         assertEquals("'b", DurationFormatUtils.formatPeriod(time1970, time, "'''b'"));
         assertEquals("a'b", DurationFormatUtils.formatPeriod(time1970, time, "'a''''b'"));
-        assertEquals("01' 04sec",DurationFormatUtils.formatDuration(64000L, "mm'' ss'sec'"));
+        assertEquals("01' 04sec", DurationFormatUtils.formatDuration(64000L, "mm'' ss'sec'"));
     }
 
     @Test
