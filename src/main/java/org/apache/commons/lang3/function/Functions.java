@@ -43,8 +43,7 @@ public final class Functions {
     }
 
     /**
-     * Applies the {@link Function} on the object if the object and the function are not {@code null}. Otherwise, do
-     * nothing.
+     * Applies the {@link Function} on the object if the function is not {@code null}. Otherwise, do nothing.
      *
      * @param object the object to apply the function.
      * @param function the function to apply.
@@ -55,6 +54,6 @@ public final class Functions {
      * @since 3.15.0
      */
     public static <T, R> R apply(final T object, final Function<T, R> function) {
-        return object != null && function != null ? function.apply(object) : null;
+        return function != null ? function.apply(object) : null;
     }
 }

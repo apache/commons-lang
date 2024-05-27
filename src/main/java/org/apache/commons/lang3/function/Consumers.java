@@ -47,8 +47,8 @@ public class Consumers {
     }
 
     /**
-     * Applies the given {@link Consumer} action to the object if the object and the consumer are not {@code null}.
-     * Otherwise, do nothing.
+     * Applies the given {@link Consumer} action to the object if the consumer is not {@code null}. Otherwise, do
+     * nothing.
      *
      * @param object the object to be consumed.
      * @param consumer the consumer to consume.
@@ -56,7 +56,7 @@ public class Consumers {
      * @since 3.15.0
      */
     public static <T> void accept(final T object, final Consumer<T> consumer) {
-        if (object != null && consumer != null) {
+        if (consumer != null) {
             consumer.accept(object);
         }
     }

@@ -23,7 +23,6 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Tests {@link Functions}.
@@ -44,7 +43,7 @@ public class FunctionsTest {
     @Test
     public void testApply() {
         assertEquals("foo-bar", Functions.apply("foo", string -> string.concat("-bar")));
+        assertEquals("foo-bar", Functions.apply(null, object -> "foo-bar"));
         assertNull(Functions.apply("foo", null));
-        assertNull(Functions.apply((String) null, string -> fail()));
     }
 }
