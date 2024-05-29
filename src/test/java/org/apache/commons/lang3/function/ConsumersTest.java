@@ -41,20 +41,20 @@ public class ConsumersTest extends AbstractLangTest {
     }
 
     /**
-     * Tests {@link Consumers#accept(Object, Consumer)}.
+     * Tests {@link Consumers#accept(Consumer, Object)}.
      */
     @Test
     public void testAccept() {
         final StringBuilder builder = new StringBuilder("foo");
-        Consumers.accept(builder, sb -> sb.append("-bar"));
+        Consumers.accept(sb -> sb.append("-bar"), builder);
         assertEquals("foo-bar", builder.toString());
 
         final TestConsumer<String> consumer = new TestConsumer<>();
-        Consumers.accept(null, consumer);
+        Consumers.accept(consumer, null);
         assertTrue(consumer.isCalled);
 
         final StringBuilder builder2 = new StringBuilder("foo");
-        Consumers.accept(builder2, null);
+        Consumers.accept(null, builder2);
         assertEquals("foo", builder2.toString());
     }
 

@@ -30,13 +30,13 @@ import org.junit.jupiter.api.Test;
 public class FunctionsTest {
 
     /**
-     * Tests {@link Functions#apply(Object, Function)}.
+     * Tests {@link Functions#apply(Function, Object)}.
      */
     @Test
     public void testApply() {
-        assertEquals("foo-bar", Functions.apply("foo", string -> string.concat("-bar")));
-        assertEquals("foo-bar", Functions.apply(null, object -> "foo-bar"));
-        assertNull(Functions.apply("foo", null));
+        assertEquals("foo-bar", Functions.apply(string -> string.concat("-bar"), "foo"));
+        assertEquals("foo-bar", Functions.apply(object -> "foo-bar", null));
+        assertNull(Functions.apply(null, "foo"));
     }
 
     /**
