@@ -17,14 +17,14 @@
 
 package org.apache.commons.lang3.function;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests {@link Consumers}.
@@ -68,7 +68,7 @@ public class ConsumersTest extends AbstractLangTest {
     }
 
     private static final class TestConsumer<T> implements Consumer<T> {
-        public boolean isCalled = false;
+        private boolean isCalled;
 
         @Override
         public void accept(T t) {
