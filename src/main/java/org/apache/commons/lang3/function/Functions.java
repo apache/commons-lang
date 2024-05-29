@@ -43,7 +43,8 @@ public final class Functions {
     }
 
     /**
-     * Applies the {@link Function} on the object if the function is not {@code null}. Otherwise, returns {@code null}
+     * Applies the {@link Function} on the object if the function is not {@code null}. Otherwise, does nothing and
+     * returns {@code null}.
      *
      * @param object the object to apply the function.
      * @param function the function to apply.
