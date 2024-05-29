@@ -18,13 +18,32 @@
 package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests {@link Functions}.
+ */
 public class FunctionsTest {
 
+    /**
+     * Tests {@link Functions#function(Function)}.
+     */
     @Test
     public void testFunction() {
         assertEquals("foo", Functions.function(String::valueOf).andThen(String::toString).apply("foo"));
+    }
+
+    /**
+     * Tests {@link Functions#apply(Object, Function)}.
+     */
+    @Test
+    public void testApply() {
+        assertEquals("foo-bar", Functions.apply("foo", string -> string.concat("-bar")));
+        assertEquals("foo-bar", Functions.apply(null, object -> "foo-bar"));
+        assertNull(Functions.apply("foo", null));
     }
 }

@@ -17,6 +17,9 @@
 
 package org.apache.commons.lang3.function;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -46,4 +49,30 @@ public class ConsumersTest extends AbstractLangTest {
         Consumers.nop().accept("");
     }
 
+    /**
+     * Tests {@link Consumers#accept(Object, Consumer)}.
+     */
+    @Test
+    public void testAccept() {
+        final StringBuilder builder = new StringBuilder("foo");
+        Consumers.accept(builder, sb -> sb.append("-bar"));
+        assertEquals("foo-bar", builder.toString());
+
+        final TestConsumer<String> consumer = new TestConsumer<>();
+        Consumers.accept(null, consumer);
+        assertTrue(consumer.isCalled);
+
+        final StringBuilder builder2 = new StringBuilder("foo");
+        Consumers.accept(builder2, null);
+        assertEquals("foo", builder2.toString());
+    }
+
+    private static final class TestConsumer<T> implements Consumer<T> {
+        private boolean isCalled;
+
+        @Override
+        public void accept(T t) {
+            isCalled = true;
+        }
+    }
 }
