@@ -111,13 +111,13 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripAccentsUWithBar() {
-        assertEquals("U u U u", StringUtils.stripAccents("\u0244 \u0289 \u1D7E \u1DB6"));
+    public void testStripAccentsTWithStroke() {
+        assertEquals("T t", StringUtils.stripAccents("\u0166 \u0167"));
     }
 
     @Test
-    public void testStripAccentsTWithStroke() {
-        assertEquals("T t", StringUtils.stripAccents("\u0166 \u0167"));
+    public void testStripAccentsUWithBar() {
+        assertEquals("U u U u", StringUtils.stripAccents("\u0244 \u0289 \u1D7E \u1DB6"));
     }
 
     @Test

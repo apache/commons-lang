@@ -31,22 +31,13 @@ import org.junit.jupiter.api.Test;
  */
 public class ConsumersTest extends AbstractLangTest {
 
-    /**
-     * Tests {@link Consumers#nop()}.
-     */
-    @Test
-    public void testNop() {
-        Stream.of("").forEach(Consumers.nop());
-        //
-        final Consumer<?> c1 = Consumers.nop();
-        c1.accept(null);
-        final Consumer<Object> c2 = Consumers.nop();
-        c2.accept(null);
-        final Consumer<String> c3 = Consumers.nop();
-        c3.accept(null);
-        //
-        Consumers.nop().accept(null);
-        Consumers.nop().accept("");
+    private static final class TestConsumer<T> implements Consumer<T> {
+        private boolean isCalled;
+
+        @Override
+        public void accept(T t) {
+            isCalled = true;
+        }
     }
 
     /**
@@ -67,12 +58,21 @@ public class ConsumersTest extends AbstractLangTest {
         assertEquals("foo", builder2.toString());
     }
 
-    private static final class TestConsumer<T> implements Consumer<T> {
-        private boolean isCalled;
-
-        @Override
-        public void accept(T t) {
-            isCalled = true;
-        }
+    /**
+     * Tests {@link Consumers#nop()}.
+     */
+    @Test
+    public void testNop() {
+        Stream.of("").forEach(Consumers.nop());
+        //
+        final Consumer<?> c1 = Consumers.nop();
+        c1.accept(null);
+        final Consumer<Object> c2 = Consumers.nop();
+        c2.accept(null);
+        final Consumer<String> c3 = Consumers.nop();
+        c3.accept(null);
+        //
+        Consumers.nop().accept(null);
+        Consumers.nop().accept("");
     }
 }

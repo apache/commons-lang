@@ -141,19 +141,19 @@ public class NumberUtilsTest extends AbstractLangTest {
         return parsable;
     }
 
-    private boolean isParsableFloat(final String s) {
-        final boolean parsable = NumberUtils.isParsable(s);
-        assertTrue(isNumberFormatParsable(s), s);
-        assertTrue(isNumberIntegerOnlyFormatParsable(s), s);
-        assertEquals(parsable, isApplyNonNull(s, Float::parseFloat), s);
-        return parsable;
-    }
-
     private boolean isParsableDouble(final String s) {
         final boolean parsable = NumberUtils.isParsable(s);
         assertTrue(isNumberFormatParsable(s), s);
         assertTrue(isNumberIntegerOnlyFormatParsable(s), s);
         assertEquals(parsable, isApplyNonNull(s, Double::parseDouble), s);
+        return parsable;
+    }
+
+    private boolean isParsableFloat(final String s) {
+        final boolean parsable = NumberUtils.isParsable(s);
+        assertTrue(isNumberFormatParsable(s), s);
+        assertTrue(isNumberIntegerOnlyFormatParsable(s), s);
+        assertEquals(parsable, isApplyNonNull(s, Float::parseFloat), s);
         return parsable;
     }
 

@@ -32,21 +32,6 @@ public class Consumers {
     private static final Consumer NOP = Function.identity()::apply;
 
     /**
-     * Gets the NOP Consumer singleton.
-     *
-     * @param <T> type type to consume.
-     * @return the NOP Consumer singleton.
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> Consumer<T> nop() {
-        return NOP;
-    }
-
-    private Consumers() {
-        // No instances.
-    }
-
-    /**
      * Applies the given {@link Consumer} action to the object if the consumer is not {@code null}. Otherwise, does
      * nothing.
      *
@@ -59,5 +44,20 @@ public class Consumers {
         if (consumer != null) {
             consumer.accept(object);
         }
+    }
+
+    /**
+     * Gets the NOP Consumer singleton.
+     *
+     * @param <T> type type to consume.
+     * @return the NOP Consumer singleton.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> Consumer<T> nop() {
+        return NOP;
+    }
+
+    private Consumers() {
+        // No instances.
     }
 }

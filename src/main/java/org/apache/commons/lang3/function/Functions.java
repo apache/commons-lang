@@ -27,6 +27,21 @@ import java.util.function.Function;
 public final class Functions {
 
     /**
+     * Applies the {@link Function} on the object if the function is not {@code null}. Otherwise, does nothing and
+     * returns {@code null}.
+     *
+     * @param object the object to apply the function.
+     * @param function the function to apply.
+     * @param <T> the type of the argument the function applies.
+     * @param <R> the type of the result the function returns.
+     * @return the value the function returns if the function is not {@code null}; {@code null} otherwise.
+     * @since 3.15.0
+     */
+    public static <T, R> R apply(final T object, final Function<T, R> function) {
+        return function != null ? function.apply(object) : null;
+    }
+
+    /**
      * Starts a fluent chain like {@code function(foo::bar).andThen(...).andThen(...).apply(...);}
      *
      * @param <T>      Input type.
@@ -40,20 +55,5 @@ public final class Functions {
 
     private Functions() {
         // no instances needed.
-    }
-
-    /**
-     * Applies the {@link Function} on the object if the function is not {@code null}. Otherwise, does nothing and
-     * returns {@code null}.
-     *
-     * @param object the object to apply the function.
-     * @param function the function to apply.
-     * @param <T> the type of the argument the function applies.
-     * @param <R> the type of the result the function returns.
-     * @return the value the function returns if the function is not {@code null}; {@code null} otherwise.
-     * @since 3.15.0
-     */
-    public static <T, R> R apply(final T object, final Function<T, R> function) {
-        return function != null ? function.apply(object) : null;
     }
 }

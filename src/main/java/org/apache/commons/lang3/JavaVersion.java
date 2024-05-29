@@ -184,6 +184,11 @@ public enum JavaVersion {
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
 
     /**
+     * The regex to split version strings.
+     */
+    private static final String VERSION_SPLIT_REGEX = "\\.";
+
+    /**
      * Transforms the given string with a Java version number to the
      * corresponding constant of this enumeration class. This method is used
      * internally.
@@ -312,11 +317,6 @@ public enum JavaVersion {
      * The standard name.
      */
     private final String name;
-
-    /**
-     * The regex to split version strings.
-     */
-    private static final String VERSION_SPLIT_REGEX = "\\.";
 
     /**
      * Constructs a new instance.

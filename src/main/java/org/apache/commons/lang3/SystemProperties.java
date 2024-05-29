@@ -3715,6 +3715,20 @@ public final class SystemProperties {
      * </p>
      *
      * @param property        the system property name.
+     * @param defaultIfAbsent use this value when the property is empty or throws SecurityException.
+     * @return the system property value or {@code null} if a security problem occurs
+     */
+    static String getProperty(final String property, final String defaultIfAbsent) {
+        return getProperty(property, () -> defaultIfAbsent);
+    }
+
+    /**
+     * Gets a System property, defaulting to {@code null} if the property cannot be read.
+     * <p>
+     * If a {@link SecurityException} is caught, the return value is {@code null}.
+     * </p>
+     *
+     * @param property        the system property name.
      * @param defaultIfAbsent get this Supplier when the property is empty or throws SecurityException.
      * @return the system property value or {@code null} if a security problem occurs
      */
@@ -3732,20 +3746,6 @@ public final class SystemProperties {
             // + "'; the SystemUtils property value will default to null.");
             return defaultIfAbsent.get();
         }
-    }
-
-    /**
-     * Gets a System property, defaulting to {@code null} if the property cannot be read.
-     * <p>
-     * If a {@link SecurityException} is caught, the return value is {@code null}.
-     * </p>
-     *
-     * @param property        the system property name.
-     * @param defaultIfAbsent use this value when the property is empty or throws SecurityException.
-     * @return the system property value or {@code null} if a security problem occurs
-     */
-    static String getProperty(final String property, final String defaultIfAbsent) {
-        return getProperty(property, () -> defaultIfAbsent);
     }
 
     /**

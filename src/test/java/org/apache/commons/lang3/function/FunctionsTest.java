@@ -30,14 +30,6 @@ import org.junit.jupiter.api.Test;
 public class FunctionsTest {
 
     /**
-     * Tests {@link Functions#function(Function)}.
-     */
-    @Test
-    public void testFunction() {
-        assertEquals("foo", Functions.function(String::valueOf).andThen(String::toString).apply("foo"));
-    }
-
-    /**
      * Tests {@link Functions#apply(Object, Function)}.
      */
     @Test
@@ -45,5 +37,13 @@ public class FunctionsTest {
         assertEquals("foo-bar", Functions.apply("foo", string -> string.concat("-bar")));
         assertEquals("foo-bar", Functions.apply(null, object -> "foo-bar"));
         assertNull(Functions.apply("foo", null));
+    }
+
+    /**
+     * Tests {@link Functions#function(Function)}.
+     */
+    @Test
+    public void testFunction() {
+        assertEquals("foo", Functions.function(String::valueOf).andThen(String::toString).apply("foo"));
     }
 }
