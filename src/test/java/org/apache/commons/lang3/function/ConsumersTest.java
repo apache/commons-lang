@@ -17,9 +17,9 @@
 
 package org.apache.commons.lang3.function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -31,31 +31,16 @@ import org.junit.jupiter.api.Test;
  */
 public class ConsumersTest extends AbstractLangTest {
 
-    private static final class TestConsumer<T> implements Consumer<T> {
-        private boolean isCalled;
-
-        @Override
-        public void accept(T t) {
-            isCalled = true;
-        }
-    }
-
     /**
      * Tests {@link Consumers#accept(Consumer, Object)}.
      */
     @Test
     public void testAccept() {
-        final StringBuilder builder = new StringBuilder("foo");
-        Consumers.accept(sb -> sb.append("-bar"), builder);
-        assertEquals("foo-bar", builder.toString());
-
-        final TestConsumer<String> consumer = new TestConsumer<>();
-        Consumers.accept(consumer, null);
-        assertTrue(consumer.isCalled);
-
-        final StringBuilder builder2 = new StringBuilder("foo");
-        Consumers.accept(null, builder2);
-        assertEquals("foo", builder2.toString());
+        final AtomicBoolean bool = new AtomicBoolean();
+        Consumers.accept(bool::set, true);
+        assertTrue(bool.get());
+        Consumers.accept(null, "");
+        Consumers.accept(null, null);
     }
 
     /**
