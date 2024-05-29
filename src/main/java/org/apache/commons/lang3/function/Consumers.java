@@ -47,7 +47,7 @@ public class Consumers {
     }
 
     /**
-     * Applies the given {@link Consumer} action to the object if the consumer is not {@code null}. Otherwise, do
+     * Applies the given {@link Consumer} action to the object if the consumer is not {@code null}. Otherwise, does
      * nothing.
      *
      * @param object the object to be consumed.
