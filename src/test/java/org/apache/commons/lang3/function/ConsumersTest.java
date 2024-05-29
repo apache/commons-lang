@@ -21,12 +21,10 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
-import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests {@link Consumers}.
@@ -60,14 +58,21 @@ public class ConsumersTest extends AbstractLangTest {
         Consumers.accept(builder, sb -> sb.append("-bar"));
         assertEquals("foo-bar", builder.toString());
 
-        final Consumer<String> mock = EasyMock.createMock(Consumer.class);
-        mock.accept(null);
-        replay(mock);
-        Consumers.accept(null, mock);
-        verify(mock);
+        final TestConsumer<String> consumer = new TestConsumer<>();
+        Consumers.accept(null, consumer);
+        assertTrue(consumer.isCalled);
 
         final StringBuilder builder2 = new StringBuilder("foo");
         Consumers.accept(builder2, null);
         assertEquals("foo", builder2.toString());
+    }
+
+    private static final class TestConsumer<T> implements Consumer<T> {
+        public boolean isCalled = false;
+
+        @Override
+        public void accept(T t) {
+            isCalled = true;
+        }
     }
 }
