@@ -1145,6 +1145,20 @@ public class SystemUtils {
     public static final boolean IS_OS_AIX = getOsMatchesName("AIX");
 
     /**
+     * Is {@code true} if this is Android.
+     *
+     * <p>
+     * See https://developer.android.com/reference/java/lang/System#getProperties().
+     * </p>
+     * <p>
+     * This value is initialized when the class is loaded.
+     * </p>
+     *
+     * @since 3.15.0
+     */
+    public static final boolean IS_OS_ANDROID = SystemProperties.getJavaVendor().contains("Android");
+
+    /**
      * Is {@code true} if this is HP-UX.
      *
      * <p>

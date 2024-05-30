@@ -151,11 +151,13 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_OS_LINUX);
             assertFalse(SystemUtils.IS_OS_MAC_OSX);
         } else if (osName.startsWith("Windows")) {
-            assertFalse(SystemUtils.IS_OS_UNIX);
             assertTrue(SystemUtils.IS_OS_WINDOWS);
+            assertFalse(SystemUtils.IS_OS_ANDROID);
+            assertFalse(SystemUtils.IS_OS_UNIX);
         } else if (osName.startsWith("Solaris")) {
             assertTrue(SystemUtils.IS_OS_SOLARIS);
             assertTrue(SystemUtils.IS_OS_UNIX);
+            assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
         } else if (osName.toLowerCase(Locale.ENGLISH).startsWith("linux")) {
             assertTrue(SystemUtils.IS_OS_LINUX);
@@ -164,21 +166,25 @@ public class SystemUtilsTest extends AbstractLangTest {
         } else if (osName.startsWith("Mac OS X")) {
             assertTrue(SystemUtils.IS_OS_MAC_OSX);
             assertTrue(SystemUtils.IS_OS_UNIX);
+            assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
         } else if (osName.startsWith("OS/2")) {
             assertTrue(SystemUtils.IS_OS_OS2);
             assertFalse(SystemUtils.IS_OS_UNIX);
+            assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
         } else if (osName.startsWith("SunOS")) {
             assertTrue(SystemUtils.IS_OS_SUN_OS);
             assertTrue(SystemUtils.IS_OS_UNIX);
+            assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
         } else if (osName.startsWith("FreeBSD")) {
             assertTrue(SystemUtils.IS_OS_FREE_BSD);
             assertTrue(SystemUtils.IS_OS_UNIX);
+            assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
         } else {
-            System.out.println("Can't test IS_OS value: " + osName);
+            System.err.println("Can't test IS_OS_ value: " + osName);
         }
     }
 
