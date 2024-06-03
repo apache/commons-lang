@@ -66,14 +66,14 @@ public class SerializationUtils {
                 new HashMap<>();
 
         static {
+            primitiveTypes.put(boolean.class.getSimpleName(), boolean.class);
             primitiveTypes.put(byte.class.getSimpleName(), byte.class);
-            primitiveTypes.put(short.class.getSimpleName(), short.class);
+            primitiveTypes.put(char.class.getSimpleName(), char.class);
+            primitiveTypes.put(double.class.getSimpleName(), double.class);
+            primitiveTypes.put(float.class.getSimpleName(), float.class);
             primitiveTypes.put(int.class.getSimpleName(), int.class);
             primitiveTypes.put(long.class.getSimpleName(), long.class);
-            primitiveTypes.put(float.class.getSimpleName(), float.class);
-            primitiveTypes.put(double.class.getSimpleName(), double.class);
-            primitiveTypes.put(boolean.class.getSimpleName(), boolean.class);
-            primitiveTypes.put(char.class.getSimpleName(), char.class);
+            primitiveTypes.put(short.class.getSimpleName(), short.class);
             primitiveTypes.put(void.class.getSimpleName(), void.class);
         }
 
