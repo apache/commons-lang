@@ -477,11 +477,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
             final TimeZone zone = calendar.getTimeZone();
-            if (calendar.get(Calendar.DST_OFFSET) == 0) {
-                buffer.append(getTimeZoneDisplay(zone, false, style, locale));
-            } else {
-                buffer.append(getTimeZoneDisplay(zone, true, style, locale));
-            }
+            final boolean daylight = calendar.get(Calendar.DST_OFFSET) != 0;
+            buffer.append(getTimeZoneDisplay(zone, daylight, style, locale));
         }
 
         /**
