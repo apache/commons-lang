@@ -7103,9 +7103,6 @@ public class StringUtils {
      * @since 2.0
      */
     public static String reverseDelimited(final String str, final char separatorChar) {
-        if (str == null) {
-            return null;
-        }
         final String[] strs = split(str, separatorChar);
         ArrayUtils.reverse(strs);
         return join(strs, separatorChar);
