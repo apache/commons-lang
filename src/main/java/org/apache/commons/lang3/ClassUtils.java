@@ -92,7 +92,7 @@ public class ClassUtils {
     private static final Map<String, Class<?>> namePrimitiveMap = new HashMap<>();
 
     static {
-        namePrimitiveMap.put("boolean", Boolean.TYPE);
+        namePrimitiveMap.put(Boolean.TYPE.getSimpleName(), Boolean.TYPE);
         namePrimitiveMap.put("byte", Byte.TYPE);
         namePrimitiveMap.put("char", Character.TYPE);
         namePrimitiveMap.put("short", Short.TYPE);
