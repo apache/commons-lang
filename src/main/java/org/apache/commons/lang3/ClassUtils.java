@@ -528,7 +528,7 @@ public class ClassUtils {
      */
     public static Class<?> getClass(final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
         try {
-            final Class<?> clazz = namePrimitiveMap.get(className);
+            final Class<?> clazz = getPrimitiveClass(className);
             return clazz != null ? clazz : Class.forName(toCanonicalName(className), initialize, classLoader);
         } catch (final ClassNotFoundException ex) {
             // allow path separators (.) as inner class name separators
@@ -748,6 +748,16 @@ public class ClassUtils {
             return StringUtils.EMPTY;
         }
         return className.substring(0, i);
+    }
+
+    /**
+     * Gets the primitive class for the given class name, for example "byte".
+     *
+     * @param className the primitive class for the given class name.
+     * @return the primitive class.
+     */
+    static Class<?> getPrimitiveClass(final String className) {
+        return namePrimitiveMap.get(className);
     }
 
     /**

@@ -25,8 +25,6 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectStreamClass;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -61,21 +59,6 @@ public class SerializationUtils {
      * class here is a workaround, see the JIRA issue LANG-626.</p>
      */
      static final class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
-        // Note: This is final to avoid Spotbugs CT_CONSTRUCTOR_THROW
-        private static final Map<String, Class<?>> primitiveTypes =
-                new HashMap<>();
-
-        static {
-            primitiveTypes.put(boolean.class.getSimpleName(), boolean.class);
-            primitiveTypes.put(byte.class.getSimpleName(), byte.class);
-            primitiveTypes.put(char.class.getSimpleName(), char.class);
-            primitiveTypes.put(double.class.getSimpleName(), double.class);
-            primitiveTypes.put(float.class.getSimpleName(), float.class);
-            primitiveTypes.put(int.class.getSimpleName(), int.class);
-            primitiveTypes.put(long.class.getSimpleName(), long.class);
-            primitiveTypes.put(short.class.getSimpleName(), short.class);
-            primitiveTypes.put(void.class.getSimpleName(), void.class);
-        }
 
         private final ClassLoader classLoader;
 
@@ -108,7 +91,7 @@ public class SerializationUtils {
                 try {
                     return Class.forName(name, false, Thread.currentThread().getContextClassLoader());
                 } catch (final ClassNotFoundException cnfe) {
-                    final Class<?> cls = primitiveTypes.get(name);
+                    final Class<?> cls = ClassUtils.getPrimitiveClass(name);
                     if (cls != null) {
                         return cls;
                     }
