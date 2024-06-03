@@ -7106,8 +7106,6 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        // could implement manually, but simple way is to reuse other,
-        // probably slower, methods.
         final String[] strs = split(str, separatorChar);
         ArrayUtils.reverse(strs);
         return join(strs, separatorChar);
