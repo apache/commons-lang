@@ -93,14 +93,14 @@ public class ClassUtils {
 
     static {
         namePrimitiveMap.put(Boolean.TYPE.getSimpleName(), Boolean.TYPE);
-        namePrimitiveMap.put("byte", Byte.TYPE);
-        namePrimitiveMap.put("char", Character.TYPE);
-        namePrimitiveMap.put("short", Short.TYPE);
-        namePrimitiveMap.put("int", Integer.TYPE);
-        namePrimitiveMap.put("long", Long.TYPE);
-        namePrimitiveMap.put("double", Double.TYPE);
-        namePrimitiveMap.put("float", Float.TYPE);
-        namePrimitiveMap.put("void", Void.TYPE);
+        namePrimitiveMap.put(Byte.TYPE.getSimpleName(), Byte.TYPE);
+        namePrimitiveMap.put(Character.TYPE.getSimpleName(), Character.TYPE);
+        namePrimitiveMap.put(Short.TYPE.getSimpleName(), Short.TYPE);
+        namePrimitiveMap.put(Integer.TYPE.getSimpleName(), Integer.TYPE);
+        namePrimitiveMap.put(Long.TYPE.getSimpleName(), Long.TYPE);
+        namePrimitiveMap.put(Double.TYPE.getSimpleName(), Double.TYPE);
+        namePrimitiveMap.put(Float.TYPE.getSimpleName(), Float.TYPE);
+        namePrimitiveMap.put(Void.TYPE.getSimpleName(), Void.TYPE);
     }
 
     /**
