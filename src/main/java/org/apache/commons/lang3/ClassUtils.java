@@ -95,11 +95,11 @@ public class ClassUtils {
         namePrimitiveMap.put(Boolean.TYPE.getSimpleName(), Boolean.TYPE);
         namePrimitiveMap.put(Byte.TYPE.getSimpleName(), Byte.TYPE);
         namePrimitiveMap.put(Character.TYPE.getSimpleName(), Character.TYPE);
-        namePrimitiveMap.put(Short.TYPE.getSimpleName(), Short.TYPE);
-        namePrimitiveMap.put(Integer.TYPE.getSimpleName(), Integer.TYPE);
-        namePrimitiveMap.put(Long.TYPE.getSimpleName(), Long.TYPE);
         namePrimitiveMap.put(Double.TYPE.getSimpleName(), Double.TYPE);
         namePrimitiveMap.put(Float.TYPE.getSimpleName(), Float.TYPE);
+        namePrimitiveMap.put(Integer.TYPE.getSimpleName(), Integer.TYPE);
+        namePrimitiveMap.put(Long.TYPE.getSimpleName(), Long.TYPE);
+        namePrimitiveMap.put(Short.TYPE.getSimpleName(), Short.TYPE);
         namePrimitiveMap.put(Void.TYPE.getSimpleName(), Void.TYPE);
     }
 
