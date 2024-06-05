@@ -66,9 +66,14 @@ import org.apache.commons.lang3.function.FailableConsumer;
  * </p>
  *
  * @param <L> the type of event listener that is supported by this proxy.
+ * @deprecated This class is deprecated because it does not specifically relate to event listeners. It primarily allows
+ * sequential invocation of the same method on each member of a list of objects of the same type. Modern Java features such
+ * as lambdas and executors provide more flexible and efficient ways to achieve this functionality.
+ * Consider using lambdas or executors for similar functionality.
  *
  * @since 3.0
  */
+@Deprecated
 public class EventListenerSupport<L> implements Serializable {
 
     /**
