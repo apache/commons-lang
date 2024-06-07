@@ -22,6 +22,8 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -9583,6 +9585,171 @@ public class StringUtils {
             builder.append(wrapWith);
         }
         return builder.toString();
+    }
+
+    /**
+     * Reverses the characters in a String.
+     *
+     * @param str the String to reverse
+     * @return the reversed String
+     */
+    public static String reverse(String str) {
+        if (str == null) {
+            return null;
+        }
+        return new StringBuilder(str).reverse().toString();
+    }
+
+    /**
+     * Counts the occurrences of each character in a String.
+     *
+     * @param str the String to analyze
+     * @return a Map containing the character counts
+     */
+    public static Map<Character, Integer> countCharacters(String str) {
+        if (str == null) {
+            return null;
+        }
+        Map<Character, Integer> charCountMap = new HashMap<>();
+        for (char c : str.toCharArray()) {
+            charCountMap.put(c, charCountMap.getOrDefault(c, 0) + 1);
+        }
+        return charCountMap;
+    }
+
+    /**
+     * Checks if a String is a palindrome.
+     *
+     * @param str the String to check
+     * @return true if the String is a palindrome, false otherwise
+     */
+    public static boolean isPalindrome(String str) {
+        if (str == null) {
+            return false;
+        }
+        String reversedStr = new StringBuilder(str).reverse().toString();
+        return str.equals(reversedStr);
+    }
+
+    /**
+     * Converts a String to title case.
+     *
+     * @param str the String to convert
+     * @return the title cased String
+     */
+    public static String toTitleCase(String str) {
+        if (str == null) {
+            return null;
+        }
+        String[] words = str.split("\\s");
+        StringBuilder titleCase = new StringBuilder();
+        for (String word : words) {
+            if (word.length() > 0) {
+                titleCase.append(Character.toUpperCase(word.charAt(0)))
+                         .append(word.substring(1).toLowerCase())
+                         .append(" ");
+            }
+        }
+        return titleCase.toString().trim();
+    }
+
+    /**
+     * Finds the longest common prefix of two Strings.
+     *
+     * @param str1 the first String
+     * @param str2 the second String
+     * @return the longest common prefix
+     */
+    public static String longestCommonPrefix(String str1, String str2) {
+        if (str1 == null || str2 == null) {
+            return null;
+        }
+        int minLength = Math.min(str1.length(), str2.length());
+        for (int i = 0; i < minLength; i++) {
+            if (str1.charAt(i) != str2.charAt(i)) {
+                return str1.substring(0, i);
+            }
+        }
+        return str1.substring(0, minLength);
+    }
+
+    /**
+     * Repeats a String n times.
+     *
+     * @param str the String to repeat
+     * @param n the number of times to repeat the String
+     * @return the repeated String
+     */
+    public static String repeat(String str, int n) {
+        if (str == null) {
+            return null;
+        }
+        StringBuilder repeatedStr = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            repeatedStr.append(str);
+        }
+        return repeatedStr.toString();
+    }
+
+    /**
+     * Checks if a String contains only digits.
+     *
+     * @param str the String to check
+     * @return true if the String contains only digits, false otherwise
+     */
+    public static boolean isNumeric(String str) {
+        if (str == null) {
+            return false;
+        }
+        return str.matches("\\d+");
+    }
+
+    /**
+     * Capitalizes the first letter of each word in a String.
+     *
+     * @param str the String to capitalize
+     * @return the capitalized String
+     */
+    public static String capitalizeWords(String str) {
+        if (str == null) {
+            return null;
+        }
+        String[] words = str.split("\\s");
+        StringBuilder capitalized = new StringBuilder();
+        for (String word : words) {
+            if (word.length() > 0) {
+                capitalized.append(Character.toUpperCase(word.charAt(0)))
+                           .append(word.substring(1))
+                           .append(" ");
+            }
+        }
+        return capitalized.toString().trim();
+    }
+
+    /**
+     * Converts a String to snake_case.
+     *
+     * @param str the String to convert
+     * @return the snake_case String
+     */
+    public static String toSnakeCase(String str) {
+        if (str == null) {
+            return null;
+        }
+        return str.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+    }
+
+    /**
+     * Converts a String to kebab-case.
+     *
+     * @param str the String to convert
+     * @return the kebab-case String
+     */
+    public static String toKebabCase(String str) {
+        if (str == null) {
+            return null;
+        }
+        return str.replaceAll("([a-z])([A-Z])", "$1-$2").toLowerCase();
     }
 
     /**
