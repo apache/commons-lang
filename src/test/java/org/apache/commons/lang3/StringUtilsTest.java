@@ -39,6 +39,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -49,6 +51,7 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -3384,5 +3387,70 @@ public class StringUtilsTest extends AbstractLangTest {
 
         assertSame("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
         assertSame("//x//", StringUtils.wrapIfMissing("//x//", "//"));
+    }
+    @Test
+    void testReverse() {
+        assertEquals("cba", StringUtils.reverse("abc"));
+        assertNull(StringUtils.reverse(null));
+    }
+
+    @Test
+    void testCountCharacters() {
+        Map<Character, Integer> expected = new HashMap<>();
+        expected.put('a', 2);
+        expected.put('b', 1);
+        assertEquals(expected, StringUtils.countCharacters("aba"));
+        assertNull(StringUtils.countCharacters(null));
+    }
+
+    @Test
+    void testIsPalindrome() {
+        assertTrue(StringUtils.isPalindrome("madam"));
+        assertFalse(StringUtils.isPalindrome("hello"));
+        assertFalse(StringUtils.isPalindrome(null));
+    }
+
+    @Test
+    void testToTitleCase() {
+        assertEquals("Hello World", StringUtils.toTitleCase("hello world"));
+        assertNull(StringUtils.toTitleCase(null));
+    }
+
+    @Test
+    void testLongestCommonPrefix() {
+        assertEquals("abc", StringUtils.longestCommonPrefix("abcdef", "abcxyz"));
+        assertEquals("", StringUtils.longestCommonPrefix("abc", "xyz"));
+        assertNull(StringUtils.longestCommonPrefix(null, "abc"));
+    }
+
+    @Test
+    void testRepeat() {
+        assertEquals("abcabcabc", StringUtils.repeat("abc", 3));
+        assertNull(StringUtils.repeat(null, 3));
+    }
+
+    @Test
+    void testIsNumeric() {
+        assertTrue(StringUtils.isNumeric("12345"));
+        assertFalse(StringUtils.isNumeric("123a45"));
+        assertFalse(StringUtils.isNumeric(null));
+    }
+
+    @Test
+    void testCapitalizeWords() {
+        assertEquals("Hello World", StringUtils.capitalizeWords("hello world"));
+        assertNull(StringUtils.capitalizeWords(null));
+    }
+
+    @Test
+    void testToSnakeCase() {
+        assertEquals("hello_world", StringUtils.toSnakeCase("helloWorld"));
+        assertNull(StringUtils.toSnakeCase(null));
+    }
+
+    @Test
+    void testToKebabCase() {
+        assertEquals("hello-world", StringUtils.toKebabCase("helloWorld"));
+        assertNull(StringUtils.toKebabCase(null));
     }
 }
