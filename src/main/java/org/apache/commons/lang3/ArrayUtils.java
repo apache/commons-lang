@@ -1382,9 +1382,9 @@ public class ArrayUtils {
      * @param allocator allocates the array to populate and return.
      * @return dest
      * @throws IndexOutOfBoundsException if copying would cause access of data outside array bounds.
-     * @throws ArrayStoreException       if an element in the <code>src</code> array could not be stored into the <code>dest</code> array because of a type
+     * @throws ArrayStoreException       if an element in the {@code src} array could not be stored into the {@code dest} array because of a type
      *                                   mismatch.
-     * @throws NullPointerException      if either <code>src</code> or <code>dest</code> is <code>null</code>.
+     * @throws NullPointerException      if either {@code src} or {@code dest} is {@code null}.
      * @since 3.15.0
      */
     public static <T> T arraycopy(final T source, final int sourcePos, final int destPos, final int length, final Function<Integer, T> allocator) {
@@ -1402,9 +1402,9 @@ public class ArrayUtils {
      * @param allocator allocates the array to populate and return.
      * @return dest
      * @throws IndexOutOfBoundsException if copying would cause access of data outside array bounds.
-     * @throws ArrayStoreException       if an element in the <code>src</code> array could not be stored into the <code>dest</code> array because of a type
+     * @throws ArrayStoreException       if an element in the {@code src} array could not be stored into the {@code dest} array because of a type
      *                                   mismatch.
-     * @throws NullPointerException      if either <code>src</code> or <code>dest</code> is <code>null</code>.
+     * @throws NullPointerException      if either {@code src} or {@code dest} is {@code null}.
      * @since 3.15.0
      */
     public static <T> T arraycopy(final T source, final int sourcePos, final int destPos, final int length, final Supplier<T> allocator) {
@@ -1422,9 +1422,9 @@ public class ArrayUtils {
      * @param length    the number of array elements to be copied.
      * @return dest
      * @throws IndexOutOfBoundsException if copying would cause access of data outside array bounds.
-     * @throws ArrayStoreException       if an element in the <code>src</code> array could not be stored into the <code>dest</code> array because of a type
+     * @throws ArrayStoreException       if an element in the {@code src} array could not be stored into the {@code dest} array because of a type
      *                                   mismatch.
-     * @throws NullPointerException      if either <code>src</code> or <code>dest</code> is <code>null</code>.
+     * @throws NullPointerException      if either {@code src} or {@code dest} is {@code null}.
      * @since 3.15.0
      */
     public static <T> T arraycopy(final T source, final int sourcePos, final T dest, final int destPos, final int length) {

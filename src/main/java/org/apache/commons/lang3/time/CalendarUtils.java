@@ -49,7 +49,7 @@ public class CalendarUtils {
     }
 
     /**
-     * Gets a CalendarUtils using the default time zone and specified locale. The <code>CalendarUtils</code> returned is based on the current time in the
+     * Gets a CalendarUtils using the default time zone and specified locale. The {@code CalendarUtils} returned is based on the current time in the
      * default time zone with the given locale.
      *
      * @param locale the locale for the week data
