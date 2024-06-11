@@ -1274,9 +1274,9 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE) = "true"
      * </pre>
      *
-     * @see StringUtils#defaultString(String)
      * @see Objects#toString(Object)
      * @see Objects#toString(Object, String)
+     * @see StringUtils#defaultString(String)
      * @see String#valueOf(Object)
      * @param obj  the Object to {@code toString}, may be null
      * @return the passed in Object's toString, or {@code ""} if {@code null} input
@@ -1302,6 +1302,8 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE, "null") = "true"
      * </pre>
      *
+     * @see Objects#toString(Object)
+     * @see Objects#toString(Object, String)
      * @see StringUtils#defaultString(String,String)
      * @see String#valueOf(Object)
      * @param obj  the Object to {@code toString}, may be null
@@ -1313,7 +1315,7 @@ public class ObjectUtils {
      */
     @Deprecated
     public static String toString(final Object obj, final String nullStr) {
-        return obj == null ? nullStr : obj.toString();
+        return Objects.toString(obj, nullStr);
     }
 
     /**
