@@ -1275,6 +1275,8 @@ public class ObjectUtils {
      * </pre>
      *
      * @see StringUtils#defaultString(String)
+     * @see Objects#toString(Object)
+     * @see Objects#toString(Object, String)
      * @see String#valueOf(Object)
      * @param obj  the Object to {@code toString}, may be null
      * @return the passed in Object's toString, or {@code ""} if {@code null} input
@@ -1285,7 +1287,7 @@ public class ObjectUtils {
      */
     @Deprecated
     public static String toString(final Object obj) {
-        return obj == null ? StringUtils.EMPTY : obj.toString();
+        return Objects.toString(obj, StringUtils.EMPTY);
     }
 
     /**
