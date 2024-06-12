@@ -3564,6 +3564,56 @@ public class StringUtils {
     }
 
     /**
+     * Checks if any of the CharSequences is NOT empty (""), NOT null or NOT whitespace only.
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.isAnyNotBlank(null)             = false
+     * StringUtils.isAnyNotBlank(null, "foo")      = true
+     * StringUtils.isAnyNotBlank(null, null)       = false
+     * StringUtils.isAnyNotBlank("", "bar")        = true
+     * StringUtils.isAnyNotBlank("bob", "")        = true
+     * StringUtils.isAnyNotBlank("  bob  ", null)  = true
+     * StringUtils.isAnyNotBlank(" ", "bar")       = true
+     * StringUtils.isAnyNotBlank("foo", "bar")     = true
+     * StringUtils.isAnyNotBlank(new String[] {})  = false
+     * StringUtils.isAnyNotBlank("    ", null)     = false
+     * </pre>
+     *
+     * @param css  the CharSequences to check, may be null or empty
+     * @return {@code true} if any of the CharSequences is not empty or null or whitespace only
+     * @since 3.15
+     */
+    public static boolean isAnyNotBlank(final CharSequence... css) {
+        return !isAllBlank(css);
+    }
+
+    /**
+     * Checks if any of the CharSequences is NOT empty ("") or NOT null.
+     *
+     * <pre>
+     * StringUtils.isAnyNotEmpty(null)             = false
+     * StringUtils.isAnyNotEmpty(null, "")         = false
+     * StringUtils.isAnyNotEmpty(new String[] {})  = false
+     * StringUtils.isAnyNotEmpty(null, "foo")      = true
+     * StringUtils.isAnyNotEmpty("", "bar")        = true
+     * StringUtils.isAnyNotEmpty("bob", "")        = true
+     * StringUtils.isAnyNotEmpty("  bob  ", null)  = true
+     * StringUtils.isAnyNotEmpty(" ", "bar")       = true
+     * StringUtils.isAnyNotEmpty("foo", "bar")     = true
+     * StringUtils.isAnyNotEmpty("    ", null)     = true
+     * </pre>
+     *
+     * @param css  the CharSequences to check, may be null or empty
+     * @return {@code true} if all of the CharSequences are empty or null
+     * @since 3.6
+     */
+    public static boolean isAnyNotEmpty(final CharSequence... css) {
+        return !isAllEmpty(css);
+    }
+
+    /**
      * Checks if the CharSequence contains only ASCII printable characters.
      *
      * <p>{@code null} will return {@code false}.

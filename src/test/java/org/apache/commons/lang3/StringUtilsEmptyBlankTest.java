@@ -71,7 +71,6 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
     @Test
     public void testIsAllEmpty() {
         assertTrue(StringUtils.isAllEmpty());
-        assertTrue(StringUtils.isAllEmpty());
         assertTrue(StringUtils.isAllEmpty((String) null));
         assertTrue(StringUtils.isAllEmpty((String[]) null));
         assertFalse(StringUtils.isAllEmpty(null, "foo"));
@@ -81,6 +80,7 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
         assertFalse(StringUtils.isAllEmpty(" ", "bar"));
         assertFalse(StringUtils.isAllEmpty("foo", "bar"));
         assertTrue(StringUtils.isAllEmpty("", null));
+        assertFalse(StringUtils.isAllEmpty("   ", null));
     }
 
     @Test
@@ -106,6 +106,35 @@ public class StringUtilsEmptyBlankTest extends AbstractLangTest {
         assertTrue(StringUtils.isAnyEmpty("  bob  ", null));
         assertFalse(StringUtils.isAnyEmpty(" ", "bar"));
         assertFalse(StringUtils.isAnyEmpty("foo", "bar"));
+    }
+
+    @Test
+    public void testIsAnyNotBlank() {
+        assertFalse(StringUtils.isAnyNotBlank((String) null));
+        assertFalse(StringUtils.isAnyNotBlank((String[]) null));
+        assertFalse(StringUtils.isAnyNotBlank(null, null));
+        assertFalse(StringUtils.isAnyNotBlank(null, " "));
+        assertTrue(StringUtils.isAnyNotBlank(null, "foo"));
+        assertTrue(StringUtils.isAnyNotBlank("", "bar"));
+        assertTrue(StringUtils.isAnyNotBlank("bob", ""));
+        assertTrue(StringUtils.isAnyNotBlank("  bob  ", null));
+        assertTrue(StringUtils.isAnyNotBlank(" ", "bar"));
+        assertTrue(StringUtils.isAnyNotBlank("foo", "bar"));
+    }
+
+    @Test
+    public void testIsAnyNotEmpty() {
+        assertFalse(StringUtils.isAnyNotEmpty());
+        assertFalse(StringUtils.isAnyNotEmpty((String) null));
+        assertFalse(StringUtils.isAnyNotEmpty((String[]) null));
+        assertTrue(StringUtils.isAnyNotEmpty(null, "foo"));
+        assertTrue(StringUtils.isAnyNotEmpty("", "bar"));
+        assertTrue(StringUtils.isAnyNotEmpty("bob", ""));
+        assertTrue(StringUtils.isAnyNotEmpty("  bob  ", null));
+        assertTrue(StringUtils.isAnyNotEmpty(" ", "bar"));
+        assertTrue(StringUtils.isAnyNotEmpty("foo", "bar"));
+        assertFalse(StringUtils.isAnyNotEmpty("", null));
+        assertTrue(StringUtils.isAnyNotEmpty("   ", null));
     }
 
     @Test
