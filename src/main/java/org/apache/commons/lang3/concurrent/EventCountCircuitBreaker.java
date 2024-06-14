@@ -134,6 +134,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * be some delay (less than a check interval).</li>
  * </ul>
  * @since 3.5
+ * @deprecated use new {@link EventCounterCircuitBreaker}
  */
 public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
 
