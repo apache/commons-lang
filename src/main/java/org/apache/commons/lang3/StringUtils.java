@@ -690,11 +690,13 @@ public class StringUtils {
      * @return String without newline, {@code null} if null String input
      */
     public static String chomp(final String str) {
-        if (isEmpty(str)) {
+        final int length = length(str);
+
+        if (length == 0) {
             return str;
         }
 
-        if (str.length() == 1) {
+        if (length == 1) {
             final char ch = str.charAt(0);
             if (ch == CharUtils.CR || ch == CharUtils.LF) {
                 return EMPTY;
@@ -702,7 +704,7 @@ public class StringUtils {
             return str;
         }
 
-        int lastIdx = str.length() - 1;
+        int lastIdx = length - 1;
         final char last = str.charAt(lastIdx);
 
         if (last == CharUtils.LF) {
@@ -710,7 +712,7 @@ public class StringUtils {
                 lastIdx--;
             }
         } else if (last != CharUtils.CR) {
-            lastIdx++;
+            return str;
         }
         return str.substring(0, lastIdx);
     }
