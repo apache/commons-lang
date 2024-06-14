@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Constructor;
@@ -517,5 +518,29 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         // This expects a failure rate of 1 in 100,000.
         // critical value: from scipy.stats import chi2; chi2(2).isf(1e-5)
         assertThat("test homogeneity -- will fail about 1 in 100,000 times", chiSquare(expected, counts), lessThan(23.025850929940457d));
+    }
+
+    /**
+     * Test {@code RandomStringUtils.random} works appropriately when chars specified.
+     */
+    @Test
+    void testRandomWithChars() {
+        final char[] digitChars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+        String r1, r2, r3;
+
+        r1 = RandomStringUtils.random(50, 0, 0, true, true, digitChars);
+        assertEquals(50, r1.length(), "randomNumeric(50)");
+        for (int i = 0; i < r1.length(); i++) {
+            assertTrue(
+                    Character.isDigit(r1.charAt(i)) && !Character.isLetter(r1.charAt(i)),
+                    "r1 contains numeric");
+        }
+        r2 = RandomStringUtils.randomNumeric(50);
+        assertNotEquals(r1, r2);
+
+        r3 = RandomStringUtils.random(50, 0, 0, true, true, digitChars);
+        assertNotEquals(r1, r3);
+        assertNotEquals(r2, r3);
     }
 }
