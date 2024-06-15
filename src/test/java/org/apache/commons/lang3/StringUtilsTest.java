@@ -2000,6 +2000,29 @@ public class StringUtilsTest extends AbstractLangTest {
         //JAVADOC TESTS END
     }
 
+	/**
+	 * Test method for 'StringUtils.replaceSubstringInBetween(String, String, String, String)'
+	 */
+	@Test
+	public void testReplaceSubstringInBetween() {
+		//JAVADOC TESTS START
+		assertNull(StringUtils.replaceSubstringInBetween(null, "A", "O", "C"));
+		assertEquals(StringUtils.replaceSubstringInBetween("a", "-", "a", "a"), "a");
+		assertEquals(StringUtils.replaceSubstringInBetween("abc", "-", "a", "c"), "a-c");
+		assertEquals(StringUtils.replaceSubstringInBetween("abcdef", "-", "a", null), "abcdef");
+		assertEquals(StringUtils.replaceSubstringInBetween("abcdef", "-", null, "f"), "abcdef");
+		assertEquals(StringUtils.replaceSubstringInBetween("abcdef", null, "a", "f"), "abcdef");
+		assertEquals(StringUtils.replaceSubstringInBetween("abcdef", "-", "a", ""),   "abcdef");
+		assertEquals(StringUtils.replaceSubstringInBetween("", "abc", "", ""), "");
+		assertEquals(StringUtils.replaceSubstringInBetween("abcdef", "", "a", "f"), "af");
+		assertEquals(StringUtils.replaceSubstringInBetween("apachelang", "-commons-", "apache", "lang"), "apache-commons-lang");
+		assertEquals(StringUtils.replaceSubstringInBetween("abcdef", "123", "a", "f"), "a123f");
+		assertEquals(StringUtils.replaceSubstringInBetween("abcdef", "123", "b", "e"), "ab123ef");
+		assertEquals(StringUtils.replaceSubstringInBetween("abcdef", "123", "", ""), "abcdef");
+		assertEquals(StringUtils.replaceSubstringInBetween("abcdef", "123", "z", "a"), "abcdef");
+		//JAVADOC TESTS END
+	}
+	
     @Test
     public void testReplace_StringStringString() {
         assertNull(StringUtils.replace(null, null, null));

@@ -7082,15 +7082,19 @@ public class StringUtils {
 	 * <p>
 	 * Examples:
 	 * <pre>
-	 * replaceSubstringInBetween("", "abc", "", "")         = "abc"
+	 * replaceSubstringInBetween(null, "-", "a", null)      = null (Returns original string)
+	 * replaceSubstringInBetween("a", "-", "a", "a")        = a (Returns original string as its length is less than 2)
+	 * replaceSubstringInBetween("abc", "-", "a", "c")      = a-c
+	 * replaceSubstringInBetween("abcdef", "-", "a", null)  = "abcdef" (If either `open` or `close` is null, returns original string)
+	 * replaceSubstringInBetween("a", "abc", "", "")        = ""   (empty open/close substrings, returns original string)
+	 * replaceSubstringInBetween("abcdef", "", "a", "f")    = "af"
+	 * replaceSubstringInBetween("abcdef", null, "a", "f")  = "abcdef" (null replacement, returns original string)
 	 * 
 	 * * If both `open` and `close` are found within `str`, it constructs the modified string by combining the substring before `open`,
 	 * the replacement `replace`, and the substring after `close`.
 	 * replaceSubstringInBetween("apachelang", "-commons-", "apache", "lang") = "apache-commons-lang" 
 	 * replaceSubstringInBetween("abcdef", "123", "a", "f") = "a123f"
 	 * replaceSubstringInBetween("abcdef", "123", "b", "e") = "ab123ef"
-	 * replaceSubstringInBetween("abcdef", "", "a", "f")    = "abcdef" (empty replacement, returns original string)
-	 * replaceSubstringInBetween("abcdef", "123", "", "")   = "abcdef" (empty open/close substrings, returns original string)
 	 * 
 	 * * If either `open` or `close` is not found (`start` or `end` is -1), it returns the original str unchanged.
 	 * replaceSubstringInBetween("abcdef", "123", "z", "a") = "abcdef" 
@@ -7105,7 +7109,7 @@ public class StringUtils {
 	 * @return the modified String with replacement if found, otherwise the original String
 	 */
 	public static String replaceSubstringInBetween(final String str, final String replace, final String open, final String close) {
-		if (str == null || open == null || close == null || replace == null) {
+		if (isEmpty(str) || isEmpty(open) || isEmpty(close) || replace == null || str.length() <= 2) {
 			return str;
 		}
 		
