@@ -7062,6 +7062,65 @@ public class StringUtils {
         return RegExUtils.replacePattern(source, regex, replacement);
     }
 
+	/**
+	 * Replaces a substring within a given string that is enclosed between two substrings(`open` and `close`).
+	 *
+	 * <p>
+	 * Preconditions:
+	 * <ul>
+	 *   <li>{@code str} must not be {@code null}.</li>
+	 *   <li>{@code open}, {@code close}, and {@code replace} must not be {@code null}.</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * <p>
+	 * If any of the preconditions are not met (i.e., {@code str} is {@code null} or any of
+	 * {@code open}, {@code close}, {@code replace} are {@code null}), the method returns the
+	 * original {@code str} without any modifications.
+	 * </p>
+	 *
+	 * <p>
+	 * Examples:
+	 * <pre>
+	 * replaceSubstringInBetween("", "abc", "", "")         = "abc"
+	 * 
+	 * * If both `open` and `close` are found within `str`, it constructs the modified string by combining the substring before `open`,
+	 * the replacement `replace`, and the substring after `close`.
+	 * replaceSubstringInBetween("apachelang", "-commons-", "apache", "lang") = "apache-commons-lang" 
+	 * replaceSubstringInBetween("abcdef", "123", "a", "f") = "a123f"
+	 * replaceSubstringInBetween("abcdef", "123", "b", "e") = "ab123ef"
+	 * replaceSubstringInBetween("abcdef", "", "a", "f")    = "abcdef" (empty replacement, returns original string)
+	 * replaceSubstringInBetween("abcdef", "123", "", "")   = "abcdef" (empty open/close substrings, returns original string)
+	 * 
+	 * * If either `open` or `close` is not found (`start` or `end` is -1), it returns the original str unchanged.
+	 * replaceSubstringInBetween("abcdef", "123", "z", "a") = "abcdef" 
+	 * replaceSubstringInBetween("abcdef", "123", "a", "g") = "abcdef"
+	 * </pre>
+	 * </p>
+	 *
+	 * @param str     the String containing the substring, must not be null
+	 * @param replace the String to replace the substring, must not be null
+	 * @param open    the String before the substring, must not be null
+	 * @param close   the String after the substring, must not be null
+	 * @return the modified String with replacement if found, otherwise the original String
+	 */
+	public static String replaceSubstringInBetween(final String str, final String replace, final String open, final String close) {
+		if (str == null || open == null || close == null || replace == null) {
+			return str;
+		}
+		
+		int start = str.indexOf(open);
+		if (start != INDEX_NOT_FOUND) {
+			int end = str.indexOf(close, start + open.length());
+			if (end != INDEX_NOT_FOUND) {
+				String preceding = str.substring(0, start + open.length());
+				String succeeding = str.substring(end);
+				return preceding + replace + succeeding;
+			}
+		}
+		return str;
+	}
+
     /**
      * Reverses a String as per {@link StringBuilder#reverse()}.
      *
