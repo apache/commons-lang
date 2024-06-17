@@ -19,27 +19,42 @@ package org.apache.commons.lang3;
 import java.util.Random;
 
 /**
- * AmortizedRandomBits enable to generate random integers of specific bit length.
+ * Generates random integers of specific bit length.
  *
- * <p>It is more efficient way than calling Random.nextInt(1 << nbBits). It uses a cache of
- * cacheSize random bytes that it replenishes when it gets empty. This is especially beneficial for
- * SecureRandom Drbg implementations that incur a constant cost at each randomness generation. It is
- * not thread safe.
+ * <p>
+ * It is more efficient than calling Random.nextInt(1 << nbBits).
+ * It uses a cache of cacheSize random bytes that it replenishes when it gets empty.
+ * This is especially beneficial for SecureRandom Drbg implementations,
+ * which incur a constant cost at each randomness generation.
+ * </p>
  *
- * <p>Used internally by RandomStringUtils.
+ * <p>
+ * Used internally by RandomStringUtils.
+ * </p>
+ *
+ * <p>
+ * #NotThreadSafe#
+ * </p>
  */
 class AmortizedRandomBits {
     private final Random random;
 
     private final byte[] cache;
 
-    // bitIndex is the index of the next bit in the cache to be used
-    // bitIndex=0 means the cache is fully random and none of the bits have been used yet
-    // bitIndex=1 means that only the LSB of cache[0] has been used and all other bits can be used
-    // bitIndex=8 means that only the 8 bits of cache[0] has been used
+    /**
+     * Index of the next bit in the cache to be used.
+     *
+     * <ul>
+     * <li>bitIndex=0 means the cache is fully random and none of the bits have been used yet.</li>
+     * <li>bitIndex=1 means that only the LSB of cache[0] has been used and all other bits can be used.</li>
+     * <li>bitIndex=8 means that only the 8 bits of cache[0] has been used.</li>
+     * </ul>
+     */
     private int bitIndex;
 
     /**
+     * Creates an AmortizedRandomBits instance.
+     *
      * @param cacheSize number of bytes cached (only affects performance)
      * @param random random source
      */
@@ -54,7 +69,7 @@ class AmortizedRandomBits {
     }
 
     /**
-     * nextBits returns a random integer with the number of bits specified
+     * Generates a random integer with the specified number of bits.
      *
      * @param bits number of bits to generate, MUST be between 1 and 32
      * @return random integer with {@code bits} bits

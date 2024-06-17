@@ -16,14 +16,17 @@
  */
 package org.apache.commons.lang3;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.Random;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Random;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+/**
+ * Tests {@link AmortizedRandomBits}.
+ */
 public class AmortizedRandomBitsTest {
     /** MockRandom mocks a Random class nextBytes to use a specific list of outputs */
     private static class MockRandom extends Random {
