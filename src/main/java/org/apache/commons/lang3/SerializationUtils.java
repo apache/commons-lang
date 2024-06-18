@@ -46,7 +46,7 @@ import java.util.Objects;
 public class SerializationUtils {
 
     /**
-     * Custom specialization of the standard JDK {@link java.io.ObjectInputStream}
+     * Custom specialization of the standard JDK {@link ObjectInputStream}
      * that uses a custom  {@link ClassLoader} to resolve a class.
      * If the specified {@link ClassLoader} is not able to resolve the class,
      * the context classloader of the current thread will be used.
