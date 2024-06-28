@@ -264,7 +264,12 @@ public class DurationFormatUtils {
             }
             if (isLiteral) {
                 if (!inOptional || !lastOutputZero) {
-                    buffer.append(value.toString());
+                    final String val = value.toString();
+                    if (val.length() > 0) {
+                        buffer.append(val);
+                    } else {
+                        buffer.append("'");
+                    }
                 }
             } else if (value.equals(y)) {
                 lastOutputSeconds = false;
