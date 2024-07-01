@@ -16,44 +16,56 @@
  */
 package org.apache.commons.lang3;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.commons.lang3.exception.UncheckedException;
+
 /**
  * Generates random {@link String}s.
+ * <p>
+ * Starting in version 3.15.0, this classes uses {@link SecureRandom#getInstanceStrong()}.
+ * </p>
+ * <p>
+ * Before version 3.15.0, this classes used {@link ThreadLocalRandom#current()}, which was NOT cryptographically secure.
+ * </p>
+ * <p>
+ * RandomStringUtils is intended for simple use cases. For more advanced use cases consider using Apache Commons Text's
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html"> RandomStringGenerator</a>
+ * instead.
+ * </p>
+ * <p>
+ * The Apache Commons project provides <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a> dedicated to pseudo-random number generation,
+ * that may be a better choice for applications with more stringent requirements (performance and/or correctness).
+ * </p>
+ * <p>
+ * Note that <em>private high surrogate</em> characters are ignored. These are Unicode characters that fall between the values 56192 (db80) and 56319 (dbff) as
+ * we don't know how to handle them. High and low surrogates are correctly dealt with - that is if a high surrogate is randomly chosen, 55296 (d800) to 56191
+ * (db7f) then it is followed by a low surrogate. If a low surrogate is chosen, 56320 (dc00) to 57343 (dfff) then it is placed after a randomly chosen high
+ * surrogate.
+ * </p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
- * <p><b>Caveat: Instances of {@link Random}, upon which the implementation of this
- * class relies, are not cryptographically secure.</b></p>
- *
- * <p>RandomStringUtils is intended for simple use cases. For more advanced
- * use cases consider using Apache Commons Text's
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
- * RandomStringGenerator</a> instead.</p>
- *
- * <p>The Apache Commons project provides
- * <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a> dedicated to pseudo-random number generation, that may be
- * a better choice for applications with more stringent requirements
- * (performance and/or correctness).</p>
- *
- * <p>Note that <em>private high surrogate</em> characters are ignored.
- * These are Unicode characters that fall between the values 56192 (db80)
- * and 56319 (dbff) as we don't know how to handle them.
- * High and low surrogates are correctly dealt with - that is if a
- * high surrogate is randomly chosen, 55296 (d800) to 56191 (db7f)
- * then it is followed by a low surrogate. If a low surrogate is chosen,
- * 56320 (dc00) to 57343 (dfff) then it is placed after a randomly
- * chosen high surrogate.</p>
- *
- * <p>#ThreadSafe#</p>
  * @since 1.0
  */
 public class RandomStringUtils {
 
-    private static ThreadLocalRandom random() {
-        return ThreadLocalRandom.current();
+    private static final ThreadLocal<SecureRandom> RANDOM = ThreadLocal.withInitial(() -> {
+        try {
+            return SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            throw new UncheckedException(e);
+        }
+    });
+
+    private static SecureRandom random() {
+        return RANDOM.get();
     }
 
-    // Random
     /**
      * Creates a random string whose length is the number of characters
      * specified.
