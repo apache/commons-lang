@@ -16,16 +16,15 @@
  */
 package org.apache.commons.lang3;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
  * Generates random integers of specific bit length.
  *
  * <p>
- * It is more efficient than calling Random.nextInt(1 << nbBits).
- * It uses a cache of cacheSize random bytes that it replenishes when it gets empty.
- * This is especially beneficial for SecureRandom Drbg implementations,
- * which incur a constant cost at each randomness generation.
+ * It is more efficient than calling Random.nextInt(1 << nbBits). It uses a cache of cacheSize random bytes that it replenishes when it gets empty. This is
+ * especially beneficial for SecureRandom Drbg implementations, which incur a constant cost at each randomness generation.
  * </p>
  *
  * <p>
@@ -36,7 +35,8 @@ import java.util.Random;
  * #NotThreadSafe#
  * </p>
  */
-class AmortizedRandomBits {
+final class CachedRandomBits {
+
     private final Random random;
 
     private final byte[] cache;
@@ -53,17 +53,17 @@ class AmortizedRandomBits {
     private int bitIndex;
 
     /**
-     * Creates an AmortizedRandomBits instance.
+     * Creates a new instance.
      *
      * @param cacheSize number of bytes cached (only affects performance)
      * @param random random source
      */
-    AmortizedRandomBits(final int cacheSize, final Random random) {
+    CachedRandomBits(final int cacheSize, final Random random) {
         if (cacheSize <= 0) {
             throw new IllegalArgumentException("cacheSize must be positive");
         }
         this.cache = new byte[cacheSize];
-        this.random = random;
+        this.random = Objects.requireNonNull(random, "random");
         this.random.nextBytes(this.cache);
         this.bitIndex = 0;
     }
@@ -78,10 +78,8 @@ class AmortizedRandomBits {
         if (bits > 32 || bits <= 0) {
             throw new IllegalArgumentException("number of bits must be between 1 and 32");
         }
-
         int result = 0;
         int generatedBits = 0; // number of generated bits up to now
-
         while (generatedBits < bits) {
             if (bitIndex / 8 >= cache.length) {
                 // we exhausted the number of bits in the cache
@@ -90,18 +88,14 @@ class AmortizedRandomBits {
                 random.nextBytes(cache);
                 bitIndex = 0;
             }
-
             // generatedBitsInIteration is the number of bits that we will generate
             // in this iteration of the while loop
             int generatedBitsInIteration = Math.min(8 - (bitIndex % 8), bits - generatedBits);
-
             result = result << generatedBitsInIteration;
             result |= (cache[bitIndex / 8] >> (bitIndex % 8)) & ((1 << generatedBitsInIteration) - 1);
-
             generatedBits += generatedBitsInIteration;
             bitIndex += generatedBitsInIteration;
         }
-
         return result;
     }
 }

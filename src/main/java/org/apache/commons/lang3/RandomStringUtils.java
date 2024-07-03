@@ -287,7 +287,7 @@ public class RandomStringUtils {
         // Ideally the cache size depends on multiple factor, including the cost of generating x bytes
         // of randomness as well as the probability of rejection. It is however not easy to know
         // those values programmatically for the general case.
-        final AmortizedRandomBits arb = new AmortizedRandomBits((count * gapBits + 3) / 5 + 10, random);
+        final CachedRandomBits arb = new CachedRandomBits((count * gapBits + 3) / 5 + 10, random);
 
         while (count-- != 0) {
             // Generate a random value between start (included) and end (excluded)

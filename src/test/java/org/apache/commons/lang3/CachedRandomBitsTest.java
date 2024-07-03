@@ -19,17 +19,21 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Objects;
 import java.util.Random;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 /**
- * Tests {@link AmortizedRandomBits}.
+ * Tests {@link CachedRandomBits}.
  */
-public class AmortizedRandomBitsTest {
+public class CachedRandomBitsTest {
+
     /** MockRandom mocks a Random class nextBytes to use a specific list of outputs */
     private static class MockRandom extends Random {
+
+        private static final long serialVersionUID = 1L;
         private final byte[] outputs;
         private int index;
 
@@ -41,8 +45,9 @@ public class AmortizedRandomBitsTest {
 
         @Override
         public void nextBytes(byte[] bytes) {
+            Objects.requireNonNull(bytes, "bytes");
             if (index + bytes.length > outputs.length) {
-                throw new RuntimeException("not enough outputs given in MockRandom");
+                throw new IllegalStateException("Not enough outputs given in MockRandom");
             }
             System.arraycopy(outputs, index, bytes, 0, bytes.length);
             index += bytes.length;
@@ -63,7 +68,7 @@ public class AmortizedRandomBitsTest {
                 0x00, 0x00, 0x00, 0x00,
         });
 
-        AmortizedRandomBits arb = new AmortizedRandomBits(cacheSize, random);
+        CachedRandomBits arb = new CachedRandomBits(cacheSize, random);
 
         assertThrows(IllegalArgumentException.class, () -> arb.nextBits(0));
         assertThrows(IllegalArgumentException.class, () -> arb.nextBits(33));
@@ -72,7 +77,7 @@ public class AmortizedRandomBitsTest {
         assertEquals(0x12, arb.nextBits(8));
         assertEquals(0x1325, arb.nextBits(16));
 
-        assertEquals((int) 0xabcdefff, arb.nextBits(32));
+        assertEquals(0xabcdefff, arb.nextBits(32));
 
         assertEquals(0x5, arb.nextBits(4));
         assertEquals(0x1, arb.nextBits(1));
