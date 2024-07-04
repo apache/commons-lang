@@ -81,7 +81,7 @@ final class CachedRandomBits {
         int result = 0;
         int generatedBits = 0; // number of generated bits up to now
         while (generatedBits < bits) {
-            if (bitIndex / 8 >= cache.length) {
+            if (bitIndex >> 3 >= cache.length) {
                 // we exhausted the number of bits in the cache
                 // this should only happen if the bitIndex is exactly matching the cache length
                 assert bitIndex == cache.length * 8;
@@ -90,9 +90,9 @@ final class CachedRandomBits {
             }
             // generatedBitsInIteration is the number of bits that we will generate
             // in this iteration of the while loop
-            int generatedBitsInIteration = Math.min(8 - (bitIndex % 8), bits - generatedBits);
+            int generatedBitsInIteration = Math.min(8 - (bitIndex & 0x7), bits - generatedBits);
             result = result << generatedBitsInIteration;
-            result |= (cache[bitIndex / 8] >> (bitIndex % 8)) & ((1 << generatedBitsInIteration) - 1);
+            result |= (cache[bitIndex >> 3] >> (bitIndex & 0x7)) & ((1 << generatedBitsInIteration) - 1);
             generatedBits += generatedBitsInIteration;
             bitIndex += generatedBitsInIteration;
         }
