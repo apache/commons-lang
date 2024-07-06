@@ -16,44 +16,64 @@
  */
 package org.apache.commons.lang3;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.commons.lang3.exception.UncheckedException;
+
 /**
  * Generates random {@link String}s.
+ * <p>
+ * Starting in version 3.15.0, this classes uses {@link SecureRandom#getInstanceStrong()}.
+ * </p>
+ * <p>
+ * Before version 3.15.0, this classes used {@link ThreadLocalRandom#current()}, which was NOT cryptographically secure.
+ * </p>
+ * <p>
+ * RandomStringUtils is intended for simple use cases. For more advanced use cases consider using Apache Commons Text's
+ * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html"> RandomStringGenerator</a>
+ * instead.
+ * </p>
+ * <p>
+ * The Apache Commons project provides <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a> dedicated to pseudo-random number generation,
+ * that may be a better choice for applications with more stringent requirements (performance and/or correctness).
+ * </p>
+ * <p>
+ * Note that <em>private high surrogate</em> characters are ignored. These are Unicode characters that fall between the values 56192 (db80) and 56319 (dbff) as
+ * we don't know how to handle them. High and low surrogates are correctly dealt with - that is if a high surrogate is randomly chosen, 55296 (d800) to 56191
+ * (db7f) then it is followed by a low surrogate. If a low surrogate is chosen, 56320 (dc00) to 57343 (dfff) then it is placed after a randomly chosen high
+ * surrogate.
+ * </p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
- * <p><b>Caveat: Instances of {@link Random}, upon which the implementation of this
- * class relies, are not cryptographically secure.</b></p>
- *
- * <p>RandomStringUtils is intended for simple use cases. For more advanced
- * use cases consider using Apache Commons Text's
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
- * RandomStringGenerator</a> instead.</p>
- *
- * <p>The Apache Commons project provides
- * <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a> dedicated to pseudo-random number generation, that may be
- * a better choice for applications with more stringent requirements
- * (performance and/or correctness).</p>
- *
- * <p>Note that <em>private high surrogate</em> characters are ignored.
- * These are Unicode characters that fall between the values 56192 (db80)
- * and 56319 (dbff) as we don't know how to handle them.
- * High and low surrogates are correctly dealt with - that is if a
- * high surrogate is randomly chosen, 55296 (d800) to 56191 (db7f)
- * then it is followed by a low surrogate. If a low surrogate is chosen,
- * 56320 (dc00) to 57343 (dfff) then it is placed after a randomly
- * chosen high surrogate.</p>
- *
- * <p>#ThreadSafe#</p>
  * @since 1.0
  */
 public class RandomStringUtils {
 
-    private static ThreadLocalRandom random() {
-        return ThreadLocalRandom.current();
+    private static final ThreadLocal<SecureRandom> RANDOM = ThreadLocal.withInitial(() -> {
+        try {
+            return SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            throw new UncheckedException(e);
+        }
+    });
+
+    private static SecureRandom random() {
+        return RANDOM.get();
     }
 
-    // Random
+    private static final char[] ALPHANUMERICAL_CHARS = {
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+    };
+
     /**
      * Creates a random string whose length is the number of characters
      * specified.
@@ -214,6 +234,42 @@ public class RandomStringUtils {
             throw new IllegalArgumentException("Parameter end (" + end + ") must be greater than start (" + start + ")");
         }
 
+        if (end > Character.MAX_CODE_POINT) {
+            // Technically, it should be `Character.MAX_CODE_POINT+1` as `end` is excluded
+            // But the character `Character.MAX_CODE_POINT` is private use, so it would anyway be excluded
+            end = Character.MAX_CODE_POINT;
+        }
+
+        // Optimize generation of full alphanumerical characters
+        // Normally, we would need to pick a 7-bit integer, since gap = 'z' - '0' + 1 = 75 > 64
+        // In turn, this would make us reject the sampling with probability 1 - 62 / 2^7 > 1 / 2
+        // Instead we can pick directly from the right set of 62 characters, which requires
+        // picking a 6-bit integer and only rejecting with probability 2 / 64 = 1 / 32
+        if (chars == null && letters && numbers && start <= '0' && end >= 'z' + 1) {
+            return random(count, 0, 0, false, false, ALPHANUMERICAL_CHARS, random);
+        }
+
+        // Optimize start and end when filtering by letters and/or numbers:
+        // The range provided may be too large since we filter anyway afterward.
+        // Note the use of Math.min/max (as opposed to setting start to '0' for example),
+        // since it is possible the range start/end excludes some of the letters/numbers,
+        // e.g., it is possible that start already is '1' when numbers = true, and start
+        // needs to stay equal to '1' in that case.
+        if (chars == null) {
+            if (letters && numbers) {
+                start = Math.max('0', start);
+                end = Math.min('z' + 1, end);
+            } else if (numbers) {
+                // just numbers, no letters
+                start = Math.max('0', start);
+                end = Math.min('9' + 1, end);
+            } else if (letters) {
+                // just letters, no numbers
+                start = Math.max('A', start);
+                end = Math.min('z' + 1, end);
+            }
+        }
+
         final int zeroDigitAscii = 48;
         final int firstLetterAscii = 65;
 
@@ -225,11 +281,26 @@ public class RandomStringUtils {
 
         final StringBuilder builder = new StringBuilder(count);
         final int gap = end - start;
+        final int gapBits = Integer.SIZE - Integer.numberOfLeadingZeros(gap);
+        // The size of the cache we use is an heuristic:
+        // about twice the number of bytes required if no rejection
+        // Ideally the cache size depends on multiple factor, including the cost of generating x bytes
+        // of randomness as well as the probability of rejection. It is however not easy to know
+        // those values programmatically for the general case.
+        final CachedRandomBits arb = new CachedRandomBits((count * gapBits + 3) / 5 + 10, random);
 
         while (count-- != 0) {
+            // Generate a random value between start (included) and end (excluded)
+            final int randomValue = arb.nextBits(gapBits) + start;
+            // Rejection sampling if value too large
+            if (randomValue >= end) {
+                count++;
+                continue;
+            }
+
             final int codePoint;
             if (chars == null) {
-                codePoint = random.nextInt(gap) + start;
+                codePoint = randomValue;
 
                 switch (Character.getType(codePoint)) {
                 case Character.UNASSIGNED:
@@ -240,7 +311,7 @@ public class RandomStringUtils {
                 }
 
             } else {
-                codePoint = chars[random.nextInt(gap) + start];
+                codePoint = chars[randomValue];
             }
 
             final int numberOfChars = Character.charCount(codePoint);
