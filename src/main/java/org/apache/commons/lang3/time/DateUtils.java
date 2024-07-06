@@ -131,24 +131,28 @@ public class DateUtils {
 
     /**
      * Number of milliseconds in a standard second.
+     *
      * @since 2.1
      */
     public static final long MILLIS_PER_SECOND = 1_000;
 
     /**
      * Number of milliseconds in a standard minute.
+     *
      * @since 2.1
      */
     public static final long MILLIS_PER_MINUTE = 60 * MILLIS_PER_SECOND;
 
     /**
      * Number of milliseconds in a standard hour.
+     *
      * @since 2.1
      */
     public static final long MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE;
 
     /**
      * Number of milliseconds in a standard day.
+     *
      * @since 2.1
      */
     public static final long MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
@@ -173,14 +177,17 @@ public class DateUtils {
      * A week range, starting on Sunday.
      */
     public static final int RANGE_WEEK_SUNDAY = 1;
+
     /**
      * A week range, starting on Monday.
      */
     public static final int RANGE_WEEK_MONDAY = 2;
+
     /**
      * A week range, starting on the day focused.
      */
     public static final int RANGE_WEEK_RELATIVE = 3;
+
     /**
      * A week range, centered around the day focused.
      */
