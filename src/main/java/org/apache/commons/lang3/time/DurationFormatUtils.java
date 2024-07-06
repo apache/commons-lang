@@ -534,7 +534,7 @@ public class DurationFormatUtils {
         end.setTime(new Date(endMillis));
 
         // initial estimates
-        int milliseconds = end.get(Calendar.MILLISECOND) - start.get(Calendar.MILLISECOND);
+        long milliseconds = end.get(Calendar.MILLISECOND) - start.get(Calendar.MILLISECOND);
         int seconds = end.get(Calendar.SECOND) - start.get(Calendar.SECOND);
         int minutes = end.get(Calendar.MINUTE) - start.get(Calendar.MINUTE);
         int hours = end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY);
