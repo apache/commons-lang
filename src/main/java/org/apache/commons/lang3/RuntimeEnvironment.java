@@ -48,7 +48,6 @@ public class RuntimeEnvironment {
      * Tests whether we are running in a container like Docker or Podman.
      *
      * @return whether we are running in a container like Docker or Podman.
-     * @since 3.15.0.
      */
     public static Boolean inContainer() {
         return inDocker() || inPodman();
