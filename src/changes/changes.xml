@@ -68,6 +68,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1733" type="add" dev="ggregory" due-to="Jongjin Bae, Gary Gregory">Add null-safe Consumers.accept() and Functions.apply() #1215.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_OS_ANDROID.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_OS_MAC_OSX_SONOMA.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RuntimeEnvironment.inContainer() #1241.</action>
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="Miklós Karakó, Gary Gregory">Improve Javadoc in ExceptionUtils #1136.</action>
     <action                   type="fix" dev="ggregory" due-to="Saiharshith Karuneegar Ramesh, Gary Gregory">Fixed two non-deterministic tests in EnumUtilsTest.java #1131.</action>
