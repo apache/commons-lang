@@ -612,7 +612,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
-     * Compares this fraction to another object to test if they are equal..
+     * Compares this fraction to another object to test if they are equal.
      *
      * <p>To be equal, both values must be equal. Thus 2/4 is not equal to 1/2.</p>
      *

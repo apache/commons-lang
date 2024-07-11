@@ -1229,7 +1229,7 @@ public class DateUtils {
                 final int max = val.getActualMaximum(aField[0]);
                 //Calculate the offset from the minimum allowed value
                 offset = val.get(aField[0]) - min;
-                //Set roundUp if this is more than half way between the minimum and maximum
+                //Set roundUp if this is more than halfway between the minimum and maximum
                 roundUp = offset > (max - min) / 2;
             }
             //We need to remove this field
@@ -1282,7 +1282,7 @@ public class DateUtils {
 
     /**
      * Parses a string representing a date by trying a variety of different parsers,
-     * using the default date format symbols for the given locale..
+     * using the default date format symbols for the given locale.
      *
      * <p>The parse will try each parse pattern in turn.
      * A parse is only deemed successful if it parses the whole of the input string.

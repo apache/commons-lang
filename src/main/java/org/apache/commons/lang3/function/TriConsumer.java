@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 /**
  * Represents an operation that accepts three input arguments and returns no result. This is the three-arity
  * specialization of {@link Consumer}. Unlike most other functional interfaces, {@link TriConsumer} is expected to
- * operate via side-effects.
+ * operate via side effects.
  *
  * <p>
  * This is a {@link FunctionalInterface} whose functional method is {@link #accept(Object, Object, Object)}.

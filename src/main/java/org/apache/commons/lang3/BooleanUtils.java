@@ -960,7 +960,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Converts a Boolean to a Integer using the convention that
+     * Converts a Boolean to an Integer using the convention that
      * {@code zero} is {@code false}.
      *
      * <p>{@code null} will be converted to {@code null}.</p>

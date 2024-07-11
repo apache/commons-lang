@@ -25,7 +25,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
- * An utility class providing functionality related to the {@code
+ * A utility class providing functionality related to the {@code
  * java.util.concurrent} package.
  *
  * @since 3.0

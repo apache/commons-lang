@@ -3240,7 +3240,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Compares two arrays, using equals(), handling multi-dimensional arrays
+     * Compares two arrays, using equals(), handling multidimensional arrays
      * correctly.
      * <p>
      * Multi-dimensional primitive arrays are also handled correctly by this method.
