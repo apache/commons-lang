@@ -24,6 +24,8 @@ import java.util.stream.Stream;
 
 /**
  * Helps query the runtime environment.
+ *
+ * @since 3.15.0
  */
 public class RuntimeEnvironment {
 
