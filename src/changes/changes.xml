@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
     <title>Apache Commons Lang Release Notes</title>
   </properties>
   <body>
-  <release version="3.15.0" date="202Y-MM-DD" description="New features and bug fixes (Java 8 or above).">
+  <release version="3.15.0" date="2024-07-13" description="New features and bug fixes (Java 8 or above).">
     <!-- ADD -->
     <action issue="LANG-1724" type="add" dev="ggregory" due-to="Gary Gregory, Dennis Baerten">Customize text pattern in DiffResult#toString().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DiffBuilder.Builder.</action>
@@ -143,7 +143,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1735" type="fix" dev="ggregory" due-to="Tobias Kiecker">Fix Javadoc for FluentBitSet.setInclusive(int, int) #1222.</action>
     <action                   type="fix" dev="ggregory" due-to="Tobias Kiecker">Same Javadoc changes as [TEXT-234] #1223.</action>  
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Remove duplicate static data in SerializationUtils.ClassLoaderAwareObjectInputStream.</action> 
-    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Henri Yandell, Fabrice Benhamouda">Reimplement RandomStringUtils on top of SecureRandom#getInstanceStrong() #1235.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Henri Yandell, Fabrice Benhamouda">Reimplement RandomUtils and RandomStringUtils on top of SecureRandom#getInstanceStrong() #1235.</action>
     <action issue="LANG-1657" type="fix" dev="ggregory" due-to="Matthias Welz, Andrew Thomas, Gary Gregory">DiffBuilder: Type constraint for method append(..., DiffResult) too strict #786.</action> 
     <!-- UPDATE -->
     <action                   type="update" dev="sebb" due-to="Dependabot, Gary Gregory">Bump commons-parent from 64 to 71 #1194, #1233.</action>

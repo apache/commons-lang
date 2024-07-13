@@ -17,12 +17,9 @@
 package org.apache.commons.lang3;
 
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Utility library that supplements the standard {@link Random} class.
- *
- * <p>Caveat: Instances of {@link Random} are not cryptographically secure.</p>
  *
  * <p>Please note that the Apache Commons project provides a component
  * dedicated to pseudo-random number generation, namely
@@ -43,7 +40,7 @@ public class RandomUtils {
      * @since 3.5
      */
     public static boolean nextBoolean() {
-        return random().nextBoolean();
+        return RandomStringUtils.random().nextBoolean();
     }
 
     /**
@@ -56,9 +53,8 @@ public class RandomUtils {
      */
     public static byte[] nextBytes(final int count) {
         Validate.isTrue(count >= 0, "Count cannot be negative.");
-
         final byte[] result = new byte[count];
-        random().nextBytes(result);
+        RandomStringUtils.random().nextBytes(result);
         return result;
     }
 
@@ -89,12 +85,10 @@ public class RandomUtils {
         Validate.isTrue(endExclusive >= startInclusive,
                 "Start value must be smaller or equal to end value.");
         Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
-
         if (startInclusive == endExclusive) {
             return startInclusive;
         }
-
-        return startInclusive + (endExclusive - startInclusive) * random().nextDouble();
+        return startInclusive + (endExclusive - startInclusive) * RandomStringUtils.random().nextDouble();
     }
 
     /**
@@ -124,12 +118,10 @@ public class RandomUtils {
         Validate.isTrue(endExclusive >= startInclusive,
                 "Start value must be smaller or equal to end value.");
         Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
-
         if (startInclusive == endExclusive) {
             return startInclusive;
         }
-
-        return startInclusive + (endExclusive - startInclusive) * random().nextFloat();
+        return startInclusive + (endExclusive - startInclusive) * RandomStringUtils.random().nextFloat();
     }
 
     /**
@@ -159,12 +151,10 @@ public class RandomUtils {
         Validate.isTrue(endExclusive >= startInclusive,
                 "Start value must be smaller or equal to end value.");
         Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
-
         if (startInclusive == endExclusive) {
             return startInclusive;
         }
-
-        return startInclusive + random().nextInt(endExclusive - startInclusive);
+        return startInclusive + RandomStringUtils.random().nextInt(endExclusive - startInclusive);
     }
 
     /**
@@ -191,10 +181,9 @@ public class RandomUtils {
         long bits;
         long val;
         do {
-            bits = random().nextLong() >>> 1;
+            bits = RandomStringUtils.random().nextLong() >>> 1;
             val  = bits % n;
         } while (bits - val + n - 1 < 0);
-
         return val;
     }
 
@@ -214,16 +203,10 @@ public class RandomUtils {
         Validate.isTrue(endExclusive >= startInclusive,
                 "Start value must be smaller or equal to end value.");
         Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
-
         if (startInclusive == endExclusive) {
             return startInclusive;
         }
-
         return startInclusive + nextLong(endExclusive - startInclusive);
-    }
-
-    private static ThreadLocalRandom random() {
-        return ThreadLocalRandom.current();
     }
 
     /**
