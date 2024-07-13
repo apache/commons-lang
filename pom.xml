@@ -167,7 +167,7 @@
 
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.14.0</commons.bc.version>
-    <commons.rc.version>RC1</commons.rc.version>
+    <commons.rc.version>RC2</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
     <!-- JaCoCo: Don't make code coverage worse than: -->

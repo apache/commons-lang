@@ -62,7 +62,7 @@ public class RandomStringUtils {
         }
     });
 
-    private static SecureRandom random() {
+    static SecureRandom random() {
         return RANDOM.get();
     }
 
