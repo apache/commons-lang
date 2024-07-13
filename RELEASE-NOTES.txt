@@ -142,7 +142,7 @@ o            StringUtils.stripAccents(String) doesn't handle T with stroke. Than
 o LANG-1735: Fix Javadoc for FluentBitSet.setInclusive(int, int) #1222. Thanks to Tobias Kiecker.
 o            Same Javadoc changes as [TEXT-234] #1223. Thanks to Tobias Kiecker.
 o            Remove duplicate static data in SerializationUtils.ClassLoaderAwareObjectInputStream. Thanks to Gary Gregory.
-o            Reimplement RandomStringUtils on top of SecureRandom#getInstanceStrong() #1235. Thanks to Gary Gregory, Henri Yandell, Fabrice Benhamouda.
+o            Reimplement RandomUtils and RandomStringUtils on top of SecureRandom#getInstanceStrong() #1235. Thanks to Gary Gregory, Henri Yandell, Fabrice Benhamouda.
 o LANG-1657: DiffBuilder: Type constraint for method append(..., DiffResult) too strict #786. Thanks to Matthias Welz, Andrew Thomas, Gary Gregory.
 
 Changes:
