@@ -16,6 +16,160 @@ limitations under the License.
 
 
                         Apache Commons Lang
+                        Version 3.15.0
+                        Release Notes
+
+
+The Apache Commons team is pleased to announce Apache Commons Lang Version 3.15.0.
+
+Commons Lang is a set of utility functions and reusable components that should be of use in any Java environment.
+
+Starting with Commons Lang 3.9, we target Java 8, making use of those features.
+
+For advice on upgrading from 2.x to 3.x, see:
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+The code is tested using the latest revision of the JDK for supported
+LTS releases: 8, 11, 17 and 21 currently.
+See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
+
+Please ensure your build environment is up-to-date and kindly report any build issues.
+
+New features and bug fixes (Java 8 or above).
+
+Changes in this version include:
+
+New features:
+o LANG-1724: Customize text pattern in DiffResult#toString(). Thanks to Gary Gregory, Dennis Baerten.
+o            Add DiffBuilder.Builder. Thanks to Gary Gregory.
+o            Add DiffBuilder.builder(). Thanks to Gary Gregory.
+o            Add ReflectionDiffBuilder.Builder. Thanks to Gary Gregory.
+o            Add ReflectionDiffBuilder.builder(). Thanks to Gary Gregory.
+o            Add test in TypeUtilsTest #1151. Thanks to Elliotte Rusty Harold.
+o            Add Streams.failableStream(T), non-varargs variant. Thanks to Gary Gregory.
+o            Add Streams.nonNull(T), non-varargs variant. Thanks to Gary Gregory.
+o            Add ArrayUtils.nullTo(T[], T[]). Thanks to Gary Gregory.
+o            Add T ArrayUtils.arraycopy(T, int, T, int, int) fluent style. Thanks to Gary Gregory.
+o            Add T ArrayUtils.arraycopy(T, int, int, int, Function) fluent style. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_JAVA_22. Thanks to Gary Gregory.
+o            Add JavaVersion.JAVA_22. Thanks to Gary Gregory.
+o            Add SystemProperties.getUserName(Supplier<String>). Thanks to Gary Gregory.
+o            Add SystemProperties.getLineSeparator(Supplier<String>). Thanks to Gary Gregory.
+o            Add SystemProperties.getJavaSpecificationVersion(Supplier<String>). Thanks to Gary Gregory.
+o            Add SystemProperties constants and methods for system properties as of Java 22. Thanks to Gary Gregory.
+o            Add MethodUtils.getMethodObject(Class, String, Class...). Thanks to Gary Gregory.
+o LANG-1733: Add null-safe Consumers.accept() and Functions.apply() #1215. Thanks to Jongjin Bae, Gary Gregory.
+o            Add SystemUtils.IS_OS_ANDROID. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_OS_MAC_OSX_SONOMA. Thanks to Gary Gregory.
+o            Add RuntimeEnvironment.inContainer() #1241. Thanks to Gary Gregory.
+o            Add AppendableJoiner and refactor string joining #1244. Thanks to Gary Gregory.
+
+Fixed Bugs:
+o            Improve Javadoc in ExceptionUtils #1136. Thanks to Miklós Karakó, Gary Gregory.
+o            Fixed two non-deterministic tests in EnumUtilsTest.java #1131. Thanks to Saiharshith Karuneegar Ramesh, Gary Gregory.
+o LANG-1721: Fix wrong number check that cause StringIndexOutOfBoundsException #1140. Thanks to Arthur Chan, Gary Gregory.
+o LANG-1722: Rethrow NegativeArraySizeException as SerializationException in SerializationUtils.deserialize(InputStream) #1141. Thanks to Arthur Chan.
+o LANG-1723: Throw NumberFormatException instead of IndexOutOfBoundsException in NumberUtils.getMantissa(String, int) #1145. Thanks to Arthur Chan, Gary Gregory.
+o            Minor grammar fixes #1143. Thanks to Paranoïd User.
+o LANG-1713: ArrayUtils will return null when adding two null arrays, but undocumented. Thanks to John Hendrikx, Gary Gregory.
+o            Let parent POM figure out commons.spdx.version. Thanks to Gary Gregory.
+o LANG-1726: Undeprecate ExceptionUtils.rethrow(Throwable). Thanks to Václav Haisman, Gary Gregory.
+o LANG-1702: Test the Conversion class #1155. Thanks to Elliotte Rusty Harold.
+o            Address minor redundancies after code inspection #1148. Thanks to ParanoidUser, Elliotte Rusty Harold, Gary Gregory.
+o            Allow EventListenerSupport to handle (and ignore) exception from listeners allowing invocation of all listeners #1167. Thanks to Gary Gregory.
+o            Deprecate AnnotationUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate ArchUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate ArrayUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate BooleanUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate CharSequenceUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate CharSetUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate CharUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate ClassLoaderUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate ClassPathUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate ClassUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate ConstructorUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate DateFormatUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate DateUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate Diff.getType(). Thanks to Gary Gregory.
+o            Deprecate DiffBuilder.DiffBuilder(T, T, ToStringStyle). Thanks to Gary Gregory.
+o            Deprecate DiffBuilder.DiffBuilder(T, T, ToStringStyle, boolean). Thanks to Gary Gregory.
+o            Deprecate DurationFormatUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate DurationUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate EnumUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate EventUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate FieldUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate IEEE754rUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate InheritanceUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate IntStreams 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate LocaleUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate LockingVisitors 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate MemberUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate MethodUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate NumberUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate ObjectUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate RandomStringUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate RandomUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate ReflectionDiffBuilder.ReflectionDiffBuilder(T, T, ToStringStyle). Thanks to Gary Gregory.
+o            Deprecate RegExUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate SerializationUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate Streams 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate StringEscapeUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate StringUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate Suppliers 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate SystemProperties 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate ThreadUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Deprecate TypeUtils 0-argument constructor. Thanks to Gary Gregory.
+o            Make ArrayFill null-safe. Thanks to Gary Gregory.
+o            Make ArraySorter null-safe. Thanks to Gary Gregory.
+o            Make ArrayUtils.removeAll() null-safe. Thanks to Gary Gregory.
+o            Fix Java version in README.md #1170. Thanks to Philipp Trulson, Gary Gregory.
+o            StringUtils.stripAccents() should handle ligatures, UTF32 math blocks, etc. #1201. Thanks to Stephan Peters, Gary Gregory, Bernd.
+o LANG-1524: TypeUtils.toString(Type) StackOverflowError for an inner class in the inner class parameterized enclosing class #657. Thanks to kijong.youn, Aakash Gupta, Gary Gregory.
+o            Deprecate SystemUtils.getUserName(String) in favor of SystemProperties.getUserName(Supplier). Thanks to Gary Gregory.
+o            Make LockVisitor.acceptReadLocked(FailableConsumer) null-safe. Thanks to Gary Gregory.
+o            Make LockVisitor.applyWriteLocked(FailableConsumer) null-safe. Thanks to Gary Gregory.
+o            Make ObjectUtils.getFirstNonNull(Supplier...) null-safe. Thanks to Gary Gregory.
+o            Make SystemProperties.getLineSeparator(Supplier). Thanks to Gary Gregory.
+o            StringUtils.stripAccents(String) doesn't handle "\u0111" and "\u0110" (Vietnamese) #1216. Thanks to hunghhdev.
+o            StringUtils.stripAccents(String) doesn't handle I with bar. Thanks to Gary Gregory.
+o            StringUtils.stripAccents(String) doesn't handle U with bar. Thanks to Gary Gregory.
+o            StringUtils.stripAccents(String) doesn't handle T with stroke. Thanks to Gary Gregory.
+o LANG-1735: Fix Javadoc for FluentBitSet.setInclusive(int, int) #1222. Thanks to Tobias Kiecker.
+o            Same Javadoc changes as [TEXT-234] #1223. Thanks to Tobias Kiecker.
+o            Remove duplicate static data in SerializationUtils.ClassLoaderAwareObjectInputStream. Thanks to Gary Gregory.
+o            Reimplement RandomStringUtils on top of SecureRandom#getInstanceStrong() #1235. Thanks to Gary Gregory, Henri Yandell, Fabrice Benhamouda.
+o LANG-1657: DiffBuilder: Type constraint for method append(..., DiffResult) too strict #786. Thanks to Matthias Welz, Andrew Thomas, Gary Gregory.
+
+Changes:
+o            Bump commons-parent from 64 to 71 #1194, #1233. Thanks to Dependabot, Gary Gregory.
+o            Bump org.codehaus.mojo:exec-maven-plugin from 3.1.1 to 3.3.0 #1175, #1224. Thanks to Dependabot.
+o            Bump org.apache.commons:commons-text from 1.11.0 to 1.12.0 #1200. Thanks to Dependabot.
+o            Bump org.easymock:easymock from 5.2.0 to 5.3.0 #1232. Thanks to Dependabot.
+o            Bump org.codehaus.mojo:taglist-maven-plugin from 3.0.0 to 3.1.0 #1242. Thanks to Dependabot.
+
+Removed:
+o            Drop obsolete JDK 13 Maven profile #1142. Thanks to Paranoïd User.
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+-Apache Commons Team
+
+-----------------------------------------------------------------------------
+
+                        Apache Commons Lang
                         Version 3.14.0
                         Release Notes
 
