@@ -368,7 +368,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * @throws NullPointerException if field name is {@code null} or diffResult is {@code null}
      * @since 3.5
      */
-    public DiffBuilder<T> append(final String fieldName, final DiffResult<T> diffResult) {
+    public DiffBuilder<T> append(final String fieldName, final DiffResult<?> diffResult) {
         Objects.requireNonNull(diffResult, "diffResult");
         if (equals) {
             return this;

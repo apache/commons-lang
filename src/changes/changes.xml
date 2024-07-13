@@ -144,6 +144,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Tobias Kiecker">Same Javadoc changes as [TEXT-234] #1223.</action>  
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Remove duplicate static data in SerializationUtils.ClassLoaderAwareObjectInputStream.</action> 
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Henri Yandell, Fabrice Benhamouda">Reimplement RandomStringUtils on top of SecureRandom#getInstanceStrong() #1235.</action>
+    <action issue="LANG-1657" type="fix" dev="ggregory" due-to="Matthias Welz, Andrew Thomas, Gary Gregory">DiffBuilder: Type constraint for method append(..., DiffResult) too strict #786.</action> 
     <!-- UPDATE -->
     <action                   type="update" dev="sebb" due-to="Dependabot, Gary Gregory">Bump commons-parent from 64 to 71 #1194, #1233.</action>
     <action                   type="update" dev="ggregory" due-to="Dependabot">Bump org.codehaus.mojo:exec-maven-plugin from 3.1.1 to 3.3.0 #1175, #1224.</action>
