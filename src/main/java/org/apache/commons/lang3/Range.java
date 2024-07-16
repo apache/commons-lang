@@ -289,7 +289,7 @@ public class Range<T> implements Serializable {
     }
 
     /**
-     * Compares this range to another object to test if they are equal..
+     * Compares this range to another object to test if they are equal.
      *
      * <p>To be equal, the minimum and maximum values must be equal, which
      * ignores any differences in the comparator.</p>

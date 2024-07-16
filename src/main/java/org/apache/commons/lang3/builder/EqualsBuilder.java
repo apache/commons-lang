@@ -1033,7 +1033,7 @@ public class EqualsBuilder implements Builder<Boolean> {
 
     /**
      * Sets {@link Class}es whose instances should be compared by calling their {@code equals}
-     * although being in recursive mode. So the fields of theses classes will not be compared recursively by reflection.
+     * although being in recursive mode. So the fields of these classes will not be compared recursively by reflection.
      *
      * <p>Here you should name classes having non-transient fields which are cache fields being set lazily.<br>
      * Prominent example being {@link String} class with its hash code cache field. Due to the importance

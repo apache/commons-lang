@@ -2465,26 +2465,6 @@ public final class SystemProperties {
      * @return the current value from the system properties map.
      * @since 3.15.0
      */
-
-    /**
-     * Gets the current value from the system properties map.
-     * <p>
-     * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
-     * </p>
-     *
-     * @return the current value from the system properties map.
-     * @since 3.15.0
-     */
-
-    /**
-     * Gets the current value from the system properties map.
-     * <p>
-     * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
-     * </p>
-     *
-     * @return the current value from the system properties map.
-     * @since 3.15.0
-     */
     public static String getJavaUtilLoggingSimpleFormatterFormat() {
         return getProperty(JAVA_UTIL_LOGGING_SIMPLE_FORMATTER_FORMAT);
     }

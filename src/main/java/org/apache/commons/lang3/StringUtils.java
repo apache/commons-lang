@@ -1742,7 +1742,7 @@ public class StringUtils {
     }
 
     /**
-     * Check if a CharSequence ends with a specified suffix (optionally case insensitive).
+     * Check if a CharSequence ends with a specified suffix (optionally case-insensitive).
      *
      * @see String#endsWith(String)
      * @param str  the CharSequence to check, may be null
@@ -1797,7 +1797,7 @@ public class StringUtils {
     }
 
     /**
-     * Case insensitive check if a CharSequence ends with a specified suffix.
+     * Case-insensitive check if a CharSequence ends with a specified suffix.
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case insensitive.</p>
@@ -5958,7 +5958,7 @@ public class StringUtils {
     }
 
     /**
-     * Case insensitive removal of a substring if it is at the end of a source string,
+     * Case-insensitive removal of a substring if it is at the end of a source string,
      * otherwise returns the source string.
      *
      * <p>A {@code null} source string will return {@code null}.
@@ -6043,7 +6043,7 @@ public class StringUtils {
     }
 
     /**
-     * Case insensitive removal of all occurrences of a substring from within
+     * Case-insensitive removal of all occurrences of a substring from within
      * the source string.
      *
      * <p>
@@ -6178,7 +6178,7 @@ public class StringUtils {
     }
 
     /**
-     * Case insensitive removal of a substring if it is at the beginning of a source string,
+     * Case-insensitive removal of a substring if it is at the beginning of a source string,
      * otherwise returns the source string.
      *
      * <p>A {@code null} source string will return {@code null}.
@@ -8024,7 +8024,7 @@ public class StringUtils {
     }
 
     /**
-     * Check if a CharSequence starts with a specified prefix (optionally case insensitive).
+     * Check if a CharSequence starts with a specified prefix (optionally case-insensitive).
      *
      * @see String#startsWith(String)
      * @param str  the CharSequence to check, may be null
@@ -8081,7 +8081,7 @@ public class StringUtils {
     }
 
     /**
-     * Case insensitive check if a CharSequence starts with a specified prefix.
+     * Case-insensitive check if a CharSequence starts with a specified prefix.
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case insensitive.</p>
@@ -9013,10 +9013,10 @@ public class StringUtils {
     }
 
     /**
-     * Converts the given source String as a upper-case using the {@link Locale#ROOT} locale in a null-safe manner.
+     * Converts the given source String as an upper-case using the {@link Locale#ROOT} locale in a null-safe manner.
      *
      * @param source A source String or null.
-     * @return the given source String as a upper-case using the {@link Locale#ROOT} locale or null.
+     * @return the given source String as an upper-case using the {@link Locale#ROOT} locale or null.
      * @since 3.10
      */
     public static String toRootUpperCase(final String source) {
