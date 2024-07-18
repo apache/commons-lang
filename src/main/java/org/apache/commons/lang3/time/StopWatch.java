@@ -387,12 +387,25 @@ public class StopWatch {
     }
 
     /**
+     * Gets the Instant this StopWatch was stopped, between the current time and midnight, January 1, 1970 UTC.
+     *
+     * @return the Instant this StopWatch was stopped in milliseconds, between the current time and midnight, January 1, 1970 UTC.
+     * @throws IllegalStateException if this StopWatch has not been started
+     * @since 3.16.0
+     */
+    public Instant getStopInstant() {
+        return Instant.ofEpochMilli(getStartTime());
+    }
+
+    /**
      * Gets the time this StopWatch was stopped in milliseconds, between the current time and midnight, January 1, 1970 UTC.
      *
-     * @return the time this StopWatch was started in milliseconds, between the current time and midnight, January 1, 1970 UTC.
+     * @return the time this StopWatch was stopped in milliseconds, between the current time and midnight, January 1, 1970 UTC.
      * @throws IllegalStateException if this StopWatch has not been started
      * @since 3.12.0
+     * @deprecated Use {@link #getStopInstant()}.
      */
+    @Deprecated
     public long getStopTime() {
         if (this.runningState == State.UNSTARTED) {
             throw new IllegalStateException("Stopwatch has not been started");

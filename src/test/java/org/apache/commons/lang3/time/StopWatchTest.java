@@ -258,6 +258,19 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Test
+    public void testStopInstantSimple() throws InterruptedException {
+        final StopWatch watch = StopWatch.createStarted();
+        final long testStartMillis = System.currentTimeMillis();
+        sleep(MILLIS_550);
+        watch.stop();
+        final long testEndMillis = System.currentTimeMillis();
+        final Instant stopTime = watch.getStopInstant();
+        assertEquals(stopTime, watch.getStopInstant());
+        assertThat("stopTime", stopTime,
+                allOf(greaterThanOrEqualTo(Instant.ofEpochMilli(testStartMillis)), lessThanOrEqualTo(Instant.ofEpochMilli(testEndMillis))));
+    }
+
+    @Test
     public void testStopTimeSimple() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
         final long testStartMillis = System.currentTimeMillis();
@@ -266,7 +279,6 @@ public class StopWatchTest extends AbstractLangTest {
         final long testEndMillis = System.currentTimeMillis();
         final long stopTime = watch.getStopTime();
         assertEquals(stopTime, watch.getStopTime());
-
         assertThat("stopTime", stopTime, allOf(greaterThanOrEqualTo(testStartMillis), lessThanOrEqualTo(testEndMillis)));
     }
 
