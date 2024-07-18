@@ -272,6 +272,20 @@ public class StopWatch {
     }
 
     /**
+     * Gets the Duration on the StopWatch.
+     *
+     * <p>
+     * This is either the Duration between the start and the moment this method is called, or the Duration between start and stop.
+     * </p>
+     *
+     * @return the Duration.
+     * @since 3.16.0
+     */
+    public Duration getDuration() {
+        return Duration.ofNanos(getNanoTime());
+    }
+
+    /**
      * Gets the message for string presentation.
      *
      * @return the message for string presentation.
@@ -394,7 +408,7 @@ public class StopWatch {
      * @since 3.16.0
      */
     public Instant getStopInstant() {
-        return Instant.ofEpochMilli(getStartTime());
+        return Instant.ofEpochMilli(getStopTime());
     }
 
     /**
@@ -422,7 +436,9 @@ public class StopWatch {
      * </p>
      *
      * @return the time in milliseconds
+     * @deprecated Use {@link #getDuration()}.
      */
+    @Deprecated
     public long getTime() {
         return nanosToMillis(getNanoTime());
     }
