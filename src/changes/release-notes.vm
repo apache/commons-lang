@@ -39,9 +39,9 @@ limitations under the License.
 
 The Apache Commons team is pleased to announce Apache Commons Lang Version ${version}.
 
-Commons Lang is a set of utility functions and reusable components that should be of use in any Java environment.
+Commons Lang is a set of utility functions and reusable components that should be useful in any Java environment.
 
-Starting with Commons Lang 3.9, we target Java 8, making use of those features.
+Starting with Commons Lang 3.9, we target Java 8, using those features.
 
 For advice on upgrading from 2.x to 3.x, see:
 
@@ -139,6 +139,6 @@ ${project.url}
 Download page: ${project.url}download_lang.cgi
 
 Have fun!
--Apache Commons Team
+Apache Commons Team
 
 -----------------------------------------------------------------------------
