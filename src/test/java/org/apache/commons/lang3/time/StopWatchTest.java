@@ -72,6 +72,10 @@ public class StopWatchTest extends AbstractLangTest {
     private StopWatch createMockStopWatch(final long nanos) {
         final StopWatch watch = StopWatch.createStarted();
         watch.suspend();
+        return set(watch, nanos);
+    }
+
+    private StopWatch set(final StopWatch watch, final long nanos) {
         try {
             final long currentNanos = System.nanoTime();
             FieldUtils.writeField(watch, "startTimeNanos", currentNanos - nanos, true);
@@ -86,7 +90,9 @@ public class StopWatchTest extends AbstractLangTest {
         ThreadUtils.sleep(duration);
     }
 
-    // test bad states
+    /**
+     * Tests bad states.
+     */
     @Test
     public void testBadStates() {
         final StopWatch watch = new StopWatch();
@@ -114,7 +120,10 @@ public class StopWatchTest extends AbstractLangTest {
             "Calling unsplit on an unsplit StopWatch should throw an exception. ");
 
         assertThrows(IllegalStateException.class, watch::getSplitTime,
-            "Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
+                "Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
+
+        assertThrows(IllegalStateException.class, watch::getSplitDuration,
+                "Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
 
         assertThrows(IllegalStateException.class, watch::resume,
             "Calling resume on an unsuspended StopWatch should throw an exception. ");
@@ -185,6 +194,17 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Test
+    public void testGetSplitDuration() {
+        // Create a mock StopWatch with a time of 2:59:01.999
+        // @formatter:off
+        final StopWatch watch = StopWatch.createStarted();
+        watch.split();
+        set(watch, 123456);
+        // @formatter:on
+        assertEquals(Duration.ofNanos(123456), watch.getSplitDuration());
+    }
+
+    @Test
     public void testGetStartTime() {
         final long beforeStopWatchMillis = System.currentTimeMillis();
         final StopWatch watch = new StopWatch();
@@ -246,7 +266,6 @@ public class StopWatchTest extends AbstractLangTest {
                     + TimeUnit.SECONDS.toNanos(1)
                     + TimeUnit.MILLISECONDS.toNanos(999));
         // @formatter:on
-
         assertEquals(2L, watch.getTime(TimeUnit.HOURS));
         assertEquals(179L, watch.getTime(TimeUnit.MINUTES));
         assertEquals(10741L, watch.getTime(TimeUnit.SECONDS));
@@ -285,6 +304,7 @@ public class StopWatchTest extends AbstractLangTest {
         // slept ~550 millis
         watch.split();
         final long splitTime = watch.getSplitTime();
+        assertEquals(splitTime, watch.getSplitDuration().toMillis());
         final String splitStr = watch.toSplitString();
         sleep(MILLIS_550);
         // slept ~1100 millis

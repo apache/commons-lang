@@ -45,9 +45,10 @@ The <action> type attribute can be add,update,fix,remove.
     <title>Apache Commons Lang Release Notes</title>
   </properties>
   <body>
-  <release version="3.15.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
+  <release version="3.16.0" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
       <!-- FIX -->
       <!-- ADD -->
+      <action                 type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getSplitDuration() and deprecate getSplitTime().</action>
       <!-- UPDATE -->
   </release>
   <release version="3.15.0" date="2024-07-13" description="New features and bug fixes (Java 8 or above).">

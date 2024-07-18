@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.time;
 
+import java.time.Duration;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -256,7 +257,7 @@ public class StopWatch {
      * @since 3.10
      */
     public String formatSplitTime() {
-        return DurationFormatUtils.formatDurationHMS(getSplitTime());
+        return DurationFormatUtils.formatDurationHMS(getSplitDuration().toMillis());
     }
 
     /**
@@ -304,6 +305,22 @@ public class StopWatch {
     }
 
     /**
+     * Gets the split Duration on the StopWatch.
+     *
+     * <p>
+     * This is the Duration between start and latest split.
+     * </p>
+     *
+     * @return the split Duration
+     *
+     * @throws IllegalStateException if the StopWatch has not yet been split.
+     * @since 3.16.0
+     */
+    public Duration getSplitDuration() {
+        return Duration.ofNanos(getSplitNanoTime());
+    }
+
+    /**
      * Gets the split time in nanoseconds.
      *
      * <p>
@@ -333,7 +350,9 @@ public class StopWatch {
      *
      * @throws IllegalStateException if the StopWatch has not yet been split.
      * @since 2.1
+     * @deprecated Use {@link #getSplitDuration()}.
      */
+    @Deprecated
     public long getSplitTime() {
         return nanosToMillis(getSplitNanoTime());
     }
