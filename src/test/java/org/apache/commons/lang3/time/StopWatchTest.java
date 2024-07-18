@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -205,19 +206,32 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Test
+    public void testGetStartInstant() {
+        final long beforeStopWatchMillis = System.currentTimeMillis();
+        final StopWatch watch = new StopWatch();
+        assertThrows(IllegalStateException.class, watch::getStartInstant, "Calling getStartInstant on an unstarted StopWatch should throw an exception");
+        watch.start();
+
+        watch.getStartInstant();
+        assertThat("getStartInstant", watch.getStartInstant(), greaterThanOrEqualTo(Instant.ofEpochMilli(beforeStopWatchMillis)));
+
+        watch.reset();
+        assertThrows(IllegalStateException.class, watch::getStartInstant,
+                "Calling getStartInstant on a reset, but unstarted StopWatch should throw an exception");
+    }
+
+    @Test
     public void testGetStartTime() {
         final long beforeStopWatchMillis = System.currentTimeMillis();
         final StopWatch watch = new StopWatch();
-        assertThrows(IllegalStateException.class, watch::getStartTime,
-            "Calling getStartTime on an unstarted StopWatch should throw an exception");
+        assertThrows(IllegalStateException.class, watch::getStartTime, "Calling getStartTime on an unstarted StopWatch should throw an exception");
         watch.start();
 
         watch.getStartTime();
         assertThat("getStartTime", watch.getStartTime(), greaterThanOrEqualTo(beforeStopWatchMillis));
 
         watch.reset();
-        assertThrows(IllegalStateException.class, watch::getStartTime,
-            "Calling getStartTime on a reset, but unstarted StopWatch should throw an exception");
+        assertThrows(IllegalStateException.class, watch::getStartTime, "Calling getStartTime on a reset, but unstarted StopWatch should throw an exception");
     }
 
     @Test

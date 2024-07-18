@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.time;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -358,12 +359,25 @@ public class StopWatch {
     }
 
     /**
+     * Gets the Instant this StopWatch was started, between the current time and midnight, January 1, 1970 UTC.
+     *
+     * @return the Instant this StopWatch was started, between the current time and midnight, January 1, 1970 UTC.
+     * @throws IllegalStateException if this StopWatch has not been started
+     * @since 3.16.0
+     */
+    public Instant getStartInstant() {
+        return Instant.ofEpochMilli(getStartTime());
+    }
+
+    /**
      * Gets the time this StopWatch was started in milliseconds, between the current time and midnight, January 1, 1970 UTC.
      *
      * @return the time this StopWatch was started in milliseconds, between the current time and midnight, January 1, 1970 UTC.
      * @throws IllegalStateException if this StopWatch has not been started
      * @since 2.4
+     * @deprecated Use {@link #getStartInstant()}.
      */
+    @Deprecated
     public long getStartTime() {
         if (this.runningState == State.UNSTARTED) {
             throw new IllegalStateException("Stopwatch has not been started");
