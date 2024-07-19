@@ -52,9 +52,20 @@ public class LocaleUtils {
             AVAILABLE_LOCALE_SET = Collections.unmodifiableSet(new HashSet<>(list));
         }
     }
+
+    /**
+     * The underscore character {@code '}{@value}{@code '}.
+     */
     private static final char UNDERSCORE = '_';
+
+    /**
+     * The undetermined language {@value}.
+     */
     private static final String UNDETERMINED = "und";
 
+    /**
+     * The dash character {@code '}{@value}{@code '}.
+     */
     private static final char DASH = '-';
 
     /** Concurrent map of language locales by country. */
