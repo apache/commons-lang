@@ -49,6 +49,7 @@ The <action> type attribute can be add,update,fix,remove.
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Reimplement StopWatch internals to use java.time.</action>
     <action issue="LANG-1745" type="fix" dev="ggregory" due-to="Wang Hailong, Gary Gregory">RandomStringUtils.random() with a negative character index should throw IllegalArgumentException.</action>
+    <action issue="LANG-1741" type="fix" dev="ggregory" due-to="Wang Hailong, Gary Gregory">LocaleUtils.toLocale(String) cannot parse four segments.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getSplitDuration() and deprecate getSplitTime().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getStartInstant() and deprecate getStartTime().</action>
