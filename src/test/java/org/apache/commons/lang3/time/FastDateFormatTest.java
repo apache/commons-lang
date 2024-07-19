@@ -47,6 +47,9 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  * Unit tests {@link org.apache.commons.lang3.time.FastDateFormat}.
  */
 public class FastDateFormatTest extends AbstractLangTest {
+
+    private static final String ISO_8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZ";
+
     private static final int NTHREADS = 10;
 
     private static final int NROUNDS = 10000;
@@ -245,7 +248,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLANG_1152() {
+    public void testLang1152() {
         final TimeZone utc = FastTimeZone.getGmtTimeZone();
         final Date date = new Date(Long.MAX_VALUE);
 
@@ -256,15 +259,29 @@ public class FastDateFormatTest extends AbstractLangTest {
         assertEquals("17/08/292278994", dateAsString);
     }
     @Test
-    public void testLANG_1267() {
+    public void testLang1267() {
         FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+    }
+
+    @Test
+    public void testLang1641() {
+        assertSame(FastDateFormat.getInstance(ISO_8601_DATE_FORMAT), FastDateFormat.getInstance(ISO_8601_DATE_FORMAT));
+        // commons-lang's GMT TimeZone
+        assertSame(FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, FastTimeZone.getGmtTimeZone()),
+                FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, FastTimeZone.getGmtTimeZone()));
+        // default TimeZone
+        assertSame(FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getDefault()),
+                FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getDefault()));
+        // TimeZones that are identical in every way except ID
+        assertNotSame(FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getTimeZone("Australia/Broken_Hill")),
+                FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getTimeZone("Australia/Yancowinna")));
     }
 
     /**
      * According to LANG-954 (https://issues.apache.org/jira/browse/LANG-954) this is broken in Android 2.1.
      */
     @Test
-    public void testLANG_954() {
+    public void testLang954() {
         final String pattern = "yyyy-MM-dd'T'";
         FastDateFormat.getInstance(pattern);
     }
