@@ -68,13 +68,15 @@ public class LocaleUtils {
      */
     private static final char DASH = '-';
 
-    /** Concurrent map of language locales by country. */
-    private static final ConcurrentMap<String, List<Locale>> cLanguagesByCountry =
-        new ConcurrentHashMap<>();
+    /**
+     * Concurrent map of language locales by country.
+     */
+    private static final ConcurrentMap<String, List<Locale>> cLanguagesByCountry = new ConcurrentHashMap<>();
 
-    /** Concurrent map of country locales by language. */
-    private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage =
-        new ConcurrentHashMap<>();
+    /**
+     * Concurrent map of country locales by language.
+     */
+    private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage = new ConcurrentHashMap<>();
 
     /**
      * Obtains an unmodifiable list of installed locales.
