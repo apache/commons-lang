@@ -248,7 +248,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLANG_1152() {
+    public void testLang1152() {
         final TimeZone utc = FastTimeZone.getGmtTimeZone();
         final Date date = new Date(Long.MAX_VALUE);
 
@@ -259,17 +259,8 @@ public class FastDateFormatTest extends AbstractLangTest {
         assertEquals("17/08/292278994", dateAsString);
     }
     @Test
-    public void testLANG_1267() {
+    public void testLang1267() {
         FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-    }
-
-    /**
-     * According to LANG-954 (https://issues.apache.org/jira/browse/LANG-954) this is broken in Android 2.1.
-     */
-    @Test
-    public void testLANG_954() {
-        final String pattern = "yyyy-MM-dd'T'";
-        FastDateFormat.getInstance(pattern);
     }
 
     @Test
@@ -284,6 +275,15 @@ public class FastDateFormatTest extends AbstractLangTest {
         // TimeZones that are identical in every way except ID
         assertNotSame(FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getTimeZone("Australia/Broken_Hill")),
                 FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getTimeZone("Australia/Yancowinna")));
+    }
+
+    /**
+     * According to LANG-954 (https://issues.apache.org/jira/browse/LANG-954) this is broken in Android 2.1.
+     */
+    @Test
+    public void testLang954() {
+        final String pattern = "yyyy-MM-dd'T'";
+        FastDateFormat.getInstance(pattern);
     }
 
     @Test
