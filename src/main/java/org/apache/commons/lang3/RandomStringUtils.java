@@ -232,6 +232,8 @@ public class RandomStringUtils {
             }
         } else if (end <= start) {
             throw new IllegalArgumentException("Parameter end (" + end + ") must be greater than start (" + start + ")");
+        } else if (start < 0 || end < 0) {
+            throw new IllegalArgumentException("Character positions MUST be >= 0");
         }
 
         if (end > Character.MAX_CODE_POINT) {
