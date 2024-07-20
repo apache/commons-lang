@@ -50,6 +50,7 @@ public class DurationUtils {
      * @param consumer Accepting function.
      * @param duration The duration to pick apart.
      * @throws T See the function signature.
+     * @see StopWatch
      */
     @SuppressWarnings("boxing") // boxing unavoidable
     public static <T extends Throwable> void accept(final FailableBiConsumer<Long, Integer, T> consumer, final Duration duration)
@@ -119,6 +120,7 @@ public class DurationUtils {
      * @param consumer What to execute.
      * @return The Duration of execution.
      * @throws E thrown by the lambda.
+     * @see StopWatch
      * @since 3.13.0
      */
     public static <E extends Throwable> Duration of(final FailableConsumer<Instant, E> consumer) throws E {
@@ -132,6 +134,7 @@ public class DurationUtils {
      * @param runnable What to execute.
      * @return The Duration of execution.
      * @throws E thrown by the lambda.
+     * @see StopWatch
      * @since 3.13.0
      */
     public static <E extends Throwable> Duration of(final FailableRunnable<E> runnable) throws E {
