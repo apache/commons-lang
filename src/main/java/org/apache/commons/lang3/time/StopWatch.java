@@ -23,6 +23,8 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableRunnable;
 
 /**
  * {@link StopWatch} provides a convenient API for timings.
@@ -58,6 +60,9 @@ import org.apache.commons.lang3.StringUtils;
  * <p>
  * This class is not thread-safe
  * </p>
+ *
+ * @see DurationUtils#of(FailableRunnable)
+ * @see DurationUtils#of(FailableConsumer)
  *
  * @since 2.0
  */
