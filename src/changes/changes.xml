@@ -55,6 +55,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getStartInstant() and deprecate getStartTime().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getStopInstant() and deprecate getStopTime().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getDuration() and deprecate getTime().</action>
+    <action                   type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add Javadoc links from StopWatch to DurationUtils #1249.</action>
     <!-- UPDATE -->
   </release>
   <release version="3.15.0" date="2024-07-13" description="New features and bug fixes (Java 8 or above).">
