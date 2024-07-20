@@ -93,23 +93,43 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testExceptions() {
-        final char[] DUMMY = { 'a' }; // valid char array
+    public void testExceptionsRandom() {
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, true, true));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, DUMMY));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, new char[] { 'a' }));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(1, new char[0]));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, ""));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, (String) null));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY));
-        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random()));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false, new char[] { 'a' }));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false, new char[] { 'a' }, new Random()));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 48, false, true));
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 65, true, false));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(1, Integer.MIN_VALUE, -10, false, false, null));
+    }
+
+    @Test
+    public void testExceptionsRandomAlphabetic() {
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomAlphabetic(-1));
+    }
+
+    @Test
+    public void testExceptionsRandomAscii() {
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomAscii(-1));
+    }
+
+    @Test
+    public void testExceptionsRandomGraph() {
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomGraph(-1));
+    }
+
+    @Test
+    public void testExceptionsRandomNumeric() {
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomNumeric(-1));
+    }
+
+    @Test
+    public void testExceptionsRandomPrint() {
         assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomPrint(-1));
     }
 

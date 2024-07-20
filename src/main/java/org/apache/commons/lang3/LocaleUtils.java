@@ -52,18 +52,31 @@ public class LocaleUtils {
             AVAILABLE_LOCALE_SET = Collections.unmodifiableSet(new HashSet<>(list));
         }
     }
+
+    /**
+     * The underscore character {@code '}{@value}{@code '}.
+     */
     private static final char UNDERSCORE = '_';
+
+    /**
+     * The undetermined language {@value}.
+     */
     private static final String UNDETERMINED = "und";
 
+    /**
+     * The dash character {@code '}{@value}{@code '}.
+     */
     private static final char DASH = '-';
 
-    /** Concurrent map of language locales by country. */
-    private static final ConcurrentMap<String, List<Locale>> cLanguagesByCountry =
-        new ConcurrentHashMap<>();
+    /**
+     * Concurrent map of language locales by country.
+     */
+    private static final ConcurrentMap<String, List<Locale>> cLanguagesByCountry = new ConcurrentHashMap<>();
 
-    /** Concurrent map of country locales by language. */
-    private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage =
-        new ConcurrentHashMap<>();
+    /**
+     * Concurrent map of country locales by language.
+     */
+    private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage = new ConcurrentHashMap<>();
 
     /**
      * Obtains an unmodifiable list of installed locales.
@@ -236,28 +249,30 @@ public class LocaleUtils {
     }
 
     /**
-     * Tries to parse a locale from the given String.
+     * Tries to parse a Locale from the given String.
+     * <p>
+     * See {@Link Locale} for the format.
+     * </p>
      *
-     * @param str the String to parse a locale from.
-     * @return a Locale instance parsed from the given String.
+     * @param str the String to parse as a Locale.
+     * @return a Locale parsed from the given String.
      * @throws IllegalArgumentException if the given String can not be parsed.
+     * @see Locale
      */
     private static Locale parseLocale(final String str) {
         if (isISO639LanguageCode(str)) {
             return new Locale(str);
         }
-
-        final String[] segments = str.indexOf(UNDERSCORE) != -1
-            ? str.split(String.valueOf(UNDERSCORE), -1)
-            : str.split(String.valueOf(DASH), -1);
+        final int limit = 3;
+        final char separator = str.indexOf(UNDERSCORE) != -1 ? UNDERSCORE : DASH;
+        final String[] segments = str.split(String.valueOf(separator), 3);
         final String language = segments[0];
         if (segments.length == 2) {
             final String country = segments[1];
-            if (isISO639LanguageCode(language) && isISO3166CountryCode(country) ||
-                    isNumericAreaCode(country)) {
+            if (isISO639LanguageCode(language) && isISO3166CountryCode(country) || isNumericAreaCode(country)) {
                 return new Locale(language, country);
             }
-        } else if (segments.length == 3) {
+        } else if (segments.length == limit) {
             final String country = segments[1];
             final String variant = segments[2];
             if (isISO639LanguageCode(language) &&
