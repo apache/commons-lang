@@ -412,7 +412,7 @@ public class WordUtils {
      * Wraps a single line of text, identifying words by {@code ' '}.
      *
      * <p>New lines will be separated by the system property line separator.
-     * Very long words, such as URLs will <i>not</i> be wrapped.</p>
+     * Very long words, such as URLs will <em>not</em> be wrapped.</p>
      *
      * <p>Leading spaces on a new line are stripped.
      * Trailing spaces are not stripped.</p>

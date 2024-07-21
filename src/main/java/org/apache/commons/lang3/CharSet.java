@@ -228,7 +228,7 @@ public class CharSet implements Serializable {
      * Compares two {@link CharSet} objects, returning true if they represent
      * exactly the same set of characters defined in the same way.
      *
-     * <p>The two sets {@code abc} and {@code a-c} are <i>not</i>
+     * <p>The two sets {@code abc} and {@code a-c} are <em>not</em>
      * equal according to this method.</p>
      *
      * @param obj  the object to compare to

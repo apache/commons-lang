@@ -21,7 +21,7 @@ package org.apache.commons.lang3.builder;
  * for differences. The {@link DiffResult} object retrieved can be queried
  * for a list of differences or printed using the {@link DiffResult#toString()}.
  *
- * <p>The calculation of the differences is <i>consistent with equals</i> if
+ * <p>The calculation of the differences is <em>consistent with equals</em> if
  * and only if {@code d1.equals(d2)} implies {@code d1.diff(d2) == ""}.
  * It is strongly recommended that implementations are consistent with equals
  * to avoid confusion. Note that {@code null} is not an instance of any class

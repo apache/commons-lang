@@ -68,7 +68,7 @@ import org.apache.commons.lang3.stream.Streams;
  * <li>{@link #getValue(java.lang.reflect.Field)}</li>
  * </ul>
  * <p>
- * For example, this method does <i>not</i> include the {@code password} field in the returned {@link String}:
+ * For example, this method does <em>not</em> include the {@code password} field in the returned {@link String}:
  * </p>
  * <pre>
  * public String toString() {

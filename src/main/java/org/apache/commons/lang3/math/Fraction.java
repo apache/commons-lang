@@ -26,7 +26,7 @@ import java.util.Objects;
  * <p>This class is immutable, and interoperable with most methods that accept
  * a {@link Number}.</p>
  *
- * <p>Note that this class is intended for common use cases, it is <i>int</i>
+ * <p>Note that this class is intended for common use cases, it is <em>int</em>
  * based and thus suffers from various overflow issues. For a BigInteger based
  * equivalent, please see the Commons Math BigFraction class.</p>
  *
@@ -857,7 +857,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     /**
      * Gets the fraction as a proper {@link String} in the format X Y/Z.
      *
-     * <p>The format used in '<i>wholeNumber</i> <i>numerator</i>/<i>denominator</i>'.
+     * <p>The format used in '<em>wholeNumber</em> <em>numerator</em>/<em>denominator</em>'.
      * If the whole number is zero it will be omitted. If the numerator is zero,
      * only the whole number is returned.</p>
      *
@@ -892,7 +892,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     /**
      * Gets the fraction as a {@link String}.
      *
-     * <p>The format used is '<i>numerator</i>/<i>denominator</i>' always.
+     * <p>The format used is '<em>numerator</em>/<em>denominator</em>' always.
      *
      * @return a {@link String} form of the fraction
      */

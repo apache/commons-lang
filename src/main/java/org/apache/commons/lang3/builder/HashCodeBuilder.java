@@ -542,7 +542,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * that represent {@code false}.
      * </p>
      * <p>
-     * This is in accordance with the <i>Effective Java</i> design.
+     * This is in accordance with the <em>Effective Java</em> design.
      * </p>
      *
      * @param value

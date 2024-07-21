@@ -533,7 +533,7 @@ public class Range<T> implements Serializable {
     /**
      * Gets the range as a {@link String}.
      *
-     * <p>The format of the String is '[<i>min</i>..<i>max</i>]'.</p>
+     * <p>The format of the String is '[<em>min</em>..<em>max</em>]'.</p>
      *
      * @return the {@link String} representation of this range
      */

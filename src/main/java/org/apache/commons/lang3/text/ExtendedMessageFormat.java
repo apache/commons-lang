@@ -38,14 +38,14 @@ import org.apache.commons.lang3.Validate;
  * and the formats supported by {@link java.text.MessageFormat} can be overridden
  * at the format and/or format style level (see MessageFormat).  A "format element"
  * embedded in the message pattern is specified (<b>()?</b> signifies optionality):<br>
- * <code>{</code><i>argument-number</i><b>(</b>{@code ,}<i>format-name</i><b>
- * (</b>{@code ,}<i>format-style</i><b>)?)?</b><code>}</code>
+ * <code>{</code><em>argument-number</em><b>(</b>{@code ,}<em>format-name</em><b>
+ * (</b>{@code ,}<em>format-style</em><b>)?)?</b><code>}</code>
  *
  * <p>
- * <i>format-name</i> and <i>format-style</i> values are trimmed of surrounding whitespace
- * in the manner of {@link java.text.MessageFormat}.  If <i>format-name</i> denotes
+ * <em>format-name</em> and <em>format-style</em> values are trimmed of surrounding whitespace
+ * in the manner of {@link java.text.MessageFormat}.  If <em>format-name</em> denotes
  * {@code FormatFactory formatFactoryInstance} in {@code registry}, a {@link Format}
- * matching <i>format-name</i> and <i>format-style</i> is requested from
+ * matching <em>format-name</em> and <em>format-style</em> is requested from
  * {@code formatFactoryInstance}.  If this is successful, the {@link Format}
  * found is used for this format element.
  * </p>
