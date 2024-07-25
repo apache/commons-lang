@@ -16,22 +16,77 @@
  */
 package org.apache.commons.lang3;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.Security;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Supplier;
+
+import org.apache.commons.lang3.exception.UncheckedException;
 
 /**
- * Utility library that supplements the standard {@link Random} class.
+ * Supplements the standard {@link Random} class.
+ * <p>
+ * Use {@link #secure()} to get the singleton instance based on {@link SecureRandom#getInstanceStrong()} which uses an
+ * algorithms/providers specified in the {@code securerandom.strongAlgorithms} {@link Security} property.
+ * </p>
+ * <p>
+ * Use {@link #insecure()} to get the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not
+ * cryptographically secure</b>.
+ * </p>
+ * <p>
+ * Starting in version 3.15.0, this class uses {@link SecureRandom#getInstanceStrong()} for static methods.
+ * </p>
+ * <p>
+ * Starting in version 3.16.0, this class uses {@link #secure()} for static methods and adds {@link #insecure()}.
+ * </p>
+ * <p>
+ * Before version 3.15.0, this class used {@link ThreadLocalRandom#current()} for static methods, which is not
+ * cryptographically secure.
+ * </p>
+ * <p>
+ * Please note that the Apache Commons project provides a component dedicated to pseudo-random number generation, namely
+ * <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a>, that may be a better choice for
+ * applications with more stringent requirements (performance and/or correctness).
+ * </p>
  *
- * <p>Please note that the Apache Commons project provides a component
- * dedicated to pseudo-random number generation, namely
- * <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a>, that may be
- * a better choice for applications with more stringent requirements
- * (performance and/or correctness).</p>
- *
- * @deprecated Use Apache Commons RNG's optimized <a href="https://commons.apache.org/proper/commons-rng/commons-rng-client-api/apidocs/org/apache/commons/rng/UniformRandomProvider.html">UniformRandomProvider</a>
+ * @see RandomStringUtils
  * @since 3.3
  */
-@Deprecated
 public class RandomUtils {
+
+    private static RandomUtils INSECURE = new RandomUtils(ThreadLocalRandom::current);
+
+    private static final Supplier<Random> SECURE_SUPPLIER = () -> RandomUtils.SECURE_RANDOM.get();
+
+    private static RandomUtils SECURE = new RandomUtils(SECURE_SUPPLIER);
+
+    private static final ThreadLocal<SecureRandom> SECURE_RANDOM = ThreadLocal.withInitial(() -> {
+        try {
+            return SecureRandom.getInstanceStrong();
+        } catch (final NoSuchAlgorithmException e) {
+            throw new UncheckedException(e);
+        }
+    });
+
+    /**
+     * Gets the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not cryptographically
+     * secure</b>; use {@link #secure()} to use an algorithms/providers specified in the
+     * {@code securerandom.strongAlgorithms} {@link Security} property.
+     * </p>
+     * <p>
+     * The method {@link ThreadLocalRandom#current()} is called on-demand.
+     * </p>
+     *
+     * @return the singleton instance based on {@link ThreadLocalRandom#current()}.
+     * @see ThreadLocalRandom#current()
+     * @see #secure()
+     * @since 3.16.0
+     */
+    static RandomUtils insecure() {
+        return INSECURE;
+    }
 
     /**
      * Generates a random boolean value.
@@ -40,22 +95,18 @@ public class RandomUtils {
      * @since 3.5
      */
     public static boolean nextBoolean() {
-        return RandomStringUtils.random().nextBoolean();
+        return secure().randomBoolean();
     }
 
     /**
      * Generates an array of random bytes.
      *
-     * @param count
-     *            the size of the returned array
+     * @param count the size of the returned array
      * @return the random byte array
      * @throws IllegalArgumentException if {@code count} is negative
      */
     public static byte[] nextBytes(final int count) {
-        Validate.isTrue(count >= 0, "Count cannot be negative.");
-        final byte[] result = new byte[count];
-        RandomStringUtils.random().nextBytes(result);
-        return result;
+        return secure().randomBytes(count);
     }
 
     /**
@@ -66,29 +117,20 @@ public class RandomUtils {
      * @since 3.5
      */
     public static double nextDouble() {
-        return nextDouble(0, Double.MAX_VALUE);
+        return secure().randomDouble();
     }
 
     /**
      * Generates a random double within the specified range.
      *
-     * @param startInclusive
-     *            the smallest value that can be returned, must be non-negative
-     * @param endExclusive
-     *            the upper bound (not included)
-     * @throws IllegalArgumentException
-     *             if {@code startInclusive > endExclusive} or if
-     *             {@code startInclusive} is negative
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
+     *                                  negative
      * @return the random double
      */
     public static double nextDouble(final double startInclusive, final double endExclusive) {
-        Validate.isTrue(endExclusive >= startInclusive,
-                "Start value must be smaller or equal to end value.");
-        Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
-        if (startInclusive == endExclusive) {
-            return startInclusive;
-        }
-        return startInclusive + (endExclusive - startInclusive) * RandomStringUtils.random().nextDouble();
+        return secure().randomDouble(startInclusive, endExclusive);
     }
 
     /**
@@ -99,29 +141,20 @@ public class RandomUtils {
      * @since 3.5
      */
     public static float nextFloat() {
-        return nextFloat(0, Float.MAX_VALUE);
+        return secure().randomFloat();
     }
 
     /**
      * Generates a random float within the specified range.
      *
-     * @param startInclusive
-     *            the smallest value that can be returned, must be non-negative
-     * @param endExclusive
-     *            the upper bound (not included)
-     * @throws IllegalArgumentException
-     *             if {@code startInclusive > endExclusive} or if
-     *             {@code startInclusive} is negative
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
+     *                                  negative
      * @return the random float
      */
     public static float nextFloat(final float startInclusive, final float endExclusive) {
-        Validate.isTrue(endExclusive >= startInclusive,
-                "Start value must be smaller or equal to end value.");
-        Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
-        if (startInclusive == endExclusive) {
-            return startInclusive;
-        }
-        return startInclusive + (endExclusive - startInclusive) * RandomStringUtils.random().nextFloat();
+        return secure().randomFloat(startInclusive, endExclusive);
     }
 
     /**
@@ -132,29 +165,20 @@ public class RandomUtils {
      * @since 3.5
      */
     public static int nextInt() {
-        return nextInt(0, Integer.MAX_VALUE);
+        return secure().randomInt();
     }
 
     /**
      * Generates a random integer within the specified range.
      *
-     * @param startInclusive
-     *            the smallest value that can be returned, must be non-negative
-     * @param endExclusive
-     *            the upper bound (not included)
-     * @throws IllegalArgumentException
-     *             if {@code startInclusive > endExclusive} or if
-     *             {@code startInclusive} is negative
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
+     *                                  negative
      * @return the random integer
      */
     public static int nextInt(final int startInclusive, final int endExclusive) {
-        Validate.isTrue(endExclusive >= startInclusive,
-                "Start value must be smaller or equal to end value.");
-        Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
-        if (startInclusive == endExclusive) {
-            return startInclusive;
-        }
-        return startInclusive + RandomStringUtils.random().nextInt(endExclusive - startInclusive);
+        return secure().randomInt(startInclusive, endExclusive);
     }
 
     /**
@@ -165,24 +189,213 @@ public class RandomUtils {
      * @since 3.5
      */
     public static long nextLong() {
+        return secure().randomLong();
+    }
+
+    /**
+     * Generates a {@code long} value between 0 (inclusive) and the specified value (exclusive).
+     *
+     * @param n Bound on the random number to be returned. Must be positive.
+     * @return a random {@code long} value between 0 (inclusive) and {@code n} (exclusive).
+     */
+    private static long nextLong(final long n) {
+        return secure().randomLong(n);
+    }
+
+    /**
+     * Generates a random long within the specified range.
+     *
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
+     *                                  negative
+     * @return the random long
+     */
+    public static long nextLong(final long startInclusive, final long endExclusive) {
+        return secure().randomLong(startInclusive, endExclusive);
+    }
+
+    /**
+     * Gets the singleton instance based on {@link SecureRandom#getInstanceStrong()} which uses an algorithms/providers
+     * specified in the {@code securerandom.strongAlgorithms} {@link Security} property.
+     * <p>
+     * The method {@link SecureRandom#getInstanceStrong()} is called on-demand.
+     * </p>
+     *
+     * @return the singleton instance based on {@link SecureRandom#getInstanceStrong()}.
+     * @see SecureRandom#getInstanceStrong()
+     * @since 3.16.0
+     */
+    public static RandomUtils secure() {
+        return SECURE;
+    }
+
+    static SecureRandom secureRandom() {
+        return SECURE_RANDOM.get();
+    }
+
+    private final Supplier<Random> random;
+
+    /**
+     * {@link RandomUtils} instances should NOT be constructed in standard programming. Instead, the class should be
+     * used as {@code RandomUtils.nextBytes(5);}.
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean instance to operate.
+     * </p>
+     *
+     * @deprecated TODO Make private in 4.0.
+     */
+    @Deprecated
+    public RandomUtils() {
+        this(SECURE_SUPPLIER);
+    }
+
+    private RandomUtils(final Supplier<Random> random) {
+        this.random = random;
+    }
+
+    Random random() {
+        return random.get();
+    }
+
+    /**
+     * Generates a random boolean value.
+     *
+     * @return the random boolean
+     * @since 3.16.0
+     */
+    public boolean randomBoolean() {
+        return random().nextBoolean();
+    }
+
+    /**
+     * Generates an array of random bytes.
+     *
+     * @param count the size of the returned array
+     * @return the random byte array
+     * @throws IllegalArgumentException if {@code count} is negative
+     * @since 3.16.0
+     */
+    public byte[] randomBytes(final int count) {
+        Validate.isTrue(count >= 0, "Count cannot be negative.");
+        final byte[] result = new byte[count];
+        random().nextBytes(result);
+        return result;
+    }
+
+    /**
+     * Generates a random double between 0 (inclusive) and Double.MAX_VALUE (exclusive).
+     *
+     * @return the random double
+     * @see #nextDouble(double, double)
+     * @since 3.16.0
+     */
+    public double randomDouble() {
+        return nextDouble(0, Double.MAX_VALUE);
+    }
+
+    /**
+     * Generates a random double within the specified range.
+     *
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
+     *                                  negative
+     * @return the random double
+     * @since 3.16.0
+     */
+    public double randomDouble(final double startInclusive, final double endExclusive) {
+        Validate.isTrue(endExclusive >= startInclusive, "Start value must be smaller or equal to end value.");
+        Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
+        if (startInclusive == endExclusive) {
+            return startInclusive;
+        }
+        return startInclusive + (endExclusive - startInclusive) * random().nextDouble();
+    }
+
+    /**
+     * Generates a random float between 0 (inclusive) and Float.MAX_VALUE (exclusive).
+     *
+     * @return the random float
+     * @see #nextFloat(float, float)
+     * @since 3.16.0
+     */
+    public float randomFloat() {
+        return nextFloat(0, Float.MAX_VALUE);
+    }
+
+    /**
+     * Generates a random float within the specified range.
+     *
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
+     *                                  negative
+     * @return the random float
+     */
+    public float randomFloat(final float startInclusive, final float endExclusive) {
+        Validate.isTrue(endExclusive >= startInclusive, "Start value must be smaller or equal to end value.");
+        Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
+        if (startInclusive == endExclusive) {
+            return startInclusive;
+        }
+        return startInclusive + (endExclusive - startInclusive) * random().nextFloat();
+    }
+
+    /**
+     * Generates a random int between 0 (inclusive) and Integer.MAX_VALUE (exclusive).
+     *
+     * @return the random integer
+     * @see #nextInt(int, int)
+     * @since 3.16.0
+     */
+    public int randomInt() {
+        return nextInt(0, Integer.MAX_VALUE);
+    }
+
+    /**
+     * Generates a random integer within the specified range.
+     *
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
+     *                                  negative
+     * @return the random integer
+     * @since 3.16.0
+     */
+    public int randomInt(final int startInclusive, final int endExclusive) {
+        Validate.isTrue(endExclusive >= startInclusive, "Start value must be smaller or equal to end value.");
+        Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
+        if (startInclusive == endExclusive) {
+            return startInclusive;
+        }
+        return startInclusive + random().nextInt(endExclusive - startInclusive);
+    }
+
+    /**
+     * Generates a random long between 0 (inclusive) and Long.MAX_VALUE (exclusive).
+     *
+     * @return the random long
+     * @see #nextLong(long, long)
+     * @since 3.16.0
+     */
+    public long randomLong() {
         return nextLong(Long.MAX_VALUE);
     }
 
     /**
-     * Generates a {@code long} value between 0 (inclusive) and the specified
-     * value (exclusive).
+     * Generates a {@code long} value between 0 (inclusive) and the specified value (exclusive).
      *
-     * @param n Bound on the random number to be returned.  Must be positive.
-     * @return a random {@code long} value between 0 (inclusive) and {@code n}
-     * (exclusive).
+     * @param n Bound on the random number to be returned. Must be positive.
+     * @return a random {@code long} value between 0 (inclusive) and {@code n} (exclusive).
      */
-    private static long nextLong(final long n) {
+    private long randomLong(final long n) {
         // Extracted from o.a.c.rng.core.BaseProvider.nextLong(long)
         long bits;
         long val;
         do {
-            bits = RandomStringUtils.random().nextLong() >>> 1;
-            val  = bits % n;
+            bits = random().nextLong() >>> 1;
+            val = bits % n;
         } while (bits - val + n - 1 < 0);
         return val;
     }
@@ -190,18 +403,15 @@ public class RandomUtils {
     /**
      * Generates a random long within the specified range.
      *
-     * @param startInclusive
-     *            the smallest value that can be returned, must be non-negative
-     * @param endExclusive
-     *            the upper bound (not included)
-     * @throws IllegalArgumentException
-     *             if {@code startInclusive > endExclusive} or if
-     *             {@code startInclusive} is negative
+     * @param startInclusive the smallest value that can be returned, must be non-negative
+     * @param endExclusive   the upper bound (not included)
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
+     *                                  negative
      * @return the random long
+     * @since 3.16.0
      */
-    public static long nextLong(final long startInclusive, final long endExclusive) {
-        Validate.isTrue(endExclusive >= startInclusive,
-                "Start value must be smaller or equal to end value.");
+    public long randomLong(final long startInclusive, final long endExclusive) {
+        Validate.isTrue(endExclusive >= startInclusive, "Start value must be smaller or equal to end value.");
         Validate.isTrue(startInclusive >= 0, "Both range values must be non-negative.");
         if (startInclusive == endExclusive) {
             return startInclusive;
@@ -209,19 +419,9 @@ public class RandomUtils {
         return startInclusive + nextLong(endExclusive - startInclusive);
     }
 
-    /**
-     * {@link RandomUtils} instances should NOT be constructed in standard
-     * programming. Instead, the class should be used as
-     * {@code RandomUtils.nextBytes(5);}.
-     * <p>
-     * This constructor is public to permit tools that require a JavaBean
-     * instance to operate.
-     * </p>
-     *
-     * @deprecated TODO Make private in 4.0.
-     */
-    @Deprecated
-    public RandomUtils() {
-        // empty
+    @Override
+    public String toString() {
+        return "RandomUtils [random=" + random() + "]";
     }
+
 }
