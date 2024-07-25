@@ -115,13 +115,12 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
                 buffer.append(pair.getKey());
                 buffer.append("=");
                 final Object value = pair.getValue();
-                String valueStr;
                 try {
-                    valueStr = Objects.toString(value);
+                    buffer.append(Objects.toString(value));
                 } catch (final Exception e) {
-                    valueStr = "Exception thrown on toString(): " + ExceptionUtils.getStackTrace(e);
+                    buffer.append("Exception thrown on toString(): ");
+                    buffer.append(ExceptionUtils.getStackTrace(e));
                 }
-                buffer.append(valueStr);
                 buffer.append("]\n");
             }
             buffer.append("---------------------------------");
