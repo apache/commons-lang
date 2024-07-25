@@ -19,6 +19,7 @@ package org.apache.commons.lang3.exception;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -114,17 +115,13 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
                 buffer.append(pair.getKey());
                 buffer.append("=");
                 final Object value = pair.getValue();
-                if (value == null) {
-                    buffer.append("null");
-                } else {
-                    String valueStr;
-                    try {
-                        valueStr = value.toString();
-                    } catch (final Exception e) {
-                        valueStr = "Exception thrown on toString(): " + ExceptionUtils.getStackTrace(e);
-                    }
-                    buffer.append(valueStr);
+                String valueStr;
+                try {
+                    valueStr = Objects.toString(value);
+                } catch (final Exception e) {
+                    valueStr = "Exception thrown on toString(): " + ExceptionUtils.getStackTrace(e);
                 }
+                buffer.append(valueStr);
                 buffer.append("]\n");
             }
             buffer.append("---------------------------------");
