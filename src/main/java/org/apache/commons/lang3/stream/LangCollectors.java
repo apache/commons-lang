@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.stream;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -27,6 +28,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -90,6 +92,24 @@ public final class LangCollectors {
     }
 
     private static final Set<Collector.Characteristics> CH_NOID = Collections.emptySet();
+
+    /**
+     * Delegates to {@link Stream#collect(Collector)} for a Stream on the given array.
+     *
+     * @param <T>       The type of the array elements.
+     * @param <R>       the type of the result.
+     * @param <A>       the intermediate accumulation type of the {@code Collector}.
+     * @param collector the {@code Collector} describing the reduction.
+     * @param array     The array, assumed to be unmodified during use.
+     * @return the result of the reduction
+     * @see Stream#collect(Collector)
+     * @see Arrays#stream(Object[])
+     * @see Collectors
+     * @since 3.16.0
+     */
+    public static <T, R, A> R collect(final Collector<? super T, A, R> collector, final T... array) {
+        return Arrays.stream(array).collect(collector);
+    }
 
     /**
      * Returns a {@code Collector} that concatenates the input elements, separated by the specified delimiter, in encounter order.
