@@ -100,13 +100,11 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
         if (baseMessage != null) {
             buffer.append(baseMessage);
         }
-
         if (!contextValues.isEmpty()) {
             if (buffer.length() > 0) {
                 buffer.append('\n');
             }
             buffer.append("Exception Context:\n");
-
             int i = 0;
             for (final Pair<String, Object> pair : contextValues) {
                 buffer.append("\t[");
