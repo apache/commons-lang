@@ -1606,13 +1606,13 @@ public class DateUtilsTest extends AbstractLangTest {
             assertEquals("2004-10-31 01:02:03.000 -06:00", format.format(oct31_01_02_03MDT), "Check 01:02:03.000");
             assertEquals("2004-10-31 01:02:03.004 -06:00", format.format(oct31_01_02_03_04MDT), "Check 01:02:03.004");
 
-            // ------- Demonstrate Problem -------
+            // Demonstrate Problem
             final Calendar gval = Calendar.getInstance();
             gval.setTime(new Date(oct31_01MDT.getTime()));
             gval.set(Calendar.MINUTE, gval.get(Calendar.MINUTE)); // set minutes to the same value
             assertEquals(gval.getTime().getTime(), oct31_01MDT.getTime() + 3600000L, "Demonstrate Problem");
 
-            // ---------- Test Truncate ----------
+            // Test Truncate
             assertEquals(oct31_01_02_03_04MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MILLISECOND),
                     "Truncate Calendar.MILLISECOND");
 
@@ -1631,7 +1631,7 @@ public class DateUtilsTest extends AbstractLangTest {
             assertEquals(oct31MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.DATE),
                     "Truncate Calendar.DATE");
 
-            // ---------- Test Round (down) ----------
+            // Test Round (down)
             assertEquals(oct31_01_02_03_04MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MILLISECOND),
                     "Round Calendar.MILLISECOND");
 
