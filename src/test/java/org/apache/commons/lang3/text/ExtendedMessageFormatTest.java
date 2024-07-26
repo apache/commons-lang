@@ -58,8 +58,6 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
             throw new UnsupportedOperationException();
         }
     }
-
-    // ------------------------ Test Format Factories ---------------
     /**
      * {@link FormatFactory} implementation for lower case format.
      */
@@ -323,8 +321,6 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
         assertEquals(emf.format(new Object[] {"there", 3, "great"}), "Hi there, got 3, GREAT!");
     }
-
-    // ------------------------ Test Formats ------------------------
 
     /**
      * Test equals() and hashCode().

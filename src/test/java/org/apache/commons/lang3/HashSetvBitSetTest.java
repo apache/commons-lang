@@ -46,8 +46,6 @@ public class HashSetvBitSetTest extends AbstractLangTest {
         }
         return result;
     }
-
-    // --- utility methods
     private static int[] extractIndices(final HashSet<Integer> coll) {
         final int[] result = new int[coll.size()];
         int i = 0;
