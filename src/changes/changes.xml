@@ -62,6 +62,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RandomStringUtils.secure().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RandomStringUtils.insecure().</action>
     <!-- UPDATE -->
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 71 to 72 #1253.</action>
   </release>
   <release version="3.15.0" date="2024-07-13" description="New features and bug fixes (Java 8 or above).">
     <!-- ADD -->
