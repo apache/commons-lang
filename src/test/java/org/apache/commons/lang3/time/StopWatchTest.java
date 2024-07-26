@@ -32,7 +32,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
@@ -447,5 +450,30 @@ public class StopWatchTest extends AbstractLangTest {
         watch.split();
         final String splitStr = watch.toString();
         assertEquals(12 + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
+    }
+
+    @Test
+    public void testGetForFailableSupplier() throws InterruptedException {
+        final StopWatch watch = StopWatch.create();
+
+        String result = watch.get(() -> {
+            StopWatchTest.this.sleep(MILLIS_200);
+            return "Foobar";
+        });
+
+        assertEquals("Foobar", result, "Watch returned result other then expected");
+        assertTrue(watch.isSuspended(), "Watch should be suspended");
+    }
+
+    @Test
+    public void testApplyForFunction() {
+        final StopWatch watch = StopWatch.create();
+
+        String result = Stream.of("A", "B", "C")
+                .map(watch.apply(s -> s.toLowerCase(Locale.ROOT)))
+                .collect(Collectors.joining());
+
+        assertEquals("abc", result, "Returned result other then expected");
+        assertTrue(watch.isSuspended(), "Watch should be suspended");
     }
 }

@@ -21,10 +21,16 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
+import org.apache.commons.lang3.function.FailableSupplier;
+import org.apache.commons.lang3.function.TriFunction;
 
 /**
  * {@link StopWatch} provides a convenient API for timings.
@@ -670,5 +676,69 @@ public class StopWatch {
         }
         splitState = SplitState.UNSPLIT;
     }
+
+    <T, E extends Throwable> T get(FailableSupplier<T, E> supplier) throws E {
+        if (isStopped()) {
+            start();
+        } else if (isSuspended()) {
+            resume();
+        }
+
+        try {
+            return supplier.get();
+        } finally {
+            suspend();
+        }
+    }
+
+
+    /**
+     * Take the time of the execution of a given {@linkplain Function}.
+     *
+     * <p>
+     * <b>Take the time of given {@linkplain Function}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * String result = watch.apply(it -> it.toLowerCase(Locale.ROOT)).apply("A");
+     * }</pre>
+
+     * <b>Take the time of an applied {@linkplain Function} in a stream</b>
+     *
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * String result = Stream.of("A", "B", "C")
+     *                       .map(watch.apply(it -> it.toLowerCase(Locale.ROOT)))
+     *                       .collect(Collectors.joining());
+     * }</pre>
+     *
+     * @param function the function those application should be measured
+     *
+     * @return the given function prepared to take time if applied
+     *
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     *
+     * @param <T> the type of the input to the function
+     * @param <R> the type of the result of the function
+     *
+     * @since 3.16
+     */
+    public <T, R> Function<T, R> apply(Function<T, R> function) {
+        return argument -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+
+            try {
+                return function.apply(argument);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
 
 }
