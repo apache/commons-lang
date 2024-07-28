@@ -1,0 +1,16 @@
+THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
+
+- Add support for BiConsumer
+- Add support for FailableBiConsumer
+- Add support for BiFunction
+- Add support for FailableBiFunction
+- Add support for BiPredicate
+- Add support for FailableBiPredicate
+- Add support for Function
+- Add support for FailableFunction
+- Add support for Predicate
+- Add support for FailablePredicate
+- Add support for Consumer
+- Add support for FailableConsumer
+- Add support for Supplier
+- Add support for FailableSupplier: JavaDoc Missing

@@ -34,13 +34,18 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
+import org.apache.commons.lang3.function.FailableBiFunction;
+import org.apache.commons.lang3.function.FailableSupplier;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 /**
  * Tests {@link StopWatch}.
@@ -452,17 +457,38 @@ public class StopWatchTest extends AbstractLangTest {
         assertEquals(12 + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
     }
 
-    @Test
-    public void testGetForFailableSupplier() throws InterruptedException {
-        final StopWatch watch = StopWatch.create();
+    @Nested
+    public class FailableSupplierSupportRelatedTests {
+        @Test
+        public void testGetForFailableSupplier() throws Throwable {
+            final StopWatch watch = StopWatch.create();
 
-        String result = watch.get(() -> {
-            StopWatchTest.this.sleep(MILLIS_200);
-            return "Foobar";
-        });
+            String result = watch.get(new FailableSupplier<String, Throwable>() {
+                @Override
+                public String get() throws Throwable {
+                    StopWatchTest.this.sleep(MILLIS_200);
+                    return "Foobar";
+                }});
 
-        assertEquals("Foobar", result, "Watch returned result other then expected");
-        assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("Foobar", result, "Watch returned result other then expected");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testGetForFailableSupplierHandlesExceptionsProperly() throws Exception {
+            final StopWatch watch = StopWatch.create();
+
+            assertThrows(Exception.class, () -> {
+                String result = watch.get(new FailableSupplier<String, Exception>() {
+                    @Override
+                    public String get() throws Exception {
+                        StopWatchTest.this.sleep(MILLIS_200);
+                        throw new Exception();
+                    }});
+            });
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
     }
 
     @Test

@@ -683,7 +683,6 @@ public class StopWatch {
         } else if (isSuspended()) {
             resume();
         }
-
         try {
             return supplier.get();
         } finally {
@@ -691,6 +690,41 @@ public class StopWatch {
         }
     }
 
+    /**
+     * Take the time of the execution of a given {@linkplain Supplier}.
+     *
+     * <p>
+     * <b>Take the time of the execution of given {@linkplain Supplier}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * String result = watch.get(() -> "A");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     * @param supplier the {@linkplain Supplier} those execution should be measured
+     *
+     * @return the result of the {@linkplain Supplier#get()} operation
+     *
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     *
+     * @param <T> the type of the input to the function
+     *
+     * @since 3.16
+     */
+    <T> T get(Supplier<T> supplier) {
+        if (isStopped()) {
+            start();
+        } else if (isSuspended()) {
+            resume();
+        }
+        try {
+            return supplier.get();
+        } finally {
+            suspend();
+        }
+    }
 
     /**
      * Take the time of the execution of a given {@linkplain Function}.
@@ -702,7 +736,8 @@ public class StopWatch {
      *
      * String result = watch.apply(it -> it.toLowerCase(Locale.ROOT)).apply("A");
      * }</pre>
-
+     * </p>
+     * <p>
      * <b>Take the time of an applied {@linkplain Function} in a stream</b>
      *
      * <pre>{@code
@@ -712,6 +747,7 @@ public class StopWatch {
      *                       .map(watch.apply(it -> it.toLowerCase(Locale.ROOT)))
      *                       .collect(Collectors.joining());
      * }</pre>
+     * </p>
      *
      * @param function the function those application should be measured
      *
@@ -731,7 +767,6 @@ public class StopWatch {
             } else if (isSuspended()) {
                 resume();
             }
-
             try {
                 return function.apply(argument);
             } finally {
