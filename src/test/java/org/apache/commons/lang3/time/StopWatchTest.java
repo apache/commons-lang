@@ -35,6 +35,7 @@ import java.time.Instant;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -458,6 +459,39 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
+    public class SupplierSupportRelatedTests {
+        @Test
+        public void testGetForSupplier() {
+            final StopWatch watch = StopWatch.create();
+
+            assertTrue(watch.isStopped(), "Watch should be stopped");
+
+            String result = watch.get((Supplier<String>) () -> "Foobar");
+
+            assertEquals("Foobar", result, "Watch returned result other then expected");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+
+
+        @Test
+        public void testGetForSupplierWhenStopWatchHasBeenSuspended() throws Throwable {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
+            String result = watch.get((Supplier<String>) () -> "Foobar");
+
+            assertEquals("Foobar", result, "Watch returned result other then expected");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+    }
+
+    @Nested
     public class FailableSupplierSupportRelatedTests {
         @Test
         public void testGetForFailableSupplier() throws Throwable {
@@ -465,12 +499,7 @@ public class StopWatchTest extends AbstractLangTest {
 
             assertTrue(watch.isStopped(), "Watch should be stopped");
 
-            String result = watch.get(new FailableSupplier<String, Throwable>() {
-                @Override
-                public String get() throws Throwable {
-                    StopWatchTest.this.sleep(MILLIS_200);
-                    return "Foobar";
-                }});
+            String result = watch.get((FailableSupplier<String, Throwable>) () -> "Foobar");
 
             assertEquals("Foobar", result, "Watch returned result other then expected");
             assertTrue(watch.isSuspended(), "Watch should be suspended");
@@ -485,12 +514,9 @@ public class StopWatchTest extends AbstractLangTest {
 
             assertTrue(watch.isSuspended(), "Watch should be suspended");
 
-            String result = watch.get(new FailableSupplier<String, Throwable>() {
-                @Override
-                public String get() throws Throwable {
-                    StopWatchTest.this.sleep(MILLIS_200);
-                    return "Foobar";
-                }});
+            String result = watch.get((FailableSupplier<String, Throwable>) () -> {
+                return "Foobar";
+            });
 
             assertEquals("Foobar", result, "Watch returned result other then expected");
             assertTrue(watch.isSuspended(), "Watch should be suspended");
@@ -501,12 +527,10 @@ public class StopWatchTest extends AbstractLangTest {
             final StopWatch watch = StopWatch.create();
 
             assertThrows(Exception.class, () -> {
-                String result = watch.get(new FailableSupplier<String, Exception>() {
-                    @Override
-                    public String get() throws Exception {
-                        StopWatchTest.this.sleep(MILLIS_200);
-                        throw new Exception();
-                    }});
+                String result = watch.get((FailableSupplier<String, Exception>) () -> {
+                    StopWatchTest.this.sleep(MILLIS_200);
+                    throw new Exception();
+                });
             });
 
             assertTrue(watch.isSuspended(), "Watch should be suspended");
