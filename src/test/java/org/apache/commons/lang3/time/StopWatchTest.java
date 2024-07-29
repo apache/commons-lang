@@ -463,6 +463,28 @@ public class StopWatchTest extends AbstractLangTest {
         public void testGetForFailableSupplier() throws Throwable {
             final StopWatch watch = StopWatch.create();
 
+            assertTrue(watch.isStopped(), "Watch should be stopped");
+
+            String result = watch.get(new FailableSupplier<String, Throwable>() {
+                @Override
+                public String get() throws Throwable {
+                    StopWatchTest.this.sleep(MILLIS_200);
+                    return "Foobar";
+                }});
+
+            assertEquals("Foobar", result, "Watch returned result other then expected");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testGetForFailableSupplierWhenStopWatchHasBeenSuspended() throws Throwable {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
             String result = watch.get(new FailableSupplier<String, Throwable>() {
                 @Override
                 public String get() throws Throwable {

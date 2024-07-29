@@ -677,7 +677,31 @@ public class StopWatch {
         splitState = SplitState.UNSPLIT;
     }
 
-    <T, E extends Throwable> T get(FailableSupplier<T, E> supplier) throws E {
+    /**
+     * Take the time of the exectution of a given {@linkplain FailableSupplier}.
+     *
+     * <p>
+     * <b>Take the time of the execution of given {@linkplain FailableSupplier}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * String result = watch.get(() -> "A");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     * @param supplier the {@linkplain FailableSupplier} those execution should be measured
+     *
+     * @return the result of the {@linkplain FailableSupplier#get()} operation
+     *
+     * @throws E if the supplier fails
+     *
+     * @param <T> the type of return value of the supplier
+     * @param <E> the kind of thrown exception or error
+     *
+     * @since 3.16
+     */
+    public <T, E extends Throwable> T get(FailableSupplier<T, E> supplier) throws E {
         if (isStopped()) {
             start();
         } else if (isSuspended()) {
@@ -713,7 +737,7 @@ public class StopWatch {
      *
      * @since 3.16
      */
-    <T> T get(Supplier<T> supplier) {
+    public <T> T get(Supplier<T> supplier) {
         if (isStopped()) {
             start();
         } else if (isSuspended()) {
