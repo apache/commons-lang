@@ -556,8 +556,8 @@ public class Validate {
      * validating according to an arbitrary boolean expression, such as validating a
      * primitive number or using your own custom validation expression.
      *
-     * <pre>
-     * Validate.isTrue(i &gt;= min &amp;&amp; i &lt;= max, "The value must be between &#37;d and &#37;d", min, max);</pre>
+     * <pre>{@code
+     * Validate.isTrue(i >= min &amp;&amp; i <= max, "The value must be between %d and %d", min, max);}</pre>
      *
      * @param expression  the boolean expression to check
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null

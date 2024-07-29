@@ -1248,10 +1248,11 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * This method is useful for adding a separator each time around the
      * loop except the first.
      * </p>
-     * <pre>
-     * for (int i = 0; i &lt; list.size(); i++) {
+     * <pre>{@code
+     * for (int i = 0; i < list.size(); i++) {
      *   appendSeparator(",", i);
      *   append(list.get(i));
+     * }
      * }
      * </pre>
      * Note that for this simple example, you should use
@@ -1304,12 +1305,12 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * This method is useful for adding a separator each time around the
      * loop except the first.
      * </p>
-     * <pre>
-     * for (int i = 0; i &lt; list.size(); i++) {
+     * <pre>{@code
+     * for (int i = 0; i < list.size(); i++) {
      *   appendSeparator(",", i);
      *   append(list.get(i));
      * }
-     * </pre>
+     * }</pre>
      * Note that for this simple example, you should use
      * {@link #appendWithSeparators(Iterable, String)}.
      *

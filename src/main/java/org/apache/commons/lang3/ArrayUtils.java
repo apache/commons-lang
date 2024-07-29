@@ -8704,10 +8704,10 @@ public class ArrayUtils {
      * Therefore new arrays of generic types can be created with this method.
      * For example, an array of Strings can be created:
      * </p>
-     * <pre>
+     * <pre>{@code
      * String[] array = ArrayUtils.toArray("1", "2");
-     * String[] emptyArray = ArrayUtils.&lt;String&gt;toArray();
-     * </pre>
+     * String[] emptyArray = ArrayUtils.<String>toArray();
+     * }</pre>
      * <p>
      * The method is typically used in scenarios, where the caller itself uses generic types
      * that have to be combined into an array.
@@ -8716,7 +8716,7 @@ public class ArrayUtils {
      * Note, this method makes only sense to provide arguments of the same type so that the
      * compiler can deduce the type of the array itself. While it is possible to select the
      * type explicitly like in
-     * {@code Number[] array = ArrayUtils.&lt;Number&gt;toArray(Integer.valueOf(42), Double.valueOf(Math.PI))},
+     * {@code Number[] array = ArrayUtils.<Number>toArray(Integer.valueOf(42), Double.valueOf(Math.PI))},
      * there is no real advantage when compared to
      * {@code new Number[] {Integer.valueOf(42), Double.valueOf(Math.PI)}}.
      * </p>
