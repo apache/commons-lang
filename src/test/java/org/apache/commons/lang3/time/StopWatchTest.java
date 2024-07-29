@@ -567,4 +567,32 @@ public class StopWatchTest extends AbstractLangTest {
         }
     }
 
+    @Nested
+    public class BiFunctionSupportRelatedTests {
+        @Test
+        public void testApplyForBiFunction() {
+            final StopWatch watch = StopWatch.create();
+
+            String result = watch.apply((BiFunction<String, String, String>) (a, b) -> a + b).apply("a", "b");
+
+            assertEquals("ab", result, "Returned result other then expected");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testApplyForFunctionWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
+            String result = watch.apply((BiFunction<String, String, String>) (a, b) -> a + b).apply("a", "b");
+
+            assertEquals("ab", result, "Returned result other then expected");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+    }
+
 }

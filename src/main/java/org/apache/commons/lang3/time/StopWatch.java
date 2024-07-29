@@ -800,4 +800,45 @@ public class StopWatch {
     }
 
 
+    /**
+     * Take the time of the execution of a given {@linkplain BiFunction}.
+     *
+     * <p>
+     * <b>Take the time of given {@linkplain BiFunction}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * String result = watch.apply((first, second) -> first + second)).apply("A", "B");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     *  @param function the function those application should be measured
+     *
+     * @return the given function prepared to take time if applied
+     *
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     *
+     * @param <T> the type of the first argument to the function
+     * @param <U> the type of the second argument to the function
+     * @param <R> the type of the result of the function
+     *
+     * @since 3.16
+     */
+    public <T, U, R> BiFunction<T, U, R> apply(BiFunction<T, U, R> function) {
+        return (firstArgument, secondArgument) -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                return function.apply(firstArgument, secondArgument);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+
 }
