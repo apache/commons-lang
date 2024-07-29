@@ -63,7 +63,7 @@ package org.apache.commons.lang3.builder;
  * }</pre>
  *
  * Example Builder Usage:
- * <pre>{@code 
+ * <pre>{@code
  * Font bold14ptSansSerifFont = new FontBuilder(Font.SANS_SERIF).bold()
  *                                                              .size(14.0f)
  *                                                              .build();

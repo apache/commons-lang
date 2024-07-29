@@ -248,7 +248,7 @@
  * </p>
  *
  * <pre>
- * {@code 
+ * {@code
  * MultiBackgroundInitializer initializer = new MultiBackgroundInitializer();
  * initializer.addInitializer("url", new URLLoader(url));
  * initializer.addInitializer("jpa", new JPAEMFInitializer());
@@ -362,7 +362,7 @@
  * </p>
  *
  * <pre>
- * {@code 
+ * {@code
  * ConcurrentInitializer<MyClass> initializer = ...;
  * MyClass obj = ConcurrentUtils.initializeUnchecked(initializer);
  * // do something with obj
@@ -388,7 +388,7 @@
  * </p>
  *
  * <pre>
- * {@code 
+ * {@code
  * BasicThreadFactory factory = new BasicThreadFactory.Builder()
  *   .namingPattern("worker-thread-%d")
  *   .daemon(true)

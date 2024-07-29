@@ -50,8 +50,7 @@ import org.apache.commons.lang3.function.FailablePredicate;
  * Exceptions, at least not checked Exceptions, AKA instances of {@link Exception}. This enforces the use of constructs
  * like:
  *
- * <pre>
- * {@code
+ * <pre>{@code
  * Consumer<java.lang.reflect.Method> consumer = m -> {
  *     try {
  *         m.invoke(o, args);

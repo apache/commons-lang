@@ -44,7 +44,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  * or another variation of the factory methods of {@link FastDateFormat}.</p>
  *
  * <p>Since FastDatePrinter is thread safe, you can use a static member instance:</p>
- * {@code 
+ * {@code
  *     private static final DatePrinter DATE_PRINTER = FastDateFormat.getInstance("yyyy-MM-dd");
  * }
  *

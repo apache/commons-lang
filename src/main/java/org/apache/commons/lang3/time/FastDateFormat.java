@@ -38,7 +38,7 @@ import java.util.TimeZone;
  * </p>
  *
  * <p>Since FastDateFormat is thread safe, you can use a static member instance:</p>
- * {@code 
+ * {@code
  *   private static final FastDateFormat DATE_FORMATTER = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.SHORT);
  * }
  *

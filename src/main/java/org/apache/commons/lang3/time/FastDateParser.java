@@ -54,7 +54,7 @@ import org.apache.commons.lang3.LocaleUtils;
  * <p>
  * Since FastDateParser is thread safe, you can use a static member instance:
  * </p>
- * {@code 
+ * {@code
  *     private static final DateParser DATE_PARSER = FastDateFormat.getInstance("yyyy-MM-dd");
  * }
  *
