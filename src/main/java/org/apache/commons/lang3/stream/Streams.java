@@ -49,8 +49,8 @@ import org.apache.commons.lang3.function.FailablePredicate;
  * attempts to address the fact that lambdas are supposed not to throw Exceptions, at least not checked Exceptions, AKA instances of {@link Exception}. This
  * enforces the use of constructs like:
  *
- * <pre>
- * Consumer&lt;java.lang.reflect.Method&gt; consumer = m -&gt; {
+ * <pre>{@code
+ * Consumer<java.lang.reflect.Method> consumer = m -> {
  *     try {
  *         m.invoke(o, args);
  *     } catch (Throwable t) {
@@ -58,14 +58,14 @@ import org.apache.commons.lang3.function.FailablePredicate;
  *     }
  * };
  * stream.forEach(consumer);
- * </pre>
+ * }</pre>
  * <p>
  * Using a {@link FailableStream}, this can be rewritten as follows:
  * </p>
  *
- * <pre>
- * Streams.failable(stream).forEach(m -&gt; m.invoke(o, args));
- * </pre>
+ * <pre>{@code
+ * Streams.failable(stream).forEach(m -> m.invoke(o, args));
+ * }</pre>
  * <p>
  * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than in the first version.
  * </p>
