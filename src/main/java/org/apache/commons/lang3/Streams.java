@@ -52,9 +52,9 @@ import org.apache.commons.lang3.Functions.FailablePredicate;
  *    stream.forEach(consumer);
  * }</pre>
  * Using a {@link FailableStream}, this can be rewritten as follows:
- * <pre>
+ * <pre>{@code
  *     Streams.failable(stream).forEach((m) -> m.invoke(o, args));
- * </pre>
+ * }</pre>
  * Obviously, the second version is much more concise and the spirit of
  * Lambda expressions is met better than in the first version.
  *
