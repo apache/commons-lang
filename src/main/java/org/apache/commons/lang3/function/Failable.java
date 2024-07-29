@@ -42,14 +42,15 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  * throw Exceptions, at least not checked Exceptions, AKA instances of {@link Exception}. This enforces the use of
  * constructs like:
  *
- * <pre>
- * Consumer&lt;java.lang.reflect.Method&gt; consumer = m -&gt; {
+ * <pre>{@code
+ * Consumer<java.lang.reflect.Method> consumer = m -&gt; {
  *     try {
  *         m.invoke(o, args);
  *     } catch (Throwable t) {
  *         throw Failable.rethrow(t);
  *     }
  * };
+ * }
  * </pre>
  *
  * <p>

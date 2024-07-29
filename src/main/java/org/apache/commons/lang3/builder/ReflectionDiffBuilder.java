@@ -37,7 +37,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  * </p>
  *
  * <pre>{@code
- * public class Person implements Diffable&lt;Person&gt; {
+ * public class Person implements Diffable<Person> {
  *   String name;
  *   int age;
  *   boolean smoker;

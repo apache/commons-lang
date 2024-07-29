@@ -33,7 +33,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * </p>
  *
  * <pre>{@code
- * public class Person implements Diffable&lt;Person&gt; {
+ * public class Person implements Diffable<Person> {
  *   String name;
  *   int age;
  *   boolean smoker;
@@ -346,10 +346,10 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * Useful this method to compare properties which are themselves Diffable and would like to know which specific part of it is different.
      * </p>
      *
-     * <pre>
-     * public class Person implements Diffable&lt;Person&gt; {
+     * <pre>{@code
+     * public class Person implements Diffable<Person> {
      *   String name;
-     *   Address address; // implements Diffable&lt;Address&gt;
+     *   Address address; // implements Diffable<Address>
      *
      *   ...
      *
@@ -359,6 +359,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      *       .append("address", this.address.diff(obj.address))
      *       .build();
      *   }
+     * }
      * }
      * </pre>
      *

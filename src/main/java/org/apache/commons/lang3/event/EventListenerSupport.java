@@ -46,10 +46,10 @@ import org.apache.commons.lang3.function.FailableConsumer;
  * <p>
  * To use this class, suppose you want to support ActionEvents.  You would do:
  * </p>
- * <pre><code>
+ * <pre>{@code
  * public class MyActionEventSource
  * {
- *   private EventListenerSupport&lt;ActionListener&gt; actionListeners =
+ *   private EventListenerSupport<ActionListener> actionListeners =
  *       EventListenerSupport.create(ActionListener.class);
  *
  *   public void someMethodThatFiresAction()
@@ -58,7 +58,7 @@ import org.apache.commons.lang3.function.FailableConsumer;
  *     actionListeners.fire().actionPerformed(e);
  *   }
  * }
- * </code></pre>
+ * }</pre>
  *
  * <p>
  * Serializing an {@link EventListenerSupport} instance will result in any

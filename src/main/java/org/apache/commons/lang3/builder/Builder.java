@@ -36,8 +36,8 @@ package org.apache.commons.lang3.builder;
  *
  * <p>
  * Example Builder:
- * <pre><code>
- * class FontBuilder implements Builder&lt;Font&gt; {
+ * <pre>{@code
+ * class FontBuilder implements Builder<Font> {
  *     private Font font;
  *
  *     public FontBuilder(String fontName) {
@@ -60,14 +60,14 @@ package org.apache.commons.lang3.builder;
  *         return this.font;
  *     }
  * }
- * </code></pre>
+ * }</pre>
  *
  * Example Builder Usage:
- * <pre><code>
+ * <pre>{@code 
  * Font bold14ptSansSerifFont = new FontBuilder(Font.SANS_SERIF).bold()
  *                                                              .size(14.0f)
  *                                                              .build();
- * </code></pre>
+ * }</pre>
  *
  * @param <T> the type of object that the builder will construct or compute.
  *

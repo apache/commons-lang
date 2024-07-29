@@ -59,22 +59,24 @@ import org.apache.commons.lang3.function.Suppliers;
  * Example: A thread safe logger class.
  * </p>
  *
- * <pre>
+ * <pre>{@code
  *   public class SimpleLogger {
  *
- *     private final StampedLockVisitor&lt;PrintStream&gt; lock;
+ *     private final StampedLockVisitor<PrintStream> lock;
  *
  *     public SimpleLogger(OutputStream out) {
  *         lock = LockingVisitors.stampedLockVisitor(new PrintStream(out));
  *     }
  *
  *     public void log(String message) {
- *         lock.acceptWriteLocked((ps) -&gt; ps.println(message));
+ *         lock.acceptWriteLocked(ps -> ps.println(message));
  *     }
  *
  *     public void log(byte[] buffer) {
- *         lock.acceptWriteLocked((ps) -&gt; { ps.write(buffer); ps.println(); });
+ *         lock.acceptWriteLocked(ps -> { ps.write(buffer); ps.println(); });
  *     }
+ * }
+ * }
  * </pre>
  *
  * @since 3.11
@@ -184,12 +186,13 @@ public class LockingVisitors {
          * <em>Example:</em> Consider that the hidden object is a list, and we wish to know the current size of the
          * list. This might be achieved with the following:
          * </p>
-         * <pre>
-         * private Lock&lt;List&lt;Object&gt;&gt; listLock;
+         * <pre>{@code
+         * private Lock<List<Object>> listLock;
          *
          * public int getCurrentListSize() {
-         *     final Integer sizeInteger = listLock.applyReadLocked((list) -&gt; Integer.valueOf(list.size));
+         *     final Integer sizeInteger = listLock.applyReadLocked(list -> Integer.valueOf(list.size));
          *     return sizeInteger.intValue();
+         * }
          * }
          * </pre>
          *

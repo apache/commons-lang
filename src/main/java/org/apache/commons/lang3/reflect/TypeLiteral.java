@@ -28,9 +28,10 @@ import org.apache.commons.lang3.Validate;
  * passing the (non-parameterized) {@link Type} object itself. Consider:
  * <p>
  * You might see such a typesafe API as:
- * <pre>
+ * <pre>{@code
  * class Typesafe {
- *   &lt;T&gt; T obtain(Class&lt;T&gt; type, ...);
+ *   <T> T obtain(Class<T> type, ...);
+ * }
  * }
  * </pre>
  * Consumed in the manner of:
@@ -38,24 +39,24 @@ import org.apache.commons.lang3.Validate;
  * Foo foo = typesafe.obtain(Foo.class, ...);
  * </pre>
  * Yet, you run into problems when you want to do this with a parameterized type:
- * <pre>
- * List&lt;String&gt; listOfString = typesafe.obtain(List.class, ...); // could only give us a raw List
- * </pre>
+ * <pre>{@code
+ * List<String> listOfString = typesafe.obtain(List.class, ...); // could only give us a raw List
+ * }</pre>
  * {@link java.lang.reflect.Type} might provide some value:
- * <pre>
+ * <pre>{@code
  * Type listOfStringType = ...; // firstly, how to obtain this? Doable, but not straightforward.
- * List&lt;String&gt; listOfString = (List&lt;String&gt;) typesafe.obtain(listOfStringType, ...); // nongeneric Type would necessitate a cast
- * </pre>
+ * List<String> listOfString = (List<String>) typesafe.obtain(listOfStringType, ...); // nongeneric Type would necessitate a cast
+ * }</pre>
  * The "type literal" concept was introduced to provide an alternative, i.e.:
- * <pre>
+ * <pre>{@code
  * class Typesafe {
- *   &lt;T&gt; T obtain(TypeLiteral&lt;T&gt; type, ...);
+ *   <T> T obtain(TypeLiteral<T> type, ...);
  * }
- * </pre>
+ * }</pre>
  * Consuming code looks like:
- * <pre>
- * List&lt;String&gt; listOfString = typesafe.obtain(new TypeLiteral&lt;List&lt;String&gt;&gt;() {}, ...);
- * </pre>
+ * <pre>{@code
+ * List<String> listOfString = typesafe.obtain(new TypeLiteral<List<String>>() {}, ...);
+ * }</pre>
  * <p>
  * This has the effect of "jumping up" a level to tie a {@link java.lang.reflect.Type}
  * to a type variable while simultaneously making it short work to obtain a
@@ -65,9 +66,9 @@ import org.apache.commons.lang3.Validate;
  * is a generalization of this concept, and which may be implemented in custom classes.
  * It is suggested that APIs be defined in terms of the interface, in the following manner:
  * </p>
- * <pre>
- *   &lt;T&gt; T obtain(Typed&lt;T&gt; typed, ...);
- * </pre>
+ * <pre>{@code
+ *   <T> T obtain(Typed<T> typed, ...);
+ * }</pre>
  *
  * @param <T> the type
  * @since 3.2

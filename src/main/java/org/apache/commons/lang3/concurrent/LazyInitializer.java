@@ -37,12 +37,13 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * this class, a subclass of {@link LazyInitializer} has to be created:
  * </p>
  *
- * <pre>
- * public class ComplexObjectInitializer extends LazyInitializer&lt;ComplexObject&gt; {
+ * <pre>{@code
+ * public class ComplexObjectInitializer extends LazyInitializer<ComplexObject> {
  *     &#064;Override
  *     protected ComplexObject initialize() {
  *         return new ComplexObject();
  *     }
+ * }
  * }
  * </pre>
  *

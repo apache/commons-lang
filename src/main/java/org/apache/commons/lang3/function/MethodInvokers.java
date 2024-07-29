@@ -44,11 +44,11 @@ import org.apache.commons.lang3.exception.UncheckedIllegalAccessException;
  * For example to invoke {@link String#length()}:
  * </p>
  *
- * <pre>
+ * <pre>{@code
  * final Method method = String.class.getMethod("length");
- * final Function&lt;String, Integer&gt; function = MethodInvokers.asFunction(method);
+ * final Function<String, Integer> function = MethodInvokers.asFunction(method);
  * assertEquals(3, function.apply("ABC"));
- * </pre>
+ * }</pre>
  *
  * <h2>Calling function methods with one argument</h2>
  * <p>
@@ -60,11 +60,11 @@ import org.apache.commons.lang3.exception.UncheckedIllegalAccessException;
  * For example to invoke {@link String#charAt(int)}:
  * </p>
  *
- * <pre>
+ * <pre>{@code
  * final Method method = String.class.getMethod("charAt", int.class);
- * final BiFunction&lt;String, Integer, Character&gt; function = MethodInvokers.asBiFunction(method);
+ * final BiFunction<String, Integer, Character> function = MethodInvokers.asBiFunction(method);
  * assertEquals('C', function.apply("ABC", 2));
- * </pre>
+ * }</pre>
  *
  * @since 3.13.0
  */
@@ -93,11 +93,11 @@ public final class MethodInvokers {
      * For example to invoke {@link String#charAt(int)}:
      * </p>
      *
-     * <pre>
+     * <pre>{@code
      * final Method method = String.class.getMethod("charAt", int.class);
-     * final BiFunction&lt;String, Integer, Character&gt; function = MethodInvokers.asBiFunction(method);
+     * final BiFunction<String, Integer, Character> function = MethodInvokers.asBiFunction(method);
      * assertEquals('C', function.apply("ABC", 2));
-     * </pre>
+     * }</pre>
      *
      * @param <T> the type of the first argument to the function: The type containing the method.
      * @param <U> the type of the second argument to the function: the method argument type.
@@ -178,11 +178,11 @@ public final class MethodInvokers {
      * For example to invoke {@link String#length()}:
      * </p>
      *
-     * <pre>
+     * <pre>{@code
      * final Method method = String.class.getMethod("length");
-     * final Function&lt;String, Integer&gt; function = MethodInvokers.asFunction(method);
+     * final Function<String, Integer> function = MethodInvokers.asFunction(method);
      * assertEquals(3, function.apply("ABC"));
-     * </pre>
+     * }</pre>
      *
      * @param <T> the type of the first argument to the function: The type containing the method.
      * @param <R> the type of the result of the function: The method return type.

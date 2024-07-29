@@ -831,27 +831,27 @@ public abstract class ToStringStyle implements Serializable {
     private boolean defaultFullDetail = true;
 
     /**
-     * The {@code null} text {@code '&lt;null&gt;'}.
+     * The {@code null} text {@code "<null>"}.
      */
     private String nullText = "<null>";
 
     /**
-     * The summary size text start {@code '&lt;size'}.
+     * The summary size text start {@code "<size="}.
      */
     private String sizeStartText = "<size=";
 
     /**
-     * The summary size text start {@code '&gt;'}.
+     * The summary size text start {@code ">"}.
      */
     private String sizeEndText = ">";
 
     /**
-     * The summary object text start {@code '&lt;'}.
+     * The summary object text start {@code "<"}.
      */
     private String summaryObjectStartText = "<";
 
     /**
-     * The summary object text start {@code '&gt;'}.
+     * The summary object text start {@code ">"}.
      */
     private String summaryObjectEndText = ">";
 
@@ -1793,7 +1793,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} an indicator for {@code null}.
      *
-     * <p>The default indicator is {@code '&lt;null&gt;'}.</p>
+     * <p>The default indicator is {@code "<null>"}.</p>
      *
      * @param buffer  the {@link StringBuffer} to populate
      * @param fieldName  the field name, typically not used as already appended
@@ -1960,7 +1960,7 @@ public abstract class ToStringStyle implements Serializable {
      * <p>The output consists of a prefix, the passed in size
      * and a suffix.</p>
      *
-     * <p>The default format is {@code '&lt;size=n&gt;'}.</p>
+     * <p>The default format is {@code "<size=n>"}.</p>
      *
      * @param buffer  the {@link StringBuffer} to populate
      * @param fieldName  the field name, typically not used as already appended

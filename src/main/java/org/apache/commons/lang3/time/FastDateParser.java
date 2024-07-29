@@ -54,9 +54,9 @@ import org.apache.commons.lang3.LocaleUtils;
  * <p>
  * Since FastDateParser is thread safe, you can use a static member instance:
  * </p>
- * <code>
+ * {@code 
  *     private static final DateParser DATE_PARSER = FastDateFormat.getInstance("yyyy-MM-dd");
- * </code>
+ * }
  *
  * <p>
  * This class can be used as a direct replacement for {@link SimpleDateFormat} in most parsing situations. This class is especially useful in multi-threaded

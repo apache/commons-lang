@@ -1436,18 +1436,17 @@ public class TypeUtils {
      * Example, with the variable type declaration:
      * </p>
      *
-     * <pre>
-     * &lt;K extends java.util.Collection&lt;String&gt; &amp;
-     * java.util.List&lt;String&gt;&gt;
-     * </pre>
+     * <pre>{@code
+     * <K extends java.util.Collection<String> & java.util.List<String>>
+     * }</pre>
      *
      * <p>
      * since {@link List} is a subinterface of {@link Collection}, this method will return the bounds as if the declaration had been:
      * </p>
      *
-     * <pre>
-     * &lt;K extends java.util.List&lt;String&gt;&gt;
-     * </pre>
+     * <pre>{@code
+     * <K extends java.util.List<String>>
+     * }</pre>
      *
      * @param bounds an array of types representing the upper bounds of either {@link WildcardType} or {@link TypeVariable}, not {@code null}.
      * @return an array containing the values from {@code bounds} minus the redundant types.
@@ -1823,7 +1822,7 @@ public class TypeUtils {
      *
      * @param <T>  generic type
      * @param type to wrap
-     * @return Typed&lt;T&gt;
+     * @return {@code Typed<T>}
      * @since 3.2
      */
     public static <T> Typed<T> wrap(final Class<T> type) {
@@ -1835,7 +1834,7 @@ public class TypeUtils {
      *
      * @param <T>  inferred generic type
      * @param type to wrap
-     * @return Typed&lt;T&gt;
+     * @return {@code Typed<T>}
      * @since 3.2
      */
     public static <T> Typed<T> wrap(final Type type) {

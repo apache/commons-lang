@@ -49,7 +49,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * <p>
  * This will produce a toString of the format:<br>
- * <code>Person@7f54[ <br>
+ * {@code Person@7f54[ <br>
  * &nbsp; name=Stephen, <br>
  * &nbsp; age=29, <br>
  * &nbsp; smokealse, <br>
@@ -57,7 +57,7 @@ import org.apache.commons.lang3.StringUtils;
  * &nbsp; &nbsp; title=Manager <br>
  * &nbsp;  ] <br>
  * ]
- * </code>
+ * }
  * </p>
  *
  * @since 3.4

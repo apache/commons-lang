@@ -47,17 +47,18 @@ import java.util.concurrent.ExecutorService;
  * typical usage example:
  * </p>
  *
- * <pre>
+ * <pre>{@code
  * // a Callable that performs a complex computation
- * Callable&lt;Integer&gt; computationCallable = new MyComputationCallable();
+ * Callable<Integer> computationCallable = new MyComputationCallable();
  * // setup the background initializer
- * CallableBackgroundInitializer&lt;Integer&gt; initializer =
+ * CallableBackgroundInitializer<Integer> initializer =
  *     new CallableBackgroundInitializer(computationCallable);
  * initializer.start();
  * // Now do some other things. Initialization runs in a parallel thread
  * ...
  * // Wait for the end of initialization and access the result
  * Integer result = initializer.get();
+ * }
  * </pre>
  *
  * @since 3.0

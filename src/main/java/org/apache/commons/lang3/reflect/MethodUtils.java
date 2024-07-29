@@ -528,7 +528,7 @@ public class MethodUtils {
      *
      * @param method lowest to consider
      * @param interfacesBehavior whether to search interfaces, {@code null} {@code implies} false
-     * @return Set&lt;Method&gt; in ascending order from sub- to superclass
+     * @return a {@code Set<Method>} in ascending order from sub- to superclass
      * @throws NullPointerException if the specified method is {@code null}
      * @since 3.2
      */

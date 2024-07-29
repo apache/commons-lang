@@ -766,9 +766,9 @@ public class ClassUtils {
      * fall foul of Java bug <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
      *
      * <pre>
-     *  <code>Set set = Collections.unmodifiableSet(...);
+     *  {@code Set set = Collections.unmodifiableSet(...);
      *  Method method = ClassUtils.getPublicMethod(set.getClass(), "isEmpty",  new Class[0]);
-     *  Object result = method.invoke(set, new Object[]);</code>
+     *  Object result = method.invoke(set, new Object[]);}
      * </pre>
      *
      * @param cls the class to check, not null
