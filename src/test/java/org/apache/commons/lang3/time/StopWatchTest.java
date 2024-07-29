@@ -35,6 +35,7 @@ import java.time.Instant;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -514,9 +515,7 @@ public class StopWatchTest extends AbstractLangTest {
 
             assertTrue(watch.isSuspended(), "Watch should be suspended");
 
-            String result = watch.get((FailableSupplier<String, Throwable>) () -> {
-                return "Foobar";
-            });
+            String result = watch.get((FailableSupplier<String, Throwable>) () -> "Foobar");
 
             assertEquals("Foobar", result, "Watch returned result other then expected");
             assertTrue(watch.isSuspended(), "Watch should be suspended");
@@ -527,8 +526,7 @@ public class StopWatchTest extends AbstractLangTest {
             final StopWatch watch = StopWatch.create();
 
             assertThrows(Exception.class, () -> {
-                String result = watch.get((FailableSupplier<String, Exception>) () -> {
-                    StopWatchTest.this.sleep(MILLIS_200);
+                watch.get((FailableSupplier<String, Exception>) () -> {
                     throw new Exception();
                 });
             });
@@ -537,15 +535,36 @@ public class StopWatchTest extends AbstractLangTest {
         }
     }
 
-    @Test
-    public void testApplyForFunction() {
-        final StopWatch watch = StopWatch.create();
+    @Nested
+    public class FunctionSupportRelatedTests {
+        @Test
+        public void testApplyForFunction() {
+            final StopWatch watch = StopWatch.create();
 
-        String result = Stream.of("A", "B", "C")
-                .map(watch.apply(s -> s.toLowerCase(Locale.ROOT)))
-                .collect(Collectors.joining());
+            String result = Stream.of("A", "B", "C")
+                                  .map(watch.apply((Function<String, String>) (s) -> s.toLowerCase(Locale.ROOT)))
+                                  .collect(Collectors.joining());
 
-        assertEquals("abc", result, "Returned result other then expected");
-        assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("abc", result, "Returned result other then expected");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testApplyForFunctionWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
+            String result = Stream.of("A", "B", "C")
+                                  .map(watch.apply((Function<String, String>) (s) -> s.toLowerCase(Locale.ROOT)))
+                                  .collect(Collectors.joining());
+
+            assertEquals("abc", result, "Returned result other then expected");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
     }
+
 }

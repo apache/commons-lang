@@ -23,7 +23,7 @@ THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 - Add support for FailableBiFunction
 - Add support for BiPredicate
 - Add support for FailableBiPredicate
-- Add support for Function
+- Add support for Function: Done
 - Add support for FailableFunction
 - Add support for Predicate
 - Add support for FailablePredicate
