@@ -21,6 +21,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -901,7 +902,7 @@ public class StopWatch {
      *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
      *
-     * @param <T> the type of the first argument to the conssumer
+     * @param <T> the type of the argument to the consumer
      *
      * @since 3.16
      */
@@ -914,6 +915,45 @@ public class StopWatch {
             }
             try {
                 consumer.accept(argument);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@linkplain BiConsumer}.
+     *
+     * <p>
+     * <b>Take the time of given {@linkplain BiConsumer}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * watch.accept((argument) -> process(firstArgument, secondArgument)).accept("A", "B");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     *  @param consumer the consumer those application should be measured
+     *
+     * @return the given consumer prepared to take time if applied
+     *
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     *
+     * @param <T> the type of the first argument to the consumer
+     * @param <U> the type of the second argument to the consumer
+     *
+     * @since 3.16
+     */
+    public <T, U> BiConsumer<T, U> accept(BiConsumer<T, U> consumer) {
+        return (firstArgument, secondArgument) -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                consumer.accept(firstArgument, secondArgument);
             } finally {
                 suspend();
             }

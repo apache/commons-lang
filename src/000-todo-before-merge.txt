@@ -17,7 +17,7 @@
 
 THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 
-- Add support for BiConsumer
+- Add support for BiConsumer: Done
 - Add support for FailableBiConsumer
 - Add support for BiFunction: Done
 - Add support for FailableBiFunction

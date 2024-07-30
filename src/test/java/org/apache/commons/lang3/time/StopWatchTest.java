@@ -34,6 +34,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -652,6 +653,36 @@ public class StopWatchTest extends AbstractLangTest {
             Consumer<String> consumer = a -> {};
 
             watch.accept(consumer).accept("a");
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+    }
+
+    @Nested
+    public class BiConsumerSupportRelatedTests {
+        @Test
+        public void testAccept() {
+            final StopWatch watch = StopWatch.create();
+
+            BiConsumer<String, String> consumer = (a, b) -> {};
+
+            watch.accept(consumer).accept("a", "b");
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testAcceptWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
+            BiConsumer<String, String> consumer = (a, b) -> {};
+
+            watch.accept(consumer).accept("a", "b");
 
             assertTrue(watch.isSuspended(), "Watch should be suspended");
         }
