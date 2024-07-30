@@ -35,6 +35,7 @@ import java.time.Instant;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -626,4 +627,33 @@ public class StopWatchTest extends AbstractLangTest {
         }
     }
 
+    @Nested
+    public class ConsumerSupportRelatedTests {
+        @Test
+        public void testAccept() {
+            final StopWatch watch = StopWatch.create();
+
+            Consumer<String> consumer = a -> {};
+
+            watch.accept(consumer).accept("a");
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testAcceptWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
+            Consumer<String> consumer = a -> {};
+
+            watch.accept(consumer).accept("a");
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+    }
 }

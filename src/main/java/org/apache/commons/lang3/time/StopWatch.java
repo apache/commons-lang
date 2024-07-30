@@ -882,4 +882,42 @@ public class StopWatch {
     }
 
 
+    /**
+     * Take the time of the execution of a given {@linkplain Consumer}.
+     *
+     * <p>
+     * <b>Take the time of given {@linkplain Consumer}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * watch.accept((argument) -> process(argument)).accept("A");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     *  @param consumer the consumer those application should be measured
+     *
+     * @return the given consumer prepared to take time if applied
+     *
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     *
+     * @param <T> the type of the first argument to the conssumer
+     *
+     * @since 3.16
+     */
+    public <T> Consumer<T> accept(Consumer<T> consumer) {
+        return (argument) -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                consumer.accept(argument);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
 }
