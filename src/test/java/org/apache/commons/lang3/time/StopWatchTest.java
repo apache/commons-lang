@@ -44,6 +44,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
 import org.apache.commons.lang3.function.FailableBiFunction;
 import org.apache.commons.lang3.function.FailableSupplier;
+import org.apache.commons.lang3.function.TriFunction;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -591,6 +592,36 @@ public class StopWatchTest extends AbstractLangTest {
             String result = watch.apply((BiFunction<String, String, String>) (a, b) -> a + b).apply("a", "b");
 
             assertEquals("ab", result, "Returned result other then expected");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+    }
+
+    @Nested
+    public class TriFunctionSupportRelatedTests {
+        @Test
+        public void testApplyForBiFunction() {
+            final StopWatch watch = StopWatch.create();
+
+            TriFunction<String, String, String, String> triFunction = (a, b, c) -> a + b + c;
+            String result = watch.apply(triFunction).apply("a", "b", "c");
+
+            assertEquals("abc", result, "Returned result other then expected");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testApplyForFunctionWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
+            TriFunction<String, String, String, String> triFunction = (a, b, c) -> a + b + c;
+            String result = watch.apply(triFunction).apply("a", "b", "c");
+
+            assertEquals("abc", result, "Returned result other then expected");
             assertTrue(watch.isSuspended(), "Watch should be suspended");
         }
     }

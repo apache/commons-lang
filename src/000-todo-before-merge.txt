@@ -31,9 +31,11 @@ THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 - Add support for FailableConsumer
 - Add support for Supplier: Done
 - Add support for FailableSupplier: Done
-- Add support for TriFunction
+- Add support for TriFunction: Done
 - Add support for TriConsumer
 
 Todo before final merge
 
 - Review the generated JavaDoc
+- Check if the lambdas could be pulled out of the tests to improve readability
+- Check if the lambdas could be pulled out of the examples to improve readability
