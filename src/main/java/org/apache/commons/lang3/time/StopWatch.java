@@ -31,6 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.apache.commons.lang3.function.FailableSupplier;
+import org.apache.commons.lang3.function.TriConsumer;
 import org.apache.commons.lang3.function.TriFunction;
 
 /**
@@ -929,7 +930,7 @@ public class StopWatch {
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      *
-     * watch.accept((argument) -> process(firstArgument, secondArgument)).accept("A", "B");
+     * watch.accept((firstArgument, secondArgument) -> process(firstArgument, secondArgument)).accept("A", "B");
      * }</pre>
      * </p>
      * <p>
