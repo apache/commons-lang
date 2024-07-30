@@ -787,14 +787,14 @@ public class StopWatch {
      * @since 3.16
      */
     public <T, R> Function<T, R> apply(Function<T, R> function) {
-        return argument -> {
+        return arg -> {
             if (isStopped()) {
                 start();
             } else if (isSuspended()) {
                 resume();
             }
             try {
-                return function.apply(argument);
+                return function.apply(arg);
             } finally {
                 suspend();
             }
@@ -828,14 +828,14 @@ public class StopWatch {
      * @since 3.16
      */
     public <T, U, R> BiFunction<T, U, R> apply(BiFunction<T, U, R> function) {
-        return (firstArgument, secondArgument) -> {
+        return (firstArg, secondArg) -> {
             if (isStopped()) {
                 start();
             } else if (isSuspended()) {
                 resume();
             }
             try {
-                return function.apply(firstArgument, secondArgument);
+                return function.apply(firstArg, secondArg);
             } finally {
                 suspend();
             }
@@ -869,14 +869,14 @@ public class StopWatch {
      * @since 3.16
      */
     public <T, U, V, R> TriFunction<T, U, V, R> apply(TriFunction<T, U, V, R> function) {
-        return (firstArgument, secondArgument, thridArgument) -> {
+        return (firstArg, secondArg, thirdArg) -> {
             if (isStopped()) {
                 start();
             } else if (isSuspended()) {
                 resume();
             }
             try {
-                return function.apply(firstArgument, secondArgument, thridArgument);
+                return function.apply(firstArg, secondArg, thirdArg);
             } finally {
                 suspend();
             }
@@ -908,14 +908,14 @@ public class StopWatch {
      * @since 3.16
      */
     public <T> Consumer<T> accept(Consumer<T> consumer) {
-        return (argument) -> {
+        return (arg) -> {
             if (isStopped()) {
                 start();
             } else if (isSuspended()) {
                 resume();
             }
             try {
-                consumer.accept(argument);
+                consumer.accept(arg);
             } finally {
                 suspend();
             }
@@ -930,7 +930,7 @@ public class StopWatch {
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      *
-     * watch.accept((firstArgument, secondArgument) -> process(firstArgument, secondArgument)).accept("A", "B");
+     * watch.accept((first, second) -> process(first, second)).accept("A", "B");
      * }</pre>
      * </p>
      * <p>
@@ -947,14 +947,14 @@ public class StopWatch {
      * @since 3.16
      */
     public <T, U> BiConsumer<T, U> accept(BiConsumer<T, U> consumer) {
-        return (firstArgument, secondArgument) -> {
+        return (first, second) -> {
             if (isStopped()) {
                 start();
             } else if (isSuspended()) {
                 resume();
             }
             try {
-                consumer.accept(firstArgument, secondArgument);
+                consumer.accept(first, second);
             } finally {
                 suspend();
             }
@@ -969,7 +969,7 @@ public class StopWatch {
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      *
-     * watch.accept((firstArgument, secondArgument, thirdArgument) -> process(firstArgument, secondArgument)).accept("A", "B", "C");
+     * watch.accept((first, second, third) -> process(first, second, third)).accept("A", "B", "C");
      * }</pre>
      * </p>
      * <p>
@@ -986,14 +986,14 @@ public class StopWatch {
      * @since 3.16
      */
     public <T, U, V> TriConsumer<T, U, V> accept(TriConsumer<T, U, V> consumer) {
-        return (firstArgument, secondArgument, thirdArgument) -> {
+        return (firstArg, secondArg, thirdArg) -> {
             if (isStopped()) {
                 start();
             } else if (isSuspended()) {
                 resume();
             }
             try {
-                consumer.accept(firstArgument, secondArgument, thirdArgument);
+                consumer.accept(firstArg, secondArg, thirdArg);
             } finally {
                 suspend();
             }
