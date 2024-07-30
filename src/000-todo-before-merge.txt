@@ -27,7 +27,7 @@ THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 - Add support for FailableFunction
 - Add support for Predicate
 - Add support for FailablePredicate
-- Add support for Consumer
+- Add support for Consumer: Done
 - Add support for FailableConsumer
 - Add support for Supplier: Done
 - Add support for FailableSupplier: Done
