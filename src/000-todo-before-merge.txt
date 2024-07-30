@@ -32,7 +32,7 @@ THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 - Add support for Supplier: Done
 - Add support for FailableSupplier: Done
 - Add support for TriFunction: Done
-- Add support for TriConsumer
+- Add support for TriConsumer: Done
 
 Todo before final merge
 

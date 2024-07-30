@@ -961,4 +961,43 @@ public class StopWatch {
         };
     }
 
+    /**
+     * Take the time of the execution of a given {@linkplain TriConsumer}.
+     *
+     * <p>
+     * <b>Take the time of given {@linkplain TriConsumer}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * watch.accept((firstArgument, secondArgument, thirdArgument) -> process(firstArgument, secondArgument)).accept("A", "B", "C");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     *  @param consumer the consumer those application should be measured
+     *
+     * @return the given consumer prepared to take time if applied
+     *
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     *
+     * @param <T> the type of the first argument to the consumer
+     * @param <U> the type of the second argument to the consumer
+     *
+     * @since 3.16
+     */
+    public <T, U, V> TriConsumer<T, U, V> accept(TriConsumer<T, U, V> consumer) {
+        return (firstArgument, secondArgument, thirdArgument) -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                consumer.accept(firstArgument, secondArgument, thirdArgument);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
 }

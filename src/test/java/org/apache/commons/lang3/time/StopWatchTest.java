@@ -46,6 +46,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
 import org.apache.commons.lang3.function.FailableBiFunction;
 import org.apache.commons.lang3.function.FailableSupplier;
+import org.apache.commons.lang3.function.TriConsumer;
 import org.apache.commons.lang3.function.TriFunction;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.Nested;
@@ -683,6 +684,36 @@ public class StopWatchTest extends AbstractLangTest {
             BiConsumer<String, String> consumer = (a, b) -> {};
 
             watch.accept(consumer).accept("a", "b");
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+    }
+
+    @Nested
+    public class TriConsumerSupportRelatedTests {
+        @Test
+        public void testAccept() {
+            final StopWatch watch = StopWatch.create();
+
+            TriConsumer<String, String, String> consumer = (a, b, c) -> {};
+
+            watch.accept(consumer).accept("a", "b", "c");
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testAcceptWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
+            TriConsumer<String, String, String> consumer = (a, b, c) -> {};
+
+            watch.accept(consumer).accept("a", "b", "c");
 
             assertTrue(watch.isSuspended(), "Watch should be suspended");
         }
