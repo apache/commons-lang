@@ -690,21 +690,16 @@ public class StopWatch {
      * <b>Take the time of the execution of given {@linkplain FailableSupplier}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * String result = watch.get(() -> "A");
      * }</pre>
      * </p>
      * <p>
      *
      * @param supplier the {@linkplain FailableSupplier} those execution should be measured
-     *
      * @return the result of the {@linkplain FailableSupplier#get()} operation
-     *
      * @throws E if the supplier fails
-     *
      * @param <T> the type of return value of the supplier
      * @param <E> the kind of thrown exception or error
-     *
      * @since 3.16
      */
     public <T, E extends Throwable> T get(FailableSupplier<T, E> supplier) throws E {
@@ -727,20 +722,15 @@ public class StopWatch {
      * <b>Take the time of the execution of given {@linkplain Supplier}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * String result = watch.get(() -> "A");
      * }</pre>
      * </p>
      * <p>
      *
      * @param supplier the {@linkplain Supplier} those execution should be measured
-     *
      * @return the result of the {@linkplain Supplier#get()} operation
-     *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     *
      * @param <T> the type of the input to the function
-     *
      * @since 3.16
      */
     public <T> T get(Supplier<T> supplier) {
@@ -763,7 +753,6 @@ public class StopWatch {
      * <b>Take the time of given {@linkplain Function}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * String result = watch.apply(it -> it.toLowerCase(Locale.ROOT)).apply("A");
      * }</pre>
      * </p>
@@ -772,7 +761,6 @@ public class StopWatch {
      *
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * String result = Stream.of("A", "B", "C")
      *                       .map(watch.apply(it -> it.toLowerCase(Locale.ROOT)))
      *                       .collect(Collectors.joining());
@@ -780,14 +768,10 @@ public class StopWatch {
      * </p>
      *
      * @param function the function those application should be measured
-     *
      * @return the given function prepared to take time if applied
-     *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     *
      * @param <T> the type of the input to the function
      * @param <R> the type of the result of the function
-     *
      * @since 3.16
      */
     public <T, R> Function<T, R> apply(Function<T, R> function) {
@@ -813,22 +797,17 @@ public class StopWatch {
      * <b>Take the time of given {@linkplain BiFunction}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * String result = watch.apply((first, second) -> first + second)).apply("A", "B");
      * }</pre>
      * </p>
      * <p>
      *
-     *  @param function the function those application should be measured
-     *
+     * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
-     *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     *
      * @param <T> the type of the first argument to the function
      * @param <U> the type of the second argument to the function
      * @param <R> the type of the result of the function
-     *
      * @since 3.16
      */
     public <T, U, R> BiFunction<T, U, R> apply(BiFunction<T, U, R> function) {
@@ -853,23 +832,18 @@ public class StopWatch {
      * <b>Take the time of given {@linkplain BiFunction}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * String result = watch.apply((first, second, third) -> first + second)).apply("A", "B", "C");
      * }</pre>
      * </p>
      * <p>
      *
-     *  @param function the function those application should be measured
-     *
+     * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
-     *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     *
      * @param <T> the type of the first argument to the function
      * @param <U> the type of the second argument to the function
      * @param <V> the type of the thrird argument to the function
      * @param <R> the type of the result of the function
-     *
      * @since 3.16
      */
     public <T, U, V, R> TriFunction<T, U, V, R> apply(TriFunction<T, U, V, R> function) {
@@ -895,20 +869,15 @@ public class StopWatch {
      * <b>Take the time of given {@linkplain Consumer}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * watch.accept((argument) -> process(argument)).accept("A");
      * }</pre>
      * </p>
      * <p>
      *
-     *  @param consumer the consumer those application should be measured
-     *
+     * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
-     *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     *
      * @param <T> the type of the argument to the consumer
-     *
      * @since 3.16
      */
     public <T> Consumer<T> accept(Consumer<T> consumer) {
@@ -933,21 +902,16 @@ public class StopWatch {
      * <b>Take the time of given {@linkplain BiConsumer}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * watch.accept((first, second) -> process(first, second)).accept("A", "B");
      * }</pre>
      * </p>
      * <p>
      *
-     *  @param consumer the consumer those application should be measured
-     *
+     * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
-     *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     *
      * @param <T> the type of the first argument to the consumer
      * @param <U> the type of the second argument to the consumer
-     *
      * @since 3.16
      */
     public <T, U> BiConsumer<T, U> accept(BiConsumer<T, U> consumer) {
@@ -972,21 +936,16 @@ public class StopWatch {
      * <b>Take the time of given {@linkplain TriConsumer}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * watch.accept((first, second, third) -> process(first, second, third)).accept("A", "B", "C");
      * }</pre>
      * </p>
      * <p>
      *
-     *  @param consumer the consumer those application should be measured
-     *
+     * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
-     *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     *
      * @param <T> the type of the first argument to the consumer
      * @param <U> the type of the second argument to the consumer
-     *
      * @since 3.16
      */
     public <T, U, V> TriConsumer<T, U, V> accept(TriConsumer<T, U, V> consumer) {
@@ -1012,7 +971,6 @@ public class StopWatch {
      * <b>Take the time of given {@linkplain Predicate}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * Streams.of("A", "B")
      *         .filter(watch.test(it -> "A".equals(it))
      *         .forEach(it -> {});
@@ -1020,14 +978,10 @@ public class StopWatch {
      * </p>
      * <p>
      *
-     *  @param predicate the predicate those application should be measured
-     *
+     * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
-     *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     *
      * @param <T> the type of the argument to the predicate
-     *
      * @since 3.16
      */
     public <T> Predicate<T> test(Predicate<T> predicate) {
@@ -1052,9 +1006,7 @@ public class StopWatch {
      * <b>Take the time of given {@linkplain BiPredicate}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * BiPredicate<String, String> predicate = Objects::equals;
-     *
      * long result = Streams.of(ImmutablePair.of("A", "A"), ImmutablePair.of("A", "B"))
      *                       .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
      *                       .count();
@@ -1062,15 +1014,11 @@ public class StopWatch {
      * </p>
      * <p>
      *
-     *  @param predicate the predicate those application should be measured
-     *
+     * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
-     *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     *
      * @param <T> the type of the first argument to the predicate
      * @param <U> the type of the second argument to the predicate
-     *
      * @since 3.16
      */
     public <T, U> BiPredicate<T, U> test(BiPredicate<T, U> predicate) {
@@ -1096,24 +1044,18 @@ public class StopWatch {
      * <b>Take the time of given {@linkplain FailableBiPredicate}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * FailableBiPredicate<String, String> predicate = Objects::equals;
-     *
      * boolean result = watch.test(predicate).test("A", "B");
      * }</pre>
      * </p>
      * <p>
      *
-     *  @param predicate the predicate those application should be measured
-     *
+     * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
-     *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     *
      * @param <T> the type of the first argument to the predicate
      * @param <U> the type of the second argument to the predicate
      * @param <E> The kind of thrown exception or error
-     *
      * @since 3.16
      */
     public <T, U, E extends Throwable> FailableBiPredicate<T, U, E> test(FailableBiPredicate<T, U, E> predicate) {
@@ -1138,23 +1080,17 @@ public class StopWatch {
      * <b>Take the time of given {@linkplain FailablePredicate}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
-     *
      * FailablePredicate<String> predicate = false;
-     *
      * boolean result = watch.test(predicate).test("A");
      * }</pre>
      * </p>
      * <p>
      *
-     *  @param predicate the predicate those application should be measured
-     *
+     * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
-     *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     *
      * @param <T> the type of the argument to the predicate
      * @param <E> The kind of thrown exception or error
-     *
      * @since 3.16
      */
     public <T, E extends Throwable> FailablePredicate<T, E> test(FailablePredicate<T, E> predicate) {
@@ -1171,7 +1107,4 @@ public class StopWatch {
             }
         };
     }
-
-
-
 }
