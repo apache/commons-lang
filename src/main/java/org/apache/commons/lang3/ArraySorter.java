@@ -28,6 +28,16 @@ import java.util.Comparator;
 public class ArraySorter {
 
     /**
+     * Constructs a new instance.
+     *
+     * @deprecated Will be removed in 4.0.0.
+     */
+    @Deprecated
+    public ArraySorter() {
+        // empty
+    }
+
+    /**
      * Sorts and returns the given array.
      *
      * @param array the array to sort.
