@@ -30,7 +30,9 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.function.FailableBiPredicate;
 import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailablePredicate;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.apache.commons.lang3.function.FailableSupplier;
 import org.apache.commons.lang3.function.TriConsumer;
@@ -1080,6 +1082,90 @@ public class StopWatch {
             }
             try {
                 return predicate.test(firstArg, secondArg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+
+    /**
+     * Take the time of the execution of a given {@linkplain FailableBiPredicate}.
+     *
+     * <p>
+     * <b>Take the time of given {@linkplain FailableBiPredicate}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * FailableBiPredicate<String, String> predicate = Objects::equals;
+     *
+     * boolean result = watch.test(predicate).test("A", "B");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     *  @param predicate the predicate those application should be measured
+     *
+     * @return the given predicate prepared to take time if applied
+     *
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     *
+     * @param <T> the type of the first argument to the predicate
+     * @param <U> the type of the second argument to the predicate
+     * @param <E> The kind of thrown exception or error
+     *
+     * @since 3.16
+     */
+    public <T, U, E extends Throwable> FailableBiPredicate<T, U, E> test(FailableBiPredicate<T, U, E> predicate) {
+        return (firstArg, secondArg) -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                return predicate.test(firstArg, secondArg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@linkplain FailablePredicate}.
+     *
+     * <p>
+     * <b>Take the time of given {@linkplain FailablePredicate}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * FailablePredicate<String> predicate = false;
+     *
+     * boolean result = watch.test(predicate).test("A");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     *  @param predicate the predicate those application should be measured
+     *
+     * @return the given predicate prepared to take time if applied
+     *
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     *
+     * @param <T> the type of the argument to the predicate
+     * @param <E> The kind of thrown exception or error
+     *
+     * @since 3.16
+     */
+    public <T, E extends Throwable> FailablePredicate<T, E> test(FailablePredicate<T, E> predicate) {
+        return (arg) -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                return predicate.test(arg);
             } finally {
                 suspend();
             }

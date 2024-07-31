@@ -22,11 +22,11 @@ THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 - Add support for BiFunction: Done
 - Add support for FailableBiFunction
 - Add support for BiPredicate: Done
-- Add support for FailableBiPredicate
+- Add support for FailableBiPredicate: Done
 - Add support for Function: Done
 - Add support for FailableFunction
 - Add support for Predicate: Done
-- Add support for FailablePredicate
+- Add support for FailablePredicate: Done
 - Add support for Consumer: Done
 - Add support for FailableConsumer
 - Add support for Supplier: Done

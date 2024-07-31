@@ -48,6 +48,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
 import org.apache.commons.lang3.function.FailableBiFunction;
+import org.apache.commons.lang3.function.FailableBiPredicate;
+import org.apache.commons.lang3.function.FailablePredicate;
 import org.apache.commons.lang3.function.FailableSupplier;
 import org.apache.commons.lang3.function.TriConsumer;
 import org.apache.commons.lang3.function.TriFunction;
@@ -790,5 +792,103 @@ public class StopWatchTest extends AbstractLangTest {
             assertEquals(1, result, "Result should be 1");
             assertTrue(watch.isSuspended(), "Watch should be suspended");
         }
+    }
+
+    @Nested
+    public class FailableBiPredicateSupportRelatedTests {
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+
+            FailableBiPredicate<String, String, IllegalArgumentException> predicate = Objects::equals;
+
+            long result = Streams.of(ImmutablePair.of("A", "A"), ImmutablePair.of("A", "B"))
+                                 .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
+                                 .count();
+
+            assertEquals(1, result, "Result should be 1");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
+            FailableBiPredicate<String, String, IllegalArgumentException> predicate = Objects::equals;
+
+            long result = Streams.of(ImmutablePair.of("A", "A"), ImmutablePair.of("A", "B"))
+                                 .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
+                                 .count();
+
+            assertEquals(1, result, "Result should be 1");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testTestHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+
+            FailableBiPredicate<String, String, IllegalArgumentException> predicate = 
+                    (a, b) -> { throw new IllegalArgumentException(); };
+                    
+            assertThrows(IllegalArgumentException.class, () -> watch.test(predicate).test("a", "b"));
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+    }
+
+    @Nested
+    public class FailablePredicateSupportRelatedTests {
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+
+            FailablePredicate<String, IllegalArgumentException> predicate = a -> true;
+
+            long result = Streams.of("A", "B")
+                                 .filter(it -> watch.test(predicate).test(it))
+                                 .count();
+
+            assertEquals(2, result, "Result should be 2");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
+            FailablePredicate<String, IllegalArgumentException> predicate = a -> true;
+
+            long result = Streams.of("A", "B")
+                                 .filter(it -> watch.test(predicate).test(it))
+                                 .count();
+
+            assertEquals(2, result, "Result should be 2");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testTestHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+
+            FailablePredicate<String, IllegalArgumentException> predicate =
+                    a -> { throw new IllegalArgumentException(); };
+
+            assertThrows(IllegalArgumentException.class, () -> watch.test(predicate).test("a"));
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
     }
 }
