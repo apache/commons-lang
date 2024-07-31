@@ -50,38 +50,6 @@ import org.apache.commons.lang3.builder.Builder;
 public class TypeUtils {
 
     /**
-     * Ampersand sign joiner.
-     */
-    // @formatter:off
-    private static final AppendableJoiner<Type> AMP_JOINER = AppendableJoiner.<Type>builder()
-            .setDelimiter(" & ")
-            .setElementAppender((a, e) -> a.append(TypeUtils.toString(e)))
-            .get();
-    // @formatter:on
-
-    /**
-     * Method classToString joiner.
-     */
-    // @formatter:off
-    private static final AppendableJoiner<TypeVariable<Class<?>>> CTJ_JOINER = AppendableJoiner.<TypeVariable<Class<?>>>builder()
-        .setDelimiter(", ")
-        .setElementAppender((a, e) -> a.append(TypeUtils.anyToString(e)))
-        .get();
-    // @formatter:on
-
-    /**
-     * Greater than and lesser than sign joiner.
-     */
-    // @formatter:off
-    private static final AppendableJoiner<Object> GT_JOINER = AppendableJoiner.builder()
-            .setPrefix("<")
-            .setSuffix(">")
-            .setDelimiter(", ")
-            .setElementAppender((a, e) -> a.append(TypeUtils.anyToString(e)))
-            .get();
-    // @formatter:on
-
-    /**
      * GenericArrayType implementation class.
      */
     private static final class GenericArrayTypeImpl implements GenericArrayType {
@@ -318,11 +286,47 @@ public class TypeUtils {
     }
 
     /**
+     * Ampersand sign joiner.
+     */
+    // @formatter:off
+    private static final AppendableJoiner<Type> AMP_JOINER = AppendableJoiner.<Type>builder()
+            .setDelimiter(" & ")
+            .setElementAppender((a, e) -> a.append(TypeUtils.toString(e)))
+            .get();
+    // @formatter:on
+
+    /**
+     * Method classToString joiner.
+     */
+    // @formatter:off
+    private static final AppendableJoiner<TypeVariable<Class<?>>> CTJ_JOINER = AppendableJoiner.<TypeVariable<Class<?>>>builder()
+        .setDelimiter(", ")
+        .setElementAppender((a, e) -> a.append(TypeUtils.anyToString(e)))
+        .get();
+    // @formatter:on
+
+    /**
+     * Greater than and lesser than sign joiner.
+     */
+    // @formatter:off
+    private static final AppendableJoiner<Object> GT_JOINER = AppendableJoiner.builder()
+            .setPrefix("<")
+            .setSuffix(">")
+            .setDelimiter(", ")
+            .setElementAppender((a, e) -> a.append(TypeUtils.anyToString(e)))
+            .get();
+    // @formatter:on
+
+    /**
      * A wildcard instance matching {@code ?}.
      *
      * @since 3.2
      */
     public static final WildcardType WILDCARD_ALL = wildcardType().withUpperBounds(Object.class).build();
+
+    private static <T> String anyToString(final T object) {
+        return object instanceof Type ? toString((Type) object) : object.toString();
+    }
 
     private static void appendRecursiveTypes(final StringBuilder builder, final int[] recursiveTypeIndexes, final Type[] argumentTypes) {
         for (int i = 0; i < recursiveTypeIndexes.length; i++) {
@@ -1630,10 +1634,6 @@ public class TypeUtils {
             buf.append(d);
         }
         return buf.append(':').append(typeVariableToString(typeVariable)).toString();
-    }
-
-    private static <T> String anyToString(final T object) {
-        return object instanceof Type ? toString((Type) object) : object.toString();
     }
 
     /**

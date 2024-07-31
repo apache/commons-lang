@@ -371,19 +371,6 @@ public class DiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNestedDiffableYesNestedOnly() {
-        final TypeTestClass class1 = new TypeTestClass();
-        final TypeTestClass class2 = new TypeTestClass();
-        class2.nestedDiffableField.booleanField = false;
-        final DiffResult<TypeTestClass> list = class1.diff(class2);
-        assertEquals(1, list.getNumberOfDiffs());
-        final Diff<?> diff = list.getDiffs().get(0);
-        assertEquals(Object.class, diff.getType());
-        assertEquals(Boolean.TRUE, diff.getLeft());
-        assertEquals(Boolean.FALSE, diff.getRight());
-    }
-
-    @Test
     public void testNestedDiffableYesNestedNot() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
@@ -394,6 +381,19 @@ public class DiffBuilderTest extends AbstractLangTest {
         assertEquals(Integer.class, diff.getType());
         assertEquals(1, diff.getLeft());
         assertEquals(9, diff.getRight());
+    }
+
+    @Test
+    public void testNestedDiffableYesNestedOnly() {
+        final TypeTestClass class1 = new TypeTestClass();
+        final TypeTestClass class2 = new TypeTestClass();
+        class2.nestedDiffableField.booleanField = false;
+        final DiffResult<TypeTestClass> list = class1.diff(class2);
+        assertEquals(1, list.getNumberOfDiffs());
+        final Diff<?> diff = list.getDiffs().get(0);
+        assertEquals(Object.class, diff.getType());
+        assertEquals(Boolean.TRUE, diff.getLeft());
+        assertEquals(Boolean.FALSE, diff.getRight());
     }
 
     @Test

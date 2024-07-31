@@ -79,12 +79,6 @@ import org.apache.commons.lang3.Validate;
  */
 public class DurationFormatUtils {
 
-    private static final int MINUTES_PER_HOUR = 60;
-
-    private static final int SECONDS_PER_MINUTES = 60;
-
-    private static final int HOURS_PER_DAY = 24;
-
     /**
      * Element that is parsed from the format pattern.
      */
@@ -197,6 +191,12 @@ public class DurationFormatUtils {
             return StringUtils.repeat(this.value.toString(), this.count);
         }
     }
+
+    private static final int MINUTES_PER_HOUR = 60;
+
+    private static final int SECONDS_PER_MINUTES = 60;
+
+    private static final int HOURS_PER_DAY = 24;
 
     /**
      * Pattern used with {@link FastDateFormat} and {@link SimpleDateFormat}

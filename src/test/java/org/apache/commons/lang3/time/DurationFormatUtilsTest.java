@@ -521,12 +521,6 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
         assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatPeriodISO(5000, 2000));
     }
 
-    // https://issues.apache.org/jira/browse/LANG-281
-    @Test
-    public void testJiraLang281() {
-        assertEqualDuration("09", new int[] { 2005, 11, 31, 0, 0, 0 }, new int[] { 2006, 9, 6, 0, 0, 0 }, "MM");
-    }
-
     /**
      * Takes 8 seconds to run.
      */
@@ -538,6 +532,12 @@ public class DurationFormatUtilsTest extends AbstractLangTest {
             bruteForce(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), "d", Calendar.DAY_OF_MONTH);
             c.add(Calendar.DAY_OF_MONTH, 1);
         }
+    }
+
+    // https://issues.apache.org/jira/browse/LANG-281
+    @Test
+    public void testJiraLang281() {
+        assertEqualDuration("09", new int[] { 2005, 11, 31, 0, 0, 0 }, new int[] { 2006, 9, 6, 0, 0, 0 }, "MM");
     }
 
     @Test
