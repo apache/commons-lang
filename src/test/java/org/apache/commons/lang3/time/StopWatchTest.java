@@ -33,9 +33,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -50,6 +52,8 @@ import org.apache.commons.lang3.function.FailableSupplier;
 import org.apache.commons.lang3.function.TriConsumer;
 import org.apache.commons.lang3.function.TriFunction;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.commons.lang3.stream.Streams;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -748,6 +752,42 @@ public class StopWatchTest extends AbstractLangTest {
             boolean result = watch.test(predicate).test("a");
 
             assertTrue(result, "Result should be true");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+    }
+
+    @Nested
+    public class BiPredicateSupportRelatedTests {
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+
+            BiPredicate<String, String> predicate = Objects::equals;
+
+            long result = Streams.of(ImmutablePair.of("A", "A"), ImmutablePair.of("A", "B"))
+                                 .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
+                                 .count();
+
+            assertEquals(1, result, "Result should be 1");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
+            BiPredicate<String, String> predicate = Objects::equals;
+
+            long result = Streams.of(ImmutablePair.of("A", "A"), ImmutablePair.of("A", "B"))
+                                 .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
+                                 .count();
+
+            assertEquals(1, result, "Result should be 1");
             assertTrue(watch.isSuspended(), "Watch should be suspended");
         }
     }

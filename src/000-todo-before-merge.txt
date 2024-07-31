@@ -21,7 +21,7 @@ THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 - Add support for FailableBiConsumer
 - Add support for BiFunction: Done
 - Add support for FailableBiFunction
-- Add support for BiPredicate
+- Add support for BiPredicate: Done
 - Add support for FailableBiPredicate
 - Add support for Function: Done
 - Add support for FailableFunction

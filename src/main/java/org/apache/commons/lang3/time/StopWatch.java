@@ -23,6 +23,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -1019,7 +1020,7 @@ public class StopWatch {
      *
      *  @param predicate the predicate those application should be measured
      *
-     * @return the given consumer prepared to take time if applied
+     * @return the given predicate prepared to take time if applied
      *
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
      *
@@ -1036,6 +1037,49 @@ public class StopWatch {
             }
             try {
                 return predicate.test(arg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@linkplain BiPredicate}.
+     *
+     * <p>
+     * <b>Take the time of given {@linkplain BiPredicate}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * BiPredicate<String, String> predicate = Objects::equals;
+     *
+     * long result = Streams.of(ImmutablePair.of("A", "A"), ImmutablePair.of("A", "B"))
+     *                       .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
+     *                       .count();
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     *  @param predicate the predicate those application should be measured
+     *
+     * @return the given predicate prepared to take time if applied
+     *
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     *
+     * @param <T> the type of the first argument to the predicate
+     * @param <U> the type of the second argument to the predicate
+     *
+     * @since 3.16
+     */
+    public <T, U> BiPredicate<T, U> test(BiPredicate<T, U> predicate) {
+        return (firstArg, secondArg) -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                return predicate.test(firstArg, secondArg);
             } finally {
                 suspend();
             }
