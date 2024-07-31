@@ -455,4 +455,13 @@ public class EntityArrays {
         return JAVA_CTRL_CHARS_UNESCAPE.clone();
     }
 
+    /**
+     * Constructs a new instance.
+     *
+     * @deprecated Will be removed in 4.0.0.
+     */
+    @Deprecated
+    public EntityArrays() {
+        // empty
+    }
 }
