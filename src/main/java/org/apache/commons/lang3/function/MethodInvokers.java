@@ -197,7 +197,7 @@ public final class MethodInvokers {
     /**
      * Produces an instance of the given single-method interface which redirects its calls to the given method.
      * <p>
-     * For the definition of "single-method", see {@linkplain MethodHandleProxies#asInterfaceInstance(Class, MethodHandle)}.
+     * For the definition of "single-method", see {@link MethodHandleProxies#asInterfaceInstance(Class, MethodHandle)}.
      * </p>
      *
      * @param <T> The interface type.
