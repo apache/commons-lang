@@ -849,6 +849,8 @@ public class StopWatchTest extends AbstractLangTest {
         @Test
         public void testTest() {
             final StopWatch watch = StopWatch.create();
+
+            FailablePredicate<String, IllegalArgumentException> predicate = a -> true;
             
             long result = Streams.of("A", "B")
                                  .filter(it -> watch.test(predicate).test(it))
