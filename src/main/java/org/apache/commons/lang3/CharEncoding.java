@@ -108,4 +108,13 @@ public class CharEncoding {
         }
     }
 
+    /**
+     * Constructs a new instance.
+     *
+     * @deprecated Will be removed in 4.0.0.
+     */
+    @Deprecated
+    public CharEncoding() {
+        // empty
+    }
 }
