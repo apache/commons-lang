@@ -58,6 +58,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate Conversion constructor for removal.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate EntityArrays constructor for removal.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ObjectToStringComparator constructor for removal.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate RuntimeEnvironment constructor for removal.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getSplitDuration() and deprecate getSplitTime().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getStartInstant() and deprecate getStartTime().</action>

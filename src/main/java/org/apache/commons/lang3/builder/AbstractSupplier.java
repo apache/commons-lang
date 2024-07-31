@@ -30,6 +30,13 @@ import org.apache.commons.lang3.function.FailableSupplier;
 public abstract class AbstractSupplier<T, B extends AbstractSupplier<T, B, E>, E extends Throwable> implements FailableSupplier<T, E> {
 
     /**
+     * Constructs a new instance.
+     */
+    public AbstractSupplier() {
+        // empty
+    }
+
+    /**
      * Returns this instance typed as the proper subclass type.
      *
      * @return this instance typed as the proper subclass type.

@@ -106,6 +106,13 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     }
 
     /**
+     * Constructs a new instance.
+     */
+    public Triple() {
+        // empty
+    }
+
+    /**
      * Compares the triple based on the left element, followed by the middle element,
      * finally the right element.
      * The types must be {@link Comparable}.

@@ -88,6 +88,13 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         private String toStringFormat = TO_STRING_FORMAT;
 
         /**
+         * Constructs a new instance.
+         */
+        public Builder() {
+            // empty
+        }
+
+        /**
          * Builds a new configured {@link DiffBuilder}.
          *
          * @return a new configured {@link DiffBuilder}.

@@ -55,6 +55,13 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
         private FailableSupplier<T, ? extends Exception> initializer = FailableSupplier.nul();
 
         /**
+         * Constructs a new instance.
+         */
+        public AbstractBuilder() {
+            // empty
+        }
+
+        /**
          * Gets the closer consumer called by {@link #close()}.
          *
          * @return the closer consumer called by {@link #close()}.

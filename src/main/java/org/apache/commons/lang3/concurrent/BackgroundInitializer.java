@@ -101,6 +101,13 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
          */
         private ExecutorService externalExecutor;
 
+        /**
+         * Constructs a new instance.
+         */
+        public Builder() {
+            // empty
+        }
+
         @SuppressWarnings("unchecked")
         @Override
         public I get() {

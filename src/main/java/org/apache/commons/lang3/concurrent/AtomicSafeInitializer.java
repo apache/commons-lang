@@ -65,6 +65,13 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
      */
     public static class Builder<I extends AtomicSafeInitializer<T>, T> extends AbstractBuilder<I, T, Builder<I, T>, ConcurrentException> {
 
+        /**
+         * Constructs a new instance.
+         */
+        public Builder() {
+            // empty
+        }
+
         @SuppressWarnings("unchecked")
         @Override
         public I get() {

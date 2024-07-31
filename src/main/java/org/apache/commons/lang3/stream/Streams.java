@@ -834,18 +834,18 @@ public class Streams {
     /**
      * Returns a {@link Collector} that accumulates the input elements into a new array.
      *
-     * @param pElementType Type of an element in the array.
+     * @param elementType Type of an element in the array.
      * @param <T> the type of the input elements
      * @return a {@link Collector} which collects all the input elements into an array, in encounter order
      */
-    public static <T> Collector<T, ?, T[]> toArray(final Class<T> pElementType) {
-        return new ArrayCollector<>(pElementType);
+    public static <T> Collector<T, ?, T[]> toArray(final Class<T> elementType) {
+        return new ArrayCollector<>(elementType);
     }
 
     /**
-     * Make private in 4.0.
+     * Constructs a new instance.
      *
-     * @deprecated TODO Make private in 4.0.
+     * @deprecated Will be private in 4.0.0.
      */
     @Deprecated
     public Streams() {

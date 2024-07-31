@@ -48,6 +48,13 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
     private final List<Pair<String, Object>> contextValues = new ArrayList<>();
 
     /**
+     * Constructs a new instance.
+     */
+    public DefaultExceptionContext() {
+        // empty
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

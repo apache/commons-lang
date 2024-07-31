@@ -33,6 +33,13 @@ import java.io.Writer;
 public class UnicodeUnescaper extends CharSequenceTranslator {
 
     /**
+     * Constructs a new instance.
+     */
+    public UnicodeUnescaper() {
+        // empty
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

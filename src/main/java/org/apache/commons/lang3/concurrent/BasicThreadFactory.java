@@ -100,8 +100,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * BasicThreadFactory} for a usage example.
      * </p>
      */
-    public static class Builder
-        implements org.apache.commons.lang3.builder.Builder<BasicThreadFactory> {
+    public static class Builder implements org.apache.commons.lang3.builder.Builder<BasicThreadFactory> {
 
         /** The wrapped factory. */
         private ThreadFactory factory;
@@ -117,6 +116,13 @@ public class BasicThreadFactory implements ThreadFactory {
 
         /** The daemon flag. */
         private Boolean daemon;
+
+        /**
+         * Constructs a new instance.
+         */
+        public Builder() {
+            // empty
+        }
 
         /**
          * Creates a new {@link BasicThreadFactory} with all configuration

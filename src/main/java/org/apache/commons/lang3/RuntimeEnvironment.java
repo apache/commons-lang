@@ -92,4 +92,13 @@ public class RuntimeEnvironment {
         return containsLine("/proc/1/environ", "container=wslcontainer_host_id");
     }
 
+    /**
+     * Constructs a new instance.
+     *
+     * @deprecated Will be removed in 4.0.0.
+     */
+    @Deprecated
+    public RuntimeEnvironment() {
+        // empty
+    }
 }

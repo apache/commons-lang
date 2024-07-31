@@ -655,4 +655,11 @@ public class Functions {
         final FailableRunnable<? extends Throwable>... resources) {
         tryWithResources(action, null, resources);
     }
+
+    /**
+     * Constructs a new instance.
+     */
+    public Functions() {
+        // empty
+    }
 }

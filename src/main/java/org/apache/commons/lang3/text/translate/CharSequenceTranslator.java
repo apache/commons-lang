@@ -52,6 +52,13 @@ public abstract class CharSequenceTranslator {
     }
 
     /**
+     * Constructs a new instance.
+     */
+    public CharSequenceTranslator() {
+        // empty
+    }
+
+    /**
      * Helper for non-Writer usage.
      * @param input CharSequence to be translated
      * @return String output of translation

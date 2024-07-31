@@ -548,4 +548,11 @@ public class Streams {
     public static <O> Collector<O, ?, O[]> toArray(final Class<O> pElementType) {
         return new ArrayCollector<>(pElementType);
     }
+
+    /**
+     * Constructs a new instance.
+     */
+    public Streams() {
+        // empty
+    }
 }

@@ -120,6 +120,13 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
+     * Constructs a new instance.
+     */
+    public Pair() {
+        // empty
+    }
+
+    /**
      * Accepts this key and value as arguments to the given consumer.
      *
      * @param <E> The kind of thrown exception or error.

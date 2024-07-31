@@ -87,6 +87,13 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         private DiffBuilder<T> diffBuilder;
 
         /**
+         * Constructs a new instance.
+         */
+        public Builder() {
+            // empty
+        }
+
+        /**
          * Builds a new configured {@link ReflectionDiffBuilder}.
          *
          * @return a new configured {@link ReflectionDiffBuilder}.
