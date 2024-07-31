@@ -41,6 +41,16 @@ public final class ObjectToStringComparator implements Comparator<Object>, Seria
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Constructs a new instance.
+     *
+     * @deprecated Will be private in 4.0.0.
+     */
+    @Deprecated
+    public ObjectToStringComparator() {
+        // empty
+    }
+
     @Override
     public int compare(final Object o1, final Object o2) {
         if (o1 == null && o2 == null) {
