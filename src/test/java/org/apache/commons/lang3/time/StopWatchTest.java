@@ -38,6 +38,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -715,6 +716,38 @@ public class StopWatchTest extends AbstractLangTest {
 
             watch.accept(consumer).accept("a", "b", "c");
 
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+    }
+
+    @Nested
+    public class PredicateSupportRelatedTests {
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+
+            Predicate<String> predicate = a -> true;
+
+            boolean result = watch.test(predicate).test("a");
+
+            assertTrue(result, "Result should be true");
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+        }
+
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended(), "Watch should be suspended");
+
+            Predicate<String> predicate = a -> true;
+
+            boolean result = watch.test(predicate).test("a");
+
+            assertTrue(result, "Result should be true");
             assertTrue(watch.isSuspended(), "Watch should be suspended");
         }
     }

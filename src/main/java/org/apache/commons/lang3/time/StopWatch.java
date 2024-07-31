@@ -25,6 +25,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.StringUtils;
@@ -999,5 +1000,48 @@ public class StopWatch {
             }
         };
     }
+
+
+    /**
+     * Take the time of the execution of a given {@linkplain Predicate}.
+     *
+     * <p>
+     * <b>Take the time of given {@linkplain Predicate}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     *
+     * Streams.of("A", "B")
+     *         .filter(watch.test(it -> "A".equals(it))
+     *         .forEach(it -> {});
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     *  @param predicate the predicate those application should be measured
+     *
+     * @return the given consumer prepared to take time if applied
+     *
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     *
+     * @param <T> the type of the argument to the predicate
+     *
+     * @since 3.16
+     */
+    public <T> Predicate<T> test(Predicate<T> predicate) {
+        return arg -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                return predicate.test(arg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+
 
 }
