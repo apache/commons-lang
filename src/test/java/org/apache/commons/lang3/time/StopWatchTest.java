@@ -476,12 +476,12 @@ public class StopWatchTest extends AbstractLangTest {
         public void testGetForSupplier() {
             final StopWatch watch = StopWatch.create();
 
-            assertTrue(watch.isStopped(), "Watch should be stopped");
+            assertTrue(watch.isStopped());
 
             String result = watch.get((Supplier<String>) () -> "Foobar");
 
-            assertEquals("Foobar", result, "Watch returned result other then expected");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("Foobar", result);
+            assertTrue(watch.isSuspended());
         }
 
 
@@ -493,12 +493,12 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             String result = watch.get((Supplier<String>) () -> "Foobar");
 
-            assertEquals("Foobar", result, "Watch returned result other then expected");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("Foobar", result);
+            assertTrue(watch.isSuspended());
         }
 
     }
@@ -509,12 +509,12 @@ public class StopWatchTest extends AbstractLangTest {
         public void testGetForFailableSupplier() throws Throwable {
             final StopWatch watch = StopWatch.create();
 
-            assertTrue(watch.isStopped(), "Watch should be stopped");
+            assertTrue(watch.isStopped());
 
             String result = watch.get((FailableSupplier<String, Throwable>) () -> "Foobar");
 
-            assertEquals("Foobar", result, "Watch returned result other then expected");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("Foobar", result);
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -524,12 +524,12 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             String result = watch.get((FailableSupplier<String, Throwable>) () -> "Foobar");
 
-            assertEquals("Foobar", result, "Watch returned result other then expected");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("Foobar", result);
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -542,7 +542,7 @@ public class StopWatchTest extends AbstractLangTest {
                 });
             });
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
         }
     }
 
@@ -556,8 +556,8 @@ public class StopWatchTest extends AbstractLangTest {
                                   .map(watch.apply((Function<String, String>) (s) -> s.toLowerCase(Locale.ROOT)))
                                   .collect(Collectors.joining());
 
-            assertEquals("abc", result, "Returned result other then expected");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("abc", result);
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -567,14 +567,14 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             String result = Stream.of("A", "B", "C")
                                   .map(watch.apply((Function<String, String>) (s) -> s.toLowerCase(Locale.ROOT)))
                                   .collect(Collectors.joining());
 
-            assertEquals("abc", result, "Returned result other then expected");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("abc", result);
+            assertTrue(watch.isSuspended());
         }
     }
 
@@ -586,8 +586,8 @@ public class StopWatchTest extends AbstractLangTest {
 
             String result = watch.apply((BiFunction<String, String, String>) (a, b) -> a + b).apply("a", "b");
 
-            assertEquals("ab", result, "Returned result other then expected");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("ab", result);
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -597,12 +597,12 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             String result = watch.apply((BiFunction<String, String, String>) (a, b) -> a + b).apply("a", "b");
 
-            assertEquals("ab", result, "Returned result other then expected");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("ab", result);
+            assertTrue(watch.isSuspended());
         }
     }
 
@@ -615,8 +615,8 @@ public class StopWatchTest extends AbstractLangTest {
             TriFunction<String, String, String, String> triFunction = (a, b, c) -> a + b + c;
             String result = watch.apply(triFunction).apply("a", "b", "c");
 
-            assertEquals("abc", result, "Returned result other then expected");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("abc", result);
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -626,13 +626,13 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             TriFunction<String, String, String, String> triFunction = (a, b, c) -> a + b + c;
             String result = watch.apply(triFunction).apply("a", "b", "c");
 
-            assertEquals("abc", result, "Returned result other then expected");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals("abc", result);
+            assertTrue(watch.isSuspended());
         }
     }
 
@@ -646,7 +646,7 @@ public class StopWatchTest extends AbstractLangTest {
 
             watch.accept(consumer).accept("a");
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -656,13 +656,13 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             Consumer<String> consumer = a -> {};
 
             watch.accept(consumer).accept("a");
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
         }
     }
 
@@ -676,7 +676,7 @@ public class StopWatchTest extends AbstractLangTest {
 
             watch.accept(consumer).accept("a", "b");
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -686,13 +686,13 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             BiConsumer<String, String> consumer = (a, b) -> {};
 
             watch.accept(consumer).accept("a", "b");
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
         }
     }
 
@@ -706,7 +706,7 @@ public class StopWatchTest extends AbstractLangTest {
 
             watch.accept(consumer).accept("a", "b", "c");
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -716,13 +716,13 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             TriConsumer<String, String, String> consumer = (a, b, c) -> {};
 
             watch.accept(consumer).accept("a", "b", "c");
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
         }
     }
 
@@ -736,8 +736,8 @@ public class StopWatchTest extends AbstractLangTest {
 
             boolean result = watch.test(predicate).test("a");
 
-            assertTrue(result, "Result should be true");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(result);
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -747,14 +747,14 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             Predicate<String> predicate = a -> true;
 
             boolean result = watch.test(predicate).test("a");
 
-            assertTrue(result, "Result should be true");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(result);
+            assertTrue(watch.isSuspended());
         }
     }
 
@@ -770,8 +770,8 @@ public class StopWatchTest extends AbstractLangTest {
                                  .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
                                  .count();
 
-            assertEquals(1, result, "Result should be 1");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals(1, result);
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -781,7 +781,7 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             BiPredicate<String, String> predicate = Objects::equals;
 
@@ -789,8 +789,8 @@ public class StopWatchTest extends AbstractLangTest {
                                  .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
                                  .count();
 
-            assertEquals(1, result, "Result should be 1");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals(1, result);
+            assertTrue(watch.isSuspended());
         }
     }
 
@@ -806,8 +806,8 @@ public class StopWatchTest extends AbstractLangTest {
                                  .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
                                  .count();
 
-            assertEquals(1, result, "Result should be 1");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals(1, result);
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -817,7 +817,7 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             FailableBiPredicate<String, String, IllegalArgumentException> predicate = Objects::equals;
 
@@ -825,8 +825,8 @@ public class StopWatchTest extends AbstractLangTest {
                                  .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
                                  .count();
 
-            assertEquals(1, result, "Result should be 1");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals(1, result);
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -838,7 +838,7 @@ public class StopWatchTest extends AbstractLangTest {
                     
             assertThrows(IllegalArgumentException.class, () -> watch.test(predicate).test("a", "b"));
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
         }
 
     }
@@ -855,8 +855,8 @@ public class StopWatchTest extends AbstractLangTest {
                                  .filter(it -> watch.test(predicate).test(it))
                                  .count();
 
-            assertEquals(2, result, "Result should be 2");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals(2, result);
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -866,7 +866,7 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
 
             FailablePredicate<String, IllegalArgumentException> predicate = a -> true;
 
@@ -874,8 +874,8 @@ public class StopWatchTest extends AbstractLangTest {
                                  .filter(it -> watch.test(predicate).test(it))
                                  .count();
 
-            assertEquals(2, result, "Result should be 2");
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertEquals(2, result);
+            assertTrue(watch.isSuspended());
         }
 
         @Test
@@ -887,7 +887,7 @@ public class StopWatchTest extends AbstractLangTest {
 
             assertThrows(IllegalArgumentException.class, () -> watch.test(predicate).test("a"));
 
-            assertTrue(watch.isSuspended(), "Watch should be suspended");
+            assertTrue(watch.isSuspended());
         }
 
     }
