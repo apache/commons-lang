@@ -58,7 +58,6 @@ import java.util.UUID;
  *
  * @since 3.2
  */
-
 public class Conversion {
 
     private static final boolean[] TTTT = {true, true, true, true};
@@ -1487,5 +1486,15 @@ public class Conversion {
             longToByteArray(src.getLeastSignificantBits(), 0, dst, dstPos + 8, nBytes - 8);
         }
         return dst;
+    }
+
+    /**
+     * Constructs a new instance.
+     *
+     * @deprecated Will be removed in 4.0.0.
+     */
+    @Deprecated
+    public Conversion() {
+        // empty
     }
 }
