@@ -553,7 +553,7 @@ public class StopWatchTest extends AbstractLangTest {
             final StopWatch watch = StopWatch.create();
 
             String result = Stream.of("A", "B", "C")
-                                  .map(watch.apply((Function<String, String>) (s) -> s.toLowerCase(Locale.ROOT)))
+                                  .map(watch.apply(s -> s.toLowerCase(Locale.ROOT)))
                                   .collect(Collectors.joining());
 
             assertEquals("abc", result);
@@ -570,7 +570,7 @@ public class StopWatchTest extends AbstractLangTest {
             assertTrue(watch.isSuspended());
 
             String result = Stream.of("A", "B", "C")
-                                  .map(watch.apply((Function<String, String>) (s) -> s.toLowerCase(Locale.ROOT)))
+                                  .map(watch.apply(s -> s.toLowerCase(Locale.ROOT)))
                                   .collect(Collectors.joining());
 
             assertEquals("abc", result);
