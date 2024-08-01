@@ -684,10 +684,10 @@ public class StopWatch {
     }
 
     /**
-     * Take the time of the exectution of a given {@linkplain FailableSupplier}.
+     * Take the time of the exectution of a given {@link FailableSupplier}.
      *
      * <p>
-     * <b>Take the time of the execution of given {@linkplain FailableSupplier}</b>
+     * <b>Take the time of the execution of given {@link FailableSupplier}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * String result = watch.get(() -> "A");
@@ -695,8 +695,8 @@ public class StopWatch {
      * </p>
      * <p>
      *
-     * @param supplier the {@linkplain FailableSupplier} those execution should be measured
-     * @return the result of the {@linkplain FailableSupplier#get()} operation
+     * @param supplier the {@link FailableSupplier} those execution should be measured
+     * @return the result of the {@link FailableSupplier#get()} operation
      * @throws E if the supplier fails
      * @param <T> the type of return value of the supplier
      * @param <E> the kind of thrown exception or error
@@ -716,10 +716,10 @@ public class StopWatch {
     }
 
     /**
-     * Take the time of the execution of a given {@linkplain Supplier}.
+     * Take the time of the execution of a given {@link Supplier}.
      *
      * <p>
-     * <b>Take the time of the execution of given {@linkplain Supplier}</b>
+     * <b>Take the time of the execution of given {@link Supplier}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * String result = watch.get(() -> "A");
@@ -727,8 +727,8 @@ public class StopWatch {
      * </p>
      * <p>
      *
-     * @param supplier the {@linkplain Supplier} those execution should be measured
-     * @return the result of the {@linkplain Supplier#get()} operation
+     * @param supplier the {@link Supplier} those execution should be measured
+     * @return the result of the {@link Supplier#get()} operation
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
      * @param <T> the type of the input to the function
      * @since 3.16
@@ -747,17 +747,17 @@ public class StopWatch {
     }
 
     /**
-     * Take the time of the execution of a given {@linkplain Function}.
+     * Take the time of the execution of a given {@link Function}.
      *
      * <p>
-     * <b>Take the time of given {@linkplain Function}</b>
+     * <b>Take the time of given {@link Function}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * String result = watch.apply(it -> it.toLowerCase(Locale.ROOT)).apply("A");
      * }</pre>
      * </p>
      * <p>
-     * <b>Take the time of an applied {@linkplain Function} in a stream</b>
+     * <b>Take the time of an applied {@link Function} in a stream</b>
      *
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
@@ -791,10 +791,10 @@ public class StopWatch {
 
 
     /**
-     * Take the time of the execution of a given {@linkplain BiFunction}.
+     * Take the time of the execution of a given {@link BiFunction}.
      *
      * <p>
-     * <b>Take the time of given {@linkplain BiFunction}</b>
+     * <b>Take the time of given {@link BiFunction}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * String result = watch.apply((first, second) -> first + second)).apply("A", "B");
@@ -826,10 +826,10 @@ public class StopWatch {
     }
 
     /**
-     * Take the time of the execution of a given {@linkplain TriFunction}.
+     * Take the time of the execution of a given {@link TriFunction}.
      *
      * <p>
-     * <b>Take the time of given {@linkplain BiFunction}</b>
+     * <b>Take the time of given {@link BiFunction}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * String result = watch.apply((first, second, third) -> first + second)).apply("A", "B", "C");
@@ -863,10 +863,10 @@ public class StopWatch {
 
 
     /**
-     * Take the time of the execution of a given {@linkplain Consumer}.
+     * Take the time of the execution of a given {@link Consumer}.
      *
      * <p>
-     * <b>Take the time of given {@linkplain Consumer}</b>
+     * <b>Take the time of given {@link Consumer}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * watch.accept((argument) -> process(argument)).accept("A");
@@ -896,10 +896,10 @@ public class StopWatch {
     }
 
     /**
-     * Take the time of the execution of a given {@linkplain BiConsumer}.
+     * Take the time of the execution of a given {@link BiConsumer}.
      *
      * <p>
-     * <b>Take the time of given {@linkplain BiConsumer}</b>
+     * <b>Take the time of given {@link BiConsumer}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * watch.accept((first, second) -> process(first, second)).accept("A", "B");
@@ -930,10 +930,10 @@ public class StopWatch {
     }
 
     /**
-     * Take the time of the execution of a given {@linkplain TriConsumer}.
+     * Take the time of the execution of a given {@link TriConsumer}.
      *
      * <p>
-     * <b>Take the time of given {@linkplain TriConsumer}</b>
+     * <b>Take the time of given {@link TriConsumer}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * watch.accept((first, second, third) -> process(first, second, third)).accept("A", "B", "C");
@@ -965,10 +965,10 @@ public class StopWatch {
 
 
     /**
-     * Take the time of the execution of a given {@linkplain Predicate}.
+     * Take the time of the execution of a given {@link Predicate}.
      *
      * <p>
-     * <b>Take the time of given {@linkplain Predicate}</b>
+     * <b>Take the time of given {@link Predicate}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * Streams.of("A", "B")
@@ -1000,10 +1000,10 @@ public class StopWatch {
     }
 
     /**
-     * Take the time of the execution of a given {@linkplain BiPredicate}.
+     * Take the time of the execution of a given {@link BiPredicate}.
      *
      * <p>
-     * <b>Take the time of given {@linkplain BiPredicate}</b>
+     * <b>Take the time of given {@link BiPredicate}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * BiPredicate<String, String> predicate = Objects::equals;
@@ -1038,10 +1038,10 @@ public class StopWatch {
 
 
     /**
-     * Take the time of the execution of a given {@linkplain FailableBiPredicate}.
+     * Take the time of the execution of a given {@link FailableBiPredicate}.
      *
      * <p>
-     * <b>Take the time of given {@linkplain FailableBiPredicate}</b>
+     * <b>Take the time of given {@link FailableBiPredicate}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * FailableBiPredicate<String, String> predicate = Objects::equals;
@@ -1074,10 +1074,10 @@ public class StopWatch {
     }
 
     /**
-     * Take the time of the execution of a given {@linkplain FailablePredicate}.
+     * Take the time of the execution of a given {@link FailablePredicate}.
      *
      * <p>
-     * <b>Take the time of given {@linkplain FailablePredicate}</b>
+     * <b>Take the time of given {@link FailablePredicate}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * FailablePredicate<String> predicate = false;
