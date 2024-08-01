@@ -16,9 +16,75 @@ limitations under the License.
 
 
                         Apache Commons Lang
-                        Version 3.15.0
+                        Version 3.16.0
                         Release Notes
 
+
+The Apache Commons team is pleased to announce Apache Commons Lang Version 3.16.0.
+
+Commons Lang is a set of utility functions and reusable components that should be useful in any Java environment.
+
+Starting with Commons Lang 3.9, we target Java 8, using those features.
+
+For advice on upgrading from 2.x to 3.x, see:
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+The code is tested using the latest revision of the JDK for supported
+LTS releases: 8, 11, 17 and 21 currently.
+See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
+
+Please ensure your build environment is up-to-date and kindly report any build issues.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+Changes in this version include:
+
+New features:
+o            Add StopWatch.getSplitDuration() and deprecate getSplitTime(). Thanks to Gary Gregory.
+o            Add StopWatch.getStartInstant() and deprecate getStartTime(). Thanks to Gary Gregory.
+o            Add StopWatch.getStopInstant() and deprecate getStopTime(). Thanks to Gary Gregory.
+o            Add StopWatch.getDuration() and deprecate getTime(). Thanks to Gary Gregory.
+o            Add Javadoc links from StopWatch to DurationUtils #1249. Thanks to Oliver B. Fischer, Gary Gregory.
+o            Add LangCollectors.collect(Collector, T...). Thanks to Gary Gregory.
+o            Add RandomStringUtils.secure(). Thanks to Gary Gregory.
+o            Add RandomStringUtils.insecure(). Thanks to Gary Gregory.
+
+Fixed Bugs:
+o            Reimplement StopWatch internals to use java.time. Thanks to Gary Gregory.
+o LANG-1745: RandomStringUtils.random() with a negative character index should throw IllegalArgumentException. Thanks to Wang Hailong, Gary Gregory.
+o LANG-1741: LocaleUtils.toLocale(String) cannot parse four segments. Thanks to Wang Hailong, Gary Gregory.
+o            Use fewer intermediary strings in DefaultExceptionContext.getFormattedExceptionMessage(String). Thanks to Gary Gregory.
+o            Fix Javadoc in StringUtils.splitPreserveAllTokens() #1251. Thanks to Václav Haisman.
+o            Deprecate ArraySort constructor for removal. Thanks to Gary Gregory.
+o            Deprecate CharEncoding constructor for removal. Thanks to Gary Gregory.
+o            Deprecate Conversion constructor for removal. Thanks to Gary Gregory.
+o            Deprecate Conversion constructor for removal. Thanks to Gary Gregory.
+o            Deprecate EntityArrays constructor for removal. Thanks to Gary Gregory.
+o            Deprecate ObjectToStringComparator constructor for removal. Thanks to Gary Gregory.
+o            Deprecate RuntimeEnvironment constructor for removal. Thanks to Gary Gregory.
+
+Changes:
+o            Bump org.apache.commons:commons-parent from 71 to 72 #1253. Thanks to Gary Gregory, Dependabot.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+Apache Commons Team
+
+-----------------------------------------------------------------------------
 
 The Apache Commons team is pleased to announce Apache Commons Lang Version 3.15.0.
 

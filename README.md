@@ -45,7 +45,7 @@ Apache Commons Lang
 
 [![Java CI](https://github.com/apache/commons-lang/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-lang/actions/workflows/maven.yml)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/?gav=true)
-[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.15.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.15.0)
+[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.16.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.16.0)
 [![CodeQL](https://github.com/apache/commons-lang/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-lang/actions/workflows/codeql-analysis.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-lang/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-lang)
 
@@ -70,20 +70,20 @@ Getting the latest release
 --------------------------
 You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-lang/download_lang.cgi).
 
-Alternatively, you can pull it from  the central Maven repositories:
+Alternatively, you can pull it from the central Maven repositories:
 
 ```xml
 <dependency>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-lang3</artifactId>
-  <version>3.15.0</version>
+  <version>3.16.0</version>
 </dependency>
 ```
 
 Building
 --------
 
-Building requires a Java JDK and [Apache Maven](https://maven.apache.org/). 
+Building requires a Java JDK and [Apache Maven](https://maven.apache.org/).
 The required Java version is found in the `pom.xml` as the `maven.compiler.source` property.
 
 From a command shell, run `mvn` without arguments to invoke the default Maven goal to run all tests and checks.

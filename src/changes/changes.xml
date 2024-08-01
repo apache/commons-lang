@@ -45,7 +45,7 @@ The <action> type attribute can be add,update,fix,remove.
     <title>Apache Commons Lang Release Notes</title>
   </properties>
   <body>
-  <release version="3.16.0" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
+  <release version="3.16.0" date="2024-08-01" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Reimplement StopWatch internals to use java.time.</action>
     <action issue="LANG-1745" type="fix" dev="ggregory" due-to="Wang Hailong, Gary Gregory">RandomStringUtils.random() with a negative character index should throw IllegalArgumentException.</action>
