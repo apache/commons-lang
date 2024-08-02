@@ -481,7 +481,8 @@ public class StopWatchTest extends AbstractLangTest {
 
             assertTrue(watch.isStopped());
 
-            String result = watch.get((Supplier<String>) () -> "Foobar");
+            Supplier<String> supplier = () -> "Foobar";
+            String result = watch.get(supplier);
 
             assertEquals("Foobar", result);
             assertTrue(watch.isSuspended());
@@ -498,7 +499,8 @@ public class StopWatchTest extends AbstractLangTest {
 
             assertTrue(watch.isSuspended());
 
-            String result = watch.get((Supplier<String>) () -> "Foobar");
+            Supplier<String> supplier = () -> "Foobar";
+            String result = watch.get(supplier);
 
             assertEquals("Foobar", result);
             assertTrue(watch.isSuspended());
@@ -514,7 +516,8 @@ public class StopWatchTest extends AbstractLangTest {
 
             assertTrue(watch.isStopped());
 
-            String result = watch.get((FailableSupplier<String, Throwable>) () -> "Foobar");
+            FailableSupplier<String, Throwable> supplier = () -> "Foobar";
+            String result = watch.get(supplier);
 
             assertEquals("Foobar", result);
             assertTrue(watch.isSuspended());
@@ -523,10 +526,15 @@ public class StopWatchTest extends AbstractLangTest {
         @Test
         public void testGetForFailableSupplierWhenStopWatchHasBeenSuspended() throws Throwable {
             final StopWatch watch = StopWatch.create();
+
             watch.start();
             watch.suspend();
+
             assertTrue(watch.isSuspended());
-            String result = watch.get((FailableSupplier<String, Throwable>) () -> "Foobar");
+
+            FailableSupplier<String, Throwable> supplier = () -> "Foobar";
+            String result = watch.get(supplier);
+
             assertEquals("Foobar", result);
             assertTrue(watch.isSuspended());
         }
@@ -535,11 +543,8 @@ public class StopWatchTest extends AbstractLangTest {
         public void testGetForFailableSupplierHandlesExceptionsProperly() throws Exception {
             final StopWatch watch = StopWatch.create();
 
-            assertThrows(Exception.class, () -> {
-                watch.get((FailableSupplier<String, Exception>) () -> {
-                    throw new Exception();
-                });
-            });
+            FailableSupplier<String, Exception> supplier = () -> { throw new Exception();  };
+            assertThrows(Exception.class, () -> watch.get(supplier));
 
             assertTrue(watch.isSuspended());
         }
@@ -568,6 +573,7 @@ public class StopWatchTest extends AbstractLangTest {
             watch.suspend();
 
             assertTrue(watch.isSuspended());
+
             Function<String, String> function = String::toLowerCase;
             String result = Stream.of("A", "B", "C")
                                   .map(watch.apply(function))
@@ -584,7 +590,8 @@ public class StopWatchTest extends AbstractLangTest {
         public void testApplyForBiFunction() {
             final StopWatch watch = StopWatch.create();
 
-            String result = watch.apply((BiFunction<String, String, String>) (a, b) -> a + b).apply("a", "b");
+            BiFunction<String, String, String> function = (a, b) -> a + b;
+            String result = watch.apply(function).apply("a", "b");
 
             assertEquals("ab", result);
             assertTrue(watch.isSuspended());
@@ -599,7 +606,8 @@ public class StopWatchTest extends AbstractLangTest {
 
             assertTrue(watch.isSuspended());
 
-            String result = watch.apply((BiFunction<String, String, String>) (a, b) -> a + b).apply("a", "b");
+            BiFunction<String, String, String> function = (a, b) -> a + b;
+            String result = watch.apply(function).apply("a", "b");
 
             assertEquals("ab", result);
             assertTrue(watch.isSuspended());
@@ -975,7 +983,6 @@ public class StopWatchTest extends AbstractLangTest {
             final StopWatch watch = StopWatch.create();
 
             FailableConsumer<String, IllegalArgumentException> consumer = FailableConsumer.NOP;
-
             watch.accept(consumer).accept("A");
 
             assertTrue(watch.isSuspended());
@@ -1017,7 +1024,6 @@ public class StopWatchTest extends AbstractLangTest {
             final StopWatch watch = StopWatch.create();
 
             FailablePredicate<String, IllegalArgumentException> predicate = a -> true;
-
             long result = Streams.of("A", "B")
                                  .filter(it -> watch.test(predicate).test(it))
                                  .count();

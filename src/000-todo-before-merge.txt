@@ -36,8 +36,10 @@ THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 
 Todo before final merge
 
-- Review the generated JavaDoc
+
 - Check if the lambdas could be pulled out of the tests to improve readability
+
+- Review the generated JavaDoc
 - Check if the lambdas could be pulled out of the examples to improve readability
 - Todod Check if the test method names follow all the same schema
 - todo Stil der Tests anpassen an gegebene Codebassi
