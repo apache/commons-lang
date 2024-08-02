@@ -30,6 +30,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.function.FailableBiFunction;
 import org.apache.commons.lang3.function.FailableBiPredicate;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailablePredicate;
@@ -811,6 +812,50 @@ public class StopWatch {
      * @since 3.16
      */
     public <T, U, R> BiFunction<T, U, R> apply(BiFunction<T, U, R> function) {
+        return (firstArg, secondArg) -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                return function.apply(firstArg, secondArg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+
+
+
+
+
+
+
+
+    /**
+     * Take the time of the execution of a given {@link FailableBiFunction}.
+     *
+     * <p>
+     * <b>Take the time of given {@link FailableBiFunction}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * String result = watch.apply((first, second) -> first + second)).apply("A", "B");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     * @param function the function those application should be measured
+     * @return the given function prepared to take time if applied
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @param <T> the type of the first argument to the function
+     * @param <U> the type of the second argument to the function
+     * @param <R> the type of the result of the function
+     * @param <E> the type of thrown exception or error
+     * @since 3.16
+     */
+    public <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> apply(FailableBiFunction<T, U, R, E> function) {
         return (firstArg, secondArg) -> {
             if (isStopped()) {
                 start();

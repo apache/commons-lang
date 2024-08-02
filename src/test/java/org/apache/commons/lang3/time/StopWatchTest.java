@@ -520,14 +520,10 @@ public class StopWatchTest extends AbstractLangTest {
         @Test
         public void testGetForFailableSupplierWhenStopWatchHasBeenSuspended() throws Throwable {
             final StopWatch watch = StopWatch.create();
-
             watch.start();
             watch.suspend();
-
             assertTrue(watch.isSuspended());
-
             String result = watch.get((FailableSupplier<String, Throwable>) () -> "Foobar");
-
             assertEquals("Foobar", result);
             assertTrue(watch.isSuspended());
         }
@@ -600,6 +596,47 @@ public class StopWatchTest extends AbstractLangTest {
             assertTrue(watch.isSuspended());
 
             String result = watch.apply((BiFunction<String, String, String>) (a, b) -> a + b).apply("a", "b");
+
+            assertEquals("ab", result);
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class FailableBiFunctionSupportRelatedTests {
+        @Test
+        public void testApplyForBiFunction() throws Exception {
+            final StopWatch watch = StopWatch.create();
+
+            FailableBiFunction<String, String, String, Exception> function = (a, b) -> a + b;
+            String result = watch.apply(function).apply("a", "b");
+
+            assertEquals("ab", result);
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testApplyHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+
+            FailableBiFunction<String, String, String, IllegalArgumentException> function =
+                    (a, b) -> { throw new IllegalArgumentException(); };
+
+            assertThrows(IllegalArgumentException.class, () -> watch.apply(function).apply("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testApplyForFunctionWhenStopWatchHasBeenSuspended() throws Exception {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended());
+
+            FailableBiFunction<String, String, String, Exception> function = (a, b) -> a + b;
+            String result = watch.apply(function).apply("a", "b");
 
             assertEquals("ab", result);
             assertTrue(watch.isSuspended());
@@ -887,7 +924,6 @@ public class StopWatchTest extends AbstractLangTest {
                     a -> { throw new IllegalArgumentException(); };
 
             assertThrows(IllegalArgumentException.class, () -> watch.test(predicate).test("a"));
-
             assertTrue(watch.isSuspended());
         }
 

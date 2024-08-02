@@ -20,7 +20,7 @@ THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 - Add support for BiConsumer: Done
 - Add support for FailableBiConsumer
 - Add support for BiFunction: Done
-- Add support for FailableBiFunction
+- Add support for FailableBiFunction: done
 - Add support for BiPredicate: Done
 - Add support for FailableBiPredicate: Done
 - Add support for Function: Done
@@ -40,4 +40,5 @@ Todo before final merge
 - Check if the lambdas could be pulled out of the tests to improve readability
 - Check if the lambdas could be pulled out of the examples to improve readability
 - Todod Check if the test method names follow all the same schema
+- todo Stil der Tests anpassen an gegebene Codebassi
 - todo Überschriften prüfen in den Beispielen (* <b>Take the time of given {@linkplain Predicate}</b>)
