@@ -49,6 +49,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
 import org.apache.commons.lang3.function.FailableBiFunction;
 import org.apache.commons.lang3.function.FailableBiPredicate;
+import org.apache.commons.lang3.function.FailableFunction;
 import org.apache.commons.lang3.function.FailablePredicate;
 import org.apache.commons.lang3.function.FailableSupplier;
 import org.apache.commons.lang3.function.TriConsumer;
@@ -548,8 +549,9 @@ public class StopWatchTest extends AbstractLangTest {
         public void testApplyForFunction() {
             final StopWatch watch = StopWatch.create();
 
+            Function<String, String> function = String::toLowerCase;
             String result = Stream.of("A", "B", "C")
-                                  .map(watch.apply(s -> s.toLowerCase(Locale.ROOT)))
+                                  .map(watch.apply(function))
                                   .collect(Collectors.joining());
 
             assertEquals("abc", result);
@@ -564,9 +566,9 @@ public class StopWatchTest extends AbstractLangTest {
             watch.suspend();
 
             assertTrue(watch.isSuspended());
-
+            Function<String, String> function = String::toLowerCase;
             String result = Stream.of("A", "B", "C")
-                                  .map(watch.apply(s -> s.toLowerCase(Locale.ROOT)))
+                                  .map(watch.apply(function))
                                   .collect(Collectors.joining());
 
             assertEquals("abc", result);
@@ -639,6 +641,47 @@ public class StopWatchTest extends AbstractLangTest {
             String result = watch.apply(function).apply("a", "b");
 
             assertEquals("ab", result);
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class FailableFunctionSupportRelatedTests {
+        @Test
+        public void testApplyForBiFunction() throws Exception {
+            final StopWatch watch = StopWatch.create();
+
+            FailableFunction<String, String, Exception> function = String::toLowerCase;
+            String result = watch.apply(function).apply("A");
+
+            assertEquals("a", result);
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testApplyHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+
+            FailableFunction<String, String, IllegalArgumentException> function =
+                    a -> { throw new IllegalArgumentException(); };
+
+            assertThrows(IllegalArgumentException.class, () -> watch.apply(function).apply("a"));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testApplyForFunctionWhenStopWatchHasBeenSuspended() throws Exception {
+            final StopWatch watch = StopWatch.create();
+
+            watch.start();
+            watch.suspend();
+
+            assertTrue(watch.isSuspended());
+
+            FailableFunction<String, String, Exception> function = String::toLowerCase;
+            String result = watch.apply(function).apply("A");
+
+            assertEquals("a", result);
             assertTrue(watch.isSuspended());
         }
     }

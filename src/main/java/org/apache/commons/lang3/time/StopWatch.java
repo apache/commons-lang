@@ -33,6 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.FailableBiFunction;
 import org.apache.commons.lang3.function.FailableBiPredicate;
 import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableFunction;
 import org.apache.commons.lang3.function.FailablePredicate;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.apache.commons.lang3.function.FailableSupplier;
@@ -777,6 +778,41 @@ public class StopWatch {
      */
     public <T, R> Function<T, R> apply(Function<T, R> function) {
         return arg -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                return function.apply(arg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link FailableFunction}.
+     *
+     * <p>
+     * <b>Take the time of given {@link FailableFunction}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * String result = watch.apply((arg) -> arg.toLowerCase())).apply("A");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     * @param function the function those application should be measured
+     * @return the given function prepared to take time if applied
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @param <T> the type of the first argument to the function
+     * @param <R> the type of the result of the function
+     * @param <E> the type of thrown exception or error
+     * @since 3.16
+     */
+    public <T, R, E extends Throwable> FailableFunction<T, R, E> apply(FailableFunction<T, R, E> function) {
+        return (arg) -> {
             if (isStopped()) {
                 start();
             } else if (isSuspended()) {

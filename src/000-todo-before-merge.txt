@@ -24,7 +24,7 @@ THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 - Add support for BiPredicate: Done
 - Add support for FailableBiPredicate: Done
 - Add support for Function: Done
-- Add support for FailableFunction
+- Add support for FailableFunction: Done
 - Add support for Predicate: Done
 - Add support for FailablePredicate: Done
 - Add support for Consumer: Done
@@ -42,3 +42,4 @@ Todo before final merge
 - Todod Check if the test method names follow all the same schema
 - todo Stil der Tests anpassen an gegebene Codebassi
 - todo Überschriften prüfen in den Beispielen (* <b>Take the time of given {@linkplain Predicate}</b>)
+- todo StopWatch in JavaDoc als Code darstellen
