@@ -813,7 +813,7 @@ public class StopWatch {
      * @since 3.16
      */
     public <T, R, E extends Throwable> FailableFunction<T, R, E> apply(FailableFunction<T, R, E> function) {
-        return (arg) -> {
+        return arg -> {
             if (isStopped()) {
                 start();
             } else if (isSuspended()) {
@@ -955,7 +955,7 @@ public class StopWatch {
      * @since 3.16
      */
     public <T> Consumer<T> accept(Consumer<T> consumer) {
-        return (arg) -> {
+        return arg -> {
             if (isStopped()) {
                 start();
             } else if (isSuspended()) {
@@ -1058,7 +1058,7 @@ public class StopWatch {
      * @since 3.16
      */
     public <T, E extends Exception> FailableConsumer<T, E> accept(FailableConsumer<T, E> consumer) {
-        return (arg) -> {
+        return arg -> {
             if (isStopped()) {
                 start();
             } else if (isSuspended()) {
