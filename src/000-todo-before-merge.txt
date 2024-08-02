@@ -18,7 +18,7 @@
 THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 
 - Add support for BiConsumer: Done
-- Add support for FailableBiConsumer
+- Add support for FailableBiConsumer: Done
 - Add support for BiFunction: Done
 - Add support for FailableBiFunction: done
 - Add support for BiPredicate: Done
@@ -28,7 +28,7 @@ THIS FILE WILL BE DELETED BEFORE THE FINAL MR!
 - Add support for Predicate: Done
 - Add support for FailablePredicate: Done
 - Add support for Consumer: Done
-- Add support for FailableConsumer
+- Add support for FailableConsumer: Done
 - Add support for Supplier: Done
 - Add support for FailableSupplier: Done
 - Add support for TriFunction: Done

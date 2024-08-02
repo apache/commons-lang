@@ -30,6 +30,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableBiFunction;
 import org.apache.commons.lang3.function.FailableBiPredicate;
 import org.apache.commons.lang3.function.FailableConsumer;
@@ -996,6 +997,75 @@ public class StopWatch {
             }
             try {
                 consumer.accept(first, second);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link FailableBiConsumer}.
+     *
+     * <p>
+     * <b>Take the time of given {@link FailableBiConsumer}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * watch.accept((first, second) -> process(first, second)).accept("A", "B");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     * @param consumer the consumer those application should be measured
+     * @return the given consumer prepared to take time if applied
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @param <T> the type of the first argument to the consumer
+     * @param <U> the type of the second argument to the consumer
+     * @param <E> The kind of thrown exception or error
+     * @since 3.16
+     */
+    public <T, U, E extends Exception> FailableBiConsumer<T, U, E> accept(FailableBiConsumer<T, U, E> consumer) {
+        return (first, second) -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                consumer.accept(first, second);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link FailableConsumer}.
+     *
+     * <p>
+     * <b>Take the time of given {@link FailableConsumer}</b>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * watch.accept((first, second) -> process(arg)).accept("A");
+     * }</pre>
+     * </p>
+     * <p>
+     *
+     * @param consumer the consumer those application should be measured
+     * @return the given consumer prepared to take time if applied
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @param <T> the type of first argument to the consumer
+     * @param <E> The kind of thrown exception or error
+     * @since 3.16
+     */
+    public <T, E extends Exception> FailableConsumer<T, E> accept(FailableConsumer<T, E> consumer) {
+        return (arg) -> {
+            if (isStopped()) {
+                start();
+            } else if (isSuspended()) {
+                resume();
+            }
+            try {
+                consumer.accept(arg);
             } finally {
                 suspend();
             }

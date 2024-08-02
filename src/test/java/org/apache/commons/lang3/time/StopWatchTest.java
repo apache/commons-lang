@@ -47,8 +47,10 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
+import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableBiFunction;
 import org.apache.commons.lang3.function.FailableBiPredicate;
+import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableFunction;
 import org.apache.commons.lang3.function.FailablePredicate;
 import org.apache.commons.lang3.function.FailableSupplier;
@@ -920,7 +922,74 @@ public class StopWatchTest extends AbstractLangTest {
 
             assertTrue(watch.isSuspended());
         }
+    }
 
+    @Nested
+    public class FailableBiConsumerSupportRelatedTests {
+        @SuppressWarnings("unchecked")
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+            FailableBiConsumer<String, String, IllegalArgumentException> consumer = FailableBiConsumer.NOP;
+            watch.accept(consumer).accept("A", "B");
+            assertTrue(watch.isSuspended());
+        }
+
+        @SuppressWarnings("unchecked")
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            FailableBiConsumer<String, String, IllegalArgumentException> consumer = FailableBiConsumer.NOP;
+            watch.accept(consumer).accept("A", "B");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+
+            FailableBiConsumer<String, String, IllegalArgumentException> consumer =
+                    (a, b) -> { throw new IllegalArgumentException(); };
+
+            assertThrows(IllegalArgumentException.class, () -> watch.accept(consumer).accept("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class FailableConsumerSupportRelatedTests {
+        @SuppressWarnings("unchecked")
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+            FailableConsumer<String, IllegalArgumentException> consumer = FailableConsumer.NOP;
+            watch.accept(consumer).accept("A");
+            assertTrue(watch.isSuspended());
+        }
+
+        @SuppressWarnings("unchecked")
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            FailableConsumer<String, IllegalArgumentException> consumer = FailableConsumer.NOP;
+            watch.accept(consumer).accept("A");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            FailableConsumer<String, IllegalArgumentException> consumer =
+                    a -> { throw new IllegalArgumentException(); };
+            assertThrows(IllegalArgumentException.class, () -> watch.accept(consumer).accept("a"));
+            assertTrue(watch.isSuspended());
+        }
     }
 
     @Nested
@@ -929,13 +998,10 @@ public class StopWatchTest extends AbstractLangTest {
         @Test
         public void testTest() {
             final StopWatch watch = StopWatch.create();
-
             FailablePredicate<String, IllegalArgumentException> predicate = a -> true;
-            
             long result = Streams.of("A", "B")
                                  .filter(it -> watch.test(predicate).test(it))
                                  .count();
-
             assertEquals(2, result);
             assertTrue(watch.isSuspended());
         }
@@ -943,18 +1009,13 @@ public class StopWatchTest extends AbstractLangTest {
         @Test
         public void testTestWhenStopWatchHasBeenSuspended() {
             final StopWatch watch = StopWatch.create();
-
             watch.start();
             watch.suspend();
-
             assertTrue(watch.isSuspended());
-
             FailablePredicate<String, IllegalArgumentException> predicate = a -> true;
-
             long result = Streams.of("A", "B")
                                  .filter(it -> watch.test(predicate).test(it))
                                  .count();
-
             assertEquals(2, result);
             assertTrue(watch.isSuspended());
         }
@@ -962,13 +1023,10 @@ public class StopWatchTest extends AbstractLangTest {
         @Test
         public void testTestHandlesExceptionsProperly() {
             final StopWatch watch = StopWatch.create();
-
             FailablePredicate<String, IllegalArgumentException> predicate =
                     a -> { throw new IllegalArgumentException(); };
-
             assertThrows(IllegalArgumentException.class, () -> watch.test(predicate).test("a"));
             assertTrue(watch.isSuspended());
         }
-
     }
 }
