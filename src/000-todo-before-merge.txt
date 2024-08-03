@@ -39,6 +39,5 @@ Todo before final merge
 
 
 - Review the generated JavaDoc
-- Todod Check if the test method names follow all the same schema
 - todo Überschriften prüfen in den Beispielen (* <b>Take the time of given {@linkplain Predicate}</b>)
 - todo StopWatch in JavaDoc als Code darstellen
