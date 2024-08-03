@@ -732,7 +732,7 @@ public class StopWatch {
      *
      * @param supplier the {@link Supplier} those execution should be measured
      * @return the result of the {@link Supplier#get()} operation
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the input to the function
      * @since 3.16
      */
@@ -772,7 +772,7 @@ public class StopWatch {
      *
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the input to the function
      * @param <R> the type of the result of the function
      * @since 3.16
@@ -806,7 +806,7 @@ public class StopWatch {
      *
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the first argument to the function
      * @param <R> the type of the result of the function
      * @param <E> the type of thrown exception or error
@@ -827,7 +827,6 @@ public class StopWatch {
         };
     }
 
-
     /**
      * Take the time of the execution of a given {@link BiFunction}.
      *
@@ -842,7 +841,7 @@ public class StopWatch {
      *
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the first argument to the function
      * @param <U> the type of the second argument to the function
      * @param <R> the type of the result of the function
@@ -877,7 +876,7 @@ public class StopWatch {
      *
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the first argument to the function
      * @param <U> the type of the second argument to the function
      * @param <R> the type of the result of the function
@@ -903,7 +902,7 @@ public class StopWatch {
      * Take the time of the execution of a given {@link TriFunction}.
      *
      * <p>
-     * <b>Take the time of given {@link BiFunction}</b>
+     * <b>Take the time of given {@link TriFunction}</b>
      * <pre>{@code
      * final StopWatch watch = StopWatch.create();
      * String result = watch.apply((first, second, third) -> first + second)).apply("A", "B", "C");
@@ -916,7 +915,7 @@ public class StopWatch {
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
      * @param <T> the type of the first argument to the function
      * @param <U> the type of the second argument to the function
-     * @param <V> the type of the thrird argument to the function
+     * @param <V> the type of the third argument to the function
      * @param <R> the type of the result of the function
      * @since 3.16
      */
@@ -950,7 +949,7 @@ public class StopWatch {
      *
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the argument to the consumer
      * @since 3.16
      */
@@ -983,7 +982,7 @@ public class StopWatch {
      *
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the first argument to the consumer
      * @param <U> the type of the second argument to the consumer
      * @since 3.16
@@ -1052,7 +1051,7 @@ public class StopWatch {
      *
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of first argument to the consumer
      * @param <E> The kind of thrown exception or error
      * @since 3.16
@@ -1086,7 +1085,7 @@ public class StopWatch {
      *
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the first argument to the consumer
      * @param <U> the type of the second argument to the consumer
      * @since 3.16
@@ -1123,7 +1122,7 @@ public class StopWatch {
      *
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the argument to the predicate
      * @since 3.16
      */
@@ -1159,7 +1158,7 @@ public class StopWatch {
      *
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the first argument to the predicate
      * @param <U> the type of the second argument to the predicate
      * @since 3.16
@@ -1195,7 +1194,7 @@ public class StopWatch {
      *
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the first argument to the predicate
      * @param <U> the type of the second argument to the predicate
      * @param <E> The kind of thrown exception or error
@@ -1231,7 +1230,7 @@ public class StopWatch {
      *
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
-     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
      * @param <T> the type of the argument to the predicate
      * @param <E> The kind of thrown exception or error
      * @since 3.16
