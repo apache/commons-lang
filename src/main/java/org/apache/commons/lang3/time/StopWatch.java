@@ -929,7 +929,6 @@ public class StopWatch {
         };
     }
 
-
     /**
      * Take the time of the execution of a given {@link Consumer}.
      *
@@ -1095,7 +1094,6 @@ public class StopWatch {
         };
     }
 
-
     /**
      * Take the time of the execution of a given {@link Predicate}.
      *
@@ -1165,7 +1163,6 @@ public class StopWatch {
             }
         };
     }
-
 
     /**
      * Take the time of the execution of a given {@link FailableBiPredicate}.
