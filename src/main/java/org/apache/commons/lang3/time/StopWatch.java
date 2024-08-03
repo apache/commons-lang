@@ -728,7 +728,6 @@ public class StopWatch {
      * String result = watch.get(() -> "A");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param supplier the {@link Supplier} those execution should be measured
      * @return the result of the {@link Supplier#get()} operation
@@ -802,7 +801,6 @@ public class StopWatch {
      * String result = watch.apply((arg) -> arg.toLowerCase())).apply("A");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
@@ -837,7 +835,6 @@ public class StopWatch {
      * String result = watch.apply((first, second) -> first + second)).apply("A", "B");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
@@ -872,7 +869,6 @@ public class StopWatch {
      * String result = watch.apply((first, second) -> first + second)).apply("A", "B");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
@@ -908,7 +904,6 @@ public class StopWatch {
      * String result = watch.apply((first, second, third) -> first + second)).apply("A", "B", "C");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
@@ -945,7 +940,6 @@ public class StopWatch {
      * watch.accept((argument) -> process(argument)).accept("A");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
@@ -978,7 +972,6 @@ public class StopWatch {
      * watch.accept((first, second) -> process(first, second)).accept("A", "B");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
@@ -1012,7 +1005,6 @@ public class StopWatch {
      * watch.accept((first, second) -> process(first, second)).accept("A", "B");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
@@ -1047,7 +1039,6 @@ public class StopWatch {
      * watch.accept((first, second) -> process(arg)).accept("A");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
@@ -1081,7 +1072,6 @@ public class StopWatch {
      * watch.accept((first, second, third) -> process(first, second, third)).accept("A", "B", "C");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
@@ -1118,7 +1108,6 @@ public class StopWatch {
      *         .forEach(it -> {});
      * }</pre>
      * </p>
-     * <p>
      *
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
@@ -1154,7 +1143,6 @@ public class StopWatch {
      *                       .count();
      * }</pre>
      * </p>
-     * <p>
      *
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
@@ -1190,7 +1178,6 @@ public class StopWatch {
      * boolean result = watch.test(predicate).test("A", "B");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
@@ -1226,7 +1213,6 @@ public class StopWatch {
      * boolean result = watch.test(predicate).test("A");
      * }</pre>
      * </p>
-     * <p>
      *
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
