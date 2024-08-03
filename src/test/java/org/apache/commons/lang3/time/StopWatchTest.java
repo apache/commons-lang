@@ -486,8 +486,6 @@ public class StopWatchTest extends AbstractLangTest {
             assertTrue(watch.isSuspended());
         }
 
-
-
         @Test
         public void testGetWhenStopWatchHasBeenSuspended() throws Throwable {
             final StopWatch watch = StopWatch.create();
@@ -503,7 +501,6 @@ public class StopWatchTest extends AbstractLangTest {
             assertEquals("Foobar", result);
             assertTrue(watch.isSuspended());
         }
-
     }
 
     @Nested
@@ -1021,7 +1018,7 @@ public class StopWatchTest extends AbstractLangTest {
         public void testTest() {
             final StopWatch watch = StopWatch.create();
 
-            FailablePredicate<String, IllegalArgumentException> predicate = a -> true;
+            FailablePredicate<String, IllegalArgumentException> predicate = FailablePredicate.TRUE;
             long result = Streams.of("A", "B")
                                  .filter(it -> watch.test(predicate).test(it))
                                  .count();
@@ -1030,6 +1027,7 @@ public class StopWatchTest extends AbstractLangTest {
             assertTrue(watch.isSuspended());
         }
 
+        @SuppressWarnings("unchecked")
         @Test
         public void testTestWhenStopWatchHasBeenSuspended() {
             final StopWatch watch = StopWatch.create();
@@ -1039,7 +1037,7 @@ public class StopWatchTest extends AbstractLangTest {
 
             assertTrue(watch.isSuspended());
 
-            FailablePredicate<String, IllegalArgumentException> predicate = a -> true;
+            FailablePredicate<String, IllegalArgumentException> predicate = FailablePredicate.TRUE;
             long result = Streams.of("A", "B")
                                  .filter(it -> watch.test(predicate).test(it))
                                  .count();
