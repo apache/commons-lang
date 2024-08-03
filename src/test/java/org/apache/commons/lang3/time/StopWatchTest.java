@@ -32,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
@@ -61,7 +60,6 @@ import org.apache.commons.lang3.stream.Streams;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 /**
  * Tests {@link StopWatch}.
@@ -476,7 +474,7 @@ public class StopWatchTest extends AbstractLangTest {
     @Nested
     public class SupplierSupportRelatedTests {
         @Test
-        public void testGetForSupplier() {
+        public void testGet() {
             final StopWatch watch = StopWatch.create();
 
             assertTrue(watch.isStopped());
@@ -491,7 +489,7 @@ public class StopWatchTest extends AbstractLangTest {
 
 
         @Test
-        public void testGetForSupplierWhenStopWatchHasBeenSuspended() throws Throwable {
+        public void testGetWhenStopWatchHasBeenSuspended() throws Throwable {
             final StopWatch watch = StopWatch.create();
 
             watch.start();
@@ -511,7 +509,7 @@ public class StopWatchTest extends AbstractLangTest {
     @Nested
     public class FailableSupplierSupportRelatedTests {
         @Test
-        public void testGetForFailableSupplier() throws Throwable {
+        public void testGet() throws Throwable {
             final StopWatch watch = StopWatch.create();
 
             assertTrue(watch.isStopped());
@@ -524,7 +522,7 @@ public class StopWatchTest extends AbstractLangTest {
         }
 
         @Test
-        public void testGetForFailableSupplierWhenStopWatchHasBeenSuspended() throws Throwable {
+        public void testGeWhenStopWatchHasBeenSuspended() throws Throwable {
             final StopWatch watch = StopWatch.create();
 
             watch.start();
@@ -540,7 +538,7 @@ public class StopWatchTest extends AbstractLangTest {
         }
 
         @Test
-        public void testGetForFailableSupplierHandlesExceptionsProperly() throws Exception {
+        public void testGetHandlesExceptionsProperly() {
             final StopWatch watch = StopWatch.create();
 
             FailableSupplier<String, Exception> supplier = () -> { throw new Exception();  };
@@ -553,7 +551,7 @@ public class StopWatchTest extends AbstractLangTest {
     @Nested
     public class FunctionSupportRelatedTests {
         @Test
-        public void testApplyForFunction() {
+        public void testApply() {
             final StopWatch watch = StopWatch.create();
 
             Function<String, String> function = String::toLowerCase;
@@ -566,7 +564,7 @@ public class StopWatchTest extends AbstractLangTest {
         }
 
         @Test
-        public void testApplyForFunctionWhenStopWatchHasBeenSuspended() {
+        public void testApplyWhenStopWatchHasBeenSuspended() {
             final StopWatch watch = StopWatch.create();
 
             watch.start();
@@ -587,7 +585,7 @@ public class StopWatchTest extends AbstractLangTest {
     @Nested
     public class BiFunctionSupportRelatedTests {
         @Test
-        public void testApplyForBiFunction() {
+        public void testApply() {
             final StopWatch watch = StopWatch.create();
 
             BiFunction<String, String, String> function = (a, b) -> a + b;
@@ -598,7 +596,7 @@ public class StopWatchTest extends AbstractLangTest {
         }
 
         @Test
-        public void testApplyForFunctionWhenStopWatchHasBeenSuspended() {
+        public void testApplyWhenStopWatchHasBeenSuspended() {
             final StopWatch watch = StopWatch.create();
 
             watch.start();
@@ -617,7 +615,7 @@ public class StopWatchTest extends AbstractLangTest {
     @Nested
     public class FailableBiFunctionSupportRelatedTests {
         @Test
-        public void testApplyForBiFunction() throws Exception {
+        public void testApply() throws Exception {
             final StopWatch watch = StopWatch.create();
 
             FailableBiFunction<String, String, String, Exception> function = (a, b) -> a + b;
@@ -639,7 +637,7 @@ public class StopWatchTest extends AbstractLangTest {
         }
 
         @Test
-        public void testApplyForFunctionWhenStopWatchHasBeenSuspended() throws Exception {
+        public void testApplyWhenStopWatchHasBeenSuspended() throws Exception {
             final StopWatch watch = StopWatch.create();
 
             watch.start();
@@ -658,7 +656,7 @@ public class StopWatchTest extends AbstractLangTest {
     @Nested
     public class FailableFunctionSupportRelatedTests {
         @Test
-        public void testApplyForBiFunction() throws Exception {
+        public void testApply() throws Exception {
             final StopWatch watch = StopWatch.create();
 
             FailableFunction<String, String, Exception> function = String::toLowerCase;
@@ -680,7 +678,7 @@ public class StopWatchTest extends AbstractLangTest {
         }
 
         @Test
-        public void testApplyForFunctionWhenStopWatchHasBeenSuspended() throws Exception {
+        public void testApplyWhenStopWatchHasBeenSuspended() throws Exception {
             final StopWatch watch = StopWatch.create();
 
             watch.start();
@@ -699,7 +697,7 @@ public class StopWatchTest extends AbstractLangTest {
     @Nested
     public class TriFunctionSupportRelatedTests {
         @Test
-        public void testApplyForBiFunction() {
+        public void testApply() {
             final StopWatch watch = StopWatch.create();
 
             TriFunction<String, String, String, String> triFunction = (a, b, c) -> a + b + c;
@@ -710,7 +708,7 @@ public class StopWatchTest extends AbstractLangTest {
         }
 
         @Test
-        public void testApplyForFunctionWhenStopWatchHasBeenSuspended() {
+        public void testApplyWhenStopWatchHasBeenSuspended() {
             final StopWatch watch = StopWatch.create();
 
             watch.start();
