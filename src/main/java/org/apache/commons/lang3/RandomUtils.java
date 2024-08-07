@@ -82,9 +82,9 @@ public class RandomUtils {
      * @return the singleton instance based on {@link ThreadLocalRandom#current()}.
      * @see ThreadLocalRandom#current()
      * @see #secure()
-     * @since 3.16.0
+     * @since 3.17.0
      */
-    static RandomUtils insecure() {
+    public static RandomUtils insecure() {
         return INSECURE;
     }
 

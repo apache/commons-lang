@@ -46,6 +46,8 @@ The <action> type attribute can be add,update,fix,remove.
   </properties>
   <body>
   <release version="3.16.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
+    <!-- ADD -->
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Make RandomUtils.insecure() public.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.hamcrest:hamcrest from 2.2 to 3.0 #1255.</action>
   </release>
