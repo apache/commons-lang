@@ -107,7 +107,9 @@ public class RandomStringUtils {
      * @param count the length of random string to create
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String random(final int count) {
         return secure().next(count);
     }
@@ -124,7 +126,9 @@ public class RandomStringUtils {
      * @param numbers if {@code true}, generated string may include numeric characters
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String random(final int count, final boolean letters, final boolean numbers) {
         return secure().next(count, letters, numbers);
     }
@@ -140,7 +144,9 @@ public class RandomStringUtils {
      * @param chars the character array containing the set of characters to use, may be null
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String random(final int count, final char... chars) {
         return secure().next(count, chars);
     }
@@ -159,7 +165,9 @@ public class RandomStringUtils {
      * @param numbers if {@code true}, generated string may include numeric characters
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String random(final int count, final int start, final int end, final boolean letters,
             final boolean numbers) {
         return secure().next(count, start, end, letters, numbers);
@@ -183,7 +191,9 @@ public class RandomStringUtils {
      * @return the random string
      * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
      * @throws IllegalArgumentException       if {@code count} &lt; 0.
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String random(final int count, final int start, final int end, final boolean letters,
             final boolean numbers, final char... chars) {
         return secure().next(count, start, end, letters, numbers, chars);
@@ -219,7 +229,9 @@ public class RandomStringUtils {
      * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
      * @throws IllegalArgumentException       if {@code count} &lt; 0 or the provided chars array is empty.
      * @since 2.0
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String random(int count, int start, int end, final boolean letters, final boolean numbers,
             final char[] chars, final Random random) {
         if (count == 0) {
@@ -361,7 +373,9 @@ public class RandomStringUtils {
      * @param chars the String containing the set of characters to use, may be null, but must not be empty
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0 or the string is empty.
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String random(final int count, final String chars) {
         return secure().next(count, chars);
     }
@@ -376,7 +390,9 @@ public class RandomStringUtils {
      * @param count the length of random string to create
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomAlphabetic(final int count) {
         return secure().nextAlphabetic(count);
     }
@@ -392,7 +408,9 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
         return secure().nextAlphabetic(minLengthInclusive, maxLengthExclusive);
     }
@@ -407,7 +425,9 @@ public class RandomStringUtils {
      * @param count the length of random string to create
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomAlphanumeric(final int count) {
         return secure().nextAlphanumeric(count);
     }
@@ -423,7 +443,9 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
         return secure().nextAlphanumeric(minLengthInclusive, maxLengthExclusive);
     }
@@ -439,7 +461,9 @@ public class RandomStringUtils {
      * @param count the length of random string to create
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomAscii(final int count) {
         return secure().nextAscii(count);
     }
@@ -456,7 +480,9 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomAscii(final int minLengthInclusive, final int maxLengthExclusive) {
         return secure().nextAscii(minLengthInclusive, maxLengthExclusive);
     }
@@ -473,7 +499,9 @@ public class RandomStringUtils {
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      * @since 3.5
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomGraph(final int count) {
         return secure().nextGraph(count);
     }
@@ -489,7 +517,9 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomGraph(final int minLengthInclusive, final int maxLengthExclusive) {
         return secure().nextGraph(minLengthInclusive, maxLengthExclusive);
     }
@@ -504,7 +534,9 @@ public class RandomStringUtils {
      * @param count the length of random string to create
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomNumeric(final int count) {
         return secure().nextNumeric(count);
     }
@@ -520,7 +552,9 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
         return secure().nextNumeric(minLengthInclusive, maxLengthExclusive);
     }
@@ -537,7 +571,9 @@ public class RandomStringUtils {
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      * @since 3.5
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomPrint(final int count) {
         return secure().nextPrint(count);
     }
@@ -553,7 +589,9 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
+     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
+    @Deprecated
     public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {
         return secure().nextPrint(minLengthInclusive, maxLengthExclusive);
     }
