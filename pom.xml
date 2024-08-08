@@ -76,14 +76,12 @@
       <version>3.0</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
       <version>5.4.0</version>
       <scope>test</scope>
     </dependency>
-
     <!-- For Javadoc links -->
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -91,7 +89,6 @@
       <version>1.12.0</version>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-core</artifactId>
