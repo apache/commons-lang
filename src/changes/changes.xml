@@ -47,6 +47,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
   <release version="3.17.0" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
+    <action issue="LANG-1760" type="fix" dev="ggregory" due-to="Marco Hoek, Gary Gregory">Using RandomStringUtils.insecure() still leads to using the secure() random.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate static RandomUtils.next*() methods in favor or .secure() and .insecure() versions.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate static RandomStringUtils.random*() methods in favor or .secure() and .insecure() versions.</action>
     <!-- ADD -->

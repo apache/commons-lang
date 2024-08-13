@@ -308,11 +308,11 @@ public class RandomUtils {
      * Generates a random double between 0 (inclusive) and Double.MAX_VALUE (exclusive).
      *
      * @return the random double
-     * @see #nextDouble(double, double)
+     * @see #randomDouble(double, double)
      * @since 3.16.0
      */
     public double randomDouble() {
-        return nextDouble(0, Double.MAX_VALUE);
+        return randomDouble(0, Double.MAX_VALUE);
     }
 
     /**
@@ -338,11 +338,11 @@ public class RandomUtils {
      * Generates a random float between 0 (inclusive) and Float.MAX_VALUE (exclusive).
      *
      * @return the random float
-     * @see #nextFloat(float, float)
+     * @see #randomFloat(float, float)
      * @since 3.16.0
      */
     public float randomFloat() {
-        return nextFloat(0, Float.MAX_VALUE);
+        return randomFloat(0, Float.MAX_VALUE);
     }
 
     /**
@@ -367,11 +367,11 @@ public class RandomUtils {
      * Generates a random int between 0 (inclusive) and Integer.MAX_VALUE (exclusive).
      *
      * @return the random integer
-     * @see #nextInt(int, int)
+     * @see #randomInt(int, int)
      * @since 3.16.0
      */
     public int randomInt() {
-        return nextInt(0, Integer.MAX_VALUE);
+        return randomInt(0, Integer.MAX_VALUE);
     }
 
     /**
@@ -397,11 +397,11 @@ public class RandomUtils {
      * Generates a random long between 0 (inclusive) and Long.MAX_VALUE (exclusive).
      *
      * @return the random long
-     * @see #nextLong(long, long)
+     * @see #randomLong(long, long)
      * @since 3.16.0
      */
     public long randomLong() {
-        return nextLong(Long.MAX_VALUE);
+        return randomLong(Long.MAX_VALUE);
     }
 
     /**
@@ -437,7 +437,7 @@ public class RandomUtils {
         if (startInclusive == endExclusive) {
             return startInclusive;
         }
-        return startInclusive + nextLong(endExclusive - startInclusive);
+        return startInclusive + randomLong(endExclusive - startInclusive);
     }
 
     @Override

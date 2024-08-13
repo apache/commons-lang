@@ -229,9 +229,7 @@ public class RandomStringUtils {
      * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
      * @throws IllegalArgumentException       if {@code count} &lt; 0 or the provided chars array is empty.
      * @since 2.0
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
      */
-    @Deprecated
     public static String random(int count, int start, int end, final boolean letters, final boolean numbers,
             final char[] chars, final Random random) {
         if (count == 0) {
@@ -645,7 +643,7 @@ public class RandomStringUtils {
      * @since 3.16.0
      */
     public String next(final int count) {
-        return random(count, false, false);
+        return next(count, false, false);
     }
 
     /**
@@ -663,7 +661,7 @@ public class RandomStringUtils {
      * @since 3.16.0
      */
     public String next(final int count, final boolean letters, final boolean numbers) {
-        return random(count, 0, 0, letters, numbers);
+        return next(count, 0, 0, letters, numbers);
     }
 
     /**
@@ -748,7 +746,7 @@ public class RandomStringUtils {
         if (chars == null) {
             return random(count, 0, 0, false, false, null, random());
         }
-        return random(count, chars.toCharArray());
+        return next(count, chars.toCharArray());
     }
 
     /**
@@ -763,7 +761,7 @@ public class RandomStringUtils {
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      */
     public String nextAlphabetic(final int count) {
-        return random(count, true, false);
+        return next(count, true, false);
     }
 
     /**
@@ -779,7 +777,7 @@ public class RandomStringUtils {
      * @since 3.5
      */
     public String nextAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomAlphabetic(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
+        return nextAlphabetic(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
@@ -794,7 +792,7 @@ public class RandomStringUtils {
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      */
     public String nextAlphanumeric(final int count) {
-        return random(count, true, true);
+        return next(count, true, true);
     }
 
     /**
@@ -810,7 +808,7 @@ public class RandomStringUtils {
      * @since 3.5
      */
     public String nextAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomAlphanumeric(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
+        return nextAlphanumeric(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
@@ -826,7 +824,7 @@ public class RandomStringUtils {
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      */
     public String nextAscii(final int count) {
-        return random(count, 32, 127, false, false);
+        return next(count, 32, 127, false, false);
     }
 
     /**
@@ -843,7 +841,7 @@ public class RandomStringUtils {
      * @since 3.5
      */
     public String nextAscii(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomAscii(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
+        return nextAscii(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
@@ -860,7 +858,7 @@ public class RandomStringUtils {
      * @since 3.5
      */
     public String nextGraph(final int count) {
-        return random(count, 33, 126, false, false);
+        return next(count, 33, 126, false, false);
     }
 
     /**
@@ -876,7 +874,7 @@ public class RandomStringUtils {
      * @since 3.5
      */
     public String nextGraph(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomGraph(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
+        return nextGraph(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
@@ -891,7 +889,7 @@ public class RandomStringUtils {
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      */
     public String nextNumeric(final int count) {
-        return random(count, false, true);
+        return next(count, false, true);
     }
 
     /**
@@ -907,7 +905,7 @@ public class RandomStringUtils {
      * @since 3.5
      */
     public String nextNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomNumeric(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
+        return nextNumeric(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
@@ -925,7 +923,7 @@ public class RandomStringUtils {
      * @since 3.16.0
      */
     public String nextPrint(final int count) {
-        return random(count, 32, 126, false, false);
+        return next(count, 32, 126, false, false);
     }
 
     /**
@@ -941,7 +939,7 @@ public class RandomStringUtils {
      * @since 3.16.0
      */
     public String nextPrint(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomPrint(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
+        return nextPrint(randomUtils().randomInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
