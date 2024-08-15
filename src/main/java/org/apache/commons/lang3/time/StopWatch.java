@@ -21,10 +21,25 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.function.FailableBiConsumer;
+import org.apache.commons.lang3.function.FailableBiFunction;
+import org.apache.commons.lang3.function.FailableBiPredicate;
 import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableFunction;
+import org.apache.commons.lang3.function.FailablePredicate;
 import org.apache.commons.lang3.function.FailableRunnable;
+import org.apache.commons.lang3.function.FailableSupplier;
+import org.apache.commons.lang3.function.TriConsumer;
+import org.apache.commons.lang3.function.TriFunction;
 
 /**
  * {@link StopWatch} provides a convenient API for timings.
@@ -671,4 +686,622 @@ public class StopWatch {
         splitState = SplitState.UNSPLIT;
     }
 
+    /**
+     * Take the time of the exectution of a given {@link FailableSupplier}.
+     *
+     * <p>
+     * <em>Take the time of the execution of given {@link FailableSupplier}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * String result = watch.get(() -> "A");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link FailableSupplier} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of return value of the supplier
+     * @param <E> the kind of thrown exception or error
+     * @param supplier the {@link FailableSupplier} those execution should be measured
+     * @return the result of the {@link FailableSupplier#get()} operation
+     * @throws E if the supplier fails
+     * @since 3.17.0
+     */
+    public <T, E extends Throwable> T get(final FailableSupplier<T, E> supplier) throws E {
+        resumeOrStartStopWatch();
+        try {
+            return supplier.get();
+        } finally {
+            suspend();
+        }
+    }
+
+    /**
+     * Take the time of the execution of a given {@link Supplier}.
+     *
+     * <p>
+     * <em>Take the time of the execution of given {@link Supplier}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * String result = watch.get(() -> "A");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link Supplier} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the input to the function
+     * @param supplier the {@link Supplier} those execution should be measured
+     * @return the result of the {@link Supplier#get()} operation
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T> T get(final Supplier<T> supplier) {
+        resumeOrStartStopWatch();
+        try {
+            return supplier.get();
+        } finally {
+            suspend();
+        }
+    }
+
+    /**
+     * Take the time of the execution of a given {@link Function}.
+     *
+     * <p>
+     * <em>Take the time of given {@link Function}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * String result = watch.apply(it -> it.toLowerCase(Locale.ROOT)).apply("A");
+     * }</pre>
+     *
+     * <p>
+     * <em>Take the time of an applied {@link Function} in a stream</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * String result = Stream.of("A", "B", "C")
+     *                       .map(watch.apply(it -> it.toLowerCase(Locale.ROOT)))
+     *                       .collect(Collectors.joining());
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link Function} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the input to the function
+     * @param <R> the type of the result of the function
+     * @param function the function those application should be measured
+     * @return the given function prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, R> Function<T, R> apply(final Function<T, R> function) {
+        return arg -> {
+            resumeOrStartStopWatch();
+            try {
+                return function.apply(arg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link FailableFunction}.
+     *
+     * <p>
+     * <em>Take the time of given {@link FailableFunction}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * String result = watch.apply((arg) -> arg.toLowerCase())).apply("A");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link FailableFunction} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the first argument to the function
+     * @param <R> the type of the result of the function
+     * @param <E> the type of thrown exception or error
+     * @param function the function those application should be measured
+     * @return the given function prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, R, E extends Throwable> FailableFunction<T, R, E> apply(final FailableFunction<T, R, E> function) {
+        return arg -> {
+            resumeOrStartStopWatch();
+            try {
+                return function.apply(arg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link BiFunction}.
+     *
+     * <p>
+     * <em>Take the time of given {@link BiFunction}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * String result = watch.apply((first, second) -> first + second)).apply("A", "B");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link BiFunction} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the first argument to the function
+     * @param <U> the type of the second argument to the function
+     * @param <R> the type of the result of the function
+     * @param function the function those application should be measured
+     * @return the given function prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, U, R> BiFunction<T, U, R> apply(final BiFunction<T, U, R> function) {
+        return (firstArg, secondArg) -> {
+            resumeOrStartStopWatch();
+            try {
+                return function.apply(firstArg, secondArg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link FailableBiFunction}.
+     *
+     * <p>
+     * <em>Take the time of given {@link FailableBiFunction}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * String result = watch.apply((first, second) -> first + second)).apply("A", "B");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link FailableBiFunction} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the first argument to the function
+     * @param <U> the type of the second argument to the function
+     * @param <R> the type of the result of the function
+     * @param <E> the type of thrown exception or error
+     * @param function the function those application should be measured
+     * @return the given function prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> apply(final FailableBiFunction<T, U, R, E> function) {
+        return (firstArg, secondArg) -> {
+            resumeOrStartStopWatch();
+            try {
+                return function.apply(firstArg, secondArg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link TriFunction}.
+     *
+     * <p>
+     * <em>Take the time of given {@link TriFunction}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * String result = watch.apply((first, second, third) -> first + second)).apply("A", "B", "C");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link TriFunction} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the first argument to the function
+     * @param <U> the type of the second argument to the function
+     * @param <V> the type of the third argument to the function
+     * @param <R> the type of the result of the function
+     * @param function the function those application should be measured
+     * @return the given function prepared to take time if applied
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, U, V, R> TriFunction<T, U, V, R> apply(final TriFunction<T, U, V, R> function) {
+        return (firstArg, secondArg, thirdArg) -> {
+            resumeOrStartStopWatch();
+            try {
+                return function.apply(firstArg, secondArg, thirdArg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link Consumer}.
+     *
+     * <p>
+     * <em>Take the time of given {@link Consumer}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * watch.accept((argument) -> process(argument)).accept("A");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link Consumer} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the argument to the consumer
+     * @param consumer the consumer those application should be measured
+     * @return the given consumer prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T> Consumer<T> accept(final Consumer<T> consumer) {
+        return arg -> {
+            resumeOrStartStopWatch();
+            try {
+                consumer.accept(arg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link BiConsumer}.
+     *
+     * <p>
+     * <em>Take the time of given {@link BiConsumer}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * watch.accept((first, second) -> process(first, second)).accept("A", "B");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *   <li>Be careful if you pass a {@link BiConsumer} to other methods, as the wrapped instance depends on
+     *       the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the first argument to the consumer
+     * @param <U> the type of the second argument to the consumer
+     * @param consumer the consumer those application should be measured
+     * @return the given consumer prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, U> BiConsumer<T, U> accept(final BiConsumer<T, U> consumer) {
+        return (first, second) -> {
+            resumeOrStartStopWatch();
+            try {
+                consumer.accept(first, second);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link FailableBiConsumer}.
+     *
+     * <p>
+     * <em>Take the time of given {@link FailableBiConsumer}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * watch.accept((first, second) -> process(first, second)).accept("A", "B");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link FailableBiConsumer} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the first argument to the consumer
+     * @param <U> the type of the second argument to the consumer
+     * @param <E> The kind of thrown exception or error
+     * @param consumer the consumer those application should be measured
+     * @return the given consumer prepared to take time if applied
+     * @throws IllegalStateException if the StopWatch is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, U, E extends Exception> FailableBiConsumer<T, U, E> accept(final FailableBiConsumer<T, U, E> consumer) {
+        return (first, second) -> {
+            resumeOrStartStopWatch();
+            try {
+                consumer.accept(first, second);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link FailableConsumer}.
+     *
+     * <p>
+     * <em>Take the time of given {@link FailableConsumer}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * watch.accept((first, second) -> process(arg)).accept("A");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link FailableConsumer} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of first argument to the consumer
+     * @param <E> The kind of thrown exception or error
+     * @param consumer the consumer those application should be measured
+     * @return the given consumer prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, E extends Exception> FailableConsumer<T, E> accept(final FailableConsumer<T, E> consumer) {
+        return arg -> {
+            resumeOrStartStopWatch();
+            try {
+                consumer.accept(arg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link TriConsumer}.
+     *
+     * <p>
+     * <em>Take the time of given {@link TriConsumer}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * watch.accept((first, second, third) -> process(first, second, third)).accept("A", "B", "C");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link TriConsumer} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the first argument to the consumer
+     * @param <U> the type of the second argument to the consumer
+     * @param <V> the type of the third argument to the consumer
+     * @param consumer the consumer those application should be measured
+     * @return the given consumer prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, U, V> TriConsumer<T, U, V> accept(final TriConsumer<T, U, V> consumer) {
+        return (firstArg, secondArg, thirdArg) -> {
+            resumeOrStartStopWatch();
+            try {
+                consumer.accept(firstArg, secondArg, thirdArg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link Predicate}.
+     *
+     * <p>
+     * <em>Take the time of given {@link Predicate}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * Streams.of("A", "B")
+     *         .filter(watch.test(it -> "A".equals(it))
+     *         .forEach(it -> {});
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link StopWatch} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the argument to the predicate
+     * @param predicate the predicate those application should be measured
+     * @return the given predicate prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T> Predicate<T> test(final Predicate<T> predicate) {
+        return arg -> {
+            resumeOrStartStopWatch();
+            try {
+                return predicate.test(arg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link BiPredicate}.
+     *
+     * <p>
+     * <em>Take the time of given {@link BiPredicate}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * BiPredicate<String, String> predicate = Objects::equals;
+     * long result = Streams.of(ImmutablePair.of("A", "A"), ImmutablePair.of("A", "B"))
+     *                       .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
+     *                       .count();
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link BiPredicate} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the first argument to the predicate
+     * @param <U> the type of the second argument to the predicate
+     * @param predicate the predicate those application should be measured
+     * @return the given predicate prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, U> BiPredicate<T, U> test(final BiPredicate<T, U> predicate) {
+        return (firstArg, secondArg) -> {
+            resumeOrStartStopWatch();
+            try {
+                return predicate.test(firstArg, secondArg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link FailableBiPredicate}.
+     *
+     * <p>
+     * <em>Take the time of given {@link FailableBiPredicate}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * FailableBiPredicate<String, String> predicate = Objects::equals;
+     * boolean result = watch.test(predicate).test("A", "B");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     * <ul>
+     *     <li>Be careful if you pass a {@link FailableBiPredicate} to other methods, as the wrapped instance depends on
+     *         the state of used {@linkplain StopWatch}</li>
+     * </ul>
+     *
+     * @param <T> the type of the first argument to the predicate
+     * @param <U> the type of the second argument to the predicate
+     * @param <E> The kind of thrown exception or error
+     * @param predicate the predicate those application should be measured
+     * @return the given predicate prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, U, E extends Throwable> FailableBiPredicate<T, U, E> test(final FailableBiPredicate<T, U, E> predicate) {
+        return (firstArg, secondArg) -> {
+            resumeOrStartStopWatch();
+            try {
+                return predicate.test(firstArg, secondArg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    /**
+     * Take the time of the execution of a given {@link FailablePredicate}.
+     *
+     * <p>
+     * <em>Take the time of given {@link FailablePredicate}</em>
+     * </p>
+     * <pre>{@code
+     * final StopWatch watch = StopWatch.create();
+     * FailablePredicate<String> predicate = false;
+     * boolean result = watch.test(predicate).test("A");
+     * }</pre>
+     *
+     * <p>
+     *  <em>Note:</em>
+     * </p>
+     *  <ul>
+     *      <li>Be careful if you pass a {@link FailablePredicate} to other methods, as the wrapped instance depends on
+     *          the state of used {@linkplain StopWatch}</li>
+     *  </ul>
+     *
+     * @param <T> the type of the argument to the predicate
+     * @param <E> The kind of thrown exception or error
+     * @param predicate the predicate those application should be measured
+     * @return the given predicate prepared to take time if applied
+     * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
+     * @since 3.17.0
+     */
+    public <T, E extends Throwable> FailablePredicate<T, E> test(final FailablePredicate<T, E> predicate) {
+        resumeOrStartStopWatch();
+        return (arg) -> {
+            try {
+                return predicate.test(arg);
+            } finally {
+                suspend();
+            }
+        };
+    }
+
+    private void resumeOrStartStopWatch() {
+        if (isStopped()) {
+            start();
+        } else if (isSuspended()) {
+            resume();
+        }
+    }
 }

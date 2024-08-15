@@ -29,12 +29,34 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
+import org.apache.commons.lang3.function.FailableBiConsumer;
+import org.apache.commons.lang3.function.FailableBiFunction;
+import org.apache.commons.lang3.function.FailableBiPredicate;
+import org.apache.commons.lang3.function.FailableConsumer;
+import org.apache.commons.lang3.function.FailableFunction;
+import org.apache.commons.lang3.function.FailablePredicate;
+import org.apache.commons.lang3.function.FailableSupplier;
+import org.apache.commons.lang3.function.TriConsumer;
+import org.apache.commons.lang3.function.TriFunction;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.RepeatedTest;
+import org.apache.commons.lang3.stream.Streams;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -470,5 +492,546 @@ public class StopWatchTest extends AbstractLangTest {
         watch.split();
         final String splitStr = watch.toString();
         assertEquals(SPLIT_CLOCK_STR_LEN + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
+    }
+
+    @Nested
+    public class SupplierSupportRelatedTests {
+        @Test
+        public void testGet() {
+            final StopWatch watch = StopWatch.create();
+            assertTrue(watch.isStopped());
+            Supplier<String> supplier = () -> "Foobar";
+            assertEquals("Foobar", watch.get(supplier));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testGetWhenStopWatchHasBeenSuspended() throws Throwable {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            Supplier<String> supplier = () -> "Foobar";
+            assertEquals("Foobar", watch.get(supplier));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        void testGetHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            assertTrue(watch.isStopped());
+            Supplier<String> supplier = () -> {
+                throw new RuntimeException();
+            };
+            assertThrows(RuntimeException.class, () -> watch.get(supplier));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class FailableSupplierSupportRelatedTests {
+        @Test
+        public void testGet() throws Throwable {
+            final StopWatch watch = StopWatch.create();
+            assertTrue(watch.isStopped());
+            FailableSupplier<String, Throwable> supplier = () -> "Foobar";
+            assertEquals("Foobar", watch.get(supplier));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testGeWhenStopWatchHasBeenSuspended() throws Throwable {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            FailableSupplier<String, Throwable> supplier = () -> "Foobar";
+            assertEquals("Foobar", watch.get(supplier));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testGetHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            FailableSupplier<String, Exception> supplier = () -> {
+                throw new Exception();
+            };
+            assertThrows(Exception.class, () -> watch.get(supplier));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class FunctionSupportRelatedTests {
+        @Test
+        public void testApply() {
+            final StopWatch watch = StopWatch.create();
+            Function<String, String> function = String::toLowerCase;
+            String result = Stream.of("A", "B", "C")
+                                  .map(watch.apply(function))
+                                  .collect(Collectors.joining());
+            assertEquals("abc", result);
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testApplyWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            Function<String, String> function = String::toLowerCase;
+            String result = Stream.of("A", "B", "C")
+                                  .map(watch.apply(function))
+                                  .collect(Collectors.joining());
+            assertEquals("abc", result);
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        void testApplyHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            Function<String, String> function = a -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.apply(function).apply("a"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class BiFunctionSupportRelatedTests {
+        @Test
+        public void testApply() {
+            final StopWatch watch = StopWatch.create();
+            BiFunction<String, String, String> function = (a, b) -> a + b;
+            assertEquals("ab", watch.apply(function).apply("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testApplyWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            BiFunction<String, String, String> function = (a, b) -> a + b;
+            assertEquals("ab", watch.apply(function).apply("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        void testApplyHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            BiFunction<String, String, String> function = (a, b) -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.apply(function).apply("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class FailableBiFunctionSupportRelatedTests {
+        @Test
+        public void testApply() throws Exception {
+            final StopWatch watch = StopWatch.create();
+            FailableBiFunction<String, String, String, Exception> function = (a, b) -> a + b;
+            assertEquals("ab", watch.apply(function).apply("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testApplyHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            FailableBiFunction<String, String, String, IllegalArgumentException> function = (a, b) -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.apply(function).apply("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testApplyWhenStopWatchHasBeenSuspended() throws Exception {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            FailableBiFunction<String, String, String, Exception> function = (a, b) -> a + b;
+            assertEquals("ab", watch.apply(function).apply("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class FailableFunctionSupportRelatedTests {
+        @Test
+        public void testApply() throws Exception {
+            final StopWatch watch = StopWatch.create();
+            FailableFunction<String, String, Exception> function = String::toLowerCase;
+            assertEquals("a", watch.apply(function).apply("A"));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testApplyHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            FailableFunction<String, String, IllegalArgumentException> function = a -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.apply(function).apply("a"));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testApplyWhenStopWatchHasBeenSuspended() throws Exception {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            FailableFunction<String, String, Exception> function = String::toLowerCase;
+            assertEquals("a", watch.apply(function).apply("A"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class TriFunctionSupportRelatedTests {
+        @Test
+        public void testApply() {
+            final StopWatch watch = StopWatch.create();
+            TriFunction<String, String, String, String> triFunction = (a, b, c) -> a + b + c;
+            assertEquals("abc", watch.apply(triFunction).apply("a", "b", "c"));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testApplyWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            TriFunction<String, String, String, String> triFunction = (a, b, c) -> a + b + c;
+            String result = watch.apply(triFunction).apply("a", "b", "c");
+            assertEquals("abc", result);
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        void testApplyHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            TriFunction<String, String, String, String> function = (a, b, c) -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.apply(function).apply("a", "b", "c"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class ConsumerSupportRelatedTests {
+        @Test
+        public void testAccept() {
+            final StopWatch watch = StopWatch.create();
+            Consumer<String> consumer = a -> { };
+            watch.accept(consumer).accept("a");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testAcceptWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            Consumer<String> consumer = a -> { };
+            watch.accept(consumer).accept("a");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        void testAcceptHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            Consumer<String> consumer = a -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.accept(consumer).accept("A"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class BiConsumerSupportRelatedTests {
+        @Test
+        public void testAccept() {
+            final StopWatch watch = StopWatch.create();
+            BiConsumer<String, String> consumer = (a, b) -> { };
+            watch.accept(consumer).accept("a", "b");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testAcceptWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            BiConsumer<String, String> consumer = (a, b) -> { };
+            watch.accept(consumer).accept("a", "b");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        void testAcceptHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            BiConsumer<String, String> consumer = (a, b) -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.accept(consumer).accept("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class TriConsumerSupportRelatedTests {
+        @Test
+        public void testAccept() {
+            final StopWatch watch = StopWatch.create();
+            TriConsumer<String, String, String> consumer = (a, b, c) -> { };
+            watch.accept(consumer).accept("a", "b", "c");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testAcceptWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            TriConsumer<String, String, String> consumer = (a, b, c) -> { };
+            watch.accept(consumer).accept("a", "b", "c");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        void testAcceptHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            TriConsumer<String, String, String> consumer = (a, b, c) -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.accept(consumer).accept("a", "b", "c"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class PredicateSupportRelatedTests {
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+            Predicate<String> predicate = a -> true;
+            assertTrue(watch.test(predicate).test("a"));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            Predicate<String> predicate = a -> true;
+            assertTrue(watch.test(predicate).test("a"));
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        void testTestHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            Predicate<String> predicate = a -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.test(predicate).test("a"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class BiPredicateSupportRelatedTests {
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+            BiPredicate<String, String> predicate = Objects::equals;
+            long result = Streams.of(ImmutablePair.of("A", "A"), ImmutablePair.of("A", "B"))
+                                 .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
+                                 .count();
+            assertEquals(1, result);
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            BiPredicate<String, String> predicate = Objects::equals;
+            long result = Streams.of(ImmutablePair.of("A", "A"), ImmutablePair.of("A", "B"))
+                                 .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
+                                 .count();
+            assertEquals(1, result);
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        void testTestHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            assertTrue(watch.isStopped());
+            BiPredicate<String, String> predicate = (a, b) ->  {
+                throw new RuntimeException();
+            };
+            assertThrows(RuntimeException.class, () -> watch.test(predicate).test("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class FailableBiPredicateSupportRelatedTests {
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+            FailableBiPredicate<String, String, IllegalArgumentException> predicate = Objects::equals;
+            long result = Streams.of(ImmutablePair.of("A", "A"), ImmutablePair.of("A", "B"))
+                                 .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
+                                 .count();
+            assertEquals(1, result);
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            FailableBiPredicate<String, String, IllegalArgumentException> predicate = Objects::equals;
+            long result = Streams.of(ImmutablePair.of("A", "A"), ImmutablePair.of("A", "B"))
+                                 .filter(it -> watch.test(predicate).test(it.getLeft(), it.getRight()))
+                                 .count();
+            assertEquals(1, result);
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            FailableBiPredicate<String, String, IllegalArgumentException> predicate = (a, b) -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.test(predicate).test("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class FailableBiConsumerSupportRelatedTests {
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+            FailableBiConsumer<String, String, IllegalArgumentException> consumer = FailableBiConsumer.NOP;
+            watch.accept(consumer).accept("A", "B");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            FailableBiConsumer<String, String, IllegalArgumentException> consumer = FailableBiConsumer.NOP;
+            watch.accept(consumer).accept("A", "B");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            FailableBiConsumer<String, String, IllegalArgumentException> consumer = (a, b) -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.accept(consumer).accept("a", "b"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class FailableConsumerSupportRelatedTests {
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+            FailableConsumer<String, IllegalArgumentException> consumer = FailableConsumer.NOP;
+            watch.accept(consumer).accept("A");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            FailableConsumer<String, IllegalArgumentException> consumer = FailableConsumer.NOP;
+            watch.accept(consumer).accept("A");
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            FailableConsumer<String, IllegalArgumentException> consumer = a -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.accept(consumer).accept("a"));
+            assertTrue(watch.isSuspended());
+        }
+    }
+
+    @Nested
+    public class FailablePredicateSupportRelatedTests {
+        @Test
+        public void testTest() {
+            final StopWatch watch = StopWatch.create();
+            FailablePredicate<String, IllegalArgumentException> predicate = FailablePredicate.TRUE;
+            long result = Streams.of("A", "B")
+                                 .filter(it -> watch.test(predicate).test(it))
+                                 .count();
+            assertEquals(2, result);
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestWhenStopWatchHasBeenSuspended() {
+            final StopWatch watch = StopWatch.create();
+            watch.start();
+            watch.suspend();
+            assertTrue(watch.isSuspended());
+            FailablePredicate<String, IllegalArgumentException> predicate = FailablePredicate.TRUE;
+            long result = Streams.of("A", "B")
+                                 .filter(it -> watch.test(predicate).test(it))
+                                 .count();
+            assertEquals(2, result);
+            assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        public void testTestHandlesExceptionsProperly() {
+            final StopWatch watch = StopWatch.create();
+            FailablePredicate<String, IllegalArgumentException> predicate = a -> {
+                throw new IllegalArgumentException();
+            };
+            assertThrows(IllegalArgumentException.class, () -> watch.test(predicate).test("a"));
+            assertTrue(watch.isSuspended());
+        }
     }
 }
