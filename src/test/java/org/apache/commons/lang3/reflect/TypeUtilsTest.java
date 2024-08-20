@@ -173,7 +173,7 @@ abstract class Test1<G> {
  * @param <B> Type for test fixtures.
  */
 @SuppressWarnings({ "unused", "rawtypes" })
-//raw types, where used, are used purposely
+// raw types, where used, are used purposely
 public class TypeUtilsTest<B> extends AbstractLangTest {
 
     public interface And<K, V> extends This<Number, Number> {
@@ -217,19 +217,19 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         // empty
     }
 
-    public static Comparable<String> stringComparable;
-
-    public static Comparable<URI> uriComparable;
-
     public static Comparable<Integer> intComparable;
 
     public static Comparable<Long> longComparable;
 
-    public static Comparable<?> wildcardComparable;
+    public static Comparable<String> stringComparable;
+
+    public static List<String>[] stringListArray;
 
     public static URI uri;
 
-    public static List<String>[] stringListArray;
+    public static Comparable<URI> uriComparable;
+
+    public static Comparable<?> wildcardComparable;
 
     public static <G extends Comparable<G>> G stub() {
         return null;
@@ -243,27 +243,27 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         return null;
     }
 
-    public This<String, String> dis;
-
-    public That<String, String> dat;
-
     public The<String, String> da;
 
-    public Other<String> uhder;
-
-    public Thing ding;
-
-    public TypeUtilsTest<String>.Tester tester;
-
-    public Tester tester2;
+    public That<String, String> dat;
 
     public TypeUtilsTest<String>.That<String, String> dat2;
 
     public TypeUtilsTest<Number>.That<String, String> dat3;
 
+    public Thing ding;
+
+    public This<String, String> dis;
+
     public Comparable<? extends Integer>[] intWildcardComparable;
 
     public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;
+
+    public TypeUtilsTest<String>.Tester tester;
+
+    public Tester tester2;
+
+    public Other<String> uhder;
 
     /** The inner class is used as a return type from a method. */
     private <U> MyInnerClass<U> aMethod() {
@@ -369,6 +369,49 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m15").getGenericReturnType()));
         assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m16").getGenericReturnType()));
         assertTrue(TypeUtils.containsTypeVariables(Test1.class.getMethod("m17").getGenericReturnType()));
+    }
+
+    @Test
+    public void testContainsTypeVariablesPr437() throws Exception {
+        abstract class Test2<G> {
+            public abstract Object m0();
+            public abstract String[] m1();
+            public abstract <K, V> Map<? extends K, V[]> m10();
+            public abstract <K, V> Map<? extends K, List<V[]>> m11();
+            public abstract List m12();
+            public abstract Map m13();
+            public abstract Properties m14();
+            public abstract G m15();
+            public abstract List<G> m16();
+            public abstract Enum m17();
+            public abstract <E> E[] m2();
+            public abstract <E> List<? extends E> m3();
+            public abstract <E extends Enum<E>> List<? extends Enum<E>> m4();
+            public abstract List<? extends Enum<?>> m5();
+            public abstract List<? super Enum<?>> m6();
+            public abstract List<?> m7();
+            public abstract Map<? extends Enum<?>, ? super Enum<?>> m8();
+            public abstract <K, V> Map<? extends K, ? super V[]> m9();
+        }
+
+        assertFalse(TypeUtils.containsTypeVariables(Test2.class.getMethod("m0").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test2.class.getMethod("m1").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test2.class.getMethod("m2").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test2.class.getMethod("m3").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test2.class.getMethod("m4").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test2.class.getMethod("m5").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test2.class.getMethod("m6").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test2.class.getMethod("m7").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test2.class.getMethod("m8").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test2.class.getMethod("m9").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test2.class.getMethod("m10").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test2.class.getMethod("m11").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test2.class.getMethod("m12").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test2.class.getMethod("m13").getGenericReturnType()));
+        assertFalse(TypeUtils.containsTypeVariables(Test2.class.getMethod("m14").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test2.class.getMethod("m15").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test2.class.getMethod("m16").getGenericReturnType()));
+        assertTrue(TypeUtils.containsTypeVariables(Test2.class.getMethod("m17").getGenericReturnType()));
     }
 
     @Test
