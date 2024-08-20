@@ -1302,7 +1302,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@code byte}, returning
+     * Converts a {@link String} to a {@code byte}, returning
      * {@code zero} if the conversion fails.
      *
      * <p>If the string is {@code null}, {@code zero} is returned.</p>
@@ -1323,7 +1323,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@code byte}, returning a
+     * Converts a {@link String} to a {@code byte}, returning a
      * default value if the conversion fails.
      *
      * <p>If the string is {@code null}, the default value is returned.</p>
@@ -1348,7 +1348,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link BigDecimal} to a {@code double}.
+     * Converts a {@link BigDecimal} to a {@code double}.
      *
      * <p>If the {@link BigDecimal} {@code value} is
      * {@code null}, then the specified default value is returned.</p>
@@ -1368,7 +1368,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link BigDecimal} to a {@code double}.
+     * Converts a {@link BigDecimal} to a {@code double}.
      *
      * <p>If the {@link BigDecimal} {@code value} is
      * {@code null}, then the specified default value is returned.</p>
@@ -1389,7 +1389,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@code double}, returning
+     * Converts a {@link String} to a {@code double}, returning
      * {@code 0.0d} if the conversion fails.
      *
      * <p>If the string {@code str} is {@code null},
@@ -1411,7 +1411,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@code double}, returning a
+     * Converts a {@link String} to a {@code double}, returning a
      * default value if the conversion fails.
      *
      * <p>If the string {@code str} is {@code null}, the default
@@ -1438,7 +1438,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@code float}, returning
+     * Converts a {@link String} to a {@code float}, returning
      * {@code 0.0f} if the conversion fails.
      *
      * <p>If the string {@code str} is {@code null},
@@ -1460,7 +1460,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@code float}, returning a
+     * Converts a {@link String} to a {@code float}, returning a
      * default value if the conversion fails.
      *
      * <p>If the string {@code str} is {@code null}, the default
@@ -1487,7 +1487,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to an {@code int}, returning
+     * Converts a {@link String} to an {@code int}, returning
      * {@code zero} if the conversion fails.
      *
      * <p>If the string is {@code null}, {@code zero} is returned.</p>
@@ -1508,7 +1508,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to an {@code int}, returning a
+     * Converts a {@link String} to an {@code int}, returning a
      * default value if the conversion fails.
      *
      * <p>If the string is {@code null}, the default value is returned.</p>
@@ -1533,7 +1533,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@code long}, returning
+     * Converts a {@link String} to a {@code long}, returning
      * {@code zero} if the conversion fails.
      *
      * <p>If the string is {@code null}, {@code zero} is returned.</p>
@@ -1554,7 +1554,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@code long}, returning a
+     * Converts a {@link String} to a {@code long}, returning a
      * default value if the conversion fails.
      *
      * <p>If the string is {@code null}, the default value is returned.</p>
@@ -1579,7 +1579,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link BigDecimal} to a {@link BigDecimal} with a scale of
+     * Converts a {@link BigDecimal} to a {@link BigDecimal} with a scale of
      * two that has been rounded using {@code RoundingMode.HALF_EVEN}. If the supplied
      * {@code value} is null, then {@code BigDecimal.ZERO} is returned.
      *
@@ -1595,7 +1595,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link BigDecimal} to a {@link BigDecimal} whose scale is the
+     * Converts a {@link BigDecimal} to a {@link BigDecimal} whose scale is the
      * specified value with a {@link RoundingMode} applied. If the input {@code value}
      * is {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
@@ -1617,7 +1617,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link Double} to a {@link BigDecimal} with a scale of
+     * Converts a {@link Double} to a {@link BigDecimal} with a scale of
      * two that has been rounded using {@code RoundingMode.HALF_EVEN}. If the supplied
      * {@code value} is null, then {@code BigDecimal.ZERO} is returned.
      *
@@ -1633,7 +1633,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link Double} to a {@link BigDecimal} whose scale is the
+     * Converts a {@link Double} to a {@link BigDecimal} whose scale is the
      * specified value with a {@link RoundingMode} applied. If the input {@code value}
      * is {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
@@ -1656,7 +1656,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link Float} to a {@link BigDecimal} with a scale of
+     * Converts a {@link Float} to a {@link BigDecimal} with a scale of
      * two that has been rounded using {@code RoundingMode.HALF_EVEN}. If the supplied
      * {@code value} is null, then {@code BigDecimal.ZERO} is returned.
      *
@@ -1672,7 +1672,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link Float} to a {@link BigDecimal} whose scale is the
+     * Converts a {@link Float} to a {@link BigDecimal} whose scale is the
      * specified value with a {@link RoundingMode} applied. If the input {@code value}
      * is {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
@@ -1695,7 +1695,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@link BigDecimal} with a scale of
+     * Converts a {@link String} to a {@link BigDecimal} with a scale of
      * two that has been rounded using {@code RoundingMode.HALF_EVEN}. If the supplied
      * {@code value} is null, then {@code BigDecimal.ZERO} is returned.
      *
@@ -1711,7 +1711,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@link BigDecimal} whose scale is the
+     * Converts a {@link String} to a {@link BigDecimal} whose scale is the
      * specified value with a {@link RoundingMode} applied. If the input {@code value}
      * is {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
@@ -1734,7 +1734,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to a {@code short}, returning
+     * Converts a {@link String} to a {@code short}, returning
      * {@code zero} if the conversion fails.
      *
      * <p>If the string is {@code null}, {@code zero} is returned.</p>
@@ -1755,7 +1755,7 @@ public class NumberUtils {
     }
 
     /**
-     * Convert a {@link String} to an {@code short}, returning a
+     * Converts a {@link String} to an {@code short}, returning a
      * default value if the conversion fails.
      *
      * <p>If the string is {@code null}, the default value is returned.</p>
