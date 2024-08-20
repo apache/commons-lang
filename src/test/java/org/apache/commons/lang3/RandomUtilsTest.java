@@ -44,7 +44,7 @@ public class RandomUtilsTest extends AbstractLangTest {
     private static final double DELTA = 1e-5;
 
     static Stream<RandomUtils> randomProvider() {
-        return Stream.of(RandomUtils.secure(), RandomUtils.insecure());
+        return Stream.of(RandomUtils.secure(), RandomUtils.secureStrong(), RandomUtils.insecure());
     }
 
     /**
