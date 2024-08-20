@@ -47,7 +47,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     private static final int LOOP_COUNT = 1_000;
 
     static Stream<RandomStringUtils> randomProvider() {
-        return Stream.of(RandomStringUtils.secure(), RandomStringUtils.insecure());
+        return Stream.of(RandomStringUtils.secure(), RandomStringUtils.secureStrong(), RandomStringUtils.insecure());
     }
 
     /**
