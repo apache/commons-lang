@@ -58,11 +58,11 @@ public class RandomUtils {
 
     private static RandomUtils INSECURE = new RandomUtils(ThreadLocalRandom::current);
 
-    private static final Supplier<Random> SECURE_SUPPLIER = () -> RandomUtils.SECURE_RANDOM.get();
+    private static final Supplier<Random> SECURE_STRONG_SUPPLIER = () -> RandomUtils.SECURE_RANDOM_STRONG.get();
 
-    private static RandomUtils SECURE = new RandomUtils(SECURE_SUPPLIER);
+    private static RandomUtils SECURE_STRONG = new RandomUtils(SECURE_STRONG_SUPPLIER);
 
-    private static final ThreadLocal<SecureRandom> SECURE_RANDOM = ThreadLocal.withInitial(() -> {
+    private static final ThreadLocal<SecureRandom> SECURE_RANDOM_STRONG = ThreadLocal.withInitial(() -> {
         try {
             return SecureRandom.getInstanceStrong();
         } catch (final NoSuchAlgorithmException e) {
@@ -248,11 +248,11 @@ public class RandomUtils {
      * @since 3.16.0
      */
     public static RandomUtils secure() {
-        return SECURE;
+        return SECURE_STRONG;
     }
 
     static SecureRandom secureRandom() {
-        return SECURE_RANDOM.get();
+        return SECURE_RANDOM_STRONG.get();
     }
 
     private final Supplier<Random> random;
@@ -268,7 +268,7 @@ public class RandomUtils {
      */
     @Deprecated
     public RandomUtils() {
-        this(SECURE_SUPPLIER);
+        this(SECURE_STRONG_SUPPLIER);
     }
 
     private RandomUtils(final Supplier<Random> random) {
