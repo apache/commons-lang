@@ -25,39 +25,42 @@ import java.util.function.Supplier;
 /**
  * Generates random {@link String}s.
  * <p>
+ * Use {@link #secure()} to get the singleton instance based on {@link SecureRandom#SecureRandom()} which uses a secure random number generator (RNG)
+ * implementing the default random number algorithm..
+ * </p>
+ * <p>
+ * Use {@link #secureStrong()} to get the singleton instance based on {@link SecureRandom#getInstanceStrong()} which uses an algorithms/providers specified in
+ * the {@code securerandom.strongAlgorithms} {@link Security} property.
+ * </p>
+ * <p>
+ * Use {@link #insecure()} to get the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not cryptographically secure</b>.
+ * </p>
+ * <p>
+ * Starting in version 3.17.0, the method {@link #secure()} uses {@link SecureRandom#SecureRandom()} instead of {@link SecureRandom#getInstanceStrong()}, and
+ * adds {@link #secureStrong()}.
+ * </p>
+ * <p>
  * Starting in version 3.16.0, this class uses {@link #secure()} for static methods and adds {@link #insecure()}.
  * </p>
  * <p>
  * Starting in version 3.15.0, this class uses {@link SecureRandom#getInstanceStrong()} for static methods.
  * </p>
  * <p>
- * Before version 3.15.0, this class used {@link ThreadLocalRandom#current()} for static methods, which is not
- * cryptographically secure.
- * </p>
- * <p>
- * Use {@link #secure()} to get the singleton instance based on {@link SecureRandom#getInstanceStrong()} which uses an
- * algorithms/providers specified in the {@code securerandom.strongAlgorithms} {@link Security} property.
- * </p>
- * <p>
- * Use {@link #insecure()} to get the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not
- * cryptographically secure</b>.
+ * Before version 3.15.0, this class used {@link ThreadLocalRandom#current()} for static methods, which is not cryptographically secure.
  * </p>
  * <p>
  * RandomStringUtils is intended for simple use cases. For more advanced use cases consider using Apache Commons Text's
- * <a href=
- * "https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html">
- * RandomStringGenerator</a> instead.
+ * <a href= "https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/RandomStringGenerator.html"> RandomStringGenerator</a>
+ * instead.
  * </p>
  * <p>
- * The Apache Commons project provides <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a>
- * dedicated to pseudo-random number generation, that may be a better choice for applications with more stringent
- * requirements (performance and/or correctness).
+ * The Apache Commons project provides <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a> dedicated to pseudo-random number generation,
+ * that may be a better choice for applications with more stringent requirements (performance and/or correctness).
  * </p>
  * <p>
- * Note that <em>private high surrogate</em> characters are ignored. These are Unicode characters that fall between the
- * values 56192 (db80) and 56319 (dbff) as we don't know how to handle them. High and low surrogates are correctly dealt
- * with - that is if a high surrogate is randomly chosen, 55296 (d800) to 56191 (db7f) then it is followed by a low
- * surrogate. If a low surrogate is chosen, 56320 (dc00) to 57343 (dfff) then it is placed after a randomly chosen high
+ * Note that <em>private high surrogate</em> characters are ignored. These are Unicode characters that fall between the values 56192 (db80) and 56319 (dbff) as
+ * we don't know how to handle them. High and low surrogates are correctly dealt with - that is if a high surrogate is randomly chosen, 55296 (d800) to 56191
+ * (db7f) then it is followed by a low surrogate. If a low surrogate is chosen, 56320 (dc00) to 57343 (dfff) then it is placed after a randomly chosen high
  * surrogate.
  * </p>
  * <p>
@@ -74,6 +77,8 @@ public class RandomStringUtils {
     private static RandomStringUtils INSECURE = new RandomStringUtils(RandomUtils::insecure);
 
     private static RandomStringUtils SECURE = new RandomStringUtils(SECURE_SUPPLIER);
+
+    private static RandomStringUtils SECURE_STRONG = new RandomStringUtils(RandomUtils::secureStrong);
 
     private static final char[] ALPHANUMERICAL_CHARS = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
@@ -107,7 +112,7 @@ public class RandomStringUtils {
      * @param count the length of random string to create
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String random(final int count) {
@@ -126,7 +131,7 @@ public class RandomStringUtils {
      * @param numbers if {@code true}, generated string may include numeric characters
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String random(final int count, final boolean letters, final boolean numbers) {
@@ -144,7 +149,7 @@ public class RandomStringUtils {
      * @param chars the character array containing the set of characters to use, may be null
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String random(final int count, final char... chars) {
@@ -165,7 +170,7 @@ public class RandomStringUtils {
      * @param numbers if {@code true}, generated string may include numeric characters
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String random(final int count, final int start, final int end, final boolean letters,
@@ -191,7 +196,7 @@ public class RandomStringUtils {
      * @return the random string
      * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
      * @throws IllegalArgumentException       if {@code count} &lt; 0.
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String random(final int count, final int start, final int end, final boolean letters,
@@ -371,7 +376,7 @@ public class RandomStringUtils {
      * @param chars the String containing the set of characters to use, may be null, but must not be empty
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0 or the string is empty.
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String random(final int count, final String chars) {
@@ -388,7 +393,7 @@ public class RandomStringUtils {
      * @param count the length of random string to create
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomAlphabetic(final int count) {
@@ -406,7 +411,7 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
@@ -423,7 +428,7 @@ public class RandomStringUtils {
      * @param count the length of random string to create
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomAlphanumeric(final int count) {
@@ -441,7 +446,7 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
@@ -459,7 +464,7 @@ public class RandomStringUtils {
      * @param count the length of random string to create
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomAscii(final int count) {
@@ -478,7 +483,7 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomAscii(final int minLengthInclusive, final int maxLengthExclusive) {
@@ -497,7 +502,7 @@ public class RandomStringUtils {
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomGraph(final int count) {
@@ -515,7 +520,7 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomGraph(final int minLengthInclusive, final int maxLengthExclusive) {
@@ -532,7 +537,7 @@ public class RandomStringUtils {
      * @param count the length of random string to create
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomNumeric(final int count) {
@@ -550,7 +555,7 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
@@ -569,7 +574,7 @@ public class RandomStringUtils {
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomPrint(final int count) {
@@ -587,11 +592,26 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {
         return secure().nextPrint(minLengthInclusive, maxLengthExclusive);
+    }
+
+    /**
+     * Gets the singleton instance based on {@link SecureRandom#SecureRandom()} which uses a secure random number generator (RNG) implementing the default
+     * random number algorithm.
+     * <p>
+     * The method {@link SecureRandom#SecureRandom()} is called on-demand.
+     * </p>
+     *
+     * @return the singleton instance based on {@link SecureRandom#SecureRandom()}.
+     * @see SecureRandom#SecureRandom()
+     * @since 3.16.0
+     */
+    public static RandomStringUtils secure() {
+        return SECURE;
     }
 
     /**
@@ -603,10 +623,10 @@ public class RandomStringUtils {
      *
      * @return the singleton instance based on {@link SecureRandom#getInstanceStrong()}.
      * @see SecureRandom#getInstanceStrong()
-     * @since 3.16.0
+     * @since 3.17.0
      */
-    public static RandomStringUtils secure() {
-        return SECURE;
+    public static RandomStringUtils secureStrong() {
+        return SECURE_STRONG;
     }
 
     private final Supplier<RandomUtils> random;

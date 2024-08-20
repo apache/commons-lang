@@ -28,27 +28,33 @@ import org.apache.commons.lang3.exception.UncheckedException;
 /**
  * Supplements the standard {@link Random} class.
  * <p>
- * Use {@link #secure()} to get the singleton instance based on {@link SecureRandom#getInstanceStrong()} which uses an
- * algorithms/providers specified in the {@code securerandom.strongAlgorithms} {@link Security} property.
+ * Use {@link #secure()} to get the singleton instance based on {@link SecureRandom#SecureRandom()} which uses a secure random number generator (RNG)
+ * implementing the default random number algorithm.
  * </p>
  * <p>
- * Use {@link #insecure()} to get the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not
- * cryptographically secure</b>.
+ * Use {@link #secureStrong()} to get the singleton instance based on {@link SecureRandom#getInstanceStrong()} which uses an algorithms/providers specified in
+ * the {@code securerandom.strongAlgorithms} {@link Security} property.
  * </p>
  * <p>
- * Starting in version 3.15.0, this class uses {@link SecureRandom#getInstanceStrong()} for static methods.
+ * Use {@link #insecure()} to get the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not cryptographically secure</b>.
+ * </p>
+ * <p>
+ * Starting in version 3.17.0, the method {@link #secure()} uses {@link SecureRandom#SecureRandom()} instead of {@link SecureRandom#getInstanceStrong()}, and
+ * adds {@link #secureStrong()}.
  * </p>
  * <p>
  * Starting in version 3.16.0, this class uses {@link #secure()} for static methods and adds {@link #insecure()}.
  * </p>
  * <p>
- * Before version 3.15.0, this class used {@link ThreadLocalRandom#current()} for static methods, which is not
- * cryptographically secure.
+ * Starting in version 3.15.0, this class uses {@link SecureRandom#getInstanceStrong()} for static methods.
+ * </p>
+ * <p>
+ * Before version 3.15.0, this class used {@link ThreadLocalRandom#current()} for static methods, which is not cryptographically secure.
  * </p>
  * <p>
  * Please note that the Apache Commons project provides a component dedicated to pseudo-random number generation, namely
- * <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a>, that may be a better choice for
- * applications with more stringent requirements (performance and/or correctness).
+ * <a href="https://commons.apache.org/proper/commons-rng/">Commons RNG</a>, that may be a better choice for applications with more stringent requirements
+ * (performance and/or correctness).
  * </p>
  *
  * @see RandomStringUtils
@@ -57,6 +63,8 @@ import org.apache.commons.lang3.exception.UncheckedException;
 public class RandomUtils {
 
     private static RandomUtils INSECURE = new RandomUtils(ThreadLocalRandom::current);
+
+    private static RandomUtils SECURE = new RandomUtils(SecureRandom::new);
 
     private static final Supplier<Random> SECURE_STRONG_SUPPLIER = () -> RandomUtils.SECURE_RANDOM_STRONG.get();
 
@@ -92,7 +100,7 @@ public class RandomUtils {
      *
      * @return the random boolean
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static boolean nextBoolean() {
@@ -105,7 +113,7 @@ public class RandomUtils {
      * @param count the size of the returned array
      * @return the random byte array
      * @throws IllegalArgumentException if {@code count} is negative
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static byte[] nextBytes(final int count) {
@@ -118,7 +126,7 @@ public class RandomUtils {
      * @return the random double
      * @see #nextDouble(double, double)
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static double nextDouble() {
@@ -133,7 +141,7 @@ public class RandomUtils {
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
      *                                  negative
      * @return the random double
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static double nextDouble(final double startInclusive, final double endExclusive) {
@@ -146,7 +154,7 @@ public class RandomUtils {
      * @return the random float
      * @see #nextFloat(float, float)
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static float nextFloat() {
@@ -161,7 +169,7 @@ public class RandomUtils {
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
      *                                  negative
      * @return the random float
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static float nextFloat(final float startInclusive, final float endExclusive) {
@@ -174,7 +182,7 @@ public class RandomUtils {
      * @return the random integer
      * @see #nextInt(int, int)
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static int nextInt() {
@@ -189,7 +197,7 @@ public class RandomUtils {
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
      *                                  negative
      * @return the random integer
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static int nextInt(final int startInclusive, final int endExclusive) {
@@ -202,23 +210,11 @@ public class RandomUtils {
      * @return the random long
      * @see #nextLong(long, long)
      * @since 3.5
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static long nextLong() {
         return secure().randomLong();
-    }
-
-    /**
-     * Generates a {@code long} value between 0 (inclusive) and the specified value (exclusive).
-     *
-     * @param n Bound on the random number to be returned. Must be positive.
-     * @return a random {@code long} value between 0 (inclusive) and {@code n} (exclusive).
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
-     */
-    @Deprecated
-    private static long nextLong(final long n) {
-        return secure().randomLong(n);
     }
 
     /**
@@ -229,11 +225,26 @@ public class RandomUtils {
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
      *                                  negative
      * @return the random long
-     * @deprecated Use {@link #secure()} or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
      */
     @Deprecated
     public static long nextLong(final long startInclusive, final long endExclusive) {
         return secure().randomLong(startInclusive, endExclusive);
+    }
+
+    /**
+     * Gets the singleton instance based on {@link SecureRandom#SecureRandom()} which uses an algorithms/providers
+     * specified in the {@code securerandom.strongAlgorithms} {@link Security} property.
+     * <p>
+     * The method {@link SecureRandom#SecureRandom()} is called on-demand.
+     * </p>
+     *
+     * @return the singleton instance based on {@link SecureRandom#SecureRandom()}.
+     * @see SecureRandom#SecureRandom()
+     * @since 3.16.0
+     */
+    public static RandomUtils secure() {
+        return SECURE;
     }
 
     /**
@@ -245,9 +256,9 @@ public class RandomUtils {
      *
      * @return the singleton instance based on {@link SecureRandom#getInstanceStrong()}.
      * @see SecureRandom#getInstanceStrong()
-     * @since 3.16.0
+     * @since 3.17.0
      */
-    public static RandomUtils secure() {
+    public static RandomUtils secureStrong() {
         return SECURE_STRONG;
     }
 
