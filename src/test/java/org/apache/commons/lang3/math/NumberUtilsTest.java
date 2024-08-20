@@ -1612,6 +1612,8 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(NumberUtils.toDouble("-001.2345", 5.1d), -1.2345d, "toDouble(String, int) 4 failed");
         assertEquals(1.2345d, NumberUtils.toDouble("+001.2345", 5.1d), "toDouble(String, int) 5 failed");
         assertEquals(0d, NumberUtils.toDouble("000.00", 5.1d), "toDouble(String, int) 7 failed");
+        assertEquals(5.1d, NumberUtils.toDouble("", 5.1d));
+        assertEquals(5.1d, NumberUtils.toDouble((String) null, 5.1d));
     }
 
     /**
@@ -1632,6 +1634,8 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testToByteStringI() {
         assertEquals(123, NumberUtils.toByte("123", (byte) 5), "toByte(String, byte) 1 failed");
         assertEquals(5, NumberUtils.toByte("12.3", (byte) 5), "toByte(String, byte) 2 failed");
+        assertEquals(5, NumberUtils.toByte("", (byte) 5));
+        assertEquals(5, NumberUtils.toByte(null, (byte) 5));
     }
 
     /**
@@ -1665,6 +1669,8 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(5.0f, NumberUtils.toFloat("-001Z.2345", 5.0f), "toFloat(String, int) 3 failed");
         assertEquals(5.0f, NumberUtils.toFloat("+001AB.2345", 5.0f), "toFloat(String, int) 4 failed");
         assertEquals(5.0f, NumberUtils.toFloat("001Z.2345", 5.0f), "toFloat(String, int) 5 failed");
+        assertEquals(5.0f, NumberUtils.toFloat("", 5.0f));
+        assertEquals(5.0f, NumberUtils.toFloat(null, 5.0f));
     }
 
     /**
@@ -1685,6 +1691,8 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testToIntStringI() {
         assertEquals(12345, NumberUtils.toInt("12345", 5), "toInt(String, int) 1 failed");
         assertEquals(5, NumberUtils.toInt("1234.5", 5), "toInt(String, int) 2 failed");
+        assertEquals(5, NumberUtils.toInt("", 5));
+        assertEquals(5, NumberUtils.toInt(null, 5));
     }
 
     /**
@@ -1709,6 +1717,8 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testToLongStringL() {
         assertEquals(12345L, NumberUtils.toLong("12345", 5L), "toLong(String, long) 1 failed");
         assertEquals(5L, NumberUtils.toLong("1234.5", 5L), "toLong(String, long) 2 failed");
+        assertEquals(5L, NumberUtils.toLong("", 5L));
+        assertEquals(5L, NumberUtils.toLong(null, 5L));
     }
 
     /**
@@ -1823,7 +1833,7 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals("23521.0000", NumberUtils.toScaledBigDecimal(Float.valueOf(23.521f), 4, RoundingMode.HALF_EVEN)
             .multiply(BigDecimal.valueOf(1000)).toString(), "toScaledBigDecimal(Float, int, RoundingMode) 4 failed");
         assertEquals(NumberUtils.toScaledBigDecimal((Float) null, 2, RoundingMode.HALF_UP), BigDecimal.ZERO,
-            "toScaledBigDecimal(Float, int, RoundingMode) 5 failed");
+                "toScaledBigDecimal(Float, int, RoundingMode) 5 failed");
     }
 
     /**
@@ -1841,7 +1851,7 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals("2352.00", NumberUtils.toScaledBigDecimal("23.525").multiply(BigDecimal.valueOf(100)).toString(),
             "toScaledBigDecimal(String) 4 failed");
         assertEquals(NumberUtils.toScaledBigDecimal((String) null), BigDecimal.ZERO,
-            "toScaledBigDecimal(String) 5 failed");
+                "toScaledBigDecimal(String) 5 failed");
     }
 
     /**
@@ -1860,7 +1870,7 @@ public class NumberUtilsTest extends AbstractLangTest {
                 .multiply(BigDecimal.valueOf(1000)).toString(),
             "toScaledBigDecimal(String, int, RoundingMode) 4 failed");
         assertEquals(NumberUtils.toScaledBigDecimal((String) null, 2, RoundingMode.HALF_UP), BigDecimal.ZERO,
-            "toScaledBigDecimal(String, int, RoundingMode) 5 failed");
+                "toScaledBigDecimal(String, int, RoundingMode) 5 failed");
     }
 
     /**
@@ -1881,5 +1891,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testToShortStringI() {
         assertEquals(12345, NumberUtils.toShort("12345", (short) 5), "toShort(String, short) 1 failed");
         assertEquals(5, NumberUtils.toShort("1234.5", (short) 5), "toShort(String, short) 2 failed");
+        assertEquals(5, NumberUtils.toShort("", (short) 5));
+        assertEquals(5, NumberUtils.toShort(null, (short) 5));
     }
 }

@@ -784,7 +784,6 @@ public class NumberUtils {
     public static byte max(final byte... array) {
         // Validates input
         validateArray(array);
-
         // Finds and returns max
         byte max = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -792,7 +791,6 @@ public class NumberUtils {
                 max = array[i];
             }
         }
-
         return max;
     }
 
@@ -827,7 +825,6 @@ public class NumberUtils {
     public static double max(final double... array) {
         // Validates input
         validateArray(array);
-
         // Finds and returns max
         double max = array[0];
         for (int j = 1; j < array.length; j++) {
@@ -838,7 +835,6 @@ public class NumberUtils {
                 max = array[j];
             }
         }
-
         return max;
     }
 
@@ -871,7 +867,6 @@ public class NumberUtils {
     public static float max(final float... array) {
         // Validates input
         validateArray(array);
-
         // Finds and returns max
         float max = array[0];
         for (int j = 1; j < array.length; j++) {
@@ -882,7 +877,6 @@ public class NumberUtils {
                 max = array[j];
             }
         }
-
         return max;
     }
 
@@ -949,7 +943,6 @@ public class NumberUtils {
     public static int max(final int... array) {
         // Validates input
         validateArray(array);
-
         // Finds and returns max
         int max = array[0];
         for (int j = 1; j < array.length; j++) {
@@ -957,7 +950,6 @@ public class NumberUtils {
                 max = array[j];
             }
         }
-
         return max;
     }
 
@@ -991,7 +983,6 @@ public class NumberUtils {
     public static long max(final long... array) {
         // Validates input
         validateArray(array);
-
         // Finds and returns max
         long max = array[0];
         for (int j = 1; j < array.length; j++) {
@@ -999,7 +990,6 @@ public class NumberUtils {
                 max = array[j];
             }
         }
-
         return max;
     }
 
@@ -1042,7 +1032,6 @@ public class NumberUtils {
                 max = array[i];
             }
         }
-
         return max;
     }
 
@@ -1076,7 +1065,6 @@ public class NumberUtils {
     public static byte min(final byte... array) {
         // Validates input
         validateArray(array);
-
         // Finds and returns min
         byte min = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -1084,7 +1072,6 @@ public class NumberUtils {
                 min = array[i];
             }
         }
-
         return min;
     }
 
@@ -1130,7 +1117,6 @@ public class NumberUtils {
                 min = array[i];
             }
         }
-
         return min;
     }
 
@@ -1174,7 +1160,6 @@ public class NumberUtils {
                 min = array[i];
             }
         }
-
         return min;
     }
 
@@ -1206,7 +1191,6 @@ public class NumberUtils {
     public static int min(final int... array) {
         // Validates input
         validateArray(array);
-
         // Finds and returns min
         int min = array[0];
         for (int j = 1; j < array.length; j++) {
@@ -1214,7 +1198,6 @@ public class NumberUtils {
                 min = array[j];
             }
         }
-
         return min;
     }
 
@@ -1248,7 +1231,6 @@ public class NumberUtils {
     public static long min(final long... array) {
         // Validates input
         validateArray(array);
-
         // Finds and returns min
         long min = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -1256,7 +1238,6 @@ public class NumberUtils {
                 min = array[i];
             }
         }
-
         return min;
     }
 
@@ -1291,7 +1272,6 @@ public class NumberUtils {
     public static short min(final short... array) {
         // Validates input
         validateArray(array);
-
         // Finds and returns min
         short min = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -1360,12 +1340,9 @@ public class NumberUtils {
      * @since 2.5
      */
     public static byte toByte(final String str, final byte defaultValue) {
-        if (str == null) {
-            return defaultValue;
-        }
         try {
             return Byte.parseByte(str);
-        } catch (final NumberFormatException nfe) {
+        } catch (final RuntimeException e) {
             return defaultValue;
         }
     }
@@ -1453,12 +1430,9 @@ public class NumberUtils {
      * @since 2.1
      */
     public static double toDouble(final String str, final double defaultValue) {
-      if (str == null) {
-          return defaultValue;
-      }
       try {
           return Double.parseDouble(str);
-      } catch (final NumberFormatException nfe) {
+      } catch (final RuntimeException e) {
           return defaultValue;
       }
     }
@@ -1505,12 +1479,9 @@ public class NumberUtils {
      * @since 2.1
      */
     public static float toFloat(final String str, final float defaultValue) {
-      if (str == null) {
-          return defaultValue;
-      }
       try {
           return Float.parseFloat(str);
-      } catch (final NumberFormatException nfe) {
+      } catch (final RuntimeException e) {
           return defaultValue;
       }
     }
@@ -1554,12 +1525,9 @@ public class NumberUtils {
      * @since 2.1
      */
     public static int toInt(final String str, final int defaultValue) {
-        if (str == null) {
-            return defaultValue;
-        }
         try {
             return Integer.parseInt(str);
-        } catch (final NumberFormatException nfe) {
+        } catch (final RuntimeException e) {
             return defaultValue;
         }
     }
@@ -1603,12 +1571,9 @@ public class NumberUtils {
      * @since 2.1
      */
     public static long toLong(final String str, final long defaultValue) {
-        if (str == null) {
-            return defaultValue;
-        }
         try {
             return Long.parseLong(str);
-        } catch (final NumberFormatException nfe) {
+        } catch (final RuntimeException e) {
             return defaultValue;
         }
     }
@@ -1807,12 +1772,9 @@ public class NumberUtils {
      * @since 2.5
      */
     public static short toShort(final String str, final short defaultValue) {
-        if (str == null) {
-            return defaultValue;
-        }
         try {
             return Short.parseShort(str);
-        } catch (final NumberFormatException nfe) {
+        } catch (final RuntimeException e) {
             return defaultValue;
         }
     }
