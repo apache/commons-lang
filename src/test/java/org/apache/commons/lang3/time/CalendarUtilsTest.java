@@ -35,8 +35,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class CalendarUtilsTest extends AbstractLangTest {
 
-    private static final String TIME_ZONE_GET_AVAILABLE_IDS = "java.util.TimeZone#getAvailableIDs()";
-
     @Test
     public void testGetDayOfMonth() {
         assertEquals(Calendar.getInstance().get(Calendar.DAY_OF_MONTH), CalendarUtils.getInstance().getDayOfMonth());
@@ -94,7 +92,7 @@ public class CalendarUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @MethodSource(TIME_ZONE_GET_AVAILABLE_IDS)
+    @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
     public void testToLocalDateTime(final String id) {
         final TimeZone timeZone = TimeZone.getTimeZone(id);
         final ZoneId zoneId = timeZone.toZoneId();
@@ -107,7 +105,7 @@ public class CalendarUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @MethodSource(TIME_ZONE_GET_AVAILABLE_IDS)
+    @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
     public void testToOffsetDateTime(final String id) {
         final TimeZone timeZone = TimeZone.getTimeZone(id);
         final ZoneId zoneId = timeZone.toZoneId();
@@ -120,7 +118,7 @@ public class CalendarUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @MethodSource(TIME_ZONE_GET_AVAILABLE_IDS)
+    @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
     public void testToZonedDateTime(final String id) {
         final TimeZone timeZone = TimeZone.getTimeZone(id);
         final ZoneId zoneId = timeZone.toZoneId();
