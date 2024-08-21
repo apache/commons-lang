@@ -20,6 +20,7 @@ package org.apache.commons.lang3.time;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
@@ -103,6 +104,19 @@ public class CalendarUtilsTest extends AbstractLangTest {
         final ZonedDateTime zdt1 = ZonedDateTime.of(1, 2, 3, 4, 5, 6, 0, zoneId);
         calendar.setTimeInMillis(zdt1.toInstant().toEpochMilli());
         assertEquals(LocalDateTime.ofInstant(zdt1.toInstant(), calendar.getTimeZone().toZoneId()), new CalendarUtils(calendar).toLocalDateTime());
+    }
+
+    @ParameterizedTest
+    @MethodSource(TIME_ZONE_GET_AVAILABLE_IDS)
+    public void testToOffsetDateTime(final String id) {
+        final TimeZone timeZone = TimeZone.getTimeZone(id);
+        final ZoneId zoneId = timeZone.toZoneId();
+        final Calendar calendar = new GregorianCalendar(timeZone);
+        calendar.setTimeInMillis(0);
+        assertEquals(OffsetDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId()), new CalendarUtils(calendar).toOffsetDateTime());
+        final ZonedDateTime zdt1 = ZonedDateTime.of(1, 2, 3, 4, 5, 6, 0, zoneId);
+        calendar.setTimeInMillis(zdt1.toInstant().toEpochMilli());
+        assertEquals(OffsetDateTime.ofInstant(zdt1.toInstant(), calendar.getTimeZone().toZoneId()), new CalendarUtils(calendar).toOffsetDateTime());
     }
 
     @ParameterizedTest

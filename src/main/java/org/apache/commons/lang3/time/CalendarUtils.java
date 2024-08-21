@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.time;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
@@ -71,6 +72,17 @@ public class CalendarUtils {
      */
     public static LocalDateTime toLocalDateTime(final Calendar calendar) {
         return LocalDateTime.ofInstant(calendar.toInstant(), toZoneId(calendar));
+    }
+
+    /**
+     * Converts a Calendar to a OffsetDateTime.
+     *
+     * @param calendar the Calendar to convert.
+     * @return a OffsetDateTime.
+     * @since 3.17.0
+     */
+    public static OffsetDateTime toOffsetDateTime(final Calendar calendar) {
+        return OffsetDateTime.ofInstant(calendar.toInstant(), toZoneId(calendar));
     }
 
     /**
@@ -189,6 +201,16 @@ public class CalendarUtils {
      */
     public LocalDateTime toLocalDateTime() {
         return toLocalDateTime(calendar);
+    }
+
+    /**
+     * Converts this instance to a {@link OffsetDateTime}.
+     *
+     * @return a OffsetDateTime.
+     * @since 3.17.0
+     */
+    public OffsetDateTime toOffsetDateTime() {
+        return toOffsetDateTime(calendar);
     }
 
     /**
