@@ -224,9 +224,10 @@ public class CalendarUtils {
         return toZonedDateTime(calendar);
     }
 
-     * Creates a LocalDate from a Calendar
+     * Converts this instance to a {@link LocalDate}.
      *
      * @return a LocalDate
+     * @since 3.17.0
      */
     public LocalDate toLocalDate() {
         return LocalDate.of(getYear(), getMonth()+1, getDayOfMonth());
