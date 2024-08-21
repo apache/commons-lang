@@ -93,8 +93,8 @@ public class CalendarUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
-    public void testToLocalDateTime(final String id) {
-        final TimeZone timeZone = TimeZone.getTimeZone(id);
+    public void testToLocalDateTime(final String timeZoneId) {
+        final TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
         final ZoneId zoneId = timeZone.toZoneId();
         final Calendar calendar = new GregorianCalendar(timeZone);
         calendar.setTimeInMillis(0);
@@ -106,8 +106,8 @@ public class CalendarUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
-    public void testToOffsetDateTime(final String id) {
-        final TimeZone timeZone = TimeZone.getTimeZone(id);
+    public void testToOffsetDateTime(final String timeZoneId) {
+        final TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
         final ZoneId zoneId = timeZone.toZoneId();
         final Calendar calendar = new GregorianCalendar(timeZone);
         calendar.setTimeInMillis(0);
@@ -119,8 +119,8 @@ public class CalendarUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
-    public void testToZonedDateTime(final String id) {
-        final TimeZone timeZone = TimeZone.getTimeZone(id);
+    public void testToZonedDateTime(final String timeZoneId) {
+        final TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
         final ZoneId zoneId = timeZone.toZoneId();
         final Calendar calendar = new GregorianCalendar(timeZone);
         calendar.setTimeInMillis(0);
