@@ -31,6 +31,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.time.TimeZones;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -133,7 +134,7 @@ public class CalendarUtilsTest extends AbstractLangTest {
 
     @Test
     public void testToLocalDate() {
-        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone(TimeZones.GMT_ID));
         calendar.setTimeInMillis(-27078001200000L);
         assertEquals(LocalDate.of(1111, Month.DECEMBER, 1), new CalendarUtils(calendar).toLocalDate());
         calendar.setTimeInMillis(1614700215000L);
