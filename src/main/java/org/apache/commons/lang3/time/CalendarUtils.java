@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.time;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Locale.Category;
@@ -59,6 +60,17 @@ public class CalendarUtils {
         return new CalendarUtils(Calendar.getInstance(locale), locale);
     }
 
+    /**
+     * Converts a Calendar to a LocalDateTime.
+     *
+     * @param calendar the Calendar to convert.
+     * @return a LocalDateTime.
+     * @since 3.17.0
+     */
+    public static LocalDateTime toLocalDateTime(final Calendar calendar) {
+        return LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId());
+    }
+
     private final Calendar calendar;
 
     private final Locale locale;
@@ -71,7 +83,6 @@ public class CalendarUtils {
     public CalendarUtils(final Calendar calendar) {
         this(calendar, Locale.getDefault());
     }
-
     /**
      * Creates an instance for the given Calendar.
      *
@@ -82,6 +93,7 @@ public class CalendarUtils {
         this.calendar = Objects.requireNonNull(calendar, "calendar");
         this.locale = Objects.requireNonNull(locale, "locale");
     }
+
     /**
      * Gets the current day of month.
      *
@@ -150,5 +162,15 @@ public class CalendarUtils {
      */
     public int getYear() {
         return calendar.get(Calendar.YEAR);
+    }
+
+    /**
+     * Converts this instance to a {@link LocalDateTime}.
+     *
+     * @return a LocalDateTime.
+     * @since 3.17.0
+     */
+    public LocalDateTime toLocalDateTime() {
+        return toLocalDateTime(calendar);
     }
 }
