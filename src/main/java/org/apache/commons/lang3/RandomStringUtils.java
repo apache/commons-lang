@@ -26,7 +26,7 @@ import java.util.function.Supplier;
  * Generates random {@link String}s.
  * <p>
  * Use {@link #secure()} to get the singleton instance based on {@link SecureRandom#SecureRandom()} which uses a secure random number generator (RNG)
- * implementing the default random number algorithm..
+ * implementing the default random number algorithm.
  * </p>
  * <p>
  * Use {@link #secureStrong()} to get the singleton instance based on {@link SecureRandom#getInstanceStrong()} which uses an algorithms/providers specified in
