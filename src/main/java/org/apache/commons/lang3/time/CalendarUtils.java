@@ -224,12 +224,12 @@ public class CalendarUtils {
         return toZonedDateTime(calendar);
     }
 
-     * Converts this instance to a {@link LocalDate}.
+    /** Converts this instance to a {@link LocalDate}.
      *
      * @return a LocalDate
      * @since 3.17.0
      */
     public LocalDate toLocalDate() {
-        return LocalDate.of(getYear(), getMonth()+1, getDayOfMonth());
+        return LocalDate.of(getYear(), getMonth() + 1, getDayOfMonth());
     }
 }
