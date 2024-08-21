@@ -18,6 +18,8 @@
 package org.apache.commons.lang3.time;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Locale.Category;
@@ -68,7 +70,22 @@ public class CalendarUtils {
      * @since 3.17.0
      */
     public static LocalDateTime toLocalDateTime(final Calendar calendar) {
-        return LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId());
+        return LocalDateTime.ofInstant(calendar.toInstant(), toZoneId(calendar));
+    }
+
+    /**
+     * Converts a Calendar to a ZonedDateTime.
+     *
+     * @param calendar the Calendar to convert.
+     * @return a ZonedDateTime.
+     * @since 3.17.0
+     */
+    public static ZonedDateTime toZonedDateTime(final Calendar calendar) {
+        return ZonedDateTime.ofInstant(calendar.toInstant(), toZoneId(calendar));
+    }
+
+    private static ZoneId toZoneId(final Calendar calendar) {
+        return calendar.getTimeZone().toZoneId();
     }
 
     private final Calendar calendar;
@@ -173,4 +190,15 @@ public class CalendarUtils {
     public LocalDateTime toLocalDateTime() {
         return toLocalDateTime(calendar);
     }
+
+    /**
+     * Converts this instance to a {@link ZonedDateTime}.
+     *
+     * @return a ZonedDateTime.
+     * @since 3.17.0
+     */
+    public ZonedDateTime toZonedDateTime() {
+        return toZonedDateTime(calendar);
+    }
+
 }

@@ -104,4 +104,17 @@ public class CalendarUtilsTest extends AbstractLangTest {
         calendar.setTimeInMillis(zdt1.toInstant().toEpochMilli());
         assertEquals(LocalDateTime.ofInstant(zdt1.toInstant(), calendar.getTimeZone().toZoneId()), new CalendarUtils(calendar).toLocalDateTime());
     }
+
+    @ParameterizedTest
+    @MethodSource(TIME_ZONE_GET_AVAILABLE_IDS)
+    public void testToZonedDateTime(final String id) {
+        final TimeZone timeZone = TimeZone.getTimeZone(id);
+        final ZoneId zoneId = timeZone.toZoneId();
+        final Calendar calendar = new GregorianCalendar(timeZone);
+        calendar.setTimeInMillis(0);
+        assertEquals(ZonedDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId()), new CalendarUtils(calendar).toZonedDateTime());
+        final ZonedDateTime zdt1 = ZonedDateTime.of(1, 2, 3, 4, 5, 6, 0, zoneId);
+        calendar.setTimeInMillis(zdt1.toInstant().toEpochMilli());
+        assertEquals(ZonedDateTime.ofInstant(zdt1.toInstant(), calendar.getTimeZone().toZoneId()), new CalendarUtils(calendar).toZonedDateTime());
+    }
 }
