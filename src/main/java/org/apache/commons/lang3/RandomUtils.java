@@ -28,15 +28,17 @@ import org.apache.commons.lang3.exception.UncheckedException;
 /**
  * Supplements the standard {@link Random} class.
  * <p>
- * Use {@link #secure()} to get the singleton instance based on {@link SecureRandom#SecureRandom()} which uses a secure random number generator (RNG)
- * implementing the default random number algorithm.
+ * Use {@link #secure()} to get the singleton instance based on {@link SecureRandom#SecureRandom()} which uses a secure random number generator implementing the
+ * default random number algorithm.
  * </p>
  * <p>
- * Use {@link #secureStrong()} to get the singleton instance based on {@link SecureRandom#getInstanceStrong()} which uses an algorithms/providers specified in
- * the {@code securerandom.strongAlgorithms} {@link Security} property.
+ * Use {@link #secureStrong()} to get the singleton instance based on {@link SecureRandom#getInstanceStrong()} which uses an instance that was selected by using
+ * the algorithms/providers specified in the {@code securerandom.strongAlgorithms} {@link Security} property.
  * </p>
  * <p>
- * Use {@link #insecure()} to get the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not cryptographically secure</b>.
+ * Use {@link #insecure()} to get the singleton instance based on {@link ThreadLocalRandom#current()} <b>which is not cryptographically secure</b>. In addition,
+ * instances do not use a cryptographically random seed unless the {@linkplain System#getProperty system property} {@code java.util.secureRandomSeed} is set to
+ * {@code true}.
  * </p>
  * <p>
  * Starting in version 3.17.0, the method {@link #secure()} uses {@link SecureRandom#SecureRandom()} instead of {@link SecureRandom#getInstanceStrong()}, and
@@ -57,6 +59,12 @@ import org.apache.commons.lang3.exception.UncheckedException;
  * (performance and/or correctness).
  * </p>
  *
+ * @see #secure()
+ * @see #secureStrong()
+ * @see #insecure()
+ * @see SecureRandom#SecureRandom()
+ * @see SecureRandom#getInstanceStrong()
+ * @see ThreadLocalRandom#current()
  * @see RandomStringUtils
  * @since 3.3
  */
