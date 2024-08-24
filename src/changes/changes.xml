@@ -52,6 +52,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate static RandomStringUtils.random*() methods in favor or .secure() and .insecure() versions.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">RandomUtils.secure() now uses SecureRandom() instead of SecureRandom.getInstanceStrong().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">RandomStringUtils.secure() now uses SecureRandom() instead of SecureRandom.getInstanceStrong().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Remove unused exception from deprecated StringUtils.toString(byte[], String).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Make RandomUtils.insecure() public.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RandomUtils.secureStrong().</action>
