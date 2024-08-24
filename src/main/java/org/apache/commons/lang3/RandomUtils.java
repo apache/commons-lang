@@ -255,6 +255,10 @@ public class RandomUtils {
         return SECURE;
     }
 
+    static SecureRandom secureRandom() {
+        return SECURE_RANDOM_STRONG.get();
+    }
+
     /**
      * Gets the singleton instance based on {@link SecureRandom#getInstanceStrong()} which uses an algorithms/providers
      * specified in the {@code securerandom.strongAlgorithms} {@link Security} property.
@@ -268,10 +272,6 @@ public class RandomUtils {
      */
     public static RandomUtils secureStrong() {
         return SECURE_STRONG;
-    }
-
-    static SecureRandom secureRandom() {
-        return SECURE_RANDOM_STRONG.get();
     }
 
     private final Supplier<Random> random;
