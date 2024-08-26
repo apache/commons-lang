@@ -1433,6 +1433,115 @@ public class ArrayUtils {
     }
 
     /**
+     * Searches element in array sorted by key.
+     *
+     * @param array
+     *      array sorted by key field
+     * @param key
+     *      key to search for
+     * @param keyExtractor
+     *      function to extract key from element
+     * @param comparator
+     *      comparator for keys
+     *
+     * @return
+     *      index of the search key, if it is contained in the array; otherwise, (-first_greater - 1).
+     *      The first_greater is the index of lowest greater element in the list - if all elements are lower, the
+     *      first_greater is defined as array.length.
+     *
+     * @param <T>
+     *     type of array element
+     * @param <K>
+     *     type of key
+     */
+    public static <K, T> int binarySearch(
+            T[] array,
+            K key,
+            Function<T, K> keyExtractor, Comparator<? super K> comparator
+    ) {
+        return binarySearch0(array, 0, array.length, key, keyExtractor, comparator);
+    }
+
+    /**
+     * Searches element in array sorted by key, within range fromIndex (inclusive) - toIndex (exclusive).
+     *
+     * @param array
+     *      array sorted by key field
+     * @param fromIndex
+     *      start index (inclusive)
+     * @param toIndex
+     *      end index (exclusive)
+     * @param key
+     *      key to search for
+     * @param keyExtractor
+     *      function to extract key from element
+     * @param comparator
+     *      comparator for keys
+     *
+     * @return
+     *      index of the search key, if it is contained in the array within specified range; otherwise,
+     *      (-first_greater - 1).  The first_greater is the index of lowest greater element in the list - if all elements
+     *      are lower, the first_greater is defined as toIndex.
+     *
+     * @throws ArrayIndexOutOfBoundsException
+     *      when fromIndex or toIndex is out of array range
+     * @throws IllegalArgumentException
+     *      when fromIndex is greater than toIndex
+     *
+     * @param <T>
+     *     type of array element
+     * @param <K>
+     *     type of key
+     */
+    public static <T, K> int binarySearch(
+            T[] array,
+            int fromIndex, int toIndex,
+            K key,
+            Function<T, K> keyExtractor, Comparator<? super K> comparator
+    ) {
+        if (fromIndex > toIndex) {
+            throw new IllegalArgumentException(
+                    "fromIndex(" + fromIndex + ") > toIndex(" + toIndex + ")");
+        }
+        if (fromIndex < 0) {
+            throw new ArrayIndexOutOfBoundsException(fromIndex);
+        }
+        if (toIndex > array.length) {
+            throw new ArrayIndexOutOfBoundsException(toIndex);
+        }
+
+        return binarySearch0(array, fromIndex, toIndex, key, keyExtractor, comparator);
+    }
+
+    // common implementation for binarySearch methods, with same semantics:
+    private static <T, K> int binarySearch0(
+            T[] array,
+            int fromIndex, int toIndex,
+            K key,
+            Function<T, K> keyExtractor, Comparator<? super K> comparator
+    ) {
+        int l = fromIndex;
+        int h = toIndex - 1;
+
+        while (l <= h) {
+            final int m = (l + h) >>> 1; // unsigned shift to avoid overflow
+            final K value = keyExtractor.apply(array[m]);
+            final int c = comparator.compare(value, key);
+            if (c < 0) {
+                l = m + 1;
+            } else if (c > 0) {
+                h = m - 1;
+            } else {
+                // 0, found
+                return m;
+            }
+        }
+
+        // not found, the l points to the lowest higher match:
+        return -l - 1;
+    }
+
+    /**
      * Clones an array or returns {@code null}.
      * <p>
      * This method returns {@code null} for a {@code null} input array.
