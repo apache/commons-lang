@@ -1822,4 +1822,161 @@ public class NumberUtils {
     public NumberUtils() {
         // empty
     }
+    
+    /**
+	 * Return true if a + b is greater than Integer.MAX_VALUE or less than
+	 * Integer.MIN_VALUE.
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @return true if an overflow occurs.
+	 */
+	public static boolean isOverflow(int a, int b)
+	{
+		long la = a;
+		long lb = b;
+		long lv = la + lb;
+		
+		return lv > Integer.MAX_VALUE || lv < Integer.MIN_VALUE;
+
+	}
+
+	/**
+	 * Simple wrapper on Math.addExtract( a, b )
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @throws ArithmeticException
+	 *             if underflow occurs
+	 */
+	public static void checkOverflow(int a, int b) throws ArithmeticException
+	{
+		if (isOverflow( a, b ))
+		{
+			throw new ArithmeticException( String.format( "Overflow (%s+%s)", a,b));
+		}
+	}
+
+	/**
+	 * Return true if a - b is greater than Integer.MAX_VALUE or less than
+	 * Integer.MIN_VALUE.
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @return true if an underflow occurs.
+	 */
+	public static boolean isUnderflow(int a, int b)
+	{
+		long la = a;
+		long lb = b;
+		long lv = la - lb;
+		
+		return lv > Integer.MAX_VALUE || lv < Integer.MIN_VALUE;
+
+	}
+
+	/**
+	 * Simple wrapper on Math.subtractExtract( a, b )
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @throws ArithmeticException
+	 *             if underflow occurs
+	 */
+	public static void checkUnderflow(int a, int b) throws ArithmeticException
+	{
+		if (isUnderflow( a, b ))
+		{
+			throw new ArithmeticException( String.format( "Underflow (%s-%s)", a,b));
+		}
+	}
+
+	/**
+	 * Return true if a + b is greater than Integer.MAX_VALUE or less than
+	 * Integer.MIN_VALUE.
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @return true if an overflow occurs.
+	 */
+	public static boolean isOverflow(long a, long b)
+	{
+		BigInteger ba = BigInteger.valueOf(a);
+		BigInteger bb = BigInteger.valueOf(b);
+		
+		BigInteger bv = ba.add(bb);
+		BigInteger max = BigInteger.valueOf( Long.MAX_VALUE );
+		BigInteger min = BigInteger.valueOf( Long.MIN_VALUE );
+		return (bv.compareTo(max) == 1 || bv.compareTo(min) == -1);
+	}
+
+	/**
+	 * Simple wrapper on Math.addExtract( a, b )
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @throws ArithmeticException
+	 *             if underflow occurs
+	 */
+	public static void checkOverflow(long a, long b) throws ArithmeticException
+	{
+		if (isOverflow( a, b ))
+		{
+			throw new ArithmeticException( String.format( "Overflow (%s+%s)", a,b));
+		}
+
+	}
+
+	/**
+	 * Return true if a - b is greater than Integer.MAX_VALUE or less than
+	 * Integer.MIN_VALUE.
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @return true if an underflow occurs.
+	 */
+	public static boolean isUnderflow(long a, long b)
+	{
+
+		BigInteger ba = BigInteger.valueOf(a);
+		BigInteger bb = BigInteger.valueOf(b);
+		
+		BigInteger bv = ba.subtract(bb);
+		BigInteger max = BigInteger.valueOf( Long.MAX_VALUE );
+		BigInteger min = BigInteger.valueOf( Long.MIN_VALUE );
+		return (bv.compareTo(max) == 1 || bv.compareTo(min) == -1);
+	}
+
+	/**
+	 * Simple wrapper on Math.subtractExtract( a, b )
+	 * 
+	 * @param a
+	 *            the first value
+	 * @param b
+	 *            the second value
+	 * @throws ArithmeticException
+	 *             if underflow occurs
+	 */
+	public static void checkUnderflow(long a, long b) throws ArithmeticException
+	{
+		if (isUnderflow( a, b ))
+		{
+			throw new ArithmeticException( String.format( "Underflow (%s-%s)", a,b));
+		}
+	}
+
 }
