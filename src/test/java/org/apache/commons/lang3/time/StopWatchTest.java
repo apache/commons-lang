@@ -58,6 +58,8 @@ import org.apache.commons.lang3.stream.Streams;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
+import org.mockito.Mockito;
 
 /**
  * Tests {@link StopWatch}.
@@ -789,6 +791,18 @@ public class StopWatchTest extends AbstractLangTest {
             };
             assertThrows(IllegalArgumentException.class, () -> watch.accept(consumer).accept("a", "b"));
             assertTrue(watch.isSuspended());
+        }
+
+        @Test
+        void testTimeIsReallyTaken() {
+            final StopWatch watch = Mockito.spy(StopWatch.create());
+            BiConsumer<String, String> consumer = (a, b) -> { };
+            watch.accept(consumer).accept("a", "b");
+
+            InOrder inOrderVerification = Mockito.inOrder(watch);
+            inOrderVerification.verify(watch).start();
+            inOrderVerification.verify(watch).suspend();
+            inOrderVerification.verifyNoMoreInteractions();
         }
     }
 
