@@ -743,6 +743,35 @@ public class NumberUtils {
     }
 
     /**
+     * Checks if a number is prime.
+     *
+     * <p>A prime number is a positive integer greater than 1 that has no positive integer
+     * divisors other than 1 and itself. This method checks for primality by testing divisibility
+     * up to the square root of the number.</p>
+     *
+     * @param number the number to check
+     * @return {@code true} if the number is prime, {@code false} otherwise
+     * @since 3.4
+     */
+    public static boolean isPrime(final int number) {
+        if (number <= 1) {
+            return false;
+        }
+        if (number <= 3) {
+            return true;
+        }
+        if (number % 2 == 0 || number % 3 == 0) {
+            return false;
+        }
+        for (int i = 5; i * i <= number; i += 6) {
+            if (number % i == 0 || number % (i + 2) == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Utility method for {@link #createNumber(java.lang.String)}.
      *
      * <p>This will check if the magnitude of the number is zero by checking if there

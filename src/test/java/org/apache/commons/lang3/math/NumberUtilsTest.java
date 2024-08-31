@@ -1025,6 +1025,16 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testIsPrime() {
+        assertTrue(NumberUtils.isPrime(2));   // 2 is prime
+        assertTrue(NumberUtils.isPrime(3));   // 3 is prime
+        assertFalse(NumberUtils.isPrime(4));  // 4 is not prime
+        assertTrue(NumberUtils.isPrime(29));  // 29 is prime
+        assertFalse(NumberUtils.isPrime(1));  // 1 is not prime
+        assertFalse(NumberUtils.isPrime(-7)); // Negative numbers are not prime
+    }
+
+    @Test
     public void testLang1087() {
         // no sign cases
         assertEquals(Float.class, NumberUtils.createNumber("0.0").getClass());
