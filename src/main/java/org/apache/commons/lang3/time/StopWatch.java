@@ -710,7 +710,7 @@ public class StopWatch {
      * @param supplier the {@link FailableSupplier} those execution should be measured
      * @return the result of the {@link FailableSupplier#get()} operation
      * @throws E if the supplier fails
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, E extends Throwable> T get(final FailableSupplier<T, E> supplier) throws E {
         resumeOrStartStopWatch();
@@ -744,7 +744,7 @@ public class StopWatch {
      * @param supplier the {@link Supplier} those execution should be measured
      * @return the result of the {@link Supplier#get()} operation
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T> T get(final Supplier<T> supplier) {
         resumeOrStartStopWatch();
@@ -789,7 +789,7 @@ public class StopWatch {
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, R> Function<T, R> apply(final Function<T, R> function) {
         return arg -> {
@@ -827,7 +827,7 @@ public class StopWatch {
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, R, E extends Throwable> FailableFunction<T, R, E> apply(final FailableFunction<T, R, E> function) {
         return arg -> {
@@ -865,7 +865,7 @@ public class StopWatch {
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, U, R> BiFunction<T, U, R> apply(final BiFunction<T, U, R> function) {
         return (firstArg, secondArg) -> {
@@ -904,7 +904,7 @@ public class StopWatch {
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> apply(final FailableBiFunction<T, U, R, E> function) {
         return (firstArg, secondArg) -> {
@@ -943,7 +943,7 @@ public class StopWatch {
      * @param function the function those application should be measured
      * @return the given function prepared to take time if applied
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, U, V, R> TriFunction<T, U, V, R> apply(final TriFunction<T, U, V, R> function) {
         return (firstArg, secondArg, thirdArg) -> {
@@ -979,7 +979,7 @@ public class StopWatch {
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T> Consumer<T> accept(final Consumer<T> consumer) {
         return arg -> {
@@ -1016,7 +1016,7 @@ public class StopWatch {
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, U> BiConsumer<T, U> accept(final BiConsumer<T, U> consumer) {
         return (first, second) -> {
@@ -1054,7 +1054,7 @@ public class StopWatch {
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
      * @throws IllegalStateException if the StopWatch is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, U, E extends Exception> FailableBiConsumer<T, U, E> accept(final FailableBiConsumer<T, U, E> consumer) {
         return (first, second) -> {
@@ -1091,7 +1091,7 @@ public class StopWatch {
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, E extends Exception> FailableConsumer<T, E> accept(final FailableConsumer<T, E> consumer) {
         return arg -> {
@@ -1129,7 +1129,7 @@ public class StopWatch {
      * @param consumer the consumer those application should be measured
      * @return the given consumer prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, U, V> TriConsumer<T, U, V> accept(final TriConsumer<T, U, V> consumer) {
         return (firstArg, secondArg, thirdArg) -> {
@@ -1167,7 +1167,7 @@ public class StopWatch {
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T> Predicate<T> test(final Predicate<T> predicate) {
         return arg -> {
@@ -1207,7 +1207,7 @@ public class StopWatch {
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, U> BiPredicate<T, U> test(final BiPredicate<T, U> predicate) {
         return (firstArg, secondArg) -> {
@@ -1246,7 +1246,7 @@ public class StopWatch {
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, U, E extends Throwable> FailableBiPredicate<T, U, E> test(final FailableBiPredicate<T, U, E> predicate) {
         return (firstArg, secondArg) -> {
@@ -1284,7 +1284,7 @@ public class StopWatch {
      * @param predicate the predicate those application should be measured
      * @return the given predicate prepared to take time if applied
      * @throws IllegalStateException if the {@link StopWatch} is not stopped or suspended
-     * @since 3.17.0
+     * @since 3.18.0
      */
     public <T, E extends Throwable> FailablePredicate<T, E> test(final FailablePredicate<T, E> predicate) {
         resumeOrStartStopWatch();
