@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.tuple;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -138,12 +139,12 @@ public class TripleTest extends AbstractLangTest {
     @Test
     public void testTripleOf() {
         final Triple<Integer, String, Boolean> triple = Triple.of(0, "foo", Boolean.TRUE);
-        assertTrue(triple instanceof ImmutableTriple<?, ?, ?>);
+        assertInstanceOf(ImmutableTriple.class, triple);
         assertEquals(0, ((ImmutableTriple<Integer, String, Boolean>) triple).left.intValue());
         assertEquals("foo", ((ImmutableTriple<Integer, String, Boolean>) triple).middle);
         assertEquals(Boolean.TRUE, ((ImmutableTriple<Integer, String, Boolean>) triple).right);
         final Triple<Object, String, Long> triple2 = Triple.of(null, "bar", Long.valueOf(200L));
-        assertTrue(triple2 instanceof ImmutableTriple<?, ?, ?>);
+        assertInstanceOf(ImmutableTriple.class, triple2);
         assertNull(((ImmutableTriple<Object, String, Long>) triple2).left);
         assertEquals("bar", ((ImmutableTriple<Object, String, Long>) triple2).middle);
         assertEquals(Long.valueOf(200L), ((ImmutableTriple<Object, String, Long>) triple2).right);

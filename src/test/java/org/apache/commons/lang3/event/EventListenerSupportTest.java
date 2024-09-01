@@ -18,9 +18,9 @@
 package org.apache.commons.lang3.event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
@@ -248,7 +248,7 @@ public class EventListenerSupportTest extends AbstractLangTest {
         final Exception e = assertThrows(UndeclaredThrowableException.class,
                 () -> listenerSupport.fire().vetoableChange(new PropertyChangeEvent(new Date(), "Day", 0, 1)));
         final Throwable rootCause = ExceptionUtils.getRootCause(e);
-        assertTrue(rootCause instanceof PropertyVetoException);
+        assertInstanceOf(PropertyVetoException.class, rootCause);
         assertEquals(vetoLimit + 1, count.get());
     }
 

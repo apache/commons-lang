@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -75,7 +76,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
     public void testClone() {
         final Object test = SerializationUtils.clone(iMap);
         assertNotNull(test);
-        assertTrue(test instanceof HashMap<?, ?>);
+        assertInstanceOf(HashMap.class, test);
         assertNotSame(test, iMap);
         final HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));
@@ -117,7 +118,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
 
         final Object test = SerializationUtils.deserialize(streamReal.toByteArray());
         assertNotNull(test);
-        assertTrue(test instanceof HashMap<?, ?>);
+        assertInstanceOf(HashMap.class, test);
         assertNotSame(test, iMap);
         final HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));
@@ -172,7 +173,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
         final ByteArrayInputStream inTest = new ByteArrayInputStream(streamReal.toByteArray());
         final Object test = SerializationUtils.deserialize(inTest);
         assertNotNull(test);
-        assertTrue(test instanceof HashMap<?, ?>);
+        assertInstanceOf(HashMap.class, test);
         assertNotSame(test, iMap);
         final HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));

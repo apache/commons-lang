@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -543,7 +544,7 @@ public class FunctionsTest extends AbstractLangTest {
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, callable::call);
         final Throwable cause = e.getCause();
         assertNotNull(cause);
-        assertTrue(cause instanceof SomeException);
+        assertInstanceOf(SomeException.class, cause);
         assertEquals("Odd Invocation: 1", cause.getMessage());
         final FailureOnOddInvocations instance;
         try {
@@ -585,7 +586,7 @@ public class FunctionsTest extends AbstractLangTest {
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, runnable::run);
         final Throwable cause = e.getCause();
         assertNotNull(cause);
-        assertTrue(cause instanceof SomeException);
+        assertInstanceOf(SomeException.class, cause);
         assertEquals("Odd Invocation: 1", cause.getMessage());
 
         // Even invocations, should not throw an exception
@@ -600,7 +601,7 @@ public class FunctionsTest extends AbstractLangTest {
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, supplier::get);
         final Throwable cause = e.getCause();
         assertNotNull(cause);
-        assertTrue(cause instanceof SomeException);
+        assertInstanceOf(SomeException.class, cause);
         assertEquals("Odd Invocation: 1", cause.getMessage());
         assertNotNull(supplier.get());
     }
@@ -669,7 +670,7 @@ public class FunctionsTest extends AbstractLangTest {
             () -> predicate.test(null, null));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
-        assertTrue(cause instanceof SomeException);
+        assertInstanceOf(SomeException.class, cause);
         assertEquals("Odd Invocation: 1", cause.getMessage());
         final boolean instance = predicate.test(null, null);
         assertNotNull(instance);
@@ -682,7 +683,7 @@ public class FunctionsTest extends AbstractLangTest {
             () -> Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
-        assertTrue(cause instanceof SomeException);
+        assertInstanceOf(SomeException.class, cause);
         assertEquals("Odd Invocation: 1", cause.getMessage());
         final FailureOnOddInvocations instance = Functions.call(FailureOnOddInvocations::new);
         assertNotNull(instance);
@@ -729,7 +730,7 @@ public class FunctionsTest extends AbstractLangTest {
             () -> Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
-        assertTrue(cause instanceof SomeException);
+        assertInstanceOf(SomeException.class, cause);
         assertEquals("Odd Invocation: 1", cause.getMessage());
         final FailureOnOddInvocations instance = Functions.call(FailureOnOddInvocations::new);
         assertNotNull(instance);
@@ -771,7 +772,7 @@ public class FunctionsTest extends AbstractLangTest {
             () -> predicate.test(null));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
-        assertTrue(cause instanceof SomeException);
+        assertInstanceOf(SomeException.class, cause);
         assertEquals("Odd Invocation: 1", cause.getMessage());
         final boolean instance = predicate.test(null);
         assertNotNull(instance);
@@ -784,7 +785,7 @@ public class FunctionsTest extends AbstractLangTest {
             () -> Functions.run(FailureOnOddInvocations::new));
         final Throwable cause = e.getCause();
         assertNotNull(cause);
-        assertTrue(cause instanceof SomeException);
+        assertInstanceOf(SomeException.class, cause);
         assertEquals("Odd Invocation: 1", cause.getMessage());
 
         // Even invocations, should not throw an exception

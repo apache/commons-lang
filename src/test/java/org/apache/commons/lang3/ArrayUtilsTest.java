@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -115,7 +116,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testArrayCreationWithGeneralReturnType() {
         final Object obj = ArrayUtils.toArray("foo", "bar");
-        assertTrue(obj instanceof String[]);
+        assertInstanceOf(String[].class, obj);
     }
 
     @Test
