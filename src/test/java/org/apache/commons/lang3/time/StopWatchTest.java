@@ -60,6 +60,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
+import org.mockito.verification.VerificationMode;
 
 /**
  * Tests {@link StopWatch}.
@@ -802,6 +803,19 @@ public class StopWatchTest extends AbstractLangTest {
             InOrder inOrderVerification = Mockito.inOrder(watch);
             inOrderVerification.verify(watch).start();
             inOrderVerification.verify(watch).suspend();
+            inOrderVerification.verifyNoMoreInteractions();
+        }
+
+        @Test
+        void testStopWatchIsOnlyResumedOrStartedOnFunctionInvocation() {
+            final StopWatch watch = Mockito.spy(StopWatch.create());
+            BiConsumer<String, String> consumer = (a, b) -> { };
+            BiConsumer<String, String> function = watch.accept(consumer);
+
+            InOrder inOrderVerification = Mockito.inOrder(watch);
+            inOrderVerification.verify(watch, Mockito.never()).start();
+            inOrderVerification.verify(watch, Mockito.never()).suspend();
+            inOrderVerification.verify(watch).accept(Mockito.any(BiConsumer.class));
             inOrderVerification.verifyNoMoreInteractions();
         }
     }
