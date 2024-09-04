@@ -45,6 +45,7 @@ import org.junit.jupiter.api.Test;
  */
 public class StopWatchTest extends AbstractLangTest {
 
+    private static final int SPLIT_CLOCK_STR_LEN = 12;
     private static final Duration TWO_MILLISECOND = Duration.ofMillis(2);
     private static final Duration MILLIS_200 = Duration.ofMillis(200);
     private static final Duration MILLIS_550 = Duration.ofMillis(550);
@@ -325,7 +326,7 @@ public class StopWatchTest extends AbstractLangTest {
         final long splitTime = watch.getSplitTime();
         final Duration splitDuration = watch.getSplitDuration();
         assertEquals(splitTime, watch.getSplitDuration().toMillis());
-        assertEquals(12, watch.toSplitString().length(), "Formatted split string not the correct length");
+        assertEquals(SPLIT_CLOCK_STR_LEN, watch.toSplitString().length(), "Formatted split string not the correct length");
         sleep(MILLIS_550);
         // slept ~1100 millis
         watch.unsplit();
@@ -418,27 +419,27 @@ public class StopWatchTest extends AbstractLangTest {
         sleep(TWO_MILLISECOND);
         watch.split();
         final String splitStr = watch.toSplitString();
-        assertEquals(12, splitStr.length(), "Formatted split string not the correct length");
+        assertEquals(SPLIT_CLOCK_STR_LEN, splitStr.length(), "Formatted split string not the correct length");
     }
 
     @Test
     public void testToSplitStringWithMessage() throws InterruptedException {
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
-        sleep(MILLIS_550);
+        sleep(TWO_MILLISECOND);
         watch.split();
         final String splitStr = watch.toSplitString();
-        assertEquals(12 + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
+        assertEquals(SPLIT_CLOCK_STR_LEN + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
     }
 
     @Test
     public void testToString() throws InterruptedException {
         //
         final StopWatch watch = StopWatch.createStarted();
-        sleep(MILLIS_550);
+        sleep(TWO_MILLISECOND);
         watch.split();
         final String splitStr = watch.toString();
-        assertEquals(12, splitStr.length(), "Formatted split string not the correct length");
+        assertEquals(SPLIT_CLOCK_STR_LEN, splitStr.length(), "Formatted split string not the correct length");
     }
 
     @Test
@@ -447,9 +448,9 @@ public class StopWatchTest extends AbstractLangTest {
         //
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
-        sleep(MILLIS_550);
+        sleep(TWO_MILLISECOND);
         watch.split();
         final String splitStr = watch.toString();
-        assertEquals(12 + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
+        assertEquals(SPLIT_CLOCK_STR_LEN + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
     }
 }
