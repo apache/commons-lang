@@ -200,8 +200,10 @@ public class StopWatchTest extends AbstractLangTest {
         assertEquals(Duration.ZERO, watch.getDuration());
         assertEquals(ZERO_TIME_ELAPSED, watch.toString());
         watch.start();
-        sleep(MILLIS_550);
-        assertThat("watch.getDuration()", watch.getDuration().toMillis(), lessThan(2000L));
+        sleep(Duration.ofMillis(1));
+        final long nanos = watch.getNanoTime();
+        assertTrue(nanos > 0, () -> "getNanoTime(): " + nanos);
+        assertTrue(DurationUtils.isPositive(watch.getDuration()));
     }
 
     @Test
