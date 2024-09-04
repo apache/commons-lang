@@ -498,7 +498,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class SupplierSupportRelatedTests {
+    public class SupplierSupportTest {
         @Test
         public void testGet() {
             final StopWatch watch = StopWatch.create();
@@ -532,7 +532,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class FailableSupplierSupportRelatedTests {
+    public class FailableSupplierSupportTest {
         @Test
         public void testGet() throws Throwable {
             final StopWatch watch = StopWatch.create();
@@ -565,7 +565,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class FunctionSupportRelatedTests {
+    public class FunctionSupportTest {
         @Test
         public void testApply() {
             final StopWatch watch = StopWatch.create();
@@ -603,7 +603,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class BiFunctionSupportRelatedTests {
+    public class BiFunctionSupportTest {
         @Test
         public void testApply() {
             final StopWatch watch = StopWatch.create();
@@ -635,7 +635,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class FailableBiFunctionSupportRelatedTests {
+    public class FailableBiFunctionSupportTest {
         @Test
         public void testApply() throws Exception {
             final StopWatch watch = StopWatch.create();
@@ -667,7 +667,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class FailableFunctionSupportRelatedTests {
+    public class FailableFunctionSupportTest {
         @Test
         public void testApply() throws Exception {
             final StopWatch watch = StopWatch.create();
@@ -699,7 +699,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class TriFunctionSupportRelatedTests {
+    public class TriFunctionSupportTest {
         @Test
         public void testApply() {
             final StopWatch watch = StopWatch.create();
@@ -732,7 +732,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class ConsumerSupportRelatedTests {
+    public class ConsumerSupportTest {
         @Test
         public void testAccept() {
             final StopWatch watch = StopWatch.create();
@@ -764,7 +764,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class BiConsumerSupportRelatedTests {
+    public class BiConsumerSupportTest {
         @Test
         public void testAccept() {
             final StopWatch watch = StopWatch.create();
@@ -821,7 +821,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class TriConsumerSupportRelatedTests {
+    public class TriConsumerSupportTest {
         @Test
         public void testAccept() {
             final StopWatch watch = StopWatch.create();
@@ -853,7 +853,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class PredicateSupportRelatedTests {
+    public class PredicateSupportTest {
         @Test
         public void testTest() {
             final StopWatch watch = StopWatch.create();
@@ -885,7 +885,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class BiPredicateSupportRelatedTests {
+    public class BiPredicateSupportTest {
         @Test
         public void testTest() {
             final StopWatch watch = StopWatch.create();
@@ -924,7 +924,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class FailableBiPredicateSupportRelatedTests {
+    public class FailableBiPredicateSupportTest {
         @Test
         public void testTest() {
             final StopWatch watch = StopWatch.create();
@@ -962,7 +962,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class FailableBiConsumerSupportRelatedTests {
+    public class FailableBiConsumerSupportTest {
         @Test
         public void testTest() {
             final StopWatch watch = StopWatch.create();
@@ -994,7 +994,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class FailableConsumerSupportRelatedTests {
+    public class FailableConsumerSupportTest {
         @Test
         public void testTest() {
             final StopWatch watch = StopWatch.create();
@@ -1026,7 +1026,7 @@ public class StopWatchTest extends AbstractLangTest {
     }
 
     @Nested
-    public class FailablePredicateSupportRelatedTests {
+    public class FailablePredicateSupportTest {
         @Test
         public void testTest() {
             final StopWatch watch = StopWatch.create();
