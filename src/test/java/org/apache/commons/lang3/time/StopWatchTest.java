@@ -47,7 +47,6 @@ public class StopWatchTest extends AbstractLangTest {
 
     private static final int SPLIT_CLOCK_STR_LEN = 12;
     private static final Duration TWO_MILLISECOND = Duration.ofMillis(2);
-    private static final Duration MILLIS_200 = Duration.ofMillis(200);
     private static final Duration MILLIS_550 = Duration.ofMillis(550);
     private static final String MESSAGE = "Baking cookies";
     private static final Duration MIN_SLEEP = Duration.ofMillis(20);
