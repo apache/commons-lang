@@ -44,6 +44,7 @@ import org.junit.jupiter.api.Test;
  */
 public class StopWatchTest extends AbstractLangTest {
 
+    private static final Duration ONE_MILLISECOND = Duration.ofMillis(1);
     private static final Duration MILLIS_200 = Duration.ofMillis(200);
     private static final Duration MILLIS_550 = Duration.ofMillis(550);
     private static final String MESSAGE = "Baking cookies";
@@ -200,7 +201,7 @@ public class StopWatchTest extends AbstractLangTest {
         assertEquals(Duration.ZERO, watch.getDuration());
         assertEquals(ZERO_TIME_ELAPSED, watch.toString());
         watch.start();
-        sleep(Duration.ofMillis(1));
+        sleep(ONE_MILLISECOND);
         final long nanos = watch.getNanoTime();
         assertTrue(nanos > 0, () -> "getNanoTime(): " + nanos);
         assertTrue(DurationUtils.isPositive(watch.getDuration()));
