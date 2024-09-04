@@ -302,7 +302,7 @@ public class StopWatchTest extends AbstractLangTest {
     @Test
     public void testSimple() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
-        final Duration sleepDuration = MILLIS_550;
+        final Duration sleepDuration = TWO_MILLISECOND;
         sleep(sleepDuration);
         watch.stop();
         final long time = watch.getTime();
