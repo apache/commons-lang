@@ -415,7 +415,7 @@ public class StopWatchTest extends AbstractLangTest {
     @Test
     public void testToSplitString() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
-        sleep(MILLIS_550);
+        sleep(TWO_MILLISECOND);
         watch.split();
         final String splitStr = watch.toSplitString();
         assertEquals(12, splitStr.length(), "Formatted split string not the correct length");
