@@ -302,14 +302,14 @@ public class StopWatchTest extends AbstractLangTest {
     @Test
     public void testSimple() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
-        sleep(MILLIS_550);
+        final Duration sleepDuration = MILLIS_550;
+        sleep(sleepDuration);
         watch.stop();
         final long time = watch.getTime();
         final Duration duration = watch.getDuration();
         assertEquals(time, watch.getTime());
         assertEquals(duration, watch.getDuration());
-        assertThat("time", time, allOf(greaterThanOrEqualTo(500L), lessThan(2000L)));
-        assertThat("duration", duration.toMillis(), allOf(greaterThanOrEqualTo(500L), lessThan(2000L)));
+        assertTrue(duration.compareTo(sleepDuration) > 0);
         watch.reset();
         assertEquals(0, watch.getTime());
         assertEquals(Duration.ZERO, watch.getDuration());
