@@ -209,11 +209,9 @@ public class StopWatchTest extends AbstractLangTest {
     @Test
     public void testGetSplitDuration() {
         // Create a mock StopWatch with a time of 2:59:01.999
-        // @formatter:off
         final StopWatch watch = StopWatch.createStarted();
         watch.split();
         set(watch, 123456);
-        // @formatter:on
         assertEquals(Duration.ofNanos(123456), watch.getSplitDuration());
     }
 
