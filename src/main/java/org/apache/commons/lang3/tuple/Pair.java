@@ -236,7 +236,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      */
     @Override
     public int hashCode() {
-        // see Map.Entry API specification
+        // See Map.Entry API specification
         return Objects.hashCode(getKey()) ^ Objects.hashCode(getValue());
     }
 
