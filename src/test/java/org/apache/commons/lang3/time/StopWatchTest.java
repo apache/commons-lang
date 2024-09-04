@@ -37,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -44,7 +45,7 @@ import org.junit.jupiter.api.Test;
  */
 public class StopWatchTest extends AbstractLangTest {
 
-    private static final Duration ONE_MILLISECOND = Duration.ofMillis(1);
+    private static final Duration TWO_MILLISECOND = Duration.ofMillis(2);
     private static final Duration MILLIS_200 = Duration.ofMillis(200);
     private static final Duration MILLIS_550 = Duration.ofMillis(550);
     private static final String MESSAGE = "Baking cookies";
@@ -201,7 +202,7 @@ public class StopWatchTest extends AbstractLangTest {
         assertEquals(Duration.ZERO, watch.getDuration());
         assertEquals(ZERO_TIME_ELAPSED, watch.toString());
         watch.start();
-        sleep(ONE_MILLISECOND);
+        sleep(TWO_MILLISECOND);
         final long nanos = watch.getNanoTime();
         assertTrue(nanos > 0, () -> "getNanoTime(): " + nanos);
         assertTrue(DurationUtils.isPositive(watch.getDuration()));
@@ -245,14 +246,16 @@ public class StopWatchTest extends AbstractLangTest {
         assertThrows(IllegalStateException.class, watch::getStartTime, "Calling getStartTime on a reset, but unstarted StopWatch should throw an exception");
     }
 
-    @Test
+    @RepeatedTest(10)
     public void testGetTime() throws InterruptedException {
         final StopWatch watch = new StopWatch();
         assertEquals(0, watch.getTime());
         assertEquals(ZERO_TIME_ELAPSED, watch.toString());
         watch.start();
-        sleep(MILLIS_550);
-        assertThat("watch.getTime()", watch.getTime(), lessThan(2000L));
+        sleep(TWO_MILLISECOND);
+        final long time = watch.getTime();
+        assertTrue(time > 0, () -> "getTime() millis: " + time);
+        assertTrue(time < 2000, () -> "getTime() millis: " + time);
     }
 
     @Test
