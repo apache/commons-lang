@@ -370,6 +370,7 @@ public class StopWatchTest extends AbstractLangTest {
         final long testEndMillis = System.currentTimeMillis();
         final long stopTime = watch.getStopTime();
         assertEquals(stopTime, watch.getStopTime());
+        // Only less than, not equal
         assertTrue(testStartMillis < testEndMillis);
     }
 
