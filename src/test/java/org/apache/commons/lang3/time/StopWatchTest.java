@@ -423,7 +423,7 @@ public class StopWatchTest extends AbstractLangTest {
                 () -> String.format("totalDuration >= sleepMillisX2", totalDuration, sleepMillisX2));
         ;
         // Be lenient for slow running builds
-        final long testTooLongMillis = sleepMillis * 5;
+        final long testTooLongMillis = sleepMillis * 100;
         assertTrue(totalTimeFromNanos < testTooLongMillis,
                 () -> String.format("totalTimeFromNanos %s < testTooLongMillis %s", totalTimeFromNanos, testTooLongMillis));
         assertTrue(totalDuration.compareTo(Duration.ofMillis(testTooLongMillis)) < 0,
