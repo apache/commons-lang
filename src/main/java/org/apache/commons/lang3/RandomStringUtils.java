@@ -277,43 +277,48 @@ public class RandomStringUtils {
             end = Character.MAX_CODE_POINT;
         }
 
-        // Optimize generation of full alphanumerical characters
-        // Normally, we would need to pick a 7-bit integer, since gap = 'z' - '0' + 1 = 75 > 64
-        // In turn, this would make us reject the sampling with probability 1 - 62 / 2^7 > 1 / 2
-        // Instead we can pick directly from the right set of 62 characters, which requires
-        // picking a 6-bit integer and only rejecting with probability 2 / 64 = 1 / 32
-        if (chars == null && letters && numbers && start <= '0' && end >= 'z' + 1) {
-            return random(count, 0, 0, false, false, ALPHANUMERICAL_CHARS, random);
-        }
+        // Optimizations and tests when chars == null and using ASCII characters (end <= 0x7f)
+        if (chars == null && end <= 0x7f) {
+            final int zeroDigitAscii = 48; // '0'
+            final int lastDigitAscii = 57; // '9'
+            final int firstLetterAscii = 65; // 'A'
+            final int lastLetterAscii = 122; // 'z'
 
-        // Optimize start and end when filtering by letters and/or numbers:
-        // The range provided may be too large since we filter anyway afterward.
-        // Note the use of Math.min/max (as opposed to setting start to '0' for example),
-        // since it is possible the range start/end excludes some of the letters/numbers,
-        // e.g., it is possible that start already is '1' when numbers = true, and start
-        // needs to stay equal to '1' in that case.
-        if (chars == null) {
+            // Optimize generation of full alphanumerical characters
+            // Normally, we would need to pick a 7-bit integer, since gap = 'z' - '0' + 1 = 75 > 64
+            // In turn, this would make us reject the sampling with probability 1 - 62 / 2^7 > 1 / 2
+            // Instead we can pick directly from the right set of 62 characters, which requires
+            // picking a 6-bit integer and only rejecting with probability 2 / 64 = 1 / 32
+            if (letters && numbers && start <= zeroDigitAscii && end >= lastLetterAscii + 1) {
+                return random(count, 0, 0, false, false, ALPHANUMERICAL_CHARS, random);
+            }
+
+            if (numbers && end <= zeroDigitAscii || letters && end <= firstLetterAscii) {
+                throw new IllegalArgumentException(
+                        "Parameter end (" + end + ") must be greater then (" + zeroDigitAscii + ") for generating digits "
+                                + "or greater then (" + firstLetterAscii + ") for generating letters.");
+            }
+
+            // Optimize start and end when filtering by letters and/or numbers:
+            // The range provided may be too large since we filter anyway afterward.
+            // Note the use of Math.min/max (as opposed to setting start to '0' for example),
+            // since it is possible the range start/end excludes some of the letters/numbers,
+            // e.g., it is possible that start already is '1' when numbers = true, and start
+            // needs to stay equal to '1' in that case.
+            // Note that because of the above test, we will always have start < end
+            // even after this optimization.
             if (letters && numbers) {
-                start = Math.max('0', start);
-                end = Math.min('z' + 1, end);
+                start = Math.max(zeroDigitAscii, start);
+                end = Math.min(lastLetterAscii + 1, end);
             } else if (numbers) {
                 // just numbers, no letters
-                start = Math.max('0', start);
-                end = Math.min('9' + 1, end);
+                start = Math.max(zeroDigitAscii, start);
+                end = Math.min(lastDigitAscii + 1, end);
             } else if (letters) {
                 // just letters, no numbers
-                start = Math.max('A', start);
-                end = Math.min('z' + 1, end);
+                start = Math.max(firstLetterAscii, start);
+                end = Math.min(lastLetterAscii + 1, end);
             }
-        }
-
-        final int zeroDigitAscii = 48;
-        final int firstLetterAscii = 65;
-
-        if (chars == null && (numbers && end <= zeroDigitAscii || letters && end <= firstLetterAscii)) {
-            throw new IllegalArgumentException(
-                    "Parameter end (" + end + ") must be greater then (" + zeroDigitAscii + ") for generating digits "
-                            + "or greater then (" + firstLetterAscii + ") for generating letters.");
         }
 
         final StringBuilder builder = new StringBuilder(count);
