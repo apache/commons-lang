@@ -732,4 +732,74 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         assertNotEquals(r1, r3);
         assertNotEquals(r2, r3);
     }
+
+    /**
+     * Test {@code RandomStringUtils.random} works appropriately when letters=true
+     * and the range does not only include ASCII letters.
+     * Fails with probability less than 2^-40 (in practice this never happens).
+     */
+    @ParameterizedTest
+    @MethodSource("randomProvider")
+    void testNonASCIILetters(final RandomStringUtils rsu) {
+        // Check that the following create a string with 10 characters 0x4e00 (a non-ASCII letter)
+        String r1 = rsu.next(10, 0x4e00, 0x4e01, true, false);
+        assertEquals(10, r1.length(), "wrong length");
+        for (int i = 0; i < r1.length(); i++) {
+            assertEquals(0x4e00, r1.charAt(i), "characters not all equal to 0x4e00");
+        }
+
+        // Same with both letters=true and numbers=true
+        r1 = rsu.next(10, 0x4e00, 0x4e01, true, true);
+        assertEquals(10, r1.length(), "wrong length");
+        for (int i = 0; i < r1.length(); i++) {
+            assertEquals(0x4e00, r1.charAt(i), "characters not all equal to 0x4e00");
+        }
+
+        // Check that at least one letter is not ASCII
+        boolean found = false;
+        r1 = rsu.next(40, 'F', 0x3000, true, false);
+        assertEquals(40, r1.length(), "wrong length");
+        for (int i = 0; i < r1.length(); i++) {
+            assertTrue(Character.isLetter(r1.charAt(i)), "characters not all letters");
+            if (r1.charAt(i) > 0x7f) {
+                found = true;
+            }
+        }
+        assertTrue(found, "no non-ASCII letter generated");
+    }
+
+    /**
+     * Test {@code RandomStringUtils.random} works appropriately when numbers=true
+     * and the range does not only include ASCII numbers/digits.
+     * Fails with probability less than 2^-40 (in practice this never happens).
+     */
+    @ParameterizedTest
+    @MethodSource("randomProvider")
+    void testNonASCIINumbers(final RandomStringUtils rsu) {
+        // Check that the following create a string with 10 characters 0x0660 (a non-ASCII digit)
+        String r1 = rsu.next(10, 0x0660, 0x0661, false, true);
+        assertEquals(10, r1.length(), "wrong length");
+        for (int i = 0; i < r1.length(); i++) {
+            assertEquals(0x0660, r1.charAt(i), "characters not all equal to 0x0660");
+        }
+
+        // Same with both letters=true and numbers=true
+        r1 = rsu.next(10, 0x0660, 0x0661, true, true);
+        assertEquals(10, r1.length(), "wrong length");
+        for (int i = 0; i < r1.length(); i++) {
+            assertEquals(0x0660, r1.charAt(i), "characters not all equal to 0x0660");
+        }
+
+        // Check that at least one letter is not ASCII
+        boolean found = false;
+        r1 = rsu.next(40, 'F', 0x3000, false, true);
+        assertEquals(40, r1.length(), "wrong length");
+        for (int i = 0; i < r1.length(); i++) {
+            assertTrue(Character.isDigit(r1.charAt(i)), "characters not all numbers");
+            if (r1.charAt(i) > 0x7f) {
+                found = true;
+            }
+        }
+        assertTrue(found, "no non-ASCII number generated");
+    }
 }
