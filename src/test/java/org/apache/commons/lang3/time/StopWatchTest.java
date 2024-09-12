@@ -965,7 +965,7 @@ public class StopWatchTest extends AbstractLangTest {
         @Test
         public void testTest() {
             final StopWatch watch = StopWatch.create();
-            FailableBiConsumer<String, String, IllegalArgumentException> consumer = FailableBiConsumer.NOP;
+            FailableBiConsumer<String, String, IllegalArgumentException> consumer = FailableBiConsumer.nop();
             watch.accept(consumer).accept("A", "B");
             assertTrue(watch.isSuspended());
         }
@@ -976,7 +976,7 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
             assertTrue(watch.isSuspended());
-            FailableBiConsumer<String, String, IllegalArgumentException> consumer = FailableBiConsumer.NOP;
+            FailableBiConsumer<String, String, IllegalArgumentException> consumer = FailableBiConsumer.nop();
             watch.accept(consumer).accept("A", "B");
             assertTrue(watch.isSuspended());
         }
@@ -997,7 +997,7 @@ public class StopWatchTest extends AbstractLangTest {
         @Test
         public void testTest() {
             final StopWatch watch = StopWatch.create();
-            FailableConsumer<String, IllegalArgumentException> consumer = FailableConsumer.NOP;
+            FailableConsumer<String, IllegalArgumentException> consumer = FailableConsumer.nop();
             watch.accept(consumer).accept("A");
             assertTrue(watch.isSuspended());
         }
@@ -1008,7 +1008,7 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
             assertTrue(watch.isSuspended());
-            FailableConsumer<String, IllegalArgumentException> consumer = FailableConsumer.NOP;
+            FailableConsumer<String, IllegalArgumentException> consumer = FailableConsumer.nop();
             watch.accept(consumer).accept("A");
             assertTrue(watch.isSuspended());
         }
@@ -1029,7 +1029,7 @@ public class StopWatchTest extends AbstractLangTest {
         @Test
         public void testTest() {
             final StopWatch watch = StopWatch.create();
-            FailablePredicate<String, IllegalArgumentException> predicate = FailablePredicate.TRUE;
+            FailablePredicate<String, IllegalArgumentException> predicate = FailablePredicate.truePredicate();
             long result = Streams.of("A", "B")
                                  .filter(it -> watch.test(predicate).test(it))
                                  .count();
@@ -1043,7 +1043,7 @@ public class StopWatchTest extends AbstractLangTest {
             watch.start();
             watch.suspend();
             assertTrue(watch.isSuspended());
-            FailablePredicate<String, IllegalArgumentException> predicate = FailablePredicate.TRUE;
+            FailablePredicate<String, IllegalArgumentException> predicate = FailablePredicate.truePredicate();
             long result = Streams.of("A", "B")
                                  .filter(it -> watch.test(predicate).test(it))
                                  .count();
