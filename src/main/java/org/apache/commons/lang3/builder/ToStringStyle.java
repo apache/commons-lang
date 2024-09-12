@@ -127,25 +127,25 @@ public abstract class ToStringStyle implements Serializable {
          * </p>
          */
         JsonToStringStyle() {
-            this.setUseClassName(false);
-            this.setUseIdentityHashCode(false);
+            setUseClassName(false);
+            setUseIdentityHashCode(false);
 
-            this.setContentStart("{");
-            this.setContentEnd("}");
+            setContentStart("{");
+            setContentEnd("}");
 
-            this.setArrayStart("[");
-            this.setArrayEnd("]");
+            setArrayStart("[");
+            setArrayEnd("]");
 
-            this.setFieldSeparator(",");
-            this.setFieldNameValueSeparator(":");
+            setFieldSeparator(",");
+            setFieldNameValueSeparator(":");
 
-            this.setNullText("null");
+            setNullText("null");
 
-            this.setSummaryObjectStartText("\"<");
-            this.setSummaryObjectEndText(">\"");
+            setSummaryObjectStartText("\"<");
+            setSummaryObjectEndText(">\"");
 
-            this.setSizeStartText("\"<size=");
-            this.setSizeEndText(">\"");
+            setSizeStartText("\"<size=");
+            setSizeEndText(">\"");
         }
 
         @Override
@@ -445,10 +445,10 @@ public abstract class ToStringStyle implements Serializable {
          * <p>Use the static constant rather than instantiating.</p>
          */
         MultiLineToStringStyle() {
-            this.setContentStart("[");
-            this.setFieldSeparator(System.lineSeparator() + "  ");
-            this.setFieldSeparatorAtStart(true);
-            this.setContentEnd(System.lineSeparator() + "]");
+            setContentStart("[");
+            setFieldSeparator(System.lineSeparator() + "  ");
+            setFieldSeparatorAtStart(true);
+            setContentEnd(System.lineSeparator() + "]");
         }
 
         /**
@@ -479,8 +479,8 @@ public abstract class ToStringStyle implements Serializable {
          * <p>Use the static constant rather than instantiating.</p>
          */
         NoClassNameToStringStyle() {
-            this.setUseClassName(false);
-            this.setUseIdentityHashCode(false);
+            setUseClassName(false);
+            setUseIdentityHashCode(false);
         }
 
         /**
@@ -511,7 +511,7 @@ public abstract class ToStringStyle implements Serializable {
          * <p>Use the static constant rather than instantiating.</p>
          */
         NoFieldNameToStringStyle() {
-            this.setUseFieldNames(false);
+            setUseFieldNames(false);
         }
 
         /**
@@ -542,8 +542,8 @@ public abstract class ToStringStyle implements Serializable {
          * <p>Use the static constant rather than instantiating.</p>
          */
         ShortPrefixToStringStyle() {
-            this.setUseShortClassName(true);
-            this.setUseIdentityHashCode(false);
+            setUseShortClassName(true);
+            setUseIdentityHashCode(false);
         }
 
         /**
@@ -573,11 +573,11 @@ public abstract class ToStringStyle implements Serializable {
          * <p>Use the static constant rather than instantiating.</p>
          */
         SimpleToStringStyle() {
-            this.setUseClassName(false);
-            this.setUseIdentityHashCode(false);
-            this.setUseFieldNames(false);
-            this.setContentStart(StringUtils.EMPTY);
-            this.setContentEnd(StringUtils.EMPTY);
+            setUseClassName(false);
+            setUseIdentityHashCode(false);
+            setUseFieldNames(false);
+            setContentStart(StringUtils.EMPTY);
+            setContentEnd(StringUtils.EMPTY);
         }
 
         /**
@@ -1667,7 +1667,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param object  the {@link Object} whose id to output
      */
     protected void appendIdentityHashCode(final StringBuffer buffer, final Object object) {
-        if (this.isUseIdentityHashCode() && object != null) {
+        if (isUseIdentityHashCode() && object != null) {
             register(object);
             buffer.append('@');
             buffer.append(ObjectUtils.identityHashCodeHex(object));
