@@ -443,21 +443,21 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(new BigDecimal("1234.5"), NumberUtils.createBigDecimal("1234.5"),
             "createBigDecimal(String) failed");
         assertNull(NumberUtils.createBigDecimal(null), "createBigDecimal(null) failed");
-        this.testCreateBigDecimalFailure("");
-        this.testCreateBigDecimalFailure(" ");
-        this.testCreateBigDecimalFailure("\b\t\n\f\r");
+        testCreateBigDecimalFailure("");
+        testCreateBigDecimalFailure(" ");
+        testCreateBigDecimalFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateBigDecimalFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateBigDecimalFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
         // sign alone not valid
-        this.testCreateBigDecimalFailure("-");
+        testCreateBigDecimalFailure("-");
         // comment in NumberUtils suggests some implementations may incorrectly allow this
-        this.testCreateBigDecimalFailure("--");
-        this.testCreateBigDecimalFailure("--0");
+        testCreateBigDecimalFailure("--");
+        testCreateBigDecimalFailure("--0");
         // sign alone not valid
-        this.testCreateBigDecimalFailure("+");
+        testCreateBigDecimalFailure("+");
         // in case this was also allowed by some JVMs
-        this.testCreateBigDecimalFailure("++");
-        this.testCreateBigDecimalFailure("++0");
+        testCreateBigDecimalFailure("++");
+        testCreateBigDecimalFailure("++0");
     }
 
     protected void testCreateBigDecimalFailure(final String str) {
@@ -469,11 +469,11 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testCreateBigInteger() {
         assertEquals(new BigInteger("12345"), NumberUtils.createBigInteger("12345"), "createBigInteger(String) failed");
         assertNull(NumberUtils.createBigInteger(null), "createBigInteger(null) failed");
-        this.testCreateBigIntegerFailure("");
-        this.testCreateBigIntegerFailure(" ");
-        this.testCreateBigIntegerFailure("\b\t\n\f\r");
+        testCreateBigIntegerFailure("");
+        testCreateBigIntegerFailure(" ");
+        testCreateBigIntegerFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateBigIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateBigIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
         assertEquals(new BigInteger("255"), NumberUtils.createBigInteger("0xff"), "createBigInteger(String) failed");
         assertEquals(new BigInteger("255"), NumberUtils.createBigInteger("0Xff"), "createBigInteger(String) failed");
         assertEquals(new BigInteger("255"), NumberUtils.createBigInteger("#ff"), "createBigInteger(String) failed");
@@ -502,11 +502,11 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testCreateDouble() {
         assertEquals(Double.valueOf("1234.5"), NumberUtils.createDouble("1234.5"), "createDouble(String) failed");
         assertNull(NumberUtils.createDouble(null), "createDouble(null) failed");
-        this.testCreateDoubleFailure("");
-        this.testCreateDoubleFailure(" ");
-        this.testCreateDoubleFailure("\b\t\n\f\r");
+        testCreateDoubleFailure("");
+        testCreateDoubleFailure(" ");
+        testCreateDoubleFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateDoubleFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateDoubleFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
     }
 
     protected void testCreateDoubleFailure(final String str) {
@@ -518,11 +518,11 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testCreateFloat() {
         assertEquals(Float.valueOf("1234.5"), NumberUtils.createFloat("1234.5"), "createFloat(String) failed");
         assertNull(NumberUtils.createFloat(null), "createFloat(null) failed");
-        this.testCreateFloatFailure("");
-        this.testCreateFloatFailure(" ");
-        this.testCreateFloatFailure("\b\t\n\f\r");
+        testCreateFloatFailure("");
+        testCreateFloatFailure(" ");
+        testCreateFloatFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateFloatFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateFloatFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
     }
 
     protected void testCreateFloatFailure(final String str) {
@@ -534,11 +534,11 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testCreateInteger() {
         assertEquals(Integer.valueOf("12345"), NumberUtils.createInteger("12345"), "createInteger(String) failed");
         assertNull(NumberUtils.createInteger(null), "createInteger(null) failed");
-        this.testCreateIntegerFailure("");
-        this.testCreateIntegerFailure(" ");
-        this.testCreateIntegerFailure("\b\t\n\f\r");
+        testCreateIntegerFailure("");
+        testCreateIntegerFailure(" ");
+        testCreateIntegerFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
         // LANG-1645
         assertEquals(Integer.decode("+0xF"), NumberUtils.createInteger("+0xF"));
     }
@@ -552,11 +552,11 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testCreateLong() {
         assertEquals(Long.valueOf("12345"), NumberUtils.createLong("12345"), "createLong(String) failed");
         assertNull(NumberUtils.createLong(null), "createLong(null) failed");
-        this.testCreateLongFailure("");
-        this.testCreateLongFailure(" ");
-        this.testCreateLongFailure("\b\t\n\f\r");
+        testCreateLongFailure("");
+        testCreateLongFailure(" ");
+        testCreateLongFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateLongFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateLongFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
         // LANG-1645
         assertEquals(Long.decode("+0xFFFFFFFF"), NumberUtils.createLong("+0xFFFFFFFF"));
     }
