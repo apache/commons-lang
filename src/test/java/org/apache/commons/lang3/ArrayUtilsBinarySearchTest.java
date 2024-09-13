@@ -30,63 +30,99 @@ import org.junit.jupiter.api.Timeout;
 public class ArrayUtilsBinarySearchTest extends AbstractLangTest {
 
     @Test
-    public void binarySearch_whenLowHigherThanEnd_throw() {
+    public void binarySearchFirst_whenLowHigherThanEnd_throw() {
         final Data[] list = createList(0, 1);
-        assertThrowsExactly(IllegalArgumentException.class, () -> ArrayUtils.binarySearch(list, 1, 0, 0, Data::getValue, Integer::compare));
+        assertThrowsExactly(IllegalArgumentException.class, () ->
+                ArrayUtils.binarySearchFirst(list, 1, 0, 0, Data::getValue, Integer::compare));
     }
 
     @Test
-    public void binarySearch_whenLowNegative_throw() {
+    public void binarySearchFirst_whenLowNegative_throw() {
         final Data[] list = createList(0, 1);
-        assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () -> ArrayUtils.binarySearch(list, -1, 0, 0, Data::getValue, Integer::compare));
+        assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () ->
+                ArrayUtils.binarySearchFirst(list, -1, 0, 0, Data::getValue, Integer::compare));
     }
 
     @Test
-    public void binarySearch_whenEndBeyondLength_throw() {
+    public void binarySearchFirst_whenEndBeyondLength_throw() {
         final Data[] list = createList(0, 1);
-        assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () -> ArrayUtils.binarySearch(list, 0, 3, 0, Data::getValue, Integer::compare));
+        assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () ->
+                ArrayUtils.binarySearchFirst(list, 0, 3, 0, Data::getValue, Integer::compare));
     }
 
     @Test
-    public void binarySearch_whenEmpty_returnM1() {
+    public void binarySearchLast_whenLowHigherThanEnd_throw() {
+        final Data[] list = createList(0, 1);
+        assertThrowsExactly(IllegalArgumentException.class, () ->
+                ArrayUtils.binarySearchLast(list, 1, 0, 0, Data::getValue, Integer::compare));
+    }
+
+    @Test
+    public void binarySearchFirst_whenEmpty_returnM1() {
         final Data[] list = createList();
-        final int found = ArrayUtils.binarySearch(list, 0, Data::getValue, Integer::compare);
+        final int found = ArrayUtils.binarySearchFirst(list, 0, Data::getValue, Integer::compare);
         assertEquals(-1, found);
     }
 
     @Test
-    public void binarySearch_whenExists_returnIndex() {
+    public void binarySearchFirst_whenExists_returnIndex() {
         final Data[] list = createList(0, 1, 2, 4, 7, 9, 12, 15, 17, 19, 25);
-        final int found = ArrayUtils.binarySearch(list, 9, Data::getValue, Integer::compare);
+        final int found = ArrayUtils.binarySearchFirst(list, 9, Data::getValue, Integer::compare);
         assertEquals(5, found);
     }
 
     @Test
-    public void binarySearch_whenNotExistsMiddle_returnMinusInsertion() {
+    @Timeout(10)
+    public void binarySearchFirst_whenMultiple_returnFirst() {
+        final Data[] list = createList(3, 4, 6, 6, 6, 7, 7, 8, 8, 9, 9, 9);
+        for (int i = 0; i < list.length; ++i) {
+            if (i > 0 && list[i].value == list[i - 1].value) {
+                continue;
+            }
+            final int found = ArrayUtils.binarySearchFirst(list, list[i].value, Data::getValue, Integer::compare);
+            assertEquals(i, found);
+        }
+    }
+
+    @Test
+    @Timeout(10)
+    public void binarySearchLast_whenMultiple_returnFirst() {
+        final Data[] list = createList(3, 4, 6, 6, 6, 7, 7, 8, 8, 9, 9, 9);
+        for (int i = 0; i < list.length; ++i) {
+            if (i < list.length - 1 && list[i].value == list[i + 1].value) {
+                continue;
+            }
+            final int found = ArrayUtils.binarySearchLast(list, list[i].value, Data::getValue, Integer::compare);
+            assertEquals(i, found);
+        }
+    }
+
+    @Test
+    public void binarySearchFirst_whenNotExistsMiddle_returnMinusInsertion() {
         final Data[] list = createList(0, 1, 2, 4, 7, 9, 12, 15, 17, 19, 25);
-        final int found = ArrayUtils.binarySearch(list, 8, Data::getValue, Integer::compare);
+        final int found = ArrayUtils.binarySearchFirst(list, 8, Data::getValue, Integer::compare);
         assertEquals(-6, found);
     }
 
     @Test
-    public void binarySearch_whenNotExistsBeginning_returnMinus1() {
+    public void binarySearchFirst_whenNotExistsBeginning_returnMinus1() {
         final Data[] list = createList(0, 1, 2, 4, 7, 9, 12, 15, 17, 19, 25);
-        final int found = ArrayUtils.binarySearch(list, -3, Data::getValue, Integer::compare);
+        final int found = ArrayUtils.binarySearchFirst(list, -3, Data::getValue, Integer::compare);
         assertEquals(-1, found);
     }
 
     @Test
-    public void binarySearch_whenNotExistsEnd_returnMinusLength() {
+    public void binarySearchFirst_whenNotExistsEnd_returnMinusLength() {
         final Data[] list = createList(0, 1, 2, 4, 7, 9, 12, 15, 17, 19, 25);
-        final int found = ArrayUtils.binarySearch(list, 29, Data::getValue, Integer::compare);
+        final int found = ArrayUtils.binarySearchFirst(list, 29, Data::getValue, Integer::compare);
         assertEquals(-(list.length + 1), found);
     }
 
     @Test
     @Timeout(10)
-    public void binarySearch_whenUnsorted_dontInfiniteLoop() {
+    public void binarySearchFirst_whenUnsorted_dontInfiniteLoop() {
         final Data[] list = createList(7, 1, 4, 9, 11, 8);
-        final int found = ArrayUtils.binarySearch(list, 10, Data::getValue, Integer::compare);
+        final int found = ArrayUtils.binarySearchFirst(list, 10, Data::getValue, Integer::compare);
     }
 
     private Data[] createList(int... values) {

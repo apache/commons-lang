@@ -1433,7 +1433,8 @@ public class ArrayUtils {
     }
 
     /**
-     * Searches element in array sorted by key.
+     * Searches element in array sorted by key.  If there are multiple elements matching, it returns first occurrence.
+     * If the array is not sorted, the result is undefined.
      *
      * @param array
      *      array sorted by key field
@@ -1445,25 +1446,26 @@ public class ArrayUtils {
      *      comparator for keys
      *
      * @return
-     *      index of the search key, if it is contained in the array; otherwise, (-first_greater - 1).
-     *      The first_greater is the index of lowest greater element in the list - if all elements are lower, the
-     *      first_greater is defined as array.length.
+     *      index of the first occurrence of search key, if it is contained in the array; otherwise,
+     *      (-first_greater - 1). The first_greater is the index of lowest greater element in the list - if all elements
+     *      are lower, the first_greater is defined as array.length.
      *
      * @param <T>
      *     type of array element
      * @param <K>
      *     type of key
      */
-    public static <K, T> int binarySearch(
+    public static <K, T> int binarySearchFirst(
             T[] array,
             K key,
             Function<T, K> keyExtractor, Comparator<? super K> comparator
     ) {
-        return binarySearch0(array, 0, array.length, key, keyExtractor, comparator);
+        return binarySearchFirst0(array, 0, array.length, key, keyExtractor, comparator);
     }
 
     /**
-     * Searches element in array sorted by key, within range fromIndex (inclusive) - toIndex (exclusive).
+     * Searches element in array sorted by key, within range fromIndex (inclusive) - toIndex (exclusive).  If there are
+     * multiple elements matching, it returns first occurrence.  If the array is not sorted, the result is undefined.
      *
      * @param array
      *      array sorted by key field
@@ -1479,9 +1481,9 @@ public class ArrayUtils {
      *      comparator for keys
      *
      * @return
-     *      index of the search key, if it is contained in the array within specified range; otherwise,
-     *      (-first_greater - 1).  The first_greater is the index of lowest greater element in the list - if all elements
-     *      are lower, the first_greater is defined as toIndex.
+     *      index of the first occurrence of search key, if it is contained in the array within specified range;
+     *      otherwise, (-first_greater - 1).  The first_greater is the index of lowest greater element in the list - if
+     *      all elements are lower, the first_greater is defined as toIndex.
      *
      * @throws ArrayIndexOutOfBoundsException
      *      when fromIndex or toIndex is out of array range
@@ -1493,28 +1495,19 @@ public class ArrayUtils {
      * @param <K>
      *     type of key
      */
-    public static <T, K> int binarySearch(
+    public static <T, K> int binarySearchFirst(
             T[] array,
             int fromIndex, int toIndex,
             K key,
             Function<T, K> keyExtractor, Comparator<? super K> comparator
     ) {
-        if (fromIndex > toIndex) {
-            throw new IllegalArgumentException(
-                    "fromIndex(" + fromIndex + ") > toIndex(" + toIndex + ")");
-        }
-        if (fromIndex < 0) {
-            throw new ArrayIndexOutOfBoundsException(fromIndex);
-        }
-        if (toIndex > array.length) {
-            throw new ArrayIndexOutOfBoundsException(toIndex);
-        }
+        checkRange(array.length, fromIndex, toIndex);
 
-        return binarySearch0(array, fromIndex, toIndex, key, keyExtractor, comparator);
+        return binarySearchFirst0(array, fromIndex, toIndex, key, keyExtractor, comparator);
     }
 
     // common implementation for binarySearch methods, with same semantics:
-    private static <T, K> int binarySearch0(
+    private static <T, K> int binarySearchFirst0(
             T[] array,
             int fromIndex, int toIndex,
             K key,
@@ -1531,8 +1524,121 @@ public class ArrayUtils {
                 l = m + 1;
             } else if (c > 0) {
                 h = m - 1;
+            } else if (l < h) {
+                // possibly multiple matching items remaining:
+                h = m;
             } else {
-                // 0, found
+                // single matching item remaining:
+                return m;
+            }
+        }
+
+        // not found, the l points to the lowest higher match:
+        return -l - 1;
+    }
+
+    /**
+     * Searches element in array sorted by key.  If there are multiple elements matching, it returns last occurrence.
+     * If the array is not sorted, the result is undefined.
+     *
+     * @param array
+     *      array sorted by key field
+     * @param key
+     *      key to search for
+     * @param keyExtractor
+     *      function to extract key from element
+     * @param comparator
+     *      comparator for keys
+     *
+     * @return
+     *      index of the last occurrence of search key, if it is contained in the array; otherwise,
+     *      (-first_greater - 1). The first_greater is the index of lowest greater element in the list - if all elements
+     *      are lower, the first_greater is defined as array.length.
+     *
+     * @param <T>
+     *     type of array element
+     * @param <K>
+     *     type of key
+     */
+    public static <K, T> int binarySearchLast(
+            T[] array,
+            K key,
+            Function<T, K> keyExtractor, Comparator<? super K> comparator
+    ) {
+        return binarySearchLast0(array, 0, array.length, key, keyExtractor, comparator);
+    }
+
+    /**
+     * Searches element in array sorted by key, within range fromIndex (inclusive) - toIndex (exclusive).  If there are
+     * multiple elements matching, it returns last occurrence.  If the array is not sorted, the result is undefined.
+     *
+     * @param array
+     *      array sorted by key field
+     * @param fromIndex
+     *      start index (inclusive)
+     * @param toIndex
+     *      end index (exclusive)
+     * @param key
+     *      key to search for
+     * @param keyExtractor
+     *      function to extract key from element
+     * @param comparator
+     *      comparator for keys
+     *
+     * @return
+     *      index of the last occurrence of search key, if it is contained in the array within specified range;
+     *      otherwise, (-first_greater - 1).  The first_greater is the index of lowest greater element in the list - if
+     *      all elements are lower, the first_greater is defined as toIndex.
+     *
+     * @throws ArrayIndexOutOfBoundsException
+     *      when fromIndex or toIndex is out of array range
+     * @throws IllegalArgumentException
+     *      when fromIndex is greater than toIndex
+     *
+     * @param <T>
+     *     type of array element
+     * @param <K>
+     *     type of key
+     */
+    public static <T, K> int binarySearchLast(
+            T[] array,
+            int fromIndex, int toIndex,
+            K key,
+            Function<T, K> keyExtractor, Comparator<? super K> comparator
+    ) {
+        checkRange(array.length, fromIndex, toIndex);
+
+        return binarySearchLast0(array, fromIndex, toIndex, key, keyExtractor, comparator);
+    }
+
+    // common implementation for binarySearch methods, with same semantics:
+    private static <T, K> int binarySearchLast0(
+            T[] array,
+            int fromIndex, int toIndex,
+            K key,
+            Function<T, K> keyExtractor, Comparator<? super K> comparator
+    ) {
+        int l = fromIndex;
+        int h = toIndex - 1;
+
+        while (l <= h) {
+            final int m = (l + h) >>> 1; // unsigned shift to avoid overflow
+            final K value = keyExtractor.apply(array[m]);
+            final int c = comparator.compare(value, key);
+            if (c < 0) {
+                l = m + 1;
+            } else if (c > 0) {
+                h = m - 1;
+            } else if (m + 1 < h) {
+                // matching, more than two items remaining:
+                l = m;
+            } else if (m + 1 == h) {
+                // two items remaining, next loops would result in unchanged l and h, we have to choose m or h:
+                final K valueH = keyExtractor.apply(array[h]);
+                final int cH = comparator.compare(valueH, key);
+                return cH == 0 ? h : m;
+            } else {
+                // one item remaining, single match:
                 return m;
             }
         }
@@ -9572,5 +9678,19 @@ public class ArrayUtils {
     @Deprecated
     public ArrayUtils() {
         // empty
+    }
+
+    static void checkRange(int length, int fromIndex, int toIndex) {
+        if (fromIndex > toIndex) {
+            throw new IllegalArgumentException(
+                    "fromIndex(" + fromIndex + ") > toIndex(" + toIndex + ")");
+        }
+        if (fromIndex < 0) {
+            throw new ArrayIndexOutOfBoundsException(fromIndex);
+        }
+        if (toIndex > length) {
+            throw new ArrayIndexOutOfBoundsException(toIndex);
+        }
+
     }
 }
