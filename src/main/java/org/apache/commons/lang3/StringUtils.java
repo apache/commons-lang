@@ -964,7 +964,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if CharSequence contains a search CharSequence, handling {@code null}.
+     * Tests if CharSequence contains a search CharSequence, handling {@code null}.
      * This method uses {@link String#indexOf(String)} if possible.
      *
      * <p>A {@code null} CharSequence will return {@code false}.</p>
@@ -993,7 +993,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if CharSequence contains a search character, handling {@code null}.
+     * Tests if CharSequence contains a search character, handling {@code null}.
      * This method uses {@link String#indexOf(int)} if possible.
      *
      * <p>A {@code null} or empty ("") CharSequence will return {@code false}.</p>
@@ -1020,7 +1020,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains any character in the given
+     * Tests if the CharSequence contains any character in the given
      * set of characters.
      *
      * <p>A {@code null} CharSequence will return {@code false}.
@@ -1074,7 +1074,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains any character in the given set of characters.
+     * Tests if the CharSequence contains any character in the given set of characters.
      *
      * <p>
      * A {@code null} CharSequence will return {@code false}. A {@code null} search CharSequence will return
@@ -1110,7 +1110,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     * Tests if the CharSequence contains any of the CharSequences in the given array.
      *
      * <p>
      * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
@@ -1138,7 +1138,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     * Tests if the CharSequence contains any of the CharSequences in the given array.
      *
      * <p>
      * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
@@ -1165,7 +1165,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.
+     * Tests if the CharSequence contains any of the CharSequences in the given array, ignoring case.
      *
      * <p>
      * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
@@ -1195,7 +1195,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if CharSequence contains a search CharSequence irrespective of case,
+     * Tests if CharSequence contains a search CharSequence irrespective of case,
      * handling {@code null}. Case-insensitivity is defined as by
      * {@link String#equalsIgnoreCase(String)}.
      *
@@ -1233,7 +1233,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks that the CharSequence does not contain certain characters.
+     * Tests that the CharSequence does not contain certain characters.
      *
      * <p>A {@code null} CharSequence will return {@code true}.
      * A {@code null} invalid character array will return {@code true}.
@@ -1285,7 +1285,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks that the CharSequence does not contain certain characters.
+     * Tests that the CharSequence does not contain certain characters.
      *
      * <p>A {@code null} CharSequence will return {@code true}.
      * A {@code null} invalid character array will return {@code true}.
@@ -1315,7 +1315,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only certain characters.
+     * Tests if the CharSequence contains only certain characters.
      *
      * <p>A {@code null} CharSequence will return {@code false}.
      * A {@code null} valid character array will return {@code false}.
@@ -1351,7 +1351,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only certain characters.
+     * Tests if the CharSequence contains only certain characters.
      *
      * <p>A {@code null} CharSequence will return {@code false}.
      * A {@code null} valid character String will return {@code false}.
@@ -1381,7 +1381,7 @@ public class StringUtils {
     }
 
     /**
-     * Check whether the given CharSequence contains any whitespace characters.
+     * Tests whether the given CharSequence contains any whitespace characters.
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
@@ -1714,7 +1714,7 @@ public class StringUtils {
     }
 
     /**
-     * Check if a CharSequence ends with a specified suffix.
+     * Tests if a CharSequence ends with a specified suffix.
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case-sensitive.</p>
@@ -1742,7 +1742,7 @@ public class StringUtils {
     }
 
     /**
-     * Check if a CharSequence ends with a specified suffix (optionally case-insensitive).
+     * Tests if a CharSequence ends with a specified suffix (optionally case-insensitive).
      *
      * @see String#endsWith(String)
      * @param str  the CharSequence to check, may be null
@@ -1764,7 +1764,7 @@ public class StringUtils {
     }
 
     /**
-     * Check if a CharSequence ends with any of the provided case-sensitive suffixes.
+     * Tests if a CharSequence ends with any of the provided case-sensitive suffixes.
      *
      * <pre>
      * StringUtils.endsWithAny(null, null)                  = false
@@ -3223,7 +3223,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if all of the CharSequences are empty (""), null or whitespace only.
+     * Tests if all of the CharSequences are empty (""), null or whitespace only.
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
@@ -3256,7 +3256,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if all of the CharSequences are empty ("") or null.
+     * Tests if all of the CharSequences are empty ("") or null.
      *
      * <pre>
      * StringUtils.isAllEmpty(null)             = true
@@ -3287,7 +3287,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only lowercase characters.
+     * Tests if the CharSequence contains only lowercase characters.
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code false}.</p>
@@ -3322,7 +3322,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only uppercase characters.
+     * Tests if the CharSequence contains only uppercase characters.
      *
      * <p>{@code null} will return {@code false}.
      * An empty String (length()=0) will return {@code false}.</p>
@@ -3357,7 +3357,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode letters.
+     * Tests if the CharSequence contains only Unicode letters.
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code false}.</p>
@@ -3390,7 +3390,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode letters or digits.
+     * Tests if the CharSequence contains only Unicode letters or digits.
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code false}.</p>
@@ -3425,7 +3425,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode letters, digits
+     * Tests if the CharSequence contains only Unicode letters, digits
      * or space ({@code ' '}).
      *
      * <p>{@code null} will return {@code false}.
@@ -3461,7 +3461,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode letters and
+     * Tests if the CharSequence contains only Unicode letters and
      * space (' ').
      *
      * <p>{@code null} will return {@code false}
@@ -3497,7 +3497,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if any of the CharSequences are empty ("") or null or whitespace only.
+     * Tests if any of the CharSequences are empty ("") or null or whitespace only.
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
@@ -3532,7 +3532,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if any of the CharSequences are empty ("") or null.
+     * Tests if any of the CharSequences are empty ("") or null.
      *
      * <pre>
      * StringUtils.isAnyEmpty((String) null)    = true
@@ -3564,7 +3564,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only ASCII printable characters.
+     * Tests if the CharSequence contains only ASCII printable characters.
      *
      * <p>{@code null} will return {@code false}.
      * An empty CharSequence (length()=0) will return {@code true}.</p>
@@ -3603,7 +3603,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if a CharSequence is empty (""), null or whitespace only.
+     * Tests if a CharSequence is empty (""), null or whitespace only.
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
@@ -3634,7 +3634,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if a CharSequence is empty ("") or null.
+     * Tests if a CharSequence is empty ("") or null.
      *
      * <pre>
      * StringUtils.isEmpty(null)      = true
@@ -3657,7 +3657,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains mixed casing of both uppercase and lowercase characters.
+     * Tests if the CharSequence contains mixed casing of both uppercase and lowercase characters.
      *
      * <p>{@code null} will return {@code false}. An empty CharSequence ({@code length()=0}) will return
      * {@code false}.</p>
@@ -3701,7 +3701,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if none of the CharSequences are empty (""), null or whitespace only.
+     * Tests if none of the CharSequences are empty (""), null or whitespace only.
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
@@ -3728,7 +3728,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if none of the CharSequences are empty ("") or null.
+     * Tests if none of the CharSequences are empty ("") or null.
      *
      * <pre>
      * StringUtils.isNoneEmpty((String) null)    = false
@@ -3752,7 +3752,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if a CharSequence is not empty (""), not null and not whitespace only.
+     * Tests if a CharSequence is not empty (""), not null and not whitespace only.
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
@@ -3775,7 +3775,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if a CharSequence is not empty ("") and not null.
+     * Tests if a CharSequence is not empty ("") and not null.
      *
      * <pre>
      * StringUtils.isNotEmpty(null)      = false
@@ -3794,7 +3794,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode digits.
+     * Tests if the CharSequence contains only Unicode digits.
      * A decimal point is not a Unicode digit and returns false.
      *
      * <p>{@code null} will return {@code false}.
@@ -3838,7 +3838,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode digits or space
+     * Tests if the CharSequence contains only Unicode digits or space
      * ({@code ' '}).
      * A decimal point is not a Unicode digit and returns false.
      *
@@ -3878,7 +3878,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only whitespace.
+     * Tests if the CharSequence contains only whitespace.
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
