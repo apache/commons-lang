@@ -72,7 +72,7 @@ public class LocaleUtilsTest extends AbstractLangTest {
         for (final String country : countries) {
             boolean found = false;
             // see if it was returned by the set
-            for (Locale locale : list) {
+            for (final Locale locale : list) {
                 // should have an en empty variant
                 assertTrue(StringUtils.isEmpty(locale.getVariant()));
                 assertEquals(language, locale.getLanguage());
@@ -104,7 +104,7 @@ public class LocaleUtilsTest extends AbstractLangTest {
         for (final String language : languages) {
             boolean found = false;
             // see if it was returned by the set
-            for (Locale locale : list) {
+            for (final Locale locale : list) {
                 // should have an en empty variant
                 assertTrue(StringUtils.isEmpty(locale.getVariant()));
                 assertEquals(country, locale.getCountry());

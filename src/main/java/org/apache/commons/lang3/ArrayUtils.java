@@ -4214,7 +4214,7 @@ public class ArrayUtils {
         return INDEX_NOT_FOUND;
     }
 
-    private static int max0(int other) {
+    private static int max0(final int other) {
         return Math.max(0, other);
     }
 

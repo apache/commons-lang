@@ -551,9 +551,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             final T object, final ToStringStyle style, final StringBuffer buffer,
             final Class<? super T> reflectUpToClass, final boolean outputTransients, final boolean outputStatics) {
         super(object, style, buffer);
-        this.setUpToClass(reflectUpToClass);
-        this.setAppendTransients(outputTransients);
-        this.setAppendStatics(outputStatics);
+        setUpToClass(reflectUpToClass);
+        setAppendTransients(outputTransients);
+        setAppendStatics(outputStatics);
     }
 
     /**
@@ -582,10 +582,10 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             final Class<? super T> reflectUpToClass, final boolean outputTransients, final boolean outputStatics,
             final boolean excludeNullValues) {
         super(object, style, buffer);
-        this.setUpToClass(reflectUpToClass);
-        this.setAppendTransients(outputTransients);
-        this.setAppendStatics(outputStatics);
-        this.setExcludeNullValues(excludeNullValues);
+        setUpToClass(reflectUpToClass);
+        setAppendTransients(outputTransients);
+        setAppendStatics(outputStatics);
+        setExcludeNullValues(excludeNullValues);
     }
 
     /**
@@ -605,11 +605,11 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             // Reject field from inner class.
             return false;
         }
-        if (Modifier.isTransient(field.getModifiers()) && !this.isAppendTransients()) {
+        if (Modifier.isTransient(field.getModifiers()) && !isAppendTransients()) {
             // Reject transient fields.
             return false;
         }
-        if (Modifier.isStatic(field.getModifiers()) && !this.isAppendStatics()) {
+        if (Modifier.isStatic(field.getModifiers()) && !isAppendStatics()) {
             // Reject static fields.
             return false;
         }
@@ -641,7 +641,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      */
     protected void appendFieldsIn(final Class<?> clazz) {
         if (clazz.isArray()) {
-            this.reflectionAppendArray(this.getObject());
+            reflectionAppendArray(getObject());
             return;
         }
         // The elements in the returned array are not sorted and are not in any particular order.
@@ -649,11 +649,11 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         AccessibleObject.setAccessible(fields, true);
         for (final Field field : fields) {
             final String fieldName = field.getName();
-            if (this.accept(field)) {
+            if (accept(field)) {
                 try {
                     // Warning: Field.get(Object) creates wrappers objects
                     // for primitive types.
-                    final Object fieldValue = this.getValue(field);
+                    final Object fieldValue = getValue(field);
                     if (!excludeNullValues || fieldValue != null) {
                         this.append(fieldName, fieldValue, !field.isAnnotationPresent(ToStringSummary.class));
                     }
@@ -709,7 +709,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @see java.lang.reflect.Field#get(Object)
      */
     protected Object getValue(final Field field) throws IllegalAccessException {
-        return field.get(this.getObject());
+        return field.get(getObject());
     }
 
     /**
@@ -749,7 +749,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return {@code this} instance.
      */
     public ReflectionToStringBuilder reflectionAppendArray(final Object array) {
-        this.getStyle().reflectionAppendArrayDetail(this.getStringBuffer(), null, array);
+        getStyle().reflectionAppendArrayDetail(getStringBuffer(), null, array);
         return this;
     }
 
@@ -843,17 +843,17 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      */
     @Override
     public String toString() {
-        if (this.getObject() == null) {
-            return this.getStyle().getNullText();
+        if (getObject() == null) {
+            return getStyle().getNullText();
         }
 
         validate();
 
-        Class<?> clazz = this.getObject().getClass();
-        this.appendFieldsIn(clazz);
-        while (clazz.getSuperclass() != null && clazz != this.getUpToClass()) {
+        Class<?> clazz = getObject().getClass();
+        appendFieldsIn(clazz);
+        while (clazz.getSuperclass() != null && clazz != getUpToClass()) {
             clazz = clazz.getSuperclass();
-            this.appendFieldsIn(clazz);
+            appendFieldsIn(clazz);
         }
         return super.toString();
     }
@@ -863,7 +863,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      */
     private void validate() {
         if (ArrayUtils.containsAny(this.excludeFieldNames, (Object[]) this.includeFieldNames)) {
-            ToStringStyle.unregister(this.getObject());
+            ToStringStyle.unregister(getObject());
             throw new IllegalStateException("includeFieldNames and excludeFieldNames must not intersect");
         }
     }

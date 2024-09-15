@@ -233,12 +233,10 @@ public class MethodUtils {
         while (interfaceIndex < allInterfaces.size() ||
                 superClassIndex < allSuperclasses.size()) {
             final Class<?> acls;
-            if (interfaceIndex >= allInterfaces.size()) {
+            if (interfaceIndex >= allInterfaces.size() || superClassIndex < allSuperclasses.size() && superClassIndex < interfaceIndex) {
                 acls = allSuperclasses.get(superClassIndex++);
-            } else if (superClassIndex >= allSuperclasses.size() || !(superClassIndex < interfaceIndex)) {
-                acls = allInterfaces.get(interfaceIndex++);
             } else {
-                acls = allSuperclasses.get(superClassIndex++);
+                acls = allInterfaces.get(interfaceIndex++);
             }
             allSuperClassesAndInterfaces.add(acls);
         }

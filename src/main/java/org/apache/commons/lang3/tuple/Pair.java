@@ -236,7 +236,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      */
     @Override
     public int hashCode() {
-        // see Map.Entry API specification
+        // See Map.Entry API specification
         return Objects.hashCode(getKey()) ^ Objects.hashCode(getValue());
     }
 
@@ -253,13 +253,14 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Formats the receiver using the given format.
      *
-     * <p>This uses {@link java.util.Formattable} to perform the formatting. Two variables may
-     * be used to embed the left and right elements. Use {@code %1$s} for the left
-     * element (key) and {@code %2$s} for the right element (value).
-     * The default format used by {@code toString()} is {@code (%1$s,%2$s)}.</p>
+     * <p>
+     * This uses {@link String#format(String, Object...)} to the format. Two variables may be used to embed the left and right elements. Use {@code %1$s} for
+     * the left element (key) and {@code %2$s} for the right element (value).
+     * </p>
      *
-     * @param format  the format string, optionally containing {@code %1$s} and {@code %2$s}, not null
+     * @param format the format string, optionally containing {@code %1$s} and {@code %2$s}, not null.
      * @return the formatted string, not null
+     * @see String#format(String, Object...)
      */
     public String toString(final String format) {
         return String.format(format, getLeft(), getRight());

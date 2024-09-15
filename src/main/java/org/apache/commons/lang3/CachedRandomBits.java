@@ -90,9 +90,9 @@ final class CachedRandomBits {
             }
             // generatedBitsInIteration is the number of bits that we will generate
             // in this iteration of the while loop
-            int generatedBitsInIteration = Math.min(8 - (bitIndex & 0x7), bits - generatedBits);
+            final int generatedBitsInIteration = Math.min(8 - (bitIndex & 0x7), bits - generatedBits);
             result = result << generatedBitsInIteration;
-            result |= (cache[bitIndex >> 3] >> (bitIndex & 0x7)) & ((1 << generatedBitsInIteration) - 1);
+            result |= cache[bitIndex >> 3] >> (bitIndex & 0x7) & (1 << generatedBitsInIteration) - 1;
             generatedBits += generatedBitsInIteration;
             bitIndex += generatedBitsInIteration;
         }

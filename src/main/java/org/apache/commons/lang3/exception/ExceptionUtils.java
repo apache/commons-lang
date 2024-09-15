@@ -248,7 +248,7 @@ public class ExceptionUtils {
     // TODO: Remove in Lang 4
     private static Throwable getCauseUsingMethodName(final Throwable throwable, final String methodName) {
         if (methodName != null) {
-            Method method = MethodUtils.getMethodObject(throwable.getClass(), methodName);
+            final Method method = MethodUtils.getMethodObject(throwable.getClass(), methodName);
             if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
                 try {
                     return (Throwable) method.invoke(throwable);

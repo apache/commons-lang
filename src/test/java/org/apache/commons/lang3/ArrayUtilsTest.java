@@ -75,7 +75,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     public void testArraycopyFunction() {
-        String[] arr = { "a", "b" };
+        final String[] arr = { "a", "b" };
         assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(null, 0, 0, 1, i -> new String[3]));
         assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, i -> null));
         assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, (Function<Integer, String[]>) null));
@@ -83,7 +83,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     public void testArraycopySupplier() {
-        String[] arr = { "a", "b" };
+        final String[] arr = { "a", "b" };
         assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(null, 0, 0, 1, () -> new String[3]));
         assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, Suppliers.nul()));
         assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, (Supplier<String[]>) null));
@@ -1397,42 +1397,42 @@ public class ArrayUtilsTest extends AbstractLangTest {
         final long[][] larray1 = {{2, 5}, {4, 5}};
         final long[][] larray2 = {{2, 5}, {4, 6}};
         final long[] larray3 = {2, 5};
-        this.assertIsEquals(larray1, larray2, larray3);
+        assertIsEquals(larray1, larray2, larray3);
 
         final int[][] iarray1 = {{2, 5}, {4, 5}};
         final int[][] iarray2 = {{2, 5}, {4, 6}};
         final int[] iarray3 = {2, 5};
-        this.assertIsEquals(iarray1, iarray2, iarray3);
+        assertIsEquals(iarray1, iarray2, iarray3);
 
         final short[][] sarray1 = {{2, 5}, {4, 5}};
         final short[][] sarray2 = {{2, 5}, {4, 6}};
         final short[] sarray3 = {2, 5};
-        this.assertIsEquals(sarray1, sarray2, sarray3);
+        assertIsEquals(sarray1, sarray2, sarray3);
 
         final float[][] farray1 = {{2, 5}, {4, 5}};
         final float[][] farray2 = {{2, 5}, {4, 6}};
         final float[] farray3 = {2, 5};
-        this.assertIsEquals(farray1, farray2, farray3);
+        assertIsEquals(farray1, farray2, farray3);
 
         final double[][] darray1 = {{2, 5}, {4, 5}};
         final double[][] darray2 = {{2, 5}, {4, 6}};
         final double[] darray3 = {2, 5};
-        this.assertIsEquals(darray1, darray2, darray3);
+        assertIsEquals(darray1, darray2, darray3);
 
         final byte[][] byteArray1 = {{2, 5}, {4, 5}};
         final byte[][] byteArray2 = {{2, 5}, {4, 6}};
         final byte[] byteArray3 = {2, 5};
-        this.assertIsEquals(byteArray1, byteArray2, byteArray3);
+        assertIsEquals(byteArray1, byteArray2, byteArray3);
 
         final char[][] charArray1 = {{2, 5}, {4, 5}};
         final char[][] charArray2 = {{2, 5}, {4, 6}};
         final char[] charArray3 = {2, 5};
-        this.assertIsEquals(charArray1, charArray2, charArray3);
+        assertIsEquals(charArray1, charArray2, charArray3);
 
         final boolean[][] barray1 = {{true, false}, {true, true}};
         final boolean[][] barray2 = {{true, false}, {true, false}};
         final boolean[] barray3 = {false, true};
-        this.assertIsEquals(barray1, barray2, barray3);
+        assertIsEquals(barray1, barray2, barray3);
 
         final Object[] array3 = {new String(new char[]{'A', 'B'})};
         final Object[] array4 = {"AB"};

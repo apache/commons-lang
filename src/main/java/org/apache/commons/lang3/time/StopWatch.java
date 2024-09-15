@@ -170,7 +170,7 @@ public class StopWatch {
         abstract boolean isSuspended();
     }
 
-    private static final long NANO_2_MILLIS = 1000000L;
+    private static final long NANO_2_MILLIS = 1_000_000L;
 
     /**
      * Creates a StopWatch.

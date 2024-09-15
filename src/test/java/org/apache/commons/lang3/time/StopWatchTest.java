@@ -17,10 +17,7 @@
 package org.apache.commons.lang3.time;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThan;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -44,10 +42,9 @@ import org.junit.jupiter.api.Test;
  */
 public class StopWatchTest extends AbstractLangTest {
 
-    private static final Duration MILLIS_200 = Duration.ofMillis(200);
-    private static final Duration MILLIS_550 = Duration.ofMillis(550);
+    private static final int SPLIT_CLOCK_STR_LEN = 12;
+    private static final Duration MIN_DURATION = Duration.ofMillis(20);
     private static final String MESSAGE = "Baking cookies";
-    private static final Duration MIN_SLEEP = Duration.ofMillis(20);
     private static final String ZERO_HOURS_PREFIX = "00:";
     private static final String ZERO_TIME_ELAPSED = "00:00:00.000";
 
@@ -87,8 +84,14 @@ public class StopWatchTest extends AbstractLangTest {
         return watch;
     }
 
-    private void sleep(final Duration duration) throws InterruptedException {
-        ThreadUtils.sleep(duration);
+    /**
+     * Sleeps the requested duration plus one millisecond. On Java 8, sleeping for 2 or 20 millis can sleep for a tiny bit less.
+     *
+     * @param duration How long to sleep.
+     * @throws InterruptedException if any thread has interrupted the current thread.
+     */
+    private void sleepPlus1(final Duration duration) throws InterruptedException {
+        ThreadUtils.sleep(duration.plusMillis(1));
     }
 
     /**
@@ -161,7 +164,7 @@ public class StopWatchTest extends AbstractLangTest {
     @Test
     public void testFormatSplitTime() {
         final StopWatch watch = StopWatch.createStarted();
-        ThreadUtils.sleepQuietly(MIN_SLEEP);
+        ThreadUtils.sleepQuietly(MIN_DURATION);
         watch.split();
         final String formatSplitTime = watch.formatSplitTime();
         assertNotEquals(ZERO_TIME_ELAPSED, formatSplitTime);
@@ -172,7 +175,7 @@ public class StopWatchTest extends AbstractLangTest {
     public void testFormatSplitTimeWithMessage() {
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
-        ThreadUtils.sleepQuietly(MIN_SLEEP);
+        ThreadUtils.sleepQuietly(MIN_DURATION);
         watch.split();
         final String formatSplitTime = watch.formatSplitTime();
         assertThat("formatSplitTime", formatSplitTime, not(startsWith(MESSAGE)));
@@ -200,18 +203,18 @@ public class StopWatchTest extends AbstractLangTest {
         assertEquals(Duration.ZERO, watch.getDuration());
         assertEquals(ZERO_TIME_ELAPSED, watch.toString());
         watch.start();
-        sleep(MILLIS_550);
-        assertThat("watch.getDuration()", watch.getDuration().toMillis(), lessThan(2000L));
+        sleepPlus1(MIN_DURATION);
+        final long nanos = watch.getNanoTime();
+        assertTrue(nanos > 0, () -> "getNanoTime(): " + nanos);
+        assertTrue(DurationUtils.isPositive(watch.getDuration()));
     }
 
     @Test
     public void testGetSplitDuration() {
         // Create a mock StopWatch with a time of 2:59:01.999
-        // @formatter:off
         final StopWatch watch = StopWatch.createStarted();
         watch.split();
         set(watch, 123456);
-        // @formatter:on
         assertEquals(Duration.ofNanos(123456), watch.getSplitDuration());
     }
 
@@ -244,14 +247,16 @@ public class StopWatchTest extends AbstractLangTest {
         assertThrows(IllegalStateException.class, watch::getStartTime, "Calling getStartTime on a reset, but unstarted StopWatch should throw an exception");
     }
 
-    @Test
+    @RepeatedTest(10)
     public void testGetTime() throws InterruptedException {
         final StopWatch watch = new StopWatch();
         assertEquals(0, watch.getTime());
         assertEquals(ZERO_TIME_ELAPSED, watch.toString());
         watch.start();
-        sleep(MILLIS_550);
-        assertThat("watch.getTime()", watch.getTime(), lessThan(2000L));
+        sleepPlus1(MIN_DURATION);
+        final long time = watch.getTime();
+        assertTrue(time > 0, () -> "getTime() millis: " + time);
+        assertTrue(time < 2000, () -> "getTime() millis: " + time);
     }
 
     @Test
@@ -273,11 +278,11 @@ public class StopWatchTest extends AbstractLangTest {
     @Test
     public void testLang315() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
-        sleep(MILLIS_200);
+        sleepPlus1(MIN_DURATION);
         watch.suspend();
         final long suspendTime = watch.getTime();
         final Duration suspendDuration = watch.getDuration();
-        sleep(MILLIS_200);
+        sleepPlus1(MIN_DURATION);
         watch.stop();
         final long totalTime = watch.getTime();
         final Duration totalDuration = watch.getDuration();
@@ -299,14 +304,14 @@ public class StopWatchTest extends AbstractLangTest {
     @Test
     public void testSimple() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
-        sleep(MILLIS_550);
+        final Duration sleepDuration = MIN_DURATION;
+        sleepPlus1(sleepDuration);
         watch.stop();
         final long time = watch.getTime();
         final Duration duration = watch.getDuration();
         assertEquals(time, watch.getTime());
         assertEquals(duration, watch.getDuration());
-        assertThat("time", time, allOf(greaterThanOrEqualTo(500L), lessThan(2000L)));
-        assertThat("duration", duration.toMillis(), allOf(greaterThanOrEqualTo(500L), lessThan(2000L)));
+        assertTrue(duration.compareTo(sleepDuration) >= 0, () -> "duration: " + duration);
         watch.reset();
         assertEquals(0, watch.getTime());
         assertEquals(Duration.ZERO, watch.getDuration());
@@ -315,25 +320,26 @@ public class StopWatchTest extends AbstractLangTest {
     @Test
     public void testSplit() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
-        sleep(MILLIS_550);
-        // slept ~550 millis
+        final Duration sleepDuration = MIN_DURATION;
+        final long sleepMillis = sleepDuration.toMillis();
+        assertTrue(sleepMillis > 0);
+        sleepPlus1(sleepDuration);
         watch.split();
         final long splitTime = watch.getSplitTime();
         final Duration splitDuration = watch.getSplitDuration();
         assertEquals(splitTime, watch.getSplitDuration().toMillis());
-        assertEquals(12, watch.toSplitString().length(), "Formatted split string not the correct length");
-        sleep(MILLIS_550);
-        // slept ~1100 millis
+        assertEquals(SPLIT_CLOCK_STR_LEN, watch.toSplitString().length(), "Formatted split string not the correct length");
+        sleepPlus1(sleepDuration);
         watch.unsplit();
-        sleep(MILLIS_550);
-        // slept ~1650 millis
+        sleepPlus1(sleepDuration);
         watch.stop();
         final long totalTime = watch.getTime();
         final Duration totalDuration = watch.getDuration();
-        assertThat("splitTime", splitTime, allOf(greaterThanOrEqualTo(500L), lessThan(1000L)));
-        assertThat("splitDuration", splitDuration.toMillis(), allOf(greaterThanOrEqualTo(500L), lessThan(1000L)));
-        assertThat("totalTime", totalTime, allOf(greaterThanOrEqualTo(1500L), lessThan(2100L)));
-        assertThat("totalDuration", totalDuration.toMillis(), allOf(greaterThanOrEqualTo(1500L), lessThan(2100L)));
+        assertTrue(splitTime >= sleepMillis, () -> "splitTime: " + splitTime);
+        assertTrue(splitDuration.toMillis() >= sleepMillis, () -> "splitDuration: " + splitDuration);
+        final long sleepMillisX3 = sleepMillis * 3;
+        assertTrue(totalTime >= sleepMillisX3 && splitTime < 21000);
+        assertTrue(totalDuration.toMillis() >= sleepMillisX3);
     }
 
     @Test
@@ -346,25 +352,27 @@ public class StopWatchTest extends AbstractLangTest {
     public void testStopInstantSimple() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
         final long testStartMillis = System.currentTimeMillis();
-        sleep(MILLIS_550);
+        sleepPlus1(MIN_DURATION);
         watch.stop();
         final long testEndMillis = System.currentTimeMillis();
         final Instant stopTime = watch.getStopInstant();
         assertEquals(stopTime, watch.getStopInstant());
-        assertThat("stopTime", stopTime,
-                allOf(greaterThanOrEqualTo(Instant.ofEpochMilli(testStartMillis)), lessThanOrEqualTo(Instant.ofEpochMilli(testEndMillis))));
+        // Only less than, not equal
+        assertTrue(testStartMillis < testEndMillis);
+        assertTrue(Instant.ofEpochMilli(testStartMillis).isBefore(Instant.ofEpochMilli(testEndMillis)));
     }
 
     @Test
     public void testStopTimeSimple() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
         final long testStartMillis = System.currentTimeMillis();
-        sleep(MILLIS_550);
+        sleepPlus1(MIN_DURATION);
         watch.stop();
         final long testEndMillis = System.currentTimeMillis();
         final long stopTime = watch.getStopTime();
         assertEquals(stopTime, watch.getStopTime());
-        assertThat("stopTime", stopTime, allOf(greaterThanOrEqualTo(testStartMillis), lessThanOrEqualTo(testEndMillis)));
+        // Only less than, not equal
+        assertTrue(testStartMillis < testEndMillis);
     }
 
     @Test
@@ -374,67 +382,82 @@ public class StopWatchTest extends AbstractLangTest {
         final long testStartMillis = System.currentTimeMillis();
         final long testStartNanos = System.nanoTime();
         final Instant testStartInstant = Instant.ofEpochMilli(testStartMillis);
-        sleep(MILLIS_550);
+        final Duration sleepDuration = MIN_DURATION;
+        final long sleepMillis = sleepDuration.toMillis();
+        sleepPlus1(sleepDuration);
         watch.suspend();
         final long testSuspendMillis = System.currentTimeMillis();
         final long testSuspendNanos = System.nanoTime();
         final long testSuspendTimeNanos = testSuspendNanos - testStartNanos;
-        final Duration testSuspendDuration = Duration.ofNanos(testSuspendTimeNanos);
+        // See sleepPlus1
+        final Duration testSuspendDuration = Duration.ofNanos(testSuspendTimeNanos).plusMillis(1);
         final long suspendTimeFromNanos = watch.getTime();
         final Duration suspendDuration = watch.getDuration();
         final long stopTimeMillis = watch.getStopTime();
         final Instant stopInstant = watch.getStopInstant();
 
-        assertThat("testStartMillis <= stopTimeMillis", testStartMillis, lessThanOrEqualTo(stopTimeMillis));
-        assertThat("testStartInstant <= stopInstant", testStartInstant, lessThanOrEqualTo(stopInstant));
-        assertThat("testSuspendMillis <= stopTimeMillis", testSuspendMillis, lessThanOrEqualTo(stopTimeMillis));
-        assertThat("testSuspendMillis <= stopInstant", testSuspendMillis, lessThanOrEqualTo(stopInstant.toEpochMilli()));
+        assertTrue(testStartMillis <= stopTimeMillis, () -> String.format("testStartMillis %s <= stopTimeMillis %s", testStartMillis, stopTimeMillis));
+        assertTrue(testStartInstant.isBefore(stopInstant), () -> String.format("testStartInstant %s < stopInstant %s", testStartInstant, stopInstant));
+        assertTrue(testSuspendMillis <= stopTimeMillis, () -> String.format("testSuspendMillis %s <= stopTimeMillis %s", testSuspendMillis, stopTimeMillis));
+        assertTrue(testSuspendMillis <= stopInstant.toEpochMilli(),
+                () -> String.format("testSuspendMillis %s <= stopInstant %s", testSuspendMillis, stopInstant));
 
-        sleep(MILLIS_550);
+        sleepPlus1(sleepDuration);
         watch.resume();
-        sleep(MILLIS_550);
+        sleepPlus1(sleepDuration);
         watch.stop();
         final long totalTimeFromNanos = watch.getTime();
         final Duration totalDuration = watch.getDuration();
 
-        assertThat("suspendTimeFromNanos", suspendTimeFromNanos, greaterThanOrEqualTo(500L));
-        assertThat("suspendDuration", suspendDuration, greaterThanOrEqualTo(Duration.ofMillis(500L)));
-        assertThat("suspendTimeFromNanos <= testSuspendTimeNanos", suspendTimeFromNanos, lessThanOrEqualTo(testSuspendTimeNanos));
-        assertThat("suspendDuration <= testSuspendDuration", suspendDuration, lessThanOrEqualTo(testSuspendDuration));
-        assertThat("totalTimeFromNanos", totalTimeFromNanos, greaterThanOrEqualTo(1000L));
-        assertThat("totalDuration", totalDuration, greaterThanOrEqualTo(Duration.ofMillis(1000L)));
+        assertTrue(suspendTimeFromNanos >= sleepMillis, () -> String.format("suspendTimeFromNanos %s >= sleepMillis %s", suspendTimeFromNanos, sleepMillis));
+        assertTrue(suspendDuration.compareTo(Duration.ofMillis(sleepMillis)) >= 0,
+                () -> String.format("suspendDuration %s >= sleepMillis %s", suspendDuration, sleepMillis));
+        assertTrue(suspendTimeFromNanos <= testSuspendTimeNanos,
+                () -> String.format("suspendTimeFromNanos %s <= testSuspendTimeNanos %s", suspendTimeFromNanos, testSuspendTimeNanos));
+        assertTrue(suspendDuration.compareTo(testSuspendDuration) <= 0,
+                () -> String.format("suspendDuration %s <= testSuspendDuration %s", suspendDuration, testSuspendDuration));
+
+        final long sleepMillisX2 = sleepMillis + sleepMillis;
+        assertTrue(totalTimeFromNanos >= sleepMillisX2, () -> String.format("totalTimeFromNanos %s >= sleepMillisX2 %s", totalTimeFromNanos, sleepMillisX2));
+        assertTrue(totalDuration.compareTo(Duration.ofMillis(sleepMillisX2)) >= 0,
+                () -> String.format("totalDuration >= sleepMillisX2", totalDuration, sleepMillisX2));
+        ;
         // Be lenient for slow running builds
-        assertThat("totalTimeFromNanos", totalTimeFromNanos, lessThan(2500L));
-        assertThat("totalDuration", totalDuration, lessThan(Duration.ofMillis(2500L)));
+        final long testTooLongMillis = sleepMillis * 100;
+        assertTrue(totalTimeFromNanos < testTooLongMillis,
+                () -> String.format("totalTimeFromNanos %s < testTooLongMillis %s", totalTimeFromNanos, testTooLongMillis));
+        assertTrue(totalDuration.compareTo(Duration.ofMillis(testTooLongMillis)) < 0,
+                () -> String.format("totalDuration %s < testTooLongMillis %s", totalDuration, testTooLongMillis));
+        ;
     }
 
     @Test
     public void testToSplitString() throws InterruptedException {
         final StopWatch watch = StopWatch.createStarted();
-        sleep(MILLIS_550);
+        sleepPlus1(MIN_DURATION);
         watch.split();
         final String splitStr = watch.toSplitString();
-        assertEquals(12, splitStr.length(), "Formatted split string not the correct length");
+        assertEquals(SPLIT_CLOCK_STR_LEN, splitStr.length(), "Formatted split string not the correct length");
     }
 
     @Test
     public void testToSplitStringWithMessage() throws InterruptedException {
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
-        sleep(MILLIS_550);
+        sleepPlus1(MIN_DURATION);
         watch.split();
         final String splitStr = watch.toSplitString();
-        assertEquals(12 + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
+        assertEquals(SPLIT_CLOCK_STR_LEN + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
     }
 
     @Test
     public void testToString() throws InterruptedException {
         //
         final StopWatch watch = StopWatch.createStarted();
-        sleep(MILLIS_550);
+        sleepPlus1(MIN_DURATION);
         watch.split();
         final String splitStr = watch.toString();
-        assertEquals(12, splitStr.length(), "Formatted split string not the correct length");
+        assertEquals(SPLIT_CLOCK_STR_LEN, splitStr.length(), "Formatted split string not the correct length");
     }
 
     @Test
@@ -443,9 +466,9 @@ public class StopWatchTest extends AbstractLangTest {
         //
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
-        sleep(MILLIS_550);
+        sleepPlus1(MIN_DURATION);
         watch.split();
         final String splitStr = watch.toString();
-        assertEquals(12 + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
+        assertEquals(SPLIT_CLOCK_STR_LEN + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
     }
 }

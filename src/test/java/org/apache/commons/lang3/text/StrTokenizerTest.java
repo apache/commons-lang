@@ -651,30 +651,30 @@ public class StrTokenizerTest extends AbstractLangTest {
     }
 
     private void testCSV(final String data) {
-        this.testXSVAbc(StrTokenizer.getCSVInstance(data));
-        this.testXSVAbc(StrTokenizer.getCSVInstance(data.toCharArray()));
+        testXSVAbc(StrTokenizer.getCSVInstance(data));
+        testXSVAbc(StrTokenizer.getCSVInstance(data.toCharArray()));
     }
 
     @Test
     public void testCSVEmpty() {
-        this.testEmpty(StrTokenizer.getCSVInstance());
-        this.testEmpty(StrTokenizer.getCSVInstance(""));
+        testEmpty(StrTokenizer.getCSVInstance());
+        testEmpty(StrTokenizer.getCSVInstance(""));
     }
 
     @Test
     public void testCSVSimple() {
-        this.testCSV(CSV_SIMPLE_FIXTURE);
+        testCSV(CSV_SIMPLE_FIXTURE);
     }
 
     @Test
     public void testCSVSimpleNeedsTrim() {
-        this.testCSV("   " + CSV_SIMPLE_FIXTURE);
-        this.testCSV("   \n\t  " + CSV_SIMPLE_FIXTURE);
-        this.testCSV("   \n  " + CSV_SIMPLE_FIXTURE + "\n\n\r");
+        testCSV("   " + CSV_SIMPLE_FIXTURE);
+        testCSV("   \n\t  " + CSV_SIMPLE_FIXTURE);
+        testCSV("   \n  " + CSV_SIMPLE_FIXTURE + "\n\n\r");
     }
 
     void testEmpty(final StrTokenizer tokenizer) {
-        this.checkClone(tokenizer);
+        checkClone(tokenizer);
         assertFalse(tokenizer.hasNext());
         assertFalse(tokenizer.hasPrevious());
         assertNull(tokenizer.nextToken());
@@ -810,18 +810,18 @@ public class StrTokenizerTest extends AbstractLangTest {
 
     @Test
     public void testTSV() {
-        this.testXSVAbc(StrTokenizer.getTSVInstance(TSV_SIMPLE_FIXTURE));
-        this.testXSVAbc(StrTokenizer.getTSVInstance(TSV_SIMPLE_FIXTURE.toCharArray()));
+        testXSVAbc(StrTokenizer.getTSVInstance(TSV_SIMPLE_FIXTURE));
+        testXSVAbc(StrTokenizer.getTSVInstance(TSV_SIMPLE_FIXTURE.toCharArray()));
     }
 
     @Test
     public void testTSVEmpty() {
-        this.testEmpty(StrTokenizer.getTSVInstance());
-        this.testEmpty(StrTokenizer.getTSVInstance(""));
+        testEmpty(StrTokenizer.getTSVInstance());
+        testEmpty(StrTokenizer.getTSVInstance(""));
     }
 
     void testXSVAbc(final StrTokenizer tokenizer) {
-        this.checkClone(tokenizer);
+        checkClone(tokenizer);
         assertEquals(-1, tokenizer.previousIndex());
         assertEquals(0, tokenizer.nextIndex());
         assertNull(tokenizer.previousToken());

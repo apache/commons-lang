@@ -809,11 +809,11 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         }
         if (power < 0) {
             if (power == Integer.MIN_VALUE) { // MIN_VALUE can't be negated.
-                return this.invert().pow(2).pow(-(power / 2));
+                return invert().pow(2).pow(-(power / 2));
             }
-            return this.invert().pow(-power);
+            return invert().pow(-power);
         }
-        final Fraction f = this.multiplyBy(this);
+        final Fraction f = multiplyBy(this);
         if (power % 2 == 0) { // if even...
             return f.pow(power / 2);
         }

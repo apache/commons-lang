@@ -412,11 +412,11 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {

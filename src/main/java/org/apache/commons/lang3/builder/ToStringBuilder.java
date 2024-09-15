@@ -911,7 +911,7 @@ public class ToStringBuilder implements Builder<String> {
      * @since 2.0
      */
     public ToStringBuilder appendAsObjectToString(final Object srcObject) {
-        ObjectUtils.identityToString(this.getStringBuffer(), srcObject);
+        ObjectUtils.identityToString(getStringBuffer(), srcObject);
         return this;
     }
 
@@ -1024,11 +1024,11 @@ public class ToStringBuilder implements Builder<String> {
      */
     @Override
     public String toString() {
-        if (this.getObject() == null) {
-            this.getStringBuffer().append(this.getStyle().getNullText());
+        if (getObject() == null) {
+            getStringBuffer().append(getStyle().getNullText());
         } else {
-            style.appendEnd(this.getStringBuffer(), this.getObject());
+            style.appendEnd(getStringBuffer(), getObject());
         }
-        return this.getStringBuffer().toString();
+        return getStringBuffer().toString();
     }
 }
