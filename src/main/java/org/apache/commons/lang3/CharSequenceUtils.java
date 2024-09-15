@@ -290,6 +290,7 @@ public class CharSequenceUtils {
      * @param start the index to start on the {@code substring} CharSequence
      * @param length character length of the region
      * @return whether the region matched
+     * @see String#regionMatches(boolean, int, String, int, int)
      */
     static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
             final CharSequence substring, final int start, final int length)    {
@@ -326,7 +327,7 @@ public class CharSequenceUtils {
                 return false;
             }
 
-            // The real same check as in String.regionMatches():
+            // The real same check as in String#regionMatches(boolean, int, String, int, int):
             final char u1 = Character.toUpperCase(c1);
             final char u2 = Character.toUpperCase(c2);
             if (u1 != u2 && Character.toLowerCase(u1) != Character.toLowerCase(u2)) {
