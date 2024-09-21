@@ -53,7 +53,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Fabrice Benhamouda">Fix handling of non-ASCII letters & numbers in RandomStringUtils #1273.</action> 
     <!-- ADD -->
     <!-- UPDATE -->
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 74 #1267.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 75 #1267, #1277.</action>
   </release>
   <release version="3.17.0" date="2024-08-24" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
