@@ -92,6 +92,8 @@ public class DurationUtilsTest extends AbstractLangTest {
     @Test
     public void testOfConsumer() {
         assertTrue(DurationUtils.of(start -> assertTrue(start.compareTo(Instant.now()) <= 0)).compareTo(Duration.ZERO) >= 0);
+        final Instant before = Instant.now();
+        DurationUtils.of(start -> assertTrue(start.compareTo(before) >= 0));
     }
 
     @Test
