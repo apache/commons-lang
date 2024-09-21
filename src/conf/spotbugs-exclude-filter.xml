@@ -113,6 +113,16 @@
     </Or>
     <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
   </Match>
+  <Match>
+    <Class name="org.apache.commons.lang3.Strings$CiStrings" />
+    <Method name="compare" params="java.lang.String,java.lang.String"/>
+    <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
+  </Match>
+  <Match>
+    <Class name="org.apache.commons.lang3.Strings$CsStrings" />
+    <Method name="compare" params="java.lang.String,java.lang.String"/>
+    <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
+  </Match>
 
   <!-- Reason: Very much intended to do a fall through on the switch -->
   <Match>

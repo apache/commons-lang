@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -84,7 +84,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      */
     @Override
     public List<Object> getContextValues(final String label) {
-        return stream().filter(pair -> StringUtils.equals(label, pair.getKey())).map(Pair::getValue).collect(Collectors.toList());
+        return stream().filter(pair -> Strings.CS.equals(label, pair.getKey())).map(Pair::getValue).collect(Collectors.toList());
     }
 
     /**
@@ -92,7 +92,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      */
     @Override
     public Object getFirstContextValue(final String label) {
-        return stream().filter(pair -> StringUtils.equals(label, pair.getKey())).findFirst().map(Pair::getValue).orElse(null);
+        return stream().filter(pair -> Strings.CS.equals(label, pair.getKey())).findFirst().map(Pair::getValue).orElse(null);
     }
 
     /**
@@ -138,7 +138,7 @@ public class DefaultExceptionContext implements ExceptionContext, Serializable {
      */
     @Override
     public DefaultExceptionContext setContextValue(final String label, final Object value) {
-        contextValues.removeIf(p -> StringUtils.equals(label, p.getKey()));
+        contextValues.removeIf(p -> Strings.CS.equals(label, p.getKey()));
         addContextValue(label, value);
         return this;
     }

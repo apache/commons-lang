@@ -41,12 +41,15 @@ public class CharSequenceUtils {
     /**
      * Used by the indexOf(CharSequence methods) as a green implementation of indexOf.
      *
-     * @param cs the {@link CharSequence} to be processed
+     * @param cs         the {@link CharSequence} to be processed
      * @param searchChar the {@link CharSequence} to be searched for
-     * @param start the start index
-     * @return the index where the search sequence was found
+     * @param start      the start index
+     * @return the index where the search sequence was found, or {@code -1} if there is no such occurrence.
      */
     static int indexOf(final CharSequence cs, final CharSequence searchChar, final int start) {
+        if (cs == null || searchChar == null) {
+            return StringUtils.INDEX_NOT_FOUND;
+        }
         if (cs instanceof String) {
             return ((String) cs).indexOf(searchChar.toString(), start);
         }

@@ -28,6 +28,7 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  * Controls {@link String} formatting for {@link ToStringBuilder}.
@@ -2270,7 +2271,7 @@ public abstract class ToStringStyle implements Serializable {
      * @since 2.0
      */
     protected void removeLastFieldSeparator(final StringBuffer buffer) {
-        if (StringUtils.endsWith(buffer, fieldSeparator)) {
+        if (Strings.CS.endsWith(buffer, fieldSeparator)) {
             buffer.setLength(buffer.length() - fieldSeparator.length());
         }
     }
