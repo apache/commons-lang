@@ -18,3 +18,6 @@ site-content
 .project
 .externalToolBuilders
 .checkstyle
+
+# jenv's version file
+.java-version
