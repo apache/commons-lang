@@ -527,24 +527,21 @@ public class ClassUtils {
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
-        try {
-            final Class<?> clazz = getPrimitiveClass(className);
-            return clazz != null ? clazz : Class.forName(toCanonicalName(className), initialize, classLoader);
-        } catch (final ClassNotFoundException ex) {
-            // allow path separators (.) as inner class name separators
-            final int lastDotIndex = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
-
-            if (lastDotIndex != -1) {
-                try {
-                    return getClass(classLoader, className.substring(0, lastDotIndex) + INNER_CLASS_SEPARATOR_CHAR + className.substring(lastDotIndex + 1),
-                        initialize);
-                } catch (final ClassNotFoundException ignored) {
-                    // ignore exception
+        // This method was re-written to avoid recursion and stack overflows found by fuzz testing.
+        String next = className;
+        int lastDotIndex = -1;
+        do {
+            try {
+                final Class<?> clazz = getPrimitiveClass(next);
+                return clazz != null ? clazz : Class.forName(toCanonicalName(next), initialize, classLoader);
+            } catch (final ClassNotFoundException ex) {
+                lastDotIndex = next.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
+                if (lastDotIndex != -1) {
+                    next = next.substring(0, lastDotIndex) + INNER_CLASS_SEPARATOR_CHAR + next.substring(lastDotIndex + 1);
                 }
             }
-
-            throw ex;
-        }
+        } while (lastDotIndex != -1);
+        throw new ClassNotFoundException(next);
     }
 
     /**
@@ -1504,9 +1501,10 @@ public class ClassUtils {
     private static String toCanonicalName(final String className) {
         String canonicalName = StringUtils.deleteWhitespace(className);
         Objects.requireNonNull(canonicalName, "className");
-        if (canonicalName.endsWith("[]")) {
+        final String arrayMarker = "[]";
+        if (canonicalName.endsWith(arrayMarker)) {
             final StringBuilder classNameBuffer = new StringBuilder();
-            while (canonicalName.endsWith("[]")) {
+            while (canonicalName.endsWith(arrayMarker)) {
                 canonicalName = canonicalName.substring(0, canonicalName.length() - 2);
                 classNameBuffer.append("[");
             }
