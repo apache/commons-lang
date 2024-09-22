@@ -2529,7 +2529,7 @@ public class StringUtils {
      */
     @Deprecated
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq) {
-        return Strings.CS.indexOf(seq, searchSeq, 0);
+        return Strings.CS.indexOf(seq, searchSeq);
     }
 
     /**
@@ -2564,7 +2564,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, String, int) to indexOf(CharSequence, CharSequence, int)
-     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence) Strings.CS.indexOf(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence, int) Strings.CS.indexOf(CharSequence, CharSequence, int)}
      */
     @Deprecated
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
@@ -3061,7 +3061,7 @@ public class StringUtils {
      */
     @Deprecated
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
-        return Strings.CI.indexOf(str, searchStr, 0);
+        return Strings.CI.indexOf(str, searchStr);
     }
 
     /**

@@ -31,6 +31,9 @@ import org.apache.commons.lang3.function.ToBooleanBiFunction;
  */
 public abstract class Strings {
 
+    /**
+     * Builds {@link Strings} instances.
+     */
     public static class Builder extends AbstractSupplier<Strings, Builder, RuntimeException> {
 
         /**
@@ -43,24 +46,31 @@ public abstract class Strings {
          */
         private boolean nullIsLess;
 
+        /**
+         * Gets a new {@link Strings} instance.
+         */
         @Override
         public Strings get() {
-            return ignoreCase ? new CiStrings(ignoreCase) : new CsStrings(ignoreCase);
+            return ignoreCase ? new CiStrings(nullIsLess) : new CsStrings(nullIsLess);
         }
 
-        protected boolean isIgnoreCase() {
-            return ignoreCase;
-        }
-
-        protected boolean isNullIsLess() {
-            return nullIsLess;
-        }
-
+        /**
+         * Sets the ignoreCase property for new Strings instances.
+         *
+         * @param ignoreCase the ignoreCase property for new Strings instances.
+         * @return this instance.
+         */
         public Builder setIgnoreCase(final boolean ignoreCase) {
             this.ignoreCase = ignoreCase;
             return asThis();
         }
 
+        /**
+         * Sets the nullIsLess property for new Strings instances.
+         *
+         * @param nullIsLess the nullIsLess property for new Strings instances.
+         * @return this instance.
+         */
         public Builder setNullIsLess(final boolean nullIsLess) {
             this.nullIsLess = nullIsLess;
             return asThis();
@@ -92,29 +102,6 @@ public abstract class Strings {
             return s1.compareToIgnoreCase(s2);
         }
 
-        /**
-         * Tests if CharSequence contains a search CharSequence irrespective of case, handling {@code null}. Case-insensitivity is defined as by
-         * {@link String#equalsIgnoreCase(String)}.
-         *
-         * <p>
-         * A {@code null} CharSequence will return {@code false}.
-         * </p>
-         *
-         * <pre>
-         * StringUtils.containsIgnoreCase(null, *)    = false
-         * StringUtils.containsIgnoreCase(*, null)    = false
-         * StringUtils.containsIgnoreCase("", "")     = true
-         * StringUtils.containsIgnoreCase("abc", "")  = true
-         * StringUtils.containsIgnoreCase("abc", "a") = true
-         * StringUtils.containsIgnoreCase("abc", "z") = false
-         * StringUtils.containsIgnoreCase("abc", "A") = true
-         * StringUtils.containsIgnoreCase("abc", "Z") = false
-         * </pre>
-         *
-         * @param str       the CharSequence to check, may be null
-         * @param searchStr the CharSequence to find, may be null
-         * @return true if the CharSequence contains the search CharSequence irrespective of case or false if not or {@code null} string input
-         */
         @Override
         public boolean contains(final CharSequence str, final CharSequence searchStr) {
             if (str == null || searchStr == null) {
@@ -172,32 +159,6 @@ public abstract class Strings {
             return INDEX_NOT_FOUND;
         }
 
-        /**
-         * Case in-sensitive find of the last index within a CharSequence from the specified position.
-         *
-         * <p>
-         * A {@code null} CharSequence will return {@code -1}. A negative start position returns {@code -1}. An empty ("") search CharSequence always matches
-         * unless the start position is negative. A start position greater than the string length searches the whole string. The search starts at the startPos
-         * and works backwards; matches starting after the start position are ignored.
-         * </p>
-         *
-         * <pre>
-         * StringUtils.lastIndexOfIgnoreCase(null, *, *)          = -1
-         * StringUtils.lastIndexOfIgnoreCase(*, null, *)          = -1
-         * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "A", 8)  = 7
-         * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 8)  = 5
-         * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "AB", 8) = 4
-         * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 9)  = 5
-         * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", -1) = -1
-         * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "A", 0)  = 0
-         * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 0)  = -1
-         * </pre>
-         *
-         * @param str       the CharSequence to check, may be null
-         * @param searchStr the CharSequence to find, may be null
-         * @param startPos  the start position
-         * @return the last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} input
-         */
         @Override
         public int lastIndexOf(final CharSequence str, final CharSequence searchStr, int startPos) {
             if (str == null || searchStr == null) {
@@ -287,35 +248,6 @@ public abstract class Strings {
             return CharSequenceUtils.indexOf(seq, searchSeq, startPos);
         }
 
-        /**
-         * Finds the last index within a CharSequence, handling {@code null}. This method uses {@link String#lastIndexOf(String, int)} if possible.
-         *
-         * <p>
-         * A {@code null} CharSequence will return {@code -1}. A negative start position returns {@code -1}. An empty ("") search CharSequence always matches
-         * unless the start position is negative. A start position greater than the string length searches the whole string. The search starts at the startPos
-         * and works backwards; matches starting after the start position are ignored.
-         * </p>
-         *
-         * <pre>
-         * StringUtils.lastIndexOf(null, *, *)          = -1
-         * StringUtils.lastIndexOf(*, null, *)          = -1
-         * StringUtils.lastIndexOf("aabaabaa", "a", 8)  = 7
-         * StringUtils.lastIndexOf("aabaabaa", "b", 8)  = 5
-         * StringUtils.lastIndexOf("aabaabaa", "ab", 8) = 4
-         * StringUtils.lastIndexOf("aabaabaa", "b", 9)  = 5
-         * StringUtils.lastIndexOf("aabaabaa", "b", -1) = -1
-         * StringUtils.lastIndexOf("aabaabaa", "a", 0)  = 0
-         * StringUtils.lastIndexOf("aabaabaa", "b", 0)  = -1
-         * StringUtils.lastIndexOf("aabaabaa", "b", 1)  = -1
-         * StringUtils.lastIndexOf("aabaabaa", "b", 2)  = 2
-         * StringUtils.lastIndexOf("aabaabaa", "ba", 2)  = 2
-         * </pre>
-         *
-         * @param seq       the CharSequence to check, may be null
-         * @param searchSeq the CharSequence to find, may be null
-         * @param startPos  the start position, negative treated as zero
-         * @return the last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} string input
-         */
         @Override
         public int lastIndexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
             return CharSequenceUtils.lastIndexOf(seq, searchSeq, startPos);
@@ -333,6 +265,11 @@ public abstract class Strings {
      */
     public static final Strings CS = new CsStrings(true);
 
+    /**
+     * Constructs a new {@link Builder} instance.
+     *
+     * @return a new {@link Builder} instance.
+     */
     public static final Builder builder() {
         return new Builder();
     }
@@ -371,6 +308,12 @@ public abstract class Strings {
      */
     private final boolean nullIsLess;
 
+    /**
+     * Constructs a new instance.
+     *
+     * @param ignoreCase Ignores case when possible.
+     * @param nullIsLess Compares null as less when possible.
+     */
     private Strings(final boolean ignoreCase, final boolean nullIsLess) {
         this.ignoreCase = ignoreCase;
         this.nullIsLess = nullIsLess;
@@ -456,7 +399,66 @@ public abstract class Strings {
         return str + suffix;
     }
 
-    public abstract int compare(String s1, String s2);
+    /**
+     * Compare two Strings lexicographically, like {@link String#compareTo(String)}.
+     * <p>
+     * The return values are:
+     * </p>
+     * <ul>
+     * <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
+     * <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
+     * <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
+     * </ul>
+     *
+     * <p>
+     * This is a {@code null} safe version of :
+     * </p>
+     *
+     * <pre>
+     * str1.compareTo(str2)
+     * </pre>
+     *
+     * <p>
+     * {@code null} value is considered less than non-{@code null} value. Two {@code null} references are considered equal.
+     * </p>
+     *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
+     * <pre>{@code
+     * StringUtils.compare(null, null)   = 0
+     * StringUtils.compare(null , "a")   < 0
+     * StringUtils.compare("a", null)   > 0
+     * StringUtils.compare("abc", "abc") = 0
+     * StringUtils.compare("a", "b")     < 0
+     * StringUtils.compare("b", "a")     > 0
+     * StringUtils.compare("a", "B")     > 0
+     * StringUtils.compare("ab", "abc")  < 0
+     * }</pre>
+     * <p>
+     * Case-insensitive examples
+     * </p>
+     *
+     * <pre>{@code
+     * StringUtils.compareIgnoreCase(null, null)   = 0
+     * StringUtils.compareIgnoreCase(null , "a")   < 0
+     * StringUtils.compareIgnoreCase("a", null)    > 0
+     * StringUtils.compareIgnoreCase("abc", "abc") = 0
+     * StringUtils.compareIgnoreCase("abc", "ABC") = 0
+     * StringUtils.compareIgnoreCase("a", "b")     < 0
+     * StringUtils.compareIgnoreCase("b", "a")     > 0
+     * StringUtils.compareIgnoreCase("a", "B")     < 0
+     * StringUtils.compareIgnoreCase("A", "b")     < 0
+     * StringUtils.compareIgnoreCase("ab", "ABC")  < 0
+     * }</pre>
+     *
+     * @see String#compareTo(String)
+     * @param str1 the String to compare from
+     * @param str2 the String to compare to
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal or greater than {@code str2}
+     */
+    public abstract int compare(String str1, String str2);
 
     /**
      * Tests if CharSequence contains a search CharSequence, handling {@code null}. This method uses {@link String#indexOf(String)} if possible.
@@ -465,13 +467,31 @@ public abstract class Strings {
      * A {@code null} CharSequence will return {@code false}.
      * </p>
      *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
      * <pre>
-     * Strings.CS.contains(null, *)     = false
-     * Strings.CS.contains(*, null)     = false
-     * Strings.CS.contains("", "")      = true
-     * Strings.CS.contains("abc", "")   = true
-     * Strings.CS.contains("abc", "a")  = true
-     * Strings.CS.contains("abc", "z")  = false
+     * StringUtils.contains(null, *)     = false
+     * StringUtils.contains(*, null)     = false
+     * StringUtils.contains("", "")      = true
+     * StringUtils.contains("abc", "")   = true
+     * StringUtils.contains("abc", "a")  = true
+     * StringUtils.contains("abc", "z")  = false
+     * </pre>
+     * <p>
+     * Case-insensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsIgnoreCase(null, *)    = false
+     * StringUtils.containsIgnoreCase(*, null)    = false
+     * StringUtils.containsIgnoreCase("", "")     = true
+     * StringUtils.containsIgnoreCase("abc", "")  = true
+     * StringUtils.containsIgnoreCase("abc", "a") = true
+     * StringUtils.containsIgnoreCase("abc", "z") = false
+     * StringUtils.containsIgnoreCase("abc", "A") = true
+     * StringUtils.containsIgnoreCase("abc", "Z") = false
      * </pre>
      *
      * @param seq       the CharSequence to check, may be null
@@ -481,10 +501,27 @@ public abstract class Strings {
     public abstract boolean contains(CharSequence seq, CharSequence searchSeq);
 
     /**
-     * Tests if the CharSequence contains any of the CharSequences in the given array, ignoring case.
+     * Tests if the CharSequence contains any of the CharSequences in the given array.
      *
      * <p>
      * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will return {@code false}.
+     * </p>
+     *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)            = false
+     * StringUtils.containsAny("", *)              = false
+     * StringUtils.containsAny(*, null)            = false
+     * StringUtils.containsAny(*, [])              = false
+     * StringUtils.containsAny("abcd", "ab", null) = true
+     * StringUtils.containsAny("abcd", "ab", "cd") = true
+     * StringUtils.containsAny("abc", "d", "abc")  = true
+     * </pre>
+     * <p>
+     * Case-insensitive examples
      * </p>
      *
      * <pre>
@@ -508,7 +545,7 @@ public abstract class Strings {
     }
 
     /**
-     * Tests if a CharSequence ends with a specified suffix (optionally case-insensitive).
+     * Tests if a CharSequence ends with a specified suffix.
      *
      * <p>
      * Case-sensitive examples
@@ -553,26 +590,103 @@ public abstract class Strings {
         return CharSequenceUtils.regionMatches(str, ignoreCase, str.length() - sufLen, suffix, 0, sufLen);
     }
 
-    public abstract boolean equals(CharSequence s1, CharSequence s2);
-
     /**
-     * Compares this string to the specified object. The result is {@code
-     * true} if and only if the argument is not {@code null} and is a {@code
-     * String} object that represents the same sequence of characters as this object.
+     * Compares two CharSequences, returning {@code true} if they represent equal sequences of characters.
      *
-     * @param s1 The left string to compare this {@code String} against
-     * @param s2 The right string to compare this {@code String} against
+     * <p>
+     * {@code null}s are handled without exceptions. Two {@code null} references are considered to be equal.
+     * </p>
      *
-     * @return {@code true} if the given object represents a {@code String} equivalent to this string, {@code false} otherwise
+     * <p>
+     * Case-sensitive examples
+     * </p>
      *
+     * <pre>
+     * StringUtils.equals(null, null)   = true
+     * StringUtils.equals(null, "abc")  = false
+     * StringUtils.equals("abc", null)  = false
+     * StringUtils.equals("abc", "abc") = true
+     * StringUtils.equals("abc", "ABC") = false
+     * </pre>
+     * <p>
+     * Case-insensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.equalsIgnoreCase(null, null)   = true
+     * StringUtils.equalsIgnoreCase(null, "abc")  = false
+     * StringUtils.equalsIgnoreCase("abc", null)  = false
+     * StringUtils.equalsIgnoreCase("abc", "abc") = true
+     * StringUtils.equalsIgnoreCase("abc", "ABC") = true
+     * </pre>
+     *
+     * @param cs1 the first CharSequence, may be {@code null}
+     * @param cs2 the second CharSequence, may be {@code null}
+     * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
+     * @see Object#equals(Object)
      * @see String#compareTo(String)
      * @see String#equalsIgnoreCase(String)
      */
-    public abstract boolean equals(String s1, String s2);
+    public abstract boolean equals(CharSequence cs1, CharSequence cs2);
+
+    /**
+     * Compares two CharSequences, returning {@code true} if they represent equal sequences of characters.
+     *
+     * <p>
+     * {@code null}s are handled without exceptions. Two {@code null} references are considered to be equal.
+     * </p>
+     *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.equals(null, null)   = true
+     * StringUtils.equals(null, "abc")  = false
+     * StringUtils.equals("abc", null)  = false
+     * StringUtils.equals("abc", "abc") = true
+     * StringUtils.equals("abc", "ABC") = false
+     * </pre>
+     * <p>
+     * Case-insensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.equalsIgnoreCase(null, null)   = true
+     * StringUtils.equalsIgnoreCase(null, "abc")  = false
+     * StringUtils.equalsIgnoreCase("abc", null)  = false
+     * StringUtils.equalsIgnoreCase("abc", "abc") = true
+     * StringUtils.equalsIgnoreCase("abc", "ABC") = true
+     * </pre>
+     *
+     * @param str1 the first CharSequence, may be {@code null}
+     * @param str2 the second CharSequence, may be {@code null}
+     * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
+     * @see Object#equals(Object)
+     * @see String#compareTo(String)
+     * @see String#equalsIgnoreCase(String)
+     */
+    public abstract boolean equals(String str1, String str2);
 
     /**
      * Compares given {@code string} to a CharSequences vararg of {@code searchStrings}, returning {@code true} if the {@code string} is equal to any of the
      * {@code searchStrings}.
+     *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.equalsAny(null, (CharSequence[]) null) = false
+     * StringUtils.equalsAny(null, null, null)    = true
+     * StringUtils.equalsAny(null, "abc", "def")  = false
+     * StringUtils.equalsAny("abc", null, "def")  = false
+     * StringUtils.equalsAny("abc", "abc", "def") = true
+     * StringUtils.equalsAny("abc", "ABC", "DEF") = false
+     * </pre>
+     * <p>
+     * Case-insensitive examples
+     * </p>
      *
      * <pre>
      * StringUtils.equalsAny(null, (CharSequence[]) null) = false
@@ -599,24 +713,154 @@ public abstract class Strings {
         return false;
     }
 
-    public int indexOf(final CharSequence str, final CharSequence searchStr) {
-        return indexOf(str, searchStr, 0);
+    /**
+     * Finds the first index within a CharSequence, handling {@code null}. This method uses {@link String#indexOf(String, int)} if possible.
+     *
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}.
+     * </p>
+     *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.indexOf(null, *)          = -1
+     * StringUtils.indexOf(*, null)          = -1
+     * StringUtils.indexOf("", "")           = 0
+     * StringUtils.indexOf("", *)            = -1 (except when * = "")
+     * StringUtils.indexOf("aabaabaa", "a")  = 0
+     * StringUtils.indexOf("aabaabaa", "b")  = 2
+     * StringUtils.indexOf("aabaabaa", "ab") = 1
+     * StringUtils.indexOf("aabaabaa", "")   = 0
+     * </pre>
+     * <p>
+     * Case-insensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.indexOfIgnoreCase(null, *)          = -1
+     * StringUtils.indexOfIgnoreCase(*, null)          = -1
+     * StringUtils.indexOfIgnoreCase("", "")           = 0
+     * StringUtils.indexOfIgnoreCase(" ", " ")         = 0
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "a")  = 0
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "b")  = 2
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "ab") = 1
+     * </pre>
+     *
+     * @param seq       the CharSequence to check, may be null
+     * @param searchSeq the CharSequence to find, may be null
+     * @return the first index of the search CharSequence, -1 if no match or {@code null} string input
+     */
+    public int indexOf(final CharSequence seq, final CharSequence searchSeq) {
+        return indexOf(seq, searchSeq, 0);
     }
 
-    public abstract int indexOf(CharSequence str, CharSequence searchStr, int startPos);
+    /**
+     * Finds the first index within a CharSequence, handling {@code null}. This method uses {@link String#indexOf(String, int)} if possible.
+     *
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A negative start position is treated as zero. An empty ("") search CharSequence always matches. A
+     * start position greater than the string length only matches an empty search CharSequence.
+     * </p>
+     *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.indexOf(null, *, *)          = -1
+     * StringUtils.indexOf(*, null, *)          = -1
+     * StringUtils.indexOf("", "", 0)           = 0
+     * StringUtils.indexOf("", *, 0)            = -1 (except when * = "")
+     * StringUtils.indexOf("aabaabaa", "a", 0)  = 0
+     * StringUtils.indexOf("aabaabaa", "b", 0)  = 2
+     * StringUtils.indexOf("aabaabaa", "ab", 0) = 1
+     * StringUtils.indexOf("aabaabaa", "b", 3)  = 5
+     * StringUtils.indexOf("aabaabaa", "b", 9)  = -1
+     * StringUtils.indexOf("aabaabaa", "b", -1) = 2
+     * StringUtils.indexOf("aabaabaa", "", 2)   = 2
+     * StringUtils.indexOf("abc", "", 9)        = 3
+     * </pre>
+     * <p>
+     * Case-insensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.indexOfIgnoreCase(null, *, *)          = -1
+     * StringUtils.indexOfIgnoreCase(*, null, *)          = -1
+     * StringUtils.indexOfIgnoreCase("", "", 0)           = 0
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "A", 0)  = 0
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 0)  = 2
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 0) = 1
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 3)  = 5
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
+     * StringUtils.indexOfIgnoreCase("abc", "", 9)        = -1
+     * </pre>
+     *
+     * @param seq       the CharSequence to check, may be null
+     * @param searchSeq the CharSequence to find, may be null
+     * @param startPos  the start position, negative treated as zero
+     * @return the first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input
+     */
+    public abstract int indexOf(CharSequence seq, CharSequence searchSeq, int startPos);
 
+    /**
+     * Tests whether to ignore case.
+     *
+     * @return whether to ignore case.
+     */
     public boolean isCaseSensitive() {
         return !ignoreCase;
     }
 
-    boolean isIgnoreCase() {
-        return ignoreCase;
-    }
-
+    /**
+     * Tests whether null is less when comparing.
+     *
+     * @return whether null is less when comparing.
+     */
     boolean isNullIsLess() {
         return nullIsLess;
     }
 
+    /**
+     * Finds the last index within a CharSequence, handling {@code null}. This method uses {@link String#lastIndexOf(String)} if possible.
+     *
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}.
+     * </p>
+     *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.lastIndexOf(null, *)          = -1
+     * StringUtils.lastIndexOf(*, null)          = -1
+     * StringUtils.lastIndexOf("", "")           = 0
+     * StringUtils.lastIndexOf("aabaabaa", "a")  = 7
+     * StringUtils.lastIndexOf("aabaabaa", "b")  = 5
+     * StringUtils.lastIndexOf("aabaabaa", "ab") = 4
+     * StringUtils.lastIndexOf("aabaabaa", "")   = 8
+     * </pre>
+     * <p>
+     * Case-insensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.lastIndexOfIgnoreCase(null, *)          = -1
+     * StringUtils.lastIndexOfIgnoreCase(*, null)          = -1
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "A")  = 7
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B")  = 5
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "AB") = 4
+     * </pre>
+     *
+     * @param str       the CharSequence to check, may be null
+     * @param searchStr the CharSequence to find, may be null
+     * @return the last index of the search String, -1 if no match or {@code null} string input
+     */
     public int lastIndexOf(final CharSequence str, final CharSequence searchStr) {
         if (str == null) {
             return INDEX_NOT_FOUND;
@@ -624,6 +868,54 @@ public abstract class Strings {
         return lastIndexOf(str, searchStr, str.length());
     }
 
+    /**
+     * Finds the last index within a CharSequence, handling {@code null}. This method uses {@link String#lastIndexOf(String, int)} if possible.
+     *
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A negative start position returns {@code -1}. An empty ("") search CharSequence always matches unless
+     * the start position is negative. A start position greater than the string length searches the whole string. The search starts at the startPos and works
+     * backwards; matches starting after the start position are ignored.
+     * </p>
+     *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.lastIndexOf(null, *, *)          = -1
+     * StringUtils.lastIndexOf(*, null, *)          = -1
+     * StringUtils.lastIndexOf("aabaabaa", "a", 8)  = 7
+     * StringUtils.lastIndexOf("aabaabaa", "b", 8)  = 5
+     * StringUtils.lastIndexOf("aabaabaa", "ab", 8) = 4
+     * StringUtils.lastIndexOf("aabaabaa", "b", 9)  = 5
+     * StringUtils.lastIndexOf("aabaabaa", "b", -1) = -1
+     * StringUtils.lastIndexOf("aabaabaa", "a", 0)  = 0
+     * StringUtils.lastIndexOf("aabaabaa", "b", 0)  = -1
+     * StringUtils.lastIndexOf("aabaabaa", "b", 1)  = -1
+     * StringUtils.lastIndexOf("aabaabaa", "b", 2)  = 2
+     * StringUtils.lastIndexOf("aabaabaa", "ba", 2)  = 2
+     * </pre>
+     * <p>
+     * Case-insensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.lastIndexOfIgnoreCase(null, *, *)          = -1
+     * StringUtils.lastIndexOfIgnoreCase(*, null, *)          = -1
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "A", 8)  = 7
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 8)  = 5
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "AB", 8) = 4
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 9)  = 5
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", -1) = -1
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "A", 0)  = 0
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 0)  = -1
+     * </pre>
+     *
+     * @param seq       the CharSequence to check, may be null
+     * @param searchSeq the CharSequence to find, may be null
+     * @param startPos  the start position, negative treated as zero
+     * @return the last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} string input
+     */
     public abstract int lastIndexOf(CharSequence seq, CharSequence searchSeq, int startPos);
 
     /**
@@ -766,6 +1058,19 @@ public abstract class Strings {
      * </p>
      *
      * <p>
+     * Case-sensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.removeStart(null, *)      = null
+     * StringUtils.removeStart("", *)        = ""
+     * StringUtils.removeStart(*, null)      = *
+     * StringUtils.removeStart("www.domain.com", "www.")   = "domain.com"
+     * StringUtils.removeStart("domain.com", "www.")       = "domain.com"
+     * StringUtils.removeStart("www.domain.com", "domain") = "www.domain.com"
+     * StringUtils.removeStart("abc", "")    = "abc"
+     * </pre>
+     * <p>
      * Case-insensitive examples
      * </p>
      *
@@ -838,27 +1143,47 @@ public abstract class Strings {
     }
 
     /**
-     * Replaces a String with another String inside a larger String, for the first {@code max} values of the search String, case-sensitively/insensitively based
-     * on {@code ignoreCase} value.
+     * Replaces a String with another String inside a larger String, for the first {@code max} values of the search String.
      *
      * <p>
      * A {@code null} reference passed to this method is a no-op.
      * </p>
      *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
      * <pre>
-     * StringUtils.replace(null, *, *, *, false)         = null
-     * StringUtils.replace("", *, *, *, false)           = ""
-     * StringUtils.replace("any", null, *, *, false)     = "any"
-     * StringUtils.replace("any", *, null, *, false)     = "any"
-     * StringUtils.replace("any", "", *, *, false)       = "any"
-     * StringUtils.replace("any", *, *, 0, false)        = "any"
-     * StringUtils.replace("abaa", "a", null, -1, false) = "abaa"
-     * StringUtils.replace("abaa", "a", "", -1, false)   = "b"
-     * StringUtils.replace("abaa", "a", "z", 0, false)   = "abaa"
-     * StringUtils.replace("abaa", "A", "z", 1, false)   = "abaa"
-     * StringUtils.replace("abaa", "A", "z", 1, true)   = "zbaa"
-     * StringUtils.replace("abAa", "a", "z", 2, true)   = "zbza"
-     * StringUtils.replace("abAa", "a", "z", -1, true)  = "zbzz"
+     * StringUtils.replace(null, *, *, *)         = null
+     * StringUtils.replace("", *, *, *)           = ""
+     * StringUtils.replace("any", null, *, *)     = "any"
+     * StringUtils.replace("any", *, null, *)     = "any"
+     * StringUtils.replace("any", "", *, *)       = "any"
+     * StringUtils.replace("any", *, *, 0)        = "any"
+     * StringUtils.replace("abaa", "a", null, -1) = "abaa"
+     * StringUtils.replace("abaa", "a", "", -1)   = "b"
+     * StringUtils.replace("abaa", "a", "z", 0)   = "abaa"
+     * StringUtils.replace("abaa", "a", "z", 1)   = "zbaa"
+     * StringUtils.replace("abaa", "a", "z", 2)   = "zbza"
+     * StringUtils.replace("abaa", "a", "z", -1)  = "zbzz"
+     * </pre>
+     * <p>
+     * Case-insensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.replaceIgnoreCase(null, *, *, *)         = null
+     * StringUtils.replaceIgnoreCase("", *, *, *)           = ""
+     * StringUtils.replaceIgnoreCase("any", null, *, *)     = "any"
+     * StringUtils.replaceIgnoreCase("any", *, null, *)     = "any"
+     * StringUtils.replaceIgnoreCase("any", "", *, *)       = "any"
+     * StringUtils.replaceIgnoreCase("any", *, *, 0)        = "any"
+     * StringUtils.replaceIgnoreCase("abaa", "a", null, -1) = "abaa"
+     * StringUtils.replaceIgnoreCase("abaa", "a", "", -1)   = "b"
+     * StringUtils.replaceIgnoreCase("abaa", "a", "z", 0)   = "abaa"
+     * StringUtils.replaceIgnoreCase("abaa", "A", "z", 1)   = "zbaa"
+     * StringUtils.replaceIgnoreCase("abAa", "a", "z", 2)   = "zbza"
+     * StringUtils.replaceIgnoreCase("abAa", "a", "z", -1)  = "zbzz"
      * </pre>
      *
      * @param text         text to search and replace in, may be null
@@ -915,6 +1240,22 @@ public abstract class Strings {
      * StringUtils.replaceOnce("aba", "a", null)  = "aba"
      * StringUtils.replaceOnce("aba", "a", "")    = "ba"
      * StringUtils.replaceOnce("aba", "a", "z")   = "zba"
+     * </pre>
+     *
+     * <p>
+     * Case-insensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.replaceOnceIgnoreCase(null, *, *)        = null
+     * StringUtils.replaceOnceIgnoreCase("", *, *)          = ""
+     * StringUtils.replaceOnceIgnoreCase("any", null, *)    = "any"
+     * StringUtils.replaceOnceIgnoreCase("any", *, null)    = "any"
+     * StringUtils.replaceOnceIgnoreCase("any", "", *)      = "any"
+     * StringUtils.replaceOnceIgnoreCase("aba", "a", null)  = "aba"
+     * StringUtils.replaceOnceIgnoreCase("aba", "a", "")    = "ba"
+     * StringUtils.replaceOnceIgnoreCase("aba", "a", "z")   = "zba"
+     * StringUtils.replaceOnceIgnoreCase("FoOFoofoo", "foo", "") = "Foofoo"
      * </pre>
      *
      * @see #replace(String text, String searchString, String replacement, int max)
