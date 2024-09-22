@@ -52,6 +52,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Speed up and sanitize StopWatchTest.</action>
     <action                   type="fix" dev="ggregory" due-to="Fabrice Benhamouda">Fix handling of non-ASCII letters and numbers in RandomStringUtils #1273.</action>
     <action                   type="fix" dev="ggregory" due-to="OSS-Fuzz, Gary Gregory">Rewrite ClassUtils.getClass(...) without recursion to avoid StackOverflowError on very long inputs. OSS-Fuzz Issue 42522972: apache-commons-text:StringSubstitutorInterpolatorFuzzer: Security exception in org.apache.commons.lang3.ClassUtils.getClass.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Remove trailing whitespace in StopWatch exception messages.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
