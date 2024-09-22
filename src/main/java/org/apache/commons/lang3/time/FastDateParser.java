@@ -85,6 +85,7 @@ public class FastDateParser implements DateParser, Serializable {
      * A strategy that handles a text field in the parsing pattern
      */
     private static final class CaseInsensitiveTextStrategy extends PatternStrategy {
+
         private final int field;
         final Locale locale;
         private final Map<String, Integer> lKeyValues;
@@ -430,7 +431,6 @@ public class FastDateParser implements DateParser, Serializable {
             if (currentIdx >= pattern.length()) {
                 return null;
             }
-
             final char c = pattern.charAt(currentIdx);
             if (isFormatLetter(c)) {
                 return letterPattern(c);
@@ -445,7 +445,6 @@ public class FastDateParser implements DateParser, Serializable {
                     break;
                 }
             }
-
             final int width = currentIdx - begin;
             return new StrategyAndWidth(getStrategy(c, width, definingCalendar), width);
         }
@@ -466,11 +465,9 @@ public class FastDateParser implements DateParser, Serializable {
                 ++currentIdx;
                 sb.append(c);
             }
-
             if (activeQuote) {
                 throw new IllegalArgumentException("Unterminated quote");
             }
-
             final String formatField = sb.toString();
             return new StrategyAndWidth(new CopyQuotedStrategy(formatField), formatField.length());
         }
@@ -687,8 +684,6 @@ public class FastDateParser implements DateParser, Serializable {
 
     private static final Strategy SECOND_STRATEGY = new NumberStrategy(Calendar.SECOND);
 
-    // Support for strategies
-
     private static final Strategy MILLISECOND_STRATEGY = new NumberStrategy(Calendar.MILLISECOND);
 
     /**
@@ -806,16 +801,13 @@ public class FastDateParser implements DateParser, Serializable {
      * @param timeZone     non-null time zone to use
      * @param locale       locale, null maps to the default Locale.
      * @param centuryStart The start of the century for 2 digit year parsing
-     *
      * @since 3.5
      */
     protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
         this.pattern = Objects.requireNonNull(pattern, "pattern");
         this.timeZone = Objects.requireNonNull(timeZone, "timeZone");
         this.locale = LocaleUtils.toLocale(locale);
-
         final Calendar definingCalendar = Calendar.getInstance(timeZone, this.locale);
-
         final int centuryStartYear;
         if (centuryStart != null) {
             definingCalendar.setTime(centuryStart);
@@ -829,7 +821,6 @@ public class FastDateParser implements DateParser, Serializable {
         }
         century = centuryStartYear / 100 * 100;
         startYear = centuryStartYear - century;
-
         init(definingCalendar);
     }
 
@@ -844,7 +835,6 @@ public class FastDateParser implements DateParser, Serializable {
         return twoDigitYear >= startYear ? trial : trial + 100;
     }
 
-    // Basics
     /**
      * Compares another object for equality with this object.
      *
@@ -882,7 +872,7 @@ public class FastDateParser implements DateParser, Serializable {
         return cache.computeIfAbsent(locale,
                 k -> field == Calendar.ZONE_OFFSET ? new TimeZoneStrategy(locale) : new CaseInsensitiveTextStrategy(field, definingCalendar, locale));
     }
-    // Accessors
+
     /*
      * (non-Javadoc)
      *
@@ -1022,7 +1012,6 @@ public class FastDateParser implements DateParser, Serializable {
         // timing tests indicate getting new instance is 19% faster than cloning
         final Calendar cal = Calendar.getInstance(timeZone, locale);
         cal.clear();
-
         return parse(source, pos, cal) ? cal.getTime() : null;
     }
     /**
@@ -1078,7 +1067,6 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-
         final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
         init(definingCalendar);
     }
