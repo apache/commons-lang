@@ -21,10 +21,12 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
+import org.apache.commons.lang3.function.FailableSupplier;
 
 /**
  * {@link StopWatch} provides a convenient API for timings.
@@ -287,6 +289,23 @@ public class StopWatch {
     }
 
     /**
+     * Delegates to {@link Supplier#get()} while recording the duration of the call.
+     *
+     * @param <T>      the type of results supplied by this supplier.
+     * @param supplier The supplier to {@link Supplier#get()}.
+     * @return a result from the given Supplier.
+     * @since 3.18.0
+     */
+    public <T> T get(final Supplier<T> supplier) {
+        startResume();
+        try {
+            return supplier.get();
+        } finally {
+            suspend();
+        }
+    }
+
+    /**
      * Gets the Duration on the StopWatch.
      *
      * <p>
@@ -322,14 +341,16 @@ public class StopWatch {
      * @since 3.0
      */
     public long getNanoTime() {
-        if (runningState == State.STOPPED || runningState == State.SUSPENDED) {
+        switch (runningState) {
+        case STOPPED:
+        case SUSPENDED:
             return stopTimeNanos - startTimeNanos;
-        }
-        if (runningState == State.UNSTARTED) {
+        case UNSTARTED:
             return 0;
-        }
-        if (runningState == State.RUNNING) {
+        case RUNNING:
             return System.nanoTime() - startTimeNanos;
+        default:
+            break;
         }
         throw new IllegalStateException("Illegal running state has occurred.");
     }
@@ -444,6 +465,25 @@ public class StopWatch {
     }
 
     /**
+     * Delegates to {@link FailableSupplier#get()} while recording the duration of the call.
+     *
+     * @param <T>      the type of results supplied by this supplier.
+     * @param <E>      The kind of thrown exception or error.
+     * @param supplier The supplier to {@link Supplier#get()}.
+     * @return a result from the given Supplier.
+     * @throws Throwable if the supplier fails.
+     * @since 3.18.0
+     */
+    public <T, E extends Throwable> T getT(final FailableSupplier<T, E> supplier) throws Throwable {
+        startResume();
+        try {
+            return supplier.get();
+        } finally {
+            suspend();
+        }
+    }
+
+    /**
      * Gets the time on the StopWatch.
      *
      * <p>
@@ -545,6 +585,38 @@ public class StopWatch {
     }
 
     /**
+     * Delegates to {@link Runnable#run()} while recording the duration of the call.
+     *
+     * @param runnable The runnable to {@link Runnable#run()}.
+     * @since 3.18.0
+     */
+    public void run(final Runnable runnable) {
+        startResume();
+        try {
+            runnable.run();
+        } finally {
+            suspend();
+        }
+    }
+
+    /**
+     * Delegates to {@link FailableRunnable#run()} while recording the duration of the call.
+     *
+     * @param <E>      The kind of {@link Throwable}.
+     * @param runnable The runnable to {@link FailableRunnable#run()}.
+     * @throws Throwable Thrown by {@link FailableRunnable#run()}.
+     * @since 3.18.0
+     */
+    public <E extends Throwable> void runT(final FailableRunnable<E> runnable) throws Throwable {
+        startResume();
+        try {
+            runnable.run();
+        } finally {
+            suspend();
+        }
+    }
+
+    /**
      * Splits the time.
      *
      * <p>
@@ -563,7 +635,7 @@ public class StopWatch {
     }
 
     /**
-     * Starts the StopWatch.
+     * Starts this StopWatch.
      *
      * <p>
      * This method starts a new timing session, clearing any previous values.
@@ -584,7 +656,18 @@ public class StopWatch {
     }
 
     /**
-     * Stops the StopWatch.
+     * Starts or resumes this StopWatch.
+     */
+    private void startResume() {
+        if (isStopped()) {
+            start();
+        } else if (isSuspended()) {
+            resume();
+        }
+    }
+
+    /**
+     * Stops this StopWatch.
      *
      * <p>
      * This method ends a new timing session, allowing the time to be retrieved.
@@ -604,7 +687,7 @@ public class StopWatch {
     }
 
     /**
-     * Suspends the StopWatch for later resumption.
+     * Suspends this StopWatch for later resumption.
      *
      * <p>
      * This method suspends the watch until it is resumed. The watch will not include time between the suspend and resume calls in the total time.
@@ -656,7 +739,7 @@ public class StopWatch {
     }
 
     /**
-     * Removes a split.
+     * Removes the split.
      *
      * <p>
      * This method clears the stop time. The start time is unaffected, enabling timing from the original start point to continue.
@@ -670,5 +753,6 @@ public class StopWatch {
         }
         splitState = SplitState.UNSPLIT;
     }
+
 
 }

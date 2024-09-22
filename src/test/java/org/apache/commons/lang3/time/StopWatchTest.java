@@ -27,9 +27,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
@@ -50,17 +52,13 @@ public class StopWatchTest extends AbstractLangTest {
 
     /**
      * <p>
-     * Creates a suspended StopWatch object which appears to have elapsed for the requested amount of time in
-     * nanoseconds.
+     * Creates a suspended StopWatch object which appears to have elapsed for the requested amount of time in nanoseconds.
      * <p>
      * <p>
      *
      * <pre>
      * // Create a mock StopWatch with a time of 2:59:01.999
-     * final long nanos = TimeUnit.HOURS.toNanos(2)
-     *         + TimeUnit.MINUTES.toNanos(59)
-     *         + TimeUnit.SECONDS.toNanos(1)
-     *         + TimeUnit.MILLISECONDS.toNanos(999);
+     * final long nanos = TimeUnit.HOURS.toNanos(2) + TimeUnit.MINUTES.toNanos(59) + TimeUnit.SECONDS.toNanos(1) + TimeUnit.MILLISECONDS.toNanos(999);
      * final StopWatch watch = createMockStopWatch(nanos);
      * </pre>
      *
@@ -100,42 +98,31 @@ public class StopWatchTest extends AbstractLangTest {
     @Test
     public void testBadStates() {
         final StopWatch watch = new StopWatch();
-        assertThrows(IllegalStateException.class, watch::stop,
-            "Calling stop on an unstarted StopWatch should throw an exception. ");
+        assertThrows(IllegalStateException.class, watch::stop, "Calling stop on an unstarted StopWatch should throw an exception. ");
 
-        assertThrows(IllegalStateException.class, watch::suspend,
-            "Calling suspend on an unstarted StopWatch should throw an exception. ");
+        assertThrows(IllegalStateException.class, watch::suspend, "Calling suspend on an unstarted StopWatch should throw an exception. ");
 
-        assertThrows(IllegalStateException.class, watch::split,
-            "Calling split on a non-running StopWatch should throw an exception. ");
+        assertThrows(IllegalStateException.class, watch::split, "Calling split on a non-running StopWatch should throw an exception. ");
 
-        assertThrows(IllegalStateException.class, watch::unsplit,
-            "Calling unsplit on an unsplit StopWatch should throw an exception. ");
+        assertThrows(IllegalStateException.class, watch::unsplit, "Calling unsplit on an unsplit StopWatch should throw an exception. ");
 
-        assertThrows(IllegalStateException.class, watch::resume,
-            "Calling resume on an unsuspended StopWatch should throw an exception. ");
+        assertThrows(IllegalStateException.class, watch::resume, "Calling resume on an unsuspended StopWatch should throw an exception. ");
 
         watch.start();
 
-        assertThrows(IllegalStateException.class, watch::start,
-            "Calling start on a started StopWatch should throw an exception. ");
+        assertThrows(IllegalStateException.class, watch::start, "Calling start on a started StopWatch should throw an exception. ");
 
-        assertThrows(IllegalStateException.class, watch::unsplit,
-            "Calling unsplit on an unsplit StopWatch should throw an exception. ");
+        assertThrows(IllegalStateException.class, watch::unsplit, "Calling unsplit on an unsplit StopWatch should throw an exception. ");
 
-        assertThrows(IllegalStateException.class, watch::getSplitTime,
-                "Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
+        assertThrows(IllegalStateException.class, watch::getSplitTime, "Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
 
-        assertThrows(IllegalStateException.class, watch::getSplitDuration,
-                "Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
+        assertThrows(IllegalStateException.class, watch::getSplitDuration, "Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
 
-        assertThrows(IllegalStateException.class, watch::resume,
-            "Calling resume on an unsuspended StopWatch should throw an exception. ");
+        assertThrows(IllegalStateException.class, watch::resume, "Calling resume on an unsuspended StopWatch should throw an exception. ");
 
         watch.stop();
 
-        assertThrows(IllegalStateException.class, watch::start,
-            "Calling start on a stopped StopWatch should throw an exception as it needs to be reset. ");
+        assertThrows(IllegalStateException.class, watch::start, "Calling start on a stopped StopWatch should throw an exception as it needs to be reset. ");
     }
 
     @Test
@@ -195,6 +182,33 @@ public class StopWatchTest extends AbstractLangTest {
         final StopWatch watch = new StopWatch(MESSAGE);
         final String formatTime = watch.formatTime();
         assertThat("formatTime", formatTime, not(startsWith(MESSAGE)));
+    }
+
+    @Test
+    public void testGet() throws Throwable {
+        final StopWatch watch = new StopWatch();
+        final AtomicInteger i = new AtomicInteger();
+        assertEquals(1, watch.get(i::incrementAndGet));
+        assertEquals(2, watch.getT(i::incrementAndGet));
+        final IOException e = assertThrows(IOException.class, () -> watch.getT(this::throwIOException));
+        assertEquals("A", e.getMessage());
+        // test state
+        assertTrue(watch.isSuspended());
+        assertEquals(3, watch.get(() -> {
+            assertTrue(watch.isStarted());
+            return i.incrementAndGet();
+        }));
+        assertTrue(watch.isSuspended());
+        final long nanos1 = watch.getDuration().toNanos();
+        assertTrue(nanos1 >= 0);
+        // test state
+        assertTrue(watch.isSuspended());
+        assertEquals(4, watch.getT(() -> {
+            assertTrue(watch.isStarted());
+            return i.incrementAndGet();
+        }));
+        assertTrue(watch.isSuspended());
+        assertTrue(watch.getDuration().toNanos() >= nanos1);
     }
 
     @Test
@@ -299,6 +313,37 @@ public class StopWatchTest extends AbstractLangTest {
         stopWatch.start();
         stopWatch.split();
         assertThat("stopWatch.toSplitString", stopWatch.toSplitString(), startsWith(MESSAGE));
+    }
+
+    @Test
+    public void testRun() throws Throwable {
+        final StopWatch watch = new StopWatch();
+        final AtomicInteger i = new AtomicInteger();
+        watch.run(i::incrementAndGet);
+        assertEquals(1, i.get());
+        watch.runT(i::incrementAndGet);
+        assertEquals(2, i.get());
+        final IOException e = assertThrows(IOException.class, () -> watch.runT(this::throwIOException));
+        assertEquals("A", e.getMessage());
+        // test state
+        assertTrue(watch.isSuspended());
+        watch.run(() -> {
+            assertTrue(watch.isStarted());
+            i.incrementAndGet();
+        });
+        assertEquals(3, i.get());
+        assertTrue(watch.isSuspended());
+        final long nanos1 = watch.getDuration().toNanos();
+        assertTrue(nanos1 > 0);
+        // test state
+        assertTrue(watch.isSuspended());
+        watch.runT(() -> {
+            assertTrue(watch.isStarted());
+            i.incrementAndGet();
+        });
+        assertEquals(4, i.get());
+        assertTrue(watch.isSuspended());
+        assertTrue(watch.getDuration().toNanos() >= nanos1);
     }
 
     @Test
@@ -421,14 +466,14 @@ public class StopWatchTest extends AbstractLangTest {
         assertTrue(totalTimeFromNanos >= sleepMillisX2, () -> String.format("totalTimeFromNanos %s >= sleepMillisX2 %s", totalTimeFromNanos, sleepMillisX2));
         assertTrue(totalDuration.compareTo(Duration.ofMillis(sleepMillisX2)) >= 0,
                 () -> String.format("totalDuration >= sleepMillisX2", totalDuration, sleepMillisX2));
-        ;
+
         // Be lenient for slow running builds
         final long testTooLongMillis = sleepMillis * 100;
         assertTrue(totalTimeFromNanos < testTooLongMillis,
                 () -> String.format("totalTimeFromNanos %s < testTooLongMillis %s", totalTimeFromNanos, testTooLongMillis));
         assertTrue(totalDuration.compareTo(Duration.ofMillis(testTooLongMillis)) < 0,
                 () -> String.format("totalDuration %s < testTooLongMillis %s", totalDuration, testTooLongMillis));
-        ;
+
     }
 
     @Test
@@ -470,5 +515,9 @@ public class StopWatchTest extends AbstractLangTest {
         watch.split();
         final String splitStr = watch.toString();
         assertEquals(SPLIT_CLOCK_STR_LEN + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
+    }
+
+    private int throwIOException() throws IOException {
+        throw new IOException("A");
     }
 }
