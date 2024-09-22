@@ -2036,7 +2036,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return the first index of the string, or -1 if not found
      */
     public int indexOf(final String str, final int startIndex) {
-        return StringUtils.indexOf(this, str, startIndex);
+        return Strings.CS.indexOf(this, str, startIndex);
     }
 
     /**

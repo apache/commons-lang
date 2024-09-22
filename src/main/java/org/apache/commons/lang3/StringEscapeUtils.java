@@ -63,7 +63,7 @@ public class StringEscapeUtils {
                 out.write(input.toString());
             } else {
                 out.write(CSV_QUOTE);
-                out.write(StringUtils.replace(input.toString(), CSV_QUOTE_STR, CSV_QUOTE_STR + CSV_QUOTE_STR));
+                out.write(Strings.CS.replace(input.toString(), CSV_QUOTE_STR, CSV_QUOTE_STR + CSV_QUOTE_STR));
                 out.write(CSV_QUOTE);
             }
             return Character.codePointCount(input, 0, input.length());
@@ -94,7 +94,7 @@ public class StringEscapeUtils {
 
             if ( StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS) ) {
                 // deal with escaped quotes; ie) ""
-                out.write(StringUtils.replace(quoteless, CSV_QUOTE_STR + CSV_QUOTE_STR, CSV_QUOTE_STR));
+                out.write(Strings.CS.replace(quoteless, CSV_QUOTE_STR + CSV_QUOTE_STR, CSV_QUOTE_STR));
             } else {
                 out.write(input.toString());
             }

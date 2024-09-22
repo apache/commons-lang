@@ -26,6 +26,7 @@ import java.util.TimeZone;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -438,13 +439,16 @@ public class DurationFormatUtils {
         if (suppressLeadingZeroElements) {
             // this is a temporary marker on the front. Like ^ in regexp.
             duration = " " + duration;
-            String tmp = StringUtils.replaceOnce(duration, " 0 days", StringUtils.EMPTY);
+            final String text = duration;
+            String tmp = Strings.CS.replaceOnce(text, " 0 days", StringUtils.EMPTY);
             if (tmp.length() != duration.length()) {
                 duration = tmp;
-                tmp = StringUtils.replaceOnce(duration, " 0 hours", StringUtils.EMPTY);
+                final String text1 = duration;
+                tmp = Strings.CS.replaceOnce(text1, " 0 hours", StringUtils.EMPTY);
                 if (tmp.length() != duration.length()) {
                     duration = tmp;
-                    tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
+                    final String text2 = duration;
+                    tmp = Strings.CS.replaceOnce(text2, " 0 minutes", StringUtils.EMPTY);
                     duration = tmp;
                 }
             }
@@ -454,25 +458,33 @@ public class DurationFormatUtils {
             }
         }
         if (suppressTrailingZeroElements) {
-            String tmp = StringUtils.replaceOnce(duration, " 0 seconds", StringUtils.EMPTY);
+            final String text = duration;
+            String tmp = Strings.CS.replaceOnce(text, " 0 seconds", StringUtils.EMPTY);
             if (tmp.length() != duration.length()) {
                 duration = tmp;
-                tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
+                final String text1 = duration;
+                tmp = Strings.CS.replaceOnce(text1, " 0 minutes", StringUtils.EMPTY);
                 if (tmp.length() != duration.length()) {
                     duration = tmp;
-                    tmp = StringUtils.replaceOnce(duration, " 0 hours", StringUtils.EMPTY);
+                    final String text2 = duration;
+                    tmp = Strings.CS.replaceOnce(text2, " 0 hours", StringUtils.EMPTY);
                     if (tmp.length() != duration.length()) {
-                        duration = StringUtils.replaceOnce(tmp, " 0 days", StringUtils.EMPTY);
+                        final String text3 = tmp;
+                        duration = Strings.CS.replaceOnce(text3, " 0 days", StringUtils.EMPTY);
                     }
                 }
             }
         }
         // handle plurals
         duration = " " + duration;
-        duration = StringUtils.replaceOnce(duration, " 1 seconds", " 1 second");
-        duration = StringUtils.replaceOnce(duration, " 1 minutes", " 1 minute");
-        duration = StringUtils.replaceOnce(duration, " 1 hours", " 1 hour");
-        duration = StringUtils.replaceOnce(duration, " 1 days", " 1 day");
+        final String text = duration;
+        duration = Strings.CS.replaceOnce(text, " 1 seconds", " 1 second");
+        final String text1 = duration;
+        duration = Strings.CS.replaceOnce(text1, " 1 minutes", " 1 minute");
+        final String text2 = duration;
+        duration = Strings.CS.replaceOnce(text2, " 1 hours", " 1 hour");
+        final String text3 = duration;
+        duration = Strings.CS.replaceOnce(text3, " 1 days", " 1 day");
         return duration.trim();
     }
 
