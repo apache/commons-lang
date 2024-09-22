@@ -87,7 +87,7 @@ public class FastDateParser implements DateParser, Serializable {
     private static final class CaseInsensitiveTextStrategy extends PatternStrategy {
 
         private final int field;
-        final Locale locale;
+        private final Locale locale;
         private final Map<String, Integer> lKeyValues;
 
         /**
