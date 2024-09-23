@@ -16,7 +16,7 @@
 # under the License.
 
 name: 'Dependency Review'
-on: [pull_request]
+on: [push, pull_request]
 
 permissions:
   contents: read
@@ -27,5 +27,8 @@ jobs:
     steps:
       - name: 'Checkout Repository'
         uses: actions/checkout@v4
-      - name: 'Dependency Review'
-        uses: actions/dependency-review-action@v4
+      - name: 'Dependency Review PR'
+        uses: actions/dependency-review-action@v4.3.4
+        with:
+          base-ref: ${{ github.event.before }}
+          head-ref: ${{ github.sha }}
