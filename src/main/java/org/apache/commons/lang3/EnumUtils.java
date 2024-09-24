@@ -420,6 +420,44 @@ public class EnumUtils {
     }
 
     /**
+     * Compares given {@code testEnum} to the enum vararg {@code searchEnums},
+     * returning {@code true} if the {@code testEnum} is equal to any of the {@code searchEnums}.
+     *
+     * <p>
+     * Examples
+     * </p>
+     *
+     * <pre>
+     * EnumUtils.equalsAny(null, (Enum[]) null)       = false
+     * EnumUtils.equalsAny(null,     null,      null)    = true
+     * EnumUtils.equalsAny(null,     MyEnum.A, MyEnum.B) = false
+     * EnumUtils.equalsAny(MyEnum.A, null,     MyEnum.B) = false
+     * EnumUtils.equalsAny(MyEnum.B, null,     MyEnum.B) = true
+     * EnumUtils.equalsAny(MyEnum.A, MyEnum.A, MyEnum.B) = true
+     * EnumUtils.equalsAny(MyEnum.B, MyEnum.A, MyEnum.B) = true
+     * EnumUtils.equalsAny(MyEnum.C, MyEnum.A, MyEnum.B) = false
+     * </pre>
+     *
+     * @param testEnum to compare, may be {@code null}.
+     * @param searchEnums a vararg of enums, may be {@code null}.
+     * @param <E> the type of the enumeration
+     * @return {@code true} if the enum is equal to any other element of {@code searchEnums};
+     * {@code false} if {@code testEnum} is null or contains no matches.
+     * @since 3.18.0
+     */
+    @SafeVarargs
+    public static <E> boolean equalsAny(E testEnum, E... searchEnums) {
+        if (ArrayUtils.isNotEmpty(searchEnums)) {
+            for (final E searchEnum : searchEnums) {
+                if (testEnum == searchEnum) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * This constructor is public to permit tools that require a JavaBean
      * instance to operate.
      *

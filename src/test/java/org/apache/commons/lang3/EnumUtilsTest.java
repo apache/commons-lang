@@ -584,6 +584,18 @@ public class EnumUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void test_equalsAny() {
+        assertFalse(EnumUtils.equalsAny(null, (Enum<?>[]) null));
+        assertTrue(EnumUtils.equalsAny(null, null, null));
+        assertFalse(EnumUtils.equalsAny(null, TooMany.A, TooMany.B));
+        assertFalse(EnumUtils.equalsAny(TooMany.A, null, TooMany.B));
+        assertTrue(EnumUtils.equalsAny(TooMany.B, null, TooMany.B));
+        assertTrue(EnumUtils.equalsAny(TooMany.A, TooMany.A, TooMany.B));
+        assertTrue(EnumUtils.equalsAny(TooMany.B, TooMany.A, TooMany.B));
+        assertFalse(EnumUtils.equalsAny(TooMany.C, TooMany.A, TooMany.B));
+    }
+
+    @Test
     public void testConstructable() {
         // enforce public constructor
         new EnumUtils();
