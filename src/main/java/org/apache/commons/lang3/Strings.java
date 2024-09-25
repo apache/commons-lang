@@ -37,13 +37,6 @@ public abstract class Strings {
     public static class Builder extends AbstractSupplier<Strings, Builder, RuntimeException> {
 
         /**
-         * Constructs a new instance.
-         */
-        private Builder() {
-            // empty
-        }
-
-        /**
          * Ignores case when possible.
          */
         private boolean ignoreCase;
@@ -52,6 +45,13 @@ public abstract class Strings {
          * Compares null as less when possible.
          */
         private boolean nullIsLess;
+
+        /**
+         * Constructs a new instance.
+         */
+        private Builder() {
+            // empty
+        }
 
         /**
          * Gets a new {@link Strings} instance.
