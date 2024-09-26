@@ -1410,4 +1410,41 @@ public abstract class Strings {
         }
         return CharSequenceUtils.regionMatches(str, ignoreCase, 0, prefix, 0, preLen);
     }
+
+    /**
+     * Tests if a CharSequence starts with any of the provided case-sensitive prefixes.
+     *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.startsWithAny(null, null)      = false
+     * StringUtils.startsWithAny(null, new String[] {"abc"})  = false
+     * StringUtils.startsWithAny("abcxyz", null)     = false
+     * StringUtils.startsWithAny("abcxyz", new String[] {""}) = true
+     * StringUtils.startsWithAny("abcxyz", new String[] {"abc"}) = true
+     * StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
+     * StringUtils.startsWithAny("abcxyz", null, "xyz", "ABCX") = false
+     * StringUtils.startsWithAny("ABCXYZ", null, "xyz", "abc") = false
+     * </pre>
+     *
+     * @param sequence      the CharSequence to check, may be null
+     * @param searchStrings the case-sensitive CharSequence prefixes, may be empty or contain {@code null}
+     * @see StringUtils#startsWith(CharSequence, CharSequence)
+     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} begins with
+     *         any of the provided case-sensitive {@code searchStrings}.
+     */
+    public boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
+        if (StringUtils.isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
+            return false;
+        }
+        for (final CharSequence searchString : searchStrings) {
+            if (startsWith(sequence, searchString)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

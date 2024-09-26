@@ -7774,7 +7774,7 @@ public class StringUtils {
     }
 
     /**
-     * Check if a CharSequence starts with a specified prefix.
+     * Tests if a CharSequence starts with a specified prefix.
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case-sensitive.</p>
@@ -7802,7 +7802,7 @@ public class StringUtils {
     }
 
     /**
-     * Check if a CharSequence starts with any of the provided case-sensitive prefixes.
+     * Tests if a CharSequence starts with any of the provided case-sensitive prefixes.
      *
      * <pre>
      * StringUtils.startsWithAny(null, null)      = false
@@ -7822,17 +7822,11 @@ public class StringUtils {
      *   the input {@code sequence} begins with any of the provided case-sensitive {@code searchStrings}.
      * @since 2.5
      * @since 3.0 Changed signature from startsWithAny(String, String[]) to startsWithAny(CharSequence, CharSequence...)
+     * @deprecated Use {@link Strings#startsWithAny(CharSequence, CharSequence...) Strings.CI.startsWithAny(CharSequence, CharSequence...)}
      */
+    @Deprecated
     public static boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
-        if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
-            return false;
-        }
-        for (final CharSequence searchString : searchStrings) {
-            if (Strings.CS.startsWith(sequence, searchString)) {
-                return true;
-            }
-        }
-        return false;
+        return Strings.CS.startsWithAny(sequence, searchStrings);
     }
 
     /**
