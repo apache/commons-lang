@@ -598,6 +598,42 @@ public abstract class Strings {
     }
 
     /**
+     * Tests if a CharSequence ends with any of the provided case-sensitive suffixes.
+     *
+     * <p>
+     * Case-sensitive examples
+     * </p>
+     *
+     * <pre>
+     * StringUtils.endsWithAny(null, null)                  = false
+     * StringUtils.endsWithAny(null, new String[] {"abc"})  = false
+     * StringUtils.endsWithAny("abcxyz", null)              = false
+     * StringUtils.endsWithAny("abcxyz", new String[] {""}) = true
+     * StringUtils.endsWithAny("abcxyz", new String[] {"xyz"}) = true
+     * StringUtils.endsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
+     * StringUtils.endsWithAny("abcXYZ", "def", "XYZ")      = true
+     * StringUtils.endsWithAny("abcXYZ", "def", "xyz")      = false
+     * </pre>
+     *
+     * @param sequence      the CharSequence to check, may be null
+     * @param searchStrings the case-sensitive CharSequences to find, may be empty or contain {@code null}
+     * @see StringUtils#endsWith(CharSequence, CharSequence)
+     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} ends in any
+     *         of the provided case-sensitive {@code searchStrings}.
+     */
+    public boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
+        if (StringUtils.isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
+            return false;
+        }
+        for (final CharSequence searchString : searchStrings) {
+            if (endsWith(sequence, searchString)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Compares two CharSequences, returning {@code true} if they represent equal sequences of characters.
      *
      * <p>

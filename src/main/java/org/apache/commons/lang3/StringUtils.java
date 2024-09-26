@@ -1711,17 +1711,11 @@ public class StringUtils {
      * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or
      *   the input {@code sequence} ends in any of the provided case-sensitive {@code searchStrings}.
      * @since 3.0
+     * @deprecated Use {@link Strings#endsWithAny(CharSequence, CharSequence...) Strings.CS.endsWithAny(CharSequence, CharSequence...)}
      */
+    @Deprecated
     public static boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
-        if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
-            return false;
-        }
-        for (final CharSequence searchString : searchStrings) {
-            if (Strings.CS.endsWith(sequence, searchString)) {
-                return true;
-            }
-        }
-        return false;
+        return Strings.CS.endsWithAny(sequence, searchStrings);
     }
 
     /**
