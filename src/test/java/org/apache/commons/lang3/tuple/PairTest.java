@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
@@ -125,6 +126,89 @@ public class PairTest extends AbstractLangTest {
         @SuppressWarnings("unchecked")
         final Pair<Integer, String>[] empty = (Pair<Integer, String>[]) Pair.EMPTY_ARRAY;
         assertEquals(0, empty.length);
+    }
+
+    @Test
+    public void testEqualsAnonynous() {
+        final Pair<String, String> pair = Pair.of("a", "b");
+        final String key = "a";
+        final String value = "b";
+        final Map.Entry<String, String> entry = new Map.Entry<String, String>() {
+
+            @Override
+            public boolean equals(final Object o) {
+                if (!(o instanceof Map.Entry)) {
+                    return false;
+                }
+                final Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
+                // FYI java.util.AbstractMap.SimpleEntry.equals(Object) and JDK-8015417
+                return Objects.equals(getKey(), e.getKey()) && Objects.equals(getValue(), e.getValue());
+            }
+
+            @Override
+            public String getKey() {
+                return key;
+            }
+
+            @Override
+            public String getValue() {
+                return value;
+            }
+
+            @Override
+            public int hashCode() {
+                return (getKey() == null ? 0 : getKey().hashCode()) ^ (getValue() == null ? 0 : getValue().hashCode());
+            }
+
+            @Override
+            public String setValue(final String value) {
+                return null;
+            }
+        };
+        final Map.Entry<String, String> entry2 = new Map.Entry<String, String>() {
+
+            @Override
+            public boolean equals(final Object o) {
+                if (!(o instanceof Map.Entry)) {
+                    return false;
+                }
+                final Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
+                // FYI java.util.AbstractMap.SimpleEntry.equals(Object) and JDK-8015417
+                return Objects.equals(getKey(), e.getKey()) && Objects.equals(getValue(), e.getValue());
+            }
+
+            @Override
+            public String getKey() {
+                return key;
+            }
+
+            @Override
+            public String getValue() {
+                return value;
+            }
+            @Override
+            public int hashCode() {
+                return (getKey() == null ? 0 : getKey().hashCode()) ^ (getValue() == null ? 0 : getValue().hashCode());
+            }
+
+            @Override
+            public String setValue(final String value) {
+                return null;
+            }
+        };
+        assertTrue(pair.equals(entry));
+        assertEquals(pair.hashCode(), entry.hashCode());
+        assertTrue(pair.equals(entry2));
+        assertEquals(pair.hashCode(), entry2.hashCode());
+        assertTrue(entry.equals(entry));
+        assertEquals(entry.hashCode(), entry.hashCode());
+        assertTrue(entry2.equals(entry2));
+        assertEquals(entry2.hashCode(), entry2.hashCode());
+        assertTrue(entry.equals(entry2));
+        assertEquals(entry.hashCode(), entry2.hashCode());
+        assertTrue(entry.equals(pair));
+        assertEquals(entry.hashCode(), pair.hashCode());
+
     }
 
     @Test
