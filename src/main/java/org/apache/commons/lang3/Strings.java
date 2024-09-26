@@ -140,7 +140,7 @@ public abstract class Strings {
 
         @Override
         public boolean equals(final String s1, final String s2) {
-            return s1.equalsIgnoreCase(s2);
+            return s1 == null ? s2 == null : s1.equalsIgnoreCase(s2);
         }
 
         @Override
@@ -247,7 +247,7 @@ public abstract class Strings {
 
         @Override
         public boolean equals(final String s1, final String s2) {
-            return s1.equals(s2);
+            return eq(s1, s2);
         }
 
         @Override
@@ -303,6 +303,15 @@ public abstract class Strings {
             }
         }
         return false;
+    }
+
+    /**
+     * Tests for equality in a null-safe manner.
+     *
+     * JDK-8015417.
+     */
+    private static boolean eq(final Object o1, final Object o2) {
+        return o1 == null ? o2 == null : o1.equals(o2);
     }
 
     /**

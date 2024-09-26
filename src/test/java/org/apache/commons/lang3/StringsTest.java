@@ -21,12 +21,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Tests {@link Strings}.
  */
 public class StringsTest {
+
+    public static Stream<Strings> stringsFactory() {
+        return Stream.of(Strings.CS, Strings.CI);
+    }
 
     @Test
     public void testBuilder() {
@@ -53,5 +61,23 @@ public class StringsTest {
     public void testCaseSensitiveConstant() {
         assertNotNull(Strings.CS);
         assertTrue(Strings.CS.isCaseSensitive());
+    }
+
+    @ParameterizedTest
+    @MethodSource("stringsFactory")
+    public void testEqualsStrings(final Strings strings) {
+        final String nullStr = null;
+        assertTrue(strings.equals(nullStr, nullStr));
+        assertFalse(strings.equals(nullStr, ""));
+        assertFalse(strings.equals("", nullStr));
+    }
+
+    @ParameterizedTest
+    @MethodSource("stringsFactory")
+    public void testEqualsCharSequence(final Strings strings) {
+        final CharSequence nullCharSequence = null;
+        assertTrue(strings.equals(nullCharSequence, nullCharSequence));
+        assertFalse(strings.equals(nullCharSequence, ""));
+        assertFalse(strings.equals("", nullCharSequence));
     }
 }
