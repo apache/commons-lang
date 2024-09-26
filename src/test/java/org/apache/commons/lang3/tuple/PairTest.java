@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.AbstractMap;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -258,6 +259,16 @@ public class PairTest extends AbstractLangTest {
         final Pair<String, String> pair = Pair.ofNonNull("x", "y");
         assertEquals("x", pair.getLeft());
         assertEquals("y", pair.getRight());
+    }
+
+    @Test
+    public void testPairOfAbstractMapSimpleEntry() {
+        final Entry<Integer, String> entry = new AbstractMap.SimpleEntry<>(0, "foo");
+        final Pair<Integer, String> pair = Pair.of(entry);
+        assertEquals(entry.getKey(), pair.getLeft());
+        assertEquals(entry.getValue(), pair.getRight());
+        assertEquals(entry, pair);
+        assertEquals(pair, entry);
     }
 
     @Test
