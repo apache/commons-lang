@@ -308,7 +308,7 @@ public abstract class Strings {
     /**
      * Tests for equality in a null-safe manner.
      *
-     * JDK-8015417.
+     * See JDK-8015417.
      */
     private static boolean eq(final Object o1, final Object o2) {
         return o1 == null ? o2 == null : o1.equals(o2);
