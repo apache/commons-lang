@@ -5700,12 +5700,11 @@ public class StringUtils {
      * @return the substring with the string removed if found,
      *  {@code null} if null String input
      * @since 2.1
+     * @deprecated Use {@link Strings#remove(String, String) Strings.CS.remove(String, String)}
      */
+    @Deprecated
     public static String remove(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
-        return Strings.CS.replace(str, remove, EMPTY, -1);
+        return Strings.CS.remove(str, remove);
     }
 
     /**
@@ -5899,9 +5898,11 @@ public class StringUtils {
      * @return the substring with the string removed if found, {@code null} if
      *         null String input
      * @since 3.5
+     * @deprecated Use {@link Strings#remove(String, String) Strings.CI.remove(String, String)}
      */
+    @Deprecated
     public static String removeIgnoreCase(final String str, final String remove) {
-        return Strings.CI.replace(str, remove, EMPTY, -1);
+        return Strings.CI.remove(str, remove);
     }
 
     /**
