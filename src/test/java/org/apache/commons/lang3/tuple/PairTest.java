@@ -26,17 +26,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Test the Pair class.
  */
 public class PairTest extends AbstractLangTest {
+
+    public static Stream<Class<? extends Map>> mapClassFactory() {
+        return Stream.of(ConcurrentHashMap.class, ConcurrentSkipListMap.class, HashMap.class, TreeMap.class, WeakHashMap.class, LinkedHashMap.class);
+    }
 
     @Test
     public void testAccept() {
@@ -128,6 +139,16 @@ public class PairTest extends AbstractLangTest {
         assertEquals("(Key,Value)", String.format("%1$s", pair));
     }
 
+    @ParameterizedTest()
+    @MethodSource("org.apache.commons.lang3.tuple.PairTest#mapClassFactory()")
+    public <K, V> void testMapEntries(final Class<Map<Integer, String>> clazz) throws InstantiationException, IllegalAccessException {
+        testMapEntry(clazz.newInstance());
+    }
+
+    public <K, V> void testMapEntries(final Map<Integer, String> map) {
+        testMapEntry(map);
+    }
+
     private void testMapEntry(final Map<Integer, String> map) {
         map.put(0, "foo");
         final Entry<Integer, String> entry = map.entrySet().iterator().next();
@@ -143,16 +164,6 @@ public class PairTest extends AbstractLangTest {
             assertEquals(p, e);
             assertEquals(p.hashCode(), e.hashCode());
         });
-    }
-
-    @Test
-    public void testMapEntryConcurrentHashMap() {
-        testMapEntry(new ConcurrentHashMap<>());
-    }
-
-    @Test
-    public void testMapEntryHashMap() {
-        testMapEntry(new HashMap<>());
     }
 
     @Test
