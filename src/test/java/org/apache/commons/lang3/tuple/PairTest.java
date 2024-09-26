@@ -268,7 +268,9 @@ public class PairTest extends AbstractLangTest {
         assertEquals(entry.getKey(), pair.getLeft());
         assertEquals(entry.getValue(), pair.getRight());
         assertEquals(entry, pair);
+        assertEquals(entry.hashCode(), pair.hashCode());
         assertEquals(pair, entry);
+        assertEquals(pair.hashCode(), entry.hashCode());
     }
 
     @Test
