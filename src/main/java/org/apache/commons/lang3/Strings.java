@@ -47,6 +47,13 @@ public abstract class Strings {
         private boolean nullIsLess;
 
         /**
+         * Constructs a new instance.
+         */
+        private Builder() {
+            // empty
+        }
+
+        /**
          * Gets a new {@link Strings} instance.
          */
         @Override
