@@ -104,11 +104,6 @@ public class PairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConcurrentHashMapEntry() {
-        testMapEntry(new ConcurrentHashMap<>());
-    }
-
-    @Test
     public void testEmptyArrayGenerics() {
         final Pair<Integer, String>[] empty = Pair.emptyArray();
         assertEquals(0, empty.length);
@@ -133,11 +128,6 @@ public class PairTest extends AbstractLangTest {
         assertEquals("(Key,Value)", String.format("%1$s", pair));
     }
 
-    @Test
-    public void testHashMapEntry() {
-        testMapEntry(new HashMap<>());
-    }
-
     private void testMapEntry(final Map<Integer, String> map) {
         map.put(0, "foo");
         final Entry<Integer, String> entry = map.entrySet().iterator().next();
@@ -153,6 +143,16 @@ public class PairTest extends AbstractLangTest {
             assertEquals(p, e);
             assertEquals(p.hashCode(), e.hashCode());
         });
+    }
+
+    @Test
+    public void testMapEntryConcurrentHashMap() {
+        testMapEntry(new ConcurrentHashMap<>());
+    }
+
+    @Test
+    public void testMapEntryHashMap() {
+        testMapEntry(new HashMap<>());
     }
 
     @Test
