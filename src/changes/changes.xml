@@ -618,7 +618,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1426" type="fix" dev="ggregory" due-to="Brower, Mikko Maunu, Suraj Gautam">Corrected usage examples in Javadocs #458.</action>
     <action                   type="update" dev="ggregory" due-to="Jonathan Leitschuh, Bruno P. Kinoshita, Rob Tompkins, Gary Gregory">Improve Javadoc based on the discussion of the GitHub PR #459.</action>
     <action                   type="update" dev="ggregory">maven-checkstyle-plugin 3.0.0 -> 3.1.0.</action>
-    <action issue="LANG-696"  type="update" dev="ggregory" due-to="Peter Verhas">Update documentation related to the issue LANG-696 #449.</action>
+    <action issue="LANG-696"  type="update" dev="ggregory" due-to="Peter Verhas">Update documentation and tests related to the issue LANG-696 #449.</action>
     <action                   type="update" dev="ggregory" due-to="Peter Verhas">AnnotationUtils little cleanup #467.</action>
     <action issue="LANG-1494" type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.time.Calendars.</action>
     <action issue="LANG-1495" type="add" dev="ggregory" due-to="Cheong Voon Leong">Add EnumUtils getEnum() methods with default values #475.</action>
