@@ -64,11 +64,12 @@ public class JavaVersionTest extends AbstractLangTest {
         assertEquals(JavaVersion.JAVA_20, JavaVersion.get("20"));
         assertEquals(JavaVersion.JAVA_21, JavaVersion.get("21"));
         assertEquals(JavaVersion.JAVA_22, JavaVersion.get("22"));
+        assertEquals(JavaVersion.JAVA_23, JavaVersion.get("23"));
 
         assertEquals(JavaVersion.JAVA_RECENT, JavaVersion.get("1.10"), "1.10 failed");
         // assertNull("2.10 unexpectedly worked", JavaVersion.get("2.10"));
         assertEquals(JavaVersion.get("1.5"), JavaVersion.getJavaVersion("1.5"), "Wrapper method failed");
-        assertEquals(JavaVersion.JAVA_RECENT, JavaVersion.get("23"), "Unhandled"); // LANG-1384
+        assertEquals(JavaVersion.JAVA_RECENT, JavaVersion.get("24"), "Unhandled"); // LANG-1384
     }
 
     @Test
