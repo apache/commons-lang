@@ -98,31 +98,19 @@ public class StopWatchTest extends AbstractLangTest {
     @Test
     public void testBadStates() {
         final StopWatch watch = new StopWatch();
-        assertThrows(IllegalStateException.class, watch::stop, "Calling stop on an unstarted StopWatch should throw an exception. ");
-
-        assertThrows(IllegalStateException.class, watch::suspend, "Calling suspend on an unstarted StopWatch should throw an exception. ");
-
-        assertThrows(IllegalStateException.class, watch::split, "Calling split on a non-running StopWatch should throw an exception. ");
-
-        assertThrows(IllegalStateException.class, watch::unsplit, "Calling unsplit on an unsplit StopWatch should throw an exception. ");
-
-        assertThrows(IllegalStateException.class, watch::resume, "Calling resume on an unsuspended StopWatch should throw an exception. ");
-
+        assertThrows(IllegalStateException.class, watch::stop, "Calling stop on an unstarted StopWatch should throw an exception.");
+        assertThrows(IllegalStateException.class, watch::suspend, "Calling suspend on an unstarted StopWatch should throw an exception.");
+        assertThrows(IllegalStateException.class, watch::split, "Calling split on a non-running StopWatch should throw an exception.");
+        assertThrows(IllegalStateException.class, watch::unsplit, "Calling unsplit on an unsplit StopWatch should throw an exception.");
+        assertThrows(IllegalStateException.class, watch::resume, "Calling resume on an unsuspended StopWatch should throw an exception.");
         watch.start();
-
-        assertThrows(IllegalStateException.class, watch::start, "Calling start on a started StopWatch should throw an exception. ");
-
-        assertThrows(IllegalStateException.class, watch::unsplit, "Calling unsplit on an unsplit StopWatch should throw an exception. ");
-
-        assertThrows(IllegalStateException.class, watch::getSplitTime, "Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
-
-        assertThrows(IllegalStateException.class, watch::getSplitDuration, "Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
-
-        assertThrows(IllegalStateException.class, watch::resume, "Calling resume on an unsuspended StopWatch should throw an exception. ");
-
+        assertThrows(IllegalStateException.class, watch::start, "Calling start on a started StopWatch should throw an exception.");
+        assertThrows(IllegalStateException.class, watch::unsplit, "Calling unsplit on an unsplit StopWatch should throw an exception.");
+        assertThrows(IllegalStateException.class, watch::getSplitTime, "Calling getSplitTime on an unsplit StopWatch should throw an exception.");
+        assertThrows(IllegalStateException.class, watch::getSplitDuration, "Calling getSplitTime on an unsplit StopWatch should throw an exception.");
+        assertThrows(IllegalStateException.class, watch::resume, "Calling resume on an unsuspended StopWatch should throw an exception.");
         watch.stop();
-
-        assertThrows(IllegalStateException.class, watch::start, "Calling start on a stopped StopWatch should throw an exception as it needs to be reset. ");
+        assertThrows(IllegalStateException.class, watch::start, "Calling start on a stopped StopWatch should throw an exception as it needs to be reset.");
     }
 
     @Test
