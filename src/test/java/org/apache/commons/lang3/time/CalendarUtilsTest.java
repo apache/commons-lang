@@ -19,7 +19,9 @@ package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -29,6 +31,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.time.TimeZones;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -128,5 +131,13 @@ public class CalendarUtilsTest extends AbstractLangTest {
         final ZonedDateTime zdt1 = ZonedDateTime.of(1, 2, 3, 4, 5, 6, 0, zoneId);
         calendar.setTimeInMillis(zdt1.toInstant().toEpochMilli());
         assertEquals(ZonedDateTime.ofInstant(zdt1.toInstant(), calendar.getTimeZone().toZoneId()), new CalendarUtils(calendar).toZonedDateTime());
+
+    @Test
+    public void testToLocalDate() {
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone(TimeZones.GMT_ID));
+        calendar.setTimeInMillis(-27078001200000L);
+        assertEquals(LocalDate.of(1111, Month.DECEMBER, 1), new CalendarUtils(calendar).toLocalDate());
+        calendar.setTimeInMillis(1614700215000L);
+        assertEquals(LocalDate.of(2021, Month.MARCH, 2), new CalendarUtils(calendar).toLocalDate());
     }
 }
