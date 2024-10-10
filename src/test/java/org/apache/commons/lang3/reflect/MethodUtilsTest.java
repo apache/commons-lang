@@ -59,8 +59,12 @@ import org.junit.jupiter.api.Test;
  * Unit tests MethodUtils
  */
 public class MethodUtilsTest extends AbstractLangTest {
+    interface InterfaceGetMatchingMethod {
+        default void testMethod6() {
+        }
+    }
 
-    protected abstract static class AbstractGetMatchingMethod {
+    protected abstract static class AbstractGetMatchingMethod implements InterfaceGetMatchingMethod {
         public abstract void testMethod5(Exception exception);
     }
 
@@ -681,6 +685,9 @@ public class MethodUtilsTest extends AbstractLangTest {
 
         assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodImpl.class, "testMethod5", RuntimeException.class),
                 GetMatchingMethodImpl.class.getMethod("testMethod5", Exception.class));
+
+        assertEquals(GetMatchingMethodImpl.class.getMethod("testMethod6"),
+            MethodUtils.getMatchingMethod(GetMatchingMethodImpl.class, "testMethod6"));
 
         assertThrows(NullPointerException.class,
                 () -> MethodUtils.getMatchingMethod(null, "testMethod5", RuntimeException.class));
