@@ -382,7 +382,7 @@ public class MethodUtils {
                 .filter(method -> method.getName().equals(methodName))
                 .collect(Collectors.toList());
 
-        ClassUtils.getAllSuperclasses(cls).stream()
+        getAllSuperclassesAndInterfaces(cls).stream()
                 .map(Class::getDeclaredMethods)
                 .flatMap(Stream::of)
                 .filter(method -> method.getName().equals(methodName))
