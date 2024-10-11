@@ -37,9 +37,15 @@ public abstract class AbstractSupplier<T, B extends AbstractSupplier<T, B, E>, E
     }
 
     /**
-     * Returns this instance typed as the proper subclass type.
+     * Returns this instance typed as the subclass type {@code B}.
+     * <p>
+     * This is the same as the expression:
+     * </p>
+     * <pre>
+     * (B) this
+     * </pre>
      *
-     * @return this instance typed as the proper subclass type.
+     * @return this instance typed as the subclass type {@code B}.
      */
     @SuppressWarnings("unchecked")
     protected B asThis() {
