@@ -28,9 +28,9 @@ import java.util.Comparator;
 public class ArraySorter {
 
     /**
-     * Sorts and returns the given array.
+     * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort.
+     * @param array the array to sort (may be null).
      * @return the given array.
      * @see Arrays#sort(byte[])
      */
@@ -42,9 +42,9 @@ public class ArraySorter {
     }
 
     /**
-     * Sorts and returns the given array.
+     * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort.
+     * @param array the array to sort (may be null).
      * @return the given array.
      * @see Arrays#sort(char[])
      */
@@ -56,9 +56,9 @@ public class ArraySorter {
     }
 
     /**
-     * Sorts and returns the given array.
+     * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort.
+     * @param array the array to sort (may be null).
      * @return the given array.
      * @see Arrays#sort(double[])
      */
@@ -70,9 +70,9 @@ public class ArraySorter {
     }
 
     /**
-     * Sorts and returns the given array.
+     * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort.
+     * @param array the array to sort (may be null).
      * @return the given array.
      * @see Arrays#sort(float[])
      */
@@ -84,9 +84,9 @@ public class ArraySorter {
     }
 
     /**
-     * Sorts and returns the given array.
+     * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort.
+     * @param array the array to sort (may be null).
      * @return the given array.
      * @see Arrays#sort(int[])
      */
@@ -98,9 +98,9 @@ public class ArraySorter {
     }
 
     /**
-     * Sorts and returns the given array.
+     * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort.
+     * @param array the array to sort (may be null).
      * @return the given array.
      * @see Arrays#sort(long[])
      */
@@ -112,9 +112,9 @@ public class ArraySorter {
     }
 
     /**
-     * Sorts and returns the given array.
+     * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort.
+     * @param array the array to sort (may be null).
      * @return the given array.
      * @see Arrays#sort(short[])
      */
@@ -126,10 +126,10 @@ public class ArraySorter {
     }
 
     /**
-     * Sorts and returns the given array.
+     * Sorts the given array into ascending order and returns it.
      *
      * @param <T> the array type.
-     * @param array the array to sort.
+     * @param array the array to sort (may be null).
      * @return the given array.
      * @see Arrays#sort(Object[])
      */
@@ -141,10 +141,10 @@ public class ArraySorter {
     }
 
     /**
-     * Sorts and returns the given array.
+     * Sorts the given array into ascending order and returns it.
      *
      * @param <T> the array type.
-     * @param array the array to sort.
+     * @param array the array to sort (may be null).
      * @param comparator the comparator to determine the order of the array. A {@code null} value uses the elements'
      *        {@link Comparable natural ordering}.
      * @return the given array.
