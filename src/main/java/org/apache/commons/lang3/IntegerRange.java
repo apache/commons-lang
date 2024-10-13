@@ -33,7 +33,7 @@ public final class IntegerRange extends NumberRange<Integer> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a range with the specified minimum and maximum values (both inclusive).
+     * Creates a closed range with the specified minimum and maximum values (both inclusive).
      *
      * <p>
      * The range uses the natural ordering of the elements to determine where values lie in the range.
@@ -52,7 +52,7 @@ public final class IntegerRange extends NumberRange<Integer> {
     }
 
     /**
-     * Creates a range with the specified minimum and maximum values (both inclusive).
+     * Creates a closed range with the specified minimum and maximum values (both inclusive).
      *
      * <p>
      * The range uses the natural ordering of the elements to determine where values lie in the range.
@@ -72,7 +72,7 @@ public final class IntegerRange extends NumberRange<Integer> {
     }
 
     /**
-     * Creates an instance.
+     * Creates a new instance.
      *
      * @param number1 the first element, not null
      * @param number2 the second element, not null
