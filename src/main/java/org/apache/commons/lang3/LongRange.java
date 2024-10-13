@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3;
 
+import java.util.stream.LongStream;
+
 /**
  * Specializes {@link NumberRange} for {@link Long}s.
  *
@@ -70,7 +72,7 @@ public final class LongRange extends NumberRange<Long> {
     }
 
     /**
-     * Creates an instance.
+     * Creates a new instance.
      *
      * @param number1 the first element, not null
      * @param number2 the second element, not null
@@ -79,6 +81,17 @@ public final class LongRange extends NumberRange<Long> {
      */
     private LongRange(final Long number1, final Long number2) {
         super(number1, number2, null);
+    }
+
+    /**
+     * Returns a sequential ordered {@code LongStream} from {@link #getMinimum()} (inclusive) to {@link #getMaximum()} (inclusive) by an incremental step of
+     * {@code 1}.
+     *
+     * @return a sequential {@code LongStream} for the range of {@code long} elements
+     * @since 3.18.0
+     */
+    public LongStream toLongStream() {
+        return LongStream.rangeClosed(getMinimum(), getMaximum());
     }
 
 }
