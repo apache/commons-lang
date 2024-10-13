@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Comparator;
+import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -392,6 +393,13 @@ public class IntegerRangeTest extends AbstractLangTest {
     @Test
     public void testSerializing() {
         SerializationUtils.clone(range1);
+    }
+
+    @Test
+    public void testToIntStream() {
+        try (IntStream stream = range1.toIntStream()) {
+            assertEquals(165, stream.sum());
+        }
     }
 
     @Test

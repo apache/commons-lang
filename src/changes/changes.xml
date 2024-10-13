@@ -62,6 +62,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">JavaVersion.JAVA_23.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">SystemUtils.IS_JAVA_23.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add IntegerRange.toIntStream().</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 77 #1267, #1277, #1283, #1288.</action>
   </release>

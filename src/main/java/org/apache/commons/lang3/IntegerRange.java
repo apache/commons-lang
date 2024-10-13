@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3;
 
+import java.util.stream.IntStream;
+
 /**
  * Specializes {@link NumberRange} for {@link Integer}s.
  *
@@ -81,4 +83,14 @@ public final class IntegerRange extends NumberRange<Integer> {
         super(number1, number2, null);
     }
 
+    /**
+     * Returns a sequential ordered {@code IntStream} from {@link #getMinimum()} (inclusive) to {@link #getMaximum()} (inclusive) by an incremental step of
+     * {@code 1}.
+     *
+     * @return a sequential {@code IntStream} for the range of {@code int} elements
+     * @since 3.18.0
+     */
+    public IntStream toIntStream() {
+        return IntStream.rangeClosed(getMinimum(), getMaximum());
+    }
 }
