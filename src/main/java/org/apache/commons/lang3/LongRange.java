@@ -31,7 +31,7 @@ public final class LongRange extends NumberRange<Long> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a range with the specified minimum and maximum values (both inclusive).
+     * Creates a closed range with the specified minimum and maximum values (both inclusive).
      *
      * <p>
      * The range uses the natural ordering of the elements to determine where values lie in the range.
@@ -50,7 +50,7 @@ public final class LongRange extends NumberRange<Long> {
     }
 
     /**
-     * Creates a range with the specified minimum and maximum values (both inclusive).
+     * Creates a closed range with the specified minimum and maximum values (both inclusive).
      *
      * <p>
      * The range uses the natural ordering of the elements to determine where values lie in the range.
