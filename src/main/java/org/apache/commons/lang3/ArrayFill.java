@@ -27,7 +27,7 @@ import java.util.Arrays;
 public final class ArrayFill {
 
     /**
-     * Fills and returns the given array.
+     * Fills and returns the given array, assigning the given {@code byte} value to each element of the array.
      *
      * @param a   the array to be filled (may be null).
      * @param val the value to be stored in all elements of the array.
@@ -42,7 +42,7 @@ public final class ArrayFill {
     }
 
     /**
-     * Fills and returns the given array.
+     * Fills and returns the given array, assigning the given {@code char} value to each element of the array.
      *
      * @param a   the array to be filled (may be null).
      * @param val the value to be stored in all elements of the array.
@@ -57,7 +57,7 @@ public final class ArrayFill {
     }
 
     /**
-     * Fills and returns the given array.
+     * Fills and returns the given array, assigning the given {@code double} value to each element of the array.
      *
      * @param a   the array to be filled (may be null).
      * @param val the value to be stored in all elements of the array.
@@ -72,7 +72,7 @@ public final class ArrayFill {
     }
 
     /**
-     * Fills and returns the given array.
+     * Fills and returns the given array, assigning the given {@code float} value to each element of the array.
      *
      * @param a   the array to be filled (may be null).
      * @param val the value to be stored in all elements of the array.
@@ -87,7 +87,7 @@ public final class ArrayFill {
     }
 
     /**
-     * Fills and returns the given array.
+     * Fills and returns the given array, assigning the given {@code int} value to each element of the array.
      *
      * @param a   the array to be filled (may be null).
      * @param val the value to be stored in all elements of the array.
@@ -102,7 +102,7 @@ public final class ArrayFill {
     }
 
     /**
-     * Fills and returns the given array.
+     * Fills and returns the given array, assigning the given {@code long} value to each element of the array.
      *
      * @param a   the array to be filled (may be null).
      * @param val the value to be stored in all elements of the array.
@@ -117,7 +117,7 @@ public final class ArrayFill {
     }
 
     /**
-     * Fills and returns the given array.
+     * Fills and returns the given array, assigning the given {@code short} value to each element of the array.
      *
      * @param a   the array to be filled (may be null).
      * @param val the value to be stored in all elements of the array.
@@ -132,7 +132,7 @@ public final class ArrayFill {
     }
 
     /**
-     * Fills and returns the given array.
+     * Fills and returns the given array, assigning the given {@code T} value to each element of the array.
      *
      * @param <T> the array type.
      * @param a   the array to be filled (may be null).
