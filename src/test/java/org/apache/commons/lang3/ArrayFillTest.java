@@ -21,11 +21,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 /**
  * Tests {@link ArrayFill}.
  */
 public class ArrayFillTest extends AbstractLangTest {
+
+    // Parameterized test to reduce redundancy for filling arrays of different types
+    @ParameterizedTest
+    @MethodSource("arrayAndValueProvider")
+    public <T> void testFillArray(T[] array, T val) {
+        final T[] actual = ArrayFill.fill(array, val);
+        assertSame(array, actual);
+        for (T v : actual) {
+            assertEquals(val, v);
+        }
+    }
+
+    private static Stream<Arguments> arrayAndValueProvider() {
+        return Stream.of(
+            Arguments.of(new Byte[3], (byte) 1),
+            Arguments.of(new Character[3], 'A'),
+            Arguments.of(new Double[3], 1.0),
+            Arguments.of(new String[3], "Test")
+        );
+    }
 
     @Test
     public void testFillByteArray() {
@@ -43,13 +68,13 @@ public class ArrayFillTest extends AbstractLangTest {
         final byte[] array = null;
         final byte val = (byte) 1;
         final byte[] actual = ArrayFill.fill(array, val);
-        assertSame(array, actual);
+        assertEquals(null, actual, "ArrayFill.fill should return null when input array is null.");
     }
 
     @Test
     public void testFillCharArray() {
         final char[] array = new char[3];
-        final char val = 1;
+        final char val = 'A';
         final char[] actual = ArrayFill.fill(array, val);
         assertSame(array, actual);
         for (final char v : actual) {
@@ -60,9 +85,9 @@ public class ArrayFillTest extends AbstractLangTest {
     @Test
     public void testFillCharArrayNull() {
         final char[] array = null;
-        final char val = 1;
+        final char val = 'A';
         final char[] actual = ArrayFill.fill(array, val);
-        assertSame(array, actual);
+        assertEquals(null, actual, "ArrayFill.fill should return null when input array is null.");
     }
 
     @Test
@@ -81,7 +106,7 @@ public class ArrayFillTest extends AbstractLangTest {
         final double[] array = null;
         final double val = 1;
         final double[] actual = ArrayFill.fill(array, val);
-        assertSame(array, actual);
+        assertEquals(null, actual, "ArrayFill.fill should return null when input array is null.");
     }
 
     @Test
@@ -100,7 +125,7 @@ public class ArrayFillTest extends AbstractLangTest {
         final float[] array = null;
         final float val = 1;
         final float[] actual = ArrayFill.fill(array, val);
-        assertSame(array, actual);
+        assertEquals(null, actual, "ArrayFill.fill should return null when input array is null.");
     }
 
     @Test
@@ -119,7 +144,7 @@ public class ArrayFillTest extends AbstractLangTest {
         final int[] array = null;
         final int val = 1;
         final int[] actual = ArrayFill.fill(array, val);
-        assertSame(array, actual);
+        assertEquals(null, actual, "ArrayFill.fill should return null when input array is null.");
     }
 
     @Test
@@ -138,7 +163,7 @@ public class ArrayFillTest extends AbstractLangTest {
         final long[] array = null;
         final long val = 1;
         final long[] actual = ArrayFill.fill(array, val);
-        assertSame(array, actual);
+        assertEquals(null, actual, "ArrayFill.fill should return null when input array is null.");
     }
 
     @Test
@@ -154,28 +179,41 @@ public class ArrayFillTest extends AbstractLangTest {
 
     @Test
     public void testFillObjectArrayNull() {
-        final Object[] array = null;
-        final Object val = 1;
-        final Object[] actual = ArrayFill.fill(array, val);
+        final String[] array = null;
+        final String val = "A";
+        final String[] actual = ArrayFill.fill(array, val);
+        assertEquals(null, actual, "ArrayFill.fill should return null when input array is null.");
+    }
+
+    // New tests for edge cases
+    @Test
+    public void testFillEmptyArray() {
+        final byte[] array = new byte[0];
+        final byte val = (byte) 1;
+        final byte[] actual = ArrayFill.fill(array, val);
         assertSame(array, actual);
+        assertEquals(0, actual.length);
     }
 
     @Test
-    public void testFillShortArray() {
-        final short[] array = new short[3];
-        final short val = (byte) 1;
-        final short[] actual = ArrayFill.fill(array, val);
+    public void testFillArrayWithDefaultValues() {
+        final byte[] array = new byte[] {1, 1, 1};
+        final byte val = (byte) 1;
+        final byte[] actual = ArrayFill.fill(array, val);
         assertSame(array, actual);
-        for (final short v : actual) {
+        assertEquals(1, actual[0]);
+        assertEquals(1, actual[1]);
+        assertEquals(1, actual[2]);
+    }
+
+    @Test
+    public void testFillObjectArrayWithNull() {
+        final String[] array = new String[3];
+        final String val = null;
+        final String[] actual = ArrayFill.fill(array, val);
+        assertSame(array, actual);
+        for (final String v : actual) {
             assertEquals(val, v);
         }
-    }
-
-    @Test
-    public void testFillShortArrayNull() {
-        final short[] array = null;
-        final short val = 1;
-        final short[] actual = ArrayFill.fill(array, val);
-        assertSame(array, actual);
     }
 }
