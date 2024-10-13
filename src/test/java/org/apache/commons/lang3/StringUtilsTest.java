@@ -810,6 +810,13 @@ public class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testFilledString() {
+        assertEquals("-----", StringUtils.filledString(5, '-'));
+        assertEquals("", StringUtils.filledString(0, '-'));
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.filledString(-1, '-'));
+    }
+
+    @Test
     public void testGeorgianSample() {
         final char[] arrayI = {
                 //Latin Small Letter dotless I

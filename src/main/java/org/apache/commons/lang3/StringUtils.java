@@ -1853,6 +1853,22 @@ public class StringUtils {
     }
 
     /**
+     * Constructs a string of specified length filled with the specified char.
+     * @param length the length of the final string.
+     * @param fillChar the character to file it will.
+     * @return A string of specified length filled with the specified char.
+     * @since 1.10.0
+     */
+    public static String filledString(final int length, final char fillChar) {
+        if (length < 0) {
+            throw new IllegalArgumentException("Length must not be negative");
+        }
+        final char[] padding = new char[length];
+        Arrays.fill(padding, fillChar);
+        return new String(padding);
+    }
+
+    /**
      * Returns the first value in the array which is not empty (""),
      * {@code null} or whitespace only.
      *
