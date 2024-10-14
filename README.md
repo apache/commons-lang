@@ -44,7 +44,7 @@ Apache Commons Lang
 ===================
 
 [![Java CI](https://github.com/apache/commons-lang/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-lang/actions/workflows/maven.yml)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/?gav=true)
+[![Maven Central](https://img.shields.io/maven-central/v/org.apache.commons/commons-lang3?label=Maven%20Central)](https://search.maven.org/artifact/org.apache.commons/commons-lang3)
 [![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.17.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.17.0)
 [![CodeQL](https://github.com/apache/commons-lang/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-lang/actions/workflows/codeql-analysis.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-lang/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-lang)
