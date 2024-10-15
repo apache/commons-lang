@@ -21,12 +21,10 @@ import java.nio.charset.Charset;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -180,6 +178,11 @@ public class StringUtils {
      * The maximum size to which the padding constant(s) can expand.
      */
     private static final int PAD_LIMIT = 8192;
+
+    /**
+     * The default maximum depth at which recursive replacement will continue until no further search replacements are possible.
+     */
+    private static final int DEFAULT_TTL = 5;
 
     /**
      * Pattern used in {@link #stripAccents(String)}.
@@ -6450,20 +6453,14 @@ public class StringUtils {
 
         // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
+        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList)) {
+            return text;
+        }
 
         // if recursing, this shouldn't be less than 0
         if (timeToLive < 0) {
-            final Set<String> searchSet = new HashSet<>(Arrays.asList(searchList));
-            final Set<String> replacementSet = new HashSet<>(Arrays.asList(replacementList));
-            searchSet.retainAll(replacementSet);
-            if (!searchSet.isEmpty()) {
-                throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
-                        "output of one loop is the input of another");
-            }
-        }
-
-        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList) || ArrayUtils.isNotEmpty(searchList) && timeToLive == -1) {
-            return text;
+            throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
+                "output of one loop is the input of another");
         }
 
         final int searchLength = searchList.length;
@@ -6611,7 +6608,8 @@ public class StringUtils {
      * @since 2.4
      */
     public static String replaceEachRepeatedly(final String text, final String[] searchList, final String[] replacementList) {
-        return replaceEach(text, searchList, replacementList, true, ArrayUtils.getLength(searchList));
+        int timeToLive = Math.max(ArrayUtils.getLength(searchList), DEFAULT_TTL);
+        return replaceEach(text, searchList, replacementList, true, timeToLive);
     }
 
     /**

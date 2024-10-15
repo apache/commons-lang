@@ -1990,7 +1990,53 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("aba", StringUtils.replaceEachRepeatedly("aba", new String[]{null}, new String[]{"a"}));
         assertEquals("wcte", StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}));
         assertEquals("tcte", StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}));
-        assertEquals("blaan", StringUtils.replaceEachRepeatedly("blllaan", new String[]{"llaan"}, new String[]{"laan"}) );
+
+        // Test recursive replacement - LANG-1528 & LANG-1753
+        assertEquals("blaan", StringUtils.replaceEachRepeatedly("blllaan", new String[]{"llaan"}, new String[]{"laan"}));
+        assertEquals("blaan", StringUtils.replaceEachRepeatedly("bllllaan", new String[]{"llaan"}, new String[]{"laan"}));
+
+        // Test default TTL for smaller search lists. 32 characters reduced to 16, then 8, 4, 2, 1.
+        assertEquals("a", StringUtils.replaceEachRepeatedly("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                new String[]{"aa"}, new String[]{"a"}));
+
+        // Test default TTL exceeded. 33 characters reduced to 17, then 9, 5, 3, 2 (still found).
+        assertThrows(
+                IllegalStateException.class,
+                () -> StringUtils.replaceEachRepeatedly("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    new String[]{"aa"}, new String[]{"a"}),
+               "Cannot be resolved within the default time-to-live limit");
+
+        // Test larger TTL for larger search lists. Replace repeatedly until there are no more possible replacements.
+        assertEquals("000000000", StringUtils.replaceEachRepeatedly("aA0aA0aA0",
+                new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+                        "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
+                        "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+                        "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9"},
+                new String[]{"b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
+                        "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E",
+                        "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+                        "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}));
+
+        // Test long infinite cycle: a -> b -> ... -> 9 -> 0 -> a -> b -> ...
+        assertThrows(
+                IllegalStateException.class,
+                () -> StringUtils.replaceEachRepeatedly("a",
+                    new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+                            "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
+                            "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+                            "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"},
+                    new String[]{"b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
+                            "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E",
+                            "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+                            "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "a"}),
+                "Should be a circular reference");
+
+        assertThrows(
+                IllegalStateException.class,
+                () -> StringUtils.replaceEachRepeatedly("%{key1}",
+                    new String[] {"%{key1}", "%{key2}", "%{key3}"},
+                    new String[] {"Key1 %{key2}", "Key2 %{key3}", "Key3 %{key1}"}),
+                "Should be a circular reference");
 
         assertThrows(
                 IllegalStateException.class,
