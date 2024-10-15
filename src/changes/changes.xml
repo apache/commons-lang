@@ -57,7 +57,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1754" type="fix" dev="ggregory" due-to="vhbcm">Use getAllSuperclassesAndInterfaces() in getMatchingMethod() #1289.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add details to the ArrayFill Javadoc.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add details to the ArraySorter Javadoc.</action>
-    <action                   type="fix" dev="ggregory" due-to="Capt. Cutlass">Fix broken URL to project location in Maven Central #1296.</action> 
+    <action                   type="fix" dev="ggregory" due-to="Capt. Cutlass">Fix broken URL to project location in Maven Central #1296.</action>
+    <action issue="LANG-1753" type="fix" dev="ggregory" due-to="Capt. Cutlass">StringUtils.replaceEachRepeatedly regression in 3.11+ #1297.</action>       
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
