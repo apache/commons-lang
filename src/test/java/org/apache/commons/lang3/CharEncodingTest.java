@@ -28,9 +28,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests CharEncoding.
  *
- * @see CharEncoding
+ * @deprecated this test can be removed once the deprecated source class {@link org.apache.commons.lang3.CharEncoding} is removed.
  */
-@SuppressWarnings("deprecation")
+@Deprecated
 public class CharEncodingTest extends AbstractLangTest {
 
     private void assertSupportedEncoding(final String name) {

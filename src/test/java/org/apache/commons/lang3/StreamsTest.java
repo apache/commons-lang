@@ -41,6 +41,12 @@ import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.function.Executable;
 import org.xml.sax.SAXException;
 
+/**
+ * Tests Streams.
+ *
+ * @deprecated this test can be removed once the deprecated source class {@link org.apache.commons.lang3.Streams} is removed.
+ */
+@Deprecated
 public class StreamsTest extends AbstractLangTest {
 
     protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T pThrowable) {
