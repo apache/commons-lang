@@ -23,7 +23,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -533,7 +532,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         assertEquals(50, r1.length(), "random(50) length");
         String r2 = rsu.next(50);
         assertEquals(50, r2.length(), "random(50) length");
-        assertFalse(r1.equals(r2), "!r1.equals(r2)");
+        assertNotEquals(r1, r2, "!r1.equals(r2)");
 
         r1 = rsu.nextAscii(50);
         assertEquals(50, r1.length(), "randomAscii(50) length");
@@ -541,7 +540,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             assertThat("char >= 32 && <= 127", (int) r1.charAt(i), allOf(greaterThanOrEqualTo(32), lessThanOrEqualTo(127)));
         }
         r2 = rsu.nextAscii(50);
-        assertFalse(r1.equals(r2), "!r1.equals(r2)");
+        assertNotEquals(r1, r2, "!r1.equals(r2)");
 
         r1 = rsu.nextAlphabetic(50);
         assertEquals(50, r1.length(), "randomAlphabetic(50)");
@@ -549,7 +548,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             assertTrue(Character.isLetter(r1.charAt(i)) && !Character.isDigit(r1.charAt(i)), "r1 contains alphabetic");
         }
         r2 = rsu.nextAlphabetic(50);
-        assertFalse(r1.equals(r2), "!r1.equals(r2)");
+        assertNotEquals(r1, r2, "!r1.equals(r2)");
 
         r1 = rsu.nextAlphanumeric(50);
         assertEquals(50, r1.length(), "randomAlphanumeric(50)");
@@ -557,7 +556,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             assertTrue(Character.isLetterOrDigit(r1.charAt(i)), "r1 contains alphanumeric");
         }
         r2 = rsu.nextAlphabetic(50);
-        assertFalse(r1.equals(r2), "!r1.equals(r2)");
+        assertNotEquals(r1, r2, "!r1.equals(r2)");
 
         r1 = rsu.nextGraph(50);
         assertEquals(50, r1.length(), "randomGraph(50) length");
@@ -565,7 +564,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             assertTrue(r1.charAt(i) >= 33 && r1.charAt(i) <= 126, "char between 33 and 126");
         }
         r2 = rsu.nextGraph(50);
-        assertFalse(r1.equals(r2), "!r1.equals(r2)");
+        assertNotEquals(r1, r2, "!r1.equals(r2)");
 
         r1 = rsu.nextNumeric(50);
         assertEquals(50, r1.length(), "randomNumeric(50)");
@@ -573,7 +572,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             assertTrue(Character.isDigit(r1.charAt(i)) && !Character.isLetter(r1.charAt(i)), "r1 contains numeric");
         }
         r2 = rsu.nextNumeric(50);
-        assertFalse(r1.equals(r2), "!r1.equals(r2)");
+        assertNotEquals(r1, r2, "!r1.equals(r2)");
 
         r1 = rsu.nextPrint(50);
         assertEquals(50, r1.length(), "randomPrint(50) length");
@@ -581,7 +580,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             assertTrue(r1.charAt(i) >= 32 && r1.charAt(i) <= 126, "char between 32 and 126");
         }
         r2 = rsu.nextPrint(50);
-        assertFalse(r1.equals(r2), "!r1.equals(r2)");
+        assertNotEquals(r1, r2, "!r1.equals(r2)");
 
         String set = "abcdefg";
         r1 = rsu.next(50, set);
@@ -590,13 +589,13 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             assertTrue(set.indexOf(r1.charAt(i)) > -1, "random char in set");
         }
         r2 = rsu.next(50, set);
-        assertFalse(r1.equals(r2), "!r1.equals(r2)");
+        assertNotEquals(r1, r2, "!r1.equals(r2)");
 
         r1 = rsu.next(50, (String) null);
         assertEquals(50, r1.length(), "random(50) length");
         r2 = rsu.next(50, (String) null);
         assertEquals(50, r2.length(), "random(50) length");
-        assertFalse(r1.equals(r2), "!r1.equals(r2)");
+        assertNotEquals(r1, r2, "!r1.equals(r2)");
 
         set = "stuvwxyz";
         r1 = rsu.next(50, set.toCharArray());
@@ -605,13 +604,13 @@ public class RandomStringUtilsTest extends AbstractLangTest {
             assertTrue(set.indexOf(r1.charAt(i)) > -1, "random char in set");
         }
         r2 = rsu.next(50, set);
-        assertFalse(r1.equals(r2), "!r1.equals(r2)");
+        assertNotEquals(r1, r2, "!r1.equals(r2)");
 
         r1 = rsu.next(50, (char[]) null);
         assertEquals(50, r1.length(), "random(50) length");
         r2 = rsu.next(50, (char[]) null);
         assertEquals(50, r2.length(), "random(50) length");
-        assertFalse(r1.equals(r2), "!r1.equals(r2)");
+        assertNotEquals(r1, r2, "!r1.equals(r2)");
 
         r1 = rsu.next(0);
         assertEquals("", r1, "random(0).equals(\"\")");

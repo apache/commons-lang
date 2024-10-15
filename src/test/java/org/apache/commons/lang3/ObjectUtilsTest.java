@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -792,7 +793,7 @@ public class ObjectUtilsTest extends AbstractLangTest {
     public void testNull() {
         assertNotNull(ObjectUtils.NULL);
         // 1 Check that NULL really is a Null i.e. the definition has not been changed
-        assertTrue(ObjectUtils.NULL instanceof ObjectUtils.Null);
+        assertInstanceOf(ObjectUtils.Null.class, ObjectUtils.NULL);
         assertSame(ObjectUtils.NULL, SerializationUtils.clone(ObjectUtils.NULL));
     }
 

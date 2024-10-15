@@ -18,6 +18,7 @@ package org.apache.commons.lang3.exception;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -164,7 +165,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
         assertTrue(message.contains("Crap"));
 
         assertNull(exceptionContext.getFirstContextValue("crap"));
-        assertTrue(exceptionContext.getFirstContextValue("test Poorly written obj") instanceof ObjectWithFaultyToString);
+        assertInstanceOf(ObjectWithFaultyToString.class, exceptionContext.getFirstContextValue("test Poorly written obj"));
 
         assertEquals(7, exceptionContext.getContextEntries().size());
         assertEquals(6, exceptionContext.getContextLabels().size());
