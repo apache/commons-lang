@@ -607,7 +607,7 @@ public abstract class Strings {
     }
 
     /**
-     * Tests if a CharSequence ends with any of the provided case-sensitive suffixes.
+     * Tests if a CharSequence ends with any of the provided suffixes.
      *
      * <p>
      * Case-sensitive examples
@@ -625,10 +625,10 @@ public abstract class Strings {
      * </pre>
      *
      * @param sequence      the CharSequence to check, may be null
-     * @param searchStrings the case-sensitive CharSequences to find, may be empty or contain {@code null}
-     * @see StringUtils#endsWith(CharSequence, CharSequence)
+     * @param searchStrings the CharSequence suffixes to find, may be empty or contain {@code null}
+     * @see Strings#endsWith(CharSequence, CharSequence)
      * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} ends in any
-     *         of the provided case-sensitive {@code searchStrings}.
+     *         of the provided {@code searchStrings}.
      */
     public boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
         if (StringUtils.isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
@@ -1412,28 +1412,43 @@ public abstract class Strings {
     }
 
     /**
-     * Tests if a CharSequence starts with any of the provided case-sensitive prefixes.
+     * Tests if a CharSequence starts with any of the provided prefixes.
      *
      * <p>
      * Case-sensitive examples
      * </p>
      *
      * <pre>
-     * StringUtils.startsWithAny(null, null)      = false
-     * StringUtils.startsWithAny(null, new String[] {"abc"})  = false
-     * StringUtils.startsWithAny("abcxyz", null)     = false
-     * StringUtils.startsWithAny("abcxyz", new String[] {""}) = true
-     * StringUtils.startsWithAny("abcxyz", new String[] {"abc"}) = true
-     * StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
-     * StringUtils.startsWithAny("abcxyz", null, "xyz", "ABCX") = false
-     * StringUtils.startsWithAny("ABCXYZ", null, "xyz", "abc") = false
+     * Strings.CS.startsWithAny(null, null)      = false
+     * Strings.CS.startsWithAny(null, new String[] {"abc"})  = false
+     * Strings.CS.startsWithAny("abcxyz", null)     = false
+     * Strings.CS.startsWithAny("abcxyz", new String[] {""}) = true
+     * Strings.CS.startsWithAny("abcxyz", new String[] {"abc"}) = true
+     * Strings.CS.startsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
+     * Strings.CS.startsWithAny("abcxyz", null, "xyz", "ABCX") = false
+     * Strings.CS.startsWithAny("ABCXYZ", null, "xyz", "abc") = false
+     * </pre>
+     *
+     * <p>
+     * Case-insensitive examples
+     * </p>
+     *
+     * <pre>
+     * Strings.CI.startsWithAny(null, null)      = false
+     * Strings.CI.startsWithAny(null, new String[] {"aBc"})  = false
+     * Strings.CI.startsWithAny("AbCxYz", null)     = false
+     * Strings.CI.startsWithAny("AbCxYz", new String[] {""}) = true
+     * Strings.CI.startsWithAny("AbCxYz", new String[] {"aBc"}) = true
+     * Strings.CI.startsWithAny("AbCxYz", new String[] {null, "XyZ", "aBc"}) = true
+     * Strings.CI.startsWithAny("abcxyz", null, "xyz", "ABCX") = true
+     * Strings.CI.startsWithAny("ABCXYZ", null, "xyz", "abc") = true
      * </pre>
      *
      * @param sequence      the CharSequence to check, may be null
-     * @param searchStrings the case-sensitive CharSequence prefixes, may be empty or contain {@code null}
-     * @see StringUtils#startsWith(CharSequence, CharSequence)
+     * @param searchStrings the CharSequence prefixes, may be empty or contain {@code null}
+     * @see Strings#startsWith(CharSequence, CharSequence)
      * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} begins with
-     *         any of the provided case-sensitive {@code searchStrings}.
+     *         any of the provided {@code searchStrings}.
      */
     public boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
         if (StringUtils.isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
