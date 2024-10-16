@@ -45,6 +45,12 @@ import org.apache.commons.lang3.Functions.FailableSupplier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests Functions.
+ *
+ * @deprecated this test can be removed once the deprecated source class {@link org.apache.commons.lang3.Functions} is removed.
+ */
+@Deprecated
 public class FunctionsTest extends AbstractLangTest {
 
     public static class CloseableObject {

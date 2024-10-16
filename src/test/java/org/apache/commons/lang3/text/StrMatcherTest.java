@@ -18,8 +18,8 @@
 package org.apache.commons.lang3.text;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -56,7 +56,7 @@ public class StrMatcherTest extends AbstractLangTest {
         assertEquals(0, matcher.isMatch(BUFFER2, 5));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher());
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher((char[]) null));
-        assertTrue(StrMatcher.charSetMatcher("a".toCharArray()) instanceof StrMatcher.CharMatcher);
+        assertInstanceOf(StrMatcher.CharMatcher.class, StrMatcher.charSetMatcher("a".toCharArray()));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class StrMatcherTest extends AbstractLangTest {
         assertEquals(0, matcher.isMatch(BUFFER2, 5));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher(""));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher((String) null));
-        assertTrue(StrMatcher.charSetMatcher("a") instanceof StrMatcher.CharMatcher);
+        assertInstanceOf(StrMatcher.CharMatcher.class, StrMatcher.charSetMatcher("a"));
     }
 
     @Test

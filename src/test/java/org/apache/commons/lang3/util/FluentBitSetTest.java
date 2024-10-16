@@ -20,6 +20,7 @@ package org.apache.commons.lang3.util;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -77,7 +78,7 @@ public class FluentBitSetTest extends AbstractLangTest {
             bs.set(i);
         }
         eightFbs.and(bs);
-        assertFalse(eightFbs.equals(bs), "AND failed to clear bits");
+        assertNotEquals(eightFbs, bs, "AND failed to clear bits");
         eightFbs.set(3);
         bs.set(3);
         eightFbs.and(bs);
@@ -101,7 +102,7 @@ public class FluentBitSetTest extends AbstractLangTest {
             bs.set(i);
         }
         eightFbs.and(bs.bitSet());
-        assertFalse(eightFbs.equals(bs), "AND failed to clear bits");
+        assertNotEquals(eightFbs, bs, "AND failed to clear bits");
         eightFbs.set(3);
         bs.set(3);
         eightFbs.and(bs.bitSet());
@@ -300,7 +301,7 @@ public class FluentBitSetTest extends AbstractLangTest {
             assertFalse(bs.get(i), "Failed to clear bit " + i);
         }
         for (int i = 64; i < bs.size(); i++) {
-            assertTrue(!bs.get(i), "Shouldn't have flipped bit " + i);
+            assertFalse(bs.get(i), "Shouldn't have flipped bit " + i);
         }
         // more boundary testing
         bs = newInstance(32);
@@ -524,15 +525,15 @@ public class FluentBitSetTest extends AbstractLangTest {
         assertEquals(eightFbs, eightFbs, "Same FluentBitSet returned false");
         assertEquals(bs, eightFbs, "Identical FluentBitSet returned false");
         bs.clear(6);
-        assertFalse(eightFbs.equals(bs), "Different BitSets returned true");
+        assertNotEquals(bs, eightFbs, "Different BitSets returned true");
         assertFalse(eightFbs.equals(null), "Different BitSets returned true");
         assertFalse(eightFbs.equals(new Object()), "Different BitSets returned true");
 
         bs = (FluentBitSet) eightFbs.clone();
         bs.set(128);
-        assertFalse(eightFbs.equals(bs), "Different sized FluentBitSet with higher bit set returned true");
+        assertNotEquals(bs, eightFbs, "Different sized FluentBitSet with higher bit set returned true");
         bs.clear(128);
-        assertTrue(eightFbs.equals(bs), "Different sized FluentBitSet with higher bits not set returned false");
+        assertEquals(bs, eightFbs, "Different sized FluentBitSet with higher bits not set returned false");
     }
 
     /**
@@ -571,10 +572,10 @@ public class FluentBitSetTest extends AbstractLangTest {
             assertTrue(bs.get(i), "Test1: Incorrectly flipped bit" + i);
             assertEquals(i + 1, bs.length(), "Incorrect length");
             for (int j = bs.size(); --j > i;) {
-                assertTrue(!bs.get(j), "Test2: Incorrectly flipped bit" + j);
+                assertFalse(bs.get(j), "Test2: Incorrectly flipped bit" + j);
             }
             for (int j = i; --j >= 0;) {
-                assertTrue(!bs.get(j), "Test3: Incorrectly flipped bit" + j);
+                assertFalse(bs.get(j), "Test3: Incorrectly flipped bit" + j);
             }
             bs.flip(i);
         }
@@ -592,7 +593,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         assertEquals(64, bs0.length(), "Test3: Wrong length");
 
         eightFbs.flip(7);
-        assertTrue(!eightFbs.get(7), "Failed to flip bit 7");
+        assertFalse(eightFbs.get(7), "Failed to flip bit 7");
 
         // Check to see all other bits are still set
         for (int i = 0; i < 7; i++) {
@@ -603,7 +604,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         assertTrue(eightFbs.get(127), "Failed to flip bit 127");
 
         eightFbs.flip(127);
-        assertTrue(!eightFbs.get(127), "Failed to flip bit 127");
+        assertFalse(eightFbs.get(127), "Failed to flip bit 127");
     }
 
     /**
@@ -624,14 +625,14 @@ public class FluentBitSetTest extends AbstractLangTest {
         bs.set(10);
         bs.flip(7, 11);
         for (int i = 0; i < 7; i++) {
-            assertTrue(!bs.get(i), "Shouldn't have flipped bit " + i);
+            assertFalse(bs.get(i), "Shouldn't have flipped bit " + i);
         }
         assertFalse(bs.get(7), "Failed to flip bit 7");
         assertTrue(bs.get(8), "Failed to flip bit 8");
         assertTrue(bs.get(9), "Failed to flip bit 9");
         assertFalse(bs.get(10), "Failed to flip bit 10");
         for (int i = 11; i < bs.size(); i++) {
-            assertTrue(!bs.get(i), "Shouldn't have flipped bit " + i);
+            assertFalse(bs.get(i), "Shouldn't have flipped bit " + i);
         }
 
         // pos1 and pos2 is in the same bitset element, boundary testing
@@ -641,7 +642,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         bs.flip(7, 64);
         assertEquals(64, bs.size(), "Failed to grow BitSet");
         for (int i = 0; i < 7; i++) {
-            assertTrue(!bs.get(i), "Shouldn't have flipped bit " + i);
+            assertFalse(bs.get(i), "Shouldn't have flipped bit " + i);
         }
         assertFalse(bs.get(7), "Failed to flip bit 7");
         assertTrue(bs.get(8), "Failed to flip bit 8");
@@ -728,7 +729,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         assertFalse(bs.get(219), "Shouldn't have flipped bit 219");
         assertTrue(bs.get(220), "Shouldn't have flipped bit 220");
         for (int i = 221; i < bs.size(); i++) {
-            assertTrue(!bs.get(i), "Shouldn't have flipped bit " + i);
+            assertFalse(bs.get(i), "Shouldn't have flipped bit " + i);
         }
 
         // test illegal args

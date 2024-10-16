@@ -19,6 +19,7 @@ package org.apache.commons.lang3.text;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -266,14 +267,14 @@ public class StrSubstitutorTest extends AbstractLangTest {
     @Test
     public void testGetSetPrefix() {
         final StrSubstitutor sub = new StrSubstitutor();
-        assertTrue(sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
+        assertInstanceOf(StrMatcher.StringMatcher.class, sub.getVariablePrefixMatcher());
         sub.setVariablePrefix('<');
-        assertTrue(sub.getVariablePrefixMatcher() instanceof StrMatcher.CharMatcher);
+        assertInstanceOf(StrMatcher.CharMatcher.class, sub.getVariablePrefixMatcher());
 
         sub.setVariablePrefix("<<");
-        assertTrue(sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
+        assertInstanceOf(StrMatcher.StringMatcher.class, sub.getVariablePrefixMatcher());
         assertThrows(NullPointerException.class, () -> sub.setVariablePrefix(null));
-        assertTrue(sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
+        assertInstanceOf(StrMatcher.StringMatcher.class, sub.getVariablePrefixMatcher());
 
         final StrMatcher matcher = StrMatcher.commaMatcher();
         sub.setVariablePrefixMatcher(matcher);
@@ -288,14 +289,14 @@ public class StrSubstitutorTest extends AbstractLangTest {
     @Test
     public void testGetSetSuffix() {
         final StrSubstitutor sub = new StrSubstitutor();
-        assertTrue(sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
+        assertInstanceOf(StrMatcher.StringMatcher.class, sub.getVariableSuffixMatcher());
         sub.setVariableSuffix('<');
-        assertTrue(sub.getVariableSuffixMatcher() instanceof StrMatcher.CharMatcher);
+        assertInstanceOf(StrMatcher.CharMatcher.class, sub.getVariableSuffixMatcher());
 
         sub.setVariableSuffix("<<");
-        assertTrue(sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
+        assertInstanceOf(StrMatcher.StringMatcher.class, sub.getVariableSuffixMatcher());
         assertThrows(NullPointerException.class, () -> sub.setVariableSuffix(null));
-        assertTrue(sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
+        assertInstanceOf(StrMatcher.StringMatcher.class, sub.getVariableSuffixMatcher());
 
         final StrMatcher matcher = StrMatcher.commaMatcher();
         sub.setVariableSuffixMatcher(matcher);
@@ -310,12 +311,12 @@ public class StrSubstitutorTest extends AbstractLangTest {
     @Test
     public void testGetSetValueDelimiter() {
         final StrSubstitutor sub = new StrSubstitutor();
-        assertTrue(sub.getValueDelimiterMatcher() instanceof StrMatcher.StringMatcher);
+        assertInstanceOf(StrMatcher.StringMatcher.class, sub.getValueDelimiterMatcher());
         sub.setValueDelimiter(':');
-        assertTrue(sub.getValueDelimiterMatcher() instanceof StrMatcher.CharMatcher);
+        assertInstanceOf(StrMatcher.CharMatcher.class, sub.getValueDelimiterMatcher());
 
         sub.setValueDelimiter("||");
-        assertTrue(sub.getValueDelimiterMatcher() instanceof StrMatcher.StringMatcher);
+        assertInstanceOf(StrMatcher.StringMatcher.class, sub.getValueDelimiterMatcher());
         sub.setValueDelimiter(null);
         assertNull(sub.getValueDelimiterMatcher());
 

@@ -18,6 +18,7 @@ package org.apache.commons.lang3.math;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -389,24 +390,24 @@ public class NumberUtilsTest extends AbstractLangTest {
     @SuppressWarnings("cast") // suppress instanceof warning check
     @Test
     public void testConstants() {
-        assertTrue(NumberUtils.LONG_ZERO instanceof Long);
-        assertTrue(NumberUtils.LONG_ONE instanceof Long);
-        assertTrue(NumberUtils.LONG_MINUS_ONE instanceof Long);
-        assertTrue(NumberUtils.INTEGER_ZERO instanceof Integer);
-        assertTrue(NumberUtils.INTEGER_ONE instanceof Integer);
-        assertTrue(NumberUtils.INTEGER_MINUS_ONE instanceof Integer);
-        assertTrue(NumberUtils.SHORT_ZERO instanceof Short);
-        assertTrue(NumberUtils.SHORT_ONE instanceof Short);
-        assertTrue(NumberUtils.SHORT_MINUS_ONE instanceof Short);
-        assertTrue(NumberUtils.BYTE_ZERO instanceof Byte);
-        assertTrue(NumberUtils.BYTE_ONE instanceof Byte);
-        assertTrue(NumberUtils.BYTE_MINUS_ONE instanceof Byte);
-        assertTrue(NumberUtils.DOUBLE_ZERO instanceof Double);
-        assertTrue(NumberUtils.DOUBLE_ONE instanceof Double);
-        assertTrue(NumberUtils.DOUBLE_MINUS_ONE instanceof Double);
-        assertTrue(NumberUtils.FLOAT_ZERO instanceof Float);
-        assertTrue(NumberUtils.FLOAT_ONE instanceof Float);
-        assertTrue(NumberUtils.FLOAT_MINUS_ONE instanceof Float);
+        assertInstanceOf(Long.class, NumberUtils.LONG_ZERO);
+        assertInstanceOf(Long.class, NumberUtils.LONG_ONE);
+        assertInstanceOf(Long.class, NumberUtils.LONG_MINUS_ONE);
+        assertInstanceOf(Integer.class, NumberUtils.INTEGER_ZERO);
+        assertInstanceOf(Integer.class, NumberUtils.INTEGER_ONE);
+        assertInstanceOf(Integer.class, NumberUtils.INTEGER_MINUS_ONE);
+        assertInstanceOf(Short.class, NumberUtils.SHORT_ZERO);
+        assertInstanceOf(Short.class, NumberUtils.SHORT_ONE);
+        assertInstanceOf(Short.class, NumberUtils.SHORT_MINUS_ONE);
+        assertInstanceOf(Byte.class, NumberUtils.BYTE_ZERO);
+        assertInstanceOf(Byte.class, NumberUtils.BYTE_ONE);
+        assertInstanceOf(Byte.class, NumberUtils.BYTE_MINUS_ONE);
+        assertInstanceOf(Double.class, NumberUtils.DOUBLE_ZERO);
+        assertInstanceOf(Double.class, NumberUtils.DOUBLE_ONE);
+        assertInstanceOf(Double.class, NumberUtils.DOUBLE_MINUS_ONE);
+        assertInstanceOf(Float.class, NumberUtils.FLOAT_ZERO);
+        assertInstanceOf(Float.class, NumberUtils.FLOAT_ONE);
+        assertInstanceOf(Float.class, NumberUtils.FLOAT_MINUS_ONE);
 
         assertEquals(0, NumberUtils.LONG_ZERO.longValue());
         assertEquals(1, NumberUtils.LONG_ONE.longValue());
@@ -1551,31 +1552,31 @@ public class NumberUtilsTest extends AbstractLangTest {
      */
     @Test
     public void testStringCreateNumberEnsureNoPrecisionLoss() {
-        assertTrue(NumberUtils.createNumber("1.23") instanceof Float);
-        assertTrue(NumberUtils.createNumber("3.40282354e+38") instanceof Double);
-        assertTrue(NumberUtils.createNumber("1.797693134862315759e+308") instanceof BigDecimal);
+        assertInstanceOf(Float.class, NumberUtils.createNumber("1.23"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("3.40282354e+38"));
+        assertInstanceOf(BigDecimal.class, NumberUtils.createNumber("1.797693134862315759e+308"));
         // LANG-1060
-        assertTrue(NumberUtils.createNumber("001.12") instanceof Float);
-        assertTrue(NumberUtils.createNumber("-001.12") instanceof Float);
-        assertTrue(NumberUtils.createNumber("+001.12") instanceof Float);
-        assertTrue(NumberUtils.createNumber("003.40282354e+38") instanceof Double);
-        assertTrue(NumberUtils.createNumber("-003.40282354e+38") instanceof Double);
-        assertTrue(NumberUtils.createNumber("+003.40282354e+38") instanceof Double);
-        assertTrue(NumberUtils.createNumber("0001.797693134862315759e+308") instanceof BigDecimal);
-        assertTrue(NumberUtils.createNumber("-001.797693134862315759e+308") instanceof BigDecimal);
-        assertTrue(NumberUtils.createNumber("+001.797693134862315759e+308") instanceof BigDecimal);
+        assertInstanceOf(Float.class, NumberUtils.createNumber("001.12"));
+        assertInstanceOf(Float.class, NumberUtils.createNumber("-001.12"));
+        assertInstanceOf(Float.class, NumberUtils.createNumber("+001.12"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("003.40282354e+38"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("-003.40282354e+38"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("+003.40282354e+38"));
+        assertInstanceOf(BigDecimal.class, NumberUtils.createNumber("0001.797693134862315759e+308"));
+        assertInstanceOf(BigDecimal.class, NumberUtils.createNumber("-001.797693134862315759e+308"));
+        assertInstanceOf(BigDecimal.class, NumberUtils.createNumber("+001.797693134862315759e+308"));
         //LANG-1613
-        assertTrue(NumberUtils.createNumber("2.2250738585072014E-308") instanceof Double);
-        assertTrue(NumberUtils.createNumber("2.2250738585072014E-308D") instanceof Double);
-        assertTrue(NumberUtils.createNumber("2.2250738585072014E-308F") instanceof Double);
-        assertTrue(NumberUtils.createNumber("4.9E-324") instanceof Double);
-        assertTrue(NumberUtils.createNumber("4.9E-324D") instanceof Double);
-        assertTrue(NumberUtils.createNumber("4.9E-324F") instanceof Double);
-        assertTrue(NumberUtils.createNumber("1.7976931348623157E308") instanceof Double);
-        assertTrue(NumberUtils.createNumber("1.7976931348623157E308D") instanceof Double);
-        assertTrue(NumberUtils.createNumber("1.7976931348623157E308F") instanceof Double);
-        assertTrue(NumberUtils.createNumber("4.9e-324D") instanceof Double);
-        assertTrue(NumberUtils.createNumber("4.9e-324F") instanceof Double);
+        assertInstanceOf(Double.class, NumberUtils.createNumber("2.2250738585072014E-308"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("2.2250738585072014E-308D"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("2.2250738585072014E-308F"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("4.9E-324"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("4.9E-324D"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("4.9E-324F"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("1.7976931348623157E308"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("1.7976931348623157E308D"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("1.7976931348623157E308F"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("4.9e-324D"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("4.9e-324F"));
     }
 
     /**

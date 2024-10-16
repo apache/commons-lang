@@ -197,17 +197,17 @@ public class PairTest extends AbstractLangTest {
                 return null;
             }
         };
-        assertTrue(pair.equals(entry));
+        assertEquals(pair, entry);
         assertEquals(pair.hashCode(), entry.hashCode());
-        assertTrue(pair.equals(entry2));
+        assertEquals(pair, entry2);
         assertEquals(pair.hashCode(), entry2.hashCode());
-        assertTrue(entry.equals(entry));
+        assertEquals(entry, entry);
         assertEquals(entry.hashCode(), entry.hashCode());
-        assertTrue(entry2.equals(entry2));
+        assertEquals(entry2, entry2);
         assertEquals(entry2.hashCode(), entry2.hashCode());
-        assertTrue(entry.equals(entry2));
+        assertEquals(entry, entry2);
         assertEquals(entry.hashCode(), entry2.hashCode());
-        assertTrue(entry.equals(pair));
+        assertEquals(entry, pair);
         assertEquals(entry.hashCode(), pair.hashCode());
 
     }
@@ -225,7 +225,7 @@ public class PairTest extends AbstractLangTest {
     }
 
     @ParameterizedTest()
-    @MethodSource("org.apache.commons.lang3.tuple.PairTest#mapClassFactory()")
+    @MethodSource("org.apache.commons.lang3.tuple.PairTest#mapClassFactory")
     public <K, V> void testMapEntries(final Class<Map<Integer, String>> clazz) throws InstantiationException, IllegalAccessException {
         testMapEntry(clazz.newInstance());
     }
