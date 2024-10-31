@@ -39,6 +39,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
+import org.apache.commons.lang3.stream.IntStreams;
 import org.apache.commons.lang3.stream.Streams;
 
 /**
@@ -1732,6 +1733,25 @@ public class ArrayUtils {
      */
     public static boolean contains(final short[] array, final short valueToFind) {
         return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if any of the ints are in the given array.
+     * <p>
+     * The method returns {@code false} if a {@code null} array is passed in.
+     * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(int[])} and {@link Arrays#binarySearch(int[], int)}.
+     * </p>
+     *
+     * @param array         the array to search through
+     * @param objectsToFind any of the ints to find
+     * @return {@code true} if the array contains any of the ints
+     * @since 3.18.0
+     */
+    public static boolean containsAny(final int[] array, final int... objectsToFind) {
+        return IntStreams.of(objectsToFind).anyMatch(e -> contains(array, e));
     }
 
     /**

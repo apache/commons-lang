@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,13 @@ import org.junit.jupiter.api.Test;
  * Tests {@link IntStreams}.
  */
 public class IntStreamsTest extends AbstractLangTest {
+
+    @Test
+    public void testOfArray() {
+        assertEquals(0, IntStreams.of((int[]) null).count());
+        assertEquals(1, IntStreams.of(1).count());
+        assertEquals(2, IntStreams.of(1, 2).count());
+    }
 
     @Test
     public void testRange() {
