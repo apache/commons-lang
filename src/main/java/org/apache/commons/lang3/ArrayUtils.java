@@ -1558,10 +1558,6 @@ public class ArrayUtils {
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
      * </p>
-     * <p>
-     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
-     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
-     * </p>
      *
      * @param array  the array to search through
      * @param valueToFind  the value to find
@@ -1578,7 +1574,7 @@ public class ArrayUtils {
      * </p>
      * <p>
      * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
-     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * {@link Arrays#sort(byte[])} and {@link Arrays#binarySearch(byte[], byte)}.
      * </p>
      *
      * @param array  the array to search through
@@ -1596,7 +1592,7 @@ public class ArrayUtils {
      * </p>
      * <p>
      * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
-     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * {@link Arrays#sort(char[])} and {@link Arrays#binarySearch(char[], char)}.
      * </p>
      *
      * @param array  the array to search through
@@ -1615,7 +1611,7 @@ public class ArrayUtils {
      * </p>
      * <p>
      * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
-     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * {@link Arrays#sort(double[])} and {@link Arrays#binarySearch(double[], double)}.
      * </p>
      *
      * @param array  the array to search through
@@ -1636,7 +1632,7 @@ public class ArrayUtils {
      * </p>
      * <p>
      * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
-     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * {@link Arrays#sort(double[])} and {@link Arrays#binarySearch(double[], double)}.
      * </p>
      *
      * @param array  the array to search
@@ -1655,7 +1651,7 @@ public class ArrayUtils {
      * </p>
      * <p>
      * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
-     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * {@link Arrays#sort(float[])} and {@link Arrays#binarySearch(float[], float)}.
      * </p>
      *
      * @param array  the array to search through
@@ -1673,7 +1669,7 @@ public class ArrayUtils {
      * </p>
      * <p>
      * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
-     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * {@link Arrays#sort(int[])} and {@link Arrays#binarySearch(int[], int)}.
      * </p>
      *
      * @param array  the array to search through
@@ -1691,7 +1687,7 @@ public class ArrayUtils {
      * </p>
      * <p>
      * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
-     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * {@link Arrays#sort(long[])} and {@link Arrays#binarySearch(long[], long)}.
      * </p>
      *
      * @param array  the array to search through
@@ -1727,7 +1723,7 @@ public class ArrayUtils {
      * </p>
      * <p>
      * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
-     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * {@link Arrays#sort(short[])} and {@link Arrays#binarySearch(short[], short)}.
      * </p>
      *
      * @param array  the array to search through
