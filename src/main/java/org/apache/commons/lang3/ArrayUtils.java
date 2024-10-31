@@ -1558,6 +1558,10 @@ public class ArrayUtils {
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
      * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * </p>
      *
      * @param array  the array to search through
      * @param valueToFind  the value to find
@@ -1571,6 +1575,10 @@ public class ArrayUtils {
      * Checks if the value is in the given array.
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
+     * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
      * </p>
      *
      * @param array  the array to search through
@@ -1586,6 +1594,10 @@ public class ArrayUtils {
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
      * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * </p>
      *
      * @param array  the array to search through
      * @param valueToFind  the value to find
@@ -1600,6 +1612,10 @@ public class ArrayUtils {
      * Checks if the value is in the given array.
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
+     * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
      * </p>
      *
      * @param array  the array to search through
@@ -1618,6 +1634,10 @@ public class ArrayUtils {
      * The method returns {@code false} if a {@code null} array
      * is passed in.
      * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * </p>
      *
      * @param array  the array to search
      * @param valueToFind  the value to find
@@ -1633,6 +1653,10 @@ public class ArrayUtils {
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
      * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * </p>
      *
      * @param array  the array to search through
      * @param valueToFind  the value to find
@@ -1646,6 +1670,10 @@ public class ArrayUtils {
      * Checks if the value is in the given array.
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
+     * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
      * </p>
      *
      * @param array  the array to search through
@@ -1661,6 +1689,10 @@ public class ArrayUtils {
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
      * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * </p>
      *
      * @param array  the array to search through
      * @param valueToFind  the value to find
@@ -1674,6 +1706,10 @@ public class ArrayUtils {
      * Checks if the object is in the given array.
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
+     * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
      * </p>
      *
      * @param array  the array to search through
@@ -1689,6 +1725,10 @@ public class ArrayUtils {
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
      * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * </p>
      *
      * @param array  the array to search through
      * @param valueToFind  the value to find
@@ -1703,9 +1743,13 @@ public class ArrayUtils {
      * <p>
      * The method returns {@code false} if a {@code null} array is passed in.
      * </p>
+     * <p>
+     * If the {@code array} elements you are searching implement {@link Comparator}, consider whether it is worth using
+     * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
+     * </p>
      *
-     * @param array  the array to search through
-     * @param objectsToFind  any of the objects to find
+     * @param array         the array to search through
+     * @param objectsToFind any of the objects to find
      * @return {@code true} if the array contains any of the objects
      * @since 3.13.0
      */
