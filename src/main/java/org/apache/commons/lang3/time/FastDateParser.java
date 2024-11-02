@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -35,12 +36,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.LocaleUtils;
 
 /**
@@ -494,14 +497,19 @@ public class FastDateParser implements DateParser, Serializable {
         private static final String RFC_822_TIME_ZONE = "[+-]\\d{4}";
 
         private static final String GMT_OPTION = TimeZones.GMT_ID + "[+-]\\d{1,2}:\\d{2}";
+
         /**
-         * Index of zone id
+         * Index of zone id from {@link DateFormatSymbols#getZoneStrings()}.
          */
         private static final int ID = 0;
 
         private final Locale locale;
 
-        private final Map<String, TzInfo> tzNames = new HashMap<>();
+        /**
+         * Using lower case only or upper case only will cause problems with some Locales like Turkey, Armenia, Colognian and also depending on the Java
+         * version. For details, see https://garygregory.wordpress.com/2015/11/03/java-lowercase-conversion-turkey/
+         */
+        private final Map<String, TzInfo> tzNames = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
         /**
          * Constructs a Strategy that parses a TimeZone
@@ -543,30 +551,23 @@ public class FastDateParser implements DateParser, Serializable {
                         break;
                     }
                     final String zoneName = zoneNames[i];
-                    if (zoneName != null) {
-                        final String key = zoneName.toLowerCase(locale);
-                        // ignore the data associated with duplicates supplied in
-                        // the additional names
-                        if (sorted.add(key)) {
-                            tzNames.put(key, tzInfo);
-                        }
+                    // ignore the data associated with duplicates supplied in the additional names
+                    if (zoneName != null && sorted.add(zoneName)) {
+                        tzNames.put(zoneName, tzInfo);
                     }
                 }
             }
-
             // Order is undefined.
-            for (final String tzId : TimeZone.getAvailableIDs()) {
+            for (final String tzId : ArraySorter.sort(TimeZone.getAvailableIDs())) {
                 if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
                     continue;
                 }
                 final TimeZone tz = TimeZone.getTimeZone(tzId);
                 final String zoneName = tz.getDisplayName(locale);
-                final String key = zoneName.toLowerCase(locale);
-                if (sorted.add(key)) {
-                    tzNames.put(key, new TzInfo(tz, tz.observesDaylightTime()));
+                if (sorted.add(zoneName)) {
+                    tzNames.put(zoneName, new TzInfo(tz, tz.observesDaylightTime()));
                 }
             }
-
             // order the regex alternatives with longer strings first, greedy
             // match will ensure the longest string will be consumed
             sorted.forEach(zoneName -> simpleQuote(sb.append('|'), zoneName));
@@ -583,11 +584,16 @@ public class FastDateParser implements DateParser, Serializable {
             if (tz != null) {
                 calendar.setTimeZone(tz);
             } else {
-                final String lowerCase = timeZone.toLowerCase(locale);
-                TzInfo tzInfo = tzNames.get(lowerCase);
+                TzInfo tzInfo = tzNames.get(timeZone);
                 if (tzInfo == null) {
                     // match missing the optional trailing period
-                    tzInfo = tzNames.get(lowerCase + '.');
+                    tzInfo = tzNames.get(timeZone + '.');
+                    if (tzInfo == null) {
+                        // show chars in case this is multiple byte character issue
+                        final char[] charArray = timeZone.toCharArray();
+                        throw new IllegalStateException(String.format("Can't find time zone '%s' (%d %s) in %s", timeZone, charArray.length,
+                                Arrays.toString(charArray), new TreeSet<>(tzNames.keySet())));
+                    }
                 }
                 calendar.set(Calendar.DST_OFFSET, tzInfo.dstOffset);
                 calendar.set(Calendar.ZONE_OFFSET, tzInfo.zone.getRawOffset());
@@ -1079,6 +1085,7 @@ public class FastDateParser implements DateParser, Serializable {
     public String toString() {
         return "FastDateParser[" + pattern + ", " + locale + ", " + timeZone.getID() + "]";
     }
+
     /**
      * Converts all state of this instance to a String handy for debugging.
      *

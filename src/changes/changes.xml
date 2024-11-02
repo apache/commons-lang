@@ -61,6 +61,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1753" type="fix" dev="ggregory" due-to="Capt. Cutlass">StringUtils.replaceEachRepeatedly regression in 3.11+ #1297.</action>
     <action                   type="fix" dev="ggregory" due-to="Capt. Cutlass">Use simplified JUnit assertion methods #1298.</action>
     <action issue="LANG-1682" type="fix" dev="ggregory" due-to="Capt. Cutlass">Javadoc and test: Use Strings.CI.startsWithAny method instead #1299.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in FastDateParser.TimeZoneStrategy.setCalendar(FastDateParser, Calendar, String) on Java 23.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
