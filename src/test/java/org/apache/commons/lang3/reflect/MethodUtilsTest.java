@@ -32,6 +32,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.awt.Color;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -597,58 +600,36 @@ public class MethodUtilsTest extends AbstractLangTest {
 
     @Test
     public void testGetMatchingAccessibleMethod() {
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.EMPTY_CLASS_ARRAY);
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                null, ArrayUtils.EMPTY_CLASS_ARRAY);
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(String.class), singletonArray(String.class));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Object.class), singletonArray(Object.class));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Boolean.class), singletonArray(Object.class));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Byte.class), singletonArray(Integer.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Byte.TYPE), singletonArray(Integer.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Short.class), singletonArray(Integer.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Short.TYPE), singletonArray(Integer.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Character.class), singletonArray(Integer.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Character.TYPE), singletonArray(Integer.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Integer.class), singletonArray(Integer.class));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Integer.TYPE), singletonArray(Integer.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Long.class), singletonArray(Long.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Long.TYPE), singletonArray(Long.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Float.class), singletonArray(Double.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Float.TYPE), singletonArray(Double.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Double.class), singletonArray(Double.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Double.TYPE), singletonArray(Double.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                singletonArray(Double.TYPE), singletonArray(Double.TYPE));
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                new Class[]{String.class, String.class}, new Class[]{String[].class});
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
-                new Class[]{Integer.TYPE, String.class, String.class}, new Class[]{Integer.class, String[].class});
-        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testOne",
-                singletonArray(ParentObject.class), singletonArray(ParentObject.class));
-        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testOne",
-                singletonArray(ChildObject.class), singletonArray(ParentObject.class));
-        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testTwo",
-                singletonArray(ParentObject.class), singletonArray(GrandParentObject.class));
-        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testTwo",
-                singletonArray(ChildObject.class), singletonArray(ChildInterface.class));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.EMPTY_CLASS_ARRAY);
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", null, ArrayUtils.EMPTY_CLASS_ARRAY);
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(String.class), singletonArray(String.class));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Object.class), singletonArray(Object.class));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Boolean.class), singletonArray(Object.class));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Byte.class), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Byte.TYPE), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Short.class), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Short.TYPE), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Character.class), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Character.TYPE), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Integer.class), singletonArray(Integer.class));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Integer.TYPE), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Long.class), singletonArray(Long.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Long.TYPE), singletonArray(Long.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Float.class), singletonArray(Double.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Float.TYPE), singletonArray(Double.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Double.class), singletonArray(Double.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Double.TYPE), singletonArray(Double.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", singletonArray(Double.TYPE), singletonArray(Double.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", new Class[] { String.class, String.class }, new Class[] { String[].class });
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo", new Class[] { Integer.TYPE, String.class, String.class },
+                new Class[] { Integer.class, String[].class });
+        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testOne", singletonArray(ParentObject.class), singletonArray(ParentObject.class));
+        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testOne", singletonArray(ChildObject.class), singletonArray(ParentObject.class));
+        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testTwo", singletonArray(ParentObject.class),
+                singletonArray(GrandParentObject.class));
+        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testTwo", singletonArray(ChildObject.class), singletonArray(ChildInterface.class));
+        // LANG-1757
+        expectMatchingAccessibleMethodParameterTypes(Files.class, "exists", singletonArray(Path.class), new Class[] { Path.class, LinkOption[].class });
     }
 
     @Test

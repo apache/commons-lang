@@ -349,7 +349,8 @@ public class MethodUtils {
 
             final Class<?> lastParameterType = parameterTypes[parameterTypes.length - 1];
             final String parameterTypeName = lastParameterType == null ? null : lastParameterType.getName();
-            final String parameterTypeSuperClassName = lastParameterType == null ? null : lastParameterType.getSuperclass().getName();
+            final String parameterTypeSuperClassName = lastParameterType == null ? null
+                    : lastParameterType.getSuperclass() != null ? lastParameterType.getSuperclass().getName() : null;
 
             if (parameterTypeName != null && parameterTypeSuperClassName != null && !methodParameterComponentTypeName.equals(parameterTypeName)
                 && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
