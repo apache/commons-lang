@@ -291,7 +291,7 @@ public class TypeUtils {
     // @formatter:off
     private static final AppendableJoiner<Type> AMP_JOINER = AppendableJoiner.<Type>builder()
             .setDelimiter(" & ")
-            .setElementAppender((a, e) -> a.append(TypeUtils.toString(e)))
+            .setElementAppender((a, e) -> a.append(toString(e)))
             .get();
     // @formatter:on
 
@@ -301,7 +301,7 @@ public class TypeUtils {
     // @formatter:off
     private static final AppendableJoiner<TypeVariable<Class<?>>> CTJ_JOINER = AppendableJoiner.<TypeVariable<Class<?>>>builder()
         .setDelimiter(", ")
-        .setElementAppender((a, e) -> a.append(TypeUtils.anyToString(e)))
+        .setElementAppender((a, e) -> a.append(anyToString(e)))
         .get();
     // @formatter:on
 
@@ -313,7 +313,7 @@ public class TypeUtils {
             .setPrefix("<")
             .setSuffix(">")
             .setDelimiter(", ")
-            .setElementAppender((a, e) -> a.append(TypeUtils.anyToString(e)))
+            .setElementAppender((a, e) -> a.append(anyToString(e)))
             .get();
     // @formatter:on
 
@@ -359,7 +359,6 @@ public class TypeUtils {
             buf.append(cls.getName());
         }
         if (cls.getTypeParameters().length > 0) {
-            // AppendableJoiner.joinSB(buf, null, null, ", ", TypeUtils::anyToString, cls.getTypeParameters());
             CTJ_JOINER.join(buf, (TypeVariable[]) cls.getTypeParameters());
         }
         return buf.toString();
@@ -1535,7 +1534,7 @@ public class TypeUtils {
         if (recursiveTypeIndexes.length > 0) {
             appendRecursiveTypes(builder, recursiveTypeIndexes, parameterizedType.getActualTypeArguments());
         } else {
-            GT_JOINER.join(builder, parameterizedType.getActualTypeArguments());
+            GT_JOINER.join(builder, (Object[]) parameterizedType.getActualTypeArguments());
         }
         return builder.toString();
     }
@@ -1700,8 +1699,22 @@ public class TypeUtils {
         final StringBuilder builder = new StringBuilder(typeVariable.getName());
         final Type[] bounds = typeVariable.getBounds();
         if (bounds.length > 0 && !(bounds.length == 1 && Object.class.equals(bounds[0]))) {
-            builder.append(" extends ");
-            AMP_JOINER.join(builder, typeVariable.getBounds());
+            // https://issues.apache.org/jira/projects/LANG/issues/LANG-1698
+            // There must be a better way to avoid a stack overflow on Java 17 and up.
+            // Bounds are different in Java 17 and up where instead of Object you can get an interface like Comparable.
+            final Type bound = bounds[0];
+            boolean append = true;
+            if (bound instanceof ParameterizedType) {
+                final Type rawType = ((ParameterizedType) bound).getRawType();
+                if (rawType instanceof Class && ((Class<?>) rawType).isInterface()) {
+                    // Avoid recursion and stack overflow on Java 17 and up.
+                    append = false;
+                }
+            }
+            if (append) {
+                builder.append(" extends ");
+                AMP_JOINER.join(builder, bounds);
+            }
         }
         return builder.toString();
     }

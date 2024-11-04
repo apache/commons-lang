@@ -19,10 +19,10 @@ package org.apache.commons.lang3.reflect;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.awt.Insets;
 import java.io.Serializable;
@@ -45,16 +45,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
-import org.apache.commons.lang3.JavaVersion;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Test fixture for https://issues.apache.org/jira/browse/LANG-1524
@@ -243,6 +244,17 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         return null;
     }
 
+    static Stream<Type> testTypeToString() {
+        // @formatter:off
+        return Stream.of(Comparator.class, Comparable.class, ArrayList.class, HashMap.class)
+                .flatMap(cls -> Stream.of(cls.getDeclaredMethods()))
+                .flatMap(m ->
+                    Stream.concat(Stream.of(m.getGenericExceptionTypes()),
+                    Stream.concat(Stream.of(m.getGenericParameterTypes()),
+                    Stream.concat(Stream.of(m.getGenericReturnType()), Stream.of(m.getTypeParameters())))));
+        // @formatter:on
+    }
+
     public The<String, String> da;
 
     public That<String, String> dat;
@@ -301,6 +313,8 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     /**
+     * Tests https://issues.apache.org/jira/projects/LANG/issues/LANG-1698
+     *
      * <pre>{@code
      * java.lang.StackOverflowError
     at org.apache.commons.lang3.reflect.TypeUtils.typeVariableToString(TypeUtils.java:1785)
@@ -321,8 +335,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
      */
     @Test
     public void test_LANG_1698() {
-        // SO on Java 17
-        assumeTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_16));
         final ParameterizedType comparing = (ParameterizedType) Arrays.stream(Comparator.class.getDeclaredMethods())
                 .filter(k -> k.getName().equals("comparing")).findFirst()
                 .orElse(Comparator.class.getDeclaredMethods()[0]).getGenericParameterTypes()[0];
@@ -1022,6 +1034,13 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.typesSatisfyVariables(typeVarAssigns));
 
         assertThrows(NullPointerException.class, () -> TypeUtils.typesSatisfyVariables(null));
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    public void testTypeToString(Type type) {
+        // No stack overflow
+        assertNotNull(TypeUtils.toString(type));
     }
 
     @Test
