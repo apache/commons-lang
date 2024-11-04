@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.annotation.ElementType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -259,6 +260,12 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertTrue(ArrayUtils.containsAny(array, 1));
         assertTrue(ArrayUtils.containsAny(array, 2));
         assertTrue(ArrayUtils.containsAny(array, 3));
+    }
+
+    @Test
+    public void testContainsAnyEnum() {
+        assertTrue(ArrayUtils.containsAny(ElementType.values(), ElementType.ANNOTATION_TYPE));
+        assertFalse(ArrayUtils.containsAny(ElementType.values(), (ElementType) null));
     }
 
     @Test
