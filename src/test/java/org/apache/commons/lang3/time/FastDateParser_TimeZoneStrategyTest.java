@@ -45,6 +45,9 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
+/**
+ * Tests {@link FastDateParser}.
+ */
 /* Make test reproducible */ @DefaultLocale(language = "en")
 /* Make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
 /* Make test reproducible */ @ReadsDefaultLocale
