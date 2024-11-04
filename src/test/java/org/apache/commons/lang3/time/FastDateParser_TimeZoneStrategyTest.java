@@ -57,7 +57,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     @AfterAll
     public static void afterAll() {
         if (!Java17Failures.isEmpty()) {
-            System.err.printf("Actual failures on Java 17: %,d%n%s%n", Java17Failures.size(), Java17Failures);
+            System.err.printf("Actual failures on Java 17+: %,d%n%s%n", Java17Failures.size(), Java17Failures);
         }
         if (!Java11Failures.isEmpty()) {
             System.err.printf("Actual failures on Java 11: %,d%n%s%n", Java11Failures.size(), Java11Failures);
