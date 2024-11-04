@@ -3431,4 +3431,21 @@ public class StringUtilsTest extends AbstractLangTest {
         assertSame("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
         assertSame("//x//", StringUtils.wrapIfMissing("//x//", "//"));
     }
+
+    /**
+     * Tests {@code toSnakeCase}.
+     */
+    @Test
+    public void testToSnakeCase() {
+        assertEquals("camel_case", StringUtils.toSnakeCase("camelCase"));
+        assertEquals("json_parser", StringUtils.toSnakeCase("JSONParser"));
+        assertEquals("simple", StringUtils.toSnakeCase("simple"));
+        assertEquals("this_is_a_test_string", StringUtils.toSnakeCase("thisIsATestString"));
+        assertEquals("", StringUtils.toSnakeCase(""));
+        assertEquals("a", StringUtils.toSnakeCase("A"));
+        assertEquals("hello_world", StringUtils.toSnakeCase("HelloWorld"));
+        assertEquals("multiple_upper_cases", StringUtils.toSnakeCase("multipleUPPERCases"));
+        assertNull(StringUtils.toSnakeCase(null));
+        assertEquals("already_snake_case", StringUtils.toSnakeCase("already_snake_case"));
+    }
 }

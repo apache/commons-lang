@@ -9333,6 +9333,51 @@ public class StringUtils {
     }
 
     /**
+     * Converts a camelCase string to snake_case.
+     * <pre>
+     * StringUtils.toSnakeCase(null)                   = null
+     * StringUtils.toSnakeCase("")                     = ""
+     * StringUtils.toSnakeCase("simple")               = "simple"
+     * StringUtils.toSnakeCase("camelCase")            = "camel_case"
+     * StringUtils.toSnakeCase("CamelCase")            = "camel_case"
+     * StringUtils.toSnakeCase("thisIsATest")          = "this_is_a_test"
+     * StringUtils.toSnakeCase("JSONParser")           = "json_parser"
+     * StringUtils.toSnakeCase("already_snake_case")   = "already_snake_case"
+     * StringUtils.toSnakeCase("A")                    = "a"
+     * StringUtils.toSnakeCase("HelloWorld")           = "hello_world"
+     * StringUtils.toSnakeCase("multipleUPPERCases")   = "multiple_upper_cases"
+     * </pre>
+     * @param str the camelCase string to be converted, may be {@code null}
+     * @return the snake_case version of the input string
+     */
+    public static String toSnakeCase(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+
+        StringBuilder result = new StringBuilder();
+        char prevChar = str.charAt(0);
+        result.append(Character.toLowerCase(prevChar));  // Initialize with the first character in lowercase
+
+        for (int i = 1; i < str.length(); i++) {
+            char currentChar = str.charAt(i);
+
+            if (Character.isUpperCase(currentChar)) {
+                // Add underscore if the previous character is not uppercase or if the next character is lowercase
+                if (!Character.isUpperCase(prevChar) || (i + 1 < str.length() && Character.isLowerCase(str.charAt(i + 1)))) {
+                    result.append('_');
+                }
+                result.append(Character.toLowerCase(currentChar));
+            } else {
+                result.append(currentChar);
+            }
+
+            prevChar = currentChar;
+        }
+        return result.toString();
+    }
+
+    /**
      * {@link StringUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * {@code StringUtils.trim(" foo ");}.
