@@ -158,7 +158,7 @@ public class LocaleUtils {
     /**
      * Tests whether a Locale's language is undetermined.
      * <p>
-     * A Locale's language tag is undetermined if it's value is {@code "und"}. If a language is empty, or not well-formed (for example, "a" or"e2"), it will be
+     * A Locale's language tag is undetermined if it's value is {@code "und"}. If a language is empty, or not well-formed (for example, "a" or "e2"), it will be
      * equal to {@code "und"}.
      * </p>
      *
