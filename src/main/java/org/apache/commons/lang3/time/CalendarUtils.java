@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.time;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -191,6 +192,16 @@ public class CalendarUtils {
      */
     public int getYear() {
         return calendar.get(Calendar.YEAR);
+    }
+
+    /**
+     * Converts this instance to a {@link LocalDate}.
+     *
+     * @return a LocalDateTime.
+     * @since 3.18.0
+     */
+    public LocalDate toLocalDate() {
+        return toLocalDateTime().toLocalDate();
     }
 
     /**
