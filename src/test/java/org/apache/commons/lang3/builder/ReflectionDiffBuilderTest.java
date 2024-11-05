@@ -55,8 +55,8 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         private final Object objectField = null;
         private final Object[] objectArrayField = { null };
         private transient String transientField;
-        private final BigDecimal bigDecimal = BigDecimal.valueOf(2.0);
-        private final BigInteger bigInteger = BigInteger.valueOf(2);
+        private BigDecimal bigDecimal = BigDecimal.valueOf(20, 1);
+        private BigInteger bigInteger = BigInteger.valueOf(2);
         @DiffExclude
         private String annotatedField = "a";
         private String excludedField = "a";
@@ -83,6 +83,26 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     public void testArrayDifference() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.charArrayField = new char[] { 'c' };
+        final TypeTestClass secondObject = new TypeTestClass();
+
+        final DiffResult list = firstObject.diff(secondObject);
+        assertEquals(1, list.getNumberOfDiffs());
+    }
+
+    @Test
+    public void testBigDecimalDifference() {
+        final TypeTestClass firstObject = new TypeTestClass();
+        // 2.0 is not equal to 2.00, see BigDecimal#equals()
+        firstObject.bigDecimal = BigDecimal.valueOf(200, 2);
+        final TypeTestClass secondObject = new TypeTestClass();
+        final DiffResult list = firstObject.diff(secondObject);
+        assertEquals(1, list.getNumberOfDiffs());
+    }
+
+    @Test
+    public void testBigIntegerDifference() {
+        final TypeTestClass firstObject = new TypeTestClass();
+        firstObject.bigInteger = BigInteger.valueOf(100);
         final TypeTestClass secondObject = new TypeTestClass();
 
         final DiffResult list = firstObject.diff(secondObject);

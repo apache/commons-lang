@@ -384,7 +384,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
         testBigDecimalNotEq(BigDecimal.valueOf(20, 1), BigDecimal.valueOf(200, 2));
     }
 
-    public void testBigDecimalNotEq(final BigDecimal o1, final BigDecimal o2) {
+    private void testBigDecimalNotEq(final BigDecimal o1, final BigDecimal o2) {
         assertNotEquals(o1, o2);
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
         assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
