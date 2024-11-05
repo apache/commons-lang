@@ -34,7 +34,6 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junitpioneer.jupiter.DefaultTimeZone;
 
 public class CalendarUtilsTest extends AbstractLangTest {
 
@@ -98,7 +97,6 @@ public class CalendarUtilsTest extends AbstractLangTest {
      * Tests {@link CalendarUtils#toLocalDate()} from https://github.com/apache/commons-lang/pull/725.
      */
     @Test
-    @DefaultTimeZone("GMT-5")
     public void testToLocalDate() {
         final Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone(TimeZones.GMT_ID));
         calendar.setTimeInMillis(-27078001200000L);
