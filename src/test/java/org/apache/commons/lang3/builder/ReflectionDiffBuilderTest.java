@@ -100,6 +100,65 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
+    public void testGetExcludeFieldNamesWithNullExcludedFieldNames() {
+        // @formatter:off
+        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder = ReflectionDiffBuilder.<TypeTestClass>builder()
+                .setDiffBuilder(DiffBuilder.<TypeTestClass>builder()
+                        .setLeft(new TypeTestClass())
+                        .setRight(new TypeTestChildClass())
+                        .setStyle(SHORT_STYLE)
+                        .build())
+                .build();
+        // @formatter:on
+        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
+        assertNotNull(excludeFieldNames);
+        assertEquals(0, excludeFieldNames.length);
+    }
+
+    @Test
+    public void testGetExcludeFieldNamesWithNullExcludedFieldNamesCtor() {
+        // @formatter:off
+        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder =
+                new ReflectionDiffBuilder<>(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
+        // @formatter:on
+        reflectionDiffBuilder.setExcludeFieldNames(null);
+        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
+        assertNotNull(excludeFieldNames);
+        assertEquals(0, excludeFieldNames.length);
+    }
+
+    @Test
+    public void testGetExcludeFieldNamesWithNullValuesInExcludedFieldNames() {
+        // @formatter:off
+        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder = ReflectionDiffBuilder.<TypeTestClass>builder()
+                .setDiffBuilder(DiffBuilder.<TypeTestClass>builder()
+                        .setLeft(new TypeTestClass())
+                        .setRight(new TypeTestChildClass())
+                        .setStyle(SHORT_STYLE)
+                        .build())
+                .setExcludeFieldNames("charField", null)
+                .build();
+        // @formatter:on
+        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
+        assertNotNull(excludeFieldNames);
+        assertEquals(1, excludeFieldNames.length);
+        assertEquals("charField", excludeFieldNames[0]);
+    }
+
+    @Test
+    public void testGetExcludeFieldNamesWithNullValuesInExcludedFieldNamesCtor() {
+        // @formatter:off
+        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder =
+                new ReflectionDiffBuilder<>(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
+        // @formatter:on
+        reflectionDiffBuilder.setExcludeFieldNames("charField", null);
+        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
+        assertNotNull(excludeFieldNames);
+        assertEquals(1, excludeFieldNames.length);
+        assertEquals("charField", excludeFieldNames[0]);
+    }
+
+    @Test
     public void testNoDifferences() {
         final TypeTestClass firstObject = new TypeTestClass();
         final TypeTestClass secondObject = new TypeTestClass();
@@ -167,65 +226,6 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
 
         final DiffResult list = firstObject.diff(secondObject);
         assertEquals(0, list.getNumberOfDiffs());
-    }
-
-    @Test
-    public void testGetExcludeFieldNamesWithNullExcludedFieldNames() {
-        // @formatter:off
-        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder = ReflectionDiffBuilder.<TypeTestClass>builder()
-                .setDiffBuilder(DiffBuilder.<TypeTestClass>builder()
-                        .setLeft(new TypeTestClass())
-                        .setRight(new TypeTestChildClass())
-                        .setStyle(SHORT_STYLE)
-                        .build())
-                .build();
-        // @formatter:on
-        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
-        assertNotNull(excludeFieldNames);
-        assertEquals(0, excludeFieldNames.length);
-    }
-
-    @Test
-    public void testGetExcludeFieldNamesWithNullExcludedFieldNamesCtor() {
-        // @formatter:off
-        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder =
-                new ReflectionDiffBuilder<>(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
-        // @formatter:on
-        reflectionDiffBuilder.setExcludeFieldNames(null);
-        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
-        assertNotNull(excludeFieldNames);
-        assertEquals(0, excludeFieldNames.length);
-    }
-
-    @Test
-    public void testGetExcludeFieldNamesWithNullValuesInExcludedFieldNames() {
-        // @formatter:off
-        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder = ReflectionDiffBuilder.<TypeTestClass>builder()
-                .setDiffBuilder(DiffBuilder.<TypeTestClass>builder()
-                        .setLeft(new TypeTestClass())
-                        .setRight(new TypeTestChildClass())
-                        .setStyle(SHORT_STYLE)
-                        .build())
-                .setExcludeFieldNames("charField", null)
-                .build();
-        // @formatter:on
-        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
-        assertNotNull(excludeFieldNames);
-        assertEquals(1, excludeFieldNames.length);
-        assertEquals("charField", excludeFieldNames[0]);
-    }
-
-    @Test
-    public void testGetExcludeFieldNamesWithNullValuesInExcludedFieldNamesCtor() {
-        // @formatter:off
-        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder =
-                new ReflectionDiffBuilder<>(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
-        // @formatter:on
-        reflectionDiffBuilder.setExcludeFieldNames("charField", null);
-        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
-        assertNotNull(excludeFieldNames);
-        assertEquals(1, excludeFieldNames.length);
-        assertEquals("charField", excludeFieldNames[0]);
     }
 
 }
