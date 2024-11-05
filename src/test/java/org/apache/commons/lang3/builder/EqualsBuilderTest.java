@@ -23,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -371,6 +373,37 @@ public class EqualsBuilderTest extends AbstractLangTest {
         assertTrue(equalsBuilder.isEquals());
         equalsBuilder.setEquals(false);
         assertFalse(equalsBuilder.isEquals());
+    }
+
+    @Test
+    public void testBigDecimal() {
+        testBigDecimalNotEq(BigDecimal.valueOf(1), BigDecimal.valueOf(2));
+        testBigDecimalNotEq(BigDecimal.valueOf(1), BigDecimal.valueOf(1.0));
+        testBigDecimalNotEq(BigDecimal.valueOf(1), BigDecimal.valueOf(1.00));
+        // 2.0 is not equal to 2.00, see BigDecimal#equals()
+        testBigDecimalNotEq(BigDecimal.valueOf(20, 1), BigDecimal.valueOf(200, 2));
+    }
+
+    public void testBigDecimalNotEq(final BigDecimal o1, final BigDecimal o2) {
+        assertNotEquals(o1, o2);
+        assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, Double.NaN).isEquals());
+        assertTrue(new EqualsBuilder().append(Double.NaN, Double.NaN).isEquals());
+        assertTrue(new EqualsBuilder().append(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY).isEquals());
+    }
+
+    @Test
+    public void testBigInteger() {
+        final BigInteger o1 = BigInteger.valueOf(1);
+        final BigInteger o2 = BigInteger.valueOf(2);
+        assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, Double.NaN).isEquals());
+        assertTrue(new EqualsBuilder().append(Double.NaN, Double.NaN).isEquals());
+        assertTrue(new EqualsBuilder().append(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY).isEquals());
     }
 
     @Test
