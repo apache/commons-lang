@@ -303,7 +303,7 @@ public enum JavaVersion {
      * Parses a float value from a String.
      *
      * @param value the String to parse.
-     * @return the float value represented by the string or -1 if the given String can not be parsed.
+     * @return the float value represented by the string or -1 if the given String cannot be parsed.
      */
     private static float toFloatVersion(final String value) {
         final int defaultReturnValue = -1;

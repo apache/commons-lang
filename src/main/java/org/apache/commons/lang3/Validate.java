@@ -413,14 +413,14 @@ public class Validate {
      *
      * <pre>Validate.isAssignableFrom(SuperClass.class, object.getClass());</pre>
      *
-     * <p>The message of the exception is &quot;The validated object can not be converted to the&quot;
+     * <p>The message of the exception is &quot;The validated object cannot be converted to the&quot;
      * followed by the name of the class and &quot;class&quot;</p>
      *
      * @param superType  the class must be validated against, not null
      * @param type  the class to check, not null
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message, null array not recommended
-     * @throws IllegalArgumentException if argument can not be converted to the specified class
+     * @throws IllegalArgumentException if argument cannot be converted to the specified class
      * @see #isAssignableFrom(Class, Class)
      */
     public static void isAssignableFrom(final Class<?> superType, final Class<?> type, final String message, final Object... values) {

@@ -96,7 +96,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @param x an addend
      * @param y an addend
      * @return the sum {@code x+y}
-     * @throws ArithmeticException if the result can not be represented as
+     * @throws ArithmeticException if the result cannot be represented as
      * an int
      */
     private static int addAndCheck(final int x, final int y) {
@@ -394,7 +394,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @param x a factor
      * @param y a factor
      * @return the product {@code x*y}
-     * @throws ArithmeticException if the result can not be represented as
+     * @throws ArithmeticException if the result cannot be represented as
      *                             an int
      */
     private static int mulAndCheck(final int x, final int y) {
@@ -411,7 +411,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @param x a non-negative factor
      * @param y a non-negative factor
      * @return the product {@code x*y}
-     * @throws ArithmeticException if the result can not be represented as
+     * @throws ArithmeticException if the result cannot be represented as
      * an int
      */
     private static int mulPosAndCheck(final int x, final int y) {
@@ -429,7 +429,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @param x the minuend
      * @param y the subtrahend
      * @return the difference {@code x-y}
-     * @throws ArithmeticException if the result can not be represented as
+     * @throws ArithmeticException if the result cannot be represented as
      * an int
      */
     private static int subAndCheck(final int x, final int y) {

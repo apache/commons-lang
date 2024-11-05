@@ -41,7 +41,7 @@ public class TimedSemaphoreTest extends AbstractLangTest {
     /**
      * A test thread class that will be used by tests for triggering the
      * semaphore. The thread calls the semaphore a configurable number of times.
-     * When this is done, it can notify the main thread.
+     * When this is done, it cannotify the main thread.
      */
     private static final class SemaphoreThread extends Thread {
         /** The semaphore. */

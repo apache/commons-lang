@@ -256,7 +256,7 @@ public class LocaleUtils {
      *
      * @param str the String to parse as a Locale.
      * @return a Locale parsed from the given String.
-     * @throws IllegalArgumentException if the given String can not be parsed.
+     * @throws IllegalArgumentException if the given String cannot be parsed.
      * @see Locale
      */
     private static Locale parseLocale(final String str) {
