@@ -34,7 +34,7 @@ import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link DiffBuilder}.
+ * Tests {@link DiffBuilder}.
  */
 public class DiffBuilderTest extends AbstractLangTest {
 
