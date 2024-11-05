@@ -19,6 +19,9 @@ package org.apache.commons.lang3.builder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
@@ -52,6 +55,8 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         private final Object objectField = null;
         private final Object[] objectArrayField = { null };
         private transient String transientField;
+        private final BigDecimal bigDecimal = BigDecimal.valueOf(2.0);
+        private final BigInteger bigInteger = BigInteger.valueOf(2);
         @DiffExclude
         private String annotatedField = "a";
         private String excludedField = "a";
