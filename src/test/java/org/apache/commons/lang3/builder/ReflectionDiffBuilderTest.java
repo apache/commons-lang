@@ -80,7 +80,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
 
     @Test
-    public void test_array_difference() {
+    public void testArrayDifference() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.charArrayField = new char[] { 'c' };
         final TypeTestClass secondObject = new TypeTestClass();
@@ -90,7 +90,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_difference_in_inherited_field() {
+    public void testDifferenceInInherited_field() {
         final TypeTestChildClass firstObject = new TypeTestChildClass();
         firstObject.intField = 99;
         final TypeTestChildClass secondObject = new TypeTestChildClass();
@@ -100,7 +100,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_no_differences() {
+    public void testNoDifferences() {
         final TypeTestClass firstObject = new TypeTestClass();
         final TypeTestClass secondObject = new TypeTestClass();
 
@@ -109,7 +109,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_no_differences_diff_exclude_annotated_field() {
+    public void testNoDifferencesDiffExcludeAnnotatedField() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.annotatedField = "b";
         final TypeTestClass secondObject = new TypeTestClass();
@@ -119,7 +119,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_no_differences_diff_excluded_field_and_exclude_annotated_field() {
+    public void testNoDifferencesDiffExcludedFieldAndExcludeAnnotatedField() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.excludedField = "b";
         firstObject.annotatedField = "b";
@@ -130,7 +130,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_no_differences_excluded_field() {
+    public void testNoDifferencesExcludedField() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.excludedField = "b";
         final TypeTestClass secondObject = new TypeTestClass();
@@ -140,7 +140,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_no_differences_inheritance() {
+    public void testNoDifferencesInheritance() {
         final TypeTestChildClass firstObject = new TypeTestChildClass();
         final TypeTestChildClass secondObject = new TypeTestChildClass();
 
@@ -149,7 +149,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_primitive_difference() {
+    public void testPrimitiveDifference() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.charField = 'c';
         final TypeTestClass secondObject = new TypeTestClass();
@@ -159,7 +159,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_transient_field_difference() {
+    public void testTransientFieldDifference() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.transientField = "a";
         final TypeTestClass secondObject = new TypeTestClass();
