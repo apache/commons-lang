@@ -63,6 +63,26 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
 
         @Override
         public DiffResult<TypeTestClass> diff(final TypeTestClass obj) {
+            // @formatter:off
+            return ReflectionDiffBuilder.<TypeTestClass>builder()
+                    .setDiffBuilder(diffBuilder(obj))
+                    .setExcludeFieldNames("excludedField")
+                    .build()
+                    .build();
+            // @formatter:on
+        }
+
+        DiffBuilder<TypeTestClass> diffBuilder(final TypeTestClass obj) {
+            // @formatter:off
+            return DiffBuilder.<TypeTestClass>builder()
+                .setLeft(this)
+                .setRight(obj)
+                .setStyle(style)
+                .build();
+            // @formatter:on
+        }
+
+        public DiffResult<TypeTestClass> diffDeprecated(final TypeTestClass obj) {
             return new ReflectionDiffBuilder<>(this, obj, style).setExcludeFieldNames("excludedField").build();
         }
 
@@ -84,8 +104,11 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.charArrayField = new char[] { 'c' };
         final TypeTestClass secondObject = new TypeTestClass();
-
-        final DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        // Normal builder
+        DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        assertEquals(1, list.getNumberOfDiffs());
+        // Deprecated constructor
+        list = firstObject.diffDeprecated(secondObject);
         assertEquals(1, list.getNumberOfDiffs());
     }
 
@@ -182,9 +205,8 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     public void testNoDifferences() {
         final TypeTestClass firstObject = new TypeTestClass();
         final TypeTestClass secondObject = new TypeTestClass();
-
-        final DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
-        assertEquals(0, list.getNumberOfDiffs());
+        assertEquals(0, firstObject.diff(secondObject).getNumberOfDiffs());
+        assertEquals(0, firstObject.diffDeprecated(secondObject).getNumberOfDiffs());
     }
 
     @Test
@@ -192,9 +214,8 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.annotatedField = "b";
         final TypeTestClass secondObject = new TypeTestClass();
-
-        final DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
-        assertEquals(0, list.getNumberOfDiffs());
+        assertEquals(0, firstObject.diff(secondObject).getNumberOfDiffs());
+        assertEquals(0, firstObject.diffDeprecated(secondObject).getNumberOfDiffs());
     }
 
     @Test
@@ -203,8 +224,9 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         firstObject.excludedField = "b";
         firstObject.annotatedField = "b";
         final TypeTestClass secondObject = new TypeTestClass();
-
-        final DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        assertEquals(0, list.getNumberOfDiffs());
+        list = firstObject.diffDeprecated(secondObject);
         assertEquals(0, list.getNumberOfDiffs());
     }
 
@@ -213,8 +235,9 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.excludedField = "b";
         final TypeTestClass secondObject = new TypeTestClass();
-
-        final DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        assertEquals(0, list.getNumberOfDiffs());
+        list = firstObject.diffDeprecated(secondObject);
         assertEquals(0, list.getNumberOfDiffs());
     }
 
@@ -222,8 +245,9 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
     public void testNoDifferencesInheritance() {
         final TypeTestChildClass firstObject = new TypeTestChildClass();
         final TypeTestChildClass secondObject = new TypeTestChildClass();
-
-        final DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        assertEquals(0, list.getNumberOfDiffs());
+        list = firstObject.diffDeprecated(secondObject);
         assertEquals(0, list.getNumberOfDiffs());
     }
 
@@ -232,8 +256,9 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.charField = 'c';
         final TypeTestClass secondObject = new TypeTestClass();
-
-        final DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        assertEquals(1, list.getNumberOfDiffs());
+        list = firstObject.diffDeprecated(secondObject);
         assertEquals(1, list.getNumberOfDiffs());
     }
 
@@ -243,8 +268,9 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         firstObject.transientField = "a";
         final TypeTestClass secondObject = new TypeTestClass();
         firstObject.transientField = "b";
-
-        final DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
+        assertEquals(0, list.getNumberOfDiffs());
+        list = firstObject.diffDeprecated(secondObject);
         assertEquals(0, list.getNumberOfDiffs());
     }
 
