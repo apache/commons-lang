@@ -27,7 +27,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.builder.RecursiveToStringStyleTest}.
+ * Tests {@link org.apache.commons.lang3.builder.RecursiveToStringStyleTest}.
  */
 public class RecursiveToStringStyleTest extends AbstractLangTest {
 

@@ -35,7 +35,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests ConstructorUtils
+ * Tests ConstructorUtils
  */
 public class ConstructorUtilsTest extends AbstractLangTest {
     private static class BaseClass {

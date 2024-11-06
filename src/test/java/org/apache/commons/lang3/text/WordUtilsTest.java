@@ -29,7 +29,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for WordUtils class.
+ * Tests for WordUtils class.
  */
 @Deprecated
 public class WordUtilsTest extends AbstractLangTest {

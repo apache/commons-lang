@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
- * Unit tests {@link StringUtils} - Contains methods
+ * Tests {@link StringUtils} - Contains methods
  */
 public class StringUtilsContainsTest extends AbstractLangTest {
     @Test

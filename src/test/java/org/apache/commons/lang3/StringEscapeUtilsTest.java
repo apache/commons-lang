@@ -36,7 +36,7 @@ import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link StringEscapeUtils}.
+ * Tests for {@link StringEscapeUtils}.
  */
 @Deprecated
 public class StringEscapeUtilsTest extends AbstractLangTest {

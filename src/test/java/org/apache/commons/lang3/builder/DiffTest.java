@@ -23,7 +23,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link Diff}.
+ * Tests {@link Diff}.
  */
 public class DiffTest extends AbstractLangTest {
 

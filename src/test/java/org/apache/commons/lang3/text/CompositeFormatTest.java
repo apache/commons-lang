@@ -29,7 +29,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link org.apache.commons.lang3.text.CompositeFormat}.
+ * Tests for {@link org.apache.commons.lang3.text.CompositeFormat}.
  */
 @Deprecated
 public class CompositeFormatTest extends AbstractLangTest {

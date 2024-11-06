@@ -53,7 +53,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 /**
- * Unit tests for methods of {@link StringUtils}
+ * Tests for methods of {@link StringUtils}
  * which been moved to their own test classes.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code

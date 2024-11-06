@@ -30,7 +30,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link org.apache.commons.lang3.text.StrBuilder}.
+ * Tests for {@link org.apache.commons.lang3.text.StrBuilder}.
  */
 @Deprecated
 public class StrBuilderAppendInsertTest extends AbstractLangTest {

@@ -32,7 +32,7 @@ import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link CharRange}.
+ * Tests {@link CharRange}.
  */
 public class CharRangeTest extends AbstractLangTest {
 

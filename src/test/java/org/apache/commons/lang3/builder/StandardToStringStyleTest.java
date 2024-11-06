@@ -30,7 +30,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.builder.ToStringStyle}.
+ * Tests {@link org.apache.commons.lang3.builder.ToStringStyle}.
  */
 public class StandardToStringStyleTest extends AbstractLangTest {
 

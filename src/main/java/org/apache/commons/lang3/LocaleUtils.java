@@ -251,7 +251,7 @@ public class LocaleUtils {
     /**
      * Tries to parse a Locale from the given String.
      * <p>
-     * See {@Link Locale} for the format.
+     * See {@link Locale} for the format.
      * </p>
      *
      * @param str the String to parse as a Locale.

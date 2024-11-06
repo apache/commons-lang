@@ -55,7 +55,7 @@ import org.apache.commons.lang3.text.StrBuilder;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link ObjectUtils}.
+ * Tests {@link ObjectUtils}.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class ObjectUtilsTest extends AbstractLangTest {

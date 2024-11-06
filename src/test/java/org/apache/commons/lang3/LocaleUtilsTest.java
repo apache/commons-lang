@@ -41,7 +41,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
- * Unit tests for {@link LocaleUtils}.
+ * Tests for {@link LocaleUtils}.
  */
 public class LocaleUtilsTest extends AbstractLangTest {
 

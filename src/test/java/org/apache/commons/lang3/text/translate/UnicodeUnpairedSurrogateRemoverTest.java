@@ -27,7 +27,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover}.
+ * Tests for {@link org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover}.
  */
 @Deprecated
 public class UnicodeUnpairedSurrogateRemoverTest extends AbstractLangTest {

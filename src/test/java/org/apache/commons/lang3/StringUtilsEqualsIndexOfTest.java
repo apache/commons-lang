@@ -30,7 +30,7 @@ import org.hamcrest.core.IsNot;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link StringUtils} - Equals/IndexOf methods
+ * Tests {@link StringUtils} - Equals/IndexOf methods
  */
 public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
 

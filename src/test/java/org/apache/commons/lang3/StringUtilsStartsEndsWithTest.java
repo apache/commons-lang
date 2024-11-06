@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link StringUtils} - StartsWith/EndsWith methods
+ * Tests {@link StringUtils} - StartsWith/EndsWith methods
  */
 public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
     private static final String foo    = "foo";

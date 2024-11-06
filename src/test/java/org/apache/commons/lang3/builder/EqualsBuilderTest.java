@@ -34,7 +34,7 @@ import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.builder.EqualsBuilder}.
+ * Tests {@link org.apache.commons.lang3.builder.EqualsBuilder}.
  */
 public class EqualsBuilderTest extends AbstractLangTest {
 

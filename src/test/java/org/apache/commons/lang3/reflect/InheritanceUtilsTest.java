@@ -26,7 +26,7 @@ import org.apache.commons.lang3.reflect.testbed.Grandchild;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests InheritanceUtils
+ * Tests InheritanceUtils
  */
 public class InheritanceUtilsTest extends AbstractLangTest {
 

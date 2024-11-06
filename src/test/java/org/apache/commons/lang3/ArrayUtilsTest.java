@@ -45,7 +45,7 @@ import org.apache.commons.lang3.function.Suppliers;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link ArrayUtils}.
+ * Tests {@link ArrayUtils}.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 public class ArrayUtilsTest extends AbstractLangTest {

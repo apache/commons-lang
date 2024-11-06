@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link StringUtils} - Substring methods
+ * Tests {@link StringUtils} - Substring methods
  */
 public class StringUtilsSubstringTest extends AbstractLangTest {
     private static final String FOO = "foo";

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.builder.MultiLineToStringStyleTest}.
+ * Tests {@link org.apache.commons.lang3.builder.MultiLineToStringStyleTest}.
  */
 public class MultiLineToStringStyleTest extends AbstractLangTest {
 

@@ -24,7 +24,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.math.IEEE754rUtils}.
+ * Tests {@link org.apache.commons.lang3.math.IEEE754rUtils}.
  */
 public class IEEE754rUtilsTest extends AbstractLangTest {
 

@@ -59,7 +59,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests MethodUtils
+ * Tests MethodUtils
  */
 public class MethodUtilsTest extends AbstractLangTest {
     interface InterfaceGetMatchingMethod {

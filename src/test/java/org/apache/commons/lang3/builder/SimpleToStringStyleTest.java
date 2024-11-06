@@ -28,7 +28,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.builder.SimpleToStringStyleTest}.
+ * Tests {@link org.apache.commons.lang3.builder.SimpleToStringStyleTest}.
  */
 public class SimpleToStringStyleTest extends AbstractLangTest {
 

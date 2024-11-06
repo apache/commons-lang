@@ -35,7 +35,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.builder.JsonToStringStyleTest}.
+ * Tests {@link org.apache.commons.lang3.builder.JsonToStringStyleTest}.
  */
 public class JsonToStringStyleTest extends AbstractLangTest {
 

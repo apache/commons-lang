@@ -34,7 +34,7 @@ import java.util.Locale;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link SystemUtils}.
+ * Tests {@link SystemUtils}.
  *
  * Only limited testing can be performed.
  */

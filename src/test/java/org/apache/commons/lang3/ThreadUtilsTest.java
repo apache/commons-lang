@@ -44,7 +44,7 @@ import org.apache.commons.lang3.ThreadUtils.ThreadPredicate;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link ThreadUtils}.
+ * Tests {@link ThreadUtils}.
  */
 public class ThreadUtilsTest extends AbstractLangTest {
 

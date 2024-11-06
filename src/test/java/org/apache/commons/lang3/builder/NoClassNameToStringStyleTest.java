@@ -28,7 +28,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link ToStringStyle#NO_CLASS_NAME_STYLE}.
+ * Tests {@link ToStringStyle#NO_CLASS_NAME_STYLE}.
  */
 public class NoClassNameToStringStyleTest extends AbstractLangTest {
 

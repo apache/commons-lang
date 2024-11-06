@@ -28,7 +28,7 @@ import java.lang.reflect.Modifier;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link CharSetUtils}.
+ * Tests {@link CharSetUtils}.
  */
 public class CharSetUtilsTest extends AbstractLangTest {
 

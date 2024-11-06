@@ -52,7 +52,7 @@ final class ClassNotFoundSerialization implements Serializable {
 }
 
 /**
- * Unit tests {@link SerializationUtils}.
+ * Tests {@link SerializationUtils}.
  */
 public class SerializationUtilsTest extends AbstractLangTest {
 
