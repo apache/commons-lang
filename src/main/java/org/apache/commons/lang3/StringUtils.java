@@ -190,6 +190,17 @@ public class StringUtils {
     private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
 
     /**
+     * Exception message used when {@link #startsAndEndsWith(String, String)} or {@link #startsAndEndsWithIgnoreCase(String, String)} are passed null.
+     */
+    private static final String NULL_ARGUMENTS_PASSED_EXCEPTION_MESSAGE_STRING_TO_TEST = "The method was expecting the stringToTest passed to have a value but was passed null or empty instead.";
+
+
+    /**
+     * Exception message used when {@link #startsAndEndsWith(String, String)} or {@link #startsAndEndsWithIgnoreCase(String, String)} are passed null.
+     */
+    private static final String NULL_ARGUMENTS_PASSED_EXCEPTION_MESSAGE_STARTS_AND_ENDS_WITH = "The method was expecting the startAndEndsWith argument passed to have a value but was passed null or empty instead.";
+
+    /**
      * Abbreviates a String using ellipses. This will turn
      * "Now is the time for all good men" into "Now is the time for..."
      *
@@ -9345,6 +9356,65 @@ public class StringUtils {
     @Deprecated
     public StringUtils() {
         // empty
+    }
+
+    /**
+     * The method will check if the beginning and ending of the text to be tested against matches
+     * <p>
+     * e.g.
+     * stringToTest = "Five workers went to work at 9 and left at Five"
+     * startsAndEndsWith = "Five"
+     * <p>
+     * result will be true since the stringToTest begins with "Five" and ends with "Five"
+     * <p>
+     * NOTE:
+     * This is case-sensitive!
+     *
+     * @param stringToTest      This is the subject string or text that you want to check.
+     * @param startsAndEndsWith This is the string that you want to check if it exists at the beginning and end of the text or paragraph.
+     * @return true if the text begins and ends with the string or false if it doesn't.
+     * @throws IllegalArgumentException if any argument passed is null or empty
+     */
+    public static boolean startsAndEndsWith(CharSequence stringToTest, CharSequence startsAndEndsWith) {
+        if (stringToTest == null || stringToTest.length() == 0) {
+            throw new IllegalArgumentException(NULL_ARGUMENTS_PASSED_EXCEPTION_MESSAGE_STRING_TO_TEST);
+        }
+
+        if (startsAndEndsWith == null || startsAndEndsWith.length() == 0) {
+            throw new IllegalArgumentException(NULL_ARGUMENTS_PASSED_EXCEPTION_MESSAGE_STARTS_AND_ENDS_WITH);
+        }
+
+
+        return stringToTest.toString().startsWith(startsAndEndsWith.toString()) && stringToTest.toString().endsWith(startsAndEndsWith.toString());
+    }
+
+    /**
+     * The method will check if the beginning and ending of the text to be tested against matches
+     * <p>
+     * e.g.
+     * stringToTest = "Five workers went to work at 9 and left at five"
+     * startsAndEndsWith = "five"
+     * <p>
+     * result will be true since the stringToTest begins with "Five" and ends with "five" and case is ignored
+     *
+     * @param stringToTest      This is the subject string or text that you want to check.
+     * @param startsAndEndsWith This is the string that you want to check if it exists at the beginning and end of the text or paragraph.
+     * @return true if the text begins and ends with the string or false if it doesn't.
+     * @throws IllegalArgumentException if any argument passed is null or empty
+     */
+    public static boolean startsAndEndsWithIgnoreCase(CharSequence stringToTest, CharSequence startsAndEndsWith) {
+        if (stringToTest == null || stringToTest.length() == 0) {
+            throw new IllegalArgumentException(NULL_ARGUMENTS_PASSED_EXCEPTION_MESSAGE_STRING_TO_TEST);
+        }
+
+        if (startsAndEndsWith == null || startsAndEndsWith.length() == 0) {
+            throw new IllegalArgumentException(NULL_ARGUMENTS_PASSED_EXCEPTION_MESSAGE_STARTS_AND_ENDS_WITH);
+        }
+
+        String normalizedStringToTest = stringToTest.toString().toLowerCase();
+        String normalizedStartsAndEndsWith = startsAndEndsWith.toString().toLowerCase();
+
+        return normalizedStringToTest.startsWith(normalizedStartsAndEndsWith) && normalizedStringToTest.endsWith(normalizedStartsAndEndsWith);
     }
 
 }

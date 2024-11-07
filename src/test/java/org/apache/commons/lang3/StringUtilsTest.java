@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.StringUtils.startsAndEndsWith;
+import static org.apache.commons.lang3.StringUtils.startsAndEndsWithIgnoreCase;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -26,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.UnsupportedEncodingException;
@@ -3431,4 +3434,125 @@ public class StringUtilsTest extends AbstractLangTest {
         assertSame("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
         assertSame("//x//", StringUtils.wrapIfMissing("//x//", "//"));
     }
+
+    @Test
+    public void testStartsAndEndsPassesWithCaseSensitiveText() {
+        String stringToTest = "Five dears were jumping in caves at Five";
+        String beginsWithAndEndsWith = "Five";
+
+        assertTrue(startsAndEndsWith(stringToTest, beginsWithAndEndsWith), "the method returned false but expected was true since the beginning and end matches.");
+    }
+
+    @Test
+    public void testStartsAndEndsFailsWithCaseSensitiveEnd() {
+        String stringToTest = "Five dears were jumping in caves at five";
+        String beginsWithAndEndsWith = "Five";
+
+        assertFalse(startsAndEndsWith(stringToTest, beginsWithAndEndsWith), "the method returned true but expected was false since the beginning and end case don't match.");
+
+        stringToTest = "Five dears were jumping in caves at the fire";
+        assertFalse(startsAndEndsWith(stringToTest, beginsWithAndEndsWith), "the method returned true but expected was false since the beginning and end don't matche.");
+
+    }
+
+    @Test
+    public void testStartsAndEndsFailsWithCaseSensitiveStart() {
+        String stringToTest = "Fire dears were jumping in caves at Five";
+        String beginsWithAndEndsWith = "Five";
+
+        assertFalse(startsAndEndsWith(stringToTest, beginsWithAndEndsWith), "the method returned true but expected was false since the beginning and end case don't match.");
+
+        stringToTest = "Five dears were jumping in caves at the fire";
+        assertFalse(startsAndEndsWith(stringToTest, beginsWithAndEndsWith), "the method returned true but expected was false since the beginning and end don't matche.");
+
+    }
+
+    @Test
+    public void testStartsAndEndsThrowsIllegalArgumentExceptionWhenPassedNull() {
+        final String stringToTestNull = null;
+        final String beginsWithAndEndsWith = "Five";
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWith(stringToTestNull, beginsWithAndEndsWith), "Was supposed to throw IllegalArgumentException when passed stringToTest as null but returned value instead.");
+
+        final String stringToTestNotNull = "Five dears were jumping in caves at Five";
+        final String beginsWithAndEndsWithNull = null;
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWith(stringToTestNotNull, beginsWithAndEndsWithNull), "Was supposed to throw IllegalArgumentException when passed startsAndEndsWith string as null but returned value instead.");
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWith(stringToTestNull, beginsWithAndEndsWithNull), "Was supposed to throw IllegalArgumentException when passed null arguments but returned value instead.");
+
+    }
+
+    @Test
+    public void testStartsAndEndsThrowsIllegalArgumentExceptionWhenPassedEmptyStrings() {
+        final String stringToTestNull = "";
+        final String beginsWithAndEndsWith = "Five";
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWith(stringToTestNull, beginsWithAndEndsWith), "Was supposed to throw IllegalArgumentException when passed stringToTest as empty string but returned value instead.");
+
+        final String stringToTestNotNull = "Five dears were jumping in caves at Five";
+        final String beginsWithAndEndsWithNull = "";
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWith(stringToTestNotNull, beginsWithAndEndsWithNull), "Was supposed to throw IllegalArgumentException when passed startsAndEndsWith string as empty string but returned value instead.");
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWith(stringToTestNull, beginsWithAndEndsWithNull), "Was supposed to throw IllegalArgumentException when passed empty string arguments but returned value instead.");
+
+    }
+
+    @Test
+    public void testStartsAndEndsWithIgnoreCasePasses() {
+        String stringToTest = "Five dears were jumping in caves at five";
+        String beginsWithAndEndsWith = "Five";
+
+        assertTrue(startsAndEndsWithIgnoreCase(stringToTest, beginsWithAndEndsWith), "the method returned false but expected was true since the beginning and end matches with ignored case.");
+    }
+
+    @Test
+    public void testStartsAndEndsWithIgnoreCaseFailsWithWrongEnd() {
+        String stringToTest = "Five dears were jumping in caves at fire";
+        String beginsWithAndEndsWith = "Five";
+
+        assertFalse(startsAndEndsWithIgnoreCase(stringToTest, beginsWithAndEndsWith), "the method returned true but expected was false since the beginning and end don't matche.");
+    }
+
+    @Test
+    public void testStartsAndEndsWithIgnoreCaseFailsWithWrongBeginning() {
+        String stringToTest = "fight dears were jumping in caves at five";
+        String beginsWithAndEndsWith = "Five";
+
+        assertFalse(startsAndEndsWithIgnoreCase(stringToTest, beginsWithAndEndsWith), "the method returned true but expected was false since the beginning and end don't matche.");
+    }
+
+    @Test
+    public void testStartsAndEndsIgnoreCaseThrowsIllegalArgumentExceptionWhenPassedNull() {
+        final String stringToTestNull = null;
+        final String beginsWithAndEndsWith = "Five";
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWithIgnoreCase(stringToTestNull, beginsWithAndEndsWith), "Was supposed to throw IllegalArgumentException when passed stringToTest as null but returned value instead.");
+
+        final String stringToTestNotNull = "Five dears were jumping in caves at Five";
+        final String beginsWithAndEndsWithNull = null;
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWithIgnoreCase(stringToTestNotNull, beginsWithAndEndsWithNull), "Was supposed to throw IllegalArgumentException when passed startsAndEndsWith string as null but returned value instead.");
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWithIgnoreCase(stringToTestNull, beginsWithAndEndsWithNull), "Was supposed to throw IllegalArgumentException when passed null arguments but returned value instead.");
+
+    }
+
+    @Test
+    public void testStartsAndEndsIgnoreCaseThrowsIllegalArgumentExceptionWhenPassedEmptyStrings() {
+        final String stringToTestNull = "";
+        final String beginsWithAndEndsWith = "Five";
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWithIgnoreCase(stringToTestNull, beginsWithAndEndsWith), "Was supposed to throw IllegalArgumentException when passed stringToTest as empty string but returned value instead.");
+
+        final String stringToTestNotNull = "Five dears were jumping in caves at Five";
+        final String beginsWithAndEndsWithNull = "";
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWithIgnoreCase(stringToTestNotNull, beginsWithAndEndsWithNull), "Was supposed to throw IllegalArgumentException when passed startsAndEndsWith string as empty string but returned value instead.");
+
+        assertThrowsExactly(IllegalArgumentException.class, () -> startsAndEndsWithIgnoreCase(stringToTestNull, beginsWithAndEndsWithNull), "Was supposed to throw IllegalArgumentException when passed empty string arguments but returned value instead.");
+
+    }
+
 }
