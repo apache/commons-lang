@@ -272,14 +272,12 @@ public class WordUtils {
             final char ch = str.charAt(i);
             if (isDelimiter(ch, delimiters)) {
                 lastWasGap = true;
-                continue;
+                continue;  // ignore ch
             }
             if (lastWasGap) {
                 buf[count++] = ch;
                 lastWasGap = false;
             }
-
-            // ignore ch
         }
         return new String(buf, 0, count);
     }
