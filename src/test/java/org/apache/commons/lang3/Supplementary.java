@@ -25,25 +25,24 @@ package org.apache.commons.lang3;
 public class Supplementary {
 
     /**
+     * Incomplete supplementary character U+20000, low surrogate only. See
+     * https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     */
+    static final String CharU20000SupplCharLow = "\uDC00";
+
+    /**
+     * Incomplete supplementary character U+20000 (or U+20001), high surrogate only. See
+     * https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     */
+    static final String CharUSupplCharHigh = "\uD840";
+
+    /**
      * Supplementary character U+20000 See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
-    static final String CharU20000 = "\uD840\uDC00";
+    static final String CharU20000 = CharUSupplCharHigh + CharU20000SupplCharLow;
 
     /**
      * Supplementary character U+20001 See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
-    static final String CharU20001 = "\uD840\uDC01";
-
-    /**
-     * Incomplete supplementary character U+20000, high surrogate only. See
-     * https://www.oracle.com/technical-resources/articles/javase/supplementary.html
-     */
-    static final String CharUSuppCharHigh = "\uDC00";
-
-    /**
-     * Incomplete supplementary character U+20000, low surrogate only. See
-     * https://www.oracle.com/technical-resources/articles/javase/supplementary.html
-     */
-    static final String CharUSuppCharLow = "\uD840";
-
+    static final String CharU20001 = CharUSupplCharHigh + "\uDC01";
 }

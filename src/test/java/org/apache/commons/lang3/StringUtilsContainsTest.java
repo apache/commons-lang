@@ -18,8 +18,8 @@ package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.Supplementary.CharU20000;
 import static org.apache.commons.lang3.Supplementary.CharU20001;
-import static org.apache.commons.lang3.Supplementary.CharUSuppCharHigh;
-import static org.apache.commons.lang3.Supplementary.CharUSuppCharLow;
+import static org.apache.commons.lang3.Supplementary.CharU20000SupplCharLow;
+import static org.apache.commons.lang3.Supplementary.CharUSupplCharHigh;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -66,13 +66,13 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     @Test
     public void testContains_StringWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
-        assertFalse(StringUtils.contains(CharUSuppCharHigh, CharU20001));
-        assertFalse(StringUtils.contains(CharUSuppCharLow, CharU20001));
-        assertFalse(StringUtils.contains(CharU20001, CharUSuppCharHigh));
-        assertEquals(0, CharU20001.indexOf(CharUSuppCharLow));
-        assertTrue(StringUtils.contains(CharU20001, CharUSuppCharLow));
-        assertTrue(StringUtils.contains(CharU20001 + CharUSuppCharLow + "a", "a"));
-        assertTrue(StringUtils.contains(CharU20001 + CharUSuppCharHigh + "a", "a"));
+        assertFalse(StringUtils.contains(CharU20000SupplCharLow, CharU20001));
+        assertFalse(StringUtils.contains(CharUSupplCharHigh, CharU20001));
+        assertFalse(StringUtils.contains(CharU20001, CharU20000SupplCharLow));
+        assertEquals(0, CharU20001.indexOf(CharUSupplCharHigh));
+        assertTrue(StringUtils.contains(CharU20001, CharUSupplCharHigh));
+        assertTrue(StringUtils.contains(CharU20001 + CharUSupplCharHigh + "a", "a"));
+        assertTrue(StringUtils.contains(CharU20001 + CharU20000SupplCharLow + "a", "a"));
     }
 
     /**
@@ -110,13 +110,13 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     @Test
     public void testContainsAny_StringCharArrayWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
-        assertFalse(StringUtils.containsAny(CharUSuppCharHigh, CharU20001.toCharArray()));
-        assertFalse(StringUtils.containsAny("abc" + CharUSuppCharHigh + "xyz", CharU20001.toCharArray()));
-        assertEquals(-1, CharUSuppCharLow.indexOf(CharU20001));
-        assertFalse(StringUtils.containsAny(CharUSuppCharLow, CharU20001.toCharArray()));
-        assertFalse(StringUtils.containsAny(CharU20001, CharUSuppCharHigh.toCharArray()));
-        assertEquals(0, CharU20001.indexOf(CharUSuppCharLow));
-        assertTrue(StringUtils.containsAny(CharU20001, CharUSuppCharLow.toCharArray()));
+        assertFalse(StringUtils.containsAny(CharU20000SupplCharLow, CharU20001.toCharArray()));
+        assertFalse(StringUtils.containsAny("abc" + CharU20000SupplCharLow + "xyz", CharU20001.toCharArray()));
+        assertEquals(-1, CharUSupplCharHigh.indexOf(CharU20001));
+        assertFalse(StringUtils.containsAny(CharUSupplCharHigh, CharU20001.toCharArray()));
+        assertFalse(StringUtils.containsAny(CharU20001, CharU20000SupplCharLow.toCharArray()));
+        assertEquals(0, CharU20001.indexOf(CharUSupplCharHigh));
+        assertTrue(StringUtils.containsAny(CharU20001, CharUSupplCharHigh.toCharArray()));
     }
 
     /**
@@ -184,12 +184,12 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     @Test
     public void testContainsAny_StringWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
-        assertFalse(StringUtils.containsAny(CharUSuppCharHigh, CharU20001));
-        assertEquals(-1, CharUSuppCharLow.indexOf(CharU20001));
-        assertFalse(StringUtils.containsAny(CharUSuppCharLow, CharU20001));
-        assertFalse(StringUtils.containsAny(CharU20001, CharUSuppCharHigh));
-        assertEquals(0, CharU20001.indexOf(CharUSuppCharLow));
-        assertTrue(StringUtils.containsAny(CharU20001, CharUSuppCharLow));
+        assertFalse(StringUtils.containsAny(CharU20000SupplCharLow, CharU20001));
+        assertEquals(-1, CharUSupplCharHigh.indexOf(CharU20001));
+        assertFalse(StringUtils.containsAny(CharUSupplCharHigh, CharU20001));
+        assertFalse(StringUtils.containsAny(CharU20001, CharU20000SupplCharLow));
+        assertEquals(0, CharU20001.indexOf(CharUSupplCharHigh));
+        assertTrue(StringUtils.containsAny(CharU20001, CharUSupplCharHigh));
     }
 
     /**
@@ -317,13 +317,13 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     @Test
     public void testContainsNone_CharArrayWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
-        assertTrue(StringUtils.containsNone(CharUSuppCharHigh, CharU20001.toCharArray()));
-        assertEquals(-1, CharUSuppCharLow.indexOf(CharU20001));
-        assertTrue(StringUtils.containsNone(CharUSuppCharLow, CharU20001.toCharArray()));
-        assertEquals(-1, CharU20001.indexOf(CharUSuppCharHigh));
-        assertTrue(StringUtils.containsNone(CharU20001, CharUSuppCharHigh.toCharArray()));
-        assertEquals(0, CharU20001.indexOf(CharUSuppCharLow));
-        assertFalse(StringUtils.containsNone(CharU20001, CharUSuppCharLow.toCharArray()));
+        assertTrue(StringUtils.containsNone(CharU20000SupplCharLow, CharU20001.toCharArray()));
+        assertEquals(-1, CharUSupplCharHigh.indexOf(CharU20001));
+        assertTrue(StringUtils.containsNone(CharUSupplCharHigh, CharU20001.toCharArray()));
+        assertEquals(-1, CharU20001.indexOf(CharU20000SupplCharLow));
+        assertTrue(StringUtils.containsNone(CharU20001, CharU20000SupplCharLow.toCharArray()));
+        assertEquals(0, CharU20001.indexOf(CharUSupplCharHigh));
+        assertFalse(StringUtils.containsNone(CharU20001, CharUSupplCharHigh.toCharArray()));
     }
 
     /**
@@ -374,13 +374,13 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     @Test
     public void testContainsNone_StringWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
-        assertTrue(StringUtils.containsNone(CharUSuppCharHigh, CharU20001));
-        assertEquals(-1, CharUSuppCharLow.indexOf(CharU20001));
-        assertTrue(StringUtils.containsNone(CharUSuppCharLow, CharU20001));
-        assertEquals(-1, CharU20001.indexOf(CharUSuppCharHigh));
-        assertTrue(StringUtils.containsNone(CharU20001, CharUSuppCharHigh));
-        assertEquals(0, CharU20001.indexOf(CharUSuppCharLow));
-        assertFalse(StringUtils.containsNone(CharU20001, CharUSuppCharLow));
+        assertTrue(StringUtils.containsNone(CharU20000SupplCharLow, CharU20001));
+        assertEquals(-1, CharUSupplCharHigh.indexOf(CharU20001));
+        assertTrue(StringUtils.containsNone(CharUSupplCharHigh, CharU20001));
+        assertEquals(-1, CharU20001.indexOf(CharU20000SupplCharLow));
+        assertTrue(StringUtils.containsNone(CharU20001, CharU20000SupplCharLow));
+        assertEquals(0, CharU20001.indexOf(CharUSupplCharHigh));
+        assertFalse(StringUtils.containsNone(CharU20001, CharUSupplCharHigh));
     }
 
     /**
