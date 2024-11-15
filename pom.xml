@@ -48,7 +48,6 @@
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/LANG</url>
   </issueManagement>
-
   <scm>
     <connection>scm:git:http://gitbox.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</developerConnection>
