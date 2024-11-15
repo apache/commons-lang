@@ -200,7 +200,7 @@ public class TimedSemaphore {
      * Creates a new instance of {@link TimedSemaphore} and initializes it with
      * an executor service, the given time period, and the limit. The executor
      * service will be used for creating a periodic task for monitoring the time
-     * period. It can be <b>null</b>, then a default service will be created.
+     * period. It can be <strong>null</strong>, then a default service will be created.
      *
      * @param service the executor service
      * @param timePeriod the time period
@@ -377,7 +377,7 @@ public class TimedSemaphore {
 
     /**
      * Tests whether the {@link #shutdown()} method has been called on this
-     * object. If this method returns <b>true</b>, this instance cannot be used
+     * object. If this method returns <strong>true</strong>, this instance cannot be used
      * any longer.
      *
      * @return a flag whether a shutdown has been performed

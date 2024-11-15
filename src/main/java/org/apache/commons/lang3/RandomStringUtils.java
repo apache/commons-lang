@@ -33,7 +33,7 @@ import java.util.function.Supplier;
  * the algorithms/providers specified in the {@code securerandom.strongAlgorithms} {@link Security} property.
  * </p>
  * <p>
- * Use {@link #insecure()} to get the singleton instance based on {@link ThreadLocalRandom#current()} <b>which is not cryptographically secure</b>. In addition,
+ * Use {@link #insecure()} to get the singleton instance based on {@link ThreadLocalRandom#current()} <strong>which is not cryptographically secure</strong>. In addition,
  * instances do not use a cryptographically random seed unless the {@linkplain System#getProperty system property} {@code java.util.secureRandomSeed} is set to
  * {@code true}.
  * </p>

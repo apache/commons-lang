@@ -158,7 +158,7 @@ public class MultiBackgroundInitializer
          * Returns the {@link ConcurrentException} object that was thrown by the
          * {@link BackgroundInitializer} with the given name. If this
          * initializer did not throw an exception, the return value is
-         * <b>null</b>. If the name cannot be resolved, an exception is thrown.
+         * <strong>null</strong>. If the name cannot be resolved, an exception is thrown.
          *
          * @param name the name of the {@link BackgroundInitializer}
          * @return the exception thrown by this initializer
@@ -185,7 +185,7 @@ public class MultiBackgroundInitializer
          * Returns the result object produced by the {@code
          * BackgroundInitializer} with the given name. This is the object
          * returned by the initializer's {@code initialize()} method. If this
-         * {@link BackgroundInitializer} caused an exception, <b>null</b> is
+         * {@link BackgroundInitializer} caused an exception, <strong>null</strong> is
          * returned. If the name cannot be resolved, an exception is thrown.
          *
          * @param name the name of the {@link BackgroundInitializer}
@@ -259,9 +259,9 @@ public class MultiBackgroundInitializer
      * be processed. This method must not be called after {@link #start()} has
      * been invoked.
      *
-     * @param name the name of the initializer (must not be <b>null</b>)
+     * @param name the name of the initializer (must not be <strong>null</strong>)
      * @param backgroundInitializer the {@link BackgroundInitializer} to add (must not be
-     * <b>null</b>)
+     * <strong>null</strong>)
      * @throws NullPointerException if either {@code name} or {@code backgroundInitializer}
      *         is {@code null}
      * @throws IllegalStateException if {@code start()} has already been called

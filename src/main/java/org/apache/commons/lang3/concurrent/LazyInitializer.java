@@ -63,7 +63,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * <p>
  * If multiple threads call the {@code get()} method when the object has not yet been created, they are blocked until initialization completes. The algorithm
  * guarantees that only a single instance of the wrapped object class is created, which is passed to all callers. Once initialized, calls to the {@code get()}
- * method are pretty fast because no synchronization is needed (only an access to a <b>volatile</b> member field).
+ * method are pretty fast because no synchronization is needed (only an access to a <strong>volatile</strong> member field).
  * </p>
  *
  * @since 3.0

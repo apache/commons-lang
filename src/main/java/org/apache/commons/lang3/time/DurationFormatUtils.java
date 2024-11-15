@@ -45,7 +45,7 @@ import org.apache.commons.lang3.Validate;
  *  <tr><td>'text'</td><td>arbitrary text content</td></tr>
  * </table>
  *
- * <b>Note: It's not currently possible to include a single-quote in a format.</b>
+ * <strong>Note: It's not currently possible to include a single-quote in a format.</strong>
  * <br>
  * Token values are printed using decimal digits.
  * A token character can be repeated to ensure that the field occupies a certain minimum
@@ -58,8 +58,8 @@ import org.apache.commons.lang3.Validate;
  * Multiple optional blocks can be used to group literals with the desired token.
  * <p>
  * Notes on Optional Tokens:<br>
- * <b>Multiple optional tokens without literals can result in impossible to understand output.</b><br>
- * <b>Patterns where all tokens are optional can produce empty strings.</b><br>
+ * <strong>Multiple optional tokens without literals can result in impossible to understand output.</strong><br>
+ * <strong>Patterns where all tokens are optional can produce empty strings.</strong><br>
  * (See examples below)
  * </p>
  * <br>
@@ -74,7 +74,7 @@ import org.apache.commons.lang3.Validate;
  * <tr><td>['{'dd'}']['&lt;'HH'&gt;']['('mm')']</td><td>{01}</td><td>&lt;01&gt;</td><td>(00)</td><td></td></tr>
  * <tr><td>[dHms]</td><td>1</td><td>1</td><td>1</td><td></td></tr>
  * </table>
- * <b>Note: Optional blocks cannot be nested.</b>
+ * <strong>Note: Optional blocks cannot be nested.</strong>
  *
  * @since 2.1
  */

@@ -1911,7 +1911,7 @@ public class SystemUtils {
      * Holds a class name, on Windows XP this is {@code sun.awt.windows.WToolkit}.
      * </p>
      * <p>
-     * <b>On platforms without a GUI, this value is {@code null}.</b>
+     * <strong>On platforms without a GUI, this value is {@code null}.</strong>
      * </p>
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does

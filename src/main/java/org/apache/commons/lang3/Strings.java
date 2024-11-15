@@ -263,12 +263,12 @@ public abstract class Strings {
     }
 
     /**
-     * The <b>C</b>ase-<b>I</b>nsensitive singleton instance.
+     * The <strong>C</strong>ase-<strong>I</strong>nsensitive singleton instance.
      */
     public static final Strings CI = new CiStrings(true);
 
     /**
-     * The <b>C</b>ase-<b>S</b>nsensitive singleton instance.
+     * The <strong>C</strong>ase-<strong>S</strong>nsensitive singleton instance.
      */
     public static final Strings CS = new CsStrings(true);
 
