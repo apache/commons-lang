@@ -90,8 +90,8 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     /**
      * Builds a new instance.
      *
-     * @param <T> the type of the object managed by the initializer.
-     * @param <I> the type of the initializer managed by this builder.
+     * @param <T> The type of results supplied by this builder.
+     * @param <I> The type of the initializer managed by this builder.
      * @since 3.14.0
      */
     public static class Builder<I extends BackgroundInitializer<T>, T> extends AbstractBuilder<I, T, Builder<I, T>, Exception> {

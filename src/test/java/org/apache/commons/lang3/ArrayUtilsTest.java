@@ -253,6 +253,12 @@ public class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testContainsAnyEnum() {
+        assertTrue(ArrayUtils.containsAny(ElementType.values(), ElementType.ANNOTATION_TYPE));
+        assertFalse(ArrayUtils.containsAny(ElementType.values(), (ElementType) null));
+    }
+
+    @Test
     public void testContainsAnyInt() {
         final int[] array = {0, 1, 2, 3, 0};
         assertFalse(ArrayUtils.containsAny((int[]) null, 1));
@@ -260,12 +266,6 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertTrue(ArrayUtils.containsAny(array, 1));
         assertTrue(ArrayUtils.containsAny(array, 2));
         assertTrue(ArrayUtils.containsAny(array, 3));
-    }
-
-    @Test
-    public void testContainsAnyEnum() {
-        assertTrue(ArrayUtils.containsAny(ElementType.values(), ElementType.ANNOTATION_TYPE));
-        assertFalse(ArrayUtils.containsAny(ElementType.values(), (ElementType) null));
     }
 
     @Test

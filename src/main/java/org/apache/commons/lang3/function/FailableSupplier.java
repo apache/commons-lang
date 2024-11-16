@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 /**
  * A functional interface like {@link Supplier} that declares a {@link Throwable}.
  *
- * @param <T> Return type.
+ * @param <T> The type of results supplied by this supplier.
  * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
