@@ -271,7 +271,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     /**
      * Returns the {@link ExecutorService} that is actually used for executing
      * the background task. This method can be called after {@link #start()}
-     * (before {@code start()} it returns <b>null</b>). If an external executor
+     * (before {@code start()} it returns <strong>null</strong>). If an external executor
      * was set, this is also the active executor. Otherwise this method returns
      * the temporary executor that was created by this object.
      *
@@ -392,8 +392,8 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * becomes active and invokes the {@link #initialize()} method in a
      * background task. A {@link BackgroundInitializer} can be started exactly
      * once. The return value of this method determines whether the start was
-     * successful: only the first invocation of this method returns <b>true</b>,
-     * following invocations will return <b>false</b>.
+     * successful: only the first invocation of this method returns <strong>true</strong>,
+     * following invocations will return <strong>false</strong>.
      *
      * @return a flag whether the initializer could be started successfully
      */

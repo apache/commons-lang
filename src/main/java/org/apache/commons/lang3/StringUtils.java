@@ -37,57 +37,57 @@ import org.apache.commons.lang3.stream.Streams;
  * {@code null} safe.
  *
  * <ul>
- *  <li><b>IsEmpty/IsBlank</b>
+ *  <li><strong>IsEmpty/IsBlank</strong>
  *      - checks if a String contains text</li>
- *  <li><b>Trim/Strip</b>
+ *  <li><strong>Trim/Strip</strong>
  *      - removes leading and trailing whitespace</li>
- *  <li><b>Equals/Compare</b>
+ *  <li><strong>Equals/Compare</strong>
  *      - compares two strings in a null-safe manner</li>
- *  <li><b>startsWith</b>
+ *  <li><strong>startsWith</strong>
  *      - check if a String starts with a prefix in a null-safe manner</li>
- *  <li><b>endsWith</b>
+ *  <li><strong>endsWith</strong>
  *      - check if a String ends with a suffix in a null-safe manner</li>
- *  <li><b>IndexOf/LastIndexOf/Contains</b>
+ *  <li><strong>IndexOf/LastIndexOf/Contains</strong>
  *      - null-safe index-of checks
- *  <li><b>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</b>
+ *  <li><strong>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</strong>
  *      - index-of any of a set of Strings</li>
- *  <li><b>ContainsOnly/ContainsNone/ContainsAny</b>
+ *  <li><strong>ContainsOnly/ContainsNone/ContainsAny</strong>
  *      - checks if String contains only/none/any of these characters</li>
- *  <li><b>Substring/Left/Right/Mid</b>
+ *  <li><strong>Substring/Left/Right/Mid</strong>
  *      - null-safe substring extractions</li>
- *  <li><b>SubstringBefore/SubstringAfter/SubstringBetween</b>
+ *  <li><strong>SubstringBefore/SubstringAfter/SubstringBetween</strong>
  *      - substring extraction relative to other strings</li>
- *  <li><b>Split/Join</b>
+ *  <li><strong>Split/Join</strong>
  *      - splits a String into an array of substrings and vice versa</li>
- *  <li><b>Remove/Delete</b>
+ *  <li><strong>Remove/Delete</strong>
  *      - removes part of a String</li>
- *  <li><b>Replace/Overlay</b>
+ *  <li><strong>Replace/Overlay</strong>
  *      - Searches a String and replaces one String with another</li>
- *  <li><b>Chomp/Chop</b>
+ *  <li><strong>Chomp/Chop</strong>
  *      - removes the last part of a String</li>
- *  <li><b>AppendIfMissing</b>
+ *  <li><strong>AppendIfMissing</strong>
  *      - appends a suffix to the end of the String if not present</li>
- *  <li><b>PrependIfMissing</b>
+ *  <li><strong>PrependIfMissing</strong>
  *      - prepends a prefix to the start of the String if not present</li>
- *  <li><b>LeftPad/RightPad/Center/Repeat</b>
+ *  <li><strong>LeftPad/RightPad/Center/Repeat</strong>
  *      - pads a String</li>
- *  <li><b>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</b>
+ *  <li><strong>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</strong>
  *      - changes the case of a String</li>
- *  <li><b>CountMatches</b>
+ *  <li><strong>CountMatches</strong>
  *      - counts the number of occurrences of one String in another</li>
- *  <li><b>IsAlpha/IsNumeric/IsWhitespace/IsAsciiPrintable</b>
+ *  <li><strong>IsAlpha/IsNumeric/IsWhitespace/IsAsciiPrintable</strong>
  *      - checks the characters in a String</li>
- *  <li><b>DefaultString</b>
+ *  <li><strong>DefaultString</strong>
  *      - protects against a null input String</li>
- *  <li><b>Rotate</b>
+ *  <li><strong>Rotate</strong>
  *      - rotate (circular shift) a String</li>
- *  <li><b>Reverse/ReverseDelimited</b>
+ *  <li><strong>Reverse/ReverseDelimited</strong>
  *      - reverses a String</li>
- *  <li><b>Abbreviate</b>
+ *  <li><strong>Abbreviate</strong>
  *      - abbreviates a string using ellipses or another given String</li>
- *  <li><b>Difference</b>
+ *  <li><strong>Difference</strong>
  *      - compares Strings and reports on their differences</li>
- *  <li><b>LevenshteinDistance</b>
+ *  <li><strong>LevenshteinDistance</strong>
  *      - the number of changes needed to change one String into another</li>
  * </ul>
  *
@@ -5418,7 +5418,7 @@ public class StringUtils {
     /**
      * Finds the n-th index within a CharSequence, handling {@code null}.
      * This method uses {@link String#indexOf(String)} if possible.
-     * <p><b>Note:</b> The code starts looking for a match at the start of the target,
+     * <p><strong>Note:</strong> The code starts looking for a match at the start of the target,
      * incrementing the starting index by one after each successful match
      * (unless {@code searchStr} is an empty string in which case the position
      * is never incremented and {@code 0} is returned immediately).

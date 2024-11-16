@@ -65,7 +65,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Performs a logical <b>AND</b> of this target bit set with the argument bit set. This bit set is modified so that each
+     * Performs a logical <strong>AND</strong> of this target bit set with the argument bit set. This bit set is modified so that each
      * bit in it has the value {@code true} if and only if it both initially had the value {@code true} and the
      * corresponding bit in the bit set argument also had the value {@code true}.
      *
@@ -78,7 +78,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Performs a logical <b>AND</b> of this target bit set with the argument bit set. This bit set is modified so that each
+     * Performs a logical <strong>AND</strong> of this target bit set with the argument bit set. This bit set is modified so that each
      * bit in it has the value {@code true} if and only if it both initially had the value {@code true} and the
      * corresponding bit in the bit set argument also had the value {@code true}.
      *
@@ -341,7 +341,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Performs a logical <b>OR</b> of this bit set with the bit set argument. This bit set is modified so that a bit in it
+     * Performs a logical <strong>OR</strong> of this bit set with the bit set argument. This bit set is modified so that a bit in it
      * has the value {@code true} if and only if it either already had the value {@code true} or the corresponding bit in
      * the bit set argument has the value {@code true}.
      *
@@ -354,7 +354,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Performs a logical <b>OR</b> of this bit set with the bit set arguments. This bit set is modified so that a bit in it
+     * Performs a logical <strong>OR</strong> of this bit set with the bit set arguments. This bit set is modified so that a bit in it
      * has the value {@code true} if and only if it either already had the value {@code true} or the corresponding bit in
      * the bit set argument has the value {@code true}.
      *
@@ -369,7 +369,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Performs a logical <b>OR</b> of this bit set with the bit set argument. This bit set is modified so that a bit in it
+     * Performs a logical <strong>OR</strong> of this bit set with the bit set argument. This bit set is modified so that a bit in it
      * has the value {@code true} if and only if it either already had the value {@code true} or the corresponding bit in
      * the bit set argument has the value {@code true}.
      *
@@ -571,7 +571,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Performs a logical <b>XOR</b> of this bit set with the bit set argument. This bit set is modified so that a bit in it
+     * Performs a logical <strong>XOR</strong> of this bit set with the bit set argument. This bit set is modified so that a bit in it
      * has the value {@code true} if and only if one of the following statements holds:
      * <ul>
      * <li>The bit initially has the value {@code true}, and the corresponding bit in the argument has the value
@@ -589,7 +589,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Performs a logical <b>XOR</b> of this bit set with the bit set argument. This bit set is modified so that a bit in it
+     * Performs a logical <strong>XOR</strong> of this bit set with the bit set argument. This bit set is modified so that a bit in it
      * has the value {@code true} if and only if one of the following statements holds:
      * <ul>
      * <li>The bit initially has the value {@code true}, and the corresponding bit in the argument has the value

@@ -708,7 +708,7 @@ public class StopWatch {
      * Gets a summary of the split time that this StopWatch recorded as a string.
      *
      * <p>
-     * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * The format used is ISO 8601-like, [<em>message</em> ]<em>hours</em>:<em>minutes</em>:<em>seconds</em>.<em>milliseconds</em>.
      * </p>
      *
      * @return the split time as a String
@@ -725,7 +725,7 @@ public class StopWatch {
      * Gets a summary of the time that this StopWatch recorded as a string.
      *
      * <p>
-     * The format used is ISO 8601-like, [<i>message</i> ]<i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.
+     * The format used is ISO 8601-like, [<em>message</em> ]<em>hours</em>:<em>minutes</em>:<em>seconds</em>.<em>milliseconds</em>.
      * </p>
      *
      * @return the time as a String

@@ -201,7 +201,7 @@ public enum JavaVersion {
      * internally.
      *
      * @param versionStr the Java version as string
-     * @return the corresponding enumeration constant or <b>null</b> if the
+     * @return the corresponding enumeration constant or <strong>null</strong> if the
      * version is unknown
      */
     static JavaVersion get(final String versionStr) {
@@ -278,7 +278,7 @@ public enum JavaVersion {
      * internally.
      *
      * @param versionStr the Java version as string
-     * @return the corresponding enumeration constant or <b>null</b> if the
+     * @return the corresponding enumeration constant or <strong>null</strong> if the
      * version is unknown
      */
     static JavaVersion getJavaVersion(final String versionStr) {

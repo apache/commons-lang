@@ -37,7 +37,6 @@ import org.apache.commons.lang3.StringUtils;
 @Deprecated
 public class WordUtils {
 
-    // Capitalizing
     /**
      * Capitalizes all the whitespace separated words in a String.
      * Only the first character of each word is changed. To convert the
@@ -273,11 +272,11 @@ public class WordUtils {
             final char ch = str.charAt(i);
             if (isDelimiter(ch, delimiters)) {
                 lastWasGap = true;
-            } else if (lastWasGap) {
+                continue;  // ignore ch
+            }
+            if (lastWasGap) {
                 buf[count++] = ch;
                 lastWasGap = false;
-            } else {
-                continue; // ignore ch
             }
         }
         return new String(buf, 0, count);

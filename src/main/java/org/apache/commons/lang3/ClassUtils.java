@@ -1576,7 +1576,7 @@ public class ClassUtils {
      * </p>
      *
      * @param classes the class array to convert, may be null or empty
-     * @return an array which contains for each given class, the primitive class or <b>null</b> if the original class is not
+     * @return an array which contains for each given class, the primitive class or <strong>null</strong> if the original class is not
      *         a wrapper class. {@code null} if null input. Empty array if an empty array passed in.
      * @see #wrapperToPrimitive(Class)
      * @since 2.4
@@ -1601,11 +1601,11 @@ public class ClassUtils {
      * <p>
      * This method is the counter part of {@code primitiveToWrapper()}. If the passed in class is a wrapper class for a
      * primitive type, this primitive type will be returned (e.g. {@code Integer.TYPE} for {@code Integer.class}). For other
-     * classes, or if the parameter is <b>null</b>, the return value is <b>null</b>.
+     * classes, or if the parameter is <strong>null</strong>, the return value is <strong>null</strong>.
      * </p>
      *
-     * @param cls the class to convert, may be <b>null</b>
-     * @return the corresponding primitive type if {@code cls} is a wrapper class, <b>null</b> otherwise
+     * @param cls the class to convert, may be <strong>null</strong>
+     * @return the corresponding primitive type if {@code cls} is a wrapper class, <strong>null</strong> otherwise
      * @see #primitiveToWrapper(Class)
      * @since 2.4
      */

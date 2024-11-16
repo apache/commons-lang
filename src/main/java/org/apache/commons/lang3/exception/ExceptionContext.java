@@ -82,8 +82,8 @@ public interface ExceptionContext {
      * Gets the contextualized error message based on a base message.
      * This will add the context label-value pairs to the message.
      *
-     * @param baseMessage  the base exception message <b>without</b> context information appended
-     * @return the exception message <b>with</b> context information appended, not {@code null}
+     * @param baseMessage  the base exception message <strong>without</strong> context information appended
+     * @return the exception message <strong>with</strong> context information appended, not {@code null}
      */
     String getFormattedExceptionMessage(String baseMessage);
 

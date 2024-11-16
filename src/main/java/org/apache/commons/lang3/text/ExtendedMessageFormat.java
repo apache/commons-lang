@@ -37,9 +37,9 @@ import org.apache.commons.lang3.Validate;
  * parsed from the message pattern.  In this way custom patterns can be specified,
  * and the formats supported by {@link java.text.MessageFormat} can be overridden
  * at the format and/or format style level (see MessageFormat).  A "format element"
- * embedded in the message pattern is specified (<b>()?</b> signifies optionality):<br>
- * <code>{</code><em>argument-number</em><b>(</b>{@code ,}<em>format-name</em><b>
- * (</b>{@code ,}<em>format-style</em><b>)?)?</b><code>}</code>
+ * embedded in the message pattern is specified (<strong>()?</strong> signifies optionality):<br>
+ * <code>{</code><em>argument-number</em><strong>(</strong>{@code ,}<em>format-name</em><b>
+ * (</b>{@code ,}<em>format-style</em><strong>)?)?</strong><code>}</code>
  *
  * <p>
  * <em>format-name</em> and <em>format-style</em> values are trimmed of surrounding whitespace
@@ -50,7 +50,7 @@ import org.apache.commons.lang3.Validate;
  * found is used for this format element.
  * </p>
  *
- * <p><b>NOTICE:</b> The various subformat mutator methods are considered unnecessary; they exist on the parent
+ * <p><strong>NOTICE:</strong> The various subformat mutator methods are considered unnecessary; they exist on the parent
  * class to allow the type of customization which it is the job of this class to provide in
  * a configurable fashion.  These methods have thus been disabled and will throw
  * {@link UnsupportedOperationException} if called.

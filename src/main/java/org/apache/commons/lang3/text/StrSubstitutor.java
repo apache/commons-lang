@@ -134,10 +134,10 @@ import org.apache.commons.lang3.StringUtils;
  * {@link StrSubstitutor} supports this recursive substitution in variable
  * names, but it has to be enabled explicitly by setting the
  * {@link #setEnableSubstitutionInVariables(boolean) enableSubstitutionInVariables}
- * property to <b>true</b>.
+ * property to <strong>true</strong>.
  * </p>
  * <p>
- * This class is <b>not</b> thread safe.
+ * This class is <strong>not</strong> thread safe.
  * </p>
  *
  * @since 2.2
@@ -862,7 +862,7 @@ public class StrSubstitutor {
      * @param buf  the buffer where the substitution is occurring, not null
      * @param startPos  the start position of the variable including the prefix, valid
      * @param endPos  the end position of the variable including the suffix, valid
-     * @return the variable's value or <b>null</b> if the variable is unknown
+     * @return the variable's value or <strong>null</strong> if the variable is unknown
      */
     protected String resolveVariable(final String variableName, final StrBuilder buf, final int startPos, final int endPos) {
         final StrLookup<?> resolver = getVariableResolver();
@@ -874,9 +874,9 @@ public class StrSubstitutor {
 
     /**
      * Sets a flag whether substitution is done in variable names. If set to
-     * <b>true</b>, the names of variables can contain other variables which are
+     * <strong>true</strong>, the names of variables can contain other variables which are
      * processed first before the original variable is evaluated, e.g.
-     * {@code ${jre-${java.version}}}. The default value is <b>false</b>.
+     * {@code ${jre-${java.version}}}. The default value is <strong>false</strong>.
      *
      * @param enableSubstitutionInVariables the new value of the flag
      * @since 3.0
@@ -899,12 +899,12 @@ public class StrSubstitutor {
 
     /**
      * Sets a flag controlling whether escapes are preserved during
-     * substitution.  If set to <b>true</b>, the escape character is retained
+     * substitution.  If set to <strong>true</strong>, the escape character is retained
      * during substitution (e.g. {@code $${this-is-escaped}} remains
-     * {@code $${this-is-escaped}}).  If set to <b>false</b>, the escape
+     * {@code $${this-is-escaped}}).  If set to <strong>false</strong>, the escape
      * character is removed during substitution (e.g.
      * {@code $${this-is-escaped}} becomes
-     * {@code ${this-is-escaped}}).  The default value is <b>false</b>
+     * {@code ${this-is-escaped}}).  The default value is <strong>false</strong>
      *
      * @param preserveEscapes true if escapes are to be preserved
      * @since 3.5
