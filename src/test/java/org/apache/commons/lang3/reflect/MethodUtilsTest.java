@@ -62,11 +62,6 @@ import org.junit.jupiter.api.Test;
  * Tests MethodUtils
  */
 public class MethodUtilsTest extends AbstractLangTest {
-    interface InterfaceGetMatchingMethod {
-        default void testMethod6() {
-        }
-    }
-
     protected abstract static class AbstractGetMatchingMethod implements InterfaceGetMatchingMethod {
         public abstract void testMethod5(Exception exception);
     }
@@ -118,9 +113,9 @@ public class MethodUtilsTest extends AbstractLangTest {
         public void testMethod5(final Exception exception) {
         }
     }
+
     public static class GrandParentObject {
     }
-
     public static class InheritanceBean {
         public void testOne(final GrandParentObject obj) {
         }
@@ -138,6 +133,11 @@ public class MethodUtilsTest extends AbstractLangTest {
         }
 
         public void testTwo(final Object obj) {
+        }
+    }
+
+    interface InterfaceGetMatchingMethod {
+        default void testMethod6() {
         }
     }
 

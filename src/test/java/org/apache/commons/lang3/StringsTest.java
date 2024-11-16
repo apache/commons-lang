@@ -57,12 +57,6 @@ public class StringsTest {
         assertFalse(Strings.CI.isCaseSensitive());
     }
 
-    @Test
-    public void testCaseSensitiveConstant() {
-        assertNotNull(Strings.CS);
-        assertTrue(Strings.CS.isCaseSensitive());
-    }
-
     /**
      * Expanding the existing test group {@link StringUtilsStartsEndsWithTest#testStartsWithAny()} to include case-insensitive cases
      */
@@ -84,13 +78,10 @@ public class StringsTest {
         assertTrue(Strings.CI.startsWithAny(new StringBuffer("AbCxYz"), new StringBuilder("XyZ"), new StringBuffer("abc")));
     }
 
-    @ParameterizedTest
-    @MethodSource("stringsFactory")
-    public void testEqualsStrings(final Strings strings) {
-        final String nullStr = null;
-        assertTrue(strings.equals(nullStr, nullStr));
-        assertFalse(strings.equals(nullStr, ""));
-        assertFalse(strings.equals("", nullStr));
+    @Test
+    public void testCaseSensitiveConstant() {
+        assertNotNull(Strings.CS);
+        assertTrue(Strings.CS.isCaseSensitive());
     }
 
     @ParameterizedTest
@@ -100,5 +91,14 @@ public class StringsTest {
         assertTrue(strings.equals(nullCharSequence, nullCharSequence));
         assertFalse(strings.equals(nullCharSequence, ""));
         assertFalse(strings.equals("", nullCharSequence));
+    }
+
+    @ParameterizedTest
+    @MethodSource("stringsFactory")
+    public void testEqualsStrings(final Strings strings) {
+        final String nullStr = null;
+        assertTrue(strings.equals(nullStr, nullStr));
+        assertFalse(strings.equals(nullStr, ""));
+        assertFalse(strings.equals("", nullStr));
     }
 }
