@@ -36,9 +36,9 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
     /**
      * Builds a new instance for subclasses.
      *
-     * @param <T> the type of the object managed by the initializer class.
-     * @param <I> the type of the initializer class.
-     * @param <B> the type of builder.
+     * @param <I> The type of results supplied by this builder.
+     * @param <T> The type of the object managed by the initializer class.
+     * @param <B> The type of builder.
      * @param <E> The exception type thrown by {@link #initialize()}.
      */
     public abstract static class AbstractBuilder<I extends AbstractConcurrentInitializer<T, E>, T, B extends AbstractBuilder<I, T, B, E>, E extends Exception>
