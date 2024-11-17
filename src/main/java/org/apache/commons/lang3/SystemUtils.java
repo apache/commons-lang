@@ -2203,7 +2203,7 @@ public class SystemUtils {
     /**
      * Tests whether the Java version at least the requested version.
      * <p>
-     * The result is based on the system property saved in {@value #JAVA_SPECIFICATION_VERSION}.
+     * The result is based on the system property saved in {@link #JAVA_SPECIFICATION_VERSION}.
      * </p>
      *
      * @param requiredVersion the required version, for example 1.31f
@@ -2216,7 +2216,7 @@ public class SystemUtils {
     /**
      * Tests whether the Java version at most the requested version.
      * <p>
-     * The result is based on the system property saved in {@value #JAVA_SPECIFICATION_VERSION}.
+     * The result is based on the system property saved in {@link #JAVA_SPECIFICATION_VERSION}.
      * </p>
      *
      * @param requiredVersion the required version, for example 1.31f
