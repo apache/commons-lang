@@ -2308,7 +2308,8 @@ public class SystemUtils {
     }
 
     /**
-     * SystemUtils instances should NOT be constructed in standard programming. Instead, the class should be used as {@code SystemUtils.FILE_SEPARATOR}.
+     * SystemUtils instances shouldn't be constructed in standard programming. Instead, elements should be accessed directly, for example
+     * {@code SystemUtils.FILE_SEPARATOR}.
      *
      * <p>
      * This constructor is public to permit tools that require a JavaBean instance to operate.
