@@ -2122,6 +2122,9 @@ public class SystemUtils {
 
     /**
      * Gets the current user directory as a {@link File}.
+     * <p>
+     * The result is based on the system property {@value SystemProperties#USER_DIR}.
+     * </p>
      *
      * @return a directory
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
@@ -2134,6 +2137,9 @@ public class SystemUtils {
 
     /**
      * Gets the current user home directory as a {@link File}.
+     * <p>
+     * The result is based on the system property {@value SystemProperties#USER_HOME}.
+     * </p>
      *
      * @return a directory
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
@@ -2146,6 +2152,9 @@ public class SystemUtils {
 
     /**
      * Gets the current user name.
+     * <p>
+     * The result is based on the system property {@value SystemProperties#USER_NAME}.
+     * </p>
      *
      * @return a name
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
@@ -2160,6 +2169,9 @@ public class SystemUtils {
 
     /**
      * Gets the user name.
+     * <p>
+     * The result is based on the system property {@value SystemProperties#USER_NAME}.
+     * </p>
      *
      * @param defaultValue A default value.
      * @return a name
@@ -2175,6 +2187,9 @@ public class SystemUtils {
 
     /**
      * Tests whether the {@link #JAVA_AWT_HEADLESS} value is {@code true}.
+     * <p>
+     * The result is based on the system property {@value SystemProperties#JAVA_AWT_HEADLESS}.
+     * </p>
      *
      * @return {@code true} if {@code JAVA_AWT_HEADLESS} is {@code "true"}, {@code false} otherwise.
      * @see #JAVA_AWT_HEADLESS
@@ -2187,6 +2202,9 @@ public class SystemUtils {
 
     /**
      * Tests whether the Java version at least the requested version.
+     * <p>
+     * The result is based on the system property saved in {@value #JAVA_SPECIFICATION_VERSION}.
+     * </p>
      *
      * @param requiredVersion the required version, for example 1.31f
      * @return {@code true} if the actual version is equal or greater than the required version
@@ -2197,9 +2215,8 @@ public class SystemUtils {
 
     /**
      * Tests whether the Java version at most the requested version.
-     *
      * <p>
-     * Example input:
+     * The result is based on the system property saved in {@value #JAVA_SPECIFICATION_VERSION}.
      * </p>
      *
      * @param requiredVersion the required version, for example 1.31f
