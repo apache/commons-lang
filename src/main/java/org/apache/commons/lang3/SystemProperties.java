@@ -2326,7 +2326,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_SPECIFICATION_VERSION}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2340,7 +2340,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_SYSTEM_CLASS_LOADER}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2353,7 +2353,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_TIME_ZONE_DEFAULT_ZONE_RULES_PROVIDER}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2366,7 +2366,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_EXCEPTION_HANDLER}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2379,7 +2379,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_MAXIMUM_SPARES}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2392,7 +2392,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_PARALLELISM}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2405,7 +2405,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_THREAD_FACTORY}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2418,7 +2418,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_UTIL_CURRENCY_DATA}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2431,7 +2431,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_UTIL_LOGGING_CONFIG_CLASS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2444,7 +2444,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_UTIL_LOGGING_CONFIG_FILE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2457,7 +2457,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_UTIL_LOGGING_SIMPLE_FORMATTER_FORMAT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2470,7 +2470,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_UTIL_PREFS_PREFERENCES_FACTORY}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2482,7 +2482,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_UTIL_PROPERTY_RESOURCE_BUNDLE_ENCODING}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2495,7 +2495,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VENDOR}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2507,7 +2507,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VENDOR_URL}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2519,7 +2519,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VENDOR_VERSION}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2532,7 +2532,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VERSION}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2544,7 +2544,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VERSION_DATE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2557,7 +2557,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VM_INFO}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2569,7 +2569,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VM_NAME}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2581,7 +2581,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VM_SPECIFICATION_NAME}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2593,7 +2593,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VM_SPECIFICATION_VENDOR}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2605,7 +2605,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VM_SPECIFICATION_VERSION}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2617,7 +2617,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VM_VENDOR}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2629,7 +2629,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_VM_VERSION}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2641,7 +2641,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVAX_ACCESSIBILITY_ASSISTIVE_TECHNOLOGIES}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2654,7 +2654,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVA_XML_CONFIG_FILE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2667,7 +2667,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVAX_NET_SSL_SESSION_CACHE_SIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2680,7 +2680,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVAX_RMI_SSL_CLIENT_ENABLED_CIPHER_SUITES}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2693,7 +2693,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVAX_RMI_SSL_CLIENT_ENABLED_PROTOCOLS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2706,7 +2706,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVAX_SECURITY_AUTH_USE_SUBJECT_CREDS_ONLY}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2719,7 +2719,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JAVAX_SMART_CARD_IO_TERMINAL_FACTORY_DEFAULT_TYPE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2732,7 +2732,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDBC_DRIVERS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2745,7 +2745,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_AUTH_PROXYING_DISABLED_SCHEMES}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2758,7 +2758,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_AUTH_TUNNELING_DISABLED_SCHEMES}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2771,7 +2771,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_ALLOW_RESTRICTED_HEADERS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2784,7 +2784,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_AUTH_RETRY_LIMIT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2797,7 +2797,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_BUF_SIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2810,7 +2810,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_CONNECTION_POOL_SIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2823,7 +2823,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_CONNECTION_WINDOW_SIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2836,7 +2836,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_DISABLE_RETRY_CONNECT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2849,7 +2849,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_ENABLE_ALL_METHOD_RETRY}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2862,7 +2862,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_ENABLE_PUSH}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2875,7 +2875,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_HPACK_MAX_HEADER_TABLE_SIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2888,7 +2888,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_HTTP_CLIENT_LOG}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2901,7 +2901,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_KEEP_ALIVE_TIMEOUT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2914,7 +2914,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_KEEP_ALIVE_TIMEOUT_H2}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2927,7 +2927,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_MAX_FRAME_SIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2940,7 +2940,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_MAX_STREAMS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2953,7 +2953,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_RECEIVE_BUFFER_SIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2966,7 +2966,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_REDIRECTS_RETRY_LIMIT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2979,7 +2979,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_SEND_BUFFER_SIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -2992,7 +2992,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_WEB_SOCKET_WRITE_BUFFER_SIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3005,7 +3005,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_CLIENT_WINDOW_SIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3018,7 +3018,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTP_SERVER_MAX_CONNECTIONS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3031,7 +3031,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_HTTPS_NEGOTIATE_CBT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3044,7 +3044,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_INCLUDE_IN_EXCEPTIONS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3057,7 +3057,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_INTERNAL_HTTP_CLIENT_DISABLE_HOST_NAME_VERIFICATION}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3070,7 +3070,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_IO_PERMISSIONS_USE_CANONICAL_PATH}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3083,7 +3083,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_JNDI_LDAP_OBJECT_FACTORIES_FILTER}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3096,7 +3096,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_JNDI_OBJECT_FACTORIES_FILTER}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3109,7 +3109,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_JNDI_RMI_OBJECT_FACTORIES_FILTER}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3122,7 +3122,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_MODULE_MAIN}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3135,7 +3135,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_MODULE_MAIN_CLASS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3148,7 +3148,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_MODULE_PATH}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3161,7 +3161,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_MODULE_UPGRADE_PATH}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3174,7 +3174,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_NET_UNIX_DOMAIN_TMPDIR}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3187,7 +3187,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_NET_URL_CLASS_PATH_SHOW_IGNORED_CLASS_PATH_ENTRIES}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3200,7 +3200,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_SERIAL_FILTER}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3213,7 +3213,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_SERIAL_FILTER_FACTORY}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3226,7 +3226,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_TLS_CLIENT_SIGNATURE_SCHEMES}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3239,7 +3239,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_TLS_NAMED_GROUPS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3252,7 +3252,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_TLS_SERVER_SIGNATURE_SCHEMES}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3265,7 +3265,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_VIRTUAL_THREAD_SCHEDULER_MAXPOOLSIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3278,7 +3278,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_VIRTUAL_THREAD_SCHEDULER_PARALLELISM}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3291,7 +3291,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_CDATA_CHUNK_SIZE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3304,7 +3304,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_DTD_SUPPORT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3317,7 +3317,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_ELEMENT_ATTRIBUTE_LIMIT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3330,7 +3330,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_ENABLE_EXTENSION_FUNCTIONS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3343,7 +3343,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_ENTITY_EXPANSION_LIMIT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3356,7 +3356,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_ENTITY_REPLACEMENT_LIMIT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3369,7 +3369,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_IS_STANDALONE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3382,7 +3382,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_JDK_CATALOG_RESOLVE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3395,7 +3395,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_MAX_ELEMENT_DEPTH}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3408,7 +3408,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_MAX_GENERAL_ENTITY_SIZE_LIMIT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3421,7 +3421,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_MAX_OCCUR_LIMIT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3434,7 +3434,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_MAX_PARAMETER_ENTITY_SIZE_LIMIT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3447,7 +3447,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_MAX_XML_NAME_LIMIT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3460,7 +3460,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_OVERRIDE_DEFAULT_PARSER}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3473,7 +3473,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_RESET_SYMBOL_TABLE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3486,7 +3486,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_TOTAL_ENTITY_SIZE_LIMIT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3499,7 +3499,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #JDK_XML_XSLTC_IS_STANDALONE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3512,7 +3512,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #LINE_SEPARATOR}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3524,7 +3524,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #LINE_SEPARATOR}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3550,7 +3550,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #NATIVE_ENCODING}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3563,7 +3563,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #NETWORK_ADDRESS_CACHE_NEGATIVE_TTL}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3576,7 +3576,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #NETWORK_ADDRESS_CACHE_STALE_TTL}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3589,7 +3589,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #NETWORK_ADDRESS_CACHE_TTL}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3602,7 +3602,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #ORG_JCP_XML_DSIG_SECURE_VALIDATION}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3615,7 +3615,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #ORG_OPENJDK_JAVA_UTIL_STREAM_TRIPWIRE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3628,7 +3628,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #OS_ARCH}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3640,7 +3640,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #OS_NAME}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3652,7 +3652,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #OS_VERSION}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3664,7 +3664,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #PATH_SEPARATOR}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3729,7 +3729,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #SOCKS_PROXY_HOST}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3742,7 +3742,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #SOCKS_PROXY_PORT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3755,7 +3755,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #SOCKS_PROXY_VERSION}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3768,7 +3768,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #STDERR_ENCODING}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3781,7 +3781,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #STDOUT_ENCODING}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3794,7 +3794,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #SUN_NET_HTTP_SERVER_DRAIN_AMOUNT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3807,7 +3807,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #SUN_NET_HTTP_SERVER_IDLE_INTERVAL}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3820,7 +3820,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #SUN_NET_HTTP_SERVER_MAX_IDLE_CONNECTIONS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3833,7 +3833,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #SUN_NET_HTTP_SERVER_MAX_REQ_HEADERS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3846,7 +3846,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #SUN_NET_HTTP_SERVER_MAX_REQ_TIME}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3859,7 +3859,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #SUN_NET_HTTP_SERVER_MAX_RSP_TIME}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3872,7 +3872,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #SUN_NET_HTTP_SERVER_NO_DELAY}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3885,7 +3885,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #SUN_SECURITY_KRB5_PRINCIPAL}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3898,7 +3898,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #USER_COUNTRY}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3910,7 +3910,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #USER_DIR}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3922,7 +3922,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #USER_EXTENSIONS}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3935,7 +3935,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #USER_HOME}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3947,7 +3947,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #USER_LANGUAGE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3959,7 +3959,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #USER_NAME}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3971,7 +3971,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #USER_NAME}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3985,7 +3985,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #USER_REGION}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -3998,7 +3998,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #USER_SCRIPT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -4011,7 +4011,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #USER_TIMEZONE}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
@@ -4023,7 +4023,7 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value from the system properties map.
+     * Gets the current value from the system properties map for {@value #USER_VARIANT}.
      * <p>
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>

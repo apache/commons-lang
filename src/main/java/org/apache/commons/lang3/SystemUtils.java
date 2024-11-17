@@ -2021,7 +2021,7 @@ public class SystemUtils {
     }
 
     /**
-     * Gets the host name from an environment variable (COMPUTERNAME on Windows, HOSTNAME elsewhere).
+     * Gets the host name from an environment variable ({@code COMPUTERNAME} on Windows, {@code HOSTNAME} elsewhere).
      *
      * <p>
      * If you want to know what the network stack says is the host name, you should use {@code InetAddress.getLocalHost().getHostName()}.
@@ -2158,7 +2158,7 @@ public class SystemUtils {
     }
 
     /**
-     * Returns whether the {@link #JAVA_AWT_HEADLESS} value is {@code true}.
+     * Tests whether the {@link #JAVA_AWT_HEADLESS} value is {@code true}.
      *
      * @return {@code true} if {@code JAVA_AWT_HEADLESS} is {@code "true"}, {@code false} otherwise.
      * @see #JAVA_AWT_HEADLESS
@@ -2170,7 +2170,7 @@ public class SystemUtils {
     }
 
     /**
-     * Is the Java version at least the requested version.
+     * Tests whether the Java version at least the requested version.
      *
      * @param requiredVersion the required version, for example 1.31f
      * @return {@code true} if the actual version is equal or greater than the required version
@@ -2180,7 +2180,7 @@ public class SystemUtils {
     }
 
     /**
-     * Is the Java version at most the requested version.
+     * Tests whether the Java version at most the requested version.
      *
      * <p>
      * Example input:
@@ -2195,7 +2195,7 @@ public class SystemUtils {
     }
 
     /**
-     * Decides if the Java version matches.
+     * Tests whether the Java version matches.
      *
      * <p>
      * This method is package private instead of private to support unit test invocation.
@@ -2213,7 +2213,7 @@ public class SystemUtils {
     }
 
     /**
-     * Decides if the operating system matches.
+     * Tests whether the operating system matches.
      * <p>
      * This method is package private instead of private to support unit test invocation.
      * </p>
@@ -2232,7 +2232,7 @@ public class SystemUtils {
     }
 
     /**
-     * Decides if the operating system matches.
+     * Tests whether the operating system matches.
      * <p>
      * This method is package private instead of private to support unit test invocation.
      * </p>
@@ -2249,7 +2249,7 @@ public class SystemUtils {
     }
 
     /**
-     * Decides if the operating system version matches.
+     * Tests whether the operating system version matches.
      * <p>
      * This method is package private instead of private to support unit test invocation.
      * </p>
