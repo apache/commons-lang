@@ -1129,7 +1129,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_AIX = getOsMatchesName("AIX");
+    public static final boolean IS_OS_AIX = getOsNameMatches("AIX");
 
     /**
      * The constant {@code true} if this is Android.
@@ -1159,7 +1159,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_HP_UX = getOsMatchesName("HP-UX");
+    public static final boolean IS_OS_HP_UX = getOsNameMatches("HP-UX");
 
     /**
      * The constant {@code true} if this is IBM OS/400.
@@ -1175,7 +1175,7 @@ public class SystemUtils {
      *
      * @since 3.3
      */
-    public static final boolean IS_OS_400 = getOsMatchesName("OS/400");
+    public static final boolean IS_OS_400 = getOsNameMatches("OS/400");
 
     /**
      * The constant {@code true} if this is Irix.
@@ -1191,7 +1191,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_IRIX = getOsMatchesName("Irix");
+    public static final boolean IS_OS_IRIX = getOsNameMatches("Irix");
 
     /**
      * The constant {@code true} if this is Linux.
@@ -1207,7 +1207,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_LINUX = getOsMatchesName("Linux") || getOsMatchesName("LINUX");
+    public static final boolean IS_OS_LINUX = getOsNameMatches("Linux");
 
     /**
      * The constant {@code true} if this is Mac.
@@ -1223,7 +1223,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_MAC = getOsMatchesName("Mac");
+    public static final boolean IS_OS_MAC = getOsNameMatches("Mac");
 
     /**
      * The constant {@code true} if this is Mac.
@@ -1239,7 +1239,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_MAC_OSX = getOsMatchesName("Mac OS X");
+    public static final boolean IS_OS_MAC_OSX = getOsNameMatches("Mac OS X");
 
     /**
      * The constant {@code true} if this is macOS X Cheetah.
@@ -1589,7 +1589,7 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_FREE_BSD = getOsMatchesName("FreeBSD");
+    public static final boolean IS_OS_FREE_BSD = getOsNameMatches("FreeBSD");
 
     /**
      * The constant {@code true} if this is OpenBSD.
@@ -1605,7 +1605,7 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_OPEN_BSD = getOsMatchesName("OpenBSD");
+    public static final boolean IS_OS_OPEN_BSD = getOsNameMatches("OpenBSD");
 
     /**
      * The constant {@code true} if this is NetBSD.
@@ -1621,7 +1621,7 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_NET_BSD = getOsMatchesName("NetBSD");
+    public static final boolean IS_OS_NET_BSD = getOsNameMatches("NetBSD");
 
     /**
      * The constant {@code true} if this is OS/2.
@@ -1637,7 +1637,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_OS2 = getOsMatchesName("OS/2");
+    public static final boolean IS_OS_OS2 = getOsNameMatches("OS/2");
 
     /**
      * The constant {@code true} if this is Solaris.
@@ -1653,7 +1653,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_SOLARIS = getOsMatchesName("Solaris");
+    public static final boolean IS_OS_SOLARIS = getOsNameMatches("Solaris");
 
     /**
      * The constant {@code true} if this is SunOS.
@@ -1669,7 +1669,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_SUN_OS = getOsMatchesName("SunOS");
+    public static final boolean IS_OS_SUN_OS = getOsNameMatches("SunOS");
 
     /**
      * The constant {@code true} if this is a UNIX like system, as in any of AIX, HP-UX, Irix, Linux, MacOSX, Solaris or SUN OS.
@@ -1700,7 +1700,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS = getOsMatchesName(OS_NAME_WINDOWS_PREFIX);
+    public static final boolean IS_OS_WINDOWS = getOsNameMatches(OS_NAME_WINDOWS_PREFIX);
 
     /**
      * The constant {@code true} if this is Windows 2000.
@@ -1716,7 +1716,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_2000 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 2000");
+    public static final boolean IS_OS_WINDOWS_2000 = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " 2000");
 
     /**
      * The constant {@code true} if this is Windows 2003.
@@ -1732,7 +1732,7 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_WINDOWS_2003 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 2003");
+    public static final boolean IS_OS_WINDOWS_2003 = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " 2003");
 
     /**
      * The constant {@code true} if this is Windows Server 2008.
@@ -1748,7 +1748,7 @@ public class SystemUtils {
      *
      * @since 3.1
      */
-    public static final boolean IS_OS_WINDOWS_2008 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Server 2008");
+    public static final boolean IS_OS_WINDOWS_2008 = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " Server 2008");
 
     /**
      * The constant {@code true} if this is Windows Server 2012.
@@ -1764,7 +1764,7 @@ public class SystemUtils {
      *
      * @since 3.4
      */
-    public static final boolean IS_OS_WINDOWS_2012 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Server 2012");
+    public static final boolean IS_OS_WINDOWS_2012 = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " Server 2012");
 
     /**
      * The constant {@code true} if this is Windows 95.
@@ -1780,7 +1780,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_95 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 95");
+    public static final boolean IS_OS_WINDOWS_95 = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " 95");
 
     /**
      * The constant {@code true} if this is Windows 98.
@@ -1796,7 +1796,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_98 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 98");
+    public static final boolean IS_OS_WINDOWS_98 = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " 98");
 
     /**
      * The constant {@code true} if this is Windows ME.
@@ -1812,7 +1812,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_ME = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Me");
+    public static final boolean IS_OS_WINDOWS_ME = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " Me");
 
     /**
      * The constant {@code true} if this is Windows NT.
@@ -1828,7 +1828,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_NT = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " NT");
+    public static final boolean IS_OS_WINDOWS_NT = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " NT");
 
     /**
      * The constant {@code true} if this is Windows XP.
@@ -1844,7 +1844,7 @@ public class SystemUtils {
      *
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_XP = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " XP");
+    public static final boolean IS_OS_WINDOWS_XP = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " XP");
 
     /**
      * The constant {@code true} if this is Windows Vista.
@@ -1860,7 +1860,7 @@ public class SystemUtils {
      *
      * @since 2.4
      */
-    public static final boolean IS_OS_WINDOWS_VISTA = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " Vista");
+    public static final boolean IS_OS_WINDOWS_VISTA = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " Vista");
 
     /**
      * The constant {@code true} if this is Windows 7.
@@ -1876,7 +1876,7 @@ public class SystemUtils {
      *
      * @since 3.0
      */
-    public static final boolean IS_OS_WINDOWS_7 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 7");
+    public static final boolean IS_OS_WINDOWS_7 = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " 7");
 
     /**
      * The constant {@code true} if this is Windows 8.
@@ -1892,7 +1892,7 @@ public class SystemUtils {
      *
      * @since 3.2
      */
-    public static final boolean IS_OS_WINDOWS_8 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 8");
+    public static final boolean IS_OS_WINDOWS_8 = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " 8");
 
     /**
      * The constant {@code true} if this is Windows 10.
@@ -1908,7 +1908,7 @@ public class SystemUtils {
      *
      * @since 3.5
      */
-    public static final boolean IS_OS_WINDOWS_10 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 10");
+    public static final boolean IS_OS_WINDOWS_10 = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " 10");
 
     /**
      * The constant {@code true} if this is Windows 11.
@@ -1931,7 +1931,7 @@ public class SystemUtils {
      *
      * @since 3.13.0
      */
-    public static final boolean IS_OS_WINDOWS_11 = getOsMatchesName(OS_NAME_WINDOWS_PREFIX + " 11");
+    public static final boolean IS_OS_WINDOWS_11 = getOsNameMatches(OS_NAME_WINDOWS_PREFIX + " 11");
 
     /**
      * The constant {@code true} if this is z/OS.
@@ -1952,7 +1952,7 @@ public class SystemUtils {
     // os.encoding = ISO8859_1
     // os.name = z/OS
     // os.version = 02.02.00
-    public static final boolean IS_OS_ZOS = getOsMatchesName("z/OS");
+    public static final boolean IS_OS_ZOS = getOsNameMatches("z/OS");
 
     /**
      * The System property key for the user home directory.
@@ -2105,7 +2105,7 @@ public class SystemUtils {
     }
 
     /**
-     * Tests if the operating system matches the given string.
+     * Tests if the operating system matches the given string with a case-insensitive comparison.
      * <p>
      * The result depends on the value of the {@link #OS_NAME} constant.
      * </p>
@@ -2116,7 +2116,7 @@ public class SystemUtils {
      * @param osNamePrefix the prefix for the OS name
      * @return true if matches, or false if not or can't determine
      */
-    private static boolean getOsMatchesName(final String osNamePrefix) {
+    private static boolean getOsNameMatches(final String osNamePrefix) {
         return isOsNameMatch(OS_NAME, osNamePrefix);
     }
 
@@ -2248,20 +2248,20 @@ public class SystemUtils {
     }
 
     /**
-     * Tests whether the operating system matches.
+     * Tests whether the operating system matches with a case-insensitive comparison.
      * <p>
      * This method is package private instead of private to support unit test invocation.
      * </p>
      *
-     * @param osName       the actual OS name
-     * @param osNamePrefix the prefix for the expected OS name
-     * @return true if matches, or false if not or can't determine
+     * @param osName       the actual OS name.
+     * @param osNamePrefix the prefix for the expected OS name.
+     * @return true for a case-insensitive match, or false if not.
      */
     static boolean isOsNameMatch(final String osName, final String osNamePrefix) {
         if (osName == null) {
             return false;
         }
-        return osName.startsWith(osNamePrefix);
+        return Strings.CI.startsWith(osName, osNamePrefix);
     }
 
     /**
