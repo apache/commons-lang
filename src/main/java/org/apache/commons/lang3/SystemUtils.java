@@ -1560,6 +1560,22 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX_SONOMA = getOsMatches("Mac OS X", "14");
 
     /**
+     * The constant {@code true} if this is macOS X Sequoia.
+     * <p>
+     * The value depends on the value of the {@link #OS_NAME} and {@link #OS_VERSION} constants.
+     * </p>
+     * <p>
+     * The value is {@code false} if {@link #OS_NAME} or {@link #OS_VERSION} is {@code null}.
+     * </p>
+     * <p>
+     * This value is initialized when the class is loaded.
+     * </p>
+     *
+     * @since 3.18.0
+     */
+    public static final boolean IS_OS_MAC_OSX_SEQUOIA = getOsMatches("Mac OS X", "15");
+
+    /**
      * The constant {@code true} if this is FreeBSD.
      * <p>
      * The result depends on the value of the {@link #OS_NAME} constant.
