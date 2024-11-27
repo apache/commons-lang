@@ -313,6 +313,9 @@ public class EventListenerSupport<L> implements Serializable {
         createProxy(listenerInterface, classLoader);
     }
 
+    // Pre-captured ClassLoader to ensure safe usage during deserialization
+    private static final ClassLoader DEFAULT_CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
     /**
      * Deserializes.
      *
@@ -325,7 +328,8 @@ public class EventListenerSupport<L> implements Serializable {
         final L[] srcListeners = (L[]) objectInputStream.readObject();
         this.listeners = new CopyOnWriteArrayList<>(srcListeners);
         final Class<L> listenerInterface = ArrayUtils.getComponentType(srcListeners);
-        initializeTransientFields(listenerInterface, Thread.currentThread().getContextClassLoader());
+        // Use the pre-captured ClassLoader to avoid potential risks from overridable methods.
+        initializeTransientFields(listenerInterface, DEFAULT_CLASS_LOADER);
     }
 
     /**
