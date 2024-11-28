@@ -1073,7 +1073,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param calendar the calendar to format
      * @param buf the buffer to format into
      * @return the specified string buffer
-     *
      * @deprecated use {@link #format(Calendar)} or {@link #format(Calendar, Appendable)}
      */
     @Deprecated

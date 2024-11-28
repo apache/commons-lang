@@ -105,7 +105,6 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @param codePoint
      *            a Unicode code point
      * @return the hexadecimal string for the given code point
-     *
      * @since 3.2
      */
     protected String toUtf16Escape(final int codePoint) {

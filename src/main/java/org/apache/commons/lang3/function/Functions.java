@@ -31,7 +31,6 @@ public final class Functions {
      *
      * @param function the function to apply.
      * @param object   the object to apply the function.
-     *
      * @param <T>      the type of the argument the function applies.
      * @param <R>      the type of the result the function returns.
      * @return the value the function returns if the function is not {@code null}; {@code null} otherwise.

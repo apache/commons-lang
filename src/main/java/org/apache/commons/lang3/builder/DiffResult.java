@@ -33,7 +33,6 @@ import org.apache.commons.lang3.StringUtils;
  * Use a {@link DiffBuilder} to build a {@link DiffResult} comparing two objects.
  * </p>
  * @param <T> type of the left and right object.
- *
  * @since 3.3
  */
 public class DiffResult<T> implements Iterable<Diff<?>> {

@@ -66,7 +66,6 @@ import org.apache.commons.lang3.function.FailableConsumer;
  * </p>
  *
  * @param <L> the type of event listener that is supported by this proxy.
- *
  * @since 3.0
  */
 public class EventListenerSupport<L> implements Serializable {
@@ -204,7 +203,6 @@ public class EventListenerSupport<L> implements Serializable {
      *
      * @param listenerInterface the listener interface.
      * @param classLoader       the class loader.
-     *
      * @throws NullPointerException if {@code listenerInterface} or
      *         {@code classLoader} is {@code null}.
      * @throws IllegalArgumentException if {@code listenerInterface} is
@@ -223,7 +221,6 @@ public class EventListenerSupport<L> implements Serializable {
      * Registers an event listener.
      *
      * @param listener the event listener (may not be {@code null}).
-     *
      * @throws NullPointerException if {@code listener} is
      *         {@code null}.
      */
@@ -332,7 +329,6 @@ public class EventListenerSupport<L> implements Serializable {
      * Unregisters an event listener.
      *
      * @param listener the event listener (may not be {@code null}).
-     *
      * @throws NullPointerException if {@code listener} is
      *         {@code null}.
      */

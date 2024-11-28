@@ -118,7 +118,6 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
          * Sets the external executor service for executing tasks. null is a permitted value.
          *
          * @see org.apache.commons.lang3.concurrent.BackgroundInitializer#setExternalExecutor(ExecutorService)
-         *
          * @param externalExecutor the {@link ExecutorService} to be used.
          * @return {@code this} instance.
          */

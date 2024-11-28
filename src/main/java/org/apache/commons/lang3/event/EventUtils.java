@@ -89,7 +89,6 @@ public class EventUtils {
      * @param listenerType  the event listener type
      * @param listener      the listener
      * @param <L>           the event listener type
-     *
      * @throws IllegalArgumentException if the object doesn't support the listener type
      */
     public static <L> void addEventListener(final Object eventSource, final Class<L> listenerType, final L listener) {

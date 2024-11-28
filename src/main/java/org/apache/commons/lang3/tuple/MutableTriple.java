@@ -26,7 +26,6 @@ import java.util.Objects;
  * @param <L> the left element type
  * @param <M> the middle element type
  * @param <R> the right element type
- *
  * @since 3.2
  */
 public class MutableTriple<L, M, R> extends Triple<L, M, R> {
@@ -51,7 +50,6 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      * @param <M> the middle element type
      * @param <R> the right element type
      * @return the empty array singleton that can be assigned without compiler warning.
-     *
      * @since 3.10.
      */
     @SuppressWarnings("unchecked")

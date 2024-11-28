@@ -42,7 +42,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  *
  * @param <I> the type of the input to the calculation
  * @param <O> the type of the output of the calculation
- *
  * @since 3.6
  */
 public class Memoizer<I, O> implements Computable<I, O> {

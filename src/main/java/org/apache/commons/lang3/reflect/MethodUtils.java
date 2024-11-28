@@ -371,7 +371,6 @@ public class MethodUtils {
      * @throws IllegalStateException if there is no unique result
      * @throws NullPointerException if the class is {@code null}
      * @return The method
-     *
      * @since 3.5
      */
     public static Method getMatchingMethod(final Class<?> cls, final String methodName,
@@ -618,7 +617,6 @@ public class MethodUtils {
      * @param object invoke method on this object
      * @param methodName get method with this name
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the
      *  method invoked
@@ -642,7 +640,6 @@ public class MethodUtils {
      * @param methodName get method with this name
      * @param args use these arguments - treat null as empty array
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the
      *  method invoked
@@ -669,7 +666,6 @@ public class MethodUtils {
      * @param args use these arguments - treat null as empty array
      * @param parameterTypes match these parameters - treat {@code null} as empty array
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the
      *  method invoked
@@ -701,7 +697,6 @@ public class MethodUtils {
      * @param methodName get method with this name
      * @param args use these arguments - treat {@code null} as empty array
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the
      *  method invoked
@@ -727,7 +722,6 @@ public class MethodUtils {
      * @param args use these arguments - treat {@code null} as empty array
      * @param parameterTypes match these parameters - treat {@code null} as empty array
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the
      *  method invoked
@@ -759,11 +753,9 @@ public class MethodUtils {
      * @param forceAccess force access to invoke method even if it's not accessible
      * @param methodName get method with this name
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
-     *
      * @since 3.5
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName)
@@ -787,7 +779,6 @@ public class MethodUtils {
      * @param methodName get method with this name
      * @param args use these arguments - treat null as empty array
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
@@ -814,7 +805,6 @@ public class MethodUtils {
      * @param args use these arguments - treat null as empty array
      * @param parameterTypes match these parameters - treat null as empty array
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
@@ -862,7 +852,6 @@ public class MethodUtils {
      * @param object invoke method on this object
      * @param methodName get method with this name
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
@@ -891,7 +880,6 @@ public class MethodUtils {
      * @param methodName get method with this name
      * @param args use these arguments - treat null as empty array
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
@@ -918,7 +906,6 @@ public class MethodUtils {
      * @param args use these arguments - treat null as empty array
      * @param parameterTypes match these parameters - treat null as empty array
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
@@ -947,7 +934,6 @@ public class MethodUtils {
      * @param methodName get method with this name
      * @param args use these arguments - treat {@code null} as empty array
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the
      *  method invoked
@@ -975,7 +961,6 @@ public class MethodUtils {
      * @param args use these arguments - treat {@code null} as empty array
      * @param parameterTypes match these parameters - treat {@code null} as empty array
      * @return The value returned by the invoked method
-     *
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the
      *  method invoked

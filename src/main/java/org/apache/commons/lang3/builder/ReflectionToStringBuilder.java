@@ -700,7 +700,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param field
      *            The Field to query.
      * @return The Object from the given Field.
-     *
      * @throws IllegalArgumentException
      *             see {@link java.lang.reflect.Field#get(Object)}
      * @throws IllegalAccessException
