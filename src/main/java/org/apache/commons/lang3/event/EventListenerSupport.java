@@ -320,12 +320,17 @@ public class EventListenerSupport<L> implements Serializable {
      * @throws IOException if an IO error occurs
      * @throws ClassNotFoundException if the class cannot be resolved
      */
+
+    // Pre-captured ClassLoader to ensure safe usage during deserialization
+    private static final ClassLoader DEFAULT_CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
     private void readObject(final ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
         final L[] srcListeners = (L[]) objectInputStream.readObject();
         this.listeners = new CopyOnWriteArrayList<>(srcListeners);
         final Class<L> listenerInterface = ArrayUtils.getComponentType(srcListeners);
-        initializeTransientFields(listenerInterface, Thread.currentThread().getContextClassLoader());
+        // Use the pre-captured ClassLoader to avoid potential risks from overridable methods.
+        initializeTransientFields(listenerInterface, DEFAULT_CLASS_LOADER);
     }
 
     /**
