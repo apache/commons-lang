@@ -39,9 +39,9 @@ public class MutablePairTest extends AbstractLangTest {
         MutablePair<Integer, String> nowPair;
         for (int i = 0; i < 4; i++) {
             nowPair = MutablePair.of(oldPair);
-            assertEquals(0, nowPair.left.intValue());
             assertEquals(0, nowPair.getLeft().intValue());
-            assertEquals("foo", nowPair.right);
+            assertEquals(0, nowPair.getLeft().intValue());
+            assertEquals("foo", nowPair.getRight());
             assertEquals("foo", nowPair.getRight());
             assertEquals(oldPair, nowPair);
             oldPair = nowPair;
@@ -51,9 +51,9 @@ public class MutablePairTest extends AbstractLangTest {
         MutablePair<Object, String> nowPair2;
         for (int i = 0; i < 4; i++) {
             nowPair2 = MutablePair.of(oldPair2);
-            assertNull(nowPair2.left);
             assertNull(nowPair2.getLeft());
-            assertEquals("bar", nowPair2.right);
+            assertNull(nowPair2.getLeft());
+            assertEquals("bar", nowPair2.getRight());
             assertEquals("bar", nowPair2.getRight());
             oldPair2 = nowPair2;
         }
@@ -110,8 +110,8 @@ public class MutablePairTest extends AbstractLangTest {
         assertThrows(NullPointerException.class, () -> MutablePair.ofNonNull(null, "x"));
         assertThrows(NullPointerException.class, () -> MutablePair.ofNonNull("x", null));
         final MutablePair<String, String> pair = MutablePair.ofNonNull("x", "y");
-        assertEquals("x", pair.left);
-        assertEquals("y", pair.right);
+        assertEquals("x", pair.getLeft());
+        assertEquals("y", pair.getRight());
     }
 
     @Test
@@ -133,8 +133,8 @@ public class MutablePairTest extends AbstractLangTest {
         assertNull(pair2.getLeft());
         assertEquals("bar", pair2.getRight());
         final MutablePair<?, ?> pair3 = MutablePair.of(null, null);
-        assertNull(pair3.left);
-        assertNull(pair3.right);
+        assertNull(pair3.getLeft());
+        assertNull(pair3.getRight());
     }
 
     @Test

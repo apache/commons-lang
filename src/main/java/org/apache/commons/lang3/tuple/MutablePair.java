@@ -117,10 +117,10 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /** Left object */
-    public L left;
+    private L left;
 
     /** Right object */
-    public R right;
+    private R right;
 
     /**
      * Create a new pair instance of two nulls.
