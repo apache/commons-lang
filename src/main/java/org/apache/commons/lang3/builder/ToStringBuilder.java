@@ -974,7 +974,6 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @return the String {@code toString}
      * @see #toString()
-     *
      * @since 3.0
      */
     @Override
