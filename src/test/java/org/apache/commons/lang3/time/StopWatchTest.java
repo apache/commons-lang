@@ -54,7 +54,6 @@ public class StopWatchTest extends AbstractLangTest {
      * <p>
      * Creates a suspended StopWatch object which appears to have elapsed for the requested amount of time in nanoseconds.
      * <p>
-     * <p>
      *
      * <pre>
      * // Create a mock StopWatch with a time of 2:59:01.999
