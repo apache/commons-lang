@@ -204,6 +204,7 @@
               <exclude>src/test/resources/lang-708-input.txt</exclude>
               <exclude>.github/workflows/sonarcloud.yml</exclude>
               <exclude>.github/workflows/ci.yml</exclude>
+              <exclude>sonar-project.properties</exclude>
             </excludes>
           </configuration>
         </plugin>
