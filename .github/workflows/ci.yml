@@ -3,8 +3,10 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - main
+      - dependability-analysis
   pull_request:
+    branches:
+      - dependability-analysis
 
 jobs:
   build:
@@ -20,5 +22,22 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
     - name: Build with Maven
       run: mvn clean install
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v2
+      with:
+        args: >
+          -Dsonar.projectKey=kevoulemsee_commons-lang
+          -Dsonar.organization=kevocommonlang
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.login=${{6efc6f3e47a5d7570c7636ab9ec7e1d7764a150f}}
