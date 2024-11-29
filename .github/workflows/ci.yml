@@ -40,4 +40,4 @@ jobs:
           -Dsonar.projectKey=kevoulemsee_commons-lang
           -Dsonar.organization=kevocommonlang
           -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.login=${{6efc6f3e47a5d7570c7636ab9ec7e1d7764a150f}}
+          -Dsonar.login=$6efc6f3e47a5d7570c7636ab9ec7e1d7764a150f
