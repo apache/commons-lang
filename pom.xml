@@ -52,7 +52,7 @@
     <connection>scm:git:http://gitbox.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</developerConnection>
     <url>https://gitbox.apache.org/repos/asf?p=commons-lang.git</url>
-    <tag>rel/commons-lang-3.17.0</tag>
+    <tag>rel/commons-lang-3.18.0</tag>
   </scm>
 
   <!-- Lang should depend on very little -->
