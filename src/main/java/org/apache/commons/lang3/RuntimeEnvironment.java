@@ -63,6 +63,9 @@ public class RuntimeEnvironment {
      */
     // Could be public at a later time.
     static Boolean inDocker() {
+        if (Files.exists(Paths.get("/.dockerenv"))) {
+            return true;
+        }
         return containsLine("/proc/1/cgroup", "/docker");
     }
 
@@ -76,6 +79,9 @@ public class RuntimeEnvironment {
      */
     // Could be public at a later time.
     static Boolean inPodman() {
+        if (Files.exists(Paths.get("/run/.containerenv"))) {
+            return true;
+        }
         return containsLine("/proc/1/environ", "container=podman");
     }
 
