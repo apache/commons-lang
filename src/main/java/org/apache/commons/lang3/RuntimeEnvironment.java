@@ -20,7 +20,10 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.stream.Stream;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Helps query the runtime environment.
@@ -36,9 +39,28 @@ public class RuntimeEnvironment {
      * @param line The line to find.
      * @return whether the file at the given path string contains a specific line.
      */
-    private static Boolean containsLine(final String path, final String line) {
+    private static boolean containsLine(final String path, final String line) {
         try (Stream<String> stream = Files.lines(Paths.get(path))) {
             return stream.anyMatch(test -> test.contains(line));
+        } catch (final IOException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Tests whether the /proc/N/environ file at the given path string contains a specific line.
+     *
+     * @param envVarFile The path to a /proc/N/environ file.
+     * @param line The line to find.
+     * @return whether the file at the given path string contains a specific line.
+     */
+    private static boolean containsEnvVar(final String envVarFile, final String line) {
+        try {
+            byte[] bytes = Files.readAllBytes(Paths.get(envVarFile));
+            String content = new String(bytes, UTF_8);
+            // Split by null byte character
+            String[] lines = content.split("\u0000");
+            return Arrays.stream(lines).anyMatch(test -> test.contains(line));
         } catch (final IOException e) {
             return false;
         }
@@ -62,7 +84,7 @@ public class RuntimeEnvironment {
      * @return whether we are running in a Docker container.
      */
     // Could be public at a later time.
-    static Boolean inDocker() {
+    static boolean inDocker() {
         return containsLine("/proc/1/cgroup", "/docker");
     }
 
@@ -75,8 +97,8 @@ public class RuntimeEnvironment {
      * @return whether we are running in a Podman container.
      */
     // Could be public at a later time.
-    static Boolean inPodman() {
-        return containsLine("/proc/1/environ", "container=podman");
+    static boolean inPodman() {
+        return containsEnvVar("/proc/1/environ", "container=podman");
     }
 
     /**
@@ -88,8 +110,8 @@ public class RuntimeEnvironment {
      * @return whether we are running in a Windows Subsystem for Linux (WSL).
      */
     // Could be public at a later time.
-    static Boolean inWsl() {
-        return containsLine("/proc/1/environ", "container=wslcontainer_host_id");
+    static boolean inWsl() {
+        return containsEnvVar("/proc/1/environ", "container=wslcontainer_host_id");
     }
 
     /**
