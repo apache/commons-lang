@@ -20,7 +20,9 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
+import java.util.Arrays;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Helps query the runtime environment.
@@ -29,77 +31,59 @@ import java.util.stream.Stream;
  */
 public class RuntimeEnvironment {
 
+    // package-private non-static fields for testing.
+    static String rootDir = "/";
+
     /**
-     * Tests whether the file at the given path string contains a specific line.
+     * Tests whether the /proc/N/environ file at the given path string contains a specific line prefix.
      *
-     * @param path The path to a file.
-     * @param line The line to find.
-     * @return whether the file at the given path string contains a specific line.
+     * @param envVarFile The path to a /proc/N/environ file.
+     * @param prefix     The line prefix to find.
+     * @return value after the prefix
      */
-    private static Boolean containsLine(final String path, final String line) {
-        try (Stream<String> stream = Files.lines(Paths.get(path))) {
-            return stream.anyMatch(test -> test.contains(line));
+    private static String getenv(final String envVarFile, final String prefix) {
+        try {
+            byte[] bytes = Files.readAllBytes(Paths.get(envVarFile));
+            String content = new String(bytes, UTF_8);
+            // Split by null byte character
+            String[] lines = content.split("\u0000");
+            return Arrays.stream(lines).filter(test -> test.startsWith(prefix))
+                    .map(test -> StringUtils.substringAfter(test, prefix))
+                    .findFirst()
+                    .orElse(null);
         } catch (final IOException e) {
-            return false;
+            return null;
         }
     }
 
     /**
      * Tests whether we are running in a container like Docker or Podman.
      *
-     * @return whether we are running in a container like Docker or Podman.
+     * @return whether we are running in a container like Docker or Podman. Never null
      */
     public static Boolean inContainer() {
-        return inDocker() || inPodman();
-    }
+        /*
+        Roughly follow the logic in SystemD:
+        https://github.com/systemd/systemd/blob/0747e3b60eb4496ee122066c844210ce818d76d9/src/basic/virt.c#L692
 
-    /**
-     * Tests whether we are running in a Docker container.
-     * <p>
-     * Package-private for testing.
-     * </p>
-     *
-     * @return whether we are running in a Docker container.
-     */
-    // Could be public at a later time.
-    static Boolean inDocker() {
-        if (fileExists("/.dockerenv")) {
-            return true;
-        }
-        return containsLine("/proc/1/cgroup", "/docker");
-    }
+        We check the `container` environment variable of process 1:
+        If the variable is empty, we return false. This includes the case, where the container developer wants to hide the fact that the application runs in a container.
+        If the variable is not empty, we return true.
+        If the variable is absent, we continue.
 
-    /**
-     * Tests whether we are running in a Podman container.
-     * <p>
-     * Package-private for testing.
-     * </p>
-     *
-     * @return whether we are running in a Podman container.
-     */
-    // Could be public at a later time.
-    static Boolean inPodman() {
-        if (fileExists("/run/.containerenv") || fileExists("/var/run/.containerenv")) {
-            return true;
-        }
-        return containsLine("/proc/1/environ", "container=podman");
+        We check files in the container. According to SystemD:
+        /.dockerenv is used by Docker.
+        /run/.containerenv is used by PodMan.
+
+         */
+        String value = getenv(rootDir + "proc/1/environ", "container=");
+        return StringUtils.isNotEmpty(value)
+                || fileExists(rootDir + ".dockerenv")
+                || fileExists(rootDir + "run/.containerenv");
     }
 
     private static boolean fileExists(String path) {
         return Files.exists(Paths.get(path));
-    }
-
-    /**
-     * Tests whether we are running in a Windows Subsystem for Linux (WSL).
-     * <p>
-     * Package-private for testing.
-     * </p>
-     *
-     * @return whether we are running in a Windows Subsystem for Linux (WSL).
-     */
-    // Could be public at a later time.
-    static Boolean inWsl() {
-        return containsLine("/proc/1/environ", "container=wslcontainer_host_id");
     }
 
     /**
