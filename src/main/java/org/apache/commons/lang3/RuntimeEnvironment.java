@@ -18,6 +18,7 @@
 package org.apache.commons.lang3;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
@@ -76,7 +77,15 @@ public class RuntimeEnvironment {
      */
     // Could be public at a later time.
     static Boolean inPodman() {
+        if (isPid1()) {
+            return "podman".equals(System.getenv("container"));
+        }
         return containsLine("/proc/1/environ", "container=podman");
+    }
+
+    private static boolean isPid1() {
+        String name = ManagementFactory.getRuntimeMXBean().getName();
+        return name.startsWith("1@");
     }
 
     /**
@@ -89,6 +98,9 @@ public class RuntimeEnvironment {
      */
     // Could be public at a later time.
     static Boolean inWsl() {
+        if (isPid1()) {
+            return "wslcontainer_host_id".equals(System.getenv("container"));
+        }
         return containsLine("/proc/1/environ", "container=wslcontainer_host_id");
     }
 
