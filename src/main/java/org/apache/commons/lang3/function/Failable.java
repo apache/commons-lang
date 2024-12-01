@@ -419,14 +419,16 @@ public class Failable {
     /**
      * Runs a runnable and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param runnable The runnable to run
-     * @param <E> the type of checked exception the runnable may throw
+     * @param runnable The runnable to run, may be null for a noop.
+     * @param <E> the type of checked exception the runnable may throw.
      */
     public static <E extends Throwable> void run(final FailableRunnable<E> runnable) {
-        try {
-            runnable.run();
-        } catch (final Throwable t) {
-            throw rethrow(t);
+        if (runnable != null) {
+            try {
+                runnable.run();
+            } catch (final Throwable t) {
+                throw rethrow(t);
+            }
         }
     }
 
