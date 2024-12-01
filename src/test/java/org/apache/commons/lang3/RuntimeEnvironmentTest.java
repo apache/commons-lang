@@ -23,8 +23,7 @@ import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.UUID;
@@ -38,6 +37,12 @@ import static org.junit.jupiter.api.DynamicTest.dynamicTest;
  */
 public class RuntimeEnvironmentTest {
 
+    private static final String simpleEnviron = "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\u0000" +
+            "HOSTNAME=d62718b69f37\u0000TERM=xterm\u0000HOME=/root\u0000";
+
+    private static final String podmanEnviron = "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\u0000" +
+            "HOSTNAME=d62718b69f37\u0000TERM=xterm\u0000container=podman\u0000HOME=/root\u0000";
+
     @TempDir
     private Path tempDir;
 
@@ -50,19 +55,19 @@ public class RuntimeEnvironmentTest {
     public DynamicTest[] testIsContainerDocker() {
         return new DynamicTest[]{
                 dynamicTest("in docker no file", () ->
-                        assertFalse(doTestInContainer("RuntimeEnvironmentTest.docker.txt", null))),
+                        assertFalse(doTestInContainer(simpleEnviron, null))),
 
                 dynamicTest("in docker with file", () ->
-                        assertTrue(doTestInContainer("RuntimeEnvironmentTest.docker.txt", ".dockerenv"))),
+                        assertTrue(doTestInContainer(simpleEnviron, ".dockerenv"))),
 
                 dynamicTest("in podman no file", () ->
-                        assertTrue(doTestInContainer("RuntimeEnvironmentTest.podman.txt", null))),
+                        assertTrue(doTestInContainer(podmanEnviron, null))),
 
                 dynamicTest("in podman with file", () ->
-                        assertTrue(doTestInContainer("RuntimeEnvironmentTest.none.txt", "run/.containerenv"))),
+                        assertTrue(doTestInContainer(simpleEnviron, "run/.containerenv"))),
 
                 dynamicTest("not in container", () ->
-                        assertFalse(doTestInContainer("RuntimeEnvironmentTest.none.txt", null))),
+                        assertFalse(doTestInContainer(simpleEnviron, null))),
 
                 dynamicTest("pid1 error no file", () ->
                         assertFalse(doTestInContainer(null, null))),
@@ -75,7 +80,7 @@ public class RuntimeEnvironmentTest {
         };
     }
 
-    private boolean doTestInContainer(String envFile, String fileToCreate) throws IOException {
+    private boolean doTestInContainer(String environ, String fileToCreate) throws IOException {
         Path testDir = tempDir.resolve(UUID.randomUUID().toString());
         RuntimeEnvironment.rootDir = testDir + "/";
         Path pid1EnvironFile = testDir.resolve("proc/1/environ");
@@ -87,11 +92,8 @@ public class RuntimeEnvironmentTest {
             Files.createFile(file);
         }
 
-        if (envFile != null) {
-            URL resource = RuntimeEnvironmentTest.class.getResource(envFile);
-            try (InputStream in = resource.openStream()) {
-                Files.copy(in, pid1EnvironFile);
-            }
+        if (environ != null) {
+            Files.write(pid1EnvironFile, environ.getBytes(StandardCharsets.UTF_8));
         }
 
         return RuntimeEnvironment.inContainer();
