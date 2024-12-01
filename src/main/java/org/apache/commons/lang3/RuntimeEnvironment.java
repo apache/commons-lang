@@ -18,11 +18,10 @@
 package org.apache.commons.lang3;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Helps query the runtime environment.
@@ -31,24 +30,24 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public class RuntimeEnvironment {
 
-    // package-private non-static fields for testing.
-    static String rootDir = "/";
-
     /**
      * Tests whether the /proc/N/environ file at the given path string contains a specific line prefix.
      *
      * @param envVarFile The path to a /proc/N/environ file.
-     * @param prefix     The line prefix to find.
-     * @return value after the prefix
+     * @param key     The env var key to find.
+     * @return value The env var value or null
      */
-    private static String getenv(final String envVarFile, final String prefix) {
+    private static String getenv(final String envVarFile, final String key) {
         try {
             byte[] bytes = Files.readAllBytes(Paths.get(envVarFile));
-            String content = new String(bytes, UTF_8);
+            String content = new String(bytes, Charset.defaultCharset());
             // Split by null byte character
             String[] lines = content.split("\u0000");
-            return Arrays.stream(lines).filter(test -> test.startsWith(prefix))
-                    .map(test -> StringUtils.substringAfter(test, prefix))
+            String prefix = key + "=";
+            return Arrays.stream(lines)
+                    .filter(line -> line.startsWith(prefix))
+                    .map(line -> line.split("=", 2))
+                    .map(keyValue -> keyValue[1])
                     .findFirst()
                     .orElse(null);
         } catch (final IOException e) {
@@ -62,6 +61,10 @@ public class RuntimeEnvironment {
      * @return whether we are running in a container like Docker or Podman. Never null
      */
     public static Boolean inContainer() {
+        return inContainer("");
+    }
+
+    static boolean inContainer(final String dirPrefix) {
         /*
         Roughly follow the logic in SystemD:
         https://github.com/systemd/systemd/blob/0747e3b60eb4496ee122066c844210ce818d76d9/src/basic/virt.c#L692
@@ -76,10 +79,11 @@ public class RuntimeEnvironment {
         /run/.containerenv is used by PodMan.
 
          */
-        String value = getenv(rootDir + "proc/1/environ", "container=");
-        return StringUtils.isNotEmpty(value)
-                || fileExists(rootDir + ".dockerenv")
-                || fileExists(rootDir + "run/.containerenv");
+        String value = getenv(dirPrefix + "/proc/1/environ", "container");
+        if (value != null) {
+            return !value.isEmpty();
+        }
+        return fileExists(dirPrefix + "/.dockerenv") || fileExists(dirPrefix + "/run/.containerenv");
     }
 
     private static boolean fileExists(String path) {
