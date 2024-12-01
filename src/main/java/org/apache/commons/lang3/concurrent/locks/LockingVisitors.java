@@ -269,11 +269,7 @@ public class LockingVisitors {
             final Lock lock = Objects.requireNonNull(Suppliers.get(lockSupplier), "lock");
             lock.lock();
             try {
-                if (consumer != null) {
-                    consumer.accept(object);
-                }
-            } catch (final Throwable t) {
-                throw Failable.rethrow(t);
+                Failable.accept(consumer, object);
             } finally {
                 lock.unlock();
             }
@@ -298,9 +294,7 @@ public class LockingVisitors {
             final Lock lock = Objects.requireNonNull(Suppliers.get(lockSupplier), "lock");
             lock.lock();
             try {
-                return function.apply(object);
-            } catch (final Throwable t) {
-                throw Failable.rethrow(t);
+                return Failable.apply(function, object);
             } finally {
                 lock.unlock();
             }
