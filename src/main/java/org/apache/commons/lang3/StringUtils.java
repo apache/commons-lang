@@ -3104,7 +3104,7 @@ public class StringUtils {
      * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence, int) Strings.CI.indexOf(CharSequence, CharSequence, int)}
      */
     @Deprecated
-    public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, int startPos) {
+    public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, final int startPos) {
         return Strings.CI.indexOf(str, searchStr, startPos);
     }
 
@@ -5006,7 +5006,7 @@ public class StringUtils {
      * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence, int) Strings.CI.lastIndexOf(CharSequence, CharSequence, int)}
      */
     @Deprecated
-    public static int lastIndexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, int startPos) {
+    public static int lastIndexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, final int startPos) {
         return Strings.CI.lastIndexOf(str, searchStr, startPos);
     }
 
@@ -6610,7 +6610,7 @@ public class StringUtils {
      * @since 2.4
      */
     public static String replaceEachRepeatedly(final String text, final String[] searchList, final String[] replacementList) {
-        int timeToLive = Math.max(ArrayUtils.getLength(searchList), DEFAULT_TTL);
+        final int timeToLive = Math.max(ArrayUtils.getLength(searchList), DEFAULT_TTL);
         return replaceEach(text, searchList, replacementList, true, timeToLive);
     }
 
