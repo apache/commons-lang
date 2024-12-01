@@ -4295,7 +4295,7 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-        return Streams.of(iterator).collect(LangCollectors.joining(toStringOrEmpty(String.valueOf(separator)), EMPTY, EMPTY, StringUtils::toStringOrEmpty));
+        return Streams.of(iterator).collect(LangCollectors.joining(toString(String.valueOf(separator)), EMPTY, EMPTY, StringUtils::toString));
     }
 
     /**
@@ -4319,7 +4319,7 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-        return Streams.of(iterator).collect(LangCollectors.joining(toStringOrEmpty(separator), EMPTY, EMPTY, StringUtils::toStringOrEmpty));
+        return Streams.of(iterator).collect(LangCollectors.joining(toString(separator), EMPTY, EMPTY, StringUtils::toString));
     }
 
     /**
@@ -4556,7 +4556,7 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      */
     public static String join(final Object[] array, final String delimiter) {
-        return array != null ? join(array, toStringOrEmpty(delimiter), 0, array.length) : null;
+        return array != null ? join(array, toString(delimiter), 0, array.length) : null;
     }
 
     /**
@@ -4596,7 +4596,7 @@ public class StringUtils {
      */
     public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
         return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0, endIndex - startIndex))
-            .collect(LangCollectors.joining(delimiter, EMPTY, EMPTY, StringUtils::toStringOrEmpty)) : null;
+            .collect(LangCollectors.joining(delimiter, EMPTY, EMPTY, StringUtils::toString)) : null;
     }
 
     /**
@@ -6048,16 +6048,16 @@ public class StringUtils {
      * consider using {@link #repeat(String, int)} instead.
      * </p>
      *
-     * @param ch  character to repeat
-     * @param repeat  number of times to repeat char, negative treated as zero
+     * @param repeat  character to repeat
+     * @param count  number of times to repeat char, negative treated as zero
      * @return String with repeated character
      * @see #repeat(String, int)
      */
-    public static String repeat(final char ch, final int repeat) {
-        if (repeat <= 0) {
+    public static String repeat(final char repeat, final int count) {
+        if (count <= 0) {
             return EMPTY;
         }
-        return new String(ArrayFill.fill(new char[repeat], ch));
+        return new String(ArrayFill.fill(new char[count], repeat));
     }
 
     /**
@@ -6073,44 +6073,44 @@ public class StringUtils {
      * StringUtils.repeat("a", -2) = ""
      * </pre>
      *
-     * @param str  the String to repeat, may be null
-     * @param repeat  number of times to repeat str, negative treated as zero
+     * @param repeat  the String to repeat, may be null
+     * @param count  number of times to repeat str, negative treated as zero
      * @return a new String consisting of the original String repeated,
      *  {@code null} if null String input
      */
-    public static String repeat(final String str, final int repeat) {
+    public static String repeat(final String repeat, final int count) {
         // Performance tuned for 2.0 (JDK1.4)
-        if (str == null) {
+        if (repeat == null) {
             return null;
         }
-        if (repeat <= 0) {
+        if (count <= 0) {
             return EMPTY;
         }
-        final int inputLength = str.length();
-        if (repeat == 1 || inputLength == 0) {
-            return str;
+        final int inputLength = repeat.length();
+        if (count == 1 || inputLength == 0) {
+            return repeat;
         }
-        if (inputLength == 1 && repeat <= PAD_LIMIT) {
-            return repeat(str.charAt(0), repeat);
+        if (inputLength == 1 && count <= PAD_LIMIT) {
+            return repeat(repeat.charAt(0), count);
         }
 
-        final int outputLength = inputLength * repeat;
+        final int outputLength = inputLength * count;
         switch (inputLength) {
             case 1 :
-                return repeat(str.charAt(0), repeat);
+                return repeat(repeat.charAt(0), count);
             case 2 :
-                final char ch0 = str.charAt(0);
-                final char ch1 = str.charAt(1);
+                final char ch0 = repeat.charAt(0);
+                final char ch1 = repeat.charAt(1);
                 final char[] output2 = new char[outputLength];
-                for (int i = repeat * 2 - 2; i >= 0; i--, i--) {
+                for (int i = count * 2 - 2; i >= 0; i--, i--) {
                     output2[i] = ch0;
                     output2[i + 1] = ch1;
                 }
                 return new String(output2);
             default :
                 final StringBuilder buf = new StringBuilder(outputLength);
-                for (int i = 0; i < repeat; i++) {
-                    buf.append(str);
+                for (int i = 0; i < count; i++) {
+                    buf.append(repeat);
                 }
                 return buf.toString();
         }
@@ -6129,19 +6129,19 @@ public class StringUtils {
      * StringUtils.repeat("?", ", ", 3)  = "?, ?, ?"
      * </pre>
      *
-     * @param str        the String to repeat, may be null
+     * @param repeat        the String to repeat, may be null
      * @param separator  the String to inject, may be null
-     * @param repeat     number of times to repeat str, negative treated as zero
+     * @param count     number of times to repeat str, negative treated as zero
      * @return a new String consisting of the original String repeated,
      *  {@code null} if null String input
      * @since 2.5
      */
-    public static String repeat(final String str, final String separator, final int repeat) {
-        if (str == null || separator == null) {
-            return repeat(str, repeat);
+    public static String repeat(final String repeat, final String separator, final int count) {
+        if (repeat == null || separator == null) {
+            return repeat(repeat, count);
         }
         // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
-        final String result = repeat(str + separator, repeat);
+        final String result = repeat(repeat + separator, count);
         return Strings.CS.removeEnd(result, separator);
     }
 
@@ -6329,9 +6329,7 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(searchChars)) {
             return str;
         }
-        if (replaceChars == null) {
-            replaceChars = EMPTY;
-        }
+        replaceChars = toString(replaceChars);
         boolean modified = false;
         final int replaceCharsLength = replaceChars.length();
         final int strLength = str.length();
@@ -8782,7 +8780,14 @@ public class StringUtils {
         return new String(bytes, Charsets.toCharset(charsetName));
     }
 
-    private static String toStringOrEmpty(final Object obj) {
+    /**
+     * Returns the result of calling {@code toString} on the first argument if the first argument is not {@code null} and returns the empty String otherwise.
+     *
+     * @param o           an object
+     * @return the result of calling {@code toString} on the first argument if it is not {@code null} and the empty String otherwise.
+     * @see Objects#toString(Object)
+     */
+    private static String toString(final Object obj) {
         return Objects.toString(obj, EMPTY);
     }
 
