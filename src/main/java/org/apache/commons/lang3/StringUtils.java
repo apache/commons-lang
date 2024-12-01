@@ -1336,6 +1336,15 @@ public class StringUtils {
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
+     * <pre>
+     * StringUtils.containsWhitespace(null)       = false
+     * StringUtils.containsWhitespace("")         = false
+     * StringUtils.containsWhitespace("ab")       = false
+     * StringUtils.containsWhitespace(" ab")      = true
+     * StringUtils.containsWhitespace("a b")      = true
+     * StringUtils.containsWhitespace("ab ")      = true
+     * </pre>
+     *
      * @param seq the CharSequence to check (may be {@code null})
      * @return {@code true} if the CharSequence is not empty and
      * contains at least 1 (breaking) whitespace character
