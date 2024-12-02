@@ -40,7 +40,7 @@ public class RuntimeEnvironment {
      * @return whether we are running in a container like Docker or Podman. Never null
      */
     public static Boolean inContainer() {
-        return inContainer("");
+        return inContainer(StringUtils.EMPTY);
     }
 
     static boolean inContainer(final String dirPrefix) {
@@ -66,7 +66,7 @@ public class RuntimeEnvironment {
     }
 
     /**
-     * Tests whether the /proc/N/environ file at the given path string contains a specific line prefix.
+     * Tests whether the {@code /proc/N/environ} file at the given path string contains a specific line prefix.
      *
      * @param envVarFile The path to a /proc/N/environ file.
      * @param key        The env var key to find.
@@ -77,7 +77,7 @@ public class RuntimeEnvironment {
             final byte[] bytes = Files.readAllBytes(Paths.get(envVarFile));
             final String content = new String(bytes, Charset.defaultCharset());
             // Split by null byte character
-            final String[] lines = content.split("\u0000");
+            final String[] lines = content.split(String.valueOf(CharUtils.NUL));
             final String prefix = key + "=";
             return Arrays.stream(lines)
                     .filter(line -> line.startsWith(prefix))
