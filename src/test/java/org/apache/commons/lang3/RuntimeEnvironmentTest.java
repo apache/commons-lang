@@ -63,27 +63,24 @@ public class RuntimeEnvironmentTest {
     @TempDir
     private Path tempDir;
 
-    private boolean doTestInContainer(String environ, String fileToCreate) throws IOException {
-        Path testDir = tempDir.resolve(UUID.randomUUID().toString());
-        Path pid1EnvironFile = testDir.resolve("proc/1/environ");
+    private boolean doTestInContainer(final String environ, final String fileToCreate) throws IOException {
+        final Path testDir = tempDir.resolve(UUID.randomUUID().toString());
+        final Path pid1EnvironFile = testDir.resolve("proc/1/environ");
         Files.createDirectories(pid1EnvironFile.getParent());
-
         if (fileToCreate != null) {
-            Path file = testDir.resolve(fileToCreate);
+            final Path file = testDir.resolve(fileToCreate);
             Files.createDirectories(file.getParent());
             Files.createFile(file);
         }
-
         if (environ != null) {
             Files.write(pid1EnvironFile, environ.getBytes(StandardCharsets.UTF_8));
         }
-
         return RuntimeEnvironment.inContainer(testDir.toString());
     }
 
     @ParameterizedTest
     @MethodSource
-    public void testIsContainer(String label, String environ, String fileToCreate, boolean expected) throws IOException {
+    public void testIsContainer(final String label, final String environ, final String fileToCreate, final boolean expected) throws IOException {
         assertEquals(expected, doTestInContainer(environ, fileToCreate), label);
     }
 }
