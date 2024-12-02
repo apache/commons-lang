@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -229,21 +230,34 @@ public class ToStringBuilderTest extends AbstractLangTest {
      */
     @Test
     public void test_setUpToClass_invalid() {
-        final Integer val = Integer.valueOf(5);
+        final HirAFixture val = new HirAFixture();
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
         assertThrows(IllegalArgumentException.class, () -> test.setUpToClass(String.class));
         test.toString();
     }
+    
+    private static class HirAFixture extends HirBFixture{
+        int x = 1;
+    }
+
+    private static class HirBFixture extends HirCFixture{
+        int y = 2;
+    }
+    
+    private static class HirCFixture {
+        int z = 3;
+    }
+    
 
     /**
      * Tests ReflectionToStringBuilder setUpToClass().
      */
     @Test
     public void test_setUpToClass_valid() {
-        final Integer val = Integer.valueOf(5);
+        final HirAFixture val = new HirAFixture();
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
-        test.setUpToClass(Number.class);
-        test.toString();
+        test.setUpToClass(HirBFixture.class);
+        assertEquals(val.toString() + "[x=1,y=2]", test.toString());
     }
 
     @Test
@@ -750,6 +764,12 @@ public class ToStringBuilderTest extends AbstractLangTest {
         array = null;
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
+    }
+    
+    @Test
+    public void testArrayList() {
+        List<Integer> list = Arrays.asList(23, 12, 39);
+        assertEquals(baseStr + "[[23, 12, 39]]", new ToStringBuilder(base).append(list).toString());
     }
 
     @Test

@@ -202,6 +202,7 @@
               <exclude>src/site/resources/download_lang.cgi</exclude>
               <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
               <exclude>src/test/resources/lang-708-input.txt</exclude>
+              <exclude>nb-configuration.xml</exclude>
             </excludes>
           </configuration>
         </plugin>
@@ -460,7 +461,10 @@
       <properties>
         <!-- LANG-1265: allow tests to access private fields/methods of java.base classes via reflection -->
         <!-- LANG-1667: allow tests to access private fields/methods of java.base/java.util such as ArrayList via reflection -->
-        <argLine>-Xmx512m --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</argLine>
+<!--
+        <argLine>-Xmx512m &#45;&#45;add-opens java.base/java.lang.reflect=ALL-UNNAMED &#45;&#45;add-opens java.base/java.lang=ALL-UNNAMED &#45;&#45;add-opens java.base/java.util=ALL-UNNAMED</argLine>
+-->
+        <argLine>-Xmx512m</argLine>
       </properties>
     </profile>
     <profile>
