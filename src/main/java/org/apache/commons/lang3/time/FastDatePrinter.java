@@ -445,7 +445,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         @Override
         public int hashCode() {
-            return (style * 31 + locale.hashCode() ) * 31 + timeZone.hashCode();
+            return (style * 31 + locale.hashCode()) * 31 + timeZone.hashCode();
         }
     }
     /**

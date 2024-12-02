@@ -234,11 +234,11 @@ public class MutableIntTest extends AbstractLangTest {
     @Test
     public void testPrimitiveValues() {
         final MutableInt mutNum = new MutableInt(1);
-        assertEquals( (byte) 1, mutNum.byteValue() );
-        assertEquals( (short) 1, mutNum.shortValue() );
+        assertEquals((byte) 1, mutNum.byteValue());
+        assertEquals((short) 1, mutNum.shortValue());
         assertEquals(1.0F, mutNum.floatValue());
         assertEquals(1.0, mutNum.doubleValue());
-        assertEquals( 1L, mutNum.longValue() );
+        assertEquals(1L, mutNum.longValue());
     }
 
     @Test

@@ -224,13 +224,13 @@ public class MutableByteTest extends AbstractLangTest {
 
     @Test
     public void testPrimitiveValues() {
-        final MutableByte mutNum = new MutableByte( (byte) 1 );
+        final MutableByte mutNum = new MutableByte((byte) 1);
         assertEquals(1.0F, mutNum.floatValue());
         assertEquals(1.0, mutNum.doubleValue());
-        assertEquals( (byte) 1, mutNum.byteValue() );
-        assertEquals( (short) 1, mutNum.shortValue() );
-        assertEquals( 1, mutNum.intValue() );
-        assertEquals( 1L, mutNum.longValue() );
+        assertEquals((byte) 1, mutNum.byteValue());
+        assertEquals((short) 1, mutNum.shortValue());
+        assertEquals(1, mutNum.intValue());
+        assertEquals(1L, mutNum.longValue());
     }
 
     @Test

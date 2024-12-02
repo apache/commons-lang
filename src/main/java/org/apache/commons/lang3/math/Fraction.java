@@ -530,7 +530,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         // of the time.
         final int d1 = greatestCommonDivisor(denominator, fraction.denominator);
         if (d1 == 1) {
-            // result is ( (u*v' +/- u'v) / u'v')
+            // result is ((u*v' +/- u'v) / u'v')
             final int uvp = mulAndCheck(numerator, fraction.denominator);
             final int upv = mulAndCheck(fraction.numerator, denominator);
             return new Fraction(isAdd ? addAndCheck(uvp, upv) : subAndCheck(uvp, upv), mulPosAndCheck(denominator,

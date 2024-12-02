@@ -451,7 +451,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
         sb.append(new StringBuilder("abcbardef"), 3, 3);
         assertEquals("foobar", sb.toString());
 
-        sb.append( new StringBuilder("abcbardef"), 4, 3);
+        sb.append(new StringBuilder("abcbardef"), 4, 3);
         assertEquals("foobarard", sb.toString());
     }
 

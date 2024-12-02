@@ -389,7 +389,7 @@ public class CharSetTest extends AbstractLangTest {
 
     @Test
     public void testGetInstance() {
-        assertSame(CharSet.EMPTY, CharSet.getInstance( (String) null));
+        assertSame(CharSet.EMPTY, CharSet.getInstance((String) null));
         assertSame(CharSet.EMPTY, CharSet.getInstance(""));
         assertSame(CharSet.ASCII_ALPHA, CharSet.getInstance("a-zA-Z"));
         assertSame(CharSet.ASCII_ALPHA, CharSet.getInstance("A-Za-z"));

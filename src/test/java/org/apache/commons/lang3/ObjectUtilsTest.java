@@ -842,14 +842,14 @@ public class ObjectUtilsTest extends AbstractLangTest {
 
     @Test
     public void testToString_Object() {
-        assertEquals("", ObjectUtils.toString(null) );
-        assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE) );
+        assertEquals("", ObjectUtils.toString(null));
+        assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE));
     }
 
     @Test
     public void testToString_Object_String() {
-        assertEquals(BAR, ObjectUtils.toString(null, BAR) );
-        assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, BAR) );
+        assertEquals(BAR, ObjectUtils.toString(null, BAR));
+        assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, BAR));
     }
 
     @Test

@@ -116,9 +116,9 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
 
             int end = start;
             // Note that this supports character codes without a ; on the end
-            while (end < seqEnd && ( input.charAt(end) >= '0' && input.charAt(end) <= '9' ||
+            while (end < seqEnd && (input.charAt(end) >= '0' && input.charAt(end) <= '9' ||
                                     input.charAt(end) >= 'a' && input.charAt(end) <= 'f' ||
-                                    input.charAt(end) >= 'A' && input.charAt(end) <= 'F' ) ) {
+                                    input.charAt(end) >= 'A' && input.charAt(end) <= 'F')) {
                 end++;
             }
 

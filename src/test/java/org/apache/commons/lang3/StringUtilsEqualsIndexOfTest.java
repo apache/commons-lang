@@ -580,7 +580,7 @@ public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
         builder.appendCodePoint(CODE_POINT);
         assertEquals(-1, StringUtils.lastIndexOf(builder, CODE_POINT, 0));
-        assertEquals(1, StringUtils.lastIndexOf(builder, CODE_POINT, 1 ));
+        assertEquals(1, StringUtils.lastIndexOf(builder, CODE_POINT, 1));
         assertEquals(-1, StringUtils.lastIndexOf(builder.toString(), CODE_POINT, 0));
         assertEquals(1, StringUtils.lastIndexOf(builder.toString(), CODE_POINT, 1));
         assertEquals(StringUtils.INDEX_NOT_FOUND, StringUtils.lastIndexOf(CharBuffer.wrap("[%{.c.0rro"), -1738, 982));
@@ -705,17 +705,17 @@ public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
 
     @Test
     public void testLastOrdinalIndexOf() {
-        assertEquals(-1, StringUtils.lastOrdinalIndexOf(null, "*", 42) );
-        assertEquals(-1, StringUtils.lastOrdinalIndexOf("*", null, 42) );
-        assertEquals(0, StringUtils.lastOrdinalIndexOf("", "", 42) );
-        assertEquals(7, StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 1) );
-        assertEquals(6, StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 2) );
-        assertEquals(5, StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 1) );
-        assertEquals(2, StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 2) );
-        assertEquals(4, StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 1) );
-        assertEquals(1, StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 2) );
-        assertEquals(8, StringUtils.lastOrdinalIndexOf("aabaabaa", "", 1) );
-        assertEquals(8, StringUtils.lastOrdinalIndexOf("aabaabaa", "", 2) );
+        assertEquals(-1, StringUtils.lastOrdinalIndexOf(null, "*", 42));
+        assertEquals(-1, StringUtils.lastOrdinalIndexOf("*", null, 42));
+        assertEquals(0, StringUtils.lastOrdinalIndexOf("", "", 42));
+        assertEquals(7, StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 1));
+        assertEquals(6, StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 2));
+        assertEquals(5, StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 1));
+        assertEquals(2, StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 2));
+        assertEquals(4, StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 1));
+        assertEquals(1, StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 2));
+        assertEquals(8, StringUtils.lastOrdinalIndexOf("aabaabaa", "", 1));
+        assertEquals(8, StringUtils.lastOrdinalIndexOf("aabaabaa", "", 2));
     }
 
     @Test

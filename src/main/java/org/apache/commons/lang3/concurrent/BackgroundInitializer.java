@@ -339,7 +339,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      */
     @Override
     public synchronized boolean isInitialized() {
-        if (future == null || ! future.isDone() ) {
+        if (future == null || ! future.isDone()) {
             return false;
         }
 

@@ -84,7 +84,7 @@ public class StringEscapeUtils {
                 throw new IllegalStateException("CsvUnescaper should never reach the [1] index");
             }
 
-            if ( input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE ) {
+            if (input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE) {
                 out.write(input.toString());
                 return Character.codePointCount(input, 0, input.length());
             }
@@ -92,7 +92,7 @@ public class StringEscapeUtils {
             // strip quotes
             final String quoteless = input.subSequence(1, input.length() - 1).toString();
 
-            if ( StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS) ) {
+            if (StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS)) {
                 // deal with escaped quotes; ie) ""
                 out.write(Strings.CS.replace(quoteless, CSV_QUOTE_STR + CSV_QUOTE_STR, CSV_QUOTE_STR));
             } else {
@@ -570,7 +570,7 @@ public class StringEscapeUtils {
      * <p>Note that Unicode characters greater than 0x7f are as of 3.0, no longer
      *    escaped. If you still wish this functionality, you can achieve it
      *    via the following:
-     * {@code StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE) );}</p>
+     * {@code StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE));}</p>
      *
      * @param input  the {@link String} to escape, may be null
      * @return a new escaped {@link String}, {@code null} if null string input

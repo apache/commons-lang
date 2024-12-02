@@ -62,5 +62,6 @@ limitations under the License.
     </module>
     <module name="MissingOverride"/>
     <module name="ArrayTypeStyle"/>
+    <module name="ParenPad"/>
  </module>
 </module>

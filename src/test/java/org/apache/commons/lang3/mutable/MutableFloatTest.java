@@ -239,12 +239,12 @@ public class MutableFloatTest extends AbstractLangTest {
     public void testPrimitiveValues() {
         final MutableFloat mutNum = new MutableFloat(1.7F);
 
-        assertEquals( 1, mutNum.intValue() );
-        assertEquals( 1.7, mutNum.doubleValue(), 0.00001 );
-        assertEquals( (byte) 1, mutNum.byteValue() );
-        assertEquals( (short) 1, mutNum.shortValue() );
-        assertEquals( 1, mutNum.intValue() );
-        assertEquals( 1L, mutNum.longValue() );
+        assertEquals(1, mutNum.intValue());
+        assertEquals(1.7, mutNum.doubleValue(), 0.00001);
+        assertEquals((byte) 1, mutNum.byteValue());
+        assertEquals((short) 1, mutNum.shortValue());
+        assertEquals(1, mutNum.intValue());
+        assertEquals(1L, mutNum.longValue());
     }
 
     @Test

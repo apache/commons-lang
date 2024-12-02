@@ -708,7 +708,7 @@ public class StrBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetChars ( ) {
+    public void testGetChars () {
         final StrBuilder sb = new StrBuilder();
 
         char[] input = new char[10];
@@ -736,7 +736,7 @@ public class StrBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetCharsIntIntCharArrayInt( ) {
+    public void testGetCharsIntIntCharArrayInt() {
         final StrBuilder sb = new StrBuilder();
 
         sb.append("junit");
