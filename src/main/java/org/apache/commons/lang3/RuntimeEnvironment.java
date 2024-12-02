@@ -30,6 +30,10 @@ import java.util.Arrays;
  */
 public class RuntimeEnvironment {
 
+    private static boolean fileExists(String path) {
+        return Files.exists(Paths.get(path));
+    }
+
     /**
      * Tests whether the /proc/N/environ file at the given path string contains a specific line prefix.
      *
@@ -84,10 +88,6 @@ public class RuntimeEnvironment {
             return !value.isEmpty();
         }
         return fileExists(dirPrefix + "/.dockerenv") || fileExists(dirPrefix + "/run/.containerenv");
-    }
-
-    private static boolean fileExists(String path) {
-        return Files.exists(Paths.get(path));
     }
 
     /**
