@@ -150,162 +150,62 @@ public abstract class ToStringStyle implements Serializable {
         }
 
         @Override
-        public void append(final StringBuffer buffer, final String fieldName,
-                           final boolean[] array, final Boolean fullDetail) {
-
-            if (fieldName == null) {
-                throw new UnsupportedOperationException(
-                        "Field names are mandatory when using JsonToStringStyle");
-            }
-            if (!isFullDetail(fullDetail)) {
-                throw new UnsupportedOperationException(
-                        "FullDetail must be true when using JsonToStringStyle");
-            }
-
+        public void append(final StringBuffer buffer, final String fieldName, final boolean[] array, final Boolean fullDetail) {
+            checkAppendInput(fieldName, fullDetail);
             super.append(buffer, fieldName, array, fullDetail);
         }
 
         @Override
-        public void append(final StringBuffer buffer, final String fieldName, final byte[] array,
-                           final Boolean fullDetail) {
-
-            if (fieldName == null) {
-                throw new UnsupportedOperationException(
-                        "Field names are mandatory when using JsonToStringStyle");
-            }
-            if (!isFullDetail(fullDetail)) {
-                throw new UnsupportedOperationException(
-                        "FullDetail must be true when using JsonToStringStyle");
-            }
-
+        public void append(final StringBuffer buffer, final String fieldName, final byte[] array, final Boolean fullDetail) {
+            checkAppendInput(fieldName, fullDetail);
             super.append(buffer, fieldName, array, fullDetail);
         }
 
         @Override
-        public void append(final StringBuffer buffer, final String fieldName, final char[] array,
-                           final Boolean fullDetail) {
-
-            if (fieldName == null) {
-                throw new UnsupportedOperationException(
-                        "Field names are mandatory when using JsonToStringStyle");
-            }
-            if (!isFullDetail(fullDetail)) {
-                throw new UnsupportedOperationException(
-                        "FullDetail must be true when using JsonToStringStyle");
-            }
-
+        public void append(final StringBuffer buffer, final String fieldName, final char[] array, final Boolean fullDetail) {
+            checkAppendInput(fieldName, fullDetail);
             super.append(buffer, fieldName, array, fullDetail);
         }
 
         @Override
-        public void append(final StringBuffer buffer, final String fieldName,
-                           final double[] array, final Boolean fullDetail) {
-
-            if (fieldName == null) {
-                throw new UnsupportedOperationException(
-                        "Field names are mandatory when using JsonToStringStyle");
-            }
-            if (!isFullDetail(fullDetail)) {
-                throw new UnsupportedOperationException(
-                        "FullDetail must be true when using JsonToStringStyle");
-            }
-
+        public void append(final StringBuffer buffer, final String fieldName, final double[] array, final Boolean fullDetail) {
+            checkAppendInput(fieldName, fullDetail);
             super.append(buffer, fieldName, array, fullDetail);
         }
 
         @Override
-        public void append(final StringBuffer buffer, final String fieldName,
-                           final float[] array, final Boolean fullDetail) {
-
-            if (fieldName == null) {
-                throw new UnsupportedOperationException(
-                        "Field names are mandatory when using JsonToStringStyle");
-            }
-            if (!isFullDetail(fullDetail)) {
-                throw new UnsupportedOperationException(
-                        "FullDetail must be true when using JsonToStringStyle");
-            }
-
+        public void append(final StringBuffer buffer, final String fieldName, final float[] array, final Boolean fullDetail) {
+            checkAppendInput(fieldName, fullDetail);
             super.append(buffer, fieldName, array, fullDetail);
         }
 
         @Override
-        public void append(final StringBuffer buffer, final String fieldName, final int[] array,
-                           final Boolean fullDetail) {
-
-            if (fieldName == null) {
-                throw new UnsupportedOperationException(
-                        "Field names are mandatory when using JsonToStringStyle");
-            }
-            if (!isFullDetail(fullDetail)) {
-                throw new UnsupportedOperationException(
-                        "FullDetail must be true when using JsonToStringStyle");
-            }
-
+        public void append(final StringBuffer buffer, final String fieldName, final int[] array, final Boolean fullDetail) {
+            checkAppendInput(fieldName, fullDetail);
             super.append(buffer, fieldName, array, fullDetail);
         }
 
         @Override
-        public void append(final StringBuffer buffer, final String fieldName, final long[] array,
-                           final Boolean fullDetail) {
-
-            if (fieldName == null) {
-                throw new UnsupportedOperationException(
-                        "Field names are mandatory when using JsonToStringStyle");
-            }
-            if (!isFullDetail(fullDetail)) {
-                throw new UnsupportedOperationException(
-                        "FullDetail must be true when using JsonToStringStyle");
-            }
-
+        public void append(final StringBuffer buffer, final String fieldName, final long[] array, final Boolean fullDetail) {
+            checkAppendInput(fieldName, fullDetail);
             super.append(buffer, fieldName, array, fullDetail);
         }
 
         @Override
-        public void append(final StringBuffer buffer, final String fieldName, final Object value,
-                           final Boolean fullDetail) {
-
-            if (fieldName == null) {
-                throw new UnsupportedOperationException(
-                        "Field names are mandatory when using JsonToStringStyle");
-            }
-            if (!isFullDetail(fullDetail)) {
-                throw new UnsupportedOperationException(
-                        "FullDetail must be true when using JsonToStringStyle");
-            }
-
+        public void append(final StringBuffer buffer, final String fieldName, final Object value, final Boolean fullDetail) {
+            checkAppendInput(fieldName, fullDetail);
             super.append(buffer, fieldName, value, fullDetail);
         }
 
         @Override
-        public void append(final StringBuffer buffer, final String fieldName,
-                           final Object[] array, final Boolean fullDetail) {
-
-            if (fieldName == null) {
-                throw new UnsupportedOperationException(
-                        "Field names are mandatory when using JsonToStringStyle");
-            }
-            if (!isFullDetail(fullDetail)) {
-                throw new UnsupportedOperationException(
-                        "FullDetail must be true when using JsonToStringStyle");
-            }
-
+        public void append(final StringBuffer buffer, final String fieldName, final Object[] array, final Boolean fullDetail) {
+            checkAppendInput(fieldName, fullDetail);
             super.append(buffer, fieldName, array, fullDetail);
         }
 
         @Override
-        public void append(final StringBuffer buffer, final String fieldName,
-                           final short[] array, final Boolean fullDetail) {
-
-            if (fieldName == null) {
-                throw new UnsupportedOperationException(
-                        "Field names are mandatory when using JsonToStringStyle");
-            }
-            if (!isFullDetail(fullDetail)) {
-                throw new UnsupportedOperationException(
-                        "FullDetail must be true when using JsonToStringStyle");
-            }
-
+        public void append(final StringBuffer buffer, final String fieldName, final short[] array, final Boolean fullDetail) {
+            checkAppendInput(fieldName, fullDetail);
             super.append(buffer, fieldName, array, fullDetail);
         }
 
@@ -325,7 +225,6 @@ public abstract class ToStringStyle implements Serializable {
                 buffer.append(getArrayEnd());
                 return;
             }
-
             buffer.append(coll);
         }
 
@@ -390,10 +289,7 @@ public abstract class ToStringStyle implements Serializable {
         @Override
         protected void appendFieldStart(final StringBuffer buffer, final String fieldName) {
 
-            if (fieldName == null) {
-                throw new UnsupportedOperationException(
-                        "Field names are mandatory when using JsonToStringStyle");
-            }
+            checkFieldName(fieldName);
 
             super.appendFieldStart(buffer, FIELD_NAME_QUOTE + StringEscapeUtils.escapeJson(fieldName)
                     + FIELD_NAME_QUOTE);
@@ -407,6 +303,23 @@ public abstract class ToStringStyle implements Serializable {
          */
         private void appendValueAsString(final StringBuffer buffer, final String value) {
             buffer.append('"').append(StringEscapeUtils.escapeJson(value)).append('"');
+        }
+
+        private void checkAppendInput(final String fieldName, final Boolean fullDetail) {
+            checkFieldName(fieldName);
+            checkIsFullDetail(fullDetail);
+        }
+
+        private void checkFieldName(final String fieldName) {
+            if (fieldName == null) {
+                throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+            }
+        }
+
+        private void checkIsFullDetail(final Boolean fullDetail) {
+            if (!isFullDetail(fullDetail)) {
+                throw new UnsupportedOperationException("FullDetail must be true when using JsonToStringStyle");
+            }
         }
 
         private boolean isJsonArray(final String valueAsString) {
