@@ -35,31 +35,6 @@ public class RuntimeEnvironment {
     }
 
     /**
-     * Tests whether the /proc/N/environ file at the given path string contains a specific line prefix.
-     *
-     * @param envVarFile The path to a /proc/N/environ file.
-     * @param key     The env var key to find.
-     * @return value The env var value or null
-     */
-    private static String getenv(final String envVarFile, final String key) {
-        try {
-            final byte[] bytes = Files.readAllBytes(Paths.get(envVarFile));
-            final String content = new String(bytes, Charset.defaultCharset());
-            // Split by null byte character
-            final String[] lines = content.split("\u0000");
-            final String prefix = key + "=";
-            return Arrays.stream(lines)
-                    .filter(line -> line.startsWith(prefix))
-                    .map(line -> line.split("=", 2))
-                    .map(keyValue -> keyValue[1])
-                    .findFirst()
-                    .orElse(null);
-        } catch (final IOException e) {
-            return null;
-        }
-    }
-
-    /**
      * Tests whether we are running in a container like Docker or Podman.
      *
      * @return whether we are running in a container like Docker or Podman. Never null
@@ -83,11 +58,36 @@ public class RuntimeEnvironment {
         /run/.containerenv is used by PodMan.
 
          */
-        final String value = getenv(dirPrefix + "/proc/1/environ", "container");
+        final String value = readFile(dirPrefix + "/proc/1/environ", "container");
         if (value != null) {
             return !value.isEmpty();
         }
         return fileExists(dirPrefix + "/.dockerenv") || fileExists(dirPrefix + "/run/.containerenv");
+    }
+
+    /**
+     * Tests whether the /proc/N/environ file at the given path string contains a specific line prefix.
+     *
+     * @param envVarFile The path to a /proc/N/environ file.
+     * @param key        The env var key to find.
+     * @return value The env var value or null.
+     */
+    private static String readFile(final String envVarFile, final String key) {
+        try {
+            final byte[] bytes = Files.readAllBytes(Paths.get(envVarFile));
+            final String content = new String(bytes, Charset.defaultCharset());
+            // Split by null byte character
+            final String[] lines = content.split("\u0000");
+            final String prefix = key + "=";
+            return Arrays.stream(lines)
+                    .filter(line -> line.startsWith(prefix))
+                    .map(line -> line.split("=", 2))
+                    .map(keyValue -> keyValue[1])
+                    .findFirst()
+                    .orElse(null);
+        } catch (final IOException e) {
+            return null;
+        }
     }
 
     /**
