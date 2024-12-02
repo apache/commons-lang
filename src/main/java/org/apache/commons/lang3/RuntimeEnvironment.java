@@ -30,7 +30,7 @@ import java.util.Arrays;
  */
 public class RuntimeEnvironment {
 
-    private static boolean fileExists(String path) {
+    private static boolean fileExists(final String path) {
         return Files.exists(Paths.get(path));
     }
 
@@ -43,11 +43,11 @@ public class RuntimeEnvironment {
      */
     private static String getenv(final String envVarFile, final String key) {
         try {
-            byte[] bytes = Files.readAllBytes(Paths.get(envVarFile));
-            String content = new String(bytes, Charset.defaultCharset());
+            final byte[] bytes = Files.readAllBytes(Paths.get(envVarFile));
+            final String content = new String(bytes, Charset.defaultCharset());
             // Split by null byte character
-            String[] lines = content.split("\u0000");
-            String prefix = key + "=";
+            final String[] lines = content.split("\u0000");
+            final String prefix = key + "=";
             return Arrays.stream(lines)
                     .filter(line -> line.startsWith(prefix))
                     .map(line -> line.split("=", 2))
@@ -83,7 +83,7 @@ public class RuntimeEnvironment {
         /run/.containerenv is used by PodMan.
 
          */
-        String value = getenv(dirPrefix + "/proc/1/environ", "container");
+        final String value = getenv(dirPrefix + "/proc/1/environ", "container");
         if (value != null) {
             return !value.isEmpty();
         }
