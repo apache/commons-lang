@@ -8529,6 +8529,41 @@ public class StringUtils {
     }
 
     /**
+     * Gets the substring before the last occurrence of a separator.
+     * The separator is not returned.
+     *
+     * <p>A {@code null} string input will return {@code null}.
+     * An empty ("") string input will return the empty string.</p>
+     *
+     * <p>If nothing is found, the string input is returned.</p>
+     *
+     * <pre>
+     * StringUtils.substringBeforeLast(null, *)      = null
+     * StringUtils.substringBeforeLast("", *)        = ""
+     * StringUtils.substringBeforeLast("abcba", 'b') = "abc"
+     * StringUtils.substringBeforeLast("abc", 'c')   = "ab"
+     * StringUtils.substringBeforeLast("a", 'a')     = ""
+     * StringUtils.substringBeforeLast("a", 'z')     = "a"
+     * </pre>
+     *
+     * @param str  the String to get a substring from, may be null
+     * @param separator  the character (Unicode code point) to search.
+     * @return the substring before the last occurrence of the separator,
+     *  {@code null} if null String input
+     * @since 3.12.1
+     */
+    public static String substringBeforeLast(final String str, final int separator) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        final int pos = str.lastIndexOf(separator);
+        if (pos == INDEX_NOT_FOUND) {
+            return str;
+        }
+        return str.substring(0, pos);
+    }
+
+    /**
      * Gets the String that is nested in between two instances of the
      * same String.
      *

@@ -293,19 +293,44 @@ public class StringUtilsSubstringTest extends AbstractLangTest {
         assertEquals("", StringUtils.substringBeforeLast("a", "a"));
     }
 
-   @Test
-public void testSubstringBetween_StringString() {
-    assertNull(StringUtils.substringBetween(null, "tag"));
-    assertEquals("", StringUtils.substringBetween("", ""));
-    assertNull(StringUtils.substringBetween("", "abc"));
-    assertEquals("", StringUtils.substringBetween("    ", " "));
-    assertNull(StringUtils.substringBetween("abc", null));
-    assertEquals("", StringUtils.substringBetween("abc", ""));
-    assertNull(StringUtils.substringBetween("abc", "a"));
-    assertEquals("bc", StringUtils.substringBetween("abca", "a"));
-    assertEquals("bc", StringUtils.substringBetween("abcabca", "a"));
-    assertEquals("bar", StringUtils.substringBetween("\nbar\n", "\n"));
-}
+    @Test
+    public void testSubstringBeforeLast_StringInt() {
+        assertNull(StringUtils.substringBeforeLast(null, 'X'));
+        assertEquals("", StringUtils.substringBeforeLast("", 'X'));
+
+        assertEquals("foo", StringUtils.substringBeforeLast("foo", 'X'));
+        assertEquals("12345", StringUtils.substringBeforeLast("12345", 'Z'));
+
+        assertEquals("fooXXbarX", StringUtils.substringBeforeLast("fooXXbarXXbaz", 'X'));
+        assertEquals("foo", StringUtils.substringBeforeLast("fooXbar", 'X'));
+        assertEquals("", StringUtils.substringBeforeLast("Xbar", 'X'));
+
+        assertEquals("abcdabc", StringUtils.substringBeforeLast("abcdabcd", 'd'));
+        assertEquals("abcXXabcX", StringUtils.substringBeforeLast("abcXXabcXX", 'X'));
+
+        assertEquals("a", StringUtils.substringBeforeLast("a", 'X'));
+        assertEquals("", StringUtils.substringBeforeLast("X", 'X'));
+        assertEquals("abc ", StringUtils.substringBeforeLast("abc \n", '\n'));
+
+        assertEquals("ab\u1234c", StringUtils.substringBeforeLast("ab\u1234cd", 'd'));
+
+        assertEquals("12345", StringUtils.substringBeforeLast("12345", 999));
+        assertEquals("abc", StringUtils.substringBeforeLast("abc", -1));
+    }
+
+    @Test
+    public void testSubstringBetween_StringString() {
+        assertNull(StringUtils.substringBetween(null, "tag"));
+        assertEquals("", StringUtils.substringBetween("", ""));
+        assertNull(StringUtils.substringBetween("", "abc"));
+        assertEquals("", StringUtils.substringBetween("    ", " "));
+        assertNull(StringUtils.substringBetween("abc", null));
+        assertEquals("", StringUtils.substringBetween("abc", ""));
+        assertNull(StringUtils.substringBetween("abc", "a"));
+        assertEquals("bc", StringUtils.substringBetween("abca", "a"));
+        assertEquals("bc", StringUtils.substringBetween("abcabca", "a"));
+        assertEquals("bar", StringUtils.substringBetween("\nbar\n", "\n"));
+    }
 
     @Test
     public void testSubstringBetween_StringStringString() {
