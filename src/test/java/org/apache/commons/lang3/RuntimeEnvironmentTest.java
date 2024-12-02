@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -73,7 +74,7 @@ public class RuntimeEnvironmentTest {
             Files.createFile(file);
         }
         if (environ != null) {
-            Files.write(pid1EnvironFile, environ.getBytes(StandardCharsets.UTF_8));
+            Files.write(pid1EnvironFile, environ.getBytes(Charset.defaultCharset()));
         }
         return RuntimeEnvironment.inContainer(testDir.toString());
     }
