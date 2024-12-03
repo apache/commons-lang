@@ -24,10 +24,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.stream.LangCollectors;
@@ -2796,7 +2800,7 @@ public class StringUtils {
     /**
      * Searches a CharSequence to find the first index of any
      * character not in the given set of characters, i.e.,
-     * find index i of first char in cs such that (cs.codePointAt(i) ∉ { x ∈ codepoints(searchChars) })
+     * find index i of first char in cs such that (cs.codePointAt(i) ∈ {x ∈ codepoints(cs) ∣ x ∉ codepoints(searchChars) })
      *
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} or zero length search array will return {@code -1}.</p>
@@ -2828,7 +2832,7 @@ public class StringUtils {
     /**
      * Search a CharSequence to find the first index of any
      * character not in the given set of characters, i.e.,
-     * find index i of first char in seq such that (seq.codePointAt(i) ∉ { x ∈ codepoints(searchChars) })
+     * find index i of first char in seq such that (seq.codePointAt(i) ∈ {x ∈ codepoints(seq) ∣ x ∉ codepoints(searchChars) })
      *
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} or empty search string will return {@code -1}.</p>
@@ -2853,14 +2857,21 @@ public class StringUtils {
         if (isEmpty(seq) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        final int[] codePoints = searchChars.codePoints().sorted().toArray();
-        // advance character index from one interpreted codepoint to the next
-        for (int curSeqCharIdx = 0; curSeqCharIdx < seq.length();) {
+        final Set<Integer> seqSetCodePoints = seq.codePoints().boxed().collect(Collectors.toSet()); // JDK >=10: Collectors::toUnmodifiableSet
+        final Set<Integer> searchSetCodePoints = searchChars.codePoints().boxed()
+                .collect(Collectors.toSet()); // JDK >=10: Collectors::toUnmodifiableSet
+        final Set<Integer> complSetCodePoints = seqSetCodePoints.stream().filter(((Predicate<Integer>) searchSetCodePoints::contains).negate()) // JDK >=11: Predicate.not(searchSetCodePoints::contains)
+                .collect(Collectors.toSet()); // JDK >=10: Collectors::toUnmodifiableSet
+        for (final ListIterator<Integer> seqListIt = seq.chars().boxed().collect(Collectors.toList()) // JDK >=16: Stream::toList, JDK >=10: Collectors::toUnmodifiableList
+                .listIterator(); seqListIt.hasNext(); seqListIt.next()) {
+            final int curSeqCharIdx = seqListIt.nextIndex();
             final int curSeqCodePoint = Character.codePointAt(seq, curSeqCharIdx);
-            if (Arrays.binarySearch(codePoints, curSeqCodePoint) < 0) {
+            if (complSetCodePoints.contains(curSeqCodePoint)) {
                 return curSeqCharIdx;
             }
-            curSeqCharIdx += Character.charCount(curSeqCodePoint); // skip indices to paired low-surrogates
+            if (Character.isSupplementaryCodePoint(curSeqCodePoint)) {
+                seqListIt.next(); // skip subsequent low-surrogate in next loop, since it merged into curSeqCodePoint
+            }
         }
         return INDEX_NOT_FOUND;
     }
