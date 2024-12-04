@@ -235,19 +235,18 @@ public class ToStringBuilderTest extends AbstractLangTest {
         assertThrows(IllegalArgumentException.class, () -> test.setUpToClass(String.class));
         test.toString();
     }
-    
-    private static class HirAFixture extends HirBFixture{
+
+    private static class HirAFixture extends HirBFixture {
         int x = 1;
     }
 
-    private static class HirBFixture extends HirCFixture{
+    private static class HirBFixture extends HirCFixture {
         int y = 2;
     }
-    
+
     private static class HirCFixture {
         int z = 3;
     }
-    
 
     /**
      * Tests ReflectionToStringBuilder setUpToClass().
@@ -765,7 +764,7 @@ public class ToStringBuilderTest extends AbstractLangTest {
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
     }
-    
+
     @Test
     public void testArrayList() {
         List<Integer> list = Arrays.asList(23, 12, 39);

@@ -849,14 +849,14 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         }
 
         validate();
-        
+
         if (handleNativeClasses()) {
             return super.toString();
         }
 
         Class<?> clazz = getObject().getClass();
         appendFieldsIn(clazz);
-        
+
         while (clazz.getSuperclass() != null && clazz != getUpToClass()) {
             clazz = clazz.getSuperclass();
             appendFieldsIn(clazz);
@@ -877,17 +877,17 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     private boolean handleNativeClasses() {
         Object value = getObject();
         if (value instanceof Number || value instanceof Boolean || value instanceof Character
-            || value instanceof TemporalAccessor ) {
+                || value instanceof TemporalAccessor) {
             getStringBuffer().append("value=").append(getObject().toString());
             return true;
         }
-        
+
         if (value.getClass().isArray() || value instanceof Collection || value instanceof Map) {
             ToStringStyle.unregister(value);
             getStyle().append(getStringBuffer(), null, value, true);
             return true;
         }
-        
+
         return false;
     }
 
