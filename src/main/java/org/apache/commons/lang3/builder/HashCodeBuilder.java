@@ -20,6 +20,7 @@ package org.apache.commons.lang3.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.time.temporal.Temporal;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -178,6 +179,10 @@ public class HashCodeBuilder implements Builder<Integer> {
     private static void reflectionAppend(final Object object, final Class<?> clazz, final HashCodeBuilder builder, final boolean useTransients,
             final String[] excludeFields) {
         if (isRegistered(object)) {
+            return;
+        }
+        if (object instanceof CharSequence || object instanceof Number || object instanceof Temporal) {
+            builder.append(object);
             return;
         }
         try {

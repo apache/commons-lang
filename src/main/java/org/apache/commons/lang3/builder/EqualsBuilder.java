@@ -19,6 +19,7 @@ package org.apache.commons.lang3.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -731,7 +732,8 @@ public class EqualsBuilder implements Builder<Boolean> {
             // to be inlined
             appendArray(lhs, rhs);
         } else // The simple case, not an array, just test the element
-        if (testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass)) {
+        if (testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass)
+                && !(CharSequence.class.isAssignableFrom(lhsClass) || Number.class.isAssignableFrom(lhsClass) || Temporal.class.isAssignableFrom(lhsClass))) {
             reflectionAppend(lhs, rhs);
         } else {
             isEquals = lhs.equals(rhs);
@@ -956,7 +958,8 @@ public class EqualsBuilder implements Builder<Boolean> {
         }
 
         try {
-            if (testClass.isArray()) {
+            if (testClass.isArray() || Number.class.isAssignableFrom(testClass)
+                    || Temporal.class.isAssignableFrom(testClass) || CharSequence.class.isAssignableFrom(testClass)) {
                 append(lhs, rhs);
             } else //If either class is being excluded, call normal object equals method on lhsClass.
             if (bypassReflectionClasses != null

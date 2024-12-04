@@ -459,11 +459,6 @@
         <jdk>[9,)</jdk>
       </activation>
       <properties>
-        <!-- LANG-1265: allow tests to access private fields/methods of java.base classes via reflection -->
-        <!-- LANG-1667: allow tests to access private fields/methods of java.base/java.util such as ArrayList via reflection -->
-<!--
-        <argLine>-Xmx512m &#45;&#45;add-opens java.base/java.lang.reflect=ALL-UNNAMED &#45;&#45;add-opens java.base/java.lang=ALL-UNNAMED &#45;&#45;add-opens java.base/java.util=ALL-UNNAMED</argLine>
--->
         <argLine>-Xmx512m</argLine>
       </properties>
     </profile>
