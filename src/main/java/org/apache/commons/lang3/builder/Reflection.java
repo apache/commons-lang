@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.Field;
+import java.time.temporal.Temporal;
 import java.util.Objects;
 
 /**
@@ -39,6 +40,26 @@ final class Reflection {
         } catch (final IllegalAccessException e) {
             throw new IllegalArgumentException(e);
         }
+    }
+
+    /**
+     * Check whether the given object is of a type which is an internal java Class, like String, Integer, Boolean, LocalDateTime, etc
+     * This is often needed as we cannot look into them via reflection since Java9.
+     *
+     * @return {@code true} if the given object is a Java internal class
+     */
+    static boolean isJavaInternalClass(Object o) {
+        return o != null && isJavaInternalClass(o.getClass());
+    }
+
+    /**
+     * Check whether the given class is an internal java Class, like String, Integer, Boolean, LocalDateTime, etc
+     * This is often needed as we cannot look into them via reflection since Java9.
+     *
+     * @return {@code true} if the given class is a Java internal class
+     */
+    static boolean isJavaInternalClass(Class<?> clazz) {
+        return CharSequence.class.isAssignableFrom(clazz) || Number.class.isAssignableFrom(clazz) || Boolean.class.isAssignableFrom(clazz) || Temporal.class.isAssignableFrom(clazz);
     }
 
 }

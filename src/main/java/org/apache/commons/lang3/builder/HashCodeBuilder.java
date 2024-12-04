@@ -20,7 +20,6 @@ package org.apache.commons.lang3.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.time.temporal.Temporal;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -181,7 +180,7 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (isRegistered(object)) {
             return;
         }
-        if (object instanceof CharSequence || object instanceof Number || object instanceof Temporal) {
+        if (Reflection.isJavaInternalClass(object)) {
             builder.append(object);
             return;
         }
