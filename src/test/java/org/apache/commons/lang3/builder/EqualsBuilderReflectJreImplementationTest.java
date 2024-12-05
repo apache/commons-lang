@@ -24,9 +24,11 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalField;
 import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -78,16 +80,18 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
         private final MyCharSequence charSequence;
         private final MyTemporal temporal;
         private final MyTemporalAccessor temporalAccessor;
+        private final MyTemporalAmount temporalAmount;
 
-        MyClass(final MyTemporal temporal, final MyTemporalAccessor temporalAccessor, final MyCharSequence charSequence) {
+        MyClass(final MyCharSequence charSequence, final MyTemporal temporal, final MyTemporalAccessor temporalAccessor, final MyTemporalAmount temporalAmount) {
             this.charSequence = charSequence;
             this.temporal = temporal;
             this.temporalAccessor = temporalAccessor;
+            this.temporalAmount = temporalAmount;
         }
 
         @Override
         public String toString() {
-            return String.format("%s[%s - %s - %s]", getClass().getSimpleName(), charSequence, temporal, temporalAccessor);
+            return String.format("%s[%s - %s - %s - $s]", getClass().getSimpleName(), charSequence, temporal, temporalAccessor, temporalAmount);
         }
     }
 
@@ -141,7 +145,6 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
         }
 
     }
-
     static class MyTemporalAccessor implements TemporalAccessor {
 
         private final String string;
@@ -173,13 +176,55 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
 
     }
 
+    static class MyTemporalAmount implements TemporalAmount {
+
+        private final String string;
+        private final long value;
+        private final Instant instant;
+        private final Duration duration;
+
+        MyTemporalAmount(final String string) {
+            this.string = string;
+            this.value = Long.parseLong(string);
+            this.instant = Instant.ofEpochMilli(value);
+            this.duration = Duration.between(instant, instant.plusMillis(value));
+        }
+
+        @Override
+        public Temporal addTo(final Temporal temporal) {
+            return null;
+        }
+
+        @Override
+        public long get(final TemporalUnit unit) {
+            return 0;
+        }
+
+        @Override
+        public List<TemporalUnit> getUnits() {
+            return null;
+        }
+
+        @Override
+        public Temporal subtractFrom(final Temporal temporal) {
+            return null;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s[%s - %s - %s]", getClass().getSimpleName(), string, instant, duration);
+        }
+
+
+    }
+
     @Test
     public void testRecursive() {
-        final MyClass o1 = new MyClass(new MyTemporal("1"), new MyTemporalAccessor("2"), new MyCharSequence("3"));
+        final MyClass o1 = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"),  new MyTemporalAmount("4"));
         // This gives you different instances of MyTemporalAccessor for 1 (and 2) that should be equals by reflection.
-        final MyClass o1Bis = new MyClass(new MyTemporal("1"), new MyTemporalAccessor("2"), new MyCharSequence("3"));
-        final MyClass o2 = new MyClass(new MyTemporal("4"), new MyTemporalAccessor("5"), new MyCharSequence("6"));
-        final MyClass o2Bis = new MyClass(new MyTemporal("4"), new MyTemporalAccessor("5"), new MyCharSequence("6"));
+        final MyClass o1Bis = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"),  new MyTemporalAmount("4"));
+        final MyClass o2 = new MyClass(new MyCharSequence("5"), new MyTemporal("6"), new MyTemporalAccessor("7"), new MyTemporalAmount("8"));
+        final MyClass o2Bis = new MyClass(new MyCharSequence("5"), new MyTemporal("6"), new MyTemporalAccessor("7"), new MyTemporalAmount("8"));
         // MyTemporal
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(new MyTemporal("1"), new MyTemporal("1")).isEquals());
         // MyTemporalAccessor
