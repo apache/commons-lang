@@ -985,15 +985,15 @@ public class EqualsBuilder implements Builder<Boolean> {
                     }
                 }
             } else if (Map.class.isAssignableFrom(testClass)) {
-                Map lMap = (Map) lhs;
-                Map rMap = (Map) rhs;
+                Map<?, ?> lMap = (Map) lhs;
+                Map<?, ?> rMap = (Map) rhs;
                 if (lMap.size() != rMap.size()) {
                     isEquals = false;
                     return this;
                 }
-                for (Object leftKey : lMap.keySet()) {
+                for (Map.Entry e : lMap.entrySet()) {
                     if (isEquals) {
-                        append(lMap.get(leftKey), rMap.get(leftKey));
+                        append(e.getValue(), rMap.get(e.getKey()));
                     }
                 }
             } else if (bypassReflectionClasses != null
