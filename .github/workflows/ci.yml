@@ -26,17 +26,18 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.m2
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        key: ${{ runner.os }}-maven-java-17-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
-          ${{ runner.os }}-maven-
-
+          ${{ runner.os }}-maven-java-17-
+    
     - name: Build with Maven
       run: mvn clean install
 
     - name: SonarCloud Scan
+      if: secrets.SONAR_TOKEN != ''
       uses: SonarSource/sonarcloud-github-action@v2
       env:
-        SONAR_TOKEN: ${{secrets.6efc6f3e47a5d7570c7636ab9ec7e1d7764a150f }}  # Securely pass the token using GitHub Secrets
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
           -Dsonar.projectKey=commons-lang
