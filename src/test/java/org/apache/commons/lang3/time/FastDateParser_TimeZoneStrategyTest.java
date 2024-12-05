@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArraySorter;
@@ -56,6 +57,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     private static final List<Locale> Java11Failures = new ArrayList<>();
     private static final List<Locale> Java17Failures = new ArrayList<>();
+    private static final AtomicInteger fails = new AtomicInteger();
 
     @AfterAll
     public static void afterAll() {
@@ -129,7 +131,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         Java17Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf(
-                                "Java %s %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                "[%,d] Java %s %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                fails.incrementAndGet(),
                                 SystemUtils.JAVA_VENDOR,
                                 SystemUtils.JAVA_VM_VERSION,
                                 localeStr, tzDisplay);
@@ -141,7 +144,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         Java11Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf(
-                                "Java %s %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                "[%,d] Java %s %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                fails.incrementAndGet(),
                                 SystemUtils.JAVA_VENDOR,
                                 SystemUtils.JAVA_VM_VERSION,
                                 localeStr, tzDisplay);
