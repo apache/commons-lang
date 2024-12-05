@@ -36,7 +36,7 @@ jobs:
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v2
       env:
-        SONAR_TOKEN: ${{ 6efc6f3e47a5d7570c7636ab9ec7e1d7764a150f }}  # Securely pass the token using GitHub Secrets
+        SONAR_TOKEN: ${{secrets.6efc6f3e47a5d7570c7636ab9ec7e1d7764a150f }}  # Securely pass the token using GitHub Secrets
       with:
         args: >
           -Dsonar.projectKey=commons-lang
