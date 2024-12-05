@@ -59,7 +59,9 @@ final class Reflection {
      * @return {@code true} if the given class is a Java internal class
      */
     static boolean isJavaInternalClass(Class<?> clazz) {
-        return CharSequence.class.isAssignableFrom(clazz) || Number.class.isAssignableFrom(clazz) || Boolean.class.isAssignableFrom(clazz) || TemporalAccessor.class.isAssignableFrom(clazz);
+        return CharSequence.class.isAssignableFrom(clazz) || Number.class.isAssignableFrom(clazz)
+                || Boolean.class.isAssignableFrom(clazz) || Character.class.isAssignableFrom(clazz)
+                || TemporalAccessor.class.isAssignableFrom(clazz);
     }
 
 }

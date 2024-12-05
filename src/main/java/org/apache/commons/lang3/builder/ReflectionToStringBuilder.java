@@ -20,7 +20,6 @@ package org.apache.commons.lang3.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -876,13 +875,13 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     private boolean handleNativeClasses() {
         Object value = getObject();
-        if (value instanceof Number || value instanceof Boolean || value instanceof Character
-                || value instanceof TemporalAccessor) {
+        if (Reflection.isJavaInternalClass(value)) {
             getStringBuffer().append("value=").append(getObject().toString());
             return true;
         }
 
         if (value.getClass().isArray() || value instanceof Collection || value instanceof Map) {
+            // we first need to unregister the value to be able to handle it in the style
             ToStringStyle.unregister(value);
             getStyle().append(getStringBuffer(), null, value, true);
             return true;
