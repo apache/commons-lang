@@ -100,15 +100,16 @@ public final class LangCollectors {
      * @param <R>       the type of the result.
      * @param <A>       the intermediate accumulation type of the {@code Collector}.
      * @param collector the {@code Collector} describing the reduction.
-     * @param array     The array, assumed to be unmodified during use.
+     * @param array     The array, assumed to be unmodified during use, a null array treated as an empty array.
      * @return the result of the reduction
      * @see Stream#collect(Collector)
      * @see Arrays#stream(Object[])
      * @see Collectors
      * @since 3.16.0
      */
+    @SafeVarargs
     public static <T, R, A> R collect(final Collector<? super T, A, R> collector, final T... array) {
-        return Arrays.stream(array).collect(collector);
+        return Streams.of(array).collect(collector);
     }
 
     /**

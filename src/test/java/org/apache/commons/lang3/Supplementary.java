@@ -26,24 +26,42 @@ public class Supplementary {
 
     /**
      * Supplementary character U+20000 See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     * <p>
+     * The UTF-16 character encoding scheme is {@code [high-surrogates][low-surrogates]}.
+     * </p>
+     * <p>
+     * Supplementary characters are encoded in two code units, the first from the high-surrogates range (U+D800 to U+DBFF), the second from the low-surrogates
+     * range (U+DC00 to U+DFFF).
+     * </p>
      */
     static final String CharU20000 = "\uD840\uDC00";
 
     /**
      * Supplementary character U+20001 See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     * <p>
+     * The UTF-16 character encoding scheme is {@code [high-surrogates][low-surrogates]}.
+     * </p>
+     * <p>
+     * Supplementary characters are encoded in two code units, the first from the high-surrogates range (U+D800 to U+DBFF), the second from the low-surrogates
+     * range (U+DC00 to U+DFFF).
+     * </p>
      */
     static final String CharU20001 = "\uD840\uDC01";
 
     /**
-     * Incomplete supplementary character U+20000, high surrogate only. See
-     * https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     * Incomplete supplementary character U+20000, <em>high surrogate only</em>.
+     * <p>
+     * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     * </p>
      */
-    static final String CharUSuppCharHigh = "\uDC00";
+    static final String CharUSuppCharHigh = "\uD840";
 
     /**
-     * Incomplete supplementary character U+20000, low surrogate only. See
-     * https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     * Incomplete supplementary character U+20000, <em>low surrogate only</em>.
+     * <p>
+     * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     * </p>
      */
-    static final String CharUSuppCharLow = "\uD840";
+    static final String CharUSuppCharLow = "\uDC00";
 
 }
