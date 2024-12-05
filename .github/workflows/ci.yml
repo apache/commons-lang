@@ -29,17 +29,18 @@ jobs:
         key: ${{ runner.os }}-maven-java-17-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-java-17-
-    
+
     - name: Build with Maven
       run: mvn clean install
 
     - name: SonarCloud Scan
-      if: secrets.SONAR_TOKEN != ''
-      uses: SonarSource/sonarcloud-github-action@v2
+      if: ${{ env.SONAR_TOKEN != '' }}
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      uses: SonarSource/sonarcloud-github-action@v2
       with:
         args: >
           -Dsonar.projectKey=commons-lang
           -Dsonar.organization=kevocommonlang
           -Dsonar.host.url=https://sonarcloud.io
+
