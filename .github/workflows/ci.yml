@@ -40,7 +40,7 @@ jobs:
       uses: SonarSource/sonarcloud-github-action@v2
       with:
         args: >
-          -Dsonar.projectKey=commons-lang
-          -Dsonar.organization=kevoulemsee
+          -Dsonar.projectKey=kevoulemsee_commons-lang
+          -Dsonar.organization=kevocommonlang
           -Dsonar.host.url=https://sonarcloud.io
 
