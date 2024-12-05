@@ -22,7 +22,9 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -958,9 +960,45 @@ public class EqualsBuilder implements Builder<Boolean> {
         try {
             if (testClass.isArray() || Reflection.isJavaInternalClass(testClass)) {
                 append(lhs, rhs);
-            } else //If either class is being excluded, call normal object equals method on lhsClass.
-            if (bypassReflectionClasses != null
+            } else if (Collection.class.isAssignableFrom(testClass)) {
+                // Right now this also handles Sets.
+                // Which is likely fine for TreeSets and any other sorted Collection
+                // But it would not be easy to implement this for e.g. a HashSet
+                // The good thing is that this behaviour is backward compatible with
+                // pre-jpms handling where we did reflect into the internal structures.
+
+                Collection lColl = (Collection) lhs;
+                Collection rColl = (Collection) rhs;
+                if (lColl.size() != rColl.size()) {
+                    isEquals = false;
+                    return this;
+                }
+                final Iterator lIt = lColl.iterator();
+                final Iterator rIt = rColl.iterator();
+                while (lIt.hasNext() || rIt.hasNext()) {
+                    if (lIt.hasNext() != rIt.hasNext()) {
+                        // if one iterator has no more entries but the other one does, then it cannot be equal
+                        isEquals = false;
+                        return this;
+                    } else {
+                        reflectionAppend(lIt.next(), rIt.next());
+                    }
+                }
+            } else if (Map.class.isAssignableFrom(testClass)) {
+                Map lMap = (Map) lhs;
+                Map rMap = (Map) rhs;
+                if (lMap.size() != rMap.size()) {
+                    isEquals = false;
+                    return this;
+                }
+                for (Object leftKey : lMap.keySet()) {
+                    if (isEquals) {
+                        append(lMap.get(leftKey), rMap.get(leftKey));
+                    }
+                }
+            } else if (bypassReflectionClasses != null
                     && (bypassReflectionClasses.contains(lhsClass) || bypassReflectionClasses.contains(rhsClass))) {
+                //If either class is being excluded, call normal object equals method on lhsClass.
                 isEquals = lhs.equals(rhs);
             } else {
                 reflectionAppend(lhs, rhs, testClass);
