@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.Field;
+import java.time.Duration;
 import java.time.temporal.Temporal;
 import java.util.Objects;
 
@@ -61,7 +62,7 @@ final class Reflection {
     static boolean isJavaInternalClass(Class<?> clazz) {
         return String.class.isAssignableFrom(clazz) || Number.class.isAssignableFrom(clazz)
                 || Boolean.class.isAssignableFrom(clazz) || Character.class.isAssignableFrom(clazz)
-                || Temporal.class.isAssignableFrom(clazz);
+                || Temporal.class.isAssignableFrom(clazz) || Duration.class.isAssignableFrom(clazz);
     }
 
 }
