@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.Period;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
@@ -98,15 +99,17 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
     static class MyTemporal implements Temporal {
 
         private final String string;
-        private final long value;
-        private final Instant instant;
+        private final int value;
         private final Duration duration;
+        private final Instant instant;
+        private final Period period;
 
         MyTemporal(final String string) {
             this.string = string;
-            this.value = Long.parseLong(string);
+            this.value = Integer.parseInt(string);
             this.instant = Instant.ofEpochMilli(value);
             this.duration = Duration.between(instant, instant.plusMillis(value));
+            this.period = Period.ofDays(value);
         }
 
         @Override
@@ -131,7 +134,7 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
 
         @Override
         public String toString() {
-            return String.format("%s[%s - %s - %s]", getClass().getSimpleName(), string, instant, duration);
+            return String.format("%s[%s - %s - %s]", getClass().getSimpleName(), string, instant, duration, period);
         }
 
         @Override
@@ -148,15 +151,18 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
     static class MyTemporalAccessor implements TemporalAccessor {
 
         private final String string;
-        private final long value;
+        private final int value;
         private final Instant instant;
         private final Duration duration;
+        private final Period period;
 
         MyTemporalAccessor(final String string) {
             this.string = string;
-            this.value = Long.parseLong(string);
+            this.value = Integer.parseInt(string);
             this.instant = Instant.ofEpochMilli(value);
             this.duration = Duration.between(instant, instant.plusMillis(value));
+            this.period = Period.ofDays(value);
+
         }
 
         @Override
@@ -171,7 +177,7 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
 
         @Override
         public String toString() {
-            return String.format("%s[%s - %s - %s]", getClass().getSimpleName(), string, instant, duration);
+            return String.format("%s[%s - %s - % - %s]", getClass().getSimpleName(), string, instant, duration, period);
         }
 
     }
@@ -179,15 +185,17 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
     static class MyTemporalAmount implements TemporalAmount {
 
         private final String string;
-        private final long value;
+        private final int value;
         private final Instant instant;
         private final Duration duration;
+        private final Period period;
 
         MyTemporalAmount(final String string) {
             this.string = string;
-            this.value = Long.parseLong(string);
+            this.value = Integer.parseInt(string);
             this.instant = Instant.ofEpochMilli(value);
             this.duration = Duration.between(instant, instant.plusMillis(value));
+            this.period = Period.ofDays(value);
         }
 
         @Override
@@ -212,7 +220,7 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
 
         @Override
         public String toString() {
-            return String.format("%s[%s - %s - %s]", getClass().getSimpleName(), string, instant, duration);
+            return String.format("%s[%s - %s - %s - %s]", getClass().getSimpleName(), string, instant, duration, period);
         }
 
 
