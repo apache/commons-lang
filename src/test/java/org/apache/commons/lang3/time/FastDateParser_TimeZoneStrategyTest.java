@@ -132,8 +132,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf(
                                 "[%,d][%s] Java %s %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
-                                Thread.currentThread().getName(),
                                 fails.incrementAndGet(),
+                                Thread.currentThread().getName(),
                                 SystemUtils.JAVA_VENDOR,
                                 SystemUtils.JAVA_VM_VERSION,
                                 localeStr, tzDisplay);
@@ -146,8 +146,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf(
                                 "[%,d][%s] Java %s %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
-                                Thread.currentThread().getName(),
                                 fails.incrementAndGet(),
+                                Thread.currentThread().getName(),
                                 SystemUtils.JAVA_VENDOR,
                                 SystemUtils.JAVA_VM_VERSION,
                                 localeStr, tzDisplay);
