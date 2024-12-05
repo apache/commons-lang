@@ -18,7 +18,7 @@
 package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.Field;
-import java.time.temporal.TemporalAccessor;
+import java.time.temporal.Temporal;
 import java.util.Objects;
 
 /**
@@ -59,9 +59,9 @@ final class Reflection {
      * @return {@code true} if the given class is a Java internal class
      */
     static boolean isJavaInternalClass(Class<?> clazz) {
-        return CharSequence.class.isAssignableFrom(clazz) || Number.class.isAssignableFrom(clazz)
+        return String.class.isAssignableFrom(clazz) || Number.class.isAssignableFrom(clazz)
                 || Boolean.class.isAssignableFrom(clazz) || Character.class.isAssignableFrom(clazz)
-                || TemporalAccessor.class.isAssignableFrom(clazz);
+                || Temporal.class.isAssignableFrom(clazz);
     }
 
 }
