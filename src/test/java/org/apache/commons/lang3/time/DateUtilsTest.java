@@ -42,17 +42,19 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.WritesDefaultLocale;
 
 /**
  * Tests {@link org.apache.commons.lang3.time.DateUtils}.
- * <p>
- * NOT THREAD-SAFE.
- * </p>
  */
+@ReadsDefaultLocale
+@WritesDefaultLocale
 public class DateUtilsTest extends AbstractLangTest {
 
+    private static final TimeZone TIME_ZONE_DEFAULT = TimeZone.getDefault();
+    private static final TimeZone TIME_ZONE_MET = TimeZone.getTimeZone("MET");
     private static Date BASE_DATE;
-    private static TimeZone DEFAULT_ZONE;
 
     /**
      * Used to check that Calendar objects are close enough
@@ -145,16 +147,13 @@ public class DateUtilsTest extends AbstractLangTest {
     private Calendar cal4;
     private Calendar cal5;
     private Calendar cal6;
-
     private Calendar cal7;
-
     private Calendar cal8;
 
-    private TimeZone zone;
-
     @AfterEach
-    public void afterEachResetTimeZone() {
-        TimeZone.setDefault(DEFAULT_ZONE);
+    public void afterEachResetTimeZones() {
+        TimeZone.setDefault(TIME_ZONE_DEFAULT);
+        dateTimeParser.setTimeZone(TIME_ZONE_DEFAULT);
     }
 
     private void assertDate(final Date date, final int year, final int month, final int day, final int hour, final int min, final int sec, final int mil) {
@@ -181,11 +180,9 @@ public class DateUtilsTest extends AbstractLangTest {
         date0 = dateTimeParser.parse("February 3, 2002 12:34:56.789");
         date1 = dateTimeParser.parse("February 12, 2002 12:34:56.789");
         date2 = dateTimeParser.parse("November 18, 2001 1:23:11.321");
-        DEFAULT_ZONE = TimeZone.getDefault();
-        zone = TimeZone.getTimeZone("MET");
         try {
-            TimeZone.setDefault(zone);
-            dateTimeParser.setTimeZone(zone);
+            TimeZone.setDefault(TIME_ZONE_MET);
+            dateTimeParser.setTimeZone(TIME_ZONE_MET);
             date3 = dateTimeParser.parse("March 30, 2003 05:30:45.000");
             date4 = dateTimeParser.parse("March 30, 2003 01:10:00.000");
             date5 = dateTimeParser.parse("March 30, 2003 01:40:00.000");
@@ -193,8 +190,8 @@ public class DateUtilsTest extends AbstractLangTest {
             date7 = dateTimeParser.parse("March 30, 2003 02:40:00.000");
             date8 = dateTimeParser.parse("October 26, 2003 05:30:45.000");
         } finally {
-            dateTimeParser.setTimeZone(DEFAULT_ZONE);
-            TimeZone.setDefault(DEFAULT_ZONE);
+            dateTimeParser.setTimeZone(TIME_ZONE_DEFAULT);
+            TimeZone.setDefault(TIME_ZONE_DEFAULT);
         }
         calAmPm1 = Calendar.getInstance();
         calAmPm1.setTime(dateAmPm1);
@@ -209,7 +206,7 @@ public class DateUtilsTest extends AbstractLangTest {
         cal2 = Calendar.getInstance();
         cal2.setTime(date2);
         try {
-            TimeZone.setDefault(zone);
+            TimeZone.setDefault(TIME_ZONE_MET);
             cal3 = Calendar.getInstance();
             cal3.setTime(date3);
             cal4 = Calendar.getInstance();
@@ -223,7 +220,7 @@ public class DateUtilsTest extends AbstractLangTest {
             cal8 = Calendar.getInstance();
             cal8.setTime(date8);
         } finally {
-            TimeZone.setDefault(DEFAULT_ZONE);
+            TimeZone.setDefault(TIME_ZONE_DEFAULT);
         }
     }
 
@@ -393,7 +390,7 @@ public class DateUtilsTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testCeil() throws Exception {
+    public void testCeiling() throws Exception {
         // test javadoc
         assertEquals(dateTimeParser.parse("March 28, 2002 14:00:00.000"),
                 DateUtils.ceiling(
@@ -544,67 +541,15 @@ public class DateUtilsTest extends AbstractLangTest {
         assertThrows(ClassCastException.class, () -> DateUtils.ceiling("", Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling(date1, -9999));
 
-        // Fix for https://issues.apache.org/bugzilla/show_bug.cgi?id=25560
-        // Test ceiling across the beginning of daylight saving time
-        try {
-            TimeZone.setDefault(zone);
-            dateTimeParser.setTimeZone(zone);
+    }
 
-            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling(date4, Calendar.DATE),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling((Object) cal4, Calendar.DATE),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling(date5, Calendar.DATE),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling((Object) cal5, Calendar.DATE),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling(date6, Calendar.DATE),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling((Object) cal6, Calendar.DATE),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling(date7, Calendar.DATE),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"),
-                    DateUtils.ceiling((Object) cal7, Calendar.DATE),
-                    "ceiling MET date across DST change-over");
-
-            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.ceiling(date4, Calendar.HOUR_OF_DAY),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.ceiling((Object) cal4, Calendar.HOUR_OF_DAY),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.ceiling(date5, Calendar.HOUR_OF_DAY),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.ceiling((Object) cal5, Calendar.HOUR_OF_DAY),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling(date6, Calendar.HOUR_OF_DAY),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling((Object) cal6, Calendar.HOUR_OF_DAY),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling(date7, Calendar.HOUR_OF_DAY),
-                    "ceiling MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.ceiling((Object) cal7, Calendar.HOUR_OF_DAY),
-                    "ceiling MET date across DST change-over");
-
-        } finally {
-            TimeZone.setDefault(DEFAULT_ZONE);
-            dateTimeParser.setTimeZone(DEFAULT_ZONE);
-        }
-
+    /**
+     * Tests various values with the ceiling method
+     *
+     * @throws Exception so we don't have to catch it
+     */
+    @Test
+    public void testCeiling_Bugzilla_31395() throws Exception {
         // Bug 31395, large dates
         final Date endOfTime = new Date(Long.MAX_VALUE); // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
         final GregorianCalendar endCal = new GregorianCalendar();
@@ -615,6 +560,49 @@ public class DateUtilsTest extends AbstractLangTest {
         endCal.set(Calendar.YEAR, 280000000);
         final Calendar cal = DateUtils.ceiling(endCal, Calendar.DATE);
         assertEquals(0, cal.get(Calendar.HOUR));
+    }
+
+    /**
+     * Tests various values with the ceiling method
+     *
+     * @throws Exception so we don't have to catch it
+     */
+    @Test
+    public void testCeiling_MET() throws Exception {
+        // Fix for https://issues.apache.org/bugzilla/show_bug.cgi?id=25560
+        // Test ceiling across the beginning of daylight saving time
+        TimeZone.setDefault(TIME_ZONE_MET);
+        dateTimeParser.setTimeZone(TIME_ZONE_MET);
+
+        assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling(date4, Calendar.DATE), "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling((Object) cal4, Calendar.DATE),
+                "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling(date5, Calendar.DATE), "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling((Object) cal5, Calendar.DATE),
+                "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling(date6, Calendar.DATE), "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling((Object) cal6, Calendar.DATE),
+                "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling(date7, Calendar.DATE), "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 31, 2003 00:00:00.000"), DateUtils.ceiling((Object) cal7, Calendar.DATE),
+                "ceiling MET date across DST change-over");
+
+        assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.ceiling(date4, Calendar.HOUR_OF_DAY),
+                "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.ceiling((Object) cal4, Calendar.HOUR_OF_DAY),
+                "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.ceiling(date5, Calendar.HOUR_OF_DAY),
+                "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.ceiling((Object) cal5, Calendar.HOUR_OF_DAY),
+                "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.ceiling(date6, Calendar.HOUR_OF_DAY),
+                "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.ceiling((Object) cal6, Calendar.HOUR_OF_DAY),
+                "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.ceiling(date7, Calendar.HOUR_OF_DAY),
+                "ceiling MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.ceiling((Object) cal7, Calendar.HOUR_OF_DAY),
+                "ceiling MET date across DST change-over");
     }
 
     @Test
@@ -934,126 +922,48 @@ public class DateUtilsTest extends AbstractLangTest {
     @Test
     public void testRound() throws Exception {
         // tests for public static Date round(Date date, int field)
-        assertEquals(dateParser.parse("January 1, 2002"),
-                DateUtils.round(date1, Calendar.YEAR),
-                "round year-1 failed");
-        assertEquals(dateParser.parse("January 1, 2002"),
-                DateUtils.round(date2, Calendar.YEAR),
-                "round year-2 failed");
-        assertEquals(dateParser.parse("February 1, 2002"),
-                DateUtils.round(date1, Calendar.MONTH),
-                "round month-1 failed");
-        assertEquals(dateParser.parse("December 1, 2001"),
-                DateUtils.round(date2, Calendar.MONTH),
-                "round month-2 failed");
-        assertEquals(dateParser.parse("February 1, 2002"),
-                DateUtils.round(date0, DateUtils.SEMI_MONTH),
-                "round semimonth-0 failed");
-        assertEquals(dateParser.parse("February 16, 2002"),
-                DateUtils.round(date1, DateUtils.SEMI_MONTH),
-                "round semimonth-1 failed");
-        assertEquals(dateParser.parse("November 16, 2001"),
-                DateUtils.round(date2, DateUtils.SEMI_MONTH),
-                "round semimonth-2 failed");
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.round(date1, Calendar.YEAR), "round year-1 failed");
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.round(date2, Calendar.YEAR), "round year-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"), DateUtils.round(date1, Calendar.MONTH), "round month-1 failed");
+        assertEquals(dateParser.parse("December 1, 2001"), DateUtils.round(date2, Calendar.MONTH), "round month-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"), DateUtils.round(date0, DateUtils.SEMI_MONTH), "round semimonth-0 failed");
+        assertEquals(dateParser.parse("February 16, 2002"), DateUtils.round(date1, DateUtils.SEMI_MONTH), "round semimonth-1 failed");
+        assertEquals(dateParser.parse("November 16, 2001"), DateUtils.round(date2, DateUtils.SEMI_MONTH), "round semimonth-2 failed");
 
-        assertEquals(dateParser.parse("February 13, 2002"),
-                DateUtils.round(date1, Calendar.DATE),
-                "round date-1 failed");
-        assertEquals(dateParser.parse("November 18, 2001"),
-                DateUtils.round(date2, Calendar.DATE),
-                "round date-2 failed");
-        assertEquals(dateTimeParser.parse("February 12, 2002 13:00:00.000"),
-                DateUtils.round(date1, Calendar.HOUR),
-                "round hour-1 failed");
-        assertEquals(dateTimeParser.parse("November 18, 2001 1:00:00.000"),
-                DateUtils.round(date2, Calendar.HOUR),
-                "round hour-2 failed");
-        assertEquals(dateTimeParser.parse("February 12, 2002 12:35:00.000"),
-                DateUtils.round(date1, Calendar.MINUTE),
-                "round minute-1 failed");
-        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:00.000"),
-                DateUtils.round(date2, Calendar.MINUTE),
-                "round minute-2 failed");
-        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"),
-                DateUtils.round(date1, Calendar.SECOND),
-                "round second-1 failed");
-        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"),
-                DateUtils.round(date2, Calendar.SECOND),
-                "round second-2 failed");
-        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.round(dateAmPm1, Calendar.AM_PM),
-                "round ampm-1 failed");
-        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round(dateAmPm2, Calendar.AM_PM),
-                "round ampm-2 failed");
-        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round(dateAmPm3, Calendar.AM_PM),
-                "round ampm-3 failed");
-        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.round(dateAmPm4, Calendar.AM_PM),
-                "round ampm-4 failed");
+        assertEquals(dateParser.parse("February 13, 2002"), DateUtils.round(date1, Calendar.DATE), "round date-1 failed");
+        assertEquals(dateParser.parse("November 18, 2001"), DateUtils.round(date2, Calendar.DATE), "round date-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 13:00:00.000"), DateUtils.round(date1, Calendar.HOUR), "round hour-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:00:00.000"), DateUtils.round(date2, Calendar.HOUR), "round hour-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:35:00.000"), DateUtils.round(date1, Calendar.MINUTE), "round minute-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:00.000"), DateUtils.round(date2, Calendar.MINUTE), "round minute-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"), DateUtils.round(date1, Calendar.SECOND), "round second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"), DateUtils.round(date2, Calendar.SECOND), "round second-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.round(dateAmPm1, Calendar.AM_PM), "round ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round(dateAmPm2, Calendar.AM_PM), "round ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round(dateAmPm3, Calendar.AM_PM), "round ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.round(dateAmPm4, Calendar.AM_PM), "round ampm-4 failed");
 
         // tests for public static Date round(Object date, int field)
-        assertEquals(dateParser.parse("January 1, 2002"),
-                DateUtils.round((Object) date1, Calendar.YEAR),
-                "round year-1 failed");
-        assertEquals(dateParser.parse("January 1, 2002"),
-                DateUtils.round((Object) date2, Calendar.YEAR),
-                "round year-2 failed");
-        assertEquals(dateParser.parse("February 1, 2002"),
-                DateUtils.round((Object) date1, Calendar.MONTH),
-                "round month-1 failed");
-        assertEquals(dateParser.parse("December 1, 2001"),
-                DateUtils.round((Object) date2, Calendar.MONTH),
-                "round month-2 failed");
-        assertEquals(dateParser.parse("February 16, 2002"),
-                DateUtils.round((Object) date1, DateUtils.SEMI_MONTH),
-                "round semimonth-1 failed");
-        assertEquals(dateParser.parse("November 16, 2001"),
-                DateUtils.round((Object) date2, DateUtils.SEMI_MONTH),
-                "round semimonth-2 failed");
-        assertEquals(dateParser.parse("February 13, 2002"),
-                DateUtils.round((Object) date1, Calendar.DATE),
-                "round date-1 failed");
-        assertEquals(dateParser.parse("November 18, 2001"),
-                DateUtils.round((Object) date2, Calendar.DATE),
-                "round date-2 failed");
-        assertEquals(dateTimeParser.parse("February 12, 2002 13:00:00.000"),
-                DateUtils.round((Object) date1, Calendar.HOUR),
-                "round hour-1 failed");
-        assertEquals(dateTimeParser.parse("November 18, 2001 1:00:00.000"),
-                DateUtils.round((Object) date2, Calendar.HOUR),
-                "round hour-2 failed");
-        assertEquals(dateTimeParser.parse("February 12, 2002 12:35:00.000"),
-                DateUtils.round((Object) date1, Calendar.MINUTE),
-                "round minute-1 failed");
-        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:00.000"),
-                DateUtils.round((Object) date2, Calendar.MINUTE),
-                "round minute-2 failed");
-        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"),
-                DateUtils.round((Object) date1, Calendar.SECOND),
-                "round second-1 failed");
-        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"),
-                DateUtils.round((Object) date2, Calendar.SECOND),
-                "round second-2 failed");
-        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"),
-                DateUtils.round((Object) cal1, Calendar.SECOND),
-                "round calendar second-1 failed");
-        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"),
-                DateUtils.round((Object) cal2, Calendar.SECOND),
-                "round calendar second-2 failed");
-        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.round((Object) dateAmPm1, Calendar.AM_PM),
-                "round ampm-1 failed");
-        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round((Object) dateAmPm2, Calendar.AM_PM),
-                "round ampm-2 failed");
-        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round((Object) dateAmPm3, Calendar.AM_PM),
-                "round ampm-3 failed");
-        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.round((Object) dateAmPm4, Calendar.AM_PM),
-                "round ampm-4 failed");
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.round((Object) date1, Calendar.YEAR), "round year-1 failed");
+        assertEquals(dateParser.parse("January 1, 2002"), DateUtils.round((Object) date2, Calendar.YEAR), "round year-2 failed");
+        assertEquals(dateParser.parse("February 1, 2002"), DateUtils.round((Object) date1, Calendar.MONTH), "round month-1 failed");
+        assertEquals(dateParser.parse("December 1, 2001"), DateUtils.round((Object) date2, Calendar.MONTH), "round month-2 failed");
+        assertEquals(dateParser.parse("February 16, 2002"), DateUtils.round((Object) date1, DateUtils.SEMI_MONTH), "round semimonth-1 failed");
+        assertEquals(dateParser.parse("November 16, 2001"), DateUtils.round((Object) date2, DateUtils.SEMI_MONTH), "round semimonth-2 failed");
+        assertEquals(dateParser.parse("February 13, 2002"), DateUtils.round((Object) date1, Calendar.DATE), "round date-1 failed");
+        assertEquals(dateParser.parse("November 18, 2001"), DateUtils.round((Object) date2, Calendar.DATE), "round date-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 13:00:00.000"), DateUtils.round((Object) date1, Calendar.HOUR), "round hour-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:00:00.000"), DateUtils.round((Object) date2, Calendar.HOUR), "round hour-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:35:00.000"), DateUtils.round((Object) date1, Calendar.MINUTE), "round minute-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:00.000"), DateUtils.round((Object) date2, Calendar.MINUTE), "round minute-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"), DateUtils.round((Object) date1, Calendar.SECOND), "round second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"), DateUtils.round((Object) date2, Calendar.SECOND), "round second-2 failed");
+        assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"), DateUtils.round((Object) cal1, Calendar.SECOND), "round calendar second-1 failed");
+        assertEquals(dateTimeParser.parse("November 18, 2001 1:23:11.000"), DateUtils.round((Object) cal2, Calendar.SECOND), "round calendar second-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.round((Object) dateAmPm1, Calendar.AM_PM), "round ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round((Object) dateAmPm2, Calendar.AM_PM), "round ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round((Object) dateAmPm3, Calendar.AM_PM), "round ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.round((Object) dateAmPm4, Calendar.AM_PM), "round ampm-4 failed");
 
         assertThrows(NullPointerException.class, () -> DateUtils.round((Date) null, Calendar.SECOND));
         assertThrows(NullPointerException.class, () -> DateUtils.round((Calendar) null, Calendar.SECOND));
@@ -1061,77 +971,52 @@ public class DateUtilsTest extends AbstractLangTest {
         assertThrows(ClassCastException.class, () -> DateUtils.round("", Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.round(date1, -9999));
 
-        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"),
-                DateUtils.round((Object) calAmPm1, Calendar.AM_PM),
-                "round ampm-1 failed");
-        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round((Object) calAmPm2, Calendar.AM_PM),
-                "round ampm-2 failed");
-        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"),
-                DateUtils.round((Object) calAmPm3, Calendar.AM_PM),
-                "round ampm-3 failed");
-        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"),
-                DateUtils.round((Object) calAmPm4, Calendar.AM_PM),
-                "round ampm-4 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.round((Object) calAmPm1, Calendar.AM_PM), "round ampm-1 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round((Object) calAmPm2, Calendar.AM_PM), "round ampm-2 failed");
+        assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round((Object) calAmPm3, Calendar.AM_PM), "round ampm-3 failed");
+        assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.round((Object) calAmPm4, Calendar.AM_PM), "round ampm-4 failed");
+    }
 
+    /**
+     * Tests various values with the round method
+     *
+     * @throws Exception so we don't have to catch it
+     */
+    @Test
+    public void testRound_MET() throws Exception {
         // Fix for https://issues.apache.org/bugzilla/show_bug.cgi?id=25560 / LANG-13
         // Test rounding across the beginning of daylight saving time
-        try {
-            TimeZone.setDefault(zone);
-            dateTimeParser.setTimeZone(zone);
-            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round(date4, Calendar.DATE),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round((Object) cal4, Calendar.DATE),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round(date5, Calendar.DATE),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round((Object) cal5, Calendar.DATE),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round(date6, Calendar.DATE),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round((Object) cal6, Calendar.DATE),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round(date7, Calendar.DATE),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.round((Object) cal7, Calendar.DATE),
-                    "round MET date across DST change-over");
+        TimeZone.setDefault(TIME_ZONE_MET);
+        dateTimeParser.setTimeZone(TIME_ZONE_MET);
+        assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round(date4, Calendar.DATE), "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round((Object) cal4, Calendar.DATE),
+                "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round(date5, Calendar.DATE), "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round((Object) cal5, Calendar.DATE),
+                "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round(date6, Calendar.DATE), "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round((Object) cal6, Calendar.DATE),
+                "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round(date7, Calendar.DATE), "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.round((Object) cal7, Calendar.DATE),
+                "round MET date across DST change-over");
 
-            assertEquals(dateTimeParser.parse("March 30, 2003 01:00:00.000"),
-                    DateUtils.round(date4, Calendar.HOUR_OF_DAY),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 01:00:00.000"),
-                    DateUtils.round((Object) cal4, Calendar.HOUR_OF_DAY),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round(date5, Calendar.HOUR_OF_DAY),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round((Object) cal5, Calendar.HOUR_OF_DAY),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round(date6, Calendar.HOUR_OF_DAY),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                    DateUtils.round((Object) cal6, Calendar.HOUR_OF_DAY),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.round(date7, Calendar.HOUR_OF_DAY),
-                    "round MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                    DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY),
-                    "round MET date across DST change-over");
-        } finally {
-            TimeZone.setDefault(DEFAULT_ZONE);
-            dateTimeParser.setTimeZone(DEFAULT_ZONE);
-        }
+        assertEquals(dateTimeParser.parse("March 30, 2003 01:00:00.000"), DateUtils.round(date4, Calendar.HOUR_OF_DAY),
+                "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 01:00:00.000"), DateUtils.round((Object) cal4, Calendar.HOUR_OF_DAY),
+                "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.round(date5, Calendar.HOUR_OF_DAY),
+                "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.round((Object) cal5, Calendar.HOUR_OF_DAY),
+                "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.round(date6, Calendar.HOUR_OF_DAY),
+                "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 03:00:00.000"), DateUtils.round((Object) cal6, Calendar.HOUR_OF_DAY),
+                "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.round(date7, Calendar.HOUR_OF_DAY),
+                "round MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 04:00:00.000"), DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY),
+                "round MET date across DST change-over");
     }
 
     /**
@@ -1380,9 +1265,9 @@ public class DateUtilsTest extends AbstractLangTest {
 
     @Test
     public void testToCalendarWithDateAndTimeZoneNotNull() {
-        final Calendar c = DateUtils.toCalendar(date2, DEFAULT_ZONE);
+        final Calendar c = DateUtils.toCalendar(date2, TIME_ZONE_DEFAULT);
         assertEquals(date2, c.getTime(), "Convert Date and TimeZone to a Calendar, but failed to get the Date back");
-        assertEquals(DEFAULT_ZONE, c.getTimeZone(), "Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back");
+        assertEquals(TIME_ZONE_DEFAULT, c.getTimeZone(), "Convert Date and TimeZone to a Calendar, but failed to get the TimeZone back");
     }
 
     @Test
@@ -1392,7 +1277,7 @@ public class DateUtilsTest extends AbstractLangTest {
 
     @Test
     public void testToCalendarWithDateNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null, zone));
+        assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null, TIME_ZONE_MET));
     }
 
     @Test
@@ -1544,29 +1429,36 @@ public class DateUtilsTest extends AbstractLangTest {
         assertThrows(NullPointerException.class, () -> DateUtils.truncate((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.truncate("", Calendar.SECOND));
 
+    }
+
+    /**
+     * Tests various values with the trunc method
+     *
+     * @throws Exception so we don't have to catch it
+     */
+    @Test
+    public void testTruncate_Bugzilla_25560() throws Exception {
         // Fix for https://issues.apache.org/bugzilla/show_bug.cgi?id=25560
         // Test truncate across beginning of daylight saving time
-        try {
-            TimeZone.setDefault(zone);
-            dateTimeParser.setTimeZone(zone);
-            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.truncate(date3, Calendar.DATE),
-                    "truncate MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"),
-                    DateUtils.truncate((Object) cal3, Calendar.DATE),
-                    "truncate MET date across DST change-over");
-            // Test truncate across end of daylight saving time
-            assertEquals(dateTimeParser.parse("October 26, 2003 00:00:00.000"),
-                    DateUtils.truncate(date8, Calendar.DATE),
-                    "truncate MET date across DST change-over");
-            assertEquals(dateTimeParser.parse("October 26, 2003 00:00:00.000"),
-                    DateUtils.truncate((Object) cal8, Calendar.DATE),
-                    "truncate MET date across DST change-over");
-        } finally {
-            TimeZone.setDefault(DEFAULT_ZONE);
-            dateTimeParser.setTimeZone(DEFAULT_ZONE);
-        }
+        TimeZone.setDefault(TIME_ZONE_MET);
+        dateTimeParser.setTimeZone(TIME_ZONE_MET);
+        assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.truncate(date3, Calendar.DATE), "truncate MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("March 30, 2003 00:00:00.000"), DateUtils.truncate((Object) cal3, Calendar.DATE),
+                "truncate MET date across DST change-over");
+        // Test truncate across end of daylight saving time
+        assertEquals(dateTimeParser.parse("October 26, 2003 00:00:00.000"), DateUtils.truncate(date8, Calendar.DATE),
+                "truncate MET date across DST change-over");
+        assertEquals(dateTimeParser.parse("October 26, 2003 00:00:00.000"), DateUtils.truncate((Object) cal8, Calendar.DATE),
+                "truncate MET date across DST change-over");
+    }
 
+    /**
+     * Tests various values with the trunc method
+     *
+     * @throws Exception so we don't have to catch it
+     */
+    @Test
+    public void testTruncate_Bugzilla_31395() throws Exception {
         // Bug 31395, large dates
         final Date endOfTime = new Date(Long.MAX_VALUE); // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
         final GregorianCalendar endCal = new GregorianCalendar();
@@ -1586,73 +1478,56 @@ public class DateUtilsTest extends AbstractLangTest {
      */
     @Test
     public void testTruncateLang59() {
-        try {
-            // Set TimeZone to Mountain Time
-            final TimeZone denverZone = TimeZone.getTimeZone("America/Denver");
-            TimeZone.setDefault(denverZone);
-            final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS XXX");
-            format.setTimeZone(denverZone);
+        // Set TimeZone to Mountain Time
+        final TimeZone denverZone = TimeZone.getTimeZone("America/Denver");
+        TimeZone.setDefault(denverZone);
+        final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS XXX");
+        format.setTimeZone(denverZone);
 
-            final Date oct31_01MDT = new Date(1099206000000L);
+        final Date oct31_01MDT = new Date(1099206000000L);
 
-            final Date oct31MDT = new Date(oct31_01MDT.getTime() - 3600000L); // - 1 hour
-            final Date oct31_01_02MDT = new Date(oct31_01MDT.getTime() + 120000L);  // + 2 minutes
-            final Date oct31_01_02_03MDT = new Date(oct31_01_02MDT.getTime() + 3000L);    // + 3 seconds
-            final Date oct31_01_02_03_04MDT = new Date(oct31_01_02_03MDT.getTime() + 4L);       // + 4 milliseconds
+        final Date oct31MDT = new Date(oct31_01MDT.getTime() - 3600000L); // - 1 hour
+        final Date oct31_01_02MDT = new Date(oct31_01MDT.getTime() + 120000L); // + 2 minutes
+        final Date oct31_01_02_03MDT = new Date(oct31_01_02MDT.getTime() + 3000L); // + 3 seconds
+        final Date oct31_01_02_03_04MDT = new Date(oct31_01_02_03MDT.getTime() + 4L); // + 4 milliseconds
 
-            assertEquals("2004-10-31 00:00:00.000 -06:00", format.format(oct31MDT), "Check 00:00:00.000");
-            assertEquals("2004-10-31 01:00:00.000 -06:00", format.format(oct31_01MDT), "Check 01:00:00.000");
-            assertEquals("2004-10-31 01:02:00.000 -06:00", format.format(oct31_01_02MDT), "Check 01:02:00.000");
-            assertEquals("2004-10-31 01:02:03.000 -06:00", format.format(oct31_01_02_03MDT), "Check 01:02:03.000");
-            assertEquals("2004-10-31 01:02:03.004 -06:00", format.format(oct31_01_02_03_04MDT), "Check 01:02:03.004");
+        assertEquals("2004-10-31 00:00:00.000 -06:00", format.format(oct31MDT), "Check 00:00:00.000");
+        assertEquals("2004-10-31 01:00:00.000 -06:00", format.format(oct31_01MDT), "Check 01:00:00.000");
+        assertEquals("2004-10-31 01:02:00.000 -06:00", format.format(oct31_01_02MDT), "Check 01:02:00.000");
+        assertEquals("2004-10-31 01:02:03.000 -06:00", format.format(oct31_01_02_03MDT), "Check 01:02:03.000");
+        assertEquals("2004-10-31 01:02:03.004 -06:00", format.format(oct31_01_02_03_04MDT), "Check 01:02:03.004");
 
-            // Demonstrate Problem
-            final Calendar gval = Calendar.getInstance();
-            gval.setTime(new Date(oct31_01MDT.getTime()));
-            gval.set(Calendar.MINUTE, gval.get(Calendar.MINUTE)); // set minutes to the same value
-            assertEquals(gval.getTime().getTime(), oct31_01MDT.getTime() + 3600000L, "Demonstrate Problem");
+        // Demonstrate Problem
+        final Calendar gval = Calendar.getInstance();
+        gval.setTime(new Date(oct31_01MDT.getTime()));
+        gval.set(Calendar.MINUTE, gval.get(Calendar.MINUTE)); // set minutes to the same value
+        assertEquals(gval.getTime().getTime(), oct31_01MDT.getTime() + 3600000L, "Demonstrate Problem");
 
-            // Test Truncate
-            assertEquals(oct31_01_02_03_04MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MILLISECOND),
-                    "Truncate Calendar.MILLISECOND");
+        // Test Truncate
+        assertEquals(oct31_01_02_03_04MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MILLISECOND), "Truncate Calendar.MILLISECOND");
 
-            assertEquals(oct31_01_02_03MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.SECOND),
-                    "Truncate Calendar.SECOND");
+        assertEquals(oct31_01_02_03MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.SECOND), "Truncate Calendar.SECOND");
 
-            assertEquals(oct31_01_02MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MINUTE),
-                    "Truncate Calendar.MINUTE");
+        assertEquals(oct31_01_02MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MINUTE), "Truncate Calendar.MINUTE");
 
-            assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY),
-                    "Truncate Calendar.HOUR_OF_DAY");
+        assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY), "Truncate Calendar.HOUR_OF_DAY");
 
-            assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR),
-                    "Truncate Calendar.HOUR");
+        assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR), "Truncate Calendar.HOUR");
 
-            assertEquals(oct31MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.DATE),
-                    "Truncate Calendar.DATE");
+        assertEquals(oct31MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.DATE), "Truncate Calendar.DATE");
 
-            // Test Round (down)
-            assertEquals(oct31_01_02_03_04MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MILLISECOND),
-                    "Round Calendar.MILLISECOND");
+        // Test Round (down)
+        assertEquals(oct31_01_02_03_04MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MILLISECOND), "Round Calendar.MILLISECOND");
 
-            assertEquals(oct31_01_02_03MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.SECOND),
-                    "Round Calendar.SECOND");
+        assertEquals(oct31_01_02_03MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.SECOND), "Round Calendar.SECOND");
 
-            assertEquals(oct31_01_02MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MINUTE),
-                    "Round Calendar.MINUTE");
+        assertEquals(oct31_01_02MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MINUTE), "Round Calendar.MINUTE");
 
-            assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY),
-                    "Round Calendar.HOUR_OF_DAY");
+        assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY), "Round Calendar.HOUR_OF_DAY");
 
-            assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR),
-                    "Round Calendar.HOUR");
+        assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR), "Round Calendar.HOUR");
 
-            assertEquals(oct31MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.DATE),
-                    "Round Calendar.DATE");
-        } finally {
-            // restore default time zone
-            TimeZone.setDefault(DEFAULT_ZONE);
-        }
+        assertEquals(oct31MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.DATE), "Round Calendar.DATE");
     }
 
     /**
