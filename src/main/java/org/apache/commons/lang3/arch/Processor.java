@@ -199,7 +199,6 @@ public class Processor {
      * Tests if {@link Processor} is type of Aarch64.
      *
      * @return {@code true}, if {@link Processor} is {@link Type#AARCH_64}, else {@code false}.
-     *
      * @since 3.13.0
      */
     public boolean isAarch64() {

@@ -28,7 +28,6 @@
  * @see Object#toString()
  * @see Object#hashCode()
  * @see Comparable#compareTo(Object)
- *
  * @since 1.0
  */
 package org.apache.commons.lang3.builder;

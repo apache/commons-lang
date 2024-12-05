@@ -61,5 +61,7 @@ limitations under the License.
       <property name="separated" value="true"/>
     </module>
     <module name="MissingOverride"/>
+    <module name="ArrayTypeStyle"/>
+    <module name="ParenPad"/>
  </module>
 </module>

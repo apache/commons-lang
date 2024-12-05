@@ -65,7 +65,6 @@ import org.apache.commons.lang3.function.FailableSupplier;
  *
  * @see DurationUtils#of(FailableRunnable)
  * @see DurationUtils#of(FailableConsumer)
- *
  * @since 2.0
  */
 public class StopWatch {
@@ -178,7 +177,6 @@ public class StopWatch {
      * Creates a StopWatch.
      *
      * @return StopWatch a StopWatch.
-     *
      * @since 3.10
      */
     public static StopWatch create() {
@@ -189,7 +187,6 @@ public class StopWatch {
      * Creates and starts a StopWatch.
      *
      * @return StopWatch a started StopWatch.
-     *
      * @since 3.5
      */
     public static StopWatch createStarted() {
@@ -363,7 +360,6 @@ public class StopWatch {
      * </p>
      *
      * @return the split Duration
-     *
      * @throws IllegalStateException if this StopWatch has not yet been split.
      * @since 3.16.0
      */
@@ -379,7 +375,6 @@ public class StopWatch {
      * </p>
      *
      * @return the split time in nanoseconds
-     *
      * @throws IllegalStateException if this StopWatch has not yet been split.
      * @since 3.0
      */
@@ -398,7 +393,6 @@ public class StopWatch {
      * </p>
      *
      * @return the split time in milliseconds
-     *
      * @throws IllegalStateException if this StopWatch has not yet been split.
      * @since 2.1
      * @deprecated Use {@link #getSplitDuration()}.

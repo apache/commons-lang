@@ -36,7 +36,6 @@ public class Consumers {
      *
      * @param consumer the consumer to consume.
      * @param object   the object to be consumed.
-     *
      * @param <T>      the type of the argument the consumer accepts.
      * @since 3.15.0
      */

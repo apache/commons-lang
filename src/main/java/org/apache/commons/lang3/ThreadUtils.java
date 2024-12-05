@@ -342,7 +342,6 @@ public class ThreadUtils {
      *
      * @param predicate the predicate
      * @return An unmodifiable {@link Collection} of active threads matching the given predicate
-     *
      * @throws NullPointerException if the predicate is null
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
@@ -401,7 +400,6 @@ public class ThreadUtils {
      *
      * @param predicate the predicate
      * @return An unmodifiable {@link Collection} of active threads matching the given predicate
-     *
      * @throws NullPointerException if the predicate is null
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group

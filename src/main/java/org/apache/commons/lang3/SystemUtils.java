@@ -862,7 +862,6 @@ public class SystemUtils {
      * </p>
      *
      * @since 3.4
-     *
      * @deprecated As of release 3.5, replaced by {@link #IS_JAVA_9}
      */
     @Deprecated

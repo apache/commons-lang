@@ -96,7 +96,7 @@ public class FastDateParser_MoreOrLessTest extends AbstractLangTest {
         assertEquals(input.length(), parsePosition.getIndex());
 
         parsePosition.setIndex(0);
-        assertNull(parser.parse( "Thorsday, 03/23/61", parsePosition));
+        assertNull(parser.parse("Thorsday, 03/23/61", parsePosition));
         assertEquals(0, parsePosition.getErrorIndex());
     }
 
@@ -110,7 +110,7 @@ public class FastDateParser_MoreOrLessTest extends AbstractLangTest {
         assertEquals(input.length(), parsePosition.getIndex());
 
         parsePosition.setIndex(0);
-        assertNull(parser.parse( "11:23 Pacific Standard ", parsePosition));
+        assertNull(parser.parse("11:23 Pacific Standard ", parsePosition));
         assertEquals(6, parsePosition.getErrorIndex());
     }
 }

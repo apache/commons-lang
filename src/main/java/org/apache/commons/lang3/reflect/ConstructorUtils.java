@@ -152,7 +152,6 @@ public class ConstructorUtils {
      * @param cls  the class to be constructed, not {@code null}
      * @param args  the array of arguments, {@code null} treated as empty
      * @return new instance of {@code cls}, not {@code null}
-     *
      * @throws NullPointerException if {@code cls} is {@code null}
      * @throws NoSuchMethodException if a matching constructor cannot be found
      * @throws IllegalAccessException if invocation is not permitted by security
@@ -179,7 +178,6 @@ public class ConstructorUtils {
      * @param args  the array of arguments, {@code null} treated as empty
      * @param parameterTypes  the array of parameter types, {@code null} treated as empty
      * @return new instance of {@code cls}, not {@code null}
-     *
      * @throws NullPointerException if {@code cls} is {@code null}
      * @throws NoSuchMethodException if a matching constructor cannot be found
      * @throws IllegalAccessException if invocation is not permitted by security
@@ -215,7 +213,6 @@ public class ConstructorUtils {
      * @param cls the class to be constructed, not {@code null}
      * @param args the array of arguments, {@code null} treated as empty
      * @return new instance of {@code cls}, not {@code null}
-     *
      * @throws NullPointerException if {@code cls} is {@code null}
      * @throws NoSuchMethodException if a matching constructor cannot be found
      * @throws IllegalAccessException if invocation is not permitted by security
@@ -242,7 +239,6 @@ public class ConstructorUtils {
      * @param args the array of arguments, {@code null} treated as empty
      * @param parameterTypes  the array of parameter types, {@code null} treated as empty
      * @return new instance of {@code cls}, not {@code null}
-     *
      * @throws NullPointerException if {@code cls} is {@code null}
      * @throws NoSuchMethodException if a matching constructor cannot be found
      * @throws IllegalAccessException if invocation is not permitted by security

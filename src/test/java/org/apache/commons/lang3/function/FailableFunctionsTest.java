@@ -1493,6 +1493,7 @@ public class FailableFunctionsTest extends AbstractLangTest {
 
         // Even invocations, should not throw an exception
         Failable.run(FailureOnOddInvocations::new);
+        Failable.run(null);
     }
 
     /**

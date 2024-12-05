@@ -74,7 +74,7 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
+     * @param consumer the consumer to accept, may be null for a noop.
      * @param object1 the first object to consume by {@code consumer}
      * @param object2 the second object to consume by {@code consumer}
      * @param <T> the type of the first argument the consumer accepts
@@ -83,52 +83,52 @@ public class Failable {
      */
     public static <T, U, E extends Throwable> void accept(final FailableBiConsumer<T, U, E> consumer, final T object1,
         final U object2) {
-        run(() -> consumer.accept(object1, object2));
+        run(consumer, () -> consumer.accept(object1, object2));
     }
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
+     * @param consumer the consumer to accept, may be null for a noop.
      * @param object the object to consume by {@code consumer}
      * @param <T> the type the consumer accepts
      * @param <E> the type of checked exception the consumer may throw
      */
     public static <T, E extends Throwable> void accept(final FailableConsumer<T, E> consumer, final T object) {
-        run(() -> consumer.accept(object));
+        run(consumer, () -> consumer.accept(object));
     }
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
+     * @param consumer the consumer to accept, may be null for a noop.
      * @param value the value to consume by {@code consumer}
      * @param <E> the type of checked exception the consumer may throw
      */
     public static <E extends Throwable> void accept(final FailableDoubleConsumer<E> consumer, final double value) {
-        run(() -> consumer.accept(value));
+        run(consumer, () -> consumer.accept(value));
     }
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
+     * @param consumer the consumer to accept, may be null for a noop.
      * @param value the value to consume by {@code consumer}
      * @param <E> the type of checked exception the consumer may throw
      */
     public static <E extends Throwable> void accept(final FailableIntConsumer<E> consumer, final int value) {
-        run(() -> consumer.accept(value));
+        run(consumer, () -> consumer.accept(value));
     }
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
+     * @param consumer the consumer to accept, may be null for a noop.
      * @param value the value to consume by {@code consumer}
      * @param <E> the type of checked exception the consumer may throw
      */
     public static <E extends Throwable> void accept(final FailableLongConsumer<E> consumer, final long value) {
-        run(() -> consumer.accept(value));
+        run(consumer, () -> consumer.accept(value));
     }
 
     /**
@@ -419,14 +419,26 @@ public class Failable {
     /**
      * Runs a runnable and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param runnable The runnable to run
-     * @param <E> the type of checked exception the runnable may throw
+     * @param runnable The runnable to run, may be null for a noop.
+     * @param <E> the type of checked exception the runnable may throw.
      */
     public static <E extends Throwable> void run(final FailableRunnable<E> runnable) {
-        try {
-            runnable.run();
-        } catch (final Throwable t) {
-            throw rethrow(t);
+        if (runnable != null) {
+            try {
+                runnable.run();
+            } catch (final Throwable t) {
+                throw rethrow(t);
+            }
+        }
+    }
+
+    private static <E extends Throwable> void run(final Object test, final FailableRunnable<E> runnable) {
+        if (runnable != null && test != null) {
+            try {
+                runnable.run();
+            } catch (final Throwable t) {
+                throw rethrow(t);
+            }
         }
     }
 

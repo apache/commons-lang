@@ -117,7 +117,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs {@code this} object
      * @param rhs the other object
-     *
      * @return the pair
      */
     static Pair<IDKey, IDKey> getRegisterPair(final Object lhs, final Object rhs) {
@@ -173,7 +172,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param testTransients  whether to include transient fields
      * @return {@code true} if the two Objects have tested equals.
-     *
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final boolean testTransients) {
@@ -212,7 +210,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      *  fields recursively.
      * @param excludeFields  array of field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
-     *
      * @see EqualsExclude
      * @since 3.6
      */
@@ -260,7 +257,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      *  may be {@code null}
      * @param excludeFields  array of field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
-     *
      * @see EqualsExclude
      * @since 2.0
      */
@@ -288,7 +284,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param excludeFields  Collection of String field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
-     *
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final Collection<String> excludeFields) {
@@ -314,7 +309,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param excludeFields  array of field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
-     *
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final String... excludeFields) {

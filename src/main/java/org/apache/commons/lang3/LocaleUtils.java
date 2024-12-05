@@ -60,6 +60,11 @@ public class LocaleUtils {
 
     /**
      * The undetermined language {@value}.
+     * <p>
+     * If a language is empty, or not <em>well-formed</am> (for example "a" or "e2"), {@link Locale#toLanguageTag()} will return {@code "und"} (Undetermined).
+     * </p>
+     *
+     * @see Locale#toLanguageTag()
      */
     private static final String UNDETERMINED = "und";
 

@@ -37,7 +37,7 @@ public class IEEE754rUtilsTest extends AbstractLangTest {
     public void testEnforceExceptions() {
         assertThrows(
                 NullPointerException.class,
-                () -> IEEE754rUtils.min( (float[]) null),
+                () -> IEEE754rUtils.min((float[]) null),
                 "IllegalArgumentException expected for null input");
 
         assertThrows(
@@ -47,7 +47,7 @@ public class IEEE754rUtilsTest extends AbstractLangTest {
 
         assertThrows(
                 NullPointerException.class,
-                () -> IEEE754rUtils.max( (float[]) null),
+                () -> IEEE754rUtils.max((float[]) null),
                 "IllegalArgumentException expected for null input");
 
         assertThrows(
@@ -57,7 +57,7 @@ public class IEEE754rUtilsTest extends AbstractLangTest {
 
         assertThrows(
                 NullPointerException.class,
-                () -> IEEE754rUtils.min( (double[]) null),
+                () -> IEEE754rUtils.min((double[]) null),
                 "IllegalArgumentException expected for null input");
 
         assertThrows(
@@ -67,7 +67,7 @@ public class IEEE754rUtilsTest extends AbstractLangTest {
 
         assertThrows(
                 NullPointerException.class,
-                () -> IEEE754rUtils.max( (double[]) null),
+                () -> IEEE754rUtils.max((double[]) null),
                 "IllegalArgumentException expected for null input");
 
         assertThrows(

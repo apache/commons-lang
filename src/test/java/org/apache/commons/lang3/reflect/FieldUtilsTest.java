@@ -578,7 +578,7 @@ public class FieldUtilsTest extends AbstractLangTest {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.readField(publicChild, "b"));
 
         assertEquals(Boolean.TRUE, FieldUtils.readField(publiclyShadowedChild, "b"));
-        assertThrows( IllegalArgumentException.class, () -> FieldUtils.readField(privatelyShadowedChild, "b"));
+        assertThrows(IllegalArgumentException.class, () -> FieldUtils.readField(privatelyShadowedChild, "b"));
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.readField(publicChild, "i"));
         assertEquals(I1, FieldUtils.readField(publiclyShadowedChild, "i"));
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.readField(privatelyShadowedChild, "i"));

@@ -1561,7 +1561,6 @@ public class TypeUtils {
      * @param owner         the owning type
      * @param rawClass      the raw class to create a parameterized type instance for
      * @param typeArguments the types used for parameterization
-     *
      * @return {@link ParameterizedType}
      * @throws NullPointerException if {@code rawClass} is {@code null}
      * @since 3.2

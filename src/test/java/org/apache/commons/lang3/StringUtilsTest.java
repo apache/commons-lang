@@ -51,6 +51,9 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.WritesDefaultLocale;
 
 /**
  * Tests for methods of {@link StringUtils}
@@ -3089,6 +3092,8 @@ public class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
+    @WritesDefaultLocale
     public void testToRootLowerCase() {
         assertNull(StringUtils.toRootLowerCase(null));
         assertEquals("a", StringUtils.toRootLowerCase("A"));
@@ -3098,17 +3103,18 @@ public class StringUtilsTest extends AbstractLangTest {
         assertNotEquals("title", "TITLE".toLowerCase(TURKISH));
         assertEquals("title", "TITLE".toLowerCase(Locale.ROOT));
         assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
-        // Make sure we are not using the default Locale:
-        final Locale defaultLocale = Locale.getDefault();
-        try {
-            Locale.setDefault(TURKISH);
-            assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
-        } finally {
-            Locale.setDefault(defaultLocale);
-        }
     }
 
     @Test
+    @DefaultLocale("tr")
+    @ReadsDefaultLocale
+    public void testToRootLowerCaseTurkish() {
+        assertEquals("title", StringUtils.toRootLowerCase("TITLE"));
+    }
+
+    @Test
+    @ReadsDefaultLocale
+    @WritesDefaultLocale
     public void testToRootUpperCase() {
         assertNull(StringUtils.toRootUpperCase(null));
         assertEquals("A", StringUtils.toRootUpperCase("a"));

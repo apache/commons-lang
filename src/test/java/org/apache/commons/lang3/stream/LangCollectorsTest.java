@@ -74,7 +74,7 @@ public class LangCollectorsTest {
         return LangCollectors.collect(JOINING_4, objects);
     }
 
-    private String join4Nul(final Object... objects) {
+    private String join4NullToString(final Object... objects) {
         return LangCollectors.collect(JOINING_4_NUL, objects);
     }
 
@@ -127,9 +127,17 @@ public class LangCollectorsTest {
         assertEquals("<1-2>", join4(_1L, _2L));
         assertEquals("<1-2-3>", join4(_1L, _2L, _3L));
         assertEquals("<1-null-3>", join4(_1L, null, _3L));
-        assertEquals("<1-NUL-3>", join4Nul(_1L, null, _3L));
+        assertEquals("<1-NUL-3>", join4NullToString(_1L, null, _3L));
         assertEquals("<1-2>", join4(new AtomicLong(1), new AtomicLong(2)));
         assertEquals("<1-2>", join4(new Fixture(1), new Fixture(2)));
+    }
+
+    @Test
+    public void testJoinCollectNullArgs() {
+        assertEquals("", join0((Object[]) null));
+        assertEquals("", join1((Object[]) null));
+        assertEquals("<>", join3((Object[]) null));
+        assertEquals("<>", join4NullToString((Object[]) null));
     }
 
     @Test
@@ -157,7 +165,7 @@ public class LangCollectorsTest {
         assertEquals("<1-2>", join4("1", "2"));
         assertEquals("<1-2-3>", join4("1", "2", "3"));
         assertEquals("<1-null-3>", join4("1", null, "3"));
-        assertEquals("<1-NUL-3>", join4Nul("1", null, "3"));
+        assertEquals("<1-NUL-3>", join4NullToString("1", null, "3"));
     }
 
     @Test

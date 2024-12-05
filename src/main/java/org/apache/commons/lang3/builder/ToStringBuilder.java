@@ -973,9 +973,7 @@ public class ToStringBuilder implements Builder<String> {
      * default implementation utilizes the {@link #toString()} implementation.
      *
      * @return the String {@code toString}
-     *
      * @see #toString()
-     *
      * @since 3.0
      */
     @Override

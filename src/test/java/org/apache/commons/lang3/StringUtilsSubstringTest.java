@@ -317,7 +317,7 @@ public void testSubstringBetween_StringString() {
         assertNull(StringUtils.substringBetween("foo", "", "]"));
         assertNull(StringUtils.substringBetween("foo", "[", "]"));
         assertEquals("", StringUtils.substringBetween("    ", " ", "  "));
-        assertEquals("bar", StringUtils.substringBetween("<foo>bar</foo>", "<foo>", "</foo>") );
+        assertEquals("bar", StringUtils.substringBetween("<foo>bar</foo>", "<foo>", "</foo>"));
         assertEquals("abc", StringUtils.substringBetween("yabczyabcz", "y", "z"));
     }
 

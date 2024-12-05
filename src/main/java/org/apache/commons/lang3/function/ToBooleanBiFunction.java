@@ -25,7 +25,6 @@ import java.util.function.BiFunction;
  *
  * @param <T> the type of the first argument to the function.
  * @param <U> the type of the second argument to the function.
- *
  * @see BiFunction
  * @since 3.12.0
  */

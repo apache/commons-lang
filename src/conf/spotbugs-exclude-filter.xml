@@ -213,7 +213,7 @@
     <Method name="requireNonNull" />
     <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" />
   </Match>
-  <!-- What can be done?-->
+  <!-- False positive https://github.com/spotbugs/spotbugs/issues/2957 to be fixed in 4.9.0 -->
   <Match>
     <Class name="org.apache.commons.lang3.event.EventListenerSupport" />
     <Method name="readObject" />

@@ -5442,7 +5442,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(boolean[], boolean)}
@@ -5462,7 +5461,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(byte[], byte)}
@@ -5482,7 +5480,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(char[], char)}
@@ -5502,7 +5499,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(double[], double)}
@@ -5522,7 +5518,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(float[], float)}
@@ -5542,7 +5537,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(int[], int)}
@@ -5562,7 +5556,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(long[], long)}
@@ -5582,7 +5575,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(short[], short)}
@@ -5603,7 +5595,6 @@ public class ArrayUtils {
      * @param <T> the type of object in the array
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(Object[], Object)}
@@ -5623,7 +5614,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5641,7 +5631,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5659,7 +5648,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5677,7 +5665,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5695,7 +5682,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5713,7 +5699,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5731,7 +5716,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5749,7 +5733,6 @@ public class ArrayUtils {
      *
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5768,7 +5751,6 @@ public class ArrayUtils {
      * @param <T> the type of object in the array
      * @param element the element to remove
      * @param array the input array
-     *
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */

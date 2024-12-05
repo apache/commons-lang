@@ -84,7 +84,7 @@ public class StringEscapeUtils {
                 throw new IllegalStateException("CsvUnescaper should never reach the [1] index");
             }
 
-            if ( input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE ) {
+            if (input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE) {
                 out.write(input.toString());
                 return Character.codePointCount(input, 0, input.length());
             }
@@ -92,7 +92,7 @@ public class StringEscapeUtils {
             // strip quotes
             final String quoteless = input.subSequence(1, input.length() - 1).toString();
 
-            if ( StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS) ) {
+            if (StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS)) {
                 // deal with escaped quotes; ie) ""
                 out.write(Strings.CS.replace(quoteless, CSV_QUOTE_STR + CSV_QUOTE_STR, CSV_QUOTE_STR));
             } else {
@@ -459,7 +459,6 @@ public class StringEscapeUtils {
      *
      * @param input  String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
-     *
      * @since 3.0
      */
     public static final String escapeEcmaScript(final String input) {
@@ -472,7 +471,6 @@ public class StringEscapeUtils {
      *
      * @param input  the {@link String} to escape, may be null
      * @return a new escaped {@link String}, {@code null} if null string input
-     *
      * @since 3.0
      */
     public static final String escapeHtml3(final String input) {
@@ -497,13 +495,11 @@ public class StringEscapeUtils {
      *
      * @param input  the {@link String} to escape, may be null
      * @return a new escaped {@link String}, {@code null} if null string input
-     *
      * @see <a href="https://web.archive.org/web/20060225074150/https://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
      * @see <a href="https://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
      * @see <a href="https://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
      * @see <a href="https://www.w3.org/TR/html401/charset.html#h-5.3">HTML 4.01 Character References</a>
      * @see <a href="https://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
-     *
      * @since 3.0
      */
     public static final String escapeHtml4(final String input) {
@@ -555,7 +551,6 @@ public class StringEscapeUtils {
      *
      * @param input  String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
-     *
      * @since 3.2
      */
     public static final String escapeJson(final String input) {
@@ -575,7 +570,7 @@ public class StringEscapeUtils {
      * <p>Note that Unicode characters greater than 0x7f are as of 3.0, no longer
      *    escaped. If you still wish this functionality, you can achieve it
      *    via the following:
-     * {@code StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE) );}</p>
+     * {@code StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE));}</p>
      *
      * @param input  the {@link String} to escape, may be null
      * @return a new escaped {@link String}, {@code null} if null string input
@@ -684,7 +679,6 @@ public class StringEscapeUtils {
      * @see #unescapeJava(String)
      * @param input  the {@link String} to unescape, may be null
      * @return A new unescaped {@link String}, {@code null} if null string input
-     *
      * @since 3.0
      */
     public static final String unescapeEcmaScript(final String input) {
@@ -698,7 +692,6 @@ public class StringEscapeUtils {
      *
      * @param input  the {@link String} to unescape, may be null
      * @return a new unescaped {@link String}, {@code null} if null string input
-     *
      * @since 3.0
      */
     public static final String unescapeHtml3(final String input) {
@@ -719,7 +712,6 @@ public class StringEscapeUtils {
      *
      * @param input  the {@link String} to unescape, may be null
      * @return a new unescaped {@link String}, {@code null} if null string input
-     *
      * @since 3.0
      */
     public static final String unescapeHtml4(final String input) {
@@ -749,7 +741,6 @@ public class StringEscapeUtils {
      * @see #unescapeJava(String)
      * @param input  the {@link String} to unescape, may be null
      * @return A new unescaped {@link String}, {@code null} if null string input
-     *
      * @since 3.2
      */
     public static final String unescapeJson(final String input) {

@@ -30,7 +30,6 @@ import java.util.Objects;
  *
  * @param <L> the left element type
  * @param <R> the right element type
- *
  * @since 3.0
  */
 public class ImmutablePair<L, R> extends Pair<L, R> {
@@ -61,7 +60,6 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * @param <L> the left element type
      * @param <R> the right element type
      * @return the empty array singleton that can be assigned without compiler warning.
-     *
      * @since 3.10.
      */
     @SuppressWarnings("unchecked")

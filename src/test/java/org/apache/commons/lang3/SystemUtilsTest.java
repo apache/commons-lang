@@ -170,7 +170,7 @@ public class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
             // @formatter:off
-            final boolean macOsValues[] = {
+            final boolean[] macOsValues = {
                     SystemUtils.IS_OS_MAC_OSX_BIG_SUR,
                     SystemUtils.IS_OS_MAC_OSX_CATALINA,
                     SystemUtils.IS_OS_MAC_OSX_CHEETAH,
