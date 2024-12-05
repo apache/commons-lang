@@ -223,7 +223,6 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
             return String.format("%s[%s - %s - %s - %s]", getClass().getSimpleName(), string, instant, duration, period);
         }
 
-
     }
 
     @Test
@@ -239,7 +238,7 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(new MyTemporalAccessor("1"), new MyTemporalAccessor("1")).isEquals());
         // MyCharSequence
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(new MyCharSequence("1"), new MyCharSequence("1")).isEquals());
-        // My Class
+        // MyClass
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1, o1).isEquals(), o1::toString);
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1, o1Bis).isEquals(), o1::toString);
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o2, o2).isEquals(), o2::toString);
