@@ -51,6 +51,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.WritesDefaultLocale;
 
 /**
  * Tests for methods of {@link StringUtils}
@@ -3089,6 +3091,8 @@ public class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
+    @WritesDefaultLocale
     public void testToRootLowerCase() {
         assertNull(StringUtils.toRootLowerCase(null));
         assertEquals("a", StringUtils.toRootLowerCase("A"));
@@ -3109,6 +3113,8 @@ public class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
+    @WritesDefaultLocale
     public void testToRootUpperCase() {
         assertNull(StringUtils.toRootUpperCase(null));
         assertEquals("A", StringUtils.toRootUpperCase("a"));

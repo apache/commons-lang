@@ -28,6 +28,8 @@ import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.WritesDefaultLocale;
 
 /**
  * Tests {@link StringUtils} - Contains methods
@@ -230,8 +232,10 @@ public class StringUtilsContainsTest extends AbstractLangTest {
         assertTrue(StringUtils.containsAnyIgnoreCase("abc", "d", "abc"));
     }
 
-    @DefaultLocale(language = "de", country = "DE")
     @Test
+    @DefaultLocale(language = "de", country = "DE")
+    @ReadsDefaultLocale
+    @WritesDefaultLocale
     public void testContainsIgnoreCase_LocaleIndependence() {
         final Locale[] locales = { Locale.ENGLISH, new Locale("tr"), Locale.getDefault() };
 
