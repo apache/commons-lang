@@ -98,7 +98,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testCloneSerializableSupplier() {
+    public void testCloneSerializableSupplier() {
         final SerializableSupplier<String> supplier = () -> "test";
         assertEquals("test", supplier.get());
         final SerializableSupplier<String> clone = SerializationUtils.clone(supplier);
