@@ -73,6 +73,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="IBue, Gary Gregory">Fix names of UTF-16 surrogate character test fixture constants, see also #1326.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Moditect plugin generates split package warnings.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">LocaleUtils.availableLocaleSet() uses predictable iteration order.</action>
+    <action issue="LANG-1759" type="fix" dev="ggregory" due-to="Maxim Butov, Gary Gregory">SerializationUtils.clone(Object) throws ClassCastException when called with a Serializable lambda.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
