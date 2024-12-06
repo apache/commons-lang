@@ -1671,7 +1671,7 @@ public class SystemUtils {
     public static final boolean IS_OS_SUN_OS = getOsNameMatches("SunOS");
 
     /**
-     * The constant {@code true} if this is a UNIX like system, as in any of AIX, HP-UX, Irix, Linux, MacOSX, Solaris or SUN OS.
+     * The constant {@code true} if this is a Unix like system, as in any of AIX, HP-UX, Irix, Linux, MacOSX, Solaris or SUN OS.
      *
      * <p>
      * The field will return {@code false} if {@code OS_NAME} is {@code null}.
