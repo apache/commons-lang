@@ -103,7 +103,7 @@ public class SerializationUtils {
     }
 
     /**
-     * Deep clone an {@link Object} using serialization.
+     * Deep clones an {@link Object} using serialization.
      *
      * <p>This is many times slower than writing clone methods by hand
      * on all objects in your object graph. However, for complex object
@@ -120,20 +120,15 @@ public class SerializationUtils {
         if (object == null) {
             return null;
         }
-        final byte[] objectData = serialize(object);
-        final ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
-
+        final ByteArrayInputStream bais = new ByteArrayInputStream(serialize(object));
         final Class<T> cls = ObjectUtils.getClass(object);
         try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais, cls.getClassLoader())) {
-            /*
-             * when we serialize and deserialize an object, it is reasonable to assume the deserialized object is of the
-             * same type as the original serialized object
-             */
-            return cls.cast(in.readObject());
+            // When we serialize and deserialize an object, it is reasonable to assume the deserialized object is of the
+            // same type as the original serialized object
+            return (T) in.readObject();
 
         } catch (final ClassNotFoundException | IOException ex) {
-            throw new SerializationException(
-                String.format("%s while reading cloned object data", ex.getClass().getSimpleName()), ex);
+            throw new SerializationException(String.format("%s while reading cloned object data", ex.getClass().getSimpleName()), ex);
         }
     }
 

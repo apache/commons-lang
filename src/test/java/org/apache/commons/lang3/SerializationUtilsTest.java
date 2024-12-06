@@ -38,6 +38,7 @@ import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,12 +52,16 @@ final class ClassNotFoundSerialization implements Serializable {
     }
 }
 
+interface SerializableSupplier<T> extends Supplier<T>, Serializable {
+    // empty
+}
+
 /**
  * Tests {@link SerializationUtils}.
  */
 public class SerializationUtilsTest extends AbstractLangTest {
 
-  static final String CLASS_NOT_FOUND_MESSAGE = "ClassNotFoundSerialization.readObject fake exception";
+    static final String CLASS_NOT_FOUND_MESSAGE = "ClassNotFoundSerialization.readObject fake exception";
     protected static final String SERIALIZE_IO_EXCEPTION_MESSAGE = "Anonymous OutputStream I/O exception";
 
     private String iString;
@@ -90,6 +95,14 @@ public class SerializationUtilsTest extends AbstractLangTest {
     public void testCloneNull() {
         final Object test = SerializationUtils.clone(null);
         assertNull(test);
+    }
+
+    @Test
+    public void testCloneSerializableSupplier() {
+        final SerializableSupplier<String> supplier = () -> "test";
+        assertEquals("test", supplier.get());
+        final SerializableSupplier<String> clone = SerializationUtils.clone(supplier);
+        assertEquals("test", clone.get());
     }
 
     @Test

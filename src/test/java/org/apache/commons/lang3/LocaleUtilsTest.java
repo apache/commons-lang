@@ -30,6 +30,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -208,7 +209,7 @@ public class LocaleUtilsTest extends AbstractLangTest {
         assertUnmodifiableCollection(list);
 
         final Locale[] jdkLocaleArray = Locale.getAvailableLocales();
-        final List<Locale> jdkLocaleList = Arrays.asList(jdkLocaleArray);
+        final List<Locale> jdkLocaleList = Arrays.asList(ArraySorter.sort(jdkLocaleArray, Comparator.comparing(Locale::toString)));
         assertEquals(jdkLocaleList, list);
     }
 

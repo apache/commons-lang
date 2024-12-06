@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArraySorter;
@@ -56,6 +57,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     private static final List<Locale> Java11Failures = new ArrayList<>();
     private static final List<Locale> Java17Failures = new ArrayList<>();
+    private static final AtomicInteger fails = new AtomicInteger();
 
     @AfterAll
     public static void afterAll() {
@@ -93,18 +95,18 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     private void testTimeZoneStrategyPattern(final String languageTag, final String source) throws ParseException {
         final Locale locale = Locale.forLanguageTag(languageTag);
-        assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, languageTag));
-        assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, languageTag));
-        final TimeZone tzDefault = TimeZone.getTimeZone("Etc/UTC");
-        final FastDateParser parser = new FastDateParser("z", tzDefault, locale);
+        final TimeZone timeZone = TimeZone.getTimeZone("Etc/UTC");
+        assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, languageTag, timeZone));
+        assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, languageTag, timeZone));
+        final FastDateParser parser = new FastDateParser("z", timeZone, locale);
         parser.parse(source);
         testTimeZoneStrategyPattern_TimeZone_getAvailableIDs(locale);
     }
 
     private void testTimeZoneStrategyPattern_DateFormatSymbols_getZoneStrings(final Locale locale) {
         Objects.requireNonNull(locale, "locale");
-        assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null));
-        assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null));
+        assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null, null));
+        assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null, null));
 
         final String[][] zones = ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(),
                 Comparator.comparing(array -> array[0]));
@@ -129,7 +131,9 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         Java17Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf(
-                                "Java %s %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                "[%,d][%s] Java %s %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                fails.incrementAndGet(),
+                                Thread.currentThread().getName(),
                                 SystemUtils.JAVA_VENDOR,
                                 SystemUtils.JAVA_VM_VERSION,
                                 localeStr, tzDisplay);
@@ -141,7 +145,9 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         Java11Failures.add(locale);
                         // Mark as an assumption failure instead of a hard fail
                         System.err.printf(
-                                "Java %s %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                "[%,d][%s] Java %s %s - Mark as an assumption failure instead of a hard fail: locale = '%s', parse = '%s'%n",
+                                fails.incrementAndGet(),
+                                Thread.currentThread().getName(),
                                 SystemUtils.JAVA_VENDOR,
                                 SystemUtils.JAVA_VM_VERSION,
                                 localeStr, tzDisplay);
@@ -163,19 +169,19 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      */
     private void testTimeZoneStrategyPattern_TimeZone_getAvailableIDs(final Locale locale) {
         Objects.requireNonNull(locale, "locale");
-        assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null));
-        assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null));
-
+        assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null, null));
+        assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null, null));
         for (final String id : ArraySorter.sort(TimeZone.getAvailableIDs())) {
             final TimeZone timeZone = TimeZone.getTimeZone(id);
-            final FastDateParser parser = new FastDateParser("z", timeZone, locale);
             final String displayName = timeZone.getDisplayName(locale);
+            final FastDateParser parser = new FastDateParser("z", timeZone, locale);
             try {
                 parser.parse(displayName);
             } catch (final ParseException e) {
                 // Missing "Zulu" or something else in broken JDK's GH builds?
-                fail(String.format("%s: with locale = %s, id = '%s', timeZone = %s, displayName = '%s', parser = '%s'", e, locale, id, timeZone, displayName,
-                        parser.toStringAll()), e);
+                // Call LocaleUtils again
+                fail(String.format("%s: with id = '%s', displayName = '%s', %s, parser = '%s'", e, id, displayName,
+                        toFailureMessage(locale, null, timeZone), parser.toStringAll()), e);
             }
         }
     }
@@ -196,6 +202,11 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         testTimeZoneStrategyPattern("pt_PT", "Horário do Meridiano de Greenwich");
     }
 
+    @Test
+    public void testTimeZoneStrategyPattern_zh_HK_Hans() throws ParseException {
+        testTimeZoneStrategyPattern("zh_HK_#Hans", "?????????");
+    }
+
     /**
      * Breaks randomly on GitHub for Locale "sr_ME_#Cyrl", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
      *
@@ -212,8 +223,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         testTimeZoneStrategyPattern("sr_ME_#Cyrl", "Srednje vreme po Griniču");
     }
 
-    private String toFailureMessage(final Locale locale, final String languageTag) {
-        return String.format("locale = %s, languageTag = '%s', isAvailableLocale = %s, isLanguageUndetermined = %s", languageTag, locale,
-                LocaleUtils.isAvailableLocale(locale), LocaleUtils.isLanguageUndetermined(locale));
+    private String toFailureMessage(final Locale locale, final String languageTag, final TimeZone timeZone) {
+        return String.format("locale = %s, languageTag = '%s', isAvailableLocale = %s, isLanguageUndetermined = %s, timeZone = %s", languageTag, locale,
+                LocaleUtils.isAvailableLocale(locale), LocaleUtils.isLanguageUndetermined(locale), TimeZones.toTimeZone(timeZone));
     }
 }
