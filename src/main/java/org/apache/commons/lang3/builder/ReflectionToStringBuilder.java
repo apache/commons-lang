@@ -875,15 +875,15 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     private boolean handleNativeClasses() {
         Object value = getObject();
-        if (Reflection.isJavaInternalClass(value)) {
-            getStringBuffer().append("value=").append(getObject().toString());
-            return true;
-        }
-
         if (value.getClass().isArray() || value instanceof Collection || value instanceof Map) {
             // we first need to unregister the value to be able to handle it in the style
             ToStringStyle.unregister(value);
             getStyle().append(getStringBuffer(), null, value, true);
+            return true;
+        }
+
+        if (Reflection.isInaccessibleClass(value)) {
+            getStringBuffer().append("value=").append(getObject().toString());
             return true;
         }
 

@@ -18,15 +18,16 @@
 package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.Field;
-import java.time.Duration;
-import java.time.Period;
-import java.time.temporal.Temporal;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Package-private reflection code.
  */
 final class Reflection {
+
+    private static Map<Class, Boolean> inaccessibleClasses = new ConcurrentHashMap<>();
 
     /**
      * Delegates to {@link Field#get(Object)} and rethrows {@link IllegalAccessException} as {@link IllegalArgumentException}.
@@ -45,26 +46,40 @@ final class Reflection {
     }
 
     /**
-     * Check whether the given object is of a type which is an internal java Class, like String, Integer, Boolean, LocalDateTime, etc
-     * This is often needed as we cannot look into them via reflection since Java9.
+     * Check whether the class internas of the given object can be accessed. This might return false in Java9
+     * and thus lead to a difference in behaviour if modularity is activated or not.
+     * But it's the best we can do.
      *
-     * @return {@code true} if the given object is a Java internal class
+     * @return {@code true} if the given class internas not accessible
      */
-    static boolean isJavaInternalClass(Object o) {
-        return o != null && isJavaInternalClass(o.getClass());
+    static boolean isInaccessibleClass(Object o) {
+        return o != null && isInaccessibleClass(o.getClass());
     }
 
     /**
-     * Check whether the given class is an internal java Class, like String, Integer, Boolean, LocalDateTime, etc
-     * This is often needed as we cannot look into them via reflection since Java9.
+     * Check whether the given class internas can be accessed. This might return false in Java9
+     * and thus lead to a difference in behaviour if modularity is activated or not.
+     * But it's the best we can do.
      *
-     * @return {@code true} if the given class is a Java internal class
+     * @return {@code true} if the given class internas not accessible
      */
-    static boolean isJavaInternalClass(Class<?> clazz) {
-        return String.class.isAssignableFrom(clazz) || Number.class.isAssignableFrom(clazz)
-                || Boolean.class.isAssignableFrom(clazz) || Character.class.isAssignableFrom(clazz)
-                || Temporal.class.isAssignableFrom(clazz) || Duration.class.isAssignableFrom(clazz)
-                || Period.class.isAssignableFrom(clazz);
+    static boolean isInaccessibleClass(Class<?> clazz) {
+        Boolean isAccessible = inaccessibleClasses.get(clazz);
+        if (isAccessible != null) {
+            return isAccessible;
+        }
+        try {
+            final Field[] declaredFields = clazz.getDeclaredFields();
+            for (Field f : declaredFields) {
+                f.setAccessible(true);
+            }
+
+            inaccessibleClasses.put(clazz, false);
+            return false;
+        } catch (Exception e) {
+            inaccessibleClasses.put(clazz, true);
+            return true;
+        }
     }
 
 }

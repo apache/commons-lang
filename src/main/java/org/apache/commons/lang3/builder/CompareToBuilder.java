@@ -115,7 +115,7 @@ public class CompareToBuilder implements Builder<Integer> {
         final boolean useTransients,
         final String[] excludeFields) {
 
-        if (Reflection.isJavaInternalClass(lhs) && lhs instanceof Comparable) {
+        if (Reflection.isInaccessibleClass(lhs) && lhs instanceof Comparable) {
             builder.append(lhs, rhs);
             return;
         }
