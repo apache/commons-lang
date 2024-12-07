@@ -18,8 +18,19 @@
 package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.Field;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.Period;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -27,6 +38,40 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 final class Reflection {
 
+    /**
+     * Some classes known to not be introspectable.
+     * Those are classes where we would blow up when we try to access internal information via reflection.
+     */
+    private static final Set<Class> KNOWN_INACCESSIBLE_CLASSES = new HashSet<>();
+    {
+        KNOWN_INACCESSIBLE_CLASSES.addAll(Arrays.asList(
+                Boolean.class,
+                Character.class,
+                String.class,
+                Byte.class,
+                Short.class,
+                Integer.class,
+                Long.class,
+                Float.class,
+                Double.class,
+                java.util.Date.class,
+                java.sql.Date.class,
+                LocalDate.class,
+                LocalDateTime.class,
+                LocalTime.class,
+                OffsetTime.class,
+                OffsetDateTime.class,
+                Instant.class,
+                Duration.class,
+                Period.class
+                ));
+    }
+
+    /**
+     * this is a cache for {@link #isInaccessibleClass(Class)}.
+     * Downside: this has a Class as key, so it *might* lock a ClassLoader.
+     * TODO think about making this cache optional? Otoh we only cache classes we touch via the reflection methods.
+     */
     private static Map<Class, Boolean> inaccessibleClasses = new ConcurrentHashMap<>();
 
     /**
@@ -64,6 +109,9 @@ final class Reflection {
      * @return {@code true} if the given class internas not accessible
      */
     static boolean isInaccessibleClass(Class<?> clazz) {
+        if (KNOWN_INACCESSIBLE_CLASSES.contains(clazz)) {
+            return true;
+        }
         Boolean isAccessible = inaccessibleClasses.get(clazz);
         if (isAccessible != null) {
             return isAccessible;
