@@ -69,7 +69,7 @@ public class SystemUtils {
      * The file separator is:
      * </p>
      * <ul>
-     * <li>{@code "/"} on UNIX</li>
+     * <li>{@code "/"} on Unix</li>
      * <li>{@code "\"} on Windows.</li>
      * </ul>
      *
@@ -545,7 +545,7 @@ public class SystemUtils {
     public static final String JAVA_VM_VERSION = SystemProperties.getJavaVmVersion();
 
     /**
-     * A constant for the System Property {@code line.separator}. Line separator ({@code &quot;\n&quot;} on UNIX).
+     * A constant for the System Property {@code line.separator}. Line separator ({@code &quot;\n&quot;} on Unix).
      *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does not exist.
@@ -611,7 +611,7 @@ public class SystemUtils {
     public static final String OS_VERSION = SystemProperties.getOsVersion();
 
     /**
-     * A constant for the System Property {@code path.separator}. Path separator ({@code &quot;:&quot;} on UNIX).
+     * A constant for the System Property {@code path.separator}. Path separator ({@code &quot;:&quot;} on Unix).
      *
      * <p>
      * Defaults to {@code null} if the runtime does not have security access to read this property or the property does not exist.
