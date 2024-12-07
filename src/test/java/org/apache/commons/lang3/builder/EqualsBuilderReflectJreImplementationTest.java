@@ -22,7 +22,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.time.Period;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.chrono.HijrahDate;
+import java.time.chrono.JapaneseDate;
+import java.time.chrono.MinguoDate;
+import java.time.chrono.ThaiBuddhistDate;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
@@ -82,17 +96,33 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
         private final MyTemporal temporal;
         private final MyTemporalAccessor temporalAccessor;
         private final MyTemporalAmount temporalAmount;
+        private final Object[] objects;
 
-        MyClass(final MyCharSequence charSequence, final MyTemporal temporal, final MyTemporalAccessor temporalAccessor, final MyTemporalAmount temporalAmount) {
+        MyClass(final MyCharSequence charSequence, final MyTemporal temporal, final MyTemporalAccessor temporalAccessor,
+                final MyTemporalAmount temporalAmount) {
             this.charSequence = charSequence;
             this.temporal = temporal;
             this.temporalAccessor = temporalAccessor;
             this.temporalAmount = temporalAmount;
+            final int value = Integer.parseInt(charSequence.toString());
+            final LocalDate localDate = LocalDate.ofEpochDay(value);
+            final LocalTime localTime = LocalTime.of(value, value);
+            final LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+            final OffsetDateTime offsetDateTime = OffsetDateTime.of(localDateTime, ZoneOffset.UTC);
+            final ZoneOffset zoneOffset = ZoneOffset.ofHours(value);
+            this.objects = new Object[] {
+                    // a Long
+                    value,
+                    // all concrete dates and times
+                    localDate, HijrahDate.from(localDate), JapaneseDate.from(localDate), MinguoDate.from(localDate), ThaiBuddhistDate.from(localDate),
+                    localDate, localTime, localDateTime, offsetDateTime, OffsetTime.of(localTime, zoneOffset), Year.of(value), YearMonth.of(value, value),
+                    ZonedDateTime.of(localDateTime, zoneOffset), zoneOffset, ZoneId.of(zoneOffset.getId()) };
         }
 
         @Override
         public String toString() {
-            return String.format("%s[%s - %s - %s - $s]", getClass().getSimpleName(), charSequence, temporal, temporalAccessor, temporalAmount);
+            return String.format("%s[%s, %s, %s, %s, %s]", getClass().getSimpleName(), charSequence, temporal, temporalAccessor, temporalAmount,
+                    Arrays.toString(objects));
         }
     }
 
@@ -114,37 +144,37 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
 
         @Override
         public long getLong(final TemporalField field) {
-            return 0;
+            return instant.get(field);
         }
 
         @Override
         public boolean isSupported(final TemporalField field) {
-            return false;
+            return instant.isSupported(field);
         }
 
         @Override
         public boolean isSupported(final TemporalUnit unit) {
-            return false;
+            return instant.isSupported(unit);
         }
 
         @Override
         public Temporal plus(final long amountToAdd, final TemporalUnit unit) {
-            return null;
+            return instant.plus(amountToAdd, unit);
         }
 
         @Override
         public String toString() {
-            return String.format("%s[%s - %s - %s]", getClass().getSimpleName(), string, instant, duration, period);
+            return String.format("%s[%s, %s, %s, %s]", getClass().getSimpleName(), string, instant, duration, period);
         }
 
         @Override
         public long until(final Temporal endExclusive, final TemporalUnit unit) {
-            return 0;
+            return instant.until(endExclusive, unit);
         }
 
         @Override
         public Temporal with(final TemporalField field, final long newValue) {
-            return null;
+            return instant.with(field, newValue);
         }
 
     }
@@ -162,22 +192,21 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
             this.instant = Instant.ofEpochMilli(value);
             this.duration = Duration.between(instant, instant.plusMillis(value));
             this.period = Period.ofDays(value);
-
         }
 
         @Override
         public long getLong(final TemporalField field) {
-            return 0;
+            return instant.get(field);
         }
 
         @Override
         public boolean isSupported(final TemporalField field) {
-            return false;
+            return instant.isSupported(field);
         }
 
         @Override
         public String toString() {
-            return String.format("%s[%s - %s - % - %s]", getClass().getSimpleName(), string, instant, duration, period);
+            return String.format("%s[%s, %s, %s, %s]", getClass().getSimpleName(), string, instant, duration, period);
         }
 
     }
@@ -200,22 +229,22 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
 
         @Override
         public Temporal addTo(final Temporal temporal) {
-            return null;
+            return duration.addTo(temporal);
         }
 
         @Override
         public long get(final TemporalUnit unit) {
-            return 0;
+            return duration.get(unit);
         }
 
         @Override
         public List<TemporalUnit> getUnits() {
-            return null;
+            return duration.getUnits();
         }
 
         @Override
         public Temporal subtractFrom(final Temporal temporal) {
-            return null;
+            return duration.subtractFrom(temporal);
         }
 
         @Override
