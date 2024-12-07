@@ -733,7 +733,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             // to be inlined
             appendArray(lhs, rhs);
         } else // The simple case, not an array, just test the element
-        if (testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass) && !Reflection.isInaccessibleClass(lhsClass)) {
+        if (testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass) && !Reflection.isNonIntrospectibleClass(lhsClass)) {
             reflectionAppend(lhs, rhs);
         } else {
             isEquals = lhs.equals(rhs);
@@ -958,7 +958,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         }
 
         try {
-            if (testClass.isArray() || Reflection.isInaccessibleClass(testClass)) {
+            if (testClass.isArray() || Reflection.isNonIntrospectibleClass(testClass)) {
                 append(lhs, rhs);
             } else if (Collection.class.isAssignableFrom(testClass)) {
                 // Right now this also handles Sets.

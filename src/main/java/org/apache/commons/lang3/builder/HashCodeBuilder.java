@@ -180,7 +180,7 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (isRegistered(object)) {
             return;
         }
-        if (Reflection.isInaccessibleClass(object)) {
+        if (Reflection.isNonIntrospectibleClass(object)) {
             builder.append(object);
             return;
         }

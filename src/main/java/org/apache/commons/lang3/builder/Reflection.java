@@ -42,9 +42,9 @@ final class Reflection {
      * Some classes known to not be introspectable.
      * Those are classes where we would blow up when we try to access internal information via reflection.
      */
-    private static final Set<Class> KNOWN_INACCESSIBLE_CLASSES = new HashSet<>();
+    private static final Set<Class> KNOWN_NON_INTROSPECTIBLE_CLASSES = new HashSet<>();
     {
-        KNOWN_INACCESSIBLE_CLASSES.addAll(Arrays.asList(
+        KNOWN_NON_INTROSPECTIBLE_CLASSES.addAll(Arrays.asList(
                 Boolean.class,
                 Character.class,
                 String.class,
@@ -68,11 +68,11 @@ final class Reflection {
     }
 
     /**
-     * this is a cache for {@link #isInaccessibleClass(Class)}.
+     * this is a cache for {@link #isNonIntrospectibleClass(Class)}.
      * Downside: this has a Class as key, so it *might* lock a ClassLoader.
      * TODO think about making this cache optional? Otoh we only cache classes we touch via the reflection methods.
      */
-    private static Map<Class, Boolean> inaccessibleClasses = new ConcurrentHashMap<>();
+    private static Map<Class, Boolean> nonIntrospectibleClasses = new ConcurrentHashMap<>();
 
     /**
      * Delegates to {@link Field#get(Object)} and rethrows {@link IllegalAccessException} as {@link IllegalArgumentException}.
@@ -97,8 +97,8 @@ final class Reflection {
      *
      * @return {@code true} if the given class internas not accessible
      */
-    static boolean isInaccessibleClass(Object o) {
-        return o != null && isInaccessibleClass(o.getClass());
+    static boolean isNonIntrospectibleClass(Object o) {
+        return o != null && isNonIntrospectibleClass(o.getClass());
     }
 
     /**
@@ -108,11 +108,11 @@ final class Reflection {
      *
      * @return {@code true} if the given class internas not accessible
      */
-    static boolean isInaccessibleClass(Class<?> clazz) {
-        if (KNOWN_INACCESSIBLE_CLASSES.contains(clazz)) {
+    static boolean isNonIntrospectibleClass(Class<?> clazz) {
+        if (KNOWN_NON_INTROSPECTIBLE_CLASSES.contains(clazz)) {
             return true;
         }
-        Boolean isAccessible = inaccessibleClasses.get(clazz);
+        Boolean isAccessible = nonIntrospectibleClasses.get(clazz);
         if (isAccessible != null) {
             return isAccessible;
         }
@@ -122,10 +122,10 @@ final class Reflection {
                 f.setAccessible(true);
             }
 
-            inaccessibleClasses.put(clazz, false);
+            nonIntrospectibleClasses.put(clazz, false);
             return false;
         } catch (Exception e) {
-            inaccessibleClasses.put(clazz, true);
+            nonIntrospectibleClasses.put(clazz, true);
             return true;
         }
     }

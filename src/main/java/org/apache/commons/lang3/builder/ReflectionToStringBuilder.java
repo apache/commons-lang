@@ -882,7 +882,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             return true;
         }
 
-        if (Reflection.isInaccessibleClass(value)) {
+        if (Reflection.isNonIntrospectibleClass(value)) {
             getStringBuffer().append("value=").append(getObject().toString());
             return true;
         }
