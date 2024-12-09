@@ -180,6 +180,10 @@ public class HashCodeBuilder implements Builder<Integer> {
         if (isRegistered(object)) {
             return;
         }
+        if (Reflection.isNonIntrospectibleClass(object)) {
+            builder.append(object);
+            return;
+        }
         try {
             register(object);
             // The elements in the returned array are not sorted and are not in any particular order.
