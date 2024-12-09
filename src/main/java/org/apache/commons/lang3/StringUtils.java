@@ -17,16 +17,20 @@
 package org.apache.commons.lang3;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.stream.LangCollectors;
@@ -2813,7 +2817,8 @@ public class StringUtils {
 
     /**
      * Searches a CharSequence to find the first index of any
-     * character not in the given set of characters.
+     * character not in the given set of characters, i.e.,
+     * find index i of first char in cs such that (cs.codePointAt(i) ∉ { x ∈ codepoints(searchChars) })
      *
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} or zero length search array will return {@code -1}.</p>
@@ -2839,31 +2844,13 @@ public class StringUtils {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        final int csLen = cs.length();
-        final int csLast = csLen - 1;
-        final int searchLen = searchChars.length;
-        final int searchLast = searchLen - 1;
-        outer:
-        for (int i = 0; i < csLen; i++) {
-            final char ch = cs.charAt(i);
-            for (int j = 0; j < searchLen; j++) {
-                if (searchChars[j] == ch) {
-                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch)) {
-                        continue outer;
-                    }
-                    if (searchChars[j + 1] == cs.charAt(i + 1)) {
-                        continue outer;
-                    }
-                }
-            }
-            return i;
-        }
-        return INDEX_NOT_FOUND;
+        return indexOfAnyBut(cs, CharBuffer.wrap(searchChars));
     }
 
     /**
      * Search a CharSequence to find the first index of any
-     * character not in the given set of characters.
+     * character not in the given set of characters, i.e.,
+     * find index i of first char in seq such that (seq.codePointAt(i) ∉ { x ∈ codepoints(searchChars) })
      *
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} or empty search string will return {@code -1}.</p>
@@ -2888,17 +2875,17 @@ public class StringUtils {
         if (isEmpty(seq) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        final int strLen = seq.length();
-        for (int i = 0; i < strLen; i++) {
-            final char ch = seq.charAt(i);
-            final boolean chFound = CharSequenceUtils.indexOf(searchChars, ch, 0) >= 0;
-            if (i + 1 < strLen && Character.isHighSurrogate(ch)) {
-                final char ch2 = seq.charAt(i + 1);
-                if (chFound && CharSequenceUtils.indexOf(searchChars, ch2, 0) < 0) {
-                    return i;
-                }
-            } else if (!chFound) {
-                return i;
+        final Set<Integer> searchSetCodePoints = searchChars.codePoints().boxed()
+                .collect(Collectors.toSet()); // JDK >=10: Collectors::toUnmodifiableSet
+        for (final ListIterator<Integer> seqListIt = seq.chars().boxed().collect(Collectors.toList()) // JDK >=16: Stream::toList, JDK >=10: Collectors::toUnmodifiableList
+                .listIterator(); seqListIt.hasNext(); seqListIt.next()) {
+            final int curSeqCharIdx = seqListIt.nextIndex();
+            final int curSeqCodePoint = Character.codePointAt(seq, curSeqCharIdx);
+            if (!searchSetCodePoints.contains(curSeqCodePoint)) {
+                return curSeqCharIdx;
+            }
+            if (Character.isSupplementaryCodePoint(curSeqCodePoint)) {
+                seqListIt.next(); // skip subsequent low-surrogate in next loop, since it merged into curSeqCodePoint
             }
         }
         return INDEX_NOT_FOUND;
