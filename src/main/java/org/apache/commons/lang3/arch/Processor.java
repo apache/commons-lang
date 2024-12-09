@@ -244,9 +244,6 @@ public class Processor {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(type.getLabel()).append(' ').append(arch.getLabel());
-        return builder.toString();
+        return type.getLabel() + ' ' + arch.getLabel();
     }
-
 }
