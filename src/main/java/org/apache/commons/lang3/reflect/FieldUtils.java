@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.reflect;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -91,6 +92,8 @@ public class FieldUtils {
      *             if the class is {@code null}
      * @throws IllegalArgumentException
      *             if the field name is {@code null}, blank, or empty
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Field getDeclaredField(final Class<?> cls, final String fieldName) {
         return getDeclaredField(cls, fieldName, false);
@@ -106,13 +109,15 @@ public class FieldUtils {
      *            the field name to obtain
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @return the Field object
      * @throws NullPointerException
      *             if the class is {@code null}
      * @throws IllegalArgumentException
      *             if the field name is {@code null}, blank, or empty
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Field getDeclaredField(final Class<?> cls, final String fieldName, final boolean forceAccess) {
         Objects.requireNonNull(cls, "cls");
@@ -145,6 +150,8 @@ public class FieldUtils {
      *             if the class is {@code null}
      * @throws IllegalArgumentException
      *             if the field name is {@code null}, blank, or empty
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Field getField(final Class<?> cls, final String fieldName) {
         return MemberUtils.setAccessibleWorkaround(getField(cls, fieldName, false));
@@ -160,12 +167,14 @@ public class FieldUtils {
      *            the field name to obtain
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @return the Field object
      * @throws NullPointerException if the class is {@code null}
      * @throws IllegalArgumentException if the field name is blank or empty or is matched at multiple places
      * in the inheritance hierarchy
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Field getField(final Class<?> cls, final String fieldName, final boolean forceAccess) {
         Objects.requireNonNull(cls, "cls");
@@ -263,6 +272,8 @@ public class FieldUtils {
      *             if {@code fieldName} is {@code null}, blank or empty, or could not be found
      * @throws IllegalAccessException
      *             if the named field is not {@code public}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readDeclaredField(final Object target, final String fieldName) throws IllegalAccessException {
         return readDeclaredField(target, fieldName, false);
@@ -277,7 +288,7 @@ public class FieldUtils {
      *            the field name to obtain
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match public fields.
      * @return the Field object
      * @throws NullPointerException
@@ -286,6 +297,8 @@ public class FieldUtils {
      *             if {@code fieldName} is {@code null}, blank or empty, or could not be found
      * @throws IllegalAccessException
      *             if the field is not made accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readDeclaredField(final Object target, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
         Objects.requireNonNull(target, "target");
@@ -311,6 +324,8 @@ public class FieldUtils {
      *             if the field name is {@code null}, blank, empty, or is not {@code static}
      * @throws IllegalAccessException
      *             if the field is not accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readDeclaredStaticField(final Class<?> cls, final String fieldName) throws IllegalAccessException {
         return readDeclaredStaticField(cls, fieldName, false);
@@ -325,7 +340,7 @@ public class FieldUtils {
      *            the field name to obtain
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @return the Field object
      * @throws NullPointerException
@@ -334,6 +349,8 @@ public class FieldUtils {
      *             if the field name is blank or empty, is not {@code static}
      * @throws IllegalAccessException
      *             if the field is not made accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readDeclaredStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
         final Field field = getDeclaredField(cls, fieldName, forceAccess);
@@ -354,6 +371,8 @@ public class FieldUtils {
      *             if the field is {@code null}
      * @throws IllegalAccessException
      *             if the field is not accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readField(final Field field, final Object target) throws IllegalAccessException {
         return readField(field, target, false);
@@ -368,12 +387,16 @@ public class FieldUtils {
      *            the object to call on, may be {@code null} for {@code static} fields
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
+     *            {@link AccessibleObject#setAccessible(boolean)} method.
      * @return the field value
      * @throws NullPointerException
      *             if the field is {@code null}
      * @throws IllegalAccessException
      *             if the field is not made accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readField(final Field field, final Object target, final boolean forceAccess) throws IllegalAccessException {
         Objects.requireNonNull(field, "field");
@@ -399,6 +422,8 @@ public class FieldUtils {
      *             if the field name is {@code null}, blank, empty, or could not be found
      * @throws IllegalAccessException
      *             if the named field is not {@code public}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readField(final Object target, final String fieldName) throws IllegalAccessException {
         return readField(target, fieldName, false);
@@ -413,7 +438,7 @@ public class FieldUtils {
      *            the field name to obtain
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @return the field value
      * @throws NullPointerException
@@ -422,6 +447,8 @@ public class FieldUtils {
      *             if the field name is {@code null}, blank, empty, or could not be found
      * @throws IllegalAccessException
      *             if the named field is not made accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readField(final Object target, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
         Objects.requireNonNull(target, "target");
@@ -446,6 +473,8 @@ public class FieldUtils {
      *             if the field name is {@code null}, blank or empty, or is not {@code static}
      * @throws IllegalAccessException
      *             if the field is not accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readStaticField(final Class<?> cls, final String fieldName) throws IllegalAccessException {
         return readStaticField(cls, fieldName, false);
@@ -460,7 +489,7 @@ public class FieldUtils {
      *            the field name to obtain
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @return the Field object
      * @throws NullPointerException
@@ -469,6 +498,8 @@ public class FieldUtils {
      *             if the field name is {@code null}, blank or empty, or is not {@code static}
      * @throws IllegalAccessException
      *             if the field is not made accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
         final Field field = getField(cls, fieldName, forceAccess);
@@ -489,6 +520,8 @@ public class FieldUtils {
      *             if the field is not {@code static}
      * @throws IllegalAccessException
      *             if the field is not accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readStaticField(final Field field) throws IllegalAccessException {
         return readStaticField(field, false);
@@ -501,7 +534,7 @@ public class FieldUtils {
      *            to read
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method.
+     *            {@link AccessibleObject#setAccessible(boolean)} method.
      * @return the field value
      * @throws NullPointerException
      *             if the field is {@code null}
@@ -509,6 +542,8 @@ public class FieldUtils {
      *             if the field is not {@code static}
      * @throws IllegalAccessException
      *             if the field is not made accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object readStaticField(final Field field, final boolean forceAccess) throws IllegalAccessException {
         Objects.requireNonNull(field, "field");
@@ -523,6 +558,8 @@ public class FieldUtils {
      *            to remove the final modifier
      * @throws NullPointerException
      *             if the field is {@code null}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      * @since 3.2
      */
     public static void removeFinalModifier(final Field field) {
@@ -536,10 +573,12 @@ public class FieldUtils {
      *            to remove the final modifier
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @throws NullPointerException
      *             if the field is {@code null}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      * @deprecated As of Java 12, we can no longer drop the {@code final} modifier, thus
      *             rendering this method obsolete. The JDK discussion about this change can be found
      *             here: https://mail.openjdk.java.net/pipermail/core-libs-dev/2018-November/056486.html
@@ -592,6 +631,8 @@ public class FieldUtils {
      *             or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not made accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeDeclaredField(final Object target, final String fieldName, final Object value) throws IllegalAccessException {
         writeDeclaredField(target, fieldName, value, false);
@@ -608,13 +649,15 @@ public class FieldUtils {
      *            to set
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @throws IllegalArgumentException
      *             if {@code fieldName} is {@code null}, blank or empty, or could not be found,
      *             or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not made accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeDeclaredField(final Object target, final String fieldName, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
@@ -641,6 +684,8 @@ public class FieldUtils {
      *             if the field name is {@code null}, blank, empty, not {@code static}, or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not {@code public} or is {@code final}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeDeclaredStaticField(final Class<?> cls, final String fieldName, final Object value) throws IllegalAccessException {
         writeDeclaredStaticField(cls, fieldName, value, false);
@@ -664,6 +709,8 @@ public class FieldUtils {
      *             if the field name is {@code null}, blank, empty, not {@code static}, or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not made accessible or is {@code final}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeDeclaredStaticField(final Class<?> cls, final String fieldName, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
@@ -688,6 +735,8 @@ public class FieldUtils {
      *             if {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not accessible or is {@code final}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeField(final Field field, final Object target, final Object value) throws IllegalAccessException {
         writeField(field, target, value, false);
@@ -704,7 +753,7 @@ public class FieldUtils {
      *            to set
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @throws NullPointerException
      *             if the field is {@code null}
@@ -712,6 +761,8 @@ public class FieldUtils {
      *             if {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not made accessible or is {@code final}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeField(final Field field, final Object target, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
@@ -740,6 +791,8 @@ public class FieldUtils {
      *             or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeField(final Object target, final String fieldName, final Object value) throws IllegalAccessException {
         writeField(target, fieldName, value, false);
@@ -756,7 +809,7 @@ public class FieldUtils {
      *            to set
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @throws NullPointerException
      *             if {@code target} is {@code null}
@@ -765,6 +818,8 @@ public class FieldUtils {
      *             or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not made accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeField(final Object target, final String fieldName, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
@@ -792,6 +847,8 @@ public class FieldUtils {
      *             not {@code static}, or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not {@code public} or is {@code final}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeStaticField(final Class<?> cls, final String fieldName, final Object value) throws IllegalAccessException {
         writeStaticField(cls, fieldName, value, false);
@@ -808,7 +865,7 @@ public class FieldUtils {
      *            to set
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @throws NullPointerException
      *             if {@code cls} is {@code null} or the field cannot be located
@@ -816,6 +873,8 @@ public class FieldUtils {
      *             if {@code fieldName} is {@code null}, blank or empty, the field not {@code static}, or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not made accessible or is {@code final}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeStaticField(final Class<?> cls, final String fieldName, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
@@ -838,6 +897,8 @@ public class FieldUtils {
      *              if the field is not {@code static}, or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not {@code public} or is {@code final}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeStaticField(final Field field, final Object value) throws IllegalAccessException {
         writeStaticField(field, value, false);
@@ -852,7 +913,7 @@ public class FieldUtils {
      *            to set
      * @param forceAccess
      *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @throws NullPointerException
      *              if the field is {@code null}
@@ -860,6 +921,8 @@ public class FieldUtils {
      *              if the field is not {@code static}, or {@code value} is not assignable
      * @throws IllegalAccessException
      *             if the field is not made accessible or is {@code final}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static void writeStaticField(final Field field, final Object value, final boolean forceAccess) throws IllegalAccessException {
         Objects.requireNonNull(field, "field");

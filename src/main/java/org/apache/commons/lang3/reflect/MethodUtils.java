@@ -263,19 +263,18 @@ public class MethodUtils {
      *            determines if underlying method has to be accessible
      * @return the first matching annotation, or {@code null} if not found
      * @throws NullPointerException if either the method or annotation class is {@code null}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      * @since 3.6
      */
     public static <A extends Annotation> A getAnnotation(final Method method, final Class<A> annotationCls,
                                                          final boolean searchSupers, final boolean ignoreAccess) {
-
         Objects.requireNonNull(method, "method");
         Objects.requireNonNull(annotationCls, "annotationCls");
         if (!ignoreAccess && !MemberUtils.isAccessible(method)) {
             return null;
         }
-
         A annotation = method.getAnnotation(annotationCls);
-
         if (annotation == null && searchSupers) {
             final Class<?> mcls = method.getDeclaringClass();
             final List<Class<?>> classes = getAllSuperclassesAndInterfaces(mcls);
@@ -290,7 +289,6 @@ public class MethodUtils {
                 }
             }
         }
-
         return annotation;
     }
 
@@ -315,6 +313,8 @@ public class MethodUtils {
      * @param methodName find method with this name
      * @param parameterTypes find method with most compatible parameters
      * @return The accessible method
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Method getMatchingAccessibleMethod(final Class<?> cls,
         final String methodName, final Class<?>... parameterTypes) {
@@ -429,8 +429,10 @@ public class MethodUtils {
      * @param name the name of the method
      * @param parameterTypes the list of parameters
      * @return a Method or null.
-     * @since 3.15.0
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      * @see Class#getMethod(String, Class...)
+     * @since 3.15.0
      */
     public static Method getMethodObject(final Class<?> cls, final String name, final Class<?>... parameterTypes) {
         try {
@@ -528,6 +530,8 @@ public class MethodUtils {
      * @param interfacesBehavior whether to search interfaces, {@code null} {@code implies} false
      * @return a {@code Set<Method>} in ascending order from sub- to superclass
      * @throws NullPointerException if the specified method is {@code null}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      * @since 3.2
      */
     public static Set<Method> getOverrideHierarchy(final Method method, final Interfaces interfacesBehavior) {
@@ -756,6 +760,8 @@ public class MethodUtils {
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      * @since 3.5
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName)
@@ -783,6 +789,8 @@ public class MethodUtils {
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
      * @throws NullPointerException if the object or method name are {@code null}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      * @since 3.5
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName,
@@ -809,6 +817,8 @@ public class MethodUtils {
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
      * @throws NullPointerException if the object or method name are {@code null}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      * @since 3.5
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName, Object[] args, Class<?>[] parameterTypes)
@@ -855,8 +865,9 @@ public class MethodUtils {
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
-     *
-     *  @since 3.4
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
+     * @since 3.4
      */
     public static Object invokeMethod(final Object object, final String methodName) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException {
@@ -884,6 +895,8 @@ public class MethodUtils {
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
      * @throws NullPointerException if the object or method name are {@code null}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object invokeMethod(final Object object, final String methodName,
             Object... args) throws NoSuchMethodException,
@@ -909,6 +922,8 @@ public class MethodUtils {
      * @throws NoSuchMethodException if there is no such accessible method
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException if the requested method is not accessible via reflection
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object invokeMethod(final Object object, final String methodName,
             final Object[] args, final Class<?>[] parameterTypes)
@@ -935,10 +950,10 @@ public class MethodUtils {
      * @param args use these arguments - treat {@code null} as empty array
      * @return The value returned by the invoked method
      * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the
-     *  method invoked
-     * @throws IllegalAccessException if the requested method is not accessible
-     *  via reflection
+     * @throws InvocationTargetException wraps an exception thrown by the method invoked
+     * @throws IllegalAccessException if the requested method is not accessible via reflection
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object invokeStaticMethod(final Class<?> cls, final String methodName,
             Object... args) throws NoSuchMethodException,
@@ -962,10 +977,10 @@ public class MethodUtils {
      * @param parameterTypes match these parameters - treat {@code null} as empty array
      * @return The value returned by the invoked method
      * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the
-     *  method invoked
-     * @throws IllegalAccessException if the requested method is not accessible
-     *  via reflection
+     * @throws InvocationTargetException wraps an exception thrown by the method invoked
+     * @throws IllegalAccessException if the requested method is not accessible via reflection
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static Object invokeStaticMethod(final Class<?> cls, final String methodName,
             Object[] args, Class<?>[] parameterTypes)

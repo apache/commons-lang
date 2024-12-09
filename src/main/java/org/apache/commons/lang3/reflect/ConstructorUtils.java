@@ -103,6 +103,8 @@ public class ConstructorUtils {
      * @param parameterTypes find method with compatible parameters
      * @return the constructor, null if no matching accessible constructor found
      * @throws NullPointerException if {@code cls} is {@code null}
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     public static <T> Constructor<T> getMatchingAccessibleConstructor(final Class<T> cls,
             final Class<?>... parameterTypes) {
@@ -157,6 +159,8 @@ public class ConstructorUtils {
      * @throws IllegalAccessException if invocation is not permitted by security
      * @throws InvocationTargetException if an error occurs on invocation
      * @throws InstantiationException if an error occurs on instantiation
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      * @see #invokeConstructor(Class, Object[], Class[])
      */
     public static <T> T invokeConstructor(final Class<T> cls, Object... args)
@@ -183,6 +187,8 @@ public class ConstructorUtils {
      * @throws IllegalAccessException if invocation is not permitted by security
      * @throws InvocationTargetException if an error occurs on invocation
      * @throws InstantiationException if an error occurs on instantiation
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      * @see Constructor#newInstance
      */
     public static <T> T invokeConstructor(final Class<T> cls, Object[] args, Class<?>[] parameterTypes)

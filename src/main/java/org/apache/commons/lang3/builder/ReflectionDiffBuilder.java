@@ -193,6 +193,12 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         return !field.isAnnotationPresent(DiffExclude.class);
     }
 
+    /**
+     * Appends fields using reflection.
+     *
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
+     */
     private void appendFields(final Class<?> clazz) {
         for (final Field field : FieldUtils.getAllFields(clazz)) {
             if (accept(field)) {
@@ -207,6 +213,12 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
+     */
     @Override
     public DiffResult<T> build() {
         if (getLeft().equals(getRight())) {
@@ -234,6 +246,21 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         return diffBuilder.getRight();
     }
 
+    /**
+     * Reads a {@link Field}, forcing access if needed.
+     *
+     * @param field
+     *            the field to use
+     * @param target
+     *            the object to call on, may be {@code null} for {@code static} fields
+     * @return the field value
+     * @throws NullPointerException
+     *             if the field is {@code null}
+     * @throws IllegalAccessException
+     *             if the field is not made accessible
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
+     */
     private Object readField(final Field field, final Object target) throws IllegalAccessException {
         return FieldUtils.readField(field, target, true);
     }

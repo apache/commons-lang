@@ -322,6 +322,8 @@ final class MemberUtils {
      *
      * @param obj the AccessibleObject to set as accessible, may be null.
      * @return a boolean indicating whether the accessibility of the object was set to true.
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
      */
     static <T extends AccessibleObject> T setAccessibleWorkaround(final T obj) {
         if (obj == null || obj.isAccessible()) {
