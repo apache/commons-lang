@@ -212,7 +212,6 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         if (getLeft().equals(getRight())) {
             return diffBuilder.build();
         }
-
         appendFields(getLeft().getClass());
         return diffBuilder.build();
     }

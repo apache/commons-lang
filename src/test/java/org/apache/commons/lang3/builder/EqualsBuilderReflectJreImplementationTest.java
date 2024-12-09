@@ -42,10 +42,13 @@ import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalField;
 import java.time.temporal.TemporalUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.stream.IntStreams;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -90,13 +93,14 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
         }
     }
 
-    static class MyClass {
+    static class MyClass implements Cloneable {
 
         private final MyCharSequence charSequence;
         private final MyTemporal temporal;
         private final MyTemporalAccessor temporalAccessor;
         private final MyTemporalAmount temporalAmount;
         private final Object[] objects;
+        private final List<Supplier<?>> list = new ArrayList<>();
 
         MyClass(final MyCharSequence charSequence, final MyTemporal temporal, final MyTemporalAccessor temporalAccessor,
                 final MyTemporalAmount temporalAmount) {
@@ -117,6 +121,7 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
                     localDate, HijrahDate.from(localDate), JapaneseDate.from(localDate), MinguoDate.from(localDate), ThaiBuddhistDate.from(localDate),
                     localDate, localTime, localDateTime, offsetDateTime, OffsetTime.of(localTime, zoneOffset), Year.of(value), YearMonth.of(value, value),
                     ZonedDateTime.of(localDateTime, zoneOffset), zoneOffset, ZoneId.of(zoneOffset.getId()) };
+            IntStreams.range(100).forEach(i -> list.add(() -> charSequence));
         }
 
         @Override
@@ -178,6 +183,7 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
         }
 
     }
+
     static class MyTemporalAccessor implements TemporalAccessor {
 
         private final String string;
@@ -256,9 +262,9 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
 
     @Test
     public void testRecursive() {
-        final MyClass o1 = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"),  new MyTemporalAmount("4"));
+        final MyClass o1 = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"), new MyTemporalAmount("4"));
         // This gives you different instances of MyTemporalAccessor for 1 (and 2) that should be equals by reflection.
-        final MyClass o1Bis = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"),  new MyTemporalAmount("4"));
+        final MyClass o1Bis = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"), new MyTemporalAmount("4"));
         final MyClass o2 = new MyClass(new MyCharSequence("5"), new MyTemporal("6"), new MyTemporalAccessor("7"), new MyTemporalAmount("8"));
         final MyClass o2Bis = new MyClass(new MyCharSequence("5"), new MyTemporal("6"), new MyTemporalAccessor("7"), new MyTemporalAmount("8"));
         // MyTemporal
@@ -274,6 +280,16 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o2, o2Bis).isEquals(), o2::toString);
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1, o2).isEquals());
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o2, o1).isEquals());
+    }
+
+    @Test
+    public void testRetention() throws Exception {
+        // The following should not retain memory.
+        for (int i = 0; i < Integer.getInteger("testRetention", 10_000); i++) {
+            final Class<?> clazz = TestClassBuilder.defineSimpleClass(getClass().getPackage().getName(), i);
+            assertTrue(new EqualsBuilder().setTestRecursive(true).append(clazz.newInstance(), clazz.newInstance()).isEquals());
+        }
+        // some retention is checked in super's after().
     }
 
 }

@@ -37,6 +37,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
 
     @SuppressWarnings("unused")
     private static class TypeTestClass implements Diffable<TypeTestClass> {
+
         private static int staticField;
         private final ToStringStyle style = SHORT_STYLE;
         private final boolean booleanField = true;
@@ -159,6 +160,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
         assertNotNull(excludeFieldNames);
         assertEquals(0, excludeFieldNames.length);
+        assertNotNull(reflectionDiffBuilder.build());
     }
 
     @Test
@@ -171,6 +173,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
         assertNotNull(excludeFieldNames);
         assertEquals(0, excludeFieldNames.length);
+        assertNotNull(reflectionDiffBuilder.build());
     }
 
     @Test
@@ -189,6 +192,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         assertNotNull(excludeFieldNames);
         assertEquals(1, excludeFieldNames.length);
         assertEquals("charField", excludeFieldNames[0]);
+        assertNotNull(reflectionDiffBuilder.build());
     }
 
     @Test
@@ -202,6 +206,7 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         assertNotNull(excludeFieldNames);
         assertEquals(1, excludeFieldNames.length);
         assertEquals("charField", excludeFieldNames[0]);
+        assertNotNull(reflectionDiffBuilder.build());
     }
 
     @Test
@@ -211,6 +216,19 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         assertEquals(0, firstObject.diff(secondObject).getNumberOfDiffs());
         assertEquals(0, firstObject.diffDeprecated(secondObject).getNumberOfDiffs());
     }
+
+    @Test
+    public void testRetention() throws Exception {
+        // The following should not retain memory.
+        for (int i = 0; i < Integer.getInteger("testRecursive", 10_000); i++) {
+            final Class<?> clazz = TestClassBuilder.defineSimpleClass(getClass().getPackage().getName(), i);
+            final Object firstObject = clazz.newInstance();
+            final Object secondObject = clazz.newInstance();
+            final ReflectionDiffBuilder<Object> reflectionDiffBuilder = new ReflectionDiffBuilder<>(firstObject, secondObject, SHORT_STYLE);
+            assertNotNull(reflectionDiffBuilder.build());
+        }
+    }
+
 
     @Test
     public void testNoDifferencesDiffExcludeAnnotatedField() {
