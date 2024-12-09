@@ -19,6 +19,8 @@ package org.apache.commons.lang3.math;
 import java.math.BigInteger;
 import java.util.Objects;
 
+import static org.apache.commons.lang3.math.MathExceptionFactory.*;
+
 /**
  * {@link Fraction} is a {@link Number} implementation that
  * stores fractions accurately.
@@ -102,7 +104,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     private static int addAndCheck(final int x, final int y) {
         final long s = (long) x + (long) y;
         if (s < Integer.MIN_VALUE || s > Integer.MAX_VALUE) {
-            throw new ArithmeticException("overflow: add");
+            throwOverflow("add");
         }
         return (int) s;
     }
@@ -123,9 +125,14 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     public static Fraction getFraction(double value) {
         final int sign = value < 0 ? -1 : 1;
         value = Math.abs(value);
-        if (value > Integer.MAX_VALUE || Double.isNaN(value)) {
-            throw new ArithmeticException("The value must not be greater than Integer.MAX_VALUE or NaN");
+        if (value > Integer.MAX_VALUE ) {
+            throwXIsTooLargeForInteger("value");
         }
+
+        if (Double.isNaN(value)) {
+            throw new NumberFormatException("Value should not be NaN");
+        }
+
         final int wholeNumber = (int) value;
         value -= wholeNumber;
 
@@ -163,7 +170,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             i++;
         } while (delta1 > delta2 && denom2 <= 10000 && denom2 > 0 && i < 25);
         if (i == 25) {
-            throw new ArithmeticException("Unable to convert double to fraction");
+            throwUnableToConvertXToFraction("double");
         }
         return getReducedFraction((numer0 + wholeNumber * denom0) * sign, denom0);
     }
@@ -182,11 +189,11 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     public static Fraction getFraction(int numerator, int denominator) {
         if (denominator == 0) {
-            throw new ArithmeticException("The denominator must not be zero");
+            throwXMustBePositive("denominator");
         }
         if (denominator < 0) {
             if (numerator == Integer.MIN_VALUE || denominator == Integer.MIN_VALUE) {
-                throw new ArithmeticException("overflow: can't negate");
+                throwOverflow("can't negate");
             }
             numerator = -numerator;
             denominator = -denominator;
@@ -211,13 +218,13 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     public static Fraction getFraction(final int whole, final int numerator, final int denominator) {
         if (denominator == 0) {
-            throw new ArithmeticException("The denominator must not be zero");
+            throwXMustNotBeZero("denominator");
         }
         if (denominator < 0) {
-            throw new ArithmeticException("The denominator must not be negative");
+            throwXMustBePositive("denominator");
         }
         if (numerator < 0) {
-            throw new ArithmeticException("The numerator must not be negative");
+            throwXMustBePositive("numerator");
         }
         final long numeratorValue;
         if (whole < 0) {
@@ -226,7 +233,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             numeratorValue = whole * (long) denominator + numerator;
         }
         if (numeratorValue < Integer.MIN_VALUE || numeratorValue > Integer.MAX_VALUE) {
-            throw new ArithmeticException("Numerator too large to represent as an Integer.");
+            throwXIsTooLargeForInteger("numerator");
         }
         return new Fraction((int) numeratorValue, denominator);
     }
@@ -297,7 +304,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     public static Fraction getReducedFraction(int numerator, int denominator) {
         if (denominator == 0) {
-            throw new ArithmeticException("The denominator must not be zero");
+            throwXMustNotBeZero("denominator");
         }
         if (numerator == 0) {
             return ZERO; // normalize zero.
@@ -309,7 +316,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         }
         if (denominator < 0) {
             if (numerator == Integer.MIN_VALUE || denominator == Integer.MIN_VALUE) {
-                throw new ArithmeticException("overflow: can't negate");
+                throwOverflow("can't negate");
             }
             numerator = -numerator;
             denominator = -denominator;
@@ -335,7 +342,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         // From Commons Math:
         if (u == 0 || v == 0) {
             if (u == Integer.MIN_VALUE || v == Integer.MIN_VALUE) {
-                throw new ArithmeticException("overflow: gcd is 2^31");
+                throwOverflow("gcd is 2^31");
             }
             return Math.abs(u) + Math.abs(v);
         }
@@ -361,7 +368,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             k++; // cast out twos.
         }
         if (k == 31) {
-            throw new ArithmeticException("overflow: gcd is 2^31");
+            throwOverflow("gcd is 2^31");
         }
         // B2. Initialize: u and v have been divided by 2^k and at least
         // one is odd.
@@ -400,7 +407,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     private static int mulAndCheck(final int x, final int y) {
         final long m = (long) x * (long) y;
         if (m < Integer.MIN_VALUE || m > Integer.MAX_VALUE) {
-            throw new ArithmeticException("overflow: mul");
+            throwOverflow("mul");
         }
         return (int) m;
     }
@@ -418,7 +425,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         /* assert x>=0 && y>=0; */
         final long m = (long) x * (long) y;
         if (m > Integer.MAX_VALUE) {
-            throw new ArithmeticException("overflow: mulPos");
+            throwOverflow("mulPos");
         }
         return (int) m;
     }
@@ -435,7 +442,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     private static int subAndCheck(final int x, final int y) {
         final long s = (long) x - (long) y;
         if (s < Integer.MIN_VALUE || s > Integer.MAX_VALUE) {
-            throw new ArithmeticException("overflow: add");
+            throwOverflow("add");
         }
         return (int) s;
     }
@@ -550,7 +557,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         // result is (t/d2) / (u'/d1)(v'/d2)
         final BigInteger w = t.divide(BigInteger.valueOf(d2));
         if (w.bitLength() > 31) {
-            throw new ArithmeticException("overflow: numerator too large after multiply");
+            throwOverflow("numerator too large after multiply");
         }
         return new Fraction(w.intValue(), mulPosAndCheck(denominator / d1, fraction.denominator / d2));
     }
@@ -595,7 +602,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     public Fraction divideBy(final Fraction fraction) {
         Objects.requireNonNull(fraction, "fraction");
         if (fraction.numerator == 0) {
-            throw new ArithmeticException("The fraction to divide by must not be zero");
+            throwXMustNotBeZero("fraction");
         }
         return multiplyBy(fraction.invert());
     }
@@ -729,10 +736,10 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     public Fraction invert() {
         if (numerator == 0) {
-            throw new ArithmeticException("Unable to invert zero.");
+            throwXMustNotBeZero("numerator");
         }
         if (numerator == Integer.MIN_VALUE) {
-            throw new ArithmeticException("overflow: can't negate numerator");
+            throwOverflow("can't negate numerator");
         }
         if (numerator < 0) {
             return new Fraction(-denominator, -numerator);
@@ -783,7 +790,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     public Fraction negate() {
         // the positive range is one smaller than the negative range of an int.
         if (numerator == Integer.MIN_VALUE) {
-            throw new ArithmeticException("overflow: too large to negate");
+            throwOverflow("too large to negate");
         }
         return new Fraction(-numerator, denominator);
     }
