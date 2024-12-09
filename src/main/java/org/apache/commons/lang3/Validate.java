@@ -667,7 +667,7 @@ public class Validate {
      */
     public static <T extends Iterable<?>> T noNullElements(final T iterable, final String message, final Object... values) {
         Objects.requireNonNull(iterable, "iterable");
-        AtomicInteger ai = new AtomicInteger();
+        final AtomicInteger ai = new AtomicInteger();
         iterable.forEach(e -> {
             if (e == null) {
                 throw new IllegalArgumentException(getMessage(message, ArrayUtils.addAll(values, ai.getAndIncrement())));
