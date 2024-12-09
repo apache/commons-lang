@@ -17,9 +17,9 @@
 package org.apache.commons.lang3;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -667,13 +667,12 @@ public class Validate {
      */
     public static <T extends Iterable<?>> T noNullElements(final T iterable, final String message, final Object... values) {
         Objects.requireNonNull(iterable, "iterable");
-        int i = 0;
-        for (final Iterator<?> it = iterable.iterator(); it.hasNext(); i++) {
-            if (it.next() == null) {
-                final Object[] values2 = ArrayUtils.addAll(values, Integer.valueOf(i));
-                throw new IllegalArgumentException(getMessage(message, values2));
+        AtomicInteger ai = new AtomicInteger();
+        iterable.forEach(e -> {
+            if (e == null) {
+                throw new IllegalArgumentException(getMessage(message, ArrayUtils.addAll(values, ai.getAndIncrement())));
             }
-        }
+        });
         return iterable;
     }
 
