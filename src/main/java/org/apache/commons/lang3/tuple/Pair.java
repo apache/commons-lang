@@ -228,9 +228,11 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
 
     /**
      * Returns a suitable hash code.
+     * <p>
      * The hash code follows the definition in {@code Map.Entry}.
+     * </p>
      *
-     * @return the hash code
+     * @return the hash code.
      */
     @Override
     public int hashCode() {

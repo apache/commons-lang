@@ -168,11 +168,15 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
 
     /**
      * Returns a suitable hash code.
+     * <p>
+     * The hash code is adapted from the definition in {@code Map.Entry}.
+     * </p>
      *
-     * @return the hash code
+     * @return the hash code.
      */
     @Override
     public int hashCode() {
+        // See Map.Entry API specification
         return Objects.hashCode(getLeft()) ^ Objects.hashCode(getMiddle()) ^ Objects.hashCode(getRight());
     }
 
