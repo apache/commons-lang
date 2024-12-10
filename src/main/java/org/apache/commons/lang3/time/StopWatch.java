@@ -485,9 +485,7 @@ public class StopWatch {
      * </p>
      *
      * @return the time in milliseconds
-     * @deprecated Use {@link #getDuration()}.
      */
-    @Deprecated
     public long getTime() {
         return nanosToMillis(getNanoTime());
     }
