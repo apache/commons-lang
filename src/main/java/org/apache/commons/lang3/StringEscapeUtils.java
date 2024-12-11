@@ -584,28 +584,46 @@ public class StringEscapeUtils {
 
     /**
      * Escapes the characters in a {@link String} using XML entities.
-     *
-     * <p>For example: {@code "bread" & "butter"} =&gt;
-     * {@code &quot;bread&quot; &amp; &quot;butter&quot;}.
+     * <p>
+     * For example:
      * </p>
      *
-     * <p>Note that XML 1.0 is a text-only format: it cannot represent control
-     * characters or unpaired Unicode surrogate code points, even after escaping.
-     * {@code escapeXml10} will remove characters that do not fit in the
-     * following ranges:</p>
+     * <pre>{@code
+     * "bread" & "butter"
+     * }</pre>
+     * <p>
+     * converts to:
+     * </p>
      *
-     * <p>{@code #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]}</p>
+     * <pre>
+     * {@code
+     * &quot;bread&quot; &amp; &quot;butter&quot;
+     * }
+     * </pre>
      *
-     * <p>Though not strictly necessary, {@code escapeXml10} will escape
-     * characters in the following ranges:</p>
+     * <p>
+     * Note that XML 1.0 is a text-only format: it cannot represent control characters or unpaired Unicode surrogate code points, even after escaping. The
+     * method {@code escapeXml10} will remove characters that do not fit in the following ranges:
+     * </p>
      *
-     * <p>{@code [#x7F-#x84] | [#x86-#x9F]}</p>
+     * <p>
+     * {@code #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]}
+     * </p>
      *
-     * <p>The returned string can be inserted into a valid XML 1.0 or XML 1.1
-     * document. If you want to allow more non-text characters in an XML 1.1
-     * document, use {@link #escapeXml11(String)}.</p>
+     * <p>
+     * Though not strictly necessary, {@code escapeXml10} will escape characters in the following ranges:
+     * </p>
      *
-     * @param input  the {@link String} to escape, may be null
+     * <p>
+     * {@code [#x7F-#x84] | [#x86-#x9F]}
+     * </p>
+     *
+     * <p>
+     * The returned string can be inserted into a valid XML 1.0 or XML 1.1 document. If you want to allow more non-text characters in an XML 1.1 document, use
+     * {@link #escapeXml11(String)}.
+     * </p>
+     *
+     * @param input the {@link String} to escape, may be null
      * @return a new escaped {@link String}, {@code null} if null string input
      * @see #unescapeXml(String)
      * @since 3.3
