@@ -17,15 +17,13 @@
 
 package org.apache.commons.lang3;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests {@link Strings}.
@@ -100,5 +98,50 @@ public class StringsTest {
         assertTrue(strings.equals(nullStr, nullStr));
         assertFalse(strings.equals(nullStr, ""));
         assertFalse(strings.equals("", nullStr));
+    }
+
+    @Test
+    public void testTruncateWithEllipsis() {
+        assertEquals("Hello...", Strings.truncateWithEllipsis("Hello, World!", 8));
+        assertEquals("Hello", Strings.truncateWithEllipsis("Hello", 10));
+        assertEquals("Hello", Strings.truncateWithEllipsis("Hello", 5));
+        assertNull(Strings.truncateWithEllipsis(null, 5));
+        assertEquals("Hello", Strings.truncateWithEllipsis("Hello", -1));
+    }
+
+    @Test
+    public void testReverseWords() {
+        assertEquals("World Hello", Strings.reverseWords("Hello World"));
+        assertEquals("spaces multiple with String", Strings.reverseWords("String with multiple spaces"));
+        assertEquals("Hello", Strings.reverseWords("Hello"));
+        assertNull(Strings.reverseWords(null));
+        assertEquals("", Strings.reverseWords(""));
+    }
+
+    @Test
+    public void testContainsOnly() {
+        assertTrue(Strings.containsOnly("abc", "abc"));
+        assertFalse(Strings.containsOnly("abcd", "abc"));
+        assertTrue(Strings.containsOnly("", "abc"));
+        assertFalse(Strings.containsOnly(null, "abc"));
+        assertFalse(Strings.containsOnly("abc", null));
+    }
+
+    @Test
+    public void testMaskString() {
+        assertEquals("He**o", Strings.maskString("Hello", 2, 4, '*'));
+        assertEquals("****", Strings.maskString("abcd", 0, 4, '*'));
+        assertEquals("Hello", Strings.maskString("Hello", 5, 3, '*'));
+        assertNull(Strings.maskString(null, 1, 3, '*'));
+        assertEquals("Hello", Strings.maskString("Hello", -1, 10, '*'));
+    }
+
+    @Test
+    public void testRemoveAccents() {
+        assertEquals("Cafe", Strings.removeAccents("Café"));
+        assertEquals("Hello", Strings.removeAccents("Hello"));
+        assertEquals("Cafe Ole", Strings.removeAccents("Café Olé"));
+        assertNull(Strings.removeAccents(null));
+        assertEquals("", Strings.removeAccents(""));
     }
 }

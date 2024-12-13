@@ -22,8 +22,13 @@ import static org.apache.commons.lang3.StringUtils.INDEX_NOT_FOUND;
 import org.apache.commons.lang3.builder.AbstractSupplier;
 import org.apache.commons.lang3.function.ToBooleanBiFunction;
 
+import java.text.Normalizer;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.Collectors;
+
 /**
- * String operations where you choose case-senstive {@link #CS} vs. case-insensitive {@link #CI} through a singleton instance.
+ * String operations where you choose case-sensitive {@link #CS} vs. case-insensitive {@link #CI} through a singleton instance.
  *
  * @see CharSequenceUtils
  * @see StringUtils
@@ -86,7 +91,7 @@ public abstract class Strings {
     }
 
     /**
-     * Case-insentive extension.
+     * Case-insensitive extension.
      */
     private static final class CiStrings extends Strings {
 
@@ -1462,4 +1467,88 @@ public abstract class Strings {
         return false;
     }
 
+    /**
+     * Truncates a string to a given length and adds ellipsis ("...") if truncated.
+     *
+     * @param str the string to truncate
+     * @param maxLength the maximum allowed length
+     * @return the truncated string with ellipsis if applicable
+     */
+    public static String truncateWithEllipsis(String str, int maxLength) {
+        if (str == null || maxLength < 0) {
+            return str;
+        }
+        if (str.length() <= maxLength) {
+            return str;
+        }
+        return str.substring(0, Math.max(0, maxLength - 3)) + "...";
+    }
+
+    /**
+     * Reverses the order of words in a string, preserving spaces.
+     *
+     * @param str the string to reverse
+     * @return the string with words in reverse order
+     */
+    public static String reverseWords(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        String[] words = str.split("\\s+");
+        Collections.reverse(Arrays.asList(words));
+        return String.join(" ", words);
+    }
+
+    /**
+     * Checks if a string contains only the characters from a given set.
+     *
+     * @param str the string to check
+     * @param validChars the set of valid characters
+     * @return true if the string contains only valid characters, false otherwise
+     */
+    public static boolean containsOnly(String str, String validChars) {
+        if (str == null || validChars == null) {
+            return false;
+        }
+        for (char c : str.toCharArray()) {
+            if (validChars.indexOf(c) == -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Masks a part of the string with a given character.
+     *
+     * @param str the string to mask
+     * @param start the starting index to mask
+     * @param end the ending index to mask
+     * @param maskChar the character to use for masking
+     * @return the masked string
+     */
+    public static String maskString(String str, int start, int end, char maskChar) {
+        if (str == null || start < 0 || end > str.length() || start >= end) {
+            return str;
+        }
+        StringBuilder masked = new StringBuilder(str);
+        for (int i = start; i < end; i++) {
+            masked.setCharAt(i, maskChar);
+        }
+        return masked.toString();
+    }
+
+    /**
+     * Removes accents (diacritical marks) from a string.
+     *
+     * @param str the string to process
+     * @return the string without accents
+     */
+    public static String removeAccents(String str) {
+        if (str == null) {
+            return null;
+        }
+        return Normalizer.normalize(str, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "");
+    }
 }
