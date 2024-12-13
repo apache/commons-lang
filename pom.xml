@@ -174,7 +174,7 @@
     <commons.jacoco.branchRatio>0.92</commons.jacoco.branchRatio>
     <commons.jacoco.lineRatio>0.95</commons.jacoco.lineRatio>
     <commons.jacoco.complexityRatio>0.90</commons.jacoco.complexityRatio>
-    <commons.text.version>1.12.0</commons.text.version>
+    <commons.text.version>1.13.0</commons.text.version>
   </properties>
 
   <build>
