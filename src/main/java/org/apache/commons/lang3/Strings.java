@@ -23,7 +23,7 @@ import org.apache.commons.lang3.builder.AbstractSupplier;
 import org.apache.commons.lang3.function.ToBooleanBiFunction;
 
 /**
- * String operations where you choose case-senstive {@link #CS} vs. case-insensitive {@link #CI} through a singleton instance.
+ * String operations where you choose case-sensitive {@link #CS} vs. case-insensitive {@link #CI} through a singleton instance.
  *
  * @see CharSequenceUtils
  * @see StringUtils
@@ -86,7 +86,7 @@ public abstract class Strings {
     }
 
     /**
-     * Case-insentive extension.
+     * Case-insensitive extension.
      */
     private static final class CiStrings extends Strings {
 
