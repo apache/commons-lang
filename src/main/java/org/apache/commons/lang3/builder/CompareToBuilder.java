@@ -115,6 +115,11 @@ public class CompareToBuilder implements Builder<Integer> {
         final boolean useTransients,
         final String[] excludeFields) {
 
+        if (Reflection.isNonIntrospectibleClass(lhs) && lhs instanceof Comparable) {
+            builder.append(lhs, rhs);
+            return;
+        }
+
         final Field[] fields = clazz.getDeclaredFields();
         AccessibleObject.setAccessible(fields, true);
         for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
