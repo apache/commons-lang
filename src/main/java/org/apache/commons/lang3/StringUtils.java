@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
@@ -2856,18 +2855,15 @@ public class StringUtils {
         if (isEmpty(seq) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        final Set<Integer> searchSetCodePoints = searchChars.codePoints().boxed()
-                .collect(Collectors.toSet()); // JDK >=10: Collectors::toUnmodifiableSet
-        for (final ListIterator<Integer> seqListIt = seq.chars().boxed().collect(Collectors.toList()) // JDK >=16: Stream::toList, JDK >=10: Collectors::toUnmodifiableList
-                .listIterator(); seqListIt.hasNext(); seqListIt.next()) {
-            final int curSeqCharIdx = seqListIt.nextIndex();
+        final Set<Integer> searchSetCodePoints = searchChars.codePoints()
+                .boxed().collect(Collectors.toSet()); // JDK >=10: Collectors::toUnmodifiableSet
+        // advance character index from one interpreted codepoint to the next
+        for (int curSeqCharIdx = 0; curSeqCharIdx < seq.length();) {
             final int curSeqCodePoint = Character.codePointAt(seq, curSeqCharIdx);
             if (!searchSetCodePoints.contains(curSeqCodePoint)) {
                 return curSeqCharIdx;
             }
-            if (Character.isSupplementaryCodePoint(curSeqCodePoint)) {
-                seqListIt.next(); // skip subsequent low-surrogate in next loop, since it merged into curSeqCodePoint
-            }
+            curSeqCharIdx += Character.charCount(curSeqCodePoint); // skip indices to paired low-surrogates
         }
         return INDEX_NOT_FOUND;
     }
