@@ -119,7 +119,10 @@ public class BasicThreadFactory implements ThreadFactory {
 
         /**
          * Constructs a new instance.
+         *
+         * @deprecated Use {@link BasicThreadFactory#builder()}.
          */
+        @Deprecated
         public Builder() {
             // empty
         }
@@ -136,6 +139,16 @@ public class BasicThreadFactory implements ThreadFactory {
             final BasicThreadFactory factory = new BasicThreadFactory(this);
             reset();
             return factory;
+        }
+
+        /**
+         * Sets the daemon flag for the new {@link BasicThreadFactory} to {@code true} causing a new thread factory to create daemon threads.
+         *
+         * @return a reference to this {@link Builder}
+         * @since 3.18.0
+         */
+        public Builder daemon() {
+            return daemon(true);
         }
 
         /**
@@ -219,6 +232,16 @@ public class BasicThreadFactory implements ThreadFactory {
             this.factory = Objects.requireNonNull(factory, "factory");
             return this;
         }
+    }
+
+    /**
+     * Creates a new builder.
+     *
+     * @return a new builder.
+     * @since 3.18.0
+     */
+    public static Builder builder() {
+        return new Builder();
     }
 
     /** A counter for the threads created by this factory. */

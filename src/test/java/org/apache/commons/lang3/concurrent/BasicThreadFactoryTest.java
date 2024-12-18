@@ -53,8 +53,12 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
         final Thread t = new Thread();
         EasyMock.expect(wrapped.newThread(r)).andReturn(t);
         EasyMock.replay(wrapped, r);
-        final BasicThreadFactory factory = builder.wrappedFactory(wrapped).daemon(
-                flag).build();
+        // @formatter:off
+        final BasicThreadFactory factory = builder
+                .wrappedFactory(wrapped)
+                .daemon(flag)
+                .build();
+        // @formatter:on
         assertSame(t, factory.newThread(r), "Wrong thread");
         assertEquals(flag, t.isDaemon(), "Wrong daemon flag");
         EasyMock.verify(wrapped, r);
@@ -75,7 +79,7 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
 
     @BeforeEach
     public void setUp() {
-        builder = new BasicThreadFactory.Builder();
+        builder = BasicThreadFactory.builder();
     }
 
     /**
@@ -88,6 +92,26 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
     }
 
     /**
+     * Tests the daemon() method of the builder.
+     */
+    @Test
+    public void testBuilderDaemon() {
+        builder.daemon();
+        assertTrue(builder.build().getDaemonFlag());
+    }
+
+    /**
+     * Tests the daemon() method of the builder.
+     */
+    @Test
+    public void testBuilderDaemonBoolean() {
+        builder.daemon(true);
+        assertTrue(builder.build().getDaemonFlag());
+        builder.daemon(false);
+        assertFalse(builder.build().getDaemonFlag());
+    }
+
+    /**
      * Tests the reset() method of the builder.
      */
     @Test
@@ -96,9 +120,13 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
         final Thread.UncaughtExceptionHandler exHandler = EasyMock
                 .createMock(Thread.UncaughtExceptionHandler.class);
         EasyMock.replay(wrappedFactory, exHandler);
-        builder.namingPattern(PATTERN).daemon(true).priority(
-                Thread.MAX_PRIORITY).uncaughtExceptionHandler(exHandler)
-                .wrappedFactory(wrappedFactory);
+        // @formatter:off
+        builder.namingPattern(PATTERN)
+            .daemon(true)
+            .priority(Thread.MAX_PRIORITY)
+            .uncaughtExceptionHandler(exHandler)
+            .wrappedFactory(wrappedFactory);
+        // @formatter:on
         builder.reset();
         final BasicThreadFactory factory = builder.build();
         checkFactoryDefaults(factory);
@@ -111,8 +139,13 @@ public class BasicThreadFactoryTest extends AbstractLangTest {
      */
     @Test
     public void testBuilderResetAfterBuild() {
-        builder.wrappedFactory(EasyMock.createNiceMock(ThreadFactory.class))
-                .namingPattern(PATTERN).daemon(true).build();
+        // @formatter:off
+        builder
+            .wrappedFactory(EasyMock.createNiceMock(ThreadFactory.class))
+            .namingPattern(PATTERN)
+            .daemon(true)
+            .build();
+        // @formatter:on
         checkFactoryDefaults(builder.build());
     }
 
