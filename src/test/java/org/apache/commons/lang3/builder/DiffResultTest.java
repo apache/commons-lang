@@ -88,7 +88,7 @@ public class DiffResultTest extends AbstractLangTest {
         final SimpleClass right = new SimpleClass(false);
 
         final List<Diff<?>> diffs = left.diff(right).getDiffs();
-        final DiffResult diffResult = new DiffResult(left, right, diffs, SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT);
+        final DiffResult<SimpleClass> diffResult = new DiffResult<>(left, right, diffs, SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT);
 
         assertEquals(left, diffResult.getLeft());
         assertEquals(right, diffResult.getRight());
