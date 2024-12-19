@@ -27,7 +27,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.reflect.MethodUtils;
@@ -1140,6 +1142,24 @@ public class EqualsBuilderTest extends AbstractLangTest {
         bypassReflectionClasses.add(List.class);
         bypassReflectionClasses.add(Boolean.class);
         assertTrue(new EqualsBuilder().setBypassReflectionClasses(bypassReflectionClasses).isEquals());
+    }
+
+    @Test
+    public void testArrayListComparison() {
+        final List<String> a = Arrays.asList("A", "B", "C");
+        final List<String> b = Arrays.asList("A", "B", "C");
+        assertTrue(new EqualsBuilder().setTestRecursive(true).append(a, b).isEquals());
+    }
+
+    @Test
+    public void testMapComparison() {
+        final Map<Integer, String> a = new HashMap<>();
+        final Map<Integer, String> b = new HashMap<>();
+        a.put(2, "B");
+        a.put(1, "A");
+        b.put(1, "A");
+        b.put(2, "B");
+        assertTrue(new EqualsBuilder().setTestRecursive(true).append(a, b).isEquals());
     }
 
     @Test
