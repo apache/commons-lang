@@ -38,7 +38,6 @@ import org.junit.jupiter.api.Test;
  */
 public class DiffBuilderTest extends AbstractLangTest {
 
-
     /**
      * Test fixture.
      */

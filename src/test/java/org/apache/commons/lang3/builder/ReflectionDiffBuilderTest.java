@@ -229,7 +229,6 @@ public class ReflectionDiffBuilderTest extends AbstractLangTest {
         }
     }
 
-
     @Test
     public void testNoDifferencesDiffExcludeAnnotatedField() {
         final TypeTestClass firstObject = new TypeTestClass();
