@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -1038,15 +1039,7 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLength; j++) {
                 if (searchChars[j] == ch) {
-                    if (!Character.isHighSurrogate(ch)) {
-                        // ch is in the Basic Multilingual Plane
-                        return true;
-                    }
-                    if (j == searchLast) {
-                        // missing low surrogate, fine, like String.indexOf(String)
-                        return true;
-                    }
-                    if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
+                    if (!Character.isHighSurrogate(ch) || (j == searchLast) || (i < csLast && searchChars[j + 1] == cs.charAt(i + 1))) {
                         return true;
                     }
                 }
@@ -1218,15 +1211,7 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if (!Character.isHighSurrogate(ch)) {
-                        // ch is in the Basic Multilingual Plane
-                        return false;
-                    }
-                    if (j == searchLast) {
-                        // missing low surrogate, fine, like String.indexOf(String)
-                        return false;
-                    }
-                    if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
+                    if (!Character.isHighSurrogate(ch) || (j == searchLast) || (i < csLast && searchChars[j + 1] == cs.charAt(i + 1))) {
                         return false;
                     }
                 }
@@ -2715,11 +2700,8 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch)) {
-                        return i;
-                    }
                     // ch is a supplementary character
-                    if (searchChars[j + 1] == cs.charAt(i + 1)) {
+                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch) || (searchChars[j + 1] == cs.charAt(i + 1))) {
                         return i;
                     }
                 }
@@ -2813,7 +2795,8 @@ public class StringUtils {
 
     /**
      * Searches a CharSequence to find the first index of any
-     * character not in the given set of characters.
+     * character not in the given set of characters, i.e.,
+     * find index i of first char in cs such that (cs.codePointAt(i) ∉ { x ∈ codepoints(searchChars) })
      *
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} or zero length search array will return {@code -1}.</p>
@@ -2839,31 +2822,13 @@ public class StringUtils {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        final int csLen = cs.length();
-        final int csLast = csLen - 1;
-        final int searchLen = searchChars.length;
-        final int searchLast = searchLen - 1;
-        outer:
-        for (int i = 0; i < csLen; i++) {
-            final char ch = cs.charAt(i);
-            for (int j = 0; j < searchLen; j++) {
-                if (searchChars[j] == ch) {
-                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch)) {
-                        continue outer;
-                    }
-                    if (searchChars[j + 1] == cs.charAt(i + 1)) {
-                        continue outer;
-                    }
-                }
-            }
-            return i;
-        }
-        return INDEX_NOT_FOUND;
+        return indexOfAnyBut(cs, CharBuffer.wrap(searchChars));
     }
 
     /**
      * Search a CharSequence to find the first index of any
-     * character not in the given set of characters.
+     * character not in the given set of characters, i.e.,
+     * find index i of first char in seq such that (seq.codePointAt(i) ∉ { x ∈ codepoints(searchChars) })
      *
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} or empty search string will return {@code -1}.</p>
@@ -2888,18 +2853,14 @@ public class StringUtils {
         if (isEmpty(seq) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        final int strLen = seq.length();
-        for (int i = 0; i < strLen; i++) {
-            final char ch = seq.charAt(i);
-            final boolean chFound = CharSequenceUtils.indexOf(searchChars, ch, 0) >= 0;
-            if (i + 1 < strLen && Character.isHighSurrogate(ch)) {
-                final char ch2 = seq.charAt(i + 1);
-                if (chFound && CharSequenceUtils.indexOf(searchChars, ch2, 0) < 0) {
-                    return i;
-                }
-            } else if (!chFound) {
-                return i;
+        final int[] codePoints = searchChars.codePoints().sorted().toArray();
+        // advance character index from one interpreted codepoint to the next
+        for (int curSeqCharIdx = 0; curSeqCharIdx < seq.length();) {
+            final int curSeqCodePoint = Character.codePointAt(seq, curSeqCharIdx);
+            if (Arrays.binarySearch(codePoints, curSeqCodePoint) < 0) {
+                return curSeqCharIdx;
             }
+            curSeqCharIdx += Character.charCount(curSeqCodePoint); // skip indices to paired low-surrogates
         }
         return INDEX_NOT_FOUND;
     }

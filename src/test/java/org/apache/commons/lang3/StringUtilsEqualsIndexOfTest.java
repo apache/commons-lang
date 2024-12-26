@@ -18,6 +18,8 @@ package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.Supplementary.CharU20000;
 import static org.apache.commons.lang3.Supplementary.CharU20001;
+import static org.apache.commons.lang3.Supplementary.CharUSuppCharHigh;
+import static org.apache.commons.lang3.Supplementary.CharUSuppCharLow;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -444,11 +446,24 @@ public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIndexOfAnyBut_StringCharArrayWithSupplementaryChars() {
+    public void testIndexOfAnyBut_StringCharArrayWithSurrogateChars() {
         assertEquals(2, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, CharU20000.toCharArray()));
         assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, CharU20001.toCharArray()));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, ("abcd" + CharUSuppCharLow).toCharArray()));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, ("abcd" + CharUSuppCharHigh).toCharArray()));
         assertEquals(-1, StringUtils.indexOfAnyBut(CharU20000, CharU20000.toCharArray()));
         assertEquals(0, StringUtils.indexOfAnyBut(CharU20000, CharU20001.toCharArray()));
+        assertEquals(-1, StringUtils.indexOfAnyBut(CharUSuppCharHigh + "aaaa", (CharUSuppCharHigh + "abcd").toCharArray()));
+        assertEquals(-1, StringUtils.indexOfAnyBut(CharUSuppCharHigh + "baaa", (CharUSuppCharHigh + "abcd").toCharArray()));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharUSuppCharHigh + "aaaa", (CharU20000 + "abcd").toCharArray()));
+        assertEquals(4, StringUtils.indexOfAnyBut("aaaa" + CharUSuppCharHigh, (CharU20000 + "abcd").toCharArray()));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharUSuppCharLow + "aaaa", (CharU20000 + "abcd").toCharArray()));
+        assertEquals(4, StringUtils.indexOfAnyBut("aaaa" + CharUSuppCharLow, (CharU20000 + "abcd").toCharArray()));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + "aaaa", (CharUSuppCharLow + "ab" + CharUSuppCharHigh + "cd").toCharArray()));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + "aaaa", "abcd".toCharArray()));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + "aaaa", ("abcd" + CharUSuppCharHigh).toCharArray()));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + "aaaa", ("abcd" + CharUSuppCharLow).toCharArray()));
+        assertEquals(-1, StringUtils.indexOfAnyBut("aaaa" + CharU20000, (CharU20000 + "abcd").toCharArray()));
     }
 
     @Test
@@ -469,11 +484,24 @@ public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIndexOfAnyBut_StringStringWithSupplementaryChars() {
+    public void testIndexOfAnyBut_StringStringWithSurrogateChars() {
         assertEquals(2, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, CharU20000));
         assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, CharU20001));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, "abcd" + CharUSuppCharLow));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + CharU20001, "abcd" + CharUSuppCharHigh));
         assertEquals(-1, StringUtils.indexOfAnyBut(CharU20000, CharU20000));
         assertEquals(0, StringUtils.indexOfAnyBut(CharU20000, CharU20001));
+        assertEquals(-1, StringUtils.indexOfAnyBut(CharUSuppCharHigh + "aaaa", CharUSuppCharHigh + "abcd"));
+        assertEquals(-1, StringUtils.indexOfAnyBut(CharUSuppCharHigh + "baaa", CharUSuppCharHigh + "abcd"));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharUSuppCharHigh + "aaaa", CharU20000 + "abcd"));
+        assertEquals(4, StringUtils.indexOfAnyBut("aaaa" + CharUSuppCharHigh, CharU20000 + "abcd"));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharUSuppCharLow + "aaaa", CharU20000 + "abcd"));
+        assertEquals(4, StringUtils.indexOfAnyBut("aaaa" + CharUSuppCharLow, CharU20000 + "abcd"));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + "aaaa", CharUSuppCharLow + "ab" + CharUSuppCharHigh + "cd"));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + "aaaa", "abcd"));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + "aaaa", "abcd" + CharUSuppCharHigh));
+        assertEquals(0, StringUtils.indexOfAnyBut(CharU20000 + "aaaa", "abcd" + CharUSuppCharLow));
+        assertEquals(-1, StringUtils.indexOfAnyBut("aaaa" + CharU20000, CharU20000 + "abcd"));
     }
 
     @Test
