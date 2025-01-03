@@ -22,7 +22,9 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -731,7 +733,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             // to be inlined
             appendArray(lhs, rhs);
         } else // The simple case, not an array, just test the element
-        if (testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass)) {
+        if (testRecursive && !ClassUtils.isPrimitiveOrWrapper(lhsClass) && !Reflection.isNonIntrospectibleClass(lhsClass)) {
             reflectionAppend(lhs, rhs);
         } else {
             isEquals = lhs.equals(rhs);
@@ -956,11 +958,47 @@ public class EqualsBuilder implements Builder<Boolean> {
         }
 
         try {
-            if (testClass.isArray()) {
+            if (testClass.isArray() || Reflection.isNonIntrospectibleClass(testClass)) {
                 append(lhs, rhs);
-            } else //If either class is being excluded, call normal object equals method on lhsClass.
-            if (bypassReflectionClasses != null
+            } else if (Collection.class.isAssignableFrom(testClass)) {
+                // Right now this also handles Sets.
+                // Which is likely fine for TreeSets and any other sorted Collection
+                // But it would not be easy to implement this for e.g. a HashSet
+                // The good thing is that this behaviour is backward compatible with
+                // pre-jpms handling where we did reflect into the internal structures.
+
+                Collection lColl = (Collection) lhs;
+                Collection rColl = (Collection) rhs;
+                if (lColl.size() != rColl.size()) {
+                    isEquals = false;
+                    return this;
+                }
+                final Iterator lIt = lColl.iterator();
+                final Iterator rIt = rColl.iterator();
+                while (lIt.hasNext() || rIt.hasNext()) {
+                    if (lIt.hasNext() != rIt.hasNext()) {
+                        // if one iterator has no more entries but the other one does, then it cannot be equal
+                        isEquals = false;
+                        return this;
+                    } else {
+                        reflectionAppend(lIt.next(), rIt.next());
+                    }
+                }
+            } else if (Map.class.isAssignableFrom(testClass)) {
+                Map<?, ?> lMap = (Map) lhs;
+                Map<?, ?> rMap = (Map) rhs;
+                if (lMap.size() != rMap.size()) {
+                    isEquals = false;
+                    return this;
+                }
+                for (Map.Entry e : lMap.entrySet()) {
+                    if (isEquals) {
+                        append(e.getValue(), rMap.get(e.getKey()));
+                    }
+                }
+            } else if (bypassReflectionClasses != null
                     && (bypassReflectionClasses.contains(lhsClass) || bypassReflectionClasses.contains(rhsClass))) {
+                //If either class is being excluded, call normal object equals method on lhsClass.
                 isEquals = lhs.equals(rhs);
             } else {
                 reflectionAppend(lhs, rhs, testClass);
