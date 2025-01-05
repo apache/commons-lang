@@ -227,7 +227,8 @@
               </manifest>
             </archive>
             <doclint>all</doclint>
-            <failOnWarnings>true</failOnWarnings>
+            <!-- Java 8 on GH says: "[WARNING] javadoc: warning - Error fetching URL: https://commons.apache.org/proper/commons-text/apidocs/" -->
+            <!-- <failOnWarnings>true</failOnWarnings> -->
             <additionalDependencies>
               <additionalDependency>
                 <groupId>org.apache.commons</groupId>
