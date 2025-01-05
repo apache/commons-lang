@@ -28,12 +28,9 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-13]
-        java: [ 8, 11, 17, 21 ]
+        java: [ 8, 11, 17, 21, 23 ]
         experimental: [false]
         include:
-          - java: 23
-            experimental: true
-            os: ubuntu-latest
           - java: 24-ea
             experimental: true
             os: ubuntu-latest
