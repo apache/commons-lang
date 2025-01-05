@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.annotation.ElementType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collections;
@@ -5174,6 +5175,34 @@ public class ArrayUtilsTest extends AbstractLangTest {
         for (final short element : array2) {
             assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
         }
+    }
+
+    @Test
+    public void testStartsWith() {
+        // edge cases
+        assertTrue(ArrayUtils.startsWith(null, null));
+        assertFalse(ArrayUtils.startsWith(ArrayUtils.EMPTY_BYTE_ARRAY, null));
+        assertFalse(ArrayUtils.startsWith(null, ArrayUtils.EMPTY_BYTE_ARRAY));
+        assertTrue(ArrayUtils.startsWith(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.EMPTY_BYTE_ARRAY));
+        assertTrue(ArrayUtils.startsWith(new byte[0], new byte[0]));
+        // normal cases
+        assertTrue(ArrayUtils.startsWith(new byte[10], new byte[10]));
+        assertTrue(ArrayUtils.startsWith(new byte[10], new byte[9]));
+        assertTrue(ArrayUtils.startsWith(new byte[10], new byte[1]));
+        final byte[] sig = "Signature".getBytes(StandardCharsets.US_ASCII);
+        final byte[] data = new byte[1024];
+        // data is 0
+        assertFalse(ArrayUtils.startsWith(data, sig));
+        // data is 1 short for expected at the end
+        System.arraycopy(sig, 0, data, 0, sig.length - 1);
+        assertFalse(ArrayUtils.startsWith(data, sig));
+        // data is mimatched at the start
+        System.arraycopy(sig, 0, data, 0, sig.length);
+        data[0] = 0;
+        assertFalse(ArrayUtils.startsWith(data, sig));
+        // data is as expected
+        System.arraycopy(sig, 0, data, 0, sig.length);
+        assertTrue(ArrayUtils.startsWith(data, sig));
     }
 
     @Test
