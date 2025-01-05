@@ -41,6 +41,7 @@ import java.util.function.Predicate;
 
 import org.apache.commons.lang3.ThreadUtils.ThreadGroupPredicate;
 import org.apache.commons.lang3.ThreadUtils.ThreadPredicate;
+import org.apache.commons.lang3.function.Predicates;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -125,7 +126,7 @@ public class ThreadUtilsTest extends AbstractLangTest {
             }
             assertThat("getAllThreadGroups", ThreadUtils.getAllThreadGroups().size(), greaterThanOrEqualTo(7));
             assertThat("getAllThreads", ThreadUtils.getAllThreads().size(), greaterThanOrEqualTo(11));
-            assertThat("findThreads(ThreadUtils.ALWAYS_TRUE_PREDICATE)", ThreadUtils.findThreads(ThreadUtils.ALWAYS_TRUE_PREDICATE).size(), greaterThanOrEqualTo(11));
+            assertThat("findThreads(ThreadUtils.ALWAYS_TRUE_PREDICATE)", ThreadUtils.findThreads(Predicates.truePredicate()).size(), greaterThanOrEqualTo(11));
             assertEquals(1, ThreadUtils.findThreadsByName(t4.getName(), threadGroup3.getName()).size());
             assertEquals(0, ThreadUtils.findThreadsByName(t4.getName(), threadGroup2.getName()).size());
             assertEquals(2, ThreadUtils.findThreadsByName(t11.getName(), threadGroup7.getName()).size());
@@ -150,6 +151,18 @@ public class ThreadUtilsTest extends AbstractLangTest {
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(ThreadUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(ThreadUtils.class.getModifiers()));
+    }
+
+    @SuppressWarnings("deprecation")
+    @Test
+    public void testDepreacted() {
+        assertNotNull(ThreadUtils.ALWAYS_TRUE_PREDICATE);
+        ThreadPredicate tp = ThreadUtils.ALWAYS_TRUE_PREDICATE;
+        assertTrue(tp.test(null));
+        assertTrue(tp.test(new Thread()));
+        ThreadGroupPredicate tgp = ThreadUtils.ALWAYS_TRUE_PREDICATE;
+        assertTrue(tgp.test(null));
+        assertTrue(tgp.test(new ThreadGroup("")));
     }
 
     @Test
@@ -299,8 +312,8 @@ public class ThreadUtilsTest extends AbstractLangTest {
 
     @Test
     public void testThreadGroupsNullParent() {
-        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups(null, true, ThreadUtils.ALWAYS_TRUE_PREDICATE));
-        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups(null, false, ThreadUtils.ALWAYS_TRUE_PREDICATE));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups(null, true, Predicates.truePredicate()));
+        assertThrows(NullPointerException.class, () -> ThreadUtils.findThreadGroups(null, false, Predicates.truePredicate()));
     }
 
     @Test

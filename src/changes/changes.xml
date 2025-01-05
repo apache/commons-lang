@@ -88,6 +88,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BasicThreadFactory.builder() and deprecate BasicThreadFactory.Builder().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BasicThreadFactory.daemon().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayUtils.startsWith.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Predicates.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 78 #1267, #1277, #1283, #1288, #1302.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[site] Bump org.codehaus.mojo:taglist-maven-plugin from 3.1.0 to 3.2.1 #1300.</action>
