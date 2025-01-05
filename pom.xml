@@ -227,6 +227,7 @@
               </manifest>
             </archive>
             <doclint>all</doclint>
+            <failOnWarnings>true</failOnWarnings>
             <additionalDependencies>
               <additionalDependency>
                 <groupId>org.apache.commons</groupId>
