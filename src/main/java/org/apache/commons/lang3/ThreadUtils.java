@@ -179,7 +179,6 @@ public class ThreadUtils {
      * @throws IllegalArgumentException if the specified id is zero or negative
      * @throws  SecurityException
      *          if the current thread cannot access the system thread group
-     *
      * @throws  SecurityException  if the current thread cannot modify
      *          thread groups from this thread's thread group up to the system thread group
      */
@@ -270,7 +269,6 @@ public class ThreadUtils {
     public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup threadGroup, final boolean recurse, final Predicate<ThreadGroup> predicate) {
         Objects.requireNonNull(threadGroup, "threadGroup");
         Objects.requireNonNull(predicate, "predicate");
-
         int count = threadGroup.activeGroupCount();
         ThreadGroup[] threadGroups;
         do {
