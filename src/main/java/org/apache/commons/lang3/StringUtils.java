@@ -2856,7 +2856,7 @@ public class StringUtils {
             return INDEX_NOT_FOUND;
         }
         final Set<Integer> searchSetCodePoints = searchChars.codePoints()
-                .boxed().collect(Collectors.toSet()); // JDK >=10: Collectors::toUnmodifiableSet
+                .boxed().collect(Collectors.toSet());
         // advance character index from one interpreted codepoint to the next
         for (int curSeqCharIdx = 0; curSeqCharIdx < seq.length();) {
             final int curSeqCodePoint = Character.codePointAt(seq, curSeqCharIdx);
