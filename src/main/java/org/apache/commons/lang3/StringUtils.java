@@ -26,8 +26,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.stream.LangCollectors;
@@ -2853,11 +2855,12 @@ public class StringUtils {
         if (isEmpty(seq) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        final int[] codePoints = searchChars.codePoints().sorted().toArray();
+        final Set<Integer> searchSetCodePoints = searchChars.codePoints()
+                .boxed().collect(Collectors.toSet());
         // advance character index from one interpreted codepoint to the next
         for (int curSeqCharIdx = 0; curSeqCharIdx < seq.length();) {
             final int curSeqCodePoint = Character.codePointAt(seq, curSeqCharIdx);
-            if (Arrays.binarySearch(codePoints, curSeqCodePoint) < 0) {
+            if (!searchSetCodePoints.contains(curSeqCodePoint)) {
                 return curSeqCharIdx;
             }
             curSeqCharIdx += Character.charCount(curSeqCodePoint); // skip indices to paired low-surrogates
