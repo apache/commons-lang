@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 
 /**
  * Helpers to process Strings using regular expressions.
+ *
  * @see java.util.regex.Pattern
  * @since 3.8
  */
