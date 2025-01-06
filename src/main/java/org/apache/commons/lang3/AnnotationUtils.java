@@ -332,7 +332,7 @@ public class AnnotationUtils {
         final ToStringBuilder builder = new ToStringBuilder(a, TO_STRING_STYLE);
         for (final Method m : a.annotationType().getDeclaredMethods()) {
             if (m.getParameterTypes().length > 0) {
-                continue; // wtf?
+                continue; // what?
             }
             try {
                 builder.append(m.getName(), m.invoke(a));
