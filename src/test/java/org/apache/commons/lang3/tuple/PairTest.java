@@ -92,7 +92,7 @@ public class PairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testComparable2() {
+    public void testComparableLeftEquals() {
         final Pair<String, String> pair1 = Pair.of("A", "C");
         final Pair<String, String> pair2 = Pair.of("A", "D");
         assertEquals(0, pair1.compareTo(pair1));
