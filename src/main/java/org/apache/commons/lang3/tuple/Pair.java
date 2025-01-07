@@ -159,8 +159,12 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      */
     @Override
     public int compareTo(final Pair<L, R> other) {
-      return new CompareToBuilder().append(getLeft(), other.getLeft())
-              .append(getRight(), other.getRight()).toComparison();
+        // @formatter:off
+        return new CompareToBuilder()
+            .append(getLeft(), other.getLeft())
+            .append(getRight(), other.getRight())
+            .toComparison();
+        // @formatter:on
     }
 
     /**

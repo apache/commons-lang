@@ -82,7 +82,7 @@ public class PairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testComparable1() {
+    public void testComparableAllDifferent() {
         final Pair<String, String> pair1 = Pair.of("A", "D");
         final Pair<String, String> pair2 = Pair.of("B", "C");
         assertEquals(0, pair1.compareTo(pair1));
@@ -93,8 +93,18 @@ public class PairTest extends AbstractLangTest {
 
     @Test
     public void testComparableLeftEquals() {
-        final Pair<String, String> pair1 = Pair.of("A", "C");
-        final Pair<String, String> pair2 = Pair.of("A", "D");
+        final Pair<String, String> pair1 = Pair.of("E", "C");
+        final Pair<String, String> pair2 = Pair.of("E", "D");
+        assertEquals(0, pair1.compareTo(pair1));
+        assertTrue(pair1.compareTo(pair2) < 0);
+        assertEquals(0, pair2.compareTo(pair2));
+        assertTrue(pair2.compareTo(pair1) > 0);
+    }
+
+    @Test
+    public void testComparableRightEquals() {
+        final Pair<String, String> pair1 = Pair.of("A", "E");
+        final Pair<String, String> pair2 = Pair.of("B", "E");
         assertEquals(0, pair1.compareTo(pair1));
         assertTrue(pair1.compareTo(pair2) < 0);
         assertEquals(0, pair2.compareTo(pair2));
