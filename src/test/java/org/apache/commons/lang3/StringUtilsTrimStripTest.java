@@ -97,6 +97,19 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
                 "Failed to handle non-accented text");
     }
 
+    /**
+     * Tests Unicode vulgar fractions.
+     */
+    @Test
+    public void testStripAccentsUnicodeVulgarFractions() {
+        // 1/4, note "⁄", not "/".
+        assertEquals("1⁄4", StringUtils.stripAccents("\u00BC"));
+        // 1/2, note "⁄", not "/".
+        assertEquals("1⁄2", StringUtils.stripAccents("\u00BD"));
+        // 3/4, note "⁄", not "/".
+        assertEquals("3⁄4", StringUtils.stripAccents("\u00BE"));
+    }
+
     @Test
     public void testStripAccentsIWithBar() {
         assertEquals("I i I i I", StringUtils.stripAccents("\u0197 \u0268 \u1D7B \u1DA4 \u1DA7"));
