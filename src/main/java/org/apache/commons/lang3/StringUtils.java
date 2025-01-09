@@ -4268,7 +4268,7 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-        return Streams.of(iterator).collect(LangCollectors.joining(toString(String.valueOf(separator)), EMPTY, EMPTY, StringUtils::toString));
+        return Streams.of(iterator).collect(LangCollectors.joining(ObjectUtils.toString(String.valueOf(separator)), EMPTY, EMPTY, ObjectUtils::toString));
     }
 
     /**
@@ -4292,7 +4292,7 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-        return Streams.of(iterator).collect(LangCollectors.joining(toString(separator), EMPTY, EMPTY, StringUtils::toString));
+        return Streams.of(iterator).collect(LangCollectors.joining(ObjectUtils.toString(separator), EMPTY, EMPTY, ObjectUtils::toString));
     }
 
     /**
@@ -4529,7 +4529,7 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input
      */
     public static String join(final Object[] array, final String delimiter) {
-        return array != null ? join(array, toString(delimiter), 0, array.length) : null;
+        return array != null ? join(array, ObjectUtils.toString(delimiter), 0, array.length) : null;
     }
 
     /**
@@ -4569,7 +4569,7 @@ public class StringUtils {
      */
     public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
         return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0, endIndex - startIndex))
-            .collect(LangCollectors.joining(delimiter, EMPTY, EMPTY, StringUtils::toString)) : null;
+            .collect(LangCollectors.joining(delimiter, EMPTY, EMPTY, ObjectUtils::toString)) : null;
     }
 
     /**
@@ -6302,7 +6302,7 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(searchChars)) {
             return str;
         }
-        replaceChars = toString(replaceChars);
+        replaceChars = ObjectUtils.toString(replaceChars);
         boolean modified = false;
         final int replaceCharsLength = replaceChars.length();
         final int strLength = str.length();
@@ -8758,17 +8758,6 @@ public class StringUtils {
     @Deprecated
     public static String toString(final byte[] bytes, final String charsetName) {
         return new String(bytes, Charsets.toCharset(charsetName));
-    }
-
-    /**
-     * Returns the result of calling {@code toString} on argument if the argument is not {@code null} and returns the empty String otherwise.
-     *
-     * @param o           an object
-     * @return the result of calling {@code toString} on the argument if it is not {@code null} and the empty String otherwise.
-     * @see Objects#toString(Object)
-     */
-    private static String toString(final Object obj) {
-        return Objects.toString(obj, EMPTY);
     }
 
     /**

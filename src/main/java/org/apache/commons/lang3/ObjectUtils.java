@@ -1264,8 +1264,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Gets the {@code toString} of an {@link Object} returning
-     * an empty string ("") if {@code null} input.
+     * Gets the {@code toString()} of an {@link Object} or the empty string ({@code ""}) if the input is {@code null}.
      *
      * <pre>
      * ObjectUtils.toString(null)         = ""
@@ -1278,14 +1277,10 @@ public class ObjectUtils {
      * @see Objects#toString(Object, String)
      * @see StringUtils#defaultString(String)
      * @see String#valueOf(Object)
-     * @param obj  the Object to {@code toString}, may be null
-     * @return the passed in Object's toString, or {@code ""} if {@code null} input
+     * @param obj  the Object to {@code toString()}, may be {@code null}.
+     * @return the input's {@code toString()}, or {@code ""} if the input is {@code null}.
      * @since 2.0
-     * @deprecated this method has been replaced by {@code java.util.Objects.toString(Object)} in Java 7 and will be
-     * removed in future releases. Note however that said method will return "null" for null references, while this
-     * method returns an empty String. To preserve behavior use {@code java.util.Objects.toString(myObject, "")}
      */
-    @Deprecated
     public static String toString(final Object obj) {
         return Objects.toString(obj, StringUtils.EMPTY);
     }
