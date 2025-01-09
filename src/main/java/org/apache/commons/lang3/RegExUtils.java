@@ -252,7 +252,7 @@ public class RegExUtils {
      * @param regex
      *            the regular expression to which this string is to be matched
      * @return The resulting {@link String}
-     * @see #replacePattern(String, String, String)
+     * @see #replacePattern(CharSequence, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
      */
@@ -315,7 +315,7 @@ public class RegExUtils {
      *
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
-     * <p>Unlike in the {@link #replacePattern(String, String, String)} method, the {@link Pattern#DOTALL} option
+     * <p>Unlike in the {@link #replacePattern(CharSequence, String, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
      * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
@@ -488,7 +488,54 @@ public class RegExUtils {
      * @see #replaceAll(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
+     * @since 3.18.0
      */
+    public static CharSequence replacePattern(final CharSequence text, final String regex, final String replacement) {
+        if (ObjectUtils.anyNull(text, regex, replacement)) {
+            return text;
+        }
+        return dotAllMatcher(regex, text).replaceAll(replacement);
+    }
+
+    /**
+     * Replaces each substring of the source String that matches the given regular expression with the given
+     * replacement using the {@link Pattern#DOTALL} option. DOTALL is also known as single-line mode in Perl.
+     *
+     * This call is a {@code null} safe equivalent to:
+     * <ul>
+     * <li>{@code text.replaceAll(&quot;(?s)&quot; + regex, replacement)}</li>
+     * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(replacement)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>{@code
+     * StringUtils.replacePattern(null, *, *)       = null
+     * StringUtils.replacePattern("any", (String) null, *)   = "any"
+     * StringUtils.replacePattern("any", *, null)   = "any"
+     * StringUtils.replacePattern("", "", "zzz")    = "zzz"
+     * StringUtils.replacePattern("", ".*", "zzz")  = "zzz"
+     * StringUtils.replacePattern("", ".+", "zzz")  = ""
+     * StringUtils.replacePattern("<__>\n<__>", "<.*>", "z")       = "z"
+     * StringUtils.replacePattern("ABCabc123", "[a-z]", "_")       = "ABC___123"
+     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
+     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
+     * StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
+     * }</pre>
+     *
+     * @param text
+     *            the source string
+     * @param regex
+     *            the regular expression to which this string is to be matched
+     * @param replacement
+     *            the string to be substituted for each match
+     * @return The resulting {@link String}
+     * @see #replaceAll(String, String, String)
+     * @see String#replaceAll(String, String)
+     * @see Pattern#DOTALL
+     * @deprecated Use {@link #replacePattern(CharSequence, String, String)}.
+     */
+    @Deprecated
     public static String replacePattern(final String text, final String regex, final String replacement) {
         if (ObjectUtils.anyNull(text, regex, replacement)) {
             return text;

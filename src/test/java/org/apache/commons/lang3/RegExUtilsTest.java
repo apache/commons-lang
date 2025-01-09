@@ -243,7 +243,27 @@ public class RegExUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReplacePattern_StringStringString() {
+    public void testReplacePattern() {
+        assertNull(RegExUtils.replacePattern((CharSequence) null, "", ""));
+        assertEquals("any", RegExUtils.replacePattern((CharSequence) "any", (String) null, ""));
+        assertEquals("any", RegExUtils.replacePattern((CharSequence) "any", "", null));
+
+        assertEquals("zzz", RegExUtils.replacePattern((CharSequence) "", "", "zzz"));
+        assertEquals("zzz", RegExUtils.replacePattern((CharSequence) "", ".*", "zzz"));
+        assertEquals("", RegExUtils.replacePattern((CharSequence) "", ".+", "zzz"));
+
+        assertEquals("z", RegExUtils.replacePattern((CharSequence) "<__>\n<__>", "<.*>", "z"));
+        assertEquals("z", RegExUtils.replacePattern((CharSequence) "<__>\\n<__>", "<.*>", "z"));
+        assertEquals("X", RegExUtils.replacePattern((CharSequence) "<A>\nxy\n</A>", "<A>.*</A>", "X"));
+
+        assertEquals("ABC___123", RegExUtils.replacePattern((CharSequence) "ABCabc123", "[a-z]", "_"));
+        assertEquals("ABC_123", RegExUtils.replacePattern((CharSequence) "ABCabc123", "[^A-Z0-9]+", "_"));
+        assertEquals("ABC123", RegExUtils.replacePattern((CharSequence) "ABCabc123", "[^A-Z0-9]+", ""));
+        assertEquals("Lorem_ipsum_dolor_sit", RegExUtils.replacePattern((CharSequence) "Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
+    }
+
+    @Test
+    public void testReplacePatternDeprecated() {
         assertNull(RegExUtils.replacePattern(null, "", ""));
         assertEquals("any", RegExUtils.replacePattern("any", (String) null, ""));
         assertEquals("any", RegExUtils.replacePattern("any", "", null));
@@ -259,8 +279,7 @@ public class RegExUtilsTest extends AbstractLangTest {
         assertEquals("ABC___123", RegExUtils.replacePattern("ABCabc123", "[a-z]", "_"));
         assertEquals("ABC_123", RegExUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_"));
         assertEquals("ABC123", RegExUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", ""));
-        assertEquals("Lorem_ipsum_dolor_sit",
-                RegExUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
+        assertEquals("Lorem_ipsum_dolor_sit", RegExUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
     }
 
 }
