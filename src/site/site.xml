@@ -27,7 +27,7 @@
             <item name="Overview" href="/index.html" />
             <item name="Download" href="/download_lang.cgi" />
             <item name="Users guide" href="/userguide.html" />
-            <item name="Release History" href="/changes-report.html" />
+            <item name="Release History" href="/changes.html" />
             <item name="Javadoc" href="/apidocs/index.html" />
             <item name="Javadoc Archive" href="https://javadoc.io/doc/org.apache.commons/commons-lang3" />
         </menu>

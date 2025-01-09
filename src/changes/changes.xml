@@ -37,10 +37,9 @@ and commit
 
 The <action> type attribute can be add,update,fix,remove.
 -->
-
-<document xmlns="http://maven.apache.org/changes/1.0.0"
+<document xmlns="http://maven.apache.org/changes/2.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+          xsi:schemaLocation="http://maven.apache.org/changes/2.0.0 https://maven.apache.org/xsd/changes-2.0.0.xsd">
   <properties>
     <title>Apache Commons Lang Release Notes</title>
   </properties>
@@ -93,7 +92,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RegExUtils.dotAllMatcher(String, CharSequence) and deprecate RegExUtils.dotAllMatcher(String, String).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RegExUtils.replacePattern(CharSequence, String, String) and deprecate RegExUtils.replacePattern(String, String, String).</action>
     <!-- UPDATE -->
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 78 #1267, #1277, #1283, #1288, #1302.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 79 #1267, #1277, #1283, #1288, #1302.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[site] Bump org.codehaus.mojo:taglist-maven-plugin from 3.1.0 to 3.2.1 #1300.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[test] Bump org.easymock:easymock from 5.4.0 to 5.5.0 #1317.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[test] Bump org.apache.commons:commons-text from 1.12.0 to 1.13.0 #1336.</action> 
@@ -1220,7 +1219,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" issue="LANG-640">Add normalizeSpace to StringUtils.</action>
     <action type="fix" issue="LANG-638">NumberUtils createNumber throws a StringIndexOutOfBoundsException when argument containing "e" and "E" is passed in.</action>
     <!-- 3.0 beta below here -->
-    <action>NOTE: The below were included in the Commons Lang 3.0-beta release.</action>
+    <action type="add">NOTE: The below were included in the Commons Lang 3.0-beta release.</action>
     <action type="update" issue="LANG-510">Convert StringUtils API to take CharSequence.</action>
     <action type="update">Push down WordUtils to "text" sub-package.</action>
     <action type="add" issue="LANG-610">Extend exception handling in ConcurrentUtils to runtime exceptions.</action>
