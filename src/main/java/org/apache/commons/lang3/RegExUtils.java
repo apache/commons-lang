@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -97,7 +98,46 @@ public class RegExUtils {
      * @see #replaceAll(CharSequence, Pattern, String)
      * @see java.util.regex.Matcher#replaceAll(String)
      * @see java.util.regex.Pattern
+     * @since 3.18.0
      */
+    public static String removeAll(final CharSequence text, final Pattern regex) {
+        return replaceAll(text, regex, StringUtils.EMPTY);
+    }
+
+    /**
+     * Removes each substring of the text String that matches the given regular expression pattern.
+     *
+     * This method is a {@code null} safe equivalent to:
+     * <ul>
+     *  <li>{@code pattern.matcher(text).replaceAll(StringUtils.EMPTY)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>{@code
+     * StringUtils.removeAll(null, *)      = null
+     * StringUtils.removeAll("any", (Pattern) null)  = "any"
+     * StringUtils.removeAll("any", Pattern.compile(""))    = "any"
+     * StringUtils.removeAll("any", Pattern.compile(".*"))  = ""
+     * StringUtils.removeAll("any", Pattern.compile(".+"))  = ""
+     * StringUtils.removeAll("abc", Pattern.compile(".?"))  = ""
+     * StringUtils.removeAll("A<__>\n<__>B", Pattern.compile("<.*>"))      = "A\nB"
+     * StringUtils.removeAll("A<__>\n<__>B", Pattern.compile("(?s)<.*>"))  = "AB"
+     * StringUtils.removeAll("A<__>\n<__>B", Pattern.compile("<.*>", Pattern.DOTALL))  = "AB"
+     * StringUtils.removeAll("ABCabc123abc", Pattern.compile("[a-z]"))     = "ABC123"
+     * }</pre>
+     *
+     * @param text  text to remove from, may be null
+     * @param regex  the regular expression to which this string is to be matched
+     * @return  the text with any removes processed,
+     *              {@code null} if null String input
+     *
+     * @see #replaceAll(CharSequence, Pattern, String)
+     * @see java.util.regex.Matcher#replaceAll(String)
+     * @see java.util.regex.Pattern
+     * @deprecated Use {@link #removeAll(CharSequence, Pattern)}.
+     */
+    @Deprecated
     public static String removeAll(final String text, final Pattern regex) {
         return replaceAll((CharSequence) text, regex, StringUtils.EMPTY);
     }
@@ -179,7 +219,46 @@ public class RegExUtils {
      * @see #replaceFirst(String, Pattern, String)
      * @see java.util.regex.Matcher#replaceFirst(String)
      * @see java.util.regex.Pattern
+     * @since 3.18.0
      */
+    public static String removeFirst(final CharSequence text, final Pattern regex) {
+        return replaceFirst(text, regex, StringUtils.EMPTY);
+    }
+
+    /**
+     * Removes the first substring of the text string that matches the given regular expression pattern.
+     *
+     * This method is a {@code null} safe equivalent to:
+     * <ul>
+     *  <li>{@code pattern.matcher(text).replaceFirst(StringUtils.EMPTY)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>{@code
+     * StringUtils.removeFirst(null, *)      = null
+     * StringUtils.removeFirst("any", (Pattern) null)  = "any"
+     * StringUtils.removeFirst("any", Pattern.compile(""))    = "any"
+     * StringUtils.removeFirst("any", Pattern.compile(".*"))  = ""
+     * StringUtils.removeFirst("any", Pattern.compile(".+"))  = ""
+     * StringUtils.removeFirst("abc", Pattern.compile(".?"))  = "bc"
+     * StringUtils.removeFirst("A<__>\n<__>B", Pattern.compile("<.*>"))      = "A\n<__>B"
+     * StringUtils.removeFirst("A<__>\n<__>B", Pattern.compile("(?s)<.*>"))  = "AB"
+     * StringUtils.removeFirst("ABCabc123", Pattern.compile("[a-z]"))          = "ABCbc123"
+     * StringUtils.removeFirst("ABCabc123abc", Pattern.compile("[a-z]+"))      = "ABC123abc"
+     * }</pre>
+     *
+     * @param text  text to remove from, may be null
+     * @param regex  the regular expression pattern to which this string is to be matched
+     * @return  the text with the first replacement processed,
+     *              {@code null} if null String input
+     *
+     * @see #replaceFirst(String, Pattern, String)
+     * @see java.util.regex.Matcher#replaceFirst(String)
+     * @see java.util.regex.Pattern
+     * @deprecated Use {@link #removeFirst(CharSequence, Pattern)}.
+     */
+    @Deprecated
     public static String removeFirst(final String text, final Pattern regex) {
         return replaceFirst(text, regex, StringUtils.EMPTY);
     }
@@ -468,12 +547,55 @@ public class RegExUtils {
      *
      * @see java.util.regex.Matcher#replaceFirst(String)
      * @see java.util.regex.Pattern
+     * @since 3.18.0
      */
-    public static String replaceFirst(final String text, final Pattern regex, final String replacement) {
+    public static String replaceFirst(final CharSequence text, final Pattern regex, final String replacement) {
         if (text == null || regex == null || replacement == null) {
-            return text;
+            return toStringOrNull(text);
         }
         return regex.matcher(text).replaceFirst(replacement);
+    }
+
+    /**
+     * Replaces the first substring of the text string that matches the given regular expression pattern
+     * with the given replacement.
+     *
+     * This method is a {@code null} safe equivalent to:
+     * <ul>
+     *  <li>{@code pattern.matcher(text).replaceFirst(replacement)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>{@code
+     * StringUtils.replaceFirst(null, *, *)       = null
+     * StringUtils.replaceFirst("any", (Pattern) null, *)   = "any"
+     * StringUtils.replaceFirst("any", *, null)   = "any"
+     * StringUtils.replaceFirst("", Pattern.compile(""), "zzz")    = "zzz"
+     * StringUtils.replaceFirst("", Pattern.compile(".*"), "zzz")  = "zzz"
+     * StringUtils.replaceFirst("", Pattern.compile(".+"), "zzz")  = ""
+     * StringUtils.replaceFirst("abc", Pattern.compile(""), "ZZ")  = "ZZabc"
+     * StringUtils.replaceFirst("<__>\n<__>", Pattern.compile("<.*>"), "z")      = "z\n<__>"
+     * StringUtils.replaceFirst("<__>\n<__>", Pattern.compile("(?s)<.*>"), "z")  = "z"
+     * StringUtils.replaceFirst("ABCabc123", Pattern.compile("[a-z]"), "_")          = "ABC_bc123"
+     * StringUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123abc"
+     * StringUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123abc"
+     * StringUtils.replaceFirst("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum  dolor   sit"
+     * }</pre>
+     *
+     * @param text  text to search and replace in, may be null
+     * @param regex  the regular expression pattern to which this string is to be matched
+     * @param replacement  the string to be substituted for the first match
+     * @return  the text with the first replacement processed,
+     *              {@code null} if null String input
+     *
+     * @see java.util.regex.Matcher#replaceFirst(String)
+     * @see java.util.regex.Pattern
+     * @deprecated Use {@link #replaceFirst(CharSequence, Pattern, String)}.
+     */
+    @Deprecated
+    public static String replaceFirst(final String text, final Pattern regex, final String replacement) {
+        return replaceFirst((CharSequence) text, regex, replacement);
     }
 
     /**
@@ -617,7 +739,7 @@ public class RegExUtils {
     }
 
     private static String toStringOrNull(final CharSequence text) {
-        return text != null ? text.toString() : null;
+        return Objects.toString(text, null);
     }
 
     /**
