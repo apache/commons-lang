@@ -7878,16 +7878,23 @@ public class StringUtils {
 
     /**
      * Removes diacritics (~= accents) from a string. The case will not be altered.
-     * <p>For instance, '&agrave;' will be replaced by 'a'.</p>
-     * <p>Decomposes ligatures and digraphs per the KD column in the
-     * <a href = "https://www.unicode.org/charts/normalization/">Unicode Normalization Chart.</a></p>
-     *
+     * <p>
+     * For instance, '&agrave;' will be replaced by 'a'.
+     * </p>
+     * <p>
+     * Decomposes ligatures and digraphs per the KD column in the <a href = "https://www.unicode.org/charts/normalization/">Unicode Normalization Chart.</a>
+     * </p>
      * <pre>
-     * StringUtils.stripAccents(null)                = null
-     * StringUtils.stripAccents("")                  = ""
-     * StringUtils.stripAccents("control")           = "control"
+     * StringUtils.stripAccents(null)         = null
+     * StringUtils.stripAccents("")           = ""
+     * StringUtils.stripAccents("control")    = "control"
      * StringUtils.stripAccents("&eacute;clair")     = "eclair"
+     * StringUtils.stripAccents("\u1d43\u1d47\u1d9c\u00b9\u00b2\u00b3")     = "abc123"
+     * StringUtils.stripAccents("\u00BC \u00BD \u00BE")      = "1⁄4 1⁄2 3⁄4"
      * </pre>
+     * <p>
+     * See also <a href="http://www.unicode.org/unicode/reports/tr15/tr15-23.html">Unicode Standard Annex #15 Unicode Normalization Forms</a>.
+     * </p>
      *
      * @param input String to be stripped
      * @return input text with diacritics removed
