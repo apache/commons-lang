@@ -45,8 +45,23 @@ public class RegExUtils {
      * @param regex The expression to be compiled.
      * @param text  The character sequence to be matched.
      * @return A new matcher for this pattern.
-     * @since 3.13.0
+     * @since 3.18.0
      */
+    public static Matcher dotAllMatcher(final String regex, final CharSequence text) {
+        return dotAll(regex).matcher(text);
+    }
+
+    /**
+     * Compiles the given regular expression into a pattern with the {@link Pattern#DOTALL} flag, then creates a matcher that will match the given text against
+     * this pattern.
+     *
+     * @param regex The expression to be compiled.
+     * @param text  The character sequence to be matched.
+     * @return A new matcher for this pattern.
+     * @since 3.13.0
+     * @deprecated Use {@link #dotAllMatcher(String, CharSequence)}.
+     */
+    @Deprecated
     public static Matcher dotAllMatcher(final String regex, final String text) {
         return dotAll(regex).matcher(text);
     }

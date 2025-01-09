@@ -38,6 +38,12 @@ public class RegExUtilsTest extends AbstractLangTest {
 
     @Test
     public void testDotAllMatcher() {
+        assertTrue(RegExUtils.dotAllMatcher("<A>.*</A>", (CharSequence) "<A>\nxy\n</A>").matches());
+    }
+
+    @SuppressWarnings("deprecation")
+    @Test
+    public void testDotAllMatcherDeprecated() {
         assertTrue(RegExUtils.dotAllMatcher("<A>.*</A>", "<A>\nxy\n</A>").matches());
     }
 
