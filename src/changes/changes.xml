@@ -92,9 +92,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BasicThreadFactory.daemon().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayUtils.startsWith.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Predicates.</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RegExUtils.dotAllMatcher(String, CharSequence) and deprecate RegExUtils.dotAllMatcher(String, String).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RegExUtils.replacePattern(CharSequence, String, String) and deprecate RegExUtils.replacePattern(String, String, String).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RegExUtils.removePattern(CharSequence, String) and deprecate RegExUtils.removePattern(String, String).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RegExUtils methods typed to CharSequence input and deprecate old versions typed to String.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 79 #1267, #1277, #1283, #1288, #1302.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[site] Bump org.codehaus.mojo:taglist-maven-plugin from 3.1.0 to 3.2.1 #1300.</action>

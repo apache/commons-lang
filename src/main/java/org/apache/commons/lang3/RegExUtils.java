@@ -94,12 +94,12 @@ public class RegExUtils {
      * @return  the text with any removes processed,
      *              {@code null} if null String input
      *
-     * @see #replaceAll(String, Pattern, String)
+     * @see #replaceAll(CharSequence, Pattern, String)
      * @see java.util.regex.Matcher#replaceAll(String)
      * @see java.util.regex.Pattern
      */
     public static String removeAll(final String text, final Pattern regex) {
-        return replaceAll(text, regex, StringUtils.EMPTY);
+        return replaceAll((CharSequence) text, regex, StringUtils.EMPTY);
     }
 
     /**
@@ -255,8 +255,9 @@ public class RegExUtils {
      * @see #replacePattern(CharSequence, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
+     * @since 3.18.0
      */
-    public static CharSequence removePattern(final CharSequence text, final String regex) {
+    public static String removePattern(final CharSequence text, final String regex) {
         return replacePattern(text, regex, StringUtils.EMPTY);
     }
 
@@ -290,7 +291,7 @@ public class RegExUtils {
      */
     @Deprecated
     public static String removePattern(final String text, final String regex) {
-        return replacePattern(text, regex, StringUtils.EMPTY);
+        return replacePattern((CharSequence) text, regex, StringUtils.EMPTY);
     }
 
     /**
@@ -329,11 +330,53 @@ public class RegExUtils {
      * @see java.util.regex.Matcher#replaceAll(String)
      * @see java.util.regex.Pattern
      */
-    public static String replaceAll(final String text, final Pattern regex, final String replacement) {
+    public static String replaceAll(final CharSequence text, final Pattern regex, final String replacement) {
         if (ObjectUtils.anyNull(text, regex, replacement)) {
-            return text;
+            return toStringOrNull(text);
         }
         return regex.matcher(text).replaceAll(replacement);
+    }
+
+    /**
+     * Replaces each substring of the text String that matches the given regular expression pattern with the given replacement.
+     *
+     * This method is a {@code null} safe equivalent to:
+     * <ul>
+     *  <li>{@code pattern.matcher(text).replaceAll(replacement)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>{@code
+     * StringUtils.replaceAll(null, *, *)       = null
+     * StringUtils.replaceAll("any", (Pattern) null, *)   = "any"
+     * StringUtils.replaceAll("any", *, null)   = "any"
+     * StringUtils.replaceAll("", Pattern.compile(""), "zzz")    = "zzz"
+     * StringUtils.replaceAll("", Pattern.compile(".*"), "zzz")  = "zzz"
+     * StringUtils.replaceAll("", Pattern.compile(".+"), "zzz")  = ""
+     * StringUtils.replaceAll("abc", Pattern.compile(""), "ZZ")  = "ZZaZZbZZcZZ"
+     * StringUtils.replaceAll("<__>\n<__>", Pattern.compile("<.*>"), "z")                 = "z\nz"
+     * StringUtils.replaceAll("<__>\n<__>", Pattern.compile("<.*>", Pattern.DOTALL), "z") = "z"
+     * StringUtils.replaceAll("<__>\n<__>", Pattern.compile("(?s)<.*>"), "z")             = "z"
+     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[a-z]"), "_")       = "ABC___123"
+     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123"
+     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123"
+     * StringUtils.replaceAll("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum_dolor_sit"
+     * }</pre>
+     *
+     * @param text  text to search and replace in, may be null
+     * @param regex  the regular expression pattern to which this string is to be matched
+     * @param replacement  the string to be substituted for each match
+     * @return  the text with any replacements processed,
+     *              {@code null} if null String input
+     *
+     * @see java.util.regex.Matcher#replaceAll(String)
+     * @see java.util.regex.Pattern
+     * @deprecated Use {@link #replaceAll(CharSequence, Pattern, String)}.
+     */
+    @Deprecated
+    public static String replaceAll(final String text, final Pattern regex, final String replacement) {
+        return replaceAll((CharSequence) text, regex, replacement);
     }
 
     /**
@@ -523,9 +566,9 @@ public class RegExUtils {
      * @see Pattern#DOTALL
      * @since 3.18.0
      */
-    public static CharSequence replacePattern(final CharSequence text, final String regex, final String replacement) {
+    public static String replacePattern(final CharSequence text, final String regex, final String replacement) {
         if (ObjectUtils.anyNull(text, regex, replacement)) {
-            return text;
+            return toStringOrNull(text);
         }
         return dotAllMatcher(regex, text).replaceAll(replacement);
     }
@@ -570,10 +613,11 @@ public class RegExUtils {
      */
     @Deprecated
     public static String replacePattern(final String text, final String regex, final String replacement) {
-        if (ObjectUtils.anyNull(text, regex, replacement)) {
-            return text;
-        }
-        return dotAllMatcher(regex, text).replaceAll(replacement);
+        return replacePattern((CharSequence) text, regex, replacement);
+    }
+
+    private static String toStringOrNull(final CharSequence text) {
+        return text != null ? text.toString() : null;
     }
 
     /**
