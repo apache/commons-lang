@@ -164,13 +164,13 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         }
     }
 
-    private static final class SDiff<T, S extends Supplier<T> & Serializable> extends Diff<T> {
+    private static final class SDiff<T> extends Diff<T> {
 
         private static final long serialVersionUID = 1L;
-        private final transient S leftSupplier;
-        private final transient S rightSupplier;
+        private final SerializableSupplier<T> leftSupplier;
+        private final SerializableSupplier<T> rightSupplier;
 
-        private SDiff(final String fieldName, final S leftSupplier, final S rightSupplier, final Class<T> type) {
+        private SDiff(final String fieldName, final SerializableSupplier<T> leftSupplier, final SerializableSupplier<T> rightSupplier, final Class<T> type) {
             super(fieldName, type);
             this.leftSupplier = Objects.requireNonNull(leftSupplier);
             this.rightSupplier = Objects.requireNonNull(rightSupplier);
@@ -186,6 +186,15 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
             return rightSupplier.get();
         }
 
+    }
+
+    /**
+     * Private interface while we still have to support serialization.
+     *
+     * @param <T> the type of results supplied by this supplier.
+     */
+    private interface SerializableSupplier<T> extends Supplier<T>, Serializable {
+        // empty
     }
 
     static final String TO_STRING_FORMAT = "%s differs from %s";
@@ -264,7 +273,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         this.equals = testObjectsEquals && Objects.equals(left, right);
     }
 
-    private <F, S extends Supplier<F> & Serializable> DiffBuilder<T> add(final String fieldName, final S left, final S right, final Class<F> type) {
+    private <F> DiffBuilder<T> add(final String fieldName, final SerializableSupplier<F> left, final SerializableSupplier<F> right, final Class<F> type) {
         diffs.add(new SDiff<>(fieldName, left, right, type));
         return this;
     }
