@@ -75,6 +75,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1759" type="fix" dev="ggregory" due-to="Maxim Butov, Gary Gregory">SerializationUtils.clone(Object) throws ClassCastException when called with a Serializable lambda.</action>
     <action issue="LANG-1759" type="fix" dev="ggregory" due-to="IBue, Gary Gregory, Piotr P. Karwasz">[StringUtils::indexOfAnyBut] redesign due to inconsistent/faulty behavior regarding UTF-16 surrogates #1327.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Undeprecate ObjectUtils.toString(Object).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix Spotbugs [ERROR] Medium: The field org.apache.commons.lang3.builder.DiffBuilder$SDiff.leftSupplier is transient but isn't set by deserialization [org.apache.commons.lang3.builder.DiffBuilder$SDiff] In DiffBuilder.java SE_TRANSIENT_FIELD_NOT_RESTORED.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix Spotbugs [ERROR] Medium: The field org.apache.commons.lang3.builder.DiffBuilder$SDiff.rightSupplier is transient but isn't set by deserialization [org.apache.commons.lang3.builder.DiffBuilder$SDiff] In DiffBuilder.java SE_TRANSIENT_FIELD_NOT_RESTORED.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>

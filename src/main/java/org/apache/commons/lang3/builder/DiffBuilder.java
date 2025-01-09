@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.builder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -163,13 +164,13 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         }
     }
 
-    private static final class SDiff<T> extends Diff<T> {
+    private static final class SDiff<T, S extends Supplier<T> & Serializable> extends Diff<T> {
 
         private static final long serialVersionUID = 1L;
-        private final transient Supplier<T> leftSupplier;
-        private final transient Supplier<T> rightSupplier;
+        private final transient S leftSupplier;
+        private final transient S rightSupplier;
 
-        private SDiff(final String fieldName, final Supplier<T> leftSupplier, final Supplier<T> rightSupplier, final Class<T> type) {
+        private SDiff(final String fieldName, final S leftSupplier, final S rightSupplier, final Class<T> type) {
             super(fieldName, type);
             this.leftSupplier = Objects.requireNonNull(leftSupplier);
             this.rightSupplier = Objects.requireNonNull(rightSupplier);
@@ -263,7 +264,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         this.equals = testObjectsEquals && Objects.equals(left, right);
     }
 
-    private <F> DiffBuilder<T> add(final String fieldName, final Supplier<F> left, final Supplier<F> right, final Class<F> type) {
+    private <F, S extends Supplier<F> & Serializable> DiffBuilder<T> add(final String fieldName, final S left, final S right, final Class<F> type) {
         diffs.add(new SDiff<>(fieldName, left, right, type));
         return this;
     }
