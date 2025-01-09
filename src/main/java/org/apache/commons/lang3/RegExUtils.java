@@ -113,7 +113,7 @@ public class RegExUtils {
      *
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
-     * <p>Unlike in the {@link #removePattern(String, String)} method, the {@link Pattern#DOTALL} option
+     * <p>Unlike in the {@link #removePattern(CharSequence, String)} method, the {@link Pattern#DOTALL} option
      * is NOT automatically added.
      * To use the DOTALL option prepend {@code "(?s)"} to the regex.
      * DOTALL is also known as single-line mode in Perl.</p>
@@ -139,7 +139,7 @@ public class RegExUtils {
      *              if the regular expression's syntax is invalid
      *
      * @see #replaceAll(String, String, String)
-     * @see #removePattern(String, String)
+     * @see #removePattern(CharSequence, String)
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
@@ -256,6 +256,39 @@ public class RegExUtils {
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
      */
+    public static CharSequence removePattern(final CharSequence text, final String regex) {
+        return replacePattern(text, regex, StringUtils.EMPTY);
+    }
+
+    /**
+     * Removes each substring of the source String that matches the given regular expression using the DOTALL option.
+     *
+     * This call is a {@code null} safe equivalent to:
+     * <ul>
+     * <li>{@code text.replaceAll(&quot;(?s)&quot; + regex, StringUtils.EMPTY)}</li>
+     * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(text).replaceAll(StringUtils.EMPTY)}</li>
+     * </ul>
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>{@code
+     * StringUtils.removePattern(null, *)       = null
+     * StringUtils.removePattern("any", (String) null)   = "any"
+     * StringUtils.removePattern("A<__>\n<__>B", "<.*>")  = "AB"
+     * StringUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
+     * }</pre>
+     *
+     * @param text
+     *            the source string
+     * @param regex
+     *            the regular expression to which this string is to be matched
+     * @return The resulting {@link String}
+     * @see #replacePattern(CharSequence, String, String)
+     * @see String#replaceAll(String, String)
+     * @see Pattern#DOTALL
+     * @deprecated use {@link #removePattern(CharSequence, String)}.
+     */
+    @Deprecated
     public static String removePattern(final String text, final String regex) {
         return replacePattern(text, regex, StringUtils.EMPTY);
     }

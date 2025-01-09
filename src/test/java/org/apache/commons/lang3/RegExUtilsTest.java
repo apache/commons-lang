@@ -125,7 +125,24 @@ public class RegExUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemovePattern_StringString() {
+    public void testRemovePattern() {
+        assertNull(RegExUtils.removePattern((CharSequence) null, ""));
+        assertEquals("any", RegExUtils.removePattern((CharSequence) "any", (String) null));
+
+        assertEquals("", RegExUtils.removePattern((CharSequence) "", ""));
+        assertEquals("", RegExUtils.removePattern((CharSequence) "", ".*"));
+        assertEquals("", RegExUtils.removePattern((CharSequence) "", ".+"));
+
+        assertEquals("AB", RegExUtils.removePattern((CharSequence) "A<__>\n<__>B", "<.*>"));
+        assertEquals("AB", RegExUtils.removePattern((CharSequence) "A<__>\\n<__>B", "<.*>"));
+        assertEquals("", RegExUtils.removePattern((CharSequence) "<A>x\\ny</A>", "<A>.*</A>"));
+        assertEquals("", RegExUtils.removePattern((CharSequence) "<A>\nxy\n</A>", "<A>.*</A>"));
+
+        assertEquals("ABC123", RegExUtils.removePattern((CharSequence) "ABCabc123", "[a-z]"));
+    }
+
+    @Test
+    public void testRemovePatternDeprecated() {
         assertNull(RegExUtils.removePattern(null, ""));
         assertEquals("any", RegExUtils.removePattern("any", (String) null));
 
