@@ -39,6 +39,7 @@
             <includes>
                 <include>*.jar</include>
             </includes>
+            <fileMode>644</fileMode>
         </fileSet>
         <fileSet>
             <directory>target/site/apidocs</directory>
