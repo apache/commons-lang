@@ -53,7 +53,7 @@ The Javadoc API documents are available online:
 <ul>
 <li>The <a href="javadocs/api-release/index.html">current release</a> [Java 8 and up]</li>
 <li>The <a href="javadocs/api-2.6/index.html">legacy release 2.6</a> [Java 1.2 and up]</li>
-<li>Older releases - see the <a href="changes-report.html">Release History</a> page</li>
+<li>Older releases - see the <a href="changes.html">Release History</a> page</li>
 </ul>
 <p>
 The <a href="scm.html">git repository</a> can be
@@ -66,13 +66,13 @@ The <a href="scm.html">git repository</a> can be
 <ul>
 <li>Pull it using a build tool like Maven using a <a href="dependency-info.html">dependency management reference</a>.</li>
 <li>Download the latest release from a <a href="https://commons.apache.org/lang/download_lang.cgi">mirror</a>.</li>
-<li>Read the <a href="changes-report.html">change report</a>.</li>
+<li>Read the <a href="changes.html">change report</a>.</li>
 <li>Examine the <a href="article3_0.html">2.x to 3.0 upgrade notes</a>.</li>
 <li>Compare major versions via the <a href="lang2-lang3-clirr-report.html">Lang2 to Lang3 Clirr report</a>.</li>
 </ul>
 
 <p>
-For information on previous releases see the <a href="changes-report.html">Release History</a>, and to download previous releases see the <a href="https://archive.apache.org/dist/commons/lang/">Commons Lang Archive</a>.
+For information on previous releases see the <a href="changes.html">Release History</a>, and to download previous releases see the <a href="https://archive.apache.org/dist/commons/lang/">Commons Lang Archive</a>.
 </p>
 </section>
 <!-- ================================================== -->
