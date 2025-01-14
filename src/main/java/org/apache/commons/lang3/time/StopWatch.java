@@ -410,7 +410,10 @@ public class StopWatch {
      * @since 3.16.0
      */
     public Instant getStartInstant() {
-        return Instant.ofEpochMilli(getStartTime());
+        if (runningState == State.UNSTARTED) {
+            throw new IllegalStateException("Stopwatch has not been started");
+        }
+        return startInstant;
     }
 
     /**
@@ -423,11 +426,7 @@ public class StopWatch {
      */
     @Deprecated
     public long getStartTime() {
-        if (runningState == State.UNSTARTED) {
-            throw new IllegalStateException("Stopwatch has not been started");
-        }
-        // stopTimeNanos stores System.nanoTime() for elapsed time
-        return startInstant.toEpochMilli();
+        return getStartInstant().toEpochMilli();
     }
 
     /**
@@ -438,7 +437,10 @@ public class StopWatch {
      * @since 3.16.0
      */
     public Instant getStopInstant() {
-        return Instant.ofEpochMilli(getStopTime());
+        if (runningState == State.UNSTARTED) {
+            throw new IllegalStateException("Stopwatch has not been started");
+        }
+        return stopInstant;
     }
 
     /**
@@ -451,11 +453,8 @@ public class StopWatch {
      */
     @Deprecated
     public long getStopTime() {
-        if (runningState == State.UNSTARTED) {
-            throw new IllegalStateException("Stopwatch has not been started");
-        }
         // stopTimeNanos stores System.nanoTime() for elapsed time
-        return stopInstant.toEpochMilli();
+        return getStopInstant().toEpochMilli();
     }
 
     /**
