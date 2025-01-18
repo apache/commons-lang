@@ -16,13 +16,9 @@
  */
 package org.apache.commons.lang3;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
@@ -90,7 +86,7 @@ public class StreamsTest extends AbstractLangTest {
                             .filter(asIntPredicate(iae))
                             .collect(Collectors.toList());
                     final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
-                    assertThat(thrown.getMessage(), is(equalTo("Invalid argument: " + 5)));
+                    assertEquals("Invalid argument: " + 5, thrown.getMessage());
                 }),
                 dynamicTest("OutOfMemoryError", () -> {
                     final OutOfMemoryError oome = new OutOfMemoryError();
@@ -99,7 +95,7 @@ public class StreamsTest extends AbstractLangTest {
                             .filter(asIntPredicate(oome))
                             .collect(Collectors.toList());
                     final OutOfMemoryError thrown = assertThrows(OutOfMemoryError.class, testMethod);
-                    assertThat(thrown.getMessage(), is(nullValue()));
+                    assertNull(thrown.getMessage());
                 }),
                 dynamicTest("SAXException", () -> {
                     final SAXException se = new SAXException();
@@ -108,10 +104,8 @@ public class StreamsTest extends AbstractLangTest {
                             .filter(asIntPredicate(se))
                             .collect(Collectors.toList());
                     final UndeclaredThrowableException thrown = assertThrows(UndeclaredThrowableException.class, testMethod);
-                    assertAll(
-                            () -> assertThat(thrown.getMessage(), is(nullValue())),
-                            () -> assertThat(thrown.getCause(), is(equalTo(se)))
-                    );
+                    assertNull(thrown.getMessage());
+                    assertEquals(se, thrown.getCause());
                 })
         );
     }
@@ -124,22 +118,20 @@ public class StreamsTest extends AbstractLangTest {
                     final IllegalArgumentException ise = new IllegalArgumentException();
                     final Executable testMethod = () -> Functions.stream(input).forEach(asIntConsumer(ise));
                     final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
-                    assertThat(thrown.getMessage(), is(nullValue()));
+                    assertNull(thrown.getMessage());
                 }),
                 dynamicTest("OutOfMemoryError", () -> {
                     final OutOfMemoryError oome = new OutOfMemoryError();
                     final Executable oomeTestMethod = () -> Functions.stream(input).forEach(asIntConsumer(oome));
                     final OutOfMemoryError oomeThrown = assertThrows(OutOfMemoryError.class, oomeTestMethod);
-                    assertThat(oomeThrown.getMessage(), is(nullValue()));
+                    assertNull(oomeThrown.getMessage());
                 }),
                 dynamicTest("SAXException", () -> {
                     final SAXException se = new SAXException();
                     final Executable seTestMethod = () -> Functions.stream(input).forEach(asIntConsumer(se));
                     final UndeclaredThrowableException seThrown = assertThrows(UndeclaredThrowableException.class, seTestMethod);
-                    assertAll(
-                            () -> assertThat(seThrown.getMessage(), is(nullValue())),
-                            () -> assertThat(seThrown.getCause(), is(equalTo(se)))
-                    );
+                    assertNull(seThrown.getMessage());
+                    assertEquals(se, seThrown.getCause());
                 })
         );
     }

@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -147,7 +145,7 @@ public class StringUtilsTest extends AbstractLangTest {
             assertTrue(actual.indexOf((char) ('a' + offset)) != -1,
                     message + " -- should contain offset character");
         }
-        assertThat(message + " -- should not be greater than maxWidth", actual.length(), lessThanOrEqualTo(maxWidth));
+        assertTrue(actual.length() <= maxWidth, () -> message + " -- should not be greater than maxWidth");
         assertEquals(expected, actual, message);
     }
 
@@ -159,7 +157,7 @@ public class StringUtilsTest extends AbstractLangTest {
             assertTrue(actual.indexOf((char) ('a' + offset)) != -1,
                     message + " -- should contain offset character");
         }
-        assertThat(message + " -- should not be greater than maxWidth", actual.length(), lessThanOrEqualTo(maxWidth));
+        assertTrue(actual.length() <= maxWidth, () -> message + " -- should not be greater than maxWidth");
         assertEquals(expected, actual, message);
     }
 

@@ -19,8 +19,6 @@
 
 package org.apache.commons.lang3;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -124,9 +122,9 @@ public class ThreadUtilsTest extends AbstractLangTest {
             for (final Thread thread : threads) {
                 thread.start();
             }
-            assertThat("getAllThreadGroups", ThreadUtils.getAllThreadGroups().size(), greaterThanOrEqualTo(7));
-            assertThat("getAllThreads", ThreadUtils.getAllThreads().size(), greaterThanOrEqualTo(11));
-            assertThat("findThreads(ThreadUtils.ALWAYS_TRUE_PREDICATE)", ThreadUtils.findThreads(Predicates.truePredicate()).size(), greaterThanOrEqualTo(11));
+            assertTrue(ThreadUtils.getAllThreadGroups().size() >= 7, "getAllThreadGroups");
+            assertTrue(ThreadUtils.getAllThreads().size() >= 11, "getAllThreads");
+            assertTrue(ThreadUtils.findThreads(Predicates.truePredicate()).size() >= 11, "findThreads(ThreadUtils.truePredicate())");
             assertEquals(1, ThreadUtils.findThreadsByName(t4.getName(), threadGroup3.getName()).size());
             assertEquals(0, ThreadUtils.findThreadsByName(t4.getName(), threadGroup2.getName()).size());
             assertEquals(2, ThreadUtils.findThreadsByName(t11.getName(), threadGroup7.getName()).size());

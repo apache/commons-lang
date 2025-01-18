@@ -16,10 +16,6 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -142,7 +138,7 @@ public class StopWatchTest extends AbstractLangTest {
         watch.split();
         final String formatSplitTime = watch.formatSplitTime();
         assertNotEquals(ZERO_TIME_ELAPSED, formatSplitTime);
-        assertThat("formatSplitTime", formatSplitTime, startsWith(ZERO_HOURS_PREFIX));
+        assertTrue(formatSplitTime.startsWith(ZERO_HOURS_PREFIX), "formatSplitTime");
     }
 
     @Test
@@ -152,8 +148,8 @@ public class StopWatchTest extends AbstractLangTest {
         ThreadUtils.sleepQuietly(MIN_DURATION);
         watch.split();
         final String formatSplitTime = watch.formatSplitTime();
-        assertThat("formatSplitTime", formatSplitTime, not(startsWith(MESSAGE)));
-        assertThat("formatSplitTime", formatSplitTime, startsWith(ZERO_HOURS_PREFIX));
+        assertFalse(formatSplitTime.startsWith(MESSAGE), "formatSplitTime");
+        assertTrue(formatSplitTime.startsWith(ZERO_HOURS_PREFIX), "formatSplitTime");
     }
 
     @Test
@@ -161,14 +157,14 @@ public class StopWatchTest extends AbstractLangTest {
         final StopWatch watch = StopWatch.create();
         final String formatTime = watch.formatTime();
         assertEquals(ZERO_TIME_ELAPSED, formatTime);
-        assertThat("formatTime", formatTime, startsWith(ZERO_HOURS_PREFIX));
+        assertTrue(formatTime.startsWith(ZERO_HOURS_PREFIX), "formatTime");
     }
 
     @Test
     public void testFormatTimeWithMessage() {
         final StopWatch watch = new StopWatch(MESSAGE);
         final String formatTime = watch.formatTime();
-        assertThat("formatTime", formatTime, not(startsWith(MESSAGE)));
+        assertFalse(formatTime.startsWith(MESSAGE), "formatTime");
     }
 
     @Test
@@ -227,7 +223,7 @@ public class StopWatchTest extends AbstractLangTest {
         watch.start();
 
         watch.getStartInstant();
-        assertThat("getStartInstant", watch.getStartInstant(), greaterThanOrEqualTo(Instant.ofEpochMilli(beforeStopWatchMillis)));
+        assertTrue(watch.getStartInstant().compareTo(Instant.ofEpochMilli(beforeStopWatchMillis)) >= 0);
 
         watch.reset();
         assertThrows(IllegalStateException.class, watch::getStartInstant,
@@ -242,7 +238,7 @@ public class StopWatchTest extends AbstractLangTest {
         watch.start();
 
         watch.getStartTime();
-        assertThat("getStartTime", watch.getStartTime(), greaterThanOrEqualTo(beforeStopWatchMillis));
+        assertTrue(watch.getStartTime() >= beforeStopWatchMillis, "getStartTime");
 
         watch.reset();
         assertThrows(IllegalStateException.class, watch::getStartTime, "Calling getStartTime on a reset, but unstarted StopWatch should throw an exception");
@@ -296,10 +292,10 @@ public class StopWatchTest extends AbstractLangTest {
         assertNull(StopWatch.create().getMessage());
         final StopWatch stopWatch = new StopWatch(MESSAGE);
         assertEquals(MESSAGE, stopWatch.getMessage());
-        assertThat("stopWatch.toString", stopWatch.toString(), startsWith(MESSAGE));
+        assertTrue(stopWatch.toString().startsWith(MESSAGE), "stopWatch.toString");
         stopWatch.start();
         stopWatch.split();
-        assertThat("stopWatch.toSplitString", stopWatch.toSplitString(), startsWith(MESSAGE));
+        assertTrue(stopWatch.toSplitString().startsWith(MESSAGE), "stopWatch.toSplitString");
     }
 
     @Test
@@ -494,7 +490,7 @@ public class StopWatchTest extends AbstractLangTest {
 
     @Test
     public void testToStringWithMessage() throws InterruptedException {
-        assertThat("message", new StopWatch(MESSAGE).toString(), startsWith(MESSAGE));
+        assertTrue(new StopWatch(MESSAGE).toString().startsWith(MESSAGE), "message");
         //
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
