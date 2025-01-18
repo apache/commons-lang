@@ -5323,7 +5323,7 @@ public class ArrayUtils {
     // package protected for access by unit tests
     static Object removeAll(final Object array, final int... indices) {
         if (array == null) {
-            return null;
+            throw new IllegalArgumentException("ArrayUtils.removeAll expected a value but was passed null instead.");
         }
         final int length = getLength(array);
         int diff = 0; // number of distinct indexes, i.e. number of entries that will be removed
