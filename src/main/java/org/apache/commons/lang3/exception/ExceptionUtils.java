@@ -33,6 +33,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import org.apache.commons.lang3.util.IterableStringTokenizer;
 
 /**
  * Provides utilities for manipulating and examining
@@ -425,13 +426,7 @@ public class ExceptionUtils {
      * @return an array where each element is a line from the argument
      */
     static String[] getStackFrames(final String stackTrace) {
-        final String linebreak = System.lineSeparator();
-        final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        final List<String> list = new ArrayList<>();
-        while (frames.hasMoreTokens()) {
-            list.add(frames.nextToken());
-        }
-        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+        return new IterableStringTokenizer(stackTrace, System.lineSeparator()).toArray();
     }
 
     /**
