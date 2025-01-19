@@ -16,10 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThan;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -109,7 +105,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testExtremeRangeInt() {
         final int result = RandomUtils.nextInt(0, Integer.MAX_VALUE);
-        assertThat("result >= 0 && result < Integer.MAX_VALUE", result, allOf(greaterThanOrEqualTo(0), lessThan(Integer.MAX_VALUE)));
+        assertTrue(result >= 0);
+        assertTrue(result < Integer.MAX_VALUE);
     }
 
     /**
@@ -119,7 +116,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @MethodSource("randomProvider")
     public void testExtremeRangeInt(final RandomUtils ru) {
         final int result = ru.randomInt(0, Integer.MAX_VALUE);
-        assertThat("result >= 0 && result < Integer.MAX_VALUE", result, allOf(greaterThanOrEqualTo(0), lessThan(Integer.MAX_VALUE)));
+        assertTrue(result >= 0);
+        assertTrue(result < Integer.MAX_VALUE);
     }
 
     /**
@@ -128,7 +126,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testExtremeRangeLong() {
         final long result = RandomUtils.nextLong(0, Long.MAX_VALUE);
-        assertThat("result >= 0 && result < Long.MAX_VALUE", result, allOf(greaterThanOrEqualTo(0L), lessThan(Long.MAX_VALUE)));
+        assertTrue(result >= 0);
+        assertTrue(result < Long.MAX_VALUE);
     }
 
     /**
@@ -138,7 +137,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @MethodSource("randomProvider")
     public void testExtremeRangeLong(final RandomUtils ru) {
         final long result = ru.randomLong(0, Long.MAX_VALUE);
-        assertThat("result >= 0 && result < Long.MAX_VALUE", result, allOf(greaterThanOrEqualTo(0L), lessThan(Long.MAX_VALUE)));
+        assertTrue(result >= 0);
+        assertTrue(result < Long.MAX_VALUE);
     }
 
     /**
@@ -226,7 +226,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testNextDouble() {
         final double result = RandomUtils.nextDouble(33d, 42d);
-        assertThat("result >= 33d && result < 42d", result, allOf(greaterThanOrEqualTo(33d), lessThan(42d)));
+        assertTrue(result >= 33d);
+        assertTrue(result < 42d);
     }
 
     /**
@@ -236,7 +237,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @MethodSource("randomProvider")
     public void testNextDouble(final RandomUtils ru) {
         final double result = ru.randomDouble(33d, 42d);
-        assertThat("result >= 33d && result < 42d", result, allOf(greaterThanOrEqualTo(33d), lessThan(42d)));
+        assertTrue(result >= 33d);
+        assertTrue(result < 42d);
     }
 
     @Test
@@ -283,8 +285,9 @@ public class RandomUtilsTest extends AbstractLangTest {
      */
     @Test
     public void testNextDoubleRandomResult() {
-        final double randomResult = RandomUtils.nextDouble();
-        assertThat("randomResult >= 0 0 && randomResult < Double.MAX_VALUE", randomResult, allOf(greaterThanOrEqualTo(0d), lessThan(Double.MAX_VALUE)));
+        final double result = RandomUtils.nextDouble();
+        assertTrue(result >= 0d);
+        assertTrue(result < Double.MAX_VALUE);
     }
 
     /**
@@ -293,8 +296,9 @@ public class RandomUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("randomProvider")
     public void testNextDoubleRandomResult(final RandomUtils ru) {
-        final double randomResult = ru.randomDouble();
-        assertThat("randomResult >= 0 0 && randomResult < Double.MAX_VALUE", randomResult, allOf(greaterThanOrEqualTo(0d), lessThan(Double.MAX_VALUE)));
+        final double result = ru.randomDouble();
+        assertTrue(result >= 0d);
+        assertTrue(result < Double.MAX_VALUE);
     }
 
     /**
@@ -303,7 +307,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testNextFloat() {
         final float result = RandomUtils.nextFloat(33f, 42f);
-        assertThat("result >= 33f && result < 42f", result, allOf(greaterThanOrEqualTo(33f), lessThan(42f)));
+        assertTrue(result >= 33f);
+        assertTrue(result < 42f);
     }
 
     /**
@@ -313,7 +318,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @MethodSource("randomProvider")
     public void testNextFloat(final RandomUtils ru) {
         final float result = ru.randomFloat(33f, 42f);
-        assertThat("result >= 33f && result < 42f", result, allOf(greaterThanOrEqualTo(33f), lessThan(42f)));
+        assertTrue(result >= 33f);
+        assertTrue(result < 42f);
     }
 
     @Test
@@ -360,8 +366,9 @@ public class RandomUtilsTest extends AbstractLangTest {
      */
     @Test
     public void testNextFloatRandomResult() {
-        final float randomResult = RandomUtils.nextFloat();
-        assertThat("randomResult >= 0 && randomResult < Double.MAX_VALUE", randomResult, allOf(greaterThanOrEqualTo(0f), lessThan(Float.MAX_VALUE)));
+        final float result = RandomUtils.nextFloat();
+        assertTrue(result >= 0f);
+        assertTrue(result < Float.MAX_VALUE);
     }
 
     /**
@@ -370,8 +377,9 @@ public class RandomUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("randomProvider")
     public void testNextFloatRandomResult(final RandomUtils ru) {
-        final float randomResult = ru.randomFloat();
-        assertThat("randomResult >= 0 && randomResult < Double.MAX_VALUE", randomResult, allOf(greaterThanOrEqualTo(0f), lessThan(Float.MAX_VALUE)));
+        final float result = ru.randomFloat();
+        assertTrue(result >= 0f);
+        assertTrue(result < Float.MAX_VALUE);
     }
 
     /**
@@ -380,7 +388,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testNextInt() {
         final int result = RandomUtils.nextInt(33, 42);
-        assertThat("result >= 33 && result < 42", result, allOf(greaterThanOrEqualTo(33), lessThan(42)));
+        assertTrue(result >= 33);
+        assertTrue(result < 42);
     }
 
     /**
@@ -390,7 +399,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @MethodSource("randomProvider")
     public void testNextInt(final RandomUtils ru) {
         final int result = ru.randomInt(33, 42);
-        assertThat("result >= 33 && result < 42", result, allOf(greaterThanOrEqualTo(33), lessThan(42)));
+        assertTrue(result >= 33);
+        assertTrue(result < 42);
     }
 
     @Test
@@ -459,7 +469,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @Test
     public void testNextLong() {
         final long result = RandomUtils.nextLong(33L, 42L);
-        assertThat("result >= 33L && result < 42L", result, allOf(greaterThanOrEqualTo(33L), lessThan(42L)));
+        assertTrue(result >= 33L);
+        assertTrue(result < 42L);
     }
 
     /**
@@ -469,7 +480,8 @@ public class RandomUtilsTest extends AbstractLangTest {
     @MethodSource("randomProvider")
     public void testNextLong(final RandomUtils ru) {
         final long result = ru.randomLong(33L, 42L);
-        assertThat("result >= 33L && result < 42L", result, allOf(greaterThanOrEqualTo(33L), lessThan(42L)));
+        assertTrue(result >= 33L);
+        assertTrue(result < 42L);
     }
 
     @Test
@@ -516,8 +528,9 @@ public class RandomUtilsTest extends AbstractLangTest {
      */
     @Test
     public void testNextLongRandomResult() {
-        final long randomResult = RandomUtils.nextLong();
-        assertThat("randomResult >= 0 && randomResult < Long.MAX_VALUE", randomResult, allOf(greaterThanOrEqualTo(0L), lessThan(Long.MAX_VALUE)));
+        final long result = RandomUtils.nextLong();
+        assertTrue(result >= 0L);
+        assertTrue(result < Long.MAX_VALUE);
     }
 
     /**
@@ -526,8 +539,9 @@ public class RandomUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("randomProvider")
     public void testNextLongRandomResult(final RandomUtils ru) {
-        final long randomResult = ru.randomLong();
-        assertThat("randomResult >= 0 && randomResult < Long.MAX_VALUE", randomResult, allOf(greaterThanOrEqualTo(0L), lessThan(Long.MAX_VALUE)));
+        final long result = ru.randomLong();
+        assertTrue(result >= 0L);
+        assertTrue(result < Long.MAX_VALUE);
     }
 
     /**

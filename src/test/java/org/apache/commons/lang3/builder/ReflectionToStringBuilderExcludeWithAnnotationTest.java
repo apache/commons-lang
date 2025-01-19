@@ -17,9 +17,8 @@
 
 package org.apache.commons.lang3.builder;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -48,11 +47,10 @@ public class ReflectionToStringBuilderExcludeWithAnnotationTest extends Abstract
     @Test
     public void test_toStringExclude() {
         final String toString = ReflectionToStringBuilder.toString(new TestFixture());
-
-        assertThat(toString, not(containsString(EXCLUDED_FIELD_NAME)));
-        assertThat(toString, not(containsString(EXCLUDED_FIELD_VALUE)));
-        assertThat(toString, containsString(INCLUDED_FIELD_NAME));
-        assertThat(toString, containsString(INCLUDED_FIELD_VALUE));
+        assertFalse(toString.contains(EXCLUDED_FIELD_NAME));
+        assertFalse(toString.contains(EXCLUDED_FIELD_VALUE));
+        assertTrue(toString.contains(INCLUDED_FIELD_NAME));
+        assertTrue(toString.contains(INCLUDED_FIELD_VALUE));
     }
 
 }

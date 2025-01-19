@@ -16,9 +16,8 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -167,7 +166,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
             initializer.close();
             fail();
         } catch (final Exception e) {
-            assertThat(e, instanceOf(ConcurrentException.class));
+            assertInstanceOf(ConcurrentException.class, e);
             assertSame(ioException, e.getSuppressed()[0]);
         }
     }
@@ -200,7 +199,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
             initializer.close();
             fail();
         } catch (final Exception e) {
-            assertThat(e, instanceOf(ConcurrentException.class));
+            assertInstanceOf(ConcurrentException.class, e);
             assertSame(npe, e.getSuppressed()[0]);
         }
     }

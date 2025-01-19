@@ -16,9 +16,6 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItemInArray;
-import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -688,10 +685,8 @@ public class MethodUtilsTest extends AbstractLangTest {
 
         final List<Method> methodWithAnnotation = MethodUtils.getMethodsListWithAnnotation(MethodUtilsTest.class, Annotated.class);
         assertEquals(2, methodWithAnnotation.size());
-        assertThat(methodWithAnnotation, hasItems(
-                MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation"),
-                MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")
-        ));
+        assertTrue(methodWithAnnotation.contains(MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation")));
+        assertTrue(methodWithAnnotation.contains(MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")));
     }
 
     @Test
@@ -716,8 +711,8 @@ public class MethodUtilsTest extends AbstractLangTest {
 
         final Method[] methodsWithAnnotation = MethodUtils.getMethodsWithAnnotation(MethodUtilsTest.class, Annotated.class);
         assertEquals(2, methodsWithAnnotation.length);
-        assertThat(methodsWithAnnotation, hasItemInArray(MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation")));
-        assertThat(methodsWithAnnotation, hasItemInArray(MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")));
+        assertTrue(ArrayUtils.contains(methodsWithAnnotation, MethodUtilsTest.class.getMethod("testGetMethodsWithAnnotation")));
+        assertTrue(ArrayUtils.contains(methodsWithAnnotation, MethodUtilsTest.class.getMethod("testGetMethodsListWithAnnotation")));
     }
 
     @Test

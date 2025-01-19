@@ -20,9 +20,9 @@ import static org.apache.commons.lang3.Supplementary.CharU20000;
 import static org.apache.commons.lang3.Supplementary.CharU20001;
 import static org.apache.commons.lang3.Supplementary.CharUSuppCharHigh;
 import static org.apache.commons.lang3.Supplementary.CharUSuppCharLow;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -30,7 +30,6 @@ import java.nio.CharBuffer;
 import java.util.Locale;
 import java.util.stream.Stream;
 
-import org.hamcrest.core.IsNot;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -189,8 +188,8 @@ public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
 
     @Test
     public void testCustomCharSequence() {
-        assertThat(new CustomCharSequence(FOO), IsNot.<CharSequence>not(FOO));
-        assertThat(FOO, IsNot.<CharSequence>not(new CustomCharSequence(FOO)));
+        assertNotEquals(FOO, new CustomCharSequence(FOO));
+        assertNotEquals(new CustomCharSequence(FOO), FOO);
         assertEquals(new CustomCharSequence(FOO), new CustomCharSequence(FOO));
     }
 

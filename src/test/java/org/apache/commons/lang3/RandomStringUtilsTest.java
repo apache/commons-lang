@@ -16,12 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.lessThan;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -216,7 +210,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         // Perform chi-square test with degrees of freedom = 3-1 = 2, testing at 1e-5 level.
         // This expects a failure rate of 1 in 100,000.
         // critical value: from scipy.stats import chi2; chi2(2).isf(1e-5)
-        assertThat("test homogeneity -- will fail about 1 in 100,000 times", chiSquare(expected, counts), lessThan(23.025850929940457d));
+        assertTrue(chiSquare(expected, counts) < 23.025850929940457d, "test homogeneity -- will fail about 1 in 100,000 times");
     }
 
     /**
@@ -411,7 +405,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         int minCreatedLength = expectedMaxLengthExclusive - 1;
         for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = RandomStringUtils.randomAlphabetic(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.length() >= expectedMinLengthInclusive, "within range");
+            assertTrue(s.length() <= expectedMaxLengthExclusive - 1, "within range");
             assertTrue(s.matches(pattern), s);
 
             if (s.length() < minCreatedLength) {
@@ -422,8 +417,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
                 maxCreatedLength = s.length();
             }
         }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+        assertEquals(expectedMinLengthInclusive, minCreatedLength, "min generated, may fail randomly rarely");
+        assertEquals(expectedMaxLengthExclusive - 1, maxCreatedLength, "max generated, may fail randomly rarely");
     }
 
     @ParameterizedTest
@@ -437,7 +432,9 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         int minCreatedLength = expectedMaxLengthExclusive - 1;
         for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = rsu.nextAlphabetic(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.length() >= expectedMinLengthInclusive, "within range");
+            assertTrue(s.length() <= expectedMaxLengthExclusive - 1, "within range");
+
             assertTrue(s.matches(pattern), s);
 
             if (s.length() < minCreatedLength) {
@@ -448,8 +445,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
                 maxCreatedLength = s.length();
             }
         }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+        assertEquals(expectedMinLengthInclusive, minCreatedLength, "min generated, may fail randomly rarely");
+        assertEquals(expectedMaxLengthExclusive - 1, maxCreatedLength, "max generated, may fail randomly rarely");
     }
 
     /**
@@ -505,7 +502,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         int minCreatedLength = expectedMaxLengthExclusive - 1;
         for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = RandomStringUtils.randomAlphanumeric(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.length() >= expectedMinLengthInclusive, "within range");
+            assertTrue(s.length() <= expectedMaxLengthExclusive - 1, "within range");
             assertTrue(s.matches(pattern), s);
 
             if (s.length() < minCreatedLength) {
@@ -516,8 +514,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
                 maxCreatedLength = s.length();
             }
         }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+        assertEquals(expectedMinLengthInclusive, minCreatedLength, "min generated, may fail randomly rarely");
+        assertEquals(expectedMaxLengthExclusive - 1, maxCreatedLength, "max generated, may fail randomly rarely");
     }
 
     /**
@@ -537,7 +535,9 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         r1 = rsu.nextAscii(50);
         assertEquals(50, r1.length(), "randomAscii(50) length");
         for (int i = 0; i < r1.length(); i++) {
-            assertThat("char >= 32 && <= 127", (int) r1.charAt(i), allOf(greaterThanOrEqualTo(32), lessThanOrEqualTo(127)));
+            final int ch = (int) r1.charAt(i);
+            assertTrue(ch >= 32, "char >= 32");
+            assertTrue(ch <= 127, "char <= 127");
         }
         r2 = rsu.nextAscii(50);
         assertNotEquals(r1, r2, "!r1.equals(r2)");
@@ -651,7 +651,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         int minCreatedLength = expectedMaxLengthExclusive - 1;
         for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = rsu.nextAscii(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.length() >= expectedMinLengthInclusive, "within range");
+            assertTrue(s.length() <= expectedMaxLengthExclusive - 1, "within range");
             assertTrue(s.matches(pattern), s);
 
             if (s.length() < minCreatedLength) {
@@ -662,8 +663,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
                 maxCreatedLength = s.length();
             }
         }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+        assertEquals(expectedMinLengthInclusive, minCreatedLength, "min generated, may fail randomly rarely");
+        assertEquals(expectedMaxLengthExclusive - 1, maxCreatedLength, "max generated, may fail randomly rarely");
     }
 
     @ParameterizedTest
@@ -677,7 +678,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         int minCreatedLength = expectedMaxLengthExclusive - 1;
         for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = rsu.nextGraph(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.length() >= expectedMinLengthInclusive, "within range");
+            assertTrue(s.length() <= expectedMaxLengthExclusive - 1, "within range");
             assertTrue(s.matches(pattern), s);
 
             if (s.length() < minCreatedLength) {
@@ -688,8 +690,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
                 maxCreatedLength = s.length();
             }
         }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+        assertEquals(expectedMinLengthInclusive, minCreatedLength, "min generated, may fail randomly rarely");
+        assertEquals(expectedMaxLengthExclusive - 1, maxCreatedLength, "max generated, may fail randomly rarely");
     }
 
     /**
@@ -726,7 +728,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         int minCreatedLength = expectedMaxLengthExclusive - 1;
         for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = rsu.nextNumeric(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.length() >= expectedMinLengthInclusive, "within range");
+            assertTrue(s.length() <= expectedMaxLengthExclusive - 1, "within range");
             assertTrue(s.matches(pattern), s);
 
             if (s.length() < minCreatedLength) {
@@ -737,8 +740,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
                 maxCreatedLength = s.length();
             }
         }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+        assertEquals(expectedMinLengthInclusive, minCreatedLength, "min generated, may fail randomly rarely");
+        assertEquals(expectedMaxLengthExclusive - 1, maxCreatedLength, "max generated, may fail randomly rarely");
     }
 
     @Test
@@ -760,7 +763,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         int minCreatedLength = expectedMaxLengthExclusive - 1;
         for (int i = 0; i < LOOP_COUNT; i++) {
             final String s = rsu.nextPrint(expectedMinLengthInclusive, expectedMaxLengthExclusive);
-            assertThat("within range", s.length(), allOf(greaterThanOrEqualTo(expectedMinLengthInclusive), lessThanOrEqualTo(expectedMaxLengthExclusive - 1)));
+            assertTrue(s.length() >= expectedMinLengthInclusive, "within range");
+            assertTrue(s.length() <= expectedMaxLengthExclusive - 1, "within range");
             assertTrue(s.matches(pattern), s);
 
             if (s.length() < minCreatedLength) {
@@ -771,8 +775,8 @@ public class RandomStringUtilsTest extends AbstractLangTest {
                 maxCreatedLength = s.length();
             }
         }
-        assertThat("min generated, may fail randomly rarely", minCreatedLength, is(expectedMinLengthInclusive));
-        assertThat("max generated, may fail randomly rarely", maxCreatedLength, is(expectedMaxLengthExclusive - 1));
+        assertEquals(expectedMinLengthInclusive, minCreatedLength, "min generated, may fail randomly rarely");
+        assertEquals(expectedMaxLengthExclusive - 1, maxCreatedLength, "max generated, may fail randomly rarely");
     }
 
     /**
