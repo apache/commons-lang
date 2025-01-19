@@ -689,7 +689,7 @@ public class Streams {
     }
 
     /**
-     * Creates a stream on the given Iterable.
+     * Creates a sequential stream on the given Iterable.
      *
      * @param <E> the type of elements in the Iterable.
      * @param iterable the Iterable to stream or null.
@@ -701,7 +701,7 @@ public class Streams {
     }
 
     /**
-     * Creates a stream on the given Iterator.
+     * Creates a sequential stream on the given Iterator.
      *
      * @param <E> the type of elements in the Iterator.
      * @param iterator the Iterator to stream or null.
