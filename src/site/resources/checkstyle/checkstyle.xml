@@ -48,6 +48,7 @@ limitations under the License.
     <module name="UpperEll" />
     <module name="LeftCurly"/>
     <module name="NeedBraces"/>
+    <module name="ParenPad"/>
     <module name="RightCurly"/>
     <module name="GenericWhitespace"/>
     <module name="WhitespaceAfter"/>
