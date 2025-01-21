@@ -52,7 +52,6 @@ limitations under the License.
     <module name="GenericWhitespace"/>
     <module name="WhitespaceAfter"/>
     <module name="WhitespaceAround"/>
-    <module name="WhitespaceAroundCheck"/>
     <module name="NoWhitespaceBefore"/>
     <module name="ImportOrder">
       <property name="option" value="top"/>
