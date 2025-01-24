@@ -8761,7 +8761,8 @@ public class StringUtils {
     }
 
     /**
-     * Removes control characters (char &lt;= 32) from both
+     * Removes control characters (char &lt;= 32) and any other hidden
+     * space character from both
      * ends of this String, handling {@code null} by returning
      * {@code null}.
      *
@@ -8784,7 +8785,7 @@ public class StringUtils {
      * @return the trimmed string, {@code null} if null String input
      */
     public static String trim(final String str) {
-        return str == null ? null : str.trim();
+        return str == null ? null : str.replaceAll("\\p{C}", "").trim();
     }
 
     /**
