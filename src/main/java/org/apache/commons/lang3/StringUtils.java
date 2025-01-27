@@ -7688,7 +7688,7 @@ public class StringUtils {
                 i++;
             }
         } else if (separatorChars.length() == 1) {
-            // Optimise 1 character case
+            // Optimize 1 character case
             final char sep = separatorChars.charAt(0);
             while (i < len) {
                 if (str.charAt(i) == sep) {

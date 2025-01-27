@@ -735,7 +735,7 @@ public class BooleanUtils {
         // Previously used equalsIgnoreCase, which was fast for interned 'true'.
         // Non interned 'true' matched 15 times slower.
         //
-        // Optimisation provides same performance as before for interned 'true'.
+        // Optimization provides same performance as before for interned 'true'.
         // Similar performance for null, 'false', and other strings not length 2/3/4.
         // 'true'/'TRUE' match 4 times slower, 'tRUE'/'True' 7 times slower.
         if (str == TRUE) {
