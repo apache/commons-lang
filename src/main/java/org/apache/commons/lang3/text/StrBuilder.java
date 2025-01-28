@@ -21,6 +21,7 @@ import java.io.Reader;
 import java.io.Serializable;
 import java.io.Writer;
 import java.nio.CharBuffer;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -866,10 +867,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
                 str.getChars(strLen - width, strLen, buffer, size);
             } else {
                 final int padLen = width - strLen;
-                for (int i = 0; i < padLen; i++) {
-                    buffer[size + i] = padChar;
-                }
-                str.getChars(0, strLen, buffer, size + padLen);
+                final int toIndex = size + padLen;
+                Arrays.fill(buffer, size, toIndex, padChar);
+                str.getChars(0, strLen, buffer, toIndex);
             }
             size += width;
         }
@@ -912,11 +912,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             if (strLen >= width) {
                 str.getChars(0, width, buffer, size);
             } else {
-                final int padLen = width - strLen;
                 str.getChars(0, strLen, buffer, size);
-                for (int i = 0; i < padLen; i++) {
-                    buffer[size + strLen + i] = padChar;
-                }
+                final int fromIndex = size + strLen;
+                Arrays.fill(buffer, fromIndex, fromIndex + width - strLen, padChar);
             }
             size += width;
         }
@@ -2807,11 +2805,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             size = length;
         } else if (length > size) {
             ensureCapacity(length);
-            final int oldEnd = size;
+            Arrays.fill(buffer, size, length, CharUtils.NUL);
             size = length;
-            for (int i = oldEnd; i < length; i++) {
-                buffer[i] = CharUtils.NUL;
-            }
         }
         return this;
     }
