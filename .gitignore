@@ -21,3 +21,6 @@ site-content
 
 # jenv's version file
 .java-version
+
+.baserock
+batch-execution.*
