@@ -4310,7 +4310,7 @@ public class ArrayUtils {
      * @return the same array, or defaultArray if {@code null} or empty input.
      * @since 3.15.0
      */
-    public static  <T> T[] nullTo(final T[] array, final T[] defaultArray) {
+    public static <T> T[] nullTo(final T[] array, final T[] defaultArray) {
         return isEmpty(array) ? defaultArray : array;
     }
 
