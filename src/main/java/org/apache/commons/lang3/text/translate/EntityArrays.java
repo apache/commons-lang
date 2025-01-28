@@ -412,12 +412,12 @@ public class EntityArrays {
      * @return String[][] inverted array
      */
     public static String[][] invert(final String[][] array) {
-        final String[][] newarray = new String[array.length][2];
+        final String[][] newArray = new String[array.length][2];
         for (int i = 0; i < array.length; i++) {
-            newarray[i][0] = array[i][1];
-            newarray[i][1] = array[i][0];
+            newArray[i][0] = array[i][1];
+            newArray[i][1] = array[i][0];
         }
-        return newarray;
+        return newArray;
     }
 
     /**
