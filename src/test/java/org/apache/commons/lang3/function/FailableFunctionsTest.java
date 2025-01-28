@@ -932,6 +932,11 @@ public class FailableFunctionsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testFailableIntToFloatFunctionNop() throws Throwable {
+        assertEquals(0, FailableIntToFloatFunction.nop().applyAsFloat(Integer.MAX_VALUE), "Expect NOP to return 0");
+    }
+
+    @Test
     public void testFailableIntToLongFunctionNop() throws Throwable {
         assertEquals(0, FailableIntToLongFunction.nop().applyAsLong(Integer.MAX_VALUE), "Expect NOP to return 0");
     }
@@ -2036,6 +2041,36 @@ public class FailableFunctionsTest extends AbstractLangTest {
 
             @Override
             public double applyAsDouble(final int value) throws Throwable {
+                throw new IOException("test");
+            }
+        };
+    }
+
+    /**
+     * Tests that our failable interface is properly defined to throw any exception using String and IOExceptions as
+     * generic test types.
+     */
+    @Test
+    public void testThrows_FailableIntToFloatFunction_IOException() {
+        new FailableIntToFloatFunction<IOException>() {
+
+            @Override
+            public float applyAsFloat(final int value) throws IOException {
+                throw new IOException("test");
+            }
+        };
+    }
+
+    /**
+     * Tests that our failable interface is properly defined to throw any exception using the top level generic types
+     * Object and Throwable.
+     */
+    @Test
+    public void testThrows_FailableIntToFloatFunction_Throwable() {
+        new FailableIntToFloatFunction<Throwable>() {
+
+            @Override
+            public float applyAsFloat(final int value) throws Throwable {
                 throw new IOException("test");
             }
         };
