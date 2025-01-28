@@ -493,6 +493,7 @@ public class Validate {
      * @see #isTrue(boolean, String, long)
      * @see #isTrue(boolean, String, double)
      * @see #isTrue(boolean, String, Object...)
+     * @see #isTrue(boolean, Supplier)
      */
     public static void isTrue(final boolean expression) {
         if (!expression) {
@@ -518,6 +519,7 @@ public class Validate {
      * @see #isTrue(boolean)
      * @see #isTrue(boolean, String, long)
      * @see #isTrue(boolean, String, Object...)
+     * @see #isTrue(boolean, Supplier)
      */
     public static void isTrue(final boolean expression, final String message, final double value) {
         if (!expression) {
@@ -543,6 +545,7 @@ public class Validate {
      * @see #isTrue(boolean)
      * @see #isTrue(boolean, String, double)
      * @see #isTrue(boolean, String, Object...)
+     * @see #isTrue(boolean, Supplier)
      */
     public static void isTrue(final boolean expression, final String message, final long value) {
         if (!expression) {
@@ -566,10 +569,33 @@ public class Validate {
      * @see #isTrue(boolean)
      * @see #isTrue(boolean, String, long)
      * @see #isTrue(boolean, String, double)
+     * @see #isTrue(boolean, Supplier)
      */
     public static void isTrue(final boolean expression, final String message, final Object... values) {
         if (!expression) {
             throw new IllegalArgumentException(getMessage(message, values));
+        }
+    }
+
+    /**
+     * Validate that the argument condition is {@code true}; otherwise throwing an exception with the specified message. This method is useful when validating
+     * according to an arbitrary boolean expression, such as validating a primitive number or using your own custom validation expression.
+     *
+     * <pre>{@code
+     * Validate.isTrue(i >= min && i <= max, "The value must be between %d and %d", min, max);
+     * }</pre>
+     *
+     * @param expression      the boolean expression to check
+     * @param messageSupplier the exception message supplier
+     * @throws IllegalArgumentException if expression is {@code false}
+     * @see #isTrue(boolean)
+     * @see #isTrue(boolean, String, long)
+     * @see #isTrue(boolean, String, double)
+     * @since 3.18.0
+     */
+    public static void isTrue(final boolean expression, final Supplier<String> messageSupplier) {
+        if (!expression) {
+            throw new IllegalArgumentException(messageSupplier.get());
         }
     }
 

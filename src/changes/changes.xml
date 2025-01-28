@@ -78,6 +78,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix Spotbugs [ERROR] Medium: The field org.apache.commons.lang3.builder.DiffBuilder$SDiff.leftSupplier is transient but isn't set by deserialization [org.apache.commons.lang3.builder.DiffBuilder$SDiff] In DiffBuilder.java SE_TRANSIENT_FIELD_NOT_RESTORED.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix Spotbugs [ERROR] Medium: The field org.apache.commons.lang3.builder.DiffBuilder$SDiff.rightSupplier is transient but isn't set by deserialization [org.apache.commons.lang3.builder.DiffBuilder$SDiff] In DiffBuilder.java SE_TRANSIENT_FIELD_NOT_RESTORED.</action>
     <action issue="LANG-1762" type="fix" dev="ggregory" due-to="Alonso Gonzalez, Gary Gregory">StopWatch methods should not delegate to deprecated methods.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Don't call TypeUtils.toString(Type) on every array item in TypeUtils.parameterize[WithOwner](Type, Class, Map, Type>) unless required.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
@@ -96,6 +97,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RegExUtils methods typed to CharSequence input and deprecate old versions typed to String.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add IterableStringTokenizer.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableIntToFloatFunction.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Validate.isTrue(boolean, Supplier&lt;String&gt;).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 79 #1267, #1277, #1283, #1288, #1302.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[site] Bump org.codehaus.mojo:taglist-maven-plugin from 3.1.0 to 3.2.1 #1300.</action>

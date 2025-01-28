@@ -553,7 +553,7 @@ public class TypeUtils {
         final Type[] result = new Type[variables.length];
         int index = 0;
         for (final TypeVariable<?> var : variables) {
-            Validate.isTrue(mappings.containsKey(var), "missing argument mapping for %s", toString(var));
+            Validate.isTrue(mappings.containsKey(var), () -> String.format("missing argument mapping for %s", toString(var)));
             result[index++] = mappings.get(var);
         }
         return result;
