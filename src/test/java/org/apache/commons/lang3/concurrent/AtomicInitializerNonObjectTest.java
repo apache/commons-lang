@@ -37,7 +37,7 @@ public class AtomicInitializerNonObjectTest extends AbstractConcurrentInitialize
         return new AtomicInitializer<Integer>() {
             @Override
             protected Integer initialize() {
-                return new Integer(0);
+                return Integer.valueOf(0);
             }
         };
     }
@@ -52,10 +52,9 @@ public class AtomicInitializerNonObjectTest extends AbstractConcurrentInitialize
                 if (firstRun.getAndSet(0) == 1) {
                     return null;
                 }
-                return new Integer(0);
+                return Integer.valueOf(0);
             }
         };
-
         assertNull(initializer.get());
         assertNull(initializer.get());
     }
