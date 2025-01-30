@@ -209,10 +209,6 @@
             <source>${maven.compiler.source}</source>
             <quiet>true</quiet>
             <notimestamp>true</notimestamp>
-            <links>
-              <link>https://commons.apache.org/proper/commons-text/apidocs</link>
-              <link>${commons.javadoc.javaee.link}</link>
-            </links>
             <validateLinks>true</validateLinks>
             <archive>
               <manifest>

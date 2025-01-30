@@ -37,6 +37,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.function.FailableFunction;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.stream.IntStreams;
@@ -4272,6 +4273,27 @@ public class ArrayUtils {
             }
         }
         return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Maps elements from an array into elements of a new array of a given type, while mapping old elements to new elements.
+     *
+     * @param <T>           The input array type.
+     * @param <R>           The output array type.
+     * @param <E>           The type of exceptions thrown when the mapper function fails.
+     * @param array         The input array.
+     * @param componentType the component type of the result array.
+     * @param mapper        a non-interfering, stateless function to apply to each element
+     * @return a new array
+     * @throws E Thrown when the mapper function fails.
+     */
+    private static <T, R, E extends Throwable> R[] map(final T[] array, final Class<R> componentType, final FailableFunction<? super T, ? extends R, E> mapper)
+            throws E {
+        final R[] newArray = newInstance(componentType, array.length);
+        for (int i = 0; i < newArray.length; i++) {
+            newArray[i] = mapper.apply(array[i]);
+        }
+        return newArray;
     }
 
     private static int max0(final int other) {
@@ -9480,23 +9502,10 @@ public class ArrayUtils {
      * @param array the {@code Object[]} to be processed, may be null
      * @return {@code String[]} of the same size as the source with its element's string representation,
      * {@code null} if null array input
-     * @throws NullPointerException if an array element is {@code null}
      * @since 3.6
      */
     public static String[] toStringArray(final Object[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-            return EMPTY_STRING_ARRAY;
-        }
-
-        final String[] result = new String[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].toString();
-        }
-
-        return result;
+        return toStringArray(array, "null");
     }
 
     /**
@@ -9518,13 +9527,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_STRING_ARRAY;
         }
-
-        final String[] result = new String[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = Objects.toString(array[i], valueForNullElements);
-        }
-
-        return result;
+        return map(array, String.class, e -> Objects.toString(e, valueForNullElements));
     }
 
     /**
