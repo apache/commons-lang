@@ -2591,6 +2591,7 @@ public class StringUtils {
      * StringUtils.indexOf("", *)           = -1
      * StringUtils.indexOf("aabaabaa", 'a') = 0
      * StringUtils.indexOf("aabaabaa", 'b') = 2
+     * StringUtils.indexOf("aaaaaaaa", 'Z') = -1
      * </pre>
      *
      * @param seq  the CharSequence to check, may be null
