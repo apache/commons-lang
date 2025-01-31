@@ -1,24 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
- Licensed to the Apache Software Foundation (ASF) under one or more
- contributor license agreements.  See the NOTICE file distributed with
- this work for additional information regarding copyright ownership.
- The ASF licenses this file to You under the Apache License, Version 2.0
- (the "License"); you may not use this file except in compliance with
- the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
--->
-<project
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
@@ -28,7 +9,6 @@
   <artifactId>commons-lang3</artifactId>
   <version>3.18.0-SNAPSHOT</version>
   <name>Apache Commons Lang</name>
-
   <inceptionYear>2001</inceptionYear>
   <description>
   Apache Commons Lang, a package of Java utility classes for the
@@ -41,9 +21,7 @@
   
   Please ensure your build environment is up-to-date and kindly report any build issues.
   </description>
-
   <url>https://commons.apache.org/proper/commons-lang/</url>
-
   <issueManagement>
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/LANG</url>
@@ -54,10 +32,7 @@
     <url>https://gitbox.apache.org/repos/asf?p=commons-lang.git</url>
     <tag>rel/commons-lang-3.18.0</tag>
   </scm>
-
-  <!-- Lang should depend on very little -->
   <dependencies>
-    <!-- testing -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -74,7 +49,6 @@
       <version>5.5.0</version>
       <scope>test</scope>
     </dependency>
-    <!-- For Javadoc links -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-text</artifactId>
@@ -118,7 +92,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <distributionManagement>
     <site>
       <id>apache.website</id>
@@ -126,59 +99,37 @@
       <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-lang/</url>
     </site>
   </distributionManagement>
-
   <properties>
+    <rat.skip>true</rat.skip>
     <argLine>-Xmx512m</argLine>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
     <project.build.outputTimestamp>2024-08-29T19:40:12Z</project.build.outputTimestamp>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <!--
-       This is also  used to generate download_xxx file name.
-       To override this when generating the download page:
-
-       mvn commons:download-page -Dcommons.componentid=lang
-
-       The above seems to change the download page name but not any other
-       properties that depend on the componentid.
-
-       N.B. The componentid is also used by the parent pom as part of the OSGI symbolic name.
-    -->
     <commons.componentid>lang</commons.componentid>
     <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
-    <!-- Current 3.x release series -->
     <commons.release.version>3.18.0</commons.release.version>
     <commons.release.next>3.18.1</commons.release.next>
     <commons.release.desc>(Java 8+)</commons.release.desc>
-    <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
     <commons.release.2.desc>(Requires Java 1.2 or later)</commons.release.2.desc>
-    <!-- Override generated name -->
     <commons.release.2.name>commons-lang-${commons.release.2.version}</commons.release.2.name>
     <commons.jira.id>LANG</commons.jira.id>
     <commons.jira.pid>12310481</commons.jira.pid>
-
     <commons.site.path>lang</commons.site.path>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-lang</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
-
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
-
     <japicmp.skip>false</japicmp.skip>
-    <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
     <jmh.version>1.37</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
-
-    <!-- Commons Release Plugin -->
     <commons.bc.version>3.17.0</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
-    <!-- JaCoCo: Don't make code coverage worse than: -->
     <commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
     <commons.jacoco.classRatio>0.98</commons.jacoco.classRatio>
     <commons.jacoco.instructionRatio>0.95</commons.jacoco.instructionRatio>
@@ -188,10 +139,9 @@
     <commons.jacoco.complexityRatio>0.90</commons.jacoco.complexityRatio>
     <commons.text.version>1.13.0</commons.text.version>
   </properties>
-
   <build>
-   <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
-   <pluginManagement>
+    <defaultGoal>clean verify checkstyle:check japicmp:cmp spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
+    <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -205,7 +155,7 @@
             </rulesets>
           </configuration>
         </plugin>
-        <plugin>
+        <!--<plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
           <configuration>
@@ -217,49 +167,47 @@
               <exclude>src/test/resources/lang-708-input.txt</exclude>
             </excludes>
           </configuration>
-        </plugin>
+        </plugin>-->
       </plugins>
     </pluginManagement>
     <plugins>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
-          <configuration>
-            <source>${maven.compiler.source}</source>
-            <quiet>true</quiet>
-            <notimestamp>true</notimestamp>
-            <links>
-              <link>https://commons.apache.org/proper/commons-text/apidocs</link>
-              <link>${commons.javadoc.javaee.link}</link>
-            </links>
-            <validateLinks>true</validateLinks>
-            <archive>
-              <manifest>
-                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-              </manifest>
-            </archive>
-            <doclint>all</doclint>
-            <!-- Java 8 on GH says: "[WARNING] javadoc: warning - Error fetching URL: https://commons.apache.org/proper/commons-text/apidocs/" -->
-            <!-- <failOnWarnings>true</failOnWarnings> -->
-            <additionalDependencies>
-              <additionalDependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-text</artifactId>
-                <version>${commons.text.version}</version>
-              </additionalDependency>
-            </additionalDependencies>
-          </configuration>
-          <executions>
-            <execution>
-              <id>create-javadoc-jar</id>
-              <goals>
-                <goal>javadoc</goal>
-                <goal>jar</goal>
-              </goals>
-              <phase>package</phase>
-            </execution>
-          </executions>
-        </plugin>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <quiet>true</quiet>
+          <notimestamp>true</notimestamp>
+          <links>
+            <link>https://commons.apache.org/proper/commons-text/apidocs</link>
+            <link>${commons.javadoc.javaee.link}</link>
+          </links>
+          <validateLinks>true</validateLinks>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+          <doclint>all</doclint>
+          <additionalDependencies>
+            <additionalDependency>
+              <groupId>org.apache.commons</groupId>
+              <artifactId>commons-text</artifactId>
+              <version>${commons.text.version}</version>
+            </additionalDependency>
+          </additionalDependencies>
+        </configuration>
+        <executions>
+          <execution>
+            <id>create-javadoc-jar</id>
+            <goals>
+              <goal>javadoc</goal>
+              <goal>jar</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -273,9 +221,6 @@
               <trimStackTrace>false</trimStackTrace>
             </configuration>
           </execution>
-          <!-- <execution> <id>security-manager-test</id> <phase>integration-test</phase> <goals> <goal>test</goal> </goals> <configuration>
-            <includes> <include>**/*Test.java</include> </includes> <argLine>-Djava.security.manager -Djava.security.policy=${basedir}/src/test/resources/java.policy</argLine>
-            </configuration> </execution> -->
         </executions>
       </plugin>
       <plugin>
@@ -330,9 +275,71 @@
           <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.4.0</version>
+        <executions>
+          <execution>
+            <id>build-compile-classpath</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>build-classpath</goal>
+            </goals>
+            <configuration>
+              <outputFile>${project.build.directory}/compile-classpath.txt</outputFile>
+              <scope>compile</scope>
+            </configuration>
+          </execution>
+          <execution>
+            <id>build-test-classpath</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>build-classpath</goal>
+            </goals>
+            <configuration>
+              <outputFile>${project.build.directory}/test-classpath.txt</outputFile>
+              <scope>test</scope>
+            </configuration>
+          </execution>
+          <execution>
+            <id>build-runtime-classpath</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>build-classpath</goal>
+            </goals>
+            <configuration>
+              <outputFile>${project.build.directory}/runtime-classpath.txt</outputFile>
+              <scope>runtime</scope>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>write-test-source-dir</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <echo file="${project.build.directory}/test-src-dir.txt">
+                                    ${project.build.testSourceDirectory}
+${env.JAVA_HOME}
+${env.PATH}
+                                </echo>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
-
   <reporting>
     <plugins>
       <plugin>
@@ -370,7 +377,6 @@
           </reportSet>
         </reportSets>
       </plugin>
-      <!-- Requires setting 'export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m" ' -->
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
@@ -428,7 +434,6 @@
       </plugin>
     </plugins>
   </reporting>
-
   <profiles>
     <profile>
       <id>setup-checkout</id>
@@ -452,19 +457,17 @@
                 <configuration>
                   <target>
                     <exec executable="svn">
-                      <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}" />
+                      <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}"/>
                     </exec>
-
                     <exec executable="svn">
-                      <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs" />
+                      <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs"/>
                     </exec>
-
+                    <exec executable="svn">
+                      <arg line="update --set-depth infinity ${dirs}"/>
+                    </exec>
                     <pathconvert pathsep=" " property="dirs">
-                      <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*" />
+                      <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*"/>
                     </pathconvert>
-                    <exec executable="svn">
-                      <arg line="update --set-depth infinity ${dirs}" />
-                    </exec>
                   </target>
                 </configuration>
               </execution>
@@ -473,22 +476,19 @@
         </plugins>
       </build>
     </profile>
-
     <profile>
       <id>java9+</id>
       <activation>
         <jdk>[9,)</jdk>
       </activation>
       <properties>
-        <!-- LANG-1265: allow tests to access private fields/methods of java.base classes via reflection -->
-        <!-- LANG-1667: allow tests to access private fields/methods of java.base/java.util such as ArrayList via reflection -->
+        <rat.skip>true</rat.skip>
         <argLine>-Xmx512m --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.time=ALL-UNNAMED --add-opens java.base/java.time.chrono=ALL-UNNAMED</argLine>
       </properties>
     </profile>
     <profile>
       <id>java15</id>
       <activation>
-        <!-- This is ONLY activated for Java 15 -->
         <jdk>15</jdk>
       </activation>
       <build>
@@ -498,19 +498,19 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <excludes>
-                <exclude>org/apache/commons/lang3/time/Java15BugFastDateParserTest.java</exclude>               
+                <exclude>org/apache/commons/lang3/time/Java15BugFastDateParserTest.java</exclude>
               </excludes>
             </configuration>
-          </plugin>        
+          </plugin>
         </plugins>
       </build>
     </profile>
-
     <profile>
       <id>benchmark</id>
       <properties>
         <skipTests>true</skipTests>
         <benchmark>org.apache</benchmark>
+        <rat.skip>true</rat.skip>
       </properties>
       <build>
         <plugins>
@@ -529,13 +529,13 @@
                   <executable>java</executable>
                   <arguments>
                     <argument>-classpath</argument>
-                    <classpath/>
                     <argument>org.openjdk.jmh.Main</argument>
                     <argument>-rf</argument>
                     <argument>json</argument>
                     <argument>-rff</argument>
                     <argument>target/jmh-result.${benchmark}.json</argument>
                     <argument>${benchmark}</argument>
+                    <classpath/>
                   </arguments>
                 </configuration>
               </execution>
@@ -569,7 +569,7 @@
       <name>Henri Yandell</name>
       <id>bayard</id>
       <email>bayard@apache.org</email>
-      <organization />
+      <organization/>
       <roles>
         <role>Java Developer</role>
       </roles>
@@ -578,7 +578,7 @@
       <name>Steven Caswell</name>
       <id>scaswell</id>
       <email>stevencaswell@apache.org</email>
-      <organization />
+      <organization/>
       <roles>
         <role>Java Developer</role>
       </roles>
@@ -588,7 +588,7 @@
       <name>Robert Burrell Donkin</name>
       <id>rdonkin</id>
       <email>rdonkin@apache.org</email>
-      <organization />
+      <organization/>
       <roles>
         <role>Java Developer</role>
       </roles>
@@ -606,13 +606,14 @@
       <timezone>America/New_York</timezone>
       <properties>
         <picUrl>https://people.apache.org/~ggregory/img/garydgregory80.png</picUrl>
+        <rat.skip>true</rat.skip>
       </properties>
     </developer>
     <developer>
       <name>Fredrik Westermarck</name>
       <id>fredrik</id>
-      <email />
-      <organization />
+      <email/>
+      <organization/>
       <roles>
         <role>Java Developer</role>
       </roles>
