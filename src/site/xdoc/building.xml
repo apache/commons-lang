@@ -20,7 +20,7 @@ limitations under the License.
   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
  <properties>
   <title>Building</title>
-  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+  <author email="dev@commons.apache.org">Apache Commons Team</author>
  </properties>
 <body>
 <!-- ================================================== -->
