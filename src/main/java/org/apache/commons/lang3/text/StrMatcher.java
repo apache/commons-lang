@@ -31,9 +31,9 @@ import org.apache.commons.lang3.StringUtils;
  * </p>
  *
  * @since 2.2
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/matcher/StringMatcherFactory.html">
- * StringMatcherFactory</a> instead
+ * StringMatcherFactory</a>.
  */
 @Deprecated
 public abstract class StrMatcher {

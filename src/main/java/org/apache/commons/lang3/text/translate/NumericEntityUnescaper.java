@@ -23,15 +23,14 @@ import java.util.Collections;
 import java.util.EnumSet;
 
 /**
- * Translate XML numeric entities of the form &amp;#[xX]?\d+;? to
- * the specific code point.
+ * Translate XML numeric entities of the form &amp;#[xX]?\d+;? to the specific code point.
  *
  * Note that the semicolon is optional.
  *
  * @since 3.0
- * @deprecated As of 3.6, use Apache Commons Text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityUnescaper.html">
- * NumericEntityUnescaper</a> instead
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
+ *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityUnescaper.html">
+ *             NumericEntityUnescaper</a>.
  */
 @Deprecated
 public class NumericEntityUnescaper extends CharSequenceTranslator {
@@ -41,6 +40,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      *
      * @deprecated As of 3.18.0, use Apache Commons Text <a href=
      *             "https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityUnescaper.OPTION.html">
+     *             NumericEntityUnescaper.OPTION</a>.
      */
     @Deprecated
     public enum OPTION {

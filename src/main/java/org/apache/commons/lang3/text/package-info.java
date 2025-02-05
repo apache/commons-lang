@@ -16,7 +16,7 @@
  */
 
 /**
- * Provides classes for handling and manipulating text, partly as an extension to {@link java.text}. The classes in this package are, for the most part,
+ * Deprecated: Provides classes for handling and manipulating text, partly as an extension to {@link java.text}. The classes in this package are, for the most part,
  * intended to be instantiated (i.e. they are not utility classes with lots of static methods).
  *
  * <p>
@@ -26,7 +26,7 @@
  * ensure we don't clash with any current or future standard Java classes.
  * </p>
  * <p>
- * <strong>Deprecated</strong> As of 3.6, use the Apache Commons Text
+ * <strong>Deprecated</strong> As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use the Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/package-summary.html"> text package</a>.
  * </p>
  *

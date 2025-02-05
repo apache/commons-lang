@@ -28,9 +28,9 @@ import java.io.Writer;
  * 1 to 377. This is because parsing Java is the main use case.
  *
  * @since 3.0
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/OctalUnescaper.html">
- * OctalUnescaper</a> instead
+ * OctalUnescaper</a>.
  */
 @Deprecated
 public class OctalUnescaper extends CharSequenceTranslator {

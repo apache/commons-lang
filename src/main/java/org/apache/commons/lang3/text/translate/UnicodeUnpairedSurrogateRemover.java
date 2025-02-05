@@ -22,9 +22,9 @@ import java.io.Writer;
 /**
  * Helper subclass to CharSequenceTranslator to remove unpaired surrogates.
  *
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/UnicodeUnpairedSurrogateRemover.html">
- * UnicodeUnpairedSurrogateRemover</a> instead
+ * UnicodeUnpairedSurrogateRemover</a>.
  */
 @Deprecated
 public class UnicodeUnpairedSurrogateRemover extends CodePointTranslator {

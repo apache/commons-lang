@@ -65,9 +65,9 @@ import org.apache.commons.lang3.Validate;
  * </ul>
  *
  * @since 2.4
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/ExtendedMessageFormat.html">
- * ExtendedMessageFormat</a> instead
+ * ExtendedMessageFormat</a>.
  */
 @Deprecated
 public class ExtendedMessageFormat extends MessageFormat {

@@ -25,9 +25,9 @@ import java.util.HashSet;
  * Translates a value using a lookup table.
  *
  * @since 3.0
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/LookupTranslator.html">
- * LookupTranslator</a> instead
+ * LookupTranslator</a>.
  */
 @Deprecated
 public class LookupTranslator extends CharSequenceTranslator {

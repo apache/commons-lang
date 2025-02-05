@@ -25,9 +25,9 @@ import java.io.Writer;
  * without the +.
  *
  * @since 3.0
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/UnicodeUnescaper.html">
- * UnicodeUnescaper</a> instead
+ * UnicodeUnescaper</a>.
  */
 @Deprecated
 public class UnicodeUnescaper extends CharSequenceTranslator {

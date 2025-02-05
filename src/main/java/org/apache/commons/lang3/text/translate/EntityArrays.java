@@ -22,9 +22,9 @@ package org.apache.commons.lang3.text.translate;
  * All arrays are of length [*][2].
  *
  * @since 3.0
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/CodePointTranslator.html">
- * EntityArrays</a> instead
+ * EntityArrays</a>.
  */
 @Deprecated
 public class EntityArrays {
