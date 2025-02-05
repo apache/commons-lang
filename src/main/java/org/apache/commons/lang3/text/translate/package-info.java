@@ -16,13 +16,13 @@
  */
 
 /**
- * Deprecated: Provides text translation routines from a set of smaller building blocks. Initially created to make it possible for the user to customize the
- * rules in the StringEscapeUtils class.
+ * <strong>Deprecated</strong>: Provides text translation routines from a set of smaller building blocks. Initially created to make it possible for the user to
+ * customize the rules in the StringEscapeUtils class.
  * <p>
  * These classes are immutable, and therefore thread-safe.
  * </p>
  * <p>
- * <strong>Deprecated</strong> As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use the Apache Commons Text
+ * <strong>Deprecated</strong>: As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use the Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/package-summary.html"> translate package</a>.
  * </p>
  *

@@ -16,7 +16,7 @@
  */
 
 /**
- * Assists in creating consistent {@code equals(Object)}, {@code toString()}, {@code hashCode()}, and {@code compareTo(Object)} methods.
+ * Provides classes to create consistent {@code equals(Object)}, {@code toString()}, {@code hashCode()}, and {@code compareTo(Object)} methods.
  * These classes are not thread-safe.
  *
  * <p>When you write a {@link Object#hashCode() hashCode()}, do you check Bloch's Effective Java? No?

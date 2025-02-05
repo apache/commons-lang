@@ -16,7 +16,7 @@
  */
 
 /**
- * Provides highly reusable static utility methods, chiefly concerned with adding value to the {@link java.lang} classes.
+ * Provides highly reusable utility methods, chiefly concerned with adding value to the {@link java.lang} classes.
  * Most of these classes are immutable and thus thread-safe.
  * However {@link org.apache.commons.lang3.CharSet} is not currently guaranteed thread-safe under all circumstances.
  *
