@@ -16,7 +16,7 @@
  */
 
 /**
- * Tuple classes, starting with a Pair class in version 3.0.
+ * Tuple classes, both mutable and immutable {@link Pair} and {@link Triple}.
  *
  * @since 3.0
  */
