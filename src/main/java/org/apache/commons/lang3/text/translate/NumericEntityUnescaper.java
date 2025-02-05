@@ -36,7 +36,13 @@ import java.util.EnumSet;
 @Deprecated
 public class NumericEntityUnescaper extends CharSequenceTranslator {
 
-    /** Enumerates NumericEntityUnescaper options for unescaping. */
+    /**
+     * Enumerates NumericEntityUnescaper options for unescaping.
+     *
+     * @deprecated As of 3.18.0, use Apache Commons Text <a href=
+     *             "https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityUnescaper.OPTION.html">
+     */
+    @Deprecated
     public enum OPTION {
 
         /**
