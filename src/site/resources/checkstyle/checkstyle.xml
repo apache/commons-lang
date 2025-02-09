@@ -45,6 +45,9 @@ limitations under the License.
     <module name="CovariantEquals" />
     <module name="ExplicitInitializationCheck" />
     <module name="DefaultComesLast" />
+    <module name="EmptyBlock">
+      <property name="option" value="text" />
+    </module>
     <module name="GenericWhitespace"/>
     <module name="IllegalImport"/>
     <module name="ImportOrder">
