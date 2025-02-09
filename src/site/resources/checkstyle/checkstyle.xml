@@ -80,6 +80,7 @@ limitations under the License.
     <!-- <module name="SuperClone" /> -->
     <module name="SuperFinalize" />
     <module name="TypecastParenPad" />
+    <module name="UnnecessaryParentheses" />
     <module name="UnusedImports"/>
     <module name="UpperEll" />
     <module name="WhitespaceAfter"/>

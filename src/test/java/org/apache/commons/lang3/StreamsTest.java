@@ -141,7 +141,7 @@ public class StreamsTest extends AbstractLangTest {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
                 .map(Integer::valueOf)
-                .filter(i -> (i.intValue() % 2 == 0))
+                .filter(i -> i.intValue() % 2 == 0)
                 .collect(Collectors.toList());
         assertEvenNumbers(output);
     }
