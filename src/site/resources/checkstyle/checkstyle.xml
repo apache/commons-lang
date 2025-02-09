@@ -74,6 +74,7 @@ limitations under the License.
     <module name="RedundantImport"/>
     <module name="RedundantModifier"/>
     <module name="RightCurly"/>
+    <module name="SimplifyBooleanExpression" />
     <module name="TypecastParenPad" />
     <module name="UnusedImports"/>
     <module name="UpperEll" />
