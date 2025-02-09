@@ -77,6 +77,8 @@ limitations under the License.
     <module name="SimplifyBooleanExpression" />
     <module name="SimplifyBooleanReturn" />
     <module name="StringLiteralEquality" />
+    <!-- <module name="SuperClone" /> -->
+    <module name="SuperFinalize" />
     <module name="TypecastParenPad" />
     <module name="UnusedImports"/>
     <module name="UpperEll" />
