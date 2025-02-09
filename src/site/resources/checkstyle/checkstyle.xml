@@ -76,6 +76,7 @@ limitations under the License.
     <module name="RightCurly"/>
     <module name="SimplifyBooleanExpression" />
     <module name="SimplifyBooleanReturn" />
+    <module name="StringLiteralEquality" />
     <module name="TypecastParenPad" />
     <module name="UnusedImports"/>
     <module name="UpperEll" />
