@@ -898,8 +898,6 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private Strategy getStrategy(final char f, final int width, final Calendar definingCalendar) {
         switch (f) {
-        default:
-            throw new IllegalArgumentException("Format '" + f + "' not supported");
         case 'D':
             return DAY_OF_YEAR_STRATEGY;
         case 'E':
@@ -947,6 +945,8 @@ public class FastDateParser implements DateParser, Serializable {
             //$FALL-THROUGH$
         case 'z':
             return getLocaleSpecificStrategy(Calendar.ZONE_OFFSET, definingCalendar);
+        default:
+            throw new IllegalArgumentException("Format '" + f + "' not supported");
         }
     }
     /*

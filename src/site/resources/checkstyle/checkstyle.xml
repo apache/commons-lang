@@ -44,6 +44,7 @@ limitations under the License.
     <module name="AvoidStarImport"/>
     <module name="CovariantEquals" />
     <module name="ExplicitInitializationCheck" />
+    <module name="DefaultComesLast" />
     <module name="GenericWhitespace"/>
     <module name="IllegalImport"/>
     <module name="ImportOrder">
