@@ -121,6 +121,11 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
             return initializeCalls;
         }
 
+        @Override
+        public int hashCode() {
+            return initializeCalls;
+        }
+
         public CloseableCounter increment() {
             initializeCalls++;
             return this;

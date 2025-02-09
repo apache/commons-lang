@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
+import java.util.Objects;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -67,13 +68,16 @@ public class CompareToBuilderTest extends AbstractLangTest {
 
     static class TestSubObject extends TestObject {
         private int b;
+
         TestSubObject() {
             super(0);
         }
+
         TestSubObject(final int a, final int b) {
             super(a);
             this.b = b;
         }
+
         @Override
         public boolean equals(final Object o) {
             if (o == this) {
@@ -84,6 +88,11 @@ public class CompareToBuilderTest extends AbstractLangTest {
             }
             final TestSubObject rhs = (TestSubObject) o;
             return super.equals(o) && b == rhs.b;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getA(), b);
         }
     }
 
