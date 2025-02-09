@@ -49,6 +49,7 @@ limitations under the License.
       <property name="option" value="text" />
     </module>
     <module name="EqualsHashCode" />
+    <module name="ExplicitInitialization" />
     <module name="GenericWhitespace"/>
     <module name="IllegalImport"/>
     <module name="ImportOrder">
