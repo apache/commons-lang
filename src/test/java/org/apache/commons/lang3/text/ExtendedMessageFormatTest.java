@@ -199,7 +199,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         buffer.append(locale);
         buffer.append("]");
         final MessageFormat mf = createMessageFormat(pattern, locale);
-        ExtendedMessageFormat emf;
+        final ExtendedMessageFormat emf;
         if (locale == null) {
             emf = new ExtendedMessageFormat(pattern);
         } else {

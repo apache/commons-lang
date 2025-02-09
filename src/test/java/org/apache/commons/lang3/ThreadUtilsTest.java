@@ -155,10 +155,10 @@ public class ThreadUtilsTest extends AbstractLangTest {
     @Test
     public void testDepreacted() {
         assertNotNull(ThreadUtils.ALWAYS_TRUE_PREDICATE);
-        ThreadPredicate tp = ThreadUtils.ALWAYS_TRUE_PREDICATE;
+        final ThreadPredicate tp = ThreadUtils.ALWAYS_TRUE_PREDICATE;
         assertTrue(tp.test(null));
         assertTrue(tp.test(new Thread()));
-        ThreadGroupPredicate tgp = ThreadUtils.ALWAYS_TRUE_PREDICATE;
+        final ThreadGroupPredicate tgp = ThreadUtils.ALWAYS_TRUE_PREDICATE;
         assertTrue(tgp.test(null));
         assertTrue(tgp.test(new ThreadGroup("")));
     }

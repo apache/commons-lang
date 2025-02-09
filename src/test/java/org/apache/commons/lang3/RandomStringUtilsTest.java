@@ -788,20 +788,17 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     @MethodSource("randomProvider")
     public void testRandomWithChars(final RandomStringUtils rsu) {
         final char[] digitChars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-
-        String r1, r2, r3;
-
-        r1 = rsu.next(50, 0, 0, true, true, digitChars);
+        final String r1 = rsu.next(50, 0, 0, true, true, digitChars);
         assertEquals(50, r1.length(), "randomNumeric(50)");
         for (int i = 0; i < r1.length(); i++) {
             assertTrue(
                     Character.isDigit(r1.charAt(i)) && !Character.isLetter(r1.charAt(i)),
                     "r1 contains numeric");
         }
-        r2 = rsu.nextNumeric(50);
+        final String r2 = rsu.nextNumeric(50);
         assertNotEquals(r1, r2);
 
-        r3 = rsu.next(50, 0, 0, true, true, digitChars);
+        final String r3 = rsu.next(50, 0, 0, true, true, digitChars);
         assertNotEquals(r1, r3);
         assertNotEquals(r2, r3);
     }
