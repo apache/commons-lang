@@ -65,8 +65,9 @@ limitations under the License.
       <property name="accessModifiers" value="public" />
     </module>
     <module name="LeftCurly"/>
-    <module name="ModifierOrder"/>
     <module name="MissingOverride"/>
+    <module name="ModifierOrder"/>
+    <module name="MultipleVariableDeclarations" />
     <module name="NeedBraces"/>
     <module name="NoWhitespaceBefore"/>
     <module name="ParenPad"/>
