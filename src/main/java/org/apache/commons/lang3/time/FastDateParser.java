@@ -753,6 +753,7 @@ public class FastDateParser implements DateParser, Serializable {
             case '[':
             case '{':
                 sb.append('\\');
+                // falls-through
             default:
                 sb.append(c);
             }
@@ -942,7 +943,7 @@ public class FastDateParser implements DateParser, Serializable {
             if (width == 2) {
                 return ISO8601TimeZoneStrategy.ISO_8601_3_STRATEGY;
             }
-            //$FALL-THROUGH$
+            // falls-through
         case 'z':
             return getLocaleSpecificStrategy(Calendar.ZONE_OFFSET, definingCalendar);
         default:

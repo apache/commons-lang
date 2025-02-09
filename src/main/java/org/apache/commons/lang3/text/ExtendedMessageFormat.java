@@ -220,7 +220,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                     throw new IllegalArgumentException(
                             "Unreadable format element at position " + start);
                 }
-                //$FALL-THROUGH$
+                // falls-through
             default:
                 stripCustom.append(c[pos.getIndex()]);
                 next(pos);
@@ -361,7 +361,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                 break;
             case END_FE:
                 depth--;
-                //$FALL-THROUGH$
+                // falls-through
             default:
                 sb.append(c);
                 next(pos);
