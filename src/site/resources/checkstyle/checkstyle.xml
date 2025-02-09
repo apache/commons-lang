@@ -54,6 +54,7 @@ limitations under the License.
     <module name="FinalLocalVariable" />
     <module name="GenericWhitespace"/>
     <module name="IllegalImport"/>
+    <module name="IllegalInstantiation" />
     <module name="ImportOrder">
       <property name="option" value="top"/>
       <property name="groups" value="java,javax,org"/>
