@@ -19,6 +19,8 @@ package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.Test;
 
 public class StopWatchFSMTest {
@@ -81,4 +83,73 @@ public class StopWatchFSMTest {
         assertTrue(sw.isStopped(), "StopWatch should be stopped after calling stop().");
     }
 
+    @Test
+    public void testInvalidResumeThrowsException() {
+        StopWatch sw = StopWatch.create();
+        // Attempting to resume without having suspended should throw an exception.
+        Exception exception = assertThrows(IllegalStateException.class, sw::resume,
+                "Calling resume() without a preceding suspend() should throw an exception.");
+        assertEquals("Stopwatch must be suspended to resume.", exception.getMessage());
+    }
+
+    @Test
+    public void testSplitAndUnsplitTransitions() throws InterruptedException {
+        StopWatch sw = StopWatch.create();
+        sw.start(); // Transition to RUNNING
+        Thread.sleep(10);
+        sw.split(); // RUNNING -> SPLIT (conceptual branch)
+        // After splitting, we can retrieve the split duration.
+        Duration splitDuration = sw.getSplitDuration();
+        assertTrue(splitDuration.toMillis() > 0, "Split duration should be greater than 0 after split().");
+        sw.unsplit(); // SPLIT -> RUNNING
+        // After unsplit, trying to get split time should result in an exception.
+        Exception exception = assertThrows(IllegalStateException.class, sw::getSplitNanoTime,
+                "Calling getSplitNanoTime() after unsplit() should throw an exception.");
+        assertEquals("Stopwatch must be split to get the split time.", exception.getMessage());
+    }
+
+    @Test
+    public void testResetTransition() {
+        StopWatch sw = StopWatch.create();
+        sw.start();
+        sw.stop(); // Transition to STOPPED
+        sw.reset(); // STOPPED -> UNSTARTED
+        // After reset, the stopwatch should be unstarted.
+        assertFalse(sw.isStarted(), "StopWatch should not be started after reset.");
+        assertTrue(sw.isStopped(), "StopWatch should be considered stopped after reset.");
+    }
+
+    @Test
+    public void testGetSupplierFunctionality() {
+        StopWatch sw = StopWatch.create();
+        // Using the get(Supplier<T>) method to time a supplier operation.
+        String result = sw.get(() -> {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                // Ignore interruption for testing purposes.
+            }
+            return "success";
+        });
+        assertEquals("success", result, "The supplier should return the expected value.");
+        // After get(), the stopwatch is suspended.
+        assertTrue(sw.isSuspended(), "StopWatch should be suspended after get() invocation.");
+        // Clean up by resuming and stopping.
+        sw.resume();
+        sw.stop();
+    }
+
+    @Test
+    public void testRunAndRunTMethods() throws Throwable {
+        StopWatch sw = StopWatch.create();
+        final boolean[] flag = { false };
+        sw.run(() -> flag[0] = true);
+        // After run(), the stopwatch is suspended.
+        assertTrue(flag[0], "The run() method should execute the provided Runnable.");
+        sw.resume(); // Resume to allow another runT call.
+        flag[0] = false;
+        sw.runT(() -> flag[0] = true);
+        assertTrue(flag[0], "The runT() method should execute the provided FailableRunnable.");
+        sw.stop();
+    }
 }
