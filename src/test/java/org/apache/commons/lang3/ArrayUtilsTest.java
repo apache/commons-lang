@@ -242,6 +242,11 @@ public class ArrayUtilsTest extends AbstractLangTest {
             public boolean equals(final Object o) {
                 return true;
             }
+
+            @Override
+            public int hashCode() {
+                return 0;
+            }
         }
 
         final class LANG1261ChildObject extends LANG1261ParentObject {

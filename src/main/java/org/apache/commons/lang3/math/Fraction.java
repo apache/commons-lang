@@ -141,7 +141,8 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         double x2;
         double y1 = value - a1;
         double y2;
-        double delta1, delta2 = Double.MAX_VALUE;
+        double delta1;
+        double delta2 = Double.MAX_VALUE;
         double fraction;
         int i = 1;
         do {

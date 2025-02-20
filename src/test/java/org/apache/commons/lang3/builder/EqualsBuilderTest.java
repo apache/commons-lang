@@ -180,6 +180,11 @@ public class EqualsBuilderTest extends AbstractLangTest {
             return EqualsBuilder.reflectionEquals(this, obj);
         }
 
+        @Override
+        public int hashCode() {
+            return one.hashCode();
+        }
+
         public void setObjectReference(final TestObjectReference reference) {
             this.reference = reference;
         }

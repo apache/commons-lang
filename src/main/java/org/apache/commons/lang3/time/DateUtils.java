@@ -431,13 +431,13 @@ public class DateUtils {
             case Calendar.DAY_OF_YEAR:
             case Calendar.DATE:
                 result += unit.convert(calendar.get(Calendar.HOUR_OF_DAY), TimeUnit.HOURS);
-                //$FALL-THROUGH$
+                // falls-through
             case Calendar.HOUR_OF_DAY:
                 result += unit.convert(calendar.get(Calendar.MINUTE), TimeUnit.MINUTES);
-                //$FALL-THROUGH$
+                // falls-through
             case Calendar.MINUTE:
                 result += unit.convert(calendar.get(Calendar.SECOND), TimeUnit.SECONDS);
-                //$FALL-THROUGH$
+                // falls-through
             case Calendar.SECOND:
                 result += unit.convert(calendar.get(Calendar.MILLISECOND), TimeUnit.MILLISECONDS);
                 break;

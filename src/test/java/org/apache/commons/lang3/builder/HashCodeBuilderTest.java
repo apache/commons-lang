@@ -37,6 +37,12 @@ public class HashCodeBuilderTest extends AbstractLangTest {
         ReflectionTestCycleB b;
 
         @Override
+        public boolean equals(final Object o) {
+            // Pairs with hashCode()
+            return super.equals(o);
+        }
+
+        @Override
         public int hashCode() {
             return HashCodeBuilder.reflectionHashCode(this);
         }
@@ -47,6 +53,12 @@ public class HashCodeBuilderTest extends AbstractLangTest {
      */
     static class ReflectionTestCycleB {
         ReflectionTestCycleA a;
+
+        @Override
+        public boolean equals(final Object o) {
+            // Pairs with hashCode()
+            return super.equals(o);
+        }
 
         @Override
         public int hashCode() {

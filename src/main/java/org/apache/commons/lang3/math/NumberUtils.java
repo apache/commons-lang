@@ -423,7 +423,7 @@ public class NumberUtils {
                     } catch (final NumberFormatException ignored) {
                         // ignore the bad number
                     }
-                    //$FALL-THROUGH$
+                    // falls-through
                 case 'd' :
                 case 'D' :
                     try {
@@ -439,7 +439,7 @@ public class NumberUtils {
                     } catch (final NumberFormatException ignored) {
                         // ignore the bad number
                     }
-                    //$FALL-THROUGH$
+                    // falls-through
                 default :
                     throw new NumberFormatException(str + " is not a valid number.");
 

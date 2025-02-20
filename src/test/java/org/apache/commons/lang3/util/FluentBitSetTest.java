@@ -801,8 +801,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         bitset.get(3, 3);
 
         // Test for method boolean java.util.BitSet.get(int, int)
-        FluentBitSet bs, resultbs, correctbs;
-        bs = newInstance(512);
+        FluentBitSet bs = newInstance(512);
         bs.set(3, 9);
         bs.set(10, 20);
         bs.set(60, 75);
@@ -810,8 +809,8 @@ public class FluentBitSetTest extends AbstractLangTest {
         bs.set(130, 140);
 
         // pos1 and pos2 are in the same bitset element, at index0
-        resultbs = bs.get(3, 6);
-        correctbs = newInstance(3);
+        FluentBitSet resultbs = bs.get(3, 6);
+        FluentBitSet correctbs = newInstance(3);
         correctbs.set(0, 3);
         assertEquals(correctbs, resultbs, "Test1: Returned incorrect BitSet");
 

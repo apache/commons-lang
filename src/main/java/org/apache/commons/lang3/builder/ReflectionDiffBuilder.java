@@ -231,7 +231,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Gets the field names that should be excluded from the diff.
      *
-     * @return Returns the excludeFieldNames.
+     * @return the excludeFieldNames.
      * @since 3.13.0
      */
     public String[] getExcludeFieldNames() {
