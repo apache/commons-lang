@@ -1219,4 +1219,83 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertFalse(TypeUtils.equals(String.class, null));
         assertTrue(TypeUtils.equals(null, null));
     }
+
+    // tests to improve coverage
+    @Test
+    public void testGetRawTypeGenericArrayTypeRawComponentTypeNull() {
+        GenericArrayType genericArrayType = TypeUtils.genericArrayType(TypeUtils.WILDCARD_ALL);
+        assertNull(TypeUtils.getRawType(genericArrayType, String.class));
+    }
+
+    @Test
+    public void testGetRawTypeWildcardType() {
+        WildcardType wildcardType = TypeUtils.wildcardType().withUpperBounds(String.class).build();
+        assertNull(TypeUtils.getRawType(wildcardType, String.class));
+    }
+
+    @Test
+    public void testGetRawTypeUnhandledType() {
+        Type type = new Type() {
+            // Empty anonymous class implementing Type
+        };
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> TypeUtils.getRawType(type, String.class));
+        assertEquals("unknown type: " + type.toString(), exception.getMessage());
+    }
+
+    @Test
+    public void testGetTypeArgumentsWildcardTypeNoUpperBoundAssignable() {
+        WildcardType wildcardType = TypeUtils.wildcardType().withLowerBounds(String.class).build();
+        assertNull(TypeUtils.getTypeArguments(wildcardType, Integer.class));
+    }
+
+    @Test
+    public void testIsAssignableNullChecks() {
+        assertTrue(TypeUtils.isAssignable(null, Object.class));
+        assertFalse(TypeUtils.isAssignable(Object.class, null));
+        assertTrue(TypeUtils.isAssignable(null, null)); // consistent behavior
+    }
+
+    @Test
+    public void testNormalizeUpperBoundsComplexHierarchy() {
+        // Example: Type[] bounds = {List.class, Collection.class, ArrayList.class};
+        // ArrayList is a subtype of both List and Collection, so the result should be
+        // {ArrayList.class}.
+        Type[] bounds = { List.class, Collection.class, ArrayList.class };
+        Type[] expected = { ArrayList.class };
+        assertArrayEquals(expected, TypeUtils.normalizeUpperBounds(bounds));
+    }
+
+    @Test
+    public void testNormalizeUpperBoundsEmptyBounds() {
+        Type[] bounds = {};
+        assertArrayEquals(bounds, TypeUtils.normalizeUpperBounds(bounds));
+    }
+
+    @Test
+    public void testParameterizeIncorrectNumberOfTypeArguments() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> TypeUtils.parameterize(String.class, Integer.class));
+        assertEquals("invalid number of type parameters specified: expected 0, got 1", exception.getMessage());
+    }
+
+    @Test
+    public void testParameterizeWithOwnerInvalidOwnerType() {
+        class Outer {
+        }
+        class Inner {
+        }
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> TypeUtils.parameterizeWithOwner(Integer.class, Inner.class));
+        assertEquals(
+                "class java.lang.Integer is invalid owner type for parameterized class org.apache.commons.lang3.reflect.TypeUtilsTest$1Inner",
+                exception.getMessage());
+    }
+
+    @Test
+    public void testIsInstanceprimitiveClassvalueIsNull() {
+        assertTrue(TypeUtils.isInstance(null, Integer.class));
+        assertFalse(TypeUtils.isInstance(null, int.class));
+    }
 }

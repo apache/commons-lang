@@ -18,6 +18,7 @@ package org.apache.commons.lang3.text;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -53,11 +54,13 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
             return toAppendTo.append(((String) obj).toLowerCase(Locale.ROOT));
         }
+
         @Override
         public Object parseObject(final String source, final ParsePosition pos) {
             throw new UnsupportedOperationException();
         }
     }
+
     /**
      * {@link FormatFactory} implementation for lower case format.
      */
@@ -84,7 +87,8 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
-     * {@link FormatFactory} implementation to override date format "short" to "default".
+     * {@link FormatFactory} implementation to override date format "short" to
+     * "default".
      */
     private static final class OverrideShortDateFormatFactory implements FormatFactory {
 
@@ -92,8 +96,9 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         public Format getFormat(final String name, final String arguments, final Locale locale) {
             return !"short".equals(arguments) ? null
                     : locale == null ? DateFormat
-                            .getDateInstance(DateFormat.DEFAULT) : DateFormat
-                            .getDateInstance(DateFormat.DEFAULT, locale);
+                            .getDateInstance(DateFormat.DEFAULT)
+                            : DateFormat
+                                    .getDateInstance(DateFormat.DEFAULT, locale);
         }
     }
 
@@ -128,70 +133,77 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
 
     private final Map<String, FormatFactory> registry = new HashMap<>();
 
-//    /**
-//     * Test extended formats with choice format.
-//     *
-//     * NOTE: FAILING - currently sub-formats not supported
-//     */
-//    public void testExtendedWithChoiceFormat() {
-//        String pattern = "Choice: {0,choice,1.0#{1,lower}|2.0#{1,upper}}";
-//        ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-//        assertPatterns(null, pattern, emf.toPattern());
-//        try {
-//            assertEquals("one", emf.format(new Object[] {Integer.valueOf(1), "ONE"}));
-//            assertEquals("TWO", emf.format(new Object[] {Integer.valueOf(2), "two"}));
-//        } catch (IllegalArgumentException e) {
-//            // currently sub-formats not supported
-//        }
-//    }
+    // /**
+    // * Test extended formats with choice format.
+    // *
+    // * NOTE: FAILING - currently sub-formats not supported
+    // */
+    // public void testExtendedWithChoiceFormat() {
+    // String pattern = "Choice: {0,choice,1.0#{1,lower}|2.0#{1,upper}}";
+    // ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
+    // assertPatterns(null, pattern, emf.toPattern());
+    // try {
+    // assertEquals("one", emf.format(new Object[] {Integer.valueOf(1), "ONE"}));
+    // assertEquals("TWO", emf.format(new Object[] {Integer.valueOf(2), "two"}));
+    // } catch (IllegalArgumentException e) {
+    // // currently sub-formats not supported
+    // }
+    // }
 
-//    /**
-//     * Test mixed extended and built-in formats with choice format.
-//     *
-//     * NOTE: FAILING - currently sub-formats not supported
-//     */
-//    public void testExtendedAndBuiltInWithChoiceFormat() {
-//        String pattern = "Choice: {0,choice,1.0#{0} {1,lower} {2,number}|2.0#{0} {1,upper} {2,number,currency}}";
-//        Object[] lowArgs  = new Object[] {Integer.valueOf(1), "Low",  Double.valueOf("1234.56")};
-//        Object[] highArgs = new Object[] {Integer.valueOf(2), "High", Double.valueOf("9876.54")};
-//        Locale[] availableLocales = ChoiceFormat.getAvailableLocales();
-//        Locale[] testLocales = new Locale[availableLocales.length + 1];
-//        testLocales[0] = null;
-//        System.arraycopy(availableLocales, 0, testLocales, 1, availableLocales.length);
-//        for (int i = 0; i < testLocales.length; i++) {
-//            NumberFormat nf = null;
-//            NumberFormat cf = null;
-//            ExtendedMessageFormat emf = null;
-//            if (testLocales[i] == null) {
-//                nf = NumberFormat.getNumberInstance();
-//                cf = NumberFormat.getCurrencyInstance();
-//                emf = new ExtendedMessageFormat(pattern, registry);
-//            } else {
-//                nf = NumberFormat.getNumberInstance(testLocales[i]);
-//                cf = NumberFormat.getCurrencyInstance(testLocales[i]);
-//                emf = new ExtendedMessageFormat(pattern, testLocales[i], registry);
-//            }
-//            assertPatterns(null, pattern, emf.toPattern());
-//            try {
-//                String lowExpected = lowArgs[0] + " low "    + nf.format(lowArgs[2]);
-//                String highExpected = highArgs[0] + " HIGH "  + cf.format(highArgs[2]);
-//                assertEquals(lowExpected,  emf.format(lowArgs));
-//                assertEquals(highExpected, emf.format(highArgs));
-//            } catch (IllegalArgumentException e) {
-//                // currently sub-formats not supported
-//            }
-//        }
-//    }
+    // /**
+    // * Test mixed extended and built-in formats with choice format.
+    // *
+    // * NOTE: FAILING - currently sub-formats not supported
+    // */
+    // public void testExtendedAndBuiltInWithChoiceFormat() {
+    // String pattern = "Choice: {0,choice,1.0#{0} {1,lower} {2,number}|2.0#{0}
+    // {1,upper} {2,number,currency}}";
+    // Object[] lowArgs = new Object[] {Integer.valueOf(1), "Low",
+    // Double.valueOf("1234.56")};
+    // Object[] highArgs = new Object[] {Integer.valueOf(2), "High",
+    // Double.valueOf("9876.54")};
+    // Locale[] availableLocales = ChoiceFormat.getAvailableLocales();
+    // Locale[] testLocales = new Locale[availableLocales.length + 1];
+    // testLocales[0] = null;
+    // System.arraycopy(availableLocales, 0, testLocales, 1,
+    // availableLocales.length);
+    // for (int i = 0; i < testLocales.length; i++) {
+    // NumberFormat nf = null;
+    // NumberFormat cf = null;
+    // ExtendedMessageFormat emf = null;
+    // if (testLocales[i] == null) {
+    // nf = NumberFormat.getNumberInstance();
+    // cf = NumberFormat.getCurrencyInstance();
+    // emf = new ExtendedMessageFormat(pattern, registry);
+    // } else {
+    // nf = NumberFormat.getNumberInstance(testLocales[i]);
+    // cf = NumberFormat.getCurrencyInstance(testLocales[i]);
+    // emf = new ExtendedMessageFormat(pattern, testLocales[i], registry);
+    // }
+    // assertPatterns(null, pattern, emf.toPattern());
+    // try {
+    // String lowExpected = lowArgs[0] + " low " + nf.format(lowArgs[2]);
+    // String highExpected = highArgs[0] + " HIGH " + cf.format(highArgs[2]);
+    // assertEquals(lowExpected, emf.format(lowArgs));
+    // assertEquals(highExpected, emf.format(highArgs));
+    // } catch (IllegalArgumentException e) {
+    // // currently sub-formats not supported
+    // }
+    // }
+    // }
 
     /**
-     * Create an ExtendedMessageFormat for the specified pattern and locale and check the
+     * Create an ExtendedMessageFormat for the specified pattern and locale and
+     * check the
      * formatted output matches the expected result for the parameters.
-     * @param pattern string
+     * 
+     * @param pattern        string
      * @param registryUnused map (currently unused)
-     * @param args Object[]
-     * @param locale Locale
+     * @param args           Object[]
+     * @param locale         Locale
      */
-    private void checkBuiltInFormat(final String pattern, final Map<String, ?> registryUnused, final Object[] args, final Locale locale) {
+    private void checkBuiltInFormat(final String pattern, final Map<String, ?> registryUnused, final Object[] args,
+            final Locale locale) {
         final StringBuilder buffer = new StringBuilder();
         buffer.append("Pattern=[");
         buffer.append(pattern);
@@ -205,18 +217,20 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         } else {
             emf = new ExtendedMessageFormat(pattern, locale);
         }
-        assertEquals(mf.format(args), emf.format(args), "format "    + buffer);
+        assertEquals(mf.format(args), emf.format(args), "format " + buffer);
         assertEquals(mf.toPattern(), emf.toPattern(), "toPattern " + buffer);
     }
 
     /**
      * Test a built-in format for the specified Locales, plus {@code null} Locale.
-     * @param pattern MessageFormat pattern
+     * 
+     * @param pattern     MessageFormat pattern
      * @param fmtRegistry FormatFactory registry to use
-     * @param args MessageFormat arguments
-     * @param locales to test
+     * @param args        MessageFormat arguments
+     * @param locales     to test
      */
-    private void checkBuiltInFormat(final String pattern, final Map<String, ?> fmtRegistry, final Object[] args, final Locale[] locales) {
+    private void checkBuiltInFormat(final String pattern, final Map<String, ?> fmtRegistry, final Object[] args,
+            final Locale[] locales) {
         checkBuiltInFormat(pattern, fmtRegistry, args, (Locale) null);
         for (final Locale locale : locales) {
             checkBuiltInFormat(pattern, fmtRegistry, args, locale);
@@ -225,8 +239,9 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
 
     /**
      * Test a built-in format for the specified Locales, plus {@code null} Locale.
+     * 
      * @param pattern MessageFormat pattern
-     * @param args MessageFormat arguments
+     * @param args    MessageFormat arguments
      * @param locales to test
      */
     private void checkBuiltInFormat(final String pattern, final Object[] args, final Locale[] locales) {
@@ -234,9 +249,11 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
-     * Replace MessageFormat(String, Locale) constructor (not available until JDK 1.4).
+     * Replace MessageFormat(String, Locale) constructor (not available until JDK
+     * 1.4).
+     * 
      * @param pattern string
-     * @param locale Locale
+     * @param locale  Locale
      * @return MessageFormat
      */
     private MessageFormat createMessageFormat(final String pattern, final Locale locale) {
@@ -259,18 +276,18 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      */
     @Test
     public void testBuiltInChoiceFormat() {
-        final Object[] values = new Number[] {Integer.valueOf(1), Double.valueOf("2.2"), Double.valueOf("1234.5")};
+        final Object[] values = new Number[] { Integer.valueOf(1), Double.valueOf("2.2"), Double.valueOf("1234.5") };
         String choicePattern;
         final Locale[] availableLocales = NumberFormat.getAvailableLocales();
 
         choicePattern = "{0,choice,1#One|2#Two|3#Many {0,number}}";
         for (final Object value : values) {
-            checkBuiltInFormat(value + ": " + choicePattern, new Object[] {value}, availableLocales);
+            checkBuiltInFormat(value + ": " + choicePattern, new Object[] { value }, availableLocales);
         }
 
         choicePattern = "{0,choice,1#''One''|2#\"Two\"|3#''{Many}'' {0,number}}";
         for (final Object value : values) {
-            checkBuiltInFormat(value + ": " + choicePattern, new Object[] {value}, availableLocales);
+            checkBuiltInFormat(value + ": " + choicePattern, new Object[] { value }, availableLocales);
         }
     }
 
@@ -281,21 +298,21 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     public void testBuiltInDateTimeFormat() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
-        final Object[] args = {cal.getTime()};
+        final Object[] args = { cal.getTime() };
         final Locale[] availableLocales = DateFormat.getAvailableLocales();
 
-        checkBuiltInFormat("1: {0,date,short}",    args, availableLocales);
-        checkBuiltInFormat("2: {0,date,medium}",   args, availableLocales);
-        checkBuiltInFormat("3: {0,date,long}",     args, availableLocales);
-        checkBuiltInFormat("4: {0,date,full}",     args, availableLocales);
+        checkBuiltInFormat("1: {0,date,short}", args, availableLocales);
+        checkBuiltInFormat("2: {0,date,medium}", args, availableLocales);
+        checkBuiltInFormat("3: {0,date,long}", args, availableLocales);
+        checkBuiltInFormat("4: {0,date,full}", args, availableLocales);
         checkBuiltInFormat("5: {0,date,d MMM yy}", args, availableLocales);
-        checkBuiltInFormat("6: {0,time,short}",    args, availableLocales);
-        checkBuiltInFormat("7: {0,time,medium}",   args, availableLocales);
-        checkBuiltInFormat("8: {0,time,long}",     args, availableLocales);
-        checkBuiltInFormat("9: {0,time,full}",     args, availableLocales);
-        checkBuiltInFormat("10: {0,time,HH:mm}",   args, availableLocales);
-        checkBuiltInFormat("11: {0,date}",         args, availableLocales);
-        checkBuiltInFormat("12: {0,time}",         args, availableLocales);
+        checkBuiltInFormat("6: {0,time,short}", args, availableLocales);
+        checkBuiltInFormat("7: {0,time,medium}", args, availableLocales);
+        checkBuiltInFormat("8: {0,time,long}", args, availableLocales);
+        checkBuiltInFormat("9: {0,time,full}", args, availableLocales);
+        checkBuiltInFormat("10: {0,time,HH:mm}", args, availableLocales);
+        checkBuiltInFormat("11: {0,date}", args, availableLocales);
+        checkBuiltInFormat("12: {0,time}", args, availableLocales);
     }
 
     /**
@@ -303,23 +320,24 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      */
     @Test
     public void testBuiltInNumberFormat() {
-        final Object[] args = {Double.valueOf("6543.21")};
+        final Object[] args = { Double.valueOf("6543.21") };
         final Locale[] availableLocales = NumberFormat.getAvailableLocales();
-        checkBuiltInFormat("1: {0,number}",            args, availableLocales);
-        checkBuiltInFormat("2: {0,number,integer}",    args, availableLocales);
-        checkBuiltInFormat("3: {0,number,currency}",   args, availableLocales);
-        checkBuiltInFormat("4: {0,number,percent}",    args, availableLocales);
-        checkBuiltInFormat("5: {0,number,00000.000}",  args, availableLocales);
+        checkBuiltInFormat("1: {0,number}", args, availableLocales);
+        checkBuiltInFormat("2: {0,number,integer}", args, availableLocales);
+        checkBuiltInFormat("3: {0,number,currency}", args, availableLocales);
+        checkBuiltInFormat("4: {0,number,percent}", args, availableLocales);
+        checkBuiltInFormat("5: {0,number,00000.000}", args, availableLocales);
     }
 
     /**
-     * Test Bug LANG-917 - IndexOutOfBoundsException and/or infinite loop when using a choice pattern
+     * Test Bug LANG-917 - IndexOutOfBoundsException and/or infinite loop when using
+     * a choice pattern
      */
     @Test
     public void testEmbeddedPatternInChoice() {
         final String pattern = "Hi {0,lower}, got {1,choice,0#none|1#one|1<{1,number}}, {2,upper}!";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-        assertEquals(emf.format(new Object[] {"there", 3, "great"}), "Hi there, got 3, GREAT!");
+        assertEquals(emf.format(new Object[] { "there", 3, "great" }), "Hi there, got 3, GREAT!");
     }
 
     /**
@@ -327,8 +345,10 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      */
     @Test
     public void testEqualsHashcode() {
-        final Map<String, ? extends FormatFactory> fmtRegistry = Collections.singletonMap("testfmt", new LowerCaseFormatFactory());
-        final Map<String, ? extends FormatFactory> otherRegistry = Collections.singletonMap("testfmt", new UpperCaseFormatFactory());
+        final Map<String, ? extends FormatFactory> fmtRegistry = Collections.singletonMap("testfmt",
+                new LowerCaseFormatFactory());
+        final Map<String, ? extends FormatFactory> otherRegistry = Collections.singletonMap("testfmt",
+                new UpperCaseFormatFactory());
 
         final String pattern = "Pattern: {0,testfmt}";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, Locale.US, fmtRegistry);
@@ -366,19 +386,20 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
-     * Test Bug LANG-948 - Exception while using ExtendedMessageFormat and escaping braces
+     * Test Bug LANG-948 - Exception while using ExtendedMessageFormat and escaping
+     * braces
      */
     @Test
     public void testEscapedBraces_LANG_948() {
         // message without placeholder because braces are escaped by quotes
         final String pattern = "Message without placeholders '{}'";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-        assertEquals("Message without placeholders {}", emf.format(new Object[] {"DUMMY"}));
+        assertEquals("Message without placeholders {}", emf.format(new Object[] { "DUMMY" }));
 
         // message with placeholder because quotes are escaped by quotes
         final String pattern2 = "Message with placeholder ''{0}''";
         final ExtendedMessageFormat emf2 = new ExtendedMessageFormat(pattern2, registry);
-        assertEquals("Message with placeholder 'DUMMY'", emf2.format(new Object[] {"DUMMY"}));
+        assertEquals("Message with placeholder 'DUMMY'", emf2.format(new Object[] { "DUMMY" }));
     }
 
     /**
@@ -388,8 +409,9 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     public void testEscapedQuote_LANG_477() {
         final String pattern = "it''s a {0,lower} 'test'!";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-        assertEquals("it's a dummy test!", emf.format(new Object[] {"DUMMY"}));
+        assertEquals("it's a dummy test!", emf.format(new Object[] { "DUMMY" }));
     }
+
     /**
      * Test extended and built-in formats with available locales.
      */
@@ -401,7 +423,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
 
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
-        final Object[] args = {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
+        final Object[] args = { "John Doe", cal.getTime(), Double.valueOf("12345.67") };
 
         final HashSet<Locale> testLocales = new HashSet<>(Arrays.asList(DateFormat.getAvailableLocales()));
         testLocales.retainAll(Arrays.asList(NumberFormat.getAvailableLocales()));
@@ -424,6 +446,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
             assertEquals(expected.toString(), emf.format(args), String.valueOf(locale));
         }
     }
+
     /**
      * Test extended and built-in formats with the default locale.
      */
@@ -440,7 +463,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
 
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
-        final Object[] args = {"John Doe", cal.getTime(), Double.valueOf("12345.67")};
+        final Object[] args = { "John Doe", cal.getTime(), Double.valueOf("12345.67") };
         final DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         final NumberFormat nf = NumberFormat.getCurrencyInstance();
         final StringBuilder expected = new StringBuilder();
@@ -452,6 +475,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         expected.append(nf.format(args[2]));
         assertEquals(expected.toString(), emf.format(args));
     }
+
     /**
      * Test extended formats.
      */
@@ -460,29 +484,30 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         final String pattern = "Lower: {0,lower} Upper: {1,upper}";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
         assertEquals(pattern, emf.toPattern(), "TOPATTERN");
-        assertEquals(emf.format(new Object[] {"foo", "bar"}), "Lower: foo Upper: BAR");
-        assertEquals(emf.format(new Object[] {"Foo", "Bar"}), "Lower: foo Upper: BAR");
-        assertEquals(emf.format(new Object[] {"FOO", "BAR"}), "Lower: foo Upper: BAR");
-        assertEquals(emf.format(new Object[] {"FOO", "bar"}), "Lower: foo Upper: BAR");
-        assertEquals(emf.format(new Object[] {"foo", "BAR"}), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] { "foo", "bar" }), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] { "Foo", "Bar" }), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] { "FOO", "BAR" }), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] { "FOO", "bar" }), "Lower: foo Upper: BAR");
+        assertEquals(emf.format(new Object[] { "foo", "BAR" }), "Lower: foo Upper: BAR");
     }
 
     @Test
     public void testOverriddenBuiltinFormat() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23);
-        final Object[] args = {cal.getTime()};
+        final Object[] args = { cal.getTime() };
         final Locale[] availableLocales = DateFormat.getAvailableLocales();
-        final Map<String, ? extends FormatFactory> dateRegistry = Collections.singletonMap("date", new OverrideShortDateFormatFactory());
+        final Map<String, ? extends FormatFactory> dateRegistry = Collections.singletonMap("date",
+                new OverrideShortDateFormatFactory());
 
-        //check the non-overridden builtins:
-        checkBuiltInFormat("1: {0,date}", dateRegistry,          args, availableLocales);
-        checkBuiltInFormat("2: {0,date,medium}", dateRegistry,   args, availableLocales);
-        checkBuiltInFormat("3: {0,date,long}", dateRegistry,     args, availableLocales);
-        checkBuiltInFormat("4: {0,date,full}", dateRegistry,     args, availableLocales);
+        // check the non-overridden builtins:
+        checkBuiltInFormat("1: {0,date}", dateRegistry, args, availableLocales);
+        checkBuiltInFormat("2: {0,date,medium}", dateRegistry, args, availableLocales);
+        checkBuiltInFormat("3: {0,date,long}", dateRegistry, args, availableLocales);
+        checkBuiltInFormat("4: {0,date,full}", dateRegistry, args, availableLocales);
         checkBuiltInFormat("5: {0,date,d MMM yy}", dateRegistry, args, availableLocales);
 
-        //check the overridden format:
+        // check the overridden format:
         for (int i = -1; i < availableLocales.length; i++) {
             final Locale locale = i < 0 ? null : availableLocales[i];
             final MessageFormat dateDefault = createMessageFormat("{0,date}", locale);
@@ -491,6 +516,53 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
             assertEquals(dateDefault.format(args), dateShort.format(args), "overridden date,short format");
             assertEquals(pattern, dateShort.toPattern(), "overridden date,short pattern");
         }
+    }
+
+    // tests to improve coverage
+    /**
+     * Test applyPattern with null registry.
+     */
+    @Test
+    public void testApplyPatternWithNullRegistry() {
+        final String pattern = "Test {0,number}";
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern);
+        assertEquals(pattern, emf.toPattern());
+    }
+
+    /**
+     * Test applyPattern with custom registry.
+     */
+    @Test
+    public void testApplyPatternWithCustomRegistry() {
+        final String pattern = "Test {0,lower}";
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
+        assertEquals(pattern, emf.toPattern());
+        assertEquals("Test foo", emf.format(new Object[] { "FOO" }));
+    }
+
+    /**
+     * Test equals and hashCode methods.
+     */
+    @Test
+    public void testEqualsAndHashCode() {
+        final String pattern = "Test {0,lower}";
+        final ExtendedMessageFormat emf1 = new ExtendedMessageFormat(pattern, registry);
+        final ExtendedMessageFormat emf2 = new ExtendedMessageFormat(pattern, registry);
+        assertEquals(emf1, emf2);
+        assertEquals(emf1.hashCode(), emf2.hashCode());
+    }
+
+    /**
+     * Test UnsupportedOperationException for setFormat methods.
+     */
+    @Test
+    public void testUnsupportedOperationException() {
+        final String pattern = "Test {0,lower}";
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
+        assertThrows(UnsupportedOperationException.class, () -> emf.setFormat(0, null));
+        assertThrows(UnsupportedOperationException.class, () -> emf.setFormatByArgumentIndex(0, null));
+        assertThrows(UnsupportedOperationException.class, () -> emf.setFormats(new Format[0]));
+        assertThrows(UnsupportedOperationException.class, () -> emf.setFormatsByArgumentIndex(new Format[0]));
     }
 
 }
