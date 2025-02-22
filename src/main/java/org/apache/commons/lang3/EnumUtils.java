@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -69,7 +70,6 @@ public class EnumUtils {
         final E[] constants = asEnum(enumClass).getEnumConstants();
         Validate.isTrue(constants.length <= Long.SIZE, CANNOT_STORE_S_S_VALUES_IN_S_BITS,
             Integer.valueOf(constants.length), enumClass.getSimpleName(), Integer.valueOf(Long.SIZE));
-
         return enumClass;
     }
 
@@ -322,6 +322,29 @@ public class EnumUtils {
     }
 
     /**
+     * Gets the enum for the class and value, returning {@code defaultEnum} if not found.
+     *
+     * <p>
+     * This method differs from {@link Enum#valueOf} in that it does not throw an exception for an invalid enum name and performs case insensitive matching of
+     * the name.
+     * </p>
+     *
+     * @param <E>           the type of the enumeration.
+     * @param enumClass     the class of the enum to query, not null.
+     * @param value         the enum name, null returns default enum.
+     * @param toIntFunction the function that gets an int for an enum for comparison to {@code value}.
+     * @param defaultEnum   the default enum.
+     * @return an enum, default enum if not found.
+     * @since 3.18.0
+     */
+    public static <E extends Enum<E>> E getFirstEnum(final Class<E> enumClass, final int value, final ToIntFunction<E> toIntFunction, final E defaultEnum) {
+        if (isEnum(enumClass)) {
+            return defaultEnum;
+        }
+        return Stream.of(enumClass.getEnumConstants()).filter(e -> value == toIntFunction.applyAsInt(e)).findFirst().orElse(defaultEnum);
+    }
+
+    /**
      * Gets the enum for the class, returning {@code defaultEnum} if not found.
      *
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
@@ -332,15 +355,19 @@ public class EnumUtils {
      * @param enumName    the enum name, null returns default enum
      * @param stringFunction the function that gets the string for an enum for comparison to {@code enumName}.
      * @param defaultEnum the default enum
-     * @return the enum, default enum if not found
+     * @return an enum, default enum if not found
      * @since 3.13.0
      */
     public static <E extends Enum<E>> E getFirstEnumIgnoreCase(final Class<E> enumClass, final String enumName, final Function<E, String> stringFunction,
-        final E defaultEnum) {
-        if (enumName == null || !enumClass.isEnum()) {
-            return defaultEnum;
+            final E defaultEnum) {
+            if (enumName == null || !enumClass.isEnum()) {
+                return defaultEnum;
+            }
+            return Stream.of(enumClass.getEnumConstants()).filter(e -> enumName.equalsIgnoreCase(stringFunction.apply(e))).findFirst().orElse(defaultEnum);
         }
-        return Stream.of(enumClass.getEnumConstants()).filter(e -> enumName.equalsIgnoreCase(stringFunction.apply(e))).findFirst().orElse(defaultEnum);
+
+    private static <E extends Enum<E>> boolean isEnum(final Class<E> enumClass) {
+        return enumClass != null && !enumClass.isEnum();
     }
 
     /**
