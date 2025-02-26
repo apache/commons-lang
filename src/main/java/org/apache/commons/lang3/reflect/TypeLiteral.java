@@ -86,7 +86,7 @@ public abstract class TypeLiteral<T> implements Typed<T> {
     private final String toString;
 
     /**
-     * The default constructor.
+     * Constructs a new instance.
      */
     protected TypeLiteral() {
         this.value =
