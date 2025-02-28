@@ -22,7 +22,7 @@ package org.apache.commons.lang3.function;
  *
  * @param <T> the type of the argument to the function
  * @param <E> The kind of thrown exception or error.
- * @since 3.11
+ * @since 3.18
  */
 @FunctionalInterface
 public interface FailableToBooleanFunction<T, E extends Throwable> {
