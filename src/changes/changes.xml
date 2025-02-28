@@ -103,6 +103,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Validate.isTrue(boolean, Supplier&lt;String&gt;).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getFirstEnum(Class&lt;E&gt;, int, ToIntFunction&lt;E&gt;, E).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableToBooleanFunction.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add the @FunctionalInterface annotation to org.apache.commons.lang3.concurrent.Computable.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 81 #1267, #1277, #1283, #1288, #1302.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[site] Bump org.codehaus.mojo:taglist-maven-plugin from 3.1.0 to 3.2.1 #1300.</action>

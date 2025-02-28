@@ -30,6 +30,7 @@ import org.apache.commons.lang3.function.FailableFunction;
  * @see FailableFunction
  * @since 3.6
  */
+@FunctionalInterface
 public interface Computable<I, O> {
 
     /**
