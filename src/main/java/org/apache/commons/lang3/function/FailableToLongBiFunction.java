@@ -35,7 +35,7 @@ public interface FailableToLongBiFunction<T, U, E extends Throwable> {
     FailableToLongBiFunction NOP = (t, u) -> 0;
 
     /**
-     * Returns The NOP singleton.
+     * Returns the NOP singleton.
      *
      * @param <T> the type of the first argument to the function
      * @param <U> the type of the second argument to the function

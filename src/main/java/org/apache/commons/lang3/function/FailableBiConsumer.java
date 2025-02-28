@@ -36,7 +36,7 @@ public interface FailableBiConsumer<T, U, E extends Throwable> {
     FailableBiConsumer NOP = (t, u) -> { /* NOP */ };
 
     /**
-     * Returns The NOP singleton.
+     * Returns the NOP singleton.
      *
      * @param <T> Consumed type 1.
      * @param <U> Consumed type 2.

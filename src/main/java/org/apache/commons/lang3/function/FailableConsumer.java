@@ -40,7 +40,7 @@ public interface FailableConsumer<T, E extends Throwable> {
     FailableConsumer NOP = Function.identity()::apply;
 
     /**
-     * Returns The NOP singleton.
+     * Returns the NOP singleton.
      *
      * @param <T> Consumed type 1.
      * @param <E> The kind of thrown exception or error.

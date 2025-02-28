@@ -38,7 +38,7 @@ public interface FailableBiFunction<T, U, R, E extends Throwable> {
     FailableBiFunction NOP = (t, u) -> null;
 
     /**
-     * Returns The NOP singleton.
+     * Returns the NOP singleton.
      *
      * @param <T> Consumed type 1.
      * @param <U> Consumed type 2.

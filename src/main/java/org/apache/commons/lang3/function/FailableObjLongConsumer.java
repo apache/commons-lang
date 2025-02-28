@@ -34,7 +34,7 @@ public interface FailableObjLongConsumer<T, E extends Throwable> {
     FailableObjLongConsumer NOP = (t, u) -> { /* NOP */ };
 
     /**
-     * Returns The NOP singleton.
+     * Returns the NOP singleton.
      *
      * @param <T> the type of the object argument to the operation.
      * @param <E> The kind of thrown exception or error.

@@ -34,7 +34,7 @@ public interface FailableIntFunction<R, E extends Throwable> {
     FailableIntFunction NOP = t -> null;
 
     /**
-     * Returns The NOP singleton.
+     * Returns the NOP singleton.
      *
      * @param <R> Return type.
      * @param <E> The kind of thrown exception or error.

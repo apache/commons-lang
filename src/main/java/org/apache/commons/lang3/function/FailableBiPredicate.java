@@ -40,7 +40,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     FailableBiPredicate TRUE = (t, u) -> true;
 
     /**
-     * Returns The FALSE singleton.
+     * Returns the FALSE singleton.
      *
      * @param <T> Consumed type 1.
      * @param <U> Consumed type 2.
@@ -53,7 +53,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     }
 
     /**
-     * Returns The TRUE singleton.
+     * Returns the TRUE singleton.
      *
      * @param <T> Consumed type 1.
      * @param <U> Consumed type 2.
