@@ -976,6 +976,11 @@ public class FailableFunctionsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testFailableToBooleanFunctionNop() throws Throwable {
+        assertEquals(false, FailableToBooleanFunction.nop().applyAsBoolean("Foo"), "Expect NOP to return false");
+    }
+
+    @Test
     public void testFailableToDoubleBiFunctionNop() throws Throwable {
         assertEquals(0, FailableToDoubleBiFunction.nop().applyAsDouble("Foo", "Bar"), "Expect NOP to return 0");
     }
@@ -2505,6 +2510,36 @@ public class FailableFunctionsTest extends AbstractLangTest {
                 throw new IOException("test");
             }
         }.get());
+    }
+
+    /**
+     * Tests that our failable interface is properly defined to throw any exception using the top level generic types
+     * Object and Throwable.
+     */
+    @Test
+    public void testThrows_FailableToBooleanFunction_Object_Throwable() {
+        assertThrows(IOException.class, () -> new FailableToBooleanFunction<Object, Throwable>() {
+
+            @Override
+            public boolean applyAsBoolean(final Object t) throws Throwable {
+                throw new IOException("test");
+            }
+        }.applyAsBoolean(new Object()));
+    }
+
+    /**
+     * Tests that our failable interface is properly defined to throw any exception using String and IOExceptions as
+     * generic test types.
+     */
+    @Test
+    public void testThrows_FailableToBooleanFunction_String_IOException() {
+        assertThrows(IOException.class, () -> new FailableToBooleanFunction<String, IOException>() {
+
+            @Override
+            public boolean applyAsBoolean(final String t) throws IOException {
+                throw new IOException("test");
+            }
+        }.applyAsBoolean(StringUtils.EMPTY));
     }
 
     /**
