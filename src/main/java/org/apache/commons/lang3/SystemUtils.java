@@ -17,6 +17,8 @@
 package org.apache.commons.lang3;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Helpers for {@link System}.
@@ -2071,6 +2073,18 @@ public class SystemUtils {
      */
     public static File getJavaIoTmpDir() {
         return new File(SystemProperties.getJavaIoTmpdir());
+    }
+
+    /**
+     * Gets the current Java IO temporary directory as a {@link Path}.
+     *
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @see SystemProperties#getJavaIoTmpdir()
+     * @since 3.18.0
+     */
+    public static Path getJavaIoTmpDirPath() {
+        return Paths.get(SystemProperties.getJavaIoTmpdir());
     }
 
     /**

@@ -29,6 +29,8 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
@@ -288,6 +290,16 @@ public class SystemUtilsTest extends AbstractLangTest {
         final File dir = SystemUtils.getJavaIoTmpDir();
         assertNotNull(dir);
         assertTrue(dir.exists());
+    }
+
+    /**
+     * Assumes no security manager exists.
+     */
+    @Test
+    public void testGetJavaIoTmpDirPath() {
+        final Path dir = SystemUtils.getJavaIoTmpDirPath();
+        assertNotNull(dir);
+        assertTrue(Files.exists(dir));
     }
 
     /**
