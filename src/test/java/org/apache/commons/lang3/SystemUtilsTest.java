@@ -286,6 +286,16 @@ public class SystemUtilsTest extends AbstractLangTest {
      * Assumes no security manager exists.
      */
     @Test
+    public void testGetJavaHomePath() {
+        final Path dir = SystemUtils.getJavaHomePath();
+        assertNotNull(dir);
+        assertTrue(Files.exists(dir));
+    }
+
+    /**
+     * Assumes no security manager exists.
+     */
+    @Test
     public void testGetJavaIoTmpDir() {
         final File dir = SystemUtils.getJavaIoTmpDir();
         assertNotNull(dir);

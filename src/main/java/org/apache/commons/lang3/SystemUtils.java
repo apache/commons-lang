@@ -2064,6 +2064,18 @@ public class SystemUtils {
     }
 
     /**
+     * Gets the current Java home directory as a {@link File}.
+     *
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @see SystemProperties#getJavaHome()
+     * @since 3.18.0
+     */
+    public static Path getJavaHomePath() {
+        return Paths.get(SystemProperties.getJavaHome());
+    }
+
+    /**
      * Gets the current Java IO temporary directory as a {@link File}.
      *
      * @return a directory
