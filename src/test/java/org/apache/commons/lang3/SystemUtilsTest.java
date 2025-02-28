@@ -346,6 +346,16 @@ public class SystemUtilsTest extends AbstractLangTest {
      * Assumes no security manager exists.
      */
     @Test
+    public void testGetUserHomePath() {
+        final Path dir = SystemUtils.getUserHomePath();
+        assertNotNull(dir);
+        assertTrue(Files.exists(dir));
+    }
+
+    /**
+     * Assumes no security manager exists.
+     */
+    @Test
     public void testGetUserName() {
         assertEquals(System.getProperty("user.name"), SystemUtils.getUserName());
         // Don't overwrite the system property in this test in case something goes awfully wrong.

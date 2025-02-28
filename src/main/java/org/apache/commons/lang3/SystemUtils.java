@@ -2191,6 +2191,21 @@ public class SystemUtils {
     }
 
     /**
+     * Gets the current user home directory as a {@link Path}.
+     * <p>
+     * The result is based on the system property {@value SystemProperties#USER_HOME}.
+     * </p>
+     *
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @see SystemProperties#getUserHome()
+     * @since 3.18.0
+     */
+    public static Path getUserHomePath() {
+        return Paths.get(SystemProperties.getUserHome());
+    }
+
+    /**
      * Gets the current user name.
      * <p>
      * The result is based on the system property {@value SystemProperties#USER_NAME}.
