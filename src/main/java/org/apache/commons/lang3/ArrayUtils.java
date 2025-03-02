@@ -20,6 +20,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Comparator;
@@ -4721,6 +4722,11 @@ public class ArrayUtils {
         return array;
     }
 
+    /**
+     * Gets the {@link ThreadLocalRandom} for {@code shuffle} methods that don't take a {@link Random} argument.
+     *
+     * @return the current ThreadLocalRandom.
+     */
     private static ThreadLocalRandom random() {
         return ThreadLocalRandom.current();
     }
@@ -7640,9 +7646,17 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
+     * <p>
+     * This method uses the current {@link ThreadLocalRandom} as its random number generator.
+     * </p>
+     * <p>
+     * Instances of {@link ThreadLocalRandom} are not cryptographically secure. For security-sensitive applications, consider using a {@code shuffle} method
+     * with a {@link SecureRandom} argument.
+     * </p>
      *
-     * @param array   the array to shuffle
+     * @param array the array to shuffle.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7651,10 +7665,11 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
      *
-     * @param array   the array to shuffle
-     * @param random  the source of randomness used to permute the elements
+     * @param array  the array to shuffle
+     * @param random the source of randomness used to permute the elements
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7665,9 +7680,17 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
+     * <p>
+     * This method uses the current {@link ThreadLocalRandom} as its random number generator.
+     * </p>
+     * <p>
+     * Instances of {@link ThreadLocalRandom} are not cryptographically secure. For security-sensitive applications, consider using a {@code shuffle} method
+     * with a {@link SecureRandom} argument.
+     * </p>
      *
-     * @param array   the array to shuffle
+     * @param array the array to shuffle.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7676,10 +7699,11 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
      *
-     * @param array   the array to shuffle
-     * @param random  the source of randomness used to permute the elements
+     * @param array  the array to shuffle
+     * @param random the source of randomness used to permute the elements
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7690,9 +7714,17 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
+     * <p>
+     * This method uses the current {@link ThreadLocalRandom} as its random number generator.
+     * </p>
+     * <p>
+     * Instances of {@link ThreadLocalRandom} are not cryptographically secure. For security-sensitive applications, consider using a {@code shuffle} method
+     * with a {@link SecureRandom} argument.
+     * </p>
      *
-     * @param array   the array to shuffle
+     * @param array the array to shuffle.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7701,10 +7733,11 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
      *
-     * @param array   the array to shuffle
-     * @param random  the source of randomness used to permute the elements
+     * @param array  the array to shuffle
+     * @param random the source of randomness used to permute the elements
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7715,9 +7748,17 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
+     * <p>
+     * This method uses the current {@link ThreadLocalRandom} as its random number generator.
+     * </p>
+     * <p>
+     * Instances of {@link ThreadLocalRandom} are not cryptographically secure. For security-sensitive applications, consider using a {@code shuffle} method
+     * with a {@link SecureRandom} argument.
+     * </p>
      *
-     * @param array   the array to shuffle
+     * @param array the array to shuffle.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7726,10 +7767,11 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
      *
-     * @param array   the array to shuffle
-     * @param random  the source of randomness used to permute the elements
+     * @param array  the array to shuffle
+     * @param random the source of randomness used to permute the elements
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7740,9 +7782,17 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
+     * <p>
+     * This method uses the current {@link ThreadLocalRandom} as its random number generator.
+     * </p>
+     * <p>
+     * Instances of {@link ThreadLocalRandom} are not cryptographically secure. For security-sensitive applications, consider using a {@code shuffle} method
+     * with a {@link SecureRandom} argument.
+     * </p>
      *
-     * @param array   the array to shuffle
+     * @param array the array to shuffle.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7751,10 +7801,11 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
      *
-     * @param array   the array to shuffle
-     * @param random  the source of randomness used to permute the elements
+     * @param array  the array to shuffle
+     * @param random the source of randomness used to permute the elements
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7765,9 +7816,17 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
+     * <p>
+     * This method uses the current {@link ThreadLocalRandom} as its random number generator.
+     * </p>
+     * <p>
+     * Instances of {@link ThreadLocalRandom} are not cryptographically secure. For security-sensitive applications, consider using a {@code shuffle} method
+     * with a {@link SecureRandom} argument.
+     * </p>
      *
-     * @param array   the array to shuffle
+     * @param array the array to shuffle.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7776,10 +7835,11 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
      *
-     * @param array   the array to shuffle
-     * @param random  the source of randomness used to permute the elements
+     * @param array  the array to shuffle
+     * @param random the source of randomness used to permute the elements
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7790,9 +7850,17 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
+     * <p>
+     * This method uses the current {@link ThreadLocalRandom} as its random number generator.
+     * </p>
+     * <p>
+     * Instances of {@link ThreadLocalRandom} are not cryptographically secure. For security-sensitive applications, consider using a {@code shuffle} method
+     * with a {@link SecureRandom} argument.
+     * </p>
      *
-     * @param array   the array to shuffle
+     * @param array the array to shuffle.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7801,10 +7869,11 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
      *
-     * @param array   the array to shuffle
-     * @param random  the source of randomness used to permute the elements
+     * @param array  the array to shuffle
+     * @param random the source of randomness used to permute the elements
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7815,9 +7884,17 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
+     * <p>
+     * This method uses the current {@link ThreadLocalRandom} as its random number generator.
+     * </p>
+     * <p>
+     * Instances of {@link ThreadLocalRandom} are not cryptographically secure. For security-sensitive applications, consider using a {@code shuffle} method
+     * with a {@link SecureRandom} argument.
+     * </p>
      *
-     * @param array   the array to shuffle
+     * @param array the array to shuffle.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7826,10 +7903,11 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
      *
-     * @param array   the array to shuffle
-     * @param random  the source of randomness used to permute the elements
+     * @param array  the array to shuffle
+     * @param random the source of randomness used to permute the elements
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7840,9 +7918,17 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
+     * <p>
+     * This method uses the current {@link ThreadLocalRandom} as its random number generator.
+     * </p>
+     * <p>
+     * Instances of {@link ThreadLocalRandom} are not cryptographically secure. For security-sensitive applications, consider using a {@code shuffle} method
+     * with a {@link SecureRandom} argument.
+     * </p>
      *
-     * @param array   the array to shuffle
+     * @param array the array to shuffle.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7851,10 +7937,11 @@ public class ArrayUtils {
     }
 
     /**
-     * Randomly permutes the elements of the specified array using the Fisher-Yates algorithm.
+     * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
+     * algorithm</a>.
      *
-     * @param array   the array to shuffle
-     * @param random  the source of randomness used to permute the elements
+     * @param array  the array to shuffle
+     * @param random the source of randomness used to permute the elements
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
