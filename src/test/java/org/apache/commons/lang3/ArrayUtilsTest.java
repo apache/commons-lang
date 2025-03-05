@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.annotation.ElementType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -223,7 +224,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     public void testContains() {
-        final Object[] array = {"0", "1", "2", "3", null, "0"};
+        final Object[] array = { "0", "1", "2", "3", null, "0" };
         assertFalse(ArrayUtils.contains(null, null));
         assertFalse(ArrayUtils.contains(null, "1"));
         assertTrue(ArrayUtils.contains(array, "0"));
@@ -232,12 +233,27 @@ public class ArrayUtilsTest extends AbstractLangTest {
         assertTrue(ArrayUtils.contains(array, "3"));
         assertFalse(ArrayUtils.contains(array, "notInArray"));
         assertTrue(ArrayUtils.contains(array, null));
+        // Types will never match: an Object is not a String
+        final String stringToFind = "4";
+        assertFalse(ArrayUtils.contains(new String[] { stringToFind }, new Object()));
+        // String and Integer both implement java.io.Serializable
+        assertFalse(ArrayUtils.contains(new String[] { stringToFind }, Integer.valueOf(1)));
+        // Charset and Integer both implement Comparable
+        assertFalse(ArrayUtils.contains(new Charset[] { StandardCharsets.US_ASCII }, Integer.valueOf(1)));
+        // TestClass and Integer are only Objects
+        assertFalse(ArrayUtils.contains(new TestClass[] { new TestClass() }, Integer.valueOf(1)));
+        // Values can match
+        assertTrue(ArrayUtils.contains(new Object[] { stringToFind }, stringToFind));
+        // A String is a CharSequence
+        final CharSequence csToFind = stringToFind;
+        assertTrue(ArrayUtils.contains(new String[] { stringToFind }, csToFind));
+        assertTrue(ArrayUtils.contains(new CharSequence[] { stringToFind }, stringToFind));
     }
 
     @Test
     public void testContains_LANG_1261() {
-
         class LANG1261ParentObject {
+
             @Override
             public boolean equals(final Object o) {
                 return true;
@@ -248,13 +264,10 @@ public class ArrayUtilsTest extends AbstractLangTest {
                 return 0;
             }
         }
-
         final class LANG1261ChildObject extends LANG1261ParentObject {
             // empty.
         }
-
-        final Object[] array = new LANG1261ChildObject[]{new LANG1261ChildObject()};
-
+        final Object[] array = new LANG1261ChildObject[] { new LANG1261ChildObject() };
         assertTrue(ArrayUtils.contains(array, new LANG1261ParentObject()));
     }
 
