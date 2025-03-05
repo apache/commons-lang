@@ -1710,8 +1710,8 @@ public class ArrayUtils {
      * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
      * </p>
      *
-     * @param array  the array to search
-     * @param objectToFind  the object to find
+     * @param array  the array to search, may be {@code null}.
+     * @param objectToFind  the object to find, may be {@code null}.
      * @return {@code true} if the array contains the object
      */
     public static boolean contains(final Object[] array, final Object objectToFind) {
@@ -1765,8 +1765,8 @@ public class ArrayUtils {
      * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
      * </p>
      *
-     * @param array         the array to search
-     * @param objectsToFind any of the objects to find
+     * @param array         the array to search, may be {@code null}.
+     * @param objectsToFind any of the objects to find, may be {@code null}.
      * @return {@code true} if the array contains any of the objects
      * @since 3.13.0
      */
@@ -2260,8 +2260,8 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param objectToFind  the object to find, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param objectToFind  the object to find, may be {@code null}.
      * @return a BitSet of all the indices of the object within the array,
      *  an empty BitSet if not found or {@code null} array input
      * @since 3.10
@@ -2278,8 +2278,8 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param objectToFind  the object to find, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param objectToFind  the object to find, may be {@code null}.
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the object within the array starting at the index,
      *  an empty BitSet if not found or {@code null} array input
@@ -2712,8 +2712,8 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param objectToFind  the object to find, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param objectToFind  the object to find, may be {@code null}.
      * @return the index of the object within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
      */
@@ -2731,8 +2731,8 @@ public class ArrayUtils {
      * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param objectToFind  the object to find, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param objectToFind  the object to find, may be {@code null}.
      * @param startIndex  the index to start searching at
      * @return the index of the object within the array starting at the index,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -5297,9 +5297,9 @@ public class ArrayUtils {
     /**
      * Removes multiple array elements specified by indices.
      *
-     * @param array source
-     * @param indices to remove
-     * @return new array of same type minus elements specified by the set bits in {@code indices}
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param indices to remove.
+     * @return new array of same type minus elements specified by the set bits in {@code indices}.
      * @since 3.2
      */
     // package protected for access by unit tests
@@ -5462,8 +5462,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(boolean[], boolean)}
@@ -5481,8 +5481,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(byte[], byte)}
@@ -5500,8 +5500,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(char[], char)}
@@ -5519,8 +5519,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(double[], double)}
@@ -5538,8 +5538,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(float[], float)}
@@ -5557,8 +5557,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(int[], int)}
@@ -5576,8 +5576,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(long[], long)}
@@ -5595,8 +5595,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(short[], short)}
@@ -5614,9 +5614,9 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param <T> the type of object in the array
-     * @param element the element to remove
-     * @param array the input array
+     * @param <T> the type of object in the array, may be {@code null}.
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove, may be {@code null}.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
      * @deprecated Use {@link #removeAllOccurrences(Object[], Object)}
@@ -5634,8 +5634,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5651,8 +5651,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5668,8 +5668,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5685,8 +5685,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5702,8 +5702,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5719,8 +5719,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5736,8 +5736,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5753,8 +5753,8 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param element the element to remove
-     * @param array the input array
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5770,9 +5770,9 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param <T> the type of object in the array
-     * @param element the element to remove
-     * @param array the input array
+     * @param <T> the type of object in the array, may be {@code null}.
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param element the element to remove, may be {@code null}.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
@@ -5799,8 +5799,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElement([true, false, true], true) = [false, true]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param element  the element to be removed
+     * @param array the input array, may be {@code null}.
+     * @param element  the element to be removed.
      * @return A new array containing the existing elements except the first
      *         occurrence of the specified element.
      * @since 2.1
@@ -5829,8 +5829,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElement([1, 0, 1], 1)   = [0, 1]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param element  the element to be removed
+     * @param array the input array, may be {@code null}.
+     * @param element  the element to be removed.
      * @return A new array containing the existing elements except the first
      *         occurrence of the specified element.
      * @since 2.1
@@ -5859,8 +5859,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElement(['a', 'b', 'a'], 'a') = ['b', 'a']
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param element  the element to be removed
+     * @param array the input array, may be {@code null}.
+     * @param element  the element to be removed.
      * @return A new array containing the existing elements except the first
      *         occurrence of the specified element.
      * @since 2.1
@@ -5889,8 +5889,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElement([1.1, 2.3, 1.1], 1.1) = [2.3, 1.1]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param element  the element to be removed
+     * @param array the input array, may be {@code null}.
+     * @param element  the element to be removed.
      * @return A new array containing the existing elements except the first
      *         occurrence of the specified element.
      * @since 2.1
@@ -5919,8 +5919,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElement([1.1, 2.3, 1.1], 1.1) = [2.3, 1.1]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param element  the element to be removed
+     * @param array the input array, may be {@code null}.
+     * @param element  the element to be removed.
      * @return A new array containing the existing elements except the first
      *         occurrence of the specified element.
      * @since 2.1
@@ -5949,8 +5949,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElement([1, 3, 1], 1) = [3, 1]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param element  the element to be removed
+     * @param array the input array, may be {@code null}.
+     * @param element  the element to be removed.
      * @return A new array containing the existing elements except the first
      *         occurrence of the specified element.
      * @since 2.1
@@ -5979,8 +5979,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElement([1, 3, 1], 1) = [3, 1]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param element  the element to be removed
+     * @param array the input array, may be {@code null}.
+     * @param element  the element to be removed.
      * @return A new array containing the existing elements except the first
      *         occurrence of the specified element.
      * @since 2.1
@@ -6009,8 +6009,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElement([1, 3, 1], 1) = [3, 1]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param element  the element to be removed
+     * @param array the input array, may be {@code null}.
+     * @param element  the element to be removed.
      * @return A new array containing the existing elements except the first
      *         occurrence of the specified element.
      * @since 2.1
@@ -6040,8 +6040,8 @@ public class ArrayUtils {
      * </pre>
      *
      * @param <T> the component type of the array
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param element  the element to be removed
+     * @param array the input array, may be {@code null}.
+     * @param element  the element to be removed, may be {@code null}.
      * @return A new array containing the existing elements except the first
      *         occurrence of the specified element.
      * @since 2.1
@@ -6072,8 +6072,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElements([true, false, true], true, true) = [false]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param values the elements to be removed
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param values  the values to be removed.
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -6127,8 +6127,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElements([1, 3, 1], 1, 1) = [3]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param values the elements to be removed
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param values  the values to be removed.
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -6182,8 +6182,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElements([1, 3, 1], 1, 1) = [3]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param values the elements to be removed
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param values  the values to be removed.
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -6237,8 +6237,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElements([1, 3, 1], 1, 1) = [3]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param values the elements to be removed
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param values  the values to be removed.
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -6292,8 +6292,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElements([1, 3, 1], 1, 1) = [3]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param values the elements to be removed
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param values  the values to be removed.
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -6347,8 +6347,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElements([1, 3, 1], 1, 1) = [3]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param values the elements to be removed
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param values  the values to be removed.
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -6402,8 +6402,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElements([1, 3, 1], 1, 1) = [3]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param values the elements to be removed
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param values  the values to be removed.
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -6457,8 +6457,8 @@ public class ArrayUtils {
      * ArrayUtils.removeElements([1, 3, 1], 1, 1) = [3]
      * </pre>
      *
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param values the elements to be removed
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param values  the values to be removed.
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -6513,8 +6513,8 @@ public class ArrayUtils {
      * </pre>
      *
      * @param <T> the component type of the array
-     * @param array  the array to remove the element from, may be {@code null}
-     * @param values the elements to be removed
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param values  the values to be removed.
      * @return A new array containing the existing elements except the
      *         earliest-encountered occurrences of the specified elements.
      * @since 3.0.1
@@ -6555,7 +6555,7 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to reverse, may be {@code null}
+     * @param array  the array to reverse, may be {@code null}.
      */
     public static void reverse(final boolean[] array) {
         if (array == null) {
@@ -6571,7 +6571,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array
-     *            the array to reverse, may be {@code null}
+     *            the array to reverse, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
