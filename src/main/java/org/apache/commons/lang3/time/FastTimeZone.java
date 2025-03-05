@@ -31,8 +31,17 @@ public class FastTimeZone {
 
     private static final TimeZone GREENWICH = new GmtTimeZone(false, 0, 0);
 
+    // Inject a TimeZoneFactory to allow substituting the creation of time zones
+    // during tests.
+    private static TimeZoneFactory timeZoneFactory = new DefaultTimeZoneFactory();
+
+    public static void setTimeZoneFactory(TimeZoneFactory factory) {
+        timeZoneFactory = factory;
+    }
+
     /**
      * Gets the GMT TimeZone.
+     * 
      * @return A TimeZone with a raw offset of zero.
      */
     public static TimeZone getGmtTimeZone() {
@@ -40,8 +49,10 @@ public class FastTimeZone {
     }
 
     /**
-     * Gets a TimeZone with GMT offsets.  A GMT offset must be either 'Z', or 'UTC', or match
-     * <em>(GMT)? hh?(:?mm?)?</em>, where h and m are digits representing hours and minutes.
+     * Gets a TimeZone with GMT offsets. A GMT offset must be either 'Z', or 'UTC',
+     * or match
+     * <em>(GMT)? hh?(:?mm?)?</em>, where h and m are digits representing hours and
+     * minutes.
      *
      * @param pattern The GMT offset
      * @return A TimeZone with offset from GMT or null, if pattern does not match.
@@ -58,15 +69,18 @@ public class FastTimeZone {
             if (hours == 0 && minutes == 0) {
                 return GREENWICH;
             }
-            return new GmtTimeZone(parseSign(m.group(1)), hours, minutes);
+            // Use the injected factory instead of directly instantiating GmtTimeZone.
+            return timeZoneFactory.createGmtTimeZone(parseSign(m.group(1)), hours, minutes);
         }
         return null;
     }
 
     /**
-     * Gets a TimeZone, looking first for GMT custom ids, then falling back to Olson ids.
+     * Gets a TimeZone, looking first for GMT custom ids, then falling back to Olson
+     * ids.
      * A GMT custom id can be 'Z', or 'UTC', or has an optional prefix of GMT,
-     * followed by sign, hours digit(s), optional colon(':'), and optional minutes digits.
+     * followed by sign, hours digit(s), optional colon(':'), and optional minutes
+     * digits.
      * i.e. <em>[GMT] (+|-) Hours [[:] Minutes]</em>
      *
      * @param id A GMT custom id (or Olson id
