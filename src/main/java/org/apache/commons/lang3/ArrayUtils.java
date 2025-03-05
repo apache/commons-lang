@@ -1561,7 +1561,7 @@ public class ArrayUtils {
      * The method returns {@code false} if a {@code null} array is passed in.
      * </p>
      *
-     * @param array  the array to search through
+     * @param array  the array to search
      * @param valueToFind  the value to find
      * @return {@code true} if the array contains the object
      */
@@ -1579,7 +1579,7 @@ public class ArrayUtils {
      * {@link Arrays#sort(byte[])} and {@link Arrays#binarySearch(byte[], byte)}.
      * </p>
      *
-     * @param array  the array to search through
+     * @param array  the array to search
      * @param valueToFind  the value to find
      * @return {@code true} if the array contains the object
      */
@@ -1597,7 +1597,7 @@ public class ArrayUtils {
      * {@link Arrays#sort(char[])} and {@link Arrays#binarySearch(char[], char)}.
      * </p>
      *
-     * @param array  the array to search through
+     * @param array  the array to search
      * @param valueToFind  the value to find
      * @return {@code true} if the array contains the object
      * @since 2.1
@@ -1616,7 +1616,7 @@ public class ArrayUtils {
      * {@link Arrays#sort(double[])} and {@link Arrays#binarySearch(double[], double)}.
      * </p>
      *
-     * @param array  the array to search through
+     * @param array  the array to search
      * @param valueToFind  the value to find
      * @return {@code true} if the array contains the object
      */
@@ -1656,7 +1656,7 @@ public class ArrayUtils {
      * {@link Arrays#sort(float[])} and {@link Arrays#binarySearch(float[], float)}.
      * </p>
      *
-     * @param array  the array to search through
+     * @param array  the array to search
      * @param valueToFind  the value to find
      * @return {@code true} if the array contains the object
      */
@@ -1674,7 +1674,7 @@ public class ArrayUtils {
      * {@link Arrays#sort(int[])} and {@link Arrays#binarySearch(int[], int)}.
      * </p>
      *
-     * @param array  the array to search through
+     * @param array  the array to search
      * @param valueToFind  the value to find
      * @return {@code true} if the array contains the object
      */
@@ -1692,7 +1692,7 @@ public class ArrayUtils {
      * {@link Arrays#sort(long[])} and {@link Arrays#binarySearch(long[], long)}.
      * </p>
      *
-     * @param array  the array to search through
+     * @param array  the array to search
      * @param valueToFind  the value to find
      * @return {@code true} if the array contains the object
      */
@@ -1710,7 +1710,7 @@ public class ArrayUtils {
      * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
      * </p>
      *
-     * @param array  the array to search through
+     * @param array  the array to search
      * @param objectToFind  the object to find
      * @return {@code true} if the array contains the object
      */
@@ -1728,7 +1728,7 @@ public class ArrayUtils {
      * {@link Arrays#sort(short[])} and {@link Arrays#binarySearch(short[], short)}.
      * </p>
      *
-     * @param array  the array to search through
+     * @param array  the array to search
      * @param valueToFind  the value to find
      * @return {@code true} if the array contains the object
      */
@@ -1746,7 +1746,7 @@ public class ArrayUtils {
      * {@link Arrays#sort(int[])} and {@link Arrays#binarySearch(int[], int)}.
      * </p>
      *
-     * @param array         the array to search through
+     * @param array         the array to search
      * @param objectsToFind any of the ints to find
      * @return {@code true} if the array contains any of the ints
      * @since 3.18.0
@@ -1765,7 +1765,7 @@ public class ArrayUtils {
      * {@link Arrays#sort(Object[], Comparator)} and {@link Arrays#binarySearch(Object[], Object)}.
      * </p>
      *
-     * @param array         the array to search through
+     * @param array         the array to search
      * @param objectsToFind any of the objects to find
      * @return {@code true} if the array contains any of the objects
      * @since 3.13.0
@@ -1875,7 +1875,7 @@ public class ArrayUtils {
      * This method returns an empty BitSet for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
@@ -1895,7 +1895,7 @@ public class ArrayUtils {
      * length will return an empty BitSet ({@code -1}).
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
@@ -1924,7 +1924,7 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
@@ -1942,7 +1942,7 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
@@ -1971,7 +1971,7 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
@@ -1989,7 +1989,7 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
@@ -2017,7 +2017,7 @@ public class ArrayUtils {
      *
      * <p>This method returns empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
@@ -2037,7 +2037,7 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param tolerance tolerance of the search
      * @return a BitSet of all the indices of the value within the array,
@@ -2056,7 +2056,7 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return a BitSet of the indices of the value within the array,
@@ -2092,7 +2092,7 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @param tolerance tolerance of the search
@@ -2121,7 +2121,7 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
@@ -2139,7 +2139,7 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return empty BitSet.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
@@ -2167,7 +2167,7 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
@@ -2185,7 +2185,7 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
@@ -2214,7 +2214,7 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
@@ -2232,7 +2232,7 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
@@ -2260,7 +2260,7 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param objectToFind  the object to find, may be {@code null}
      * @return a BitSet of all the indices of the object within the array,
      *  an empty BitSet if not found or {@code null} array input
@@ -2278,7 +2278,7 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param objectToFind  the object to find, may be {@code null}
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the object within the array starting at the index,
@@ -2306,7 +2306,7 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return a BitSet of all the indices of the value within the array,
      *  an empty BitSet if not found or {@code null} array input
@@ -2324,7 +2324,7 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return a BitSet of all the indices of the value within the array,
@@ -2353,7 +2353,7 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -2372,7 +2372,7 @@ public class ArrayUtils {
      * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
@@ -2397,7 +2397,7 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -2416,7 +2416,7 @@ public class ArrayUtils {
      * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
@@ -2440,7 +2440,7 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -2460,7 +2460,7 @@ public class ArrayUtils {
      * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
@@ -2485,7 +2485,7 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -2502,7 +2502,7 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param tolerance tolerance of the search
      * @return the index of the value within the array,
@@ -2522,7 +2522,7 @@ public class ArrayUtils {
      * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
@@ -2554,7 +2554,7 @@ public class ArrayUtils {
      * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @param tolerance tolerance of the search
@@ -2581,7 +2581,7 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -2600,7 +2600,7 @@ public class ArrayUtils {
      * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
@@ -2626,7 +2626,7 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -2645,7 +2645,7 @@ public class ArrayUtils {
      * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
@@ -2669,7 +2669,7 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array the array to search through for the object, may be {@code null}
+     * @param array the array to search for the object, may be {@code null}
      * @param valueToFind the value to find
      * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null}
      *         array input
@@ -2688,7 +2688,7 @@ public class ArrayUtils {
      * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
@@ -2712,7 +2712,7 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param objectToFind  the object to find, may be {@code null}
      * @return the index of the object within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -2731,7 +2731,7 @@ public class ArrayUtils {
      * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param objectToFind  the object to find, may be {@code null}
      * @param startIndex  the index to start searching at
      * @return the index of the object within the array starting at the index,
@@ -2764,7 +2764,7 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
      *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
@@ -2783,7 +2783,7 @@ public class ArrayUtils {
      * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
@@ -3960,7 +3960,7 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search through for the object, may be {@code null}
+     * @param array  the array to search for the object, may be {@code null}
      * @param valueToFind  the value to find
      * @param tolerance tolerance of the search
      * @return the index of the value within the array,
