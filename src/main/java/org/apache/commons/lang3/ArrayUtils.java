@@ -8985,8 +8985,7 @@ public class ArrayUtils {
         if (array.length == 0) {
             return EMPTY_BOOLEAN_OBJECT_ARRAY;
         }
-        final Boolean[] result = new Boolean[array.length];
-        return setAll(result, i -> array[i] ? Boolean.TRUE : Boolean.FALSE);
+        return setAll(new Boolean[array.length], i -> array[i] ? Boolean.TRUE : Boolean.FALSE);
     }
 
     /**
