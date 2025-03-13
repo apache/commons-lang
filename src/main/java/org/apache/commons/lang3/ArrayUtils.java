@@ -1848,7 +1848,7 @@ public class ArrayUtils {
      * ArrayUtils.getLength(["a", "b", "c"]) = 3
      * </pre>
      *
-     * @param array  the array to retrieve the length from, may be null
+     * @param array  the array to retrieve the length from, may be {@code null}.
      * @return The length of the array, or {@code 0} if the array is {@code null}
      * @throws IllegalArgumentException if the object argument is not an array.
      * @since 2.1
@@ -3193,7 +3193,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param <T> the component type of the array
-     * @param array the array to inspect, may be null
+     * @param array the array to inspect, may be {@code null}.
      * @param index the index of the array to be inspected
      * @return Whether the given index is safely-accessible in the given array
      * @since 3.8
@@ -6746,7 +6746,7 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to reverse, may be {@code null}
+     * @param array  the array to reverse, may be {@code null}.
      */
     public static void reverse(final float[] array) {
         if (array != null) {
@@ -6761,7 +6761,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array
-     *            the array to reverse, may be {@code null}
+     *            the array to reverse, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -6792,7 +6792,7 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to reverse, may be {@code null}
+     * @param array  the array to reverse, may be {@code null}.
      */
     public static void reverse(final int[] array) {
         if (array != null) {
@@ -6807,7 +6807,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array
-     *            the array to reverse, may be {@code null}
+     *            the array to reverse, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -6838,7 +6838,7 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to reverse, may be {@code null}
+     * @param array  the array to reverse, may be {@code null}.
      */
     public static void reverse(final long[] array) {
         if (array != null) {
@@ -6853,7 +6853,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array
-     *            the array to reverse, may be {@code null}
+     *            the array to reverse, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -6887,7 +6887,7 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to reverse, may be {@code null}
+     * @param array  the array to reverse, may be {@code null}.
      */
     public static void reverse(final Object[] array) {
         if (array != null) {
@@ -6902,7 +6902,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array
-     *            the array to reverse, may be {@code null}
+     *            the array to reverse, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Under value (&lt;0) is promoted to 0, over value (&gt;array.length) results in no
      *            change.
@@ -6933,7 +6933,7 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to reverse, may be {@code null}
+     * @param array  the array to reverse, may be {@code null}.
      */
     public static void reverse(final short[] array) {
         if (array != null) {
@@ -6948,7 +6948,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array
-     *            the array to reverse, may be {@code null}
+     *            the array to reverse, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -6980,8 +6980,8 @@ public class ArrayUtils {
      * state.
      * </p>
      *
-     * @param <T> type of elements of the array.
-     * @param array array to be initialized.
+     * @param <T> type of elements of the array, may be {@code null}.
+     * @param array array to be initialized, may be {@code null}.
      * @param generator a function accepting an index and producing the desired value for that position.
      * @return the input array
      * @since 3.13.0
@@ -7000,8 +7000,8 @@ public class ArrayUtils {
      * state.
      * </p>
      *
-     * @param <T> type of elements of the array.
-     * @param array array to be initialized.
+     * @param <T> type of elements of the array, may be {@code null}.
+     * @param array array to be initialized, may be {@code null}.
      * @param generator a function accepting an index and producing the desired value for that position.
      * @return the input array
      * @since 3.13.0
@@ -7021,7 +7021,7 @@ public class ArrayUtils {
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for {@code null} or empty input arrays.</p>
      *
-     * @param array  the array to shift, may be {@code null}
+     * @param array  the array to shift, may be {@code null}.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
@@ -7040,7 +7040,7 @@ public class ArrayUtils {
      * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array
-     *            the array to shift, may be {@code null}
+     *            the array to shift, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -7091,7 +7091,7 @@ public class ArrayUtils {
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for {@code null} or empty input arrays.</p>
      *
-     * @param array  the array to shift, may be {@code null}
+     * @param array  the array to shift, may be {@code null}.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
@@ -7110,7 +7110,7 @@ public class ArrayUtils {
      * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array
-     *            the array to shift, may be {@code null}
+     *            the array to shift, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -7161,7 +7161,7 @@ public class ArrayUtils {
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for {@code null} or empty input arrays.</p>
      *
-     * @param array  the array to shift, may be {@code null}
+     * @param array  the array to shift, may be {@code null}.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
@@ -7180,7 +7180,7 @@ public class ArrayUtils {
      * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array
-     *            the array to shift, may be {@code null}
+     *            the array to shift, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -7231,7 +7231,7 @@ public class ArrayUtils {
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for {@code null} or empty input arrays.</p>
      *
-     * @param array  the array to shift, may be {@code null}
+     * @param array  the array to shift, may be {@code null}.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
@@ -7250,7 +7250,7 @@ public class ArrayUtils {
      * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array
-     *            the array to shift, may be {@code null}
+     *            the array to shift, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -7301,7 +7301,7 @@ public class ArrayUtils {
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for {@code null} or empty input arrays.</p>
      *
-     * @param array  the array to shift, may be {@code null}
+     * @param array  the array to shift, may be {@code null}.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
@@ -7320,7 +7320,7 @@ public class ArrayUtils {
      * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array
-     *            the array to shift, may be {@code null}
+     *            the array to shift, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -7371,7 +7371,7 @@ public class ArrayUtils {
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for {@code null} or empty input arrays.</p>
      *
-     * @param array  the array to shift, may be {@code null}
+     * @param array  the array to shift, may be {@code null}.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
@@ -7390,7 +7390,7 @@ public class ArrayUtils {
      * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array
-     *            the array to shift, may be {@code null}
+     *            the array to shift, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -7441,7 +7441,7 @@ public class ArrayUtils {
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for {@code null} or empty input arrays.</p>
      *
-     * @param array  the array to shift, may be {@code null}
+     * @param array  the array to shift, may be {@code null}.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
@@ -7460,7 +7460,7 @@ public class ArrayUtils {
      * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array
-     *            the array to shift, may be {@code null}
+     *            the array to shift, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -7511,7 +7511,7 @@ public class ArrayUtils {
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for {@code null} or empty input arrays.</p>
      *
-     * @param array  the array to shift, may be {@code null}
+     * @param array  the array to shift, may be {@code null}.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
@@ -7530,7 +7530,7 @@ public class ArrayUtils {
      * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array
-     *            the array to shift, may be {@code null}
+     *            the array to shift, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -7581,7 +7581,7 @@ public class ArrayUtils {
      * <p>There is no special handling for multi-dimensional arrays. This method
      * does nothing for {@code null} or empty input arrays.</p>
      *
-     * @param array  the array to shift, may be {@code null}
+     * @param array  the array to shift, may be {@code null}.
      * @param offset
      *          The number of positions to rotate the elements.  If the offset is larger than the number of elements to
      *          rotate, than the effective offset is modulo the number of elements to rotate.
@@ -7600,7 +7600,7 @@ public class ArrayUtils {
      * does nothing for {@code null} or empty input arrays.</p>
      *
      * @param array
-     *            the array to shift, may be {@code null}
+     *            the array to shift, may be {@code null}.
      * @param startIndexInclusive
      *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
      *            change.
@@ -8318,7 +8318,7 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      * </ul>
      *
-     * @param array  the array to swap, may be {@code null}
+     * @param array  the array to swap, may be {@code null}.
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
      * @since 3.5
@@ -8345,7 +8345,7 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([true, false, true, false], 0, 3, 3) -&gt; [false, false, true, true]</li>
      * </ul>
      *
-     * @param array the array to swap, may be {@code null}
+     * @param array the array to swap, may be {@code null}.
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
@@ -8381,7 +8381,7 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      * </ul>
      *
-     * @param array  the array to swap, may be {@code null}
+     * @param array  the array to swap, may be {@code null}.
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
      * @since 3.5
@@ -8408,7 +8408,7 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      * </ul>
      *
-     * @param array the array to swap, may be {@code null}
+     * @param array the array to swap, may be {@code null}.
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
@@ -8444,7 +8444,7 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      * </ul>
      *
-     * @param array  the array to swap, may be {@code null}
+     * @param array  the array to swap, may be {@code null}.
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
      * @since 3.5
@@ -8471,7 +8471,7 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      * </ul>
      *
-     * @param array the array to swap, may be {@code null}
+     * @param array the array to swap, may be {@code null}.
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
@@ -8507,7 +8507,7 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      * </ul>
      *
-     * @param array  the array to swap, may be {@code null}
+     * @param array  the array to swap, may be {@code null}.
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
      * @since 3.5
@@ -8534,7 +8534,7 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      * </ul>
      *
-     * @param array the array to swap, may be {@code null}
+     * @param array the array to swap, may be {@code null}.
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
@@ -8570,7 +8570,7 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      * </ul>
      *
-     * @param array  the array to swap, may be {@code null}
+     * @param array  the array to swap, may be {@code null}.
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
      * @since 3.5
@@ -8597,7 +8597,7 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      * </ul>
      *
-     * @param array the array to swap, may be {@code null}
+     * @param array the array to swap, may be {@code null}.
      * @param offset1 the index of the first element in the series to swap
      * @param offset2 the index of the second element in the series to swap
      * @param len the number of elements to swap starting with the given indices
@@ -9585,7 +9585,7 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array the {@code Object[]} to be processed, may be null
+     * @param array the {@code Object[]} to be processed, may be {@code null}.
      * @return {@code String[]} of the same size as the source with its element's string representation,
      * {@code null} if null array input
      * @since 3.6
@@ -9601,7 +9601,7 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array the Object[] to be processed, may be null
+     * @param array the Object[] to be processed, may be {@code null}.
      * @param valueForNullElements the value to insert if {@code null} is found
      * @return a {@link String} array, {@code null} if null array input
      * @since 3.6
