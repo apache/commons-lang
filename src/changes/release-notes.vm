@@ -50,7 +50,7 @@ For advice on upgrading from 2.x to 3.x, see:
 $introduction.replaceAll("(?<!\015)\012", "
 ").replaceAll("(?m)^ +","")
 
-## N.B. the available variables are described here:
+## The available variables are described here:
 ## https://maven.apache.org/plugins/maven-changes-plugin/examples/using-a-custom-announcement-template.html
 ##
 ## Hack to improve layout: replace all pairs of spaces with a single new-line
