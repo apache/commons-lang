@@ -707,7 +707,7 @@ public class BooleanUtils {
      * if unboxed to a {@code boolean}.</p>
      *
      * <pre>
-     *   // N.B. case is not significant
+     *   // Case is not significant
      *   BooleanUtils.toBooleanObject(null)    = null
      *   BooleanUtils.toBooleanObject("true")  = Boolean.TRUE
      *   BooleanUtils.toBooleanObject("T")     = Boolean.TRUE // i.e. T[RUE]

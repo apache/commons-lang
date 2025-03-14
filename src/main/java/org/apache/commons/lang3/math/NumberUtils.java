@@ -250,7 +250,7 @@ public class NumberUtils {
      * Creates an {@link Integer} from a {@link String}.
      *
      * Handles hexadecimal (0xhhhh) and octal (0dddd) notations.
-     * N.B. a leading zero means octal; spaces are not trimmed.
+     * A leading zero means octal; spaces are not trimmed.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *
@@ -270,7 +270,7 @@ public class NumberUtils {
      * Creates a {@link Long} from a {@link String}.
      *
      * Handles hexadecimal (0Xhhhh) and octal (0ddd) notations.
-     * N.B. a leading zero means octal; spaces are not trimmed.
+     * A leading zero means octal; spaces are not trimmed.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>
      *

@@ -126,7 +126,7 @@
        The above seems to change the download page name but not any other
        properties that depend on the componentid.
 
-       N.B. The componentid is also used by the parent pom as part of the OSGI symbolic name.
+       The componentid is also used by the parent pom as part of the OSGI symbolic name.
     -->
     <commons.componentid>lang</commons.componentid>
     <commons.packageId>lang3</commons.packageId>
