@@ -580,7 +580,7 @@ public class ObjectUtils {
      * @param object  the {@link Object} to test, may be {@code null}
      * @param defaultValue  the default value to return, may be {@code null}
      * @return {@code object} if it is not {@code null}, defaultValue otherwise
-     * TODO Rename to getIfNull in 4.0
+     * @deprecated use {@link ObjectUtils#getIfNull(Object, Object)}
      */
     public static <T> T defaultIfNull(final T object, final T defaultValue) {
         return object != null ? object : defaultValue;
@@ -638,6 +638,35 @@ public class ObjectUtils {
     @SafeVarargs
     public static <T> T firstNonNull(final T... values) {
         return Streams.of(values).filter(Objects::nonNull).findFirst().orElse(null);
+    }
+
+    /**
+     * Returns the first non-null value in the collection. If all values are {@code null},
+     * or if the collection is {@code null} or empty, {@code null} is returned.
+     *
+     * <p>Examples:
+     * <pre>
+     * ObjectUtils.firstNonNull(Arrays.asList(null, null))      = null
+     * ObjectUtils.firstNonNull(Arrays.asList(null, ""))        = ""
+     * ObjectUtils.firstNonNull(Arrays.asList(null, null, ""))  = ""
+     * ObjectUtils.firstNonNull(Arrays.asList(null, "zz"))      = "zz"
+     * ObjectUtils.firstNonNull(Arrays.asList("abc", *))        = "abc"
+     * ObjectUtils.firstNonNull(Arrays.asList(null, "xyz", *))  = "xyz"
+     * ObjectUtils.firstNonNull(Arrays.asList(Boolean.TRUE, *)) = Boolean.TRUE
+     * ObjectUtils.firstNonNull(Collections.emptyList())        = null
+     * ObjectUtils.firstNonNull(null)                           = null
+     * </pre>
+     *
+     * @param <T> the type of elements in the collection
+     * @param values the collection to test, may be {@code null} or empty
+     * @return the first non-null value in the collection, or {@code null} if no non-null value is found
+     * @since 3.18.0
+     */
+    public static <T> T firstNonNull(final Collection<T> values) {
+        if (Objects.isNull(values) || values.isEmpty()) {
+            return null;
+        }
+        return values.stream().filter(Objects::nonNull).findFirst().orElse(null);
     }
 
     /**
@@ -706,7 +735,27 @@ public class ObjectUtils {
      * @since 3.10
      */
     public static <T> T getIfNull(final T object, final Supplier<T> defaultSupplier) {
-        return object != null ? object : Suppliers.get(defaultSupplier);
+        return Objects.nonNull(object) ? object : Suppliers.get(defaultSupplier);
+    }
+
+    /**
+     * Returns a default value if the object passed is {@code null}.
+     *
+     * <pre>
+     * ObjectUtils.getIfNull(null, null)      = null
+     * ObjectUtils.getIfNull(null, "")        = ""
+     * ObjectUtils.getIfNull(null, "zz")      = "zz"
+     * ObjectUtils.getIfNull("abc", *)        = "abc"
+     * ObjectUtils.getIfNull(Boolean.TRUE, *) = Boolean.TRUE
+     * </pre>
+     *
+     * @param <T> the type of the object
+     * @param object  the {@link Object} to test, may be {@code null}
+     * @param defaultValue  the default value to return, may be {@code null}
+     * @return {@code object} if it is not {@code null}, defaultValue otherwise
+     */
+    public static <T> T getIfNull(final T object, final T defaultValue) {
+        return Objects.nonNull(object) ? object : defaultValue;
     }
 
     /**
@@ -965,7 +1014,7 @@ public class ObjectUtils {
      * @since 3.13.0
      */
     public static boolean isArray(final Object object) {
-        return object != null && object.getClass().isArray();
+        return Objects.nonNull(object) && object.getClass().isArray();
     }
 
     /**
@@ -1382,7 +1431,7 @@ public class ObjectUtils {
     /**
      * {@link ObjectUtils} instances should NOT be constructed in
      * standard programming. Instead, the static methods on the class should
-     * be used, such as {@code ObjectUtils.defaultIfNull("a","b");}.
+     * be used, such as {@code ObjectUtils.getIfNull("a","b");}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>

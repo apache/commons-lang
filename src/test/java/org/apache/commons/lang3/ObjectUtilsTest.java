@@ -423,12 +423,36 @@ public class ObjectUtilsTest extends AbstractLangTest {
         assertFalse(Modifier.isFinal(ObjectUtils.class.getModifiers()));
     }
 
+    /**
+     * @deprecated
+     */
     @Test
     public void testDefaultIfNull() {
         final Object o = FOO;
         final Object dflt = BAR;
         assertSame(dflt, ObjectUtils.defaultIfNull(null, dflt), "dflt was not returned when o was null");
         assertSame(o, ObjectUtils.defaultIfNull(o, dflt), "dflt was returned when o was not null");
+        assertSame(dflt, ObjectUtils.getIfNull(null, () -> dflt), "dflt was not returned when o was null");
+        assertSame(o, ObjectUtils.getIfNull(o, () -> dflt), "dflt was returned when o was not null");
+        assertSame(o, ObjectUtils.getIfNull(FOO, () -> dflt), "dflt was returned when o was not null");
+        assertSame(o, ObjectUtils.getIfNull("foo", () -> dflt), "dflt was returned when o was not null");
+        final MutableInt callsCounter = new MutableInt(0);
+        final Supplier<Object> countingDefaultSupplier = () -> {
+            callsCounter.increment();
+            return dflt;
+        };
+        ObjectUtils.getIfNull(o, countingDefaultSupplier);
+        assertEquals(0, callsCounter.getValue());
+        ObjectUtils.getIfNull(null, countingDefaultSupplier);
+        assertEquals(1, callsCounter.getValue());
+    }
+
+    @Test
+    public void testGetIfNull() {
+        final Object o = FOO;
+        final Object dflt = BAR;
+        assertSame(dflt, ObjectUtils.getIfNull(null, dflt), "dflt was not returned when o was null");
+        assertSame(o, ObjectUtils.getIfNull(o, dflt), "dflt was returned when o was not null");
         assertSame(dflt, ObjectUtils.getIfNull(null, () -> dflt), "dflt was not returned when o was null");
         assertSame(o, ObjectUtils.getIfNull(o, () -> dflt), "dflt was returned when o was not null");
         assertSame(o, ObjectUtils.getIfNull(FOO, () -> dflt), "dflt was returned when o was not null");
@@ -454,7 +478,7 @@ public class ObjectUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFirstNonNull() {
+    public void testFirstNonNullArray() {
         assertEquals("", ObjectUtils.firstNonNull(null, ""));
         final String firstNonNullGenerics = ObjectUtils.firstNonNull(null, null, "123", "456");
         assertEquals("123", firstNonNullGenerics);
@@ -469,6 +493,21 @@ public class ObjectUtilsTest extends AbstractLangTest {
 
         assertNull(ObjectUtils.firstNonNull((Object) null));
         assertNull(ObjectUtils.firstNonNull((Object[]) null));
+    }
+
+    @Test
+    void testFirstNonNullCollection() {
+        // Test with a collection containing nulls and non-null values
+        assertEquals("123", ObjectUtils.firstNonNull(Arrays.asList(null, null, "123", "456")));
+        assertEquals("", ObjectUtils.firstNonNull(Collections.singletonList("")));
+        assertEquals("123", ObjectUtils.firstNonNull(Arrays.asList("123", null, "456", null)));
+        assertSame(Boolean.TRUE, ObjectUtils.firstNonNull(Collections.singletonList(Boolean.TRUE)));
+
+        // Test with an empty collection (should return null)
+        assertNull(ObjectUtils.firstNonNull(Collections.emptyList()));
+
+        // Test with a collection containing only nulls (should return null)
+        assertNull(ObjectUtils.firstNonNull(Arrays.asList(null, null)));
     }
 
     @Test
