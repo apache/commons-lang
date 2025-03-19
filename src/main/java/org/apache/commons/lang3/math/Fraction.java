@@ -703,7 +703,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     public int hashCode() {
         if (hashCode == 0) {
             // hash code update should be atomic.
-            hashCode = 37 * (37 * 17 + getNumerator()) + getDenominator();
+            hashCode = Objects.hash(denominator, numerator);
         }
         return hashCode;
     }

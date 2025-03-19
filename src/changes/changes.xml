@@ -81,7 +81,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Don't call TypeUtils.toString(Type) on every array item in TypeUtils.parameterize[WithOwner](Type, Class, Map, Type>) unless required.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Remove -nouses directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Instead of throwing a NullPointerException, ArrayUtils.toStringArray(Object[]) should return "null" for null elements like ArrayUtils.toStringArray(Object[], String) returns its valueForNullElements.</action>
-    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumericEntityUnescaper.OPTION in favor of Apache Commons Text.</action>
+    <action issue="LANG-1764" type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumericEntityUnescaper.OPTION in favor of Apache Commons Text.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Several hash collisions in Fraction class.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>

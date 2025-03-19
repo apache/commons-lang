@@ -26,6 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 /**
  * Test cases for the {@link Fraction} class
@@ -616,17 +618,29 @@ public class FractionTest extends AbstractLangTest {
         assertTrue(f1.hashCode() != f2.hashCode());
         f2 = Fraction.getFraction(6, 10);
         assertTrue(f1.hashCode() != f2.hashCode());
-        // Use cases from https://issues.apache.org/jira/browse/LANG-1764
-        assertNotEquals(Fraction.getFraction(0, 37), Fraction.getFraction(-464320789, 46));
-        assertNotEquals(Fraction.getFraction(0, 37), Fraction.getFraction(-464320788, 9));
-        assertNotEquals(Fraction.getFraction(0, 37), Fraction.getFraction(1857283155, 38));
-        assertNotEquals(Fraction.getFraction(0, 25185704), Fraction.getFraction(1161454280, 1050304));
-        assertNotEquals(Fraction.getFraction(0, 38817068), Fraction.getFraction(1509581512, 18875972));
-        assertNotEquals(Fraction.getFraction(0, 38817068), Fraction.getFraction(-2146369536, 2145078572));
-        assertNotEquals(Fraction.getFraction(1400217380, 128), Fraction.getFraction(2092630052, 150535040));
-        assertNotEquals(Fraction.getFraction(1400217380, 128), Fraction.getFraction(-580400986, 268435638));
-        assertNotEquals(Fraction.getFraction(1400217380, 2147483592), Fraction.getFraction(-2147483648, 268435452));
-        assertNotEquals(Fraction.getFraction(1756395909, 4194598), Fraction.getFraction(1174949894, 42860673));
+    }
+
+    /**
+     * Tests https://issues.apache.org/jira/browse/LANG-1764
+     */
+    @ParameterizedTest
+    // @formatter:off
+    @CsvSource({
+        "0, 37, -464320789, 46",
+        "0, 37, -464320788, 9",
+        "0, 37, 1857283155, 38",
+        "0, 25185704, 1161454280, 1050304",
+        "0, 38817068, 1509581512, 18875972",
+        "0, 38817068, -2146369536, 2145078572",
+        "1400217380, 128, 2092630052, 150535040",
+        "1400217380, 128, -580400986, 268435638",
+        "1400217380, 2147483592, -2147483648, 268435452",
+        "1756395909, 4194598, 1174949894, 42860673"
+    })
+    // @formatter:on
+    public void testHashCodeNotEquals(int f1n, int f1d, int f2n, int f2d) {
+        assertNotEquals(Fraction.getFraction(f1n, f1d), Fraction.getFraction(f2n, f2d));
+        assertNotEquals(Fraction.getFraction(f1n, f1d).hashCode(), Fraction.getFraction(f2n, f2d).hashCode());
     }
 
     @Test
