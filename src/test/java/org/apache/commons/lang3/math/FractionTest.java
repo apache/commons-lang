@@ -611,14 +611,22 @@ public class FractionTest extends AbstractLangTest {
     public void testHashCode() {
         final Fraction f1 = Fraction.getFraction(3, 5);
         Fraction f2 = Fraction.getFraction(3, 5);
-
         assertEquals(f1.hashCode(), f2.hashCode());
-
         f2 = Fraction.getFraction(2, 5);
         assertTrue(f1.hashCode() != f2.hashCode());
-
         f2 = Fraction.getFraction(6, 10);
         assertTrue(f1.hashCode() != f2.hashCode());
+        // Use cases from https://issues.apache.org/jira/browse/LANG-1764
+        assertNotEquals(Fraction.getFraction(0, 37), Fraction.getFraction(-464320789, 46));
+        assertNotEquals(Fraction.getFraction(0, 37), Fraction.getFraction(-464320788, 9));
+        assertNotEquals(Fraction.getFraction(0, 37), Fraction.getFraction(1857283155, 38));
+        assertNotEquals(Fraction.getFraction(0, 25185704), Fraction.getFraction(1161454280, 1050304));
+        assertNotEquals(Fraction.getFraction(0, 38817068), Fraction.getFraction(1509581512, 18875972));
+        assertNotEquals(Fraction.getFraction(0, 38817068), Fraction.getFraction(-2146369536, 2145078572));
+        assertNotEquals(Fraction.getFraction(1400217380, 128), Fraction.getFraction(2092630052, 150535040));
+        assertNotEquals(Fraction.getFraction(1400217380, 128), Fraction.getFraction(-580400986, 268435638));
+        assertNotEquals(Fraction.getFraction(1400217380, 2147483592), Fraction.getFraction(-2147483648, 268435452));
+        assertNotEquals(Fraction.getFraction(1756395909, 4194598), Fraction.getFraction(1174949894, 42860673));
     }
 
     @Test
