@@ -43,6 +43,7 @@ import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.compare.ObjectToStringComparator;
 import org.apache.commons.lang3.reflect.testbed.Ambig;
 import org.apache.commons.lang3.reflect.testbed.Annotated;
+import org.apache.commons.lang3.reflect.testbed.AnotherParent;
 import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.PrivatelyShadowedChild;
 import org.apache.commons.lang3.reflect.testbed.PublicChild;
@@ -451,6 +452,7 @@ public class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     public void testReadDeclaredNamedStaticField() throws Exception {
+        assertThrows(NullPointerException.class, () -> FieldUtils.readDeclaredStaticField(AnotherParent.class, "doesNotExist"));
         assertEquals(Foo.VALUE, FieldUtils.readDeclaredStaticField(Foo.class, "VALUE"));
         assertThrows(
                 NullPointerException.class, () ->
