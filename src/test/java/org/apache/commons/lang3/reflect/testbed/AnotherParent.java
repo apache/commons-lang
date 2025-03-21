@@ -17,6 +17,8 @@
 package org.apache.commons.lang3.reflect.testbed;
 
 /**
+ * An empty public class.
  */
 public class AnotherParent {
+    // keep empty.
 }
