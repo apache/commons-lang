@@ -62,8 +62,8 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * {@link LazyInitializer} is more appropriate.
  * </p>
  *
- * @since 3.0
  * @param <T> the type of the object managed by this initializer class
+ * @since 3.0
  */
 public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, ConcurrentException> {
 

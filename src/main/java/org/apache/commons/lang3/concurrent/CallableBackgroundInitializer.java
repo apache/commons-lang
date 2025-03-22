@@ -61,8 +61,8 @@ import java.util.concurrent.ExecutorService;
  * }
  * </pre>
  *
- * @since 3.0
  * @param <T> the type of the object managed by this initializer class
+ * @since 3.0
  */
 public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
     /** The Callable to be executed. */

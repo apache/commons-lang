@@ -1203,9 +1203,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Formats a {@link Date}, {@link Calendar} or
      * {@link Long} (milliseconds) object.
-     * @since 3.5
      * @param obj  the object to format
      * @return The formatted value.
+     * @since 3.5
      */
     String format(final Object obj) {
         if (obj instanceof Date) {

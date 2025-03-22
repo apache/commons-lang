@@ -33,8 +33,8 @@ import java.util.Objects;
  * {@link ConcurrentInitializer}.
  * </p>
  *
- * @since 3.0
  * @param <T> the type of the object managed by this initializer
+ * @since 3.0
  */
 public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
 
