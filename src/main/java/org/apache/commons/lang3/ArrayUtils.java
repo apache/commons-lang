@@ -1410,8 +1410,9 @@ public class ArrayUtils {
      * @throws NullPointerException      if either {@code src} or {@code dest} is {@code null}.
      * @since 3.15.0
      */
-    public static <T> T arraycopy(final T source, final int sourcePos, final int destPos, final int length, final Supplier<T> allocator) {
-        return arraycopy(source, sourcePos, allocator.get(), destPos, length);
+    public static <T> T arraycopy(final T source, final int sourcePos, final int destPos, final int length, final Supplier<T> destinationAllocator) {
+        T destinationArray = destinationAllocator.get(); // Allocate destination array with required size
+        return arraycopy(source, sourcePos, destinationArray, destPos, length);
     }
 
     /**
