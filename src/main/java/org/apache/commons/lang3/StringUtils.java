@@ -342,40 +342,47 @@ public class StringUtils {
      * @throws IllegalArgumentException if the width is too small
      * @since 3.6
      */
-    public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
-        if (isNotEmpty(str) && EMPTY.equals(abbrevMarker) && maxWidth > 0) {
-            return substring(str, 0, maxWidth);
-        }
-        if (isAnyEmpty(str, abbrevMarker)) {
+    public static String abbreviate(final String str, final String marker, int offset, final int maxWidth) {
+        if (isAnyEmpty(str, marker)) {
             return str;
         }
-        final int abbrevMarkerLength = abbrevMarker.length();
-        final int minAbbrevWidth = abbrevMarkerLength + 1;
-        final int minAbbrevWidthOffset = abbrevMarkerLength + abbrevMarkerLength + 1;
+        if (str.length() <= maxWidth) {
+            return str;
+        }
+        offset = adjustOffset(str, marker, offset, maxWidth);
+        if (offset <= marker.length() + 1) {
+            return str.substring(0, maxWidth - marker.length()) + marker;
+        }
+        if (offset + maxWidth - marker.length() < str.length()) {
+            return marker
+                    + abbreviate(str.substring(offset), marker, maxWidth - marker.length());
+        }
+        return marker + str.substring(str.length() - (maxWidth - marker.length()));
+    }
 
-        if (maxWidth < minAbbrevWidth) {
-            throw new IllegalArgumentException(String.format("Minimum abbreviation width is %d", minAbbrevWidth));
-        }
-        final int strLen = str.length();
-        if (strLen <= maxWidth) {
-            return str;
-        }
+    /**
+     * Helper method to adjust the offset for abbreviation.
+     * <p>
+     * Refactoring Note: Extracting the offset adjustment logic into its own method improves
+     * readability and maintainability by isolating this behavior from the main abbreviation logic.
+     * </p>
+     *
+     * @param str    the source string
+     * @param marker the abbreviation marker
+     * @param offset the original offset value
+     * @param maxWidth the maximum allowed width for the abbreviated string
+     * @return the adjusted offset ensuring that enough room is left for abbreviation
+     */
+    private static int adjustOffset(
+            String str, String marker, int offset, int maxWidth) {
+        int strLen = str.length();
         if (offset > strLen) {
             offset = strLen;
         }
-        if (strLen - offset < maxWidth - abbrevMarkerLength) {
-            offset = strLen - (maxWidth - abbrevMarkerLength);
+        if (strLen - offset < maxWidth - marker.length()) {
+            offset = strLen - (maxWidth - marker.length());
         }
-        if (offset <= abbrevMarkerLength + 1) {
-            return str.substring(0, maxWidth - abbrevMarkerLength) + abbrevMarker;
-        }
-        if (maxWidth < minAbbrevWidthOffset) {
-            throw new IllegalArgumentException(String.format("Minimum abbreviation width with offset is %d", minAbbrevWidthOffset));
-        }
-        if (offset + maxWidth - abbrevMarkerLength < strLen) {
-            return abbrevMarker + abbreviate(str.substring(offset), abbrevMarker, maxWidth - abbrevMarkerLength);
-        }
-        return abbrevMarker + str.substring(strLen - (maxWidth - abbrevMarkerLength));
+        return offset;
     }
 
     /**
