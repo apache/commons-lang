@@ -485,7 +485,7 @@ public class Range<T> implements Serializable {
     }
 
     /**
-     * Whether or not the Range is using the natural ordering of the elements.
+     * Tests whether or not the Range is using the natural ordering of the elements.
      *
      * <p>Natural ordering uses an internal comparator implementation, thus this
      * method is the only way to check if a null comparator was specified.</p>
@@ -497,7 +497,7 @@ public class Range<T> implements Serializable {
     }
 
     /**
-     * Checks whether this range is overlapped by the specified range.
+     * Tests whether this range is overlapped by the specified range.
      *
      * <p>Two ranges overlap if there is at least one element in common.</p>
      *
@@ -518,7 +518,7 @@ public class Range<T> implements Serializable {
     }
 
     /**
-     * Checks whether this range starts with the specified element.
+     * Tests whether this range starts with the specified element.
      *
      * @param element  the element to check for, null returns false
      * @return true if the specified element occurs within this range

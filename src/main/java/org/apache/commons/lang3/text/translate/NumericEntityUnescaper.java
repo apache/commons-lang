@@ -89,7 +89,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
     }
 
     /**
-     * Whether the passed in option is currently set.
+     * Tests whether the passed in option is currently set.
      *
      * @param option to check state of
      * @return whether the option is set
