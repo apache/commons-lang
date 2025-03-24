@@ -68,7 +68,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * Constructs a new MutableLong parsing the given string.
      *
      * @param value  the string to parse, not null
-     * @throws NumberFormatException if the string cannot be parsed into a long
+     * @throws NumberFormatException if the string cannot be parsed into a long, see {@link Long#parseLong(String)}.
      * @since 2.5
      */
     public MutableLong(final String value) {

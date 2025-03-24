@@ -68,7 +68,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Constructs a new MutableByte parsing the given string.
      *
      * @param value  the string to parse, not null
-     * @throws NumberFormatException if the string cannot be parsed into a byte
+     * @throws NumberFormatException if the string cannot be parsed into a byte, see {@link Byte#parseByte(String)}.
      * @since 2.5
      */
     public MutableByte(final String value) {

@@ -68,7 +68,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Constructs a new MutableShort parsing the given string.
      *
      * @param value  the string to parse, not null
-     * @throws NumberFormatException if the string cannot be parsed into a short
+     * @throws NumberFormatException if the string cannot be parsed into a short, see {@link Short#parseShort(String)}.
      * @since 2.5
      */
     public MutableShort(final String value) {
