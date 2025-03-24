@@ -213,9 +213,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean[] add(final boolean[] array, final boolean element) {
-        final boolean[] newArray = (boolean[]) copyArrayGrow1(array, Boolean.TYPE);
-        newArray[newArray.length - 1] = element;
-        return newArray;
+        return (boolean[]) addElement(array, element, Boolean.TYPE);
     }
 
     /**
@@ -276,9 +274,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static byte[] add(final byte[] array, final byte element) {
-        final byte[] newArray = (byte[]) copyArrayGrow1(array, Byte.TYPE);
-        newArray[newArray.length - 1] = element;
-        return newArray;
+        return (byte[]) addElement(array, element, Byte.TYPE);
     }
 
     /**
@@ -340,9 +336,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static char[] add(final char[] array, final char element) {
-        final char[] newArray = (char[]) copyArrayGrow1(array, Character.TYPE);
-        newArray[newArray.length - 1] = element;
-        return newArray;
+        return (char[]) addElement(array, element, Character.TYPE);
     }
 
     /**
@@ -406,9 +400,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static double[] add(final double[] array, final double element) {
-        final double[] newArray = (double[]) copyArrayGrow1(array, Double.TYPE);
-        newArray[newArray.length - 1] = element;
-        return newArray;
+        return (double[]) addElement(array, element, Double.TYPE);
     }
 
     /**
@@ -470,9 +462,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static float[] add(final float[] array, final float element) {
-        final float[] newArray = (float[]) copyArrayGrow1(array, Float.TYPE);
-        newArray[newArray.length - 1] = element;
-        return newArray;
+        return (float[]) addElement(array, element, Float.TYPE);
     }
 
     /**
@@ -534,9 +524,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static int[] add(final int[] array, final int element) {
-        final int[] newArray = (int[]) copyArrayGrow1(array, Integer.TYPE);
-        newArray[newArray.length - 1] = element;
-        return newArray;
+        return (int[]) addElement(array, element, Integer.TYPE);
     }
 
     /**
@@ -634,8 +622,24 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static long[] add(final long[] array, final long element) {
-        final long[] newArray = (long[]) copyArrayGrow1(array, Long.TYPE);
-        newArray[newArray.length - 1] = element;
+        return (long[]) addElement(array, element, Long.TYPE);
+    }
+
+    /**
+     * Helper method to copy the given array, grow it by one element, and append the new element.
+     *
+     * @param array the original array (may be null)
+     * @param element the element to append
+     * @param componentType the component type of the array
+     * @return a new array containing the original elements plus the new element
+     */
+    private static Object addElement(final Object array, final Object element, final Class<?> componentType) {
+        // copyArrayGrow1 creates a new array with length = original length + 1
+        Object newArray = copyArrayGrow1(array, componentType);
+        // Calculate the index at which the new element should be appended.
+        int newLength = Array.getLength(newArray);
+        int appendIndex = newLength - 1;
+        Array.set(newArray, appendIndex, element);
         return newArray;
     }
 
