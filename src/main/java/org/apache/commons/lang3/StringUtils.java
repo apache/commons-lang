@@ -335,7 +335,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the String to check, may be null
-     * @param marker  the String used as replacement marker
+     * @param abbrevMarker  the String used as replacement marker
      * @param offset  left edge of source String
      * @param maxWidth  maximum length of result String, must be at least 4
      * @return abbreviated String, {@code null} if null String input
@@ -343,28 +343,19 @@ public class StringUtils {
      * @since 3.6
      */
     public static String abbreviate(final String str, final String marker, int offset, final int maxWidth) {
-        if (isNotEmpty(str) && EMPTY.equals(marker) && maxWidth > 0) {
-            return substring(str, 0, maxWidth);
-        }
         if (isAnyEmpty(str, marker)) {
             return str;
-        }
-        final int abbrevMarkerLength = marker.length();
-        final int minAbbrevWidth = abbrevMarkerLength + 1;
-        final int minAbbrevWidthOffset = abbrevMarkerLength + abbrevMarkerLength + 1;
-
-        if (maxWidth < minAbbrevWidth) {
-            throw new IllegalArgumentException(String.format("Minimum abbreviation width is %d", minAbbrevWidth));
         }
         if (str.length() <= maxWidth) {
             return str;
         }
-        offset =adjustOffset(str, marker, offset, maxWidth);
+        offset = adjustOffset(str, marker, offset, maxWidth);
         if (offset <= marker.length() + 1) {
             return str.substring(0, maxWidth - marker.length()) + marker;
         }
         if (offset + maxWidth - marker.length() < str.length()) {
-            return marker + abbreviate(str.substring(offset), marker, maxWidth - marker.length());
+            return marker
+                    + abbreviate(str.substring(offset), marker, maxWidth - marker.length());
         }
         return marker + str.substring(str.length() - (maxWidth - marker.length()));
     }
