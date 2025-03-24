@@ -18,6 +18,9 @@
 package org.apache.commons.lang3;
 
 import java.util.Arrays;
+import java.util.function.IntFunction;
+
+import org.apache.commons.lang3.function.FailableIntFunction;
 
 /**
  * Fills and returns arrays in the fluent style.
@@ -129,6 +132,32 @@ public final class ArrayFill {
             Arrays.fill(a, val);
         }
         return a;
+    }
+
+    /**
+     * Fills and returns the given array, using the provided generator supplier to compute each element. Like
+     * {@link Arrays#setAll(Object[], IntFunction)} with exception support.
+     * <p>
+     * If the generator supplier throws an exception, it is relayed to the caller and the array is left in an indeterminate
+     * state.
+     * </p>
+     *
+     * @param <T> type of elements of the array.
+     * @param array array to be initialized.
+     * @param generator a function accepting an index and producing the desired value for that position.
+     * @return the input array
+     * @param <E> The kind of thrown exception or error.
+     * @throws E Thrown by the given {@code generator}.
+     * @see Arrays#setAll(Object[], IntFunction)
+     * @since 3.18.0
+     */
+    public static <T, E extends Throwable> T[] fill(final T[] array, final FailableIntFunction<? extends T, E> generator) throws E {
+        if (array != null && generator != null) {
+            for (int i = 0; i < array.length; i++) {
+                array[i] = generator.apply(i);
+            }
+        }
+        return array;
     }
 
     /**

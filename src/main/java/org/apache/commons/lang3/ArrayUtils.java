@@ -4290,11 +4290,7 @@ public class ArrayUtils {
      */
     private static <T, R, E extends Throwable> R[] map(final T[] array, final Class<R> componentType, final FailableFunction<? super T, ? extends R, E> mapper)
             throws E {
-        final R[] newArray = newInstance(componentType, array.length);
-        for (int i = 0; i < newArray.length; i++) {
-            newArray[i] = mapper.apply(array[i]);
-        }
-        return newArray;
+        return ArrayFill.fill(newInstance(componentType, array.length), i -> mapper.apply(array[i]));
     }
 
     private static int max0(final int other) {
