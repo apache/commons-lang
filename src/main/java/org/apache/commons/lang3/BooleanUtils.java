@@ -98,13 +98,8 @@ public class BooleanUtils {
      * @since 3.0.1
      */
     public static boolean and(final boolean... array) {
-        ObjectUtils.requireNonEmpty(array, "array");
-        for (final boolean element : array) {
-            if (!element) {
-                return false;
-            }
-        }
-        return true;
+        // Delegate to the helper
+        return computeAnd(array);
     }
 
     /**
@@ -130,10 +125,23 @@ public class BooleanUtils {
      * @since 3.0.1
      */
     public static Boolean and(final Boolean... array) {
-        ObjectUtils.requireNonEmpty(array, "array");
-        return and(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE;
+        // Convert Boolean objects to primitives and delegate
+        boolean[] primitives = new boolean[array.length];
+        for (int i = 0; i < array.length; i++) {
+            primitives[i] = (array[i] != null) && array[i];
+        }
+        return computeAnd(primitives) ? Boolean.TRUE : Boolean.FALSE;
     }
 
+    // Private helper that handles the core logic
+    private static boolean computeAnd(boolean[] array) {
+        for (boolean element : array) {
+            if (!element) {
+                return false;
+            }
+        }
+        return true;
+    }
     /**
      * Returns a new array of possible values (like an enum would).
      *
