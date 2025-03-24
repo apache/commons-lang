@@ -124,8 +124,16 @@ public class ArrayUtils {
 
     /**
      * An empty immutable {@code int} array.
+     * Make the field private
      */
-    public static final int[] EMPTY_INT_ARRAY = {};
+    private static final int[] INTERNAL_EMPTY_INT_ARRAY = {};
+
+    /**
+     * a defensive accessor method
+     */
+    public static int[] getEmptyIntArray() {
+        return INTERNAL_EMPTY_INT_ARRAY.clone();
+    }
 
     /**
      * An empty immutable {@link Integer} array.
@@ -4562,7 +4570,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static int[] nullToEmpty(final int[] array) {
-        return isEmpty(array) ? EMPTY_INT_ARRAY : array;
+        return isEmpty(array) ? getEmptyIntArray() : array;
     }
 
     /**
@@ -8185,7 +8193,7 @@ public class ArrayUtils {
         endIndexExclusive = Math.min(endIndexExclusive, array.length);
         final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
-            return EMPTY_INT_ARRAY;
+            return getEmptyIntArray();
         }
         return arraycopy(array, startIndexInclusive, 0, newSize, int[]::new);
     }
@@ -9366,7 +9374,7 @@ public class ArrayUtils {
             return null;
         }
         if (array.length == 0) {
-            return EMPTY_INT_ARRAY;
+            return getEmptyIntArray();
         }
         final int[] result = new int[array.length];
         for (int i = 0; i < array.length; i++) {
@@ -9390,7 +9398,7 @@ public class ArrayUtils {
             return null;
         }
         if (array.length == 0) {
-            return EMPTY_INT_ARRAY;
+            return getEmptyIntArray();
         }
         final int[] result = new int[array.length];
         for (int i = 0; i < array.length; i++) {
