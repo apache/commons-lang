@@ -213,8 +213,12 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean[] add(final boolean[] array, final boolean element) {
-        final boolean[] newArray = (boolean[]) copyArrayGrow1(array, Boolean.TYPE);
-        newArray[newArray.length - 1] = element;
+        int length = (array == null) ? 0 : array.length;
+        boolean[] newArray = new boolean[length + 1];
+        if (array != null) {
+            System.arraycopy(array, 0, newArray, 0, length);
+        }
+        newArray[length] = element;
         return newArray;
     }
 
@@ -534,8 +538,12 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static int[] add(final int[] array, final int element) {
-        final int[] newArray = (int[]) copyArrayGrow1(array, Integer.TYPE);
-        newArray[newArray.length - 1] = element;
+        int length = (array != null) ? array.length : 0;
+        int[] newArray = new int[length + 1];
+        if (array != null) {
+            System.arraycopy(array, 0, newArray, 0, length);
+        }
+        newArray[length] = element;
         return newArray;
     }
 
@@ -812,18 +820,14 @@ public class ArrayUtils {
      * @throws IllegalArgumentException if both arguments are null
      */
     public static <T> T[] add(final T[] array, final T element) {
-        final Class<?> type;
+        int length = (array == null) ? 0 : array.length;
+        Class<?> type = (array != null) ? array.getClass().getComponentType() : element.getClass();
+        @SuppressWarnings("unchecked")
+        T[] newArray = (T[]) Array.newInstance(type, length + 1);
         if (array != null) {
-            type = array.getClass().getComponentType();
-        } else if (element != null) {
-            type = element.getClass();
-        } else {
-            throw new IllegalArgumentException("Arguments cannot both be null");
+            System.arraycopy(array, 0, newArray, 0, length);
         }
-        @SuppressWarnings("unchecked") // type must be T
-        final
-        T[] newArray = (T[]) copyArrayGrow1(array, type);
-        newArray[newArray.length - 1] = element;
+        newArray[length] = element;
         return newArray;
     }
 
