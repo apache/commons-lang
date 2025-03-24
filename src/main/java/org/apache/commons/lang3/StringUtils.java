@@ -359,7 +359,7 @@ public class StringUtils {
         if (str.length() <= maxWidth) {
             return str;
         }
-        offset = adjustOffset(str, marker, offset, maxWidth);
+        offset =adjustOffset(str, marker, offset, maxWidth);
         if (offset <= marker.length() + 1) {
             return str.substring(0, maxWidth - marker.length()) + marker;
         }
