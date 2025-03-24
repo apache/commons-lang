@@ -35,13 +35,13 @@ public class ArrayUtilsRemoveTest extends AbstractLangTest {
         assertNull(ArrayUtils.removeAllOccurences(a, true));
 
         a = new boolean[0];
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurences(a, true));
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.removeAllOccurences(a, true));
 
         a = new boolean[] { true };
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurences(a, true));
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.removeAllOccurences(a, true));
 
         a = new boolean[] { true, true };
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurences(a, true));
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.removeAllOccurences(a, true));
 
         a = new boolean[] { false, true, true, false, true };
         assertArrayEquals(new boolean[]{false, false}, ArrayUtils.removeAllOccurences(a, true));
@@ -56,13 +56,13 @@ public class ArrayUtilsRemoveTest extends AbstractLangTest {
         assertNull(ArrayUtils.removeAllOccurrences(a, true));
 
         a = new boolean[0];
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurrences(a, true));
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.removeAllOccurrences(a, true));
 
         a = new boolean[] { true };
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurrences(a, true));
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.removeAllOccurrences(a, true));
 
         a = new boolean[] { true, true };
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.removeAllOccurrences(a, true));
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.removeAllOccurrences(a, true));
 
         a = new boolean[] { false, true, true, false, true };
         assertArrayEquals(new boolean[]{false, false}, ArrayUtils.removeAllOccurrences(a, true));
@@ -411,7 +411,7 @@ public class ArrayUtilsRemoveTest extends AbstractLangTest {
     public void testRemoveBooleanArray() {
         boolean[] array;
         array = ArrayUtils.remove(new boolean[] {true}, 0);
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
         array = ArrayUtils.remove(new boolean[] {true, false}, 0);
         assertArrayEquals(new boolean[]{false}, array);
@@ -492,11 +492,11 @@ public class ArrayUtilsRemoveTest extends AbstractLangTest {
         boolean[] array;
         array = ArrayUtils.removeElement(null, true);
         assertNull(array);
-        array = ArrayUtils.removeElement(ArrayUtils.EMPTY_BOOLEAN_ARRAY, true);
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
+        array = ArrayUtils.removeElement(ArrayUtils.getEmptyBooleanArray(), true);
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
         array = ArrayUtils.removeElement(new boolean[] {true}, true);
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
         array = ArrayUtils.removeElement(new boolean[] {true, false}, true);
         assertArrayEquals(new boolean[]{false}, array);

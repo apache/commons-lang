@@ -63,8 +63,14 @@ public class ArrayUtils {
     /**
      * An empty immutable {@code boolean} array.
      */
-    public static final boolean[] EMPTY_BOOLEAN_ARRAY = {};
+    public static final boolean[] INTERNAL_EMPTY_BOOLEAN_ARRAY = {};
 
+    /**
+     * a defensive accessor method
+     */
+    public static boolean[] getEmptyBooleanArray() {
+        return INTERNAL_EMPTY_BOOLEAN_ARRAY.clone();
+    }
     /**
      * An empty immutable {@link Boolean} array.
      */
@@ -4361,7 +4367,7 @@ public class ArrayUtils {
      * @since 2.5
      */
     public static boolean[] nullToEmpty(final boolean[] array) {
-        return isEmpty(array) ? EMPTY_BOOLEAN_ARRAY : array;
+        return isEmpty(array) ? getEmptyBooleanArray() : array;
     }
 
     /**
@@ -8023,7 +8029,7 @@ public class ArrayUtils {
         endIndexExclusive = Math.min(endIndexExclusive, array.length);
         final int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
-            return EMPTY_BOOLEAN_ARRAY;
+            return getEmptyBooleanArray();
         }
         return arraycopy(array, startIndexInclusive, 0, newSize, boolean[]::new);
     }
@@ -9153,7 +9159,7 @@ public class ArrayUtils {
             return null;
         }
         if (array.length == 0) {
-            return EMPTY_BOOLEAN_ARRAY;
+            return getEmptyBooleanArray();
         }
         final boolean[] result = new boolean[array.length];
         for (int i = 0; i < array.length; i++) {

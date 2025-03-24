@@ -1999,13 +1999,13 @@ public class ArrayUtilsTest extends AbstractLangTest {
     public void testNullToEmptyBooleanEmptyArray() {
         final boolean[] empty = {};
         final boolean[] result = ArrayUtils.nullToEmpty(empty);
-        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, result);
+        assertEquals(ArrayUtils.getEmptyBooleanArray(), result);
         assertNotSame(empty, result);
     }
 
     @Test
     public void testNullToEmptyBooleanNull() {
-        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.nullToEmpty((boolean[]) null));
+        assertEquals(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.nullToEmpty((boolean[]) null));
     }
 
     @Test
@@ -5238,24 +5238,24 @@ public class ArrayUtilsTest extends AbstractLangTest {
                 "mid start, length end");
 
         assertNull(ArrayUtils.subarray(nullArray, 0, 3), "null input");
-        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_BOOLEAN_ARRAY, 1, 2),
+        assertEquals(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.subarray(ArrayUtils.getEmptyBooleanArray(), 1, 2),
                 "empty array");
-        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 4, 2), "start > end");
-        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end");
+        assertEquals(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.subarray(array, 4, 2), "start > end");
+        assertEquals(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.subarray(array, 3, 3), "start == end");
         assertTrue(ArrayUtils.isEquals(leftSubarray, ArrayUtils.subarray(array, -2, 4)),
                 "start undershoot, normal end");
-        assertEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
+        assertEquals(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.subarray(array, 33, 4), "start overshoot, any end");
         assertTrue(ArrayUtils.isEquals(rightSubarray, ArrayUtils.subarray(array, 2, 33)),
                 "normal start, end overshoot");
         assertTrue(ArrayUtils.isEquals(array, ArrayUtils.subarray(array, -2, 12)), "start undershoot, end overshoot");
 
         // empty-return tests
 
-        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(ArrayUtils.EMPTY_BOOLEAN_ARRAY, 1, 2),
+        assertSame(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.subarray(ArrayUtils.getEmptyBooleanArray(), 1, 2),
                 "empty array, object test");
-        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 4, 1), "start > end, object test");
-        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 3, 3), "start == end, object test");
-        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.subarray(array, 8733, 4),
+        assertSame(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.subarray(array, 4, 1), "start > end, object test");
+        assertSame(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.subarray(array, 3, 3), "start == end, object test");
+        assertSame(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.subarray(array, 8733, 4),
                 "start overshoot, any end, object test");
 
         // array type tests
@@ -6375,7 +6375,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
     public void testToPrimitive_boolean() {
         final Boolean[] b = null;
         assertNull(ArrayUtils.toPrimitive(b));
-        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.toPrimitive(new Boolean[0]));
+        assertSame(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.toPrimitive(new Boolean[0]));
         assertArrayEquals(new boolean[]{true, false, true}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}));
         assertArrayEquals(new boolean[]{true, false}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null}));
     }
@@ -6383,7 +6383,7 @@ public class ArrayUtilsTest extends AbstractLangTest {
     @Test
     public void testToPrimitive_boolean_boolean() {
         assertNull(ArrayUtils.toPrimitive(null, false));
-        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.toPrimitive(new Boolean[0], false));
+        assertSame(ArrayUtils.getEmptyBooleanArray(), ArrayUtils.toPrimitive(new Boolean[0], false));
         assertArrayEquals(new boolean[]{true, false, true}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}, false));
         assertArrayEquals(new boolean[]{true, false, false}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null, Boolean.FALSE}, false));
         assertArrayEquals(new boolean[]{true, true, false}, ArrayUtils.toPrimitive(new Boolean[]{Boolean.TRUE, null, Boolean.FALSE}, true));

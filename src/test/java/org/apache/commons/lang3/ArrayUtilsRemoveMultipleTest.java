@@ -37,7 +37,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
         boolean[] array;
 
         array = ArrayUtils.removeAll(new boolean[] { true }, 0);
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false }, 0);
@@ -53,7 +53,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false }, 0, 1);
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeAll(new boolean[] { true, false, false }, 0, 1);
@@ -836,12 +836,12 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
         array = ArrayUtils.removeElements((boolean[]) null, true);
         assertNull(array);
 
-        array = ArrayUtils.removeElements(ArrayUtils.EMPTY_BOOLEAN_ARRAY, true);
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
+        array = ArrayUtils.removeElements(ArrayUtils.getEmptyBooleanArray(), true);
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true }, true);
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true, false }, true);
@@ -855,16 +855,16 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
         array = ArrayUtils.removeElements((boolean[]) null, true, false);
         assertNull(array);
 
-        array = ArrayUtils.removeElements(ArrayUtils.EMPTY_BOOLEAN_ARRAY, true, false);
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
+        array = ArrayUtils.removeElements(ArrayUtils.getEmptyBooleanArray(), true, false);
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true }, true, false);
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true, false }, true, false);
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_ARRAY, array);
+        assertArrayEquals(ArrayUtils.getEmptyBooleanArray(), array);
         assertEquals(Boolean.TYPE, array.getClass().getComponentType());
 
         array = ArrayUtils.removeElements(new boolean[] { true, false }, true, true);

@@ -218,8 +218,8 @@ public class ObjectUtilsTest extends AbstractLangTest {
         assertFalse(ObjectUtils.isArray(123));
         assertTrue(ObjectUtils.isArray(NON_EMPTY_ARRAY));
         assertTrue(ObjectUtils.isArray(new int[]{1, 2, 3}));
-        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BOOLEAN_ARRAY));
-        assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BOOLEAN_ARRAY));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.getEmptyBooleanArray()));
+        assertTrue(ObjectUtils.isArray(ArrayUtils.getEmptyBooleanArray()));
         assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY));
         assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BYTE_ARRAY));
         assertTrue(ObjectUtils.isArray(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY));
