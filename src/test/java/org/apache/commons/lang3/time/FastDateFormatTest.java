@@ -18,12 +18,14 @@ package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.FieldPosition;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -258,11 +260,11 @@ public class FastDateFormatTest extends AbstractLangTest {
         dateAsString = FastDateFormat.getInstance("dd/MM/yyyy", utc, Locale.US).format(date);
         assertEquals("17/08/292278994", dateAsString);
     }
+
     @Test
     public void testLang1267() {
         FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
     }
-
     @Test
     public void testLang1641() {
         assertSame(FastDateFormat.getInstance(ISO_8601_DATE_FORMAT), FastDateFormat.getInstance(ISO_8601_DATE_FORMAT));
@@ -284,6 +286,18 @@ public class FastDateFormatTest extends AbstractLangTest {
     public void testLang954() {
         final String pattern = "yyyy-MM-dd'T'";
         FastDateFormat.getInstance(pattern);
+    }
+
+    /**
+     * Tests [LANG-1767] FastDateFormat.parse can not recgnoize "CEST" Timezone.
+     *
+     * @throws ParseException Throws on test failure.
+     */
+    @Test
+    public void testParseCentralEuropeanSummerTime() throws ParseException {
+        assertNotNull(FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss", Locale.GERMANY).parse("26.10.2014 02:00:00"));
+        assertNotNull(FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss z", Locale.US).parse("26.10.2014 02:00:00 CEST"));
+        assertNotNull(FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss z", Locale.GERMANY).parse("26.10.2014 02:00:00 MESZ"));
     }
 
     @Test
