@@ -19,11 +19,12 @@ package org.apache.commons.lang3.math;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 public class NumberUtils_TestPK {
-
+     // parametrized test on max()
     @ParameterizedTest
     @CsvSource({
         "-128 , -128, -128 , -128" , //Test all at min and equal 
@@ -40,5 +41,41 @@ public class NumberUtils_TestPK {
 
        assertEquals(expected, NumberUtils.max(a,b,c),"Failed for inputs: " + a +"," + b + ", " + c);  
     }
- 
+
+    // white box test on min()
+      
+    @Test
+    void testMinValueNormal(){
+        assertEquals(1, NumberUtils.min(5,3,8,1,7));
+    }
+    @Test
+    void testMinValueAtStart(){
+        assertEquals(1, NumberUtils.min(1,5,3,8,7));
+    }
+    @Test
+    void testMinValueAtEnd(){
+        assertEquals(1, NumberUtils.min(5,3,8,7,1));
+    }
+    @Test
+    void testMinValueWithinNegativeNum(){
+        assertEquals(-8, NumberUtils.min(-5,-3,-8,-1,-7));
+    }
+    @Test
+    void testMinValueWithMixNUmbers(){
+        assertEquals(-8, NumberUtils.min(-5,3,-8,1,-7));
+    }
+    @Test
+    void testMinValueWithSingleElement(){
+        assertEquals(7, NumberUtils.min(7));
+    }
+    //checking test for indirectly calling ValidateArray
+    @Test
+    void testMinNullArray(){
+        assertThrows(NullPointerException.class, () -> NumberUtils.min((int[]) null));
+    }
+    @Test
+    void testMinEmptyArray(){
+        assertThrows(IllegalArgumentException.class, () -> NumberUtils.min ());
+    }
+       
 }
