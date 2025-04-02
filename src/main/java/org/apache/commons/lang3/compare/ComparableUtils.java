@@ -32,7 +32,7 @@ import org.apache.commons.lang3.ObjectUtils;
 public class ComparableUtils {
 
     /**
-     * Provides access to the available methods
+     * ????????????? ?????? ? ???????
      *
      * @param <A> the type of objects that this object may be compared against.
      */
