@@ -289,7 +289,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     /**
-     * Tests [LANG-1767] FastDateFormat.parse can not recgnoize "CEST" Timezone.
+     * Tests [LANG-1767] FastDateFormat.parse can not recognize "CEST" Timezone.
      *
      * @throws ParseException Throws on test failure.
      */
