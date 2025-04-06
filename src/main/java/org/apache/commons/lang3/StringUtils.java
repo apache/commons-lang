@@ -9312,7 +9312,7 @@ public class StringUtils {
      *
      * @see #listSplitWorker(String, String, int, boolean)
      */
-    public static List<String> split(final List<String> str, final String separatorChars) {
+    public static List<String> splitList(final List<String> str, final String separatorChars) {
         List<String> finalString = new ArrayList<>();
         for (String s : str) {
             finalString.addAll(s.contains(separatorChars)
