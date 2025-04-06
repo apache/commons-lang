@@ -20,13 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.text.Normalizer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -9297,6 +9291,142 @@ public class StringUtils {
             builder.append(wrapWith);
         }
         return builder.toString();
+    }
+
+    /**
+     * Splits each string in the given list using the specified separator characters.
+     * <p>
+     * For every string in the input list:
+     * <ul>
+     *   <li>If the string contains the separator characters, it is split using the {@code listSplitWorker} method.</li>
+     *   <li>If not, the string is added to the final list unchanged.</li>
+     * </ul>
+     * The resulting list is a flattened list of strings, preserving the order of appearance.
+     *
+     * @param str the list of strings to be processed; must not be {@code null}
+     * @param separatorChars the string of separator characters used for splitting;
+     *                       if present in an element, that element will be split
+     * @return a new list of strings after applying the split operation where applicable
+     *
+     * @throws NullPointerException if {@code str} or {@code separatorChars} is {@code null}
+     *
+     * @see #listSplitWorker(String, String, int, boolean)
+     */
+    public static List<String> split(final List<String> str, final String separatorChars) {
+        List<String> finalString = new ArrayList<>();
+        for (String s : str) {
+            finalString.addAll(s.contains(separatorChars)
+                    ? listSplitWorker(s, separatorChars, -1, true)
+                    : Collections.singletonList(s));
+        }
+        return finalString;
+    }
+
+    /**
+     * Splits the provided string into a list of substrings based on the specified separator characters.
+     * <p>
+     * This method mimics the behavior of {@code StringUtils.split()} with additional options to:
+     * <ul>
+     *   <li>Specify a maximum number of splits</li>
+     *   <li>Preserve all tokens, including empty tokens between consecutive separators</li>
+     *   <li>Use whitespace as a default separator when {@code separatorChars} is {@code null}</li>
+     * </ul>
+     *
+     * <p><b>Behavior:</b></p>
+     * <ul>
+     *   <li>If {@code separatorChars} is {@code null}, it splits on whitespace using {@code Character.isWhitespace()}.</li>
+     *   <li>If {@code separatorChars} is a single character, it uses optimized character comparison.</li>
+     *   <li>If {@code separatorChars} has multiple characters, each character is treated as a separate delimiter.</li>
+     *   <li>If {@code max} is greater than 0, it limits the number of substrings returned.</li>
+     *   <li>If {@code preserveAllTokens} is {@code true}, empty tokens between separators are preserved.</li>
+     * </ul>
+     *
+     * @param str the input string to split; may be {@code null}
+     * @param separatorChars the characters used as delimiters; if {@code null}, whitespace is used
+     * @param max the maximum number of substrings to return; 0 means no limit
+     * @param preserveAllTokens if {@code true}, adjacent separators will yield empty strings in the result
+     * @return a list of substrings, or {@code null} if {@code str} is {@code null}; returns an empty list if {@code str} is empty
+     */
+    private static List<String> listSplitWorker(final String str, final String separatorChars, final int max, final boolean preserveAllTokens){
+        if (str == null) {
+            return null;
+        }
+        final int len = str.length();
+        if (len == 0) {
+            return Collections.emptyList();
+        }
+        final List<String> list = new ArrayList<>();
+        int sizePlus1 = 1;
+        int i = 0;
+        int start = 0;
+        boolean match = false;
+        boolean lastMatch = false;
+        if (separatorChars == null) {
+            // Null separator means use whitespace
+            while (i < len) {
+                if (Character.isWhitespace(str.charAt(i))) {
+                    if (match || preserveAllTokens) {
+                        lastMatch = true;
+                        if (sizePlus1++ == max) {
+                            i = len;
+                            lastMatch = false;
+                        }
+                        list.add(str.substring(start, i));
+                        match = false;
+                    }
+                    start = ++i;
+                    continue;
+                }
+                lastMatch = false;
+                match = true;
+                i++;
+            }
+        } else if (separatorChars.length() == 1) {
+            // Optimize 1 character case
+            final char sep = separatorChars.charAt(0);
+            while (i < len) {
+                if (str.charAt(i) == sep) {
+                    if (match || preserveAllTokens) {
+                        lastMatch = true;
+                        if (sizePlus1++ == max) {
+                            i = len;
+                            lastMatch = false;
+                        }
+                        list.add(str.substring(start, i));
+                        match = false;
+                    }
+                    start = ++i;
+                    continue;
+                }
+                lastMatch = false;
+                match = true;
+                i++;
+            }
+        } else {
+            // standard case
+            while (i < len) {
+                if (separatorChars.indexOf(str.charAt(i)) >= 0) {
+                    if (match || preserveAllTokens) {
+                        lastMatch = true;
+                        if (sizePlus1++ == max) {
+                            i = len;
+                            lastMatch = false;
+                        }
+                        list.add(str.substring(start, i));
+                        match = false;
+                    }
+                    start = ++i;
+                    continue;
+                }
+                lastMatch = false;
+                match = true;
+                i++;
+            }
+        }
+        if (match || preserveAllTokens && lastMatch) {
+            list.add(str.substring(start, i));
+        }
+        return list;
     }
 
     /**
