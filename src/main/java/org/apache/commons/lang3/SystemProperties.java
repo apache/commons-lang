@@ -508,6 +508,39 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      *
+     * @see <a href= "https://docs.oracle.com/en/java/javase/24/docs/api/system-properties.html">java.security.krb5.conf</a>
+     * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/24/docs/api/java.security.jgss/javax/security/auth/kerberos/package-summary.html#java.security.krb5.conf">package
+     *      javax.security.auth.kerberos conf</a>
+     * @since 3.18.0
+     */
+    public static final String JAVA_SECURITY_KERBEROS_CONF = "java.security.krb5.conf";
+
+    /**
+     * The System property name {@value}.
+     *
+     * @see <a href= "https://docs.oracle.com/en/java/javase/24/docs/api/system-properties.html">java.security.krb5.kdc</a>
+     * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/24/docs/api/java.security.jgss/javax/security/auth/kerberos/package-summary.html#java.security.krb5.kdc">package
+     *      javax.security.auth.kerberos KDC</a>
+     * @since 3.18.0
+     */
+    public static final String JAVA_SECURITY_KERBEROS_KDC = "java.security.krb5.kdc";
+
+    /**
+     * The System property name {@value}.
+     *
+     * @see <a href= "https://docs.oracle.com/en/java/javase/24/docs/api/system-properties.html">java.security.krb5.realm</a>
+     * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/24/docs/api/java.security.jgss/javax/security/auth/kerberos/package-summary.html#java.security.krb5.realm">package
+     *      javax.security.auth.kerberos realm</a>
+     * @since 3.18.0
+     */
+    public static final String JAVA_SECURITY_KERBEROS_REALM = "java.security.krb5.realm";
+
+    /**
+     * The System property name {@value}.
+     *
      * @see <a href=
      *      "https://docs.oracle.com/en/java/javase/24/security/troubleshooting-security.html">java.security.debug</a>
      * @since 3.18.0

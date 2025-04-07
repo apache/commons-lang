@@ -108,6 +108,9 @@ public class SystemPropertiesTest {
         basicKeyCheck(SystemProperties.JAVA_RUNTIME_NAME);
         basicKeyCheck(SystemProperties.JAVA_RUNTIME_VERSION);
         basicKeyCheck(SystemProperties.JAVA_SECURITY_AUTH_LOGIN_CONFIG);
+        basicKeyCheck(SystemProperties.JAVA_SECURITY_KERBEROS_CONF);
+        basicKeyCheck(SystemProperties.JAVA_SECURITY_KERBEROS_KDC);
+        basicKeyCheck(SystemProperties.JAVA_SECURITY_KERBEROS_REALM);
         basicKeyCheck(SystemProperties.JAVA_SECURITY_DEBUG);
         basicKeyCheck(SystemProperties.JAVA_SECURITY_MANAGER);
         basicKeyCheck(SystemProperties.JAVA_SPECIFICATION_MAINTENANCE_VERSION);
