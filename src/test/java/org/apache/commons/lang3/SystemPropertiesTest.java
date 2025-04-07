@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.ThrowingSupplier;
 
 public class SystemPropertiesTest {
 
@@ -107,6 +108,7 @@ public class SystemPropertiesTest {
         basicKeyCheck(SystemProperties.JAVA_RUNTIME_NAME);
         basicKeyCheck(SystemProperties.JAVA_RUNTIME_VERSION);
         basicKeyCheck(SystemProperties.JAVA_SECURITY_AUTH_LOGIN_CONFIG);
+        basicKeyCheck(SystemProperties.JAVA_SECURITY_DEBUG);
         basicKeyCheck(SystemProperties.JAVA_SECURITY_MANAGER);
         basicKeyCheck(SystemProperties.JAVA_SPECIFICATION_MAINTENANCE_VERSION);
         basicKeyCheck(SystemProperties.JAVA_SPECIFICATION_NAME);
@@ -325,7 +327,7 @@ public class SystemPropertiesTest {
         assertDoesNotThrow(SystemProperties::getJavaSpecificationMaintenanceVersion);
         assertDoesNotThrow(SystemProperties::getJavaSpecificationName);
         assertDoesNotThrow(SystemProperties::getJavaSpecificationVendor);
-        assertDoesNotThrow(() -> SystemProperties.getJavaSpecificationVersion());
+        assertDoesNotThrow((ThrowingSupplier<String>) SystemProperties::getJavaSpecificationVersion);
         assertDoesNotThrow(SystemProperties::getJavaSystemClassLoader);
         assertDoesNotThrow(SystemProperties::getJavaTimeZoneDefaultZoneRulesProvider);
         assertDoesNotThrow(SystemProperties::getJavaUtilConcurrentForkJoinPoolCommonExceptionHandler);
@@ -417,7 +419,7 @@ public class SystemPropertiesTest {
         assertDoesNotThrow(SystemProperties::getJdkXmlResetSymbolTable);
         assertDoesNotThrow(SystemProperties::getJdkXmlTotalEntitySizeLimit);
         assertDoesNotThrow(SystemProperties::getJdkXmlXsltcIsStandalone);
-        assertDoesNotThrow(() -> SystemProperties.getLineSeparator());
+        assertDoesNotThrow((ThrowingSupplier<String>) SystemProperties::getLineSeparator);
         assertDoesNotThrow(SystemProperties::getNativeEncoding);
         assertDoesNotThrow(SystemProperties::getNetworkAddressCacheNegativeTtl);
         assertDoesNotThrow(SystemProperties::getNetworkAddressCacheStaleTtl);
@@ -446,7 +448,7 @@ public class SystemPropertiesTest {
         assertDoesNotThrow(SystemProperties::getUserExtensions);
         assertDoesNotThrow(SystemProperties::getUserHome);
         assertDoesNotThrow(SystemProperties::getUserLanguage);
-        assertDoesNotThrow(() -> SystemProperties.getUserName());
+        assertDoesNotThrow((ThrowingSupplier<String>) SystemProperties::getUserName);
         assertDoesNotThrow(SystemProperties::getUserRegion);
         assertDoesNotThrow(SystemProperties::getUserScript);
         assertDoesNotThrow(SystemProperties::getUserTimezone);

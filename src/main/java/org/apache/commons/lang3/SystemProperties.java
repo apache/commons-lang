@@ -509,6 +509,15 @@ public final class SystemProperties {
      * The System property name {@value}.
      *
      * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/24/security/troubleshooting-security.html">java.security.debug</a>
+     * @since 3.18.0
+     */
+    public static final String JAVA_SECURITY_DEBUG = "java.security.debug";
+
+    /**
+     * The System property name {@value}.
+     *
+     * @see <a href=
      *      "https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/SecurityManager.html#java.security.manager">java.security.manager</a>
      * @since 3.15.0
      */
