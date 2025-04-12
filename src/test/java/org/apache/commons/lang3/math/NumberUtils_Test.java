@@ -17,13 +17,19 @@
 package org.apache.commons.lang3.math;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
+
+import org.apache.commons.lang3.ObjectUtils.Null;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-public class NumberUtils_TestPK {
+public class NumberUtils_Test {
      // parametrized test on max()
     @ParameterizedTest
     @CsvSource({
@@ -78,4 +84,36 @@ public class NumberUtils_TestPK {
         assertThrows(IllegalArgumentException.class, () -> NumberUtils.min ());
     }
        
+    //unit test on createBigDecimal() 
+    @Test
+    void testCreateBigDecimalHasNullInput(){
+        //test with input as null
+        assertEquals(null,NumberUtils.createBigDecimal(null),
+         "Expected null when input is null");
+    }
+    @Test
+    void testCreateBigDecimalIsEmptyString(){
+        assertThrows(NumberFormatException.class, () -> {
+            NumberUtils.createBigDecimal("");
+        }, "Expected NumberFormatException when input is empty string");
+    }
+    @Test
+    void testCreateBigDecimalIsBlankString(){
+        assertThrows(NumberFormatException.class, () -> {
+            NumberUtils.createBigDecimal("   ");
+        }, "Expected NumberFormatException when input is a blank string");
+    }
+    @Test
+    void testCreateBigDecimalHasValidInput(){
+        BigDecimal result = NumberUtils.createBigDecimal("123.45");
+        assertNotNull(result, "Expected a valid BigDecimal Object");
+        assertEquals(new BigDecimal("123.45"), result, 
+        "Expected BigDecimal value to be 123.45");
+    }
+    @Test
+    void testCreateBigDecimalHasInvalidInput(){
+        assertThrows(NumberFormatException.class, () -> {
+            NumberUtils.createBigDecimal("abc");
+        }, "Expected NumberFormatException when input is non-numeric string");
+    }
 }
