@@ -31,13 +31,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+${project.name} ${version} Release Notes
+------------------------------------------------
 
-                        ${project.name}
-                        Version ${version}
-                        Release Notes
-
-
-The Apache Commons team is pleased to announce Apache Commons Lang Version ${version}.
+The ${developmentTeam} is pleased to announce the release of ${project.name} ${version}.
 
 Commons Lang is a set of utility functions and reusable components that should be useful in any Java environment.
 
