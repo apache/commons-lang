@@ -8955,6 +8955,23 @@ public class StringUtils {
         }
         return str.substring(offset);
     }
+    
+    
+    /**
+     * Truncates a string to the specified length, returning an empty string if null.
+     * If the string is shorter than or equal to maxLength, it is returned unchanged.
+     * @param str the string to truncate, may be null
+     * @param maxLength the maximum length of the result
+     * @return the truncated string, or empty string if null
+     * @throws IllegalArgumentException if maxLength is negative
+     */
+    public static String truncateToLength(final String str, final int maxLength) {
+        if (maxLength < 0) {
+            throw new IllegalArgumentException("maxLength cannot be negative: " + maxLength);
+        }
+        return str == null ? EMPTY : str.length() <= maxLength ? str : str.substring(0, maxLength);
+    }
+    
 
     /**
      * Uncapitalizes a String, changing the first character to lower case as

@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -3434,5 +3435,22 @@ public class StringUtilsTest extends AbstractLangTest {
 
         assertSame("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
         assertSame("//x//", StringUtils.wrapIfMissing("//x//", "//"));
+    }
+    
+    
+    @Test
+    public void testTruncateToLength() {
+        assertEquals("", StringUtils.truncateToLength(null, 5));
+        assertEquals("", StringUtils.truncateToLength("", 5));
+        assertEquals("abc", StringUtils.truncateToLength("abc", 5));
+        assertEquals("abc", StringUtils.truncateToLength("abc", 3));
+        assertEquals("ab", StringUtils.truncateToLength("abc", 2));
+        assertEquals("", StringUtils.truncateToLength("abc", 0));
+        IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> StringUtils.truncateToLength("abc", -1),
+                "Negative maxLength should throw IllegalArgumentException"
+            );
+            assertEquals("maxLength cannot be negative: -1", thrown.getMessage(), "Exception message should match");
     }
 }
