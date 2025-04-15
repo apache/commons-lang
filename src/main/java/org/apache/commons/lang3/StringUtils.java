@@ -8965,23 +8965,15 @@ public class StringUtils {
         if (strLen == 0) {
             return str;
         }
-
         final int firstCodePoint = str.codePointAt(0);
         final int newCodePoint = Character.toLowerCase(firstCodePoint);
         if (firstCodePoint == newCodePoint) {
-            // already capitalized
+            // already uncapitalized
             return str;
         }
-
-        final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
-        int outOffset = 0;
-        newCodePoints[outOffset++] = newCodePoint; // copy the first code point
-        for (int inOffset = Character.charCount(firstCodePoint); inOffset < strLen; ) {
-            final int codePoint = str.codePointAt(inOffset);
-            newCodePoints[outOffset++] = codePoint; // copy the remaining ones
-            inOffset += Character.charCount(codePoint);
-         }
-        return new String(newCodePoints, 0, outOffset);
+        final int[] newCodePoints = str.codePoints().toArray();
+        newCodePoints[0] = newCodePoint; // copy the first code point
+        return new String(newCodePoints, 0, newCodePoints.length);
     }
 
     /**
