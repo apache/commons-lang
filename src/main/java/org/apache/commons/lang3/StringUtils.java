@@ -8693,15 +8693,7 @@ public class StringUtils {
         if (cs.length() == 0) {
             return ArrayUtils.EMPTY_INT_ARRAY;
         }
-
-        final String s = cs.toString();
-        final int[] result = new int[s.codePointCount(0, s.length())];
-        int index = 0;
-        for (int i = 0; i < result.length; i++) {
-            result[i] = s.codePointAt(index);
-            index += Character.charCount(result[i]);
-        }
-        return result;
+        return cs.toString().codePoints().toArray();
     }
 
     /**

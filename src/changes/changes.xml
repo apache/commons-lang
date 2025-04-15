@@ -84,6 +84,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1764" type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumericEntityUnescaper.OPTION in favor of Apache Commons Text.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Several hash collisions in Fraction class.</action>
     <action issue="LANG-1768" type="fix" dev="ggregory" due-to="Wang Hailong, Gary Gregory">MutableLong and friends should provide better parsing exceptions Javadocs.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Reimplement StringUtils.toCodePoints(CharSequence) to use java.lang.CharSequence.codePoints().</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
