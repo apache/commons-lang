@@ -2857,14 +2857,14 @@ public class StringUtilsTest extends AbstractLangTest {
         final int orphanedHighSurrogate = 0xD801;
         final int orphanedLowSurrogate = 0xDC00;
         final int supplementary = 0x2070E;
-
-        final int[] codePoints = {'a', orphanedHighSurrogate, 'b', 'c', supplementary,
-                'd', orphanedLowSurrogate, 'e'};
+        final int[] codePoints = { 'a', orphanedHighSurrogate, 'b', 'c', supplementary, 'd', orphanedLowSurrogate, 'e' };
         final String s = new String(codePoints, 0, codePoints.length);
         assertArrayEquals(codePoints, StringUtils.toCodePoints(s));
-
         assertNull(StringUtils.toCodePoints(null));
         assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, StringUtils.toCodePoints(""));
+        assertArrayEquals(new int[] { 'a' }, StringUtils.toCodePoints("a"));
+        assertArrayEquals(new int[] { 'a', 'b' }, StringUtils.toCodePoints("ab"));
+        assertArrayEquals(new int[] { 'a', 'b', 'c' }, StringUtils.toCodePoints("abc"));
     }
 
     /**
