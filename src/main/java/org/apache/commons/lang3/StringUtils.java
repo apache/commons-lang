@@ -1493,7 +1493,7 @@ public class StringUtils {
      * @param <T> the specific kind of CharSequence
      * @param str the CharSequence to check, may be null
      * @param defaultStr  the default CharSequence to return
-     *  if the input is whitespace, empty ("") or {@code null}, may be null
+     *  if {@code str} is whitespace, empty ("") or {@code null}, may be null
      * @return the passed in CharSequence, or the default
      * @see StringUtils#defaultString(String, String)
      */
