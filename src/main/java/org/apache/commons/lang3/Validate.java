@@ -762,7 +762,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validate that the specified argument character sequence is
+     * <p>Validates that the specified argument character sequence is
      * neither {@code null}, a length of zero (no characters), empty
      * nor whitespace; otherwise throwing an exception.
      *
@@ -784,21 +784,22 @@ public class Validate {
     }
 
     /**
-     * Validate that the specified argument character sequence is
-     * neither {@code null}, a length of zero (no characters), empty
-     * nor whitespace; otherwise throwing an exception with the specified
-     * message.
+     * Validates that the specified argument character sequence is not {@link StringUtils#isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or
+     * {@code null}); otherwise throwing an exception with the specified message.
      *
-     * <pre>Validate.notBlank(myString, "The string must not be blank");</pre>
+     * <pre>
+     * Validate.notBlank(myString, "The string must not be blank");
+     * </pre>
      *
-     * @param <T> the character sequence type
-     * @param chars  the character sequence to check, validated not null by this method
-     * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
+     * @param <T>     the character sequence type
+     * @param chars   the character sequence to check, validated not null by this method
+     * @param message the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param values  the optional values for the formatted exception message, null array not recommended
      * @return the validated character sequence (never {@code null} method for chaining)
-     * @throws NullPointerException if the character sequence is {@code null}
+     * @throws NullPointerException     if the character sequence is {@code null}
      * @throws IllegalArgumentException if the character sequence is blank
      * @see #notBlank(CharSequence)
+     * @see StringUtils#isBlank(CharSequence)
      * @since 3.0
      */
     public static <T extends CharSequence> T notBlank(final T chars, final String message, final Object... values) {
@@ -810,7 +811,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validate that the specified argument collection is neither {@code null}
+     * <p>Validates that the specified argument collection is neither {@code null}
      * nor a size of zero (no elements); otherwise throwing an exception.
      *
      * <pre>Validate.notEmpty(myCollection);</pre>
@@ -830,7 +831,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validate that the specified argument map is neither {@code null}
+     * <p>Validates that the specified argument map is neither {@code null}
      * nor a size of zero (no elements); otherwise throwing an exception.
      *
      * <pre>Validate.notEmpty(myMap);</pre>
@@ -850,7 +851,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validate that the specified argument character sequence is
+     * <p>Validates that the specified argument character sequence is
      * neither {@code null} nor a length of zero (no characters);
      * otherwise throwing an exception with the specified message.
      *
@@ -871,7 +872,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validate that the specified argument collection is neither {@code null}
+     * <p>Validates that the specified argument collection is neither {@code null}
      * nor a size of zero (no elements); otherwise throwing an exception
      * with the specified message.
      *
@@ -943,7 +944,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validate that the specified argument array is neither {@code null}
+     * <p>Validates that the specified argument array is neither {@code null}
      * nor a length of zero (no elements); otherwise throwing an exception.
      *
      * <pre>Validate.notEmpty(myArray);</pre>
@@ -963,7 +964,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validate that the specified argument array is neither {@code null}
+     * <p>Validates that the specified argument array is neither {@code null}
      * nor a length of zero (no elements); otherwise throwing an exception
      * with the specified message.
      *

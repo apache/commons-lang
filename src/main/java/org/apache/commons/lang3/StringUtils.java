@@ -1478,10 +1478,12 @@ public class StringUtils {
     }
 
     /**
-     * Returns either the passed in CharSequence, or if the CharSequence is
-     * whitespace, empty ("") or {@code null}, the value of {@code defaultStr}.
+     * Returns either the passed in CharSequence, or if the CharSequence is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or
+     * {@code null}), the value of {@code defaultStr}.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.defaultIfBlank(null, "NULL")  = "NULL"
@@ -1490,12 +1492,14 @@ public class StringUtils {
      * StringUtils.defaultIfBlank("bat", "NULL") = "bat"
      * StringUtils.defaultIfBlank("", null)      = null
      * </pre>
-     * @param <T> the specific kind of CharSequence
-     * @param str the CharSequence to check, may be null
-     * @param defaultStr  the default CharSequence to return
-     *  if {@code str} is whitespace, empty ("") or {@code null}, may be null
+     *
+     * @param <T>        the specific kind of CharSequence
+     * @param str        the CharSequence to check, may be null
+     * @param defaultStr the default CharSequence to return if {@code str} is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code""}) or
+     *                   {@code null}); may be null
      * @return the passed in CharSequence, or the default
      * @see StringUtils#defaultString(String, String)
+     * @see #isBlank(CharSequence)
      */
     public static <T extends CharSequence> T defaultIfBlank(final T str, final T defaultStr) {
         return isBlank(str) ? defaultStr : str;
@@ -2116,12 +2120,16 @@ public class StringUtils {
     }
 
     /**
-     * Returns either the passed in CharSequence, or if the CharSequence is
-     * whitespace, empty ("") or {@code null}, the value supplied by {@code defaultStrSupplier}.
+     * Returns either the passed in CharSequence, or if the CharSequence is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or
+     * {@code null}), the value supplied by {@code defaultStrSupplier}.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
-     * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
+     * <p>
+     * Caller responsible for thread-safety and exception handling of default value supplier
+     * </p>
      *
      * <pre>
      * {@code
@@ -2132,12 +2140,14 @@ public class StringUtils {
      * StringUtils.getIfBlank("", () -> null)       = null
      * StringUtils.getIfBlank("", null)             = null
      * }</pre>
-     * @param <T> the specific kind of CharSequence
-     * @param str the CharSequence to check, may be null
-     * @param defaultSupplier the supplier of default CharSequence to return
-     *  if the input is whitespace, empty ("") or {@code null}, may be null
+     *
+     * @param <T>             the specific kind of CharSequence
+     * @param str             the CharSequence to check, may be null
+     * @param defaultSupplier the supplier of default CharSequence to return if the input is {@link #isBlank(CharSequence) blank} (whitespaces, empty
+     *                        ({@code ""}) or {@code null}); may be null
      * @return the passed in CharSequence, or the default
      * @see StringUtils#defaultString(String, String)
+     * @see #isBlank(CharSequence)
      * @since 3.10
      */
     public static <T extends CharSequence> T getIfBlank(final T str, final Supplier<T> defaultSupplier) {
@@ -3339,9 +3349,11 @@ public class StringUtils {
     }
 
     /**
-     * Tests if any of the CharSequences are empty ("") or null or whitespace only.
+     * Tests if any of the CharSequences are {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null}).
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.isAnyBlank((String) null)    = true
@@ -3357,8 +3369,9 @@ public class StringUtils {
      * StringUtils.isAnyBlank("foo", "bar")     = false
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if any of the CharSequences are empty or null or whitespace only
+     * @param css the CharSequences to check, may be null or empty
+     * @return {@code true} if any of the CharSequences are {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null})
+     * @see #isBlank(CharSequence)
      * @since 3.2
      */
     public static boolean isAnyBlank(final CharSequence... css) {
@@ -3445,9 +3458,7 @@ public class StringUtils {
     }
 
     /**
-     * Tests if a CharSequence is empty (""), null or whitespace only.
-     *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * Tests if a CharSequence is empty ({@code "")}, null, or contains only whitespace as defined by {@link Character#isWhitespace(char)}.
      *
      * <pre>
      * StringUtils.isBlank(null)      = true
@@ -3457,7 +3468,7 @@ public class StringUtils {
      * StringUtils.isBlank("  bob  ") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param cs the CharSequence to check, may be null
      * @return {@code true} if the CharSequence is null, empty or whitespace only
      * @since 2.0
      * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
@@ -3594,9 +3605,11 @@ public class StringUtils {
     }
 
     /**
-     * Tests if a CharSequence is not empty (""), not null and not whitespace only.
+     * Tests if a CharSequence is not {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null}).
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.isNotBlank(null)      = false
@@ -3606,9 +3619,9 @@ public class StringUtils {
      * StringUtils.isNotBlank("  bob  ") = true
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if the CharSequence is
-     *  not empty and not null and not whitespace only
+     * @param cs the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence is not {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null})
+     * @see #isBlank(CharSequence)
      * @since 2.0
      * @since 3.0 Changed signature from isNotBlank(String) to isNotBlank(CharSequence)
      */
