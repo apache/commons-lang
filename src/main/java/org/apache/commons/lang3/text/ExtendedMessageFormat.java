@@ -416,7 +416,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Read the argument index from the current format element
+     * Reads the argument index from the current format element
      *
      * @param pattern pattern to parse
      * @param pos current parse position

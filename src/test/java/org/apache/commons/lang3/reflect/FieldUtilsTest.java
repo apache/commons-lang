@@ -72,7 +72,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     private final Class<? super PublicChild> parentClass = PublicChild.class.getSuperclass();
 
     /**
-     * Read the {@code @deprecated} notice on
+     * Reads the {@code @deprecated} notice on
      * {@link FieldUtils#removeFinalModifier(Field, boolean)}.
      *
      * @param field {@link Field} to be curried into
