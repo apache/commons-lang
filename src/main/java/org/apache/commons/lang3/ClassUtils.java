@@ -92,15 +92,15 @@ public class ClassUtils {
     private static final Map<String, Class<?>> namePrimitiveMap = new HashMap<>();
 
     static {
-        namePrimitiveMap.put(Boolean.TYPE.getSimpleName(), Boolean.TYPE);
-        namePrimitiveMap.put(Byte.TYPE.getSimpleName(), Byte.TYPE);
-        namePrimitiveMap.put(Character.TYPE.getSimpleName(), Character.TYPE);
-        namePrimitiveMap.put(Double.TYPE.getSimpleName(), Double.TYPE);
-        namePrimitiveMap.put(Float.TYPE.getSimpleName(), Float.TYPE);
-        namePrimitiveMap.put(Integer.TYPE.getSimpleName(), Integer.TYPE);
-        namePrimitiveMap.put(Long.TYPE.getSimpleName(), Long.TYPE);
-        namePrimitiveMap.put(Short.TYPE.getSimpleName(), Short.TYPE);
-        namePrimitiveMap.put(Void.TYPE.getSimpleName(), Void.TYPE);
+        namePrimitiveMap.put(Boolean.TYPE.getName(), Boolean.TYPE);
+        namePrimitiveMap.put(Byte.TYPE.getName(), Byte.TYPE);
+        namePrimitiveMap.put(Character.TYPE.getName(), Character.TYPE);
+        namePrimitiveMap.put(Double.TYPE.getName(), Double.TYPE);
+        namePrimitiveMap.put(Float.TYPE.getName(), Float.TYPE);
+        namePrimitiveMap.put(Integer.TYPE.getName(), Integer.TYPE);
+        namePrimitiveMap.put(Long.TYPE.getName(), Long.TYPE);
+        namePrimitiveMap.put(Short.TYPE.getName(), Short.TYPE);
+        namePrimitiveMap.put(Void.TYPE.getName(), Void.TYPE);
     }
 
     /**
@@ -146,14 +146,14 @@ public class ClassUtils {
     /** Feed abbreviation maps. */
     static {
         final Map<String, String> map = new HashMap<>();
-        map.put("int", "I");
-        map.put("boolean", "Z");
-        map.put("float", "F");
-        map.put("long", "J");
-        map.put("short", "S");
-        map.put("byte", "B");
-        map.put("double", "D");
-        map.put("char", "C");
+        map.put(Integer.TYPE.getName(), "I");
+        map.put(Boolean.TYPE.getName(), "Z");
+        map.put(Float.TYPE.getName(), "F");
+        map.put(Long.TYPE.getName(), "J");
+        map.put(Short.TYPE.getName(), "S");
+        map.put(Byte.TYPE.getName(), "B");
+        map.put(Double.TYPE.getName(), "D");
+        map.put(Character.TYPE.getName(), "C");
         abbreviationMap = Collections.unmodifiableMap(map);
         reverseAbbreviationMap = Collections.unmodifiableMap(map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey)));
     }
