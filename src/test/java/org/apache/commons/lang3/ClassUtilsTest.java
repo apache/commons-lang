@@ -562,13 +562,13 @@ public class ClassUtilsTest extends AbstractLangTest {
         assertEquals("int[][]", ClassUtils.getShortCanonicalName("[[I"));
         assertEquals("int[]", ClassUtils.getShortCanonicalName("int[]"));
         assertEquals("int[][]", ClassUtils.getShortCanonicalName("int[][]"));
-
         // this is to demonstrate that the documentation and the naming of the methods
         // uses the class name and canonical name totally mixed up, which cannot be
         // fixed without backward compatibility break
         assertEquals("int[]", int[].class.getCanonicalName());
         assertEquals("[I", int[].class.getName());
-
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName(StringUtils.repeat("[", 256) + "I"));
+        assertEquals("int" + StringUtils.repeat("[]", 255), ClassUtils.getShortCanonicalName(StringUtils.repeat("[", 255) + "I"));
         // Inner types... the problem is that these are not canonical names, classes with this name do not even have canonical
         // name
         // WARNING: this is fragile, implementation may change, naming is not guaranteed

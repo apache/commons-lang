@@ -51,6 +51,11 @@ import org.apache.commons.lang3.mutable.MutableObject;
 public class ClassUtils {
 
     /**
+     * The maximum number of array dimensions.
+     */
+    private static final int MAX_DIMENSIONS = 255;
+
+    /**
      * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
      *
      * @since 3.2
@@ -470,9 +475,8 @@ public class ClassUtils {
      * </ul>
      * </p>
      *
-     * @param className the name of class
-     * @return canonical form of class name
-     * @since 2.4
+     * @param className the name of class.
+     * @return canonical form of class name.
      */
     private static String getCanonicalName(final String name) {
         String className = StringUtils.deleteWhitespace(name);
@@ -480,19 +484,23 @@ public class ClassUtils {
             return null;
         }
         int dim = 0;
-        while (className.startsWith("[")) {
+        while (className.charAt(dim) == '[') {
             dim++;
-            className = className.substring(1);
+            if (dim > MAX_DIMENSIONS) {
+                throw new IllegalArgumentException(String.format("Maximum array dimension %d exceeded", MAX_DIMENSIONS));
+            }
         }
         if (dim < 1) {
             return className;
         }
+        className = className.substring(dim);
         if (className.startsWith("L")) {
             className = className.substring(1, className.endsWith(";") ? className.length() - 1 : className.length());
         } else if (!className.isEmpty()) {
             className = reverseAbbreviationMap.get(className.substring(0, 1));
         }
-        final StringBuilder canonicalClassNameBuffer = new StringBuilder(className);
+        final StringBuilder canonicalClassNameBuffer = new StringBuilder(className.length() + dim * 2);
+        canonicalClassNameBuffer.append(className);
         for (int i = 0; i < dim; i++) {
             canonicalClassNameBuffer.append("[]");
         }
