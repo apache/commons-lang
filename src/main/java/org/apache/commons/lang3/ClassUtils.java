@@ -474,8 +474,8 @@ public class ClassUtils {
      * @return canonical form of class name
      * @since 2.4
      */
-    private static String getCanonicalName(String className) {
-        className = StringUtils.deleteWhitespace(className);
+    private static String getCanonicalName(final String name) {
+        String className = StringUtils.deleteWhitespace(name);
         if (className == null) {
             return null;
         }
