@@ -2921,8 +2921,9 @@ public class StringUtils {
                 shortestStrLen = 0;
             } else {
                 allStringsNull = false;
-                shortestStrLen = Math.min(cs.length(), shortestStrLen);
-                longestStrLen = Math.max(cs.length(), longestStrLen);
+                final int length = cs.length();
+                shortestStrLen = Math.min(length, shortestStrLen);
+                longestStrLen = Math.max(length, longestStrLen);
             }
         }
 
@@ -2937,27 +2938,24 @@ public class StringUtils {
         }
 
         // find the position with the first difference across all strings
-        int firstDiff = -1;
         for (int stringPos = 0; stringPos < shortestStrLen; stringPos++) {
             final char comparisonChar = css[0].charAt(stringPos);
             for (int arrayPos = 1; arrayPos < arrayLen; arrayPos++) {
                 if (css[arrayPos].charAt(stringPos) != comparisonChar) {
-                    firstDiff = stringPos;
-                    break;
+                    return stringPos;
                 }
-            }
-            if (firstDiff != -1) {
-                break;
             }
         }
 
-        if (firstDiff == -1 && shortestStrLen != longestStrLen) {
+        //only if no difference was found before the shortest String ends, then we enter here.
+
+        if (shortestStrLen != longestStrLen) {
             // we compared all of the characters up to the length of the
             // shortest string and didn't find a match, but the string lengths
             // vary, so return the length of the shortest string.
             return shortestStrLen;
         }
-        return firstDiff;
+        return INDEX_NOT_FOUND;
     }
 
     /**
