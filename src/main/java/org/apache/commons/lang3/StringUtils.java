@@ -9187,7 +9187,7 @@ public class StringUtils {
             return str;
         }
 
-        return wrapWith.concat(str).concat(wrapWith);
+        return wrapWith + str + wrapWith;
     }
 
     /**
@@ -9221,19 +9221,19 @@ public class StringUtils {
         }
         final boolean wrapStart = str.charAt(0) != wrapWith;
         final boolean wrapEnd = str.charAt(str.length() - 1) != wrapWith;
-        if (!wrapStart && !wrapEnd) {
-            return str;
-        }
-
-        final StringBuilder builder = new StringBuilder(str.length() + 2);
         if (wrapStart) {
-            builder.append(wrapWith);
+            if (wrapEnd) {
+                return wrapWith + str + wrapWith;
+            } else {
+                return wrapWith + str;
+            }
+        } else {
+            if (wrapEnd) {
+                return str + wrapWith;
+            } else {
+                return str;
+            }
         }
-        builder.append(str);
-        if (wrapEnd) {
-            builder.append(wrapWith);
-        }
-        return builder.toString();
     }
 
     /**
@@ -9272,19 +9272,19 @@ public class StringUtils {
 
         final boolean wrapStart = !str.startsWith(wrapWith);
         final boolean wrapEnd = !str.endsWith(wrapWith);
-        if (!wrapStart && !wrapEnd) {
-            return str;
-        }
-
-        final StringBuilder builder = new StringBuilder(str.length() + wrapWith.length() + wrapWith.length());
         if (wrapStart) {
-            builder.append(wrapWith);
+            if (wrapEnd) {
+                return wrapWith + str + wrapWith;
+            } else {
+                return wrapWith + str;
+            }
+        } else {
+            if (wrapEnd) {
+                return str + wrapWith;
+            } else {
+                return str;
+            }
         }
-        builder.append(str);
-        if (wrapEnd) {
-            builder.append(wrapWith);
-        }
-        return builder.toString();
     }
 
     /**
