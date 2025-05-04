@@ -540,13 +540,13 @@ public class Streams {
      * Returns a {@link Collector} that accumulates the input elements into a
      * new array.
      *
-     * @param pElementType Type of an element in the array.
+     * @param elementType Type of an element in the array.
      * @param <O> the type of the input elements
      * @return a {@link Collector} which collects all the input elements into an
      * array, in encounter order
      */
-    public static <O> Collector<O, ?, O[]> toArray(final Class<O> pElementType) {
-        return new ArrayCollector<>(pElementType);
+    public static <O> Collector<O, ?, O[]> toArray(final Class<O> elementType) {
+        return new ArrayCollector<>(elementType);
     }
 
     /**

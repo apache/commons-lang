@@ -154,9 +154,9 @@ public class RecursiveToStringStyleTest extends AbstractLangTest {
         p.smoker = false;
         p.job = new Job();
         p.job.title = "Manager";
-        final String pBaseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
-        final String pJobStr  = p.job.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p.job));
-        assertEquals(pBaseStr + "[age=33,job=" + pJobStr + "[title=Manager],name=John Doe,smoker=false]",
+        final String baseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
+        final String jobStr  = p.job.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p.job));
+        assertEquals(baseStr + "[age=33,job=" + jobStr + "[title=Manager],name=John Doe,smoker=false]",
                      new ReflectionToStringBuilder(p, new RecursiveToStringStyle()).toString());
     }
 

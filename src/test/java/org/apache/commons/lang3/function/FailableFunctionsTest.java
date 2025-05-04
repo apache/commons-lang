@@ -62,9 +62,9 @@ public class FailableFunctionsTest extends AbstractLangTest {
             closed = false;
         }
 
-        public void run(final Throwable pTh) throws Throwable {
-            if (pTh != null) {
-                throw pTh;
+        public void run(final Throwable throwable) throws Throwable {
+            if (throwable != null) {
+                throw throwable;
             }
         }
     }

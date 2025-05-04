@@ -147,8 +147,8 @@ public class NoFieldNamesToStringStyleTest extends AbstractLangTest {
         p.name = "Ron Paul";
         p.age = 72;
         p.smoker = false;
-        final String pBaseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
-        assertEquals(pBaseStr + "[Ron Paul,72,false]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
+        final String baseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
+        assertEquals(baseStr + "[Ron Paul,72,false]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 
 }

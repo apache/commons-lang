@@ -224,7 +224,7 @@ public class StandardToStringStyleTest extends AbstractLangTest {
         p.name = "Suzy Queue";
         p.age = 19;
         p.smoker = false;
-        final String pBaseStr = "ToStringStyleTest.Person";
-        assertEquals(pBaseStr + "[name=Suzy Queue,age=19,smoker=false]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
+        final String baseStr = "ToStringStyleTest.Person";
+        assertEquals(baseStr + "[name=Suzy Queue,age=19,smoker=false]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 }

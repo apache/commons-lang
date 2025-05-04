@@ -34,8 +34,8 @@ public class ObjectsTest extends AbstractLangTest {
         private final FailableSupplier<O, E> supplier;
         private boolean invoked;
 
-        TestableFailableSupplier(final FailableSupplier<O, E> pSupplier) {
-            this.supplier = pSupplier;
+        TestableFailableSupplier(final FailableSupplier<O, E> supplier) {
+            this.supplier = supplier;
         }
 
         @Override
@@ -53,8 +53,8 @@ public class ObjectsTest extends AbstractLangTest {
         private final Supplier<O> supplier;
         private boolean invoked;
 
-        TestableSupplier(final Supplier<O> pSupplier) {
-            this.supplier = pSupplier;
+        TestableSupplier(final Supplier<O> supplier) {
+            this.supplier = supplier;
         }
 
         @Override

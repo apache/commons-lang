@@ -47,19 +47,19 @@ import org.xml.sax.SAXException;
  */
 public class StreamsTest extends AbstractLangTest {
 
-    protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T pThrowable) {
+    protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T throwable) {
         return s -> {
             final int i = Integer.parseInt(s);
             if (i == 4) {
-                throw pThrowable;
+                throw throwable;
             }
         };
     }
 
-    protected <T extends Throwable> FailablePredicate<Integer, T> asIntPredicate(final T pThrowable) {
+    protected <T extends Throwable> FailablePredicate<Integer, T> asIntPredicate(final T throwable) {
         return i -> {
-            if (i.intValue() == 5 && pThrowable != null) {
-                throw pThrowable;
+            if (i.intValue() == 5 && throwable != null) {
+                throw throwable;
             }
             return i % 2 == 0;
         };

@@ -147,8 +147,8 @@ public class ShortPrefixToStringStyleTest extends AbstractLangTest {
         p.name = "John Q. Public";
         p.age = 45;
         p.smoker = true;
-        final String pBaseStr = "ToStringStyleTest.Person";
-        assertEquals(pBaseStr + "[name=John Q. Public,age=45,smoker=true]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
+        final String baseStr = "ToStringStyleTest.Person";
+        assertEquals(baseStr + "[name=John Q. Public,age=45,smoker=true]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 
 }

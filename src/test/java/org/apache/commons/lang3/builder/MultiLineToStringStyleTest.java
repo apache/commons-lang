@@ -147,8 +147,8 @@ public class MultiLineToStringStyleTest extends AbstractLangTest {
         p.name = "Jane Doe";
         p.age = 25;
         p.smoker = true;
-        final String pBaseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
-        assertEquals(pBaseStr + "[" + System.lineSeparator() + "  name=Jane Doe" + System.lineSeparator() + "  age=25" + System.lineSeparator() + "  smoker=true" + System.lineSeparator() + "]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
+        final String baseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  name=Jane Doe" + System.lineSeparator() + "  age=25" + System.lineSeparator() + "  smoker=true" + System.lineSeparator() + "]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 
 }
