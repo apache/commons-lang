@@ -29,6 +29,7 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -804,6 +805,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    @EnabledIfSystemProperty(named = "test.large.heap", matches = "true")
     public void testHugeStrings() {
         final int expectedLength = 64_000_000;
         final String hugeString = RandomStringUtils.random(expectedLength);
