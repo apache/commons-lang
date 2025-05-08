@@ -802,4 +802,11 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         assertNotEquals(r1, r3);
         assertNotEquals(r2, r3);
     }
+
+    @Test
+    public void testHugeStrings() {
+        final int expectedLength = 64_000_000;
+        final String hugeString = RandomStringUtils.random(expectedLength);
+        assertEquals(expectedLength, hugeString.length(), "hugeString.length() == expectedLength");
+    }
 }
