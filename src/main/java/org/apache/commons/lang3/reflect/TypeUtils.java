@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.GenericDeclaration;
@@ -1361,8 +1360,8 @@ public class TypeUtils {
      */
     private static boolean isCyclical(final Class<?> cls) {
         for (final TypeVariable<?> typeParameter : cls.getTypeParameters()) {
-            for (final AnnotatedType annotatedBound : typeParameter.getAnnotatedBounds()) {
-                if (annotatedBound.getType().getTypeName().contains(cls.getName())) {
+            for (final Type bound : typeParameter.getBounds()) {
+                if (bound.getTypeName().contains(cls.getName())) {
                     return true;
                 }
             }
