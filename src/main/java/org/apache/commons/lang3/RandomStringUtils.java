@@ -97,7 +97,6 @@ public class RandomStringUtils {
     private static final int ASCII_9 = '9';
     private static final int ASCII_A = 'A';
     private static final int ASCII_z = 'z';
-    private static final int MAX_CACHE_SIZE = 60_000_000;
 
     /**
      * Gets the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not cryptographically
@@ -330,8 +329,8 @@ public class RandomStringUtils {
         // Ideally the cache size depends on multiple factor, including the cost of generating x bytes
         // of randomness as well as the probability of rejection. It is however not easy to know
         // those values programmatically for the general case.
-        // To prevent overflow restrict the cache size to 60M entries (
-        final int cacheSize = Math.min ((count * gapBits + 3) / 5 + 10, MAX_CACHE_SIZE);
+        // For huge strings the padding required can cause an overflow
+        final int cacheSize = (count * gapBits + 3) / 5 + 10 > 0 ? (count * gapBits + 3) / 5 + 10 : Integer.MAX_VALUE;
         final CachedRandomBits arb = new CachedRandomBits(cacheSize, random);
 
         while (count-- != 0) {
