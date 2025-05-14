@@ -57,10 +57,8 @@ final class CachedRandomBits {
      *
      * <p>
      * This is dictated by the {@code if (bitIndex >> 3 >= cache.length)} in the {@link #nextBits(int)} method.
-     * Essentially {@code 63_913_202 << 3 } will overflow so this line will never evaluate to true.
-     * At some point the {@code bitIndex += generatedBitsInIteration} will overflow and cause an exception.
      */
-    private static final int MAX_CACHE_SIZE = 63_913_200;
+    private static final int MAX_CACHE_SIZE = 0x7FFF_FFFF >> 3;
 
     /**
      * Creates a new instance.
@@ -72,7 +70,7 @@ final class CachedRandomBits {
         if (cacheSize <= 0) {
             throw new IllegalArgumentException("cacheSize must be positive");
         }
-        this.cache = cacheSize <= MAX_CACHE_SIZE ? new byte[cacheSize]: new byte[MAX_CACHE_SIZE];
+        this.cache = cacheSize <= MAX_CACHE_SIZE ? new byte[cacheSize] : new byte[MAX_CACHE_SIZE];
         this.random = Objects.requireNonNull(random, "random");
         this.random.nextBytes(this.cache);
         this.bitIndex = 0;
