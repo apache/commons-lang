@@ -6039,7 +6039,7 @@ public class StringUtils {
     }
 
     /**
-     * Repeat a String {@code repeat} times to form a
+     * Repeats a String {@code repeat} times to form a
      * new String.
      *
      * <pre>
@@ -6095,7 +6095,7 @@ public class StringUtils {
     }
 
     /**
-     * Repeat a String {@code repeat} times to form a
+     * Repeats a String {@code repeat} times to form a
      * new String, with a String separator injected each time.
      *
      * <pre>
