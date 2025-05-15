@@ -17,10 +17,12 @@
 package org.apache.commons.lang3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Helpers to process Strings using regular expressions.
@@ -754,20 +756,63 @@ public class RegExUtils {
         // empty
     }
 
-    /**
-     * Extracts all matches of a regular expression pattern from the text.
-     *
-     * @param text    the text to search in, may be null (returns empty list)
-     * @param pattern the compiled pattern, may be null (returns empty list)
-     * @return a list of all matches, never null
-     * @since 4.1.0
-     */
-    public static List<String> extractMatches(final String text, final Pattern pattern) {
-        final Matcher matcher = pattern.matcher(text);
-        final List<String> matches = new ArrayList<>();
-        while (matcher.find()) {
-            matches.add(matcher.group());
+
+    public class MatchFinder {
+
+        /**
+         * Finds all matches in the given text according to the specified pattern.
+         *
+         * @param text    the text to search for matches
+         * @param pattern the pattern to search for
+         * @return a list of found matches
+         * @throws IllegalArgumentException if text or pattern is null
+         */
+        public List<String> findMatches(CharSequence text, Pattern pattern) {
+            if (text == null)
+                throw new IllegalArgumentException("Text must not be null");
+
+            if (pattern == null)
+                throw new IllegalArgumentException("Pattern must not be null");
+
+            List<String> matches = new ArrayList<>();
+            Matcher matcher = pattern.matcher(text);
+
+            while (matcher.find()) {
+                matches.add(matcher.group());
+            }
+
+            return Collections.unmodifiableList(matches); // return an unmodifiable list
         }
-        return matches;
+
+        /**
+         * Finds all matches in the given text according to the specified pattern.
+         *
+         * @param text    the text to search for matches
+         * @param pattern the pattern to search for
+         * @return a list of found matches
+         * @throws IllegalArgumentException if text or pattern is null
+         */
+        public List<String> findMatches(String text, Pattern pattern) {
+            return findMatches((CharSequence) text, pattern);
+        }
+
+        /**
+         * Finds all matches in the given text according to the specified pattern
+         * and returns them as an array of strings.
+         *
+         * @param text  the text to search for matches (throws IllegalArgumentException if null)
+         * @param regex the regular expression pattern (throws IllegalArgumentException if null or invalid)
+         * @return an array of found matches (never null)
+         * @throws IllegalArgumentException if text or regex is null
+         * @throws PatternSyntaxException   if the regex syntax is invalid
+         */
+        public String[] findMatchesAsArray(CharSequence text, String regex) {
+            if (regex == null) {
+                throw new IllegalArgumentException("Regex must not be null");
+            }
+            Pattern pattern = Pattern.compile(regex);
+            List<String> matches = findMatches(text, pattern);
+            return matches.toArray(new String[0]);
+        }
     }
 }
