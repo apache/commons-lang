@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -750,5 +752,22 @@ public class RegExUtils {
     @Deprecated
     public RegExUtils() {
         // empty
+    }
+
+    /**
+     * Extracts all matches of a regular expression pattern from the text.
+     *
+     * @param text    the text to search in, may be null (returns empty list)
+     * @param pattern the compiled pattern, may be null (returns empty list)
+     * @return a list of all matches, never null
+     * @since 4.1.0
+     */
+    public static List<String> extractMatches(final String text, final Pattern pattern) {
+        final Matcher matcher = pattern.matcher(text);
+        final List<String> matches = new ArrayList<>();
+        while (matcher.find()) {
+            matches.add(matcher.group());
+        }
+        return matches;
     }
 }
