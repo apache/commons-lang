@@ -53,6 +53,14 @@ final class CachedRandomBits {
     private int bitIndex;
 
     /**
+     * The maximum size of the cache.
+     *
+     * <p>
+     * This is dictated by the {@code if (bitIndex >> 3 >= cache.length)} in the {@link #nextBits(int)} method.
+     */
+    private static final int MAX_CACHE_SIZE = 0x7FFF_FFFF >> 3;
+
+    /**
      * Creates a new instance.
      *
      * @param cacheSize number of bytes cached (only affects performance)
@@ -62,7 +70,7 @@ final class CachedRandomBits {
         if (cacheSize <= 0) {
             throw new IllegalArgumentException("cacheSize must be positive");
         }
-        this.cache = new byte[cacheSize];
+        this.cache = cacheSize <= MAX_CACHE_SIZE ? new byte[cacheSize] : new byte[MAX_CACHE_SIZE];
         this.random = Objects.requireNonNull(random, "random");
         this.random.nextBytes(this.cache);
         this.bitIndex = 0;
