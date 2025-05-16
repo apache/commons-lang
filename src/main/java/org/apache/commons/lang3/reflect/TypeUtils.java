@@ -235,8 +235,8 @@ public class TypeUtils {
          * @param lowerBounds of this type
          */
         private WildcardTypeImpl(final Type[] upperBounds, final Type[] lowerBounds) {
-            this.upperBounds = ObjectUtils.defaultIfNull(upperBounds, ArrayUtils.EMPTY_TYPE_ARRAY);
-            this.lowerBounds = ObjectUtils.defaultIfNull(lowerBounds, ArrayUtils.EMPTY_TYPE_ARRAY);
+            this.upperBounds = ObjectUtils.getIfNull(upperBounds, ArrayUtils.EMPTY_TYPE_ARRAY);
+            this.lowerBounds = ObjectUtils.getIfNull(lowerBounds, ArrayUtils.EMPTY_TYPE_ARRAY);
         }
 
         /**
