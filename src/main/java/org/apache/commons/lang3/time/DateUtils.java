@@ -18,8 +18,8 @@ package org.apache.commons.lang3.time;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -1647,7 +1647,8 @@ public class DateUtils {
      * @since 3.18
      */
     public static LocalDateTime toLocalDateTime(final Date date, final TimeZone tz) {
-        return Objects.requireNonNull(date, "date").toInstant().atZone(ZoneId.of(tz.getID())).toLocalDateTime();
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(Objects.requireNonNull(date, "date").getTime()),
+                Objects.requireNonNull(tz,"tz").toZoneId());
     }
 
     /**
