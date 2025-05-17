@@ -85,5 +85,9 @@ limitations under the License.
     <module name="UpperEll" />
     <module name="WhitespaceAfter"/>
     <module name="WhitespaceAround"/>
+    <module name="ImportControl">
+      <property name="file" value="src/conf/checkstyle/import-control.xml"/>
+      <property name="path" value="^.*[\\/]src[\\/]main[\\/].*$"/>
+    </module>
  </module>
 </module>
