@@ -1648,7 +1648,7 @@ public class DateUtils {
      * @since 3.18
      */
     public static LocalDateTime toLocalDateTime(final Date date, final TimeZone tz) {
-        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(Objects.requireNonNull(date, "date").getTime()),
+        final LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(Objects.requireNonNull(date, "date").getTime()),
                 Objects.requireNonNull(tz, "tz").toZoneId());
         if (date instanceof java.sql.Timestamp ) {
             return localDateTime.withNano(((Timestamp) date).getNanos());
