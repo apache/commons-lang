@@ -484,7 +484,7 @@ public class RegExUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testShouldAddElementInFindMatchesModifiabale(){
+    public void testShouldAddElementInFindMatchesModifiable(){
         Pattern pattern = Pattern.compile("\\w+");
         List<String> result = utils.findMatchesModifiable("asd test 123", pattern);
         result.add("text");
@@ -492,7 +492,7 @@ public class RegExUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testShouldRemoveElementInFindMatchesModifiabale(){
+    public void testShouldRemoveElementInFindMatchesModifiable(){
         Pattern pattern = Pattern.compile("\\w+");
         List<String> result = utils.findMatchesModifiable("asd test 123", pattern);
         result.remove("123");
