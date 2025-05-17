@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -476,4 +475,55 @@ public class RegExUtilsTest extends AbstractLangTest {
             fail("Expected UnsupportedOperationException");
         } catch (UnsupportedOperationException e) {}
     }
+
+    @Test
+    public void testFindMultipleMatchesAsArrayList(){
+        Pattern pattern = Pattern.compile("\\d+");
+        List<String> result = utils.findMatchesModifiabale("asd 123 fgd 456 zxc", pattern);
+        assertEquals(Arrays.asList("123", "456"), result);
+    }
+
+    @Test
+    public void testShouldAddElementInFindMatchesModifiabale(){
+        Pattern pattern = Pattern.compile("\\w+");
+        List<String> result = utils.findMatchesModifiabale("asd test 123", pattern);
+        result.add("text");
+        assertEquals(Arrays.asList("asd", "test", "123", "text"), result);
+    }
+
+    @Test
+    public void testShouldRemoveElementInFindMatchesModifiabale(){
+        Pattern pattern = Pattern.compile("\\w+");
+        List<String> result = utils.findMatchesModifiabale("asd test 123", pattern);
+        result.remove("123");
+        assertEquals(Arrays.asList("asd","test"), result);
+    }
+
+    @Test
+    public void testFindNoMatchesAsArrayList() {
+        Pattern pattern = Pattern.compile("\\d+");
+        List<String> result = utils.findMatchesModifiabale("asd zxc", pattern);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void testFindMatchesAsArrayListWhenTextIsEmpty() {
+        Pattern pattern = Pattern.compile("\\d+");
+        List<String>result = utils.findMatchesModifiabale("", pattern);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void testFindMatchesAsArrayListWhenTextIsNull() {
+        Pattern pattern = Pattern.compile("\\d+");
+        List<String>result = utils.findMatchesModifiabale(null, pattern);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void testFindMatchesAsArrayListWhenPatternIsNull(){
+        List<String>result = utils.findMatchesModifiabale("asd 123", null);
+        assertTrue(result.isEmpty());
+    }
+
 }

@@ -756,13 +756,12 @@ public class RegExUtils {
         // empty
     }
 
-
     /**
      * Finds all matches in the given text according to the specified pattern.
      *
      * @param text    the text to search for matches
      * @param pattern the pattern to search for
-     * @return a list of found matches; returns an empty List if text or pattern is null
+     * @return an unmodifiable list of found matches; returns an empty List if text or pattern is null
      */
     public List<String> findMatches(CharSequence text, Pattern pattern) {
         if (text == null || pattern == null){
@@ -777,17 +776,6 @@ public class RegExUtils {
         }
 
         return Collections.unmodifiableList(matches);
-    }
-
-    /**
-     * Finds all matches in the given text according to the specified pattern.
-     *
-     * @param text    the text to search for matches
-     * @param pattern the pattern to search for
-     * @return a list of found matches
-     */
-    public List<String> findMatches(String text, Pattern pattern) {
-        return findMatches((CharSequence) text, pattern);
     }
 
     /**
@@ -809,5 +797,25 @@ public class RegExUtils {
         }catch (PatternSyntaxException e){
             return new String[0];
         }
+    }
+
+    /**
+     * Finds all matches in the given text according to the specified pattern
+     * and returns them as a modifiable ArrayList.
+     *
+     * @param text    the text to search for matches
+     * @param pattern the pattern to search for
+     * @return a modifiable ArrayList of found matches; returns an empty List if text or pattern is null
+     */
+    public List<String> findMatchesModifiabale(CharSequence text, Pattern pattern){
+        if (text == null || pattern == null){
+            return new ArrayList<>();
+        }
+        Matcher matcher = pattern.matcher(text);
+        List<String> matches = new ArrayList<>();
+        while (matcher.find()){
+            matches.add(matcher.group());
+        }
+        return matches;
     }
 }
