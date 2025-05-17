@@ -16,9 +16,13 @@
  */
 package org.apache.commons.lang3;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Helpers to process Strings using regular expressions.
@@ -750,5 +754,68 @@ public class RegExUtils {
     @Deprecated
     public RegExUtils() {
         // empty
+    }
+
+    /**
+     * Finds all matches in the given text according to the specified pattern.
+     *
+     * @param text    the text to search for matches
+     * @param pattern the pattern to search for
+     * @return an unmodifiable list of found matches; returns an empty List if text or pattern is null
+     */
+    public List<String> findMatches(CharSequence text, Pattern pattern) {
+        if (text == null || pattern == null){
+            return Collections.emptyList();
+        }
+
+        List<String> matches = new ArrayList<>();
+        Matcher matcher = pattern.matcher(text);
+
+        while (matcher.find()) {
+            matches.add(matcher.group());
+        }
+
+        return Collections.unmodifiableList(matches);
+    }
+
+    /**
+     * Finds all matches in the given text according to the specified pattern
+     * and returns them as an array of strings.
+     *
+     * @param text  the text to search for matches
+     * @param regex the regular expression pattern
+     * @return an array of found matches; returns an empty array if text or regex is null
+     */
+    public String[] findMatchesAsArray(CharSequence text, String regex) {
+        if (text == null ||regex == null){
+            return new String[0];
+        }
+        try {
+            Pattern pattern = Pattern.compile(regex);
+            List<String> matches = findMatches(text, pattern);
+            return matches.toArray(new String[0]);
+        }catch (PatternSyntaxException e){
+            return new String[0];
+        }
+    }
+
+    /**
+     * Finds all matches in the given text according to the specified pattern
+     * and returns them as a modifiable ArrayList.
+     *
+     * @param text    the text to search for matches
+     * @param pattern the pattern to search for
+     * @return a modifiable ArrayList of found matches; returns an empty List if text or pattern is null
+     */
+    public List<String> findMatchesModifiable(CharSequence text, Pattern pattern){
+        if (text == null || pattern == null){
+            return new ArrayList<>();
+        }
+        Matcher matcher = pattern.matcher(text);
+        List<String> matches = new ArrayList<>();
+        while (matcher.find()){
+            matches.add(matcher.group());
+        }
+        return matches;
     }
 }
