@@ -1650,7 +1650,7 @@ public class DateUtils {
     public static LocalDateTime toLocalDateTime(final Date date, final TimeZone tz) {
         final LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(Objects.requireNonNull(date, "date").getTime()),
                 Objects.requireNonNull(tz, "tz").toZoneId());
-        if (date instanceof java.sql.Timestamp ) {
+        if (date instanceof java.sql.Timestamp) {
             return localDateTime.withNano(((Timestamp) date).getNanos());
         }
         return localDateTime;
