@@ -30,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
@@ -1286,6 +1287,112 @@ public class DateUtilsTest extends AbstractLangTest {
     @Test
     public void testToCalendarWithTimeZoneNull() {
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(date1, null));
+    }
+
+    @Test
+    void testToLocalDateTimeWithSqlDate() {
+        java.sql.Date sqlDate = java.sql.Date.valueOf("2000-01-01");
+
+        LocalDateTime result = DateUtils.toLocalDateTime(sqlDate);
+
+        assertNotNull(result);
+
+        LocalDateTime expected = LocalDateTime.of(2000, 1, 1, 0, 0, 0);
+        assertEquals(expected, result);
+
+        Instant instant = Instant.ofEpochMilli(sqlDate.getTime());
+        LocalDateTime expectedWithZone = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        assertEquals(expectedWithZone, result);
+    }
+
+    @Test
+    public void testToLocalDateTimeWithSqlTime() {
+        java.sql.Time sqlTime = java.sql.Time.valueOf("12:30:45");
+
+        LocalDateTime result = DateUtils.toLocalDateTime(sqlTime);
+
+        assertNotNull(result);
+
+        LocalDateTime expected = LocalDateTime.of(1970, 1, 1, 12, 30, 45);
+        assertEquals(expected, result);
+
+        Instant instant = Instant.ofEpochMilli(sqlTime.getTime());
+        LocalDateTime expectedWithZone = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        assertEquals(expectedWithZone, result);
+    }
+
+    @Test
+    public void testToLocalDateTimeWithSqlTimestamp() {
+        java.sql.Timestamp sqlTimestamp = java.sql.Timestamp.valueOf("2000-01-01 12:30:45.123456789");
+
+        LocalDateTime result = DateUtils.toLocalDateTime(sqlTimestamp);
+
+        assertNotNull(result);
+
+        LocalDateTime expected = LocalDateTime.of(
+                2000, 1, 1, 12, 30, 45, 123_456_789
+        );
+        assertEquals(expected, result);
+
+        Instant instant = sqlTimestamp.toInstant();
+        LocalDateTime expectedWithZone = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        assertEquals(expectedWithZone, result);
+    }
+
+    @Test
+    public void testToLocalDateTimeWithSqlTimestamp_NanoPrecision() {
+        java.sql.Timestamp sqlTimestamp = java.sql.Timestamp.valueOf("2000-01-01 12:30:45.987654321");
+
+        LocalDateTime result = DateUtils.toLocalDateTime(sqlTimestamp);
+
+        LocalDateTime expected = LocalDateTime.of(
+                2000, 1, 1, 12, 30, 45, 987_654_321
+        );
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testToLocalDateTimeWithSqlTimestamp_WithTimeZone() {
+        java.sql.Timestamp sqlTimestamp = java.sql.Timestamp.valueOf("2000-01-01 12:30:45");
+        TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
+
+        LocalDateTime result = DateUtils.toLocalDateTime(sqlTimestamp, timeZone);
+
+        Instant instant = sqlTimestamp.toInstant();
+        LocalDateTime expected = LocalDateTime.ofInstant(instant, timeZone.toZoneId());
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testToLocalDateTimeWithSqlDate_Epoch() {
+        java.sql.Date sqlDate = java.sql.Date.valueOf("1970-01-01");
+
+        LocalDateTime result = DateUtils.toLocalDateTime(sqlDate);
+
+        LocalDateTime expected = LocalDateTime.of(1970, 1, 1, 0, 0, 0);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testToLocalDateTimeWithSqlTime_MaxValue() {
+        java.sql.Time sqlTime = java.sql.Time.valueOf("23:59:59");
+
+        LocalDateTime result = DateUtils.toLocalDateTime(sqlTime);
+
+        LocalDateTime expected = LocalDateTime.of(1970, 1, 1, 23, 59, 59);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testToLocalDateTimeWithSqlTimestamp_DaylightSaving() {
+        java.sql.Timestamp sqlTimestamp = java.sql.Timestamp.valueOf("2023-03-12 02:30:00");
+        TimeZone newYork = TimeZone.getTimeZone("America/New_York");
+
+        LocalDateTime result = DateUtils.toLocalDateTime(sqlTimestamp, newYork);
+
+        Instant instant = sqlTimestamp.toInstant();
+        LocalDateTime expected = LocalDateTime.ofInstant(instant, newYork.toZoneId());
+        assertEquals(expected, result);
     }
 
     @Test

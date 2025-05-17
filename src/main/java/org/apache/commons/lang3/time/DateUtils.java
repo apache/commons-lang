@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.time;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.time.Instant;
@@ -1647,8 +1648,12 @@ public class DateUtils {
      * @since 3.18
      */
     public static LocalDateTime toLocalDateTime(final Date date, final TimeZone tz) {
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli(Objects.requireNonNull(date, "date").getTime()),
-                Objects.requireNonNull(tz,"tz").toZoneId());
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(Objects.requireNonNull(date, "date").getTime()),
+                Objects.requireNonNull(tz, "tz").toZoneId());
+        if (date instanceof java.sql.Timestamp ) {
+            return localDateTime.withNano(((Timestamp) date).getNanos());
+        }
+        return localDateTime;
     }
 
     /**
