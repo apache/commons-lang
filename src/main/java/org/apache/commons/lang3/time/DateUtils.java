@@ -18,6 +18,8 @@ package org.apache.commons.lang3.time;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -1623,6 +1625,29 @@ public class DateUtils {
         final Calendar c = Calendar.getInstance(tz);
         c.setTime(Objects.requireNonNull(date, "date"));
         return c;
+    }
+
+    /**
+     * Converts a {@link Date} into a {@link LocalDateTime}, using the default time zone.
+     * @param date the date to convert to a LocalDateTime
+     * @return the created LocalDateTime
+     * @throws NullPointerException if {@code date} is null
+     * @since 3.18
+     */
+    public static LocalDateTime toLocalDateTime(final Date date) {
+        return toLocalDateTime(date, TimeZone.getDefault());
+    }
+
+    /**
+     * Converts a {@link Date} into a {@link LocalDateTime}
+     * @param date the date to convert to a LocalDateTime
+     * @param tz the time zone of the {@code date}
+     * @return the created LocalDateTime
+     * @throws NullPointerException if {@code date} is null
+     * @since 3.18
+     */
+    public static LocalDateTime toLocalDateTime(final Date date, final TimeZone tz) {
+        return Objects.requireNonNull(date, "date").toInstant().atZone(ZoneId.of(tz.getID())).toLocalDateTime();
     }
 
     /**
