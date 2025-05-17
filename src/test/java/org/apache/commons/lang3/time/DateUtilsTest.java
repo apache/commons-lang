@@ -28,6 +28,9 @@ import java.lang.reflect.Modifier;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -1284,6 +1287,67 @@ public class DateUtilsTest extends AbstractLangTest {
     public void testToCalendarWithTimeZoneNull() {
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(date1, null));
     }
+
+    @Test
+    void shouldConvertDateToLocalDateTimeUsingDefaultTimeZone() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
+
+        Instant instant = LocalDateTime.of(2023, 1, 1, 0, 0)
+                .atOffset(ZoneOffset.UTC)
+                .toInstant();
+        Date date = Date.from(instant);
+
+        LocalDateTime expected = LocalDateTime.of(2023, 1, 1, 8, 0);
+
+        assertEquals(expected, DateUtils.toLocalDateTime(date));
+    }
+
+    @Test
+    void shouldConvertDateToLocalDateTimeUsingSpecifiedTimeZone() {
+        Instant instant = LocalDateTime.of(2023, 1, 1, 0, 0)
+                .atOffset(ZoneOffset.UTC)
+                .toInstant();
+        Date date = Date.from(instant);
+
+        TimeZone newYorkTimeZone = TimeZone.getTimeZone("America/New_York");
+        LocalDateTime expected = LocalDateTime.of(2022, 12, 31, 19, 0);
+
+        assertEquals(expected, DateUtils.toLocalDateTime(date, newYorkTimeZone));
+    }
+
+    @Test
+    void shouldThrowNullPointerExceptionWhenDateIsNull() {
+        assertThrows(NullPointerException.class, () -> DateUtils.toLocalDateTime(null));
+        assertThrows(NullPointerException.class, () -> DateUtils.toLocalDateTime(null, TimeZone.getDefault()));
+    }
+
+    @Test
+    void shouldHandleDaylightSavingTimeCorrectly() {
+        Instant instant = LocalDateTime.of(2023, 3, 12, 7, 0)
+                .atOffset(ZoneOffset.UTC)
+                .toInstant();
+        Date date = Date.from(instant);
+
+        TimeZone newYorkTimeZone = TimeZone.getTimeZone("America/New_York");
+        LocalDateTime expected = LocalDateTime.of(2023, 3, 12, 3, 0);
+
+        assertEquals(expected, DateUtils.toLocalDateTime(date, newYorkTimeZone));
+    }
+
+    @Test
+    void shouldHandleExtremeTimeZoneCorrectly() {
+        Instant instant = LocalDateTime.of(2023, 1, 1, 0, 0)
+                .atOffset(ZoneOffset.UTC)
+                .toInstant();
+        Date date = Date.from(instant);
+
+        TimeZone extremeTimeZone = TimeZone.getTimeZone("Pacific/Kiritimati");
+        LocalDateTime expected = LocalDateTime.of(2023, 1, 1, 14, 0);
+
+        assertEquals(expected, DateUtils.toLocalDateTime(date, extremeTimeZone));
+    }
+
+
 
     /**
      * Tests various values with the trunc method
