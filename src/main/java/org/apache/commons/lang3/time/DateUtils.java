@@ -1688,12 +1688,12 @@ public class DateUtils {
      *             it will return 0.
      * @return The nanosecond part of the {@link java.sql.Timestamp} object.
      */
-    private static int extractNanosFromSqlTimestamp(Date date){
-        if (timestampClass==null){
+    private static int extractNanosFromSqlTimestamp(Date date) {
+        if (timestampClass == null) {
             return 0;
         }
         try {
-            return (int)timestampGetNanosMethod.invoke(date);
+            return (int) timestampGetNanosMethod.invoke(date);
         } catch (IllegalAccessException | InvocationTargetException e) {
             return 0;
         }
