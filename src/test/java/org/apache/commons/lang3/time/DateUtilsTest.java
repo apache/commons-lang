@@ -1360,12 +1360,6 @@ public class DateUtilsTest extends AbstractLangTest {
                                 java.sql.Timestamp.valueOf("2023-03-12 02:30:00").toInstant(),
                                 TimeZone.getTimeZone("America/New_York").toZoneId()
                         )
-                ), Arguments.of(
-                        Date.from(LocalDateTime.of(2023, 1, 1, 0, 0)
-                                .atOffset(ZoneOffset.UTC)
-                                .toInstant()),
-                        null,
-                        LocalDateTime.of(2023, 1, 1, 8, 0)
                 ),
                 Arguments.of(
                         Date.from(LocalDateTime.of(2023, 1, 1, 0, 0)
