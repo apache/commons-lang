@@ -1291,14 +1291,6 @@ public class DateUtilsTest extends AbstractLangTest {
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(date1, null));
     }
 
-    @ParameterizedTest
-    @MethodSource("dateConversionProvider")
-    void testToLocalDateTimeWithDate(Date sqlDate, LocalDateTime expected) {
-        LocalDateTime result = DateUtils.toLocalDateTime(sqlDate);
-        assertNotNull(result);
-        assertEquals(expected, result);
-    }
-
     private static Stream<Arguments> dateConversionProvider() {
         return Stream.of(
                 Arguments.of(
@@ -1326,21 +1318,6 @@ public class DateUtilsTest extends AbstractLangTest {
                         LocalDateTime.of(2000, 1, 1, 12, 30, 45, 987_654_321)
                 )
         );
-    }
-
-    @ParameterizedTest
-    @MethodSource("dateWithTimeZoneProvider")
-    void testToLocalDateTimeWithDate(
-            Date date,
-            TimeZone timeZone,
-            LocalDateTime expected) {
-        LocalDateTime result ;
-        if (timeZone != null) {
-            result = DateUtils.toLocalDateTime(date, timeZone);
-        } else {
-            result = DateUtils.toLocalDateTime(date);
-        }
-        assertEquals(expected, result);
     }
 
     private static Stream<Arguments> dateWithTimeZoneProvider() {
@@ -1383,6 +1360,29 @@ public class DateUtilsTest extends AbstractLangTest {
                         LocalDateTime.of(2023, 1, 1, 14, 0)
                 )
         );
+    }
+
+    @ParameterizedTest
+    @MethodSource("dateConversionProvider")
+    void testToLocalDateTimeWithDate(final Date sqlDate, final LocalDateTime expected) {
+        final LocalDateTime result = DateUtils.toLocalDateTime(sqlDate);
+        assertNotNull(result);
+        assertEquals(expected, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("dateWithTimeZoneProvider")
+    void testToLocalDateTimeWithDate(
+            final Date date,
+            final TimeZone timeZone,
+            final LocalDateTime expected) {
+        final LocalDateTime result;
+        if (timeZone != null) {
+            result = DateUtils.toLocalDateTime(date, timeZone);
+        } else {
+            result = DateUtils.toLocalDateTime(date);
+        }
+        assertEquals(expected, result);
     }
 
     @Test
