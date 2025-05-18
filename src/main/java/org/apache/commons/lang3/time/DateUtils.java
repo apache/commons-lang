@@ -16,7 +16,8 @@
  */
 package org.apache.commons.lang3.time;
 
-import java.sql.Timestamp;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.time.Instant;
@@ -205,6 +206,28 @@ public class DateUtils {
      * A month range, the week starting on Monday.
      */
     public static final int RANGE_MONTH_MONDAY = 6;
+    /**
+     * The {@link Class} for {@link java.sql.Timestamp}.
+     */
+    private static final Class<?> timestampClass;
+    /**
+     * The {@link Method} for {@link  java.sql.Timestamp#getNanos()}.
+     */
+    private static final Method timestampGetNanosMethod;
+
+    static {
+        Class<?> clazz;
+        Method method;
+        try {
+            clazz = Class.forName("java.sql.Timestamp");
+            method = clazz.getMethod("getNanos");
+        } catch (ClassNotFoundException | NoSuchMethodException ex) {
+            clazz = null;
+            method = null;
+        }
+        timestampClass = clazz;
+        timestampGetNanosMethod = method;
+    }
 
     /**
      * Adds to a date returning a new object.
@@ -1651,10 +1674,36 @@ public class DateUtils {
         Objects.requireNonNull(date, "date");
         Objects.requireNonNull(tz, "tz");
         final LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), tz.toZoneId());
-        if (date instanceof java.sql.Timestamp) {
-            return localDateTime.withNano(((Timestamp) date).getNanos());
+        if (isTimestamp(date)) {
+            return localDateTime.withNano(extractNanosFromSqlTimestamp(date));
         }
         return localDateTime;
+    }
+
+    /**
+     * Get the nanosecond part in the {@link java.sql.Timestamp} object. without requiring the java.sql module.
+     *
+     * @param date The date is a {@link java.sql.Timestamp} object.
+     *             If it is not a {@link java.sql.Timestamp} object,
+     *             it will return 0.
+     * @return The nanosecond part of the {@link java.sql.Timestamp} object.
+     */
+    private static int extractNanosFromSqlTimestamp(Date date){
+        if (timestampClass==null){
+            return 0;
+        }
+        try {
+            return (int)timestampGetNanosMethod.invoke(date);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Check to see if obj is an instance of {@link java.sql.Timestamp} without requiring the java.sql module.
+     */
+    private static boolean isTimestamp(final Date date) {
+        return timestampClass != null && timestampClass.isAssignableFrom(date.getClass());
     }
 
     /**
