@@ -50,6 +50,25 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
+    public void testFillBooleanArray() {
+        final boolean[] array = new boolean[3];
+        final boolean val = true;
+        final boolean[] actual = ArrayFill.fill(array, val);
+        assertSame(array, actual);
+        for (final boolean v : actual) {
+            assertEquals(val, v);
+        }
+    }
+
+    @Test
+    public void testFillBooleanArrayNull() {
+        final boolean[] array = null;
+        final boolean val = true;
+        final boolean[] actual = ArrayFill.fill(array, val);
+        assertSame(array, actual);
+    }
+
+    @Test
     public void testFillCharArray() {
         final char[] array = new char[3];
         final char val = 1;
