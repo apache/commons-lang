@@ -45,6 +45,21 @@ public final class ArrayFill {
     }
 
     /**
+     * Fills and returns the given array, assigning the given {@code boolean} value to each element of the array.
+     *
+     * @param a   the array to be filled (may be null).
+     * @param val the value to be stored in all elements of the array.
+     * @return the given array.
+     * @see Arrays#fill(boolean[],boolean)
+     */
+    public static boolean[] fill(final boolean[] a, final boolean val) {
+        if (a != null) {
+            Arrays.fill(a, val);
+        }
+        return a;
+    }
+
+    /**
      * Fills and returns the given array, assigning the given {@code char} value to each element of the array.
      *
      * @param a   the array to be filled (may be null).
