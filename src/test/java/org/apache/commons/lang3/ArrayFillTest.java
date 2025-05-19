@@ -31,25 +31,6 @@ import org.junit.jupiter.api.Test;
 public class ArrayFillTest extends AbstractLangTest {
 
     @Test
-    public void testFillByteArray() {
-        final byte[] array = new byte[3];
-        final byte val = (byte) 1;
-        final byte[] actual = ArrayFill.fill(array, val);
-        assertSame(array, actual);
-        for (final byte v : actual) {
-            assertEquals(val, v);
-        }
-    }
-
-    @Test
-    public void testFillByteArrayNull() {
-        final byte[] array = null;
-        final byte val = (byte) 1;
-        final byte[] actual = ArrayFill.fill(array, val);
-        assertSame(array, actual);
-    }
-
-    @Test
     public void testFillBooleanArray() {
         final boolean[] array = new boolean[3];
         final boolean val = true;
@@ -65,6 +46,25 @@ public class ArrayFillTest extends AbstractLangTest {
         final boolean[] array = null;
         final boolean val = true;
         final boolean[] actual = ArrayFill.fill(array, val);
+        assertSame(array, actual);
+    }
+
+    @Test
+    public void testFillByteArray() {
+        final byte[] array = new byte[3];
+        final byte val = (byte) 1;
+        final byte[] actual = ArrayFill.fill(array, val);
+        assertSame(array, actual);
+        for (final byte v : actual) {
+            assertEquals(val, v);
+        }
+    }
+
+    @Test
+    public void testFillByteArrayNull() {
+        final byte[] array = null;
+        final byte val = (byte) 1;
+        final byte[] actual = ArrayFill.fill(array, val);
         assertSame(array, actual);
     }
 
@@ -123,6 +123,21 @@ public class ArrayFillTest extends AbstractLangTest {
         final float val = 1;
         final float[] actual = ArrayFill.fill(array, val);
         assertSame(array, actual);
+    }
+
+    @Test
+    public void testFillFunction() throws Exception {
+        final FailableIntFunction<?, Exception> nullIntFunction = null;
+        assertNull(ArrayFill.fill(null, nullIntFunction));
+        assertArrayEquals(null, ArrayFill.fill(null, nullIntFunction));
+        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayFill.fill(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, nullIntFunction));
+        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, ArrayFill.fill(ArrayUtils.EMPTY_OBJECT_ARRAY, nullIntFunction));
+        final Integer[] array = new Integer[10];
+        final Integer[] array2 = ArrayFill.fill(array, Integer::valueOf);
+        assertSame(array, array2);
+        for (int i = 0; i < array.length; i++) {
+            assertEquals(i, array[i].intValue());
+        }
     }
 
     @Test
@@ -199,20 +214,5 @@ public class ArrayFillTest extends AbstractLangTest {
         final short val = 1;
         final short[] actual = ArrayFill.fill(array, val);
         assertSame(array, actual);
-    }
-
-    @Test
-    public void testFillFunction() throws Exception {
-        final FailableIntFunction<?, Exception> nullIntFunction = null;
-        assertNull(ArrayFill.fill(null, nullIntFunction));
-        assertArrayEquals(null, ArrayFill.fill(null, nullIntFunction));
-        assertArrayEquals(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayFill.fill(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, nullIntFunction));
-        assertArrayEquals(ArrayUtils.EMPTY_OBJECT_ARRAY, ArrayFill.fill(ArrayUtils.EMPTY_OBJECT_ARRAY, nullIntFunction));
-        final Integer[] array = new Integer[10];
-        final Integer[] array2 = ArrayFill.fill(array, Integer::valueOf);
-        assertSame(array, array2);
-        for (int i = 0; i < array.length; i++) {
-            assertEquals(i, array[i].intValue());
-        }
     }
 }

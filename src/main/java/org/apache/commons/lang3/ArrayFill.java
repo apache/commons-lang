@@ -30,6 +30,22 @@ import org.apache.commons.lang3.function.FailableIntFunction;
 public final class ArrayFill {
 
     /**
+     * Fills and returns the given array, assigning the given {@code boolean} value to each element of the array.
+     *
+     * @param a   the array to be filled (may be null).
+     * @param val the value to be stored in all elements of the array.
+     * @return the given array.
+     * @see Arrays#fill(boolean[],boolean)
+     * @since 3.18.0
+     */
+    public static boolean[] fill(final boolean[] a, final boolean val) {
+        if (a != null) {
+            Arrays.fill(a, val);
+        }
+        return a;
+    }
+
+    /**
      * Fills and returns the given array, assigning the given {@code byte} value to each element of the array.
      *
      * @param a   the array to be filled (may be null).
@@ -38,21 +54,6 @@ public final class ArrayFill {
      * @see Arrays#fill(byte[],byte)
      */
     public static byte[] fill(final byte[] a, final byte val) {
-        if (a != null) {
-            Arrays.fill(a, val);
-        }
-        return a;
-    }
-
-    /**
-     * Fills and returns the given array, assigning the given {@code boolean} value to each element of the array.
-     *
-     * @param a   the array to be filled (may be null).
-     * @param val the value to be stored in all elements of the array.
-     * @return the given array.
-     * @see Arrays#fill(boolean[],boolean)
-     */
-    public static boolean[] fill(final boolean[] a, final boolean val) {
         if (a != null) {
             Arrays.fill(a, val);
         }

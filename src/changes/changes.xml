@@ -121,6 +121,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.JAVA_SECURITY_KERBEROS_CONF.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.JAVA_SECURITY_KERBEROS_KDC.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.JAVA_SECURITY_KERBEROS_REAL.</action>
+    <action                   type="add" dev="ggregory" due-to="kommalapatiraviteja">Add ArrayFill.fill(boolean[], boolean) #1386.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 83 #1267, #1277, #1283, #1288, #1302, #1377.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[site] Bump org.codehaus.mojo:taglist-maven-plugin from 3.1.0 to 3.2.1 #1300.</action>
