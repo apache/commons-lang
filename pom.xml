@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>83</version>
+    <version>84</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
