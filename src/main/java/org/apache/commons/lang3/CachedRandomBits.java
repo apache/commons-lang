@@ -56,9 +56,9 @@ final class CachedRandomBits {
      * The maximum size of the cache.
      *
      * <p>
-     * This is dictated by the {@code if (bitIndex >> 3 >= cache.length)} in the {@link #nextBits(int)} method.
+     * This is to prevent the possibility of overflow in the {@code if (bitIndex >> 3 >= cache.length)} in the {@link #nextBits(int)} method.
      */
-    private static final int MAX_CACHE_SIZE = 0x7FFF_FFFF >> 3;
+    private static final int MAX_CACHE_SIZE = Integer.MAX_VALUE >> 3;
 
     /**
      * Creates a new instance.

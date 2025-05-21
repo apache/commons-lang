@@ -330,9 +330,9 @@ public class RandomStringUtils {
         // of randomness as well as the probability of rejection. It is however not easy to know
         // those values programmatically for the general case.
         // For huge strings the padding required can cause an overflow
-        // 63_913_201 is the highest x such that (21x + 3) / 5 + 10 ? 0x0FFF_FFFF.
-        final int cacheSize = (count * gapBits + 3) > 0 ? (count * gapBits + 3) / 5 + 10 : 63_913_201;
-        final CachedRandomBits arb = new CachedRandomBits(cacheSize, random);
+        // 63_913_201 is the highest x such that (21x + 3) / 5 + 10 < 0x0FFF_FFFF.
+        final long cacheSize = Math.min((count * gapBits + 3) / 5 + 10, Integer.MAX_VALUE / 5);
+        final CachedRandomBits arb = new CachedRandomBits((int) cacheSize, random);
 
         while (count-- != 0) {
             // Generate a random value between start (included) and end (excluded)
