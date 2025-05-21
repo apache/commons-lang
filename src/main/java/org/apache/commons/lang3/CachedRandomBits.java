@@ -57,6 +57,7 @@ final class CachedRandomBits {
      *
      * <p>
      * This is to prevent the possibility of overflow in the {@code if (bitIndex >> 3 >= cache.length)} in the {@link #nextBits(int)} method.
+     * </p>
      */
     private static final int MAX_CACHE_SIZE = Integer.MAX_VALUE >> 3;
 
