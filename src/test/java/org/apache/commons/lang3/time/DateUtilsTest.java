@@ -28,6 +28,8 @@ import java.lang.reflect.Modifier;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -35,12 +37,16 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
 import org.junitpioneer.jupiter.WritesDefaultLocale;
@@ -1283,6 +1289,107 @@ public class DateUtilsTest extends AbstractLangTest {
     @Test
     public void testToCalendarWithTimeZoneNull() {
         assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(date1, null));
+    }
+
+    private static Stream<Arguments> dateConversionProvider() {
+        return Stream.of(
+                Arguments.of(
+                        java.sql.Date.valueOf("2000-01-01"),
+                        LocalDateTime.of(2000, 1, 1, 0, 0, 0)
+                ),
+                Arguments.of(
+                        java.sql.Date.valueOf("1970-01-01"),
+                        LocalDateTime.of(1970, 1, 1, 0, 0, 0)
+                ),
+                Arguments.of(
+                        java.sql.Time.valueOf("12:30:45"),
+                        LocalDateTime.of(1970, 1, 1, 12, 30, 45)
+                ),
+                Arguments.of(
+                        java.sql.Time.valueOf("23:59:59"),
+                        LocalDateTime.of(1970, 1, 1, 23, 59, 59)
+                ),
+                Arguments.of(
+                        java.sql.Timestamp.valueOf("2000-01-01 12:30:45.123456789"),
+                        LocalDateTime.of(2000, 1, 1, 12, 30, 45, 123_456_789)
+                ),
+                Arguments.of(
+                        java.sql.Timestamp.valueOf("2000-01-01 12:30:45.987654321"),
+                        LocalDateTime.of(2000, 1, 1, 12, 30, 45, 987_654_321)
+                )
+        );
+    }
+
+    private static Stream<Arguments> dateWithTimeZoneProvider() {
+        return Stream.of(
+                Arguments.of(
+                        java.sql.Timestamp.valueOf("2000-01-01 12:30:45"),
+                        TimeZone.getTimeZone("America/New_York"),
+                        LocalDateTime.ofInstant(
+                                java.sql.Timestamp.valueOf("2000-01-01 12:30:45").toInstant(),
+                                TimeZone.getTimeZone("America/New_York").toZoneId()
+                        )
+                ),
+                Arguments.of(
+                        java.sql.Timestamp.valueOf("2023-03-12 02:30:00"),
+                        TimeZone.getTimeZone("America/New_York"),
+                        LocalDateTime.ofInstant(
+                                java.sql.Timestamp.valueOf("2023-03-12 02:30:00").toInstant(),
+                                TimeZone.getTimeZone("America/New_York").toZoneId()
+                        )
+                ),
+                Arguments.of(
+                        Date.from(LocalDateTime.of(2023, 1, 1, 0, 0)
+                                .atOffset(ZoneOffset.UTC)
+                                .toInstant()),
+                        TimeZone.getTimeZone("America/New_York"),
+                        LocalDateTime.of(2022, 12, 31, 19, 0)
+                ),
+                Arguments.of(
+                        Date.from(LocalDateTime.of(2023, 3, 12, 7, 0)
+                                .atOffset(ZoneOffset.UTC)
+                                .toInstant()),
+                        TimeZone.getTimeZone("America/New_York"),
+                        LocalDateTime.of(2023, 3, 12, 3, 0)
+                ),
+                Arguments.of(
+                        Date.from(LocalDateTime.of(2023, 1, 1, 0, 0)
+                                .atOffset(ZoneOffset.UTC)
+                                .toInstant()),
+                        TimeZone.getTimeZone("Pacific/Kiritimati"),
+                        LocalDateTime.of(2023, 1, 1, 14, 0)
+                )
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("dateConversionProvider")
+    void testToLocalDateTimeWithDate(final Date sqlDate, final LocalDateTime expected) {
+        final LocalDateTime result = DateUtils.toLocalDateTime(sqlDate);
+        assertNotNull(result);
+        assertEquals(expected, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("dateWithTimeZoneProvider")
+    void testToLocalDateTimeWithDate(
+            final Date date,
+            final TimeZone timeZone,
+            final LocalDateTime expected) {
+        final LocalDateTime result;
+        if (timeZone != null) {
+            result = DateUtils.toLocalDateTime(date, timeZone);
+        } else {
+            result = DateUtils.toLocalDateTime(date);
+        }
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void shouldThrowNullPointerExceptionWhenDateIsNull() {
+        assertThrows(NullPointerException.class, () -> DateUtils.toLocalDateTime(null));
+        assertThrows(NullPointerException.class, () -> DateUtils.toLocalDateTime(null, TimeZone.getDefault()));
+        assertThrows(NullPointerException.class, () -> DateUtils.toLocalDateTime(new Date(), null));
     }
 
     /**

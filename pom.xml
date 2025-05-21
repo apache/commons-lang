@@ -452,8 +452,9 @@
       </build>
     </profile>
 
+    <!-- Profile inherited from `commmons-parent` -->
     <profile>
-      <id>java9+</id>
+      <id>java-9-up</id>
       <activation>
         <jdk>[9,)</jdk>
       </activation>
@@ -462,6 +463,32 @@
         <!-- LANG-1667: allow tests to access private fields/methods of java.base/java.util such as ArrayList via reflection -->
         <argLine>-Xmx512m --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.time=ALL-UNNAMED --add-opens java.base/java.time.chrono=ALL-UNNAMED</argLine>
       </properties>
+      <build>
+        <plugins>
+          <!--
+            ~ Modifies the inherited Moditect configuration to add `java.sql` as `static` (optional) dependency.
+            -->
+          <plugin>
+            <groupId>org.moditect</groupId>
+            <artifactId>moditect-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>add-module-infos</id>
+                <configuration>
+                  <module>
+                    <moduleInfo>
+                      <requires>
+                        static java.sql;
+                        *;
+                      </requires>
+                    </moduleInfo>
+                  </module>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
     <profile>
       <id>java15</id>
