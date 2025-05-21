@@ -219,7 +219,7 @@ public class DurationUtils {
      * @return The given duration or {@link Duration#ZERO}.
      */
     public static Duration zeroIfNull(final Duration duration) {
-        return ObjectUtils.defaultIfNull(duration, Duration.ZERO);
+        return ObjectUtils.getIfNull(duration, Duration.ZERO);
     }
 
     /**
