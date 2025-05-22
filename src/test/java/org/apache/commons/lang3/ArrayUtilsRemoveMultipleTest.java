@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.ArrayUtils.removeAll;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -552,110 +553,52 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     public void testRemoveAllNullBooleanArray() {
-        assertNull(ArrayUtils.removeAll((boolean[]) null, 0));
-        assertNull(ArrayUtils.removeAll((boolean[]) null, NULL_INDICES));
-        final boolean[] array0 = {};
-        assertArrayEquals(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        assertNotSame(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        final boolean[] array1 = new boolean[1];
-        assertArrayEquals(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
-        assertNotSame(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
+        assertThrows(IllegalArgumentException.class, ()-> {removeAll((boolean[]) null,0);});
     }
 
     @Test
     public void testRemoveAllNullByteArray() {
-        assertNull(ArrayUtils.removeAll((byte[]) null, 0));
-        assertNull(ArrayUtils.removeAll((byte[]) null, NULL_INDICES));
-        final byte[] array0 = {};
-        assertArrayEquals(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        assertNotSame(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        final byte[] array1 = new byte[1];
-        assertArrayEquals(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
-        assertNotSame(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
+        assertThrows(IllegalArgumentException.class, ()-> {removeAll((byte[]) null,0);});
     }
 
     @Test
     public void testRemoveAllNullCharArray() {
-        assertNull(ArrayUtils.removeAll((char[]) null, 0));
-        assertNull(ArrayUtils.removeAll((char[]) null, NULL_INDICES));
-        final char[] array0 = {};
-        assertArrayEquals(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        assertNotSame(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        final char[] array1 = new char[1];
-        assertArrayEquals(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
-        assertNotSame(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
+        assertThrows(IllegalArgumentException.class, ()-> {removeAll((char[]) null,0);});
     }
 
     @Test
     public void testRemoveAllNullDoubleArray() {
-        assertNull(ArrayUtils.removeAll((double[]) null, 0));
-        assertNull(ArrayUtils.removeAll((double[]) null, NULL_INDICES));
-        final double[] array0 = {};
-        assertArrayEquals(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        assertNotSame(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        final double[] array1 = new double[1];
-        assertArrayEquals(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
-        assertNotSame(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
+        assertThrows(IllegalArgumentException.class, ()-> {removeAll((double[]) null,0);});
     }
 
     @Test
     public void testRemoveAllNullFloatArray() {
-        assertNull(ArrayUtils.removeAll((float[]) null, 0));
-        assertNull(ArrayUtils.removeAll((float[]) null, NULL_INDICES));
-        final float[] array0 = {};
-        assertArrayEquals(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        assertNotSame(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        final float[] array1 = new float[1];
-        assertArrayEquals(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
-        assertNotSame(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
+        assertThrows(IllegalArgumentException.class, ()-> {removeAll((float[]) null,0);});
     }
 
     @Test
     public void testRemoveAllNullIntArray() {
-        assertNull(ArrayUtils.removeAll((int[]) null, 0));
-        assertNull(ArrayUtils.removeAll((int[]) null, NULL_INDICES));
-        final int[] array0 = {};
-        assertArrayEquals(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        assertNotSame(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        final int[] array1 = new int[1];
-        assertArrayEquals(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
-        assertNotSame(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
+        assertThrows(IllegalArgumentException.class, ()-> {removeAll((int[]) null,0);});
     }
 
     @Test
     public void testRemoveAllNullLongArray() {
-        assertNull(ArrayUtils.removeAll((long[]) null, 0));
-        assertNull(ArrayUtils.removeAll((long[]) null, NULL_INDICES));
-        final long[] array0 = {};
-        assertArrayEquals(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        assertNotSame(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        final long[] array1 = new long[1];
-        assertArrayEquals(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
-        assertNotSame(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
+        assertThrows(IllegalArgumentException.class, ()-> {removeAll((long[]) null,0);});
     }
 
     @Test
     public void testRemoveAllNullObjectArray() {
-        assertNull(ArrayUtils.removeAll((Object[]) null, 0));
-        assertNull(ArrayUtils.removeAll((Object[]) null, NULL_INDICES));
-        final Object[] array0 = {};
-        assertArrayEquals(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        assertNotSame(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        final Object[] array1 = new Object[1];
-        assertArrayEquals(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
-        assertNotSame(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
+        assertThrows(IllegalArgumentException.class, ()-> {removeAll((Object[])null,0);});
+    }
+
+    @Test
+    public void testRemoveAllNullObject(){
+        assertThrows(IllegalArgumentException.class, ()-> {removeAll((Object)null,0);});
     }
 
     @Test
     public void testRemoveAllNullShortArray() {
-        assertNull(ArrayUtils.removeAll((short[]) null, 0));
-        assertNull(ArrayUtils.removeAll((short[]) null, NULL_INDICES));
-        final short[] array0 = {};
-        assertArrayEquals(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        assertNotSame(array0, ArrayUtils.removeAll(array0, NULL_INDICES));
-        final short[] array1 = new short[1];
-        assertArrayEquals(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
-        assertNotSame(array1, ArrayUtils.removeAll(array1, NULL_INDICES));
+        assertThrows(IllegalArgumentException.class, ()-> {removeAll((short[]) null,0);});
     }
 
     @Test
