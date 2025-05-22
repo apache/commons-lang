@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -229,10 +230,22 @@ public class ToStringBuilderTest extends AbstractLangTest {
      */
     @Test
     public void test_setUpToClass_invalid() {
-        final Integer val = Integer.valueOf(5);
+        final HirAFixture val = new HirAFixture();
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
         assertThrows(IllegalArgumentException.class, () -> test.setUpToClass(String.class));
         test.toString();
+    }
+
+    private static class HirAFixture extends HirBFixture {
+        int x = 1;
+    }
+
+    private static class HirBFixture extends HirCFixture {
+        int y = 2;
+    }
+
+    private static class HirCFixture {
+        int z = 3;
     }
 
     /**
@@ -240,10 +253,10 @@ public class ToStringBuilderTest extends AbstractLangTest {
      */
     @Test
     public void test_setUpToClass_valid() {
-        final Integer val = Integer.valueOf(5);
+        final HirAFixture val = new HirAFixture();
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
-        test.setUpToClass(Number.class);
-        test.toString();
+        test.setUpToClass(HirBFixture.class);
+        assertEquals(val.toString() + "[x=1,y=2]", test.toString());
     }
 
     @Test
@@ -753,6 +766,12 @@ public class ToStringBuilderTest extends AbstractLangTest {
     }
 
     @Test
+    public void testArrayList() {
+        List<Integer> list = Arrays.asList(23, 12, 39);
+        assertEquals(baseStr + "[[23, 12, 39]]", new ToStringBuilder(base).append(list).toString());
+    }
+
+    @Test
     public void testObjectBuild() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
@@ -972,17 +991,14 @@ public class ToStringBuilderTest extends AbstractLangTest {
         // LANG-1337 without this, the generated string can differ depending on the JVM version/vendor
         final List<Object> list = new ArrayList<>(ARRAYLIST_INITIAL_CAPACITY);
         final String baseString = toBaseString(list);
-        final String expectedWithTransients = baseString
-                + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]";
+        final String expected = baseString
+                + "[[]]";
         final String toStringWithTransients = ToStringBuilder.reflectionToString(list, null, true);
-        if (!expectedWithTransients.equals(toStringWithTransients)) {
-            assertEquals(expectedWithTransients, toStringWithTransients);
-        }
-        final String expectedWithoutTransients = baseString + "[size=0]";
+        assertEquals(expected, toStringWithTransients);
+
+        // no difference as Collections and Maps are not handled via reflection anymore
         final String toStringWithoutTransients = ToStringBuilder.reflectionToString(list, null, false);
-        if (!expectedWithoutTransients.equals(toStringWithoutTransients)) {
-            assertEquals(expectedWithoutTransients, toStringWithoutTransients);
-        }
+        assertEquals(expected, toStringWithoutTransients);
     }
 
     @Test

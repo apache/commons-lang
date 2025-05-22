@@ -23,6 +23,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.Objects;
 
 import org.apache.commons.lang3.ArraySorter;
@@ -848,8 +849,13 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
         validate();
 
+        if (handleNativeClasses()) {
+            return super.toString();
+        }
+
         Class<?> clazz = getObject().getClass();
         appendFieldsIn(clazz);
+
         while (clazz.getSuperclass() != null && clazz != getUpToClass()) {
             clazz = clazz.getSuperclass();
             appendFieldsIn(clazz);
@@ -865,6 +871,23 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             ToStringStyle.unregister(getObject());
             throw new IllegalStateException("includeFieldNames and excludeFieldNames must not intersect");
         }
+    }
+
+    private boolean handleNativeClasses() {
+        Object value = getObject();
+        if (value.getClass().isArray() || value instanceof Collection || value instanceof Map) {
+            // we first need to unregister the value to be able to handle it in the style
+            ToStringStyle.unregister(value);
+            getStyle().append(getStringBuffer(), null, value, true);
+            return true;
+        }
+
+        if (Reflection.isNonIntrospectibleClass(value)) {
+            getStringBuffer().append("value=").append(getObject().toString());
+            return true;
+        }
+
+        return false;
     }
 
 }
