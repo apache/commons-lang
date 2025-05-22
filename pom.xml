@@ -169,6 +169,9 @@
     <commons.jacoco.lineRatio>0.95</commons.jacoco.lineRatio>
     <commons.jacoco.complexityRatio>0.90</commons.jacoco.complexityRatio>
     <commons.text.version>1.13.1</commons.text.version>
+
+    <sonar.organization>javier-garcia-sonarsource</sonar.organization>
+    <sonar.host.url>https://dev5.sc-dev5.io</sonar.host.url>
   </properties>
 
   <build>
