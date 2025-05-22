@@ -60,7 +60,12 @@ final class CachedRandomBits {
      * </p>
      */
     private static final int MAX_CACHE_SIZE = Integer.MAX_VALUE >> 3;
-
+    /** Maximum number of bits that can be generated (size of an int) */
+    private static final int MAX_BITS = 32;
+    /** Mask to extract the bit offset within a byte (0-7) */
+    private static final int BIT_INDEX_MASK = 0x7;
+    /** Number of bits in a byte */
+    private static final int BITS_PER_BYTE = 8;
     /**
      * Creates a new instance.
      *
@@ -80,28 +85,50 @@ final class CachedRandomBits {
     /**
      * Generates a random integer with the specified number of bits.
      *
-     * @param bits number of bits to generate, MUST be between 1 and 32
-     * @return random integer with {@code bits} bits
+     * <p>This method efficiently generates random bits by using a byte cache and bit manipulation:
+     * <ul>
+     *   <li>Uses a byte array cache to avoid frequent calls to the underlying random number generator</li>
+     *   <li>Extracts bits from each byte using bit shifting and masking</li>
+     *   <li>Handles partial bytes to avoid wasting random bits</li>
+     *   <li>Accumulates bits until the requested number is reached</li>
+     * </ul>
+     * </p>
+     *
+     * @param bits number of bits to generate, MUST be between 1 and 32 (inclusive)
+     * @return random integer containing exactly the requested number of random bits
+     * @throws IllegalArgumentException if bits is not between 1 and 32
      */
     public int nextBits(final int bits) {
-        if (bits > 32 || bits <= 0) {
-            throw new IllegalArgumentException("number of bits must be between 1 and 32");
+        if (bits > MAX_BITS || bits <= 0) {
+            throw new IllegalArgumentException("number of bits must be between 1 and " + MAX_BITS);
         }
         int result = 0;
         int generatedBits = 0; // number of generated bits up to now
         while (generatedBits < bits) {
+            // Check if we need to refill the cache
+            // Convert bitIndex to byte index by dividing by 8 (right shift by 3)
             if (bitIndex >> 3 >= cache.length) {
-                // we exhausted the number of bits in the cache
-                // this should only happen if the bitIndex is exactly matching the cache length
-                assert bitIndex == cache.length * 8;
+                // We exhausted the number of bits in the cache
+                // This should only happen if the bitIndex is exactly matching the cache length
+                assert bitIndex == cache.length * BITS_PER_BYTE;
                 random.nextBytes(cache);
                 bitIndex = 0;
             }
-            // generatedBitsInIteration is the number of bits that we will generate
-            // in this iteration of the while loop
-            final int generatedBitsInIteration = Math.min(8 - (bitIndex & 0x7), bits - generatedBits);
+            // Calculate how many bits we can extract from the current byte
+            // 1. Get current position within byte (0-7) using bitIndex & 0x7
+            // 2. Calculate remaining bits in byte: 8 - (position within byte)
+            // 3. Take minimum of remaining bits in byte and bits still needed
+            final int generatedBitsInIteration = Math.min(
+                BITS_PER_BYTE - (bitIndex & BIT_INDEX_MASK),
+                bits - generatedBits);
+            // Shift existing result left to make room for new bits
             result = result << generatedBitsInIteration;
-            result |= cache[bitIndex >> 3] >> (bitIndex & 0x7) & (1 << generatedBitsInIteration) - 1;
+            // Extract and append new bits:
+            // 1. Get byte from cache (bitIndex >> 3 converts bit index to byte index)
+            // 2. Shift right by bit position within byte (bitIndex & 0x7)
+            // 3. Mask to keep only the bits we want ((1 << generatedBitsInIteration) - 1)
+            result |= cache[bitIndex >> 3] >> (bitIndex & BIT_INDEX_MASK) & ((1 << generatedBitsInIteration) - 1);
+            // Update counters
             generatedBits += generatedBitsInIteration;
             bitIndex += generatedBitsInIteration;
         }

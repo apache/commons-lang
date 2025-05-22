@@ -40,6 +40,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 public class RandomStringUtilsTest extends AbstractLangTest {
 
     private static final int LOOP_COUNT = 1_000;
+    /** Maximum safe value for count to avoid overflow: (21x + 3) / 5 + 10 < 0x0FFF_FFFF */
+    private static final int MAX_SAFE_COUNT = 63_913_201;
+
 
     static Stream<RandomStringUtils> randomProvider() {
         return Stream.of(RandomStringUtils.secure(), RandomStringUtils.secureStrong(), RandomStringUtils.insecure());
@@ -806,7 +809,7 @@ public class RandomStringUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {63_913_201, 63_913_202})
+    @ValueSource(ints = {MAX_SAFE_COUNT, MAX_SAFE_COUNT + 1})
     @EnabledIfSystemProperty(named = "test.large.heap", matches = "true")
     public void testHugeStrings(final int expectedLength) {
         final String hugeString = RandomStringUtils.random(expectedLength);
