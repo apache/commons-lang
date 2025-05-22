@@ -18,7 +18,7 @@ limitations under the License.
 <!DOCTYPE import-control PUBLIC
     "-//Checkstyle//DTD ImportControl Configuration 1.4//EN"
     "https://checkstyle.org/dtds/import_control_1_4.dtd">
-<import-control pkg="org.apache.commons.lang3" strategyOnMismatch="allowed">
+<import-control pkg="org.apache.commonsl.lang3" strategyOnMismatch="allowed">
   <disallow pkg="java.sql" />
   <disallow pkg="javax.sql" />
 </import-control>

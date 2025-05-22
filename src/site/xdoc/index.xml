@@ -39,7 +39,7 @@ and System properties. Additionally it contains basic enhancements to java.util.
 building methods, such as hashCode, toString and equals.
 </p>
 <p>
-Note that Commons Lang 3.0 (and subsequent versions) use a different package (<em>org.apache.commons.lang3</em>) than the previous versions (<em>org.apache.commons.lang</em>), 
+Note that Commons Lang 3.0 (and subsequent versions) use a different package (<em>org.apache.commonsl.lang3</em>) than the previous versions (<em>org.apache.commons.lang</em>),
 allowing Commons Lang 3 to be used at the same time as Commons Lang 2.
 </p>
 </section>

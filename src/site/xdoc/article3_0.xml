@@ -31,7 +31,7 @@ limitations under the License.
 <p>Lang is now Java 5 based. We've generified the API, moved certain APIs to support <code>varargs</code> and thrown out any features 
 that are now supported by Java itself. We've removed the deprecated parts of the API and have also removed some features that 
 were deemed weak or unnecessary. All of this means that Lang 3.0 is not backwards compatible. </p>
-<p>To that end we have changed the package name, allowing Lang 3.0 to sit side-by-side with your previous version of Lang without any bad side effects. The new package name is the exciting and original <code>org.apache.commons.lang3</code>. This also forces you to recompile your code, making sure the compiler can let you know if a backwards incompatibility affects you. </p>
+<p>To that end we have changed the package name, allowing Lang 3.0 to sit side-by-side with your previous version of Lang without any bad side effects. The new package name is the exciting and original <code>org.apache.commonsl.lang3</code>. This also forces you to recompile your code, making sure the compiler can let you know if a backwards incompatibility affects you. </p>
 <p>As you'd expect, there are also new features, enhancements and bugs fixed. </p>
 </section>
 <!--
@@ -42,7 +42,7 @@ were deemed weak or unnecessary. All of this means that Lang 3.0 is not backward
 <section name="Migrating from 2.x">
 <h3>Java code</h3>
 <p>Despite the label of backwards incompatibility, in the vast majority of cases the simple addition of a <code>'3'</code> to an import statement will suffice for your migration. </p><br/>
-<p>Change: <code>import org.apache.commons.lang</code> -&gt; <code>import org.apache.commons.lang3</code></p>
+<p>Change: <code>import org.apache.commons.lang</code> -&gt; <code>import org.apache.commonsl.lang3</code></p>
 <h3>Maven</h3>
 <p><code>groupId</code>: <code>commons-lang</code> -&gt; <code>org.apache.commons</code></p>
 <p><code>artifactId</code>: <code>commons-lang</code> -&gt; <code>commons-lang3</code></p>
@@ -77,8 +77,8 @@ needed to handle some JDK classes that have not been migrated to the getCause AP
 we will remove the related methods in Lang 4.0. </p>
 </section>
 <section name="New packages">
-<p>Two new packages have shown up. org.apache.commons.lang3.concurrent, which unsurprisingly provides support classes for 
-multithreaded programming, and org.apache.commons.lang3.text.translate, which provides a pluggable API for text transformation. </p>
+<p>Two new packages have shown up. org.apache.commonsl.lang3.concurrent, which unsurprisingly provides support classes for
+multithreaded programming, and org.apache.commonsl.lang3.text.translate, which provides a pluggable API for text transformation. </p>
 
 <h3>concurrent.*</h3>
 <p>Java 1.5 adds a great bunch of functionality related to multithreaded programming

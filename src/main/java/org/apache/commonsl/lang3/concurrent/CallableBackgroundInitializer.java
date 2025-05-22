@@ -1,0 +1,132 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.commonsl.lang3.concurrent;
+
+import java.util.Objects;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+
+/**
+ * A specialized {@link BackgroundInitializer} implementation that wraps a
+ * {@link Callable} object.
+ *
+ * <p>
+ * An instance of this class is initialized with a {@link Callable} object when
+ * it is constructed. The implementation of the {@link #initialize()} method
+ * defined in the super class delegates to this {@link Callable} so that the
+ * {@link Callable} is executed in the background thread.
+ * </p>
+ * <p>
+ * The {@link java.util.concurrent.Callable} interface is a standard mechanism
+ * of the JDK to define tasks to be executed by another thread. The {@code
+ * CallableBackgroundInitializer} class allows combining this standard interface
+ * with the background initializer API.
+ * </p>
+ * <p>
+ * Usage of this class is very similar to the default usage pattern of the
+ * {@link BackgroundInitializer} class: Just create an instance and provide the
+ * {@link Callable} object to be executed, then call the initializer's
+ * {@link #start()} method. This causes the {@link Callable} to be executed in
+ * another thread. When the results of the {@link Callable} are needed the
+ * initializer's {@link #get()} method can be called (which may block until
+ * background execution is complete). The following code fragment shows a
+ * typical usage example:
+ * </p>
+ *
+ * <pre>{@code
+ * // a Callable that performs a complex computation
+ * Callable<Integer> computationCallable = new MyComputationCallable();
+ * // setup the background initializer
+ * CallableBackgroundInitializer<Integer> initializer =
+ *     new CallableBackgroundInitializer(computationCallable);
+ * initializer.start();
+ * // Now do some other things. Initialization runs in a parallel thread
+ * ...
+ * // Wait for the end of initialization and access the result
+ * Integer result = initializer.get();
+ * }
+ * </pre>
+ *
+ * @param <T> the type of the object managed by this initializer class
+ * @since 3.0
+ */
+public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
+    /** The Callable to be executed. */
+    private final Callable<T> callable;
+
+    /**
+     * Creates a new instance of {@link CallableBackgroundInitializer} and sets
+     * the {@link Callable} to be executed in a background thread.
+     *
+     * @param call the {@link Callable} (must not be <strong>null</strong>)
+     * @throws IllegalArgumentException if the {@link Callable} is <strong>null</strong>
+     */
+    public CallableBackgroundInitializer(final Callable<T> call) {
+        checkCallable(call);
+        callable = call;
+    }
+
+    /**
+     * Creates a new instance of {@link CallableBackgroundInitializer} and
+     * initializes it with the {@link Callable} to be executed in a background
+     * thread and the {@link ExecutorService} for managing the background
+     * execution.
+     *
+     * @param call the {@link Callable} (must not be <strong>null</strong>)
+     * @param exec an external {@link ExecutorService} to be used for task
+     * execution
+     * @throws IllegalArgumentException if the {@link Callable} is <strong>null</strong>
+     */
+    public CallableBackgroundInitializer(final Callable<T> call, final ExecutorService exec) {
+        super(exec);
+        checkCallable(call);
+        callable = call;
+    }
+
+    /**
+     * Tests the passed in {@link Callable} and throws an exception if it is
+     * undefined.
+     *
+     * @param callable the object to check
+     * @throws IllegalArgumentException if the {@link Callable} is <strong>null</strong>
+     */
+    private void checkCallable(final Callable<T> callable) {
+        Objects.requireNonNull(callable, "callable");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Exception getTypedException(final Exception e) {
+        //This Exception object will be used for type comparison in AbstractConcurrentInitializer.initialize but not thrown
+        return new Exception(e);
+    }
+
+    /**
+     * Performs initialization in a background thread. This implementation
+     * delegates to the {@link Callable} passed at construction time of this
+     * object.
+     *
+     * @return the result of the initialization
+     * @throws Exception if an error occurs
+     */
+    @Override
+    protected T initialize() throws Exception {
+        return callable.call();
+    }
+}

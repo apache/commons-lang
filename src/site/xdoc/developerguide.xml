@@ -52,7 +52,7 @@ if possible.</p>
 <a name="PackageStructure"></a>
 <h3>2.  PACKAGE STRUCTURE</h3>
 
-<p>The main package for Lang is <code>org.apache.commons.lang3</code>. Subpackages should
+<p>The main package for Lang is <code>org.apache.commonsl.lang3</code>. Subpackages should
 be created for each group of related items. </p>
 
 <p>Each package should have a <code>package.html</code> file for javadoc. This should

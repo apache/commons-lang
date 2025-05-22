@@ -157,8 +157,8 @@ BUG FIXES IN 3.0
     [LANG-658] Some entities like &amp;Ouml; are not matched properly against its ISO8859-1 representation
     [LANG-659] EntityArrays typo: {"\u2122", "&amp;minus;"}, // minus sign, U+2212 ISOtech
     [LANG-66]  StringEscaper.escapeXml() escapes characters &gt; 0x7f.
-    [LANG-662] org.apache.commons.lang3.math.Fraction does not reduce (Integer.MIN_VALUE, 2^k)
-    [LANG-663] org.apache.commons.lang3.math.Fraction does not always succeed in multiplyBy and divideBy
+    [LANG-662] org.apache.commonsl.lang3.math.Fraction does not reduce (Integer.MIN_VALUE, 2^k)
+    [LANG-663] org.apache.commonsl.lang3.math.Fraction does not always succeed in multiplyBy and divideBy
     [LANG-664] NumberUtils.isNumber(String) is not right when the String is "1.1L"
     [LANG-672] Doc bug in DateUtils#ceiling
     [LANG-677] DateUtils.isSameLocalTime compares using 12-hour clock and not 24-hour
