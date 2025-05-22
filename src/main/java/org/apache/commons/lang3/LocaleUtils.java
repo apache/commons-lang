@@ -265,16 +265,17 @@ public class LocaleUtils {
      * </p>
      *
      * @param str the String to parse as a Locale.
+     * @param supportDash support strings with '-'.
      * @return a Locale parsed from the given String.
      * @throws IllegalArgumentException if the given String cannot be parsed.
      * @see Locale
      */
-    private static Locale parseLocale(final String str) {
+    private static Locale parseLocale(final String str, final boolean supportDash) {
         if (isISO639LanguageCode(str)) {
             return new Locale(str);
         }
         final int limit = 3;
-        final char separator = str.indexOf(UNDERSCORE) != -1 ? UNDERSCORE : DASH;
+        final char separator = (!supportDash || str.indexOf(UNDERSCORE) != -1) ? UNDERSCORE : DASH;
         final String[] segments = str.split(String.valueOf(separator), 3);
         final String language = segments[0];
         if (segments.length == 2) {
@@ -315,7 +316,6 @@ public class LocaleUtils {
      *   LocaleUtils.toLocale("")           = new Locale("", "")
      *   LocaleUtils.toLocale("en")         = new Locale("en", "")
      *   LocaleUtils.toLocale("en_GB")      = new Locale("en", "GB")
-     *   LocaleUtils.toLocale("en-GB")      = new Locale("en", "GB")
      *   LocaleUtils.toLocale("en_001")     = new Locale("en", "001")
      *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
      * </pre>
@@ -327,16 +327,58 @@ public class LocaleUtils {
      * <p>This method validates the input strictly.
      * The language code must be lowercase.
      * The country code must be uppercase.
-     * The separator must be an underscore or a dash.
+     * The separator must be an underscore.
      * The length must be correct.
      * </p>
      *
      * @param str  the locale String to convert, null returns null
      * @return a Locale, null if null input
      * @throws IllegalArgumentException if the string is an invalid format
-     * @see Locale#forLanguageTag(String)
+     * @see Locale
      */
     public static Locale toLocale(final String str) {
+        return toLocale(str, false);
+    }
+
+    /**
+     * Converts a String to a Locale.
+     *
+     * <p>This method takes a string format of a locale or language tag
+     * if supportDash is true and creates the locale object from it.</p>
+     *
+     * <pre>
+     *   LocaleUtils.toLocale("", false)          = new Locale("", "")
+     *   LocaleUtils.toLocale("", true)           = new Locale("", "")
+     *   LocaleUtils.toLocale("en", false)        = new Locale("en", "")
+     *   LocaleUtils.toLocale("en", true)         = new Locale("en", "")
+     *   LocaleUtils.toLocale("en_GB", false)     = new Locale("en", "GB")
+     *   LocaleUtils.toLocale("en_GB", true)      = new Locale("en", "GB")
+     *   LocaleUtils.toLocale("en-GB", false)     = throws IllegalArgumentException()
+     *   LocaleUtils.toLocale("en-GB", true)      = new Locale("en", "GB")
+     *   LocaleUtils.toLocale("en_001", false)    = new Locale("en", "001")
+     *   LocaleUtils.toLocale("en_001", true)     = new Locale("en", "001")
+     *   LocaleUtils.toLocale("en_GB_xxx", false) = new Locale("en", "GB", "xxx")   (#)
+     *   LocaleUtils.toLocale("en_GB_xxx", true)  = new Locale("en", "GB", "xxx")   (#)
+     * </pre>
+     *
+     * <p>(#) The behavior of the JDK variant constructor changed between JDK1.3 and JDK1.4.
+     * In JDK1.3, the constructor upper cases the variant, in JDK1.4, it doesn't.
+     * Thus, the result from getVariant() may vary depending on your JDK.</p>
+     *
+     * <p>This method validates the input strictly.
+     * The language code must be lowercase.
+     * The country code must be uppercase.
+     * The separator must be an underscore.
+     * The length must be correct.
+     * </p>
+     *
+     * @param str  the locale String to convert, null returns null
+     * @param supportDash support strings with '-'.
+     * @return a Locale, null if null input
+     * @throws IllegalArgumentException if the string is an invalid format
+     * @see Locale
+     */
+    protected static Locale toLocale(final String str, final boolean supportDash) {
         if (str == null) {
             // TODO Should this return the default locale?
             return null;
@@ -352,7 +394,7 @@ public class LocaleUtils {
             throw new IllegalArgumentException("Invalid locale format: " + str);
         }
         final char ch0 = str.charAt(0);
-        if (ch0 == UNDERSCORE || ch0 == DASH) {
+        if (ch0 == UNDERSCORE || (supportDash && ch0 == DASH)) {
             if (len < 3) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
@@ -373,7 +415,7 @@ public class LocaleUtils {
             return new Locale(StringUtils.EMPTY, str.substring(1, 3), str.substring(4));
         }
 
-        return parseLocale(str);
+        return parseLocale(str, supportDash);
     }
 
     /**
