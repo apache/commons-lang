@@ -9286,6 +9286,50 @@ public class StringUtils {
         }
         return builder.toString();
     }
+    /**
+     * Converts a given string to camelCase format.
+     * <p>
+     * The method splits the input based on common word separators
+     * like spaces, underscores, and hyphens. The first word is made
+     * lowercase, and each subsequent word has its first letter capitalized.
+     * Non-alphanumeric characters (other than separators) are removed.
+     * </p>
+     *
+     * <h3>Examples:</h3>
+     * <pre>
+     * toCamelCase("user_name")       = "userName"
+     * toCamelCase("User-Name")       = "userName"
+     * toCamelCase("user name test")  = "userNameTest"
+     * toCamelCase("USER_ID")         = "userId"
+     * </pre>
+     *
+     * @param input The input string to convert (e.g., "user_name", "User Name").
+     * @return A camelCase representation of the input, or an empty string if input is null or blank.
+     */
+    public static String camelCase(String input) {
+        if (input == null || input.length() == 0) {
+            return "";
+        }
+
+        // Normalize input by trimming and splitting on space, underscore or hyphen
+        String[] parts = input.trim().toLowerCase(Locale.ROOT).split("[\\s_-]+");
+        StringBuilder camelCase = new StringBuilder();
+
+        for (int i = 0; i < parts.length; i++) {
+            String part = parts[i].replaceAll("[^a-zA-Z0-9]", ""); // Remove non-alphanumeric characters
+
+            if (part.isEmpty()) continue;
+
+            if (i == 0) {
+                camelCase.append(part); // first word in lowercase
+            } else {
+                camelCase.append(Character.toUpperCase(part.charAt(0)));
+                camelCase.append(part.substring(1));
+            }
+        }
+
+        return camelCase.toString();
+    }
 
     /**
      * {@link StringUtils} instances should NOT be constructed in

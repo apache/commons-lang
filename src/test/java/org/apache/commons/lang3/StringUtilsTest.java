@@ -3246,4 +3246,14 @@ public class StringUtilsTest extends AbstractLangTest {
         assertSame("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
         assertSame("//x//", StringUtils.wrapIfMissing("//x//", "//"));
     }
+    @Test
+    void testToCamelCase() {
+        assertEquals("userName", StringUtils.camelCase("user_name"));
+        assertEquals("userName", StringUtils.camelCase("User-Name"));
+        assertEquals("userNameTest", StringUtils.camelCase("user name test"));
+        assertEquals("userId", StringUtils.camelCase("USER_ID"));
+        assertEquals("firstName", StringUtils.camelCase("first_name!@#"));
+        assertEquals("", StringUtils.camelCase(null));
+        assertEquals("", StringUtils.camelCase("  "));
+    }
 }
