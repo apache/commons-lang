@@ -90,6 +90,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">org.apache.commons.lang3.ClassUtils.getCanonicalName(String) now throws an IllegalArgumentException for array dimensions greater than 255.</action>
     <action                   type="fix" dev="ggregory" due-to="Sridhar Balijepalli, Piotr P. Karwasz">Fix Javadoc typo and improve clarity in defaultIfBlank method #1376.</action>
     <action issue="LANG-1773" type="fix" dev="ggregory" due-to="Éamonn McManus, Gary Gregory">Apache Commons Lang no longer builds on Android #1381.</action>
+    <action issue="LANG-1772" type="fix" dev="ggregory" due-to="James Winters, Piotr P. Karwasz, Gary Gregory">Restrict size of cache to prevent overflow errors #1379.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
