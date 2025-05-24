@@ -29,8 +29,10 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Tests {@link RandomStringUtils}.
@@ -38,6 +40,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class RandomStringUtilsTest extends AbstractLangTest {
 
     private static final int LOOP_COUNT = 1_000;
+    /** Maximum safe value for count to avoid overflow: (21x + 3) / 5 + 10 < 0x0FFF_FFFF */
+    private static final int MAX_SAFE_COUNT = 63_913_201;
+
 
     static Stream<RandomStringUtils> randomProvider() {
         return Stream.of(RandomStringUtils.secure(), RandomStringUtils.secureStrong(), RandomStringUtils.insecure());
@@ -801,5 +806,13 @@ public class RandomStringUtilsTest extends AbstractLangTest {
         final String r3 = rsu.next(50, 0, 0, true, true, digitChars);
         assertNotEquals(r1, r3);
         assertNotEquals(r2, r3);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {MAX_SAFE_COUNT, MAX_SAFE_COUNT + 1})
+    @EnabledIfSystemProperty(named = "test.large.heap", matches = "true")
+    public void testHugeStrings(final int expectedLength) {
+        final String hugeString = RandomStringUtils.random(expectedLength);
+        assertEquals(expectedLength, hugeString.length(), "hugeString.length() == expectedLength");
     }
 }

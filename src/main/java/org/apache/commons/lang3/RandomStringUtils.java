@@ -98,6 +98,10 @@ public class RandomStringUtils {
     private static final int ASCII_A = 'A';
     private static final int ASCII_z = 'z';
 
+    private static final int CACHE_PADDING_BITS = 3;
+    private static final int BITS_TO_BYTES_DIVISOR = 5;
+    private static final int BASE_CACHE_SIZE_PADDING = 10;
+
     /**
      * Gets the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not cryptographically
      * secure</b>; use {@link #secure()} to use an algorithms/providers specified in the
@@ -329,7 +333,16 @@ public class RandomStringUtils {
         // Ideally the cache size depends on multiple factor, including the cost of generating x bytes
         // of randomness as well as the probability of rejection. It is however not easy to know
         // those values programmatically for the general case.
-        final CachedRandomBits arb = new CachedRandomBits((count * gapBits + 3) / 5 + 10, random);
+        // Calculate cache size:
+        // 1. Multiply count by bits needed per character (gapBits)
+        // 2. Add padding bits (3) to handle partial bytes
+        // 3. Divide by 5 to convert to bytes (normally this would be by 8, dividing by 5 allows for about 60% extra space)
+        // 4. Add base padding (10) to handle small counts efficiently
+        // 5. Ensure we don't exceed Integer.MAX_VALUE / 5 + 10 to provide a good balance between overflow prevention and
+        //    making the cache extremely large
+        final long desiredCacheSize = ((long) count * gapBits + CACHE_PADDING_BITS) / BITS_TO_BYTES_DIVISOR + BASE_CACHE_SIZE_PADDING;
+        final int cacheSize = (int) Math.min(desiredCacheSize, Integer.MAX_VALUE / BITS_TO_BYTES_DIVISOR + BASE_CACHE_SIZE_PADDING);
+        final CachedRandomBits arb = new CachedRandomBits(cacheSize, random);
 
         while (count-- != 0) {
             // Generate a random value between start (included) and end (excluded)
