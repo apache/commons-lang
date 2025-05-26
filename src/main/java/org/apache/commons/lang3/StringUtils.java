@@ -3209,6 +3209,36 @@ public class StringUtils {
     }
 
     /**
+     * Counts the number of uppercase characters in the given {@code CharSequence}.
+     *
+     * <p>{@code null} or an empty CharSequence returns {@code 0}.</p>
+     *
+     * <pre>
+     * StringUtils.countUpperCaseLetters(null)    = 0
+     * StringUtils.countUpperCaseLetters("")      = 0
+     * StringUtils.countUpperCaseLetters("abc")   = 0
+     * StringUtils.countUpperCaseLetters("ABC")   = 3
+     * StringUtils.countUpperCaseLetters("AbC1")  = 2
+     * </pre>
+     *
+     * @param cs the CharSequence to check, may be null
+     * @return the number of uppercase characters in the CharSequence, or {@code 0} if null/empty
+     */
+    
+    public static int countUpperCaseLetters(final CharSequence cs) {
+    	if(cs == null || cs.length() == 0) {
+    		return 0;
+    	}
+    	
+    	int count=0;
+    	for(int i=0; i<cs.length(); i++) {
+    		if(Character.isUpperCase(cs.charAt(i))) {
+    			count++;
+    		}
+    	}
+    	return count;
+    }
+    /**
      * Tests if the CharSequence contains only Unicode letters.
      *
      * <p>{@code null} will return {@code false}.

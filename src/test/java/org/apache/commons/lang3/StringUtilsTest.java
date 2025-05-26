@@ -939,6 +939,19 @@ public class StringUtilsTest extends AbstractLangTest {
     }
 
     /**
+     * Test for {@link StringUtils#countUpperCaseLetters(CharSequence)}.
+     */
+    @Test
+    public void testCountUpperCaseLetters() {
+        assertEquals(5, StringUtils.countUpperCaseLetters("HELLO"));
+        assertEquals(2, StringUtils.countUpperCaseLetters("HelloWorld"));
+        assertEquals(0, StringUtils.countUpperCaseLetters("helloworld"));
+        assertEquals(0, StringUtils.countUpperCaseLetters("1234"));
+        assertEquals(0, StringUtils.countUpperCaseLetters(""));
+        assertEquals(0, StringUtils.countUpperCaseLetters(null));
+    }
+    
+    /**
      * Test for {@link StringUtils#isMixedCase(CharSequence)}.
      */
     @Test
