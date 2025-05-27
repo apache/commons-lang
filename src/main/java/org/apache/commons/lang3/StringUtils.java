@@ -8872,6 +8872,31 @@ public class StringUtils {
         return truncate(str, 0, maxWidth);
     }
 
+    public static String truncateToByteLength(String str, int maxBytes, Charset charset) {
+        if (str == null) {
+            return null;
+        }
+
+        byte[] bytes = StringUtils.getBytes(str, charset);
+        if (bytes.length <= maxBytes) {
+            return str;
+        }
+
+        // Binary search or iterative approach to find the right character length
+        int low = 0;
+        int high = str.length();
+        while (low < high) {
+            int mid = (low + high + 1) / 2;
+            if (str.substring(0, mid).getBytes(charset).length <= maxBytes) {
+                low = mid;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return str.substring(0, low);
+    }
+
     /**
      * Truncates a String. This will turn
      * "Now is the time for all good men" into "is the time for all".

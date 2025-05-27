@@ -3090,6 +3090,18 @@ public class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testTruncateToByteLength() {
+        assertNull(StringUtils.truncateToByteLength(null, 0, Charset.defaultCharset()));
+        assertEquals("abcdefghij", StringUtils.truncateToByteLength("abcdefghijklmno", 10, Charset.defaultCharset()));
+        assertEquals("abcdefghijklmno", StringUtils.truncateToByteLength("abcdefghijklmno", 15, Charset.defaultCharset()));
+        assertEquals("abcdefghijklmno", StringUtils.truncateToByteLength("abcdefghijklmno", 20, Charset.defaultCharset()));
+        assertEquals("\u4F60\u597D\u55CE", StringUtils.truncateToByteLength("\u4F60\u597D\u55CE", 10, Charset.defaultCharset()));
+        assertEquals("\u4F60", StringUtils.truncateToByteLength("\u4F60\u597D\u55CE", 5, Charset.defaultCharset()));
+        assertEquals("\u2713\u2714", StringUtils.truncateToByteLength("\u2713\u2714", 6, Charset.defaultCharset()));
+        assertEquals("", StringUtils.truncateToByteLength("\u2713\u2714", 2, Charset.defaultCharset()));
+    }
+
+    @Test
     public void testUnCapitalize() {
         assertNull(StringUtils.uncapitalize(null));
 
