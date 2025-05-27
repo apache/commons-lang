@@ -238,6 +238,15 @@ public class ClassUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void test_getShortCanonicalName_MalformedInput() {
+        assertEquals("String[]", ClassUtils.getShortCanonicalName("[String"));
+    }
+    @Test
+    public void test_getShortCanonicalName_MissingSemicolon() {
+        assertEquals("String[]", ClassUtils.getShortCanonicalName("[LString"));
+    }
+
+    @Test
     public void test_getCanonicalName_Class() {
         assertEquals("org.apache.commons.lang3.ClassUtils", ClassUtils.getCanonicalName(ClassUtils.class));
         assertEquals("java.util.Map.Entry", ClassUtils.getCanonicalName(Map.Entry.class));
