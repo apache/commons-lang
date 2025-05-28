@@ -499,7 +499,6 @@ public class ClassUtils {
         } else if (className.length() == 1 && reverseAbbreviationMap.containsKey(className)) {
             className = reverseAbbreviationMap.get(className);
         }
-
         final StringBuilder canonicalClassNameBuffer = new StringBuilder(className.length() + dim * 2);
         canonicalClassNameBuffer.append(className);
         for (int i = 0; i < dim; i++) {
