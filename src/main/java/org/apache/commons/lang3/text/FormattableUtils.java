@@ -97,7 +97,7 @@ public class FormattableUtils {
                 "Specified ellipsis '%1$s' exceeds precision of %2$s", ellipsis, Integer.valueOf(precision));
         final StringBuilder buf = new StringBuilder(seq);
         if (precision >= 0 && precision < seq.length()) {
-            final CharSequence actualEllipsis = ObjectUtils.defaultIfNull(ellipsis, StringUtils.EMPTY);
+            final CharSequence actualEllipsis = ObjectUtils.getIfNull(ellipsis, StringUtils.EMPTY);
             buf.replace(precision - actualEllipsis.length(), seq.length(), actualEllipsis.toString());
         }
         final boolean leftJustify = (flags & FormattableFlags.LEFT_JUSTIFY) == FormattableFlags.LEFT_JUSTIFY;

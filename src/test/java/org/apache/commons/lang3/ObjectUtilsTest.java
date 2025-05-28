@@ -504,6 +504,35 @@ public class ObjectUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testGetIfNullObject() {
+        final Object o = FOO;
+        final Object defaultObject = BAR;
+        assertNull(ObjectUtils.getIfNull(null, (Object) null));
+        assertSame(defaultObject, ObjectUtils.getIfNull(null, defaultObject), "dflt was not returned when o was null");
+        assertSame(o, ObjectUtils.getIfNull(o, defaultObject), "dflt was returned when o was not null");
+    }
+
+    @Test
+    public void testGetIfNullSupplier() {
+        final Object o = FOO;
+        final Object defaultObject = BAR;
+        assertNull(ObjectUtils.getIfNull(null, (Supplier<Object>) null));
+        assertSame(defaultObject, ObjectUtils.getIfNull(null, () -> defaultObject), "dflt was not returned when o was null");
+        assertSame(o, ObjectUtils.getIfNull(o, () -> defaultObject), "dflt was returned when o was not null");
+        assertSame(o, ObjectUtils.getIfNull(FOO, () -> defaultObject), "dflt was returned when o was not null");
+        assertSame(o, ObjectUtils.getIfNull("foo", () -> defaultObject), "dflt was returned when o was not null");
+        final MutableInt callsCounter = new MutableInt(0);
+        final Supplier<Object> countingDefaultSupplier = () -> {
+            callsCounter.increment();
+            return defaultObject;
+        };
+        ObjectUtils.getIfNull(o, countingDefaultSupplier);
+        assertEquals(0, callsCounter.getValue());
+        ObjectUtils.getIfNull(null, countingDefaultSupplier);
+        assertEquals(1, callsCounter.getValue());
+    }
+
+    @Test
     public void testHashCode() {
         assertEquals(0, ObjectUtils.hashCode(null));
         assertEquals("a".hashCode(), ObjectUtils.hashCode("a"));
