@@ -8884,17 +8884,22 @@ public class StringUtils {
 
         // Binary search or iterative approach to find the right character length
         int low = 0;
-        int high = str.length();
-        while (low < high) {
-            int mid = (low + high + 1) / 2;
-            if (str.substring(0, mid).getBytes(charset).length <= maxBytes) {
-                low = mid;
+        int high = str.codePointCount(0, str.length());
+        int count = 0;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int charIndex = str.offsetByCodePoints(0, mid);
+            byte[] currentBytes = StringUtils.getBytes(str.substring(0, charIndex), charset);
+            if (currentBytes.length <= maxBytes) {
+                low = mid + 1;
+                count = mid;
             } else {
                 high = mid - 1;
             }
         }
 
-        return str.substring(0, low);
+        int idx = str.offsetByCodePoints(0, count);
+        return str.substring(0, idx);
     }
 
     /**

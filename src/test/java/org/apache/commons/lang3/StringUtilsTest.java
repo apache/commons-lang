@@ -3099,6 +3099,9 @@ public class StringUtilsTest extends AbstractLangTest {
         assertEquals("\u4F60", StringUtils.truncateToByteLength("\u4F60\u597D\u55CE", 5, Charset.defaultCharset()));
         assertEquals("\u2713\u2714", StringUtils.truncateToByteLength("\u2713\u2714", 6, Charset.defaultCharset()));
         assertEquals("", StringUtils.truncateToByteLength("\u2713\u2714", 2, Charset.defaultCharset()));
+        assertEquals("\uD83D\uDE80", StringUtils.truncateToByteLength("\uD83D\uDE80\u2728\uD83C\uDF89", 6, Charset.defaultCharset()));
+        assertEquals("", StringUtils.truncateToByteLength("\uD83D\uDE80\u2728\uD83C\uDF89", 3, Charset.defaultCharset()));
+        assertEquals("", StringUtils.truncateToByteLength("\uD83D\uDE03", 3, Charset.defaultCharset()));
     }
 
     @Test
