@@ -581,6 +581,9 @@ public class ClassUtilsTest extends AbstractLangTest {
         }.getClass().getName());
         assertNull(new org.apache.commons.lang3.ClassUtilsTest() {
         }.getClass().getCanonicalName());
+        assertEquals("String[]", ClassUtils.getShortCanonicalName(String[].class.getName()));
+        assertEquals("String[]", ClassUtils.getShortCanonicalName(String[].class.getCanonicalName()));
+        assertEquals("String[]", ClassUtils.getShortCanonicalName("String[]"));
     }
 
     @Test
