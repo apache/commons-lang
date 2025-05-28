@@ -937,6 +937,7 @@ public class StringUtilsTest extends AbstractLangTest {
         assertFalse(StringUtils.isAllUpperCase("A1C"));
         assertFalse(StringUtils.isAllUpperCase("A/C"));
     }
+
     /**
      * Test for {@link StringUtils#isMixedCase(CharSequence)}.
      */
