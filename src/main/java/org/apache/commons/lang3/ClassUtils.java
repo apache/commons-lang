@@ -872,7 +872,7 @@ public class ClassUtils {
      * </tr>
      * <tr>
      * <td>{@code ""}</td>
-     * <td>{@code (String)null}</td>
+     * <td>{@code (String) null}</td>
      * </tr>
      * <tr>
      * <td>{@code "Map.Entry"}</td>
