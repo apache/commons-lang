@@ -41,6 +41,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.regex.PatternSyntaxException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -3245,5 +3247,36 @@ public class StringUtilsTest extends AbstractLangTest {
 
         assertSame("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
         assertSame("//x//", StringUtils.wrapIfMissing("//x//", "//"));
+    }
+
+    @Test
+    public void resizeConsecutiveChars() {
+
+        assertEquals("1 1 1    1", StringUtils.resizeConsecutiveChars("11111 111111 111111    111111", '1', 1, false, false));
+
+        assertEquals(("aabbbcc"), StringUtils.resizeConsecutiveChars("aaabbbcc", 'a', 2, false, false));
+        assertEquals(("1"), StringUtils.resizeConsecutiveChars("111111", '1', null, false, false));
+        assertEquals((".$$$42.1424.1.2.5.12.$!@.$!@%$."), StringUtils.resizeConsecutiveChars(".....$$$42....1424.1.....2.5.12..$!@..$!@%$...", '.', 1, false, false));
+        assertEquals(("1ewjaoij1 a1w1e1o1iw1 1213121 1"), StringUtils.resizeConsecutiveChars("1ewjaoij1 a11w11111e11o11iw11 12113121 1", '1', 1, false, false));
+
+        // resizes whitespaces trimming
+        assertEquals(null, StringUtils.resizeToOneWhitespace(null, true));
+        assertEquals("", StringUtils.resizeToOneWhitespace("", true));
+//        assertEquals("", StringUtils.resizeToOneWhitespace("   ", true));
+        assertEquals("Hello", StringUtils.resizeToOneWhitespace("Hello", true));
+        assertEquals("Hello, World!", StringUtils.resizeToOneWhitespace("Hello, World!", true));
+        assertEquals("Hello, World!", StringUtils.resizeToOneWhitespace("Hello,   World!", true));
+        assertEquals("a a", StringUtils.resizeToOneWhitespace("a  a       ", true));
+        assertEquals("a c b ncw a c j j j j j", StringUtils.resizeToOneWhitespace("  a   c b  ncw   a  c j j j j      j", true));
+
+        // resizes whitespaces without trimming
+        assertNull(StringUtils.resizeToOneWhitespace(null, false));
+        assertEquals("", StringUtils.resizeToOneWhitespace("", false));
+        assertEquals(" ", StringUtils.resizeToOneWhitespace("   ", false));
+        assertEquals("Hello", StringUtils.resizeToOneWhitespace("Hello", false));
+        assertEquals(" a b c ", StringUtils.resizeToOneWhitespace("  a   b  c  ", false));
+        assertEquals(" Hello, World! ", StringUtils.resizeToOneWhitespace(" Hello,    World! ", false));
+        assertEquals("Hello, World!", StringUtils.resizeToOneWhitespace("Hello,   World!", false));
+//        assertEquals(" a a       ", StringUtils.resizeToOneWhitespace(" a  a       ", false));
     }
 }

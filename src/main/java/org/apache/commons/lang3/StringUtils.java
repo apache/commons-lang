@@ -9288,6 +9288,80 @@ public class StringUtils {
     }
 
     /**
+     * Resize consecutive characters down to given repeated times.
+     * <p>
+     *     A new string is created with the consecutive characters
+     * </p>
+     *
+     * <pre>
+     *     StringUtils.resizeConsecutiveChars("aaabbbcc", 'a', 2, false, false) = "aabbcc"
+     *     StringUtils.resizeConsecutiveChars("11111 111111 111111    111111", '1', 1, false, false) = "1 1 1    1"
+     * </pre>
+     *     For example, the string "aaabbbcc" with a appointedChar of 'a' and
+     * repeatedCount of 2 will return "aabbcc".
+     * <p>Note that the appointedChar is not removed from the string.
+     * <p>Note that the repeatedCount is not checked for negative values.
+     * @param str the string to resize
+     * @param appointedChar the character to resize
+     * @param repeatedCount the number of times to repeat the character, default is 1
+     * @param isRemovedTrailing if true, the trailing characters will be removed
+     * @param isRemovedLeading if true, the leading characters will be removed
+     * @return the resized string, or the original string if no changes were made
+     * @since 3.5
+     */
+
+    public static String resizeConsecutiveChars(String str, char appointedChar, Integer repeatedCount, boolean isRemovedTrailing, boolean isRemovedLeading) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        int xTimes = repeatedCount != null ? repeatedCount : 1;
+        char[] collector = new char[str.length()];
+        int collectorIdx = 0;
+        char[] statefulSeparator = new char[1];
+        for (int i = 0; i < str.length(); i++) {
+            char current = str.charAt(i);
+            if (current == appointedChar) {
+                if (statefulSeparator[0] == '\u0000') {
+                    statefulSeparator[0] = appointedChar;
+                }
+            } else {
+                if (statefulSeparator[0] == appointedChar) {
+                    if (collectorIdx > 0 || !isRemovedLeading) {
+                        int repetition = xTimes;
+                        while (repetition-- > 0) {
+                            collector[collectorIdx++] = appointedChar;
+                        }
+                        statefulSeparator[0] = '\u0000';
+                    }
+                }
+                collector[collectorIdx++] = current;
+            }
+        }
+        if (!isRemovedTrailing && statefulSeparator[0] == appointedChar) {
+            int repetition = xTimes;
+            while (repetition-- > 0) {
+                collector[collectorIdx++] = appointedChar;
+            }
+        }
+        return new String(collector, 0, collectorIdx);
+    }
+
+    /**
+     * Makes use of resizeConsecutiveChars() sanitize the string to have only one whitespace between words.
+     * <pre>
+     *     StringUtils.resizeToOneWhitespace("  a   b  c  ", true) = "a b c"
+     *     StringUtils.resizeToOneWhitespace("  a   b  c  ", false) = " a b c "
+     * </pre>
+     * @param str
+     * @param isTrimmed
+     * @return the sanitized string
+     */
+    public static String resizeToOneWhitespace(String str, boolean isTrimmed) {
+        return resizeConsecutiveChars(str, ' ', 1, isTrimmed, isTrimmed);
+    }
+
+
+    /**
      * {@link StringUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * {@code StringUtils.trim(" foo ");}.

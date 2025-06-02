@@ -581,6 +581,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_17.</action>
     <action issue="LANG-1636" type="add" dev="ggregory" due-to="">Add missing boolean[] join method #686.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.substringBefore(String, int).</action>
+    <action                   type="add" dev="trungpnt" due-to="Trung Pham">Add StringUtils.resizeConsecutiveChars(String, char, int, boolean, boolean).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Range.INTEGER.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.</action>
     <action                   type="add" dev="jochen">Introduce the use of @Nonnull, and @Nullable, and the Objects class as a helper tool.</action>
