@@ -3248,29 +3248,43 @@ public class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void resizeConsecutiveChars() {
-        assertEquals("1 1 1    1", StringUtils.resizeConsecutiveChars("11111 111111 111111    111111", '1', 1, false, false));
-        assertEquals("aabbbcc", StringUtils.resizeConsecutiveChars("aaabbbcc", 'a', 2, false, false));
-        assertEquals("1", StringUtils.resizeConsecutiveChars("111111", '1', null, false, false));
-        assertEquals(".$$$42.1424.1.2.5.12.$!@.$!@%$.", StringUtils.resizeConsecutiveChars(".....$$$42....1424.1.....2.5.12..$!@..$!@%$...", '.', 1, false, false));
-        assertEquals("1ewjaoij1 a1w1e1o1iw1 1213121 1", StringUtils.resizeConsecutiveChars("1ewjaoij1 a11w11111e11o11iw11 12113121 1", '1', 1, false, false));
+    public void repeatChars() {
+        /**
+         * Resize 1 consecutive characters in a string to a specified length.
+         */
+        assertEquals("1 1 1    1", StringUtils.repeatChars("11111 111111 111111    111111", Collections.singletonList('1'), 1, true));
+        assertEquals("aabbbcc", StringUtils.repeatChars("aaabbbcc", Collections.singletonList('a'), 2, true));
+        assertEquals("1", StringUtils.repeatChars("111111", Collections.singletonList('1'), null, true));
+        assertEquals(".$$$42.1424.1.2.5.12.$!@.$!@%$.", StringUtils.repeatChars(".....$$$42....1424.1.....2.5.12..$!@..$!@%$...", Arrays.asList('.'), 1, true));
+        assertEquals(".$$$42.1424.1.2.5.12.$!@.$!@%$.", StringUtils.repeatChars(".....$$$42....1424.1.....2.5.12..$!@..$!@%$...", Arrays.asList('.'), 1, false));
+        assertEquals("1ewjaoij1 a1w1e1o1iw1 1213121 1", StringUtils.repeatChars("1ewjaoij1 a11w11111e11o11iw11 12113121 1", Arrays.asList('1'), 1, true));
+        /**
+         * Resize to 2 repetitions with multiple consecutive characters.
+         */
+        assertEquals("11 11 11    11", StringUtils.repeatChars("11111 111111 111111    111111", Collections.singletonList('1'), 2, true));
+        assertEquals("11 22 33   44", StringUtils.repeatChars("11111 222222 333333   444", Arrays.asList('1','2','3','4'), 2, true));
+        assertEquals("11 22342422 33   44", StringUtils.repeatChars("11111 223424222 333333   444", Arrays.asList('1','2','3','4'), 2, true));
+        assertEquals("1234", StringUtils.repeatChars("1234", Arrays.asList('1','2','3','4'), 2, true));
+        assertEquals("11234", StringUtils.repeatChars("111111234", Arrays.asList('1','2','3','4'), 2, true));
+        assertEquals("23411111", StringUtils.repeatChars("23411", Arrays.asList('1','2','3','4'), 5, true));
+
         // resizes whitespaces trimming
-        assertEquals(null, StringUtils.resizeToOneWhitespace(null, true));
-        assertEquals("", StringUtils.resizeToOneWhitespace("", true));
-//        assertEquals("", StringUtils.resizeToOneWhitespace("   ", true));
-        assertEquals("Hello", StringUtils.resizeToOneWhitespace("Hello", true));
-        assertEquals("Hello, World!", StringUtils.resizeToOneWhitespace("Hello, World!", true));
-        assertEquals("Hello, World!", StringUtils.resizeToOneWhitespace("Hello,   World!", true));
-        assertEquals("a a", StringUtils.resizeToOneWhitespace("a  a       ", true));
-        assertEquals("a c b ncw a c j j j j j", StringUtils.resizeToOneWhitespace("  a   c b  ncw   a  c j j j j      j", true));
+        assertNull(StringUtils.ensureOneWhitespace(null));
+        assertEquals("", StringUtils.ensureOneWhitespace(""));
+        assertEquals(" ", StringUtils.ensureOneWhitespace("   "));
+        assertEquals("Hello", StringUtils.ensureOneWhitespace("Hello"));
+        assertEquals("Hello, World!", StringUtils.ensureOneWhitespace("Hello, World!"));
+        assertEquals("Hello, World!", StringUtils.ensureOneWhitespace("Hello,   World!"));
+        assertEquals("a a ", StringUtils.ensureOneWhitespace("a  a       "));
+        assertEquals(" a c b ncw a c j j j j j", StringUtils.ensureOneWhitespace("  a   c b  ncw   a  c j j j j      j"));
         // resizes whitespaces without trimming
-        assertNull(StringUtils.resizeToOneWhitespace(null, false));
-        assertEquals("", StringUtils.resizeToOneWhitespace("", false));
-        assertEquals(" ", StringUtils.resizeToOneWhitespace("   ", false));
-        assertEquals("Hello", StringUtils.resizeToOneWhitespace("Hello", false));
-        assertEquals(" a b c ", StringUtils.resizeToOneWhitespace("  a   b  c  ", false));
-        assertEquals(" Hello, World! ", StringUtils.resizeToOneWhitespace(" Hello,    World! ", false));
-        assertEquals("Hello, World!", StringUtils.resizeToOneWhitespace("Hello,   World!", false));
-//        assertEquals(" a a       ", StringUtils.resizeToOneWhitespace(" a  a       ", false));
+        assertNull(StringUtils.ensureOneWhitespace(null));
+        assertEquals("", StringUtils.ensureOneWhitespace(""));
+        assertEquals(" ", StringUtils.ensureOneWhitespace("   "));
+        assertEquals("Hello", StringUtils.ensureOneWhitespace("Hello"));
+        assertEquals(" a b c ", StringUtils.ensureOneWhitespace("  a   b  c  "));
+        assertEquals(" Hello, World! ", StringUtils.ensureOneWhitespace(" Hello,    World! "));
+        assertEquals("Hello, World!", StringUtils.ensureOneWhitespace("Hello,   World!"));
+        assertEquals(" a a ", StringUtils.ensureOneWhitespace(" a  a       "));
     }
 }

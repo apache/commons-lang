@@ -30,6 +30,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.Collections;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.stream.LangCollectors;
@@ -9287,44 +9288,40 @@ public class StringUtils {
         return builder.toString();
     }
 
-    public static String resizeConsecutiveChars(String str, char appointedChar, Integer repeatedCount, boolean isRemovedTrailing, boolean isRemovedLeading) {
+    public static String repeatChars(String str, List<Character> appointedChars, Integer repetitions, boolean isResizeOnlyConsecutive) {
         if (str == null || str.isEmpty()) {
             return str;
         }
-        final int xTimes = repeatedCount != null ? repeatedCount : 1;
-        final char[] collector = new char[str.length()];
+        final int xTimes = repetitions != null ? repetitions : 1;
+        final int len = str.length();
+        //TODO dynamically grow
+        final char[] collector = new char[len * 2];
         int collectorIdx = 0;
-        final char[] statefulSeparator = new char[1];
-        for (int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < len; i++) {
             final char current = str.charAt(i);
-            if (current == appointedChar) {
-                if (statefulSeparator[0] == '\u0000') {
-                    statefulSeparator[0] = appointedChar;
+            if (appointedChars.contains(current)) {
+                int spanEnd = i + 1;
+                while (spanEnd < str.length() && current == str.charAt(spanEnd)) {
+                    spanEnd++;
                 }
-            } else {
-                if (statefulSeparator[0] == appointedChar) {
-                    if (collectorIdx > 0 || !isRemovedLeading) {
-                        int repetition = xTimes;
-                        while (repetition-- > 0) {
-                            collector[collectorIdx++] = appointedChar;
-                        }
-                        statefulSeparator[0] = '\u0000';
+                if (spanEnd == i + 1) {
+                    collector[collectorIdx++] = current;
+                } else if ((isResizeOnlyConsecutive && spanEnd > i + 1) || !isResizeOnlyConsecutive) {
+                    int repetition = xTimes;
+                    while (repetition-- > 0) {
+                        collector[collectorIdx++] = current;
                     }
                 }
+                i = spanEnd - 1;
+            } else {
                 collector[collectorIdx++] = current;
-            }
-        }
-        if (!isRemovedTrailing && statefulSeparator[0] == appointedChar) {
-            int repetition = xTimes;
-            while (repetition-- > 0) {
-                collector[collectorIdx++] = appointedChar;
             }
         }
         return new String(collector, 0, collectorIdx);
     }
 
-    public static String resizeToOneWhitespace(String str, boolean isTrimmed) {
-        return resizeConsecutiveChars(str, ' ', 1, isTrimmed, isTrimmed);
+    public static String ensureOneWhitespace(String str) {
+        return repeatChars(str, Collections.singletonList(' '), 1, true);
     }
 
 
