@@ -243,14 +243,16 @@ public class FastDateParser implements DateParser, Serializable {
     private static class NumberStrategy extends Strategy {
 
         private final int field;
-
+        private final transient boolean isValidMonthStrict;
         /**
          * Constructs a Strategy that parses a Number field
          *
-         * @param field The Calendar field
+         * @param field         The Calendar field
+         * @param isValidMonthStrict To strictly validate month value
          */
-        NumberStrategy(final int field) {
+        NumberStrategy(final int field, boolean isValidMonthStrict) {
             this.field = field;
+            this.isValidMonthStrict = isValidMonthStrict;
         }
 
         /**
@@ -259,6 +261,18 @@ public class FastDateParser implements DateParser, Serializable {
         @Override
         boolean isNumber() {
             return true;
+        }
+
+        boolean isMonthValue() {
+            return field == Calendar.MONTH;
+        }
+
+        /**
+         * Returns whether the field is valid in strict mode.
+         * @return true if the field is valid in strict mode
+         */
+        boolean isValidMonthStrict() {
+            return isValidMonthStrict;
         }
 
         /**
@@ -632,7 +646,7 @@ public class FastDateParser implements DateParser, Serializable {
     @SuppressWarnings("unchecked") // OK because we are creating an array with no entries
     private static final ConcurrentMap<Locale, Strategy>[] caches = new ConcurrentMap[Calendar.FIELD_COUNT];
 
-    private static final Strategy ABBREVIATED_YEAR_STRATEGY = new NumberStrategy(Calendar.YEAR) {
+    private static final Strategy ABBREVIATED_YEAR_STRATEGY = new NumberStrategy(Calendar.YEAR, false) {
         /**
          * {@inheritDoc}
          */
@@ -642,55 +656,68 @@ public class FastDateParser implements DateParser, Serializable {
         }
     };
 
-    private static final Strategy NUMBER_MONTH_STRATEGY = new NumberStrategy(Calendar.MONTH) {
+    private static final Strategy NUMBER_MONTH_STRATEGY = new NumberStrategy(Calendar.MONTH, true) {
         @Override
         int modify(final FastDateParser parser, final int iValue) {
-            return iValue - 1;
+            final int adjustedValue = iValue - 1;
+            /* Calendar methods automatically re-adjust & set default for month value, so explicitly throw an exception if the value is out of range */
+            if (isMonthValue() && isValidMonthStrict() && !isValidMonth(adjustedValue, true)) {
+                throw new IllegalArgumentException(String.format("The input month value : %s was out of range", iValue));
+            }
+            return adjustedValue;
+        }
+
+        private boolean isValidMonth(final int iValue, boolean isZeroBased) {
+            if (isZeroBased) {
+                return iValue >= 0 && iValue <= 11;
+            } else {
+                return iValue >= 1 && iValue <= 12;
+            }
         }
     };
 
-    private static final Strategy LITERAL_YEAR_STRATEGY = new NumberStrategy(Calendar.YEAR);
+    private static final Strategy LITERAL_YEAR_STRATEGY = new NumberStrategy(Calendar.YEAR, false);
 
-    private static final Strategy WEEK_OF_YEAR_STRATEGY = new NumberStrategy(Calendar.WEEK_OF_YEAR);
+    private static final Strategy WEEK_OF_YEAR_STRATEGY = new NumberStrategy(Calendar.WEEK_OF_YEAR, false);
 
-    private static final Strategy WEEK_OF_MONTH_STRATEGY = new NumberStrategy(Calendar.WEEK_OF_MONTH);
+    private static final Strategy WEEK_OF_MONTH_STRATEGY = new NumberStrategy(Calendar.WEEK_OF_MONTH, false);
 
-    private static final Strategy DAY_OF_YEAR_STRATEGY = new NumberStrategy(Calendar.DAY_OF_YEAR);
+    private static final Strategy DAY_OF_YEAR_STRATEGY = new NumberStrategy(Calendar.DAY_OF_YEAR, false);
 
-    private static final Strategy DAY_OF_MONTH_STRATEGY = new NumberStrategy(Calendar.DAY_OF_MONTH);
+    private static final Strategy DAY_OF_MONTH_STRATEGY = new NumberStrategy(Calendar.DAY_OF_MONTH, false);
 
-    private static final Strategy DAY_OF_WEEK_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK) {
+    private static final Strategy DAY_OF_WEEK_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK, false) {
         @Override
         int modify(final FastDateParser parser, final int iValue) {
             return iValue == 7 ? Calendar.SUNDAY : iValue + 1;
         }
     };
 
-    private static final Strategy DAY_OF_WEEK_IN_MONTH_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK_IN_MONTH);
+    private static final Strategy DAY_OF_WEEK_IN_MONTH_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK_IN_MONTH, false);
 
-    private static final Strategy HOUR_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY);
+    private static final Strategy HOUR_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY, false);
 
-    private static final Strategy HOUR24_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY) {
+    private static final Strategy HOUR24_OF_DAY_STRATEGY = new NumberStrategy(Calendar.HOUR_OF_DAY, false) {
         @Override
         int modify(final FastDateParser parser, final int iValue) {
             return iValue == 24 ? 0 : iValue;
         }
     };
 
-    private static final Strategy HOUR12_STRATEGY = new NumberStrategy(Calendar.HOUR) {
+    private static final Strategy HOUR12_STRATEGY = new NumberStrategy(Calendar.HOUR, false) {
         @Override
         int modify(final FastDateParser parser, final int iValue) {
             return iValue == 12 ? 0 : iValue;
         }
     };
 
-    private static final Strategy HOUR_STRATEGY = new NumberStrategy(Calendar.HOUR);
+    private static final Strategy HOUR_STRATEGY = new NumberStrategy(Calendar.HOUR, false);
 
-    private static final Strategy MINUTE_STRATEGY = new NumberStrategy(Calendar.MINUTE);
+    private static final Strategy MINUTE_STRATEGY = new NumberStrategy(Calendar.MINUTE, false);
 
-    private static final Strategy SECOND_STRATEGY = new NumberStrategy(Calendar.SECOND);
+    private static final Strategy SECOND_STRATEGY = new NumberStrategy(Calendar.SECOND, false);
 
-    private static final Strategy MILLISECOND_STRATEGY = new NumberStrategy(Calendar.MILLISECOND);
+    private static final Strategy MILLISECOND_STRATEGY = new NumberStrategy(Calendar.MILLISECOND, false);
 
     /**
      * Gets the short and long values displayed for a field

@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.text.FieldPosition;
 import java.text.Format;
@@ -384,5 +385,13 @@ public class FastDateFormatTest extends AbstractLangTest {
 
         assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG),
                 FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.getDefault()));
+    }
+
+    @Test
+    public void testLang1769() {
+        final FastDateFormat dateParser = FastDateFormat.getInstance("MM/dd/yyyy", new Locale("en", "US"));
+        assertThrows(IllegalArgumentException.class, () -> dateParser.parse("13/03/2015"));
+        assertThrows(IllegalArgumentException.class, () -> dateParser.parse("33/04/0000"));
+        assertThrows(IllegalArgumentException.class, () -> dateParser.parse("20/22/2015"));
     }
 }
