@@ -261,7 +261,7 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
     }
 
     @Test
-    public void testRecursive() {
+    void testRecursive() {
         final MyClass o1 = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"), new MyTemporalAmount("4"));
         // This gives you different instances of MyTemporalAccessor for 1 (and 2) that should be equals by reflection.
         final MyClass o1Bis = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"), new MyTemporalAmount("4"));
@@ -283,7 +283,7 @@ public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest 
     }
 
     @Test
-    public void testRetention() throws Exception {
+    void testRetention() throws Exception {
         // The following should not retain memory.
         for (int i = 0; i < Integer.getInteger("testRetention", 10_000); i++) {
             final Class<?> clazz = TestClassBuilder.defineSimpleClass(getClass().getPackage().getName(), i);

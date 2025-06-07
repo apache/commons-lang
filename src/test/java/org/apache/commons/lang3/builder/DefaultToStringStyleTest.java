@@ -46,7 +46,7 @@ public class DefaultToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendSuper() {
+    void testAppendSuper() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").toString());
 
@@ -56,7 +56,7 @@ public class DefaultToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testArray() {
+    void testArray() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", (Object) new Integer[0], false).toString());
@@ -68,12 +68,12 @@ public class DefaultToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBlank() {
+    void testBlank() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
     }
 
     @Test
-    public void testCollection() {
+    void testCollection() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", Collections.emptyList(), false).toString());
@@ -85,14 +85,14 @@ public class DefaultToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLong() {
+    void testLong() {
         assertEquals(baseStr + "[3]", new ToStringBuilder(base).append(3L).toString());
         assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", 3L).toString());
         assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", 3L).append("b", 4L).toString());
     }
 
     @Test
-    public void testLongArray() {
+    void testLongArray() {
         long[] array = {1, 2, -3, 4};
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{1,2,-3,4}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -102,7 +102,7 @@ public class DefaultToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLongArrayArray() {
+    void testLongArrayArray() {
         long[][] array = {{1, 2}, null, {5}};
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -112,7 +112,7 @@ public class DefaultToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMap() {
+    void testMap() {
         assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", Collections.emptyMap(), false).toString());
         assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", Collections.emptyMap(), true).toString());
         assertEquals(baseStr + "[a=<size=1>]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), false).toString());
@@ -120,7 +120,7 @@ public class DefaultToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObject() {
+    void testObject() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) null).toString());
@@ -132,7 +132,7 @@ public class DefaultToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectArray() {
+    void testObjectArray() {
         Object[] array = {null, base, new int[] {3, 6}};
         assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append((Object) array).toString());
@@ -142,7 +142,7 @@ public class DefaultToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPerson() {
+    void testPerson() {
         final Person p = new Person();
         p.name = "John Doe";
         p.age = 33;

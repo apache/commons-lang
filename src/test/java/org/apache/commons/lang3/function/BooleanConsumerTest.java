@@ -38,7 +38,7 @@ public class BooleanConsumerTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAccept() {
+    void testAccept() {
         final AtomicBoolean aBool = new AtomicBoolean();
         accept(aBool::lazySet, true);
         assertTrue(aBool.get());
@@ -47,7 +47,7 @@ public class BooleanConsumerTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAndThen() throws Throwable {
+    void testAndThen() throws Throwable {
         final BooleanConsumer nop = BooleanConsumer.nop();
         nop.andThen(nop);
         // Documented in Javadoc edge-case.

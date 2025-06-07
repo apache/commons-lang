@@ -35,14 +35,14 @@ public class UnicodeUnpairedSurrogateRemoverTest extends AbstractLangTest {
     final CharArrayWriter writer = new CharArrayWriter(); // nothing is ever written to it
 
     @Test
-    public void testInvalidCharacters() throws IOException {
+    void testInvalidCharacters() throws IOException {
         assertTrue(subject.translate(0xd800, writer));
         assertTrue(subject.translate(0xdfff, writer));
         assertEquals(0, writer.size());
     }
 
     @Test
-    public void testValidCharacters() throws IOException {
+    void testValidCharacters() throws IOException {
         assertFalse(subject.translate(0xd7ff, writer));
         assertFalse(subject.translate(0xe000, writer));
         assertEquals(0, writer.size());

@@ -35,7 +35,7 @@ public class NotImplementedExceptionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         final Throwable nested = new RuntimeException();
         final String message = "Not Implemented";
         final String code = "CODE";

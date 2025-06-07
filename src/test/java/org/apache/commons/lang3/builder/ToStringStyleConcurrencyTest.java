@@ -67,7 +67,7 @@ public class ToStringStyleConcurrencyTest extends AbstractLangTest {
     }
 
     @Test
-    public void testArrayList() throws InterruptedException {
+    void testArrayList() throws InterruptedException {
         testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
@@ -98,12 +98,12 @@ public class ToStringStyleConcurrencyTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCopyOnWriteArrayList() throws InterruptedException {
+    void testCopyOnWriteArrayList() throws InterruptedException {
         testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
     @Test
-    public void testLinkedList() throws InterruptedException {
+    void testLinkedList() throws InterruptedException {
         testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 }

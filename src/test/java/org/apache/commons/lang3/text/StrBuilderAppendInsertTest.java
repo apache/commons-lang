@@ -47,7 +47,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     };
 
     @Test
-    public void testAppend_Boolean() {
+    void testAppend_Boolean() {
         final StrBuilder sb = new StrBuilder();
         sb.append(true);
         assertEquals("true", sb.toString());
@@ -60,7 +60,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_CharArray() {
+    void testAppend_CharArray() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((char[]) null);
         assertEquals("NULL", sb.toString());
@@ -74,7 +74,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_CharArray_int_int() {
+    void testAppend_CharArray_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((char[]) null, 0, 1);
         assertEquals("NULL", sb.toString());
@@ -122,7 +122,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_FormattedString() {
+    void testAppend_FormattedString() {
         StrBuilder sb;
 
         sb = new StrBuilder();
@@ -146,7 +146,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_Object() {
+    void testAppend_Object() {
         final StrBuilder sb = new StrBuilder();
         sb.appendNull();
         assertEquals("", sb.toString());
@@ -174,7 +174,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_PrimitiveNumber() {
+    void testAppend_PrimitiveNumber() {
         final StrBuilder sb = new StrBuilder();
         sb.append(0);
         assertEquals("0", sb.toString());
@@ -190,7 +190,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_StrBuilder() {
+    void testAppend_StrBuilder() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StrBuilder) null);
         assertEquals("NULL", sb.toString());
@@ -207,7 +207,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_StrBuilder_int_int() {
+    void testAppend_StrBuilder_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StrBuilder) null, 0, 1);
         assertEquals("NULL", sb.toString());
@@ -255,7 +255,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_String() {
+    void testAppend_String() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((String) null);
         assertEquals("NULL", sb.toString());
@@ -272,7 +272,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_String_int_int() {
+    void testAppend_String_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((String) null, 0, 1);
         assertEquals("NULL", sb.toString());
@@ -323,7 +323,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_StringBuffer() {
+    void testAppend_StringBuffer() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StringBuffer) null);
         assertEquals("NULL", sb.toString());
@@ -340,7 +340,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_StringBuffer_int_int() {
+    void testAppend_StringBuffer_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((StringBuffer) null, 0, 1);
         assertEquals("NULL", sb.toString());
@@ -388,7 +388,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_StringBuilder() {
+    void testAppend_StringBuilder() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((String) null);
         assertEquals("NULL", sb.toString());
@@ -405,7 +405,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppend_StringBuilder_int_int() {
+    void testAppend_StringBuilder_int_int() {
         StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL").append((String) null, 0, 1);
         assertEquals("NULL", sb.toString());
@@ -456,7 +456,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendAll_Array() {
+    void testAppendAll_Array() {
         final StrBuilder sb = new StrBuilder();
         sb.appendAll((Object[]) null);
         assertEquals("", sb.toString());
@@ -475,7 +475,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendAll_Collection() {
+    void testAppendAll_Collection() {
         final StrBuilder sb = new StrBuilder();
         sb.appendAll((Collection<?>) null);
         assertEquals("", sb.toString());
@@ -490,7 +490,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendAll_Iterator() {
+    void testAppendAll_Iterator() {
         final StrBuilder sb = new StrBuilder();
         sb.appendAll((Iterator<?>) null);
         assertEquals("", sb.toString());
@@ -505,7 +505,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendFixedWidthPadLeft() {
+    void testAppendFixedWidthPadLeft() {
         final StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadLeft("foo", -1, '-');
         assertEquals("", sb.toString());
@@ -543,7 +543,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendFixedWidthPadLeft_int() {
+    void testAppendFixedWidthPadLeft_int() {
         final StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadLeft(123, -1, '-');
         assertEquals("", sb.toString());
@@ -576,7 +576,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendFixedWidthPadRight() {
+    void testAppendFixedWidthPadRight() {
         final StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadRight("foo", -1, '-');
         assertEquals("", sb.toString());
@@ -614,7 +614,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendFixedWidthPadRight_int() {
+    void testAppendFixedWidthPadRight_int() {
         final StrBuilder sb = new StrBuilder();
         sb.appendFixedWidthPadRight(123, -1, '-');
         assertEquals("", sb.toString());
@@ -647,7 +647,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_Boolean() {
+    void testAppendln_Boolean() {
         final StrBuilder sb = new StrBuilder();
         sb.appendln(true);
         assertEquals("true" + SEP, sb.toString());
@@ -658,7 +658,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_CharArray() {
+    void testAppendln_CharArray() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
             private static final long serialVersionUID = 1L;
@@ -681,7 +681,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_CharArray_int_int() {
+    void testAppendln_CharArray_int_int() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
             private static final long serialVersionUID = 1L;
@@ -704,7 +704,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_FormattedString() {
+    void testAppendln_FormattedString() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
             private static final long serialVersionUID = 1L;
@@ -727,7 +727,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_Object() {
+    void testAppendln_Object() {
         final StrBuilder sb = new StrBuilder();
         sb.appendln((Object) null);
         assertEquals("" + SEP, sb.toString());
@@ -740,7 +740,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_PrimitiveNumber() {
+    void testAppendln_PrimitiveNumber() {
         final StrBuilder sb = new StrBuilder();
         sb.appendln(0);
         assertEquals("0" + SEP, sb.toString());
@@ -759,7 +759,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_StrBuilder() {
+    void testAppendln_StrBuilder() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
             private static final long serialVersionUID = 1L;
@@ -782,7 +782,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_StrBuilder_int_int() {
+    void testAppendln_StrBuilder_int_int() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
             private static final long serialVersionUID = 1L;
@@ -805,7 +805,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_String() {
+    void testAppendln_String() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
             private static final long serialVersionUID = 1L;
@@ -828,7 +828,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_String_int_int() {
+    void testAppendln_String_int_int() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
             private static final long serialVersionUID = 1L;
@@ -851,7 +851,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_StringBuffer() {
+    void testAppendln_StringBuffer() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
             private static final long serialVersionUID = 1L;
@@ -874,7 +874,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_StringBuffer_int_int() {
+    void testAppendln_StringBuffer_int_int() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
             private static final long serialVersionUID = 1L;
@@ -897,7 +897,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_StringBuilder() {
+    void testAppendln_StringBuilder() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
             private static final long serialVersionUID = 1L;
@@ -920,7 +920,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendln_StringBuilder_int_int() {
+    void testAppendln_StringBuilder_int_int() {
         final int[] count = new int[2];
         final StrBuilder sb = new StrBuilder() {
             private static final long serialVersionUID = 1L;
@@ -943,7 +943,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendNewLine() {
+    void testAppendNewLine() {
         StrBuilder sb = new StrBuilder("---");
         sb.appendNewLine().append("+++");
         assertEquals("---" + SEP + "+++", sb.toString());
@@ -954,7 +954,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendPadding() {
+    void testAppendPadding() {
         final StrBuilder sb = new StrBuilder();
         sb.append("foo");
         assertEquals("foo", sb.toString());
@@ -975,7 +975,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendSeparator_char() {
+    void testAppendSeparator_char() {
         final StrBuilder sb = new StrBuilder();
         sb.appendSeparator(',');  // no effect
         assertEquals("", sb.toString());
@@ -986,7 +986,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendSeparator_char_char() {
+    void testAppendSeparator_char_char() {
         final StrBuilder sb = new StrBuilder();
         final char startSeparator = ':';
         final char standardSeparator = ',';
@@ -1000,7 +1000,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendSeparator_char_int() {
+    void testAppendSeparator_char_int() {
         final StrBuilder sb = new StrBuilder();
         sb.appendSeparator(',', 0);  // no effect
         assertEquals("", sb.toString());
@@ -1014,7 +1014,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendSeparator_String() {
+    void testAppendSeparator_String() {
         final StrBuilder sb = new StrBuilder();
         sb.appendSeparator(",");  // no effect
         assertEquals("", sb.toString());
@@ -1025,7 +1025,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendSeparator_String_int() {
+    void testAppendSeparator_String_int() {
         final StrBuilder sb = new StrBuilder();
         sb.appendSeparator(",", 0);  // no effect
         assertEquals("", sb.toString());
@@ -1039,7 +1039,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendSeparator_String_String() {
+    void testAppendSeparator_String_String() {
         final StrBuilder sb = new StrBuilder();
         final String startSeparator = "order by ";
         final String standardSeparator = ",";
@@ -1061,7 +1061,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendWithNullText() {
+    void testAppendWithNullText() {
         final StrBuilder sb = new StrBuilder();
         sb.setNullText("NULL");
         assertEquals("", sb.toString());
@@ -1092,7 +1092,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendWithSeparators_Array() {
+    void testAppendWithSeparators_Array() {
         final StrBuilder sb = new StrBuilder();
         sb.appendWithSeparators((Object[]) null, ",");
         assertEquals("", sb.toString());
@@ -1115,7 +1115,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendWithSeparators_Collection() {
+    void testAppendWithSeparators_Collection() {
         final StrBuilder sb = new StrBuilder();
         sb.appendWithSeparators((Collection<?>) null, ",");
         assertEquals("", sb.toString());
@@ -1137,7 +1137,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
         assertEquals("foo,,baz", sb.toString());
     }
     @Test
-    public void testAppendWithSeparators_Iterator() {
+    void testAppendWithSeparators_Iterator() {
         final StrBuilder sb = new StrBuilder();
         sb.appendWithSeparators((Iterator<?>) null, ",");
         assertEquals("", sb.toString());
@@ -1160,7 +1160,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendWithSeparatorsWithNullText() {
+    void testAppendWithSeparatorsWithNullText() {
         final StrBuilder sb = new StrBuilder();
         sb.setNullText("null");
         sb.appendWithSeparators(new Object[]{"foo", null, "baz"}, ",");
@@ -1172,7 +1172,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInsert() {
+    void testInsert() {
 
         final StrBuilder sb = new StrBuilder();
         sb.append("barbaz");
@@ -1390,7 +1390,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInsertWithNullText() {
+    void testInsertWithNullText() {
         final StrBuilder sb = new StrBuilder();
         sb.setNullText("null");
         sb.append("barbaz");
@@ -1441,7 +1441,7 @@ public class StrBuilderAppendInsertTest extends AbstractLangTest {
 
     // See: https://issues.apache.org/jira/browse/LANG-299
     @Test
-    public void testLang299() {
+    void testLang299() {
         final StrBuilder sb = new StrBuilder(1);
         sb.appendFixedWidthPadRight("foo", 1, '-');
         assertEquals("f", sb.toString());

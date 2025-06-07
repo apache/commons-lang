@@ -34,7 +34,7 @@ public class SuppliersTest extends AbstractLangTest {
      * Tests {@link Suppliers#get(Supplier)}.
      */
     @Test
-    public void testGet() {
+    void testGet() {
         assertNull(Suppliers.get(null));
         assertNull(Suppliers.get(() -> null));
         assertNull(Suppliers.get(Suppliers.nul()));

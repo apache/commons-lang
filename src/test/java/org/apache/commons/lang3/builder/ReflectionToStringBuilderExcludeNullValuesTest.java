@@ -45,7 +45,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest extends AbstractLang
     private final TestFixture BOTH_NULL = new TestFixture(null, null);
 
     @Test
-    public void test_ConstructorOption() {
+    void test_ConstructorOption() {
         ReflectionToStringBuilder builder = new ReflectionToStringBuilder(BOTH_NON_NULL, null, null, null, false, false, true);
         assertTrue(builder.isExcludeNullValues());
         String toString = builder.toString();
@@ -69,7 +69,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest extends AbstractLang
     }
 
     @Test
-    public void test_ConstructorOption_ExcludeNull() {
+    void test_ConstructorOption_ExcludeNull() {
         ReflectionToStringBuilder builder = new ReflectionToStringBuilder(BOTH_NULL, null, null, null, false, false, false);
         builder.setExcludeNullValues(true);
         assertTrue(builder.isExcludeNullValues());
@@ -91,7 +91,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest extends AbstractLang
     }
 
     @Test
-    public void test_ConstructorOptionNormal() {
+    void test_ConstructorOptionNormal() {
         final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(BOTH_NULL, null, null, null, false, false, false);
         assertFalse(builder.isExcludeNullValues());
         String toString = builder.toString();
@@ -116,7 +116,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest extends AbstractLang
     }
 
     @Test
-    public void test_excludeNull() {
+    void test_excludeNull() {
 
         //test normal case
         String toString = ReflectionToStringBuilder.toString(BOTH_NON_NULL, null, false, false, true, null);
@@ -140,7 +140,7 @@ public class ReflectionToStringBuilderExcludeNullValuesTest extends AbstractLang
     }
 
     @Test
-    public void test_NonExclude() {
+    void test_NonExclude() {
         //normal case=
         String toString = ReflectionToStringBuilder.toString(BOTH_NON_NULL, null, false, false, false, null);
         assertTrue(toString.contains(INTEGER_FIELD_NAME));

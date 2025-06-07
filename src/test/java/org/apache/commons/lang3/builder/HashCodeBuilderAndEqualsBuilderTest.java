@@ -92,7 +92,7 @@ public class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFixture() {
+    void testFixture() {
         testFixture(false);
     }
 
@@ -114,12 +114,12 @@ public class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFixtureWithTransients() {
+    void testFixtureWithTransients() {
         testFixture(true);
     }
 
     @Test
-    public void testInteger() {
+    void testInteger() {
         testInteger(false);
     }
 
@@ -130,12 +130,12 @@ public class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIntegerWithTransients() {
+    void testIntegerWithTransients() {
         testInteger(true);
     }
 
     @Test
-    public void testRetention() throws Exception {
+    void testRetention() throws Exception {
         // The following should not retain memory.
         for (int i = 0; i < Integer.getInteger("testRecursive", 10_000); i++) {
             final Class<?> clazz = TestClassBuilder.defineSimpleClass(getClass().getPackage().getName(), i);

@@ -78,7 +78,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testClone() {
+    void testClone() {
         final Object test = SerializationUtils.clone(iMap);
         assertNotNull(test);
         assertInstanceOf(HashMap.class, test);
@@ -92,13 +92,13 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCloneNull() {
+    void testCloneNull() {
         final Object test = SerializationUtils.clone(null);
         assertNull(test);
     }
 
     @Test
-    public void testCloneSerializableSupplier() {
+    void testCloneSerializableSupplier() {
         final SerializableSupplier<String> supplier = () -> "test";
         assertEquals("test", supplier.get());
         final SerializableSupplier<String> clone = SerializationUtils.clone(supplier);
@@ -106,13 +106,13 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCloneUnserializable() {
+    void testCloneUnserializable() {
         iMap.put(new Object(), new Object());
         assertThrows(SerializationException.class, () -> SerializationUtils.clone(iMap));
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new SerializationUtils());
         final Constructor<?>[] cons = SerializationUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -122,7 +122,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDeserializeBytes() throws Exception {
+    void testDeserializeBytes() throws Exception {
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
         try (ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
             oos.writeObject(iMap);
@@ -142,17 +142,17 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDeserializeBytesBadStream() {
+    void testDeserializeBytesBadStream() {
         assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(new byte[0]));
     }
 
     @Test
-    public void testDeserializeBytesNull() {
+    void testDeserializeBytesNull() {
         assertThrows(NullPointerException.class, () -> SerializationUtils.deserialize((byte[]) null));
     }
 
     @Test
-    public void testDeserializeBytesOfNull() throws Exception {
+    void testDeserializeBytesOfNull() throws Exception {
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
         try (ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
             oos.writeObject(null);
@@ -164,7 +164,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDeserializeClassCastException() {
+    void testDeserializeClassCastException() {
         final String value = "Hello";
         final byte[] serialized = SerializationUtils.serialize(value);
         assertEquals(value, SerializationUtils.deserialize(serialized));
@@ -176,7 +176,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDeserializeStream() throws Exception {
+    void testDeserializeStream() throws Exception {
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
         try (ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
             oos.writeObject(iMap);
@@ -197,13 +197,13 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDeserializeStreamBadStream() {
+    void testDeserializeStreamBadStream() {
         assertThrows(SerializationException.class,
                 () -> SerializationUtils.deserialize(new ByteArrayInputStream(new byte[0])));
     }
 
     @Test
-    public void testDeserializeStreamClassNotFound() throws Exception {
+    void testDeserializeStreamClassNotFound() throws Exception {
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
         try (ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
             oos.writeObject(new ClassNotFoundSerialization());
@@ -216,12 +216,12 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDeserializeStreamNull() {
+    void testDeserializeStreamNull() {
         assertThrows(NullPointerException.class, () -> SerializationUtils.deserialize((InputStream) null));
     }
 
     @Test
-    public void testDeserializeStreamOfNull() throws Exception {
+    void testDeserializeStreamOfNull() throws Exception {
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
         try (ObjectOutputStream oos = new ObjectOutputStream(streamReal)) {
             oos.writeObject(null);
@@ -234,7 +234,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testException() {
+    void testException() {
         SerializationException serEx;
         final Exception ex = new Exception();
 
@@ -256,7 +256,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNegativeByteArray() {
+    void testNegativeByteArray() {
         final byte[] byteArray = {
             (byte) -84, (byte) -19, (byte) 0, (byte) 5, (byte) 125, (byte) -19, (byte) 0,
             (byte) 5, (byte) 115, (byte) 114, (byte) -1, (byte) 97, (byte) 122, (byte) -48, (byte) -65
@@ -266,7 +266,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPrimitiveTypeClassSerialization() {
+    void testPrimitiveTypeClassSerialization() {
         final Class<?>[] primitiveTypes = { byte.class, short.class, int.class, long.class, float.class, double.class,
                 boolean.class, char.class, void.class };
 
@@ -277,13 +277,13 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRoundtrip() {
+    void testRoundtrip() {
         final HashMap<Object, Object> newMap = SerializationUtils.roundtrip(iMap);
         assertEquals(iMap, newMap);
     }
 
     @Test
-    public void testSerializeBytes() throws Exception {
+    void testSerializeBytes() throws Exception {
         final byte[] testBytes = SerializationUtils.serialize(iMap);
 
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
@@ -298,7 +298,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSerializeBytesNull() throws Exception {
+    void testSerializeBytesNull() throws Exception {
         final byte[] testBytes = SerializationUtils.serialize(null);
 
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
@@ -313,13 +313,13 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSerializeBytesUnserializable() {
+    void testSerializeBytesUnserializable() {
         iMap.put(new Object(), new Object());
         assertThrows(SerializationException.class, () -> SerializationUtils.serialize(iMap));
     }
 
     @Test
-    public void testSerializeIOException() {
+    void testSerializeIOException() {
         // forces an IOException when the ObjectOutputStream is created, to test not closing the stream
         // in the finally block
         final OutputStream streamTest = new OutputStream() {
@@ -334,7 +334,7 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSerializeStream() throws Exception {
+    void testSerializeStream() throws Exception {
         final ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         SerializationUtils.serialize(iMap, streamTest);
 
@@ -351,12 +351,12 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSerializeStreamNullNull() {
+    void testSerializeStreamNullNull() {
         assertThrows(NullPointerException.class, () -> SerializationUtils.serialize(null, null));
     }
 
     @Test
-    public void testSerializeStreamNullObj() throws Exception {
+    void testSerializeStreamNullObj() throws Exception {
         final ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         SerializationUtils.serialize(null, streamTest);
 
@@ -373,12 +373,12 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSerializeStreamObjNull() {
+    void testSerializeStreamObjNull() {
         assertThrows(NullPointerException.class, () -> SerializationUtils.serialize(iMap, null));
     }
 
     @Test
-    public void testSerializeStreamUnserializable() {
+    void testSerializeStreamUnserializable() {
         final ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         iMap.put(new Object(), new Object());
         assertThrows(SerializationException.class, () -> SerializationUtils.serialize(iMap, streamTest));

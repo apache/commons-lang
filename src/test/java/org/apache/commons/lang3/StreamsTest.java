@@ -137,7 +137,7 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSimpleStreamFilter() {
+    void testSimpleStreamFilter() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
                 .map(Integer::valueOf)
@@ -147,7 +147,7 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSimpleStreamForEach() {
+    void testSimpleStreamForEach() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = new ArrayList<>();
         Functions.stream(input).forEach(s -> output.add(Integer.valueOf(s)));
@@ -158,7 +158,7 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSimpleStreamMap() {
+    void testSimpleStreamMap() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input).map(Integer::valueOf).collect(Collectors.toList());
         assertEquals(6, output.size());
@@ -168,7 +168,7 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSimpleStreamMapFailing() {
+    void testSimpleStreamMapFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4 ", "5", "6");
         final Executable testMethod = () -> Functions.stream(input).map(Integer::valueOf).collect(Collectors.toList());
         final NumberFormatException thrown = assertThrows(NumberFormatException.class, testMethod);
@@ -176,7 +176,7 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToArray() {
+    void testToArray() {
         final String[] array = Arrays.asList("2", "3", "1").stream().collect(Streams.toArray(String.class));
         assertNotNull(array);
         assertEquals(3, array.length);

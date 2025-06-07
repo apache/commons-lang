@@ -64,7 +64,7 @@ public class ReflectionToStringBuilderConcurrencyTest extends AbstractLangTest {
 
     @Test
     @Disabled
-    public void testArrayList() throws InterruptedException {
+    void testArrayList() throws InterruptedException {
         testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
@@ -105,13 +105,13 @@ public class ReflectionToStringBuilderConcurrencyTest extends AbstractLangTest {
 
     @Test
     @Disabled
-    public void testCopyOnWriteArrayList() throws InterruptedException {
+    void testCopyOnWriteArrayList() throws InterruptedException {
         testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
     @Test
     @Disabled
-    public void testLinkedList() throws InterruptedException {
+    void testLinkedList() throws InterruptedException {
         testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 }

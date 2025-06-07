@@ -49,22 +49,22 @@ public class DiffTest extends AbstractLangTest {
     private static final Diff<Boolean> booleanDiff = new BooleanDiff(FIELD_NAME);
 
     @Test
-    public void testCannotModify() {
+    void testCannotModify() {
         assertThrows(UnsupportedOperationException.class, () -> booleanDiff.setValue(Boolean.FALSE));
     }
 
     @Test
-    public void testGetFieldName() {
+    void testGetFieldName() {
         assertEquals(FIELD_NAME, booleanDiff.getFieldName());
     }
 
     @Test
-    public void testGetType() {
+    void testGetType() {
         assertEquals(Boolean.class, booleanDiff.getType());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals(String.format("[%s: %s, %s]", FIELD_NAME, booleanDiff.getLeft(),
                 booleanDiff.getRight()), booleanDiff.toString());
     }

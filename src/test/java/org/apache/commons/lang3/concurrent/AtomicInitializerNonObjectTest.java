@@ -43,7 +43,7 @@ public class AtomicInitializerNonObjectTest extends AbstractConcurrentInitialize
     }
 
     @Test
-    public void testGetThatReturnsNullFirstTime() throws ConcurrentException {
+    void testGetThatReturnsNullFirstTime() throws ConcurrentException {
         final AtomicInitializer<Integer> initializer = new AtomicInitializer<Integer>() {
             final AtomicInteger firstRun = new AtomicInteger(1);
 

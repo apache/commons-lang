@@ -66,7 +66,7 @@ public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest
     }
 
     @Test
-    public void testGetThatReturnsNullFirstTime() throws ConcurrentException {
+    void testGetThatReturnsNullFirstTime() throws ConcurrentException {
         final AtomicSafeInitializer<Object> initializer = new AtomicSafeInitializer<Object>() {
             final AtomicBoolean firstRun = new AtomicBoolean(true);
 
@@ -90,7 +90,7 @@ public class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest
      * @throws InterruptedException because {@link #testGetConcurrent()} may throw it
      */
     @Test
-    public void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
+    void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
         testGetConcurrent();
         assertEquals(1, initializer.initCounter.get(), "Wrong number of invocations");
     }

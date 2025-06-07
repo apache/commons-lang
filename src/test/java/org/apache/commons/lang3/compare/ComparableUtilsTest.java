@@ -441,7 +441,7 @@ public class ComparableUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMax() {
+    void testMax() {
         assertEquals(Instant.MAX, ComparableUtils.max(Instant.MAX, Instant.MAX));
         assertEquals(Instant.MIN, ComparableUtils.max(Instant.MIN, Instant.MIN));
         assertEquals(Instant.MAX, ComparableUtils.max(Instant.MIN, Instant.MAX));
@@ -457,7 +457,7 @@ public class ComparableUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMin() {
+    void testMin() {
         assertEquals(Instant.MAX, ComparableUtils.min(Instant.MAX, Instant.MAX));
         assertEquals(Instant.MIN, ComparableUtils.min(Instant.MIN, Instant.MIN));
         assertEquals(Instant.MIN, ComparableUtils.min(Instant.MIN, Instant.MAX));

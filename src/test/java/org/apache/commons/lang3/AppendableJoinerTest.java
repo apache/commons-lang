@@ -55,7 +55,7 @@ public class AppendableJoinerTest {
     }
 
     @Test
-    public void testAllBuilderPropertiesStringBuilder() {
+    void testAllBuilderPropertiesStringBuilder() {
         // @formatter:off
         final AppendableJoiner<Object> joiner = AppendableJoiner.builder()
                 .setPrefix("<")
@@ -71,7 +71,7 @@ public class AppendableJoinerTest {
     }
 
     @Test
-    public void testBuildDefaultStringBuilder() {
+    void testBuildDefaultStringBuilder() {
         final Builder<Object> builder = AppendableJoiner.builder();
         assertNotSame(builder.get(), builder.get());
         final AppendableJoiner<Object> joiner = builder.get();
@@ -82,14 +82,14 @@ public class AppendableJoinerTest {
     }
 
     @Test
-    public void testBuilder() {
+    void testBuilder() {
         assertNotSame(AppendableJoiner.builder(), AppendableJoiner.builder());
     }
 
     @SuppressWarnings("deprecation") // Test own StrBuilder
     @ParameterizedTest
     @ValueSource(classes = { StringBuilder.class, StringBuffer.class, StringWriter.class, StrBuilder.class, TextStringBuilder.class })
-    public void testDelimiterAppendable(final Class<? extends Appendable> clazz) throws Exception {
+    void testDelimiterAppendable(final Class<? extends Appendable> clazz) throws Exception {
         final AppendableJoiner<Object> joiner = AppendableJoiner.builder().setDelimiter(".").get();
         final Appendable sbuilder = clazz.newInstance();
         sbuilder.append("A");
@@ -101,7 +101,7 @@ public class AppendableJoinerTest {
     }
 
     @Test
-    public void testDelimiterStringBuilder() {
+    void testDelimiterStringBuilder() {
         final AppendableJoiner<Object> joiner = AppendableJoiner.builder().setDelimiter(".").get();
         final StringBuilder sbuilder = new StringBuilder("A");
         // does not throw IOException
@@ -112,7 +112,7 @@ public class AppendableJoinerTest {
     }
 
     @Test
-    public void testToCharSequenceStringBuilder1() {
+    void testToCharSequenceStringBuilder1() {
         // @formatter:off
         final AppendableJoiner<Object> joiner = AppendableJoiner.builder()
                 .setPrefix("<")
@@ -128,7 +128,7 @@ public class AppendableJoinerTest {
     }
 
     @Test
-    public void testToCharSequenceStringBuilder2() {
+    void testToCharSequenceStringBuilder2() {
         // @formatter:off
         final AppendableJoiner<Fixture> joiner = AppendableJoiner.<Fixture>builder()
                 .setElementAppender((a, e) -> e.render(a))

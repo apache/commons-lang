@@ -291,7 +291,7 @@ public class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLANG1319() {
+    void testLANG1319() {
         final String[] stringArray = {"1", "2"};
 
         final String exp = getClassPrefix(stringArray) + "[" + LS

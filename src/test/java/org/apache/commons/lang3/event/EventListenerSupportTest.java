@@ -69,7 +69,7 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddListenerNoDuplicates() {
+    void testAddListenerNoDuplicates() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
 
         final VetoableChangeListener[] listeners = listenerSupport.getListeners();
@@ -89,23 +89,23 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddNullListener() {
+    void testAddNullListener() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         assertThrows(NullPointerException.class, () -> listenerSupport.addListener(null));
     }
 
     @Test
-    public void testCreateWithNonInterfaceParameter() {
+    void testCreateWithNonInterfaceParameter() {
         assertThrows(IllegalArgumentException.class, () -> EventListenerSupport.create(String.class));
     }
 
     @Test
-    public void testCreateWithNullParameter() {
+    void testCreateWithNullParameter() {
         assertThrows(NullPointerException.class, () -> EventListenerSupport.create(null));
     }
 
     @Test
-    public void testEventDispatchOrder() throws PropertyVetoException {
+    void testEventDispatchOrder() throws PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         final List<VetoableChangeListener> calledListeners = new ArrayList<>();
 
@@ -120,7 +120,7 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetListeners() {
+    void testGetListeners() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
 
         final VetoableChangeListener[] listeners = listenerSupport.getListeners();
@@ -143,7 +143,7 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveListenerDuringEvent() throws PropertyVetoException {
+    void testRemoveListenerDuringEvent() throws PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         for (int i = 0; i < 10; ++i) {
             addDeregisterListener(listenerSupport);
@@ -154,13 +154,13 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveNullListener() {
+    void testRemoveNullListener() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         assertThrows(NullPointerException.class, () -> listenerSupport.removeListener(null));
     }
 
     @Test
-    public void testSerialization() throws IOException, ClassNotFoundException, PropertyVetoException {
+    void testSerialization() throws IOException, ClassNotFoundException, PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         listenerSupport.addListener(Function.identity()::apply);
         listenerSupport.addListener(EasyMock.createNiceMock(VetoableChangeListener.class));
@@ -196,7 +196,7 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSubclassInvocationHandling() throws PropertyVetoException {
+    void testSubclassInvocationHandling() throws PropertyVetoException {
 
         final EventListenerSupport<VetoableChangeListener> eventListenerSupport = new EventListenerSupport<VetoableChangeListener>(
                 VetoableChangeListener.class) {
@@ -231,7 +231,7 @@ public class EventListenerSupportTest extends AbstractLangTest {
      * Tests that throwing an exception from a listener stops calling the remaining listeners.
      */
     @Test
-    public void testThrowingListener() {
+    void testThrowingListener() {
         final AtomicInteger count = new AtomicInteger();
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         final int vetoLimit = 1;
@@ -256,7 +256,7 @@ public class EventListenerSupportTest extends AbstractLangTest {
      * Tests that throwing an exception from a listener continues calling the remaining listeners.
      */
     @Test
-    public void testThrowingListenerContinues() throws PropertyVetoException {
+    void testThrowingListenerContinues() throws PropertyVetoException {
         final AtomicInteger count = new AtomicInteger();
         final EventListenerSupport<VetoableChangeListener> listenerSupport = new EventListenerSupport<VetoableChangeListener>(VetoableChangeListener.class) {
             @Override

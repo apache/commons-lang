@@ -38,22 +38,22 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class CalendarUtilsTest extends AbstractLangTest {
 
     @Test
-    public void testGetDayOfMonth() {
+    void testGetDayOfMonth() {
         assertEquals(Calendar.getInstance().get(Calendar.DAY_OF_MONTH), CalendarUtils.getInstance().getDayOfMonth());
     }
 
     @Test
-    public void testGetDayOfYear() {
+    void testGetDayOfYear() {
         assertEquals(Calendar.getInstance().get(Calendar.DAY_OF_YEAR), CalendarUtils.getInstance().getDayOfYear());
     }
 
     @Test
-    public void testGetMonth() {
+    void testGetMonth() {
         assertEquals(Calendar.getInstance().get(Calendar.MONTH), CalendarUtils.getInstance().getMonth());
     }
 
     @Test
-    public void testGetStandaloneLongMonthNames() {
+    void testGetStandaloneLongMonthNames() {
         final String[] monthNames = CalendarUtils.getInstance(Locale.GERMAN).getStandaloneLongMonthNames();
         assertEquals(12, monthNames.length);
         assertEquals("Januar", monthNames[0]);
@@ -71,7 +71,7 @@ public class CalendarUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetStandaloneShortMonthNames() {
+    void testGetStandaloneShortMonthNames() {
         final String[] monthNames = CalendarUtils.getInstance(Locale.GERMAN).getStandaloneShortMonthNames();
         assertEquals(12, monthNames.length);
         assertEquals("Jan", monthNames[0]);
@@ -89,7 +89,7 @@ public class CalendarUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetYear() {
+    void testGetYear() {
         assertEquals(Calendar.getInstance().get(Calendar.YEAR), CalendarUtils.INSTANCE.getYear());
     }
 
@@ -97,7 +97,7 @@ public class CalendarUtilsTest extends AbstractLangTest {
      * Tests {@link CalendarUtils#toLocalDate()} from https://github.com/apache/commons-lang/pull/725.
      */
     @Test
-    public void testToLocalDate() {
+    void testToLocalDate() {
         final Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone(TimeZones.GMT_ID));
         calendar.setTimeInMillis(-27078001200000L);
         assertEquals("1111-12-08T05:00:00Z", calendar.toInstant().toString());
@@ -108,7 +108,7 @@ public class CalendarUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
-    public void testToLocalDateTime(final String timeZoneId) {
+    void testToLocalDateTime(final String timeZoneId) {
         final TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
         final ZoneId zoneId = timeZone.toZoneId();
         final Calendar calendar = new GregorianCalendar(timeZone);
@@ -121,7 +121,7 @@ public class CalendarUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
-    public void testToOffsetDateTime(final String timeZoneId) {
+    void testToOffsetDateTime(final String timeZoneId) {
         final TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
         final ZoneId zoneId = timeZone.toZoneId();
         final Calendar calendar = new GregorianCalendar(timeZone);
@@ -134,7 +134,7 @@ public class CalendarUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
-    public void testToZonedDateTime(final String timeZoneId) {
+    void testToZonedDateTime(final String timeZoneId) {
         final TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
         final ZoneId zoneId = timeZone.toZoneId();
         final Calendar calendar = new GregorianCalendar(timeZone);

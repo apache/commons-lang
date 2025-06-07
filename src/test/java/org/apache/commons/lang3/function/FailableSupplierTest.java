@@ -27,22 +27,22 @@ import org.junit.jupiter.api.Test;
 public class FailableSupplierTest {
 
     @Test
-    public void testNULL() throws Throwable {
+    void testNULL() throws Throwable {
         assertNull(FailableSupplier.NUL.get());
     }
 
     @Test
-    public void testNullSupplierDefaultException() throws Exception {
+    void testNullSupplierDefaultException() throws Exception {
         assertNull(FailableSupplier.nul().get());
     }
 
     @Test
-    public void testNullSupplierException() throws Exception {
+    void testNullSupplierException() throws Exception {
         assertNull(FailableSupplier.<Object, Exception>nul().get());
     }
 
     @Test
-    public void testNullSupplierRuntimeException() {
+    void testNullSupplierRuntimeException() {
         assertNull(FailableSupplier.<Object, RuntimeException>nul().get());
     }
 }

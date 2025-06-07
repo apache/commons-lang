@@ -41,85 +41,85 @@ import org.junit.jupiter.api.Test;
 public class BooleanUtilsTest extends AbstractLangTest {
 
     @Test
-    public void test_booleanValues() {
+    void test_booleanValues() {
         final Boolean[] expected = {Boolean.FALSE, Boolean.TRUE};
         assertArrayEquals(sort(expected), BooleanUtils.booleanValues());
     }
 
     @Test
-    public void test_forEach() {
+    void test_forEach() {
         final List<Boolean> list = new ArrayList<>();
         BooleanUtils.forEach(list::add);
         assertEquals(Arrays.asList(Boolean.FALSE, Boolean.TRUE), list);
     }
 
     @Test
-    public void test_isFalse_Boolean() {
+    void test_isFalse_Boolean() {
         assertFalse(BooleanUtils.isFalse(Boolean.TRUE));
         assertTrue(BooleanUtils.isFalse(Boolean.FALSE));
         assertFalse(BooleanUtils.isFalse(null));
     }
 
     @Test
-    public void test_isNotFalse_Boolean() {
+    void test_isNotFalse_Boolean() {
         assertTrue(BooleanUtils.isNotFalse(Boolean.TRUE));
         assertFalse(BooleanUtils.isNotFalse(Boolean.FALSE));
         assertTrue(BooleanUtils.isNotFalse(null));
     }
 
     @Test
-    public void test_isNotTrue_Boolean() {
+    void test_isNotTrue_Boolean() {
         assertFalse(BooleanUtils.isNotTrue(Boolean.TRUE));
         assertTrue(BooleanUtils.isNotTrue(Boolean.FALSE));
         assertTrue(BooleanUtils.isNotTrue(null));
     }
 
     @Test
-    public void test_isTrue_Boolean() {
+    void test_isTrue_Boolean() {
         assertTrue(BooleanUtils.isTrue(Boolean.TRUE));
         assertFalse(BooleanUtils.isTrue(Boolean.FALSE));
         assertFalse(BooleanUtils.isTrue(null));
     }
 
     @Test
-    public void test_negate_Boolean() {
+    void test_negate_Boolean() {
         assertSame(null, BooleanUtils.negate(null));
         assertSame(Boolean.TRUE, BooleanUtils.negate(Boolean.FALSE));
         assertSame(Boolean.FALSE, BooleanUtils.negate(Boolean.TRUE));
     }
 
     @Test
-    public void test_primitiveValues() {
+    void test_primitiveValues() {
         assertArrayEquals(new boolean[] {false, true}, BooleanUtils.primitiveValues());
     }
 
     @Test
-    public void test_toBoolean_Boolean() {
+    void test_toBoolean_Boolean() {
         assertTrue(BooleanUtils.toBoolean(Boolean.TRUE));
         assertFalse(BooleanUtils.toBoolean(Boolean.FALSE));
         assertFalse(BooleanUtils.toBoolean((Boolean) null));
     }
 
     @Test
-    public void test_toBoolean_int() {
+    void test_toBoolean_int() {
         assertTrue(BooleanUtils.toBoolean(1));
         assertTrue(BooleanUtils.toBoolean(-1));
         assertFalse(BooleanUtils.toBoolean(0));
     }
 
     @Test
-    public void test_toBoolean_int_int_int() {
+    void test_toBoolean_int_int_int() {
         assertTrue(BooleanUtils.toBoolean(6, 6, 7));
         assertFalse(BooleanUtils.toBoolean(7, 6, 7));
     }
 
     @Test
-    public void test_toBoolean_int_int_int_noMatch() {
+    void test_toBoolean_int_int_int_noMatch() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.toBoolean(8, 6, 7));
     }
 
     @Test
-    public void test_toBoolean_Integer_Integer_Integer() {
+    void test_toBoolean_Integer_Integer_Integer() {
         final Integer six = Integer.valueOf(6);
         final Integer seven = Integer.valueOf(7);
 
@@ -131,19 +131,19 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toBoolean_Integer_Integer_Integer_noMatch() {
+    void test_toBoolean_Integer_Integer_Integer_noMatch() {
         assertThrows(IllegalArgumentException.class,
                 () -> BooleanUtils.toBoolean(Integer.valueOf(8), Integer.valueOf(6), Integer.valueOf(7)));
     }
 
     @Test
-    public void test_toBoolean_Integer_Integer_Integer_nullValue() {
+    void test_toBoolean_Integer_Integer_Integer_nullValue() {
         assertThrows(IllegalArgumentException.class,
                 () -> BooleanUtils.toBoolean(null, Integer.valueOf(6), Integer.valueOf(7)));
     }
 
     @Test
-    public void test_toBoolean_String() {
+    void test_toBoolean_String() {
         assertFalse(BooleanUtils.toBoolean((String) null));
         assertFalse(BooleanUtils.toBoolean(""));
         assertFalse(BooleanUtils.toBoolean("off"));
@@ -192,7 +192,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toBoolean_String_String_String() {
+    void test_toBoolean_String_String_String() {
         assertTrue(BooleanUtils.toBoolean(null, null, "N"));
         assertFalse(BooleanUtils.toBoolean(null, "Y", null));
         assertTrue(BooleanUtils.toBoolean("Y", "Y", "N"));
@@ -205,17 +205,17 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toBoolean_String_String_String_noMatch() {
+    void test_toBoolean_String_String_String_noMatch() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.toBoolean("X", "Y", "N"));
     }
 
     @Test
-    public void test_toBoolean_String_String_String_nullValue() {
+    void test_toBoolean_String_String_String_nullValue() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.toBoolean(null, "Y", "N"));
     }
 
     @Test
-    public void test_toBooleanDefaultIfNull_Boolean_boolean() {
+    void test_toBooleanDefaultIfNull_Boolean_boolean() {
         assertTrue(BooleanUtils.toBooleanDefaultIfNull(Boolean.TRUE, true));
         assertTrue(BooleanUtils.toBooleanDefaultIfNull(Boolean.TRUE, false));
         assertFalse(BooleanUtils.toBooleanDefaultIfNull(Boolean.FALSE, true));
@@ -225,26 +225,26 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toBooleanObject_int() {
+    void test_toBooleanObject_int() {
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(1));
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(-1));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(0));
     }
 
     @Test
-    public void test_toBooleanObject_int_int_int() {
+    void test_toBooleanObject_int_int_int() {
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(6, 6, 7, 8));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(7, 6, 7, 8));
         assertNull(BooleanUtils.toBooleanObject(8, 6, 7, 8));
     }
 
     @Test
-    public void test_toBooleanObject_int_int_int_noMatch() {
+    void test_toBooleanObject_int_int_int_noMatch() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.toBooleanObject(9, 6, 7, 8));
     }
 
     @Test
-    public void test_toBooleanObject_Integer() {
+    void test_toBooleanObject_Integer() {
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(Integer.valueOf(1)));
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(Integer.valueOf(-1)));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(Integer.valueOf(0)));
@@ -252,7 +252,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toBooleanObject_Integer_Integer_Integer_Integer() {
+    void test_toBooleanObject_Integer_Integer_Integer_Integer() {
         final Integer six = Integer.valueOf(6);
         final Integer seven = Integer.valueOf(7);
         final Integer eight = Integer.valueOf(8);
@@ -267,19 +267,19 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toBooleanObject_Integer_Integer_Integer_Integer_noMatch() {
+    void test_toBooleanObject_Integer_Integer_Integer_Integer_noMatch() {
         assertThrows(IllegalArgumentException.class,
                 () -> BooleanUtils.toBooleanObject(Integer.valueOf(9), Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8)));
     }
 
     @Test
-    public void test_toBooleanObject_Integer_Integer_Integer_Integer_nullValue() {
+    void test_toBooleanObject_Integer_Integer_Integer_Integer_nullValue() {
         assertThrows(IllegalArgumentException.class,
                 () -> BooleanUtils.toBooleanObject(null, Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8)));
     }
 
     @Test
-    public void test_toBooleanObject_String() {
+    void test_toBooleanObject_String() {
         assertNull(BooleanUtils.toBooleanObject((String) null));
         assertNull(BooleanUtils.toBooleanObject(""));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject("false"));
@@ -317,7 +317,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toBooleanObject_String_String_String_String() {
+    void test_toBooleanObject_String_String_String_String() {
         assertSame(Boolean.TRUE, BooleanUtils.toBooleanObject(null, null, "N", "U"));
         assertSame(Boolean.FALSE, BooleanUtils.toBooleanObject(null, "Y", null, "U"));
         assertSame(null, BooleanUtils.toBooleanObject(null, "Y", "N", null));
@@ -328,49 +328,49 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toBooleanObject_String_String_String_String_noMatch() {
+    void test_toBooleanObject_String_String_String_String_noMatch() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.toBooleanObject("X", "Y", "N", "U"));
     }
 
     @Test
-    public void test_toBooleanObject_String_String_String_String_nullValue() {
+    void test_toBooleanObject_String_String_String_String_nullValue() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.toBooleanObject(null, "Y", "N", "U"));
     }
 
     @Test
-    public void test_toInteger_boolean() {
+    void test_toInteger_boolean() {
         assertEquals(1, BooleanUtils.toInteger(true));
         assertEquals(0, BooleanUtils.toInteger(false));
     }
 
     @Test
-    public void test_toInteger_boolean_int_int() {
+    void test_toInteger_boolean_int_int() {
         assertEquals(6, BooleanUtils.toInteger(true, 6, 7));
         assertEquals(7, BooleanUtils.toInteger(false, 6, 7));
     }
 
     @Test
-    public void test_toInteger_Boolean_int_int_int() {
+    void test_toInteger_Boolean_int_int_int() {
         assertEquals(6, BooleanUtils.toInteger(Boolean.TRUE, 6, 7, 8));
         assertEquals(7, BooleanUtils.toInteger(Boolean.FALSE, 6, 7, 8));
         assertEquals(8, BooleanUtils.toInteger(null, 6, 7, 8));
     }
 
     @Test
-    public void test_toIntegerObject_boolean() {
+    void test_toIntegerObject_boolean() {
         assertEquals(Integer.valueOf(1), BooleanUtils.toIntegerObject(true));
         assertEquals(Integer.valueOf(0), BooleanUtils.toIntegerObject(false));
     }
 
     @Test
-    public void test_toIntegerObject_Boolean() {
+    void test_toIntegerObject_Boolean() {
         assertEquals(Integer.valueOf(1), BooleanUtils.toIntegerObject(Boolean.TRUE));
         assertEquals(Integer.valueOf(0), BooleanUtils.toIntegerObject(Boolean.FALSE));
         assertNull(BooleanUtils.toIntegerObject(null));
     }
 
     @Test
-    public void test_toIntegerObject_boolean_Integer_Integer() {
+    void test_toIntegerObject_boolean_Integer_Integer() {
         final Integer six = Integer.valueOf(6);
         final Integer seven = Integer.valueOf(7);
         assertEquals(six, BooleanUtils.toIntegerObject(true, six, seven));
@@ -378,7 +378,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toIntegerObject_Boolean_Integer_Integer_Integer() {
+    void test_toIntegerObject_Boolean_Integer_Integer_Integer() {
         final Integer six = Integer.valueOf(6);
         final Integer seven = Integer.valueOf(7);
         final Integer eight = Integer.valueOf(8);
@@ -389,81 +389,81 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_toString_boolean_String_String_String() {
+    void test_toString_boolean_String_String_String() {
         assertEquals("Y", BooleanUtils.toString(true, "Y", "N"));
         assertEquals("N", BooleanUtils.toString(false, "Y", "N"));
     }
 
     @Test
-    public void test_toString_Boolean_String_String_String() {
+    void test_toString_Boolean_String_String_String() {
         assertEquals("U", BooleanUtils.toString(null, "Y", "N", "U"));
         assertEquals("Y", BooleanUtils.toString(Boolean.TRUE, "Y", "N", "U"));
         assertEquals("N", BooleanUtils.toString(Boolean.FALSE, "Y", "N", "U"));
     }
 
     @Test
-    public void test_toStringOnOff_boolean() {
+    void test_toStringOnOff_boolean() {
         assertEquals("on", BooleanUtils.toStringOnOff(true));
         assertEquals("off", BooleanUtils.toStringOnOff(false));
     }
 
     @Test
-    public void test_toStringOnOff_Boolean() {
+    void test_toStringOnOff_Boolean() {
         assertNull(BooleanUtils.toStringOnOff(null));
         assertEquals("on", BooleanUtils.toStringOnOff(Boolean.TRUE));
         assertEquals("off", BooleanUtils.toStringOnOff(Boolean.FALSE));
     }
 
     @Test
-    public void test_toStringTrueFalse_boolean() {
+    void test_toStringTrueFalse_boolean() {
         assertEquals("true", BooleanUtils.toStringTrueFalse(true));
         assertEquals("false", BooleanUtils.toStringTrueFalse(false));
     }
 
     @Test
-    public void test_toStringTrueFalse_Boolean() {
+    void test_toStringTrueFalse_Boolean() {
         assertNull(BooleanUtils.toStringTrueFalse(null));
         assertEquals("true", BooleanUtils.toStringTrueFalse(Boolean.TRUE));
         assertEquals("false", BooleanUtils.toStringTrueFalse(Boolean.FALSE));
     }
 
     @Test
-    public void test_toStringYesNo_boolean() {
+    void test_toStringYesNo_boolean() {
         assertEquals("yes", BooleanUtils.toStringYesNo(true));
         assertEquals("no", BooleanUtils.toStringYesNo(false));
     }
 
     @Test
-    public void test_toStringYesNo_Boolean() {
+    void test_toStringYesNo_Boolean() {
         assertNull(BooleanUtils.toStringYesNo(null));
         assertEquals("yes", BooleanUtils.toStringYesNo(Boolean.TRUE));
         assertEquals("no", BooleanUtils.toStringYesNo(Boolean.FALSE));
     }
 
     @Test
-    public void test_values() {
+    void test_values() {
         final List<Boolean> expected = Arrays.asList(Boolean.FALSE, Boolean.TRUE);
         Collections.sort(expected);
         assertEquals(expected, BooleanUtils.values());
     }
 
     @Test
-    public void testAnd_object_emptyInput() {
+    void testAnd_object_emptyInput() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.and(new Boolean[] {}));
     }
 
     @Test
-    public void testAnd_object_nullElementInput() {
+    void testAnd_object_nullElementInput() {
         assertEquals(Boolean.FALSE, BooleanUtils.and(new Boolean[] {null}));
     }
 
     @Test
-    public void testAnd_object_nullInput() {
+    void testAnd_object_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.and((Boolean[]) null));
     }
 
     @Test
-    public void testAnd_object_validInput_2items() {
+    void testAnd_object_validInput_2items() {
         assertTrue(
                 BooleanUtils
                     .and(new Boolean[] { Boolean.TRUE, Boolean.TRUE })
@@ -490,7 +490,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAnd_object_validInput_3items() {
+    void testAnd_object_validInput_3items() {
         assertFalse(
                 BooleanUtils
                     .and(
@@ -565,17 +565,17 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAnd_primitive_emptyInput() {
+    void testAnd_primitive_emptyInput() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.and(new boolean[] {}));
     }
 
     @Test
-    public void testAnd_primitive_nullInput() {
+    void testAnd_primitive_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.and((boolean[]) null));
     }
 
     @Test
-    public void testAnd_primitive_validInput_2items() {
+    void testAnd_primitive_validInput_2items() {
         assertTrue(
                 BooleanUtils.and(new boolean[] { true, true }),
                 "False result for (true, true)");
@@ -594,7 +594,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAnd_primitive_validInput_3items() {
+    void testAnd_primitive_validInput_3items() {
         assertFalse(
                 BooleanUtils.and(new boolean[] { false, false, true }),
                 "True result for (false, false, true)");
@@ -629,7 +629,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompare() {
+    void testCompare() {
         assertTrue(BooleanUtils.compare(true, false) > 0);
         assertEquals(0, BooleanUtils.compare(true, true));
         assertEquals(0, BooleanUtils.compare(false, false));
@@ -637,7 +637,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new BooleanUtils());
         final Constructor<?>[] cons = BooleanUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -647,22 +647,22 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOneHot_object_emptyInput() {
+    void testOneHot_object_emptyInput() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.oneHot(new Boolean[] {}));
     }
 
     @Test
-    public void testOneHot_object_nullElementInput() {
+    void testOneHot_object_nullElementInput() {
         assertEquals(Boolean.FALSE, BooleanUtils.oneHot(new Boolean[] {null}));
     }
 
     @Test
-    public void testOneHot_object_nullInput() {
+    void testOneHot_object_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.oneHot((Boolean[]) null));
     }
 
     @Test
-    public void testOneHot_object_validInput_1item() {
+    void testOneHot_object_validInput_1item() {
         assertTrue(BooleanUtils.oneHot(new Boolean[]{Boolean.TRUE}), "true");
 
         assertFalse(BooleanUtils.oneHot(new Boolean[]{Boolean.FALSE}), "false");
@@ -671,7 +671,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOneHot_object_validInput_2items() {
+    void testOneHot_object_validInput_2items() {
         assertFalse(BooleanUtils.oneHot(new Boolean[]{true, true}), "both true");
 
         assertFalse(BooleanUtils.oneHot(new Boolean[]{false, false}), "both false");
@@ -682,7 +682,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOneHot_object_validInput_2ItemsNullsTreatedAsFalse() {
+    void testOneHot_object_validInput_2ItemsNullsTreatedAsFalse() {
         assertFalse(BooleanUtils.oneHot(null, null), "both null");
 
         assertTrue(BooleanUtils.oneHot(true, null), "first true");
@@ -691,7 +691,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOneHot_object_validInput_3items() {
+    void testOneHot_object_validInput_3items() {
         // none true
         assertFalse(BooleanUtils.oneHot(new Boolean[]{false, false, false}), "all false");
 
@@ -714,24 +714,24 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOneHot_primitive_emptyInput() {
+    void testOneHot_primitive_emptyInput() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.oneHot(new boolean[] {}));
     }
 
     @Test
-    public void testOneHot_primitive_nullInput() {
+    void testOneHot_primitive_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.oneHot((boolean[]) null));
     }
 
     @Test
-    public void testOneHot_primitive_validInput_1item() {
+    void testOneHot_primitive_validInput_1item() {
         assertTrue(BooleanUtils.oneHot(new boolean[]{true}), "true");
 
         assertFalse(BooleanUtils.oneHot(new boolean[]{false}), "false");
     }
 
     @Test
-    public void testOneHot_primitive_validInput_2items() {
+    void testOneHot_primitive_validInput_2items() {
         assertFalse(BooleanUtils.oneHot(new boolean[]{true, true}), "both true");
 
         assertFalse(BooleanUtils.oneHot(new boolean[]{false, false}), "both false");
@@ -742,7 +742,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOneHot_primitive_validInput_3items() {
+    void testOneHot_primitive_validInput_3items() {
         // none true
         assertFalse(BooleanUtils.oneHot(new boolean[]{false, false, false}), "all false");
 
@@ -765,22 +765,22 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOr_object_emptyInput() {
+    void testOr_object_emptyInput() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.or(new Boolean[] {}));
     }
 
     @Test
-    public void testOr_object_nullElementInput() {
+    void testOr_object_nullElementInput() {
         assertEquals(Boolean.FALSE, BooleanUtils.or(new Boolean[] {null}));
     }
 
     @Test
-    public void testOr_object_nullInput() {
+    void testOr_object_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.or((Boolean[]) null));
     }
 
     @Test
-    public void testOr_object_validInput_2items() {
+    void testOr_object_validInput_2items() {
         assertTrue(
                 BooleanUtils
                     .or(new Boolean[] { Boolean.TRUE, Boolean.TRUE })
@@ -807,7 +807,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOr_object_validInput_3items() {
+    void testOr_object_validInput_3items() {
         assertTrue(
                 BooleanUtils
                     .or(
@@ -882,17 +882,17 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOr_primitive_emptyInput() {
+    void testOr_primitive_emptyInput() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.or(new boolean[] {}));
     }
 
     @Test
-    public void testOr_primitive_nullInput() {
+    void testOr_primitive_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.or((boolean[]) null));
     }
 
     @Test
-    public void testOr_primitive_validInput_2items() {
+    void testOr_primitive_validInput_2items() {
         assertTrue(
                 BooleanUtils.or(new boolean[] { true, true }),
                 "False result for (true, true)");
@@ -911,7 +911,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOr_primitive_validInput_3items() {
+    void testOr_primitive_validInput_3items() {
         assertTrue(
                 BooleanUtils.or(new boolean[] { false, false, true }),
                 "False result for (false, false, true)");
@@ -946,22 +946,22 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testXor_object_emptyInput() {
+    void testXor_object_emptyInput() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.xor(new Boolean[] {}));
     }
 
     @Test
-    public void testXor_object_nullElementInput() {
+    void testXor_object_nullElementInput() {
         assertEquals(Boolean.FALSE, BooleanUtils.xor(new Boolean[] {null}));
     }
 
     @Test
-    public void testXor_object_nullInput() {
+    void testXor_object_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.xor((Boolean[]) null));
     }
 
     @Test
-    public void testXor_object_validInput_1items() {
+    void testXor_object_validInput_1items() {
         assertEquals(
                 true,
                 BooleanUtils.xor(new Boolean[] { Boolean.TRUE }).booleanValue(),
@@ -974,7 +974,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testXor_object_validInput_2items() {
+    void testXor_object_validInput_2items() {
         assertEquals(
                 false ^ false,
                 BooleanUtils.xor(new Boolean[] { Boolean.FALSE, Boolean.FALSE }).booleanValue(),
@@ -997,7 +997,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testXor_object_validInput_3items() {
+    void testXor_object_validInput_3items() {
         assertEquals(
                 false ^ false ^ false,
                 BooleanUtils.xor(
@@ -1083,17 +1083,17 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testXor_primitive_emptyInput() {
+    void testXor_primitive_emptyInput() {
         assertThrows(IllegalArgumentException.class, () -> BooleanUtils.xor(new boolean[] {}));
     }
 
     @Test
-    public void testXor_primitive_nullInput() {
+    void testXor_primitive_nullInput() {
         assertThrows(NullPointerException.class, () -> BooleanUtils.xor((boolean[]) null));
     }
 
     @Test
-    public void testXor_primitive_validInput_1items() {
+    void testXor_primitive_validInput_1items() {
         assertEquals(
                 true,
                 BooleanUtils.xor(new boolean[] { true }),
@@ -1106,7 +1106,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testXor_primitive_validInput_2items() {
+    void testXor_primitive_validInput_2items() {
         assertEquals(
                 true ^ true,
                 BooleanUtils.xor(new boolean[] { true, true }),
@@ -1129,7 +1129,7 @@ public class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testXor_primitive_validInput_3items() {
+    void testXor_primitive_validInput_3items() {
         assertEquals(
                 false ^ false ^ false,
                 BooleanUtils.xor(new boolean[] { false, false, false }),

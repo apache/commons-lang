@@ -45,7 +45,7 @@ public class ReflectionToStringBuilderExcludeWithAnnotationTest extends Abstract
     private static final String EXCLUDED_FIELD_VALUE = "excluded field value";
 
     @Test
-    public void test_toStringExclude() {
+    void test_toStringExclude() {
         final String toString = ReflectionToStringBuilder.toString(new TestFixture());
         assertFalse(toString.contains(EXCLUDED_FIELD_NAME));
         assertFalse(toString.contains(EXCLUDED_FIELD_VALUE));

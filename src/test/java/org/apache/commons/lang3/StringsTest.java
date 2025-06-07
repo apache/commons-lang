@@ -37,7 +37,7 @@ public class StringsTest {
     }
 
     @Test
-    public void testBuilder() {
+    void testBuilder() {
         assertTrue(Strings.builder().setIgnoreCase(false).get().isCaseSensitive());
         assertFalse(Strings.builder().setIgnoreCase(true).get().isCaseSensitive());
         //
@@ -46,13 +46,13 @@ public class StringsTest {
     }
 
     @Test
-    public void testBuilderDefaults() {
+    void testBuilderDefaults() {
         final Strings strings = Strings.builder().get();
         assertTrue(strings.isCaseSensitive());
     }
 
     @Test
-    public void testCaseInsensitiveConstant() {
+    void testCaseInsensitiveConstant() {
         assertNotNull(Strings.CI);
         assertFalse(Strings.CI.isCaseSensitive());
     }
@@ -61,7 +61,7 @@ public class StringsTest {
      * Expanding the existing test group {@link StringUtilsStartsEndsWithTest#testStartsWithAny()} to include case-insensitive cases
      */
     @Test
-    public void testCaseInsensitiveStartsWithAny() {
+    void testCaseInsensitiveStartsWithAny() {
         // LANG-1682
         assertFalse(Strings.CI.startsWithAny(null, (String[]) null));
         assertFalse(Strings.CI.startsWithAny(null, "aBc"));
@@ -79,14 +79,14 @@ public class StringsTest {
     }
 
     @Test
-    public void testCaseSensitiveConstant() {
+    void testCaseSensitiveConstant() {
         assertNotNull(Strings.CS);
         assertTrue(Strings.CS.isCaseSensitive());
     }
 
     @ParameterizedTest
     @MethodSource("stringsFactory")
-    public void testEqualsCharSequence(final Strings strings) {
+    void testEqualsCharSequence(final Strings strings) {
         final CharSequence nullCharSequence = null;
         assertTrue(strings.equals(nullCharSequence, nullCharSequence));
         assertFalse(strings.equals(nullCharSequence, ""));
@@ -95,7 +95,7 @@ public class StringsTest {
 
     @ParameterizedTest
     @MethodSource("stringsFactory")
-    public void testEqualsStrings(final Strings strings) {
+    void testEqualsStrings(final Strings strings) {
         final String nullStr = null;
         assertTrue(strings.equals(nullStr, nullStr));
         assertFalse(strings.equals(nullStr, ""));

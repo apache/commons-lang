@@ -37,7 +37,7 @@ public class FastDatePrinterTimeZonesTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void testCalendarTimezoneRespected(final TimeZone timeZone) {
+    void testCalendarTimezoneRespected(final TimeZone timeZone) {
         final Calendar cal = Calendar.getInstance(timeZone);
 
         final SimpleDateFormat sdf = new SimpleDateFormat(PATTERN);

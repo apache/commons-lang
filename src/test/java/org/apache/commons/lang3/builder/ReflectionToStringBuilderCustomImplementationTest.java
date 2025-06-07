@@ -47,7 +47,7 @@ public class ReflectionToStringBuilderCustomImplementationTest extends AbstractL
     private final String stringField = "string";
 
     @Test
-    public void testBuild() {
+    void testBuild() {
         assertEquals("[stringField=prefix:string]",
                 new CustomReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
     }

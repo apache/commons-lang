@@ -62,7 +62,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     }
 
     @Test
-    public void testAddContextValue() {
+    void testAddContextValue() {
         final String message = exceptionContext.getFormattedExceptionMessage(TEST_MESSAGE);
         assertTrue(message.contains(TEST_MESSAGE));
         assertTrue(message.contains("test1"));
@@ -90,7 +90,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     }
 
     @Test
-    public void testGetContextEntries() {
+    void testGetContextEntries() {
         assertEquals(5, exceptionContext.getContextEntries().size());
 
         exceptionContext.addContextValue("test2", "different value");
@@ -106,7 +106,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     }
 
     @Test
-    public void testGetContextLabels() {
+    void testGetContextLabels() {
         assertEquals(5, exceptionContext.getContextEntries().size());
 
         exceptionContext.addContextValue("test2", "different value");
@@ -121,7 +121,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     }
 
     @Test
-    public void testGetContextValues() {
+    void testGetContextValues() {
         exceptionContext.addContextValue("test2", "different value");
 
         assertEquals(Collections.singletonList(null), exceptionContext.getContextValues("test1"));
@@ -133,7 +133,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     }
 
     @Test
-    public void testGetFirstContextValue() {
+    void testGetFirstContextValue() {
         exceptionContext.addContextValue("test2", "different value");
 
         assertNull(exceptionContext.getFirstContextValue("test1"));
@@ -146,7 +146,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     }
 
     @Test
-    public void testJavaSerialization() {
+    void testJavaSerialization() {
         exceptionContext.setContextValue("test Poorly written obj", "serializable replacement");
 
         final T clone = SerializationUtils.deserialize(SerializationUtils.serialize(exceptionContext));
@@ -155,7 +155,7 @@ public abstract class AbstractExceptionContextTest<T extends ExceptionContext & 
     }
 
     @Test
-    public void testSetContextValue() {
+    void testSetContextValue() {
         exceptionContext.addContextValue("test2", "different value");
         exceptionContext.setContextValue("test3", "3");
 

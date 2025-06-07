@@ -40,7 +40,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
     }
 
     @Test
-    public void testContextedException() {
+    void testContextedException() {
         exceptionContext = new ContextedException();
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
@@ -49,7 +49,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
     }
 
     @Test
-    public void testContextedExceptionString() {
+    void testContextedExceptionString() {
         exceptionContext = new ContextedException(TEST_MESSAGE);
         assertEquals(TEST_MESSAGE, exceptionContext.getMessage());
 
@@ -58,7 +58,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
     }
 
     @Test
-    public void testContextedExceptionStringThrowable() {
+    void testContextedExceptionStringThrowable() {
         exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE));
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
@@ -69,7 +69,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
     }
 
     @Test
-    public void testContextedExceptionStringThrowableContext() {
+    void testContextedExceptionStringThrowableContext() {
         exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext());
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
@@ -80,7 +80,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
     }
 
     @Test
-    public void testContextedExceptionThrowable() {
+    void testContextedExceptionThrowable() {
         exceptionContext = new ContextedException(new Exception(TEST_MESSAGE));
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
@@ -90,12 +90,12 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
     }
 
     @Test
-    public void testNullException() {
+    void testNullException() {
         assertEquals("", ExceptionUtils.getStackTrace(null), "Empty response.");
     }
 
     @Test
-    public void testNullExceptionPassing() {
+    void testNullExceptionPassing() {
         exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), null)
         .addContextValue("test1", null)
         .addContextValue("test2", "some value")
@@ -108,7 +108,7 @@ public class ContextedExceptionTest extends AbstractExceptionContextTest<Context
     }
 
     @Test
-    public void testRawMessage() {
+    void testRawMessage() {
         assertEquals(Exception.class.getName() + ": " + TEST_MESSAGE, exceptionContext.getRawMessage());
         exceptionContext = new ContextedException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext());
         assertEquals(TEST_MESSAGE_2, exceptionContext.getRawMessage());

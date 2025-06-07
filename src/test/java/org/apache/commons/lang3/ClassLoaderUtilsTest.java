@@ -33,19 +33,19 @@ import org.junit.jupiter.api.Test;
 public class ClassLoaderUtilsTest extends AbstractLangTest {
 
     @Test
-    public void testGetSystemURLs() {
+    void testGetSystemURLs() {
         // TODO How to better test considering this test may be called from an IDE and Maven?
         assertNotNull(ClassLoaderUtils.getSystemURLs());
     }
 
     @Test
-    public void testGetThreadURLs() {
+    void testGetThreadURLs() {
         // TODO How to better test considering this test may be called from an IDE and Maven?
         assertNotNull(ClassLoaderUtils.getThreadURLs());
     }
 
     @Test
-    public void testToString_ClassLoader() throws IOException {
+    void testToString_ClassLoader() throws IOException {
         final URL url = new URL("http://localhost");
         try (URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { url })) {
             @SuppressWarnings("resource")
@@ -56,7 +56,7 @@ public class ClassLoaderUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToString_URLClassLoader() throws IOException {
+    void testToString_URLClassLoader() throws IOException {
         final URL url = new URL("http://localhost");
         try (URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { url })) {
             Assertions.assertEquals(String.format("%s[%s]", urlClassLoader, url), ClassLoaderUtils.toString(urlClassLoader));

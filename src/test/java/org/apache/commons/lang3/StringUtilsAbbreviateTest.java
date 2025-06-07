@@ -34,7 +34,7 @@ public class StringUtilsAbbreviateTest {
      * Tests <a href="LANG-1770">https://issues.apache.org/jira/projects/LANG/issues/LANG-1770</a>.
      */
     @Test
-    public void testEmoji() {
+    void testEmoji() {
         // @formatter:off
         final String[] expectedResultsFox = {
             "🦊...", // 4
@@ -101,7 +101,7 @@ public class StringUtilsAbbreviateTest {
     }
 
     @Test
-    public void testAbbreviate_StringInt() {
+    void testAbbreviate_StringInt() {
         assertNull(StringUtils.abbreviate(null, 10));
         assertEquals("", StringUtils.abbreviate("", 10));
         assertEquals("short", StringUtils.abbreviate("short", 10));
@@ -119,7 +119,7 @@ public class StringUtilsAbbreviateTest {
     }
 
     @Test
-    public void testAbbreviate_StringIntInt() {
+    void testAbbreviate_StringIntInt() {
         assertNull(StringUtils.abbreviate(null, 10, 12));
         assertEquals("", StringUtils.abbreviate("", 0, 10));
         assertEquals("", StringUtils.abbreviate("", 2, 10));
@@ -152,7 +152,7 @@ public class StringUtilsAbbreviateTest {
     }
 
     @Test
-    public void testAbbreviate_StringStringInt() {
+    void testAbbreviate_StringStringInt() {
         assertNull(StringUtils.abbreviate(null, null, 10));
         assertNull(StringUtils.abbreviate(null, "...", 10));
         assertEquals("paranaguacu", StringUtils.abbreviate("paranaguacu", null, 10));
@@ -173,7 +173,7 @@ public class StringUtilsAbbreviateTest {
     }
 
     @Test
-    public void testAbbreviate_StringStringIntInt() {
+    void testAbbreviate_StringStringIntInt() {
         assertNull(StringUtils.abbreviate(null, null, 10, 12));
         assertNull(StringUtils.abbreviate(null, "...", 10, 12));
         assertEquals("", StringUtils.abbreviate("", null, 0, 10));
@@ -209,13 +209,13 @@ public class StringUtilsAbbreviateTest {
 
     // Fixed LANG-1463
     @Test
-    public void testAbbreviateMarkerWithEmptyString() {
+    void testAbbreviateMarkerWithEmptyString() {
         final String greaterThanMaxTest = "much too long text";
         assertEquals("much too long", StringUtils.abbreviate(greaterThanMaxTest, "", 13));
     }
 
     @Test
-    public void testAbbreviateMiddle() {
+    void testAbbreviateMiddle() {
         // javadoc examples
         assertNull(StringUtils.abbreviateMiddle(null, null, 0));
         assertEquals("abc", StringUtils.abbreviateMiddle("abc", null, 0));

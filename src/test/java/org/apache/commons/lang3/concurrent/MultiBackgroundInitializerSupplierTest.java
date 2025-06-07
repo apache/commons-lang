@@ -93,7 +93,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
      * @throws Exception
      */
     @Test
-    public void testClose()
+    void testClose()
             throws ConcurrentException, InterruptedException {
         final AbstractChildBackgroundInitializer childOne = createChildBackgroundInitializer();
         final AbstractChildBackgroundInitializer childTwo = createChildBackgroundInitializer();
@@ -144,7 +144,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
      * @throws Exception
      */
     @Test
-    public void testCloseWithCheckedException() throws Exception {
+    void testCloseWithCheckedException() throws Exception {
         final AbstractChildBackgroundInitializer childOne = new SupplierChildBackgroundInitializer(ioExceptionConsumer);
 
         initializer.addInitializer("child one", childOne);
@@ -177,7 +177,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
      * @throws Exception
      */
     @Test
-    public void testCloseWithRuntimeException() throws Exception {
+    void testCloseWithRuntimeException() throws Exception {
         final AbstractChildBackgroundInitializer childOne = new SupplierChildBackgroundInitializer(nullPointerExceptionConsumer);
 
         initializer.addInitializer("child one", childOne);
@@ -211,7 +211,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
      * @throws Exception
      */
     @Test
-    public void testCloseWithTwoExceptions()
+    void testCloseWithTwoExceptions()
             throws ConcurrentException, InterruptedException {
 
         final AbstractChildBackgroundInitializer childOne = new SupplierChildBackgroundInitializer(ioExceptionConsumer);

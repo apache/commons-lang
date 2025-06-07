@@ -74,7 +74,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang1219() throws ParseException {
+    void testLang1219() throws ParseException {
         final FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
         final Date summer = parser.parse("26.10.2014 02:00:00 MESZ");
         final Date standard = parser.parse("26.10.2014 02:00:00 MEZ");
@@ -83,13 +83,13 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest#getAvailableLocalesSorted")
-    public void testTimeZoneStrategy_DateFormatSymbols(final Locale locale) {
+    void testTimeZoneStrategy_DateFormatSymbols(final Locale locale) {
         testTimeZoneStrategyPattern_DateFormatSymbols_getZoneStrings(locale);
     }
 
     @ParameterizedTest
     @MethodSource("org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest#getAvailableLocalesSorted")
-    public void testTimeZoneStrategy_TimeZone(final Locale locale) {
+    void testTimeZoneStrategy_TimeZone(final Locale locale) {
         testTimeZoneStrategyPattern_TimeZone_getAvailableIDs(locale);
     }
 
@@ -198,12 +198,12 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      * @throws ParseException Test failure
      */
     @Test
-    public void testTimeZoneStrategyPatternPortugal() throws ParseException {
+    void testTimeZoneStrategyPatternPortugal() throws ParseException {
         testTimeZoneStrategyPattern("pt_PT", "Horário do Meridiano de Greenwich");
     }
 
     @Test
-    public void testTimeZoneStrategyPattern_zh_HK_Hans() throws ParseException {
+    void testTimeZoneStrategyPattern_zh_HK_Hans() throws ParseException {
         testTimeZoneStrategyPattern("zh_HK_#Hans", "?????????");
     }
 
@@ -219,7 +219,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      * @throws ParseException Test failure
      */
     @Test
-    public void testTimeZoneStrategyPatternSuriname() throws ParseException {
+    void testTimeZoneStrategyPatternSuriname() throws ParseException {
         testTimeZoneStrategyPattern("sr_ME_#Cyrl", "Srednje vreme po Griniču");
     }
 

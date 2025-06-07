@@ -30,7 +30,7 @@ public class ReflectionToStringBuilderSummaryTest extends AbstractLangTest {
     private final String summaryString = "summary";
 
     @Test
-    public void testSummary() {
+    void testSummary() {
         assertEquals("[stringField=string,summaryString=<String>]",
                 new ReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
     }

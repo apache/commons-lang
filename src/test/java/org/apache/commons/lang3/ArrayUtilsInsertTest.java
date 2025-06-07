@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 public class ArrayUtilsInsertTest extends AbstractLangTest {
 
     @Test
-    public void testInsertBooleans() {
+    void testInsertBooleans() {
         final boolean[] array = {true, false, true};
         final boolean[] values = {false, true, false};
 
@@ -54,7 +54,7 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInsertBytes() {
+    void testInsertBytes() {
         final byte[] array = {1, 2, 3};
         final byte[] values = {4, 5, 6};
 
@@ -78,7 +78,7 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInsertChars() {
+    void testInsertChars() {
         final char[] array = {'a', 'b', 'c'};
         final char[] values = {'d', 'e', 'f'};
 
@@ -102,7 +102,7 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInsertDoubles() {
+    void testInsertDoubles() {
         final double[] array = {1, 2, 3};
         final double[] values = {4, 5, 6};
         final double delta = 0.000001;
@@ -127,7 +127,7 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInsertFloats() {
+    void testInsertFloats() {
         final float[] array = {1, 2, 3};
         final float[] values = {4, 5, 6};
         final float delta = 0.000001f;
@@ -152,7 +152,7 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInsertGenericArray() {
+    void testInsertGenericArray() {
         final String[] array = {"a", "b", "c"};
         final String[] values = {"d", "e", "f"};
 
@@ -176,7 +176,7 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInsertInts() {
+    void testInsertInts() {
         final int[] array = {1, 2, 3};
         final int[] values = {4, 5, 6};
 
@@ -200,7 +200,7 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInsertLongs() {
+    void testInsertLongs() {
         final long[] array = {1, 2, 3};
         final long[] values = {4, 5, 6};
 
@@ -224,7 +224,7 @@ public class ArrayUtilsInsertTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInsertShorts() {
+    void testInsertShorts() {
         final short[] array = {1, 2, 3};
         final short[] values = {4, 5, 6};
 

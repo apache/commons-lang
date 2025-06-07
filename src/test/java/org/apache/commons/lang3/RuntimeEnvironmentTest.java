@@ -79,7 +79,7 @@ public class RuntimeEnvironmentTest {
 
     @ParameterizedTest
     @MethodSource
-    public void testIsContainer(final String label, final String environ, final String fileToCreate, final boolean expected) throws IOException {
+    void testIsContainer(final String label, final String environ, final String fileToCreate, final boolean expected) throws IOException {
         assertEquals(expected, doTestInContainer(environ, fileToCreate), label);
     }
 }

@@ -25,17 +25,17 @@ import org.junit.jupiter.api.Test;
 public class StringUtilsValueOfTest extends AbstractLangTest {
 
     @Test
-    public void testValueOfChar() {
+    void testValueOfChar() {
         Assertions.assertEquals("ABC", StringUtils.valueOf(new char[] {'A', 'B', 'C' }));
     }
 
     @Test
-    public void testValueOfCharEmpty() {
+    void testValueOfCharEmpty() {
         Assertions.assertEquals(StringUtils.EMPTY, StringUtils.valueOf(ArrayUtils.EMPTY_CHAR_ARRAY));
     }
 
     @Test
-    public void testValueOfCharNull() {
+    void testValueOfCharNull() {
         Assertions.assertNull(StringUtils.valueOf(null));
     }
 }

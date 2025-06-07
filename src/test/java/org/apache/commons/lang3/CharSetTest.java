@@ -35,13 +35,13 @@ import org.junit.jupiter.api.Test;
 public class CharSetTest extends AbstractLangTest {
 
     @Test
-    public void testClass() {
+    void testClass() {
         assertTrue(Modifier.isPublic(CharSet.class.getModifiers()));
         assertFalse(Modifier.isFinal(CharSet.class.getModifiers()));
     }
 
     @Test
-    public void testConstructor_String_combo() {
+    void testConstructor_String_combo() {
         CharSet set;
         CharRange[] array;
 
@@ -80,7 +80,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor_String_comboNegated() {
+    void testConstructor_String_comboNegated() {
         CharSet set;
         CharRange[] array;
 
@@ -121,7 +121,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor_String_oddCombinations() {
+    void testConstructor_String_oddCombinations() {
         CharSet set;
         CharRange[] array;
 
@@ -170,7 +170,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor_String_oddDash() {
+    void testConstructor_String_oddDash() {
         CharSet set;
         CharRange[] array;
 
@@ -218,7 +218,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor_String_oddNegate() {
+    void testConstructor_String_oddNegate() {
         CharSet set;
         CharRange[] array;
         set = CharSet.getInstance("^");
@@ -278,7 +278,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor_String_simple() {
+    void testConstructor_String_simple() {
         CharSet set;
         CharRange[] array;
 
@@ -318,7 +318,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContains_Char() {
+    void testContains_Char() {
         final CharSet btod = CharSet.getInstance("b-d");
         final CharSet dtob = CharSet.getInstance("d-b");
         final CharSet bcd = CharSet.getInstance("bcd");
@@ -361,7 +361,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEquals_Object() {
+    void testEquals_Object() {
         final CharSet abc = CharSet.getInstance("abc");
         final CharSet abc2 = CharSet.getInstance("abc");
         final CharSet atoc = CharSet.getInstance("a-c");
@@ -388,7 +388,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetInstance() {
+    void testGetInstance() {
         assertSame(CharSet.EMPTY, CharSet.getInstance((String) null));
         assertSame(CharSet.EMPTY, CharSet.getInstance(""));
         assertSame(CharSet.ASCII_ALPHA, CharSet.getInstance("a-zA-Z"));
@@ -399,7 +399,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetInstance_Stringarray() {
+    void testGetInstance_Stringarray() {
         assertNull(CharSet.getInstance((String[]) null));
         assertEquals("[]", CharSet.getInstance().toString());
         assertEquals("[]", CharSet.getInstance(new String[] {null}).toString());
@@ -407,7 +407,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final CharSet abc = CharSet.getInstance("abc");
         final CharSet abc2 = CharSet.getInstance("abc");
         final CharSet atoc = CharSet.getInstance("a-c");
@@ -424,7 +424,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testJavadocExamples() {
+    void testJavadocExamples() {
         assertFalse(CharSet.getInstance("^a-c").contains('a'));
         assertTrue(CharSet.getInstance("^a-c").contains('d'));
         assertTrue(CharSet.getInstance("^^a-c").contains('a'));
@@ -435,7 +435,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSerialization() {
+    void testSerialization() {
         CharSet set = CharSet.getInstance("a");
         assertEquals(set, SerializationUtils.clone(set));
         set = CharSet.getInstance("a-e");
@@ -445,7 +445,7 @@ public class CharSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStatics() {
+    void testStatics() {
         CharRange[] array;
 
         array = CharSet.EMPTY.getCharRanges();

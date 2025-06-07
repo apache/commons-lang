@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 public class PredicatesTest {
 
     @Test
-    public void testFalsePredicate() {
+    void testFalsePredicate() {
         assertFalse(Predicates.falsePredicate().test(null));
         assertFalse(Predicates.falsePredicate().test(new Object()));
         final Predicate<String> stringPredicate = Predicates.falsePredicate();
@@ -39,7 +39,7 @@ public class PredicatesTest {
     }
 
     @Test
-    public void testTruePredicate() {
+    void testTruePredicate() {
         assertTrue(Predicates.truePredicate().test(null));
         assertTrue(Predicates.truePredicate().test(new Object()));
         final Predicate<String> stringPredicate = Predicates.truePredicate();

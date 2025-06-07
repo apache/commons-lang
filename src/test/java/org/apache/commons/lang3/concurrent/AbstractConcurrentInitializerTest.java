@@ -78,7 +78,7 @@ public abstract class AbstractConcurrentInitializerTest<T> extends AbstractLangT
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
      */
     @Test
-    public void testGet() throws ConcurrentException {
+    void testGet() throws ConcurrentException {
         assertNotNull(createInitializer().get(), "No managed object");
     }
 
@@ -89,7 +89,7 @@ public abstract class AbstractConcurrentInitializerTest<T> extends AbstractLangT
      * @throws InterruptedException                                    because the threading API my throw it.
      */
     @Test
-    public void testGetConcurrent() throws ConcurrentException, InterruptedException {
+    void testGetConcurrent() throws ConcurrentException, InterruptedException {
         final ConcurrentInitializer<T> initializer = createInitializer();
         final int threadCount = 20;
         final CountDownLatch startLatch = new CountDownLatch(1);
@@ -118,7 +118,7 @@ public abstract class AbstractConcurrentInitializerTest<T> extends AbstractLangT
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
      */
     @Test
-    public void testGetMultipleTimes() throws ConcurrentException {
+    void testGetMultipleTimes() throws ConcurrentException {
         final ConcurrentInitializer<T> initializer = createInitializer();
         final Object obj = initializer.get();
         for (int i = 0; i < 10; i++) {
@@ -132,7 +132,7 @@ public abstract class AbstractConcurrentInitializerTest<T> extends AbstractLangT
      * @throws Throwable on test failure.
      */
     @Test
-    public void testisInitialized() throws Throwable {
+    void testisInitialized() throws Throwable {
         final ConcurrentInitializer<T> initializer = createInitializer();
         if (initializer instanceof AbstractConcurrentInitializer) {
             @SuppressWarnings("unchecked")

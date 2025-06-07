@@ -38,22 +38,22 @@ import org.junit.jupiter.api.Test;
 public class MethodInvokersFailableFunctionTest extends MethodFixtures {
 
     @Test
-    public void testApply0Arg() throws Throwable {
+    void testApply0Arg() throws Throwable {
         assertEquals(INSTANCE.getString(), MethodInvokers.asFailableFunction(getMethodForGetString()).apply(INSTANCE));
     }
 
     @Test
-    public void testBuildVarArg() throws SecurityException, NoSuchMethodException {
+    void testBuildVarArg() throws SecurityException, NoSuchMethodException {
         MethodInvokers.asFailableFunction(getMethodForGetStringVarStringArgs());
     }
 
     @Test
-    public void testConstructorForNull() throws SecurityException {
+    void testConstructorForNull() throws SecurityException {
         assertThrows(NullPointerException.class, () -> MethodInvokers.asFailableFunction((Method) null));
     }
 
     @Test
-    public void testFindAndInvoke() throws SecurityException {
+    void testFindAndInvoke() throws SecurityException {
         // Finding
         final List<FailableFunction<Object, Object, Throwable>> invokers = Stream.of(MethodFixtures.class.getDeclaredMethods())
             .filter(m -> m.isAnnotationPresent(AnnotationTestFixture.class)).map(MethodInvokers::asFailableFunction).collect(Collectors.toList());
@@ -71,12 +71,12 @@ public class MethodInvokersFailableFunctionTest extends MethodFixtures {
     }
 
     @Test
-    public void testThrowsChecked() throws Exception {
+    void testThrowsChecked() throws Exception {
         assertThrows(Exception.class, () -> MethodInvokers.asFailableFunction(getMethodForGetStringThrowsChecked()).apply(INSTANCE));
     }
 
     @Test
-    public void testToString() throws SecurityException, ReflectiveOperationException {
+    void testToString() throws SecurityException, ReflectiveOperationException {
         // Should not blow up and must return _something_
         assertFalse(MethodInvokers.asFailableFunction(getMethodForGetString()).toString().isEmpty());
     }

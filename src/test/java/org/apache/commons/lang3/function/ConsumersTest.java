@@ -35,7 +35,7 @@ public class ConsumersTest extends AbstractLangTest {
      * Tests {@link Consumers#accept(Consumer, Object)}.
      */
     @Test
-    public void testAccept() {
+    void testAccept() {
         final AtomicBoolean bool = new AtomicBoolean();
         Consumers.accept(bool::set, true);
         assertTrue(bool.get());
@@ -47,7 +47,7 @@ public class ConsumersTest extends AbstractLangTest {
      * Tests {@link Consumers#nop()}.
      */
     @Test
-    public void testNop() {
+    void testNop() {
         Stream.of("").forEach(Consumers.nop());
         //
         final Consumer<?> c1 = Consumers.nop();

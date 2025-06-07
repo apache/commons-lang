@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 public class UncheckedInterruptedExceptionTest extends AbstractLangTest {
 
     @Test
-    public void testConstructWithCause() {
+    void testConstructWithCause() {
         final Exception e = new Exception();
         assertSame(e, new UncheckedInterruptedException(e).getCause());
     }

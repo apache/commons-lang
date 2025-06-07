@@ -57,7 +57,7 @@ public class CallableBackgroundInitializerTest extends AbstractLangTest {
      * class.
      */
     @Test
-    public void testInitExecutor() throws InterruptedException {
+    void testInitExecutor() throws InterruptedException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         final CallableBackgroundInitializer<Integer> init = new CallableBackgroundInitializer<>(
                 new TestCallable(), exec);
@@ -71,7 +71,7 @@ public class CallableBackgroundInitializerTest extends AbstractLangTest {
      * This should cause an exception.
      */
     @Test
-    public void testInitExecutorNullCallable() throws InterruptedException {
+    void testInitExecutorNullCallable() throws InterruptedException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
             assertThrows(NullPointerException.class, () -> new CallableBackgroundInitializer<Integer>(null, exec));
@@ -88,7 +88,7 @@ public class CallableBackgroundInitializerTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testInitialize() throws Exception {
+    void testInitialize() throws Exception {
         final TestCallable call = new TestCallable();
         final CallableBackgroundInitializer<Integer> init = new CallableBackgroundInitializer<>(
                 call);
@@ -101,7 +101,7 @@ public class CallableBackgroundInitializerTest extends AbstractLangTest {
      * exception.
      */
     @Test()
-    public void testInitNullCallable() {
+    void testInitNullCallable() {
         assertThrows(NullPointerException.class, () -> new CallableBackgroundInitializer<>(null));
     }
 }

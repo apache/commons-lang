@@ -36,7 +36,7 @@ public class DefaultExceptionContextTest extends AbstractExceptionContextTest<De
     }
 
     @Test
-    public void testFormattedExceptionMessageExceptionHandling() {
+    void testFormattedExceptionMessageExceptionHandling() {
         exceptionContext = new DefaultExceptionContext();
         final String label1 = "throws 1";
         final String label2 = "throws 2";
@@ -49,13 +49,13 @@ public class DefaultExceptionContextTest extends AbstractExceptionContextTest<De
     }
 
     @Test
-    public void testFormattedExceptionMessageNull() {
+    void testFormattedExceptionMessageNull() {
         exceptionContext = new DefaultExceptionContext();
         assertEquals("", exceptionContext.getFormattedExceptionMessage(null));
     }
 
     @Test
-    public void testFormattedExceptionMessageNullValue() {
+    void testFormattedExceptionMessageNullValue() {
         exceptionContext = new DefaultExceptionContext();
         final String label1 = "throws 1";
         final String label2 = "throws 2";

@@ -84,7 +84,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
      * @throws Exception
      */
     @Test
-    public void testClose() throws Exception {
+    void testClose() throws Exception {
         final AbstractBackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         assertFalse(init.getCloseableCounter().isClosed(), "closed without close() call");
         init.close();
@@ -102,7 +102,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
      * @throws Exception
      */
     @Test
-    public void testCloseWithCheckedException() throws Exception {
+    void testCloseWithCheckedException() throws Exception {
 
         final IOException ioException = new IOException();
         final FailableConsumer<?, ?> IOExceptionConsumer = (final CloseableCounter cc) -> {
@@ -127,7 +127,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
      * @throws Exception
      */
     @Test
-    public void testCloseWithRuntimeException() throws Exception {
+    void testCloseWithRuntimeException() throws Exception {
 
         final NullPointerException npe = new NullPointerException();
         final FailableConsumer<?, ?> NullPointerExceptionConsumer = (final CloseableCounter cc) -> {

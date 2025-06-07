@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 public class MutablePairTest extends AbstractLangTest {
 
     @Test
-    public void testBasic() {
+    void testBasic() {
         MutablePair<Integer, String> oldPair = new MutablePair<>(0, "foo");
         MutablePair<Integer, String> nowPair;
         for (int i = 0; i < 4; i++) {
@@ -60,27 +60,27 @@ public class MutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDefault() {
+    void testDefault() {
         final MutablePair<Integer, String> pair = new MutablePair<>();
         assertNull(pair.getLeft());
         assertNull(pair.getRight());
     }
 
     @Test
-    public void testEmptyArrayGenerics() {
+    void testEmptyArrayGenerics() {
         final MutablePair<Integer, String>[] empty = MutablePair.emptyArray();
         assertEquals(0, empty.length);
     }
 
     @Test
-    public void testEmptyArrayLength() {
+    void testEmptyArrayLength() {
         @SuppressWarnings("unchecked")
         final MutablePair<Integer, String>[] empty = (MutablePair<Integer, String>[]) MutablePair.EMPTY_ARRAY;
         assertEquals(0, empty.length);
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         assertEquals(MutablePair.of(null, "foo"), MutablePair.of(null, "foo"));
         assertNotEquals(MutablePair.of("foo", 0), MutablePair.of("foo", null));
         assertNotEquals(MutablePair.of("foo", "bar"), MutablePair.of("xyz", "bar"));
@@ -91,12 +91,12 @@ public class MutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(MutablePair.of(null, "foo").hashCode(), MutablePair.of(null, "foo").hashCode());
     }
 
     @Test
-    public void testMutate() {
+    void testMutate() {
         final MutablePair<Integer, String> pair = new MutablePair<>(0, "foo");
         pair.setLeft(42);
         pair.setRight("bar");
@@ -105,7 +105,7 @@ public class MutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOfNonNull() {
+    void testOfNonNull() {
         assertThrows(NullPointerException.class, () -> MutablePair.ofNonNull(null, null));
         assertThrows(NullPointerException.class, () -> MutablePair.ofNonNull(null, "x"));
         assertThrows(NullPointerException.class, () -> MutablePair.ofNonNull("x", null));
@@ -115,7 +115,7 @@ public class MutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPairOfMapEntry() {
+    void testPairOfMapEntry() {
         final HashMap<Integer, String> map = new HashMap<>();
         map.put(0, "foo");
         final Entry<Integer, String> entry = map.entrySet().iterator().next();
@@ -125,7 +125,7 @@ public class MutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPairOfObjects() {
+    void testPairOfObjects() {
         final MutablePair<Integer, String> pair = MutablePair.of(0, "foo");
         assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.getRight());
@@ -138,7 +138,7 @@ public class MutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSerialization() throws Exception {
+    void testSerialization() throws Exception {
         final MutablePair<Integer, String> origPair = MutablePair.of(0, "foo");
         final MutablePair<Integer, String> deserializedPair = SerializationUtils.roundtrip(origPair);
         assertEquals(origPair, deserializedPair);
@@ -146,7 +146,7 @@ public class MutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("(null,null)", MutablePair.of(null, null).toString());
         assertEquals("(null,two)", MutablePair.of(null, "two").toString());
         assertEquals("(one,null)", MutablePair.of("one", null).toString());

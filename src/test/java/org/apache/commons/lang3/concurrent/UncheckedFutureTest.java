@@ -73,51 +73,51 @@ public class UncheckedFutureTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetExecutionException() {
+    void testGetExecutionException() {
         final ExecutionException e = new ExecutionException(new Exception());
         assertThrows(UncheckedExecutionException.class, () -> UncheckedFuture.on(new TestFuture<>(e)).get());
     }
 
     @Test
-    public void testGetInterruptedException() {
+    void testGetInterruptedException() {
         final InterruptedException e = new InterruptedException();
         assertThrows(UncheckedInterruptedException.class, () -> UncheckedFuture.on(new TestFuture<>(e)).get());
     }
 
     @Test
-    public void testGetLongExecutionException() {
+    void testGetLongExecutionException() {
         final ExecutionException e = new ExecutionException(new Exception());
         assertThrows(UncheckedExecutionException.class, () -> UncheckedFuture.on(new TestFuture<>(e)).get(1, TimeUnit.MICROSECONDS));
     }
 
     @Test
-    public void testGetLongInterruptedException() {
+    void testGetLongInterruptedException() {
         final InterruptedException e = new InterruptedException();
         assertThrows(UncheckedInterruptedException.class, () -> UncheckedFuture.on(new TestFuture<>(e)).get(1, TimeUnit.MICROSECONDS));
     }
 
     @Test
-    public void testGetLongTimeoutException() {
+    void testGetLongTimeoutException() {
         final TimeoutException e = new TimeoutException();
         assertThrows(UncheckedTimeoutException.class, () -> UncheckedFuture.on(new TestFuture<>(e)).get(1, TimeUnit.MICROSECONDS));
     }
 
     @Test
-    public void testMap() {
+    void testMap() {
         final List<String> expected = Arrays.asList("Y", "Z");
         final List<Future<String>> input = Arrays.asList(new TestFuture<>("Y"), new TestFuture<>("Z"));
         assertEquals(expected, UncheckedFuture.map(input).map(UncheckedFuture::get).collect(Collectors.toList()));
     }
 
     @Test
-    public void testOnCollection() {
+    void testOnCollection() {
         final List<String> expected = Arrays.asList("Y", "Z");
         final List<Future<String>> input = Arrays.asList(new TestFuture<>("Y"), new TestFuture<>("Z"));
         assertEquals(expected, UncheckedFuture.on(input).stream().map(UncheckedFuture::get).collect(Collectors.toList()));
     }
 
     @Test
-    public void testOnFuture() {
+    void testOnFuture() {
         assertEquals("Z", UncheckedFuture.on(new TestFuture<>("Z")).get());
     }
 

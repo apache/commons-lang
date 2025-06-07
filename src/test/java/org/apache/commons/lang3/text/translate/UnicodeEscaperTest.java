@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 public class UnicodeEscaperTest extends AbstractLangTest {
 
     @Test
-    public void testAbove() {
+    void testAbove() {
         final UnicodeEscaper ue = UnicodeEscaper.above('F');
 
         final String input = "ADFGZ";
@@ -38,7 +38,7 @@ public class UnicodeEscaperTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBelow() {
+    void testBelow() {
         final UnicodeEscaper ue = UnicodeEscaper.below('F');
 
         final String input = "ADFGZ";
@@ -47,7 +47,7 @@ public class UnicodeEscaperTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBetween() {
+    void testBetween() {
         final UnicodeEscaper ue = UnicodeEscaper.between('F', 'L');
 
         final String input = "ADFGZ";

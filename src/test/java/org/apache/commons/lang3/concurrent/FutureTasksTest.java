@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 public class FutureTasksTest extends AbstractLangTest {
 
     @Test
-    public void testRun() throws InterruptedException, ExecutionException {
+    void testRun() throws InterruptedException, ExecutionException {
         final String data = "Hello";
         final FutureTask<String> f = FutureTasks.run(() -> data);
         assertTrue(f.isDone());

@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 public class ArrayFillTest extends AbstractLangTest {
 
     @Test
-    public void testFillBooleanArray() {
+    void testFillBooleanArray() {
         final boolean[] array = new boolean[3];
         final boolean val = true;
         final boolean[] actual = ArrayFill.fill(array, val);
@@ -42,7 +42,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillBooleanArrayNull() {
+    void testFillBooleanArrayNull() {
         final boolean[] array = null;
         final boolean val = true;
         final boolean[] actual = ArrayFill.fill(array, val);
@@ -50,7 +50,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillByteArray() {
+    void testFillByteArray() {
         final byte[] array = new byte[3];
         final byte val = (byte) 1;
         final byte[] actual = ArrayFill.fill(array, val);
@@ -61,7 +61,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillByteArrayNull() {
+    void testFillByteArrayNull() {
         final byte[] array = null;
         final byte val = (byte) 1;
         final byte[] actual = ArrayFill.fill(array, val);
@@ -69,7 +69,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillCharArray() {
+    void testFillCharArray() {
         final char[] array = new char[3];
         final char val = 1;
         final char[] actual = ArrayFill.fill(array, val);
@@ -80,7 +80,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillCharArrayNull() {
+    void testFillCharArrayNull() {
         final char[] array = null;
         final char val = 1;
         final char[] actual = ArrayFill.fill(array, val);
@@ -88,7 +88,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillDoubleArray() {
+    void testFillDoubleArray() {
         final double[] array = new double[3];
         final double val = 1;
         final double[] actual = ArrayFill.fill(array, val);
@@ -99,7 +99,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillDoubleArrayNull() {
+    void testFillDoubleArrayNull() {
         final double[] array = null;
         final double val = 1;
         final double[] actual = ArrayFill.fill(array, val);
@@ -107,7 +107,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillFloatArray() {
+    void testFillFloatArray() {
         final float[] array = new float[3];
         final float val = 1;
         final float[] actual = ArrayFill.fill(array, val);
@@ -118,7 +118,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillFloatArrayNull() {
+    void testFillFloatArrayNull() {
         final float[] array = null;
         final float val = 1;
         final float[] actual = ArrayFill.fill(array, val);
@@ -126,7 +126,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillFunction() throws Exception {
+    void testFillFunction() throws Exception {
         final FailableIntFunction<?, Exception> nullIntFunction = null;
         assertNull(ArrayFill.fill(null, nullIntFunction));
         assertArrayEquals(null, ArrayFill.fill(null, nullIntFunction));
@@ -141,7 +141,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillIntArray() {
+    void testFillIntArray() {
         final int[] array = new int[3];
         final int val = 1;
         final int[] actual = ArrayFill.fill(array, val);
@@ -152,7 +152,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillIntArrayNull() {
+    void testFillIntArrayNull() {
         final int[] array = null;
         final int val = 1;
         final int[] actual = ArrayFill.fill(array, val);
@@ -160,7 +160,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillLongArray() {
+    void testFillLongArray() {
         final long[] array = new long[3];
         final long val = 1;
         final long[] actual = ArrayFill.fill(array, val);
@@ -171,7 +171,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillLongArrayNull() {
+    void testFillLongArrayNull() {
         final long[] array = null;
         final long val = 1;
         final long[] actual = ArrayFill.fill(array, val);
@@ -179,7 +179,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillObjectArray() {
+    void testFillObjectArray() {
         final String[] array = new String[3];
         final String val = "A";
         final String[] actual = ArrayFill.fill(array, val);
@@ -190,7 +190,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillObjectArrayNull() {
+    void testFillObjectArrayNull() {
         final Object[] array = null;
         final Object val = 1;
         final Object[] actual = ArrayFill.fill(array, val);
@@ -198,7 +198,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillShortArray() {
+    void testFillShortArray() {
         final short[] array = new short[3];
         final short val = (byte) 1;
         final short[] actual = ArrayFill.fill(array, val);
@@ -209,7 +209,7 @@ public class ArrayFillTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFillShortArrayNull() {
+    void testFillShortArrayNull() {
         final short[] array = null;
         final short val = 1;
         final short[] actual = ArrayFill.fill(array, val);

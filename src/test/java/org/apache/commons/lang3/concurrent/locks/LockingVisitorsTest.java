@@ -89,7 +89,7 @@ public class LockingVisitorsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCreate() {
+    void testCreate() {
         final AtomicInteger res = new AtomicInteger();
         final ReadWriteLock rwLock = new ReentrantReadWriteLock();
         LockingVisitors.create(res, rwLock).acceptReadLocked(AtomicInteger::incrementAndGet);
@@ -101,7 +101,7 @@ public class LockingVisitorsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReentrantReadWriteLockExclusive() throws Exception {
+    void testReentrantReadWriteLockExclusive() throws Exception {
 
         /*
          * If our threads are running concurrently, then we expect to be no faster than running one after the other.
@@ -112,7 +112,7 @@ public class LockingVisitorsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReentrantReadWriteLockNotExclusive() throws Exception {
+    void testReentrantReadWriteLockNotExclusive() throws Exception {
 
         /*
          * If our threads are running concurrently, then we expect to be faster than running one after the other.
@@ -123,7 +123,7 @@ public class LockingVisitorsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testResultValidation() {
+    void testResultValidation() {
         final Object hidden = new Object();
         final StampedLockVisitor<Object> lock = LockingVisitors.stampedLockVisitor(hidden);
         final Object o1 = lock.applyReadLocked(h -> new Object());
@@ -135,7 +135,7 @@ public class LockingVisitorsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStampedLockExclusive() throws Exception {
+    void testStampedLockExclusive() throws Exception {
 
         /*
          * If our threads are running concurrently, then we expect to be no faster than running one after the other.
@@ -146,7 +146,7 @@ public class LockingVisitorsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStampedLockNotExclusive() throws Exception {
+    void testStampedLockNotExclusive() throws Exception {
 
         /*
          * If our threads are running concurrently, then we expect to be faster than running one after the other.

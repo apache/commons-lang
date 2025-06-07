@@ -163,7 +163,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendSuper() {
+    void testAppendSuper() {
         final TestObject o1 = new TestObject(4);
         final TestObject o2 = new TestObject(5);
         assertEquals(0, new CompareToBuilder().appendSuper(0).append(o1, o1).toComparison());
@@ -178,7 +178,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBoolean() {
+    void testBoolean() {
         final boolean o1 = true;
         final boolean o2 = false;
         assertEquals(0, new CompareToBuilder().append(o1, o1).toComparison());
@@ -188,7 +188,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBooleanArray() {
+    void testBooleanArray() {
         final boolean[] obj1 = new boolean[2];
         obj1[0] = true;
         obj1[1] = false;
@@ -215,7 +215,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBooleanArrayHiddenByObject() {
+    void testBooleanArrayHiddenByObject() {
         final boolean[] array1 = new boolean[2];
         array1[0] = true;
         array1[1] = false;
@@ -240,7 +240,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testByte() {
+    void testByte() {
         final byte o1 = 1;
         final byte o2 = 2;
         assertEquals(0, new CompareToBuilder().append(o1, o1).toComparison());
@@ -253,7 +253,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testByteArray() {
+    void testByteArray() {
         final byte[] obj1 = new byte[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -280,7 +280,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testByteArrayHiddenByObject() {
+    void testByteArrayHiddenByObject() {
         final byte[] array1 = new byte[2];
         array1[0] = 5;
         array1[1] = 6;
@@ -305,7 +305,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testChar() {
+    void testChar() {
         final char o1 = 1;
         final char o2 = 2;
         assertEquals(0, new CompareToBuilder().append(o1, o1).toComparison());
@@ -318,7 +318,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCharArray() {
+    void testCharArray() {
         final char[] obj1 = new char[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -345,7 +345,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCharArrayHiddenByObject() {
+    void testCharArrayHiddenByObject() {
         final char[] array1 = new char[2];
         array1[0] = 5;
         array1[1] = 6;
@@ -370,7 +370,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDouble() {
+    void testDouble() {
         final double o1 = 1;
         final double o2 = 2;
         assertEquals(0, new CompareToBuilder().append(o1, o1).toComparison());
@@ -391,7 +391,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDoubleArray() {
+    void testDoubleArray() {
         final double[] obj1 = new double[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -418,7 +418,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDoubleArrayHiddenByObject() {
+    void testDoubleArrayHiddenByObject() {
         final double[] array1 = new double[2];
         array1[0] = 5;
         array1[1] = 6;
@@ -443,7 +443,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFloat() {
+    void testFloat() {
         final float o1 = 1;
         final float o2 = 2;
         assertEquals(0, new CompareToBuilder().append(o1, o1).toComparison());
@@ -464,7 +464,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFloatArray() {
+    void testFloatArray() {
         final float[] obj1 = new float[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -491,7 +491,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFloatArrayHiddenByObject() {
+    void testFloatArrayHiddenByObject() {
         final float[] array1 = new float[2];
         array1[0] = 5;
         array1[1] = 6;
@@ -516,7 +516,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInt() {
+    void testInt() {
         final int o1 = 1;
         final int o2 = 2;
         assertEquals(0, new CompareToBuilder().append(o1, o1).toComparison());
@@ -529,7 +529,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIntArray() {
+    void testIntArray() {
         final int[] obj1 = new int[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -556,7 +556,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIntArrayHiddenByObject() {
+    void testIntArrayHiddenByObject() {
         final int[] array1 = new int[2];
         array1[0] = 5;
         array1[1] = 6;
@@ -581,7 +581,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLong() {
+    void testLong() {
         final long o1 = 1L;
         final long o2 = 2L;
         assertEquals(0, new CompareToBuilder().append(o1, o1).toComparison());
@@ -594,7 +594,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLongArray() {
+    void testLongArray() {
         final long[] obj1 = new long[2];
         obj1[0] = 5L;
         obj1[1] = 6L;
@@ -621,7 +621,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLongArrayHiddenByObject() {
+    void testLongArrayHiddenByObject() {
         final long[] array1 = new long[2];
         array1[0] = 5L;
         array1[1] = 6L;
@@ -646,7 +646,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMixedArray() {
+    void testMixedArray() {
         final Object[] array1 = new Object[2];
         final Object[] array2 = new Object[2];
         final Object[] array3 = new Object[2];
@@ -672,7 +672,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiBooleanArray() {
+    void testMultiBooleanArray() {
         final boolean[][] array1 = new boolean[2][2];
         final boolean[][] array2 = new boolean[2][2];
         final boolean[][] array3 = new boolean[2][3];
@@ -696,7 +696,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiByteArray() {
+    void testMultiByteArray() {
         final byte[][] array1 = new byte[2][2];
         final byte[][] array2 = new byte[2][2];
         final byte[][] array3 = new byte[2][3];
@@ -720,7 +720,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiCharArray() {
+    void testMultiCharArray() {
         final char[][] array1 = new char[2][2];
         final char[][] array2 = new char[2][2];
         final char[][] array3 = new char[2][3];
@@ -744,7 +744,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiDoubleArray() {
+    void testMultiDoubleArray() {
         final double[][] array1 = new double[2][2];
         final double[][] array2 = new double[2][2];
         final double[][] array3 = new double[2][3];
@@ -768,7 +768,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiFloatArray() {
+    void testMultiFloatArray() {
         final float[][] array1 = new float[2][2];
         final float[][] array2 = new float[2][2];
         final float[][] array3 = new float[2][3];
@@ -792,7 +792,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiIntArray() {
+    void testMultiIntArray() {
         final int[][] array1 = new int[2][2];
         final int[][] array2 = new int[2][2];
         final int[][] array3 = new int[2][3];
@@ -816,7 +816,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiLongArray() {
+    void testMultiLongArray() {
         final long[][] array1 = new long[2][2];
         final long[][] array2 = new long[2][2];
         final long[][] array3 = new long[2][3];
@@ -840,7 +840,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiShortArray() {
+    void testMultiShortArray() {
         final short[][] array1 = new short[2][2];
         final short[][] array2 = new short[2][2];
         final short[][] array3 = new short[2][3];
@@ -864,7 +864,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObject() {
+    void testObject() {
         final TestObject o1 = new TestObject(4);
         final TestObject o2 = new TestObject(4);
         assertEquals(0, new CompareToBuilder().append(o1, o1).toComparison());
@@ -879,7 +879,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectArray() {
+    void testObjectArray() {
         final TestObject[] obj1 = new TestObject[2];
         obj1[0] = new TestObject(4);
         obj1[1] = new TestObject(5);
@@ -906,7 +906,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectArrayHiddenByObject() {
+    void testObjectArrayHiddenByObject() {
         final TestObject[] array1 = new TestObject[2];
         array1[0] = new TestObject(4);
         array1[1] = new TestObject(5);
@@ -933,7 +933,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectBuild() {
+    void testObjectBuild() {
         final TestObject o1 = new TestObject(4);
         final TestObject o2 = new TestObject(4);
         assertEquals(Integer.valueOf(0), new CompareToBuilder().append(o1, o1).build());
@@ -948,7 +948,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectComparator() {
+    void testObjectComparator() {
         final String o1 = "Fred";
         String o2 = "Fred";
         assertEquals(0, new CompareToBuilder().append(o1, o1, String.CASE_INSENSITIVE_ORDER).toComparison());
@@ -966,7 +966,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectComparatorNull() {
+    void testObjectComparatorNull() {
         final String o1 = "Fred";
         String o2 = "Fred";
         assertEquals(0, new CompareToBuilder().append(o1, o1, null).toComparison());
@@ -981,14 +981,14 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectEx2() {
+    void testObjectEx2() {
         final TestObject o1 = new TestObject(4);
         final Object o2 = new Object();
         assertThrows(ClassCastException.class, () -> new CompareToBuilder().append(o1, o2));
     }
 
     @Test
-    public void testRaggedArray() {
+    void testRaggedArray() {
         final long[][] array1 = new long[2][];
         final long[][] array2 = new long[2][];
         final long[][] array3 = new long[3][];
@@ -1015,7 +1015,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionCompare() {
+    void testReflectionCompare() {
         final TestObject o1 = new TestObject(4);
         final TestObject o2 = new TestObject(4);
         assertEquals(0, CompareToBuilder.reflectionCompare(o1, o1));
@@ -1026,20 +1026,20 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionCompareEx1() {
+    void testReflectionCompareEx1() {
         final TestObject o1 = new TestObject(4);
         assertThrows(NullPointerException.class, () -> CompareToBuilder.reflectionCompare(o1, null));
     }
 
     @Test
-    public void testReflectionCompareEx2() {
+    void testReflectionCompareEx2() {
         final TestObject o1 = new TestObject(4);
         final Object o2 = new Object();
         assertThrows(ClassCastException.class, () -> CompareToBuilder.reflectionCompare(o1, o2));
     }
 
     @Test
-    public void testReflectionHierarchyCompare() {
+    void testReflectionHierarchyCompare() {
         testReflectionHierarchyCompare(false, null);
     }
 
@@ -1067,7 +1067,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionHierarchyCompareExcludeFields() {
+    void testReflectionHierarchyCompareExcludeFields() {
         final String[] excludeFields = { "b" };
         testReflectionHierarchyCompare(true, excludeFields);
 
@@ -1087,7 +1087,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionHierarchyCompareTransients() {
+    void testReflectionHierarchyCompareTransients() {
         testReflectionHierarchyCompare(true, null);
 
         TestTransientSubObject x;
@@ -1106,7 +1106,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testShort() {
+    void testShort() {
         final short o1 = 1;
         final short o2 = 2;
         assertEquals(0, new CompareToBuilder().append(o1, o1).toComparison());
@@ -1119,7 +1119,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testShortArray() {
+    void testShortArray() {
         final short[] obj1 = new short[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -1146,7 +1146,7 @@ public class CompareToBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testShortArrayHiddenByObject() {
+    void testShortArrayHiddenByObject() {
         final short[] array1 = new short[2];
         array1[0] = 5;
         array1[1] = 6;

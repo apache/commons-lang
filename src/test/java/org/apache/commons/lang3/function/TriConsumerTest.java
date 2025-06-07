@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 public class TriConsumerTest extends AbstractLangTest {
 
     @Test
-    public void testAccept() throws Throwable {
+    void testAccept() throws Throwable {
         final AtomicReference<Character> ref1 = new AtomicReference<>();
         final AtomicReference<Short> ref2 = new AtomicReference<>();
         final AtomicReference<String> ref3 = new AtomicReference<>();
@@ -47,7 +47,7 @@ public class TriConsumerTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAndThen() throws Throwable {
+    void testAndThen() throws Throwable {
         final AtomicReference<Character> ref1 = new AtomicReference<>();
         final AtomicReference<Short> ref2 = new AtomicReference<>();
         final AtomicReference<String> ref3 = new AtomicReference<>();

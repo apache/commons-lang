@@ -91,7 +91,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest extends Abstr
 
     @Test
     @Disabled
-    public void testConcurrency() {
+    void testConcurrency() {
         final TestFixture testFixture = new TestFixture();
         final int numMutators = 10;
         final int numIterations = 10;

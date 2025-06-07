@@ -50,7 +50,7 @@ public class LazyInitializerFailableCloserTest extends AbstractConcurrentInitial
     }
 
     @Test
-    public void testIsInitialized() throws ConcurrentException {
+    void testIsInitialized() throws ConcurrentException {
         final LazyInitializer<Object> initializer = createInitializer();
         assertFalse(initializer.isInitialized());
         initializer.get();

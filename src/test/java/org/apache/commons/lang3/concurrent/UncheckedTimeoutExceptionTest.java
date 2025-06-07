@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 public class UncheckedTimeoutExceptionTest extends AbstractLangTest {
 
     @Test
-    public void testConstructWithCause() {
+    void testConstructWithCause() {
         final Exception e = new Exception();
         assertSame(e, new UncheckedTimeoutException(e).getCause());
     }

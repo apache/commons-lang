@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 public class IntToCharFunctionTest extends AbstractLangTest {
 
     @Test
-    public void test() {
+    void test() {
         final IntToCharFunction func = i -> (char) i;
         assertEquals('A', func.applyAsChar(65));
     }

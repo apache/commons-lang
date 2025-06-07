@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 public class MutableIntTest extends AbstractLangTest {
 
     @Test
-    public void testAddAndGetValueObject() {
+    void testAddAndGetValueObject() {
         final MutableInt mutableInteger = new MutableInt(0);
         final int result = mutableInteger.addAndGet(Integer.valueOf(1));
 
@@ -40,7 +40,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddAndGetValuePrimitive() {
+    void testAddAndGetValuePrimitive() {
         final MutableInt mutableInteger = new MutableInt(0);
         final int result = mutableInteger.addAndGet(1);
 
@@ -49,7 +49,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddValueObject() {
+    void testAddValueObject() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.add(Integer.valueOf(1));
 
@@ -58,7 +58,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddValuePrimitive() {
+    void testAddValuePrimitive() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.add(1);
 
@@ -67,7 +67,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         final MutableInt mutNum = new MutableInt(0);
 
         assertEquals(0, mutNum.compareTo(new MutableInt(0)));
@@ -76,18 +76,18 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareToNull() {
+    void testCompareToNull() {
         final MutableInt mutNum = new MutableInt(0);
         assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
     }
 
     @Test
-    public void testConstructorNull() {
+    void testConstructorNull() {
         assertThrows(NullPointerException.class, () -> new MutableInt((Number) null));
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         assertEquals(0, new MutableInt().intValue());
 
         assertEquals(1, new MutableInt(1).intValue());
@@ -100,7 +100,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDecrement() {
+    void testDecrement() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.decrement();
 
@@ -109,7 +109,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDecrementAndGet() {
+    void testDecrementAndGet() {
         final MutableInt mutNum = new MutableInt(1);
         final int result = mutNum.decrementAndGet();
 
@@ -119,7 +119,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         this.testEquals(new MutableInt(0), new MutableInt(0), new MutableInt(1));
         // Should Numbers be supported? GaryG July-21-2005.
         //this.testEquals(mutNumA, Integer.valueOf(0), mutNumC);
@@ -144,7 +144,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndAddValueObject() {
+    void testGetAndAddValueObject() {
         final MutableInt mutableInteger = new MutableInt(0);
         final int result = mutableInteger.getAndAdd(Integer.valueOf(1));
 
@@ -153,7 +153,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndAddValuePrimitive() {
+    void testGetAndAddValuePrimitive() {
         final MutableInt mutableInteger = new MutableInt(0);
         final int result = mutableInteger.getAndAdd(1);
 
@@ -162,7 +162,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndDecrement() {
+    void testGetAndDecrement() {
         final MutableInt mutNum = new MutableInt(1);
         final int result = mutNum.getAndDecrement();
 
@@ -172,7 +172,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndIncrement() {
+    void testGetAndIncrement() {
         final MutableInt mutNum = new MutableInt(1);
         final int result = mutNum.getAndIncrement();
 
@@ -182,7 +182,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetSet() {
+    void testGetSet() {
         final MutableInt mutNum = new MutableInt(0);
         assertEquals(0, new MutableInt().intValue());
         assertEquals(Integer.valueOf(0), new MutableInt().getValue());
@@ -201,7 +201,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final MutableInt mutNumA = new MutableInt(0);
         final MutableInt mutNumB = new MutableInt(0);
         final MutableInt mutNumC = new MutableInt(1);
@@ -213,7 +213,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIncrement() {
+    void testIncrement() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.increment();
 
@@ -222,7 +222,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIncrementAndGet() {
+    void testIncrementAndGet() {
         final MutableInt mutNum = new MutableInt(1);
         final int result = mutNum.incrementAndGet();
 
@@ -232,7 +232,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPrimitiveValues() {
+    void testPrimitiveValues() {
         final MutableInt mutNum = new MutableInt(1);
         assertEquals((byte) 1, mutNum.byteValue());
         assertEquals((short) 1, mutNum.shortValue());
@@ -242,13 +242,13 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSetNull() {
+    void testSetNull() {
         final MutableInt mutNum = new MutableInt(0);
         assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
     }
 
     @Test
-    public void testSubtractValueObject() {
+    void testSubtractValueObject() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.subtract(Integer.valueOf(1));
 
@@ -257,7 +257,7 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSubtractValuePrimitive() {
+    void testSubtractValuePrimitive() {
         final MutableInt mutNum = new MutableInt(1);
         mutNum.subtract(1);
 
@@ -266,13 +266,13 @@ public class MutableIntTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToInteger() {
+    void testToInteger() {
         assertEquals(Integer.valueOf(0), new MutableInt(0).toInteger());
         assertEquals(Integer.valueOf(123), new MutableInt(123).toInteger());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("0", new MutableInt(0).toString());
         assertEquals("10", new MutableInt(10).toString());
         assertEquals("-123", new MutableInt(-123).toString());

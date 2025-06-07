@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 public class GmtTimeZoneTest extends AbstractLangTest {
 
     @Test
-    public void testGetID() {
+    void testGetID() {
         assertEquals("GMT+00:00", new GmtTimeZone(false, 0, 0).getID());
         assertEquals("GMT+01:02", new GmtTimeZone(false, 1, 2).getID());
         assertEquals("GMT+11:22", new GmtTimeZone(false, 11, 22).getID());
@@ -38,55 +38,55 @@ public class GmtTimeZoneTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetOffset() {
+    void testGetOffset() {
         assertEquals(0, new GmtTimeZone(false, 0, 0).getOffset(234304));
         assertEquals(-(6 * 60 + 30) * 60 * 1000,
                 new GmtTimeZone(true, 6, 30).getOffset(1, 1, 1, 1, 1, 1));
     }
 
     @Test
-    public void testGetRawOffset() {
+    void testGetRawOffset() {
         assertEquals(0, new GmtTimeZone(false, 0, 0).getRawOffset());
     }
 
     @Test
-    public void testHoursInRange() {
+    void testHoursInRange() {
         assertEquals(23 * 60 * 60 * 1000, new GmtTimeZone(false, 23, 0).getRawOffset());
     }
 
     @Test
-    public void testHoursOutOfRange() {
+    void testHoursOutOfRange() {
         assertThrows(IllegalArgumentException.class, () -> new GmtTimeZone(false, 24, 0));
     }
 
     @Test
-    public void testInDaylightTime() {
+    void testInDaylightTime() {
         assertFalse(new GmtTimeZone(false, 0, 0).useDaylightTime());
     }
 
     @Test
-    public void testMinutesInRange() {
+    void testMinutesInRange() {
         assertEquals(59 * 60 * 1000, new GmtTimeZone(false, 0, 59).getRawOffset());
     }
 
     @Test
-    public void testMinutesOutOfRange() {
+    void testMinutesOutOfRange() {
         assertThrows(IllegalArgumentException.class, () -> new GmtTimeZone(false, 0, 60));
     }
 
     @Test
-    public void testSetRawOffset() {
+    void testSetRawOffset() {
         assertThrows(UnsupportedOperationException.class, () -> new GmtTimeZone(false, 0, 0).setRawOffset(0));
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("[GmtTimeZone id=\"GMT-12:00\",offset=-43200000]",
             new GmtTimeZone(true, 12, 0).toString());
     }
 
     @Test
-    public void testUseDaylightTime() {
+    void testUseDaylightTime() {
         assertFalse(new GmtTimeZone(false, 0, 0).useDaylightTime());
     }
 }

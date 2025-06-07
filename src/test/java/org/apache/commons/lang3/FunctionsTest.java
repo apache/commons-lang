@@ -129,7 +129,7 @@ public class FunctionsTest extends AbstractLangTest {
             t = throwable;
         }
 
-        public void test() throws Throwable {
+        void test() throws Throwable {
             if (t != null) {
                 throw t;
             }
@@ -162,7 +162,7 @@ public class FunctionsTest extends AbstractLangTest {
             this.throwable = throwable;
         }
 
-        public void test() throws Throwable {
+        void test() throws Throwable {
             test(throwable);
         }
 
@@ -171,7 +171,7 @@ public class FunctionsTest extends AbstractLangTest {
             return acceptedObject;
         }
 
-        public void test(final Throwable throwable) throws Throwable {
+        void test(final Throwable throwable) throws Throwable {
             if (throwable != null) {
                 throw throwable;
             }
@@ -232,7 +232,7 @@ public class FunctionsTest extends AbstractLangTest {
             return 0;
         }
 
-        public void testDouble(final double i) throws Throwable {
+        void testDouble(final double i) throws Throwable {
             test(throwable);
             acceptedPrimitiveObject1 = (P) (Double) i;
         }
@@ -244,29 +244,29 @@ public class FunctionsTest extends AbstractLangTest {
             return 3d;
         }
 
-        public void testInt(final int i) throws Throwable {
+        void testInt(final int i) throws Throwable {
             test(throwable);
             acceptedPrimitiveObject1 = (P) (Integer) i;
         }
 
-        public void testLong(final long i) throws Throwable {
+        void testLong(final long i) throws Throwable {
             test(throwable);
             acceptedPrimitiveObject1 = (P) (Long) i;
         }
 
-        public void testObjDouble(final T object, final double i) throws Throwable {
+        void testObjDouble(final T object, final double i) throws Throwable {
             test(throwable);
             acceptedObject = object;
             acceptedPrimitiveObject1 = (P) (Double) i;
         }
 
-        public void testObjInt(final T object, final int i) throws Throwable {
+        void testObjInt(final T object, final int i) throws Throwable {
             test(throwable);
             acceptedObject = object;
             acceptedPrimitiveObject1 = (P) (Integer) i;
         }
 
-        public void testObjLong(final T object, final long i) throws Throwable {
+        void testObjLong(final T object, final long i) throws Throwable {
             test(throwable);
             acceptedObject = object;
             acceptedPrimitiveObject1 = (P) (Long) i;
@@ -274,7 +274,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAcceptBiConsumer() {
+    void testAcceptBiConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(null);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(Testable::test, testable, ise));
@@ -296,7 +296,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAcceptConsumer() {
+    void testAcceptConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(Testable::test, testable));
@@ -319,7 +319,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAcceptDoubleConsumer() {
+    void testAcceptDoubleConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, Double> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testDouble, 1d));
@@ -346,7 +346,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAcceptIntConsumer() {
+    void testAcceptIntConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, Integer> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testInt, 1));
@@ -373,7 +373,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAcceptLongConsumer() {
+    void testAcceptLongConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, Long> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testLong, 1L));
@@ -400,7 +400,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAcceptObjDoubleConsumer() {
+    void testAcceptObjDoubleConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<String, Double> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class,
@@ -432,7 +432,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAcceptObjIntConsumer() {
+    void testAcceptObjIntConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<String, Integer> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testObjInt, "X", 1));
@@ -463,7 +463,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAcceptObjLongConsumer() {
+    void testAcceptObjLongConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<String, Long> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.accept(testable::testObjLong, "X", 1L));
@@ -494,7 +494,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testApplyBiFunction() {
+    void testApplyBiFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(null);
         Throwable e = assertThrows(IllegalStateException.class,
@@ -517,7 +517,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testApplyFunction() {
+    void testApplyFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class,
@@ -543,7 +543,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAsCallable() {
+    void testAsCallable() {
         FailureOnOddInvocations.invocations = 0;
         final FailableCallable<FailureOnOddInvocations, SomeException> failableCallable = FailureOnOddInvocations::new;
         final Callable<FailureOnOddInvocations> callable = Functions.asCallable(failableCallable);
@@ -562,7 +562,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAsConsumer() {
+    void testAsConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
         final Consumer<Testable<?, ?>> consumer = Functions.asConsumer(Testable::test);
@@ -586,7 +586,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAsRunnable() {
+    void testAsRunnable() {
         FailureOnOddInvocations.invocations = 0;
         final Runnable runnable = Functions.asRunnable(FailureOnOddInvocations::new);
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class, runnable::run);
@@ -600,7 +600,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAsSupplier() {
+    void testAsSupplier() {
         FailureOnOddInvocations.invocations = 0;
         final FailableSupplier<FailureOnOddInvocations, Throwable> failableSupplier = FailureOnOddInvocations::new;
         final Supplier<FailureOnOddInvocations> supplier = Functions.asSupplier(failableSupplier);
@@ -613,7 +613,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBiConsumer() {
+    void testBiConsumer() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(null);
         final FailableBiConsumer<Testable<?, ?>, Throwable, Throwable> failableBiConsumer = (t, th) -> {
@@ -639,7 +639,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBiFunction() {
+    void testBiFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
         final FailableBiFunction<Testable<?, ?>, Throwable, Integer, Throwable> failableBiFunction = (t, th) -> {
@@ -667,7 +667,7 @@ public class FunctionsTest extends AbstractLangTest {
 
     @Test
     @DisplayName("Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate ")
-    public void testBiPredicate() {
+    void testBiPredicate() {
         FailureOnOddInvocations.invocations = 0;
         final Functions.FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1,
             t2) -> FailureOnOddInvocations.failingBool();
@@ -683,7 +683,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCallable() {
+    void testCallable() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
             () -> Functions.run(FailureOnOddInvocations::new));
@@ -696,14 +696,14 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         // We allow this, which must have been an omission to make the ctor private.
         // We could make the ctor private in 4.0.
         new Functions();
     }
 
     @Test
-    public void testFunction() {
+    void testFunction() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
         final FailableFunction<Throwable, Integer, Throwable> failableFunction = th -> {
@@ -730,7 +730,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetFromSupplier() {
+    void testGetFromSupplier() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
             () -> Functions.run(FailureOnOddInvocations::new));
@@ -743,7 +743,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetSupplier() {
+    void testGetSupplier() {
         final IllegalStateException ise = new IllegalStateException();
         final Testable<?, ?> testable = new Testable<>(ise);
         Throwable e = assertThrows(IllegalStateException.class, () -> Functions.get(testable::testAsInteger));
@@ -769,7 +769,7 @@ public class FunctionsTest extends AbstractLangTest {
 
     @Test
     @DisplayName("Test that asPredicate(FailablePredicate) is converted to -> Predicate ")
-    public void testPredicate() {
+    void testPredicate() {
         FailureOnOddInvocations.invocations = 0;
         final Functions.FailablePredicate<Object, Throwable> failablePredicate = t -> FailureOnOddInvocations
             .failingBool();
@@ -785,7 +785,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRunnable() {
+    void testRunnable() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
             () -> Functions.run(FailureOnOddInvocations::new));
@@ -803,7 +803,7 @@ public class FunctionsTest extends AbstractLangTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableBiConsumer_Object_Throwable() {
+    void testThrows_FailableBiConsumer_Object_Throwable() {
         new Functions.FailableBiConsumer<Object, Object, Throwable>() {
 
             @Override
@@ -818,7 +818,7 @@ public class FunctionsTest extends AbstractLangTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableBiConsumer_String_IOException() {
+    void testThrows_FailableBiConsumer_String_IOException() {
         new Functions.FailableBiConsumer<String, String, IOException>() {
 
             @Override
@@ -834,7 +834,7 @@ public class FunctionsTest extends AbstractLangTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableBiFunction_Object_Throwable() {
+    void testThrows_FailableBiFunction_Object_Throwable() {
         new Functions.FailableBiFunction<Object, Object, Object, Throwable>() {
 
             @Override
@@ -849,7 +849,7 @@ public class FunctionsTest extends AbstractLangTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableBiFunction_String_IOException() {
+    void testThrows_FailableBiFunction_String_IOException() {
         new Functions.FailableBiFunction<String, String, String, IOException>() {
 
             @Override
@@ -864,7 +864,7 @@ public class FunctionsTest extends AbstractLangTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableBiPredicate_Object_Throwable() {
+    void testThrows_FailableBiPredicate_Object_Throwable() {
         new Functions.FailableBiPredicate<Object, Object, Throwable>() {
 
             @Override
@@ -879,7 +879,7 @@ public class FunctionsTest extends AbstractLangTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableBiPredicate_String_IOException() {
+    void testThrows_FailableBiPredicate_String_IOException() {
         new Functions.FailableBiPredicate<String, String, IOException>() {
 
             @Override
@@ -894,7 +894,7 @@ public class FunctionsTest extends AbstractLangTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableCallable_Object_Throwable() {
+    void testThrows_FailableCallable_Object_Throwable() {
         new Functions.FailableCallable<Object, Throwable>() {
 
             @Override
@@ -909,7 +909,7 @@ public class FunctionsTest extends AbstractLangTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableCallable_String_IOException() {
+    void testThrows_FailableCallable_String_IOException() {
         new Functions.FailableCallable<String, IOException>() {
 
             @Override
@@ -924,7 +924,7 @@ public class FunctionsTest extends AbstractLangTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableConsumer_Object_Throwable() {
+    void testThrows_FailableConsumer_Object_Throwable() {
         new Functions.FailableConsumer<Object, Throwable>() {
 
             @Override
@@ -940,7 +940,7 @@ public class FunctionsTest extends AbstractLangTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableConsumer_String_IOException() {
+    void testThrows_FailableConsumer_String_IOException() {
         new Functions.FailableConsumer<String, IOException>() {
 
             @Override
@@ -956,7 +956,7 @@ public class FunctionsTest extends AbstractLangTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableFunction_Object_Throwable() {
+    void testThrows_FailableFunction_Object_Throwable() {
         new Functions.FailableFunction<Object, Object, Throwable>() {
 
             @Override
@@ -971,7 +971,7 @@ public class FunctionsTest extends AbstractLangTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableFunction_String_IOException() {
+    void testThrows_FailableFunction_String_IOException() {
         new Functions.FailableFunction<String, String, IOException>() {
 
             @Override
@@ -986,7 +986,7 @@ public class FunctionsTest extends AbstractLangTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailablePredicate_Object_Throwable() {
+    void testThrows_FailablePredicate_Object_Throwable() {
         new Functions.FailablePredicate<Object, Throwable>() {
 
             @Override
@@ -1001,7 +1001,7 @@ public class FunctionsTest extends AbstractLangTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailablePredicate_String_IOException() {
+    void testThrows_FailablePredicate_String_IOException() {
         new Functions.FailablePredicate<String, IOException>() {
 
             @Override
@@ -1016,7 +1016,7 @@ public class FunctionsTest extends AbstractLangTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableRunnable_Object_Throwable() {
+    void testThrows_FailableRunnable_Object_Throwable() {
         new Functions.FailableRunnable<Throwable>() {
 
             @Override
@@ -1032,7 +1032,7 @@ public class FunctionsTest extends AbstractLangTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableRunnable_String_IOException() {
+    void testThrows_FailableRunnable_String_IOException() {
         new Functions.FailableRunnable<IOException>() {
 
             @Override
@@ -1047,7 +1047,7 @@ public class FunctionsTest extends AbstractLangTest {
      * Object and Throwable.
      */
     @Test
-    public void testThrows_FailableSupplier_Object_Throwable() {
+    void testThrows_FailableSupplier_Object_Throwable() {
         new Functions.FailableSupplier<Object, Throwable>() {
 
             @Override
@@ -1062,7 +1062,7 @@ public class FunctionsTest extends AbstractLangTest {
      * generic test types.
      */
     @Test
-    public void testThrows_FailableSupplier_String_IOException() {
+    void testThrows_FailableSupplier_String_IOException() {
         new Functions.FailableSupplier<String, IOException>() {
 
             @Override
@@ -1073,7 +1073,7 @@ public class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTryWithResources() {
+    void testTryWithResources() {
         final CloseableObject co = new CloseableObject();
         final FailableConsumer<Throwable, ? extends Throwable> consumer = co::run;
         final IllegalStateException ise = new IllegalStateException();

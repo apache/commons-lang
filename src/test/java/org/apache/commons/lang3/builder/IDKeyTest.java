@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 public class IDKeyTest {
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         assertEquals(new IDKey("1"), new IDKey("1"));
         assertNotEquals(new IDKey("1"), new IDKey("2"));
         assertNotEquals(new IDKey("1"), "2");

@@ -103,7 +103,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new StringEscapeUtils());
         final Constructor<?>[] cons = StringEscapeUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -113,13 +113,13 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEscapeCsvIllegalStateException() {
+    void testEscapeCsvIllegalStateException() {
         final StringWriter writer = new StringWriter();
         assertThrows(IllegalStateException.class, () -> StringEscapeUtils.ESCAPE_CSV.translate("foo", -1, writer));
     }
 
     @Test
-    public void testEscapeCsvString() {
+    void testEscapeCsvString() {
         assertEquals("foo.bar", StringEscapeUtils.escapeCsv("foo.bar"));
         assertEquals("\"foo,bar\"", StringEscapeUtils.escapeCsv("foo,bar"));
         assertEquals("\"foo\nbar\"", StringEscapeUtils.escapeCsv("foo\nbar"));
@@ -131,7 +131,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEscapeCsvWriter() throws Exception {
+    void testEscapeCsvWriter() throws Exception {
         checkCsvEscapeWriter("foo.bar", "foo.bar");
         checkCsvEscapeWriter("\"foo,bar\"", "foo,bar");
         checkCsvEscapeWriter("\"foo\nbar\"", "foo\nbar");
@@ -143,7 +143,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEscapeEcmaScript() {
+    void testEscapeEcmaScript() {
         assertNull(StringEscapeUtils.escapeEcmaScript(null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_ECMASCRIPT.translate(null, null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_ECMASCRIPT.translate("", null));
@@ -157,7 +157,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
      * Tests https://issues.apache.org/jira/browse/LANG-339
      */
     @Test
-    public void testEscapeHiragana() {
+    void testEscapeHiragana() {
         // Some random Japanese Unicode characters
         final String original = "\u304B\u304C\u3068";
         final String escaped = StringEscapeUtils.escapeHtml4(original);
@@ -169,7 +169,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEscapeHtml() throws IOException {
+    void testEscapeHtml() throws IOException {
         for (final String[] element : HTML_ESCAPES) {
             final String message = element[0];
             final String expected = element[1];
@@ -186,7 +186,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
      * Tests // https://issues.apache.org/jira/browse/LANG-480
      */
     @Test
-    public void testEscapeHtmlHighUnicode() {
+    void testEscapeHtmlHighUnicode() {
         // this is the utf8 representation of the character:
         // COUNTING ROD UNIT DIGIT THREE
         // in Unicode
@@ -207,7 +207,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEscapeHtmlVersions() {
+    void testEscapeHtmlVersions() {
         assertEquals("&Beta;", StringEscapeUtils.escapeHtml4("\u0392"));
         assertEquals("\u0392", StringEscapeUtils.unescapeHtml4("&Beta;"));
 
@@ -215,7 +215,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEscapeJava() throws IOException {
+    void testEscapeJava() throws IOException {
         assertNull(StringEscapeUtils.escapeJava(null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_JAVA.translate(null, null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_JAVA.translate("", null));
@@ -241,7 +241,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
      * Tests https://issues.apache.org/jira/browse/LANG-421
      */
     @Test
-    public void testEscapeJavaWithSlash() {
+    void testEscapeJavaWithSlash() {
         final String input = "String with a slash (/) in it";
 
         final String expected = input;
@@ -254,7 +254,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEscapeJson() {
+    void testEscapeJson() {
         assertNull(StringEscapeUtils.escapeJson(null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_JSON.translate(null, null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_JSON.translate("", null));
@@ -268,7 +268,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEscapeXml() throws Exception {
+    void testEscapeXml() throws Exception {
         assertEquals("&lt;abc&gt;", StringEscapeUtils.escapeXml("<abc>"));
         assertEquals("<abc>", StringEscapeUtils.unescapeXml("&lt;abc&gt;"));
 
@@ -294,7 +294,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEscapeXml10() {
+    void testEscapeXml10() {
         assertEquals("a&lt;b&gt;c&quot;d&apos;e&amp;f", StringEscapeUtils.escapeXml10("a<b>c\"d'e&f"));
         assertEquals("a\tb\rc\nd", StringEscapeUtils.escapeXml10("a\tb\rc\nd"), "XML 1.0 should not escape \t \n \r");
         assertEquals("ab", StringEscapeUtils.escapeXml10("a\u0000\u0001\u0008\u000b\u000c\u000e\u001fb"),
@@ -306,7 +306,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEscapeXml11() {
+    void testEscapeXml11() {
         assertEquals("a&lt;b&gt;c&quot;d&apos;e&amp;f", StringEscapeUtils.escapeXml11("a<b>c\"d'e&f"));
         assertEquals("a\tb\rc\nd", StringEscapeUtils.escapeXml11("a\tb\rc\nd"), "XML 1.1 should not escape \t \n \r");
         assertEquals("ab", StringEscapeUtils.escapeXml11("a\u0000b"), "XML 1.1 should omit #x0");
@@ -319,7 +319,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEscapeXmlAllCharacters() {
+    void testEscapeXmlAllCharacters() {
         // https://www.w3.org/TR/xml/#charsets says:
         // Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] /* any Unicode character,
         // excluding the surrogate blocks, FFFE, and FFFF. */
@@ -350,7 +350,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
      * @see <a href="https://issues.apache.org/jira/browse/LANG-728">LANG-728</a>
      */
     @Test
-    public void testEscapeXmlSupplementaryCharacters() {
+    void testEscapeXmlSupplementaryCharacters() {
         final CharSequenceTranslator escapeXml = StringEscapeUtils.ESCAPE_XML.with(NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE));
 
         assertEquals("&#144308;", escapeXml.translate("\uD84C\uDFB4"), "Supplementary character must be represented using a single escape");
@@ -360,7 +360,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang313() {
+    void testLang313() {
         assertEquals("& &", StringEscapeUtils.unescapeHtml4("& &amp;"));
     }
 
@@ -370,7 +370,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
      * @throws IOException if an I/O error occurs
      */
     @Test
-    public void testLang708() throws IOException {
+    void testLang708() throws IOException {
         final byte[] inputBytes = Files.readAllBytes(Paths.get("src/test/resources/lang-708-input.txt"));
         final String input = new String(inputBytes, StandardCharsets.UTF_8);
         final String escaped = StringEscapeUtils.escapeEcmaScript(input);
@@ -384,7 +384,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
      * Tests https://issues.apache.org/jira/browse/LANG-720
      */
     @Test
-    public void testLang720() {
+    void testLang720() {
         final String input = "\ud842\udfb7" + "A";
         final String escaped = StringEscapeUtils.escapeXml(input);
         assertEquals(input, escaped);
@@ -394,7 +394,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
      * Tests https://issues.apache.org/jira/browse/LANG-911
      */
     @Test
-    public void testLang911() {
+    void testLang911() {
         final String bellsTest = "\ud83d\udc80\ud83d\udd14";
         final String value = StringEscapeUtils.escapeJava(bellsTest);
         final String valueTest = StringEscapeUtils.unescapeJava(value);
@@ -404,7 +404,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     // Tests issue LANG-150
     // https://issues.apache.org/jira/browse/LANG-150
     @Test
-    public void testStandaloneAmphersand() {
+    void testStandaloneAmphersand() {
         assertEquals("<P&O>", StringEscapeUtils.unescapeHtml4("&lt;P&O&gt;"));
         assertEquals("test & <", StringEscapeUtils.unescapeHtml4("test & &lt;"));
         assertEquals("<P&O>", StringEscapeUtils.unescapeXml("&lt;P&O&gt;"));
@@ -412,13 +412,13 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUnescapeCsvIllegalStateException() {
+    void testUnescapeCsvIllegalStateException() {
         final StringWriter writer = new StringWriter();
         assertThrows(IllegalStateException.class, () -> StringEscapeUtils.UNESCAPE_CSV.translate("foo", -1, writer));
     }
 
     @Test
-    public void testUnescapeCsvString() {
+    void testUnescapeCsvString() {
         assertEquals("foo.bar", StringEscapeUtils.unescapeCsv("foo.bar"));
         assertEquals("foo,bar", StringEscapeUtils.unescapeCsv("\"foo,bar\""));
         assertEquals("foo\nbar", StringEscapeUtils.unescapeCsv("\"foo\nbar\""));
@@ -432,7 +432,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUnescapeCsvWriter() throws Exception {
+    void testUnescapeCsvWriter() throws Exception {
         checkCsvUnescapeWriter("foo.bar", "foo.bar");
         checkCsvUnescapeWriter("foo,bar", "\"foo,bar\"");
         checkCsvUnescapeWriter("foo\nbar", "\"foo\nbar\"");
@@ -446,7 +446,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUnescapeEcmaScript() {
+    void testUnescapeEcmaScript() {
         assertNull(StringEscapeUtils.escapeEcmaScript(null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_ECMASCRIPT.translate(null, null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_ECMASCRIPT.translate("", null));
@@ -457,7 +457,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUnescapeHexCharsHtml() {
+    void testUnescapeHexCharsHtml() {
         // Simple easy to grok test
         assertEquals("\u0080\u009F", StringEscapeUtils.unescapeHtml4("&#x80;&#x9F;"), "hex number unescape");
         assertEquals("\u0080\u009F", StringEscapeUtils.unescapeHtml4("&#X80;&#X9F;"), "hex number unescape");
@@ -473,7 +473,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUnescapeHtml4() throws IOException {
+    void testUnescapeHtml4() throws IOException {
         for (final String[] element : HTML_ESCAPES) {
             final String message = element[0];
             final String expected = element[2];
@@ -497,7 +497,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUnescapeJava() throws IOException {
+    void testUnescapeJava() throws IOException {
         assertNull(StringEscapeUtils.unescapeJava(null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_JAVA.translate(null, null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_JAVA.translate("", null));
@@ -516,7 +516,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUnescapeJson() {
+    void testUnescapeJson() {
         assertNull(StringEscapeUtils.unescapeJson(null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_JSON.translate(null, null));
         assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_JSON.translate("", null));
@@ -530,7 +530,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUnescapeUnknownEntity() {
+    void testUnescapeUnknownEntity() {
         assertEquals("&zzzz;", StringEscapeUtils.unescapeHtml4("&zzzz;"));
     }
 
@@ -540,7 +540,7 @@ public class StringEscapeUtilsTest extends AbstractLangTest {
      * @see <a href="https://issues.apache.org/jira/browse/LANG-729">LANG-729</a>
      */
     @Test
-    public void testUnescapeXmlSupplementaryCharacters() {
+    void testUnescapeXmlSupplementaryCharacters() {
         assertEquals("\uD84C\uDFB4", StringEscapeUtils.unescapeXml("&#144308;"), "Supplementary character must be represented using a single escape");
 
         assertEquals("a b c \uD84C\uDFB4", StringEscapeUtils.unescapeXml("a b c &#144308;"),

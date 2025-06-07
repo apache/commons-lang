@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 public class ArrayUtilsAddTest extends AbstractLangTest {
 
     @Test
-    public void testAddFirstBoolean() {
+    void testAddFirstBoolean() {
         boolean[] newArray;
         newArray = ArrayUtils.addFirst(null, false);
         assertArrayEquals(new boolean[] { false }, newArray);
@@ -47,7 +47,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddFirstByte() {
+    void testAddFirstByte() {
         byte[] newArray;
         newArray = ArrayUtils.addFirst((byte[]) null, (byte) 0);
         assertArrayEquals(new byte[] { 0 }, newArray);
@@ -65,7 +65,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddFirstChar() {
+    void testAddFirstChar() {
         char[] newArray;
         newArray = ArrayUtils.addFirst((char[]) null, (char) 0);
         assertArrayEquals(new char[] { 0 }, newArray);
@@ -83,7 +83,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddFirstDouble() {
+    void testAddFirstDouble() {
         double[] newArray;
         newArray = ArrayUtils.addFirst((double[]) null, 0);
         assertArrayEquals(new double[] { 0 }, newArray);
@@ -101,7 +101,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddFirstFloat() {
+    void testAddFirstFloat() {
         float[] newArray;
         newArray = ArrayUtils.addFirst((float[]) null, 0);
         assertArrayEquals(new float[] { 0 }, newArray);
@@ -119,7 +119,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddFirstInt() {
+    void testAddFirstInt() {
         int[] newArray;
         newArray = ArrayUtils.addFirst((int[]) null, 0);
         assertArrayEquals(new int[] { 0 }, newArray);
@@ -137,7 +137,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddFirstLong() {
+    void testAddFirstLong() {
         long[] newArray;
         newArray = ArrayUtils.addFirst((long[]) null, 0);
         assertArrayEquals(new long[] { 0 }, newArray);
@@ -155,7 +155,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddFirstObject() {
+    void testAddFirstObject() {
         Object[] newArray;
 
         // show that not casting is okay
@@ -191,7 +191,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddFirstShort() {
+    void testAddFirstShort() {
         short[] newArray;
         newArray = ArrayUtils.addFirst((short[]) null, (short) 0);
         assertArrayEquals(new short[] { 0 }, newArray);
@@ -209,7 +209,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddObjectArrayBoolean() {
+    void testAddObjectArrayBoolean() {
         boolean[] newArray;
         newArray = ArrayUtils.add(null, false);
         assertArrayEquals(new boolean[] { false }, newArray);
@@ -224,7 +224,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddObjectArrayByte() {
+    void testAddObjectArrayByte() {
         byte[] newArray;
         newArray = ArrayUtils.add((byte[]) null, (byte) 0);
         assertArrayEquals(new byte[] { 0 }, newArray);
@@ -242,7 +242,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddObjectArrayChar() {
+    void testAddObjectArrayChar() {
         char[] newArray;
         newArray = ArrayUtils.add((char[]) null, (char) 0);
         assertArrayEquals(new char[] { 0 }, newArray);
@@ -260,7 +260,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddObjectArrayDouble() {
+    void testAddObjectArrayDouble() {
         double[] newArray;
         newArray = ArrayUtils.add((double[]) null, 0);
         assertArrayEquals(new double[] { 0 }, newArray);
@@ -278,7 +278,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddObjectArrayFloat() {
+    void testAddObjectArrayFloat() {
         float[] newArray;
         newArray = ArrayUtils.add((float[]) null, 0);
         assertArrayEquals(new float[] { 0 }, newArray);
@@ -296,7 +296,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddObjectArrayInt() {
+    void testAddObjectArrayInt() {
         int[] newArray;
         newArray = ArrayUtils.add((int[]) null, 0);
         assertArrayEquals(new int[] { 0 }, newArray);
@@ -314,7 +314,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddObjectArrayLong() {
+    void testAddObjectArrayLong() {
         long[] newArray;
         newArray = ArrayUtils.add((long[]) null, 0);
         assertArrayEquals(new long[] { 0 }, newArray);
@@ -332,7 +332,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddObjectArrayObject() {
+    void testAddObjectArrayObject() {
         Object[] newArray;
 
         // show that not casting is okay
@@ -368,7 +368,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddObjectArrayShort() {
+    void testAddObjectArrayShort() {
         short[] newArray;
         newArray = ArrayUtils.add((short[]) null, (short) 0);
         assertArrayEquals(new short[] { 0 }, newArray);
@@ -386,7 +386,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddObjectArrayToObjectArray() {
+    void testAddObjectArrayToObjectArray() {
         assertNull(ArrayUtils.addAll(null, (Object[]) null));
         Object[] newArray;
         final String[] stringArray1 = { "a", "b", "c" };
@@ -482,7 +482,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void testAddObjectAtIndex() {
+    void testAddObjectAtIndex() {
         Object[] newArray;
         newArray = ArrayUtils.add((Object[]) null, 0, "a");
         assertArrayEquals(new String[] { "a" }, newArray);
@@ -652,7 +652,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
     }
 
     @Test
-    public void testJira567() {
+    void testJira567() {
         final Number[] n;
         // Valid array construction
         n = ArrayUtils.addAll(new Number[] { Integer.valueOf(1) }, new Long[] { Long.valueOf(2) });
@@ -664,7 +664,7 @@ public class ArrayUtilsAddTest extends AbstractLangTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testLANG571() {
+    void testLANG571() {
         final String[] stringArray = null;
         final String aString = null;
         assertThrows(IllegalArgumentException.class, () -> ArrayUtils.add(stringArray, aString));

@@ -55,7 +55,7 @@ public class CachedRandomBitsTest {
 
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 32})
-    public void testNext(final int cacheSize) {
+    void testNext(final int cacheSize) {
         final MockRandom random = new MockRandom(new byte[]{
                 0x11, 0x12, 0x13, 0x25,
                 (byte) 0xab, (byte) 0xcd, (byte) 0xef, (byte) 0xff,
