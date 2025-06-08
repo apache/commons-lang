@@ -899,8 +899,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     private static final int MAX_DIGITS = 10; // log10(Integer.MAX_VALUE) ~= 9.3
 
-    private static final ConcurrentMap<TimeZoneDisplayKey, String> cTimeZoneDisplayCache =
-        new ConcurrentHashMap<>(7);
+    private static final ConcurrentMap<TimeZoneDisplayKey, String> timeZoneDisplayCache = new ConcurrentHashMap<>(7);
 
     /**
      * Appends two digits to the given buffer.
@@ -991,6 +990,10 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         }
     }
 
+    static void clear() {
+        timeZoneDisplayCache.clear();
+    }
+
     /**
      * Gets the time zone display name, using a cache for performance.
      *
@@ -1003,7 +1006,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     static String getTimeZoneDisplay(final TimeZone tz, final boolean daylight, final int style, final Locale locale) {
         final TimeZoneDisplayKey key = new TimeZoneDisplayKey(tz, daylight, style, locale);
         // This is a very slow call, so cache the results.
-        return cTimeZoneDisplayCache.computeIfAbsent(key, k -> tz.getDisplayName(daylight, style, locale));
+        return timeZoneDisplayCache.computeIfAbsent(key, k -> tz.getDisplayName(daylight, style, locale));
     }
 
     /**

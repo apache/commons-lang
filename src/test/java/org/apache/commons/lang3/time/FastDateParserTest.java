@@ -42,6 +42,8 @@ import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.function.TriFunction;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -50,7 +52,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link org.apache.commons.lang3.time.FastDateParser}.
  */
-public class FastDateParserTest extends AbstractLangTest {
+class FastDateParserTest extends AbstractLangTest {
 
     private enum Expected1806 {
         India(INDIA, "+05", "+0530", "+05:30", true), Greenwich(TimeZones.GMT, "Z", "Z", "Z", false),
@@ -92,6 +94,14 @@ public class FastDateParserTest extends AbstractLangTest {
     private static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
 
     private static final Locale SWEDEN = new Locale("sv", "SE");
+
+    @BeforeEach
+    @AfterEach
+    void clear() {
+        AbstractFormatCache.clear();
+        FastDateParser.clear();
+        FastDatePrinter.clear();
+    }
 
     static void checkParse(final Locale locale, final Calendar cal, final SimpleDateFormat simpleDateFormat,
             final DateParser dateParser) {
