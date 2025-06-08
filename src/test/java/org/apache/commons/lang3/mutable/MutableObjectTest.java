@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableShort
  */
-public class MutableObjectTest extends AbstractLangTest {
+class MutableObjectTest extends AbstractLangTest {
 
     @Test
     void testConstructors() {

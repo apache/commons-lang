@@ -32,7 +32,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 /**
  * Test cases for the {@link Fraction} class
  */
-public class FractionTest extends AbstractLangTest {
+class FractionTest extends AbstractLangTest {
 
     private static final int SKIP = 500; // 53
 

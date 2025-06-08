@@ -39,7 +39,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 /**
  * Tests {@link org.apache.commons.lang3.time.FastDatePrinter}.
  */
-public class FastDatePrinterTest extends AbstractLangTest {
+class FastDatePrinterTest extends AbstractLangTest {
 
     private enum Expected1806 {
         India(INDIA, "+05", "+0530", "+05:30"), Greenwich(TimeZones.GMT, "Z", "Z", "Z"), NewYork(NEW_YORK, "-05", "-0500", "-05:00");

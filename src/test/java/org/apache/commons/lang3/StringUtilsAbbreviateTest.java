@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link StringUtils#abbreviate(String, int)} and friends.
  */
-public class StringUtilsAbbreviateTest {
+class StringUtilsAbbreviateTest {
 
     /**
      * Tests <a href="LANG-1770">https://issues.apache.org/jira/projects/LANG/issues/LANG-1770</a>.

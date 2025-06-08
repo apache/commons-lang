@@ -30,7 +30,7 @@ import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableSupplier;
 import org.junit.jupiter.api.Test;
 
-public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest {
+class BackgroundInitializerSupplierTest extends BackgroundInitializerTest {
 
     /**
      * A concrete implementation of BackgroundInitializer. It is designed as a wrapper so the test can

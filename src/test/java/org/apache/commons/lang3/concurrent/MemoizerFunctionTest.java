@@ -28,7 +28,7 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MemoizerFunctionTest extends AbstractLangTest {
+class MemoizerFunctionTest extends AbstractLangTest {
 
     private Function<Integer, Integer> function;
 

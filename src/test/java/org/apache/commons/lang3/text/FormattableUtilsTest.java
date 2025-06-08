@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  * Tests {@link FormattableUtils}.
  */
 @Deprecated
-public class FormattableUtilsTest extends AbstractLangTest {
+class FormattableUtilsTest extends AbstractLangTest {
 
     @Test
     void testAlternatePadCharacter() {

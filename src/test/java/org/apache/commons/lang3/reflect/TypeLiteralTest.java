@@ -26,7 +26,7 @@ import java.util.List;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
-public class TypeLiteralTest extends AbstractLangTest {
+class TypeLiteralTest extends AbstractLangTest {
 
     @Test
     void testBasic() {

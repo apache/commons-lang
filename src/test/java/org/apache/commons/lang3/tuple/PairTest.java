@@ -45,7 +45,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Test the Pair class.
  */
-public class PairTest extends AbstractLangTest {
+class PairTest extends AbstractLangTest {
 
     public static Stream<Class<? extends Map>> mapClassFactory() {
         return Stream.of(ConcurrentHashMap.class, ConcurrentSkipListMap.class, HashMap.class, TreeMap.class, WeakHashMap.class, LinkedHashMap.class);

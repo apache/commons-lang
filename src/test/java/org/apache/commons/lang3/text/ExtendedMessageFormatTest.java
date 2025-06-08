@@ -41,7 +41,7 @@ import org.junit.jupiter.api.Test;
  * Test case for {@link ExtendedMessageFormat}.
  */
 @Deprecated
-public class ExtendedMessageFormatTest extends AbstractLangTest {
+class ExtendedMessageFormatTest extends AbstractLangTest {
 
     /**
      * {@link Format} implementation which converts to lower case.

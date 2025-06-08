@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link FailableSupplier}.
  */
-public class FailableSupplierTest {
+class FailableSupplierTest {
 
     @Test
     void testNULL() throws Throwable {

@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link StringUtils} - Empty/Blank methods
  */
-public class StringUtilsEmptyBlankTest extends AbstractLangTest {
+class StringUtilsEmptyBlankTest extends AbstractLangTest {
 
     @Test
     void testFirstNonBlank() {

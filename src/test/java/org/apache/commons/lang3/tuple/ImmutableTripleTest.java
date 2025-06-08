@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the Triple class.
  */
-public class ImmutableTripleTest extends AbstractLangTest {
+class ImmutableTripleTest extends AbstractLangTest {
 
     @Test
     void testBasic() {

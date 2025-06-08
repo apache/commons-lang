@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link DiffResult}.
  */
-public class DiffResultTest extends AbstractLangTest {
+class DiffResultTest extends AbstractLangTest {
 
     private static final class EmptyClass {
         // empty

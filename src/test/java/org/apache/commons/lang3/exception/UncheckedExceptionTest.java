@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link UncheckedException}.
  */
-public class UncheckedExceptionTest extends AbstractLangTest {
+class UncheckedExceptionTest extends AbstractLangTest {
 
     @Test
     void testConstructWithCause() {

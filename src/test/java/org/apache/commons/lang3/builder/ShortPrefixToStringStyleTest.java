@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.ToStringStyle#SHORT_PREFIX_STYLE}.
  */
-public class ShortPrefixToStringStyleTest extends AbstractLangTest {
+class ShortPrefixToStringStyleTest extends AbstractLangTest {
 
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = "Integer";

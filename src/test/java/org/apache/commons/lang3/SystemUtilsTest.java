@@ -40,7 +40,7 @@ import org.junit.jupiter.api.Test;
  *
  * Only limited testing can be performed.
  */
-public class SystemUtilsTest extends AbstractLangTest {
+class SystemUtilsTest extends AbstractLangTest {
 
     /**
      * Returns the value of the SystemUtils.IS_JAVA_X field for the versions >= 9.

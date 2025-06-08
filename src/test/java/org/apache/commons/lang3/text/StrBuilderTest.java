@@ -43,7 +43,7 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.StrBuilder}.
  */
 @Deprecated
-public class StrBuilderTest extends AbstractLangTest {
+class StrBuilderTest extends AbstractLangTest {
 
     private static final class MockReadable implements Readable {
 

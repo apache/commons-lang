@@ -34,7 +34,7 @@ import org.junitpioneer.jupiter.WritesDefaultLocale;
 /**
  * Tests {@link StringUtils} - Contains methods
  */
-public class StringUtilsContainsTest extends AbstractLangTest {
+class StringUtilsContainsTest extends AbstractLangTest {
     @Test
     void testContains_Char() {
         assertFalse(StringUtils.contains(null, ' '));

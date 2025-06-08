@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link UncheckedIllegalAccessException}.
  */
-public class UncheckedIllegalAccessExceptionTest extends AbstractLangTest {
+class UncheckedIllegalAccessExceptionTest extends AbstractLangTest {
 
     @Test
     void testConstructWithCause() {

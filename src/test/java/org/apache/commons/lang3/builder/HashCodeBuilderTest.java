@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.HashCodeBuilder}.
  */
-public class HashCodeBuilderTest extends AbstractLangTest {
+class HashCodeBuilderTest extends AbstractLangTest {
 
     /**
      * A reflection test fixture.

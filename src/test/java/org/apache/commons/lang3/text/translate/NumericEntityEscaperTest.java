@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.translate.NumericEntityEscaper}.
  */
 @Deprecated
-public class NumericEntityEscaperTest extends AbstractLangTest {
+class NumericEntityEscaperTest extends AbstractLangTest {
 
     @Test
     void testAbove() {

@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link FailableStream}.
  */
-public class FailableStreamTest {
+class FailableStreamTest {
 
     private Integer failable(final Map.Entry<String, AtomicInteger> value) throws IOException {
         if (value == new Object()) {

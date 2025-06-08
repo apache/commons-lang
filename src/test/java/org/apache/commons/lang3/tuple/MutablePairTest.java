@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the MutablePair class.
  */
-public class MutablePairTest extends AbstractLangTest {
+class MutablePairTest extends AbstractLangTest {
 
     @Test
     void testBasic() {

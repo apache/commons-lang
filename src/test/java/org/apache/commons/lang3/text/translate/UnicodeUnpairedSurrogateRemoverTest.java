@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover}.
  */
 @Deprecated
-public class UnicodeUnpairedSurrogateRemoverTest extends AbstractLangTest {
+class UnicodeUnpairedSurrogateRemoverTest extends AbstractLangTest {
     final UnicodeUnpairedSurrogateRemover subject = new UnicodeUnpairedSurrogateRemover();
     final CharArrayWriter writer = new CharArrayWriter(); // nothing is ever written to it
 

@@ -39,7 +39,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  */
-public class AnnotationUtilsTest extends AbstractLangTest {
+class AnnotationUtilsTest extends AbstractLangTest {
     @Retention(RetentionPolicy.RUNTIME)
     public @interface NestAnnotation {
         boolean booleanValue();

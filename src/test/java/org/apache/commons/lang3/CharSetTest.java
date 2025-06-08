@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link CharSet}.
  */
-public class CharSetTest extends AbstractLangTest {
+class CharSetTest extends AbstractLangTest {
 
     @Test
     void testClass() {

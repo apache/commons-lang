@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link FutureTask}.
  */
-public class FutureTasksTest extends AbstractLangTest {
+class FutureTasksTest extends AbstractLangTest {
 
     @Test
     void testRun() throws InterruptedException, ExecutionException {

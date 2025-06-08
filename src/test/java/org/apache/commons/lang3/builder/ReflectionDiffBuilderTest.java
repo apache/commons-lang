@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 ///**
 // * Tests {@link ReflectionDiffBuilder}.
 // */
-public class ReflectionDiffBuilderTest extends AbstractLangTest {
+class ReflectionDiffBuilderTest extends AbstractLangTest {
 
     @SuppressWarnings("unused")
     private static final class TypeTestChildClass extends TypeTestClass {

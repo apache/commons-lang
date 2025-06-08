@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link JavaVersion}.
  */
-public class JavaVersionTest extends AbstractLangTest {
+class JavaVersionTest extends AbstractLangTest {
 
     @Test
     void testAtLeast() {

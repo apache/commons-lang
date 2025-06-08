@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableDouble
  */
-public class MutableDoubleTest extends AbstractLangTest {
+class MutableDoubleTest extends AbstractLangTest {
 
     @Test
     void testAddAndGetValueObject() {

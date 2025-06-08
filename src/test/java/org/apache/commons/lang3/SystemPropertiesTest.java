@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.ThrowingSupplier;
 
-public class SystemPropertiesTest {
+class SystemPropertiesTest {
 
     private void basicKeyCheck(final String key) {
         assertNotNull(key);

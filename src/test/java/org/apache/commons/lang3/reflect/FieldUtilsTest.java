@@ -56,7 +56,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests FieldUtils
  */
-public class FieldUtilsTest extends AbstractLangTest {
+class FieldUtilsTest extends AbstractLangTest {
 
     private static final String JACOCO_DATA_FIELD_NAME = "$jacocoData";
     static final Integer I0 = Integer.valueOf(0);

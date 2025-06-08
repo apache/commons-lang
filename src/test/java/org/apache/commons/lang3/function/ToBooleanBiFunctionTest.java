@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ToBooleanBiFunction}.
  */
-public class ToBooleanBiFunctionTest extends AbstractLangTest {
+class ToBooleanBiFunctionTest extends AbstractLangTest {
 
     @Test
     void test() {

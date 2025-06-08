@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asFunction(Method)}.
  */
-public class MethodInvokersFunctionTest extends MethodFixtures {
+class MethodInvokersFunctionTest extends MethodFixtures {
 
     @Test
     void testApply0Arg() throws NoSuchMethodException, SecurityException {

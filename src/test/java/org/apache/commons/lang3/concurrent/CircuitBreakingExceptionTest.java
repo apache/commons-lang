@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * JUnit tests for {@link CircuitBreakingException}.
  */
-public class CircuitBreakingExceptionTest extends AbstractExceptionTest {
+class CircuitBreakingExceptionTest extends AbstractExceptionTest {
 
     @Test
     void testThrowingEmptyException() {

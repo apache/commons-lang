@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for FastTimeZone
  */
-public class FastTimeZoneTest extends AbstractLangTest {
+class FastTimeZoneTest extends AbstractLangTest {
 
     private static final int HOURS_23 = 23 * 60 * 60 * 1000;
     private static final int HOURS_2 = 2 * 60 * 60 * 1000;

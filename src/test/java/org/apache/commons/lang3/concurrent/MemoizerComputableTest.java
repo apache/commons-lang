@@ -26,7 +26,7 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MemoizerComputableTest extends AbstractLangTest {
+class MemoizerComputableTest extends AbstractLangTest {
 
     private Computable<Integer, Integer> computable;
 

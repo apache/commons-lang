@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.MultiLineToStringStyleTest}.
  */
-public class MultiLineToStringStyleTest extends AbstractLangTest {
+class MultiLineToStringStyleTest extends AbstractLangTest {
 
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));

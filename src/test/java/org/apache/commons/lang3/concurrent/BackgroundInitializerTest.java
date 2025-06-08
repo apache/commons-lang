@@ -37,7 +37,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ThreadUtils;
 import org.junit.jupiter.api.Test;
 
-public class BackgroundInitializerTest extends AbstractLangTest {
+class BackgroundInitializerTest extends AbstractLangTest {
     /**
      * A concrete implementation of BackgroundInitializer. It also overloads
      * some methods that simplify testing.

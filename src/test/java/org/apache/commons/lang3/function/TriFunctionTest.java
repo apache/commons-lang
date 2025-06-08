@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link TriFunction}.
  */
-public class TriFunctionTest extends AbstractLangTest {
+class TriFunctionTest extends AbstractLangTest {
 
     @Test
     void testAccept() throws Throwable {

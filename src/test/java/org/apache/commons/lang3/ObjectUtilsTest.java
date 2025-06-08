@@ -58,7 +58,7 @@ import org.junit.jupiter.api.Test;
  * Tests {@link ObjectUtils}.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
-public class ObjectUtilsTest extends AbstractLangTest {
+class ObjectUtilsTest extends AbstractLangTest {
 
     static final class CharSequenceComparator implements Comparator<CharSequence> {
 

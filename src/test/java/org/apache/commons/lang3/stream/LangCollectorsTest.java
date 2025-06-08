@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link LangCollectors}
  */
-public class LangCollectorsTest {
+class LangCollectorsTest {
 
     private static final class Fixture {
         int value;

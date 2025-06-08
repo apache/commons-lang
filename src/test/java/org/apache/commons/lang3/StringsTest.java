@@ -30,7 +30,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link Strings}.
  */
-public class StringsTest {
+class StringsTest {
 
     public static Stream<Strings> stringsFactory() {
         return Stream.of(Strings.CS, Strings.CI);

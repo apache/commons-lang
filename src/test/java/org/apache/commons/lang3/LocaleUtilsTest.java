@@ -44,7 +44,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests for {@link LocaleUtils}.
  */
-public class LocaleUtilsTest extends AbstractLangTest {
+class LocaleUtilsTest extends AbstractLangTest {
 
     private static final Locale LOCALE_EN = new Locale("en", "");
     private static final Locale LOCALE_EN_US = new Locale("en", "US");

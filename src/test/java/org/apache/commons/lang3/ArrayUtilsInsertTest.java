@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests ArrayUtils insert methods.
  */
-public class ArrayUtilsInsertTest extends AbstractLangTest {
+class ArrayUtilsInsertTest extends AbstractLangTest {
 
     @Test
     void testInsertBooleans() {

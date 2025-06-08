@@ -39,7 +39,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests CharSequenceUtils
  */
-public class CharSequenceUtilsTest extends AbstractLangTest {
+class CharSequenceUtilsTest extends AbstractLangTest {
 
     private abstract static class RunTest {
 

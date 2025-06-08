@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.RecursiveToStringStyleTest}.
  */
-public class RecursiveToStringStyleTest extends AbstractLangTest {
+class RecursiveToStringStyleTest extends AbstractLangTest {
 
     static class Job {
         /**

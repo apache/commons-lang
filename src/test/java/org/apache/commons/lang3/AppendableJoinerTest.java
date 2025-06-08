@@ -35,7 +35,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 /**
  * Tests {@link AppendableJoiner}.
  */
-public class AppendableJoinerTest {
+class AppendableJoinerTest {
 
     static class Fixture {
 

@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.NoFieldNamesToStringStyleTest}.
  */
-public class NoFieldNamesToStringStyleTest extends AbstractLangTest {
+class NoFieldNamesToStringStyleTest extends AbstractLangTest {
 
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));

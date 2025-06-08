@@ -41,7 +41,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  */
-public class EventUtilsTest extends AbstractLangTest {
+class EventUtilsTest extends AbstractLangTest {
     public static class EventCounter {
         private int count;
 

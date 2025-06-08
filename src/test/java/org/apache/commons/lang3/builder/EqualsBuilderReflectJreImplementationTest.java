@@ -54,7 +54,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests that {@link EqualsBuilder} works using reflection when types that implement JRE interfaces like TemporalAccessor, TemporalAmout, and CharSequence work.
  */
-public class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest {
+class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest {
 
     static class MyCharSequence implements CharSequence {
 

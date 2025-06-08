@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.ToStringStyle}.
  */
-public class StandardToStringStyleTest extends AbstractLangTest {
+class StandardToStringStyleTest extends AbstractLangTest {
 
     private static final StandardToStringStyle STYLE = new StandardToStringStyle();
     static {

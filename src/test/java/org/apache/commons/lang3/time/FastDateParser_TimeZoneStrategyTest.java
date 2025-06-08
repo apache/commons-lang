@@ -53,7 +53,7 @@ import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 /* Make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
 /* Make test reproducible */ @ReadsDefaultLocale
 /* Make test reproducible */ @ReadsDefaultTimeZone
-public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
+class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     private static final List<Locale> Java11Failures = new ArrayList<>();
     private static final List<Locale> Java17Failures = new ArrayList<>();

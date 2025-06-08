@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
  * Tests {@link IntegerRange}.
  */
 @SuppressWarnings("boxing")
-public class IntegerRangeTest extends AbstractLangTest {
+class IntegerRangeTest extends AbstractLangTest {
 
     private static IntegerRange of(final int min, final int max) {
         return IntegerRange.of(min, max);

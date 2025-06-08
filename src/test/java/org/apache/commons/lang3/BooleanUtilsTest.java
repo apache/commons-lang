@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link BooleanUtils}.
  */
-public class BooleanUtilsTest extends AbstractLangTest {
+class BooleanUtilsTest extends AbstractLangTest {
 
     @Test
     void test_booleanValues() {

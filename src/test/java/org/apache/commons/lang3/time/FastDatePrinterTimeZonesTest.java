@@ -27,7 +27,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class FastDatePrinterTimeZonesTest extends AbstractLangTest {
+class FastDatePrinterTimeZonesTest extends AbstractLangTest {
 
     private static final String PATTERN = "h:mma z";
 

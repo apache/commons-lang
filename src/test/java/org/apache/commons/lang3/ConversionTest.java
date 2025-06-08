@@ -31,7 +31,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 /**
  * Tests {@link Conversion}.
  */
-public class ConversionTest extends AbstractLangTest {
+class ConversionTest extends AbstractLangTest {
 
     static String dbgPrint(final boolean[] src) {
         final StringBuilder sb = new StringBuilder();

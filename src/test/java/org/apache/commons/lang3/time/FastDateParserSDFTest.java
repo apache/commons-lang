@@ -37,7 +37,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Compare FastDateParser with SimpleDateFormat
  */
-public class FastDateParserSDFTest extends AbstractLangTest {
+class FastDateParserSDFTest extends AbstractLangTest {
 
     private static final TimeZone timeZone = TimeZone.getDefault();
 

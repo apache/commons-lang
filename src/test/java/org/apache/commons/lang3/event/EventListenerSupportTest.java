@@ -48,7 +48,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  */
-public class EventListenerSupportTest extends AbstractLangTest {
+class EventListenerSupportTest extends AbstractLangTest {
 
     private void addDeregisterListener(final EventListenerSupport<VetoableChangeListener> listenerSupport) {
         listenerSupport.addListener(new VetoableChangeListener() {

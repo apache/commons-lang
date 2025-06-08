@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
  * Tests {@link LongRange}.
  */
 @SuppressWarnings("boxing")
-public class LongRangeTest extends AbstractLangTest {
+class LongRangeTest extends AbstractLangTest {
 
     private static LongRange of(final int min, final int max) {
         return LongRange.of(min, max);

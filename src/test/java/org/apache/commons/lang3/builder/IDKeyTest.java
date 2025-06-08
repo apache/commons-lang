@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link IDKey}.
  */
-public class IDKeyTest {
+class IDKeyTest {
 
     @Test
     void testEquals() {

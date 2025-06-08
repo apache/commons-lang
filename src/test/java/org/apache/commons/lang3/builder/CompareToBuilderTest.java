@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link CompareToBuilder}.
  */
-public class CompareToBuilderTest extends AbstractLangTest {
+class CompareToBuilderTest extends AbstractLangTest {
 
     static class TestObject implements Comparable<TestObject> {
         private int a;

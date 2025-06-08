@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link Suppliers}.
  */
-public class SuppliersTest extends AbstractLangTest {
+class SuppliersTest extends AbstractLangTest {
 
     /**
      * Tests {@link Suppliers#get(Supplier)}.

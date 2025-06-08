@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.math.IEEE754rUtils}.
  */
-public class IEEE754rUtilsTest extends AbstractLangTest {
+class IEEE754rUtilsTest extends AbstractLangTest {
 
     @Test
     void testConstructorExists() {

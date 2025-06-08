@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code EventCountCircuitBreaker}.
  */
-public class EventCountCircuitBreakerTest extends AbstractLangTest {
+class EventCountCircuitBreakerTest extends AbstractLangTest {
     /**
      * A test change listener for checking whether correct change events are generated.
      */

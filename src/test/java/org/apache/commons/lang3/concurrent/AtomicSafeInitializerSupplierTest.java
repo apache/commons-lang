@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code AtomicSafeInitializer} which also serves as a simple example.
  */
-public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
+class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
 
     /** An initCounter used in testing. Reset before each test */
     private AtomicInteger initCounter = new AtomicInteger();

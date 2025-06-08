@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asFailableSupplier(Method)}.
  */
-public class MethodInvokersFailableSupplierTest extends MethodFixtures {
+class MethodInvokersFailableSupplierTest extends MethodFixtures {
 
     @Test
     void testSupplierStatic() throws Throwable {

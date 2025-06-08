@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link Charsets}.
  */
-public class CharsetsTest extends AbstractLangTest {
+class CharsetsTest extends AbstractLangTest {
 
     @Test
     void testToCharset_Charset() {

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.translate.EntityArrays}.
  */
 @Deprecated
-public class EntityArraysTest extends AbstractLangTest {
+class EntityArraysTest extends AbstractLangTest {
 
     @Test
     void testConstructorExists() {

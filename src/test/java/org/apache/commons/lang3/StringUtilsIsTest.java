@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link StringUtils} - IsX methods
  */
-public class StringUtilsIsTest extends AbstractLangTest {
+class StringUtilsIsTest extends AbstractLangTest {
 
     @Test
     void testIsAlpha() {

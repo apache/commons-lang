@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ArraySorter}.
  */
-public class ArraySorterTest extends AbstractLangTest {
+class ArraySorterTest extends AbstractLangTest {
 
     @Test
     void testSortByteArray() {

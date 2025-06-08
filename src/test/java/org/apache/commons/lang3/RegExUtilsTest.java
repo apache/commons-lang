@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link RegExUtils}.
  */
-public class RegExUtilsTest extends AbstractLangTest {
+class RegExUtilsTest extends AbstractLangTest {
 
     @Test
     void testDotAll() {

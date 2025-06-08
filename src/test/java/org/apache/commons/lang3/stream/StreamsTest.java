@@ -45,7 +45,7 @@ import org.xml.sax.SAXException;
 /**
  * Tests {@link Streams}.
  */
-public class StreamsTest extends AbstractLangTest {
+class StreamsTest extends AbstractLangTest {
 
     protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T throwable) {
         return s -> {

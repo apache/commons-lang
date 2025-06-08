@@ -38,7 +38,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link StringUtils} - Equals/IndexOf methods
  */
-public class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
+class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
 
     // The purpose of this class is to test StringUtils#equals(CharSequence, CharSequence)
     // with a CharSequence implementation whose equals(Object) override requires that the

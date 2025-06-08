@@ -58,7 +58,7 @@ import org.junitpioneer.jupiter.WritesDefaultLocale;
  * which been moved to their own test classes.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
-public class StringUtilsTest extends AbstractLangTest {
+class StringUtilsTest extends AbstractLangTest {
 
     static final String WHITESPACE;
     static final String NON_WHITESPACE;

@@ -50,7 +50,7 @@ import org.junit.jupiter.api.Test;
  * Tests {@link ArrayUtils}.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
-public class ArrayUtilsTest extends AbstractLangTest {
+class ArrayUtilsTest extends AbstractLangTest {
 
     private static final class TestClass {
         // empty

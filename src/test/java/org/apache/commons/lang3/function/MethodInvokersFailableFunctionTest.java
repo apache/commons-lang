@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asFailableFunction(Method)}.
  */
-public class MethodInvokersFailableFunctionTest extends MethodFixtures {
+class MethodInvokersFailableFunctionTest extends MethodFixtures {
 
     @Test
     void testApply0Arg() throws Throwable {

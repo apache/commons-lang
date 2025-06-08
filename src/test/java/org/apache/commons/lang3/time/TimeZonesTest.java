@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link TimeZones}.
  */
-public class TimeZonesTest {
+class TimeZonesTest {
 
     static final String TIME_ZONE_GET_AVAILABLE_IDS = "java.util.TimeZone#getAvailableIDs()";
 

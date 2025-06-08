@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for TimedSemaphore.
  */
-public class TimedSemaphoreTest extends AbstractLangTest {
+class TimedSemaphoreTest extends AbstractLangTest {
     /**
      * A test thread class that will be used by tests for triggering the
      * semaphore. The thread calls the semaphore a configurable number of times.

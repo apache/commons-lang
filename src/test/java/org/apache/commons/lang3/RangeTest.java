@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
  * Tests {@link Range}.
  */
 @SuppressWarnings("boxing")
-public class RangeTest extends AbstractLangTest {
+class RangeTest extends AbstractLangTest {
 
     abstract static class AbstractComparable implements Comparable<AbstractComparable> {
         @Override

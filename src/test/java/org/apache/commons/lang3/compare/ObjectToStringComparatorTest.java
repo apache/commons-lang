@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ObjectToStringComparator}.
  */
-public class ObjectToStringComparatorTest extends AbstractLangTest {
+class ObjectToStringComparatorTest extends AbstractLangTest {
 
     private static final class Thing {
 

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.StrMatcher}.
  */
 @Deprecated
-public class StrMatcherTest extends AbstractLangTest {
+class StrMatcherTest extends AbstractLangTest {
 
     private static final char[] BUFFER1 = "0,1\t2 3\n\r\f\u0000'\"".toCharArray();
 

@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableBoolean
  */
-public class MutableBooleanTest extends AbstractLangTest {
+class MutableBooleanTest extends AbstractLangTest {
 
     @Test
     void testCompareTo() {

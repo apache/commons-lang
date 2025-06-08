@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link Functions}.
  */
-public class FunctionsTest {
+class FunctionsTest {
 
     /**
      * Tests {@link Functions#apply(Function, Object)}.

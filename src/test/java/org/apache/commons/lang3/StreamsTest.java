@@ -43,7 +43,7 @@ import org.xml.sax.SAXException;
  * @deprecated this test can be removed once the deprecated source class {@link org.apache.commons.lang3.Streams} is removed.
  */
 @Deprecated
-public class StreamsTest extends AbstractLangTest {
+class StreamsTest extends AbstractLangTest {
 
     protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T throwable) {
         return s -> {

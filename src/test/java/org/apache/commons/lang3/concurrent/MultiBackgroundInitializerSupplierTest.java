@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@link MultiBackgroundInitializer}.
  */
-public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundInitializerTest {
+class MultiBackgroundInitializerSupplierTest extends MultiBackgroundInitializerTest {
 
     /**
      * A concrete implementation of {@code BackgroundInitializer} used for

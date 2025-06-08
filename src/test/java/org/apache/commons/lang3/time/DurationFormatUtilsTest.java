@@ -42,7 +42,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  * NOT THREAD-SAFE.
  * </p>
  */
-public class DurationFormatUtilsTest extends AbstractLangTest {
+class DurationFormatUtilsTest extends AbstractLangTest {
 
     private static final int FOUR_YEARS = 365 * 3 + 366;
 

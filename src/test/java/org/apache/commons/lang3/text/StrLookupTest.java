@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  * Test class for StrLookup.
  */
 @Deprecated
-public class StrLookupTest extends AbstractLangTest {
+class StrLookupTest extends AbstractLangTest {
 
     @Test
     void testMapLookup() {

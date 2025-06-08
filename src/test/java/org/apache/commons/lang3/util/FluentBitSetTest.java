@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
  * Test code originally from Apache Harmony for FluentBitSet and adapted.
  * </p>
  */
-public class FluentBitSetTest extends AbstractLangTest {
+class FluentBitSetTest extends AbstractLangTest {
 
     private BitSet eightBs;
     private FluentBitSet eightFbs;

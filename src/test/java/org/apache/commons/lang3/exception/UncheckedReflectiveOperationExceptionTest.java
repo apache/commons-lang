@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link UncheckedReflectiveOperationException}.
  */
-public class UncheckedReflectiveOperationExceptionTest extends AbstractLangTest {
+class UncheckedReflectiveOperationExceptionTest extends AbstractLangTest {
 
     @Test
     void testConstructWithCause() {

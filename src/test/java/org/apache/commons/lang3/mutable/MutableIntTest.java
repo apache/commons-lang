@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableInt
  */
-public class MutableIntTest extends AbstractLangTest {
+class MutableIntTest extends AbstractLangTest {
 
     @Test
     void testAddAndGetValueObject() {

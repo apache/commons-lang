@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.translate.OctalUnescaper}.
  */
 @Deprecated
-public class OctalUnescaperTest extends AbstractLangTest {
+class OctalUnescaperTest extends AbstractLangTest {
 
     @Test
     void testBetween() {

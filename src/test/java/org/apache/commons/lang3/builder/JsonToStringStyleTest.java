@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.JsonToStringStyleTest}.
  */
-public class JsonToStringStyleTest extends AbstractLangTest {
+class JsonToStringStyleTest extends AbstractLangTest {
 
     static class AcademyClass {
         Teacher teacher;

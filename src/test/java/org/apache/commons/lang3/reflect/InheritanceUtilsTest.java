@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests InheritanceUtils
  */
-public class InheritanceUtilsTest extends AbstractLangTest {
+class InheritanceUtilsTest extends AbstractLangTest {
 
     @Test
     void testConstructor() throws Exception {

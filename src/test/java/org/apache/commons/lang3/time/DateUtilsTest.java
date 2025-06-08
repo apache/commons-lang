@@ -50,7 +50,7 @@ import org.junitpioneer.jupiter.WritesDefaultLocale;
  */
 @ReadsDefaultLocale
 @WritesDefaultLocale
-public class DateUtilsTest extends AbstractLangTest {
+class DateUtilsTest extends AbstractLangTest {
 
     private static final TimeZone TIME_ZONE_DEFAULT = TimeZone.getDefault();
     private static final TimeZone TIME_ZONE_MET = TimeZone.getTimeZone("MET");

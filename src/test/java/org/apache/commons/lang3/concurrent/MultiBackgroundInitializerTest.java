@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@link MultiBackgroundInitializer}.
  */
-public class MultiBackgroundInitializerTest extends AbstractLangTest {
+class MultiBackgroundInitializerTest extends AbstractLangTest {
     /**
      * A mostly complete implementation of {@code BackgroundInitializer} used for
      * defining background tasks for {@code MultiBackgroundInitializer}.

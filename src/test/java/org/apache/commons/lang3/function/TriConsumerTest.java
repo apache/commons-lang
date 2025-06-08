@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link TriConsumer}.
  */
-public class TriConsumerTest extends AbstractLangTest {
+class TriConsumerTest extends AbstractLangTest {
 
     @Test
     void testAccept() throws Throwable {

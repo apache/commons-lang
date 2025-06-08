@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
  * Unit test for Tokenizer.
  */
 @Deprecated
-public class StrTokenizerTest extends AbstractLangTest {
+class StrTokenizerTest extends AbstractLangTest {
 
     private static final String CSV_SIMPLE_FIXTURE = "A,b,c";
 

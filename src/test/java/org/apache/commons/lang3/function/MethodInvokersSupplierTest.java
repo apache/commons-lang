@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asSupplier(Method)}.
  */
-public class MethodInvokersSupplierTest extends MethodFixtures {
+class MethodInvokersSupplierTest extends MethodFixtures {
 
     @Test
     void testSupplierStaticGetMethod() throws NoSuchMethodException, SecurityException {

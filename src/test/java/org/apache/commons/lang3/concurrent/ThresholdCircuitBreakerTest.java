@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code ThresholdCircuitBreaker}.
  */
-public class ThresholdCircuitBreakerTest extends AbstractLangTest {
+class ThresholdCircuitBreakerTest extends AbstractLangTest {
 
     /**
      * Threshold used in tests.

@@ -50,7 +50,7 @@ import org.junit.jupiter.api.Test;
  * Tests {@link ClassUtils}.
  */
 @SuppressWarnings("boxing") // JUnit4 does not support primitive equality testing apart from long
-public class ClassUtilsTest extends AbstractLangTest {
+class ClassUtilsTest extends AbstractLangTest {
 
     private static class CX implements IB, IA, IE {
         // empty

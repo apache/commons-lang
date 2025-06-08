@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * {@link org.apache.commons.lang3.builder.EqualsBuilderTest} to ensure that equal
  * objects must have equal hash codes.
  */
-public class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
+class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
 
     static class AllTransientFixture {
         transient int i;

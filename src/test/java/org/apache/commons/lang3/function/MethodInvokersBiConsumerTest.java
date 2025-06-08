@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asBiConsumer(Method)}.
  */
-public class MethodInvokersBiConsumerTest extends MethodFixtures {
+class MethodInvokersBiConsumerTest extends MethodFixtures {
 
     @Test
     void testApply1Arg() throws NoSuchMethodException, SecurityException {

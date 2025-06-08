@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.StrBuilder}.
  */
 @Deprecated
-public class StrBuilderAppendInsertTest extends AbstractLangTest {
+class StrBuilderAppendInsertTest extends AbstractLangTest {
 
     /** The system line separator. */
     private static final String SEP = System.lineSeparator();

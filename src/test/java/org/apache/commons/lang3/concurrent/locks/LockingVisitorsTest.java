@@ -35,7 +35,7 @@ import org.apache.commons.lang3.concurrent.locks.LockingVisitors.StampedLockVisi
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.junit.jupiter.api.Test;
 
-public class LockingVisitorsTest extends AbstractLangTest {
+class LockingVisitorsTest extends AbstractLangTest {
 
     private static final Duration SHORT_DELAY = Duration.ofMillis(100);
     private static final Duration DELAY = Duration.ofMillis(1500);

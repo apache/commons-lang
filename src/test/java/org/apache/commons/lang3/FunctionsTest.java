@@ -51,7 +51,7 @@ import org.junit.jupiter.api.Test;
  * @deprecated this test can be removed once the deprecated source class {@link org.apache.commons.lang3.Functions} is removed.
  */
 @Deprecated
-public class FunctionsTest extends AbstractLangTest {
+class FunctionsTest extends AbstractLangTest {
 
     public static class CloseableObject {
         private boolean closed;

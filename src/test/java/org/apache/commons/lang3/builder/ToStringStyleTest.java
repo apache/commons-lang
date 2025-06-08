@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test case for ToStringStyle.
  */
-public class ToStringStyleTest extends AbstractLangTest {
+class ToStringStyleTest extends AbstractLangTest {
 
     /**
      * An object used to test {@link ToStringStyle}.

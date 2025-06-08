@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link BooleanConsumer}.
  */
-public class BooleanConsumerTest extends AbstractLangTest {
+class BooleanConsumerTest extends AbstractLangTest {
 
     private BooleanConsumer accept(final BooleanConsumer consumer, final boolean expected) {
         consumer.accept(expected);

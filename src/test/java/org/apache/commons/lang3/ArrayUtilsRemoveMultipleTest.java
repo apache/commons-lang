@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ArrayUtils} remove and removeElement methods.
  */
-public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
+class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     private static final int[] NULL_INDICES = null;
 

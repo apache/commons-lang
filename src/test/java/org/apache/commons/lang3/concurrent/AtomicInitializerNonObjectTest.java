@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code AtomicInitializer}.
  */
-public class AtomicInitializerNonObjectTest extends AbstractConcurrentInitializerTest<Integer> {
+class AtomicInitializerNonObjectTest extends AbstractConcurrentInitializerTest<Integer> {
 
     /**
      * Returns the initializer to be tested.

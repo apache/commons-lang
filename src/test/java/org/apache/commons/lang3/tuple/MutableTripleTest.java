@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the MutableTriple class.
  */
-public class MutableTripleTest extends AbstractLangTest {
+class MutableTripleTest extends AbstractLangTest {
 
     @Test
     void testBasic() {

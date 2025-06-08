@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
  * Tests for WordUtils class.
  */
 @Deprecated
-public class WordUtilsTest extends AbstractLangTest {
+class WordUtilsTest extends AbstractLangTest {
 
     @Test
     void testCapitalize_String() {

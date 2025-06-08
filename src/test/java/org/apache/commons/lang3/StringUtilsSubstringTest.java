@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link StringUtils} - Substring methods
  */
-public class StringUtilsSubstringTest extends AbstractLangTest {
+class StringUtilsSubstringTest extends AbstractLangTest {
     private static final String FOO = "foo";
     private static final String BAR = "bar";
     private static final String BAZ = "baz";

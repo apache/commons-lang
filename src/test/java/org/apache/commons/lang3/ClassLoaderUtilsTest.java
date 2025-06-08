@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ClassLoaderUtils}.
  */
-public class ClassLoaderUtilsTest extends AbstractLangTest {
+class ClassLoaderUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetSystemURLs() {

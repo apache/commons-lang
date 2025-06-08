@@ -40,7 +40,7 @@ import org.junit.jupiter.api.Test;
  * Test class for StrSubstitutor.
  */
 @Deprecated
-public class StrSubstitutorTest extends AbstractLangTest {
+class StrSubstitutorTest extends AbstractLangTest {
 
     private Map<String, String> values;
 

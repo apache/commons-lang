@@ -47,7 +47,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.exception.ExceptionUtils}.
  */
-public class ExceptionUtilsTest extends AbstractLangTest {
+class ExceptionUtilsTest extends AbstractLangTest {
 
     /**
      * Provides a method with a well known chained/nested exception

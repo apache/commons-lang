@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link IntStreams}.
  */
-public class IntStreamsTest extends AbstractLangTest {
+class IntStreamsTest extends AbstractLangTest {
 
     @Test
     void testOfArray() {

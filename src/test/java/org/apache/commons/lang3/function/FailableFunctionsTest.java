@@ -45,7 +45,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests "failable" interfaces defined in this package.
  */
-public class FailableFunctionsTest extends AbstractLangTest {
+class FailableFunctionsTest extends AbstractLangTest {
 
     public static class CloseableObject {
         private boolean closed;

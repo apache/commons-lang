@@ -59,7 +59,7 @@ interface SerializableSupplier<T> extends Supplier<T>, Serializable {
 /**
  * Tests {@link SerializationUtils}.
  */
-public class SerializationUtilsTest extends AbstractLangTest {
+class SerializationUtilsTest extends AbstractLangTest {
 
     static final String CLASS_NOT_FOUND_MESSAGE = "ClassNotFoundSerialization.readObject fake exception";
     protected static final String SERIALIZE_IO_EXCEPTION_MESSAGE = "Anonymous OutputStream I/O exception";

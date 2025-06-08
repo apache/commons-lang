@@ -39,7 +39,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link Validate}.
  */
-public class ValidateTest extends AbstractLangTest {
+class ValidateTest extends AbstractLangTest {
 
     @Nested
     final class ExclusiveBetween {

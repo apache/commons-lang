@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link CharRange}.
  */
-public class CharRangeTest extends AbstractLangTest {
+class CharRangeTest extends AbstractLangTest {
 
     @Test
     void testClass() {

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.translate.LookupTranslator}.
  */
 @Deprecated
-public class LookupTranslatorTest extends AbstractLangTest {
+class LookupTranslatorTest extends AbstractLangTest {
 
     @Test
     void testBasicLookup() throws IOException {

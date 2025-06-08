@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.SimpleToStringStyleTest}.
  */
-public class SimpleToStringStyleTest extends AbstractLangTest {
+class SimpleToStringStyleTest extends AbstractLangTest {
 
     private final Integer base = Integer.valueOf(5);
 

@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link DurationUtils}.
  */
-public class DurationUtilsTest extends AbstractLangTest {
+class DurationUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetNanosOfMiili() {

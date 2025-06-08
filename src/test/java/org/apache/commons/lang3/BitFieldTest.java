@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Class to test BitField functionality
  */
-public class BitFieldTest extends AbstractLangTest {
+class BitFieldTest extends AbstractLangTest {
 
     private static final BitField bf_multi  = new BitField(0x3F80);
     private static final BitField bf_single = new BitField(0x4000);

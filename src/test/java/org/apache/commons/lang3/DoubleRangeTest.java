@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
  * Tests {@link DoubleRange}.
  */
 @SuppressWarnings("boxing")
-public class DoubleRangeTest extends AbstractLangTest {
+class DoubleRangeTest extends AbstractLangTest {
 
     private static DoubleRange of(final double min, final double max) {
         return DoubleRange.of(min, max);

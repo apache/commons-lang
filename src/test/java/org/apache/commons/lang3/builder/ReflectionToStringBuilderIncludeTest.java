@@ -29,7 +29,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
+class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
 
     final class TestFeature {
         @SuppressWarnings("unused")

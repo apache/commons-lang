@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link Consumers}.
  */
-public class ConsumersTest extends AbstractLangTest {
+class ConsumersTest extends AbstractLangTest {
 
     /**
      * Tests {@link Consumers#accept(Consumer, Object)}.

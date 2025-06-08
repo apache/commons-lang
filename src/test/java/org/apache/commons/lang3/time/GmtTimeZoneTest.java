@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for GmtTimeZone
  */
-public class GmtTimeZoneTest extends AbstractLangTest {
+class GmtTimeZoneTest extends AbstractLangTest {
 
     @Test
     void testGetID() {

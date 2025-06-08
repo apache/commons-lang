@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ArrayFill}.
  */
-public class ArrayFillTest extends AbstractLangTest {
+class ArrayFillTest extends AbstractLangTest {
 
     @Test
     void testFillBooleanArray() {

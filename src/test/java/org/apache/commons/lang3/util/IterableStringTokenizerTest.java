@@ -37,7 +37,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link IterableStringTokenizer}.
  */
-public class IterableStringTokenizerTest {
+class IterableStringTokenizerTest {
 
     /**
      * Delimiters from {@link StringTokenizer}.

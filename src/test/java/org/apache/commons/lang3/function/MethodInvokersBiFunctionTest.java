@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asBiFunction(Method)}.
  */
-public class MethodInvokersBiFunctionTest extends MethodFixtures {
+class MethodInvokersBiFunctionTest extends MethodFixtures {
 
     @Test
     void testApply1Arg() throws NoSuchMethodException, SecurityException {

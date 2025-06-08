@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests ArrayUtils add methods.
  */
-public class ArrayUtilsAddTest extends AbstractLangTest {
+class ArrayUtilsAddTest extends AbstractLangTest {
 
     @Test
     void testAddFirstBoolean() {

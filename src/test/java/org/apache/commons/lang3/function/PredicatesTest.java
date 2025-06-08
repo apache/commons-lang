@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link Predicates}.
  */
-public class PredicatesTest {
+class PredicatesTest {
 
     @Test
     void testFalsePredicate() {

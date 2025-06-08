@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link IntToCharFunction}.
  */
-public class IntToCharFunctionTest extends AbstractLangTest {
+class IntToCharFunctionTest extends AbstractLangTest {
 
     @Test
     void test() {

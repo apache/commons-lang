@@ -38,7 +38,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  * TestCase for DateFormatUtils.
  */
 @SuppressWarnings("deprecation") // tests lots of deprecated items
-public class DateFormatUtilsTest extends AbstractLangTest {
+class DateFormatUtilsTest extends AbstractLangTest {
     private void assertFormats(final String expectedValue, final String pattern, final TimeZone timeZone, final Calendar cal) {
         assertEquals(expectedValue, DateFormatUtils.format(cal.getTime(), pattern, timeZone));
         assertEquals(expectedValue, DateFormatUtils.format(cal.getTime().getTime(), pattern, timeZone));

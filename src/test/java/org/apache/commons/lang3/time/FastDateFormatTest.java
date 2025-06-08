@@ -48,7 +48,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 /**
  * Tests {@link org.apache.commons.lang3.time.FastDateFormat}.
  */
-public class FastDateFormatTest extends AbstractLangTest {
+class FastDateFormatTest extends AbstractLangTest {
 
     private static final String ISO_8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZ";
 

@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-public class ComparableUtilsTest extends AbstractLangTest {
+class ComparableUtilsTest extends AbstractLangTest {
 
     @Nested
     final class A_is_1 {

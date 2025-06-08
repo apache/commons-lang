@@ -58,7 +58,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests MethodUtils
  */
-public class MethodUtilsTest extends AbstractLangTest {
+class MethodUtilsTest extends AbstractLangTest {
     protected abstract static class AbstractGetMatchingMethod implements InterfaceGetMatchingMethod {
         public abstract void testMethod5(Exception exception);
     }

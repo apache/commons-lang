@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link Diff}.
  */
-public class DiffTest extends AbstractLangTest {
+class DiffTest extends AbstractLangTest {
 
     private static final class BooleanDiff extends Diff<Boolean> {
         private static final long serialVersionUID = 1L;

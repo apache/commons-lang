@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link DiffBuilder}.
  */
-public class DiffBuilderTest extends AbstractLangTest {
+class DiffBuilderTest extends AbstractLangTest {
 
     /**
      * Test fixture.

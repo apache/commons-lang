@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.translate.UnicodeEscaper}.
  */
 @Deprecated
-public class UnicodeUnescaperTest extends AbstractLangTest {
+class UnicodeUnescaperTest extends AbstractLangTest {
 
     @Test
     void testLessThanFour() {

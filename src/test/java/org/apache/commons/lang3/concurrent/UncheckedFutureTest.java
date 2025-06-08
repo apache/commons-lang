@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link UncheckedFuture}.
  */
-public class UncheckedFutureTest extends AbstractLangTest {
+class UncheckedFutureTest extends AbstractLangTest {
 
     private static final class TestFuture<V> extends AbstractFutureProxy<V> {
 

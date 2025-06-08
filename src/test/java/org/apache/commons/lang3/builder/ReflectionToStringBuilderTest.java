@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ReflectionToStringBuilder}.
  */
-public class ReflectionToStringBuilderTest extends AbstractLangTest {
+class ReflectionToStringBuilderTest extends AbstractLangTest {
 
     @Test
     void testConstructorWithNullObject() {

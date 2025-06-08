@@ -37,7 +37,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 /**
  * Tests {@link RandomStringUtils}.
  */
-public class RandomStringUtilsTest extends AbstractLangTest {
+class RandomStringUtilsTest extends AbstractLangTest {
 
     private static final int LOOP_COUNT = 1_000;
     /** Maximum safe value for count to avoid overflow: (21x + 3) / 5 + 10 < 0x0FFF_FFFF */

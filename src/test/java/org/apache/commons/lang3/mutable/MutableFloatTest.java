@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableFloat
  */
-public class MutableFloatTest extends AbstractLangTest {
+class MutableFloatTest extends AbstractLangTest {
 
     @Test
     void testAddAndGetValueObject() {

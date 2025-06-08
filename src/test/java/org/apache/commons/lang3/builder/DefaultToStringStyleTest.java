@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link DefaultToStringStyleTest}.
  */
-public class DefaultToStringStyleTest extends AbstractLangTest {
+class DefaultToStringStyleTest extends AbstractLangTest {
 
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));

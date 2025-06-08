@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  */
-public class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
+class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
 
     static class Account {
         Customer owner;

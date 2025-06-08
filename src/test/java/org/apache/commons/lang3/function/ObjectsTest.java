@@ -28,7 +28,7 @@ import java.util.function.Supplier;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
-public class ObjectsTest extends AbstractLangTest {
+class ObjectsTest extends AbstractLangTest {
 
     public static class TestableFailableSupplier<O, E extends Exception> implements FailableSupplier<O, E> {
         private final FailableSupplier<O, E> supplier;

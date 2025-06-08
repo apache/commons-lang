@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableLong
  */
-public class MutableLongTest extends AbstractLangTest {
+class MutableLongTest extends AbstractLangTest {
 
     @Test
     void testAddAndGetValueObject() {

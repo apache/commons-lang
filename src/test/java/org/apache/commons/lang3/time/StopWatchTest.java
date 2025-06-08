@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link StopWatch}.
  */
-public class StopWatchTest extends AbstractLangTest {
+class StopWatchTest extends AbstractLangTest {
 
     private static final int SPLIT_CLOCK_STR_LEN = 12;
     private static final Duration MIN_DURATION = Duration.ofMillis(20);

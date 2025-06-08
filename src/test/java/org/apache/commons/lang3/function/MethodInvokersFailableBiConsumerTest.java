@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asFailableBiConsumer(Method)}.
  */
-public class MethodInvokersFailableBiConsumerTest extends MethodFixtures {
+class MethodInvokersFailableBiConsumerTest extends MethodFixtures {
 
     @Test
     void testApply1Arg() throws Throwable {

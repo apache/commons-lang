@@ -39,7 +39,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.math.NumberUtils}.
  */
-public class NumberUtilsTest extends AbstractLangTest {
+class NumberUtilsTest extends AbstractLangTest {
 
     private static void assertCreateNumberZero(final String number, final Object zero, final Object negativeZero) {
         assertEquals(zero, NumberUtils.createNumber(number), () -> "Input: " + number);

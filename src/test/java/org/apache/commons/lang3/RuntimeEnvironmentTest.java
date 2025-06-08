@@ -33,7 +33,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link RuntimeEnvironment}.
  */
-public class RuntimeEnvironmentTest {
+class RuntimeEnvironmentTest {
 
     private static final String simpleEnviron = "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\u0000" +
             "HOSTNAME=d62718b69f37\u0000TERM=xterm\u0000HOME=/root\u0000";

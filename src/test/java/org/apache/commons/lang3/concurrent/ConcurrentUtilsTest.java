@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@link ConcurrentUtils}.
  */
-public class ConcurrentUtilsTest extends AbstractLangTest {
+class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests creating a ConcurrentException with an error as cause.
      */

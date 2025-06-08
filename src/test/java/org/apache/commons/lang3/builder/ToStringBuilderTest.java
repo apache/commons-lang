@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for {@link org.apache.commons.lang3.builder.ToStringBuilder}.
  */
-public class ToStringBuilderTest extends AbstractLangTest {
+class ToStringBuilderTest extends AbstractLangTest {
 
     /**
      * Test fixture for ReflectionToStringBuilder.toString() for statics.

@@ -36,12 +36,12 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.EqualsBuilder}.
  */
-public class EqualsBuilderTest extends AbstractLangTest {
+class EqualsBuilderTest extends AbstractLangTest {
 
     public static class TestACanEqualB {
         private final int a;
 
-        public TestACanEqualB(final int a) {
+        TestACanEqualB(final int a) {
             this.a = a;
         }
 
@@ -72,7 +72,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     public static class TestBCanEqualA {
         private final int b;
 
-        public TestBCanEqualA(final int b) {
+        TestBCanEqualA(final int b) {
             this.b = b;
         }
 

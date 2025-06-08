@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code CallableBackgroundInitializer}
  */
-public class CallableBackgroundInitializerTest extends AbstractLangTest {
+class CallableBackgroundInitializerTest extends AbstractLangTest {
     /**
      * A test Callable implementation for checking the initializer's
      * implementation of the initialize() method.

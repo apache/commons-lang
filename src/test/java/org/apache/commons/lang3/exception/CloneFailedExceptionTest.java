@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * JUnit tests for {@link CloneFailedExceptionTest}.
  */
-public class CloneFailedExceptionTest extends AbstractExceptionTest {
+class CloneFailedExceptionTest extends AbstractExceptionTest {
 
     @Test
     void testThrowingExceptionWithCause() {
