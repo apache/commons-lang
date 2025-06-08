@@ -194,14 +194,17 @@ public class FastDateParserTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource(DATE_PARSER_PARAMETERS)
     void test_Equality_Hash(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) {
-        final DateParser[] parsers = {getInstance(dpProvider, yMdHmsSZ, NEW_YORK, Locale.US),
+        // @formatter:off
+        final DateParser[] parsers = {
+            getInstance(dpProvider, yMdHmsSZ, NEW_YORK, Locale.US),
             getInstance(dpProvider, DMY_DOT, NEW_YORK, Locale.US),
             getInstance(dpProvider, YMD_SLASH, NEW_YORK, Locale.US),
             getInstance(dpProvider, MDY_DASH, NEW_YORK, Locale.US),
             getInstance(dpProvider, MDY_SLASH, NEW_YORK, Locale.US),
             getInstance(dpProvider, MDY_SLASH, REYKJAVIK, Locale.US),
-            getInstance(dpProvider, MDY_SLASH, REYKJAVIK, SWEDEN)};
-
+            getInstance(dpProvider, MDY_SLASH, REYKJAVIK, SWEDEN)
+        };
+        // @formatter:on
         final Map<DateParser, Integer> map = new HashMap<>();
         int i = 0;
         for (final DateParser parser : parsers) {
@@ -361,9 +364,9 @@ public class FastDateParserTest extends AbstractLangTest {
         Date expected = cal.getTime();
         assertEquals(expected, actual);
 
-        final SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
-        df.setTimeZone(kst);
-        expected = df.parse("20150429113100");
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+        sdf.setTimeZone(kst);
+        expected = sdf.parse("20150429113100");
 
         // Thu Mar 16 00:00:00 KST 81724
         actual = fdp.parse("20150429113100");
