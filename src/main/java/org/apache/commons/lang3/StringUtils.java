@@ -9306,7 +9306,7 @@ public class StringUtils {
                 }
                 if (spanEnd == i + 1) {
                     collector[collectorIdx++] = current;
-                } else if ((isResizeOnlyConsecutive && spanEnd > i + 1) || !isResizeOnlyConsecutive) {
+                } else if (!isResizeOnlyConsecutive || spanEnd > i + 1) {
                     int repetition = xTimes;
                     while (repetition-- > 0) {
                         collector[collectorIdx++] = current;
