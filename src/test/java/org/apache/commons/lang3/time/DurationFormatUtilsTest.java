@@ -34,7 +34,10 @@ import java.util.TimeZone;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.time.DurationFormatUtils.Token;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
 /**
  * Tests {@link DurationFormatUtils}.
@@ -42,6 +45,10 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  * NOT THREAD-SAFE.
  * </p>
  */
+/* Make test reproducible */ @DefaultLocale(language = "en")
+/* Make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
+/* Make test reproducible */ @ReadsDefaultLocale
+/* Make test reproducible */ @ReadsDefaultTimeZone
 class DurationFormatUtilsTest extends AbstractLangTest {
 
     private static final int FOUR_YEARS = 365 * 3 + 366;

@@ -28,7 +28,15 @@ import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.DefaultTimeZone;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
+/* Make test reproducible */ @DefaultLocale(language = "en")
+/* Make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
+/* Make test reproducible */ @ReadsDefaultLocale
+/* Make test reproducible */ @ReadsDefaultTimeZone
 class FastDateParser_MoreOrLessTest extends AbstractLangTest {
 
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");

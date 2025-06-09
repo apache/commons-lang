@@ -25,7 +25,15 @@ import java.util.Date;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.DefaultTimeZone;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
+/* Make test reproducible */ @DefaultLocale(language = "en")
+/* Make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
+/* Make test reproducible */ @ReadsDefaultLocale
+/* Make test reproducible */ @ReadsDefaultTimeZone
 class DateUtilsFragmentTest extends AbstractLangTest {
 
     private static final int months = 7; // second final prime before 12
