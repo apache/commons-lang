@@ -55,11 +55,14 @@ import org.junit.jupiter.params.provider.MethodSource;
 class FastDateParserTest extends AbstractLangTest {
 
     private enum Expected1806 {
-        India(INDIA, "+05", "+0530", "+05:30", true), Greenwich(TimeZones.GMT, "Z", "Z", "Z", false),
+
+        // @formatter:off
+        India(INDIA, "+05", "+0530", "+05:30", true),
+        Greenwich(TimeZones.GMT, "Z", "Z", "Z", false),
         NewYork(NEW_YORK, "-05", "-0500", "-05:00", false);
+        // @formatter:on
 
         final TimeZone zone;
-
         final String one;
         final String two;
         final String three;
@@ -99,6 +102,7 @@ class FastDateParserTest extends AbstractLangTest {
     @AfterEach
     void clear() {
         AbstractFormatCache.clear();
+        FastDateFormat.clear();
         FastDateParser.clear();
         FastDatePrinter.clear();
     }
@@ -147,18 +151,16 @@ class FastDateParserTest extends AbstractLangTest {
         return cal;
     }
 
-    private final TriFunction<String, TimeZone, Locale, DateParser> dateParserProvider = (format, timeZone,
-            locale) -> new FastDateParser(format, timeZone, locale, null);
+    private final TriFunction<String, TimeZone, Locale, DateParser> dateParserProvider = (format, timeZone, locale) -> new FastDateParser(format, timeZone,
+            locale, null);
 
     private DateParser getDateInstance(final int dateStyle, final Locale locale) {
-        return getInstance(null, AbstractFormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale),
-            TimeZone.getDefault(), Locale.getDefault());
+        return getInstance(null, AbstractFormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale), TimeZone.getDefault(), Locale.getDefault());
     }
 
     private Calendar getEraStart(int year, final TimeZone zone, final Locale locale) {
         final Calendar cal = Calendar.getInstance(zone, locale);
         cal.clear();
-
         // https://docs.oracle.com/javase/8/docs/technotes/guides/intl/calendar.doc.html
         if (locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
             if (year < 1868) {
@@ -220,7 +222,6 @@ class FastDateParserTest extends AbstractLangTest {
         for (final DateParser parser : parsers) {
             map.put(parser, Integer.valueOf(i++));
         }
-
         i = 0;
         for (final DateParser parser : parsers) {
             assertEquals(i++, map.get(parser).intValue());

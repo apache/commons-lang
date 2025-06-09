@@ -128,7 +128,14 @@ abstract class AbstractFormatCache<F extends Format> {
         });
     }
 
-    private final ConcurrentMap<ArrayKey, F> cInstanceCache = new ConcurrentHashMap<>(7);
+    private final ConcurrentMap<ArrayKey, F> instanceCache = new ConcurrentHashMap<>(7);
+
+    /**
+     * Clears the cache.
+     */
+    void clearInstance() {
+        instanceCache.clear();
+    }
 
     /**
      * Create a format instance using the specified pattern, time zone
@@ -225,7 +232,7 @@ abstract class AbstractFormatCache<F extends Format> {
         final TimeZone actualTimeZone = TimeZones.toTimeZone(timeZone);
         final Locale actualLocale = LocaleUtils.toLocale(locale);
         final ArrayKey key = new ArrayKey(pattern, actualTimeZone, actualLocale);
-        return cInstanceCache.computeIfAbsent(key, k -> createInstance(pattern, actualTimeZone, actualLocale));
+        return instanceCache.computeIfAbsent(key, k -> createInstance(pattern, actualTimeZone, actualLocale));
     }
 
     /**
