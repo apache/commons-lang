@@ -48,10 +48,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.DefaultTimeZone;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
 /**
  * Tests {@link org.apache.commons.lang3.time.FastDateParser}.
  */
+/* Make test reproducible */ @DefaultLocale(language = "en")
+/* Make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
+/* Make test reproducible */ @ReadsDefaultLocale
+/* Make test reproducible */ @ReadsDefaultTimeZone
 class FastDateParserTest extends AbstractLangTest {
 
     private enum Expected1806 {
