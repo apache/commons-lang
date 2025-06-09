@@ -26,15 +26,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junitpioneer.jupiter.DefaultLocale;
-import org.junitpioneer.jupiter.DefaultTimeZone;
-import org.junitpioneer.jupiter.ReadsDefaultLocale;
-import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
-/* Make test reproducible */ @DefaultLocale(language = "en")
-/* Make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
-/* Make test reproducible */ @ReadsDefaultLocale
-/* Make test reproducible */ @ReadsDefaultTimeZone
 class FastDatePrinterTimeZonesTest extends AbstractLangTest {
 
     private static final String PATTERN = "h:mma z";

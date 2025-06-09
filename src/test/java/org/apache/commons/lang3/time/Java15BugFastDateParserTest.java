@@ -29,10 +29,6 @@ import org.apache.commons.lang3.function.TriFunction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junitpioneer.jupiter.DefaultLocale;
-import org.junitpioneer.jupiter.DefaultTimeZone;
-import org.junitpioneer.jupiter.ReadsDefaultLocale;
-import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
 /**
  * These tests fail on Java 15 due to a bug which was only fixed for Java 16.
@@ -41,10 +37,6 @@ import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
  * <li>https://bugs.openjdk.java.net/browse/JDK-8248655</li>
  * </ul>
  */
-/* Make test reproducible */ @DefaultLocale(language = "en")
-/* Make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
-/* Make test reproducible */ @ReadsDefaultLocale
-/* Make test reproducible */ @ReadsDefaultTimeZone
 class Java15BugFastDateParserTest extends AbstractLangTest {
 
     /** @see org.apache.commons.lang3.time.FastDateParserTest#dateParserParameters() */

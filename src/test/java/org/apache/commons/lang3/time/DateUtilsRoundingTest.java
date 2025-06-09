@@ -28,10 +28,6 @@ import java.util.Locale;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junitpioneer.jupiter.DefaultLocale;
-import org.junitpioneer.jupiter.DefaultTimeZone;
-import org.junitpioneer.jupiter.ReadsDefaultLocale;
-import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
 /**
  * These Unit-tests will check all possible extremes when using some rounding-methods of DateUtils.
@@ -43,10 +39,6 @@ import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
  * A month with 29 or 30 days will be rounded up from the 16th
  * A month with 31 days will be rounded up from the 17th
  */
-/* Make test reproducible */ @DefaultLocale(language = "en")
-/* Make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
-/* Make test reproducible */ @ReadsDefaultLocale
-/* Make test reproducible */ @ReadsDefaultTimeZone
 class DateUtilsRoundingTest extends AbstractLangTest {
 
     DateFormat dateTimeParser;
