@@ -27,13 +27,13 @@ import org.junit.jupiter.api.Test;
  * Tests {@link ReflectionToStringBuilder} always uses {@link ReflectionToStringBuilder#getValue(Field)} to get the
  * value of every field in the class.
  */
-public class ReflectionToStringBuilderCustomImplementationTest extends AbstractLangTest {
+class ReflectionToStringBuilderCustomImplementationTest extends AbstractLangTest {
 
     public static class CustomReflectionToStringBuilder extends ReflectionToStringBuilder {
 
         private static final String CUSTOM_PREFIX = "prefix:";
 
-        public CustomReflectionToStringBuilder(final Object object, final ToStringStyle toStringStyle) {
+        CustomReflectionToStringBuilder(final Object object, final ToStringStyle toStringStyle) {
             super(object, toStringStyle);
         }
 
@@ -47,7 +47,7 @@ public class ReflectionToStringBuilderCustomImplementationTest extends AbstractL
     private final String stringField = "string";
 
     @Test
-    public void testBuild() {
+    void testBuild() {
         assertEquals("[stringField=prefix:string]",
                 new CustomReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
     }

@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link UncheckedReflectiveOperationException}.
  */
-public class UncheckedReflectiveOperationExceptionTest extends AbstractLangTest {
+class UncheckedReflectiveOperationExceptionTest extends AbstractLangTest {
 
     @Test
-    public void testConstructWithCause() {
+    void testConstructWithCause() {
         final Exception e = new Exception();
         assertSame(e, new UncheckedReflectiveOperationException(e).getCause());
     }

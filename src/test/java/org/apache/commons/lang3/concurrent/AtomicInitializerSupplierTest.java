@@ -22,7 +22,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
 /**
  * Test class for {@code AtomicInitializer}.
  */
-public class AtomicInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
+class AtomicInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
     /**
      * Returns the initializer to be tested.
      *

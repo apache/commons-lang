@@ -28,7 +28,7 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MemoizerFunctionTest extends AbstractLangTest {
+class MemoizerFunctionTest extends AbstractLangTest {
 
     private Function<Integer, Integer> function;
 
@@ -38,7 +38,7 @@ public class MemoizerFunctionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDefaultBehaviourNotToRecalculateExecutionExceptions() throws Exception {
+    void testDefaultBehaviourNotToRecalculateExecutionExceptions() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(function);
         final IllegalArgumentException interruptedException = new IllegalArgumentException();
@@ -50,7 +50,7 @@ public class MemoizerFunctionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDoesNotRecalculateWhenSetToFalse() throws Exception {
+    void testDoesNotRecalculateWhenSetToFalse() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(function, false);
         final IllegalArgumentException interruptedException = new IllegalArgumentException();
@@ -62,7 +62,7 @@ public class MemoizerFunctionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDoesRecalculateWhenSetToTrue() throws Exception {
+    void testDoesRecalculateWhenSetToTrue() throws Exception {
         final Integer input = 1;
         final Integer answer = 3;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(function, true);
@@ -75,7 +75,7 @@ public class MemoizerFunctionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOnlyCallComputableOnceIfDoesNotThrowException() throws Exception {
+    void testOnlyCallComputableOnceIfDoesNotThrowException() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(function);
         expect(function.apply(input)).andReturn(input);
@@ -86,7 +86,7 @@ public class MemoizerFunctionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWhenComputableThrowsError() throws Exception {
+    void testWhenComputableThrowsError() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(function);
         final Error error = new Error();
@@ -97,7 +97,7 @@ public class MemoizerFunctionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWhenComputableThrowsRuntimeException() throws Exception {
+    void testWhenComputableThrowsRuntimeException() throws Exception {
         final Integer input = 1;
         final Memoizer<Integer, Integer> memoizer = new Memoizer<>(function);
         final RuntimeException runtimeException = new RuntimeException("Some runtime exception");

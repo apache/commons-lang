@@ -32,12 +32,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 /**
  * Test cases for the {@link Fraction} class
  */
-public class FractionTest extends AbstractLangTest {
+class FractionTest extends AbstractLangTest {
 
     private static final int SKIP = 500; // 53
 
     @Test
-    public void testAbs() {
+    void testAbs() {
         Fraction f;
 
         f = Fraction.getFraction(50, 75);
@@ -64,7 +64,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAdd() {
+    void testAdd() {
         Fraction f;
         Fraction f1;
         Fraction f2;
@@ -164,7 +164,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         final Fraction f1;
         Fraction f2;
 
@@ -197,7 +197,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstants() {
+    void testConstants() {
         assertEquals(0, Fraction.ZERO.getNumerator());
         assertEquals(1, Fraction.ZERO.getDenominator());
 
@@ -236,7 +236,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConversions() {
+    void testConversions() {
         final Fraction f;
 
         f = Fraction.getFraction(3, 7, 8);
@@ -247,7 +247,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDivide() {
+    void testDivide() {
         Fraction f;
         Fraction f1;
         Fraction f2;
@@ -292,7 +292,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         Fraction f1;
         Fraction f2;
 
@@ -315,7 +315,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_double() {
+    void testFactory_double() {
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Double.NaN));
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Double.POSITIVE_INFINITY));
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Double.NEGATIVE_INFINITY));
@@ -379,7 +379,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_int_int() {
+    void testFactory_int_int() {
         Fraction f;
 
         // zero
@@ -433,7 +433,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_int_int_int() {
+    void testFactory_int_int_int() {
         Fraction f;
 
         // zero
@@ -487,12 +487,12 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_String() {
+    void testFactory_String() {
         assertThrows(NullPointerException.class, () -> Fraction.getFraction(null));
     }
 
     @Test
-    public void testFactory_String_double() {
+    void testFactory_String_double() {
         Fraction f;
 
         f = Fraction.getFraction("0.0");
@@ -517,7 +517,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_String_improper() {
+    void testFactory_String_improper() {
         Fraction f;
 
         f = Fraction.getFraction("0/1");
@@ -551,7 +551,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_String_proper() {
+    void testFactory_String_proper() {
         Fraction f;
 
         f = Fraction.getFraction("0 0/1");
@@ -587,7 +587,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGets() {
+    void testGets() {
         Fraction f;
 
         f = Fraction.getFraction(3, 5, 6);
@@ -610,7 +610,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final Fraction f1 = Fraction.getFraction(3, 5);
         Fraction f2 = Fraction.getFraction(3, 5);
         assertEquals(f1.hashCode(), f2.hashCode());
@@ -638,13 +638,13 @@ public class FractionTest extends AbstractLangTest {
         "1756395909, 4194598,    1174949894,  42860673"
     })
     // @formatter:on
-    public void testHashCodeNotEquals(int f1n, int f1d, int f2n, int f2d) {
+    void testHashCodeNotEquals(int f1n, int f1d, int f2n, int f2d) {
         assertNotEquals(Fraction.getFraction(f1n, f1d), Fraction.getFraction(f2n, f2d));
         assertNotEquals(Fraction.getFraction(f1n, f1d).hashCode(), Fraction.getFraction(f2n, f2d).hashCode());
     }
 
     @Test
-    public void testInvert() {
+    void testInvert() {
         Fraction f;
 
         f = Fraction.getFraction(50, 75);
@@ -672,7 +672,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiply() {
+    void testMultiply() {
         Fraction f;
         Fraction f1;
         Fraction f2;
@@ -732,7 +732,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNegate() {
+    void testNegate() {
         Fraction f;
 
         f = Fraction.getFraction(50, 75);
@@ -755,7 +755,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPow() {
+    void testPow() {
         Fraction f;
 
         f = Fraction.getFraction(3, 5);
@@ -851,7 +851,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReduce() {
+    void testReduce() {
         Fraction f;
 
         f = Fraction.getFraction(50, 75);
@@ -900,7 +900,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReducedFactory_int_int() {
+    void testReducedFactory_int_int() {
         Fraction f;
 
         // zero
@@ -977,7 +977,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSubtract() {
+    void testSubtract() {
         Fraction f;
         Fraction f1;
         Fraction f2;
@@ -1067,7 +1067,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToProperString() {
+    void testToProperString() {
         Fraction f;
 
         f = Fraction.getFraction(3, 5);
@@ -1103,7 +1103,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         Fraction f;
 
         f = Fraction.getFraction(3, 5);

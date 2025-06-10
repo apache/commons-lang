@@ -83,7 +83,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      */
     @SuppressWarnings("rawtypes")
     @Test
-    public void testCloserThrowsCheckedException() throws ConcurrentException {
+    void testCloserThrowsCheckedException() throws ConcurrentException {
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 CloseableObject::new,
                 CloseableObject -> methodThatThrowsException(ExceptionToThrow.IOException));
@@ -103,7 +103,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      */
     @SuppressWarnings("rawtypes")
     @Test
-    public void testCloserThrowsRuntimeException() throws ConcurrentException {
+    void testCloserThrowsRuntimeException() throws ConcurrentException {
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 CloseableObject::new,
                 CloseableObject -> methodThatThrowsException(ExceptionToThrow.NullPointerException));
@@ -120,7 +120,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      */
     @SuppressWarnings("unchecked") //for NOP
     @Test
-    public void testSupplierThrowsCheckedException() {
+    void testSupplierThrowsCheckedException() {
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 () -> methodThatThrowsException(ExceptionToThrow.IOException),
                 FailableConsumer.NOP);
@@ -132,7 +132,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      * ConcurrentException it will rethrow it without wrapping it.
      */
     @Test
-    public void testSupplierThrowsConcurrentException() {
+    void testSupplierThrowsConcurrentException() {
         final ConcurrentException concurrentException = new ConcurrentException();
 
         @SuppressWarnings("unchecked")
@@ -158,7 +158,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      */
     @SuppressWarnings("unchecked")
     @Test
-    public void testSupplierThrowsRuntimeException() {
+    void testSupplierThrowsRuntimeException() {
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 () -> methodThatThrowsException(ExceptionToThrow.NullPointerException),
                 FailableConsumer.NOP);
@@ -170,7 +170,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      */
     @SuppressWarnings("rawtypes")
     @Test
-    public void testWorkingCloser() throws Exception {
+    void testWorkingCloser() throws Exception {
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 CloseableObject::new,
                 CloseableObject::close);

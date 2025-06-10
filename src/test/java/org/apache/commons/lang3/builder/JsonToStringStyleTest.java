@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.JsonToStringStyleTest}.
  */
-public class JsonToStringStyleTest extends AbstractLangTest {
+class JsonToStringStyleTest extends AbstractLangTest {
 
     static class AcademyClass {
         Teacher teacher;
@@ -151,7 +151,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendSuper() {
+    void testAppendSuper() {
         assertEquals(
                 "{}",
                 new ToStringBuilder(base).appendSuper(
@@ -183,7 +183,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testArray() {
+    void testArray() {
         final Person p = new Person();
         p.name = "Jane Doe";
         p.age = 25;
@@ -203,7 +203,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testArrayEnum() {
+    void testArrayEnum() {
         final Teacher teacher = new Teacher();
         final Hobby[] hobbies = new Hobby[3];
         hobbies[0] = Hobby.BOOK;
@@ -220,12 +220,12 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBlank() {
+    void testBlank() {
         assertEquals("{}", new ToStringBuilder(base).toString());
     }
 
     @Test
-    public void testBooleanArray() {
+    void testBooleanArray() {
         final boolean[] array = {true, false};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -245,7 +245,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testByteArray() {
+    void testByteArray() {
         final byte[] array = {1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -265,7 +265,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testChar() {
+    void testChar() {
         assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append('A').toString());
 
         assertEquals("{\"a\":\"A\"}", new ToStringBuilder(base).append("a", 'A')
@@ -275,7 +275,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCharArray() {
+    void testCharArray() {
         final char[] array = {'1', '2', '3', '4'};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -295,7 +295,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCombineListAndEnum() {
+    void testCombineListAndEnum() {
         final Teacher teacher = new Teacher();
 
         final Hobby[] teacherHobbies = new Hobby[3];
@@ -327,7 +327,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDate() {
+    void testDate() {
         final Date now = new Date();
         final Date afterNow = new Date(System.currentTimeMillis() + 1);
 
@@ -339,7 +339,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDoubleArray() {
+    void testDoubleArray() {
         final double[] array = { 1, 2, -3, 4 };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -355,7 +355,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFloatArray() {
+    void testFloatArray() {
         final float[] array = { 1, 2, -3, 4 };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -371,7 +371,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIntArray() {
+    void testIntArray() {
         final int[] array = { 1, 2, -3, 4 };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -387,7 +387,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLANG1395() {
+    void testLANG1395() {
         assertEquals("{\"name\":\"value\"}", new ToStringBuilder(base).append("name", "value").toString());
         assertEquals("{\"name\":\"\"}", new ToStringBuilder(base).append("name", "").toString());
         assertEquals("{\"name\":\"\\\"\"}", new ToStringBuilder(base).append("name", '"').toString());
@@ -396,12 +396,12 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLANG1396() {
+    void testLANG1396() {
         assertEquals("{\"Let's \\\"quote\\\" this\":\"value\"}", new ToStringBuilder(base).append("Let's \"quote\" this", "value").toString());
     }
 
     @Test
-    public void testList() {
+    void testList() {
         final Student student = new Student();
         final ArrayList<Hobby> objects = new ArrayList<>();
 
@@ -419,7 +419,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLong() {
+    void testLong() {
         assertThrows(UnsupportedOperationException.class, () -> new ToStringBuilder(base).append(3L).toString());
 
         assertEquals("{\"a\":3}", new ToStringBuilder(base).append("a", 3L)
@@ -430,7 +430,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLongArray() {
+    void testLongArray() {
         final long[] array = { 1, 2, -3, 4 };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -446,7 +446,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLongArrayArray() {
+    void testLongArrayArray() {
         final long[][] array = { { 1, 2 }, null, { 5 } };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -460,7 +460,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMapSkipNullKey() {
+    void testMapSkipNullKey() {
         final Map<String, Object> map = new LinkedHashMap<>();
         map.put("k1", "v1");
         map.put(null, "v2");
@@ -470,7 +470,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNestedMaps() {
+    void testNestedMaps() {
         final Map<String, Object> innerMap = new LinkedHashMap<>();
         innerMap.put("k2.1", "v2.1");
         innerMap.put("k2.2", "v2.2");
@@ -492,7 +492,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNestingPerson() {
+    void testNestingPerson() {
         final Person p = new Person() {
             @Override
             public String toString() {
@@ -512,12 +512,12 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNull() {
+    void testNull() {
         assertEquals("null", new ToStringBuilder(null).toString());
     }
 
     @Test
-    public void testObject() {
+    void testObject() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
 
@@ -554,7 +554,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectArray() {
+    void testObjectArray() {
         final Object[] array = { null, base, new int[] { 3, 6 } };
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);
@@ -570,7 +570,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectWithInnerMap() {
+    void testObjectWithInnerMap() {
         final Map<String, Object> map = new LinkedHashMap<>();
         map.put("k1", "value1");
         map.put("k2", 2);
@@ -589,7 +589,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPerson() {
+    void testPerson() {
         final Person p = new Person();
         p.name = "Jane Doe";
         p.age = 25;
@@ -603,7 +603,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRootMap() {
+    void testRootMap() {
         final Map<String, Object> map = new LinkedHashMap<>();
         map.put("k1", "v1");
         map.put("k2", 2);
@@ -613,7 +613,7 @@ public class JsonToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testShortArray() {
+    void testShortArray() {
         final short[] array = {1, 2, -3, 4};
 
         final ToStringBuilder toStringBuilder = new ToStringBuilder(base);

@@ -25,10 +25,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ToBooleanBiFunction}.
  */
-public class ToBooleanBiFunctionTest extends AbstractLangTest {
+class ToBooleanBiFunctionTest extends AbstractLangTest {
 
     @Test
-    public void test() {
+    void test() {
         final ToBooleanBiFunction<String, Integer> func = (t, u) -> Integer.valueOf(t).equals(u);
         assertTrue(func.applyAsBoolean("1", 1));
     }

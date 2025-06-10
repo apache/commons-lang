@@ -56,7 +56,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests FieldUtils
  */
-public class FieldUtilsTest extends AbstractLangTest {
+class FieldUtilsTest extends AbstractLangTest {
 
     private static final String JACOCO_DATA_FIELD_NAME = "$jacocoData";
     static final Integer I0 = Integer.valueOf(0);
@@ -106,12 +106,12 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAmbig() {
+    void testAmbig() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(Ambig.class, "VALUE"));
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new FieldUtils());
         final Constructor<?>[] cons = FieldUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -121,12 +121,12 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAllFieldListsNullPointerException() {
+    void testGetAllFieldListsNullPointerException() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getAllFieldsList(null));
     }
 
     @Test
-    public void testGetAllFields() {
+    void testGetAllFields() {
         assertArrayEquals(new Field[0], FieldUtils.getAllFields(Object.class));
         final Field[] fieldsNumber = sort(Number.class.getDeclaredFields());
         assertArrayEquals(fieldsNumber, sort(FieldUtils.getAllFields(Number.class)));
@@ -144,7 +144,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAllFieldsList() {
+    void testGetAllFieldsList() {
         assertEquals(0, FieldUtils.getAllFieldsList(Object.class).size());
         final List<Field> fieldsNumber = Arrays.asList(Number.class.getDeclaredFields());
         assertEquals(fieldsNumber, FieldUtils.getAllFieldsList(Number.class));
@@ -165,12 +165,12 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAllFieldsNullPointerException() {
+    void testGetAllFieldsNullPointerException() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getAllFields(null));
     }
 
     @Test
-    public void testGetDeclaredField() {
+    void testGetDeclaredField() {
         assertNull(FieldUtils.getDeclaredField(PublicChild.class, "VALUE"));
         assertNull(FieldUtils.getDeclaredField(PublicChild.class, "s"));
         assertNull(FieldUtils.getDeclaredField(PublicChild.class, "b"));
@@ -189,27 +189,27 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetDeclaredFieldAccessIllegalArgumentException1() {
+    void testGetDeclaredFieldAccessIllegalArgumentException1() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, null));
     }
 
     @Test
-    public void testGetDeclaredFieldAccessIllegalArgumentException2() {
+    void testGetDeclaredFieldAccessIllegalArgumentException2() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, ""));
     }
 
     @Test
-    public void testGetDeclaredFieldAccessIllegalArgumentException3() {
+    void testGetDeclaredFieldAccessIllegalArgumentException3() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, " "));
     }
 
     @Test
-    public void testGetDeclaredFieldAccessNullPointerException() {
+    void testGetDeclaredFieldAccessNullPointerException() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getDeclaredField(null, "none"));
     }
 
     @Test
-    public void testGetDeclaredFieldForceAccess() {
+    void testGetDeclaredFieldForceAccess() {
         assertEquals(PublicChild.class, FieldUtils.getDeclaredField(PublicChild.class, "VALUE", true).getDeclaringClass());
         assertNull(FieldUtils.getDeclaredField(PublicChild.class, "s", true));
         assertNull(FieldUtils.getDeclaredField(PublicChild.class, "b", true));
@@ -228,27 +228,27 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetDeclaredFieldForceAccessIllegalArgumentException1() {
+    void testGetDeclaredFieldForceAccessIllegalArgumentException1() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, null, true));
     }
 
     @Test
-    public void testGetDeclaredFieldForceAccessIllegalArgumentException2() {
+    void testGetDeclaredFieldForceAccessIllegalArgumentException2() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, "", true));
     }
 
     @Test
-    public void testGetDeclaredFieldForceAccessIllegalArgumentException3() {
+    void testGetDeclaredFieldForceAccessIllegalArgumentException3() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getDeclaredField(PublicChild.class, " ", true));
     }
 
     @Test
-    public void testGetDeclaredFieldForceAccessNullPointerException() {
+    void testGetDeclaredFieldForceAccessNullPointerException() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getDeclaredField(null, "none", true));
     }
 
     @Test
-    public void testGetField() {
+    void testGetField() {
         assertEquals(Foo.class, FieldUtils.getField(PublicChild.class, "VALUE").getDeclaringClass());
         assertEquals(parentClass, FieldUtils.getField(PublicChild.class, "s").getDeclaringClass());
         assertNull(FieldUtils.getField(PublicChild.class, "b"));
@@ -267,7 +267,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetFieldForceAccess() {
+    void testGetFieldForceAccess() {
         assertEquals(PublicChild.class, FieldUtils.getField(PublicChild.class, "VALUE", true).getDeclaringClass());
         assertEquals(parentClass, FieldUtils.getField(PublicChild.class, "s", true).getDeclaringClass());
         assertEquals(parentClass, FieldUtils.getField(PublicChild.class, "b", true).getDeclaringClass());
@@ -286,47 +286,47 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetFieldForceAccessIllegalArgumentException1() {
+    void testGetFieldForceAccessIllegalArgumentException1() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, null, true));
     }
 
     @Test
-    public void testGetFieldForceAccessIllegalArgumentException2() {
+    void testGetFieldForceAccessIllegalArgumentException2() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, "", true));
     }
 
     @Test
-    public void testGetFieldForceAccessIllegalArgumentException3() {
+    void testGetFieldForceAccessIllegalArgumentException3() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, " ", true));
     }
 
     @Test
-    public void testGetFieldForceAccessNullPointerException() {
+    void testGetFieldForceAccessNullPointerException() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getField(null, "none", true));
     }
 
     @Test
-    public void testGetFieldIllegalArgumentException1() {
+    void testGetFieldIllegalArgumentException1() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, null));
     }
 
     @Test
-    public void testGetFieldIllegalArgumentException2() {
+    void testGetFieldIllegalArgumentException2() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, ""));
     }
 
     @Test
-    public void testGetFieldIllegalArgumentException3() {
+    void testGetFieldIllegalArgumentException3() {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.getField(PublicChild.class, " "));
     }
 
     @Test
-    public void testGetFieldNullPointerException() {
+    void testGetFieldNullPointerException() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getField(null, "none"));
     }
 
     @Test
-    public void testGetFieldsListWithAnnotation() throws NoSuchFieldException {
+    void testGetFieldsListWithAnnotation() throws NoSuchFieldException {
         assertEquals(0, FieldUtils.getFieldsListWithAnnotation(Object.class, Annotated.class).size());
         final List<Field> annotatedFields = Arrays.asList(
                 FieldUtilsTest.class.getDeclaredField("publicChild"),
@@ -339,22 +339,22 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetFieldsListWithAnnotationNullPointerException() {
+    void testGetFieldsListWithAnnotationNullPointerException() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsListWithAnnotation(FieldUtilsTest.class, null));
     }
 
     @Test
-    public void testGetFieldsListWithAnnotationNullPointerException2() {
+    void testGetFieldsListWithAnnotationNullPointerException2() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsListWithAnnotation(null, Annotated.class));
     }
 
     @Test
-    public void testGetFieldsListWithAnnotationNullPointerException3() {
+    void testGetFieldsListWithAnnotationNullPointerException3() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsListWithAnnotation(null, null));
     }
 
     @Test
-    public void testGetFieldsWithAnnotation() throws NoSuchFieldException {
+    void testGetFieldsWithAnnotation() throws NoSuchFieldException {
         assertArrayEquals(new Field[0], FieldUtils.getFieldsWithAnnotation(Object.class, Annotated.class));
         final Field[] annotatedFields = sort(new Field[] {
                 FieldUtilsTest.class.getDeclaredField("publicChild"),
@@ -364,22 +364,22 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetFieldsWithAnnotationNullPointerException1() {
+    void testGetFieldsWithAnnotationNullPointerException1() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, null));
     }
 
     @Test
-    public void testGetFieldsWithAnnotationNullPointerException2() {
+    void testGetFieldsWithAnnotationNullPointerException2() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsWithAnnotation(null, Annotated.class));
     }
 
     @Test
-    public void testGetFieldsWithAnnotationNullPointerException3() {
+    void testGetFieldsWithAnnotationNullPointerException3() {
         assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsWithAnnotation(null, null));
     }
 
     @Test
-    public void testReadDeclaredNamedField() throws Exception {
+    void testReadDeclaredNamedField() throws Exception {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> FieldUtils.readDeclaredField(publicChild, null),
@@ -415,7 +415,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReadDeclaredNamedFieldForceAccess() throws Exception {
+    void testReadDeclaredNamedFieldForceAccess() throws Exception {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> FieldUtils.readDeclaredField(publicChild, null, true),
@@ -451,7 +451,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReadDeclaredNamedStaticField() throws Exception {
+    void testReadDeclaredNamedStaticField() throws Exception {
         assertThrows(NullPointerException.class, () -> FieldUtils.readDeclaredStaticField(AnotherParent.class, "doesNotExist"));
         assertEquals(Foo.VALUE, FieldUtils.readDeclaredStaticField(Foo.class, "VALUE"));
         assertThrows(
@@ -477,7 +477,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReadDeclaredNamedStaticFieldForceAccess() throws Exception {
+    void testReadDeclaredNamedStaticFieldForceAccess() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readDeclaredStaticField(Foo.class, "VALUE", true));
         assertEquals("child", FieldUtils.readDeclaredStaticField(PublicChild.class, "VALUE", true));
         assertThrows(
@@ -498,7 +498,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReadField() throws Exception {
+    void testReadField() throws Exception {
         final Field parentS = FieldUtils.getDeclaredField(parentClass, "s");
         assertEquals("s", FieldUtils.readField(parentS, publicChild));
         assertEquals("s", FieldUtils.readField(parentS, publiclyShadowedChild));
@@ -523,7 +523,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReadFieldForceAccess() throws Exception {
+    void testReadFieldForceAccess() throws Exception {
         final Field parentS = FieldUtils.getDeclaredField(parentClass, "s");
         parentS.setAccessible(false);
         assertEquals("s", FieldUtils.readField(parentS, publicChild, true));
@@ -552,7 +552,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReadNamedField() throws Exception {
+    void testReadNamedField() throws Exception {
         assertEquals("s", FieldUtils.readField(publicChild, "s"));
         assertEquals("ss", FieldUtils.readField(publiclyShadowedChild, "s"));
         assertEquals("s", FieldUtils.readField(privatelyShadowedChild, "s"));
@@ -590,7 +590,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReadNamedFieldForceAccess() throws Exception {
+    void testReadNamedFieldForceAccess() throws Exception {
         assertEquals("s", FieldUtils.readField(publicChild, "s", true));
         assertEquals("ss", FieldUtils.readField(publiclyShadowedChild, "s", true));
         assertEquals("ss", FieldUtils.readField(privatelyShadowedChild, "s", true));
@@ -626,7 +626,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReadNamedStaticField() throws Exception {
+    void testReadNamedStaticField() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(Foo.class, "VALUE"));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PubliclyShadowedChild.class, "VALUE"));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PrivatelyShadowedChild.class, "VALUE"));
@@ -664,7 +664,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReadNamedStaticFieldForceAccess() throws Exception {
+    void testReadNamedStaticFieldForceAccess() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(Foo.class, "VALUE", true));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PubliclyShadowedChild.class, "VALUE", true));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(PrivatelyShadowedChild.class, "VALUE", true));
@@ -702,30 +702,30 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReadStaticField() throws Exception {
+    void testReadStaticField() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(Foo.class, "VALUE")));
     }
 
     @Test
-    public void testReadStaticFieldForceAccess() throws Exception {
+    void testReadStaticFieldForceAccess() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(Foo.class, "VALUE")));
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(PublicChild.class, "VALUE")));
     }
 
     @Test
-    public void testReadStaticFieldForceAccessIllegalArgumentException() {
+    void testReadStaticFieldForceAccessIllegalArgumentException() {
         final Field nonStaticField = FieldUtils.getField(PublicChild.class, "s", true);
         assumeTrue(nonStaticField != null);
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.readStaticField(nonStaticField, true));
     }
 
     @Test
-    public void testReadStaticFieldForceAccessNullPointerException() {
+    void testReadStaticFieldForceAccessNullPointerException() {
         assertThrows(NullPointerException.class, () -> FieldUtils.readStaticField(null, true));
     }
 
     @Test
-    public void testReadStaticFieldIllegalArgumentException() throws Exception {
+    void testReadStaticFieldIllegalArgumentException() throws Exception {
         assertEquals(Foo.VALUE, FieldUtils.readStaticField(FieldUtils.getField(Foo.class, "VALUE")));
         final Field nonStaticField = FieldUtils.getField(PublicChild.class, "s");
         assumeTrue(nonStaticField != null);
@@ -733,12 +733,12 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReadStaticFieldNullPointerException() {
+    void testReadStaticFieldNullPointerException() {
         assertThrows(NullPointerException.class, () -> FieldUtils.readStaticField(null));
     }
 
     @Test
-    public void testRemoveFinalModifier() throws Exception {
+    void testRemoveFinalModifier() throws Exception {
         final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
@@ -750,7 +750,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveFinalModifierAccessNotNeeded() throws Exception {
+    void testRemoveFinalModifierAccessNotNeeded() throws Exception {
         final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PACKAGE");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
@@ -762,12 +762,12 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveFinalModifierNullPointerException() {
+    void testRemoveFinalModifierNullPointerException() {
         assertThrows(NullPointerException.class, () -> FieldUtils.removeFinalModifier(null));
     }
 
     @Test
-    public void testRemoveFinalModifierWithAccess() throws Exception {
+    void testRemoveFinalModifierWithAccess() throws Exception {
         final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
@@ -779,12 +779,12 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveFinalModifierWithAccessNullPointerException() {
+    void testRemoveFinalModifierWithAccessNullPointerException() {
         assertThrows(NullPointerException.class, () -> FieldUtils.removeFinalModifier(null, true));
     }
 
     @Test
-    public void testRemoveFinalModifierWithoutAccess() throws Exception {
+    void testRemoveFinalModifierWithoutAccess() throws Exception {
         final Field field = StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE_2");
         assertFalse(field.isAccessible());
         assertTrue(Modifier.isFinal(field.getModifiers()));
@@ -796,7 +796,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteDeclaredNamedField() throws Exception {
+    void testWriteDeclaredNamedField() throws Exception {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.writeDeclaredField(publicChild, "s", "S"));
         assertThrows(
                 IllegalArgumentException.class, () -> FieldUtils.writeDeclaredField(publicChild, "b", Boolean.TRUE));
@@ -843,7 +843,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteDeclaredNamedFieldForceAccess() throws Exception {
+    void testWriteDeclaredNamedFieldForceAccess() throws Exception {
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.writeDeclaredField(publicChild, "s", "S", true));
         assertThrows(
                 IllegalArgumentException.class,
@@ -888,7 +888,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteDeclaredNamedStaticField() throws Exception {
+    void testWriteDeclaredNamedStaticField() throws Exception {
         FieldUtils.writeStaticField(StaticContainer.class, "mutablePublic", "new");
         assertEquals("new", StaticContainer.mutablePublic);
         assertThrows(
@@ -928,7 +928,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteDeclaredNamedStaticFieldForceAccess() throws Exception {
+    void testWriteDeclaredNamedStaticFieldForceAccess() throws Exception {
         FieldUtils.writeDeclaredStaticField(StaticContainer.class, "mutablePublic", "new", true);
         assertEquals("new", StaticContainer.mutablePublic);
         FieldUtils.writeDeclaredStaticField(StaticContainer.class, "mutableProtected", "new", true);
@@ -965,7 +965,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteField() throws Exception {
+    void testWriteField() throws Exception {
         final Field field = parentClass.getDeclaredField("s");
         FieldUtils.writeField(field, publicChild, "S");
         assertEquals("S", field.get(publicChild));
@@ -985,7 +985,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteFieldForceAccess() throws Exception {
+    void testWriteFieldForceAccess() throws Exception {
         Field field = parentClass.getDeclaredField("s");
         FieldUtils.writeField(field, publicChild, "S", true);
         assertEquals("S", field.get(publicChild));
@@ -1005,7 +1005,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteNamedField() throws Exception {
+    void testWriteNamedField() throws Exception {
         FieldUtils.writeField(publicChild, "s", "S");
         assertEquals("S", FieldUtils.readField(publicChild, "s"));
         assertThrows(IllegalArgumentException.class, () -> FieldUtils.writeField(publicChild, "b", Boolean.TRUE));
@@ -1049,7 +1049,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteNamedFieldForceAccess() throws Exception {
+    void testWriteNamedFieldForceAccess() throws Exception {
         FieldUtils.writeField(publicChild, "s", "S", true);
         assertEquals("S", FieldUtils.readField(publicChild, "s", true));
         FieldUtils.writeField(publicChild, "b", Boolean.TRUE, true);
@@ -1092,7 +1092,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteNamedStaticField() throws Exception {
+    void testWriteNamedStaticField() throws Exception {
         FieldUtils.writeStaticField(StaticContainerChild.class, "mutablePublic", "new");
         assertEquals("new", StaticContainer.mutablePublic);
         assertThrows(
@@ -1132,7 +1132,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteNamedStaticFieldForceAccess() throws Exception {
+    void testWriteNamedStaticFieldForceAccess() throws Exception {
         FieldUtils.writeStaticField(StaticContainerChild.class, "mutablePublic", "new", true);
         assertEquals("new", StaticContainer.mutablePublic);
         FieldUtils.writeStaticField(StaticContainerChild.class, "mutableProtected", "new", true);
@@ -1169,7 +1169,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteStaticField() throws Exception {
+    void testWriteStaticField() throws Exception {
         final Field field = StaticContainer.class.getDeclaredField("mutablePublic");
         FieldUtils.writeStaticField(field, "new");
         assertEquals("new", StaticContainer.mutablePublic);
@@ -1201,7 +1201,7 @@ public class FieldUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWriteStaticFieldForceAccess() throws Exception {
+    void testWriteStaticFieldForceAccess() throws Exception {
         Field field = StaticContainer.class.getDeclaredField("mutablePublic");
         FieldUtils.writeStaticField(field, "new", true);
         assertEquals("new", StaticContainer.mutablePublic);

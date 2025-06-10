@@ -26,12 +26,12 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link TimeZones}.
  */
-public class TimeZonesTest {
+class TimeZonesTest {
 
     static final String TIME_ZONE_GET_AVAILABLE_IDS = "java.util.TimeZone#getAvailableIDs()";
 
     @Test
-    public void testToTimeZone() {
+    void testToTimeZone() {
         assertEquals(TimeZone.getDefault(), TimeZones.toTimeZone(null));
         assertEquals(TimeZone.getDefault(), TimeZones.toTimeZone(TimeZone.getDefault()));
         assertEquals(TimeZones.GMT, TimeZones.toTimeZone(TimeZones.GMT));

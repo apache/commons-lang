@@ -101,12 +101,20 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      */
     public static final int SHORT = DateFormat.SHORT;
 
-    private static final AbstractFormatCache<FastDateFormat> cache = new AbstractFormatCache<FastDateFormat>() {
+    private static final AbstractFormatCache<FastDateFormat> CACHE = new AbstractFormatCache<FastDateFormat>() {
         @Override
         protected FastDateFormat createInstance(final String pattern, final TimeZone timeZone, final Locale locale) {
             return new FastDateFormat(pattern, timeZone, locale);
         }
     };
+
+    /**
+     * Clears the cache.
+     */
+    static void clear() {
+        AbstractFormatCache.clear();
+        CACHE.clearInstance();
+    }
 
     /**
      * Gets a date formatter instance using the specified style in the
@@ -119,7 +127,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @since 2.1
      */
     public static FastDateFormat getDateInstance(final int style) {
-        return cache.getDateInstance(style, null, null);
+        return CACHE.getDateInstance(style, null, null);
     }
 
     /**
@@ -134,7 +142,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @since 2.1
      */
     public static FastDateFormat getDateInstance(final int style, final Locale locale) {
-        return cache.getDateInstance(style, null, locale);
+        return CACHE.getDateInstance(style, null, locale);
     }
 
     /**
@@ -150,7 +158,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @since 2.1
      */
     public static FastDateFormat getDateInstance(final int style, final TimeZone timeZone) {
-        return cache.getDateInstance(style, timeZone, null);
+        return CACHE.getDateInstance(style, timeZone, null);
     }
 
     /**
@@ -166,7 +174,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *  pattern defined
      */
     public static FastDateFormat getDateInstance(final int style, final TimeZone timeZone, final Locale locale) {
-        return cache.getDateInstance(style, timeZone, locale);
+        return CACHE.getDateInstance(style, timeZone, locale);
     }
 
     /**
@@ -181,7 +189,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @since 2.1
      */
     public static FastDateFormat getDateTimeInstance(final int dateStyle, final int timeStyle) {
-        return cache.getDateTimeInstance(dateStyle, timeStyle, null, null);
+        return CACHE.getDateTimeInstance(dateStyle, timeStyle, null, null);
     }
 
     /**
@@ -197,7 +205,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @since 2.1
      */
     public static FastDateFormat getDateTimeInstance(final int dateStyle, final int timeStyle, final Locale locale) {
-        return cache.getDateTimeInstance(dateStyle, timeStyle, null, locale);
+        return CACHE.getDateTimeInstance(dateStyle, timeStyle, null, locale);
     }
 
     /**
@@ -232,7 +240,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      */
     public static FastDateFormat getDateTimeInstance(
             final int dateStyle, final int timeStyle, final TimeZone timeZone, final Locale locale) {
-        return cache.getDateTimeInstance(dateStyle, timeStyle, timeZone, locale);
+        return CACHE.getDateTimeInstance(dateStyle, timeStyle, timeZone, locale);
     }
 
     /**
@@ -242,7 +250,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @return a date/time formatter
      */
     public static FastDateFormat getInstance() {
-        return cache.getInstance();
+        return CACHE.getInstance();
     }
 
     /**
@@ -255,7 +263,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @throws IllegalArgumentException if pattern is invalid
      */
     public static FastDateFormat getInstance(final String pattern) {
-        return cache.getInstance(pattern, null, null);
+        return CACHE.getInstance(pattern, null, null);
     }
 
     /**
@@ -269,7 +277,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @throws IllegalArgumentException if pattern is invalid
      */
     public static FastDateFormat getInstance(final String pattern, final Locale locale) {
-        return cache.getInstance(pattern, null, locale);
+        return CACHE.getInstance(pattern, null, locale);
     }
 
     /**
@@ -284,7 +292,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @throws IllegalArgumentException if pattern is invalid
      */
     public static FastDateFormat getInstance(final String pattern, final TimeZone timeZone) {
-        return cache.getInstance(pattern, timeZone, null);
+        return CACHE.getInstance(pattern, timeZone, null);
     }
 
     /**
@@ -301,7 +309,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *  or {@code null}
      */
     public static FastDateFormat getInstance(final String pattern, final TimeZone timeZone, final Locale locale) {
-        return cache.getInstance(pattern, timeZone, locale);
+        return CACHE.getInstance(pattern, timeZone, locale);
     }
 
     /**
@@ -315,7 +323,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @since 2.1
      */
     public static FastDateFormat getTimeInstance(final int style) {
-        return cache.getTimeInstance(style, null, null);
+        return CACHE.getTimeInstance(style, null, null);
     }
 
     /**
@@ -330,7 +338,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @since 2.1
      */
     public static FastDateFormat getTimeInstance(final int style, final Locale locale) {
-        return cache.getTimeInstance(style, null, locale);
+        return CACHE.getTimeInstance(style, null, locale);
     }
 
     /**
@@ -346,7 +354,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @since 2.1
      */
     public static FastDateFormat getTimeInstance(final int style, final TimeZone timeZone) {
-        return cache.getTimeInstance(style, timeZone, null);
+        return CACHE.getTimeInstance(style, timeZone, null);
     }
 
     /**
@@ -362,7 +370,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *  pattern defined
      */
     public static FastDateFormat getTimeInstance(final int style, final TimeZone timeZone, final Locale locale) {
-        return cache.getTimeInstance(style, timeZone, locale);
+        return CACHE.getTimeInstance(style, timeZone, locale);
     }
 
     /** Our fast printer. */

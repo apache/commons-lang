@@ -34,9 +34,9 @@ import org.junitpioneer.jupiter.WritesDefaultLocale;
 /**
  * Tests {@link StringUtils} - Contains methods
  */
-public class StringUtilsContainsTest extends AbstractLangTest {
+class StringUtilsContainsTest extends AbstractLangTest {
     @Test
-    public void testContains_Char() {
+    void testContains_Char() {
         assertFalse(StringUtils.contains(null, ' '));
         assertFalse(StringUtils.contains("", ' '));
         assertFalse(StringUtils.contains("", null));
@@ -48,7 +48,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContains_String() {
+    void testContains_String() {
         assertFalse(StringUtils.contains(null, null));
         assertFalse(StringUtils.contains(null, ""));
         assertFalse(StringUtils.contains(null, "a"));
@@ -66,7 +66,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
      * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
-    public void testContains_StringWithBadSupplementaryChars() {
+    void testContains_StringWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
         assertFalse(StringUtils.contains(CharUSuppCharLow, CharU20001));
         assertFalse(StringUtils.contains(CharUSuppCharHigh, CharU20001));
@@ -81,7 +81,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
      * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
-    public void testContains_StringWithSupplementaryChars() {
+    void testContains_StringWithSupplementaryChars() {
         assertTrue(StringUtils.contains(CharU20000 + CharU20001, CharU20000));
         assertTrue(StringUtils.contains(CharU20000 + CharU20001, CharU20001));
         assertTrue(StringUtils.contains(CharU20000, CharU20000));
@@ -89,7 +89,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsAny_StringCharArray() {
+    void testContainsAny_StringCharArray() {
         assertFalse(StringUtils.containsAny(null, (char[]) null));
         assertFalse(StringUtils.containsAny(null, new char[0]));
         assertFalse(StringUtils.containsAny(null, 'a', 'b'));
@@ -110,7 +110,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
      * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
-    public void testContainsAny_StringCharArrayWithBadSupplementaryChars() {
+    void testContainsAny_StringCharArrayWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
         assertFalse(StringUtils.containsAny(CharUSuppCharLow, CharU20001.toCharArray()));
         assertFalse(StringUtils.containsAny("abc" + CharUSuppCharLow + "xyz", CharU20001.toCharArray()));
@@ -125,7 +125,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
      * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
-    public void testContainsAny_StringCharArrayWithSupplementaryChars() {
+    void testContainsAny_StringCharArrayWithSupplementaryChars() {
         assertTrue(StringUtils.containsAny(CharU20000 + CharU20001, CharU20000.toCharArray()));
         assertTrue(StringUtils.containsAny("a" + CharU20000 + CharU20001, "a".toCharArray()));
         assertTrue(StringUtils.containsAny(CharU20000 + "a" + CharU20001, "a".toCharArray()));
@@ -142,7 +142,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsAny_StringString() {
+    void testContainsAny_StringString() {
         assertFalse(StringUtils.containsAny(null, (String) null));
         assertFalse(StringUtils.containsAny(null, ""));
         assertFalse(StringUtils.containsAny(null, "ab"));
@@ -160,7 +160,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsAny_StringStringArray() {
+    void testContainsAny_StringStringArray() {
         assertFalse(StringUtils.containsAny(null, (String[]) null));
         assertFalse(StringUtils.containsAny(null, new String[0]));
         assertFalse(StringUtils.containsAny(null, new String[] { "hello" }));
@@ -184,7 +184,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
      * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
-    public void testContainsAny_StringWithBadSupplementaryChars() {
+    void testContainsAny_StringWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
         assertFalse(StringUtils.containsAny(CharUSuppCharLow, CharU20001));
         assertEquals(-1, CharUSuppCharHigh.indexOf(CharU20001));
@@ -198,7 +198,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
      * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
-    public void testContainsAny_StringWithSupplementaryChars() {
+    void testContainsAny_StringWithSupplementaryChars() {
         assertTrue(StringUtils.containsAny(CharU20000 + CharU20001, CharU20000));
         assertTrue(StringUtils.containsAny(CharU20000 + CharU20001, CharU20001));
         assertTrue(StringUtils.containsAny(CharU20000, CharU20000));
@@ -212,7 +212,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsAnyIgnoreCase_StringStringArray() {
+    void testContainsAnyIgnoreCase_StringStringArray() {
         assertFalse(StringUtils.containsAnyIgnoreCase(null, (String[]) null));
         assertFalse(StringUtils.containsAnyIgnoreCase(null, new String[0]));
         assertFalse(StringUtils.containsAnyIgnoreCase(null, new String[] { "hello" }));
@@ -236,7 +236,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     @DefaultLocale(language = "de", country = "DE")
     @ReadsDefaultLocale
     @WritesDefaultLocale
-    public void testContainsIgnoreCase_LocaleIndependence() {
+    void testContainsIgnoreCase_LocaleIndependence() {
         final Locale[] locales = { Locale.ENGLISH, new Locale("tr"), Locale.getDefault() };
 
         final String[][] tdata = { { "i", "I" }, { "I", "i" }, { "\u03C2", "\u03C3" }, { "\u03A3", "\u03C2" }, { "\u03A3", "\u03C3" }, };
@@ -255,7 +255,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsIgnoreCase_StringString() {
+    void testContainsIgnoreCase_StringString() {
         assertFalse(StringUtils.containsIgnoreCase(null, null));
 
         // Null tests
@@ -290,7 +290,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsNone_CharArray() {
+    void testContainsNone_CharArray() {
         final String str1 = "a";
         final String str2 = "b";
         final String str3 = "ab.";
@@ -319,7 +319,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
      * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
-    public void testContainsNone_CharArrayWithBadSupplementaryChars() {
+    void testContainsNone_CharArrayWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
         assertTrue(StringUtils.containsNone(CharUSuppCharLow, CharU20001.toCharArray()));
         assertEquals(-1, CharUSuppCharHigh.indexOf(CharU20001));
@@ -334,7 +334,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
      * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
-    public void testContainsNone_CharArrayWithSupplementaryChars() {
+    void testContainsNone_CharArrayWithSupplementaryChars() {
         assertFalse(StringUtils.containsNone(CharU20000 + CharU20001, CharU20000.toCharArray()));
         assertFalse(StringUtils.containsNone(CharU20000 + CharU20001, CharU20001.toCharArray()));
         assertFalse(StringUtils.containsNone(CharU20000, CharU20000.toCharArray()));
@@ -348,7 +348,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsNone_String() {
+    void testContainsNone_String() {
         final String str1 = "a";
         final String str2 = "b";
         final String str3 = "ab.";
@@ -376,7 +376,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
      * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
-    public void testContainsNone_StringWithBadSupplementaryChars() {
+    void testContainsNone_StringWithBadSupplementaryChars() {
         // Test edge case: 1/2 of a (broken) supplementary char
         assertTrue(StringUtils.containsNone(CharUSuppCharLow, CharU20001));
         assertEquals(-1, CharUSuppCharHigh.indexOf(CharU20001));
@@ -391,7 +391,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
      * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
      */
     @Test
-    public void testContainsNone_StringWithSupplementaryChars() {
+    void testContainsNone_StringWithSupplementaryChars() {
         assertFalse(StringUtils.containsNone(CharU20000 + CharU20001, CharU20000));
         assertFalse(StringUtils.containsNone(CharU20000 + CharU20001, CharU20001));
         assertFalse(StringUtils.containsNone(CharU20000, CharU20000));
@@ -405,7 +405,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsOnly_CharArray() {
+    void testContainsOnly_CharArray() {
         final String str1 = "a";
         final String str2 = "b";
         final String str3 = "ab";
@@ -431,7 +431,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsOnly_String() {
+    void testContainsOnly_String() {
         final String str1 = "a";
         final String str2 = "b";
         final String str3 = "ab";
@@ -456,7 +456,7 @@ public class StringUtilsContainsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsWhitespace() {
+    void testContainsWhitespace() {
         assertFalse(StringUtils.containsWhitespace(""));
         assertTrue(StringUtils.containsWhitespace(" "));
         assertFalse(StringUtils.containsWhitespace("a"));

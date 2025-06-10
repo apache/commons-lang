@@ -27,10 +27,10 @@ import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
-public class ArrayUtilsSetTest extends AbstractLangTest {
+class ArrayUtilsSetTest extends AbstractLangTest {
 
     @Test
-    public void testSetAll_IntFunction() {
+    void testSetAll_IntFunction() {
         final IntFunction<?> nullIntFunction = null;
         assertNull(ArrayUtils.setAll(null, nullIntFunction));
         assertArrayEquals(null, ArrayUtils.setAll(null, nullIntFunction));
@@ -45,7 +45,7 @@ public class ArrayUtilsSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSetAll_Supplier() {
+    void testSetAll_Supplier() {
         final Supplier<?> nullSupplier = null;
         assertNull(ArrayUtils.setAll(null, nullSupplier));
         assertArrayEquals(null, ArrayUtils.setAll(null, nullSupplier));

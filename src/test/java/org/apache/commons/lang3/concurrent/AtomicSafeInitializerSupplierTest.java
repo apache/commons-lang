@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code AtomicSafeInitializer} which also serves as a simple example.
  */
-public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
+class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
 
     /** An initCounter used in testing. Reset before each test */
     private AtomicInteger initCounter = new AtomicInteger();
@@ -64,7 +64,7 @@ public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitial
     }
 
     @Test
-    public void testGetThatReturnsNullFirstTime() throws ConcurrentException {
+    void testGetThatReturnsNullFirstTime() throws ConcurrentException {
         final AtomicSafeInitializer<Object> initializer = new AtomicSafeInitializer<Object>() {
             final AtomicBoolean firstRun = new AtomicBoolean(true);
 
@@ -88,7 +88,7 @@ public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitial
      * @throws InterruptedException because {@link #testGetConcurrent()} may throw it
      */
     @Test
-    public void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
+    void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
         testGetConcurrent();
         assertEquals(1, initCounter.get(), "Wrong number of invocations");
     }

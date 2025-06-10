@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link NotImplementedException}.
  */
-public class NotImplementedExceptionTest extends AbstractLangTest {
+class NotImplementedExceptionTest extends AbstractLangTest {
 
     private void assertCorrect(final String assertMessage, final NotImplementedException nie, final String message, final Throwable nested, final String code) {
         assertNotNull(nie, assertMessage + ": target is null");
@@ -35,7 +35,7 @@ public class NotImplementedExceptionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         final Throwable nested = new RuntimeException();
         final String message = "Not Implemented";
         final String code = "CODE";

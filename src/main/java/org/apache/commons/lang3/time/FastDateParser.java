@@ -42,6 +42,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.LocaleUtils;
@@ -630,7 +631,7 @@ public class FastDateParser implements DateParser, Serializable {
     // helper classes to parse the format string
 
     @SuppressWarnings("unchecked") // OK because we are creating an array with no entries
-    private static final ConcurrentMap<Locale, Strategy>[] caches = new ConcurrentMap[Calendar.FIELD_COUNT];
+    private static final ConcurrentMap<Locale, Strategy>[] CACHES = new ConcurrentMap[Calendar.FIELD_COUNT];
 
     private static final Strategy ABBREVIATED_YEAR_STRATEGY = new NumberStrategy(Calendar.YEAR) {
         /**
@@ -718,17 +719,24 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
+     * Clears the cache.
+     */
+    static void clear() {
+        Stream.of(CACHES).filter(Objects::nonNull).forEach(ConcurrentMap::clear);
+    }
+
+    /**
      * Gets a cache of Strategies for a particular field
      *
      * @param field The Calendar field
      * @return a cache of Locale to Strategy
      */
     private static ConcurrentMap<Locale, Strategy> getCache(final int field) {
-        synchronized (caches) {
-            if (caches[field] == null) {
-                caches[field] = new ConcurrentHashMap<>(3);
+        synchronized (CACHES) {
+            if (CACHES[field] == null) {
+                CACHES[field] = new ConcurrentHashMap<>(3);
             }
-            return caches[field];
+            return CACHES[field];
         }
     }
 
@@ -786,7 +794,6 @@ public class FastDateParser implements DateParser, Serializable {
 
     /** Initialized from Calendar. */
     private transient List<StrategyAndWidth> patterns;
-
     /**
      * Constructs a new FastDateParser.
      *

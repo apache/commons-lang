@@ -25,22 +25,22 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link IntStreams}.
  */
-public class IntStreamsTest extends AbstractLangTest {
+class IntStreamsTest extends AbstractLangTest {
 
     @Test
-    public void testOfArray() {
+    void testOfArray() {
         assertEquals(0, IntStreams.of((int[]) null).count());
         assertEquals(1, IntStreams.of(1).count());
         assertEquals(2, IntStreams.of(1, 2).count());
     }
 
     @Test
-    public void testRange() {
+    void testRange() {
         assertArrayEquals(new int[] {0, 1}, IntStreams.range(2).toArray());
     }
 
     @Test
-    public void testRangeClosed() {
+    void testRangeClosed() {
         assertArrayEquals(new int[] {0, 1, 2}, IntStreams.rangeClosed(2).toArray());
     }
 }

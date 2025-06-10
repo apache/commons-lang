@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@link MultiBackgroundInitializer}.
  */
-public class MultiBackgroundInitializerTest extends AbstractLangTest {
+class MultiBackgroundInitializerTest extends AbstractLangTest {
     /**
      * A mostly complete implementation of {@code BackgroundInitializer} used for
      * defining background tasks for {@code MultiBackgroundInitializer}.
@@ -227,7 +227,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testAddInitializerAfterStart() throws ConcurrentException {
+    void testAddInitializerAfterStart() throws ConcurrentException {
         initializer.start();
         assertThrows(
                 IllegalStateException.class,
@@ -241,7 +241,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * cause an exception.
      */
     @Test
-    public void testAddInitializerNullInit() {
+    void testAddInitializerNullInit() {
         assertThrows(NullPointerException.class, () -> initializer.addInitializer(CHILD_INIT, null));
     }
 
@@ -250,7 +250,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * exception.
      */
     @Test
-    public void testAddInitializerNullName() {
+    void testAddInitializerNullName() {
         assertThrows(NullPointerException.class, () -> initializer.addInitializer(null, createChildBackgroundInitializer()));
     }
 
@@ -261,7 +261,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testInitializeChildWithExecutor() throws ConcurrentException, InterruptedException {
+    void testInitializeChildWithExecutor() throws ConcurrentException, InterruptedException {
         final String initExec = "childInitializerWithExecutor";
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
@@ -287,7 +287,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testInitializeEx() throws ConcurrentException {
+    void testInitializeEx() throws ConcurrentException {
         final AbstractChildBackgroundInitializer child = createChildBackgroundInitializer();
         child.ex = new Exception();
         initializer.addInitializer(CHILD_INIT, child);
@@ -306,7 +306,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testInitializeExternalExec() throws ConcurrentException, InterruptedException {
+    void testInitializeExternalExec() throws ConcurrentException, InterruptedException {
         final ExecutorService exec = Executors.newCachedThreadPool();
         try {
             initializer = new MultiBackgroundInitializer(exec);
@@ -326,7 +326,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testInitializeNested() throws ConcurrentException {
+    void testInitializeNested() throws ConcurrentException {
         final String nameMulti = "multiChildInitializer";
         initializer
                 .addInitializer(CHILD_INIT, createChildBackgroundInitializer());
@@ -358,7 +358,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testInitializeNoChildren() throws ConcurrentException {
+    void testInitializeNoChildren() throws ConcurrentException {
         assertTrue(initializer.start(), "Wrong result of start()");
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
                 .get();
@@ -373,7 +373,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testInitializeResultsIsSuccessfulFalse()
+    void testInitializeResultsIsSuccessfulFalse()
             throws ConcurrentException {
         final AbstractChildBackgroundInitializer child = createChildBackgroundInitializer();
         child.ex = new Exception();
@@ -391,7 +391,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testInitializeResultsIsSuccessfulTrue()
+    void testInitializeResultsIsSuccessfulTrue()
             throws ConcurrentException {
         final AbstractChildBackgroundInitializer child = createChildBackgroundInitializer();
         initializer.addInitializer(CHILD_INIT, child);
@@ -406,7 +406,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * throws a runtime exception.
      */
     @Test
-    public void testInitializeRuntimeEx() {
+    void testInitializeRuntimeEx() {
         final AbstractChildBackgroundInitializer child = createChildBackgroundInitializer();
         child.ex = new RuntimeException();
         initializer.addInitializer(CHILD_INIT, child);
@@ -421,13 +421,13 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testInitializeTempExec() throws ConcurrentException {
+    void testInitializeTempExec() throws ConcurrentException {
         checkInitialize();
         assertTrue(initializer.getActiveExecutor().isShutdown(), "Executor not shutdown");
     }
 
     @Test
-    public void testIsInitialized()
+    void testIsInitialized()
             throws ConcurrentException, InterruptedException {
         final AbstractChildBackgroundInitializer childOne = createChildBackgroundInitializer();
         final AbstractChildBackgroundInitializer childTwo = createChildBackgroundInitializer();
@@ -470,7 +470,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testResultGetExceptionUnknown() throws ConcurrentException {
+    void testResultGetExceptionUnknown() throws ConcurrentException {
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
         assertThrows(NoSuchElementException.class, () -> res.getException("unknown"));
     }
@@ -482,7 +482,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testResultGetInitializerUnknown() throws ConcurrentException {
+    void testResultGetInitializerUnknown() throws ConcurrentException {
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
         assertThrows(NoSuchElementException.class, () -> res.getInitializer("unknown"));
     }
@@ -494,7 +494,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testResultGetResultObjectUnknown() throws ConcurrentException {
+    void testResultGetResultObjectUnknown() throws ConcurrentException {
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
         assertThrows(NoSuchElementException.class, () -> res.getResultObject("unknown"));
     }
@@ -505,7 +505,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testResultInitializerNamesModify() throws ConcurrentException {
+    void testResultInitializerNamesModify() throws ConcurrentException {
         checkInitialize();
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
                 .get();
@@ -521,7 +521,7 @@ public class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testResultIsExceptionUnknown() throws ConcurrentException {
+    void testResultIsExceptionUnknown() throws ConcurrentException {
         final MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
         assertThrows(NoSuchElementException.class, () -> res.isException("unknown"));
     }

@@ -30,31 +30,31 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asFailableBiConsumer(Method)}.
  */
-public class MethodInvokersFailableBiConsumerTest extends MethodFixtures {
+class MethodInvokersFailableBiConsumerTest extends MethodFixtures {
 
     @Test
-    public void testApply1Arg() throws Throwable {
+    void testApply1Arg() throws Throwable {
         MethodInvokers.asFailableBiConsumer(getMethodForSetString1Arg()).accept(INSTANCE, "A");
         assertEquals("A", INSTANCE.getValue1());
     }
 
     @Test
-    public void testApply1ArgThrowsChecked() throws Exception {
+    void testApply1ArgThrowsChecked() throws Exception {
         assertThrows(CustomCheckedException.class, () -> MethodInvokers.asFailableBiConsumer(getMethodForSetString1ArgThrowsChecked()).accept(INSTANCE, "A"));
     }
 
     @Test
-    public void testApply1ArgThrowsUnchecked() throws Exception {
+    void testApply1ArgThrowsUnchecked() throws Exception {
         assertThrows(CustomUncheckedException.class, () -> MethodInvokers.asFailableBiConsumer(getMethodForSetString1ArgThrowsUnchecked()).accept(INSTANCE, "A"));
     }
 
     @Test
-    public void testConstructorForNull() throws Exception {
+    void testConstructorForNull() throws Exception {
         assertThrows(NullPointerException.class, () -> MethodInvokers.asFailableBiConsumer(null));
     }
 
     @Test
-    public void testToString() throws SecurityException, ReflectiveOperationException {
+    void testToString() throws SecurityException, ReflectiveOperationException {
         // Should not blow up and must return _something_
         assertFalse(MethodInvokers.asFailableBiConsumer(getMethodForSetString1Arg()).toString().isEmpty());
     }

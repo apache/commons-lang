@@ -37,10 +37,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Test the Pair class.
  */
-public class ImmutablePairTest extends AbstractLangTest {
+class ImmutablePairTest extends AbstractLangTest {
 
     @Test
-    public void testBasic() {
+    void testBasic() {
         ImmutablePair<Integer, String> oldPair = new ImmutablePair<>(0, "foo");
         ImmutablePair<Integer, String> nowPair;
         for (int i = 0; i < 4; i++) {
@@ -66,7 +66,7 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testComparableLeftOnly() {
+    void testComparableLeftOnly() {
         final Pair<String, String> pair1 = ImmutablePair.left("A");
         final Pair<String, String> pair2 = ImmutablePair.left("B");
         assertEquals("A", pair1.getLeft());
@@ -78,7 +78,7 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testComparableRightOnly() {
+    void testComparableRightOnly() {
         final Pair<String, String> pair1 = ImmutablePair.right("A");
         final Pair<String, String> pair2 = ImmutablePair.right("B");
         assertEquals("A", pair1.getRight());
@@ -90,20 +90,20 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEmptyArrayGenerics() {
+    void testEmptyArrayGenerics() {
         final ImmutablePair<Integer, String>[] empty = ImmutablePair.emptyArray();
         assertEquals(0, empty.length);
     }
 
     @Test
-    public void testEmptyArrayLength() {
+    void testEmptyArrayLength() {
         @SuppressWarnings("unchecked")
         final ImmutablePair<Integer, String>[] empty = (ImmutablePair<Integer, String>[]) ImmutablePair.EMPTY_ARRAY;
         assertEquals(0, empty.length);
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         assertEquals(ImmutablePair.of(null, "foo"), ImmutablePair.of(null, "foo"));
         assertNotEquals(ImmutablePair.of("foo", 0), ImmutablePair.of("foo", null));
         assertNotEquals(ImmutablePair.of("foo", "bar"), ImmutablePair.of("xyz", "bar"));
@@ -114,37 +114,37 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(ImmutablePair.of(null, "foo").hashCode(), ImmutablePair.of(null, "foo").hashCode());
     }
 
     @Test
-    public void testNullPairEquals() {
+    void testNullPairEquals() {
         assertEquals(ImmutablePair.nullPair(), ImmutablePair.nullPair());
     }
 
     @Test
-    public void testNullPairKey() {
+    void testNullPairKey() {
         assertNull(ImmutablePair.nullPair().getKey());
     }
 
     @Test
-    public void testNullPairLeft() {
+    void testNullPairLeft() {
         assertNull(ImmutablePair.nullPair().getLeft());
     }
 
     @Test
-    public void testNullPairRight() {
+    void testNullPairRight() {
         assertNull(ImmutablePair.nullPair().getRight());
     }
 
     @Test
-    public void testNullPairSame() {
+    void testNullPairSame() {
         assertSame(ImmutablePair.nullPair(), ImmutablePair.nullPair());
     }
 
     @Test
-    public void testNullPairTyped() {
+    void testNullPairTyped() {
         // No compiler warnings
         // How do we assert that?
         final ImmutablePair<String, String> pair = ImmutablePair.nullPair();
@@ -152,12 +152,12 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNullPairValue() {
+    void testNullPairValue() {
         assertNull(ImmutablePair.nullPair().getValue());
     }
 
     @Test
-    public void testOfNonNull() {
+    void testOfNonNull() {
         assertThrows(NullPointerException.class, () -> ImmutablePair.ofNonNull(null, null));
         assertThrows(NullPointerException.class, () -> ImmutablePair.ofNonNull(null, "x"));
         assertThrows(NullPointerException.class, () -> ImmutablePair.ofNonNull("x", null));
@@ -167,7 +167,7 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPairOfMapEntry() {
+    void testPairOfMapEntry() {
         final HashMap<Integer, String> map = new HashMap<>();
         map.put(0, "foo");
         final Entry<Integer, String> entry = map.entrySet().iterator().next();
@@ -177,7 +177,7 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPairOfObjects() {
+    void testPairOfObjects() {
         final ImmutablePair<Integer, String> pair = ImmutablePair.of(0, "foo");
         assertEquals(0, pair.left.intValue());
         assertEquals(0, pair.getLeft().intValue());
@@ -194,7 +194,7 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSerialization() throws Exception {
+    void testSerialization() throws Exception {
         final ImmutablePair<Integer, String> origPair = ImmutablePair.of(0, "foo");
         final ImmutablePair<Integer, String> deserializedPair = SerializationUtils.roundtrip(origPair);
         assertEquals(origPair, deserializedPair);
@@ -202,7 +202,7 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("(null,null)", ImmutablePair.of(null, null).toString());
         assertEquals("(null,two)", ImmutablePair.of(null, "two").toString());
         assertEquals("(one,null)", ImmutablePair.of("one", null).toString());
@@ -210,26 +210,26 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToStringLeft() {
+    void testToStringLeft() {
         final Pair<String, String> pair = ImmutablePair.left("Key");
         assertEquals("(Key,null)", pair.toString());
     }
 
     @Test
-    public void testToStringRight() {
+    void testToStringRight() {
         final Pair<String, String> pair = ImmutablePair.right("Value");
         assertEquals("(null,Value)", pair.toString());
     }
 
     @Test
-    public void testUnsupportedOperation() {
+    void testUnsupportedOperation() {
         final ImmutablePair<Integer, String> pair = new ImmutablePair<>(0, "foo");
         assertThrows(UnsupportedOperationException.class, () -> pair.setValue("any"));
 
     }
 
     @Test
-    public void testUseAsKeyOfHashMap() {
+    void testUseAsKeyOfHashMap() {
         final HashMap<ImmutablePair<Object, Object>, String> map = new HashMap<>();
         final Object o1 = new Object();
         final Object o2 = new Object();
@@ -241,7 +241,7 @@ public class ImmutablePairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUseAsKeyOfTreeMap() {
+    void testUseAsKeyOfTreeMap() {
         final TreeMap<ImmutablePair<Integer, Integer>, String> map = new TreeMap<>();
         map.put(ImmutablePair.of(1, 2), "12");
         map.put(ImmutablePair.of(1, 1), "11");

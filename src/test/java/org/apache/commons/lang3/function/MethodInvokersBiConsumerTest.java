@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asBiConsumer(Method)}.
  */
-public class MethodInvokersBiConsumerTest extends MethodFixtures {
+class MethodInvokersBiConsumerTest extends MethodFixtures {
 
     @Test
-    public void testApply1Arg() throws NoSuchMethodException, SecurityException {
+    void testApply1Arg() throws NoSuchMethodException, SecurityException {
         final BiConsumer<Object, Object> biConsumer = MethodInvokers.asBiConsumer(getMethodForSetString1Arg());
         biConsumer.accept(INSTANCE, "A");
         assertEquals("A", INSTANCE.getValue1());
@@ -41,12 +41,12 @@ public class MethodInvokersBiConsumerTest extends MethodFixtures {
     }
 
     @Test
-    public void testConstructorForNull() throws SecurityException {
+    void testConstructorForNull() throws SecurityException {
         assertThrows(NullPointerException.class, () -> MethodInvokers.asBiConsumer(null));
     }
 
     @Test
-    public void testToString() throws SecurityException, ReflectiveOperationException {
+    void testToString() throws SecurityException, ReflectiveOperationException {
         // Should not blow up and must return _something_
         final BiConsumer<Object, Object> biConsumer = MethodInvokers.asBiConsumer(getMethodForSetString1Arg());
         assertFalse(biConsumer.toString().isEmpty());

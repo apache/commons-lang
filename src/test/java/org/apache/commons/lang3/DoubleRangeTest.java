@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
  * Tests {@link DoubleRange}.
  */
 @SuppressWarnings("boxing")
-public class DoubleRangeTest extends AbstractLangTest {
+class DoubleRangeTest extends AbstractLangTest {
 
     private static DoubleRange of(final double min, final double max) {
         return DoubleRange.of(min, max);
@@ -61,7 +61,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsInt() {
+    void testContainsInt() {
         assertFalse(range1.contains(null));
 
         assertTrue(rangeFull.contains(Double.MIN_VALUE));
@@ -75,7 +75,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsRange() {
+    void testContainsRange() {
 
         // null handling
         assertFalse(range1.containsRange(null));
@@ -118,7 +118,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testElementCompareTo() {
+    void testElementCompareTo() {
         assertThrows(NullPointerException.class, () -> range1.elementCompareTo(null));
 
         assertEquals(-1, range1.elementCompareTo(5d));
@@ -129,7 +129,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEqualsObject() {
+    void testEqualsObject() {
         assertEquals(range1, range1);
         assertEquals(range1, range2);
         assertEquals(range2, range2);
@@ -142,7 +142,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFit() {
+    void testFit() {
         assertEquals(range1.getMinimum(), range1.fit(Double.MIN_VALUE));
         assertEquals(range1.getMinimum(), range1.fit(range1.getMinimum()));
         assertEquals(range1.getMaximum(), range1.fit(Double.MAX_VALUE));
@@ -151,24 +151,24 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFitNull() {
+    void testFitNull() {
         assertThrows(NullPointerException.class, () -> {
             range1.fit(null);
         });
     }
 
     @Test
-    public void testGetMaximum() {
+    void testGetMaximum() {
         assertEquals(20d, range1.getMaximum());
     }
 
     @Test
-    public void testGetMinimum() {
+    void testGetMinimum() {
         assertEquals(10d, range1.getMinimum());
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(range1.hashCode(), range2.hashCode());
         assertNotEquals(range1.hashCode(), range3.hashCode());
 
@@ -177,24 +177,24 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIntersectionWith() {
+    void testIntersectionWith() {
         assertSame(range1, range1.intersectionWith(range1));
 
         assertEquals(Range.of(10d, 15d), range1.intersectionWith(Range.of(5d, 15d)));
     }
 
     @Test
-    public void testIntersectionWithNonOverlapping() {
+    void testIntersectionWithNonOverlapping() {
         assertThrows(IllegalArgumentException.class, () -> range1.intersectionWith(Range.of(0d, 9d)));
     }
 
     @Test
-    public void testIntersectionWithNull() {
+    void testIntersectionWithNull() {
         assertThrows(IllegalArgumentException.class, () -> range1.intersectionWith(null));
     }
 
     @Test
-    public void testIsAfter() {
+    void testIsAfter() {
         assertFalse(range1.isAfter(null));
 
         assertTrue(range1.isAfter(5d));
@@ -205,7 +205,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAfterRange() {
+    void testIsAfterRange() {
         assertFalse(range1.isAfterRange(null));
 
         assertTrue(range1.isAfterRange(Range.of(5d, 9d)));
@@ -221,7 +221,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsBefore() {
+    void testIsBefore() {
         assertFalse(range1.isBefore(null));
 
         assertFalse(range1.isBefore(5d));
@@ -232,7 +232,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsBeforeIntegerRange() {
+    void testIsBeforeIntegerRange() {
         assertFalse(range1.isBeforeRange(null));
 
         assertFalse(range1.isBeforeRange(of(5, 9)));
@@ -248,7 +248,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsBeforeRange() {
+    void testIsBeforeRange() {
         assertFalse(range1.isBeforeRange(null));
 
         assertFalse(range1.isBeforeRange(Range.of(5d, 9d)));
@@ -264,7 +264,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsEndedBy() {
+    void testIsEndedBy() {
         assertFalse(range1.isEndedBy(null));
 
         assertFalse(range1.isEndedBy(5d));
@@ -275,7 +275,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsOverlappedByIntegerRange() {
+    void testIsOverlappedByIntegerRange() {
 
         // null handling
         assertFalse(range1.isOverlappedBy(null));
@@ -310,7 +310,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsOverlappedByRange() {
+    void testIsOverlappedByRange() {
 
         // null handling
         assertFalse(range1.isOverlappedBy(null));
@@ -345,7 +345,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsStartedBy() {
+    void testIsStartedBy() {
         assertFalse(range1.isStartedBy(null));
 
         assertFalse(range1.isStartedBy(5d));
@@ -356,7 +356,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsWithCompareRange() {
+    void testIsWithCompareRange() {
         // all integers are equal
         final Comparator<Integer> c = (o1, o2) -> 0;
         Range<Integer> ri = Range.is(10);
@@ -370,7 +370,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOfWithContains() {
+    void testOfWithContains() {
         // all integers are equal
         final DoubleRange rb = of(-10, 20);
         assertFalse(rb.contains(null), "should not contain null");
@@ -383,19 +383,19 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRangeOfChars() {
+    void testRangeOfChars() {
         final DoubleRange chars = of('a', 'z');
         assertTrue(chars.contains((double) 'b'));
         assertFalse(chars.contains((double) 'B'));
     }
 
     @Test
-    public void testSerializing() {
+    void testSerializing() {
         SerializationUtils.clone(range1);
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertNotNull(range1.toString());
 
         final String str = range1.toString();
@@ -405,7 +405,7 @@ public class DoubleRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToStringFormat() {
+    void testToStringFormat() {
         final String str = range1.toString("From %1$s to %2$s");
         assertEquals("From 10.0 to 20.0", str);
     }

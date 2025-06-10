@@ -49,7 +49,7 @@ import org.junit.jupiter.api.Test;
  * @see <a href="https://issues.apache.org/jira/browse/LANG-762">[LANG-762] Handle or document ReflectionToStringBuilder
  *      and ToStringBuilder for collections that are not thread safe</a>
  */
-public class ReflectionToStringBuilderConcurrencyTest extends AbstractLangTest {
+class ReflectionToStringBuilderConcurrencyTest extends AbstractLangTest {
 
     static class CollectionHolder<T extends Collection<?>> {
         T collection;
@@ -64,7 +64,7 @@ public class ReflectionToStringBuilderConcurrencyTest extends AbstractLangTest {
 
     @Test
     @Disabled
-    public void testArrayList() throws InterruptedException {
+    void testArrayList() throws InterruptedException {
         testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
@@ -105,13 +105,13 @@ public class ReflectionToStringBuilderConcurrencyTest extends AbstractLangTest {
 
     @Test
     @Disabled
-    public void testCopyOnWriteArrayList() throws InterruptedException {
+    void testCopyOnWriteArrayList() throws InterruptedException {
         testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
     @Test
     @Disabled
-    public void testLinkedList() throws InterruptedException {
+    void testLinkedList() throws InterruptedException {
         testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 }

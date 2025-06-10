@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link JavaVersion}.
  */
-public class JavaVersionTest extends AbstractLangTest {
+class JavaVersionTest extends AbstractLangTest {
 
     @Test
-    public void testAtLeast() {
+    void testAtLeast() {
         assertFalse(JavaVersion.JAVA_1_2.atLeast(JavaVersion.JAVA_1_5), "1.2 at least 1.5 passed");
         assertTrue(JavaVersion.JAVA_1_5.atLeast(JavaVersion.JAVA_1_2), "1.5 at least 1.2 failed");
         assertFalse(JavaVersion.JAVA_1_6.atLeast(JavaVersion.JAVA_1_7), "1.6 at least 1.7 passed");
@@ -40,7 +40,7 @@ public class JavaVersionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetJavaVersion() throws Exception {
+    void testGetJavaVersion() throws Exception {
         assertEquals(JavaVersion.JAVA_0_9, JavaVersion.get("0.9"), "0.9 failed");
         assertEquals(JavaVersion.JAVA_1_1, JavaVersion.get("1.1"), "1.1 failed");
         assertEquals(JavaVersion.JAVA_1_2, JavaVersion.get("1.2"), "1.2 failed");
@@ -73,7 +73,7 @@ public class JavaVersionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("1.2", JavaVersion.JAVA_1_2.toString());
     }
 
