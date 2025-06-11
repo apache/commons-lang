@@ -794,6 +794,7 @@ public class FastDateParser implements DateParser, Serializable {
 
     /** Initialized from Calendar. */
     private transient List<StrategyAndWidth> patterns;
+
     /**
      * Constructs a new FastDateParser.
      *
