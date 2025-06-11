@@ -69,10 +69,6 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         }
     }
 
-    public static Locale[] getAvailableLocalesSorted() {
-        return ArraySorter.sort(Locale.getAvailableLocales(), Comparator.comparing(Locale::toString));
-    }
-
     @Test
     void testLang1219() throws ParseException {
         final FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
@@ -82,13 +78,13 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @MethodSource("org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest#getAvailableLocalesSorted")
+    @MethodSource("org.apache.commons.lang3.LocaleUtils#availableLocaleList()")
     void testTimeZoneStrategy_DateFormatSymbols(final Locale locale) {
         testTimeZoneStrategyPattern_DateFormatSymbols_getZoneStrings(locale);
     }
 
     @ParameterizedTest
-    @MethodSource("org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest#getAvailableLocalesSorted")
+    @MethodSource("org.apache.commons.lang3.LocaleUtils#availableLocaleList()")
     void testTimeZoneStrategy_TimeZone(final Locale locale) {
         testTimeZoneStrategyPattern_TimeZone_getAvailableIDs(locale);
     }
