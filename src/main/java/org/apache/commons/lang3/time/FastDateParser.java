@@ -1019,6 +1019,7 @@ public class FastDateParser implements DateParser, Serializable {
      * <p>
      * To determine if the parse has succeeded, the caller must check if the current parse position given by {@link ParsePosition#getIndex()} has been updated.
      * If the input buffer has been fully parsed, then the index will point to just after the end of the input buffer.
+     * </p>
      *
      * @see org.apache.commons.lang3.time.DateParser#parse(String, java.text.ParsePosition)
      */
@@ -1072,6 +1073,7 @@ public class FastDateParser implements DateParser, Serializable {
     public Object parseObject(final String source, final ParsePosition pos) {
         return parse(source, pos);
     }
+
     // Serializing
     /**
      * Creates the object after serialization. This implementation reinitializes the transient properties.
@@ -1085,6 +1087,7 @@ public class FastDateParser implements DateParser, Serializable {
         final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
         init(definingCalendar);
     }
+
     /**
      * Gets a string version of this formatter.
      *
