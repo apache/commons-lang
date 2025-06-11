@@ -704,23 +704,20 @@ class FastDateParserTest extends AbstractLangTest {
 
     // we cannot use historic dates to test time zone parsing, some time zones have second offsets
     // as well as hours and minutes which makes the z formats a low fidelity round trip
-    @Test
-    void testTzParses() throws Exception {
+    @ParameterizedTest
+    @MethodSource("org.apache.commons.lang3.LocaleUtils#availableLocaleList()")
+    void testTzParses(final Locale locale) throws Exception {
         // Check that all Locales can parse the time formats we use
-        for (final Locale locale : Locale.getAvailableLocales()) {
-            final FastDateParser fdp = new FastDateParser("yyyy/MM/dd z", TimeZone.getDefault(), locale);
-
-            for (final TimeZone timeZone : new TimeZone[] {NEW_YORK, REYKJAVIK, TimeZones.GMT}) {
-                final Calendar cal = Calendar.getInstance(timeZone, locale);
-                cal.clear();
-                cal.set(Calendar.YEAR, 2000);
-                cal.set(Calendar.MONTH, 1);
-                cal.set(Calendar.DAY_OF_MONTH, 10);
-                final Date expected = cal.getTime();
-
-                final Date actual = fdp.parse("2000/02/10 " + timeZone.getDisplayName(locale));
-                assertEquals(expected, actual, "timeZone:" + timeZone.getID() + " locale:" + locale.getDisplayName());
-            }
+        final FastDateParser fdp = new FastDateParser("yyyy/MM/dd z", TimeZone.getDefault(), locale);
+        for (final TimeZone timeZone : new TimeZone[] { NEW_YORK, REYKJAVIK, TimeZones.GMT }) {
+            final Calendar cal = Calendar.getInstance(timeZone, locale);
+            cal.clear();
+            cal.set(Calendar.YEAR, 2000);
+            cal.set(Calendar.MONTH, 1);
+            cal.set(Calendar.DAY_OF_MONTH, 10);
+            final Date expected = cal.getTime();
+            final Date actual = fdp.parse("2000/02/10 " + timeZone.getDisplayName(locale));
+            assertEquals(expected, actual, "timeZone:" + timeZone.getID() + " locale:" + locale.getDisplayName());
         }
     }
 
