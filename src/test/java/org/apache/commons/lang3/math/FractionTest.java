@@ -638,7 +638,7 @@ class FractionTest extends AbstractLangTest {
         "1756395909, 4194598,    1174949894,  42860673"
     })
     // @formatter:on
-    void testHashCodeNotEquals(int f1n, int f1d, int f2n, int f2d) {
+    void testHashCodeNotEquals(final int f1n, final int f1d, final int f2n, final int f2d) {
         assertNotEquals(Fraction.getFraction(f1n, f1d), Fraction.getFraction(f2n, f2d));
         assertNotEquals(Fraction.getFraction(f1n, f1d).hashCode(), Fraction.getFraction(f2n, f2d).hashCode());
     }
