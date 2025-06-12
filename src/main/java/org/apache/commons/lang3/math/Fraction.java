@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.math;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Objects;
 
