@@ -30,9 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.mutable.MutableObject;
 
 /**
  * Operates on classes without using reflection.
@@ -1118,19 +1117,17 @@ public class ClassUtils {
      */
     public static Iterable<Class<?>> hierarchy(final Class<?> type, final Interfaces interfacesBehavior) {
         final Iterable<Class<?>> classes = () -> {
-            final MutableObject<Class<?>> next = new MutableObject<>(type);
+            final AtomicReference<Class<?>> next = new AtomicReference<>(type);
             return new Iterator<Class<?>>() {
 
                 @Override
                 public boolean hasNext() {
-                    return next.getValue() != null;
+                    return next.get() != null;
                 }
 
                 @Override
                 public Class<?> next() {
-                    final Class<?> result = next.getValue();
-                    next.setValue(result.getSuperclass());
-                    return result;
+                    return next.getAndUpdate(Class::getSuperclass);
                 }
 
                 @Override
