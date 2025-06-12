@@ -1870,6 +1870,10 @@ public class ArrayUtils {
         return new HashCodeBuilder().append(array).toHashCode();
     }
 
+    static <K> void increment(final Map<K, MutableInt> occurrences, final K boxed) {
+        occurrences.computeIfAbsent(boxed, k -> new MutableInt()).increment();
+    }
+
     /**
      * Finds the indices of the given value in the array.
      * <p>
@@ -6086,13 +6090,7 @@ public class ArrayUtils {
         }
         final HashMap<Boolean, MutableInt> occurrences = new HashMap<>(2); // only two possible values here
         for (final boolean v : values) {
-            final Boolean boxed = Boolean.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Boolean.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6139,15 +6137,9 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        final Map<Byte, MutableInt> occurrences = new HashMap<>(values.length);
+        final HashMap<Byte, MutableInt> occurrences = new HashMap<>(values.length);
         for (final byte v : values) {
-            final Byte boxed = Byte.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Byte.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6196,13 +6188,7 @@ public class ArrayUtils {
         }
         final HashMap<Character, MutableInt> occurrences = new HashMap<>(values.length);
         for (final char v : values) {
-            final Character boxed = Character.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Character.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6251,13 +6237,7 @@ public class ArrayUtils {
         }
         final HashMap<Double, MutableInt> occurrences = new HashMap<>(values.length);
         for (final double v : values) {
-            final Double boxed = Double.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Double.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6306,13 +6286,7 @@ public class ArrayUtils {
         }
         final HashMap<Float, MutableInt> occurrences = new HashMap<>(values.length);
         for (final float v : values) {
-            final Float boxed = Float.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Float.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6361,13 +6335,7 @@ public class ArrayUtils {
         }
         final HashMap<Integer, MutableInt> occurrences = new HashMap<>(values.length);
         for (final int v : values) {
-            final Integer boxed = Integer.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Integer.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6416,13 +6384,7 @@ public class ArrayUtils {
         }
         final HashMap<Long, MutableInt> occurrences = new HashMap<>(values.length);
         for (final long v : values) {
-            final Long boxed = Long.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Long.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6471,13 +6433,7 @@ public class ArrayUtils {
         }
         final HashMap<Short, MutableInt> occurrences = new HashMap<>(values.length);
         for (final short v : values) {
-            final Short boxed = Short.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Short.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6528,12 +6484,7 @@ public class ArrayUtils {
         }
         final HashMap<T, MutableInt> occurrences = new HashMap<>(values.length);
         for (final T v : values) {
-            final MutableInt count = occurrences.get(v);
-            if (count == null) {
-                occurrences.put(v, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, v);
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
