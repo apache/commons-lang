@@ -69,6 +69,10 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         }
     }
 
+    private String[][] getZoneStringsSorted(final Locale locale) {
+        return ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(), Comparator.comparing(array -> array[0]));
+    }
+
     @Test
     void testLang1219() throws ParseException {
         final FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
@@ -104,8 +108,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null, null));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null, null));
 
-        final String[][] zones = ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(),
-                Comparator.comparing(array -> array[0]));
+        final String[][] zones = getZoneStringsSorted(locale);
         for (final String[] zone : zones) {
             for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
                 final String tzDisplay = zone[zIndex];

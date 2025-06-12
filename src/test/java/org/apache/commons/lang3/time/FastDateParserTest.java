@@ -52,6 +52,8 @@ import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
+import org.junitpioneer.jupiter.cartesian.ArgumentSets;
+import org.junitpioneer.jupiter.cartesian.CartesianTest;
 
 /**
  * Tests {@link org.apache.commons.lang3.time.FastDateParser}.
@@ -528,28 +530,27 @@ class FastDateParserTest extends AbstractLangTest {
         assertEquals(cal.getTime(), date);
     }
 
-    @Test
+    static ArgumentSets testParsesFactory() {
+        // @formatter:off
+        return ArgumentSets
+            .argumentsForFirstParameter(LONG_FORMAT, SHORT_FORMAT)
+            .argumentsForNextParameter(LocaleUtils.availableLocaleList())
+            .argumentsForNextParameter(NEW_YORK, REYKJAVIK, TimeZones.GMT)
+            .argumentsForNextParameter(2003, 1940, 1868, 1867, 1, -1, -1940);
+        // @formatter:on
+    }
+
+    @CartesianTest
+    @CartesianTest.MethodFactory("testParsesFactory")
     // Check that all Locales can parse the formats we use
-    void testParses() throws Exception {
-        for (final String format : new String[] {LONG_FORMAT, SHORT_FORMAT}) {
-            for (final Locale locale : Locale.getAvailableLocales()) {
-                for (final TimeZone timeZone : new TimeZone[] {NEW_YORK, REYKJAVIK, TimeZones.GMT}) {
-                    for (final int year : new int[] {2003, 1940, 1868, 1867, 1, -1, -1940}) {
-                        final Calendar cal = getEraStart(year, timeZone, locale);
-                        final Date centuryStart = cal.getTime();
-
-                        cal.set(Calendar.MONTH, 1);
-                        cal.set(Calendar.DAY_OF_MONTH, 10);
-                        final Date in = cal.getTime();
-
-                        final FastDateParser fastDateParser = new FastDateParser(format, timeZone, locale,
-                            centuryStart);
-                        validateSdfFormatFdpParseEquality(format, locale, timeZone, fastDateParser, in, year,
-                            centuryStart);
-                    }
-                }
-            }
-        }
+    void testParses(final String format, final Locale locale, final TimeZone timeZone, final int year) throws Exception {
+        final Calendar cal = getEraStart(year, timeZone, locale);
+        final Date centuryStart = cal.getTime();
+        cal.set(Calendar.MONTH, 1);
+        cal.set(Calendar.DAY_OF_MONTH, 10);
+        final Date in = cal.getTime();
+        final FastDateParser fastDateParser = new FastDateParser(format, timeZone, locale, centuryStart);
+        validateSdfFormatFdpParseEquality(format, locale, timeZone, fastDateParser, in, year, centuryStart);
     }
 
     /**
