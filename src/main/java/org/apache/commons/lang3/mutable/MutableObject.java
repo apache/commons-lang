@@ -47,7 +47,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Constructs a new MutableObject with the specified value.
      *
-     * @param value  the initial value to store
+     * @param value  the initial value to store.
      */
     public MutableObject(final T value) {
         this.value = value;
@@ -58,7 +58,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      * is not {@code null} and is a {@link MutableObject} object that contains the same {@link T}
      * value as this object.
      *
-     * @param obj  the object to compare with, {@code null} returns {@code false}
+     * @param obj  the object to compare with, {@code null} returns {@code false}.
      * @return  {@code true} if the objects are the same;
      *          {@code true} if the objects have equivalent {@code value} fields;
      *          {@code false} otherwise.
@@ -81,7 +81,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Gets the value.
      *
-     * @return the value, may be null
+     * @return the value, may be null.
      */
     @Override
     public T getValue() {
@@ -101,7 +101,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Sets the value.
      *
-     * @param value  the value to set
+     * @param value  the value to set.
      */
     @Override
     public void setValue(final T value) {
@@ -111,7 +111,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Returns the String value of this mutable.
      *
-     * @return the mutable value as a string
+     * @return the mutable value as a string.
      */
     @Override
     public String toString() {
