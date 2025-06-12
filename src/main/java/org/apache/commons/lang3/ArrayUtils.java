@@ -5306,7 +5306,6 @@ public class ArrayUtils {
      * @param array the input array, will not be modified, and may be {@code null}.
      * @param indices to remove.
      * @return new array of same type minus elements specified by the set bits in {@code indices}.
-     * @since 3.2
      */
     // package protected for access by unit tests
     static Object removeAll(final Object array, final BitSet indices) {
