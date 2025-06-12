@@ -548,7 +548,7 @@ class RandomStringUtilsTest extends AbstractLangTest {
         r1 = rsu.nextAscii(50);
         assertEquals(50, r1.length(), "randomAscii(50) length");
         for (int i = 0; i < r1.length(); i++) {
-            final int ch = (int) r1.charAt(i);
+            final int ch = r1.charAt(i);
             assertTrue(ch >= 32, "char >= 32");
             assertTrue(ch <= 127, "char <= 127");
         }
