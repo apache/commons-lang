@@ -18,16 +18,21 @@
 package org.apache.commons.lang3.mutable;
 
 import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.lang3.BooleanUtils;
 
 /**
  * A mutable {@code boolean} wrapper.
  * <p>
- * Note that as MutableBoolean does not extend Boolean, it is not treated by String.format as a Boolean parameter.
+ * This class was created before the introduction of {@link AtomicBoolean}.
+ * </p>
+ * <p>
+ * Note that as MutableBoolean does not extend {@link Boolean}, it is not treated by {@link String#format(String, Object...)} as a Boolean parameter.
  * </p>
  *
  * @see Boolean
+ * @see AtomicBoolean
  * @since 2.2
  */
 public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparable<MutableBoolean> {

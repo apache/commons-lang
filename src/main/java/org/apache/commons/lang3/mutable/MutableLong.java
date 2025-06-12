@@ -16,15 +16,21 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * A mutable {@code long} wrapper.
  * <p>
- * Note that as MutableLong does not extend Long, it is not treated by String.format as a Long parameter.
+ * This class was created before the introduction of {@link AtomicLong}.
+ * </p>
+ * <p>
+ * Note that as MutableLong does not extend {@link Long}, it is not treated by {@link String#format(String, Object...)} as a Long parameter.
  * </p>
  *
  * @see Long
+ * @see AtomicLong
  * @since 2.1
  */
 public class MutableLong extends Number implements Comparable<MutableLong>, Mutable<Number> {

@@ -16,15 +16,21 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * A mutable {@code int} wrapper.
  * <p>
- * Note that as MutableInt does not extend Integer, it is not treated by String.format as an Integer parameter.
+ * This class was created before the introduction of {@link AtomicInteger}.
+ * </p>
+ * <p>
+ * Note that as MutableInt does not extend {@link Integer}, it is not treated by {@link String#format(String, Object...)} as an Integer parameter.
  * </p>
  *
  * @see Integer
+ * @see AtomicInteger
  * @since 2.1
  */
 public class MutableInt extends Number implements Comparable<MutableInt>, Mutable<Number> {

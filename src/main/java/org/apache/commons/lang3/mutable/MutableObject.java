@@ -19,11 +19,16 @@ package org.apache.commons.lang3.mutable;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * A mutable {@link Object} wrapper.
+ * <p>
+ * This class was created before the introduction of {@link AtomicReference}.
+ * </p>
  *
- * @param <T> the type to set and get
+ * @param <T> the type to set and get.
+ * @see AtomicReference
  * @since 2.1
  */
 public class MutableObject<T> implements Mutable<T>, Serializable {
