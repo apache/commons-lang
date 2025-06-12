@@ -379,7 +379,7 @@ class FastDateParserTest extends AbstractLangTest {
         Date actual = fdp.parse("20150429");
         final Calendar cal = Calendar.getInstance(kst, Locale.KOREA);
         cal.clear();
-        cal.set(2015, 3, 29);
+        cal.set(2015, Calendar.APRIL, 29);
         Date expected = cal.getTime();
         assertEquals(expected, actual);
 
