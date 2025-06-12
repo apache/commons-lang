@@ -182,6 +182,11 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         }
     }
 
+    @Test
+    void testTimeZoneStrategyPattern_zh_HK_Hans() throws ParseException {
+        testTimeZoneStrategyPattern("zh_HK_#Hans", "?????????");
+    }
+
     /**
      * Breaks randomly on GitHub for Locale "pt_PT", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
      *
@@ -196,11 +201,6 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     @Test
     void testTimeZoneStrategyPatternPortugal() throws ParseException {
         testTimeZoneStrategyPattern("pt_PT", "Horário do Meridiano de Greenwich");
-    }
-
-    @Test
-    void testTimeZoneStrategyPattern_zh_HK_Hans() throws ParseException {
-        testTimeZoneStrategyPattern("zh_HK_#Hans", "?????????");
     }
 
     /**

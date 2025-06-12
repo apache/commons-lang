@@ -218,6 +218,14 @@ class RandomStringUtilsTest extends AbstractLangTest {
         assertTrue(chiSquare(expected, counts) < 23.025850929940457d, "test homogeneity -- will fail about 1 in 100,000 times");
     }
 
+    @ParameterizedTest
+    @ValueSource(ints = {MAX_SAFE_COUNT, MAX_SAFE_COUNT + 1})
+    @EnabledIfSystemProperty(named = "test.large.heap", matches = "true")
+    void testHugeStrings(final int expectedLength) {
+        final String hugeString = RandomStringUtils.random(expectedLength);
+        assertEquals(expectedLength, hugeString.length(), "hugeString.length() == expectedLength");
+    }
+
     /**
      * Checks if the string got by {@link RandomStringUtils#random(int)} can be converted to UTF-8 and back without loss.
      *
@@ -806,13 +814,5 @@ class RandomStringUtilsTest extends AbstractLangTest {
         final String r3 = rsu.next(50, 0, 0, true, true, digitChars);
         assertNotEquals(r1, r3);
         assertNotEquals(r2, r3);
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {MAX_SAFE_COUNT, MAX_SAFE_COUNT + 1})
-    @EnabledIfSystemProperty(named = "test.large.heap", matches = "true")
-    void testHugeStrings(final int expectedLength) {
-        final String hugeString = RandomStringUtils.random(expectedLength);
-        assertEquals(expectedLength, hugeString.length(), "hugeString.length() == expectedLength");
     }
 }

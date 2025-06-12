@@ -51,11 +51,6 @@ import org.apache.commons.lang3.mutable.MutableObject;
 public class ClassUtils {
 
     /**
-     * The maximum number of array dimensions.
-     */
-    private static final int MAX_DIMENSIONS = 255;
-
-    /**
      * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
      *
      * @since 3.2
@@ -68,6 +63,11 @@ public class ClassUtils {
         /** Excludes interfaces. */
         EXCLUDE
     }
+
+    /**
+     * The maximum number of array dimensions.
+     */
+    private static final int MAX_DIMENSIONS = 255;
 
     private static final Comparator<Class<?>> COMPARATOR = (o1, o2) -> Objects.compare(getName(o1), getName(o2), String::compareTo);
 

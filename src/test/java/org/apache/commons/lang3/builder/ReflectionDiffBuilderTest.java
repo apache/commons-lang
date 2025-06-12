@@ -218,18 +218,6 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    void testRetention() throws Exception {
-        // The following should not retain memory.
-        for (int i = 0; i < Integer.getInteger("testRecursive", 10_000); i++) {
-            final Class<?> clazz = TestClassBuilder.defineSimpleClass(getClass().getPackage().getName(), i);
-            final Object firstObject = clazz.newInstance();
-            final Object secondObject = clazz.newInstance();
-            final ReflectionDiffBuilder<Object> reflectionDiffBuilder = new ReflectionDiffBuilder<>(firstObject, secondObject, SHORT_STYLE);
-            assertNotNull(reflectionDiffBuilder.build());
-        }
-    }
-
-    @Test
     void testNoDifferencesDiffExcludeAnnotatedField() {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.annotatedField = "b";
@@ -280,6 +268,18 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         assertEquals(1, list.getNumberOfDiffs());
         list = firstObject.diffDeprecated(secondObject);
         assertEquals(1, list.getNumberOfDiffs());
+    }
+
+    @Test
+    void testRetention() throws Exception {
+        // The following should not retain memory.
+        for (int i = 0; i < Integer.getInteger("testRecursive", 10_000); i++) {
+            final Class<?> clazz = TestClassBuilder.defineSimpleClass(getClass().getPackage().getName(), i);
+            final Object firstObject = clazz.newInstance();
+            final Object secondObject = clazz.newInstance();
+            final ReflectionDiffBuilder<Object> reflectionDiffBuilder = new ReflectionDiffBuilder<>(firstObject, secondObject, SHORT_STYLE);
+            assertNotNull(reflectionDiffBuilder.build());
+        }
     }
 
     @Test

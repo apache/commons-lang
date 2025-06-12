@@ -727,22 +727,6 @@ class ValidateTest extends AbstractLangTest {
         }
 
         @Nested
-        final class WithObjectTemplate {
-
-            @Test
-            void shouldNotThrowForTrueExpression() {
-                Validate.isTrue(true, "MSG", "Object 1", "Object 2");
-            }
-
-            @Test
-            void shouldThrowExceptionWithDoubleInsertedIntoTemplateMessageForFalseExpression() {
-                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
-                    () -> Validate.isTrue(false, "MSG %s %s", "Object 1", "Object 2"));
-                assertEquals("MSG Object 1 Object 2", ex.getMessage());
-            }
-        }
-
-        @Nested
         final class WithMessageSupplier {
 
             @Test
@@ -754,6 +738,22 @@ class ValidateTest extends AbstractLangTest {
             void shouldThrowExceptionWithDoubleInsertedIntoTemplateMessageForFalseExpression() {
                 final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
                     () -> Validate.isTrue(false, () -> String.format("MSG %s %s", "Object 1", "Object 2")));
+                assertEquals("MSG Object 1 Object 2", ex.getMessage());
+            }
+        }
+
+        @Nested
+        final class WithObjectTemplate {
+
+            @Test
+            void shouldNotThrowForTrueExpression() {
+                Validate.isTrue(true, "MSG", "Object 1", "Object 2");
+            }
+
+            @Test
+            void shouldThrowExceptionWithDoubleInsertedIntoTemplateMessageForFalseExpression() {
+                final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                    () -> Validate.isTrue(false, "MSG %s %s", "Object 1", "Object 2"));
                 assertEquals("MSG Object 1 Object 2", ex.getMessage());
             }
         }

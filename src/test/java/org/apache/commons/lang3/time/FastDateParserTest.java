@@ -106,15 +106,6 @@ class FastDateParserTest extends AbstractLangTest {
 
     private static final Locale SWEDEN = new Locale("sv", "SE");
 
-    @BeforeEach
-    @AfterEach
-    void clear() {
-        AbstractFormatCache.clear();
-        FastDateFormat.clear();
-        FastDateParser.clear();
-        FastDatePrinter.clear();
-    }
-
     static void checkParse(final Locale locale, final Calendar cal, final SimpleDateFormat simpleDateFormat,
             final DateParser dateParser) {
         final String formattedDate = simpleDateFormat.format(cal.getTime());
@@ -161,6 +152,15 @@ class FastDateParserTest extends AbstractLangTest {
 
     private final TriFunction<String, TimeZone, Locale, DateParser> dateParserProvider = (format, timeZone, locale) -> new FastDateParser(format, timeZone,
             locale, null);
+
+    @BeforeEach
+    @AfterEach
+    void clear() {
+        AbstractFormatCache.clear();
+        FastDateFormat.clear();
+        FastDateParser.clear();
+        FastDatePrinter.clear();
+    }
 
     private DateParser getDateInstance(final int dateStyle, final Locale locale) {
         return getInstance(null, AbstractFormatCache.getPatternForStyle(Integer.valueOf(dateStyle), null, locale), TimeZone.getDefault(), Locale.getDefault());
