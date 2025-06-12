@@ -80,7 +80,7 @@ class HashSetvBitSetTest extends AbstractLangTest {
         final BitSet toRemove = new BitSet();
         final int[] array = new int[100];
         toRemove.set(10, 20);
-        return (int[]) ArrayUtils.removeAll(array, toRemove);
+        return (int[]) ArrayUtils.removeAt(array, toRemove);
     }
 
     @Benchmark
