@@ -52,8 +52,8 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  *           .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
  *           .build())
  *       .setExcludeFieldNames("userName", "password")
- *       .build()
- *       .build();
+ *       .build()  // -> ReflectionDiffBuilder
+ *       .build(); // -> DiffResult
  *   }
  * }
  * }</pre>
