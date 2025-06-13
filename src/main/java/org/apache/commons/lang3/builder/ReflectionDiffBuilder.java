@@ -43,15 +43,16 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  *   boolean smoker;
  *   ...
  *
- *   public DiffResult diff(Person obj) {
+ *   public DiffResult<Person> diff(Person obj) {
  *     // No need for null check, as NullPointerException correct if obj is null
- *     return new ReflectionDiffBuilder.<Person>builder()
+ *     return ReflectionDiffBuilder.<Person>builder()
  *       .setDiffBuilder(DiffBuilder.<Person>builder()
  *           .setLeft(this)
  *           .setRight(obj)
  *           .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
  *           .build())
  *       .setExcludeFieldNames("userName", "password")
+ *       .build()
  *       .build();
  *   }
  * }
