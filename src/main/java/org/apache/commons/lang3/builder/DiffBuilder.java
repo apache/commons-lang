@@ -41,12 +41,12 @@ import org.apache.commons.lang3.ObjectUtils;
  *
  *   ...
  *
- *   public DiffResult diff(Person obj) {
+ *   public DiffResult<Person> diff(Person obj) {
  *     // No need for null check, as NullPointerException correct if obj is null
- *     return new DiffBuilder.<Person>builder()
+ *     return DiffBuilder.<Person>builder()
  *         .setLeft(this)
  *         .setRight(obj)
- *         .setStyle(ToStringStyle.SHORT_PREFIX_STYLE))
+ *         .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
  *         .build()
  *       .append("name", this.name, obj.name)
  *       .append("age", this.age, obj.age)
