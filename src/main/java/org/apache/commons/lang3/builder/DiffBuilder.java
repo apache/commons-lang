@@ -41,7 +41,7 @@ import org.apache.commons.lang3.ObjectUtils;
  *
  *   ...
  *
- *   public DiffResult diff(Person obj) {
+ *   public DiffResult<Person> diff(Person obj) {
  *     // No need for null check, as NullPointerException correct if obj is null
  *     return new DiffBuilder.<Person>builder()
  *         .setLeft(this)
