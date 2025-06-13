@@ -46,7 +46,7 @@ import org.apache.commons.lang3.ObjectUtils;
  *     return DiffBuilder.<Person>builder()
  *         .setLeft(this)
  *         .setRight(obj)
- *         .setStyle(ToStringStyle.SHORT_PREFIX_STYLE))
+ *         .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
  *         .build()
  *       .append("name", this.name, obj.name)
  *       .append("age", this.age, obj.age)
