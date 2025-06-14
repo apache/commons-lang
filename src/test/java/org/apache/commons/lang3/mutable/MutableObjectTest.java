@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.mutable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -48,7 +49,7 @@ class MutableObjectTest extends AbstractLangTest {
         final MutableObject<String> mutNumC = new MutableObject<>("BETA");
         final MutableObject<String> mutNumNull1 = new MutableObject<>(null);
         final MutableObject<String> mutNumNull2 = new MutableObject<>(null);
-
+        assertFalse(mutNumA.equals(null));
         assertEquals(mutNumA, mutNumA);
         assertEquals(mutNumA, mutNumB);
         assertEquals(mutNumB, mutNumA);
