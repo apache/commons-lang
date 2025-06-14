@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -124,6 +125,41 @@ class StreamsTest extends AbstractLangTest {
             }));
     }
 
+    @SuppressWarnings("deprecation")
+    @Test
+    void testDeprefcatedCopnstructor() {
+        assertNotNull(new Streams().toString());
+    }
+
+    @Test
+    void testFailableAllMatch() {
+        assertTrue(Streams.failableStream("A", "B").allMatch(s -> s.length() == 1));
+        assertFalse(Streams.failableStream("A", "B").allMatch(s -> s.length() == 2));
+    }
+
+    @Test
+    void testFailableAnyMatch() {
+        assertTrue(Streams.failableStream("A", "B").anyMatch(s -> s.length() == 1));
+        assertTrue(Streams.failableStream("A", "BC").anyMatch(s -> s.length() == 1));
+        assertFalse(Streams.failableStream("A", "B").anyMatch(s -> s.length() == 2));
+    }
+
+    @Test
+    void testFailableCollect() {
+        assertEquals(Arrays.asList("A", "B"), Streams.failableStream("A", "B").collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
+    }
+
+    @Test
+    void testFailableReduce() {
+        assertEquals(3, Streams.failableStream(1, 2).reduce(0, (a, b) -> a + b));
+    }
+
+    @Test
+    void testFailableStream() {
+        assertEquals(1, Streams.failableStream(1).collect(Collectors.toList()).size());
+        assertEquals(0, Streams.failableStream(Stream.empty()).collect(Collectors.toList()).size());
+    }
+
     @Test
     void testInstanceOfStream() {
         assertEquals(2, Streams.instancesOf(String.class, Arrays.asList("A", "B")).collect(Collectors.toList()).size());
@@ -137,6 +173,7 @@ class StreamsTest extends AbstractLangTest {
     @Test
     void testNonNull() {
         assertEquals(0, Streams.nonNull().collect(Collectors.toList()).size());
+        assertEquals(0, Streams.nonNull((Stream<?>) null).collect(Collectors.toList()).size());
         assertEquals(1, Streams.nonNull("A").collect(Collectors.toList()).size());
         assertEquals(1, Streams.nonNull("A", null).collect(Collectors.toList()).size());
         assertEquals(1, Streams.nonNull(null, "A").collect(Collectors.toList()).size());
@@ -210,6 +247,12 @@ class StreamsTest extends AbstractLangTest {
     }
 
     @Test
+    void testOfVarArg() {
+        assertEquals(1, Streams.of(1).collect(Collectors.toList()).size());
+        assertEquals(2, Streams.of(1, 2).collect(Collectors.toList()).size());
+    }
+
+    @Test
     void testSimpleStreamFilter() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Failable.stream(input).map(Integer::valueOf).filter(i -> i.intValue() % 2 == 0).collect(Collectors.toList());
@@ -243,6 +286,13 @@ class StreamsTest extends AbstractLangTest {
         final Executable testMethod = () -> Failable.stream(input).map(Integer::valueOf).collect(Collectors.toList());
         final NumberFormatException thrown = assertThrows(NumberFormatException.class, testMethod);
         assertEquals("For input string: \"4 \"", thrown.getMessage());
+    }
+
+    @SuppressWarnings("deprecation")
+    @Test
+    void testStream() {
+        assertEquals(0, Streams.stream(Stream.empty()).collect(Collectors.toList()).size());
+        assertEquals(1, Streams.stream(Stream.of("")).collect(Collectors.toList()).size());
     }
 
     @Test
