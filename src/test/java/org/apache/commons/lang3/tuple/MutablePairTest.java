@@ -116,6 +116,8 @@ class MutablePairTest extends AbstractLangTest {
 
     @Test
     void testPairOfMapEntry() {
+        assertNull( MutablePair.of(null).getLeft());
+        assertNull( MutablePair.of(null).getRight());
         final HashMap<Integer, String> map = new HashMap<>();
         map.put(0, "foo");
         final Entry<Integer, String> entry = map.entrySet().iterator().next();
