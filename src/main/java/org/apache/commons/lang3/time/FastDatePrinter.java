@@ -1438,11 +1438,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 rule = Iso8601_Rule.getRule(tokenLen);
                 break;
             case 'z': // time zone (text)
-                if (tokenLen >= 4) {
-                    rule = new TimeZoneNameRule(timeZone, locale, TimeZone.LONG);
-                } else {
-                    rule = new TimeZoneNameRule(timeZone, locale, TimeZone.SHORT);
-                }
+                rule = new TimeZoneNameRule(timeZone, locale, tokenLen >= 4 ? TimeZone.LONG : TimeZone.SHORT);
                 break;
             case 'Z': // time zone (value)
                 if (tokenLen == 1) {
