@@ -30,6 +30,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.Collections;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.stream.LangCollectors;
@@ -9286,6 +9287,43 @@ public class StringUtils {
         }
         return builder.toString();
     }
+
+    public static String repeatChars(String str, List<Character> appointedChars, Integer repetitions, boolean isResizeOnlyConsecutive) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        final int xTimes = repetitions != null ? repetitions : 1;
+        final int len = str.length();
+        //TODO dynamically grow
+        final char[] collector = new char[len * 2];
+        int collectorIdx = 0;
+        for (int i = 0; i < len; i++) {
+            final char current = str.charAt(i);
+            if (appointedChars.contains(current)) {
+                int spanEnd = i + 1;
+                while (spanEnd < str.length() && current == str.charAt(spanEnd)) {
+                    spanEnd++;
+                }
+                if (spanEnd == i + 1) {
+                    collector[collectorIdx++] = current;
+                } else if (!isResizeOnlyConsecutive || spanEnd > i + 1) {
+                    int repetition = xTimes;
+                    while (repetition-- > 0) {
+                        collector[collectorIdx++] = current;
+                    }
+                }
+                i = spanEnd - 1;
+            } else {
+                collector[collectorIdx++] = current;
+            }
+        }
+        return new String(collector, 0, collectorIdx);
+    }
+
+    public static String ensureOneWhitespace(String str) {
+        return repeatChars(str, Collections.singletonList(' '), 1, true);
+    }
+
 
     /**
      * {@link StringUtils} instances should NOT be constructed in
