@@ -119,6 +119,24 @@ class ImmutableTripleTest extends AbstractLangTest {
     }
 
     @Test
+    void testOf() {
+        final ImmutableTriple<Integer, String, Boolean> triple = ImmutableTriple.of(0, "foo", Boolean.FALSE);
+        assertEquals(0, triple.left.intValue());
+        assertEquals(0, triple.getLeft().intValue());
+        assertEquals("foo", triple.middle);
+        assertEquals("foo", triple.getMiddle());
+        assertEquals(Boolean.FALSE, triple.right);
+        assertEquals(Boolean.FALSE, triple.getRight());
+        final ImmutableTriple<Object, String, Boolean> triple2 = ImmutableTriple.of(null, "bar", Boolean.TRUE);
+        assertNull(triple2.left);
+        assertNull(triple2.getLeft());
+        assertEquals("bar", triple2.middle);
+        assertEquals("bar", triple2.getMiddle());
+        assertEquals(Boolean.TRUE, triple2.right);
+        assertEquals(Boolean.TRUE, triple2.getRight());
+    }
+
+    @Test
     void testOfNonNull() {
         assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull(null, null, null));
         assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull(null, null, "z"));
@@ -148,24 +166,6 @@ class ImmutableTripleTest extends AbstractLangTest {
         assertEquals("(null,two,three)", ImmutableTriple.of(null, "two", "three").toString());
         assertEquals("(one,null,three)", ImmutableTriple.of("one", null, "three").toString());
         assertEquals("(one,two,three)", MutableTriple.of("one", "two", "three").toString());
-    }
-
-    @Test
-    void testTripleOf() {
-        final ImmutableTriple<Integer, String, Boolean> triple = ImmutableTriple.of(0, "foo", Boolean.FALSE);
-        assertEquals(0, triple.left.intValue());
-        assertEquals(0, triple.getLeft().intValue());
-        assertEquals("foo", triple.middle);
-        assertEquals("foo", triple.getMiddle());
-        assertEquals(Boolean.FALSE, triple.right);
-        assertEquals(Boolean.FALSE, triple.getRight());
-        final ImmutableTriple<Object, String, Boolean> triple2 = ImmutableTriple.of(null, "bar", Boolean.TRUE);
-        assertNull(triple2.left);
-        assertNull(triple2.getLeft());
-        assertEquals("bar", triple2.middle);
-        assertEquals("bar", triple2.getMiddle());
-        assertEquals(Boolean.TRUE, triple2.right);
-        assertEquals(Boolean.TRUE, triple2.getRight());
     }
 
     @Test
