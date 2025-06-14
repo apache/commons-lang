@@ -168,6 +168,7 @@ class ImmutablePairTest extends AbstractLangTest {
 
     @Test
     void testPairOfMapEntry() {
+        assertSame(ImmutablePair.nullPair(), ImmutablePair.of(null));
         final HashMap<Integer, String> map = new HashMap<>();
         map.put(0, "foo");
         final Entry<Integer, String> entry = map.entrySet().iterator().next();
