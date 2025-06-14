@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.stream;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -123,6 +124,16 @@ class StreamsTest extends AbstractLangTest {
                 assertNull(seThrown.getMessage());
                 assertEquals(se, seThrown.getCause());
             }));
+    }
+
+    @Test
+    void testArrayCollectorCombiner() {
+        final String[] expected = { "A1", "B1" };
+        assertArrayEquals(expected, Stream.of("A", "B").collect(Collectors.mapping(s -> s + "1", Streams.toArray(String.class))));
+        assertArrayEquals(expected, Streams.failableStream("A", "B").collect(Collectors.mapping(s -> s + "1", Streams.toArray(String.class))));
+        final List<String> left = new ArrayList<>();
+        left.add("a");
+        assertEquals(Arrays.asList("a", "b", "c"), Streams.toArray(String.class).combiner().apply(left, Arrays.asList("b", "c")));
     }
 
     @SuppressWarnings("deprecation")
