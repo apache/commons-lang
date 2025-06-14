@@ -1269,7 +1269,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         return maxLengthEstimate;
     }
 
-    // Accessors
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#getPattern()
      */
