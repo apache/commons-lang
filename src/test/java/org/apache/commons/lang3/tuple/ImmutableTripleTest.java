@@ -120,6 +120,10 @@ class ImmutableTripleTest extends AbstractLangTest {
 
     @Test
     void testOf() {
+        assertSame(ImmutableTriple.nullTriple(), ImmutableTriple.of(null, null, null));
+        assertEquals(0, ImmutableTriple.of(0, null, null).getLeft());
+        assertEquals(0, ImmutableTriple.of(null, 0, null).getMiddle());
+        assertEquals(0, ImmutableTriple.of(null, null, 0).getRight());
         final ImmutableTriple<Integer, String, Boolean> triple = ImmutableTriple.of(0, "foo", Boolean.FALSE);
         assertEquals(0, triple.left.intValue());
         assertEquals(0, triple.getLeft().intValue());
