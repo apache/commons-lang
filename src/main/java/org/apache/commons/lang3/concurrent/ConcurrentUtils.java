@@ -223,12 +223,10 @@ public class ConcurrentUtils {
      * @param ex the exception to be processed
      * @return a {@link ConcurrentRuntimeException} with the checked cause
      */
-    public static ConcurrentRuntimeException extractCauseUnchecked(
-            final ExecutionException ex) {
+    public static ConcurrentRuntimeException extractCauseUnchecked(final ExecutionException ex) {
         if (ex == null || ex.getCause() == null) {
             return null;
         }
-
         ExceptionUtils.throwUnchecked(ex.getCause());
         return new ConcurrentRuntimeException(ex.getMessage(), ex.getCause());
     }
@@ -246,10 +244,8 @@ public class ConcurrentUtils {
      * @throws ConcurrentException if the cause of the {@code
      * ExecutionException} is a checked exception
      */
-    public static void handleCause(final ExecutionException ex)
-            throws ConcurrentException {
+    public static void handleCause(final ExecutionException ex) throws ConcurrentException {
         final ConcurrentException cause = extractCause(ex);
-
         if (cause != null) {
             throw cause;
         }
@@ -270,7 +266,6 @@ public class ConcurrentUtils {
      */
     public static void handleCauseUnchecked(final ExecutionException ex) {
         final ConcurrentRuntimeException cause = extractCauseUnchecked(ex);
-
         if (cause != null) {
             throw cause;
         }
@@ -351,7 +346,6 @@ public class ConcurrentUtils {
         if (map == null) {
             return null;
         }
-
         final V result = map.putIfAbsent(key, value);
         return result != null ? result : value;
     }
