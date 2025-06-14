@@ -268,8 +268,11 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Gets the value as a Float instance.
      *
-     * @return the value as a Float, never null
+     * @return the value as a Float, never null.
+     * @deprecated Use {@link #get()}.
      */
+    @SuppressWarnings("deprecation")
+    @Deprecated
     @Override
     public Float getValue() {
         return Float.valueOf(this.value);

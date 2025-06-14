@@ -255,8 +255,11 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
     /**
      * Gets the value as a Long instance.
      *
-     * @return the value as a Long, never null
+     * @return the value as a Long, never null.
+     * @deprecated Use {@link #get()}.
      */
+    @SuppressWarnings("deprecation")
+    @Deprecated
     @Override
     public Long getValue() {
         return Long.valueOf(this.value);

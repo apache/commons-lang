@@ -255,8 +255,11 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Gets the value as a Integer instance.
      *
-     * @return the value as a Integer, never null
+     * @return the value as a Integer, never null.
+     * @deprecated Use {@link #get()}.
      */
+    @SuppressWarnings("deprecation")
+    @Deprecated
     @Override
     public Integer getValue() {
         return Integer.valueOf(this.value);

@@ -177,18 +177,22 @@ class MutableDoubleTest extends AbstractLangTest {
     void testGetSet() {
         final MutableDouble mutNum = new MutableDouble(0d);
         assertEquals(0d, new MutableDouble().doubleValue(), 0.0001d);
+        assertEquals(Double.valueOf(0), new MutableDouble().get());
         assertEquals(Double.valueOf(0), new MutableDouble().getValue());
 
         mutNum.setValue(1);
         assertEquals(1d, mutNum.doubleValue(), 0.0001d);
+        assertEquals(Double.valueOf(1d), mutNum.get());
         assertEquals(Double.valueOf(1d), mutNum.getValue());
 
         mutNum.setValue(Double.valueOf(2d));
         assertEquals(2d, mutNum.doubleValue(), 0.0001d);
+        assertEquals(Double.valueOf(2d), mutNum.get());
         assertEquals(Double.valueOf(2d), mutNum.getValue());
 
         mutNum.setValue(new MutableDouble(3d));
         assertEquals(3d, mutNum.doubleValue(), 0.0001d);
+        assertEquals(Double.valueOf(3d), mutNum.get());
         assertEquals(Double.valueOf(3d), mutNum.getValue());
     }
 

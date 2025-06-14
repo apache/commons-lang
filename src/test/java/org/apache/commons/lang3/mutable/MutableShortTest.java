@@ -167,18 +167,22 @@ class MutableShortTest extends AbstractLangTest {
     void testGetSet() {
         final MutableShort mutNum = new MutableShort((short) 0);
         assertEquals((short) 0, new MutableShort().shortValue());
+        assertEquals(Short.valueOf((short) 0), new MutableShort().get());
         assertEquals(Short.valueOf((short) 0), new MutableShort().getValue());
 
         mutNum.setValue((short) 1);
         assertEquals((short) 1, mutNum.shortValue());
+        assertEquals(Short.valueOf((short) 1), mutNum.get());
         assertEquals(Short.valueOf((short) 1), mutNum.getValue());
 
         mutNum.setValue(Short.valueOf((short) 2));
         assertEquals((short) 2, mutNum.shortValue());
+        assertEquals(Short.valueOf((short) 2), mutNum.get());
         assertEquals(Short.valueOf((short) 2), mutNum.getValue());
 
         mutNum.setValue(new MutableShort((short) 3));
         assertEquals((short) 3, mutNum.shortValue());
+        assertEquals(Short.valueOf((short) 3), mutNum.get());
         assertEquals(Short.valueOf((short) 3), mutNum.getValue());
         assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
     }

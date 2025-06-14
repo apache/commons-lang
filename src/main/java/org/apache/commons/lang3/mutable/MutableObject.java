@@ -87,7 +87,10 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      * Gets the value.
      *
      * @return the value, may be null.
+     * @deprecated Use {@link #get()}.
      */
+    @SuppressWarnings("deprecation")
+    @Deprecated
     @Override
     public T getValue() {
         return this.value;

@@ -88,6 +88,7 @@ class MutableBooleanTest extends AbstractLangTest {
     @Test
     void testGetSet() {
         assertFalse(new MutableBoolean().booleanValue());
+        assertEquals(Boolean.FALSE, new MutableBoolean().get());
         assertEquals(Boolean.FALSE, new MutableBoolean().getValue());
 
         final MutableBoolean mutBool = new MutableBoolean(false);

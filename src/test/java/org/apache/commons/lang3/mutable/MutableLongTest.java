@@ -178,18 +178,22 @@ class MutableLongTest extends AbstractLangTest {
     void testGetSet() {
         final MutableLong mutNum = new MutableLong(0);
         assertEquals(0, new MutableLong().longValue());
+        assertEquals(Long.valueOf(0), new MutableLong().get());
         assertEquals(Long.valueOf(0), new MutableLong().getValue());
 
         mutNum.setValue(1);
         assertEquals(1, mutNum.longValue());
+        assertEquals(Long.valueOf(1), mutNum.get());
         assertEquals(Long.valueOf(1), mutNum.getValue());
 
         mutNum.setValue(Long.valueOf(2));
         assertEquals(2, mutNum.longValue());
+        assertEquals(Long.valueOf(2), mutNum.get());
         assertEquals(Long.valueOf(2), mutNum.getValue());
 
         mutNum.setValue(new MutableLong(3));
         assertEquals(3, mutNum.longValue());
+        assertEquals(Long.valueOf(3), mutNum.get());
         assertEquals(Long.valueOf(3), mutNum.getValue());
     }
 

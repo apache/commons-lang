@@ -251,7 +251,7 @@ class ObjectUtilsTest extends AbstractLangTest {
     void testCloneOfCloneable() {
         final CloneableString string = new CloneableString("apache");
         final CloneableString stringClone = ObjectUtils.clone(string);
-        assertEquals("apache", stringClone.getValue());
+        assertEquals("apache", stringClone.get());
     }
 
     /**
@@ -439,9 +439,9 @@ class ObjectUtilsTest extends AbstractLangTest {
             return dflt;
         };
         ObjectUtils.getIfNull(o, countingDefaultSupplier);
-        assertEquals(0, callsCounter.getValue());
+        assertEquals(0, callsCounter.get());
         ObjectUtils.getIfNull(null, countingDefaultSupplier);
-        assertEquals(1, callsCounter.getValue());
+        assertEquals(1, callsCounter.get());
     }
 
     @Test
@@ -527,9 +527,9 @@ class ObjectUtilsTest extends AbstractLangTest {
             return defaultObject;
         };
         ObjectUtils.getIfNull(o, countingDefaultSupplier);
-        assertEquals(0, callsCounter.getValue());
+        assertEquals(0, callsCounter.get());
         ObjectUtils.getIfNull(null, countingDefaultSupplier);
-        assertEquals(1, callsCounter.getValue());
+        assertEquals(1, callsCounter.get());
     }
 
     @Test
@@ -833,7 +833,7 @@ class ObjectUtilsTest extends AbstractLangTest {
     void testPossibleCloneOfCloneable() {
         final CloneableString string = new CloneableString("apache");
         final CloneableString stringClone = ObjectUtils.cloneIfPossible(string);
-        assertEquals("apache", stringClone.getValue());
+        assertEquals("apache", stringClone.get());
     }
 
     /**

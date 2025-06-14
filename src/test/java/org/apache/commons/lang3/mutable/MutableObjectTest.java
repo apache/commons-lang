@@ -33,12 +33,12 @@ class MutableObjectTest extends AbstractLangTest {
 
     @Test
     void testConstructors() {
-        assertNull(new MutableObject<String>().getValue());
+        assertNull(new MutableObject<String>().get());
 
         final Integer i = Integer.valueOf(6);
-        assertSame(i, new MutableObject<>(i).getValue());
-        assertSame("HI", new MutableObject<>("HI").getValue());
-        assertSame(null, new MutableObject<>(null).getValue());
+        assertSame(i, new MutableObject<>(i).get());
+        assertSame("HI", new MutableObject<>("HI").get());
+        assertSame(null, new MutableObject<>(null).get());
     }
 
     @Test
@@ -69,12 +69,15 @@ class MutableObjectTest extends AbstractLangTest {
     @Test
     void testGetSet() {
         final MutableObject<String> mutNum = new MutableObject<>();
+        assertNull(new MutableObject<>().get());
         assertNull(new MutableObject<>().getValue());
 
         mutNum.setValue("HELLO");
+        assertSame("HELLO", mutNum.get());
         assertSame("HELLO", mutNum.getValue());
 
         mutNum.setValue(null);
+        assertSame(null, mutNum.get());
         assertSame(null, mutNum.getValue());
     }
 

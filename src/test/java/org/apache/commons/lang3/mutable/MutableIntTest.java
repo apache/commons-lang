@@ -185,18 +185,22 @@ class MutableIntTest extends AbstractLangTest {
     void testGetSet() {
         final MutableInt mutNum = new MutableInt(0);
         assertEquals(0, new MutableInt().intValue());
+        assertEquals(Integer.valueOf(0), new MutableInt().get());
         assertEquals(Integer.valueOf(0), new MutableInt().getValue());
 
         mutNum.setValue(1);
         assertEquals(1, mutNum.intValue());
+        assertEquals(Integer.valueOf(1), mutNum.get());
         assertEquals(Integer.valueOf(1), mutNum.getValue());
 
         mutNum.setValue(Integer.valueOf(2));
         assertEquals(2, mutNum.intValue());
+        assertEquals(Integer.valueOf(2), mutNum.get());
         assertEquals(Integer.valueOf(2), mutNum.getValue());
 
         mutNum.setValue(new MutableLong(3));
         assertEquals(3, mutNum.intValue());
+        assertEquals(Integer.valueOf(3), mutNum.get());
         assertEquals(Integer.valueOf(3), mutNum.getValue());
     }
 

@@ -112,8 +112,11 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Gets the value as a Boolean instance.
      *
-     * @return the value as a Boolean, never null
+     * @return the value as a Boolean, never null.
+     * @deprecated Use {@link #get()}.
      */
+    @SuppressWarnings("deprecation")
+    @Deprecated
     @Override
     public Boolean getValue() {
         return Boolean.valueOf(this.value);

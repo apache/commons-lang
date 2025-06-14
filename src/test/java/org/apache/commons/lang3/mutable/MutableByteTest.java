@@ -176,18 +176,22 @@ class MutableByteTest extends AbstractLangTest {
     void testGetSet() {
         final MutableByte mutNum = new MutableByte((byte) 0);
         assertEquals((byte) 0, new MutableByte().byteValue());
+        assertEquals(Byte.valueOf((byte) 0), new MutableByte().get());
         assertEquals(Byte.valueOf((byte) 0), new MutableByte().getValue());
 
         mutNum.setValue((byte) 1);
         assertEquals((byte) 1, mutNum.byteValue());
+        assertEquals(Byte.valueOf((byte) 1), mutNum.get());
         assertEquals(Byte.valueOf((byte) 1), mutNum.getValue());
 
         mutNum.setValue(Byte.valueOf((byte) 2));
         assertEquals((byte) 2, mutNum.byteValue());
+        assertEquals(Byte.valueOf((byte) 2), mutNum.get());
         assertEquals(Byte.valueOf((byte) 2), mutNum.getValue());
 
         mutNum.setValue(new MutableByte((byte) 3));
         assertEquals((byte) 3, mutNum.byteValue());
+        assertEquals(Byte.valueOf((byte) 3), mutNum.get());
         assertEquals(Byte.valueOf((byte) 3), mutNum.getValue());
     }
 

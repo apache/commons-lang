@@ -177,18 +177,22 @@ class MutableFloatTest extends AbstractLangTest {
     void testGetSet() {
         final MutableFloat mutNum = new MutableFloat(0f);
         assertEquals(0f, new MutableFloat().floatValue(), 0.0001f);
+        assertEquals(Float.valueOf(0), new MutableFloat().get());
         assertEquals(Float.valueOf(0), new MutableFloat().getValue());
 
         mutNum.setValue(1);
         assertEquals(1f, mutNum.floatValue(), 0.0001f);
+        assertEquals(Float.valueOf(1f), mutNum.get());
         assertEquals(Float.valueOf(1f), mutNum.getValue());
 
         mutNum.setValue(Float.valueOf(2f));
         assertEquals(2f, mutNum.floatValue(), 0.0001f);
+        assertEquals(Float.valueOf(2f), mutNum.get());
         assertEquals(Float.valueOf(2f), mutNum.getValue());
 
         mutNum.setValue(new MutableFloat(3f));
         assertEquals(3f, mutNum.floatValue(), 0.0001f);
+        assertEquals(Float.valueOf(3f), mutNum.get());
         assertEquals(Float.valueOf(3f), mutNum.getValue());
     }
 

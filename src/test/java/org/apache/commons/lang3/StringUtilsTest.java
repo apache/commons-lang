@@ -740,13 +740,13 @@ class StringUtilsTest extends AbstractLangTest {
             return "NULL";
         };
         StringUtils.getIfBlank("abc", countingDefaultSupplier);
-        assertEquals(0, numberOfCalls.getValue());
+        assertEquals(0, numberOfCalls.get());
         StringUtils.getIfBlank("", countingDefaultSupplier);
-        assertEquals(1, numberOfCalls.getValue());
+        assertEquals(1, numberOfCalls.get());
         StringUtils.getIfBlank(" ", countingDefaultSupplier);
-        assertEquals(2, numberOfCalls.getValue());
+        assertEquals(2, numberOfCalls.get());
         StringUtils.getIfBlank(null, countingDefaultSupplier);
-        assertEquals(3, numberOfCalls.getValue());
+        assertEquals(3, numberOfCalls.get());
     }
 
     @Test
@@ -766,11 +766,11 @@ class StringUtilsTest extends AbstractLangTest {
             return "NULL";
         };
         StringUtils.getIfEmpty("abc", countingDefaultSupplier);
-        assertEquals(0, numberOfCalls.getValue());
+        assertEquals(0, numberOfCalls.get());
         StringUtils.getIfEmpty("", countingDefaultSupplier);
-        assertEquals(1, numberOfCalls.getValue());
+        assertEquals(1, numberOfCalls.get());
         StringUtils.getIfEmpty(null, countingDefaultSupplier);
-        assertEquals(2, numberOfCalls.getValue());
+        assertEquals(2, numberOfCalls.get());
     }
 
     @Test
