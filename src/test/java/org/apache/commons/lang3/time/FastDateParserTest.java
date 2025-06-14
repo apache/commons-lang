@@ -152,6 +152,16 @@ class FastDateParserTest extends AbstractLangTest {
         return cal;
     }
 
+    static ArgumentSets testParsesFactory() {
+        // @formatter:off
+        return ArgumentSets
+            .argumentsForFirstParameter(LONG_FORMAT, SHORT_FORMAT)
+            .argumentsForNextParameter(LocaleUtils.availableLocaleList())
+            .argumentsForNextParameter(NEW_YORK, REYKJAVIK, TimeZones.GMT)
+            .argumentsForNextParameter(2003, 1940, 1868, 1867, 1, -1, -1940);
+        // @formatter:on
+    }
+
     private final TriFunction<String, TimeZone, Locale, DateParser> dateParserProvider = (format, timeZone, locale) -> new FastDateParser(format, timeZone,
             locale, null);
 
@@ -528,16 +538,6 @@ class FastDateParserTest extends AbstractLangTest {
         cal.clear();
         cal.set(2015, Calendar.JULY, 4);
         assertEquals(cal.getTime(), date);
-    }
-
-    static ArgumentSets testParsesFactory() {
-        // @formatter:off
-        return ArgumentSets
-            .argumentsForFirstParameter(LONG_FORMAT, SHORT_FORMAT)
-            .argumentsForNextParameter(LocaleUtils.availableLocaleList())
-            .argumentsForNextParameter(NEW_YORK, REYKJAVIK, TimeZones.GMT)
-            .argumentsForNextParameter(2003, 1940, 1868, 1867, 1, -1, -1940);
-        // @formatter:on
     }
 
     @CartesianTest

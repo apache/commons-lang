@@ -5301,46 +5301,6 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes multiple array elements specified by indices.
-     *
-     * @param array the input array, will not be modified, and may be {@code null}.
-     * @param indices to remove.
-     * @return new array of same type minus elements specified by the set bits in {@code indices}.
-     */
-    // package protected for access by unit tests
-    static Object removeAt(final Object array, final BitSet indices) {
-        if (array == null) {
-            return null;
-        }
-        final int srcLength = getLength(array);
-        // No need to check maxIndex here, because method only currently called from removeElements()
-        // which guarantee to generate only valid bit entries.
-//        final int maxIndex = indices.length();
-//        if (maxIndex > srcLength) {
-//            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
-//        }
-        final int removals = indices.cardinality(); // true bits are items to remove
-        final Object result = Array.newInstance(array.getClass().getComponentType(), srcLength - removals);
-        int srcIndex = 0;
-        int destIndex = 0;
-        int count;
-        int set;
-        while ((set = indices.nextSetBit(srcIndex)) != -1) {
-            count = set - srcIndex;
-            if (count > 0) {
-                System.arraycopy(array, srcIndex, result, destIndex, count);
-                destIndex += count;
-            }
-            srcIndex = indices.nextClearBit(set);
-        }
-        count = srcLength - srcIndex;
-        if (count > 0) {
-            System.arraycopy(array, srcIndex, result, destIndex, count);
-        }
-        return result;
-    }
-
-    /**
      * Removes multiple array elements specified by index.
      *
      * @param array source
@@ -5783,6 +5743,46 @@ public class ArrayUtils {
      */
     public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
         return (T[]) removeAt(array, indexesOf(array, element));
+    }
+
+    /**
+     * Removes multiple array elements specified by indices.
+     *
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param indices to remove.
+     * @return new array of same type minus elements specified by the set bits in {@code indices}.
+     */
+    // package protected for access by unit tests
+    static Object removeAt(final Object array, final BitSet indices) {
+        if (array == null) {
+            return null;
+        }
+        final int srcLength = getLength(array);
+        // No need to check maxIndex here, because method only currently called from removeElements()
+        // which guarantee to generate only valid bit entries.
+//        final int maxIndex = indices.length();
+//        if (maxIndex > srcLength) {
+//            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
+//        }
+        final int removals = indices.cardinality(); // true bits are items to remove
+        final Object result = Array.newInstance(array.getClass().getComponentType(), srcLength - removals);
+        int srcIndex = 0;
+        int destIndex = 0;
+        int count;
+        int set;
+        while ((set = indices.nextSetBit(srcIndex)) != -1) {
+            count = set - srcIndex;
+            if (count > 0) {
+                System.arraycopy(array, srcIndex, result, destIndex, count);
+                destIndex += count;
+            }
+            srcIndex = indices.nextClearBit(set);
+        }
+        count = srcLength - srcIndex;
+        if (count > 0) {
+            System.arraycopy(array, srcIndex, result, destIndex, count);
+        }
+        return result;
     }
 
     /**
