@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +39,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailablePredicate;
+import org.apache.commons.lang3.stream.Streams.FailableStream;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
@@ -134,6 +136,13 @@ class StreamsTest extends AbstractLangTest {
         final List<String> left = new ArrayList<>();
         left.add("a");
         assertEquals(Arrays.asList("a", "b", "c"), Streams.toArray(String.class).combiner().apply(left, Arrays.asList("b", "c")));
+    }
+
+    @Test
+    void testAssertNotTerminated() {
+        final FailableStream<String> stream = Streams.failableStream("A", "B");
+        assertTrue(stream.allMatch(s -> s.length() == 1));
+        assertThrows(IllegalStateException.class, () -> stream.allMatch(null));
     }
 
     @SuppressWarnings("deprecation")
@@ -233,6 +242,9 @@ class StreamsTest extends AbstractLangTest {
         assertTrue(collect.contains("One"));
         assertTrue(collect.contains("Two"));
         assertEquals(2, collect.size());
+        assertFalse(Streams.of(table.keys()).filter(String::isEmpty).findFirst().isPresent());
+        assertEquals(Arrays.asList("OneOne", "TwoTwo"), Streams.of(table.keys()).map(s -> s + s).collect(Collectors.toList()));
+        assertFalse(Streams.of(new Hashtable<String, Object>().keys()).filter(String::isEmpty).findFirst().isPresent());
     }
 
     @Test
