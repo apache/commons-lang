@@ -14,10 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3.stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -26,6 +28,12 @@ import org.junit.jupiter.api.Test;
  * Tests {@link IntStreams}.
  */
 class IntStreamsTest extends AbstractLangTest {
+
+    @SuppressWarnings("deprecation")
+    @Test
+    void testDeprecatedConstructor() {
+        assertNotNull(new IntStreams().toString());
+    }
 
     @Test
     void testOfArray() {
@@ -36,11 +44,11 @@ class IntStreamsTest extends AbstractLangTest {
 
     @Test
     void testRange() {
-        assertArrayEquals(new int[] {0, 1}, IntStreams.range(2).toArray());
+        assertArrayEquals(new int[] { 0, 1 }, IntStreams.range(2).toArray());
     }
 
     @Test
     void testRangeClosed() {
-        assertArrayEquals(new int[] {0, 1, 2}, IntStreams.rangeClosed(2).toArray());
+        assertArrayEquals(new int[] { 0, 1, 2 }, IntStreams.rangeClosed(2).toArray());
     }
 }
