@@ -157,6 +157,41 @@ class BackgroundInitializerTest extends AbstractLangTest {
         return new MethodBackgroundInitializerTestImpl(exec);
     }
 
+    @Test
+    void testBuilder() throws ConcurrentException {
+        // @formatter:off
+        final BackgroundInitializer<Object> backgroundInitializer = BackgroundInitializer.builder()
+            .setCloser(null)
+            .setExternalExecutor(null)
+            .setInitializer(null)
+            .get();
+        // @formatter:on
+        assertNull(backgroundInitializer.getExternalExecutor());
+        assertFalse(backgroundInitializer.isInitialized());
+        assertFalse(backgroundInitializer.isStarted());
+        assertThrows(IllegalStateException.class, backgroundInitializer::getFuture);
+    }
+
+    @Test
+    void testBuilderThenGetFailures() throws ConcurrentException {
+        // @formatter:off
+        final BackgroundInitializer<Object> backgroundInitializer = BackgroundInitializer.builder()
+            .setCloser(null)
+            .setExternalExecutor(null)
+            .setInitializer(() -> {
+                throw new IllegalStateException("test");
+            })
+            .get();
+        // @formatter:on
+        assertNull(backgroundInitializer.getExternalExecutor());
+        assertFalse(backgroundInitializer.isInitialized());
+        assertFalse(backgroundInitializer.isStarted());
+        assertThrows(IllegalStateException.class, backgroundInitializer::getFuture);
+        // start
+        backgroundInitializer.start();
+        assertEquals("test", assertThrows(IllegalStateException.class, backgroundInitializer::get).getMessage());
+    }
+
     /**
      * Tries to obtain the executor before start(). It should not have been
      * initialized yet.
@@ -174,8 +209,7 @@ class BackgroundInitializerTest extends AbstractLangTest {
     void testGetActiveExecutorExternal() throws InterruptedException, ConcurrentException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
-            final AbstractBackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl(
-                    exec);
+            final AbstractBackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl(exec);
             init.start();
             assertSame(exec, init.getActiveExecutor(), "Wrong executor");
             checkInitialize(init);
