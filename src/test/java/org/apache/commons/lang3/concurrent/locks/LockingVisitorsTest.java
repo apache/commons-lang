@@ -49,9 +49,10 @@ class LockingVisitorsTest extends AbstractLangTest {
     }
 
     private void runTest(final Duration delay, final boolean exclusiveLock, final LongConsumer runTimeCheck,
-        final boolean[] booleanValues, final LockVisitor<boolean[], ?> visitor) throws InterruptedException {
+            final boolean[] booleanValues, final LockVisitor<boolean[], ?> visitor) throws InterruptedException {
+        assertNotNull(visitor.getLock());
+        assertNotNull(visitor.getObject());
         final boolean[] runningValues = new boolean[10];
-
         final long startTimeMillis = System.currentTimeMillis();
         for (int i = 0; i < booleanValues.length; i++) {
             final int index = i;
