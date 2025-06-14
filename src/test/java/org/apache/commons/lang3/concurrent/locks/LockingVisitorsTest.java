@@ -101,6 +101,12 @@ class LockingVisitorsTest extends AbstractLangTest {
         assertEquals(2, res.get());
     }
 
+    @SuppressWarnings("deprecation")
+    @Test
+    void testDeprecatedConstructor() {
+        assertNotNull(new LockingVisitors().toString());
+    }
+
     @Test
     void testReentrantReadWriteLockExclusive() throws Exception {
 
