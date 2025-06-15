@@ -930,6 +930,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     @SuppressWarnings("boxing") // boxing is deliberate here
     @Test
     void testIsInstance() throws NoSuchFieldException {
+        assertFalse(TypeUtils.isInstance(1, null));
         final Type intComparableType = getClass().getField("intComparable").getGenericType();
         final Type uriComparableType = getClass().getField("uriComparable").getGenericType();
         assertTrue(TypeUtils.isInstance(1, intComparableType));
