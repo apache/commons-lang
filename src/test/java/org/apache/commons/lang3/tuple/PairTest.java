@@ -47,6 +47,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 class PairTest extends AbstractLangTest {
 
+    // This is a @MethodSource
     public static Stream<Class<? extends Map>> mapClassFactory() {
         return Stream.of(ConcurrentHashMap.class, ConcurrentSkipListMap.class, HashMap.class, TreeMap.class, WeakHashMap.class, LinkedHashMap.class);
     }
