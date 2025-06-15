@@ -57,7 +57,7 @@ public class DateUtils {
     /**
      * Date iterator.
      */
-    static class DateIterator implements Iterator<Calendar> {
+    static final class DateIterator implements Iterator<Calendar> {
         private final Calendar endFinal;
         private final Calendar spot;
 
