@@ -83,7 +83,7 @@ public class DurationFormatUtils {
     /**
      * Element that is parsed from the format pattern.
      */
-    static class Token {
+    static final class Token {
 
         /** Empty array. */
         private static final Token[] EMPTY_ARRAY = {};
