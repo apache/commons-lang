@@ -159,11 +159,11 @@
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
     <!-- JaCoCo: Don't make code coverage worse than: -->
     <commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
-    <commons.jacoco.classRatio>0.98</commons.jacoco.classRatio>
+    <commons.jacoco.classRatio>0.99</commons.jacoco.classRatio>
     <commons.jacoco.instructionRatio>0.96</commons.jacoco.instructionRatio>
     <commons.jacoco.methodRatio>0.96</commons.jacoco.methodRatio>
     <commons.jacoco.branchRatio>0.92</commons.jacoco.branchRatio>
-    <commons.jacoco.lineRatio>0.95</commons.jacoco.lineRatio>
+    <commons.jacoco.lineRatio>0.96</commons.jacoco.lineRatio>
     <commons.jacoco.complexityRatio>0.91</commons.jacoco.complexityRatio>
     <commons.text.version>1.13.1</commons.text.version>
   </properties>
