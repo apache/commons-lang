@@ -78,7 +78,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit.
+     * Tests whether the character is ASCII 7 bit.
      *
      * <pre>
      *   CharUtils.isAscii('a')  = true
@@ -97,7 +97,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit alphabetic.
+     * Tests whether the character is ASCII 7 bit alphabetic.
      *
      * <pre>
      *   CharUtils.isAsciiAlpha('a')  = true
@@ -116,7 +116,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit alphabetic lower case.
+     * Tests whether the character is ASCII 7 bit alphabetic lower case.
      *
      * <pre>
      *   CharUtils.isAsciiAlphaLower('a')  = true
@@ -135,7 +135,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit numeric.
+     * Tests whether the character is ASCII 7 bit numeric.
      *
      * <pre>
      *   CharUtils.isAsciiAlphanumeric('a')  = true
@@ -154,7 +154,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit alphabetic upper case.
+     * Tests whether the character is ASCII 7 bit alphabetic upper case.
      *
      * <pre>
      *   CharUtils.isAsciiAlphaUpper('a')  = false
@@ -173,7 +173,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit control.
+     * Tests whether the character is ASCII 7 bit control.
      *
      * <pre>
      *   CharUtils.isAsciiControl('a')  = false
@@ -192,7 +192,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit numeric.
+     * Tests whether the character is ASCII 7 bit numeric.
      *
      * <pre>
      *   CharUtils.isAsciiNumeric('a')  = false
@@ -211,7 +211,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit printable.
+     * Tests whether the character is ASCII 7 bit printable.
      *
      * <pre>
      *   CharUtils.isAsciiPrintable('a')  = true
