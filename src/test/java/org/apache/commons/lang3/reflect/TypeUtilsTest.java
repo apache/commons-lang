@@ -355,13 +355,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    void test_LANG_820() {
-        final Type[] typeArray = {String.class, String.class};
-        final Type[] expectedArray = {String.class};
-        assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
-    }
-
-    @Test
     void testContainsTypeVariables() throws NoSuchMethodException {
         assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m0").getGenericReturnType()));
         assertFalse(TypeUtils.containsTypeVariables(Test1.class.getMethod("m1").getGenericReturnType()));
@@ -953,6 +946,20 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
        final WildcardType lowerTypeVariable = TypeUtils.wildcardType().withLowerBounds(iterableT0).build();
        assertEquals(String.format("? super %s", iterableT0.getName()), TypeUtils.toString(lowerTypeVariable));
        assertEquals(String.format("? super %s", iterableT0.getName()), lowerTypeVariable.toString());
+    }
+
+    @Test
+    void testNormalizeUpperBounds() {
+        final Type[] typeArray = { Collection.class, List.class };
+        final Type[] expectedArray = { List.class };
+        assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
+    }
+
+    @Test
+    void testNormalizeUpperBounds_LANG_820() {
+        final Type[] typeArray = { String.class, String.class };
+        final Type[] expectedArray = { String.class };
+        assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
     }
 
     @Test
