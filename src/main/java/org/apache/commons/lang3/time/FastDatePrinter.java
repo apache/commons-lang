@@ -239,6 +239,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return length;
         }
     }
+
     /**
      * Inner class defining a numeric rule.
      */
@@ -252,6 +253,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          */
         void appendTo(Appendable buffer, int value) throws IOException;
     }
+
     /**
      * Inner class to output a padded number.
      */
