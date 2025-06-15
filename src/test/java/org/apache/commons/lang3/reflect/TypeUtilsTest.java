@@ -19,6 +19,7 @@ package org.apache.commons.lang3.reflect;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -444,14 +445,18 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
                 () -> TypeUtils.determineTypeArguments(null, iterableType));
     }
 
+    @SuppressWarnings("unlikely-arg-type")
     @Test
     void testGenericArrayType() throws NoSuchFieldException {
         final Type expected = getClass().getField("intWildcardComparable").getGenericType();
-        final GenericArrayType actual =
-            TypeUtils.genericArrayType(TypeUtils.parameterize(Comparable.class, TypeUtils.wildcardType()
-                .withUpperBounds(Integer.class).build()));
+        final GenericArrayType actual = TypeUtils
+                .genericArrayType(TypeUtils.parameterize(Comparable.class, TypeUtils.wildcardType().withUpperBounds(Integer.class).build()));
         assertTrue(TypeUtils.equals(expected, actual));
         assertEquals("java.lang.Comparable<? extends java.lang.Integer>[]", actual.toString());
+        assertNotEquals(0, actual.hashCode());
+        assertEquals(actual, actual);
+        assertFalse(actual.equals(null));
+        assertFalse(actual.equals(TypeUtils.wildcardType().build()));
     }
 
     @Test
@@ -1008,13 +1013,21 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertThrows(NullPointerException.class, () -> TypeUtils.parameterize(null));
     }
 
+    @SuppressWarnings("unlikely-arg-type")
     @Test
     void testParameterizeWithOwner() throws NoSuchFieldException {
         final Type owner = TypeUtils.parameterize(TypeUtilsTest.class, String.class);
         final ParameterizedType dat2Type1 = TypeUtils.parameterizeWithOwner(owner, That.class, String.class, String.class);
         assertTrue(TypeUtils.equals(getClass().getField("dat2").getGenericType(), dat2Type1));
+        assertNotEquals(0, dat2Type1.hashCode());
+        assertEquals(dat2Type1, dat2Type1);
         final ParameterizedType dat2Type2 = TypeUtils.parameterizeWithOwner(null, That.class, String.class, String.class);
         assertEquals(That.class, dat2Type2.getRawType());
+        assertNotEquals(0, dat2Type2.hashCode());
+        assertEquals(dat2Type2, dat2Type2);
+        assertNotEquals(dat2Type2, dat2Type1);
+        assertFalse(dat2Type1.equals(null));
+        assertFalse(dat2Type1.equals(TypeUtils.genericArrayType(String.class)));
     }
 
     @Test
@@ -1107,6 +1120,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertEquals("java.util.ArrayList<java.lang.String>", TypeUtils.unrollVariables(mapping, parameterizedType).getTypeName());
     }
 
+    @SuppressWarnings("unlikely-arg-type")
     @Test
     void testWildcardType() throws NoSuchFieldException {
         final WildcardType simpleWildcard = TypeUtils.wildcardType().withUpperBounds(String.class).build();
@@ -1114,6 +1128,10 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.equals(((ParameterizedType) cClass.getGenericType()).getActualTypeArguments()[0], simpleWildcard));
         assertEquals(String.format("? extends %s", String.class.getName()), TypeUtils.toString(simpleWildcard));
         assertEquals(String.format("? extends %s", String.class.getName()), simpleWildcard.toString());
+        assertNotEquals(0, simpleWildcard.hashCode());
+        assertEquals(simpleWildcard, simpleWildcard);
+        assertFalse(simpleWildcard.equals(null));
+        assertFalse(simpleWildcard.equals(TypeUtils.genericArrayType(String.class)));
     }
 
     @Test
