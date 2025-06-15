@@ -191,7 +191,10 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     /** This non-static inner class is parameterized. */
     private class MyInnerClass<T> {
-        // empty
+
+        class MyInnerClass2<X> {
+            // empty
+        }
     }
 
     public class Other<T> implements This<String, T> {
@@ -1032,8 +1035,12 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     @Test
     void testToLongString() {
-        assertEquals(getClass().getName() + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
         assertThrows(NullPointerException.class, () -> TypeUtils.toLongString(null));
+        assertEquals(getClass().getName() + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
+        assertEquals(getClass().getName() + ".MyInnerClass:T", TypeUtils.toLongString(MyInnerClass.class.getTypeParameters()[0]));
+        assertEquals(getClass().getName() + ".That:K", TypeUtils.toLongString(That.class.getTypeParameters()[0]));
+        assertEquals(getClass().getName() + ".The:K", TypeUtils.toLongString(The.class.getTypeParameters()[0]));
+        assertEquals(getClass().getName() + ".MyInnerClass.MyInnerClass2:X", TypeUtils.toLongString(MyInnerClass.MyInnerClass2.class.getTypeParameters()[0]));
     }
 
     @Test
@@ -1074,19 +1081,15 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertArrayEquals(new Type[] { null }, TypeUtils.getImplicitLowerBounds(unbounded));
         assertEquals("?", TypeUtils.toString(unbounded));
         assertEquals("?", unbounded.toString());
-
-        assertThrows(NullPointerException.class,
-                () -> TypeUtils.getImplicitLowerBounds(null));
-        assertThrows(NullPointerException.class,
-                () -> TypeUtils.getImplicitUpperBounds(null));
+        assertThrows(NullPointerException.class, () -> TypeUtils.getImplicitLowerBounds(null));
+        assertThrows(NullPointerException.class, () -> TypeUtils.getImplicitUpperBounds(null));
     }
 
     @Test
     void testWildcardType() throws NoSuchFieldException {
         final WildcardType simpleWildcard = TypeUtils.wildcardType().withUpperBounds(String.class).build();
         final Field cClass = AClass.class.getField("cClass");
-        assertTrue(TypeUtils.equals(((ParameterizedType) cClass.getGenericType()).getActualTypeArguments()[0],
-            simpleWildcard));
+        assertTrue(TypeUtils.equals(((ParameterizedType) cClass.getGenericType()).getActualTypeArguments()[0], simpleWildcard));
         assertEquals(String.format("? extends %s", String.class.getName()), TypeUtils.toString(simpleWildcard));
         assertEquals(String.format("? extends %s", String.class.getName()), simpleWildcard.toString());
     }
@@ -1095,7 +1098,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     void testWrap() {
         final Type t = getClass().getTypeParameters()[0];
         assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
-
         assertEquals(String.class, TypeUtils.wrap(String.class).getType());
     }
 }
