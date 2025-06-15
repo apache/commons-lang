@@ -1044,6 +1044,14 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testToString() {
+        assertThrows(NullPointerException.class, () -> TypeUtils.toString(null));
+        assertThrows(IllegalArgumentException.class, () -> TypeUtils.toString(new Type() {
+            // empty
+        }));
+    }
+
+    @Test
     void testToString_LANG_1311() {
         assertEquals("int[]", TypeUtils.toString(int[].class));
         assertEquals("java.lang.Integer[]", TypeUtils.toString(Integer[].class));
