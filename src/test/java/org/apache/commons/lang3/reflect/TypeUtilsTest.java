@@ -1003,8 +1003,10 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     @Test
     void testParameterizeWithOwner() throws NoSuchFieldException {
         final Type owner = TypeUtils.parameterize(TypeUtilsTest.class, String.class);
-        final ParameterizedType dat2Type = TypeUtils.parameterizeWithOwner(owner, That.class, String.class, String.class);
-        assertTrue(TypeUtils.equals(getClass().getField("dat2").getGenericType(), dat2Type));
+        final ParameterizedType dat2Type1 = TypeUtils.parameterizeWithOwner(owner, That.class, String.class, String.class);
+        assertTrue(TypeUtils.equals(getClass().getField("dat2").getGenericType(), dat2Type1));
+        final ParameterizedType dat2Type2 = TypeUtils.parameterizeWithOwner(null, That.class, String.class, String.class);
+        assertEquals(That.class, dat2Type2.getRawType());
     }
 
     @Test
