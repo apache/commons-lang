@@ -328,7 +328,7 @@ public class NumberUtils {
         // Need to deal with all possible hex prefixes here
         final String[] hexPrefixes = {"0x", "0X", "#"};
         final int length = str.length();
-        final int offset = str.charAt(0) == '+' || str.charAt(0) == '-' ? 1 : 0;
+        final int offset = isSign(str.charAt(0)) ? 1 : 0;
         int pfxLen = 0;
         for (final String pfx : hexPrefixes) {
             if (str.startsWith(pfx, offset)) {
@@ -502,7 +502,7 @@ public class NumberUtils {
      */
     private static String getMantissa(final String str, final int stopPos) {
          final char firstChar = str.charAt(0);
-         final boolean hasSign = firstChar == '-' || firstChar == '+';
+         final boolean hasSign = isSign(firstChar);
          final int length = str.length();
          if (length <= (hasSign ? 1 : 0) || length < stopPos) {
              throw new NumberFormatException(str + " is not a valid number.");
@@ -510,7 +510,7 @@ public class NumberUtils {
          return hasSign ? str.substring(1, stopPos) : str.substring(0, stopPos);
     }
 
-    /**
+     /**
      * Utility method for {@link #createNumber(java.lang.String)}.
      *
      * <p>Returns {@code true} if s is {@code null} or empty.</p>
@@ -563,7 +563,7 @@ public class NumberUtils {
         boolean allowSigns = false;
         boolean foundDigit = false;
         // deal with any possible sign up front
-        final int start = chars[0] == '-' || chars[0] == '+' ? 1 : 0;
+        final int start = isSign(chars[0]) ? 1 : 0;
         if (sz > start + 1 && chars[start] == '0' && !StringUtils.contains(str, '.')) { // leading 0, skip if is a decimal number
             if (chars[start + 1] == 'x' || chars[start + 1] == 'X') { // leading 0x/0X
                 int i = start + 2;
@@ -616,7 +616,7 @@ public class NumberUtils {
                 }
                 hasExp = true;
                 allowSigns = true;
-            } else if (chars[i] == '+' || chars[i] == '-') {
+            } else if (isSign(chars[i])) {
                 if (!allowSigns) {
                     return false;
                 }
@@ -740,6 +740,10 @@ public class NumberUtils {
         }
         return withDecimalsParsing(str, 0);
     }
+
+    private static boolean isSign(final char ch) {
+        return ch == '-' || ch == '+';
+     }
 
     /**
      * Utility method for {@link #createNumber(java.lang.String)}.
