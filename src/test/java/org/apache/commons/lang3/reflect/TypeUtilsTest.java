@@ -1015,6 +1015,13 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertThrows(NullPointerException.class, () -> TypeUtils.parameterizeWithOwner(owner, null, String.class));
         final Map<TypeVariable<?>, Type> nullTypeVariableMap = null;
         assertThrows(NullPointerException.class, () -> TypeUtils.parameterizeWithOwner(owner, That.class, nullTypeVariableMap));
+        final Map<TypeVariable<?>, Type> typeVariableMap1 = new HashMap<>();
+        typeVariableMap1.put(Comparable.class.getTypeParameters()[0], String.class);
+        assertEquals(Comparable.class, TypeUtils.parameterizeWithOwner(null, Comparable.class, typeVariableMap1).getRawType());
+        final Map<TypeVariable<?>, Type> typeVariableMap2 = new HashMap<>();
+        typeVariableMap2.put(MyInnerClass.class.getTypeParameters()[0], String.class);
+        assertEquals(MyInnerClass.class, TypeUtils.parameterizeWithOwner(null, MyInnerClass.class, typeVariableMap2).getRawType());
+        assertEquals(MyInnerClass.class, TypeUtils.parameterizeWithOwner(owner, MyInnerClass.class, typeVariableMap2).getRawType());
     }
 
     @Test
@@ -1026,7 +1033,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     @Test
     void testToLongString() {
         assertEquals(getClass().getName() + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
-
         assertThrows(NullPointerException.class, () -> TypeUtils.toLongString(null));
     }
 
@@ -1050,7 +1056,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         typeVarAssigns.clear();
         typeVarAssigns.put(getClass().getMethod("stub3").getTypeParameters()[0], Integer.class);
         assertTrue(TypeUtils.typesSatisfyVariables(typeVarAssigns));
-
         assertThrows(NullPointerException.class, () -> TypeUtils.typesSatisfyVariables(null));
     }
 
