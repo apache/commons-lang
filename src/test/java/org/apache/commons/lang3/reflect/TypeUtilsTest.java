@@ -956,10 +956,11 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    void testParameterize() throws NoSuchFieldException {
-        final ParameterizedType stringComparableType = TypeUtils.parameterize(Comparable.class, String.class);
-        assertTrue(TypeUtils.equals(getClass().getField("stringComparable").getGenericType(),
-            stringComparableType));
+    void testParameterizeMapArg() throws NoSuchFieldException {
+        final Map<TypeVariable<?>, Type> typeVariableMap = new HashMap<>();
+        typeVariableMap.put(Comparable.class.getTypeParameters()[0], String.class);
+        final ParameterizedType stringComparableType = TypeUtils.parameterize(Comparable.class, typeVariableMap);
+        assertTrue(TypeUtils.equals(getClass().getField("stringComparable").getGenericType(), stringComparableType));
         assertEquals("java.lang.Comparable<java.lang.String>", stringComparableType.toString());
     }
 
@@ -977,6 +978,13 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertThrows(NullPointerException.class, () -> TypeUtils.parameterize(null, Collections.emptyMap()));
         final Map<TypeVariable<?>, Type> nullTypeVariableMap = null;
         assertThrows(NullPointerException.class, () -> TypeUtils.parameterize(String.class, nullTypeVariableMap));
+    }
+
+    @Test
+    void testParameterizeVarArgs() throws NoSuchFieldException {
+        final ParameterizedType stringComparableType = TypeUtils.parameterize(Comparable.class, String.class);
+        assertTrue(TypeUtils.equals(getClass().getField("stringComparable").getGenericType(), stringComparableType));
+        assertEquals("java.lang.Comparable<java.lang.String>", stringComparableType.toString());
     }
 
     @Test
@@ -1038,7 +1046,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource
-    void testTypeToString(Type type) {
+    void testTypeToString(final Type type) {
         // No stack overflow
         assertNotNull(TypeUtils.toString(type));
     }
