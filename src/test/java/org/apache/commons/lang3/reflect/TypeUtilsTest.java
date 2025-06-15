@@ -431,6 +431,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     @Test
     void testDetermineTypeArguments() throws NoSuchFieldException {
         final ParameterizedType iterableType = (ParameterizedType) getClass().getField("iterable").getGenericType();
+        assertNull(TypeUtils.determineTypeArguments(Object.class, iterableType));
         final Map<TypeVariable<?>, Type> typeVarAssigns = TypeUtils.determineTypeArguments(TreeSet.class, iterableType);
         final TypeVariable<?> treeSetTypeVar = TreeSet.class.getTypeParameters()[0];
         assertTrue(typeVarAssigns.containsKey(treeSetTypeVar));
