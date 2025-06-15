@@ -97,7 +97,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output a constant single character.
      */
-    private static class CharacterLiteral implements Rule {
+    private static final class CharacterLiteral implements Rule {
         private final char value;
 
         /**
@@ -130,7 +130,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output the numeric day in week.
      */
-    private static class DayInWeekField implements NumberRule {
+    private static final class DayInWeekField implements NumberRule {
         private final NumberRule rule;
 
         DayInWeekField(final NumberRule rule) {
@@ -158,7 +158,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Inner class to output a time zone as a number {@code +/-HHMM}
      * or {@code +/-HH:MM}.
      */
-    private static class Iso8601_Rule implements Rule {
+    private static final class Iso8601_Rule implements Rule {
 
         // Sign TwoDigitHours or Z
         static final Iso8601_Rule ISO8601_HOURS = new Iso8601_Rule(3);
@@ -325,7 +325,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output a constant string.
      */
-    private static class StringLiteral implements Rule {
+    private static final class StringLiteral implements Rule {
         private final String value;
 
         /**
@@ -357,7 +357,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output one of a set of values.
      */
-    private static class TextField implements Rule {
+    private static final class TextField implements Rule {
         private final int field;
         private final String[] values;
 
@@ -399,7 +399,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class that acts as a compound key for time zone names.
      */
-    private static class TimeZoneDisplayKey {
+    private static final class TimeZoneDisplayKey {
         private final TimeZone timeZone;
         private final int style;
         private final Locale locale;
@@ -452,7 +452,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output a time zone name.
      */
-    private static class TimeZoneNameRule implements Rule {
+    private static final class TimeZoneNameRule implements Rule {
         private final Locale locale;
         private final int style;
         private final String standard;
@@ -497,7 +497,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Inner class to output a time zone as a number {@code +/-HHMM}
      * or {@code +/-HH:MM}.
      */
-    private static class TimeZoneNumberRule implements Rule {
+    private static final class TimeZoneNumberRule implements Rule {
         static final TimeZoneNumberRule INSTANCE_COLON = new TimeZoneNumberRule(true);
         static final TimeZoneNumberRule INSTANCE_NO_COLON = new TimeZoneNumberRule(false);
 
@@ -550,7 +550,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output the twelve hour field.
      */
-    private static class TwelveHourField implements NumberRule {
+    private static final class TwelveHourField implements NumberRule {
         private final NumberRule rule;
 
         /**
@@ -595,7 +595,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output the twenty four hour field.
      */
-    private static class TwentyFourHourField implements NumberRule {
+    private static final class TwentyFourHourField implements NumberRule {
         private final NumberRule rule;
 
         /**
@@ -640,7 +640,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output a two digit month.
      */
-    private static class TwoDigitMonthField implements NumberRule {
+    private static final class TwoDigitMonthField implements NumberRule {
         static final TwoDigitMonthField INSTANCE = new TwoDigitMonthField();
 
         /**
@@ -661,7 +661,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * {@inheritDoc}
          */
         @Override
-        public final void appendTo(final Appendable buffer, final int value) throws IOException {
+        public void appendTo(final Appendable buffer, final int value) throws IOException {
             appendDigits(buffer, value);
         }
 
@@ -677,7 +677,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output a two digit number.
      */
-    private static class TwoDigitNumberField implements NumberRule {
+    private static final class TwoDigitNumberField implements NumberRule {
         private final int field;
 
         /**
@@ -701,7 +701,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * {@inheritDoc}
          */
         @Override
-        public final void appendTo(final Appendable buffer, final int value) throws IOException {
+        public void appendTo(final Appendable buffer, final int value) throws IOException {
             if (value < 100) {
                 appendDigits(buffer, value);
             } else {
@@ -721,7 +721,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output a two digit year.
      */
-    private static class TwoDigitYearField implements NumberRule {
+    private static final class TwoDigitYearField implements NumberRule {
         static final TwoDigitYearField INSTANCE = new TwoDigitYearField();
 
         /**
@@ -742,7 +742,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * {@inheritDoc}
          */
         @Override
-        public final void appendTo(final Appendable buffer, final int value) throws IOException {
+        public void appendTo(final Appendable buffer, final int value) throws IOException {
             appendDigits(buffer, value % 100);
         }
 
@@ -758,7 +758,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output an unpadded month.
      */
-    private static class UnpaddedMonthField implements NumberRule {
+    private static final class UnpaddedMonthField implements NumberRule {
         static final UnpaddedMonthField INSTANCE = new UnpaddedMonthField();
 
         /**
@@ -779,7 +779,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * {@inheritDoc}
          */
         @Override
-        public final void appendTo(final Appendable buffer, final int value) throws IOException {
+        public void appendTo(final Appendable buffer, final int value) throws IOException {
             if (value < 10) {
                 buffer.append((char) (value + '0'));
             } else {
@@ -799,7 +799,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output an unpadded number.
      */
-    private static class UnpaddedNumberField implements NumberRule {
+    private static final class UnpaddedNumberField implements NumberRule {
         private final int field;
 
         /**
@@ -823,7 +823,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * {@inheritDoc}
          */
         @Override
-        public final void appendTo(final Appendable buffer, final int value) throws IOException {
+        public void appendTo(final Appendable buffer, final int value) throws IOException {
             if (value < 10) {
                 buffer.append((char) (value + '0'));
             } else if (value < 100) {
@@ -845,7 +845,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Inner class to output the numeric day in week.
      */
-    private static class WeekYear implements NumberRule {
+    private static final class WeekYear implements NumberRule {
         private final NumberRule rule;
 
         WeekYear(final NumberRule rule) {
