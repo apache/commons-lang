@@ -45,6 +45,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArraySorter;
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.LocaleUtils;
 
 /**
@@ -436,7 +437,7 @@ public class FastDateParser implements DateParser, Serializable {
                 return null;
             }
             final char c = pattern.charAt(currentIdx);
-            if (isFormatLetter(c)) {
+            if (CharUtils.isAsciiAlpha(c)) {
                 return letterPattern(c);
             }
             return literal();
@@ -459,7 +460,7 @@ public class FastDateParser implements DateParser, Serializable {
             final StringBuilder sb = new StringBuilder();
             while (currentIdx < pattern.length()) {
                 final char c = pattern.charAt(currentIdx);
-                if (!activeQuote && isFormatLetter(c)) {
+                if (!activeQuote && CharUtils.isAsciiAlpha(c)) {
                     break;
                 }
                 if (c == '\'' && (++currentIdx == pattern.length() || pattern.charAt(currentIdx) != '\'')) {
@@ -738,10 +739,6 @@ public class FastDateParser implements DateParser, Serializable {
             }
             return CACHES[field];
         }
-    }
-
-    private static boolean isFormatLetter(final char c) {
-        return c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z';
     }
 
     private static StringBuilder simpleQuote(final StringBuilder sb, final String value) {

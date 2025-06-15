@@ -32,6 +32,7 @@ import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -1476,16 +1477,14 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     protected String parseToken(final String pattern, final int[] indexRef) {
         final StringBuilder buf = new StringBuilder();
-
         int i = indexRef[0];
         final int length = pattern.length();
-
         char c = pattern.charAt(i);
-        if (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z') {
+        final char c1 = c;
+        if (CharUtils.isAsciiAlpha(c1)) {
             // Scan a run of the same character, which indicates a time
             // pattern.
             buf.append(c);
-
             while (i + 1 < length) {
                 final char peek = pattern.charAt(i + 1);
                 if (peek != c) {
@@ -1497,12 +1496,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         } else {
             // This will identify token as text.
             buf.append('\'');
-
             boolean inLiteral = false;
-
             for (; i < length; i++) {
                 c = pattern.charAt(i);
-
                 if (c == '\'') {
                     if (i + 1 < length && pattern.charAt(i + 1) == '\'') {
                         // '' is treated as escaped '
@@ -1511,16 +1507,17 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                     } else {
                         inLiteral = !inLiteral;
                     }
-                } else if (!inLiteral &&
-                         (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')) {
-                    i--;
-                    break;
                 } else {
-                    buf.append(c);
+                    final char c2 = c;
+                    if (!inLiteral && CharUtils.isAsciiAlpha(c2)) {
+                        i--;
+                        break;
+                    } else {
+                        buf.append(c);
+                    }
                 }
             }
         }
-
         indexRef[0] = i;
         return buf.toString();
     }
