@@ -37,6 +37,8 @@ import org.junit.jupiter.api.Test;
  * This class provides some basic tests for initializer implementations. Derived
  * class have to create a {@link ConcurrentInitializer} object on which the
  * tests are executed.
+ *
+ * @param <T> Domain type.
  */
 public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest<T> extends AbstractConcurrentInitializerTest<T> {
 
