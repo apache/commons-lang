@@ -1472,7 +1472,6 @@ public class TypeUtils {
         Validate.noNullElements(typeArguments, "null type argument at index %s");
         Validate.isTrue(rawClass.getTypeParameters().length == typeArguments.length, "invalid number of type parameters specified: expected %d, got %d",
                 rawClass.getTypeParameters().length, typeArguments.length);
-
         return new ParameterizedTypeImpl(rawClass, useOwner, typeArguments);
     }
 
@@ -1487,7 +1486,6 @@ public class TypeUtils {
     private static Type substituteTypeVariables(final Type type, final Map<TypeVariable<?>, Type> typeVarAssigns) {
         if (type instanceof TypeVariable<?> && typeVarAssigns != null) {
             final Type replacementType = typeVarAssigns.get(type);
-
             if (replacementType == null) {
                 throw new IllegalArgumentException("missing assignment type for type variable " + type);
             }
