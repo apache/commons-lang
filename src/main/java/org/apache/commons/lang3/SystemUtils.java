@@ -1109,6 +1109,22 @@ public class SystemUtils {
      */
     public static final boolean IS_JAVA_23 = getJavaVersionMatches("23");
 
+    /**
+     * The constant {@code true} if this is Java version 24 (also 24.x versions).
+     * <p>
+     * The result depends on the value of the {@link #JAVA_SPECIFICATION_VERSION} constant.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_SPECIFICATION_VERSION} is {@code null}.
+     * </p>
+     * <p>
+     * This value is initialized when the class is loaded.
+     * </p>
+     *
+     * @since 3.18.0
+     */
+    public static final boolean IS_JAVA_24 = getJavaVersionMatches("24");
+
     // Operating system checks
     // -----------------------------------------------------------------------
     // These MUST be declared after those above as they depend on the

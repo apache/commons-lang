@@ -98,7 +98,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_23.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_24.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_23.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_24.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add IntegerRange.toIntStream().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LongRange.toLongStream().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add IntStrams.of(int...).</action>

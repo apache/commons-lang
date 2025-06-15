@@ -388,6 +388,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_22));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_23));
+            assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_9) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_2));
@@ -412,6 +413,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_22));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_23));
+            assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_10) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_2));
@@ -436,6 +438,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_22));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_23));
+            assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_11) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_2));
@@ -460,6 +463,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_22));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_23));
+            assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_12) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_2));
@@ -484,6 +488,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_22));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_23));
+            assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_13) {
             assertTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_1));
             assertTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_2));
@@ -508,6 +513,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_22));
             assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_23));
+            assertFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_24));
         }
     }
 
@@ -537,6 +543,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_9) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -561,6 +568,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_10) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -585,6 +593,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_11) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -609,6 +618,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_12) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -633,6 +643,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_13) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -657,6 +668,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_14) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -681,6 +693,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_15) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -705,6 +718,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_16) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -729,7 +743,8 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
-} else if (SystemUtils.IS_JAVA_17) {
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
+        } else if (SystemUtils.IS_JAVA_17) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_3));
@@ -753,6 +768,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_18) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -777,6 +793,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_19) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -801,6 +818,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_20) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -825,6 +843,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_21) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -849,6 +868,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_22) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -873,6 +893,7 @@ class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         } else if (SystemUtils.IS_JAVA_23) {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
@@ -897,6 +918,32 @@ class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
             assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
             assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
+        } else if (SystemUtils.IS_JAVA_24) {
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_1));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_2));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_3));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_4));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_5));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_6));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_7));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_1_8));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_9));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_10));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_11));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_12));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_13));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_14));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_15));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_16));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_17));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_18));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_19));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_20));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_21));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_22));
+            assertFalse(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_23));
+            assertTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
         }
     }
 
