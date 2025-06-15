@@ -429,20 +429,14 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    void testDetermineTypeVariableAssignments() throws NoSuchFieldException {
-        final ParameterizedType iterableType = (ParameterizedType) getClass().getField("iterable")
-                .getGenericType();
-        final Map<TypeVariable<?>, Type> typeVarAssigns = TypeUtils.determineTypeArguments(TreeSet.class,
-                iterableType);
+    void testDetermineTypeArguments() throws NoSuchFieldException {
+        final ParameterizedType iterableType = (ParameterizedType) getClass().getField("iterable").getGenericType();
+        final Map<TypeVariable<?>, Type> typeVarAssigns = TypeUtils.determineTypeArguments(TreeSet.class, iterableType);
         final TypeVariable<?> treeSetTypeVar = TreeSet.class.getTypeParameters()[0];
         assertTrue(typeVarAssigns.containsKey(treeSetTypeVar));
-        assertEquals(iterableType.getActualTypeArguments()[0], typeVarAssigns
-                .get(treeSetTypeVar));
-
-        assertThrows(NullPointerException.class,
-                () -> TypeUtils.determineTypeArguments(TreeSet.class, null));
-        assertThrows(NullPointerException.class,
-                () -> TypeUtils.determineTypeArguments(null, iterableType));
+        assertEquals(iterableType.getActualTypeArguments()[0], typeVarAssigns.get(treeSetTypeVar));
+        assertThrows(NullPointerException.class, () -> TypeUtils.determineTypeArguments(TreeSet.class, null));
+        assertThrows(NullPointerException.class, () -> TypeUtils.determineTypeArguments(null, iterableType));
     }
 
     @SuppressWarnings("unlikely-arg-type")
