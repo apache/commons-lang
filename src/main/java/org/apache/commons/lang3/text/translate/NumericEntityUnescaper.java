@@ -22,6 +22,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 
+import org.apache.commons.lang3.CharUtils;
+
 /**
  * Translate XML numeric entities of the form &amp;#[xX]?\d+;? to the specific code point.
  *
@@ -122,9 +124,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
 
             int end = start;
             // Note that this supports character codes without a ; on the end
-            while (end < seqEnd && (input.charAt(end) >= '0' && input.charAt(end) <= '9' ||
-                                    input.charAt(end) >= 'a' && input.charAt(end) <= 'f' ||
-                                    input.charAt(end) >= 'A' && input.charAt(end) <= 'F')) {
+            while (end < seqEnd && CharUtils.isHex(input.charAt(end))) {
                 end++;
             }
 

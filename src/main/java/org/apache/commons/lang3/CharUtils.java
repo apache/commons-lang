@@ -230,6 +230,32 @@ public class CharUtils {
     }
 
     /**
+     * Tests whether a character is a hexadecimal character.
+     *
+     * <pre>
+     *   CharUtils.isAsciiPrintable('0')  = true
+     *   CharUtils.isAsciiPrintable('9')  = true
+     *   CharUtils.isAsciiPrintable('a')  = true
+     *   CharUtils.isAsciiPrintable('f')  = true
+     *   CharUtils.isAsciiPrintable('g')  = false
+     *   CharUtils.isAsciiPrintable('A')  = true
+     *   CharUtils.isAsciiPrintable('F')  = true
+     *   CharUtils.isAsciiPrintable('G')  = false
+     *   CharUtils.isAsciiPrintable('3')  = false
+     *   CharUtils.isAsciiPrintable('-')  = false
+     *   CharUtils.isAsciiPrintable('\n') = false
+     *   CharUtils.isAsciiPrintable('&copy;') = false
+     * </pre>
+     *
+     * @param ch  the character to test.
+     * @return true if character is a hexadecimal character.
+     * @since 3.18.0
+     */
+    public static boolean isHex(final char ch) {
+        return isAsciiNumeric(ch) || ch >= 'a' && ch <= 'f' || ch >= 'A' && ch <= 'F';
+    }
+
+    /**
      * Converts the Character to a char throwing an exception for {@code null}.
      *
      * <pre>

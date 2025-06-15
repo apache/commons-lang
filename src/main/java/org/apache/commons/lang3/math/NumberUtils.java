@@ -22,6 +22,7 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Objects;
 
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -571,9 +572,7 @@ public class NumberUtils {
                 }
                 // checking hex (it can't be anything else)
                 for (; i < chars.length; i++) {
-                    if ((chars[i] < '0' || chars[i] > '9')
-                        && (chars[i] < 'a' || chars[i] > 'f')
-                        && (chars[i] < 'A' || chars[i] > 'F')) {
+                    if (!CharUtils.isHex(chars[i])) {
                         return false;
                     }
                 }
