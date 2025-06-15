@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
  * class have to create a {@link ConcurrentInitializer} object on which the
  * tests are executed.
  */
-public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extends AbstractConcurrentInitializerTest {
+public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest<T> extends AbstractConcurrentInitializerTest<T> {
 
     protected static final class CloseableObject {
         boolean closed;

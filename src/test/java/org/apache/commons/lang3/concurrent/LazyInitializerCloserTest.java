@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@code LazyInitializer}.
  */
-class LazyInitializerCloserTest extends AbstractConcurrentInitializerTest {
+class LazyInitializerCloserTest extends AbstractConcurrentInitializerTest<Object> {
 
     private final AtomicBoolean closed = new AtomicBoolean();
 

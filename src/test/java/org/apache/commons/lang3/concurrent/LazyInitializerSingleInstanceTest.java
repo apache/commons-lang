@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@code LazyInitializer}.
  */
-class LazyInitializerSingleInstanceTest extends AbstractConcurrentInitializerTest {
+class LazyInitializerSingleInstanceTest extends AbstractConcurrentInitializerTest<Object> {
 
     /**
      * A test implementation of LazyInitializer. This class creates a plain Object. As Object does not provide a specific equals() method, it is easy to check
