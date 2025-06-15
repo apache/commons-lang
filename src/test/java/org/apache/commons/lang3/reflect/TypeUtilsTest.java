@@ -423,6 +423,11 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testDeprecatedConstructor() {
+        assertNotNull(new TypeUtils().toString());
+    }
+
+    @Test
     void testDetermineTypeVariableAssignments() throws NoSuchFieldException {
         final ParameterizedType iterableType = (ParameterizedType) getClass().getField("iterable")
                 .getGenericType();
@@ -985,15 +990,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    void testUnrollVariables() {
-        final TypeVariable<?>[] variables = ArrayList.class.getTypeParameters();
-        final ParameterizedType parameterizedType = TypeUtils.parameterize(ArrayList.class, variables);
-        assertEquals("java.util.ArrayList<E>", TypeUtils.unrollVariables(null, parameterizedType).getTypeName());
-        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(variables[0], String.class);
-        assertEquals("java.util.ArrayList<java.lang.String>", TypeUtils.unrollVariables(mapping, parameterizedType).getTypeName());
-    }
-
-    @Test
     void testParameterizeNullPointerException() {
         assertThrows(NullPointerException.class, () -> TypeUtils.parameterize(null, Collections.emptyMap()));
         final Map<TypeVariable<?>, Type> nullTypeVariableMap = null;
@@ -1100,6 +1096,15 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertEquals("?", unbounded.toString());
         assertThrows(NullPointerException.class, () -> TypeUtils.getImplicitLowerBounds(null));
         assertThrows(NullPointerException.class, () -> TypeUtils.getImplicitUpperBounds(null));
+    }
+
+    @Test
+    void testUnrollVariables() {
+        final TypeVariable<?>[] variables = ArrayList.class.getTypeParameters();
+        final ParameterizedType parameterizedType = TypeUtils.parameterize(ArrayList.class, variables);
+        assertEquals("java.util.ArrayList<E>", TypeUtils.unrollVariables(null, parameterizedType).getTypeName());
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(variables[0], String.class);
+        assertEquals("java.util.ArrayList<java.lang.String>", TypeUtils.unrollVariables(mapping, parameterizedType).getTypeName());
     }
 
     @Test
