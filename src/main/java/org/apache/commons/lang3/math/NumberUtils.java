@@ -582,7 +582,7 @@ public class NumberUtils {
                    // leading 0, but not hex, must be octal
                    int i = start + 1;
                    for (; i < chars.length; i++) {
-                       if (chars[i] < '0' || chars[i] > '7') {
+                       if (!CharUtils.isOctal(chars[i])) {
                            return false;
                        }
                    }
@@ -595,7 +595,7 @@ public class NumberUtils {
         // loop to the next to last char or to the last char if we need another digit to
         // make a valid number (e.g. chars[0..5] = "1234E")
         while (i < sz || i < sz + 1 && allowSigns && !foundDigit) {
-            if (chars[i] >= '0' && chars[i] <= '9') {
+            if (CharUtils.isAsciiNumeric(chars[i])) {
                 foundDigit = true;
                 allowSigns = false;
 
@@ -628,7 +628,7 @@ public class NumberUtils {
             i++;
         }
         if (i < chars.length) {
-            if (chars[i] >= '0' && chars[i] <= '9') {
+            if (CharUtils.isAsciiNumeric(chars[i])) {
                 // no type qualifier, OK
                 return true;
             }

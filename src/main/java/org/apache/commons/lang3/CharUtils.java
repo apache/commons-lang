@@ -256,6 +256,17 @@ public class CharUtils {
     }
 
     /**
+     * Tests if the given char is an octal digit. Octal digits are the character representations of the digits 0 to 7.
+     *
+     * @param ch the char to check
+     * @return true if the given char is the character representation of one of the digits from 0 to 7
+     * @since 3.18.0
+     */
+    public static boolean isOctal(final char ch) {
+        return ch >= '0' && ch <= '7';
+    }
+
+    /**
      * Converts the Character to a char throwing an exception for {@code null}.
      *
      * <pre>
