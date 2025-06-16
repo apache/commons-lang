@@ -440,6 +440,19 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertThrows(NullPointerException.class, () -> TypeUtils.determineTypeArguments(null, iterableType));
     }
 
+    @Test
+    void testEquals() throws NoSuchFieldException {
+        final Type expected = getClass().getField("intWildcardComparable").getGenericType();
+        final GenericArrayType gat1 = TypeUtils
+                .genericArrayType(TypeUtils.parameterize(Comparable.class, TypeUtils.wildcardType().withUpperBounds(Integer.class).build()));
+        final GenericArrayType gat2 = TypeUtils
+                .genericArrayType(TypeUtils.parameterize(Comparable.class, TypeUtils.wildcardType().withUpperBounds(Integer.class).build()));
+        assertTrue(TypeUtils.equals(gat1, gat1));
+        assertTrue(TypeUtils.equals(gat1, gat2));
+        assertFalse(TypeUtils.equals(gat1, null));
+        assertFalse(TypeUtils.equals(null, gat1));
+    }
+
     @SuppressWarnings("unlikely-arg-type")
     @Test
     void testGenericArrayType() throws NoSuchFieldException {
