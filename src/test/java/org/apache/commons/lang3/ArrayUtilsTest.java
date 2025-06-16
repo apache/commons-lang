@@ -59,6 +59,10 @@ class ArrayUtilsTest extends AbstractLangTest {
     /** A predefined seed used to initialize {@link Random} in order to get predictable results */
     private static final long SEED = 16111981L;
 
+    private static Random seededRandom() {
+        return new Random(SEED);
+    }
+
     @SafeVarargs
     private static <T> T[] toArrayPropagatingType(final T... items) {
         return ArrayUtils.toArray(items);
@@ -91,7 +95,6 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, Suppliers.nul()));
         assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, (Supplier<String[]>) null));
     }
-
     /**
      * Tests generic array creation with parameters of same type.
      */
@@ -102,6 +105,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertEquals("foo", array[0]);
         assertEquals("bar", array[1]);
     }
+
     /**
      * Tests generic array creation with parameters of common base type.
      */
@@ -5091,107 +5095,195 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffle() {
-        final String[] array1 = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        final String[] array1 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
         final String[] array2 = ArrayUtils.clone(array1);
-
-        ArrayUtils.shuffle(array1, new Random(SEED));
+        ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
         for (final String element : array2) {
-            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
         }
     }
 
     @Test
     void testShuffleBoolean() {
-        final boolean[] array1 = {true, false, true, true, false, false, true, false, false, true};
+        final boolean[] array1 = { true, false, true, true, false, false, true, false, false, true };
         final boolean[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1);
+        assertFalse(Arrays.equals(array1, array2));
+        assertEquals(5, ArrayUtils.removeAllOccurrences(array1, true).length);
+    }
 
-        ArrayUtils.shuffle(array1, new Random(SEED));
+    @Test
+    void testShuffleBooleanRandom() {
+        final boolean[] array1 = { true, false, true, true, false, false, true, false, false, true };
+        final boolean[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1, seededRandom());
         assertFalse(Arrays.equals(array1, array2));
         assertEquals(5, ArrayUtils.removeAllOccurrences(array1, true).length);
     }
 
     @Test
     void testShuffleByte() {
-        final byte[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        final byte[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         final byte[] array2 = ArrayUtils.clone(array1);
-
-        ArrayUtils.shuffle(array1, new Random(SEED));
+        ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
         for (final byte element : array2) {
-            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
+        }
+    }
+
+    @Test
+    void testShuffleByteRandom() {
+        final byte[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        final byte[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1, seededRandom());
+        assertFalse(Arrays.equals(array1, array2));
+        for (final byte element : array2) {
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
         }
     }
 
     @Test
     void testShuffleChar() {
-        final char[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        final char[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         final char[] array2 = ArrayUtils.clone(array1);
-
-        ArrayUtils.shuffle(array1, new Random(SEED));
+        ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
         for (final char element : array2) {
-            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
+        }
+    }
+
+    @Test
+    void testShuffleCharRandom() {
+        final char[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        final char[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1, seededRandom());
+        assertFalse(Arrays.equals(array1, array2));
+        for (final char element : array2) {
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
         }
     }
 
     @Test
     void testShuffleDouble() {
-        final double[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        final double[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         final double[] array2 = ArrayUtils.clone(array1);
-
-        ArrayUtils.shuffle(array1, new Random(SEED));
+        ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
         for (final double element : array2) {
-            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
+        }
+    }
+
+    @Test
+    void testShuffleDoubleRandom() {
+        final double[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        final double[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1, seededRandom());
+        assertFalse(Arrays.equals(array1, array2));
+        for (final double element : array2) {
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
         }
     }
 
     @Test
     void testShuffleFloat() {
-        final float[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        final float[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         final float[] array2 = ArrayUtils.clone(array1);
-
-        ArrayUtils.shuffle(array1, new Random(SEED));
+        ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
         for (final float element : array2) {
-            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
+        }
+    }
+
+    @Test
+    void testShuffleFloatRandom() {
+        final float[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        final float[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1, seededRandom());
+        assertFalse(Arrays.equals(array1, array2));
+        for (final float element : array2) {
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
         }
     }
 
     @Test
     void testShuffleInt() {
-        final int[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        final int[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         final int[] array2 = ArrayUtils.clone(array1);
-
-        ArrayUtils.shuffle(array1, new Random(SEED));
+        ArrayUtils.shuffle(array1, seededRandom());
         assertFalse(Arrays.equals(array1, array2));
         for (final int element : array2) {
-            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
+        }
+    }
+
+    @Test
+    void testShuffleIntRandom() {
+        final int[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        final int[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1);
+        assertFalse(Arrays.equals(array1, array2));
+        for (final int element : array2) {
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
         }
     }
 
     @Test
     void testShuffleLong() {
-        final long[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        final long[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         final long[] array2 = ArrayUtils.clone(array1);
-
-        ArrayUtils.shuffle(array1, new Random(SEED));
+        ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
         for (final long element : array2) {
-            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
+        }
+    }
+
+    @Test
+    void testShuffleLongRandom() {
+        final long[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        final long[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1, seededRandom());
+        assertFalse(Arrays.equals(array1, array2));
+        for (final long element : array2) {
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
+        }
+    }
+
+    @Test
+    void testShuffleRandom() {
+        final String[] array1 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+        final String[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1, seededRandom());
+        assertFalse(Arrays.equals(array1, array2));
+        for (final String element : array2) {
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
         }
     }
 
     @Test
     void testShuffleShort() {
-        final short[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        final short[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         final short[] array2 = ArrayUtils.clone(array1);
-
-        ArrayUtils.shuffle(array1, new Random(SEED));
+        ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
         for (final short element : array2) {
-            assertTrue(ArrayUtils.contains(array1, element), "Element " + element + " not found");
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
+        }
+    }
+
+    @Test
+    void testShuffleShortRandom() {
+        final short[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        final short[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1, seededRandom());
+        assertFalse(Arrays.equals(array1, array2));
+        for (final short element : array2) {
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
         }
     }
 
