@@ -5313,6 +5313,8 @@ class ArrayUtilsTest extends AbstractLangTest {
         // data is as expected
         System.arraycopy(sig, 0, data, 0, sig.length);
         assertTrue(ArrayUtils.startsWith(data, sig));
+        // expected len > data len
+        assertFalse(ArrayUtils.startsWith(new byte[1], new byte[2]));
     }
 
     @Test
