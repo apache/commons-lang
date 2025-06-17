@@ -4504,6 +4504,8 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftBoolean() {
+        ArrayUtils.shift((boolean[]) null, 1);
+        ArrayUtils.shift(new boolean[0], 1);
         final boolean[] array = { true, true, false, false };
         ArrayUtils.shift(array, 1);
         assertFalse(array[0]);
@@ -4568,7 +4570,48 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftByte() {
-        final byte[] array = {1, 2, 3, 4};
+        ArrayUtils.shift((byte[]) null, 1);
+        ArrayUtils.shift(new byte[0], 1);
+        final byte[] array = { 1, 2, 3, 4 };
+        ArrayUtils.shift(array, 1);
+        assertEquals(4, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(3, array[3]);
+        ArrayUtils.shift(array, -1);
+        assertEquals(1, array[0]);
+        assertEquals(2, array[1]);
+        assertEquals(3, array[2]);
+        assertEquals(4, array[3]);
+        ArrayUtils.shift(array, 5);
+        assertEquals(4, array[0]);
+        assertEquals(1, array[1]);
+        assertEquals(2, array[2]);
+        assertEquals(3, array[3]);
+        ArrayUtils.shift(array, -3);
+        assertEquals(3, array[0]);
+        assertEquals(4, array[1]);
+        assertEquals(1, array[2]);
+        assertEquals(2, array[3]);
+    }
+
+    @Test
+    void testShiftByteParams() {
+        // edge cases where nothing happens
+        // (1) array == null
+        ArrayUtils.shift((byte[]) null, 0, 0, 0);
+        // (2) startIndexInclusive >= array.length - 1
+        ArrayUtils.shift(new byte[0], 100, 0, 0);
+        // (3) endIndexExclusive <= 0
+        byte[] array1 = { 1 };
+        ArrayUtils.shift(array1, -1, 0, 0);
+        assertArrayEquals(new byte[] { 1 }, array1);
+        // (4) n <= 1
+        byte[] array2 = { 1, 0, 1 };
+        ArrayUtils.shift(array2, 1, 1, 0);
+        assertArrayEquals(new byte[] { 1, 0, 1 }, array2);
+        // tests
+        final byte[] array = { 1, 2, 3, 4 };
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0]);
         assertEquals(1, array[1]);
