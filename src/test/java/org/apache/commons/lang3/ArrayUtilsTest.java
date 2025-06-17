@@ -4504,7 +4504,6 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftBoolean() {
-        ArrayUtils.shift((boolean[]) null, 1);
         ArrayUtils.shift(new boolean[0], 1);
         final boolean[] array = { true, true, false, false };
         ArrayUtils.shift(array, 1);
@@ -4530,42 +4529,10 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testShiftBooleanParams() {
-        // edge cases where nothing happens
-        // (1) array == null
-        ArrayUtils.shift((boolean[]) null, 0, 0, 0);
-        // (2) startIndexInclusive >= array.length - 1
-        ArrayUtils.shift(new boolean[0], 100, 0, 0);
-        // (3) endIndexExclusive <= 0
-        boolean[] array1 = { true };
-        ArrayUtils.shift(array1, -1, 0, 0);
-        assertArrayEquals(new boolean[] { true }, array1);
-        // (4) n <= 1
-        boolean[] array2 = { true, false, true };
-        ArrayUtils.shift(array2, 1, 1, 0);
-        assertArrayEquals(new boolean[] { true, false, true }, array2);
-        // tests
-        boolean[] array = { true, true, false, false };
-        ArrayUtils.shift(array, 0, array.length, 1);
-        assertFalse(array[0]);
-        assertTrue(array[1]);
-        assertTrue(array[2]);
-        assertFalse(array[3]);
-        ArrayUtils.shift(array, 0, array.length, -1);
-        assertTrue(array[0]);
-        assertTrue(array[1]);
-        assertFalse(array[2]);
-        assertFalse(array[3]);
-        ArrayUtils.shift(array, 0, array.length, 5);
-        assertFalse(array[0]);
-        assertTrue(array[1]);
-        assertTrue(array[2]);
-        assertFalse(array[3]);
-        ArrayUtils.shift(array, 0, array.length, -3);
-        assertFalse(array[0]);
-        assertFalse(array[1]);
-        assertTrue(array[2]);
-        assertTrue(array[3]);
+    void testShiftBooleanArrayNull() {
+        final boolean[] array = null;
+        ArrayUtils.shift(array, 1);
+        assertNull(array);
     }
 
     @Test
@@ -4596,46 +4563,8 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testShiftByteParams() {
-        // edge cases where nothing happens
-        // (1) array == null
-        ArrayUtils.shift((byte[]) null, 0, 0, 0);
-        // (2) startIndexInclusive >= array.length - 1
-        ArrayUtils.shift(new byte[0], 100, 0, 0);
-        // (3) endIndexExclusive <= 0
-        byte[] array1 = { 1 };
-        ArrayUtils.shift(array1, -1, 0, 0);
-        assertArrayEquals(new byte[] { 1 }, array1);
-        // (4) n <= 1
-        byte[] array2 = { 1, 0, 1 };
-        ArrayUtils.shift(array2, 1, 1, 0);
-        assertArrayEquals(new byte[] { 1, 0, 1 }, array2);
-        // tests
-        final byte[] array = { 1, 2, 3, 4 };
-        ArrayUtils.shift(array, 1);
-        assertEquals(4, array[0]);
-        assertEquals(1, array[1]);
-        assertEquals(2, array[2]);
-        assertEquals(3, array[3]);
-        ArrayUtils.shift(array, -1);
-        assertEquals(1, array[0]);
-        assertEquals(2, array[1]);
-        assertEquals(3, array[2]);
-        assertEquals(4, array[3]);
-        ArrayUtils.shift(array, 5);
-        assertEquals(4, array[0]);
-        assertEquals(1, array[1]);
-        assertEquals(2, array[2]);
-        assertEquals(3, array[3]);
-        ArrayUtils.shift(array, -3);
-        assertEquals(3, array[0]);
-        assertEquals(4, array[1]);
-        assertEquals(1, array[2]);
-        assertEquals(2, array[3]);
-    }
-
-    @Test
     void testShiftChar() {
+        ArrayUtils.shift((char[]) null, 1);
         final char[] array = {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0]);
@@ -4661,6 +4590,7 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftDouble() {
+        ArrayUtils.shift((double[]) null, 1);
         final double[] array = {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0]);
@@ -4685,7 +4615,15 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testShiftDoubleArrayNull() {
+        final double[] array = null;
+        ArrayUtils.shift(array, 1);
+        assertNull(array);
+    }
+
+    @Test
     void testShiftFloat() {
+        ArrayUtils.shift((float[]) null, 1);
         final float[] array = {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0]);
@@ -4710,7 +4648,15 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testShiftFloatArrayNull() {
+        final float[] array = null;
+        ArrayUtils.shift(array, 1);
+        assertNull(array);
+    }
+
+    @Test
     void testShiftInt() {
+        ArrayUtils.shift((int[]) null, 1);
         final int[] array = {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0]);
@@ -4735,7 +4681,15 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testShiftIntArrayNull() {
+        final int[] array = null;
+        ArrayUtils.shift(array, 1);
+        assertNull(array);
+    }
+
+    @Test
     void testShiftLong() {
+        ArrayUtils.shift((long[]) null, 1);
         final long[] array = {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0]);
@@ -4760,63 +4714,15 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testShiftNullBoolean() {
-        final boolean[] array = null;
-
-        ArrayUtils.shift(array, 1);
-        assertNull(array);
-    }
-
-    @Test
-    void testShiftNullDouble() {
-        final double[] array = null;
-
-        ArrayUtils.shift(array, 1);
-        assertNull(array);
-    }
-
-    @Test
-    void testShiftNullFloat() {
-        final float[] array = null;
-
-        ArrayUtils.shift(array, 1);
-        assertNull(array);
-    }
-
-    @Test
-    void testShiftNullInt() {
-        final int[] array = null;
-
-        ArrayUtils.shift(array, 1);
-        assertNull(array);
-    }
-
-    @Test
-    void testShiftNullLong() {
+    void testShiftLongArrayNull() {
         final long[] array = null;
-
-        ArrayUtils.shift(array, 1);
-        assertNull(array);
-    }
-
-    @Test
-    void testShiftNullObject() {
-        final String[] array = null;
-
-        ArrayUtils.shift(array, 1);
-        assertNull(array);
-    }
-
-    @Test
-    void testShiftNullShort() {
-        final short[] array = null;
-
         ArrayUtils.shift(array, 1);
         assertNull(array);
     }
 
     @Test
     void testShiftObject() {
+        ArrayUtils.shift((String[]) null, 1);
         final String[] array = {"1", "2", "3", "4"};
         ArrayUtils.shift(array, 1);
         assertEquals("4", array[0]);
@@ -4841,7 +4747,59 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testShiftObjectArrayNull() {
+        final String[] array = null;
+        ArrayUtils.shift(array, 1);
+        assertNull(array);
+    }
+
+    @Test
+    void testShiftRangeBoolean() {
+        // edge cases where nothing happens
+        // (1) array == null
+        ArrayUtils.shift((boolean[]) null, 0, 0, 0);
+        // (2) startIndexInclusive >= array.length - 1
+        ArrayUtils.shift(new boolean[0], 100, 0, 0);
+        // (3) endIndexExclusive <= 0
+        final boolean[] array1 = { true };
+        ArrayUtils.shift(array1, -1, 0, 0);
+        assertArrayEquals(new boolean[] { true }, array1);
+        // (4) n <= 1
+        final boolean[] array2 = { true, false, true };
+        ArrayUtils.shift(array2, 1, 1, 0);
+        assertArrayEquals(new boolean[] { true, false, true }, array2);
+        // tests
+        final boolean[] array = {true, false, false, false, true};
+        ArrayUtils.shift(array, 1, 3, 1);
+        assertEquals(true, array[0]);
+        assertEquals(false, array[1]);
+        assertEquals(false, array[2]);
+        assertEquals(false, array[3]);
+        assertEquals(true, array[4]);
+        ArrayUtils.shift(array, 1, 4, 2);
+        assertEquals(true, array[0]);
+        assertEquals(false, array[1]);
+        assertEquals(false, array[2]);
+        assertEquals(false, array[3]);
+        assertEquals(true, array[4]);
+    }
+
+    @Test
     void testShiftRangeByte() {
+        // edge cases where nothing happens
+        // (1) array == null
+        ArrayUtils.shift((byte[]) null, 0, 0, 0);
+        // (2) startIndexInclusive >= array.length - 1
+        ArrayUtils.shift(new byte[0], 100, 0, 0);
+        // (3) endIndexExclusive <= 0
+        final byte[] array1 = { 1 };
+        ArrayUtils.shift(array1, -1, 0, 0);
+        assertArrayEquals(new byte[] { 1 }, array1);
+        // (4) n <= 1
+        final byte[] array2 = { 1, 0, 1 };
+        ArrayUtils.shift(array2, 1, 1, 0);
+        assertArrayEquals(new byte[] { 1, 0, 1 }, array2);
+        // tests
         final byte[] array = {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
@@ -4859,6 +4817,20 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftRangeChar() {
+        // edge cases where nothing happens
+        // (1) array == null
+        ArrayUtils.shift((char[]) null, 0, 0, 0);
+        // (2) startIndexInclusive >= array.length - 1
+        ArrayUtils.shift(new char[0], 100, 0, 0);
+        // (3) endIndexExclusive <= 0
+        final char[] array1 = { 1 };
+        ArrayUtils.shift(array1, -1, 0, 0);
+        assertArrayEquals(new char[] { 1 }, array1);
+        // (4) n <= 1
+        final char[] array2 = { 1, 0, 1 };
+        ArrayUtils.shift(array2, 1, 1, 0);
+        assertArrayEquals(new char[] { 1, 0, 1 }, array2);
+        // tests
         final char[] array = {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
@@ -4876,6 +4848,20 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftRangeDouble() {
+        // edge cases where nothing happens
+        // (1) array == null
+        ArrayUtils.shift((double[]) null, 0, 0, 0);
+        // (2) startIndexInclusive >= array.length - 1
+        ArrayUtils.shift(new double[0], 100, 0, 0);
+        // (3) endIndexExclusive <= 0
+        final double[] array1 = { 1 };
+        ArrayUtils.shift(array1, -1, 0, 0);
+        assertArrayEquals(new double[] { 1 }, array1);
+        // (4) n <= 1
+        final double[] array2 = { 1, 0, 1 };
+        ArrayUtils.shift(array2, 1, 1, 0);
+        assertArrayEquals(new double[] { 1, 0, 1 }, array2);
+        // tests
         final double[] array = {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
@@ -4893,6 +4879,20 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftRangeFloat() {
+        // edge cases where nothing happens
+        // (1) array == null
+        ArrayUtils.shift((float[]) null, 0, 0, 0);
+        // (2) startIndexInclusive >= array.length - 1
+        ArrayUtils.shift(new float[0], 100, 0, 0);
+        // (3) endIndexExclusive <= 0
+        final float[] array1 = { 1 };
+        ArrayUtils.shift(array1, -1, 0, 0);
+        assertArrayEquals(new float[] { 1 }, array1);
+        // (4) n <= 1
+        final float[] array2 = { 1, 0, 1 };
+        ArrayUtils.shift(array2, 1, 1, 0);
+        assertArrayEquals(new float[] { 1, 0, 1 }, array2);
+        // tests
         final float[] array = {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
@@ -4910,6 +4910,20 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftRangeInt() {
+        // edge cases where nothing happens
+        // (1) array == null
+        ArrayUtils.shift((int[]) null, 0, 0, 0);
+        // (2) startIndexInclusive >= array.length - 1
+        ArrayUtils.shift(new int[0], 100, 0, 0);
+        // (3) endIndexExclusive <= 0
+        final int[] array1 = { 1 };
+        ArrayUtils.shift(array1, -1, 0, 0);
+        assertArrayEquals(new int[] { 1 }, array1);
+        // (4) n <= 1
+        final int[] array2 = { 1, 0, 1 };
+        ArrayUtils.shift(array2, 1, 1, 0);
+        assertArrayEquals(new int[] { 1, 0, 1 }, array2);
+        // tests
         final int[] array = {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
@@ -4927,6 +4941,20 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftRangeLong() {
+        // edge cases where nothing happens
+        // (1) array == null
+        ArrayUtils.shift((long[]) null, 0, 0, 0);
+        // (2) startIndexInclusive >= array.length - 1
+        ArrayUtils.shift(new long[0], 100, 0, 0);
+        // (3) endIndexExclusive <= 0
+        final long[] array1 = { 1 };
+        ArrayUtils.shift(array1, -1, 0, 0);
+        assertArrayEquals(new long[] { 1 }, array1);
+        // (4) n <= 1
+        final long[] array2 = { 1, 0, 1 };
+        ArrayUtils.shift(array2, 1, 1, 0);
+        assertArrayEquals(new long[] { 1, 0, 1 }, array2);
+        // tests
         final long[] array = {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
@@ -5074,7 +5102,6 @@ class ArrayUtilsTest extends AbstractLangTest {
     @Test
     void testShiftRangeNullShort() {
         final short[] array = null;
-
         ArrayUtils.shift(array, 1, 1, 1);
         assertNull(array);
     }
@@ -5098,6 +5125,20 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftRangeShort() {
+        // edge cases where nothing happens
+        // (1) array == null
+        ArrayUtils.shift((short[]) null, 0, 0, 0);
+        // (2) startIndexInclusive >= array.length - 1
+        ArrayUtils.shift(new short[0], 100, 0, 0);
+        // (3) endIndexExclusive <= 0
+        final short[] array1 = { 1 };
+        ArrayUtils.shift(array1, -1, 0, 0);
+        assertArrayEquals(new short[] { 1 }, array1);
+        // (4) n <= 1
+        final short[] array2 = { 1, 0, 1 };
+        ArrayUtils.shift(array2, 1, 1, 0);
+        assertArrayEquals(new short[] { 1, 0, 1 }, array2);
+        // tests
         final short[] array = {1, 2, 3, 4, 5};
         ArrayUtils.shift(array, 1, 3, 1);
         assertEquals(1, array[0]);
@@ -5115,6 +5156,7 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftShort() {
+        ArrayUtils.shift((short[]) null, 1);
         short[] array = {1, 2, 3, 4};
         ArrayUtils.shift(array, 1);
         assertEquals(4, array[0]);
@@ -5143,6 +5185,13 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(1, array[2]);
         assertEquals(2, array[3]);
         assertEquals(3, array[4]);
+    }
+
+    @Test
+    void testShiftShortArrayNull() {
+        final short[] array = null;
+        ArrayUtils.shift(array, 1);
+        assertNull(array);
     }
 
     @Test
@@ -6788,15 +6837,6 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testToStringDefault() {
-        assertEquals("<empty>", ArrayUtils.toString(null, "<empty>"));
-        assertEquals("{}", ArrayUtils.toString(new Object[0], "<empty>"));
-        assertEquals("{}", ArrayUtils.toString(new String[0], "<empty>"));
-        assertEquals("{<null>}", ArrayUtils.toString(new String[]{null}, "<empty>"));
-        assertEquals("{pink,blue}", ArrayUtils.toString(new String[]{"pink", "blue"}, "<empty>"));
-    }
-
-    @Test
     void testToStringArray_array() {
         assertNull(ArrayUtils.toStringArray(null));
         assertArrayEquals(new String[0], ArrayUtils.toStringArray(new Object[0]));
@@ -6814,5 +6854,14 @@ class ArrayUtilsTest extends AbstractLangTest {
         final Object[] array = {1, null, "test"};
         assertArrayEquals(new String[]{"1", "valueForNullElements", "test"},
                 ArrayUtils.toStringArray(array, "valueForNullElements"));
+    }
+
+    @Test
+    void testToStringDefault() {
+        assertEquals("<empty>", ArrayUtils.toString(null, "<empty>"));
+        assertEquals("{}", ArrayUtils.toString(new Object[0], "<empty>"));
+        assertEquals("{}", ArrayUtils.toString(new String[0], "<empty>"));
+        assertEquals("{<null>}", ArrayUtils.toString(new String[]{null}, "<empty>"));
+        assertEquals("{pink,blue}", ArrayUtils.toString(new String[]{"pink", "blue"}, "<empty>"));
     }
 }
