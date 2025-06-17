@@ -4504,27 +4504,62 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShiftBoolean() {
-        final boolean[] array = {true, true, false, false};
-
+        final boolean[] array = { true, true, false, false };
         ArrayUtils.shift(array, 1);
         assertFalse(array[0]);
         assertTrue(array[1]);
         assertTrue(array[2]);
         assertFalse(array[3]);
-
         ArrayUtils.shift(array, -1);
         assertTrue(array[0]);
         assertTrue(array[1]);
         assertFalse(array[2]);
         assertFalse(array[3]);
-
         ArrayUtils.shift(array, 5);
         assertFalse(array[0]);
         assertTrue(array[1]);
         assertTrue(array[2]);
         assertFalse(array[3]);
-
         ArrayUtils.shift(array, -3);
+        assertFalse(array[0]);
+        assertFalse(array[1]);
+        assertTrue(array[2]);
+        assertTrue(array[3]);
+    }
+
+    @Test
+    void testShiftBooleanParams() {
+        // edge cases where nothing happens
+        // (1) array == null
+        ArrayUtils.shift((boolean[]) null, 0, 0, 0);
+        // (2) startIndexInclusive >= array.length - 1
+        ArrayUtils.shift(new boolean[0], 100, 0, 0);
+        // (3) endIndexExclusive <= 0
+        boolean[] array1 = { true };
+        ArrayUtils.shift(array1, -1, 0, 0);
+        assertArrayEquals(new boolean[] { true }, array1);
+        // (4) n <= 1
+        boolean[] array2 = { true, false, true };
+        ArrayUtils.shift(array2, 1, 1, 0);
+        assertArrayEquals(new boolean[] { true, false, true }, array2);
+        // tests
+        boolean[] array = { true, true, false, false };
+        ArrayUtils.shift(array, 0, array.length, 1);
+        assertFalse(array[0]);
+        assertTrue(array[1]);
+        assertTrue(array[2]);
+        assertFalse(array[3]);
+        ArrayUtils.shift(array, 0, array.length, -1);
+        assertTrue(array[0]);
+        assertTrue(array[1]);
+        assertFalse(array[2]);
+        assertFalse(array[3]);
+        ArrayUtils.shift(array, 0, array.length, 5);
+        assertFalse(array[0]);
+        assertTrue(array[1]);
+        assertTrue(array[2]);
+        assertFalse(array[3]);
+        ArrayUtils.shift(array, 0, array.length, -3);
         assertFalse(array[0]);
         assertFalse(array[1]);
         assertTrue(array[2]);
