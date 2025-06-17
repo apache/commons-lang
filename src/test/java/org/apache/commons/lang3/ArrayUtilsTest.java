@@ -5805,6 +5805,18 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testSwapBooleanRange() {
+        // edge cases where nothing happens
+        ArrayUtils.swap((boolean[]) null, 0, 2, 1);
+        ArrayUtils.swap(new boolean[0], 0, 2, 1);
+        final boolean[] array3a = new boolean[] {true, false, true};
+        final boolean[] array3b = array3a.clone();
+        // (1) offset1 >= array.length
+        ArrayUtils.swap(array3b, array3b.length, 2, 1);
+        assertArrayEquals(array3a, array3b);
+        // (2) offset2 >= array.length
+        ArrayUtils.swap(array3b, 0, array3b.length, 1);
+        assertArrayEquals(array3a, array3b);
+        // tests
         boolean[] array = { false, false, true, true };
         ArrayUtils.swap(array, 0, 2, 2);
         assertTrue(array[0]);
@@ -5854,6 +5866,18 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testSwapByteRange() {
+        // edge cases where nothing happens
+        ArrayUtils.swap((byte[]) null, 0, 2, 1);
+        ArrayUtils.swap(new byte[0], 0, 2, 1);
+        final byte[] array3a = new byte[] {1, 0, 1};
+        final byte[] array3b = array3a.clone();
+        // (1) offset1 >= array.length
+        ArrayUtils.swap(array3b, array3b.length, 2, 1);
+        assertArrayEquals(array3a, array3b);
+        // (2) offset2 >= array.length
+        ArrayUtils.swap(array3b, 0, array3b.length, 1);
+        assertArrayEquals(array3a, array3b);
+        // tests
         byte[] array = { 1, 2, 3, 4 };
         ArrayUtils.swap(array, 0, 2, 2);
         assertEquals(3, array[0]);
@@ -5909,6 +5933,18 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testSwapCharRange() {
+        // edge cases where nothing happens
+        ArrayUtils.swap((char[]) null, 0, 2, 1);
+        ArrayUtils.swap(new char[0], 0, 2, 1);
+        final char[] array3a = new char[] {1, 0, 1};
+        final char[] array3b = array3a.clone();
+        // (1) offset1 >= array.length
+        ArrayUtils.swap(array3b, array3b.length, 2, 1);
+        assertArrayEquals(array3a, array3b);
+        // (2) offset2 >= array.length
+        ArrayUtils.swap(array3b, 0, array3b.length, 1);
+        assertArrayEquals(array3a, array3b);
+        // tests
         char[] array = { 1, 2, 3, 4 };
         ArrayUtils.swap(array, 0, 2, 2);
         assertEquals(3, array[0]);
@@ -5958,6 +5994,18 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testSwapDoubleRange() {
+        // edge cases where nothing happens
+        ArrayUtils.swap((double[]) null, 0, 2, 1);
+        ArrayUtils.swap(new double[0], 0, 2, 1);
+        final double[] array3a = new double[] {1, 0, 1};
+        final double[] array3b = array3a.clone();
+        // (1) offset1 >= array.length
+        ArrayUtils.swap(array3b, array3b.length, 2, 1);
+        assertArrayEquals(array3a, array3b);
+        // (2) offset2 >= array.length
+        ArrayUtils.swap(array3b, 0, array3b.length, 1);
+        assertArrayEquals(array3a, array3b);
+        // tests
         double[] array = { 1, 2, 3, 4 };
         ArrayUtils.swap(array, 0, 2, 2);
         assertEquals(3, array[0]);
@@ -6070,6 +6118,18 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testSwapFloatRange() {
+        // edge cases where nothing happens
+        ArrayUtils.swap((float[]) null, 0, 2, 1);
+        ArrayUtils.swap(new float[0], 0, 2, 1);
+        final float[] array3a = new float[] {1, 0, 1};
+        final float[] array3b = array3a.clone();
+        // (1) offset1 >= array.length
+        ArrayUtils.swap(array3b, array3b.length, 2, 1);
+        assertArrayEquals(array3a, array3b);
+        // (2) offset2 >= array.length
+        ArrayUtils.swap(array3b, 0, array3b.length, 1);
+        assertArrayEquals(array3a, array3b);
+        // tests
         float[] array = { 1, 2, 3, 4 };
         ArrayUtils.swap(array, 0, 2, 2);
         assertEquals(3, array[0]);
@@ -6131,6 +6191,18 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testSwapIntRange() {
+        // edge cases where nothing happens
+        ArrayUtils.swap((int[]) null, 0, 2, 1);
+        ArrayUtils.swap(new int[0], 0, 2, 1);
+        final int[] array3a = new int[] {1, 0, 1};
+        final int[] array3b = array3a.clone();
+        // (1) offset1 >= array.length
+        ArrayUtils.swap(array3b, array3b.length, 2, 1);
+        assertArrayEquals(array3a, array3b);
+        // (2) offset2 >= array.length
+        ArrayUtils.swap(array3b, 0, array3b.length, 1);
+        assertArrayEquals(array3a, array3b);
+        // tests
         int[] array = { 1, 2, 3, 4 };
         ArrayUtils.swap(array, 0, 2, 2);
         assertEquals(3, array[0]);
@@ -6180,6 +6252,18 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testSwapLongRange() {
+        // edge cases where nothing happens
+        ArrayUtils.swap((long[]) null, 0, 2, 1);
+        ArrayUtils.swap(new long[0], 0, 2, 1);
+        final long[] array3a = new long[] {1, 0, 1};
+        final long[] array3b = array3a.clone();
+        // (1) offset1 >= array.length
+        ArrayUtils.swap(array3b, array3b.length, 2, 1);
+        assertArrayEquals(array3a, array3b);
+        // (2) offset2 >= array.length
+        ArrayUtils.swap(array3b, 0, array3b.length, 1);
+        assertArrayEquals(array3a, array3b);
+        // tests
         long[] array = { 1, 2, 3, 4 };
         ArrayUtils.swap(array, 0, 2, 2);
         assertEquals(3, array[0]);
@@ -6292,6 +6376,18 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testSwapObjectRange() {
+        // edge cases where nothing happens
+        ArrayUtils.swap((Object[]) null, 0, 2, 1);
+        ArrayUtils.swap(new Object[0], 0, 2, 1);
+        final Object[] array3a = new Object[] {1, 0, 1};
+        final Object[] array3b = array3a.clone();
+        // (1) offset1 >= array.length
+        ArrayUtils.swap(array3b, array3b.length, 2, 1);
+        assertArrayEquals(array3a, array3b);
+        // (2) offset2 >= array.length
+        ArrayUtils.swap(array3b, 0, array3b.length, 1);
+        assertArrayEquals(array3a, array3b);
+        // tests
         String[] array = { "1", "2", "3", "4" };
         ArrayUtils.swap(array, 0, 2, 2);
         assertEquals("3", array[0]);
@@ -6342,6 +6438,18 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testSwapShortRange() {
+        // edge cases where nothing happens
+        ArrayUtils.swap((short[]) null, 0, 2, 1);
+        ArrayUtils.swap(new short[0], 0, 2, 1);
+        final short[] array3a = new short[] {1, 0, 1};
+        final short[] array3b = array3a.clone();
+        // (1) offset1 >= array.length
+        ArrayUtils.swap(array3b, array3b.length, 2, 1);
+        assertArrayEquals(array3a, array3b);
+        // (2) offset2 >= array.length
+        ArrayUtils.swap(array3b, 0, array3b.length, 1);
+        assertArrayEquals(array3a, array3b);
+        // tests
         short[] array = { 1, 2, 3, 4 };
         ArrayUtils.swap(array, 0, 2, 2);
         assertEquals(3, array[0]);
