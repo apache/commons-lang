@@ -35,6 +35,9 @@ import org.apache.commons.lang3.concurrent.locks.LockingVisitors.StampedLockVisi
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests {@link LockingVisitors}.
+ */
 class LockingVisitorsTest extends AbstractLangTest {
 
     private static final Duration SHORT_DELAY = Duration.ofMillis(100);
@@ -109,24 +112,18 @@ class LockingVisitorsTest extends AbstractLangTest {
 
     @Test
     void testReentrantReadWriteLockExclusive() throws Exception {
-
-        /*
-         * If our threads are running concurrently, then we expect to be no faster than running one after the other.
-         */
+        // If our threads are running concurrently, then we expect to be no faster than running one after the other.
         final boolean[] booleanValues = new boolean[10];
         runTest(DELAY, true, millis -> assertTrue(millis >= TOTAL_DELAY.toMillis()), booleanValues,
-            LockingVisitors.reentrantReadWriteLockVisitor(booleanValues));
+                LockingVisitors.reentrantReadWriteLockVisitor(booleanValues));
     }
 
     @Test
     void testReentrantReadWriteLockNotExclusive() throws Exception {
-
-        /*
-         * If our threads are running concurrently, then we expect to be faster than running one after the other.
-         */
+        // If our threads are running concurrently, then we expect to be faster than running one after the other.
         final boolean[] booleanValues = new boolean[10];
         runTest(DELAY, false, millis -> assertTrue(millis < TOTAL_DELAY.toMillis()), booleanValues,
-            LockingVisitors.reentrantReadWriteLockVisitor(booleanValues));
+                LockingVisitors.reentrantReadWriteLockVisitor(booleanValues));
     }
 
     @Test
@@ -143,23 +140,15 @@ class LockingVisitorsTest extends AbstractLangTest {
 
     @Test
     void testStampedLockExclusive() throws Exception {
-
-        /*
-         * If our threads are running concurrently, then we expect to be no faster than running one after the other.
-         */
+        // If our threads are running concurrently, then we expect to be no faster than running one after the other.
         final boolean[] booleanValues = new boolean[10];
-        runTest(DELAY, true, millis -> assertTrue(millis >= TOTAL_DELAY.toMillis()), booleanValues,
-            LockingVisitors.stampedLockVisitor(booleanValues));
+        runTest(DELAY, true, millis -> assertTrue(millis >= TOTAL_DELAY.toMillis()), booleanValues, LockingVisitors.stampedLockVisitor(booleanValues));
     }
 
     @Test
     void testStampedLockNotExclusive() throws Exception {
-
-        /*
-         * If our threads are running concurrently, then we expect to be faster than running one after the other.
-         */
+        // If our threads are running concurrently, then we expect to be faster than running one after the other.
         final boolean[] booleanValues = new boolean[10];
-        runTest(DELAY, false, millis -> assertTrue(millis < TOTAL_DELAY.toMillis()), booleanValues,
-            LockingVisitors.stampedLockVisitor(booleanValues));
+        runTest(DELAY, false, millis -> assertTrue(millis < TOTAL_DELAY.toMillis()), booleanValues, LockingVisitors.stampedLockVisitor(booleanValues));
     }
 }
