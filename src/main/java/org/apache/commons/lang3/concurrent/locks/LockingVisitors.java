@@ -64,9 +64,11 @@ import org.apache.commons.lang3.function.Suppliers;
  *   public class SimpleLogger {
  *
  *     private final StampedLockVisitor<PrintStream> lock;
+ *     private final PrintStream ps;
  *
  *     public SimpleLogger(OutputStream out) {
- *         lock = LockingVisitors.stampedLockVisitor(new PrintStream(out));
+ *         ps = new PrintStream(out);
+ *         lock = LockingVisitors.stampedLockVisitor(ps);
  *     }
  *
  *     public void log(String message) {
