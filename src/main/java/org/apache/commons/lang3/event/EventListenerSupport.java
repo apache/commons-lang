@@ -37,32 +37,28 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 
 /**
- * An EventListenerSupport object can be used to manage a list of event
- * listeners of a particular type. The class provides
- * {@link #addListener(Object)} and {@link #removeListener(Object)} methods
- * for registering listeners, as well as a {@link #fire()} method for firing
- * events to the listeners.
+ * Manages a list of event listeners of a given generic type. This class provides {@link #addListener(Object)} and {@link #removeListener(Object)} methods for
+ * managing listeners, as well as a {@link #fire()} method for firing events to the listeners.
  *
  * <p>
- * To use this class, suppose you want to support ActionEvents.  You would do:
+ * For example, to support ActionEvents:
  * </p>
- * <pre>{@code
- * public class MyActionEventSource
- * {
- *   private EventListenerSupport<ActionListener> actionListeners =
- *       EventListenerSupport.create(ActionListener.class);
  *
- *   public void someMethodThatFiresAction()
- *   {
- *     ActionEvent e = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "somethingCool");
- *     actionListeners.fire().actionPerformed(e);
- *   }
+ * <pre>{@code
+ * public class MyActionEventSource {
+ *
+ *     private EventListenerSupport<ActionListener> actionListeners = EventListenerSupport.create(ActionListener.class);
+ *
+ *     public void someMethodThatFiresAction() {
+ *         ActionEvent e = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "something");
+ *         actionListeners.fire().actionPerformed(e);
+ *     }
  * }
  * }</pre>
- *
  * <p>
- * Serializing an {@link EventListenerSupport} instance will result in any
- * non-{@link Serializable} listeners being silently dropped.
+ * Events are fired
+ * <p>
+ * Serializing an {@link EventListenerSupport} instance will result in any non-{@link Serializable} listeners being silently dropped.
  * </p>
  *
  * @param <L> the type of event listener that is supported by this proxy.
@@ -71,7 +67,7 @@ import org.apache.commons.lang3.function.FailableConsumer;
 public class EventListenerSupport<L> implements Serializable {
 
     /**
-     * An invocation handler used to dispatch the event(s) to all the listeners.
+     * Invokes listeners through {@link #invoke(Object, Method, Object[])} in the order added to the underlying {@link List}.
      */
     protected class ProxyInvocationHandler implements InvocationHandler {
 
@@ -109,6 +105,9 @@ public class EventListenerSupport<L> implements Serializable {
 
         /**
          * Propagates the method call to all registered listeners in place of the proxy listener object.
+         * <p>
+         * Calls listeners in the order added to the underlying {@link List}.
+         * </p>
          *
          * @param unusedProxy the proxy object representing a listener on which the invocation was called; not used
          * @param method the listener method that will be called on all of the listeners.
@@ -156,18 +155,14 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * The list used to hold the registered listeners. This list is
-     * intentionally a thread-safe copy-on-write-array so that traversals over
-     * the list of listeners will be atomic.
+     * Hold the registered listeners. This list is intentionally a thread-safe copy-on-write-array so that traversals over the list of listeners will be atomic.
      */
     private List<L> listeners = new CopyOnWriteArrayList<>();
 
     /**
-     * The proxy representing the collection of listeners. Calls to this proxy
-     * object will be sent to all registered listeners.
+     * The proxy representing the collection of listeners. Calls to this proxy object will be sent to all registered listeners.
      */
     private transient L proxy;
-
     /**
      * Empty typed array for #getListeners().
      */
@@ -175,13 +170,15 @@ public class EventListenerSupport<L> implements Serializable {
 
     /**
      * Constructs a new EventListenerSupport instance.
-     * Serialization-friendly constructor.
+     * <p>
+     * This constructor is needed for serialization.
+     * </p>
      */
     private EventListenerSupport() {
     }
 
     /**
-     * Creates an EventListenerSupport object which supports the provided
+     * Constructs an EventListenerSupport object which supports the provided
      * listener interface.
      *
      * @param listenerInterface the type of listener interface that will receive
@@ -197,7 +194,7 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Creates an EventListenerSupport object which supports the provided
+     * Constructs an EventListenerSupport object which supports the provided
      * listener interface using the specified class loader to create the JDK
      * dynamic proxy.
      *
@@ -212,29 +209,31 @@ public class EventListenerSupport<L> implements Serializable {
         this();
         Objects.requireNonNull(listenerInterface, "listenerInterface");
         Objects.requireNonNull(classLoader, "classLoader");
-        Validate.isTrue(listenerInterface.isInterface(), "Class %s is not an interface",
-                listenerInterface.getName());
+        Validate.isTrue(listenerInterface.isInterface(), "Class %s is not an interface", listenerInterface.getName());
         initializeTransientFields(listenerInterface, classLoader);
     }
 
     /**
-     * Registers an event listener.
+     * Adds an event listener.
+     * <p>
+     * Listeners are called in the order added.
+     * </p>
      *
      * @param listener the event listener (may not be {@code null}).
-     * @throws NullPointerException if {@code listener} is
-     *         {@code null}.
+     * @throws NullPointerException if {@code listener} is {@code null}.
      */
     public void addListener(final L listener) {
         addListener(listener, true);
     }
 
     /**
-     * Registers an event listener. Will not add a pre-existing listener
-     * object to the list if {@code allowDuplicate} is false.
+     * Adds an event listener. Will not add a pre-existing listener object to the list if {@code allowDuplicate} is false.
+     * <p>
+     * Listeners are called in the order added.
+     * </p>
      *
-     * @param listener the event listener (may not be {@code null}).
-     * @param allowDuplicate the flag for determining if duplicate listener
-     * objects are allowed to be registered.
+     * @param listener       the event listener (may not be {@code null}).
+     * @param allowDuplicate the flag for determining if duplicate listener objects are allowed to be registered.
      *
      * @throws NullPointerException if {@code listener} is {@code null}.
      * @since 3.5
@@ -247,7 +246,7 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Creates the {@link InvocationHandler} responsible for broadcasting calls
+     * Creates the {@link InvocationHandler} responsible for calling
      * to the managed listeners. Subclasses can override to provide custom behavior.
      *
      * @return ProxyInvocationHandler
@@ -263,8 +262,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @param classLoader the class loader to be used
      */
     private void createProxy(final Class<L> listenerInterface, final ClassLoader classLoader) {
-        proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader,
-                new Class[] { listenerInterface }, createInvocationHandler()));
+        proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader, new Class[] { listenerInterface }, createInvocationHandler()));
     }
 
     /**
@@ -311,7 +309,7 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Deserializes.
+     * Deserializes the next object into this instance.
      *
      * @param objectInputStream the input stream
      * @throws IOException if an IO error occurs
@@ -326,26 +324,25 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Unregisters an event listener.
+     * Removes an event listener.
      *
      * @param listener the event listener (may not be {@code null}).
      * @throws NullPointerException if {@code listener} is
      *         {@code null}.
      */
     public void removeListener(final L listener) {
-        Objects.requireNonNull(listener, "listener");
-        listeners.remove(listener);
+        listeners.remove(Objects.requireNonNull(listener, "listener"));
     }
 
     /**
-     * Serializes.
+     * Serializes this instance onto the given ObjectOutputStream.
      *
      * @param objectOutputStream the output stream
      * @throws IOException if an IO error occurs
      */
     private void writeObject(final ObjectOutputStream objectOutputStream) throws IOException {
         final ArrayList<L> serializableListeners = new ArrayList<>();
-        // don't just rely on instanceof Serializable:
+        // Don't just rely on instanceof Serializable:
         ObjectOutputStream testObjectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
         for (final L listener : listeners) {
             try {
@@ -356,10 +353,8 @@ public class EventListenerSupport<L> implements Serializable {
                 testObjectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
             }
         }
-        /*
-         * we can reconstitute everything we need from an array of our listeners,
-         * which has the additional advantage of typically requiring less storage than a list:
-         */
+        // We can reconstitute everything we need from an array of our listeners,
+        // which has the additional advantage of typically requiring less storage than a list:
         objectOutputStream.writeObject(serializableListeners.toArray(prototypeArray));
     }
 }
