@@ -19,6 +19,7 @@ package org.apache.commons.lang3.concurrent.locks;
 import java.util.Objects;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.StampedLock;
 import java.util.function.Supplier;
@@ -327,6 +328,30 @@ public class LockingVisitors {
 
     /**
      * This class implements a wrapper for a locked (hidden) object, and provides the means to access it. The basic
+     * idea, is that the user code forsakes all references to the locked object, using only the wrapper object, and the
+     * accessor methods {@link #acceptReadLocked(FailableConsumer)}, {@link #acceptWriteLocked(FailableConsumer)},
+     * {@link #applyReadLocked(FailableFunction)}, and {@link #applyWriteLocked(FailableFunction)}. By doing so, the
+     * necessary protections are guaranteed.
+     *
+     * @param <O> The locked (hidden) objects type.
+     * @since 3.18.0
+     */
+    public static class ReentrantLockVisitor<O> extends LockVisitor<O, ReentrantLock> {
+
+        /**
+         * Creates a new instance with the given locked object. This constructor is supposed to be used for subclassing
+         * only. In general, it is suggested to use {@link LockingVisitors#reentrantLockVisitor(Object)} instead.
+         *
+         * @param object The locked (hidden) object. The caller is supposed to drop all references to the locked object.
+         * @param reentrantLock the lock to use.
+         */
+        protected ReentrantLockVisitor(final O object, final ReentrantLock reentrantLock) {
+            super(object, reentrantLock, () -> reentrantLock, () -> reentrantLock);
+        }
+    }
+
+    /**
+     * This class implements a wrapper for a locked (hidden) object, and provides the means to access it. The basic
      * idea is that the user code forsakes all references to the locked object, using only the wrapper object, and the
      * accessor methods {@link #acceptReadLocked(FailableConsumer)}, {@link #acceptWriteLocked(FailableConsumer)},
      * {@link #applyReadLocked(FailableFunction)}, and {@link #applyWriteLocked(FailableFunction)}. By doing so, the
@@ -359,6 +384,31 @@ public class LockingVisitors {
      */
     public static <O> ReadWriteLockVisitor<O> create(final O object, final ReadWriteLock readWriteLock) {
         return new LockingVisitors.ReadWriteLockVisitor<>(object, readWriteLock);
+    }
+
+    /**
+     * Creates a new instance of {@link ReadWriteLockVisitor} with the given (hidden) object and lock.
+     *
+     * @param <O> The locked objects type.
+     * @param object The locked (hidden) object.
+     * @param reentrantLock The lock to use.
+     * @return The created instance, a {@link StampedLockVisitor lock} for the given object.
+     * @since 3.18.0
+     */
+    public static <O> ReentrantLockVisitor<O> create(final O object, final ReentrantLock reentrantLock) {
+        return new LockingVisitors.ReentrantLockVisitor<>(object, reentrantLock);
+    }
+
+    /**
+     * Creates a new instance of {@link ReadWriteLockVisitor} with the given (hidden) object.
+     *
+     * @param <O> The locked objects type.
+     * @param object The locked (hidden) object.
+     * @return The created instance, a {@link StampedLockVisitor lock} for the given object.
+     * @since 3.18.0
+     */
+    public static <O> ReentrantLockVisitor<O> reentrantLockVisitor(final O object) {
+        return create(object, new ReentrantLock());
     }
 
     /**
