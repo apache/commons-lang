@@ -16,12 +16,12 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -142,11 +142,11 @@ class ImmutableTripleTest extends AbstractLangTest {
 
     @Test
     void testOfNonNull() {
-        assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull(null, null, null));
-        assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull(null, null, "z"));
-        assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull(null, "y", "z"));
-        assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull("x", null, null));
-        assertThrows(NullPointerException.class, () -> ImmutableTriple.ofNonNull("x", "y", null));
+        assertNullPointerException(() -> ImmutableTriple.ofNonNull(null, null, null));
+        assertNullPointerException(() -> ImmutableTriple.ofNonNull(null, null, "z"));
+        assertNullPointerException(() -> ImmutableTriple.ofNonNull(null, "y", "z"));
+        assertNullPointerException(() -> ImmutableTriple.ofNonNull("x", null, null));
+        assertNullPointerException(() -> ImmutableTriple.ofNonNull("x", "y", null));
         final ImmutableTriple<String, String, String> pair = ImmutableTriple.ofNonNull("x", "y", "z");
         assertEquals("x", pair.left);
         assertEquals("y", pair.middle);

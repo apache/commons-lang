@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.event;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -92,7 +93,7 @@ class EventListenerSupportTest extends AbstractLangTest {
     @Test
     void testAddNullListener() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        assertThrows(NullPointerException.class, () -> listenerSupport.addListener(null));
+        assertNullPointerException(() -> listenerSupport.addListener(null));
     }
 
     @Test
@@ -102,7 +103,7 @@ class EventListenerSupportTest extends AbstractLangTest {
 
     @Test
     void testCreateWithNullParameter() {
-        assertThrows(NullPointerException.class, () -> EventListenerSupport.create(null));
+        assertNullPointerException(() -> EventListenerSupport.create(null));
     }
 
     @Test
@@ -154,7 +155,7 @@ class EventListenerSupportTest extends AbstractLangTest {
     @Test
     void testRemoveNullListener() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        assertThrows(NullPointerException.class, () -> listenerSupport.removeListener(null));
+        assertNullPointerException(() -> listenerSupport.removeListener(null));
     }
 
     @Test

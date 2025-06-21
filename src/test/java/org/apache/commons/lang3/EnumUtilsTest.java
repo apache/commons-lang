@@ -18,6 +18,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -106,7 +107,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGenerateBitVector_nullArray() {
-        assertThrows(NullPointerException.class, () -> EnumUtils.generateBitVector(Traffic.class, (Traffic[]) null));
+        assertNullPointerException(() -> EnumUtils.generateBitVector(Traffic.class, (Traffic[]) null));
     }
 
     @Test
@@ -117,12 +118,12 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGenerateBitVector_nullClass() {
-        assertThrows(NullPointerException.class, () -> EnumUtils.generateBitVector(null, EnumSet.of(Traffic.RED)));
+        assertNullPointerException(() -> EnumUtils.generateBitVector(null, EnumSet.of(Traffic.RED)));
     }
 
     @Test
     void testGenerateBitVector_nullClassWithArray() {
-        assertThrows(NullPointerException.class, () -> EnumUtils.generateBitVector(null, Traffic.RED));
+        assertNullPointerException(() -> EnumUtils.generateBitVector(null, Traffic.RED));
     }
 
     @Test
@@ -202,7 +203,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGenerateBitVectors_nullArray() {
-        assertThrows(NullPointerException.class, () -> EnumUtils.generateBitVectors(Traffic.class, (Traffic[]) null));
+        assertNullPointerException(() -> EnumUtils.generateBitVectors(Traffic.class, (Traffic[]) null));
     }
 
     @Test
@@ -213,12 +214,12 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGenerateBitVectors_nullClass() {
-        assertThrows(NullPointerException.class, () -> EnumUtils.generateBitVectors(null, EnumSet.of(Traffic.RED)));
+        assertNullPointerException(() -> EnumUtils.generateBitVectors(null, EnumSet.of(Traffic.RED)));
     }
 
     @Test
     void testGenerateBitVectors_nullClassWithArray() {
-        assertThrows(NullPointerException.class, () -> EnumUtils.generateBitVectors(null, Traffic.RED));
+        assertNullPointerException(() -> EnumUtils.generateBitVectors(null, Traffic.RED));
     }
 
     @Test
@@ -229,7 +230,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGenerateBitVectors_nullIterable() {
-        assertThrows(NullPointerException.class, () -> EnumUtils.generateBitVectors(null, (Iterable<Traffic>) null));
+        assertNullPointerException(() -> EnumUtils.generateBitVectors(null, (Iterable<Traffic>) null));
     }
 
     @Test
@@ -294,7 +295,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetEnum_nullClass() {
-        assertThrows(NullPointerException.class, () -> EnumUtils.getEnum((Class<Traffic>) null, "PURPLE"));
+        assertNullPointerException(() -> EnumUtils.getEnum((Class<Traffic>) null, "PURPLE"));
     }
 
     @Test
@@ -333,7 +334,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetEnumIgnoreCase_nullClass() {
-        assertThrows(NullPointerException.class, () -> EnumUtils.getEnumIgnoreCase((Class<Traffic>) null, "PURPLE"));
+        assertNullPointerException(() -> EnumUtils.getEnumIgnoreCase((Class<Traffic>) null, "PURPLE"));
     }
 
     @Test
@@ -465,7 +466,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsValidEnum_nullClass() {
-        assertThrows(NullPointerException.class, () -> EnumUtils.isValidEnum(null, "PURPLE"));
+        assertNullPointerException(() -> EnumUtils.isValidEnum(null, "PURPLE"));
     }
 
     @Test
@@ -479,7 +480,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsValidEnumIgnoreCase_nullClass() {
-        assertThrows(NullPointerException.class, () -> EnumUtils.isValidEnumIgnoreCase(null, "PURPLE"));
+        assertNullPointerException(() -> EnumUtils.isValidEnumIgnoreCase(null, "PURPLE"));
     }
 
     @Test
@@ -509,7 +510,7 @@ class EnumUtilsTest extends AbstractLangTest {
     @Test
     void testProcessBitVector_nullClass() {
         final Class<Traffic> empty = null;
-        assertThrows(NullPointerException.class, () -> EnumUtils.processBitVector(empty, 0L));
+        assertNullPointerException(() -> EnumUtils.processBitVector(empty, 0L));
     }
 
     @Test
@@ -602,7 +603,7 @@ class EnumUtilsTest extends AbstractLangTest {
     @Test
     void testProcessBitVectors_nullClass() {
         final Class<Traffic> empty = null;
-        assertThrows(NullPointerException.class, () -> EnumUtils.processBitVectors(empty, 0L));
+        assertNullPointerException(() -> EnumUtils.processBitVectors(empty, 0L));
     }
 
 }

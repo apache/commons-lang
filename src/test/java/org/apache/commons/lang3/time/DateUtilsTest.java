@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.time;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -241,7 +242,7 @@ class DateUtilsTest extends AbstractLangTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 4, 4, 3, 2, 1);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.addDays(null, 0));
+        assertNullPointerException(() -> DateUtils.addDays(null, 0));
     }
 
     @Test
@@ -261,7 +262,7 @@ class DateUtilsTest extends AbstractLangTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 3, 3, 2, 1);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.addHours(null, 0));
+        assertNullPointerException(() -> DateUtils.addHours(null, 0));
     }
 
     @Test
@@ -281,7 +282,7 @@ class DateUtilsTest extends AbstractLangTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 0);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.addMilliseconds(null, 0));
+        assertNullPointerException(() -> DateUtils.addMilliseconds(null, 0));
     }
 
     @Test
@@ -301,7 +302,7 @@ class DateUtilsTest extends AbstractLangTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 2, 2, 1);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.addMinutes(null, 0));
+        assertNullPointerException(() -> DateUtils.addMinutes(null, 0));
     }
 
     @Test
@@ -321,7 +322,7 @@ class DateUtilsTest extends AbstractLangTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 5, 5, 4, 3, 2, 1);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.addMonths(null, 0));
+        assertNullPointerException(() -> DateUtils.addMonths(null, 0));
     }
 
     @Test
@@ -341,7 +342,7 @@ class DateUtilsTest extends AbstractLangTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 1, 1);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.addSeconds(null, 0));
+        assertNullPointerException(() -> DateUtils.addSeconds(null, 0));
     }
 
     @Test
@@ -361,7 +362,7 @@ class DateUtilsTest extends AbstractLangTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);      // july
         assertDate(result, 2000, 5, 28, 4, 3, 2, 1);   // june
 
-        assertThrows(NullPointerException.class, () -> DateUtils.addMonths(null, 0));
+        assertNullPointerException(() -> DateUtils.addMonths(null, 0));
     }
 
     @Test
@@ -381,7 +382,7 @@ class DateUtilsTest extends AbstractLangTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 1999, 6, 5, 4, 3, 2, 1);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.addYears(null, 0));
+        assertNullPointerException(() -> DateUtils.addYears(null, 0));
     }
 
     /**
@@ -535,9 +536,9 @@ class DateUtilsTest extends AbstractLangTest {
                 DateUtils.ceiling((Object) calAmPm4, Calendar.AM_PM),
                 "ceiling ampm-4 failed");
 
-        assertThrows(NullPointerException.class, () -> DateUtils.ceiling((Date) null, Calendar.SECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.ceiling((Calendar) null, Calendar.SECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.ceiling((Object) null, Calendar.SECOND));
+        assertNullPointerException(() -> DateUtils.ceiling((Date) null, Calendar.SECOND));
+        assertNullPointerException(() -> DateUtils.ceiling((Calendar) null, Calendar.SECOND));
+        assertNullPointerException(() -> DateUtils.ceiling((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.ceiling("", Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling(date1, -9999));
 
@@ -630,17 +631,17 @@ class DateUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsSameDay_CalNotNullNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(Calendar.getInstance(), null));
+        assertNullPointerException(() -> DateUtils.isSameDay(Calendar.getInstance(), null));
     }
 
     @Test
     void testIsSameDay_CalNullNotNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(null, Calendar.getInstance()));
+        assertNullPointerException(() -> DateUtils.isSameDay(null, Calendar.getInstance()));
     }
 
     @Test
     void testIsSameDay_CalNullNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay((Calendar) null, null));
+        assertNullPointerException(() -> DateUtils.isSameDay((Calendar) null, null));
     }
 
     @Test
@@ -658,17 +659,17 @@ class DateUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsSameDay_DateNotNullNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(new Date(), null));
+        assertNullPointerException(() -> DateUtils.isSameDay(new Date(), null));
     }
 
     @Test
     void testIsSameDay_DateNullNotNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay(null, new Date()));
+        assertNullPointerException(() -> DateUtils.isSameDay(null, new Date()));
     }
 
     @Test
     void testIsSameDay_DateNullNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameDay((Date) null, null));
+        assertNullPointerException(() -> DateUtils.isSameDay((Date) null, null));
     }
 
     @Test
@@ -687,17 +688,17 @@ class DateUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsSameInstant_CalNotNullNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(Calendar.getInstance(), null));
+        assertNullPointerException(() -> DateUtils.isSameInstant(Calendar.getInstance(), null));
     }
 
     @Test
     void testIsSameInstant_CalNullNotNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(null, Calendar.getInstance()));
+        assertNullPointerException(() -> DateUtils.isSameInstant(null, Calendar.getInstance()));
     }
 
     @Test
     void testIsSameInstant_CalNullNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant((Calendar) null, null));
+        assertNullPointerException(() -> DateUtils.isSameInstant((Calendar) null, null));
     }
 
     @Test
@@ -715,17 +716,17 @@ class DateUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsSameInstant_DateNotNullNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(new Date(), null));
+        assertNullPointerException(() -> DateUtils.isSameInstant(new Date(), null));
     }
 
     @Test
     void testIsSameInstant_DateNullNotNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant(null, new Date()));
+        assertNullPointerException(() -> DateUtils.isSameInstant(null, new Date()));
     }
 
     @Test
     void testIsSameInstant_DateNullNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameInstant((Date) null, null));
+        assertNullPointerException(() -> DateUtils.isSameInstant((Date) null, null));
     }
 
     @Test
@@ -752,17 +753,17 @@ class DateUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsSameLocalTime_CalNotNullNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameLocalTime(Calendar.getInstance(), null));
+        assertNullPointerException(() -> DateUtils.isSameLocalTime(Calendar.getInstance(), null));
     }
 
     @Test
     void testIsSameLocalTime_CalNullNotNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameLocalTime(null, Calendar.getInstance()));
+        assertNullPointerException(() -> DateUtils.isSameLocalTime(null, Calendar.getInstance()));
     }
 
     @Test
     void testIsSameLocalTime_CalNullNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.isSameLocalTime(null, null));
+        assertNullPointerException(() -> DateUtils.isSameLocalTime(null, null));
     }
 
     /**
@@ -771,9 +772,9 @@ class DateUtilsTest extends AbstractLangTest {
     @Test
     void testIteratorEx() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.iterator(Calendar.getInstance(), -9999));
-        assertThrows(NullPointerException.class, () -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
-        assertThrows(NullPointerException.class, () -> DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER));
-        assertThrows(NullPointerException.class, () -> DateUtils.iterator((Object) null, DateUtils.RANGE_WEEK_CENTER));
+        assertNullPointerException(() -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
+        assertNullPointerException(() -> DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER));
+        assertNullPointerException(() -> DateUtils.iterator((Object) null, DateUtils.RANGE_WEEK_CENTER));
         assertThrows(ClassCastException.class, () -> DateUtils.iterator("", DateUtils.RANGE_WEEK_CENTER));
     }
 
@@ -863,7 +864,7 @@ class DateUtilsTest extends AbstractLangTest {
 
     @Test
     void testParse_NullParsers() {
-        assertThrows(NullPointerException.class, () -> DateUtils.parseDate("19721203", (String[]) null));
+        assertNullPointerException(() -> DateUtils.parseDate("19721203", (String[]) null));
     }
 
     @Test
@@ -898,7 +899,7 @@ class DateUtilsTest extends AbstractLangTest {
     @Test
     void testParseDate_Null() {
         final String[] parsers = {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
-        assertThrows(NullPointerException.class, () -> DateUtils.parseDate(null, parsers));
+        assertNullPointerException(() -> DateUtils.parseDate(null, parsers));
     }
 
     /** LANG-486 */
@@ -965,9 +966,9 @@ class DateUtilsTest extends AbstractLangTest {
         assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round((Object) dateAmPm3, Calendar.AM_PM), "round ampm-3 failed");
         assertEquals(dateTimeParser.parse("February 4, 2002 00:00:00.000"), DateUtils.round((Object) dateAmPm4, Calendar.AM_PM), "round ampm-4 failed");
 
-        assertThrows(NullPointerException.class, () -> DateUtils.round((Date) null, Calendar.SECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.round((Calendar) null, Calendar.SECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.round((Object) null, Calendar.SECOND));
+        assertNullPointerException(() -> DateUtils.round((Date) null, Calendar.SECOND));
+        assertNullPointerException(() -> DateUtils.round((Calendar) null, Calendar.SECOND));
+        assertNullPointerException(() -> DateUtils.round((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.round("", Calendar.SECOND));
         assertThrows(IllegalArgumentException.class, () -> DateUtils.round(date1, -9999));
 
@@ -1104,7 +1105,7 @@ class DateUtilsTest extends AbstractLangTest {
                 () -> DateUtils.setDays(BASE_DATE, 0),
                 outsideOfRangeAssertionMessage);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.setDays(null, 1));
+        assertNullPointerException(() -> DateUtils.setDays(null, 1));
     }
 
     @Test
@@ -1129,7 +1130,7 @@ class DateUtilsTest extends AbstractLangTest {
                 () -> DateUtils.setHours(BASE_DATE, -1),
                 outsideOfRangeAssertionMessage);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.setHours(null, 0));
+        assertNullPointerException(() -> DateUtils.setHours(null, 0));
     }
 
     @Test
@@ -1154,7 +1155,7 @@ class DateUtilsTest extends AbstractLangTest {
                 () -> DateUtils.setMilliseconds(BASE_DATE, -1),
                 outsideOfRangeAssertionMessage);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.setMilliseconds(null, 0));
+        assertNullPointerException(() -> DateUtils.setMilliseconds(null, 0));
     }
 
     @Test
@@ -1179,7 +1180,7 @@ class DateUtilsTest extends AbstractLangTest {
                 () -> DateUtils.setMinutes(BASE_DATE, -1),
                 outsideOfRangeAssertionMessage);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.setMinutes(null, 0));
+        assertNullPointerException(() -> DateUtils.setMinutes(null, 0));
     }
 
     @Test
@@ -1209,7 +1210,7 @@ class DateUtilsTest extends AbstractLangTest {
                 () -> DateUtils.setMonths(BASE_DATE, -1),
                 outsideOfRangeAssertionMessage);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.setMonths(null, 0));
+        assertNullPointerException(() -> DateUtils.setMonths(null, 0));
     }
 
     @Test
@@ -1234,7 +1235,7 @@ class DateUtilsTest extends AbstractLangTest {
                 () -> DateUtils.setSeconds(BASE_DATE, -1),
                 outsideOfRangeAssertionMessage);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.setSeconds(null, 0));
+        assertNullPointerException(() -> DateUtils.setSeconds(null, 0));
     }
 
     @Test
@@ -1254,13 +1255,13 @@ class DateUtilsTest extends AbstractLangTest {
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2005, 6, 5, 4, 3, 2, 1);
 
-        assertThrows(NullPointerException.class, () -> DateUtils.setYears(null, 0));
+        assertNullPointerException(() -> DateUtils.setYears(null, 0));
     }
 
     @Test
     void testToCalendar() {
         assertEquals(date1, DateUtils.toCalendar(date1).getTime(), "Failed to convert to a Calendar and back");
-        assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null));
+        assertNullPointerException(() -> DateUtils.toCalendar(null));
     }
 
     @Test
@@ -1272,17 +1273,17 @@ class DateUtilsTest extends AbstractLangTest {
 
     @Test
     void testToCalendarWithDateAndTimeZoneNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null, null));
+        assertNullPointerException(() -> DateUtils.toCalendar(null, null));
     }
 
     @Test
     void testToCalendarWithDateNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(null, TIME_ZONE_MET));
+        assertNullPointerException(() -> DateUtils.toCalendar(null, TIME_ZONE_MET));
     }
 
     @Test
     void testToCalendarWithTimeZoneNull() {
-        assertThrows(NullPointerException.class, () -> DateUtils.toCalendar(date1, null));
+        assertNullPointerException(() -> DateUtils.toCalendar(date1, null));
     }
 
     /**
@@ -1424,9 +1425,9 @@ class DateUtilsTest extends AbstractLangTest {
                 DateUtils.truncate((Object) calAmPm4, Calendar.AM_PM),
                 "truncate ampm-4 failed");
 
-        assertThrows(NullPointerException.class, () -> DateUtils.truncate((Date) null, Calendar.SECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.truncate((Calendar) null, Calendar.SECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.truncate((Object) null, Calendar.SECOND));
+        assertNullPointerException(() -> DateUtils.truncate((Date) null, Calendar.SECOND));
+        assertNullPointerException(() -> DateUtils.truncate((Calendar) null, Calendar.SECOND));
+        assertNullPointerException(() -> DateUtils.truncate((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.truncate("", Calendar.SECOND));
 
     }

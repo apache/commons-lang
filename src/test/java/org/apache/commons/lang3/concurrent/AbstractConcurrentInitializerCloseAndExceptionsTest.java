@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -111,7 +112,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest<T> ext
                 CloseableObject -> methodThatThrowsException(ExceptionToThrow.NullPointerException));
 
         initializer.get();
-        assertThrows(NullPointerException.class, () -> {
+        assertNullPointerException(() -> {
             ((AbstractConcurrentInitializer) initializer).close();
             });
     }
@@ -164,7 +165,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest<T> ext
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 () -> methodThatThrowsException(ExceptionToThrow.NullPointerException),
                 FailableConsumer.NOP);
-        assertThrows(NullPointerException.class, () -> initializer.get());
+        assertNullPointerException(() -> initializer.get());
     }
 
     /**

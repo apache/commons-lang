@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.function;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -655,7 +656,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+        assertNullPointerException(() -> failing.andThen(null));
     }
 
     @Test
@@ -707,7 +708,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertThrows(IOException.class, () -> nopFailableBiFunction.andThen(failingFunction).apply(null, null));
         nopFailableBiFunction.andThen(nopFailableFunction).apply(null, null);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failingBiFunctionTest.andThen(null));
+        assertNullPointerException(() -> failingBiFunctionTest.andThen(null));
     }
 
     @Test
@@ -786,7 +787,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failableConsumer.andThen(null));
+        assertNullPointerException(() -> failableConsumer.andThen(null));
     }
 
     @Test
@@ -804,7 +805,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+        assertNullPointerException(() -> failing.andThen(null));
     }
 
     @Test
@@ -865,7 +866,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+        assertNullPointerException(() -> failing.andThen(null));
     }
 
     @Test
@@ -884,7 +885,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.compose(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failing.compose(null));
+        assertNullPointerException(() -> failing.compose(null));
     }
 
     @Test
@@ -893,7 +894,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.compose(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> nop.compose(null));
+        assertNullPointerException(() -> nop.compose(null));
     }
 
     @Test
@@ -1052,7 +1053,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertThrows(IOException.class, () -> nopFailableFunction.andThen(failingFunction).apply(null));
         nopFailableFunction.andThen(nopFailableFunction).apply(null);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failingFunction.andThen(null));
+        assertNullPointerException(() -> failingFunction.andThen(null));
     }
 
     @Test
@@ -1071,7 +1072,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.compose(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failing.compose(null));
+        assertNullPointerException(() -> failing.compose(null));
     }
 
     @Test
@@ -1085,7 +1086,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.compose(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> nop.compose(null));
+        assertNullPointerException(() -> nop.compose(null));
     }
 
     @Test
@@ -1251,7 +1252,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+        assertNullPointerException(() -> failing.andThen(null));
     }
 
     @Test
@@ -1312,7 +1313,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+        assertNullPointerException(() -> failing.andThen(null));
     }
 
     @Test
@@ -1331,7 +1332,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.compose(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failing.compose(null));
+        assertNullPointerException(() -> failing.compose(null));
     }
 
     @Test
@@ -1340,7 +1341,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.compose(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> nop.compose(null));
+        assertNullPointerException(() -> nop.compose(null));
     }
 
     @Test
@@ -1358,7 +1359,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+        assertNullPointerException(() -> failing.andThen(null));
     }
 
     @Test
@@ -1376,8 +1377,8 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertFalse(FailableLongPredicate.FALSE.and(FailableLongPredicate.TRUE).test(0));
         assertFalse(FailableLongPredicate.FALSE.and(FailableLongPredicate.FALSE).test(0));
         // null tests
-        assertThrows(NullPointerException.class, () -> assertFalse(FailableLongPredicate.falsePredicate().and(null).test(0)));
-        assertThrows(NullPointerException.class, () -> assertTrue(FailableLongPredicate.truePredicate().and(null).test(0)));
+        assertNullPointerException(() -> assertFalse(FailableLongPredicate.falsePredicate().and(null).test(0)));
+        assertNullPointerException(() -> assertTrue(FailableLongPredicate.truePredicate().and(null).test(0)));
     }
 
     @Test
@@ -1395,8 +1396,8 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertTrue(FailableLongPredicate.FALSE.or(FailableLongPredicate.TRUE).test(0));
         assertFalse(FailableLongPredicate.FALSE.or(FailableLongPredicate.FALSE).test(0));
         // null tests
-        assertThrows(NullPointerException.class, () -> assertFalse(FailableLongPredicate.falsePredicate().or(null).test(0)));
-        assertThrows(NullPointerException.class, () -> assertTrue(FailableLongPredicate.truePredicate().or(null).test(0)));
+        assertNullPointerException(() -> assertFalse(FailableLongPredicate.falsePredicate().or(null).test(0)));
+        assertNullPointerException(() -> assertTrue(FailableLongPredicate.truePredicate().or(null).test(0)));
     }
 
     @Test
@@ -1415,7 +1416,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failing.andThen(null));
+        assertNullPointerException(() -> failing.andThen(null));
     }
 
     @Test
@@ -1434,7 +1435,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.compose(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> failing.compose(null));
+        assertNullPointerException(() -> failing.compose(null));
     }
 
     @Test
@@ -1443,7 +1444,7 @@ class FailableFunctionsTest extends AbstractLangTest {
         // Does not throw
         nop.compose(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> nop.compose(null));
+        assertNullPointerException(() -> nop.compose(null));
     }
 
     @Test
@@ -1469,8 +1470,8 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertFalse(FailablePredicate.FALSE.and(FailablePredicate.TRUE).test(null));
         assertFalse(FailablePredicate.FALSE.and(FailablePredicate.FALSE).test(null));
         // null tests
-        assertThrows(NullPointerException.class, () -> assertFalse(FailablePredicate.FALSE.and(null).test(null)));
-        assertThrows(NullPointerException.class, () -> assertTrue(FailablePredicate.TRUE.and(null).test(null)));
+        assertNullPointerException(() -> assertFalse(FailablePredicate.FALSE.and(null).test(null)));
+        assertNullPointerException(() -> assertTrue(FailablePredicate.TRUE.and(null).test(null)));
     }
 
     @Test
@@ -1488,8 +1489,8 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertTrue(FailablePredicate.FALSE.or(FailablePredicate.TRUE).test(null));
         assertFalse(FailablePredicate.FALSE.or(FailablePredicate.FALSE).test(null));
         // null tests
-        assertThrows(NullPointerException.class, () -> assertFalse(FailablePredicate.FALSE.or(null).test(null)));
-        assertThrows(NullPointerException.class, () -> assertTrue(FailablePredicate.TRUE.or(null).test(null)));
+        assertNullPointerException(() -> assertFalse(FailablePredicate.FALSE.or(null).test(null)));
+        assertNullPointerException(() -> assertTrue(FailablePredicate.TRUE.or(null).test(null)));
     }
 
     @Test

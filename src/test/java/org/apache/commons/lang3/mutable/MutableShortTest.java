@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -71,7 +71,7 @@ class MutableShortTest extends AbstractLangTest {
         assertEquals((short) 0, mutNum.compareTo(new MutableShort((short) 0)));
         assertEquals((short) +1, mutNum.compareTo(new MutableShort((short) -1)));
         assertEquals((short) -1, mutNum.compareTo(new MutableShort((short) 1)));
-        assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
+        assertNullPointerException(() -> mutNum.compareTo(null));
     }
 
     @Test
@@ -85,7 +85,7 @@ class MutableShortTest extends AbstractLangTest {
 
         assertEquals((short) 2, new MutableShort("2").shortValue());
 
-        assertThrows(NullPointerException.class, () -> new MutableShort((Number) null));
+        assertNullPointerException(() -> new MutableShort((Number) null));
     }
 
     @Test
@@ -184,7 +184,7 @@ class MutableShortTest extends AbstractLangTest {
         assertEquals((short) 3, mutNum.shortValue());
         assertEquals(Short.valueOf((short) 3), mutNum.get());
         assertEquals(Short.valueOf((short) 3), mutNum.getValue());
-        assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
+        assertNullPointerException(() -> mutNum.setValue(null));
     }
 
     @Test

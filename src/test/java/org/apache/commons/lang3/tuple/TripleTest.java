@@ -16,10 +16,10 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Calendar;
@@ -111,11 +111,11 @@ class TripleTest extends AbstractLangTest {
 
     @Test
     void testOfNonNull() {
-        assertThrows(NullPointerException.class, () -> Triple.ofNonNull(null, null, null));
-        assertThrows(NullPointerException.class, () -> Triple.ofNonNull(null, null, "z"));
-        assertThrows(NullPointerException.class, () -> Triple.ofNonNull(null, "y", "z"));
-        assertThrows(NullPointerException.class, () -> Triple.ofNonNull("x", null, null));
-        assertThrows(NullPointerException.class, () -> Triple.ofNonNull("x", "y", null));
+        assertNullPointerException(() -> Triple.ofNonNull(null, null, null));
+        assertNullPointerException(() -> Triple.ofNonNull(null, null, "z"));
+        assertNullPointerException(() -> Triple.ofNonNull(null, "y", "z"));
+        assertNullPointerException(() -> Triple.ofNonNull("x", null, null));
+        assertNullPointerException(() -> Triple.ofNonNull("x", "y", null));
         final Triple<String, String, String> pair = Triple.ofNonNull("x", "y", "z");
         assertEquals("x", pair.getLeft());
         assertEquals("y", pair.getMiddle());

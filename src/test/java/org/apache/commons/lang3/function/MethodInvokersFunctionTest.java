@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -59,7 +60,7 @@ class MethodInvokersFunctionTest extends MethodFixtures {
 
     @Test
     void testConstructorForNull() throws SecurityException {
-        assertThrows(NullPointerException.class, () -> MethodInvokers.asFunction(null));
+        assertNullPointerException(() -> MethodInvokers.asFunction(null));
     }
 
     @Test

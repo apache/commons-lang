@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -55,7 +55,7 @@ class TypeLiteralTest extends AbstractLangTest {
     @SuppressWarnings("rawtypes")
     @Test
     void testRaw() {
-        assertThrows(NullPointerException.class, () -> new TypeLiteral() {
+        assertNullPointerException(() -> new TypeLiteral() {
         });
     }
 

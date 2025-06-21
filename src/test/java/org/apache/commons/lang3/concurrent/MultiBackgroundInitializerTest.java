@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -242,7 +243,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     void testAddInitializerNullInit() {
-        assertThrows(NullPointerException.class, () -> initializer.addInitializer(CHILD_INIT, null));
+        assertNullPointerException(() -> initializer.addInitializer(CHILD_INIT, null));
     }
 
     /**
@@ -251,7 +252,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      */
     @Test
     void testAddInitializerNullName() {
-        assertThrows(NullPointerException.class, () -> initializer.addInitializer(null, createChildBackgroundInitializer()));
+        assertNullPointerException(() -> initializer.addInitializer(null, createChildBackgroundInitializer()));
     }
 
     /**

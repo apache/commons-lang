@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.AbstractMap;
@@ -264,9 +264,9 @@ class PairTest extends AbstractLangTest {
 
     @Test
     void testOfNonNull() {
-        assertThrows(NullPointerException.class, () -> Pair.ofNonNull(null, null));
-        assertThrows(NullPointerException.class, () -> Pair.ofNonNull(null, "x"));
-        assertThrows(NullPointerException.class, () -> Pair.ofNonNull("x", null));
+        assertNullPointerException(() -> Pair.ofNonNull(null, null));
+        assertNullPointerException(() -> Pair.ofNonNull(null, "x"));
+        assertNullPointerException(() -> Pair.ofNonNull("x", null));
         final Pair<String, String> pair = Pair.ofNonNull("x", "y");
         assertEquals("x", pair.getLeft());
         assertEquals("y", pair.getRight());

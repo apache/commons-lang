@@ -18,6 +18,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -262,7 +263,7 @@ class CharRangeTest extends AbstractLangTest {
     @Test
     void testContainsNullArg() {
         final CharRange range = CharRange.is('a');
-        final NullPointerException e = assertThrows(NullPointerException.class, () -> range.contains(null));
+        final NullPointerException e = assertNullPointerException(() -> range.contains(null));
         assertEquals("range", e.getMessage());
     }
 

@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -148,7 +149,7 @@ class SerializationUtilsTest extends AbstractLangTest {
 
     @Test
     void testDeserializeBytesNull() {
-        assertThrows(NullPointerException.class, () -> SerializationUtils.deserialize((byte[]) null));
+        assertNullPointerException(() -> SerializationUtils.deserialize((byte[]) null));
     }
 
     @Test
@@ -217,7 +218,7 @@ class SerializationUtilsTest extends AbstractLangTest {
 
     @Test
     void testDeserializeStreamNull() {
-        assertThrows(NullPointerException.class, () -> SerializationUtils.deserialize((InputStream) null));
+        assertNullPointerException(() -> SerializationUtils.deserialize((InputStream) null));
     }
 
     @Test
@@ -352,7 +353,7 @@ class SerializationUtilsTest extends AbstractLangTest {
 
     @Test
     void testSerializeStreamNullNull() {
-        assertThrows(NullPointerException.class, () -> SerializationUtils.serialize(null, null));
+        assertNullPointerException(() -> SerializationUtils.serialize(null, null));
     }
 
     @Test
@@ -374,7 +375,7 @@ class SerializationUtilsTest extends AbstractLangTest {
 
     @Test
     void testSerializeStreamObjNull() {
-        assertThrows(NullPointerException.class, () -> SerializationUtils.serialize(iMap, null));
+        assertNullPointerException(() -> SerializationUtils.serialize(iMap, null));
     }
 
     @Test

@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -145,8 +146,8 @@ class StringEscapeUtilsTest extends AbstractLangTest {
     @Test
     void testEscapeEcmaScript() {
         assertNull(StringEscapeUtils.escapeEcmaScript(null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_ECMASCRIPT.translate(null, null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_ECMASCRIPT.translate("", null));
+        assertNullPointerException(() -> StringEscapeUtils.ESCAPE_ECMASCRIPT.translate(null, null));
+        assertNullPointerException(() -> StringEscapeUtils.ESCAPE_ECMASCRIPT.translate("", null));
 
         assertEquals("He didn\\'t say, \\\"stop!\\\"", StringEscapeUtils.escapeEcmaScript("He didn't say, \"stop!\""));
         assertEquals("document.getElementById(\\\"test\\\").value = \\'<script>alert(\\'aaa\\');<\\/script>\\';",
@@ -217,8 +218,8 @@ class StringEscapeUtilsTest extends AbstractLangTest {
     @Test
     void testEscapeJava() throws IOException {
         assertNull(StringEscapeUtils.escapeJava(null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_JAVA.translate(null, null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_JAVA.translate("", null));
+        assertNullPointerException(() -> StringEscapeUtils.ESCAPE_JAVA.translate(null, null));
+        assertNullPointerException(() -> StringEscapeUtils.ESCAPE_JAVA.translate("", null));
 
         assertEscapeJava("empty string", "", "");
         assertEscapeJava(FOO, FOO);
@@ -256,8 +257,8 @@ class StringEscapeUtilsTest extends AbstractLangTest {
     @Test
     void testEscapeJson() {
         assertNull(StringEscapeUtils.escapeJson(null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_JSON.translate(null, null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.ESCAPE_JSON.translate("", null));
+        assertNullPointerException(() -> StringEscapeUtils.ESCAPE_JSON.translate(null, null));
+        assertNullPointerException(() -> StringEscapeUtils.ESCAPE_JSON.translate("", null));
 
         assertEquals("He didn't say, \\\"stop!\\\"", StringEscapeUtils.escapeJson("He didn't say, \"stop!\""));
 
@@ -448,8 +449,8 @@ class StringEscapeUtilsTest extends AbstractLangTest {
     @Test
     void testUnescapeEcmaScript() {
         assertNull(StringEscapeUtils.escapeEcmaScript(null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_ECMASCRIPT.translate(null, null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_ECMASCRIPT.translate("", null));
+        assertNullPointerException(() -> StringEscapeUtils.UNESCAPE_ECMASCRIPT.translate(null, null));
+        assertNullPointerException(() -> StringEscapeUtils.UNESCAPE_ECMASCRIPT.translate("", null));
 
         assertEquals("He didn't say, \"stop!\"", StringEscapeUtils.unescapeEcmaScript("He didn\\'t say, \\\"stop!\\\""));
         assertEquals("document.getElementById(\"test\").value = '<script>alert('aaa');</script>';",
@@ -499,8 +500,8 @@ class StringEscapeUtilsTest extends AbstractLangTest {
     @Test
     void testUnescapeJava() throws IOException {
         assertNull(StringEscapeUtils.unescapeJava(null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_JAVA.translate(null, null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_JAVA.translate("", null));
+        assertNullPointerException(() -> StringEscapeUtils.UNESCAPE_JAVA.translate(null, null));
+        assertNullPointerException(() -> StringEscapeUtils.UNESCAPE_JAVA.translate("", null));
         assertThrows(RuntimeException.class, () -> StringEscapeUtils.unescapeJava("\\u02-3"));
 
         assertUnescapeJava("", "");
@@ -518,8 +519,8 @@ class StringEscapeUtilsTest extends AbstractLangTest {
     @Test
     void testUnescapeJson() {
         assertNull(StringEscapeUtils.unescapeJson(null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_JSON.translate(null, null));
-        assertThrows(NullPointerException.class, () -> StringEscapeUtils.UNESCAPE_JSON.translate("", null));
+        assertNullPointerException(() -> StringEscapeUtils.UNESCAPE_JSON.translate(null, null));
+        assertNullPointerException(() -> StringEscapeUtils.UNESCAPE_JSON.translate("", null));
 
         assertEquals("He didn't say, \"stop!\"", StringEscapeUtils.unescapeJson("He didn't say, \\\"stop!\\\""));
 

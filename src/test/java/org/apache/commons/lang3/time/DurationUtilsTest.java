@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.time;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -147,7 +148,7 @@ class DurationUtilsTest extends AbstractLangTest {
 
     @Test
     void testToMillisIntNullDuration() {
-        assertThrows(NullPointerException.class, () -> DurationUtils.toMillisInt(null));
+        assertNullPointerException(() -> DurationUtils.toMillisInt(null));
     }
 
     @Test

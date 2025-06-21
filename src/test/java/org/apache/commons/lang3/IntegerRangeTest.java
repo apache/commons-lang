@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -120,7 +121,7 @@ class IntegerRangeTest extends AbstractLangTest {
 
     @Test
     void testElementCompareTo() {
-        assertThrows(NullPointerException.class, () -> range1.elementCompareTo(null));
+        assertNullPointerException(() -> range1.elementCompareTo(null));
 
         assertEquals(-1, range1.elementCompareTo(5));
         assertEquals(0, range1.elementCompareTo(10));
@@ -153,7 +154,7 @@ class IntegerRangeTest extends AbstractLangTest {
 
     @Test
     void testFitNull() {
-        assertThrows(NullPointerException.class, () -> {
+        assertNullPointerException(() -> {
             range1.fit(null);
         });
     }
@@ -380,7 +381,7 @@ class IntegerRangeTest extends AbstractLangTest {
         assertFalse(rb.contains(21), "should not contain 21");
         assertFalse(rb.contains(-11), "should not contain -11");
 
-        assertThrows(NullPointerException.class, () -> of(null, null));
+        assertNullPointerException(() -> of(null, null));
     }
 
     @Test

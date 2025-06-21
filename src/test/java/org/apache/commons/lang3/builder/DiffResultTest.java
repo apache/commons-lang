@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -122,7 +123,7 @@ class DiffResultTest extends AbstractLangTest {
 
     @Test
     void testNullList() {
-        assertThrows(NullPointerException.class, () -> new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE, null));
+        assertNullPointerException(() -> new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE, null));
     }
 
     @Test

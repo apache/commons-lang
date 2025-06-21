@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -1028,7 +1029,7 @@ class CompareToBuilderTest extends AbstractLangTest {
     @Test
     void testReflectionCompareEx1() {
         final TestObject o1 = new TestObject(4);
-        assertThrows(NullPointerException.class, () -> CompareToBuilder.reflectionCompare(o1, null));
+        assertNullPointerException(() -> CompareToBuilder.reflectionCompare(o1, null));
     }
 
     @Test

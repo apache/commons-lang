@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -158,9 +159,9 @@ class ImmutablePairTest extends AbstractLangTest {
 
     @Test
     void testOfNonNull() {
-        assertThrows(NullPointerException.class, () -> ImmutablePair.ofNonNull(null, null));
-        assertThrows(NullPointerException.class, () -> ImmutablePair.ofNonNull(null, "x"));
-        assertThrows(NullPointerException.class, () -> ImmutablePair.ofNonNull("x", null));
+        assertNullPointerException(() -> ImmutablePair.ofNonNull(null, null));
+        assertNullPointerException(() -> ImmutablePair.ofNonNull(null, "x"));
+        assertNullPointerException(() -> ImmutablePair.ofNonNull("x", null));
         final ImmutablePair<String, String> pair = ImmutablePair.ofNonNull("x", "y");
         assertEquals("x", pair.left);
         assertEquals("y", pair.right);

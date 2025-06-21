@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.math;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -1198,13 +1199,13 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxByte_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((byte[]) null));
+        assertNullPointerException(() -> NumberUtils.max((byte[]) null));
     }
 
     @Test
     void testMaxDouble() {
         final double[] d = null;
-        assertThrows(NullPointerException.class, () -> NumberUtils.max(d), "No exception was thrown for null input.");
+        assertNullPointerException(() -> NumberUtils.max(d), "No exception was thrown for null input.");
 
         assertThrows(IllegalArgumentException.class, NumberUtils::max, "No exception was thrown for empty input.");
 
@@ -1222,7 +1223,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxDouble_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((double[]) null));
+        assertNullPointerException(() -> NumberUtils.max((double[]) null));
     }
 
     @Test
@@ -1241,7 +1242,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxFloat_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((float[]) null));
+        assertNullPointerException(() -> NumberUtils.max((float[]) null));
     }
 
     @Test
@@ -1324,7 +1325,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxInt_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((int[]) null));
+        assertNullPointerException(() -> NumberUtils.max((int[]) null));
     }
 
     @Test
@@ -1343,7 +1344,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxLong_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((long[]) null));
+        assertNullPointerException(() -> NumberUtils.max((long[]) null));
     }
 
     @Test
@@ -1363,7 +1364,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxShort_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((short[]) null));
+        assertNullPointerException(() -> NumberUtils.max((short[]) null));
     }
 
     @Test
@@ -1382,7 +1383,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinByte_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((byte[]) null));
+        assertNullPointerException(() -> NumberUtils.min((byte[]) null));
     }
 
     @Test
@@ -1402,7 +1403,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinDouble_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((double[]) null));
+        assertNullPointerException(() -> NumberUtils.min((double[]) null));
     }
 
     @Test
@@ -1423,7 +1424,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinFloat_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((float[]) null));
+        assertNullPointerException(() -> NumberUtils.min((float[]) null));
     }
 
     @Test
@@ -1506,7 +1507,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinInt_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((int[]) null));
+        assertNullPointerException(() -> NumberUtils.min((int[]) null));
     }
 
     @Test
@@ -1525,7 +1526,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinLong_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((long[]) null));
+        assertNullPointerException(() -> NumberUtils.min((long[]) null));
     }
 
     @Test
@@ -1544,7 +1545,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinShort_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((short[]) null));
+        assertNullPointerException(() -> NumberUtils.min((short[]) null));
     }
 
     /**

@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -513,12 +514,12 @@ class MethodUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetAnnotationIllegalArgumentException2() {
-        assertThrows(NullPointerException.class, () -> MethodUtils.getAnnotation(null, Annotated.class, true, true));
+        assertNullPointerException(() -> MethodUtils.getAnnotation(null, Annotated.class, true, true));
     }
 
     @Test
     void testGetAnnotationIllegalArgumentException3() {
-        assertThrows(NullPointerException.class, () -> MethodUtils.getAnnotation(null, null, true, true));
+        assertNullPointerException(() -> MethodUtils.getAnnotation(null, null, true, true));
     }
 
     @Test
@@ -691,17 +692,17 @@ class MethodUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetMethodsListWithAnnotationNullPointerException1() {
-        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsListWithAnnotation(FieldUtilsTest.class, null));
+        assertNullPointerException(() -> MethodUtils.getMethodsListWithAnnotation(FieldUtilsTest.class, null));
     }
 
     @Test
     void testGetMethodsListWithAnnotationNullPointerException2() {
-        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, Annotated.class));
+        assertNullPointerException(() -> MethodUtils.getMethodsListWithAnnotation(null, Annotated.class));
     }
 
     @Test
     void testGetMethodsListWithAnnotationNullPointerException3() {
-        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsListWithAnnotation(null, null));
+        assertNullPointerException(() -> MethodUtils.getMethodsListWithAnnotation(null, null));
     }
 
     @Test
@@ -717,17 +718,17 @@ class MethodUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetMethodsWithAnnotationIllegalArgumentException1() {
-        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsWithAnnotation(FieldUtilsTest.class, null));
+        assertNullPointerException(() -> MethodUtils.getMethodsWithAnnotation(FieldUtilsTest.class, null));
     }
 
     @Test
     void testGetMethodsWithAnnotationIllegalArgumentException2() {
-        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsWithAnnotation(null, Annotated.class));
+        assertNullPointerException(() -> MethodUtils.getMethodsWithAnnotation(null, Annotated.class));
     }
 
     @Test
     void testGetMethodsWithAnnotationIllegalArgumentException3() {
-        assertThrows(NullPointerException.class, () -> MethodUtils.getMethodsWithAnnotation(null, null));
+        assertNullPointerException(() -> MethodUtils.getMethodsWithAnnotation(null, null));
     }
 
     @Test
@@ -999,8 +1000,8 @@ class MethodUtilsTest extends AbstractLangTest {
         TestBean.verify(new ImmutablePair<>("Number...", new Number[]{17, 23, 42}),
                 MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
 
-        assertThrows(NullPointerException.class, () -> MethodUtils.invokeMethod(null, "foo", 1, 2));
-        assertThrows(NullPointerException.class, () -> MethodUtils.invokeMethod(testBean, null, 1, 2));
+        assertNullPointerException(() -> MethodUtils.invokeMethod(null, "foo", 1, 2));
+        assertNullPointerException(() -> MethodUtils.invokeMethod(testBean, null, 1, 2));
     }
 
     @Test

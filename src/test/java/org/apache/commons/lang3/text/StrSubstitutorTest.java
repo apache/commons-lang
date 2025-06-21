@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.text;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -273,13 +274,13 @@ class StrSubstitutorTest extends AbstractLangTest {
 
         sub.setVariablePrefix("<<");
         assertInstanceOf(StrMatcher.StringMatcher.class, sub.getVariablePrefixMatcher());
-        assertThrows(NullPointerException.class, () -> sub.setVariablePrefix(null));
+        assertNullPointerException(() -> sub.setVariablePrefix(null));
         assertInstanceOf(StrMatcher.StringMatcher.class, sub.getVariablePrefixMatcher());
 
         final StrMatcher matcher = StrMatcher.commaMatcher();
         sub.setVariablePrefixMatcher(matcher);
         assertSame(matcher, sub.getVariablePrefixMatcher());
-        assertThrows(NullPointerException.class, () -> sub.setVariablePrefixMatcher(null));
+        assertNullPointerException(() -> sub.setVariablePrefixMatcher(null));
         assertSame(matcher, sub.getVariablePrefixMatcher());
     }
 
@@ -295,13 +296,13 @@ class StrSubstitutorTest extends AbstractLangTest {
 
         sub.setVariableSuffix("<<");
         assertInstanceOf(StrMatcher.StringMatcher.class, sub.getVariableSuffixMatcher());
-        assertThrows(NullPointerException.class, () -> sub.setVariableSuffix(null));
+        assertNullPointerException(() -> sub.setVariableSuffix(null));
         assertInstanceOf(StrMatcher.StringMatcher.class, sub.getVariableSuffixMatcher());
 
         final StrMatcher matcher = StrMatcher.commaMatcher();
         sub.setVariableSuffixMatcher(matcher);
         assertSame(matcher, sub.getVariableSuffixMatcher());
-        assertThrows(NullPointerException.class, () -> sub.setVariableSuffixMatcher(null));
+        assertNullPointerException(() -> sub.setVariableSuffixMatcher(null));
         assertSame(matcher, sub.getVariableSuffixMatcher());
     }
 

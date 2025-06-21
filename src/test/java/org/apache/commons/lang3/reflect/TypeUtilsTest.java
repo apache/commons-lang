@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -436,8 +437,8 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         final TypeVariable<?> treeSetTypeVar = TreeSet.class.getTypeParameters()[0];
         assertTrue(typeVarAssigns.containsKey(treeSetTypeVar));
         assertEquals(iterableType.getActualTypeArguments()[0], typeVarAssigns.get(treeSetTypeVar));
-        assertThrows(NullPointerException.class, () -> TypeUtils.determineTypeArguments(TreeSet.class, null));
-        assertThrows(NullPointerException.class, () -> TypeUtils.determineTypeArguments(null, iterableType));
+        assertNullPointerException(() -> TypeUtils.determineTypeArguments(TreeSet.class, null));
+        assertNullPointerException(() -> TypeUtils.determineTypeArguments(null, iterableType));
     }
 
     @Test
@@ -1004,9 +1005,9 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     @Test
     void testParameterizeNullPointerException() {
-        assertThrows(NullPointerException.class, () -> TypeUtils.parameterize(null, Collections.emptyMap()));
+        assertNullPointerException(() -> TypeUtils.parameterize(null, Collections.emptyMap()));
         final Map<TypeVariable<?>, Type> nullTypeVariableMap = null;
-        assertThrows(NullPointerException.class, () -> TypeUtils.parameterize(String.class, nullTypeVariableMap));
+        assertNullPointerException(() -> TypeUtils.parameterize(String.class, nullTypeVariableMap));
     }
 
     @Test
@@ -1018,7 +1019,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     @Test
     void testParameterizeVarArgsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> TypeUtils.parameterize(null));
+        assertNullPointerException(() -> TypeUtils.parameterize(null));
     }
 
     @SuppressWarnings("unlikely-arg-type")
@@ -1041,9 +1042,9 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     @Test
     void testParameterizeWithOwner3ArgsNullPointerException() {
         final Type owner = TypeUtils.parameterize(TypeUtilsTest.class, String.class);
-        assertThrows(NullPointerException.class, () -> TypeUtils.parameterizeWithOwner(owner, null, String.class));
+        assertNullPointerException(() -> TypeUtils.parameterizeWithOwner(owner, null, String.class));
         final Map<TypeVariable<?>, Type> nullTypeVariableMap = null;
-        assertThrows(NullPointerException.class, () -> TypeUtils.parameterizeWithOwner(owner, That.class, nullTypeVariableMap));
+        assertNullPointerException(() -> TypeUtils.parameterizeWithOwner(owner, That.class, nullTypeVariableMap));
         final Map<TypeVariable<?>, Type> typeVariableMap1 = new HashMap<>();
         typeVariableMap1.put(Comparable.class.getTypeParameters()[0], String.class);
         assertEquals(Comparable.class, TypeUtils.parameterizeWithOwner(null, Comparable.class, typeVariableMap1).getRawType());
@@ -1056,12 +1057,12 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     @Test
     void testParameterizeWithOwnerVarArgsNullPointerException() {
         final Type owner = TypeUtils.parameterize(TypeUtilsTest.class, String.class);
-        assertThrows(NullPointerException.class, () -> TypeUtils.parameterizeWithOwner(owner, null));
+        assertNullPointerException(() -> TypeUtils.parameterizeWithOwner(owner, null));
     }
 
     @Test
     void testToLongString() {
-        assertThrows(NullPointerException.class, () -> TypeUtils.toLongString(null));
+        assertNullPointerException(() -> TypeUtils.toLongString(null));
         assertEquals(getClass().getName() + ":B", TypeUtils.toLongString(getClass().getTypeParameters()[0]));
         assertEquals(getClass().getName() + ".MyInnerClass:T", TypeUtils.toLongString(MyInnerClass.class.getTypeParameters()[0]));
         assertEquals(getClass().getName() + ".That:K", TypeUtils.toLongString(That.class.getTypeParameters()[0]));
@@ -1071,7 +1072,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     @Test
     void testToString() {
-        assertThrows(NullPointerException.class, () -> TypeUtils.toString(null));
+        assertNullPointerException(() -> TypeUtils.toString(null));
         assertThrows(IllegalArgumentException.class, () -> TypeUtils.toString(new Type() {
             // empty
         }));
@@ -1097,7 +1098,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         typeVarAssigns.clear();
         typeVarAssigns.put(getClass().getMethod("stub3").getTypeParameters()[0], Integer.class);
         assertTrue(TypeUtils.typesSatisfyVariables(typeVarAssigns));
-        assertThrows(NullPointerException.class, () -> TypeUtils.typesSatisfyVariables(null));
+        assertNullPointerException(() -> TypeUtils.typesSatisfyVariables(null));
     }
 
     @ParameterizedTest
@@ -1115,8 +1116,8 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertArrayEquals(new Type[] { null }, TypeUtils.getImplicitLowerBounds(unbounded));
         assertEquals("?", TypeUtils.toString(unbounded));
         assertEquals("?", unbounded.toString());
-        assertThrows(NullPointerException.class, () -> TypeUtils.getImplicitLowerBounds(null));
-        assertThrows(NullPointerException.class, () -> TypeUtils.getImplicitUpperBounds(null));
+        assertNullPointerException(() -> TypeUtils.getImplicitLowerBounds(null));
+        assertNullPointerException(() -> TypeUtils.getImplicitUpperBounds(null));
     }
 
     @Test

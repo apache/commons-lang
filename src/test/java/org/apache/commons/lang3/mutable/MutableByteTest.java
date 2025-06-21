@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -76,12 +76,12 @@ class MutableByteTest extends AbstractLangTest {
     @Test
     void testCompareToNull() {
         final MutableByte mutNum = new MutableByte((byte) 0);
-        assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
+        assertNullPointerException(() -> mutNum.compareTo(null));
     }
 
     @Test
     void testConstructorNull() {
-        assertThrows(NullPointerException.class, () -> new MutableByte((Number) null));
+        assertNullPointerException(() -> new MutableByte((Number) null));
     }
 
     @Test
@@ -240,7 +240,7 @@ class MutableByteTest extends AbstractLangTest {
     @Test
     void testSetNull() {
         final MutableByte mutNum = new MutableByte((byte) 0);
-        assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
+        assertNullPointerException(() -> mutNum.setValue(null));
     }
 
     @Test

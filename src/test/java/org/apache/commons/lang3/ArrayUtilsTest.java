@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -83,17 +84,17 @@ class ArrayUtilsTest extends AbstractLangTest {
     @Test
     void testArraycopyFunction() {
         final String[] arr = { "a", "b" };
-        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(null, 0, 0, 1, i -> new String[3]));
-        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, i -> null));
-        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, (Function<Integer, String[]>) null));
+        assertNullPointerException(() -> ArrayUtils.arraycopy(null, 0, 0, 1, i -> new String[3]));
+        assertNullPointerException(() -> ArrayUtils.arraycopy(arr, 0, 0, 1, i -> null));
+        assertNullPointerException(() -> ArrayUtils.arraycopy(arr, 0, 0, 1, (Function<Integer, String[]>) null));
     }
 
     @Test
     void testArraycopySupplier() {
         final String[] arr = { "a", "b" };
-        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(null, 0, 0, 1, () -> new String[3]));
-        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, Suppliers.nul()));
-        assertThrows(NullPointerException.class, () -> ArrayUtils.arraycopy(arr, 0, 0, 1, (Supplier<String[]>) null));
+        assertNullPointerException(() -> ArrayUtils.arraycopy(null, 0, 0, 1, () -> new String[3]));
+        assertNullPointerException(() -> ArrayUtils.arraycopy(arr, 0, 0, 1, Suppliers.nul()));
+        assertNullPointerException(() -> ArrayUtils.arraycopy(arr, 0, 0, 1, (Supplier<String[]>) null));
     }
     /**
      * Tests generic array creation with parameters of same type.
@@ -1669,7 +1670,7 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsSortedNullComparator() {
-        assertThrows(NullPointerException.class, () -> ArrayUtils.isSorted(null, null));
+        assertNullPointerException(() -> ArrayUtils.isSorted(null, null));
     }
 
     @Test

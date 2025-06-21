@@ -16,12 +16,12 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -412,22 +412,22 @@ class DiffBuilderTest extends AbstractLangTest {
 
     @Test
     void testNullLhs() {
-        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(null, this, ToStringStyle.DEFAULT_STYLE));
+        assertNullPointerException(() -> new DiffBuilder<>(null, this, ToStringStyle.DEFAULT_STYLE));
     }
 
     @Test
     void testNullLhs_4args() {
-        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(null, this, ToStringStyle.DEFAULT_STYLE, true));
+        assertNullPointerException(() -> new DiffBuilder<>(null, this, ToStringStyle.DEFAULT_STYLE, true));
     }
 
     @Test
     void testNullRhs() {
-        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(this, null, ToStringStyle.DEFAULT_STYLE));
+        assertNullPointerException(() -> new DiffBuilder<>(this, null, ToStringStyle.DEFAULT_STYLE));
     }
 
     @Test
     void testNullRhs_4args() {
-        assertThrows(NullPointerException.class, () -> new DiffBuilder<>(this, null, ToStringStyle.DEFAULT_STYLE, true));
+        assertNullPointerException(() -> new DiffBuilder<>(this, null, ToStringStyle.DEFAULT_STYLE, true));
     }
 
     @Test

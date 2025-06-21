@@ -18,6 +18,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -838,7 +839,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.noNullElements((Object[]) null, "MSG"));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.noNullElements((Object[]) null, "MSG"));
                     assertEquals("array", ex.getMessage());
                 }
             }
@@ -865,7 +866,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.noNullElements((Object[]) null));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.noNullElements((Object[]) null));
                     assertEquals("array", ex.getMessage());
                 }
             }
@@ -897,7 +898,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.noNullElements((Collection<?>) null, "MSG"));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.noNullElements((Collection<?>) null, "MSG"));
                     assertEquals("iterable", ex.getMessage());
                 }
             }
@@ -925,7 +926,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.noNullElements((Collection<?>) null));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.noNullElements((Collection<?>) null));
                     assertEquals("iterable", ex.getMessage());
                 }
             }
@@ -978,7 +979,7 @@ class ValidateTest extends AbstractLangTest {
 
             @Test
             void shouldThrowNullPointerExceptionWithGivenMessageForNullString() {
-                final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notBlank(null, "MSG"));
+                final NullPointerException ex = assertNullPointerException(() -> Validate.notBlank(null, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
         }
@@ -1026,7 +1027,7 @@ class ValidateTest extends AbstractLangTest {
 
             @Test
             void shouldThrowNullPointerExceptionWithDefaultMessageForNullString() {
-                final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notBlank(null));
+                final NullPointerException ex = assertNullPointerException(() -> Validate.notBlank(null));
                 assertEquals("The validated character sequence is blank", ex.getMessage());
             }
         }
@@ -1060,7 +1061,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithGivenMessageForNullArray() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Object[]) null, "MSG"));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.notEmpty((Object[]) null, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -1087,7 +1088,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Object[]) null));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.notEmpty((Object[]) null));
                     assertEquals("The validated array is empty", ex.getMessage());
                 }
             }
@@ -1117,7 +1118,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithGivenMessageForNullCharSequence() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((CharSequence) null, "MSG"));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.notEmpty((CharSequence) null, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -1143,7 +1144,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullCharSequence() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((CharSequence) null));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.notEmpty((CharSequence) null));
                     assertEquals("The validated character sequence is empty", ex.getMessage());
                 }
             }
@@ -1174,7 +1175,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithGivenMessageForNullCollection() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Collection<?>) null, "MSG"));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.notEmpty((Collection<?>) null, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -1201,7 +1202,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Collection<?>) null));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.notEmpty((Collection<?>) null));
                     assertEquals("The validated collection is empty", ex.getMessage());
                 }
             }
@@ -1232,7 +1233,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithGivenMessageForNullMap() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Map<?, ?>) null, "MSG"));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.notEmpty((Map<?, ?>) null, "MSG"));
                     assertEquals("MSG", ex.getMessage());
                 }
             }
@@ -1259,7 +1260,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullMap() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notEmpty((Map<?, ?>) null));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.notEmpty((Map<?, ?>) null));
                     assertEquals("The validated map is empty", ex.getMessage());
                 }
             }
@@ -1338,7 +1339,7 @@ class ValidateTest extends AbstractLangTest {
 
             @Test
             void shouldThrowExceptionWithGivenMessageForNullReference() {
-                final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notNull(null, "MSG"));
+                final NullPointerException ex = assertNullPointerException(() -> Validate.notNull(null, "MSG"));
                 assertEquals("MSG", ex.getMessage());
             }
         }
@@ -1358,7 +1359,7 @@ class ValidateTest extends AbstractLangTest {
 
             @Test
             void shouldThrowExceptionWithDefaultMessageForNullReference() {
-                final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.notNull(null));
+                final NullPointerException ex = assertNullPointerException(() -> Validate.notNull(null));
                 assertEquals("The validated object is null", ex.getMessage());
             }
         }
@@ -1424,7 +1425,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullArray() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((Object[]) null, 1, "MSG"));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.validIndex((Object[]) null, 1, "MSG"));
                     assertEquals("array", ex.getMessage());
                 }
             }
@@ -1457,7 +1458,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultForNullArray() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((Object[]) null, 1));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.validIndex((Object[]) null, 1));
                     assertEquals("array", ex.getMessage());
                 }
             }
@@ -1494,7 +1495,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullStr() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((String) null, 1, "MSG"));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.validIndex((String) null, 1, "MSG"));
                     assertEquals("chars", ex.getMessage());
                 }
             }
@@ -1527,7 +1528,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultForNullString() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((String) null, 1));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.validIndex((String) null, 1));
                     assertEquals("chars", ex.getMessage());
                 }
             }
@@ -1565,7 +1566,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultMessageForNullCollection() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((Collection<?>) null, 1, "MSG"));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.validIndex((Collection<?>) null, 1, "MSG"));
                     assertEquals("collection", ex.getMessage());
                 }
             }
@@ -1600,7 +1601,7 @@ class ValidateTest extends AbstractLangTest {
 
                 @Test
                 void shouldThrowNullPointerExceptionWithDefaultForNullCollection() {
-                    final NullPointerException ex = assertThrows(NullPointerException.class, () -> Validate.validIndex((Collection<?>) null, 1));
+                    final NullPointerException ex = assertNullPointerException(() -> Validate.validIndex((Collection<?>) null, 1));
                     assertEquals("collection", ex.getMessage());
                 }
             }

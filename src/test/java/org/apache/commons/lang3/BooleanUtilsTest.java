@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.ArraySorter.sort;
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -459,7 +460,7 @@ class BooleanUtilsTest extends AbstractLangTest {
 
     @Test
     void testAnd_object_nullInput() {
-        assertThrows(NullPointerException.class, () -> BooleanUtils.and((Boolean[]) null));
+        assertNullPointerException(() -> BooleanUtils.and((Boolean[]) null));
     }
 
     @Test
@@ -571,7 +572,7 @@ class BooleanUtilsTest extends AbstractLangTest {
 
     @Test
     void testAnd_primitive_nullInput() {
-        assertThrows(NullPointerException.class, () -> BooleanUtils.and((boolean[]) null));
+        assertNullPointerException(() -> BooleanUtils.and((boolean[]) null));
     }
 
     @Test
@@ -658,7 +659,7 @@ class BooleanUtilsTest extends AbstractLangTest {
 
     @Test
     void testOneHot_object_nullInput() {
-        assertThrows(NullPointerException.class, () -> BooleanUtils.oneHot((Boolean[]) null));
+        assertNullPointerException(() -> BooleanUtils.oneHot((Boolean[]) null));
     }
 
     @Test
@@ -720,7 +721,7 @@ class BooleanUtilsTest extends AbstractLangTest {
 
     @Test
     void testOneHot_primitive_nullInput() {
-        assertThrows(NullPointerException.class, () -> BooleanUtils.oneHot((boolean[]) null));
+        assertNullPointerException(() -> BooleanUtils.oneHot((boolean[]) null));
     }
 
     @Test
@@ -776,7 +777,7 @@ class BooleanUtilsTest extends AbstractLangTest {
 
     @Test
     void testOr_object_nullInput() {
-        assertThrows(NullPointerException.class, () -> BooleanUtils.or((Boolean[]) null));
+        assertNullPointerException(() -> BooleanUtils.or((Boolean[]) null));
     }
 
     @Test
@@ -888,7 +889,7 @@ class BooleanUtilsTest extends AbstractLangTest {
 
     @Test
     void testOr_primitive_nullInput() {
-        assertThrows(NullPointerException.class, () -> BooleanUtils.or((boolean[]) null));
+        assertNullPointerException(() -> BooleanUtils.or((boolean[]) null));
     }
 
     @Test
@@ -957,7 +958,7 @@ class BooleanUtilsTest extends AbstractLangTest {
 
     @Test
     void testXor_object_nullInput() {
-        assertThrows(NullPointerException.class, () -> BooleanUtils.xor((Boolean[]) null));
+        assertNullPointerException(() -> BooleanUtils.xor((Boolean[]) null));
     }
 
     @Test
@@ -1089,7 +1090,7 @@ class BooleanUtilsTest extends AbstractLangTest {
 
     @Test
     void testXor_primitive_nullInput() {
-        assertThrows(NullPointerException.class, () -> BooleanUtils.xor((boolean[]) null));
+        assertNullPointerException(() -> BooleanUtils.xor((boolean[]) null));
     }
 
     @Test

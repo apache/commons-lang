@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.builder;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -505,7 +506,7 @@ class HashCodeBuilderTest extends AbstractLangTest {
 
     @Test
     void testReflectionHashCodeEx3() {
-        assertThrows(NullPointerException.class, () -> HashCodeBuilder.reflectionHashCode(13, 19, null, true));
+        assertNullPointerException(() -> HashCodeBuilder.reflectionHashCode(13, 19, null, true));
     }
 
     @Test

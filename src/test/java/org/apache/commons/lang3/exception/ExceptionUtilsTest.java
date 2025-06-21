@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.exception;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -736,7 +737,7 @@ class ExceptionUtilsTest extends AbstractLangTest {
 
     @Test
     void testRemoveCommonFrames_ListList() {
-        assertThrows(NullPointerException.class, () -> ExceptionUtils.removeCommonFrames(null, null));
+        assertNullPointerException(() -> ExceptionUtils.removeCommonFrames(null, null));
     }
 
     @Test

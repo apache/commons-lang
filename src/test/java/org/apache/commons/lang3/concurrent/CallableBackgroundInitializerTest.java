@@ -16,8 +16,8 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -74,7 +74,7 @@ class CallableBackgroundInitializerTest extends AbstractLangTest {
     void testInitExecutorNullCallable() throws InterruptedException {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         try {
-            assertThrows(NullPointerException.class, () -> new CallableBackgroundInitializer<Integer>(null, exec));
+            assertNullPointerException(() -> new CallableBackgroundInitializer<Integer>(null, exec));
         } finally {
             exec.shutdown();
             exec.awaitTermination(1, TimeUnit.SECONDS);
@@ -102,6 +102,6 @@ class CallableBackgroundInitializerTest extends AbstractLangTest {
      */
     @Test()
     void testInitNullCallable() {
-        assertThrows(NullPointerException.class, () -> new CallableBackgroundInitializer<>(null));
+        assertNullPointerException(() -> new CallableBackgroundInitializer<>(null));
     }
 }

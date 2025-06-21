@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -200,7 +201,7 @@ class CharUtilsTest extends AbstractLangTest {
     void testToChar_Character() {
         assertEquals('A', CharUtils.toChar(CHARACTER_A));
         assertEquals('B', CharUtils.toChar(CHARACTER_B));
-        assertThrows(NullPointerException.class, () -> CharUtils.toChar((Character) null));
+        assertNullPointerException(() -> CharUtils.toChar((Character) null));
     }
 
     @Test
@@ -214,7 +215,7 @@ class CharUtilsTest extends AbstractLangTest {
     void testToChar_String() {
         assertEquals('A', CharUtils.toChar("A"));
         assertEquals('B', CharUtils.toChar("BA"));
-        assertThrows(NullPointerException.class, () -> CharUtils.toChar((String) null));
+        assertNullPointerException(() -> CharUtils.toChar((String) null));
         assertThrows(IllegalArgumentException.class, () -> CharUtils.toChar(""));
     }
 
@@ -284,7 +285,7 @@ class CharUtilsTest extends AbstractLangTest {
     void testToIntValue_Character() {
         assertEquals(0, CharUtils.toIntValue(Character.valueOf('0')));
         assertEquals(3, CharUtils.toIntValue(Character.valueOf('3')));
-        assertThrows(NullPointerException.class, () -> CharUtils.toIntValue(null));
+        assertNullPointerException(() -> CharUtils.toIntValue(null));
         assertThrows(IllegalArgumentException.class, () -> CharUtils.toIntValue(CHARACTER_A));
     }
 

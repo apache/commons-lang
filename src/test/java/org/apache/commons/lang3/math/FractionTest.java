@@ -18,6 +18,7 @@
  */
 package org.apache.commons.lang3.math;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -124,7 +125,7 @@ class FractionTest extends AbstractLangTest {
         assertEquals(13 * 13 * 17 * 2 * 2, fr.getDenominator());
         assertEquals(-17 - 2 * 13 * 2, fr.getNumerator());
 
-        assertThrows(NullPointerException.class, () -> fr.add(null));
+        assertNullPointerException(() -> fr.add(null));
 
         // if this fraction is added naively, it will overflow.
         // check that it doesn't.
@@ -172,7 +173,7 @@ class FractionTest extends AbstractLangTest {
         assertEquals(0, f1.compareTo(f1));
 
         final Fraction fr = f1;
-        assertThrows(NullPointerException.class, () -> fr.compareTo(null));
+        assertNullPointerException(() -> fr.compareTo(null));
 
         f2 = Fraction.getFraction(2, 5);
         assertTrue(f1.compareTo(f2) > 0);
@@ -282,7 +283,7 @@ class FractionTest extends AbstractLangTest {
         assertEquals(Integer.MIN_VALUE, fr.getNumerator());
         assertEquals(1, fr.getDenominator());
 
-        assertThrows(NullPointerException.class, () -> fr.divideBy(null));
+        assertNullPointerException(() -> fr.divideBy(null));
 
         final Fraction smallest = Fraction.getFraction(1, Integer.MAX_VALUE);
         assertThrows(ArithmeticException.class, () -> smallest.divideBy(smallest.invert())); // Should overflow
@@ -488,7 +489,7 @@ class FractionTest extends AbstractLangTest {
 
     @Test
     void testFactory_String() {
-        assertThrows(NullPointerException.class, () -> Fraction.getFraction(null));
+        assertNullPointerException(() -> Fraction.getFraction(null));
     }
 
     @Test
@@ -722,7 +723,7 @@ class FractionTest extends AbstractLangTest {
         assertEquals(1, f.getDenominator());
 
         final Fraction fr = f;
-        assertThrows(NullPointerException.class, () -> fr.multiplyBy(null));
+        assertNullPointerException(() -> fr.multiplyBy(null));
 
         final Fraction fr1 = Fraction.getFraction(1, Integer.MAX_VALUE);
         assertThrows(ArithmeticException.class, () -> fr1.multiplyBy(fr1));
@@ -1030,7 +1031,7 @@ class FractionTest extends AbstractLangTest {
         assertSame(f2, f);
 
         final Fraction fr = f;
-        assertThrows(NullPointerException.class, () -> fr.subtract(null));
+        assertNullPointerException(() -> fr.subtract(null));
 
         // if this fraction is subtracted naively, it will overflow.
         // check that it doesn't.

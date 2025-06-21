@@ -17,10 +17,10 @@
 
 package org.apache.commons.lang3.mutable;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -47,12 +47,12 @@ class MutableBooleanTest extends AbstractLangTest {
     @Test
     void testCompareToNull() {
         final MutableBoolean mutBool = new MutableBoolean(false);
-        assertThrows(NullPointerException.class, () -> mutBool.compareTo(null));
+        assertNullPointerException(() -> mutBool.compareTo(null));
     }
 
     @Test
     void testConstructorNull() {
-        assertThrows(NullPointerException.class, () -> new MutableBoolean(null));
+        assertNullPointerException(() -> new MutableBoolean(null));
     }
 
     @Test
@@ -133,7 +133,7 @@ class MutableBooleanTest extends AbstractLangTest {
     @Test
     void testSetNull() {
         final MutableBoolean mutBool = new MutableBoolean(false);
-        assertThrows(NullPointerException.class, () -> mutBool.setValue(null));
+        assertNullPointerException(() -> mutBool.setValue(null));
     }
 
     @Test

@@ -17,9 +17,9 @@
 
 package org.apache.commons.lang3.function;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.lang.reflect.Method;
 import java.util.function.BiConsumer;
@@ -42,7 +42,7 @@ class MethodInvokersBiConsumerTest extends MethodFixtures {
 
     @Test
     void testConstructorForNull() throws SecurityException {
-        assertThrows(NullPointerException.class, () -> MethodInvokers.asBiConsumer(null));
+        assertNullPointerException(() -> MethodInvokers.asBiConsumer(null));
     }
 
     @Test

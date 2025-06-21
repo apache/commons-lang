@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -122,7 +123,7 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetAllFieldListsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getAllFieldsList(null));
+        assertNullPointerException(() -> FieldUtils.getAllFieldsList(null));
     }
 
     @Test
@@ -166,7 +167,7 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetAllFieldsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getAllFields(null));
+        assertNullPointerException(() -> FieldUtils.getAllFields(null));
     }
 
     @Test
@@ -205,7 +206,7 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetDeclaredFieldAccessNullPointerException() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getDeclaredField(null, "none"));
+        assertNullPointerException(() -> FieldUtils.getDeclaredField(null, "none"));
     }
 
     @Test
@@ -244,7 +245,7 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetDeclaredFieldForceAccessNullPointerException() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getDeclaredField(null, "none", true));
+        assertNullPointerException(() -> FieldUtils.getDeclaredField(null, "none", true));
     }
 
     @Test
@@ -302,7 +303,7 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetFieldForceAccessNullPointerException() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getField(null, "none", true));
+        assertNullPointerException(() -> FieldUtils.getField(null, "none", true));
     }
 
     @Test
@@ -322,7 +323,7 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetFieldNullPointerException() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getField(null, "none"));
+        assertNullPointerException(() -> FieldUtils.getField(null, "none"));
     }
 
     @Test
@@ -340,17 +341,17 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetFieldsListWithAnnotationNullPointerException() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsListWithAnnotation(FieldUtilsTest.class, null));
+        assertNullPointerException(() -> FieldUtils.getFieldsListWithAnnotation(FieldUtilsTest.class, null));
     }
 
     @Test
     void testGetFieldsListWithAnnotationNullPointerException2() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsListWithAnnotation(null, Annotated.class));
+        assertNullPointerException(() -> FieldUtils.getFieldsListWithAnnotation(null, Annotated.class));
     }
 
     @Test
     void testGetFieldsListWithAnnotationNullPointerException3() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsListWithAnnotation(null, null));
+        assertNullPointerException(() -> FieldUtils.getFieldsListWithAnnotation(null, null));
     }
 
     @Test
@@ -365,17 +366,17 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetFieldsWithAnnotationNullPointerException1() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, null));
+        assertNullPointerException(() -> FieldUtils.getFieldsWithAnnotation(FieldUtilsTest.class, null));
     }
 
     @Test
     void testGetFieldsWithAnnotationNullPointerException2() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsWithAnnotation(null, Annotated.class));
+        assertNullPointerException(() -> FieldUtils.getFieldsWithAnnotation(null, Annotated.class));
     }
 
     @Test
     void testGetFieldsWithAnnotationNullPointerException3() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.getFieldsWithAnnotation(null, null));
+        assertNullPointerException(() -> FieldUtils.getFieldsWithAnnotation(null, null));
     }
 
     @Test
@@ -452,7 +453,7 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testReadDeclaredNamedStaticField() throws Exception {
-        assertThrows(NullPointerException.class, () -> FieldUtils.readDeclaredStaticField(AnotherParent.class, "doesNotExist"));
+        assertNullPointerException(() -> FieldUtils.readDeclaredStaticField(AnotherParent.class, "doesNotExist"));
         assertEquals(Foo.VALUE, FieldUtils.readDeclaredStaticField(Foo.class, "VALUE"));
         assertThrows(
                 NullPointerException.class, () ->
@@ -721,7 +722,7 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testReadStaticFieldForceAccessNullPointerException() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.readStaticField(null, true));
+        assertNullPointerException(() -> FieldUtils.readStaticField(null, true));
     }
 
     @Test
@@ -734,7 +735,7 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testReadStaticFieldNullPointerException() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.readStaticField(null));
+        assertNullPointerException(() -> FieldUtils.readStaticField(null));
     }
 
     @Test
@@ -763,7 +764,7 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testRemoveFinalModifierNullPointerException() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.removeFinalModifier(null));
+        assertNullPointerException(() -> FieldUtils.removeFinalModifier(null));
     }
 
     @Test
@@ -780,7 +781,7 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testRemoveFinalModifierWithAccessNullPointerException() {
-        assertThrows(NullPointerException.class, () -> FieldUtils.removeFinalModifier(null, true));
+        assertNullPointerException(() -> FieldUtils.removeFinalModifier(null, true));
     }
 
     @Test

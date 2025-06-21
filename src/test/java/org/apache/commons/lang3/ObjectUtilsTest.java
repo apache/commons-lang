@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -592,7 +593,7 @@ class ObjectUtilsTest extends AbstractLangTest {
         ObjectUtils.identityToString(appendable, i);
         assertEquals(expected, appendable.toString());
 
-        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((Appendable) null, "tmp"));
+        assertNullPointerException(() -> ObjectUtils.identityToString((Appendable) null, "tmp"));
 
         assertThrows(
                 NullPointerException.class,
@@ -621,9 +622,9 @@ class ObjectUtilsTest extends AbstractLangTest {
         ObjectUtils.identityToString(builder, i);
         assertEquals(expected, builder.toString());
 
-        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StrBuilder) null, "tmp"));
+        assertNullPointerException(() -> ObjectUtils.identityToString((StrBuilder) null, "tmp"));
 
-        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString(new StrBuilder(), null));
+        assertNullPointerException(() -> ObjectUtils.identityToString(new StrBuilder(), null));
     }
 
     @Test
@@ -642,8 +643,8 @@ class ObjectUtilsTest extends AbstractLangTest {
         ObjectUtils.identityToString(buffer, i);
         assertEquals(expected, buffer.toString());
 
-        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StringBuffer) null, "tmp"));
-        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString(new StringBuffer(), null));
+        assertNullPointerException(() -> ObjectUtils.identityToString((StringBuffer) null, "tmp"));
+        assertNullPointerException(() -> ObjectUtils.identityToString(new StringBuffer(), null));
     }
 
     @Test
@@ -668,12 +669,12 @@ class ObjectUtilsTest extends AbstractLangTest {
 
     @Test
     public  void testIdentityToStringStringBuilderNullStringBuilder() {
-        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString((StringBuilder) null, "tmp"));
+        assertNullPointerException(() -> ObjectUtils.identityToString((StringBuilder) null, "tmp"));
     }
 
     @Test
     void testIdentityToStringStringBuilderNullValue() {
-        assertThrows(NullPointerException.class, () -> ObjectUtils.identityToString(new StringBuilder(), null));
+        assertNullPointerException(() -> ObjectUtils.identityToString(new StringBuilder(), null));
     }
 
     @Test
@@ -768,7 +769,7 @@ class ObjectUtilsTest extends AbstractLangTest {
 
     @Test
     void testMedian_nullItems() {
-        assertThrows(NullPointerException.class, () -> ObjectUtils.median((String[]) null));
+        assertNullPointerException(() -> ObjectUtils.median((String[]) null));
     }
 
     @Test
@@ -862,8 +863,8 @@ class ObjectUtilsTest extends AbstractLangTest {
         assertEquals("foo", ObjectUtils.requireNonEmpty("foo"));
         assertEquals("foo", ObjectUtils.requireNonEmpty("foo", "foo"));
         //
-        assertThrows(NullPointerException.class, () -> ObjectUtils.requireNonEmpty(null));
-        assertThrows(NullPointerException.class, () -> ObjectUtils.requireNonEmpty(null, "foo"));
+        assertNullPointerException(() -> ObjectUtils.requireNonEmpty(null));
+        assertNullPointerException(() -> ObjectUtils.requireNonEmpty(null, "foo"));
         //
         assertThrows(IllegalArgumentException.class, () -> ObjectUtils.requireNonEmpty(""));
         assertThrows(IllegalArgumentException.class, () -> ObjectUtils.requireNonEmpty("", "foo"));

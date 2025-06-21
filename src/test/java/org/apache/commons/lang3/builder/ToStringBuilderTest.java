@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -260,7 +261,7 @@ class ToStringBuilderTest extends AbstractLangTest {
     @Test
     void testAppendAsObjectToStringNullPointerException() {
         final ToStringBuilder builder = new ToStringBuilder(1);
-        assertThrows(NullPointerException.class, () -> builder.appendAsObjectToString(null));
+        assertNullPointerException(() -> builder.appendAsObjectToString(null));
         builder.toString();
     }
 
@@ -1112,7 +1113,7 @@ class ToStringBuilderTest extends AbstractLangTest {
 
     @Test
     void testSetDefaultEx() {
-        assertThrows(NullPointerException.class, () -> ToStringBuilder.setDefaultStyle(null));
+        assertNullPointerException(() -> ToStringBuilder.setDefaultStyle(null));
     }
 
     @Test

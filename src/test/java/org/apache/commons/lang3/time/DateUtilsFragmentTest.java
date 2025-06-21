@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.time;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -369,20 +370,20 @@ class DateUtilsFragmentTest extends AbstractLangTest {
 
     @Test
     void testNullCalendar() {
-        assertThrows(NullPointerException.class, () -> DateUtils.getFragmentInMilliseconds((Calendar) null, Calendar.MILLISECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.getFragmentInSeconds((Calendar) null, Calendar.MILLISECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.getFragmentInMinutes((Calendar) null, Calendar.MILLISECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.getFragmentInHours((Calendar) null, Calendar.MILLISECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.getFragmentInDays((Calendar) null, Calendar.MILLISECOND));
+        assertNullPointerException(() -> DateUtils.getFragmentInMilliseconds((Calendar) null, Calendar.MILLISECOND));
+        assertNullPointerException(() -> DateUtils.getFragmentInSeconds((Calendar) null, Calendar.MILLISECOND));
+        assertNullPointerException(() -> DateUtils.getFragmentInMinutes((Calendar) null, Calendar.MILLISECOND));
+        assertNullPointerException(() -> DateUtils.getFragmentInHours((Calendar) null, Calendar.MILLISECOND));
+        assertNullPointerException(() -> DateUtils.getFragmentInDays((Calendar) null, Calendar.MILLISECOND));
     }
 
     @Test
     void testNullDate() {
-        assertThrows(NullPointerException.class, () -> DateUtils.getFragmentInMilliseconds((Date) null, Calendar.MILLISECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.getFragmentInSeconds((Date) null, Calendar.MILLISECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.getFragmentInMinutes((Date) null, Calendar.MILLISECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.getFragmentInHours((Date) null, Calendar.MILLISECOND));
-        assertThrows(NullPointerException.class, () -> DateUtils.getFragmentInDays((Date) null, Calendar.MILLISECOND));
+        assertNullPointerException(() -> DateUtils.getFragmentInMilliseconds((Date) null, Calendar.MILLISECOND));
+        assertNullPointerException(() -> DateUtils.getFragmentInSeconds((Date) null, Calendar.MILLISECOND));
+        assertNullPointerException(() -> DateUtils.getFragmentInMinutes((Date) null, Calendar.MILLISECOND));
+        assertNullPointerException(() -> DateUtils.getFragmentInHours((Date) null, Calendar.MILLISECOND));
+        assertNullPointerException(() -> DateUtils.getFragmentInDays((Date) null, Calendar.MILLISECOND));
     }
 
     @Test

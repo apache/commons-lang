@@ -17,8 +17,8 @@
 
 package org.apache.commons.lang3.function;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -51,7 +51,7 @@ class BooleanConsumerTest extends AbstractLangTest {
         final BooleanConsumer nop = BooleanConsumer.nop();
         nop.andThen(nop);
         // Documented in Javadoc edge-case.
-        assertThrows(NullPointerException.class, () -> nop.andThen(null));
+        assertNullPointerException(() -> nop.andThen(null));
 
         final AtomicBoolean aBool1 = new AtomicBoolean();
         final AtomicBoolean aBool2 = new AtomicBoolean();

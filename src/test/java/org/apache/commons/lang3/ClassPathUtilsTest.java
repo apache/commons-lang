@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -57,7 +58,7 @@ class ClassPathUtilsTest extends AbstractLangTest {
 
     @Test
     void testToFullyQualifiedNameClassNull() {
-        assertThrows(NullPointerException.class, () -> ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, null));
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, null));
     }
 
     @Test
@@ -104,7 +105,7 @@ class ClassPathUtilsTest extends AbstractLangTest {
 
     @Test
     void testToFullyQualifiedPathClassNull() {
-        assertThrows(NullPointerException.class, () -> ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, null));
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, null));
     }
 
     @Test

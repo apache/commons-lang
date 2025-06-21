@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -99,7 +100,7 @@ class RangeTest extends AbstractLangTest {
         assertFalse(rbstr.contains("houses"), "should not contain houses");
         assertFalse(rbstr.contains(""), "should not contain ''");
 
-        assertThrows(NullPointerException.class, () -> Range.between(null, null, lengthComp));
+        assertNullPointerException(() -> Range.between(null, null, lengthComp));
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -175,7 +176,7 @@ class RangeTest extends AbstractLangTest {
 
     @Test
     void testElementCompareTo() {
-        assertThrows(NullPointerException.class, () -> intRange.elementCompareTo(null));
+        assertNullPointerException(() -> intRange.elementCompareTo(null));
 
         assertEquals(-1, intRange.elementCompareTo(5));
         assertEquals(0, intRange.elementCompareTo(10));
@@ -208,7 +209,7 @@ class RangeTest extends AbstractLangTest {
 
     @Test
     void testFitNull() {
-        assertThrows(NullPointerException.class, () -> {
+        assertNullPointerException(() -> {
             intRange.fit(null);
         });
     }
@@ -414,7 +415,7 @@ class RangeTest extends AbstractLangTest {
         assertFalse(rbstr.contains("houses"), "should not contain houses");
         assertFalse(rbstr.contains(""), "should not contain ''");
 
-        assertThrows(NullPointerException.class, () -> Range.of(null, null, lengthComp));
+        assertNullPointerException(() -> Range.of(null, null, lengthComp));
     }
 
     @Test

@@ -16,10 +16,10 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -106,9 +106,9 @@ class MutablePairTest extends AbstractLangTest {
 
     @Test
     void testOfNonNull() {
-        assertThrows(NullPointerException.class, () -> MutablePair.ofNonNull(null, null));
-        assertThrows(NullPointerException.class, () -> MutablePair.ofNonNull(null, "x"));
-        assertThrows(NullPointerException.class, () -> MutablePair.ofNonNull("x", null));
+        assertNullPointerException(() -> MutablePair.ofNonNull(null, null));
+        assertNullPointerException(() -> MutablePair.ofNonNull(null, "x"));
+        assertNullPointerException(() -> MutablePair.ofNonNull("x", null));
         final MutablePair<String, String> pair = MutablePair.ofNonNull("x", "y");
         assertEquals("x", pair.left);
         assertEquals("y", pair.right);
