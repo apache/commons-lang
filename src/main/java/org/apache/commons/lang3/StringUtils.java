@@ -141,6 +141,11 @@ public class StringUtils {
     // (not sure who tested this)
 
     /**
+     * This is a 3 character version of an ellipsis. There is a Unicode character for a HORIZONTAL ELLIPSIS, U+2026 … this isn't it.
+     */
+    private static final String ELLIPSIS3 = "...";
+
+    /**
      * A String for a space character.
      *
      * @since 3.2
@@ -224,7 +229,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String abbreviate(final String str, final int maxWidth) {
-        return abbreviate(str, "...", 0, maxWidth);
+        return abbreviate(str, ELLIPSIS3, 0, maxWidth);
     }
 
     /**
@@ -263,7 +268,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String abbreviate(final String str, final int offset, final int maxWidth) {
-        return abbreviate(str, "...", offset, maxWidth);
+        return abbreviate(str, ELLIPSIS3, offset, maxWidth);
     }
 
     /**
