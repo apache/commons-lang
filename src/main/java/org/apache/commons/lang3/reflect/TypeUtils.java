@@ -646,14 +646,11 @@ public class TypeUtils {
      * {@link TypeVariable#getBounds()} passed into {@link #normalizeUpperBounds}.
      *
      * @param typeVariable the subject type variable, not {@code null}
-     * @return a non-empty array containing the bounds of the type variable.
+     * @return a non-empty array containing the bounds of the type variable, which could be {@link Object}.
      * @throws NullPointerException if {@code typeVariable} is {@code null}
      */
     public static Type[] getImplicitBounds(final TypeVariable<?> typeVariable) {
-        Objects.requireNonNull(typeVariable, "typeVariable");
-        final Type[] bounds = typeVariable.getBounds();
-
-        return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds);
+        return normalizeUpperToObject(Objects.requireNonNull(typeVariable, "typeVariable").getBounds());
     }
 
     /**
@@ -661,13 +658,12 @@ public class TypeUtils {
      * of {@link WildcardType#getLowerBounds()}.
      *
      * @param wildcardType the subject wildcard type, not {@code null}
-     * @return a non-empty array containing the lower bounds of the wildcard type.
+     * @return a non-empty array containing the lower bounds of the wildcard type, which could be null.
      * @throws NullPointerException if {@code wildcardType} is {@code null}
      */
     public static Type[] getImplicitLowerBounds(final WildcardType wildcardType) {
         Objects.requireNonNull(wildcardType, "wildcardType");
         final Type[] bounds = wildcardType.getLowerBounds();
-
         return bounds.length == 0 ? new Type[] { null } : bounds;
     }
 
@@ -680,10 +676,7 @@ public class TypeUtils {
      * @throws NullPointerException if {@code wildcardType} is {@code null}
      */
     public static Type[] getImplicitUpperBounds(final WildcardType wildcardType) {
-        Objects.requireNonNull(wildcardType, "wildcardType");
-        final Type[] bounds = wildcardType.getUpperBounds();
-
-        return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds);
+        return normalizeUpperToObject(Objects.requireNonNull(wildcardType, "wildcardType").getUpperBounds());
     }
 
     /**
@@ -1370,6 +1363,17 @@ public class TypeUtils {
             }
         }
         return types.toArray(ArrayUtils.EMPTY_TYPE_ARRAY);
+    }
+
+    /**
+     * Delegates to {@link #normalizeUpperBounds(Type[])} unless {@code bounds} is empty in which case return an array with the element {@code Object.class}.
+     *
+     * @param bounds bounds an array of types representing the upper bounds of either {@link WildcardType} or {@link TypeVariable}, not {@code null}.
+     * @return result from {@link #normalizeUpperBounds(Type[])} unless {@code bounds} is empty in which case return an array with the element
+     *         {@code Object.class}.
+     */
+    private static Type[] normalizeUpperToObject(final Type[] bounds) {
+        return bounds.length == 0 ? new Type[] { Object.class } : normalizeUpperBounds(bounds);
     }
 
     /**
