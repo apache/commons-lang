@@ -33,8 +33,9 @@ import java.lang.reflect.Modifier;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -3252,39 +3253,39 @@ public class StringUtilsTest extends AbstractLangTest {
         /**
          * Resize 1 consecutive characters in a string to a specified length.
          */
-        assertEquals("1 1 1    1", StringUtils.repeatChars("11111 111111 111111    111111", Collections.singletonList('1'), 1, true));
-        assertEquals("aabbbcc", StringUtils.repeatChars("aaabbbcc", Collections.singletonList('a'), 2, true));
-        assertEquals("1", StringUtils.repeatChars("111111", Collections.singletonList('1'), null, true));
-        assertEquals(".$$$42.1424.1.2.5.12.$!@.$!@%$.", StringUtils.repeatChars(".....$$$42....1424.1.....2.5.12..$!@..$!@%$...", Arrays.asList('.'), 1, true));
-        assertEquals(".$$$42.1424.1.2.5.12.$!@.$!@%$.", StringUtils.repeatChars(".....$$$42....1424.1.....2.5.12..$!@..$!@%$...", Arrays.asList('.'), 1, false));
-        assertEquals("1ewjaoij1 a1w1e1o1iw1 1213121 1", StringUtils.repeatChars("1ewjaoij1 a11w11111e11o11iw11 12113121 1", Arrays.asList('1'), 1, true));
+        assertEquals("1 1 1    1",StringUtils.repeatChars("11111 111111 111111    111111",new HashSet<>(Collections.singletonList('1')),1,true));
+        assertEquals("aabbbcc",StringUtils.repeatChars("aaabbbcc",new HashSet<>(Collections.singletonList('a')),2,true));
+        assertEquals("1",StringUtils.repeatChars("111111",new HashSet<>(Collections.singletonList('1')),null,true));
+        assertEquals(".$$$42.1424.1.2.5.12.$!@.$!@%$.",StringUtils.repeatChars(".....$$$42....1424.1.....2.5.12..$!@..$!@%$...",new HashSet<>(Arrays.asList('.')),1,true));
+        assertEquals(".$$$42.1424.1.2.5.12.$!@.$!@%$.",StringUtils.repeatChars(".....$$$42....1424.1.....2.5.12..$!@..$!@%$...",new HashSet<>(Arrays.asList('.')),1,false));
+        assertEquals("1ewjaoij1 a1w1e1o1iw1 1213121 1",StringUtils.repeatChars("1ewjaoij1 a11w11111e11o11iw11 12113121 1",new HashSet<>(Arrays.asList('1')),1,true));
         /**
          * Resize to 2 repetitions with multiple consecutive characters.
          */
-        assertEquals("11 11 11    11", StringUtils.repeatChars("11111 111111 111111    111111", Collections.singletonList('1'), 2, true));
-        assertEquals("11 22 33   44", StringUtils.repeatChars("11111 222222 333333   444", Arrays.asList('1','2','3','4'), 2, true));
-        assertEquals("11 22342422 33   44", StringUtils.repeatChars("11111 223424222 333333   444", Arrays.asList('1','2','3','4'), 2, true));
-        assertEquals("1234", StringUtils.repeatChars("1234", Arrays.asList('1','2','3','4'), 2, true));
-        assertEquals("11234", StringUtils.repeatChars("111111234", Arrays.asList('1','2','3','4'), 2, true));
-        assertEquals("23411111", StringUtils.repeatChars("23411", Arrays.asList('1','2','3','4'), 5, true));
+        assertEquals("11 11 11    11",StringUtils.repeatChars("11111 111111 111111    111111",new HashSet<>(Collections.singletonList('1')),2,true));
+        assertEquals("11 22 33   44",StringUtils.repeatChars("11111 222222 333333   444",new HashSet<>(Arrays.asList('1','2','3','4')),2,true));
+        assertEquals("11 22342422 33   44",StringUtils.repeatChars("11111 223424222 333333   444",new HashSet<>(Arrays.asList('1','2','3','4')),2,true));
+        assertEquals("1234",StringUtils.repeatChars("1234",new HashSet<>(Arrays.asList('1','2','3','4')),2,true));
+        assertEquals("11234",StringUtils.repeatChars("111111234",new HashSet<>(Arrays.asList('1','2','3','4')),2,true));
+        assertEquals("23411111",StringUtils.repeatChars("23411",new HashSet<>(Arrays.asList('1','2','3','4')),5,true));
 
         // resizes whitespaces trimming
         assertNull(StringUtils.ensureOneWhitespace(null));
-        assertEquals("", StringUtils.ensureOneWhitespace(""));
-        assertEquals(" ", StringUtils.ensureOneWhitespace("   "));
-        assertEquals("Hello", StringUtils.ensureOneWhitespace("Hello"));
-        assertEquals("Hello, World!", StringUtils.ensureOneWhitespace("Hello, World!"));
-        assertEquals("Hello, World!", StringUtils.ensureOneWhitespace("Hello,   World!"));
-        assertEquals("a a ", StringUtils.ensureOneWhitespace("a  a       "));
-        assertEquals(" a c b ncw a c j j j j j", StringUtils.ensureOneWhitespace("  a   c b  ncw   a  c j j j j      j"));
+        assertEquals("",StringUtils.ensureOneWhitespace(""));
+        assertEquals(" ",StringUtils.ensureOneWhitespace("   "));
+        assertEquals("Hello",StringUtils.ensureOneWhitespace("Hello"));
+        assertEquals("Hello,World!",StringUtils.ensureOneWhitespace("Hello,World!"));
+        assertEquals("Hello,World!",StringUtils.ensureOneWhitespace("Hello,  World!"));
+        assertEquals("a a ",StringUtils.ensureOneWhitespace("a  a       "));
+        assertEquals(" a c b ncw a c j j j j j",StringUtils.ensureOneWhitespace("  a   c b  ncw   a  c j j j j      j"));
         // resizes whitespaces without trimming
         assertNull(StringUtils.ensureOneWhitespace(null));
-        assertEquals("", StringUtils.ensureOneWhitespace(""));
-        assertEquals(" ", StringUtils.ensureOneWhitespace("   "));
-        assertEquals("Hello", StringUtils.ensureOneWhitespace("Hello"));
-        assertEquals(" a b c ", StringUtils.ensureOneWhitespace("  a   b  c  "));
-        assertEquals(" Hello, World! ", StringUtils.ensureOneWhitespace(" Hello,    World! "));
-        assertEquals("Hello, World!", StringUtils.ensureOneWhitespace("Hello,   World!"));
-        assertEquals(" a a ", StringUtils.ensureOneWhitespace(" a  a       "));
+        assertEquals("",StringUtils.ensureOneWhitespace(""));
+        assertEquals(" ",StringUtils.ensureOneWhitespace("   "));
+        assertEquals("Hello",StringUtils.ensureOneWhitespace("Hello"));
+        assertEquals(" a b c ",StringUtils.ensureOneWhitespace("  a   b  c  "));
+        assertEquals(" Hello,World! ",StringUtils.ensureOneWhitespace(" Hello,   World! "));
+        assertEquals("Hello,World!",StringUtils.ensureOneWhitespace("Hello,  World!"));
+        assertEquals(" a a ",StringUtils.ensureOneWhitespace(" a  a       "));
     }
 }

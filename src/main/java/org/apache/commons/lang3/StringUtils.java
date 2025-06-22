@@ -30,7 +30,6 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.Collections;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.stream.LangCollectors;
@@ -9288,14 +9287,15 @@ public class StringUtils {
         return builder.toString();
     }
 
-    public static String repeatChars(String str, List<Character> appointedChars, Integer repetitions, boolean isResizeOnlyConsecutive) {
+    public static String repeatChars(String str, Set<Character> appointedChars, Integer repetitions, boolean isResizeOnlyConsecutive) {
         if (str == null || str.isEmpty()) {
             return str;
         }
         final int xTimes = repetitions != null ? repetitions : 1;
         final int len = str.length();
-        //TODO dynamically grow
-        final char[] collector = new char[len * 2];
+        final int nbrOfCharsToResize = appointedChars.size();
+        final int newOutputMaxPossibleLen = (nbrOfCharsToResize * xTimes) + len;
+        final char[] collector = new char[newOutputMaxPossibleLen];
         int collectorIdx = 0;
         for (int i = 0; i < len; i++) {
             final char current = str.charAt(i);
@@ -9321,7 +9321,7 @@ public class StringUtils {
     }
 
     public static String ensureOneWhitespace(String str) {
-        return repeatChars(str, Collections.singletonList(' '), 1, true);
+        return repeatChars(str, new HashSet<>(Collections.singletonList(' ')), 1, true);
     }
 
 
