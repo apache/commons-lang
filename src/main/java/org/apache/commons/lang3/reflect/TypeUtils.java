@@ -695,16 +695,14 @@ public class TypeUtils {
      */
     private static Class<?> getRawType(final ParameterizedType parameterizedType) {
         final Type rawType = parameterizedType.getRawType();
-
         // check if raw type is a Class object
         // not currently necessary, but since the return type is Type instead of
         // Class, there's enough reason to believe that future versions of Java
         // may return other Type implementations. And type-safety checking is
         // rarely a bad idea.
         if (!(rawType instanceof Class<?>)) {
-            throw new IllegalStateException("Wait... What!? Type of rawType: " + rawType);
+            throw new IllegalStateException("Type of rawType: " + rawType);
         }
-
         return (Class<?>) rawType;
     }
 
