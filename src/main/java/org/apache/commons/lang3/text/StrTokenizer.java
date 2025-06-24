@@ -96,28 +96,25 @@ import org.apache.commons.lang3.StringUtils;
 @Deprecated
 public class StrTokenizer implements ListIterator<String>, Cloneable {
 
-    private static final StrTokenizer CSV_TOKENIZER_PROTOTYPE;
-    private static final StrTokenizer TSV_TOKENIZER_PROTOTYPE;
-    static {
-        // @formatter:off
-        CSV_TOKENIZER_PROTOTYPE = new StrTokenizer()
-                .setDelimiterMatcher(StrMatcher.commaMatcher())
-                .setQuoteMatcher(StrMatcher.doubleQuoteMatcher())
-                .setIgnoredMatcher(StrMatcher.noneMatcher())
-                .setTrimmerMatcher(StrMatcher.trimMatcher())
-                .setEmptyTokenAsNull(false)
-                .setIgnoreEmptyTokens(false);
-        // @formatter:on
-        // @formatter:off
-        TSV_TOKENIZER_PROTOTYPE = new StrTokenizer()
-                .setDelimiterMatcher(StrMatcher.tabMatcher())
-                .setQuoteMatcher(StrMatcher.doubleQuoteMatcher())
-                .setIgnoredMatcher(StrMatcher.noneMatcher())
-                .setTrimmerMatcher(StrMatcher.trimMatcher())
-                .setEmptyTokenAsNull(false)
-                .setIgnoreEmptyTokens(false);
-        // @formatter:on
-    }
+    // @formatter:off
+    private static final StrTokenizer CSV_TOKENIZER_PROTOTYPE = new StrTokenizer()
+            .setDelimiterMatcher(StrMatcher.commaMatcher())
+            .setQuoteMatcher(StrMatcher.doubleQuoteMatcher())
+            .setIgnoredMatcher(StrMatcher.noneMatcher())
+            .setTrimmerMatcher(StrMatcher.trimMatcher())
+            .setEmptyTokenAsNull(false)
+            .setIgnoreEmptyTokens(false);
+    // @formatter:on
+
+    // @formatter:off
+    private static final StrTokenizer TSV_TOKENIZER_PROTOTYPE = new StrTokenizer()
+            .setDelimiterMatcher(StrMatcher.tabMatcher())
+            .setQuoteMatcher(StrMatcher.doubleQuoteMatcher())
+            .setIgnoredMatcher(StrMatcher.noneMatcher())
+            .setTrimmerMatcher(StrMatcher.trimMatcher())
+            .setEmptyTokenAsNull(false)
+            .setIgnoreEmptyTokens(false);
+    // @formatter:on
 
     /**
      * Returns a clone of {@code CSV_TOKENIZER_PROTOTYPE}.
