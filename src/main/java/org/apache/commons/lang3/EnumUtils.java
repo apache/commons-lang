@@ -28,6 +28,8 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.stream.Streams;
+
 /**
  * Utility library to provide helper methods for Java enums.
  *
@@ -68,8 +70,8 @@ public class EnumUtils {
      */
     private static <E extends Enum<E>> Class<E> checkBitVectorable(final Class<E> enumClass) {
         final E[] constants = asEnum(enumClass).getEnumConstants();
-        Validate.isTrue(constants.length <= Long.SIZE, CANNOT_STORE_S_S_VALUES_IN_S_BITS,
-            Integer.valueOf(constants.length), enumClass.getSimpleName(), Integer.valueOf(Long.SIZE));
+        Validate.isTrue(constants.length <= Long.SIZE, CANNOT_STORE_S_S_VALUES_IN_S_BITS, Integer.valueOf(constants.length), enumClass.getSimpleName(),
+                Integer.valueOf(Long.SIZE));
         return enumClass;
     }
 
@@ -298,7 +300,7 @@ public class EnumUtils {
      * @since 3.13.0
      */
     public static <E extends Enum<E>, K> Map<K, E> getEnumMap(final Class<E> enumClass, final Function<E, K> keyFunction) {
-        return Stream.of(enumClass.getEnumConstants()).collect(Collectors.toMap(keyFunction::apply, Function.identity()));
+        return stream(enumClass).collect(Collectors.toMap(keyFunction::apply, Function.identity()));
     }
 
     /**
@@ -341,7 +343,7 @@ public class EnumUtils {
         if (isEnum(enumClass)) {
             return defaultEnum;
         }
-        return Stream.of(enumClass.getEnumConstants()).filter(e -> value == toIntFunction.applyAsInt(e)).findFirst().orElse(defaultEnum);
+        return stream(enumClass).filter(e -> value == toIntFunction.applyAsInt(e)).findFirst().orElse(defaultEnum);
     }
 
     /**
@@ -363,7 +365,7 @@ public class EnumUtils {
             if (enumName == null || !enumClass.isEnum()) {
                 return defaultEnum;
             }
-            return Stream.of(enumClass.getEnumConstants()).filter(e -> enumName.equalsIgnoreCase(stringFunction.apply(e))).findFirst().orElse(defaultEnum);
+            return stream(enumClass).filter(e -> enumName.equalsIgnoreCase(stringFunction.apply(e))).findFirst().orElse(defaultEnum);
         }
 
     private static <E extends Enum<E>> boolean isEnum(final Class<E> enumClass) {
@@ -416,8 +418,7 @@ public class EnumUtils {
      * @since 3.0.1
      */
     public static <E extends Enum<E>> EnumSet<E> processBitVector(final Class<E> enumClass, final long value) {
-        checkBitVectorable(enumClass).getEnumConstants();
-        return processBitVectors(enumClass, value);
+        return processBitVectors(checkBitVectorable(enumClass), value);
     }
 
     /**
@@ -437,13 +438,26 @@ public class EnumUtils {
         final EnumSet<E> results = EnumSet.noneOf(asEnum(enumClass));
         final long[] lvalues = ArrayUtils.clone(Objects.requireNonNull(values, "values"));
         ArrayUtils.reverse(lvalues);
-        for (final E constant : enumClass.getEnumConstants()) {
+        stream(enumClass).forEach(constant -> {
             final int block = constant.ordinal() / Long.SIZE;
             if (block < lvalues.length && (lvalues[block] & 1L << constant.ordinal() % Long.SIZE) != 0) {
                 results.add(constant);
             }
-        }
+        });
         return results;
+    }
+
+    /**
+     * Returns a sequential ordered stream whose elements are the given class' enum values.
+     *
+     * @param <T>   the type of stream elements.
+     * @param clazz the class containing the enum values.
+     * @return the new stream.
+     * @since 3.18.0
+     * @see Class#getEnumConstants()
+     */
+    public static <T> Stream<T> stream(final Class<T> clazz) {
+        return Streams.of(clazz.getEnumConstants());
     }
 
     /**

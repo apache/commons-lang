@@ -31,6 +31,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
 
@@ -604,6 +605,13 @@ class EnumUtilsTest extends AbstractLangTest {
     void testProcessBitVectors_nullClass() {
         final Class<Traffic> empty = null;
         assertNullPointerException(() -> EnumUtils.processBitVectors(empty, 0L));
+    }
+
+    @Test
+    void testStream() {
+        assertEquals(7, EnumUtils.stream(TimeUnit.class).count());
+        Assertions.assertArrayEquals(TimeUnit.values(), EnumUtils.stream(TimeUnit.class).toArray(TimeUnit[]::new));
+        assertEquals(0, EnumUtils.stream(Object.class).count());
     }
 
 }
