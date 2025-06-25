@@ -98,6 +98,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix edge-case NullPointerException in org.apache.commons.lang3.SystemUtils.IS_OS_ANDROID.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix edge-case NullPointerException in org.apache.commons.lang3.SystemUtils.isJavaVersionAtLeast(JavaVersion).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix edge-case NullPointerException in org.apache.commons.lang3.SystemUtils.isJavaVersionAtMost(JavaVersion).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Return the default enum if a SecurityException is caught in getEnumSystemProperty().</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
