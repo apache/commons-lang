@@ -24,10 +24,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import java.util.function.Supplier;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.ThrowingSupplier;
+import org.junitpioneer.jupiter.SetSystemProperty;
+import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
 
 class SystemPropertiesTest {
+
+    private static final String STRING_SPACE_1 = " ";
+    private static final String STRING_TAB_1 = "\t";
 
     private void basicKeyCheck(final String key) {
         assertNotNull(key);
@@ -693,6 +700,19 @@ class SystemPropertiesTest {
     @Test
     void testGetPathSeparator() {
         assertNotNull(SystemProperties.getPathSeparator());
+    }
+
+    @Test
+    @SetSystemProperties({ @SetSystemProperty(key = STRING_SPACE_1, value = "value1"), @SetSystemProperty(key = STRING_TAB_1, value = "value2") })
+    void testGetPropertyStringSupplier() {
+        assertNull(SystemProperties.getProperty(null, (Supplier<String>) null));
+        assertNull(SystemProperties.getProperty(StringUtils.EMPTY, (Supplier<String>) null));
+        assertEquals("value1", SystemProperties.getProperty(STRING_SPACE_1, (Supplier<String>) null));
+        assertEquals("value2", SystemProperties.getProperty("\t", (Supplier<String>) null));
+        assertEquals("x", SystemProperties.getProperty(null, () -> "x"));
+        assertEquals("x", SystemProperties.getProperty(StringUtils.EMPTY, () -> "x"));
+        assertEquals("value1", SystemProperties.getProperty(STRING_SPACE_1, () -> "v"));
+        assertEquals("value2", SystemProperties.getProperty("\t", () -> "v"));
     }
 
     @Test
