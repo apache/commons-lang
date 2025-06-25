@@ -93,46 +93,46 @@ public class ClassUtils {
     /**
      * Maps names of primitives to their corresponding primitive {@link Class}es.
      */
-    private static final Map<String, Class<?>> namePrimitiveMap = new HashMap<>();
+    private static final Map<String, Class<?>> NAME_PRIMITIVE_MAP = new HashMap<>();
 
     static {
-        namePrimitiveMap.put(Boolean.TYPE.getName(), Boolean.TYPE);
-        namePrimitiveMap.put(Byte.TYPE.getName(), Byte.TYPE);
-        namePrimitiveMap.put(Character.TYPE.getName(), Character.TYPE);
-        namePrimitiveMap.put(Double.TYPE.getName(), Double.TYPE);
-        namePrimitiveMap.put(Float.TYPE.getName(), Float.TYPE);
-        namePrimitiveMap.put(Integer.TYPE.getName(), Integer.TYPE);
-        namePrimitiveMap.put(Long.TYPE.getName(), Long.TYPE);
-        namePrimitiveMap.put(Short.TYPE.getName(), Short.TYPE);
-        namePrimitiveMap.put(Void.TYPE.getName(), Void.TYPE);
+        NAME_PRIMITIVE_MAP.put(Boolean.TYPE.getName(), Boolean.TYPE);
+        NAME_PRIMITIVE_MAP.put(Byte.TYPE.getName(), Byte.TYPE);
+        NAME_PRIMITIVE_MAP.put(Character.TYPE.getName(), Character.TYPE);
+        NAME_PRIMITIVE_MAP.put(Double.TYPE.getName(), Double.TYPE);
+        NAME_PRIMITIVE_MAP.put(Float.TYPE.getName(), Float.TYPE);
+        NAME_PRIMITIVE_MAP.put(Integer.TYPE.getName(), Integer.TYPE);
+        NAME_PRIMITIVE_MAP.put(Long.TYPE.getName(), Long.TYPE);
+        NAME_PRIMITIVE_MAP.put(Short.TYPE.getName(), Short.TYPE);
+        NAME_PRIMITIVE_MAP.put(Void.TYPE.getName(), Void.TYPE);
     }
 
     /**
      * Maps primitive {@link Class}es to their corresponding wrapper {@link Class}.
      */
-    private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<>();
+    private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_MAP = new HashMap<>();
 
     static {
-        primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
-        primitiveWrapperMap.put(Byte.TYPE, Byte.class);
-        primitiveWrapperMap.put(Character.TYPE, Character.class);
-        primitiveWrapperMap.put(Short.TYPE, Short.class);
-        primitiveWrapperMap.put(Integer.TYPE, Integer.class);
-        primitiveWrapperMap.put(Long.TYPE, Long.class);
-        primitiveWrapperMap.put(Double.TYPE, Double.class);
-        primitiveWrapperMap.put(Float.TYPE, Float.class);
-        primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
+        PRIMITIVE_WRAPPER_MAP.put(Boolean.TYPE, Boolean.class);
+        PRIMITIVE_WRAPPER_MAP.put(Byte.TYPE, Byte.class);
+        PRIMITIVE_WRAPPER_MAP.put(Character.TYPE, Character.class);
+        PRIMITIVE_WRAPPER_MAP.put(Short.TYPE, Short.class);
+        PRIMITIVE_WRAPPER_MAP.put(Integer.TYPE, Integer.class);
+        PRIMITIVE_WRAPPER_MAP.put(Long.TYPE, Long.class);
+        PRIMITIVE_WRAPPER_MAP.put(Double.TYPE, Double.class);
+        PRIMITIVE_WRAPPER_MAP.put(Float.TYPE, Float.class);
+        PRIMITIVE_WRAPPER_MAP.put(Void.TYPE, Void.TYPE);
     }
 
     /**
      * Maps wrapper {@link Class}es to their corresponding primitive types.
      */
-    private static final Map<Class<?>, Class<?>> wrapperPrimitiveMap = new HashMap<>();
+    private static final Map<Class<?>, Class<?>> WRAPPER_PRIMITIVE_MAP = new HashMap<>();
 
     static {
-        primitiveWrapperMap.forEach((primitiveClass, wrapperClass) -> {
+        PRIMITIVE_WRAPPER_MAP.forEach((primitiveClass, wrapperClass) -> {
             if (!primitiveClass.equals(wrapperClass)) {
-                wrapperPrimitiveMap.put(wrapperClass, primitiveClass);
+                WRAPPER_PRIMITIVE_MAP.put(wrapperClass, primitiveClass);
             }
         });
     }
@@ -140,12 +140,12 @@ public class ClassUtils {
     /**
      * Maps a primitive class name to its corresponding abbreviation used in array class names.
      */
-    private static final Map<String, String> abbreviationMap;
+    private static final Map<String, String> ABBREVIATION_MAP;
 
     /**
      * Maps an abbreviation used in array class names to corresponding primitive class name.
      */
-    private static final Map<String, String> reverseAbbreviationMap;
+    private static final Map<String, String> REVERSE_ABBREVIATION_MAP;
 
     /** Feed abbreviation maps. */
     static {
@@ -158,8 +158,8 @@ public class ClassUtils {
         map.put(Byte.TYPE.getName(), "B");
         map.put(Double.TYPE.getName(), "D");
         map.put(Character.TYPE.getName(), "C");
-        abbreviationMap = Collections.unmodifiableMap(map);
-        reverseAbbreviationMap = Collections.unmodifiableMap(map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey)));
+        ABBREVIATION_MAP = Collections.unmodifiableMap(map);
+        REVERSE_ABBREVIATION_MAP = Collections.unmodifiableMap(map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey)));
     }
 
     /**
@@ -496,7 +496,7 @@ public class ClassUtils {
         if (className.startsWith("L")) {
             className = className.substring(1, className.endsWith(";") ? className.length() - 1 : className.length());
         } else if (!className.isEmpty()) {
-            className = reverseAbbreviationMap.get(className.substring(0, 1));
+            className = REVERSE_ABBREVIATION_MAP.get(className.substring(0, 1));
         }
         final StringBuilder canonicalClassNameBuffer = new StringBuilder(className.length() + dim * 2);
         canonicalClassNameBuffer.append(className);
@@ -761,7 +761,7 @@ public class ClassUtils {
      * @return the primitive class.
      */
     static Class<?> getPrimitiveClass(final String className) {
-        return namePrimitiveMap.get(className);
+        return NAME_PRIMITIVE_MAP.get(className);
     }
 
     /**
@@ -1023,8 +1023,8 @@ public class ClassUtils {
                 className = className.substring(1, className.length() - 1);
             }
 
-            if (reverseAbbreviationMap.containsKey(className)) {
-                className = reverseAbbreviationMap.get(className);
+            if (REVERSE_ABBREVIATION_MAP.containsKey(className)) {
+                className = REVERSE_ABBREVIATION_MAP.get(className);
             }
         }
 
@@ -1441,7 +1441,7 @@ public class ClassUtils {
      * @since 3.1
      */
     public static boolean isPrimitiveWrapper(final Class<?> type) {
-        return wrapperPrimitiveMap.containsKey(type);
+        return WRAPPER_PRIMITIVE_MAP.containsKey(type);
     }
 
     /**
@@ -1491,7 +1491,7 @@ public class ClassUtils {
     public static Class<?> primitiveToWrapper(final Class<?> cls) {
         Class<?> convertedClass = cls;
         if (cls != null && cls.isPrimitive()) {
-            convertedClass = primitiveWrapperMap.get(cls);
+            convertedClass = PRIMITIVE_WRAPPER_MAP.get(cls);
         }
         return convertedClass;
     }
@@ -1513,7 +1513,7 @@ public class ClassUtils {
                 canonicalName = canonicalName.substring(0, canonicalName.length() - 2);
                 classNameBuffer.append("[");
             }
-            final String abbreviation = abbreviationMap.get(canonicalName);
+            final String abbreviation = ABBREVIATION_MAP.get(canonicalName);
             if (abbreviation != null) {
                 classNameBuffer.append(abbreviation);
             } else {
@@ -1615,7 +1615,7 @@ public class ClassUtils {
      * @since 2.4
      */
     public static Class<?> wrapperToPrimitive(final Class<?> cls) {
-        return wrapperPrimitiveMap.get(cls);
+        return WRAPPER_PRIMITIVE_MAP.get(cls);
     }
 
     /**
