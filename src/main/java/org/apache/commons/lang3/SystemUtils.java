@@ -2281,7 +2281,7 @@ public class SystemUtils {
      * @return {@code true} if the actual version is equal or greater than the required version
      */
     public static boolean isJavaVersionAtLeast(final JavaVersion requiredVersion) {
-        return JAVA_SPECIFICATION_VERSION_AS_ENUM.atLeast(requiredVersion);
+        return JAVA_SPECIFICATION_VERSION_AS_ENUM != null && JAVA_SPECIFICATION_VERSION_AS_ENUM.atLeast(requiredVersion);
     }
 
     /**
@@ -2295,7 +2295,7 @@ public class SystemUtils {
      * @since 3.9
      */
     public static boolean isJavaVersionAtMost(final JavaVersion requiredVersion) {
-        return JAVA_SPECIFICATION_VERSION_AS_ENUM.atMost(requiredVersion);
+        return JAVA_SPECIFICATION_VERSION_AS_ENUM != null && JAVA_SPECIFICATION_VERSION_AS_ENUM.atMost(requiredVersion);
     }
 
     /**
