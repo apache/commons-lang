@@ -158,7 +158,7 @@ class LocaleUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Pass in a valid language, test toLocale.
+     * Pass in a valid locale, test toLocale.
      *
      * @param localeString to pass to toLocale()
      * @param language of the resulting Locale
@@ -174,7 +174,23 @@ class LocaleUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Pass in a valid language, test toLocale.
+     * Pass in a valid language tag, test toLocale.
+     *
+     * @param localeString to pass to toLocale()
+     * @param language of the resulting Locale
+     * @param country of the resulting Locale
+     */
+    private static void assertValidToLocaleIncludingDash(final String localeString, final String language, final String country) {
+        final Locale locale = LocaleUtils.toLocale(localeString, true);
+        assertNotNull(locale, "valid locale");
+        assertEquals(language, locale.getLanguage());
+        assertEquals(country, locale.getCountry());
+        //variant is empty
+        assertTrue(StringUtils.isEmpty(locale.getVariant()));
+    }
+
+    /**
+     * Pass in a valid locale, test toLocale.
      *
      * @param localeString to pass to toLocale()
      * @param language of the resulting Locale
@@ -191,6 +207,23 @@ class LocaleUtilsTest extends AbstractLangTest {
         assertEquals(variant, locale.getVariant());
     }
 
+    /**
+     * Pass in a valid language tag, test toLocale.
+     *
+     * @param localeString to pass to toLocale()
+     * @param language of the resulting Locale
+     * @param country of the resulting Locale
+     * @param variant of the resulting Locale
+     */
+    private static void assertValidToLocaleIncludingDash(
+            final String localeString, final String language,
+            final String country, final String variant) {
+        final Locale locale = LocaleUtils.toLocale(localeString, true);
+        assertNotNull(locale, "valid locale");
+        assertEquals(language, locale.getLanguage());
+        assertEquals(country, locale.getCountry());
+        assertEquals(variant, locale.getVariant());
+    }
     @BeforeEach
     public void setUp() {
         // Testing #LANG-304. Must be called before availableLocaleSet is called.
@@ -497,10 +530,14 @@ class LocaleUtilsTest extends AbstractLangTest {
     @Test
     void testToLocale_2Part() {
         assertValidToLocale("us_EN", "us", "EN");
-        assertValidToLocale("us-EN", "us", "EN");
+        assertValidToLocaleIncludingDash("us-EN", "us", "EN");
         //valid though doesn't exist
         assertValidToLocale("us_ZH", "us", "ZH");
 
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("us-EN"),
+                "Should fail dash not supported");
         assertThrows(
                 IllegalArgumentException.class,
                 () -> LocaleUtils.toLocale("us_En"),
@@ -529,7 +566,7 @@ class LocaleUtilsTest extends AbstractLangTest {
     @Test
     void testToLocale_3Part() {
         assertValidToLocale("us_EN_A", "us", "EN", "A");
-        assertValidToLocale("us-EN-A", "us", "EN", "A");
+        assertValidToLocaleIncludingDash("us-EN-A", "us", "EN", "A");
         // this isn't pretty, but was caused by a jdk bug it seems
         // https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4210525
         if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
@@ -539,6 +576,7 @@ class LocaleUtilsTest extends AbstractLangTest {
             assertValidToLocale("us_EN_a", "us", "EN", "A");
             assertValidToLocale("us_EN_SFsafdFDsdfF", "us", "EN", "SFSAFDFDSDFF");
         }
+        assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale("us-EN-A"), "Should fail as dash is not supported");
         assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale("us_EN-a"), "Should fail as no consistent delimiter");
         assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale("uu_UU_"), "Must be 3, 5 or 7+ in length");
         // LANG-1741
