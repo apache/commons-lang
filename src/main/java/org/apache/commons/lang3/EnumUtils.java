@@ -192,10 +192,10 @@ public class EnumUtils {
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name.</p>
      *
-     * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
-     * @param enumName   the enum name, null returns null
-     * @return the enum, null if not found
+     * @param <E> the type of the enumeration.
+     * @param enumClass  the class of the enum to query, not null.
+     * @param enumName   the enum name, null returns null.
+     * @return the enum, null if not found.
      */
     public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName) {
         return getEnum(enumClass, enumName, null);
@@ -207,20 +207,20 @@ public class EnumUtils {
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name.</p>
      *
-     * @param <E> the type of the enumeration
-     * @param enumClass   the class of the enum to query, not null
-     * @param enumName    the enum name, null returns default enum
-     * @param defaultEnum the default enum
-     * @return the enum, default enum if not found
+     * @param <E> the type of the enumeration.
+     * @param enumClass   the class of the enum to query, null returns default enum.
+     * @param enumName    the enum name, null returns default enum.
+     * @param defaultEnum the default enum.
+     * @return the enum, default enum if not found.
      * @since 3.10
      */
     public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName, final E defaultEnum) {
-        if (enumName == null) {
+        if (enumClass == null || enumName == null) {
             return defaultEnum;
         }
         try {
             return Enum.valueOf(enumClass, enumName);
-        } catch (final IllegalArgumentException ex) {
+        } catch (final IllegalArgumentException e) {
             return defaultEnum;
         }
     }
@@ -320,10 +320,8 @@ public class EnumUtils {
      * @return the enum, default enum if not found.
      * @since 3.13.0
      */
-    public static <E extends Enum<E>> E getEnumSystemProperty(final Class<E> enumClass, final String propName,
-        final E defaultEnum) {
-        return enumClass == null || propName == null ? defaultEnum
-            : getEnum(enumClass, SystemProperties.getProperty(propName), defaultEnum);
+    public static <E extends Enum<E>> E getEnumSystemProperty(final Class<E> enumClass, final String propName, final E defaultEnum) {
+        return getEnum(enumClass, SystemProperties.getProperty(propName), defaultEnum);
     }
 
     /**
@@ -365,11 +363,11 @@ public class EnumUtils {
      */
     public static <E extends Enum<E>> E getFirstEnumIgnoreCase(final Class<E> enumClass, final String enumName, final Function<E, String> stringFunction,
             final E defaultEnum) {
-            if (enumName == null || !enumClass.isEnum()) {
-                return defaultEnum;
-            }
-            return stream(enumClass).filter(e -> enumName.equalsIgnoreCase(stringFunction.apply(e))).findFirst().orElse(defaultEnum);
+        if (enumName == null || !enumClass.isEnum()) {
+            return defaultEnum;
         }
+        return stream(enumClass).filter(e -> enumName.equalsIgnoreCase(stringFunction.apply(e))).findFirst().orElse(defaultEnum);
+    }
 
     private static <E extends Enum<E>> boolean isEnum(final Class<E> enumClass) {
         return enumClass != null && !enumClass.isEnum();
@@ -378,13 +376,14 @@ public class EnumUtils {
     /**
      * Checks if the specified name is a valid enum for the class.
      *
-     * <p>This method differs from {@link Enum#valueOf} in that it checks if the name is
-     * a valid enum without needing to catch the exception.</p>
+     * <p>
+     * This method differs from {@link Enum#valueOf} in that it checks if the name is a valid enum without needing to catch the exception.
+     * </p>
      *
-     * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
-     * @param enumName   the enum name, null returns false
-     * @return true if the enum name is valid, otherwise false
+     * @param <E>       the type of the enumeration.
+     * @param enumClass the class of the enum to query, null returns false.
+     * @param enumName  the enum name, null returns false.
+     * @return true if the enum name is valid, otherwise false.
      */
     public static <E extends Enum<E>> boolean isValidEnum(final Class<E> enumClass, final String enumName) {
         return getEnum(enumClass, enumName) != null;
@@ -393,14 +392,15 @@ public class EnumUtils {
     /**
      * Checks if the specified name is a valid enum for the class.
      *
-     * <p>This method differs from {@link Enum#valueOf} in that it checks if the name is
-     * a valid enum without needing to catch the exception
-     * and performs case insensitive matching of the name.</p>
+     * <p>
+     * This method differs from {@link Enum#valueOf} in that it checks if the name is a valid enum without needing to catch the exception and performs case
+     * insensitive matching of the name.
+     * </p>
      *
-     * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
-     * @param enumName   the enum name, null returns false
-     * @return true if the enum name is valid, otherwise false
+     * @param <E>       the type of the enumeration.
+     * @param enumClass the class of the enum to query, null returns false.
+     * @param enumName  the enum name, null returns false.
+     * @return true if the enum name is valid, otherwise false.
      * @since 3.8
      */
     public static <E extends Enum<E>> boolean isValidEnumIgnoreCase(final Class<E> enumClass, final String enumName) {

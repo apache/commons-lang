@@ -281,6 +281,7 @@ class EnumUtilsTest extends AbstractLangTest {
         assertEquals(Traffic.GREEN, EnumUtils.getEnum(Traffic.class, null, Traffic.GREEN));
         assertEquals(Traffic.RED, EnumUtils.getEnum(Traffic.class, null, Traffic.RED));
         assertNull(EnumUtils.getEnum(Traffic.class, "PURPLE", null));
+        assertEquals(Traffic.AMBER, EnumUtils.getEnum(null, "RED", Traffic.AMBER));
     }
 
     /**
@@ -296,7 +297,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetEnum_nullClass() {
-        assertNullPointerException(() -> EnumUtils.getEnum((Class<Traffic>) null, "PURPLE"));
+        assertNull(EnumUtils.getEnum((Class<Traffic>) null, "PURPLE"));
     }
 
     @Test
@@ -467,7 +468,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsValidEnum_nullClass() {
-        assertNullPointerException(() -> EnumUtils.isValidEnum(null, "PURPLE"));
+        assertFalse(EnumUtils.isValidEnum(null, "PURPLE"));
     }
 
     @Test
