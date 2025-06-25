@@ -231,10 +231,10 @@ public class EnumUtils {
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name and performs case insensitive matching of the name.</p>
      *
-     * @param <E>         the type of the enumeration
-     * @param enumClass   the class of the enum to query, not null
-     * @param enumName    the enum name, null returns null
-     * @return the enum, null if not found
+     * @param <E>         the type of the enumeration.
+     * @param enumClass   the class of the enum to query, may be null.
+     * @param enumName    the enum name, null returns null.
+     * @return the enum, null if not found.
      * @since 3.8
      */
     public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName) {
@@ -247,11 +247,11 @@ public class EnumUtils {
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name and performs case insensitive matching of the name.</p>
      *
-     * @param <E>         the type of the enumeration
-     * @param enumClass   the class of the enum to query, not null
-     * @param enumName    the enum name, null returns default enum
-     * @param defaultEnum the default enum
-     * @return the enum, default enum if not found
+     * @param <E>         the type of the enumeration.
+     * @param enumClass   the class of the enum to query, null returns default enum.
+     * @param enumName    the enum name, null returns default enum.
+     * @param defaultEnum the default enum.
+     * @return the enum, default enum if not found.
      * @since 3.10
      */
     public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName,
@@ -353,17 +353,17 @@ public class EnumUtils {
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name and performs case insensitive matching of the name.</p>
      *
-     * @param <E>         the type of the enumeration
-     * @param enumClass   the class of the enum to query, not null
-     * @param enumName    the enum name, null returns default enum
+     * @param <E>         the type of the enumeration.
+     * @param enumClass   the class of the enum to query, null returns default enum.
+     * @param enumName    the enum name, null returns default enum.
      * @param stringFunction the function that gets the string for an enum for comparison to {@code enumName}.
-     * @param defaultEnum the default enum
-     * @return an enum, default enum if not found
+     * @param defaultEnum the default enum.
+     * @return an enum, default enum if not found.
      * @since 3.13.0
      */
     public static <E extends Enum<E>> E getFirstEnumIgnoreCase(final Class<E> enumClass, final String enumName, final Function<E, String> stringFunction,
             final E defaultEnum) {
-        if (enumName == null || !enumClass.isEnum()) {
+        if (enumName == null) {
             return defaultEnum;
         }
         return stream(enumClass).filter(e -> enumName.equalsIgnoreCase(stringFunction.apply(e))).findFirst().orElse(defaultEnum);
@@ -454,13 +454,13 @@ public class EnumUtils {
      * Returns a sequential ordered stream whose elements are the given class' enum values.
      *
      * @param <T>   the type of stream elements.
-     * @param clazz the class containing the enum values.
-     * @return the new stream.
+     * @param clazz the class containing the enum values, may be null.
+     * @return the new stream, empty of {@code clazz} is null.
      * @since 3.18.0
      * @see Class#getEnumConstants()
      */
     public static <T> Stream<T> stream(final Class<T> clazz) {
-        return Streams.of(clazz.getEnumConstants());
+        return clazz != null ? Streams.of(clazz.getEnumConstants()) : Stream.empty();
     }
 
     /**

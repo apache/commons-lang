@@ -321,6 +321,7 @@ class EnumUtilsTest extends AbstractLangTest {
         assertEquals(Traffic.GREEN, EnumUtils.getEnumIgnoreCase(Traffic.class, null, Traffic.GREEN));
         assertEquals(Traffic.RED, EnumUtils.getEnumIgnoreCase(Traffic.class, null, Traffic.RED));
         assertNull(EnumUtils.getEnumIgnoreCase(Traffic.class, "PURPLE", null));
+        assertNull(EnumUtils.getEnumIgnoreCase(null, "PURPLE", null));
     }
 
     /**
@@ -336,7 +337,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetEnumIgnoreCase_nullClass() {
-        assertNullPointerException(() -> EnumUtils.getEnumIgnoreCase((Class<Traffic>) null, "PURPLE"));
+        assertNull(EnumUtils.getEnumIgnoreCase((Class<Traffic>) null, "PURPLE"));
     }
 
     @Test
@@ -440,6 +441,7 @@ class EnumUtilsTest extends AbstractLangTest {
         assertEquals(Traffic2.GREEN, EnumUtils.getFirstEnumIgnoreCase(Traffic2.class, null, f, Traffic2.GREEN));
         assertEquals(Traffic2.RED, EnumUtils.getFirstEnumIgnoreCase(Traffic2.class, null, f, Traffic2.RED));
         assertNull(EnumUtils.getFirstEnumIgnoreCase(Traffic2.class, "PURPLE", f, null));
+        assertNull(EnumUtils.getFirstEnumIgnoreCase(null, "PURPLE", f, null));
     }
 
     @Test
@@ -482,7 +484,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsValidEnumIgnoreCase_nullClass() {
-        assertNullPointerException(() -> EnumUtils.isValidEnumIgnoreCase(null, "PURPLE"));
+        assertFalse(EnumUtils.isValidEnumIgnoreCase(null, "PURPLE"));
     }
 
     @Test
@@ -613,6 +615,7 @@ class EnumUtilsTest extends AbstractLangTest {
         assertEquals(7, EnumUtils.stream(TimeUnit.class).count());
         Assertions.assertArrayEquals(TimeUnit.values(), EnumUtils.stream(TimeUnit.class).toArray(TimeUnit[]::new));
         assertEquals(0, EnumUtils.stream(Object.class).count());
+        assertEquals(0, EnumUtils.stream(null).count());
     }
 
 }
