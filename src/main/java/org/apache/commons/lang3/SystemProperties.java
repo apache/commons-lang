@@ -3759,8 +3759,7 @@ public final class SystemProperties {
             if (StringUtils.isEmpty(property)) {
                 return Suppliers.get(defaultIfAbsent);
             }
-            final String value = System.getProperty(property);
-            return StringUtils.getIfEmpty(value, defaultIfAbsent);
+            return StringUtils.getIfEmpty(System.getProperty(property), defaultIfAbsent);
         } catch (final SecurityException ignore) {
             // We are not allowed to look at this property.
             //
