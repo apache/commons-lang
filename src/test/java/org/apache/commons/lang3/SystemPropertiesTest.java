@@ -22,12 +22,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.ThrowingSupplier;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.SetSystemProperty;
 import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
 
@@ -36,8 +39,8 @@ import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
     @SetSystemProperty(key = SystemPropertiesTest.KEY_TAB_1, value = "value2") })
 class SystemPropertiesTest {
 
-    private static final String KEY_SPACE_1 = " ";
-    private static final String KEY_TAB_1 = "\t";
+    static final String KEY_SPACE_1 = " ";
+    static final String KEY_TAB_1 = "\t";
 
     private void basicKeyCheck(final String key) {
         assertNotNull(key);
@@ -715,10 +718,10 @@ class SystemPropertiesTest {
 
     @Test
     void testGetPropertyStringString() {
-        assertNull(SystemProperties.getProperty(null, (String) null));
-        assertNull(SystemProperties.getProperty(StringUtils.EMPTY, (String) null));
-        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1, (String) null));
-        assertEquals("value2", SystemProperties.getProperty("\t", (String) null));
+        assertNull(SystemProperties.getProperty(null, StringUtils.NULL));
+        assertNull(SystemProperties.getProperty(StringUtils.EMPTY, StringUtils.NULL));
+        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1, StringUtils.NULL));
+        assertEquals("value2", SystemProperties.getProperty("\t", StringUtils.NULL));
         assertEquals("x", SystemProperties.getProperty(null, "x"));
         assertEquals("x", SystemProperties.getProperty(StringUtils.EMPTY, "x"));
         assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1, "v"));
@@ -768,6 +771,18 @@ class SystemPropertiesTest {
     @Test
     void testGetUserTimezone() {
         assertDoesNotThrow(SystemProperties::getUserTimezone);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { KEY_SPACE_1, KEY_TAB_1 })
+    void testIsPropertySet(final String property) {
+        assertTrue(SystemProperties.isPropertySet(property));
+    }
+
+    @Test
+    void testIsPropertySetEdges() {
+        assertFalse(SystemProperties.isPropertySet(StringUtils.NULL));
+        assertFalse(SystemProperties.isPropertySet(StringUtils.EMPTY));
     }
 
 }

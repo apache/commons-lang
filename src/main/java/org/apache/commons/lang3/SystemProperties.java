@@ -4077,6 +4077,23 @@ public final class SystemProperties {
     }
 
     /**
+     * Tests whether the given property is set.
+     * <p>
+     * Short-hand for {@code getProperty(property) != null}.
+     * </p>
+     * <p>
+     * If a {@link SecurityException} is caught, the return value is {@code false}.
+     * </p>
+     *
+     * @param property the system property name.
+     * @return whether the given property is set.
+     * @since 3.18.0
+     */
+    public static boolean isPropertySet(final String property) {
+        return getProperty(property) != null;
+    }
+
+    /**
      * Make private in 4.0.
      *
      * @deprecated TODO Make private in 4.0.

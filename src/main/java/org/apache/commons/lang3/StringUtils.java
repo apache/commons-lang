@@ -159,6 +159,11 @@ public class StringUtils {
     public static final String EMPTY = "";
 
     /**
+     * The null String {@code null}. Package-private only.
+     */
+    static final String NULL = null;
+
+    /**
      * A String for linefeed LF ("\n").
      *
      * @see <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.6">JLF: Escape Sequences

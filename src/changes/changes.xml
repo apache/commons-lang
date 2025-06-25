@@ -138,6 +138,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.concurrent.locks.LockingVisitors.ReentrantLockVisitor.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add builders for LockingVisitors implementations.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumSet.stream(Class).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.isPropertySet(String).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 85 #1267, #1277, #1283, #1288, #1302, #1377.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[site] Bump org.codehaus.mojo:taglist-maven-plugin from 3.1.0 to 3.2.1 #1300.</action>
