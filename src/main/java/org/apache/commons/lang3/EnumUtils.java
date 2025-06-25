@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.stream.Streams;
 
 /**
- * Utility library to provide helper methods for Java enums.
+ * Provides methods for Java enums.
  *
  * <p>#ThreadSafe#</p>
  *
@@ -46,11 +46,12 @@ public class EnumUtils {
 
     /**
      * Validate {@code enumClass}.
-     * @param <E> the type of the enumeration
-     * @param enumClass to check
-     * @return {@code enumClass}
-     * @throws NullPointerException if {@code enumClass} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class
+     *
+     * @param <E> the type of the enumeration.
+     * @param enumClass to check.
+     * @return {@code enumClass}.
+     * @throws NullPointerException if {@code enumClass} is {@code null}.
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class.
      * @since 3.2
      */
     private static <E extends Enum<E>> Class<E> asEnum(final Class<E> enumClass) {
@@ -61,11 +62,12 @@ public class EnumUtils {
 
     /**
      * Validate that {@code enumClass} is compatible with representation in a {@code long}.
-     * @param <E> the type of the enumeration
-     * @param enumClass to check
-     * @return {@code enumClass}
-     * @throws NullPointerException if {@code enumClass} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values
+     *
+     * @param <E> the type of the enumeration.
+     * @param enumClass to check.
+     * @return {@code enumClass}.
+     * @throws NullPointerException if {@code enumClass} is {@code null}.
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values.
      * @since 3.0.1
      */
     private static <E extends Enum<E>> Class<E> checkBitVectorable(final Class<E> enumClass) {
@@ -83,12 +85,12 @@ public class EnumUtils {
      * <p>Do not use this method if you have more than 64 values in your Enum, as this
      * would create a value greater than a long can hold.</p>
      *
-     * @param enumClass the class of the enum we are working with, not {@code null}
-     * @param values    the values we want to convert, not {@code null}
-     * @param <E>       the type of the enumeration
+     * @param enumClass the class of the enum we are working with, not {@code null}.
+     * @param values    the values we want to convert, not {@code null}.
+     * @param <E>       the type of the enumeration.
      * @return a long whose value provides a binary representation of the given set of enum values.
-     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values
+     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}.
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values.
      * @since 3.0.1
      * @see #generateBitVectors(Class, Iterable)
      */
@@ -106,13 +108,13 @@ public class EnumUtils {
      * <p>Do not use this method if you have more than 64 values in your Enum, as this
      * would create a value greater than a long can hold.</p>
      *
-     * @param enumClass the class of the enum we are working with, not {@code null}
-     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
-     * @param <E>       the type of the enumeration
+     * @param enumClass the class of the enum we are working with, not {@code null}.
+     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}.
+     * @param <E>       the type of the enumeration.
      * @return a long whose value provides a binary representation of the given set of enum values.
-     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
+     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}.
      * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values,
-     *                                  or if any {@code values} {@code null}
+     *                                  or if any {@code values} {@code null}.
      * @since 3.0.1
      * @see #generateBitVectors(Class, Iterable)
      */
@@ -134,13 +136,13 @@ public class EnumUtils {
      *
      * <p>Use this method if you have more than 64 values in your Enum.</p>
      *
-     * @param enumClass the class of the enum we are working with, not {@code null}
-     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
-     * @param <E>       the type of the enumeration
+     * @param enumClass the class of the enum we are working with, not {@code null}.
+     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}.
+     * @param <E>       the type of the enumeration.
      * @return a long[] whose values provide a binary representation of the given set of enum values
      *         with the least significant digits rightmost.
-     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}
+     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}.
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}.
      * @since 3.2
      */
     @SafeVarargs
@@ -164,13 +166,13 @@ public class EnumUtils {
      *
      * <p>Use this method if you have more than 64 values in your Enum.</p>
      *
-     * @param enumClass the class of the enum we are working with, not {@code null}
-     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}
-     * @param <E>       the type of the enumeration
+     * @param enumClass the class of the enum we are working with, not {@code null}.
+     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}.
+     * @param <E>       the type of the enumeration.
      * @return a long[] whose values provide a binary representation of the given set of enum values
      *         with the least significant digits rightmost.
-     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}
+     * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}.
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}.
      * @since 3.2
      */
     public static <E extends Enum<E>> long[] generateBitVectors(final Class<E> enumClass, final Iterable<? extends E> values) {
@@ -264,9 +266,9 @@ public class EnumUtils {
      *
      * <p>This method is useful when you need a list of enums rather than an array.</p>
      *
-     * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
-     * @return the modifiable list of enums, never null
+     * @param <E> the type of the enumeration.
+     * @param enumClass  the class of the enum to query, not null.
+     * @return the modifiable list of enums, never null.
      */
     public static <E extends Enum<E>> List<E> getEnumList(final Class<E> enumClass) {
         return new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
@@ -277,9 +279,9 @@ public class EnumUtils {
      *
      * <p>This method is useful when you need a map of enums by name.</p>
      *
-     * @param <E> the type of the enumeration
-     * @param enumClass  the class of the enum to query, not null
-     * @return the modifiable map of enum names to enums, never null
+     * @param <E> the type of the enumeration.
+     * @param enumClass  the class of the enum to query, not null.
+     * @return the modifiable map of enum names to enums, never null.
      */
     public static <E extends Enum<E>> Map<String, E> getEnumMap(final Class<E> enumClass) {
         return getEnumMap(enumClass, E::name);
@@ -292,11 +294,11 @@ public class EnumUtils {
      * This method is useful when you need a map of enums by name.
      * </p>
      *
-     * @param <E>         the type of enumeration
-     * @param <K>         the type of the map key
-     * @param enumClass   the class of the enum to query, not null
-     * @param keyFunction the function to query for the key, not null
-     * @return the modifiable map of enums, never null
+     * @param <E>         the type of enumeration.
+     * @param <K>         the type of the map key.
+     * @param enumClass   the class of the enum to query, not null.
+     * @param keyFunction the function to query for the key, not null.
+     * @return the modifiable map of enums, never null.
      * @since 3.13.0
      */
     public static <E extends Enum<E>, K> Map<K, E> getEnumMap(final Class<E> enumClass, final Function<E, K> keyFunction) {
@@ -412,12 +414,13 @@ public class EnumUtils {
      * enum values that it represents.
      *
      * <p>If you store this value, beware any changes to the enum that would affect ordinal values.</p>
-     * @param enumClass the class of the enum we are working with, not {@code null}
-     * @param value     the long value representation of a set of enum values
-     * @param <E>       the type of the enumeration
-     * @return a set of enum values
-     * @throws NullPointerException if {@code enumClass} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values
+     *
+     * @param enumClass the class of the enum we are working with, not {@code null}.
+     * @param value     the long value representation of a set of enum values.
+     * @param <E>       the type of the enumeration.
+     * @return a set of enum values.
+     * @throws NullPointerException if {@code enumClass} is {@code null}.
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values.
      * @since 3.0.1
      */
     public static <E extends Enum<E>> EnumSet<E> processBitVector(final Class<E> enumClass, final long value) {
@@ -429,12 +432,13 @@ public class EnumUtils {
      * enum values that it represents.
      *
      * <p>If you store this value, beware any changes to the enum that would affect ordinal values.</p>
-     * @param enumClass the class of the enum we are working with, not {@code null}
-     * @param values     the long[] bearing the representation of a set of enum values, the least significant digits rightmost, not {@code null}
-     * @param <E>       the type of the enumeration
-     * @return a set of enum values
-     * @throws NullPointerException if {@code enumClass} is {@code null}
-     * @throws IllegalArgumentException if {@code enumClass} is not an enum class
+     *
+     * @param enumClass the class of the enum we are working with, not {@code null}.
+     * @param values     the long[] bearing the representation of a set of enum values, the least significant digits rightmost, not {@code null}.
+     * @param <E>       the type of the enumeration.
+     * @return a set of enum values.
+     * @throws NullPointerException if {@code enumClass} is {@code null}.
+     * @throws IllegalArgumentException if {@code enumClass} is not an enum class.
      * @since 3.2
      */
     public static <E extends Enum<E>> EnumSet<E> processBitVectors(final Class<E> enumClass, final long... values) {
