@@ -95,6 +95,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Ken Dombeck">Fix Javadoc code examples in DiffBuilder and ReflectionDiffBuilder #1400.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix generics in org.apache.commons.lang3.stream.Streams.toArray(Class) signature.</action>
     <action issue="LANG-1727" type="fix" dev="ggregory" due-to="Elliotte Rusty Harold, Gary Gregory">EventListenerSupport doesn't document ordering of events.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in org.apache.commons.lang3.SystemUtils.IS_OS_ANDROID.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>

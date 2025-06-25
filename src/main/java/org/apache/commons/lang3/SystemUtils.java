@@ -1160,7 +1160,7 @@ public class SystemUtils {
      *
      * @since 3.15.0
      */
-    public static final boolean IS_OS_ANDROID = SystemProperties.getJavaVendor().contains("Android");
+    public static final boolean IS_OS_ANDROID = Strings.CS.contains(SystemProperties.getJavaVendor(), "Android");
 
     /**
      * The constant {@code true} if this is HP-UX.
