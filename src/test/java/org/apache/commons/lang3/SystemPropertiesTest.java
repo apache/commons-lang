@@ -33,8 +33,8 @@ import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
 
 class SystemPropertiesTest {
 
-    private static final String STRING_SPACE_1 = " ";
-    private static final String STRING_TAB_1 = "\t";
+    private static final String KEY_SPACE_1 = " ";
+    private static final String KEY_TAB_1 = "\t";
 
     private void basicKeyCheck(final String key) {
         assertNotNull(key);
@@ -703,28 +703,37 @@ class SystemPropertiesTest {
     }
 
     @Test
-    @SetSystemProperties({ @SetSystemProperty(key = STRING_SPACE_1, value = "value1"), @SetSystemProperty(key = STRING_TAB_1, value = "value2") })
+    @SetSystemProperties({ @SetSystemProperty(key = KEY_SPACE_1, value = "value1"), @SetSystemProperty(key = KEY_TAB_1, value = "value2") })
+    void testGetProperty() {
+        assertNull(SystemProperties.getProperty(null));
+        assertNull(SystemProperties.getProperty(StringUtils.EMPTY));
+        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1));
+        assertEquals("value2", SystemProperties.getProperty(KEY_TAB_1));
+    }
+
+    @Test
+    @SetSystemProperties({ @SetSystemProperty(key = KEY_SPACE_1, value = "value1"), @SetSystemProperty(key = KEY_TAB_1, value = "value2") })
     void testGetPropertyStringString() {
         assertNull(SystemProperties.getProperty(null, (String) null));
         assertNull(SystemProperties.getProperty(StringUtils.EMPTY, (String) null));
-        assertEquals("value1", SystemProperties.getProperty(STRING_SPACE_1, (String) null));
+        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1, (String) null));
         assertEquals("value2", SystemProperties.getProperty("\t", (String) null));
         assertEquals("x", SystemProperties.getProperty(null, "x"));
         assertEquals("x", SystemProperties.getProperty(StringUtils.EMPTY, "x"));
-        assertEquals("value1", SystemProperties.getProperty(STRING_SPACE_1, "v"));
+        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1, "v"));
         assertEquals("value2", SystemProperties.getProperty("\t", "v"));
     }
 
     @Test
-    @SetSystemProperties({ @SetSystemProperty(key = STRING_SPACE_1, value = "value1"), @SetSystemProperty(key = STRING_TAB_1, value = "value2") })
+    @SetSystemProperties({ @SetSystemProperty(key = KEY_SPACE_1, value = "value1"), @SetSystemProperty(key = KEY_TAB_1, value = "value2") })
     void testGetPropertyStringSupplier() {
         assertNull(SystemProperties.getProperty(null, (Supplier<String>) null));
         assertNull(SystemProperties.getProperty(StringUtils.EMPTY, (Supplier<String>) null));
-        assertEquals("value1", SystemProperties.getProperty(STRING_SPACE_1, (Supplier<String>) null));
+        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1, (Supplier<String>) null));
         assertEquals("value2", SystemProperties.getProperty("\t", (Supplier<String>) null));
         assertEquals("x", SystemProperties.getProperty(null, () -> "x"));
         assertEquals("x", SystemProperties.getProperty(StringUtils.EMPTY, () -> "x"));
-        assertEquals("value1", SystemProperties.getProperty(STRING_SPACE_1, () -> "v"));
+        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1, () -> "v"));
         assertEquals("value2", SystemProperties.getProperty("\t", () -> "v"));
     }
 
