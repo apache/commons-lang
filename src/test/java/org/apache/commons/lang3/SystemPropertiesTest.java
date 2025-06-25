@@ -31,6 +31,9 @@ import org.junit.jupiter.api.function.ThrowingSupplier;
 import org.junitpioneer.jupiter.SetSystemProperty;
 import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
 
+@SetSystemProperties({
+    @SetSystemProperty(key = SystemPropertiesTest.KEY_SPACE_1, value = "value1"),
+    @SetSystemProperty(key = SystemPropertiesTest.KEY_TAB_1, value = "value2") })
 class SystemPropertiesTest {
 
     private static final String KEY_SPACE_1 = " ";
@@ -703,7 +706,6 @@ class SystemPropertiesTest {
     }
 
     @Test
-    @SetSystemProperties({ @SetSystemProperty(key = KEY_SPACE_1, value = "value1"), @SetSystemProperty(key = KEY_TAB_1, value = "value2") })
     void testGetProperty() {
         assertNull(SystemProperties.getProperty(null));
         assertNull(SystemProperties.getProperty(StringUtils.EMPTY));
@@ -712,7 +714,6 @@ class SystemPropertiesTest {
     }
 
     @Test
-    @SetSystemProperties({ @SetSystemProperty(key = KEY_SPACE_1, value = "value1"), @SetSystemProperty(key = KEY_TAB_1, value = "value2") })
     void testGetPropertyStringString() {
         assertNull(SystemProperties.getProperty(null, (String) null));
         assertNull(SystemProperties.getProperty(StringUtils.EMPTY, (String) null));
@@ -725,7 +726,6 @@ class SystemPropertiesTest {
     }
 
     @Test
-    @SetSystemProperties({ @SetSystemProperty(key = KEY_SPACE_1, value = "value1"), @SetSystemProperty(key = KEY_TAB_1, value = "value2") })
     void testGetPropertyStringSupplier() {
         assertNull(SystemProperties.getProperty(null, (Supplier<String>) null));
         assertNull(SystemProperties.getProperty(StringUtils.EMPTY, (Supplier<String>) null));
