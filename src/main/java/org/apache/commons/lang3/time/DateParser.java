@@ -30,6 +30,7 @@ import java.util.TimeZone;
  * <p>
  * Warning: Since binary compatible methods may be added to this interface in any
  * release, developers are not expected to implement this interface.
+ * </p>
  *
  * @since 3.2
  */
@@ -42,11 +43,10 @@ public interface DateParser {
      */
     Locale getLocale();
 
-    // Accessors
     /**
      * Gets the pattern used by this parser.
      *
-     * @return the pattern, {@link java.text.SimpleDateFormat} compatible
+     * @return the pattern, {@link java.text.SimpleDateFormat} compatible.
      */
     String getPattern();
 
@@ -67,7 +67,7 @@ public interface DateParser {
      *
      * See {@link java.text.DateFormat#parse(String)} for more information.
      * @param source A {@link String} whose beginning should be parsed.
-     * @return A {@link Date} parsed from the string
+     * @return A {@link Date} parsed from the string.
      * @throws ParseException if the beginning of the specified string cannot be parsed.
      */
     Date parse(String source) throws ParseException;
@@ -106,7 +106,7 @@ public interface DateParser {
      * Parses text from a string to produce a Date.
      *
      * @param source A {@link String} whose beginning should be parsed.
-     * @return a {@link java.util.Date} object
+     * @return a {@link java.util.Date} object.
      * @throws ParseException if the beginning of the specified string cannot be parsed.
      * @see java.text.DateFormat#parseObject(String)
      */
@@ -116,8 +116,8 @@ public interface DateParser {
      * Parses a date/time string according to the given parse position.
      *
      * @param source A {@link String} whose beginning should be parsed.
-     * @param pos the parse position
-     * @return a {@link java.util.Date} object
+     * @param pos the parse position.
+     * @return a {@link java.util.Date} object.
      * @see java.text.DateFormat#parseObject(String, ParsePosition)
      */
     Object parseObject(String source, ParsePosition pos);

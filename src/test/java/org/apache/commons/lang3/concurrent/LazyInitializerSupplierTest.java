@@ -22,7 +22,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
 /**
  * Tests {@code LazyInitializer}.
  */
-public class LazyInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
+class LazyInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest<Object> {
 
     /**
      * Creates the initializer to be tested.

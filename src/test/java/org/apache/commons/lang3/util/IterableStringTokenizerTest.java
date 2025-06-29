@@ -19,8 +19,8 @@ package org.apache.commons.lang3.util;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +37,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link IterableStringTokenizer}.
  */
-public class IterableStringTokenizerTest {
+class IterableStringTokenizerTest {
 
     /**
      * Delimiters from {@link StringTokenizer}.
@@ -53,25 +53,25 @@ public class IterableStringTokenizerTest {
     }
 
     @Test
-    public void testConstructorArguments1ForEach() {
+    void testConstructorArguments1ForEach() {
         final List<String> list = new ArrayList<>();
         new IterableStringTokenizer("a,b,c").forEach(list::add);
         assertEquals(Arrays.asList("a,b,c"), list);
     }
 
     @Test
-    public void testConstructorArguments1ToList() {
+    void testConstructorArguments1ToList() {
         assertEquals(Arrays.asList("a,b,c"), new IterableStringTokenizer("a,b,c").toList());
     }
 
-    public void testConstructorArguments2AllDelimsToList(final String singleDelim) {
+    void testConstructorArguments2AllDelimsToList(final String singleDelim) {
         final String data = String.join(singleDelim, DATA);
         assertEquals(Arrays.asList(DATA), new IterableStringTokenizer(data, DELIMITERS_STRING).toList());
     }
 
     @ParameterizedTest
     @MethodSource("delimiters")
-    public void testConstructorArguments2ForEach(final String singleDelim) {
+    void testConstructorArguments2ForEach(final String singleDelim) {
         final List<String> list = new ArrayList<>();
         new IterableStringTokenizer(String.join(singleDelim, DATA), singleDelim).forEach(list::add);
         assertEquals(Arrays.asList(DATA), list);
@@ -79,13 +79,13 @@ public class IterableStringTokenizerTest {
 
     @ParameterizedTest
     @MethodSource("delimiters")
-    public void testConstructorArguments2ToList(final String singleDelim) {
+    void testConstructorArguments2ToList(final String singleDelim) {
         assertEquals(Arrays.asList(DATA), new IterableStringTokenizer(String.join(singleDelim, DATA), singleDelim).toList());
     }
 
     @ParameterizedTest
     @MethodSource("delimiters")
-    public void testConstructorArguments3AllDelimsToList(final String singleDelim) {
+    void testConstructorArguments3AllDelimsToList(final String singleDelim) {
         final String data = String.join(singleDelim, DATA);
         assertEquals(Arrays.asList("a", singleDelim, "b", singleDelim, "c"), new IterableStringTokenizer(data, DELIMITERS_STRING, true).toList());
         assertEquals(Arrays.asList(DATA), new IterableStringTokenizer(data, DELIMITERS_STRING, false).toList());
@@ -93,7 +93,7 @@ public class IterableStringTokenizerTest {
 
     @ParameterizedTest
     @MethodSource("delimiters")
-    public void testConstructorArguments3ToList(final String singleDelim) {
+    void testConstructorArguments3ToList(final String singleDelim) {
         final String data = String.join(singleDelim, DATA);
         assertEquals(Arrays.asList("a", singleDelim, "b", singleDelim, "c"), new IterableStringTokenizer(data, singleDelim, true).toList());
         assertEquals(Arrays.asList(DATA), new IterableStringTokenizer(data, singleDelim, false).toList());
@@ -133,7 +133,7 @@ public class IterableStringTokenizerTest {
     }
 
     @Test
-    public void testToArray() {
+    void testToArray() {
         // 0 tokens
         assertArrayEquals(new String[] {}, new IterableStringTokenizer("").toArray());
         // 1 token
@@ -145,7 +145,7 @@ public class IterableStringTokenizerTest {
     }
 
     @Test
-    public void testToList() {
+    void testToList() {
         // 0 tokens
         assertEquals(Arrays.asList(), new IterableStringTokenizer("").toList());
         // 1 token
@@ -157,7 +157,7 @@ public class IterableStringTokenizerTest {
     }
 
     @Test
-    public void testToStream() {
+    void testToStream() {
         // 0 tokens
         assertEquals(Arrays.asList(), new IterableStringTokenizer("").toList());
         // 1 token

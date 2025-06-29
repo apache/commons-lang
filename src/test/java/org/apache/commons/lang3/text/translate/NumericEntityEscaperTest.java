@@ -26,10 +26,10 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.translate.NumericEntityEscaper}.
  */
 @Deprecated
-public class NumericEntityEscaperTest extends AbstractLangTest {
+class NumericEntityEscaperTest extends AbstractLangTest {
 
     @Test
-    public void testAbove() {
+    void testAbove() {
         final NumericEntityEscaper nee = NumericEntityEscaper.above('F');
 
         final String input = "ADFGZ";
@@ -38,7 +38,7 @@ public class NumericEntityEscaperTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBelow() {
+    void testBelow() {
         final NumericEntityEscaper nee = NumericEntityEscaper.below('F');
 
         final String input = "ADFGZ";
@@ -47,7 +47,7 @@ public class NumericEntityEscaperTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBetween() {
+    void testBetween() {
         final NumericEntityEscaper nee = NumericEntityEscaper.between('F', 'L');
 
         final String input = "ADFGZ";
@@ -57,7 +57,7 @@ public class NumericEntityEscaperTest extends AbstractLangTest {
 
     // See LANG-617
     @Test
-    public void testSupplementary() {
+    void testSupplementary() {
         final NumericEntityEscaper nee = new NumericEntityEscaper();
         final String input = "\uD803\uDC22";
         final String expected = "&#68642;";

@@ -45,7 +45,7 @@ public class LocaleUtils {
      */
     private static final class SyncAvoid {
 
-        /** Private unmodifiable list of available locales. */
+        /** Private unmodifiable and sorted list of available locales. */
         private static final List<Locale> AVAILABLE_LOCALE_ULIST;
 
         /** Private unmodifiable set of available locales. */
@@ -89,13 +89,13 @@ public class LocaleUtils {
     private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage = new ConcurrentHashMap<>();
 
     /**
-     * Obtains an unmodifiable list of installed locales.
+     * Obtains an unmodifiable and sorted list of installed locales.
      *
      * <p>This method is a wrapper around {@link Locale#getAvailableLocales()}.
      * It is more efficient, as the JDK method must create a new array each
      * time it is called.</p>
      *
-     * @return the unmodifiable list of available locales
+     * @return the unmodifiable and sorted list of available locales
      */
     public static List<Locale> availableLocaleList() {
         return SyncAvoid.AVAILABLE_LOCALE_ULIST;

@@ -14,18 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3.time;
 
-import java.util.Locale;
-import java.util.TimeZone;
+package org.apache.commons.lang3;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.function.Executable;
 
 /**
- * Tests for the print methods of FastDateFormat
+ * Specialized APIs to complement {@link org.junit.jupiter.api.Assertions}.
  */
-class FastDateFormat_PrinterTest extends FastDatePrinterTest {
+public class LangAssertions {
 
-    @Override
-    protected DatePrinter getInstance(final String format, final TimeZone timeZone, final Locale locale) {
-        return FastDateFormat.getInstance(format, timeZone, locale);
+    public static NullPointerException assertNullPointerException(Executable executable) {
+        return assertThrows(NullPointerException.class, executable);
+    }
+
+    public static NullPointerException assertNullPointerException(Executable executable, String message) {
+        return assertThrows(NullPointerException.class, executable, message);
     }
 }

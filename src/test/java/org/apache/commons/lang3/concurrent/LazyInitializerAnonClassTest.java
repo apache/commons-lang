@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@code LazyInitializer}.
  */
-public class LazyInitializerAnonClassTest extends AbstractConcurrentInitializerTest {
+class LazyInitializerAnonClassTest extends AbstractConcurrentInitializerTest<Object> {
 
     /**
      * Creates the initializer to be tested. This implementation returns the {@code LazyInitializer} created in the {@code setUp()} method.
@@ -42,7 +42,7 @@ public class LazyInitializerAnonClassTest extends AbstractConcurrentInitializerT
     }
 
     @Test
-    public void testIsInitialized() throws ConcurrentException {
+    void testIsInitialized() throws ConcurrentException {
         final LazyInitializer<Object> initializer = createInitializer();
         assertFalse(initializer.isInitialized());
         initializer.get();

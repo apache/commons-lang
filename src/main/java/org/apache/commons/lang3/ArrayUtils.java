@@ -1870,6 +1870,10 @@ public class ArrayUtils {
         return new HashCodeBuilder().append(array).toHashCode();
     }
 
+    static <K> void increment(final Map<K, MutableInt> occurrences, final K boxed) {
+        occurrences.computeIfAbsent(boxed, k -> new MutableInt()).increment();
+    }
+
     /**
      * Finds the indices of the given value in the array.
      * <p>
@@ -5297,47 +5301,6 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes multiple array elements specified by indices.
-     *
-     * @param array the input array, will not be modified, and may be {@code null}.
-     * @param indices to remove.
-     * @return new array of same type minus elements specified by the set bits in {@code indices}.
-     * @since 3.2
-     */
-    // package protected for access by unit tests
-    static Object removeAll(final Object array, final BitSet indices) {
-        if (array == null) {
-            return null;
-        }
-        final int srcLength = getLength(array);
-        // No need to check maxIndex here, because method only currently called from removeElements()
-        // which guarantee to generate only valid bit entries.
-//        final int maxIndex = indices.length();
-//        if (maxIndex > srcLength) {
-//            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
-//        }
-        final int removals = indices.cardinality(); // true bits are items to remove
-        final Object result = Array.newInstance(array.getClass().getComponentType(), srcLength - removals);
-        int srcIndex = 0;
-        int destIndex = 0;
-        int count;
-        int set;
-        while ((set = indices.nextSetBit(srcIndex)) != -1) {
-            count = set - srcIndex;
-            if (count > 0) {
-                System.arraycopy(array, srcIndex, result, destIndex, count);
-                destIndex += count;
-            }
-            srcIndex = indices.nextClearBit(set);
-        }
-        count = srcLength - srcIndex;
-        if (count > 0) {
-            System.arraycopy(array, srcIndex, result, destIndex, count);
-        }
-        return result;
-    }
-
-    /**
      * Removes multiple array elements specified by index.
      *
      * @param array source
@@ -5472,7 +5435,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
-        return (boolean[]) removeAll((Object) array, indexesOf(array, element));
+        return (boolean[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5491,7 +5454,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static byte[] removeAllOccurences(final byte[] array, final byte element) {
-        return (byte[]) removeAll((Object) array, indexesOf(array, element));
+        return (byte[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5510,7 +5473,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static char[] removeAllOccurences(final char[] array, final char element) {
-        return (char[]) removeAll((Object) array, indexesOf(array, element));
+        return (char[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5529,7 +5492,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static double[] removeAllOccurences(final double[] array, final double element) {
-        return (double[]) removeAll((Object) array, indexesOf(array, element));
+        return (double[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5548,7 +5511,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static float[] removeAllOccurences(final float[] array, final float element) {
-        return (float[]) removeAll((Object) array, indexesOf(array, element));
+        return (float[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5567,7 +5530,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static int[] removeAllOccurences(final int[] array, final int element) {
-        return (int[]) removeAll((Object) array, indexesOf(array, element));
+        return (int[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5586,7 +5549,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static long[] removeAllOccurences(final long[] array, final long element) {
-        return (long[]) removeAll((Object) array, indexesOf(array, element));
+        return (long[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5605,7 +5568,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static short[] removeAllOccurences(final short[] array, final short element) {
-        return (short[]) removeAll((Object) array, indexesOf(array, element));
+        return (short[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5625,7 +5588,7 @@ public class ArrayUtils {
      */
     @Deprecated
     public static <T> T[] removeAllOccurences(final T[] array, final T element) {
-        return (T[]) removeAll((Object) array, indexesOf(array, element));
+        return (T[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5642,7 +5605,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static boolean[] removeAllOccurrences(final boolean[] array, final boolean element) {
-        return (boolean[]) removeAll((Object) array, indexesOf(array, element));
+        return (boolean[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5659,7 +5622,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static byte[] removeAllOccurrences(final byte[] array, final byte element) {
-        return (byte[]) removeAll((Object) array, indexesOf(array, element));
+        return (byte[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5676,7 +5639,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static char[] removeAllOccurrences(final char[] array, final char element) {
-        return (char[]) removeAll((Object) array, indexesOf(array, element));
+        return (char[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5693,7 +5656,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static double[] removeAllOccurrences(final double[] array, final double element) {
-        return (double[]) removeAll((Object) array, indexesOf(array, element));
+        return (double[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5710,7 +5673,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static float[] removeAllOccurrences(final float[] array, final float element) {
-        return (float[]) removeAll((Object) array, indexesOf(array, element));
+        return (float[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5727,7 +5690,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static int[] removeAllOccurrences(final int[] array, final int element) {
-        return (int[]) removeAll((Object) array, indexesOf(array, element));
+        return (int[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5744,7 +5707,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static long[] removeAllOccurrences(final long[] array, final long element) {
-        return (long[]) removeAll((Object) array, indexesOf(array, element));
+        return (long[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5761,7 +5724,7 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static short[] removeAllOccurrences(final short[] array, final short element) {
-        return (short[]) removeAll((Object) array, indexesOf(array, element));
+        return (short[]) removeAt(array, indexesOf(array, element));
     }
 
     /**
@@ -5779,7 +5742,47 @@ public class ArrayUtils {
      * @since 3.10
      */
     public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
-        return (T[]) removeAll((Object) array, indexesOf(array, element));
+        return (T[]) removeAt(array, indexesOf(array, element));
+    }
+
+    /**
+     * Removes multiple array elements specified by indices.
+     *
+     * @param array the input array, will not be modified, and may be {@code null}.
+     * @param indices to remove.
+     * @return new array of same type minus elements specified by the set bits in {@code indices}.
+     */
+    // package protected for access by unit tests
+    static Object removeAt(final Object array, final BitSet indices) {
+        if (array == null) {
+            return null;
+        }
+        final int srcLength = getLength(array);
+        // No need to check maxIndex here, because method only currently called from removeElements()
+        // which guarantee to generate only valid bit entries.
+//        final int maxIndex = indices.length();
+//        if (maxIndex > srcLength) {
+//            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
+//        }
+        final int removals = indices.cardinality(); // true bits are items to remove
+        final Object result = Array.newInstance(array.getClass().getComponentType(), srcLength - removals);
+        int srcIndex = 0;
+        int destIndex = 0;
+        int count;
+        int set;
+        while ((set = indices.nextSetBit(srcIndex)) != -1) {
+            count = set - srcIndex;
+            if (count > 0) {
+                System.arraycopy(array, srcIndex, result, destIndex, count);
+                destIndex += count;
+            }
+            srcIndex = indices.nextClearBit(set);
+        }
+        count = srcLength - srcIndex;
+        if (count > 0) {
+            System.arraycopy(array, srcIndex, result, destIndex, count);
+        }
+        return result;
     }
 
     /**
@@ -6086,13 +6089,7 @@ public class ArrayUtils {
         }
         final HashMap<Boolean, MutableInt> occurrences = new HashMap<>(2); // only two possible values here
         for (final boolean v : values) {
-            final Boolean boxed = Boolean.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Boolean.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6105,7 +6102,7 @@ public class ArrayUtils {
                 toRemove.set(i);
             }
         }
-        return (boolean[]) removeAll(array, toRemove);
+        return (boolean[]) removeAt(array, toRemove);
     }
 
     /**
@@ -6139,15 +6136,9 @@ public class ArrayUtils {
         if (isEmpty(array) || isEmpty(values)) {
             return clone(array);
         }
-        final Map<Byte, MutableInt> occurrences = new HashMap<>(values.length);
+        final HashMap<Byte, MutableInt> occurrences = new HashMap<>(values.length);
         for (final byte v : values) {
-            final Byte boxed = Byte.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Byte.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6160,7 +6151,7 @@ public class ArrayUtils {
                 toRemove.set(i);
             }
         }
-        return (byte[]) removeAll(array, toRemove);
+        return (byte[]) removeAt(array, toRemove);
     }
 
     /**
@@ -6196,13 +6187,7 @@ public class ArrayUtils {
         }
         final HashMap<Character, MutableInt> occurrences = new HashMap<>(values.length);
         for (final char v : values) {
-            final Character boxed = Character.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Character.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6215,7 +6200,7 @@ public class ArrayUtils {
                 toRemove.set(i);
             }
         }
-        return (char[]) removeAll(array, toRemove);
+        return (char[]) removeAt(array, toRemove);
     }
 
     /**
@@ -6251,13 +6236,7 @@ public class ArrayUtils {
         }
         final HashMap<Double, MutableInt> occurrences = new HashMap<>(values.length);
         for (final double v : values) {
-            final Double boxed = Double.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Double.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6270,7 +6249,7 @@ public class ArrayUtils {
                 toRemove.set(i);
             }
         }
-        return (double[]) removeAll(array, toRemove);
+        return (double[]) removeAt(array, toRemove);
     }
 
     /**
@@ -6306,13 +6285,7 @@ public class ArrayUtils {
         }
         final HashMap<Float, MutableInt> occurrences = new HashMap<>(values.length);
         for (final float v : values) {
-            final Float boxed = Float.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Float.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6325,7 +6298,7 @@ public class ArrayUtils {
                 toRemove.set(i);
             }
         }
-        return (float[]) removeAll(array, toRemove);
+        return (float[]) removeAt(array, toRemove);
     }
 
     /**
@@ -6361,13 +6334,7 @@ public class ArrayUtils {
         }
         final HashMap<Integer, MutableInt> occurrences = new HashMap<>(values.length);
         for (final int v : values) {
-            final Integer boxed = Integer.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Integer.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6380,7 +6347,7 @@ public class ArrayUtils {
                 toRemove.set(i);
             }
         }
-        return (int[]) removeAll(array, toRemove);
+        return (int[]) removeAt(array, toRemove);
     }
 
     /**
@@ -6416,13 +6383,7 @@ public class ArrayUtils {
         }
         final HashMap<Long, MutableInt> occurrences = new HashMap<>(values.length);
         for (final long v : values) {
-            final Long boxed = Long.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Long.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6435,7 +6396,7 @@ public class ArrayUtils {
                 toRemove.set(i);
             }
         }
-        return (long[]) removeAll(array, toRemove);
+        return (long[]) removeAt(array, toRemove);
     }
 
     /**
@@ -6471,13 +6432,7 @@ public class ArrayUtils {
         }
         final HashMap<Short, MutableInt> occurrences = new HashMap<>(values.length);
         for (final short v : values) {
-            final Short boxed = Short.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-                occurrences.put(boxed, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, Short.valueOf(v));
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6490,7 +6445,7 @@ public class ArrayUtils {
                 toRemove.set(i);
             }
         }
-        return (short[]) removeAll(array, toRemove);
+        return (short[]) removeAt(array, toRemove);
     }
 
     /**
@@ -6528,12 +6483,7 @@ public class ArrayUtils {
         }
         final HashMap<T, MutableInt> occurrences = new HashMap<>(values.length);
         for (final T v : values) {
-            final MutableInt count = occurrences.get(v);
-            if (count == null) {
-                occurrences.put(v, new MutableInt(1));
-            } else {
-                count.increment();
-            }
+            increment(occurrences, v);
         }
         final BitSet toRemove = new BitSet();
         for (int i = 0; i < array.length; i++) {
@@ -6547,7 +6497,7 @@ public class ArrayUtils {
             }
         }
         @SuppressWarnings("unchecked") // removeAll() always creates an array of the same type as its input
-        final T[] result = (T[]) removeAll(array, toRemove);
+        final T[] result = (T[]) removeAt(array, toRemove);
         return result;
     }
 

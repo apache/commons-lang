@@ -580,10 +580,13 @@ public class ObjectUtils {
      * @param object  the {@link Object} to test, may be {@code null}
      * @param defaultValue  the default value to return, may be {@code null}
      * @return {@code object} if it is not {@code null}, defaultValue otherwise
-     * TODO Rename to getIfNull in 4.0
+     * @see #getIfNull(Object, Object)
+     * @see #getIfNull(Object, Supplier)
+     * @deprecated Use {@link #getIfNull(Object, Object)}.
      */
+    @Deprecated
     public static <T> T defaultIfNull(final T object, final T defaultValue) {
-        return object != null ? object : defaultValue;
+        return getIfNull(object, defaultValue);
     }
 
     // Null-safe equals/hashCode
@@ -703,10 +706,33 @@ public class ObjectUtils {
      * @param object the {@link Object} to test, may be {@code null}
      * @param defaultSupplier the default value to return, may be {@code null}
      * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise
+     * @see #getIfNull(Object, Object)
      * @since 3.10
      */
     public static <T> T getIfNull(final T object, final Supplier<T> defaultSupplier) {
         return object != null ? object : Suppliers.get(defaultSupplier);
+    }
+
+    /**
+     * Returns a default value if the object passed is {@code null}.
+     *
+     * <pre>
+     * ObjectUtils.getIfNull(null, null)      = null
+     * ObjectUtils.getIfNull(null, "")        = ""
+     * ObjectUtils.getIfNull(null, "zz")      = "zz"
+     * ObjectUtils.getIfNull("abc", *)        = "abc"
+     * ObjectUtils.getIfNull(Boolean.TRUE, *) = Boolean.TRUE
+     * </pre>
+     *
+     * @param <T> the type of the object
+     * @param object  the {@link Object} to test, may be {@code null}
+     * @param defaultValue  the default value to return, may be {@code null}
+     * @return {@code object} if it is not {@code null}, defaultValue otherwise
+     * @see #getIfNull(Object, Supplier)
+     * @since 3.18.0
+     */
+    public static <T> T getIfNull(final T object, final T defaultValue) {
+        return object != null ? object : defaultValue;
     }
 
     /**
@@ -1159,12 +1185,7 @@ public class ObjectUtils {
         if (ArrayUtils.isNotEmpty(items)) {
             final HashMap<T, MutableInt> occurrences = new HashMap<>(items.length);
             for (final T t : items) {
-                final MutableInt count = occurrences.get(t);
-                if (count == null) {
-                    occurrences.put(t, new MutableInt(1));
-                } else {
-                    count.increment();
-                }
+                ArrayUtils.increment(occurrences, t);
             }
             T result = null;
             int max = 0;

@@ -42,8 +42,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArraySorter;
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.LocaleUtils;
 
 /**
@@ -435,7 +437,7 @@ public class FastDateParser implements DateParser, Serializable {
                 return null;
             }
             final char c = pattern.charAt(currentIdx);
-            if (isFormatLetter(c)) {
+            if (CharUtils.isAsciiAlpha(c)) {
                 return letterPattern(c);
             }
             return literal();
@@ -458,7 +460,7 @@ public class FastDateParser implements DateParser, Serializable {
             final StringBuilder sb = new StringBuilder();
             while (currentIdx < pattern.length()) {
                 final char c = pattern.charAt(currentIdx);
-                if (!activeQuote && isFormatLetter(c)) {
+                if (!activeQuote && CharUtils.isAsciiAlpha(c)) {
                     break;
                 }
                 if (c == '\'' && (++currentIdx == pattern.length() || pattern.charAt(currentIdx) != '\'')) {
@@ -630,7 +632,7 @@ public class FastDateParser implements DateParser, Serializable {
     // helper classes to parse the format string
 
     @SuppressWarnings("unchecked") // OK because we are creating an array with no entries
-    private static final ConcurrentMap<Locale, Strategy>[] caches = new ConcurrentMap[Calendar.FIELD_COUNT];
+    private static final ConcurrentMap<Locale, Strategy>[] CACHES = new ConcurrentMap[Calendar.FIELD_COUNT];
 
     private static final Strategy ABBREVIATED_YEAR_STRATEGY = new NumberStrategy(Calendar.YEAR) {
         /**
@@ -718,22 +720,25 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
+     * Clears the cache.
+     */
+    static void clear() {
+        Stream.of(CACHES).filter(Objects::nonNull).forEach(ConcurrentMap::clear);
+    }
+
+    /**
      * Gets a cache of Strategies for a particular field
      *
      * @param field The Calendar field
      * @return a cache of Locale to Strategy
      */
     private static ConcurrentMap<Locale, Strategy> getCache(final int field) {
-        synchronized (caches) {
-            if (caches[field] == null) {
-                caches[field] = new ConcurrentHashMap<>(3);
+        synchronized (CACHES) {
+            if (CACHES[field] == null) {
+                CACHES[field] = new ConcurrentHashMap<>(3);
             }
-            return caches[field];
+            return CACHES[field];
         }
-    }
-
-    private static boolean isFormatLetter(final char c) {
-        return c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z';
     }
 
     private static StringBuilder simpleQuote(final StringBuilder sb, final String value) {
@@ -1011,6 +1016,7 @@ public class FastDateParser implements DateParser, Serializable {
      * <p>
      * To determine if the parse has succeeded, the caller must check if the current parse position given by {@link ParsePosition#getIndex()} has been updated.
      * If the input buffer has been fully parsed, then the index will point to just after the end of the input buffer.
+     * </p>
      *
      * @see org.apache.commons.lang3.time.DateParser#parse(String, java.text.ParsePosition)
      */
@@ -1064,6 +1070,7 @@ public class FastDateParser implements DateParser, Serializable {
     public Object parseObject(final String source, final ParsePosition pos) {
         return parse(source, pos);
     }
+
     // Serializing
     /**
      * Creates the object after serialization. This implementation reinitializes the transient properties.
@@ -1077,6 +1084,7 @@ public class FastDateParser implements DateParser, Serializable {
         final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
         init(definingCalendar);
     }
+
     /**
      * Gets a string version of this formatter.
      *

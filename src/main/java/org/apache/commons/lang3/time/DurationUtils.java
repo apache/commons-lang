@@ -98,10 +98,10 @@ public class DurationUtils {
     }
 
     /**
-     * Tests whether the given Duration is positive (&gt;0).
+     * Tests whether the given Duration is positive (duration &gt; 0).
      *
      * @param duration the value to test
-     * @return whether the given Duration is positive (&gt;0).
+     * @return whether the given Duration is positive (duration &gt; 0).
      */
     public static boolean isPositive(final Duration duration) {
         return !duration.isNegative() && !duration.isZero();
@@ -219,7 +219,7 @@ public class DurationUtils {
      * @return The given duration or {@link Duration#ZERO}.
      */
     public static Duration zeroIfNull(final Duration duration) {
-        return ObjectUtils.defaultIfNull(duration, Duration.ZERO);
+        return ObjectUtils.getIfNull(duration, Duration.ZERO);
     }
 
     /**

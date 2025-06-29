@@ -48,7 +48,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 /**
  * Tests {@link org.apache.commons.lang3.time.FastDateFormat}.
  */
-public class FastDateFormatTest extends AbstractLangTest {
+class FastDateFormatTest extends AbstractLangTest {
 
     private static final String ISO_8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZ";
 
@@ -104,7 +104,7 @@ public class FastDateFormatTest extends AbstractLangTest {
 
     @DefaultLocale(language = "en", country = "US")
     @Test
-    public void test_changeDefault_Locale_DateInstance() {
+    void test_changeDefault_Locale_DateInstance() {
         final FastDateFormat format1 = FastDateFormat.getDateInstance(FastDateFormat.FULL, Locale.GERMANY);
         final FastDateFormat format2 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
         Locale.setDefault(Locale.GERMANY);
@@ -119,7 +119,7 @@ public class FastDateFormatTest extends AbstractLangTest {
 
     @DefaultLocale(language = "en", country = "US")
     @Test
-    public void test_changeDefault_Locale_DateTimeInstance() {
+    void test_changeDefault_Locale_DateTimeInstance() {
         final FastDateFormat format1 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL, Locale.GERMANY);
         final FastDateFormat format2 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
         Locale.setDefault(Locale.GERMANY);
@@ -138,14 +138,14 @@ public class FastDateFormatTest extends AbstractLangTest {
      * and the parse methods are tested by {@link FastDateFormat_ParserTest}
      */
     @Test
-    public void test_getInstance() {
+    void test_getInstance() {
         final FastDateFormat format1 = FastDateFormat.getInstance();
         final FastDateFormat format2 = FastDateFormat.getInstance();
         assertSame(format1, format2);
     }
 
     @Test
-    public void test_getInstance_String() {
+    void test_getInstance_String() {
         final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy");
         final FastDateFormat format2 = FastDateFormat.getInstance("MM-DD-yyyy");
         final FastDateFormat format3 = FastDateFormat.getInstance("MM-DD-yyyy");
@@ -159,7 +159,7 @@ public class FastDateFormatTest extends AbstractLangTest {
 
     @DefaultLocale(language = "en", country = "US")
     @Test
-    public void test_getInstance_String_Locale() {
+    void test_getInstance_String_Locale() {
         final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
         final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy");
         final FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
@@ -172,7 +172,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     @DefaultLocale(language = "en", country = "US")
     @DefaultTimeZone("America/New_York")
     @Test
-    public void test_getInstance_String_TimeZone() {
+    void test_getInstance_String_TimeZone() {
 
         final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
                 TimeZone.getTimeZone("Atlantic/Reykjavik"));
@@ -193,7 +193,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     @DefaultLocale(language = "en", country = "US")
     @DefaultTimeZone("America/New_York")
     @Test
-    public void test_getInstance_String_TimeZone_Locale() {
+    void test_getInstance_String_TimeZone_Locale() {
         final FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
                 TimeZone.getTimeZone("Atlantic/Reykjavik"), Locale.GERMANY);
         final FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
@@ -210,7 +210,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCheckDefaults() {
+    void testCheckDefaults() {
         final FastDateFormat format = FastDateFormat.getInstance();
         final FastDateFormat medium = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.SHORT);
         assertEquals(medium, format);
@@ -223,7 +223,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCheckDifferingStyles() {
+    void testCheckDifferingStyles() {
         final FastDateFormat shortShort = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.SHORT, Locale.US);
         final FastDateFormat shortLong = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.LONG, Locale.US);
         final FastDateFormat longShort = FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.SHORT, Locale.US);
@@ -238,7 +238,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDateDefaults() {
+    void testDateDefaults() {
         assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, Locale.CANADA),
                 FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.CANADA));
 
@@ -250,7 +250,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang1152() {
+    void testLang1152() {
         final TimeZone utc = FastTimeZone.getGmtTimeZone();
         final Date date = new Date(Long.MAX_VALUE);
 
@@ -262,11 +262,11 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang1267() {
+    void testLang1267() {
         FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
     }
     @Test
-    public void testLang1641() {
+    void testLang1641() {
         assertSame(FastDateFormat.getInstance(ISO_8601_DATE_FORMAT), FastDateFormat.getInstance(ISO_8601_DATE_FORMAT));
         // commons-lang's GMT TimeZone
         assertSame(FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, FastTimeZone.getGmtTimeZone()),
@@ -283,7 +283,7 @@ public class FastDateFormatTest extends AbstractLangTest {
      * According to LANG-954 (https://issues.apache.org/jira/browse/LANG-954) this is broken in Android 2.1.
      */
     @Test
-    public void testLang954() {
+    void testLang954() {
         final String pattern = "yyyy-MM-dd'T'";
         FastDateFormat.getInstance(pattern);
     }
@@ -294,14 +294,14 @@ public class FastDateFormatTest extends AbstractLangTest {
      * @throws ParseException Throws on test failure.
      */
     @Test
-    public void testParseCentralEuropeanSummerTime() throws ParseException {
+    void testParseCentralEuropeanSummerTime() throws ParseException {
         assertNotNull(FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss", Locale.GERMANY).parse("26.10.2014 02:00:00"));
         assertNotNull(FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss z", Locale.US).parse("26.10.2014 02:00:00 CEST"));
         assertNotNull(FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss z", Locale.GERMANY).parse("26.10.2014 02:00:00 MESZ"));
     }
 
     @Test
-    public void testParseSync() throws InterruptedException {
+    void testParseSync() throws InterruptedException {
         final String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";
         final SimpleDateFormat inner = new SimpleDateFormat(pattern);
         final Format sdf = new Format() {
@@ -331,7 +331,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStandaloneLongMonthForm() {
+    void testStandaloneLongMonthForm() {
         final TimeZone utc = FastTimeZone.getGmtTimeZone();
         final Instant testInstant = LocalDate.of(1970, 9, 15).atStartOfDay(ZoneId.of("UTC")).toInstant();
         final Date date = Date.from(testInstant);
@@ -347,7 +347,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStandaloneShortMonthForm() {
+    void testStandaloneShortMonthForm() {
         final TimeZone utc = FastTimeZone.getGmtTimeZone();
         final Instant testInstant = LocalDate.of(1970, 9, 15).atStartOfDay(ZoneId.of("UTC")).toInstant();
         final Date date = Date.from(testInstant);
@@ -363,7 +363,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTimeDateDefaults() {
+    void testTimeDateDefaults() {
         assertEquals(FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, Locale.CANADA),
                 FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, TimeZone.getDefault(), Locale.CANADA));
 
@@ -375,7 +375,7 @@ public class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTimeDefaults() {
+    void testTimeDefaults() {
         assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG, Locale.CANADA),
                 FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.CANADA));
 

@@ -27,16 +27,16 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asFailableSupplier(Method)}.
  */
-public class MethodInvokersFailableSupplierTest extends MethodFixtures {
+class MethodInvokersFailableSupplierTest extends MethodFixtures {
 
     @Test
-    public void testSupplierStatic() throws Throwable {
+    void testSupplierStatic() throws Throwable {
         assertEquals(staticGetString(), MethodInvokers.asFailableSupplier(getMethodForStaticGetString()).get());
         assertEquals(staticGetString(), MethodInvokers.asFailableSupplier(getMethodForStaticGetString()).get());
     }
 
     @Test
-    public void testSupplierToString() throws SecurityException, ReflectiveOperationException {
+    void testSupplierToString() throws SecurityException, ReflectiveOperationException {
         // Should not blow up and must return _something_
         assertFalse(MethodInvokers.asFailableSupplier(getMethodForStaticGetString()).toString().isEmpty());
     }

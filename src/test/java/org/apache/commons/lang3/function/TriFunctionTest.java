@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link TriFunction}.
  */
-public class TriFunctionTest extends AbstractLangTest {
+class TriFunctionTest extends AbstractLangTest {
 
     @Test
-    public void testAccept() throws Throwable {
+    void testAccept() throws Throwable {
         final AtomicReference<Character> ref1 = new AtomicReference<>();
         final AtomicReference<Short> ref2 = new AtomicReference<>();
         final AtomicReference<String> ref3 = new AtomicReference<>();
@@ -49,7 +49,7 @@ public class TriFunctionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAndThen() throws Throwable {
+    void testAndThen() throws Throwable {
         final AtomicReference<Character> ref1 = new AtomicReference<>();
         final AtomicReference<Short> ref2 = new AtomicReference<>();
         final AtomicReference<String> ref3 = new AtomicReference<>();

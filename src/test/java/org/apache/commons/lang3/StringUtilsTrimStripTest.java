@@ -26,11 +26,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link StringUtils} Trim/Strip methods.
  */
-public class StringUtilsTrimStripTest extends AbstractLangTest {
+class StringUtilsTrimStripTest extends AbstractLangTest {
     private static final String FOO = "foo";
 
     @Test
-    public void testStripAccents() {
+    void testStripAccents() {
         final String cue = "\u00C7\u00FA\u00EA";
         assertEquals("Cue", StringUtils.stripAccents(cue), "Failed to strip accents from " + cue);
 
@@ -56,20 +56,20 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripAccentsIWithBar() {
+    void testStripAccentsIWithBar() {
         assertEquals("I i I i I", StringUtils.stripAccents("\u0197 \u0268 \u1D7B \u1DA4 \u1DA7"));
     }
 
     @Test
     @Disabled
-    public void testStripAccentsKorean() {
+    void testStripAccentsKorean() {
         // LANG-1655
         final String input = "\uC78A\uC9C0\uB9C8 \uB10C \uD750\uB9B0 \uC5B4\uB460\uC0AC\uC774 \uC67C\uC190\uC73C\uB85C \uADF8\uB9B0 \uBCC4 \uD558\uB098";
         assertEquals(input, StringUtils.stripAccents(input), "Failed to handle Korean text");
     }
 
     @Test
-    public void testStripAccentsTWithStroke() {
+    void testStripAccentsTWithStroke() {
         assertEquals("T t", StringUtils.stripAccents("\u0166 \u0167"));
     }
 
@@ -77,7 +77,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
      * Tests Unicode vulgar fractions.
      */
     @Test
-    public void testStripAccentsUnicodeVulgarFractions() {
+    void testStripAccentsUnicodeVulgarFractions() {
         // 1/4, note "⁄", not "/".
         assertEquals("1⁄4", StringUtils.stripAccents("\u00BC"));
         // 1/2, note "⁄", not "/".
@@ -87,12 +87,12 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripAccentsUWithBar() {
+    void testStripAccentsUWithBar() {
         assertEquals("U u U u", StringUtils.stripAccents("\u0244 \u0289 \u1D7E \u1DB6"));
     }
 
     @Test
-    public void testStripAll() {
+    void testStripAll() {
         // test stripAll method, merely an array version of the above strip
         final String[] empty = {};
         final String[] fooSpace = { "  " + FOO + "  ", "  " + FOO, FOO + "  " };
@@ -113,7 +113,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripEndStringString() {
+    void testStripEndStringString() {
         // null stripEnd
         assertNull(StringUtils.stripEnd(null, null));
         assertEquals("", StringUtils.stripEnd("", null));
@@ -145,7 +145,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripStartStringString() {
+    void testStripStartStringString() {
         // null stripStart
         assertNull(StringUtils.stripStart(null, null));
         assertEquals("", StringUtils.stripStart("", null));
@@ -177,7 +177,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripString() {
+    void testStripString() {
         assertNull(StringUtils.strip(null));
         assertEquals("", StringUtils.strip(""));
         assertEquals("", StringUtils.strip("        "));
@@ -187,7 +187,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripStringString() {
+    void testStripStringString() {
         // null strip
         assertNull(StringUtils.strip(null, null));
         assertEquals("", StringUtils.strip("", null));
@@ -219,7 +219,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripToEmptyString() {
+    void testStripToEmptyString() {
         assertEquals("", StringUtils.stripToEmpty(null));
         assertEquals("", StringUtils.stripToEmpty(""));
         assertEquals("", StringUtils.stripToEmpty("        "));
@@ -230,7 +230,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripToNullString() {
+    void testStripToNullString() {
         assertNull(StringUtils.stripToNull(null));
         assertNull(StringUtils.stripToNull(""));
         assertNull(StringUtils.stripToNull("        "));
@@ -241,7 +241,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTrim() {
+    void testTrim() {
         assertEquals(FOO, StringUtils.trim(FOO + "  "));
         assertEquals(FOO, StringUtils.trim(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.trim(" " + FOO));
@@ -254,7 +254,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTrimToEmpty() {
+    void testTrimToEmpty() {
         assertEquals(FOO, StringUtils.trimToEmpty(FOO + "  "));
         assertEquals(FOO, StringUtils.trimToEmpty(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.trimToEmpty(" " + FOO));
@@ -267,7 +267,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTrimToNull() {
+    void testTrimToNull() {
         assertEquals(FOO, StringUtils.trimToNull(FOO + "  "));
         assertEquals(FOO, StringUtils.trimToNull(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.trimToNull(" " + FOO));

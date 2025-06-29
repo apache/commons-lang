@@ -16,7 +16,9 @@
  */
 package org.apache.commons.lang3.stream;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -36,6 +38,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailablePredicate;
+import org.apache.commons.lang3.stream.Streams.FailableStream;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
@@ -45,7 +48,7 @@ import org.xml.sax.SAXException;
 /**
  * Tests {@link Streams}.
  */
-public class StreamsTest extends AbstractLangTest {
+class StreamsTest extends AbstractLangTest {
 
     protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T throwable) {
         return s -> {
@@ -125,7 +128,59 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInstanceOfStream() {
+    void testArrayCollectorCombiner() {
+        final String[] expected = { "A1", "B1" };
+        assertArrayEquals(expected, Stream.of("A", "B").collect(Collectors.mapping(s -> s + "1", Streams.toArray(String.class))));
+        assertArrayEquals(expected, Streams.failableStream("A", "B").collect(Collectors.mapping(s -> s + "1", Streams.toArray(String.class))));
+        final List<String> left = new ArrayList<>();
+        left.add("a");
+        assertEquals(Arrays.asList("a", "b", "c"), Streams.toArray(String.class).combiner().apply(left, Arrays.asList("b", "c")));
+    }
+
+    @Test
+    void testAssertNotTerminated() {
+        final FailableStream<String> stream = Streams.failableStream("A", "B");
+        assertTrue(stream.allMatch(s -> s.length() == 1));
+        assertThrows(IllegalStateException.class, () -> stream.allMatch(null));
+    }
+
+    @SuppressWarnings("deprecation")
+    @Test
+    void testDeprefcatedCopnstructor() {
+        assertNotNull(new Streams().toString());
+    }
+
+    @Test
+    void testFailableAllMatch() {
+        assertTrue(Streams.failableStream("A", "B").allMatch(s -> s.length() == 1));
+        assertFalse(Streams.failableStream("A", "B").allMatch(s -> s.length() == 2));
+    }
+
+    @Test
+    void testFailableAnyMatch() {
+        assertTrue(Streams.failableStream("A", "B").anyMatch(s -> s.length() == 1));
+        assertTrue(Streams.failableStream("A", "BC").anyMatch(s -> s.length() == 1));
+        assertFalse(Streams.failableStream("A", "B").anyMatch(s -> s.length() == 2));
+    }
+
+    @Test
+    void testFailableCollect() {
+        assertEquals(Arrays.asList("A", "B"), Streams.failableStream("A", "B").collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
+    }
+
+    @Test
+    void testFailableReduce() {
+        assertEquals(3, Streams.failableStream(1, 2).reduce(0, (a, b) -> a + b));
+    }
+
+    @Test
+    void testFailableStream() {
+        assertEquals(1, Streams.failableStream(1).collect(Collectors.toList()).size());
+        assertEquals(0, Streams.failableStream(Stream.empty()).collect(Collectors.toList()).size());
+    }
+
+    @Test
+    void testInstanceOfStream() {
         assertEquals(2, Streams.instancesOf(String.class, Arrays.asList("A", "B")).collect(Collectors.toList()).size());
         assertEquals(2, Streams.instancesOf(String.class, Arrays.asList(null, "A", null, "B", null)).collect(Collectors.toList()).size());
         assertEquals(0, Streams.instancesOf(String.class, Arrays.asList(null, null)).collect(Collectors.toList()).size());
@@ -135,46 +190,47 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNonNull() {
+    void testNonNull() {
         assertEquals(0, Streams.nonNull().collect(Collectors.toList()).size());
+        assertEquals(0, Streams.nonNull((Stream<?>) null).collect(Collectors.toList()).size());
         assertEquals(1, Streams.nonNull("A").collect(Collectors.toList()).size());
         assertEquals(1, Streams.nonNull("A", null).collect(Collectors.toList()).size());
         assertEquals(1, Streams.nonNull(null, "A").collect(Collectors.toList()).size());
     }
 
     @Test
-    public void testNullSafeStreamNotNull() {
+    void testNullSafeStreamNotNull() {
         assertEquals(2, Streams.nonNull(Arrays.asList("A", "B")).collect(Collectors.toList()).size());
         assertEquals(2, Streams.nonNull(Arrays.asList(null, "A", null, "B", null)).collect(Collectors.toList()).size());
         assertEquals(0, Streams.nonNull(Arrays.asList(null, null)).collect(Collectors.toList()).size());
     }
 
     @Test
-    public void testNullSafeStreamNull() {
+    void testNullSafeStreamNull() {
         final List<String> input = null;
         assertEquals(0, Streams.nonNull(input).collect(Collectors.toList()).size());
     }
 
     @Test
-    public void testOfArray() {
+    void testOfArray() {
         assertEquals(0, Streams.of((Object[]) null).count());
         assertEquals(1, Streams.of("foo").count());
         assertEquals(2, Streams.of("foo", "bar").count());
     }
 
     @Test
-    public void testOfCollectionNotNull() {
+    void testOfCollectionNotNull() {
         assertEquals(2, Streams.of(Arrays.asList("A", "B")).collect(Collectors.toList()).size());
     }
 
     @Test
-    public void testOfCollectionNull() {
+    void testOfCollectionNull() {
         final List<String> input = null;
         assertEquals(0, Streams.of(input).collect(Collectors.toList()).size());
     }
 
     @Test
-    public void testOfEnumeration() {
+    void testOfEnumeration() {
         final Hashtable<String, Integer> table = new Hashtable<>();
         assertEquals(0, Streams.of(table.elements()).count());
         table.put("One", 1);
@@ -185,39 +241,48 @@ public class StreamsTest extends AbstractLangTest {
         assertTrue(collect.contains("One"));
         assertTrue(collect.contains("Two"));
         assertEquals(2, collect.size());
+        assertFalse(Streams.of(table.keys()).filter(String::isEmpty).findFirst().isPresent());
+        assertEquals(Arrays.asList("OneOne", "TwoTwo"), Streams.of(table.keys()).map(s -> s + s).collect(Collectors.toList()));
+        assertFalse(Streams.of(new Hashtable<String, Object>().keys()).filter(String::isEmpty).findFirst().isPresent());
     }
 
     @Test
-    public void testOfIterableNotNull() {
+    void testOfIterableNotNull() {
         assertEquals(2, Streams.of((Iterable<String>) Arrays.asList("A", "B")).collect(Collectors.toList()).size());
     }
 
     @Test
-    public void testOfIterableNull() {
+    void testOfIterableNull() {
         final Iterable<String> input = null;
         assertEquals(0, Streams.of(input).collect(Collectors.toList()).size());
     }
 
     @Test
-    public void testOfIteratorNotNull() {
+    void testOfIteratorNotNull() {
         assertEquals(2, Streams.of(Arrays.asList("A", "B").iterator()).collect(Collectors.toList()).size());
     }
 
     @Test
-    public void testOfIteratorNull() {
+    void testOfIteratorNull() {
         final Iterator<String> input = null;
         assertEquals(0, Streams.of(input).collect(Collectors.toList()).size());
     }
 
     @Test
-    public void testSimpleStreamFilter() {
+    void testOfVarArg() {
+        assertEquals(1, Streams.of(1).collect(Collectors.toList()).size());
+        assertEquals(2, Streams.of(1, 2).collect(Collectors.toList()).size());
+    }
+
+    @Test
+    void testSimpleStreamFilter() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Failable.stream(input).map(Integer::valueOf).filter(i -> i.intValue() % 2 == 0).collect(Collectors.toList());
         assertEvenNumbers(output);
     }
 
     @Test
-    public void testSimpleStreamForEach() {
+    void testSimpleStreamForEach() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = new ArrayList<>();
         Failable.stream(input).forEach(s -> output.add(Integer.valueOf(s)));
@@ -228,7 +293,7 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSimpleStreamMap() {
+    void testSimpleStreamMap() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Failable.stream(input).map(Integer::valueOf).collect(Collectors.toList());
         assertEquals(6, output.size());
@@ -238,27 +303,34 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSimpleStreamMapFailing() {
+    void testSimpleStreamMapFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4 ", "5", "6");
         final Executable testMethod = () -> Failable.stream(input).map(Integer::valueOf).collect(Collectors.toList());
         final NumberFormatException thrown = assertThrows(NumberFormatException.class, testMethod);
         assertEquals("For input string: \"4 \"", thrown.getMessage());
     }
 
+    @SuppressWarnings("deprecation")
     @Test
-    public void testStreamCollection() {
+    void testStream() {
+        assertEquals(0, Streams.stream(Stream.empty()).collect(Collectors.toList()).size());
+        assertEquals(1, Streams.stream(Stream.of("")).collect(Collectors.toList()).size());
+    }
+
+    @Test
+    void testStreamCollection() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         assertEquals(6, Streams.stream(input).collect(Collectors.toList()).size());
     }
 
     @Test
-    public void testStreamCollectionNull() {
+    void testStreamCollectionNull() {
         final List<String> input = null;
         assertEquals(0, Streams.stream(input).collect(Collectors.toList()).size());
     }
 
     @Test
-    public void testToArray() {
+    void testToArray() {
         final String[] array = Arrays.asList("2", "3", "1").stream().collect(Streams.toArray(String.class));
         assertNotNull(array);
         assertEquals(3, array.length);

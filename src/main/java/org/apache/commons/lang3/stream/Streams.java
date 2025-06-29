@@ -834,11 +834,11 @@ public class Streams {
     /**
      * Returns a {@link Collector} that accumulates the input elements into a new array.
      *
-     * @param elementType Type of an element in the array.
      * @param <T> the type of the input elements
+     * @param elementType Type of an element in the array.
      * @return a {@link Collector} which collects all the input elements into an array, in encounter order
      */
-    public static <T> Collector<T, ?, T[]> toArray(final Class<T> elementType) {
+    public static <T> Collector<T, List<T>, T[]> toArray(final Class<T> elementType) {
         return new ArrayCollector<>(elementType);
     }
 

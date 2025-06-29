@@ -26,10 +26,10 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.translate.OctalUnescaper}.
  */
 @Deprecated
-public class OctalUnescaperTest extends AbstractLangTest {
+class OctalUnescaperTest extends AbstractLangTest {
 
     @Test
-    public void testBetween() {
+    void testBetween() {
         final OctalUnescaper oue = new OctalUnescaper();   //.between("1", "377");
 
         String input = "\\45";

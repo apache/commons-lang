@@ -266,8 +266,11 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Gets the value as a Double instance.
      *
-     * @return the value as a Double, never null
+     * @return the value as a Double, never null.
+     * @deprecated Use {@link #get()}.
      */
+    @SuppressWarnings("deprecation")
+    @Deprecated
     @Override
     public Double getValue() {
         return Double.valueOf(this.value);

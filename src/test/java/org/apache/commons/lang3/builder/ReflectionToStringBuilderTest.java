@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ReflectionToStringBuilder}.
  */
-public class ReflectionToStringBuilderTest extends AbstractLangTest {
+class ReflectionToStringBuilderTest extends AbstractLangTest {
 
     @Test
-    public void testConstructorWithNullObject() {
+    void testConstructorWithNullObject() {
         assertEquals("<null>", new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuffer()).toString());
     }
 

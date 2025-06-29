@@ -14,10 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3.stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -25,22 +27,28 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link IntStreams}.
  */
-public class IntStreamsTest extends AbstractLangTest {
+class IntStreamsTest extends AbstractLangTest {
+
+    @SuppressWarnings("deprecation")
+    @Test
+    void testDeprecatedConstructor() {
+        assertNotNull(new IntStreams().toString());
+    }
 
     @Test
-    public void testOfArray() {
+    void testOfArray() {
         assertEquals(0, IntStreams.of((int[]) null).count());
         assertEquals(1, IntStreams.of(1).count());
         assertEquals(2, IntStreams.of(1, 2).count());
     }
 
     @Test
-    public void testRange() {
-        assertArrayEquals(new int[] {0, 1}, IntStreams.range(2).toArray());
+    void testRange() {
+        assertArrayEquals(new int[] { 0, 1 }, IntStreams.range(2).toArray());
     }
 
     @Test
-    public void testRangeClosed() {
-        assertArrayEquals(new int[] {0, 1, 2}, IntStreams.rangeClosed(2).toArray());
+    void testRangeClosed() {
+        assertArrayEquals(new int[] { 0, 1, 2 }, IntStreams.rangeClosed(2).toArray());
     }
 }

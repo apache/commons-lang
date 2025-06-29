@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -37,7 +38,7 @@ class ConversionTest {
 
     @Test
     void testHexToByte_nullString() {
-        assertThrows(NullPointerException.class, () -> Conversion.hexToByte(null, 0, (byte) 0, 0, 2));
+        assertNullPointerException(() -> Conversion.hexToByte(null, 0, (byte) 0, 0, 2));
     }
 
 }

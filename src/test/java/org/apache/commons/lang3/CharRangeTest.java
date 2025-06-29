@@ -18,6 +18,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -34,17 +35,17 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link CharRange}.
  */
-public class CharRangeTest extends AbstractLangTest {
+class CharRangeTest extends AbstractLangTest {
 
     @Test
-    public void testClass() {
+    void testClass() {
         // class changed to non-public in 3.0
         assertFalse(Modifier.isPublic(CharRange.class.getModifiers()));
         assertTrue(Modifier.isFinal(CharRange.class.getModifiers()));
     }
 
     @Test
-    public void testConstructorAccessors_is() {
+    void testConstructorAccessors_is() {
         final CharRange rangea = CharRange.is('a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
@@ -53,7 +54,7 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructorAccessors_isIn_Normal() {
+    void testConstructorAccessors_isIn_Normal() {
         final CharRange rangea = CharRange.isIn('a', 'e');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
@@ -62,7 +63,7 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructorAccessors_isIn_Reversed() {
+    void testConstructorAccessors_isIn_Reversed() {
         final CharRange rangea = CharRange.isIn('e', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
@@ -71,7 +72,7 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructorAccessors_isIn_Same() {
+    void testConstructorAccessors_isIn_Same() {
         final CharRange rangea = CharRange.isIn('a', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
@@ -80,7 +81,7 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructorAccessors_isNot() {
+    void testConstructorAccessors_isNot() {
         final CharRange rangea = CharRange.isNot('a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
@@ -89,7 +90,7 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructorAccessors_isNotIn_Normal() {
+    void testConstructorAccessors_isNotIn_Normal() {
         final CharRange rangea = CharRange.isNotIn('a', 'e');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
@@ -98,7 +99,7 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructorAccessors_isNotIn_Reversed() {
+    void testConstructorAccessors_isNotIn_Reversed() {
         final CharRange rangea = CharRange.isNotIn('e', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
@@ -107,7 +108,7 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructorAccessors_isNotIn_Same() {
+    void testConstructorAccessors_isNotIn_Same() {
         final CharRange rangea = CharRange.isNotIn('a', 'a');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
@@ -116,7 +117,7 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContains_Char() {
+    void testContains_Char() {
         CharRange range = CharRange.is('c');
         assertFalse(range.contains('b'));
         assertTrue(range.contains('c'));
@@ -145,7 +146,7 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContains_Charrange() {
+    void testContains_Charrange() {
         final CharRange a = CharRange.is('a');
         final CharRange b = CharRange.is('b');
         final CharRange c = CharRange.is('c');
@@ -260,14 +261,14 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsNullArg() {
+    void testContainsNullArg() {
         final CharRange range = CharRange.is('a');
-        final NullPointerException e = assertThrows(NullPointerException.class, () -> range.contains(null));
+        final NullPointerException e = assertNullPointerException(() -> range.contains(null));
         assertEquals("range", e.getMessage());
     }
 
     @Test
-    public void testEquals_Object() {
+    void testEquals_Object() {
         final CharRange rangea = CharRange.is('a');
         final CharRange rangeae = CharRange.isIn('a', 'e');
         final CharRange rangenotbf = CharRange.isIn('b', 'f');
@@ -290,7 +291,7 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final CharRange rangea = CharRange.is('a');
         final CharRange rangeae = CharRange.isIn('a', 'e');
         final CharRange rangenotbf = CharRange.isIn('b', 'f');
@@ -311,7 +312,7 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIterator() {
+    void testIterator() {
         final CharRange a = CharRange.is('a');
         final CharRange ad = CharRange.isIn('a', 'd');
         final CharRange nota = CharRange.isNot('a');
@@ -363,14 +364,14 @@ public class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIteratorRemove() {
+    void testIteratorRemove() {
         final CharRange a = CharRange.is('a');
         final Iterator<Character> aIt = a.iterator();
         assertThrows(UnsupportedOperationException.class, aIt::remove);
     }
 
     @Test
-    public void testSerialization() {
+    void testSerialization() {
         CharRange range = CharRange.is('a');
         assertEquals(range, SerializationUtils.clone(range));
         range = CharRange.isIn('a', 'e');

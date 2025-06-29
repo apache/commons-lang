@@ -53,7 +53,7 @@ import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 /* Make test reproducible */ @DefaultTimeZone(TimeZones.GMT_ID)
 /* Make test reproducible */ @ReadsDefaultLocale
 /* Make test reproducible */ @ReadsDefaultTimeZone
-public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
+class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     private static final List<Locale> Java11Failures = new ArrayList<>();
     private static final List<Locale> Java17Failures = new ArrayList<>();
@@ -69,12 +69,12 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         }
     }
 
-    public static Locale[] getAvailableLocalesSorted() {
-        return ArraySorter.sort(Locale.getAvailableLocales(), Comparator.comparing(Locale::toString));
+    private String[][] getZoneStringsSorted(final Locale locale) {
+        return ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(), Comparator.comparing(array -> array[0]));
     }
 
     @Test
-    public void testLang1219() throws ParseException {
+    void testLang1219() throws ParseException {
         final FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getDefault(), Locale.GERMAN);
         final Date summer = parser.parse("26.10.2014 02:00:00 MESZ");
         final Date standard = parser.parse("26.10.2014 02:00:00 MEZ");
@@ -82,14 +82,14 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @MethodSource("org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest#getAvailableLocalesSorted")
-    public void testTimeZoneStrategy_DateFormatSymbols(final Locale locale) {
+    @MethodSource("org.apache.commons.lang3.LocaleUtils#availableLocaleList()")
+    void testTimeZoneStrategy_DateFormatSymbols(final Locale locale) {
         testTimeZoneStrategyPattern_DateFormatSymbols_getZoneStrings(locale);
     }
 
     @ParameterizedTest
-    @MethodSource("org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest#getAvailableLocalesSorted")
-    public void testTimeZoneStrategy_TimeZone(final Locale locale) {
+    @MethodSource("org.apache.commons.lang3.LocaleUtils#availableLocaleList()")
+    void testTimeZoneStrategy_TimeZone(final Locale locale) {
         testTimeZoneStrategyPattern_TimeZone_getAvailableIDs(locale);
     }
 
@@ -108,8 +108,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null, null));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null, null));
 
-        final String[][] zones = ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(),
-                Comparator.comparing(array -> array[0]));
+        final String[][] zones = getZoneStringsSorted(locale);
         for (final String[] zone : zones) {
             for (int zIndex = 1; zIndex < zone.length; ++zIndex) {
                 final String tzDisplay = zone[zIndex];
@@ -186,6 +185,11 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         }
     }
 
+    @Test
+    void testTimeZoneStrategyPattern_zh_HK_Hans() throws ParseException {
+        testTimeZoneStrategyPattern("zh_HK_#Hans", "?????????");
+    }
+
     /**
      * Breaks randomly on GitHub for Locale "pt_PT", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
      *
@@ -198,13 +202,8 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      * @throws ParseException Test failure
      */
     @Test
-    public void testTimeZoneStrategyPatternPortugal() throws ParseException {
+    void testTimeZoneStrategyPatternPortugal() throws ParseException {
         testTimeZoneStrategyPattern("pt_PT", "Horário do Meridiano de Greenwich");
-    }
-
-    @Test
-    public void testTimeZoneStrategyPattern_zh_HK_Hans() throws ParseException {
-        testTimeZoneStrategyPattern("zh_HK_#Hans", "?????????");
     }
 
     /**
@@ -219,7 +218,7 @@ public class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      * @throws ParseException Test failure
      */
     @Test
-    public void testTimeZoneStrategyPatternSuriname() throws ParseException {
+    void testTimeZoneStrategyPatternSuriname() throws ParseException {
         testTimeZoneStrategyPattern("sr_ME_#Cyrl", "Srednje vreme po Griniču");
     }
 

@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link LangCollectors}
  */
-public class LangCollectorsTest {
+class LangCollectorsTest {
 
     private static final class Fixture {
         int value;
@@ -79,7 +79,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testCollectStrings1Arg() {
+    void testCollectStrings1Arg() {
         assertEquals("", join1());
         assertEquals("1", join1("1"));
         assertEquals("1-2", join1("1", "2"));
@@ -88,7 +88,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoinCollectNonStrings0Arg() {
+    void testJoinCollectNonStrings0Arg() {
         assertEquals("", join0());
         assertEquals("1", join0(_1L));
         assertEquals("12", join0(_1L, _2L));
@@ -99,7 +99,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoinCollectNonStrings1Arg() {
+    void testJoinCollectNonStrings1Arg() {
         assertEquals("", join1());
         assertEquals("1", join1(_1L));
         assertEquals("1-2", join1(_1L, _2L));
@@ -110,7 +110,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoinCollectNonStrings3Args() {
+    void testJoinCollectNonStrings3Args() {
         assertEquals("<>", join3());
         assertEquals("<1>", join3(_1L));
         assertEquals("<1-2>", join3(_1L, _2L));
@@ -121,7 +121,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoinCollectNonStrings4Args() {
+    void testJoinCollectNonStrings4Args() {
         assertEquals("<>", join4());
         assertEquals("<1>", join4(_1L));
         assertEquals("<1-2>", join4(_1L, _2L));
@@ -133,7 +133,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoinCollectNullArgs() {
+    void testJoinCollectNullArgs() {
         assertEquals("", join0((Object[]) null));
         assertEquals("", join1((Object[]) null));
         assertEquals("<>", join3((Object[]) null));
@@ -141,7 +141,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoinCollectStrings0Arg() {
+    void testJoinCollectStrings0Arg() {
         assertEquals("", join0());
         assertEquals("1", join0("1"));
         assertEquals("12", join0("1", "2"));
@@ -150,7 +150,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoinCollectStrings3Args() {
+    void testJoinCollectStrings3Args() {
         assertEquals("<>", join3());
         assertEquals("<1>", join3("1"));
         assertEquals("<1-2>", join3("1", "2"));
@@ -159,7 +159,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoinCollectStrings4Args() {
+    void testJoinCollectStrings4Args() {
         assertEquals("<>", join4());
         assertEquals("<1>", join4("1"));
         assertEquals("<1-2>", join4("1", "2"));
@@ -169,7 +169,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoiningNonStrings0Arg() {
+    void testJoiningNonStrings0Arg() {
         // Stream.of()
         assertEquals("", Stream.of().collect(JOINING_0));
         assertEquals("1", Stream.of(_1L).collect(JOINING_0));
@@ -189,7 +189,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoiningNonStrings1Arg() {
+    void testJoiningNonStrings1Arg() {
         // Stream.of()
         assertEquals("", Stream.of().collect(JOINING_1));
         assertEquals("1", Stream.of(_1L).collect(JOINING_1));
@@ -209,7 +209,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoiningNonStrings3Args() {
+    void testJoiningNonStrings3Args() {
         assertEquals("<>", Stream.of().collect(JOINING_3));
         assertEquals("<1>", Stream.of(_1L).collect(JOINING_3));
         assertEquals("<1-2>", Stream.of(_1L, _2L).collect(JOINING_3));
@@ -220,7 +220,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoiningNonStrings4Args() {
+    void testJoiningNonStrings4Args() {
         assertEquals("<>", Stream.of().collect(JOINING_4));
         assertEquals("<1>", Stream.of(_1L).collect(JOINING_4));
         assertEquals("<1-2>", Stream.of(_1L, _2L).collect(JOINING_4));
@@ -232,7 +232,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoiningStrings0Arg() {
+    void testJoiningStrings0Arg() {
         assertEquals("", Stream.of().collect(JOINING_0));
         assertEquals("1", Stream.of("1").collect(JOINING_0));
         assertEquals("12", Stream.of("1", "2").collect(JOINING_0));
@@ -241,7 +241,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoiningStrings1Arg() {
+    void testJoiningStrings1Arg() {
         assertEquals("", Stream.of().collect(JOINING_1));
         assertEquals("1", Stream.of("1").collect(JOINING_1));
         assertEquals("1-2", Stream.of("1", "2").collect(JOINING_1));
@@ -250,7 +250,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoiningStrings3Args() {
+    void testJoiningStrings3Args() {
         assertEquals("<>", Stream.of().collect(JOINING_3));
         assertEquals("<1>", Stream.of("1").collect(JOINING_3));
         assertEquals("<1-2>", Stream.of("1", "2").collect(JOINING_3));
@@ -259,7 +259,7 @@ public class LangCollectorsTest {
     }
 
     @Test
-    public void testJoiningStrings4Args() {
+    void testJoiningStrings4Args() {
         assertEquals("<>", Stream.of().collect(JOINING_4));
         assertEquals("<1>", Stream.of("1").collect(JOINING_4));
         assertEquals("<1-2>", Stream.of("1", "2").collect(JOINING_4));

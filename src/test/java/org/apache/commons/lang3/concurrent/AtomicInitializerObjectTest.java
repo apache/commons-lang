@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code AtomicInitializer}.
  */
-public class AtomicInitializerObjectTest extends AbstractConcurrentInitializerTest<Object> {
+class AtomicInitializerObjectTest extends AbstractConcurrentInitializerTest<Object> {
 
     /**
      * Returns the initializer to be tested.
@@ -43,7 +43,7 @@ public class AtomicInitializerObjectTest extends AbstractConcurrentInitializerTe
     }
 
     @Test
-    public void testGetThatReturnsNullFirstTime() throws ConcurrentException {
+    void testGetThatReturnsNullFirstTime() throws ConcurrentException {
         final AtomicInitializer<Object> initializer = new AtomicInitializer<Object>() {
             final AtomicBoolean firstRun = new AtomicBoolean(true);
 

@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -30,17 +31,17 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asFailableBiFunction(Method)}.
  */
-public class MethodInvokersFailableBiFunctionTest extends MethodFixtures {
+class MethodInvokersFailableBiFunctionTest extends MethodFixtures {
 
     @Test
-    public void testApply1Arg() throws Throwable {
+    void testApply1Arg() throws Throwable {
         // Use a local variable typed to the interface to make sure we compile.
         final FailableBiFunction<MethodFixtures, String, String[], Throwable> func = MethodInvokers.asFailableBiFunction(getMethodForGetString1ArgChecked());
         assertEquals(INSTANCE.getString1ArgChecked("A"), func.apply(INSTANCE, "A"));
     }
 
     @Test
-    public void testApply1ArgThrowsChecked() throws NoSuchMethodException, SecurityException {
+    void testApply1ArgThrowsChecked() throws NoSuchMethodException, SecurityException {
         // Use a local variable typed to the interface to make sure we compile.
         final FailableBiFunction<MethodFixtures, String, String[], Throwable> func = MethodInvokers
             .asFailableBiFunction(getMethodForGetString1ArgThrowsChecked());
@@ -48,7 +49,7 @@ public class MethodInvokersFailableBiFunctionTest extends MethodFixtures {
     }
 
     @Test
-    public void testApply1ArgThrowsUnchecked() throws NoSuchMethodException, SecurityException {
+    void testApply1ArgThrowsUnchecked() throws NoSuchMethodException, SecurityException {
         // Use a local variable typed to the interface to make sure we compile.
         final FailableBiFunction<MethodFixtures, String, String[], Throwable> func = MethodInvokers
             .asFailableBiFunction(getMethodForGetString1ArgThrowsUnchecked());
@@ -56,12 +57,12 @@ public class MethodInvokersFailableBiFunctionTest extends MethodFixtures {
     }
 
     @Test
-    public void testConstructorForNull() throws SecurityException {
-        assertThrows(NullPointerException.class, () -> MethodInvokers.asFailableBiFunction(null));
+    void testConstructorForNull() throws SecurityException {
+        assertNullPointerException(() -> MethodInvokers.asFailableBiFunction(null));
     }
 
     @Test
-    public void testToString() throws SecurityException, Throwable {
+    void testToString() throws SecurityException, Throwable {
         // Should not blow up and must return _something_
         assertFalse(MethodInvokers.asFailableBiFunction(getMethodForGetString1ArgChecked()).toString().isEmpty());
     }

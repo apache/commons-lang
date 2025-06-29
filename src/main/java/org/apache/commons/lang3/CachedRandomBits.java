@@ -37,10 +37,25 @@ import java.util.Random;
  */
 final class CachedRandomBits {
 
+    /**
+     * The maximum size of the cache.
+     *
+     * <p>
+     * This is to prevent the possibility of overflow in the {@code if (bitIndex >> 3 >= cache.length)} in the {@link #nextBits(int)} method.
+     * </p>
+     */
+    private static final int MAX_CACHE_SIZE = Integer.MAX_VALUE >> 3;
+
+    /** Maximum number of bits that can be generated (size of an int) */
+    private static final int MAX_BITS = 32;
+
+    /** Mask to extract the bit offset within a byte (0-7) */
+    private static final int BIT_INDEX_MASK = 0x7;
+
+    /** Number of bits in a byte */
+    private static final int BITS_PER_BYTE = 8;
     private final Random random;
-
     private final byte[] cache;
-
     /**
      * Index of the next bit in the cache to be used.
      *
@@ -51,21 +66,6 @@ final class CachedRandomBits {
      * </ul>
      */
     private int bitIndex;
-
-    /**
-     * The maximum size of the cache.
-     *
-     * <p>
-     * This is to prevent the possibility of overflow in the {@code if (bitIndex >> 3 >= cache.length)} in the {@link #nextBits(int)} method.
-     * </p>
-     */
-    private static final int MAX_CACHE_SIZE = Integer.MAX_VALUE >> 3;
-    /** Maximum number of bits that can be generated (size of an int) */
-    private static final int MAX_BITS = 32;
-    /** Mask to extract the bit offset within a byte (0-7) */
-    private static final int BIT_INDEX_MASK = 0x7;
-    /** Number of bits in a byte */
-    private static final int BITS_PER_BYTE = 8;
     /**
      * Creates a new instance.
      *

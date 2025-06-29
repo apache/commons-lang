@@ -45,7 +45,7 @@ public class StringEscapeUtils {
 
     /* ESCAPE TRANSLATORS */
 
-    static class CsvEscaper extends CharSequenceTranslator {
+    private static final class CsvEscaper extends CharSequenceTranslator {
 
         private static final char CSV_DELIMITER = ',';
         private static final char CSV_QUOTE = '"';
@@ -54,11 +54,9 @@ public class StringEscapeUtils {
 
         @Override
         public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
-
             if (index != 0) {
                 throw new IllegalStateException("CsvEscaper should never reach the [1] index");
             }
-
             if (StringUtils.containsNone(input.toString(), CSV_SEARCH_CHARS)) {
                 out.write(input.toString());
             } else {
@@ -70,7 +68,7 @@ public class StringEscapeUtils {
         }
     }
 
-    static class CsvUnescaper extends CharSequenceTranslator {
+    private static final class CsvUnescaper extends CharSequenceTranslator {
 
         private static final char CSV_DELIMITER = ',';
         private static final char CSV_QUOTE = '"';
@@ -79,19 +77,15 @@ public class StringEscapeUtils {
 
         @Override
         public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
-
             if (index != 0) {
                 throw new IllegalStateException("CsvUnescaper should never reach the [1] index");
             }
-
             if (input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE) {
                 out.write(input.toString());
                 return Character.codePointCount(input, 0, input.length());
             }
-
             // strip quotes
             final String quoteless = input.subSequence(1, input.length() - 1).toString();
-
             if (StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS)) {
                 // deal with escaped quotes; ie) ""
                 out.write(Strings.CS.replace(quoteless, CSV_QUOTE_STR + CSV_QUOTE_STR, CSV_QUOTE_STR));

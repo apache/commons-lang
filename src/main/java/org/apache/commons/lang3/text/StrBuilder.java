@@ -258,16 +258,19 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             StrBuilder.this.append(str, off, len);
         }
     }
+
     /**
      * The extra capacity for new builders.
      */
     static final int CAPACITY = 32;
+
     /**
      * Required for serialization support.
      *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 7628716375283629643L;
+
     /** Internal data storage. */
     protected char[] buffer; // TODO make private?
 

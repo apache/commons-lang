@@ -3759,8 +3759,7 @@ public final class SystemProperties {
             if (StringUtils.isEmpty(property)) {
                 return Suppliers.get(defaultIfAbsent);
             }
-            final String value = System.getProperty(property);
-            return StringUtils.getIfEmpty(value, defaultIfAbsent);
+            return StringUtils.getIfEmpty(System.getProperty(property), defaultIfAbsent);
         } catch (final SecurityException ignore) {
             // We are not allowed to look at this property.
             //
@@ -4075,6 +4074,23 @@ public final class SystemProperties {
      */
     public static String getUserVariant() {
         return getProperty(USER_VARIANT);
+    }
+
+    /**
+     * Tests whether the given property is set.
+     * <p>
+     * Short-hand for {@code getProperty(property) != null}.
+     * </p>
+     * <p>
+     * If a {@link SecurityException} is caught, the return value is {@code false}.
+     * </p>
+     *
+     * @param property the system property name.
+     * @return whether the given property is set.
+     * @since 3.18.0
+     */
+    public static boolean isPropertySet(final String property) {
+        return getProperty(property) != null;
     }
 
     /**

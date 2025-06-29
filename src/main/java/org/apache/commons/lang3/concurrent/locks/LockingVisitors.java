@@ -19,10 +19,12 @@ package org.apache.commons.lang3.concurrent.locks;
 import java.util.Objects;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.StampedLock;
 import java.util.function.Supplier;
 
+import org.apache.commons.lang3.builder.AbstractSupplier;
 import org.apache.commons.lang3.function.Failable;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableFunction;
@@ -63,9 +65,11 @@ import org.apache.commons.lang3.function.Suppliers;
  *   public class SimpleLogger {
  *
  *     private final StampedLockVisitor<PrintStream> lock;
+ *     private final PrintStream ps;
  *
  *     public SimpleLogger(OutputStream out) {
- *         lock = LockingVisitors.stampedLockVisitor(new PrintStream(out));
+ *         ps = new PrintStream(out);
+ *         lock = LockingVisitors.stampedLockVisitor(ps);
  *     }
  *
  *     public void log(String message) {
@@ -92,6 +96,103 @@ public class LockingVisitors {
     public static class LockVisitor<O, L> {
 
         /**
+         * Builds {@link LockVisitor} instances.
+         *
+         * @param <O> the wrapped object type.
+         * @param <L> the wrapped lock type.
+         * @param <B> the builder type.
+         * @since 3.18.0
+         */
+        public static class LVBuilder<O, L, B extends LVBuilder<O, L, B>> extends AbstractSupplier<LockVisitor<O, L>, B, RuntimeException> {
+
+            /**
+             * The lock object, untyped, since, for example {@link StampedLock} does not implement a locking interface in
+             * Java 8.
+             */
+            L lock;
+
+            /**
+             * The guarded object.
+             */
+            O object;
+
+            /**
+             * Supplies the read lock, usually from the lock object.
+             */
+            private Supplier<Lock> readLockSupplier;
+
+            /**
+             * Supplies the write lock, usually from the lock object.
+             */
+            private Supplier<Lock> writeLockSupplier;
+
+            /**
+             * Constructs a new instance.
+             */
+            public LVBuilder() {
+                // empty
+            }
+
+            @Override
+            public LockVisitor<O, L> get() {
+                return new LockVisitor<>(this);
+            }
+
+            Supplier<Lock> getReadLockSupplier() {
+                return readLockSupplier;
+            }
+
+
+            Supplier<Lock> getWriteLockSupplier() {
+                return writeLockSupplier;
+            }
+
+            /**
+             * Set the lock used from accept methods.
+             *
+             * @param lock the lock.
+             * @return {@code this} instance.
+             */
+            public B setLock(final L lock) {
+                this.lock = lock;
+                return asThis();
+            }
+
+            /**
+             * Set the resource.
+             *
+             * @param object the resource.
+             * @return {@code this} instance.
+             */
+            public B setObject(final O object) {
+                this.object = object;
+                return asThis();
+            }
+
+            /**
+             * Supplies the read lock.
+             *
+             * @param readLockSupplier Supplies the read lock.
+             * @return {@code this} instance.
+             */
+            public B setReadLockSupplier(final Supplier<Lock> readLockSupplier) {
+                this.readLockSupplier = readLockSupplier;
+                return asThis();
+            }
+
+            /**
+             * Supplies the write lock.
+             *
+             * @param writeLockSupplier Supplies the write lock.
+             * @return {@code this} instance.
+             */
+            public B setWriteLockSupplier(final Supplier<Lock> writeLockSupplier) {
+                this.writeLockSupplier = writeLockSupplier;
+                return asThis();
+            }
+        }
+
+        /**
          * The lock object, untyped, since, for example {@link StampedLock} does not implement a locking interface in
          * Java 8.
          */
@@ -111,6 +212,18 @@ public class LockingVisitors {
          * Supplies the write lock, usually from the lock object.
          */
         private final Supplier<Lock> writeLockSupplier;
+
+        /**
+         * Constructs an instance from a builder.
+         *
+         * @param builder The builder.
+         */
+        private LockVisitor(final LVBuilder<O, L, ?> builder) {
+            this.object = Objects.requireNonNull(builder.object, "object");
+            this.lock = Objects.requireNonNull(builder.lock, "lock");
+            this.readLockSupplier = Objects.requireNonNull(builder.readLockSupplier, "readLockSupplier");
+            this.writeLockSupplier = Objects.requireNonNull(builder.writeLockSupplier, "writeLockSupplier");
+        }
 
         /**
          * Constructs an instance.
@@ -314,6 +427,54 @@ public class LockingVisitors {
     public static class ReadWriteLockVisitor<O> extends LockVisitor<O, ReadWriteLock> {
 
         /**
+         * Builds {@link LockVisitor} instances.
+         *
+         * @param <O> the wrapped object type.
+         * @since 3.18.0
+         */
+        public static class Builder<O> extends LVBuilder<O, ReadWriteLock, Builder<O>> {
+
+            /**
+             * Constructs a new instance.
+             */
+            public Builder() {
+                // empty
+            }
+
+            @Override
+            public ReadWriteLockVisitor<O> get() {
+                return new ReadWriteLockVisitor<>(this);
+            }
+
+            @Override
+            public Builder<O> setLock(final ReadWriteLock readWriteLock) {
+                setReadLockSupplier(readWriteLock::readLock);
+                setWriteLockSupplier(readWriteLock::writeLock);
+                return super.setLock(readWriteLock);
+            }
+        }
+
+        /**
+         * Creates a new builder.
+         *
+         * @param <O> the wrapped object type.
+         * @return a new builder.
+         * @since 3.18.0
+         */
+        public static <O> Builder<O> builder() {
+            return new Builder<>();
+        }
+
+        /**
+         * Constructs a new instance from a builder.
+         *
+         * @param builder a builder.
+         */
+        private ReadWriteLockVisitor(final Builder<O> builder) {
+            super(builder);
+        }
+
+        /**
          * Creates a new instance with the given locked object. This constructor is supposed to be used for subclassing
          * only. In general, it is suggested to use {@link LockingVisitors#stampedLockVisitor(Object)} instead.
          *
@@ -322,6 +483,81 @@ public class LockingVisitors {
          */
         protected ReadWriteLockVisitor(final O object, final ReadWriteLock readWriteLock) {
             super(object, readWriteLock, readWriteLock::readLock, readWriteLock::writeLock);
+        }
+
+    }
+
+    /**
+     * This class implements a wrapper for a locked (hidden) object, and provides the means to access it. The basic
+     * idea, is that the user code forsakes all references to the locked object, using only the wrapper object, and the
+     * accessor methods {@link #acceptReadLocked(FailableConsumer)}, {@link #acceptWriteLocked(FailableConsumer)},
+     * {@link #applyReadLocked(FailableFunction)}, and {@link #applyWriteLocked(FailableFunction)}. By doing so, the
+     * necessary protections are guaranteed.
+     *
+     * @param <O> The locked (hidden) objects type.
+     * @since 3.18.0
+     */
+    public static class ReentrantLockVisitor<O> extends LockVisitor<O, ReentrantLock> {
+
+        /**
+         * Builds {@link LockVisitor} instances.
+         *
+         * @param <O> the wrapped object type.
+         * @since 3.18.0
+         */
+        public static class Builder<O> extends LVBuilder<O, ReentrantLock, Builder<O>> {
+
+            /**
+             * Constructs a new instance.
+             */
+            public Builder() {
+                // empty
+            }
+
+            @Override
+            public ReentrantLockVisitor<O> get() {
+                return new ReentrantLockVisitor<>(this);
+            }
+
+
+            @Override
+            public Builder<O> setLock(final ReentrantLock reentrantLock) {
+                setReadLockSupplier(() -> reentrantLock);
+                setWriteLockSupplier(() -> reentrantLock);
+                return super.setLock(reentrantLock);
+            }
+        }
+
+        /**
+         * Creates a new builder.
+         *
+         * @param <O> the wrapped object type.
+         * @return a new builder.
+         * @since 3.18.0
+         */
+        public static <O> Builder<O> builder() {
+            return new Builder<>();
+        }
+
+        /**
+         * Constructs a new instance from a builder.
+         *
+         * @param builder a builder.
+         */
+        private ReentrantLockVisitor(final Builder<O> builder) {
+            super(builder);
+        }
+
+
+        /**
+         * Creates a new instance with the given locked object. This constructor is supposed to be used for subclassing
+         * only. In general, it is suggested to use {@link LockingVisitors#reentrantLockVisitor(Object)} instead.
+         *
+         * @param object The locked (hidden) object. The caller is supposed to drop all references to the locked object.
+         * @param reentrantLock the lock to use.
+         */
+        protected ReentrantLockVisitor(final O object, final ReentrantLock reentrantLock) {
+            super(object, reentrantLock, () -> reentrantLock, () -> reentrantLock);
         }
     }
 
@@ -335,6 +571,55 @@ public class LockingVisitors {
      * @param <O> The locked (hidden) objects type.
      */
     public static class StampedLockVisitor<O> extends LockVisitor<O, StampedLock> {
+
+        /**
+         * Builds {@link LockVisitor} instances.
+         *
+         * @param <O> the wrapped object type.
+         * @since 3.18.0
+         */
+        public static class Builder<O> extends LVBuilder<O, StampedLock, Builder<O>> {
+
+            /**
+             * Constructs a new instance.
+             */
+            public Builder() {
+                // empty
+            }
+
+            @Override
+            public StampedLockVisitor<O> get() {
+                return new StampedLockVisitor<>(this);
+            }
+
+
+            @Override
+            public Builder<O> setLock(final StampedLock stampedLock) {
+                setReadLockSupplier(stampedLock::asReadLock);
+                setWriteLockSupplier(stampedLock::asWriteLock);
+                return super.setLock(stampedLock);
+            }
+        }
+
+        /**
+         * Creates a new builder.
+         *
+         * @param <O> the wrapped object type.
+         * @return a new builder.
+         * @since 3.18.0
+         */
+        public static <O> Builder<O> builder() {
+            return new Builder<>();
+        }
+
+        /**
+         * Constructs a new instance from a builder.
+         *
+         * @param builder a builder.
+         */
+        private StampedLockVisitor(final Builder<O> builder) {
+            super(builder);
+        }
 
         /**
          * Creates a new instance with the given locked object. This constructor is supposed to be used for subclassing
@@ -359,6 +644,31 @@ public class LockingVisitors {
      */
     public static <O> ReadWriteLockVisitor<O> create(final O object, final ReadWriteLock readWriteLock) {
         return new LockingVisitors.ReadWriteLockVisitor<>(object, readWriteLock);
+    }
+
+    /**
+     * Creates a new instance of {@link ReadWriteLockVisitor} with the given (hidden) object and lock.
+     *
+     * @param <O> The locked objects type.
+     * @param object The locked (hidden) object.
+     * @param reentrantLock The lock to use.
+     * @return The created instance, a {@link StampedLockVisitor lock} for the given object.
+     * @since 3.18.0
+     */
+    public static <O> ReentrantLockVisitor<O> create(final O object, final ReentrantLock reentrantLock) {
+        return new LockingVisitors.ReentrantLockVisitor<>(object, reentrantLock);
+    }
+
+    /**
+     * Creates a new instance of {@link ReadWriteLockVisitor} with the given (hidden) object.
+     *
+     * @param <O> The locked objects type.
+     * @param object The locked (hidden) object.
+     * @return The created instance, a {@link StampedLockVisitor lock} for the given object.
+     * @since 3.18.0
+     */
+    public static <O> ReentrantLockVisitor<O> reentrantLockVisitor(final O object) {
+        return create(object, new ReentrantLock());
     }
 
     /**

@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
  * Tests for {@link org.apache.commons.lang3.text.translate.UnicodeEscaper}.
  */
 @Deprecated
-public class UnicodeUnescaperTest extends AbstractLangTest {
+class UnicodeUnescaperTest extends AbstractLangTest {
 
     @Test
-    public void testLessThanFour() {
+    void testLessThanFour() {
         final UnicodeUnescaper uu = new UnicodeUnescaper();
 
         final String input = "\\0047\\u006";
@@ -42,7 +42,7 @@ public class UnicodeUnescaperTest extends AbstractLangTest {
 
     // Requested in LANG-507
     @Test
-    public void testUPlus() {
+    void testUPlus() {
         final UnicodeUnescaper uu = new UnicodeUnescaper();
 
         final String input = "\\u+0047";
@@ -50,7 +50,7 @@ public class UnicodeUnescaperTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUuuuu() {
+    void testUuuuu() {
         final UnicodeUnescaper uu = new UnicodeUnescaper();
 
         final String input = "\\uuuuuuuu0047";

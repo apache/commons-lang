@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link UncheckedExecutionException}.
  */
-public class UncheckedExecutionExceptionTest extends AbstractLangTest {
+class UncheckedExecutionExceptionTest extends AbstractLangTest {
 
     @Test
-    public void testConstructWithCause() {
+    void testConstructWithCause() {
         final Exception e = new Exception();
         assertSame(e, new UncheckedExecutionException(e).getCause());
     }

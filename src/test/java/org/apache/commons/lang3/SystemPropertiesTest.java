@@ -22,12 +22,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.ThrowingSupplier;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junitpioneer.jupiter.SetSystemProperty;
+import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
 
-public class SystemPropertiesTest {
+@SetSystemProperties({
+    @SetSystemProperty(key = SystemPropertiesTest.KEY_SPACE_1, value = "value1"),
+    @SetSystemProperty(key = SystemPropertiesTest.KEY_TAB_1, value = "value2") })
+class SystemPropertiesTest {
+
+    static final String KEY_SPACE_1 = " ";
+    static final String KEY_TAB_1 = "\t";
 
     private void basicKeyCheck(final String key) {
         assertNotNull(key);
@@ -48,7 +61,7 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testActualKeys() {
+    void testActualKeys() {
         basicKeyCheck(SystemProperties.APPLE_AWT_ENABLE_TEMPLATE_IMAGES);
         basicKeyCheck(SystemProperties.AWT_TOOLKIT);
         basicKeyCheck(SystemProperties.COM_SUN_JNDI_LDAP_OBJECT_TRUST_SERIAL_DATA);
@@ -245,12 +258,12 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testGetAwtToolkit() {
+    void testGetAwtToolkit() {
         assertDoesNotThrow(SystemProperties::getAwtToolkit);
     }
 
     @Test
-    public void testGetBoolean() {
+    void testGetBoolean() {
         final String key = RandomStringUtils.random(10);
         final String absentKey = RandomStringUtils.random(10);
         assertNull(System.getProperty(absentKey));
@@ -266,7 +279,7 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testGetDoesNotThrow() {
+    void testGetDoesNotThrow() {
         assertDoesNotThrow(SystemProperties::getAppleAwtEnableTemplateImages);
         assertDoesNotThrow(SystemProperties::getAwtToolkit);
         assertDoesNotThrow(SystemProperties::getComSunJndiLdapObjectTrustSerialData);
@@ -459,17 +472,17 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testGetFileEncoding() {
+    void testGetFileEncoding() {
         basicKeyCheck(SystemProperties.getFileEncoding());
     }
 
     @Test
-    public void testGetFileSeparator() {
+    void testGetFileSeparator() {
         assertNotNull(SystemProperties.getFileSeparator());
     }
 
     @Test
-    public void testGetInt() {
+    void testGetInt() {
         final String key = RandomStringUtils.random(10);
         final String absentKey = RandomStringUtils.random(10);
         assertNull(System.getProperty(absentKey));
@@ -485,37 +498,37 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testGetJavaAwtFonts() {
+    void testGetJavaAwtFonts() {
         assertNull(SystemProperties.getJavaAwtFonts());
     }
 
     @Test
-    public void testGetJavaAwtGraphicsenv() {
+    void testGetJavaAwtGraphicsenv() {
         assertDoesNotThrow(SystemProperties::getJavaAwtGraphicsenv);
     }
 
     @Test
-    public void testGetJavaAwtHeadless() {
+    void testGetJavaAwtHeadless() {
         assertNull(SystemProperties.getJavaAwtHeadless());
     }
 
     @Test
-    public void testGetJavaAwtPrinterjob() {
+    void testGetJavaAwtPrinterjob() {
         assertDoesNotThrow(SystemProperties::getJavaAwtPrinterjob);
     }
 
     @Test
-    public void testGetJavaClassPath() {
+    void testGetJavaClassPath() {
         assertNotNull(SystemProperties.getJavaClassPath());
     }
 
     @Test
-    public void testGetJavaClassVersion() {
+    void testGetJavaClassVersion() {
         assertNotNull(SystemProperties.getJavaClassVersion());
     }
 
     @Test
-    public void testGetJavaCompiler() {
+    void testGetJavaCompiler() {
         if (SystemUtils.IS_JAVA_14) {
             // Not in Java 11
             assertNotNull(SystemProperties.getJavaCompiler());
@@ -523,7 +536,7 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testGetJavaEndorsedDirs() {
+    void testGetJavaEndorsedDirs() {
         if (isJava11OrGreater()) {
             // Not in Java 11
             assertNull(SystemProperties.getJavaEndorsedDirs());
@@ -533,7 +546,7 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testGetJavaExtDirs() {
+    void testGetJavaExtDirs() {
         if (isJava11OrGreater()) {
             // Not in Java 11
             assertNull(SystemProperties.getJavaExtDirs());
@@ -543,114 +556,114 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testGetJavaHome() {
+    void testGetJavaHome() {
         assertNotNull(SystemProperties.getJavaHome());
     }
 
     @Test
-    public void testGetJavaIoTmpdir() {
+    void testGetJavaIoTmpdir() {
         assertNotNull(SystemProperties.getJavaIoTmpdir());
     }
 
     @Test
-    public void testGetJavaLibraryPath() {
+    void testGetJavaLibraryPath() {
         assertNotNull(SystemProperties.getJavaLibraryPath());
     }
 
     @Test
-    public void testGetJavaLocaleProviders() {
+    void testGetJavaLocaleProviders() {
         assumeTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9));
         // default is null
         assertNull(SystemProperties.getJavaLocaleProviders(), SystemProperties.getJavaVersion());
     }
 
     @Test
-    public void testGetJavaRuntimeName() {
+    void testGetJavaRuntimeName() {
         assertNotNull(SystemProperties.getJavaRuntimeName());
     }
 
     @Test
-    public void testGetJavaRuntimeVersion() {
+    void testGetJavaRuntimeVersion() {
         assertNotNull(SystemProperties.getJavaRuntimeVersion());
     }
 
     @Test
-    public void testGetJavaSpecificationName() {
+    void testGetJavaSpecificationName() {
         assertNotNull(SystemProperties.getJavaSpecificationName());
     }
 
     @Test
-    public void testGetJavaSpecificationVendor() {
+    void testGetJavaSpecificationVendor() {
         assertNotNull(SystemProperties.getJavaSpecificationVendor());
     }
 
     @Test
-    public void testGetJavaSpecificationVersion() {
+    void testGetJavaSpecificationVersion() {
         assertNotNull(SystemProperties.getJavaSpecificationVersion());
     }
 
     @Test
-    public void testGetJavaSpecificationVersionSupplier() {
+    void testGetJavaSpecificationVersionSupplier() {
         assertNotNull(SystemProperties.getJavaSpecificationVersion("99.0"));
     }
 
     @Test
-    public void testGetJavaUtilPrefsPreferencesFactory() {
+    void testGetJavaUtilPrefsPreferencesFactory() {
         assertNull(SystemProperties.getJavaUtilPrefsPreferencesFactory());
     }
 
     @Test
-    public void testGetJavaVendor() {
+    void testGetJavaVendor() {
         assertNotNull(SystemProperties.getJavaVendor());
     }
 
     @Test
-    public void testGetJavaVendorUrl() {
+    void testGetJavaVendorUrl() {
         assertNotNull(SystemProperties.getJavaVendorUrl());
     }
 
     @Test
-    public void testGetJavaVersion() {
+    void testGetJavaVersion() {
         assertNotNull(SystemProperties.getJavaVersion());
     }
 
     @Test
-    public void testGetJavaVmInfo() {
+    void testGetJavaVmInfo() {
         assertNotNull(SystemProperties.getJavaVmInfo());
     }
 
     @Test
-    public void testGetJavaVmName() {
+    void testGetJavaVmName() {
         assertNotNull(SystemProperties.getJavaVmName());
     }
 
     @Test
-    public void testGetJavaVmSpecificationName() {
+    void testGetJavaVmSpecificationName() {
         assertNotNull(SystemProperties.getJavaVmSpecificationName());
     }
 
     @Test
-    public void testGetJavaVmSpecificationVendor() {
+    void testGetJavaVmSpecificationVendor() {
         assertNotNull(SystemProperties.getJavaVmSpecificationVendor());
     }
 
     @Test
-    public void testGetJavaVmSpecificationVersion() {
+    void testGetJavaVmSpecificationVersion() {
         assertNotNull(SystemProperties.getJavaVmSpecificationVersion());
     }
 
     @Test
-    public void testGetJavaVmVendor() {
+    void testGetJavaVmVendor() {
         assertNotNull(SystemProperties.getJavaVmVendor());
     }
 
     @Test
-    public void testGetJavaVmVersion() {
+    void testGetJavaVmVersion() {
         assertNotNull(SystemProperties.getJavaVmVersion());
     }
 
     @Test
-    public void testGetLineSeparator() {
+    void testGetLineSeparator() {
         assertNotNull(SystemProperties.getLineSeparator());
         assertNotNull(SystemProperties.getLineSeparator(null));
         assertNotNull(SystemProperties.getLineSeparator(() -> ""));
@@ -660,7 +673,7 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testGetLong() {
+    void testGetLong() {
         final String key = RandomStringUtils.random(10);
         final String absentKey = RandomStringUtils.random(10);
         assertNull(System.getProperty(absentKey));
@@ -676,47 +689,79 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testGetOsArch() {
+    void testGetOsArch() {
         assertNotNull(SystemProperties.getOsArch());
     }
 
     @Test
-    public void testGetOsName() {
+    void testGetOsName() {
         assertNotNull(SystemProperties.getOsName());
     }
 
     @Test
-    public void testGetOsVersion() {
+    void testGetOsVersion() {
         assertNotNull(SystemProperties.getOsVersion());
     }
 
     @Test
-    public void testGetPathSeparator() {
+    void testGetPathSeparator() {
         assertNotNull(SystemProperties.getPathSeparator());
     }
 
     @Test
-    public void testGetUserCountry() {
+    void testGetProperty() {
+        assertNull(SystemProperties.getProperty(null));
+        assertNull(SystemProperties.getProperty(StringUtils.EMPTY));
+        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1));
+        assertEquals("value2", SystemProperties.getProperty(KEY_TAB_1));
+    }
+
+    @Test
+    void testGetPropertyStringString() {
+        assertNull(SystemProperties.getProperty(null, StringUtils.NULL));
+        assertNull(SystemProperties.getProperty(StringUtils.EMPTY, StringUtils.NULL));
+        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1, StringUtils.NULL));
+        assertEquals("value2", SystemProperties.getProperty("\t", StringUtils.NULL));
+        assertEquals("x", SystemProperties.getProperty(null, "x"));
+        assertEquals("x", SystemProperties.getProperty(StringUtils.EMPTY, "x"));
+        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1, "v"));
+        assertEquals("value2", SystemProperties.getProperty("\t", "v"));
+    }
+
+    @Test
+    void testGetPropertyStringSupplier() {
+        assertNull(SystemProperties.getProperty(null, (Supplier<String>) null));
+        assertNull(SystemProperties.getProperty(StringUtils.EMPTY, (Supplier<String>) null));
+        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1, (Supplier<String>) null));
+        assertEquals("value2", SystemProperties.getProperty("\t", (Supplier<String>) null));
+        assertEquals("x", SystemProperties.getProperty(null, () -> "x"));
+        assertEquals("x", SystemProperties.getProperty(StringUtils.EMPTY, () -> "x"));
+        assertEquals("value1", SystemProperties.getProperty(KEY_SPACE_1, () -> "v"));
+        assertEquals("value2", SystemProperties.getProperty("\t", () -> "v"));
+    }
+
+    @Test
+    void testGetUserCountry() {
         assertDoesNotThrow(SystemProperties::getUserCountry);
     }
 
     @Test
-    public void testGetUserDir() {
+    void testGetUserDir() {
         assertNotNull(SystemProperties.getUserDir());
     }
 
     @Test
-    public void testGetUserHome() {
+    void testGetUserHome() {
         assertNotNull(SystemProperties.getUserHome());
     }
 
     @Test
-    public void testGetUserLanguage() {
+    void testGetUserLanguage() {
         assertNotNull(SystemProperties.getUserLanguage());
     }
 
     @Test
-    public void testGetUserName() {
+    void testGetUserName() {
         assertNotNull(SystemProperties.getUserName());
         assertNotNull(SystemProperties.getUserName(""));
         assertNotNull(SystemProperties.getUserName("User"));
@@ -724,8 +769,20 @@ public class SystemPropertiesTest {
     }
 
     @Test
-    public void testGetUserTimezone() {
+    void testGetUserTimezone() {
         assertDoesNotThrow(SystemProperties::getUserTimezone);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { KEY_SPACE_1, KEY_TAB_1 })
+    void testIsPropertySet(final String property) {
+        assertTrue(SystemProperties.isPropertySet(property));
+    }
+
+    @Test
+    void testIsPropertySetEdges() {
+        assertFalse(SystemProperties.isPropertySet(StringUtils.NULL));
+        assertFalse(SystemProperties.isPropertySet(StringUtils.EMPTY));
     }
 
 }

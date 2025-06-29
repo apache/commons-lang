@@ -33,7 +33,7 @@ import org.openjdk.jmh.annotations.State;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Thread)
-public class HashSetvBitSetTest extends AbstractLangTest {
+class HashSetvBitSetTest extends AbstractLangTest {
 
     private static final int numberOfElementsToCompute = 10;
 
@@ -80,7 +80,7 @@ public class HashSetvBitSetTest extends AbstractLangTest {
         final BitSet toRemove = new BitSet();
         final int[] array = new int[100];
         toRemove.set(10, 20);
-        return (int[]) ArrayUtils.removeAll(array, toRemove);
+        return (int[]) ArrayUtils.removeAt(array, toRemove);
     }
 
     @Benchmark

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 public class Lang1703Test<U extends Lang1703Test<U>> {
 
     @Test
-    public void testStackOverflowError() {
+    void testStackOverflowError() {
         // causes a java.lang.StackOverflowError
         TypeUtils.toString(Lang1703Test.class);
     }

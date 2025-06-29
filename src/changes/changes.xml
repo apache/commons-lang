@@ -91,11 +91,25 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Sridhar Balijepalli, Piotr P. Karwasz">Fix Javadoc typo and improve clarity in defaultIfBlank method #1376.</action>
     <action issue="LANG-1773" type="fix" dev="ggregory" due-to="Éamonn McManus, Gary Gregory">Apache Commons Lang no longer builds on Android #1381.</action>
     <action issue="LANG-1772" type="fix" dev="ggregory" due-to="James Winters, Piotr P. Karwasz, Gary Gregory">Restrict size of cache to prevent overflow errors #1379.</action>
+    <action issue="LANG-1772" type="fix" dev="ggregory" due-to="Gary Gregory">Reimplement org.apache.commons.lang3.ClassUtils.hierarchy(Class, Interfaces) using an AtomicReference.</action>
+    <action                   type="fix" dev="ggregory" due-to="Ken Dombeck">Fix Javadoc code examples in DiffBuilder and ReflectionDiffBuilder #1400.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix generics in org.apache.commons.lang3.stream.Streams.toArray(Class) signature.</action>
+    <action issue="LANG-1727" type="fix" dev="ggregory" due-to="Elliotte Rusty Harold, Gary Gregory">EventListenerSupport doesn't document ordering of events.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix edge-case NullPointerException in org.apache.commons.lang3.SystemUtils.IS_OS_ANDROID.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix edge-case NullPointerException in org.apache.commons.lang3.SystemUtils.isJavaVersionAtLeast(JavaVersion).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix edge-case NullPointerException in org.apache.commons.lang3.SystemUtils.isJavaVersionAtMost(JavaVersion).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Return the default enum if a SecurityException is caught in getEnumSystemProperty().</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix edge-case NullPointerException in org.apache.commons.lang3.EnumUtils.getEnum(Class, String, E).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">org.apache.commons.lang3.EnumUtils.getFirstEnumIgnoreCase(Class, String, Function, E) now returns the given default enum on null enumClass input.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">org.apache.commons.lang3.EnumUtils.getEnumIgnoreCase(Class, String, E) now returns the given default enum on null enumClass input.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">org.apache.commons.lang3.EnumUtils.getEnumIgnoreCase(Class, String) now returns the given default enum on null enumClass input.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_23.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_24.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_23.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_24.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add IntegerRange.toIntStream().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LongRange.toLongStream().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add IntStrams.of(int...).</action>
@@ -123,8 +137,18 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.JAVA_SECURITY_KERBEROS_KDC.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.JAVA_SECURITY_KERBEROS_REAL.</action>
     <action                   type="add" dev="ggregory" due-to="kommalapatiraviteja">Add ArrayFill.fill(boolean[], boolean) #1386.</action>
+    <action                   type="add" dev="ggregory" due-to="Pankraz76, Gary Gregory">Add ObjectUtils.getIfNull(Object, Object) and deprecate defaultIfNull(Object, Object).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">org.apache.commons.lang3.mutable.Mutable now extends Supplier.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.CharUtils.isHex(char).</action>    
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.CharUtils.isOctal(char).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.concurrent.locks.LockingVisitors.reentrantLockVisitor(Object).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.concurrent.locks.LockingVisitors.create(Object, ReentrantLock).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.concurrent.locks.LockingVisitors.ReentrantLockVisitor.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add builders for LockingVisitors implementations.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumSet.stream(Class).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.isPropertySet(String).</action>
     <!-- UPDATE -->
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 84 #1267, #1277, #1283, #1288, #1302, #1377.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 85 #1267, #1277, #1283, #1288, #1302, #1377.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[site] Bump org.codehaus.mojo:taglist-maven-plugin from 3.1.0 to 3.2.1 #1300.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[test] Bump org.easymock:easymock from 5.4.0 to 5.6.0 #1317, #1387.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[test] Bump org.apache.commons:commons-text from 1.12.0 to 1.13.1 #1336.</action> 

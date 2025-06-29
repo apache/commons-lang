@@ -196,7 +196,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * circuit breaker. Having this logic extracted into special classes avoids complex
      * if-then-else cascades.
      */
-    private abstract static class StateStrategy {
+    private abstract static class AbstractStateStrategy {
         /**
          * Obtains the check interval to applied for the represented state from the given
          * {@link CircuitBreaker}.
@@ -234,9 +234,9 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * A specialized {@link StateStrategy} implementation for the state closed.
+     * A specialized {@link AbstractStateStrategy} implementation for the state closed.
      */
-    private static final class StateStrategyClosed extends StateStrategy {
+    private static final class StateStrategyClosed extends AbstractStateStrategy {
 
         /**
          * {@inheritDoc}
@@ -257,9 +257,9 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * A specialized {@link StateStrategy} implementation for the state open.
+     * A specialized {@link AbstractStateStrategy} implementation for the state open.
      */
-    private static final class StateStrategyOpen extends StateStrategy {
+    private static final class StateStrategyOpen extends AbstractStateStrategy {
         /**
          * {@inheritDoc}
          */
@@ -281,7 +281,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /** A map for accessing the strategy objects for the different states. */
-    private static final Map<State, StateStrategy> STRATEGY_MAP = createStrategyMap();
+    private static final Map<State, AbstractStateStrategy> STRATEGY_MAP = createStrategyMap();
 
     /**
      * Creates the map with strategy objects. It allows access for a strategy for a given
@@ -289,21 +289,21 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      *
      * @return the strategy map
      */
-    private static Map<State, StateStrategy> createStrategyMap() {
-        final Map<State, StateStrategy> map = new EnumMap<>(State.class);
+    private static Map<State, AbstractStateStrategy> createStrategyMap() {
+        final Map<State, AbstractStateStrategy> map = new EnumMap<>(State.class);
         map.put(State.CLOSED, new StateStrategyClosed());
         map.put(State.OPEN, new StateStrategyOpen());
         return map;
     }
 
     /**
-     * Returns the {@link StateStrategy} object responsible for the given state.
+     * Returns the {@link AbstractStateStrategy} object responsible for the given state.
      *
      * @param state the state
-     * @return the corresponding {@link StateStrategy}
+     * @return the corresponding {@link AbstractStateStrategy}
      * @throws CircuitBreakingException if the strategy cannot be resolved
      */
-    private static StateStrategy stateStrategy(final State state) {
+    private static AbstractStateStrategy stateStrategy(final State state) {
         return STRATEGY_MAP.get(state);
     }
 

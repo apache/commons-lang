@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  * @deprecated this test can be removed once the deprecated source class {@link org.apache.commons.lang3.CharEncoding} is removed.
  */
 @Deprecated
-public class CharEncodingTest extends AbstractLangTest {
+class CharEncodingTest extends AbstractLangTest {
 
     private void assertSupportedEncoding(final String name) {
         assertTrue(CharEncoding.isSupported(name), "Encoding should be supported: " + name);
@@ -41,12 +41,12 @@ public class CharEncodingTest extends AbstractLangTest {
      * The class can be instantiated.
      */
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         new CharEncoding();
     }
 
     @Test
-    public void testMustBeSupportedJava1_3_1_and_above() {
+    void testMustBeSupportedJava1_3_1_and_above() {
         assertSupportedEncoding(CharEncoding.ISO_8859_1);
         assertSupportedEncoding(CharEncoding.US_ASCII);
         assertSupportedEncoding(CharEncoding.UTF_16);
@@ -56,7 +56,7 @@ public class CharEncodingTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNotSupported() {
+    void testNotSupported() {
         assertFalse(CharEncoding.isSupported(null));
         assertFalse(CharEncoding.isSupported(""));
         assertFalse(CharEncoding.isSupported(" "));
@@ -66,7 +66,7 @@ public class CharEncodingTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStandardCharsetsEquality() {
+    void testStandardCharsetsEquality() {
         assertEquals(StandardCharsets.ISO_8859_1.name(), CharEncoding.ISO_8859_1);
         assertEquals(StandardCharsets.US_ASCII.name(), CharEncoding.US_ASCII);
         assertEquals(StandardCharsets.UTF_8.name(), CharEncoding.UTF_8);
@@ -76,7 +76,7 @@ public class CharEncodingTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSupported() {
+    void testSupported() {
         assertTrue(CharEncoding.isSupported("UTF8"));
         assertTrue(CharEncoding.isSupported("UTF-8"));
         assertTrue(CharEncoding.isSupported("ASCII"));

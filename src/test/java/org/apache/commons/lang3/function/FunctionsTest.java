@@ -30,13 +30,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link Functions}.
  */
-public class FunctionsTest {
+class FunctionsTest {
 
     /**
      * Tests {@link Functions#apply(Function, Object)}.
      */
     @Test
-    public void testApply() {
+    void testApply() {
         final AtomicBoolean bool = new AtomicBoolean();
         assertFalse(Functions.apply(bool::getAndSet, true));
         assertTrue(bool.get());
@@ -48,7 +48,7 @@ public class FunctionsTest {
      * Tests {@link Functions#function(Function)}.
      */
     @Test
-    public void testFunction() {
+    void testFunction() {
         assertEquals("foo", Functions.function(String::valueOf).andThen(String::toString).apply("foo"));
     }
 }

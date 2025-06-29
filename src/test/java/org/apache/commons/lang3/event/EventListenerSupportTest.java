@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.event;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -47,11 +48,13 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 /**
+ * Tests {@link EventListenerSupport}.
  */
-public class EventListenerSupportTest extends AbstractLangTest {
+class EventListenerSupportTest extends AbstractLangTest {
 
     private void addDeregisterListener(final EventListenerSupport<VetoableChangeListener> listenerSupport) {
         listenerSupport.addListener(new VetoableChangeListener() {
+
             @Override
             public void vetoableChange(final PropertyChangeEvent e) {
                 listenerSupport.removeListener(this);
@@ -61,6 +64,7 @@ public class EventListenerSupportTest extends AbstractLangTest {
 
     private VetoableChangeListener createListener(final List<VetoableChangeListener> calledListeners) {
         return new VetoableChangeListener() {
+
             @Override
             public void vetoableChange(final PropertyChangeEvent e) {
                 calledListeners.add(this);
@@ -69,16 +73,14 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddListenerNoDuplicates() {
+    void testAddListenerNoDuplicates() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-
         final VetoableChangeListener[] listeners = listenerSupport.getListeners();
         assertEquals(0, listeners.length);
         assertEquals(VetoableChangeListener.class, listeners.getClass().getComponentType());
         final VetoableChangeListener[] empty = listeners;
-        //for fun, show that the same empty instance is used
+        // for fun, show that the same empty instance is used
         assertSame(empty, listenerSupport.getListeners());
-
         final VetoableChangeListener listener1 = EasyMock.createNiceMock(VetoableChangeListener.class);
         listenerSupport.addListener(listener1);
         assertEquals(1, listenerSupport.getListeners().length);
@@ -89,26 +91,25 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddNullListener() {
+    void testAddNullListener() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        assertThrows(NullPointerException.class, () -> listenerSupport.addListener(null));
+        assertNullPointerException(() -> listenerSupport.addListener(null));
     }
 
     @Test
-    public void testCreateWithNonInterfaceParameter() {
+    void testCreateWithNonInterfaceParameter() {
         assertThrows(IllegalArgumentException.class, () -> EventListenerSupport.create(String.class));
     }
 
     @Test
-    public void testCreateWithNullParameter() {
-        assertThrows(NullPointerException.class, () -> EventListenerSupport.create(null));
+    void testCreateWithNullParameter() {
+        assertNullPointerException(() -> EventListenerSupport.create(null));
     }
 
     @Test
-    public void testEventDispatchOrder() throws PropertyVetoException {
+    void testEventDispatchOrder() throws PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         final List<VetoableChangeListener> calledListeners = new ArrayList<>();
-
         final VetoableChangeListener listener1 = createListener(calledListeners);
         final VetoableChangeListener listener2 = createListener(calledListeners);
         listenerSupport.addListener(listener1);
@@ -120,16 +121,14 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetListeners() {
+    void testGetListeners() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-
         final VetoableChangeListener[] listeners = listenerSupport.getListeners();
         assertEquals(0, listeners.length);
         assertEquals(VetoableChangeListener.class, listeners.getClass().getComponentType());
         final VetoableChangeListener[] empty = listeners;
-        //for fun, show that the same empty instance is used
+        // for fun, show that the same empty instance is used
         assertSame(empty, listenerSupport.getListeners());
-
         final VetoableChangeListener listener1 = EasyMock.createNiceMock(VetoableChangeListener.class);
         listenerSupport.addListener(listener1);
         assertEquals(1, listenerSupport.getListeners().length);
@@ -143,7 +142,7 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveListenerDuringEvent() throws PropertyVetoException {
+    void testRemoveListenerDuringEvent() throws PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         for (int i = 0; i < 10; ++i) {
             addDeregisterListener(listenerSupport);
@@ -154,57 +153,52 @@ public class EventListenerSupportTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveNullListener() {
+    void testRemoveNullListener() {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
-        assertThrows(NullPointerException.class, () -> listenerSupport.removeListener(null));
+        assertNullPointerException(() -> listenerSupport.removeListener(null));
     }
 
     @Test
-    public void testSerialization() throws IOException, ClassNotFoundException, PropertyVetoException {
+    void testSerialization() throws IOException, ClassNotFoundException, PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         listenerSupport.addListener(Function.identity()::apply);
         listenerSupport.addListener(EasyMock.createNiceMock(VetoableChangeListener.class));
-
-        //serialize:
+        // serialize:
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
             objectOutputStream.writeObject(listenerSupport);
         }
-
-        //deserialize:
+        // deserialize:
         @SuppressWarnings("unchecked")
-        final
-        EventListenerSupport<VetoableChangeListener> deserializedListenerSupport = (EventListenerSupport<VetoableChangeListener>) new ObjectInputStream(
+        final EventListenerSupport<VetoableChangeListener> deserializedListenerSupport = (EventListenerSupport<VetoableChangeListener>) new ObjectInputStream(
                 new ByteArrayInputStream(outputStream.toByteArray())).readObject();
-
-        //make sure we get a listener array back, of the correct component type, and that it contains only the serializable mock
+        // make sure we get a listener array back, of the correct component type, and that it contains only the serializable mock
         final VetoableChangeListener[] listeners = deserializedListenerSupport.getListeners();
         assertEquals(VetoableChangeListener.class, listeners.getClass().getComponentType());
         assertEquals(1, listeners.length);
-
-        //now verify that the mock still receives events; we can infer that the proxy was correctly reconstituted
+        // now verify that the mock still receives events; we can infer that the proxy was correctly reconstituted
         final VetoableChangeListener listener = listeners[0];
         final PropertyChangeEvent evt = new PropertyChangeEvent(new Date(), "Day", 7, 9);
         listener.vetoableChange(evt);
         EasyMock.replay(listener);
         deserializedListenerSupport.fire().vetoableChange(evt);
         EasyMock.verify(listener);
-
-        //remove listener and verify we get an empty array of listeners
+        // remove listener and verify we get an empty array of listeners
         deserializedListenerSupport.removeListener(listener);
         assertEquals(0, deserializedListenerSupport.getListeners().length);
     }
 
     @Test
-    public void testSubclassInvocationHandling() throws PropertyVetoException {
-
+    void testSubclassInvocationHandling() throws PropertyVetoException {
         final EventListenerSupport<VetoableChangeListener> eventListenerSupport = new EventListenerSupport<VetoableChangeListener>(
                 VetoableChangeListener.class) {
+
             private static final long serialVersionUID = 1L;
 
             @Override
             protected java.lang.reflect.InvocationHandler createInvocationHandler() {
                 return new ProxyInvocationHandler() {
+
                     @Override
                     public Object invoke(final Object proxy, final Method method, final Object[] args)
                             throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -214,7 +208,6 @@ public class EventListenerSupportTest extends AbstractLangTest {
                 };
             }
         };
-
         final VetoableChangeListener listener = EasyMock.createNiceMock(VetoableChangeListener.class);
         eventListenerSupport.addListener(listener);
         final Object source = new Date();
@@ -231,7 +224,7 @@ public class EventListenerSupportTest extends AbstractLangTest {
      * Tests that throwing an exception from a listener stops calling the remaining listeners.
      */
     @Test
-    public void testThrowingListener() {
+    void testThrowingListener() {
         final AtomicInteger count = new AtomicInteger();
         final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
         final int vetoLimit = 1;
@@ -256,7 +249,7 @@ public class EventListenerSupportTest extends AbstractLangTest {
      * Tests that throwing an exception from a listener continues calling the remaining listeners.
      */
     @Test
-    public void testThrowingListenerContinues() throws PropertyVetoException {
+    void testThrowingListenerContinues() throws PropertyVetoException {
         final AtomicInteger count = new AtomicInteger();
         final EventListenerSupport<VetoableChangeListener> listenerSupport = new EventListenerSupport<VetoableChangeListener>(VetoableChangeListener.class) {
             @Override

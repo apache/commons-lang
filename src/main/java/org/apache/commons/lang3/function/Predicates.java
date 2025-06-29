@@ -26,8 +26,8 @@ import java.util.function.Predicate;
  */
 public class Predicates {
 
-    private static final Predicate<?> ALWAYS_TRUE = t -> true;
-    private static final Predicate<?> ALWAYS_FALSE = t -> false;
+    private static final Predicate<?> TRUE = t -> true;
+    private static final Predicate<?> FALSE = t -> false;
 
     /**
      * Returns the Predicate singleton that always returns false.
@@ -38,7 +38,7 @@ public class Predicates {
     @SuppressWarnings("unchecked")
     // method name cannot be "false".
     public static <T> Predicate<T> falsePredicate() {
-        return (Predicate<T>) ALWAYS_FALSE;
+        return (Predicate<T>) FALSE;
     }
 
     /**
@@ -50,7 +50,7 @@ public class Predicates {
     @SuppressWarnings("unchecked")
     // method name cannot be "true".
     public static <T> Predicate<T> truePredicate() {
-        return (Predicate<T>) ALWAYS_TRUE;
+        return (Predicate<T>) TRUE;
     }
 
     /**

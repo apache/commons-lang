@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.time;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,10 +35,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link DurationUtils}.
  */
-public class DurationUtilsTest extends AbstractLangTest {
+class DurationUtilsTest extends AbstractLangTest {
 
     @Test
-    public void testGetNanosOfMiili() {
+    void testGetNanosOfMiili() {
         assertEquals(0, DurationUtils.getNanosOfMiili(null));
         assertEquals(0, DurationUtils.getNanosOfMiili(Duration.ZERO));
         assertEquals(1, DurationUtils.getNanosOfMiili(Duration.ofNanos(1)));
@@ -51,7 +52,7 @@ public class DurationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetNanosOfMilli() {
+    void testGetNanosOfMilli() {
         assertEquals(0, DurationUtils.getNanosOfMilli(null));
         assertEquals(0, DurationUtils.getNanosOfMilli(Duration.ZERO));
         assertEquals(1, DurationUtils.getNanosOfMilli(Duration.ofNanos(1)));
@@ -65,14 +66,14 @@ public class DurationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsPositive() {
+    void testIsPositive() {
         assertFalse(DurationUtils.isPositive(Duration.ZERO));
         assertFalse(DurationUtils.isPositive(Duration.ofMillis(-1)));
         assertTrue(DurationUtils.isPositive(Duration.ofMillis(1)));
     }
 
     @Test
-    public void testLongToIntRangeFit() {
+    void testLongToIntRangeFit() {
         assertEquals(0, DurationUtils.LONG_TO_INT_RANGE.fit(0L));
         //
         assertEquals(Integer.MIN_VALUE, DurationUtils.LONG_TO_INT_RANGE.fit(NumberUtils.LONG_INT_MIN_VALUE));
@@ -90,33 +91,33 @@ public class DurationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOfConsumer() {
+    void testOfConsumer() {
         assertTrue(DurationUtils.of(start -> assertTrue(start.compareTo(Instant.now()) <= 0)).compareTo(Duration.ZERO) >= 0);
         final Instant before = Instant.now();
         DurationUtils.of(start -> assertTrue(start.compareTo(before) >= 0));
     }
 
     @Test
-    public void testOfRunnble() {
+    void testOfRunnble() {
         assertTrue(DurationUtils.of(this::testSince).compareTo(Duration.ZERO) >= 0);
     }
 
     @Test
-    public void testOfRunnbleThrowing() {
+    void testOfRunnbleThrowing() {
         assertThrows(IOException.class, () -> DurationUtils.of(() -> {
             throw new IOException();
         }));
     }
 
     @Test
-    public void testSince() {
+    void testSince() {
         assertTrue(DurationUtils.since(Instant.EPOCH).compareTo(Duration.ZERO) >= 0);
         assertTrue(DurationUtils.since(Instant.MIN).compareTo(Duration.ZERO) >= 0);
         assertTrue(DurationUtils.since(Instant.MAX).compareTo(Duration.ZERO) <= 0);
     }
 
     @Test
-    public void testToDuration() {
+    void testToDuration() {
         assertEquals(Duration.ofDays(1), DurationUtils.toDuration(1, TimeUnit.DAYS));
         assertEquals(Duration.ofHours(1), DurationUtils.toDuration(1, TimeUnit.HOURS));
         assertEquals(Duration.ofMillis(1), DurationUtils.toDuration(1_000, TimeUnit.MICROSECONDS));
@@ -130,7 +131,7 @@ public class DurationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToMillisInt() {
+    void testToMillisInt() {
         assertEquals(0, DurationUtils.toMillisInt(Duration.ZERO));
         assertEquals(1, DurationUtils.toMillisInt(Duration.ofMillis(1)));
         //
@@ -146,12 +147,12 @@ public class DurationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToMillisIntNullDuration() {
-        assertThrows(NullPointerException.class, () -> DurationUtils.toMillisInt(null));
+    void testToMillisIntNullDuration() {
+        assertNullPointerException(() -> DurationUtils.toMillisInt(null));
     }
 
     @Test
-    public void testZeroIfNull() {
+    void testZeroIfNull() {
         assertEquals(Duration.ZERO, DurationUtils.zeroIfNull(null));
         assertEquals(Duration.ofDays(1), DurationUtils.zeroIfNull(Duration.ofDays(1)));
     }

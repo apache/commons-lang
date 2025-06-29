@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link StringUtils} - IsX methods
  */
-public class StringUtilsIsTest extends AbstractLangTest {
+class StringUtilsIsTest extends AbstractLangTest {
 
     @Test
-    public void testIsAlpha() {
+    void testIsAlpha() {
         assertFalse(StringUtils.isAlpha(null));
         assertFalse(StringUtils.isAlpha(""));
         assertFalse(StringUtils.isAlpha(" "));
@@ -42,7 +42,7 @@ public class StringUtilsIsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAlphanumeric() {
+    void testIsAlphanumeric() {
         assertFalse(StringUtils.isAlphanumeric(null));
         assertFalse(StringUtils.isAlphanumeric(""));
         assertFalse(StringUtils.isAlphanumeric(" "));
@@ -57,7 +57,7 @@ public class StringUtilsIsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAlphanumericSpace() {
+    void testIsAlphanumericSpace() {
         assertFalse(StringUtils.isAlphanumericSpace(null));
         assertTrue(StringUtils.isAlphanumericSpace(""));
         assertTrue(StringUtils.isAlphanumericSpace(" "));
@@ -72,7 +72,7 @@ public class StringUtilsIsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAlphaspace() {
+    void testIsAlphaspace() {
         assertFalse(StringUtils.isAlphaSpace(null));
         assertTrue(StringUtils.isAlphaSpace(""));
         assertTrue(StringUtils.isAlphaSpace(" "));
@@ -87,7 +87,7 @@ public class StringUtilsIsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAsciiPrintable_String() {
+    void testIsAsciiPrintable_String() {
         assertFalse(StringUtils.isAsciiPrintable(null));
         assertTrue(StringUtils.isAsciiPrintable(""));
         assertTrue(StringUtils.isAsciiPrintable(" "));
@@ -113,7 +113,7 @@ public class StringUtilsIsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsNumeric() {
+    void testIsNumeric() {
         assertFalse(StringUtils.isNumeric(null));
         assertFalse(StringUtils.isNumeric(""));
         assertFalse(StringUtils.isNumeric(" "));
@@ -135,7 +135,7 @@ public class StringUtilsIsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsNumericSpace() {
+    void testIsNumericSpace() {
         assertFalse(StringUtils.isNumericSpace(null));
         assertTrue(StringUtils.isNumericSpace(""));
         assertTrue(StringUtils.isNumericSpace(" "));
@@ -155,7 +155,7 @@ public class StringUtilsIsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsWhitespace() {
+    void testIsWhitespace() {
         assertFalse(StringUtils.isWhitespace(null));
         assertTrue(StringUtils.isWhitespace(""));
         assertTrue(StringUtils.isWhitespace(" "));

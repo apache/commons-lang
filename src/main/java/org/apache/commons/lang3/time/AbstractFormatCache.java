@@ -89,7 +89,14 @@ abstract class AbstractFormatCache<F extends Format> {
      */
     static final int NONE = -1;
 
-    private static final ConcurrentMap<ArrayKey, String> cDateTimeInstanceCache = new ConcurrentHashMap<>(7);
+    private static final ConcurrentMap<ArrayKey, String> dateTimeInstanceCache = new ConcurrentHashMap<>(7);
+
+    /**
+     * Clears the cache.
+     */
+    static void clear() {
+        dateTimeInstanceCache.clear();
+    }
 
     /**
      * Gets a date/time format for the specified styles and locale.
@@ -104,7 +111,7 @@ abstract class AbstractFormatCache<F extends Format> {
     static String getPatternForStyle(final Integer dateStyle, final Integer timeStyle, final Locale locale) {
         final Locale safeLocale = LocaleUtils.toLocale(locale);
         final ArrayKey key = new ArrayKey(dateStyle, timeStyle, safeLocale);
-        return cDateTimeInstanceCache.computeIfAbsent(key, k -> {
+        return dateTimeInstanceCache.computeIfAbsent(key, k -> {
             try {
                 final DateFormat formatter;
                 if (dateStyle == null) {
@@ -121,7 +128,14 @@ abstract class AbstractFormatCache<F extends Format> {
         });
     }
 
-    private final ConcurrentMap<ArrayKey, F> cInstanceCache = new ConcurrentHashMap<>(7);
+    private final ConcurrentMap<ArrayKey, F> instanceCache = new ConcurrentHashMap<>(7);
+
+    /**
+     * Clears the cache.
+     */
+    void clearInstance() {
+        instanceCache.clear();
+    }
 
     /**
      * Create a format instance using the specified pattern, time zone
@@ -218,7 +232,7 @@ abstract class AbstractFormatCache<F extends Format> {
         final TimeZone actualTimeZone = TimeZones.toTimeZone(timeZone);
         final Locale actualLocale = LocaleUtils.toLocale(locale);
         final ArrayKey key = new ArrayKey(pattern, actualTimeZone, actualLocale);
-        return cInstanceCache.computeIfAbsent(key, k -> createInstance(pattern, actualTimeZone, actualLocale));
+        return instanceCache.computeIfAbsent(key, k -> createInstance(pattern, actualTimeZone, actualLocale));
     }
 
     /**

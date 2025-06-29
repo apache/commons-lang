@@ -52,7 +52,7 @@ import org.apache.commons.lang3.ObjectUtils;
  *
  * This class is somewhat redundant with regards to {@link ObjectUtils}.
  * For example, {@link #requireNonNull(Object, Object)} is almost equivalent
- * with {@link ObjectUtils#defaultIfNull(Object, Object)}. However, it isn't
+ * with {@link ObjectUtils#getIfNull(Object, Object)}. However, it isn't
  * quite the same, because the latter can, in fact, return null. The former
  * can't, and the Java compiler confirms this.(An alternative to redundancy
  * would have been to change the {@code ObjectUtils} class. However, that
