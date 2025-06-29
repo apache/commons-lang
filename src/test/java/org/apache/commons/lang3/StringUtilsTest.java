@@ -3108,6 +3108,7 @@ class StringUtilsTest extends AbstractLangTest {
 
         for (int i = 0; i < 100; ++i) {
             String s = StringUtils.truncateToByteLength("🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊", i, Charset.defaultCharset());
+            assertNotNull(s);
             byte[] data = s.getBytes();
             assertTrue(data.length <= i);
         }
