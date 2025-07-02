@@ -26,11 +26,11 @@ import org.junit.jupiter.api.function.Executable;
  */
 public class LangAssertions {
 
-    public static NullPointerException assertNullPointerException(Executable executable) {
+    public static NullPointerException assertNullPointerException(final Executable executable) {
         return assertThrows(NullPointerException.class, executable);
     }
 
-    public static NullPointerException assertNullPointerException(Executable executable, String message) {
+    public static NullPointerException assertNullPointerException(final Executable executable, final String message) {
         return assertThrows(NullPointerException.class, executable, message);
     }
 }
