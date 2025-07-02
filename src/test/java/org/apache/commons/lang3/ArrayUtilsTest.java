@@ -5809,7 +5809,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         // edge cases where nothing happens
         ArrayUtils.swap((boolean[]) null, 0, 2, 1);
         ArrayUtils.swap(new boolean[0], 0, 2, 1);
-        final boolean[] array3a = new boolean[] {true, false, true};
+        final boolean[] array3a = {true, false, true};
         final boolean[] array3b = array3a.clone();
         // (1) offset1 >= array.length
         ArrayUtils.swap(array3b, array3b.length, 2, 1);
@@ -5870,7 +5870,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         // edge cases where nothing happens
         ArrayUtils.swap((byte[]) null, 0, 2, 1);
         ArrayUtils.swap(new byte[0], 0, 2, 1);
-        final byte[] array3a = new byte[] {1, 0, 1};
+        final byte[] array3a = {1, 0, 1};
         final byte[] array3b = array3a.clone();
         // (1) offset1 >= array.length
         ArrayUtils.swap(array3b, array3b.length, 2, 1);
@@ -5937,7 +5937,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         // edge cases where nothing happens
         ArrayUtils.swap((char[]) null, 0, 2, 1);
         ArrayUtils.swap(new char[0], 0, 2, 1);
-        final char[] array3a = new char[] {1, 0, 1};
+        final char[] array3a = {1, 0, 1};
         final char[] array3b = array3a.clone();
         // (1) offset1 >= array.length
         ArrayUtils.swap(array3b, array3b.length, 2, 1);
@@ -5998,7 +5998,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         // edge cases where nothing happens
         ArrayUtils.swap((double[]) null, 0, 2, 1);
         ArrayUtils.swap(new double[0], 0, 2, 1);
-        final double[] array3a = new double[] {1, 0, 1};
+        final double[] array3a = {1, 0, 1};
         final double[] array3b = array3a.clone();
         // (1) offset1 >= array.length
         ArrayUtils.swap(array3b, array3b.length, 2, 1);
@@ -6122,7 +6122,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         // edge cases where nothing happens
         ArrayUtils.swap((float[]) null, 0, 2, 1);
         ArrayUtils.swap(new float[0], 0, 2, 1);
-        final float[] array3a = new float[] {1, 0, 1};
+        final float[] array3a = {1, 0, 1};
         final float[] array3b = array3a.clone();
         // (1) offset1 >= array.length
         ArrayUtils.swap(array3b, array3b.length, 2, 1);
@@ -6195,7 +6195,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         // edge cases where nothing happens
         ArrayUtils.swap((int[]) null, 0, 2, 1);
         ArrayUtils.swap(new int[0], 0, 2, 1);
-        final int[] array3a = new int[] {1, 0, 1};
+        final int[] array3a = {1, 0, 1};
         final int[] array3b = array3a.clone();
         // (1) offset1 >= array.length
         ArrayUtils.swap(array3b, array3b.length, 2, 1);
@@ -6256,7 +6256,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         // edge cases where nothing happens
         ArrayUtils.swap((long[]) null, 0, 2, 1);
         ArrayUtils.swap(new long[0], 0, 2, 1);
-        final long[] array3a = new long[] {1, 0, 1};
+        final long[] array3a = {1, 0, 1};
         final long[] array3b = array3a.clone();
         // (1) offset1 >= array.length
         ArrayUtils.swap(array3b, array3b.length, 2, 1);
@@ -6380,7 +6380,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         // edge cases where nothing happens
         ArrayUtils.swap((Object[]) null, 0, 2, 1);
         ArrayUtils.swap(new Object[0], 0, 2, 1);
-        final Object[] array3a = new Object[] {1, 0, 1};
+        final Object[] array3a = {1, 0, 1};
         final Object[] array3b = array3a.clone();
         // (1) offset1 >= array.length
         ArrayUtils.swap(array3b, array3b.length, 2, 1);
@@ -6442,7 +6442,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         // edge cases where nothing happens
         ArrayUtils.swap((short[]) null, 0, 2, 1);
         ArrayUtils.swap(new short[0], 0, 2, 1);
-        final short[] array3a = new short[] {1, 0, 1};
+        final short[] array3a = {1, 0, 1};
         final short[] array3b = array3a.clone();
         // (1) offset1 >= array.length
         ArrayUtils.swap(array3b, array3b.length, 2, 1);
