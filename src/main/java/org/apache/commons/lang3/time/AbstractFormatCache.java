@@ -42,13 +42,6 @@ abstract class AbstractFormatCache<F extends Format> {
      */
     private static final class ArrayKey {
 
-        private static int computeHashCode(final Object[] keys) {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + Arrays.hashCode(keys);
-            return result;
-        }
-
         private final Object[] keys;
         private final int hashCode;
 
@@ -59,7 +52,7 @@ abstract class AbstractFormatCache<F extends Format> {
          */
         ArrayKey(final Object... keys) {
             this.keys = keys;
-            this.hashCode = computeHashCode(keys);
+            this.hashCode = Objects.hash(keys);
         }
 
         @Override
