@@ -300,8 +300,7 @@ public class StrSubstitutor {
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix,
-                              final char escape) {
+    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix, final char escape) {
         this(StrLookup.mapLookup(valueMap), prefix, suffix, escape);
     }
 
@@ -317,8 +316,7 @@ public class StrSubstitutor {
      * @throws IllegalArgumentException if the prefix or suffix is null
      * @since 3.2
      */
-    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix,
-                              final char escape, final String valueDelimiter) {
+    public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix, final char escape, final String valueDelimiter) {
         this(StrLookup.mapLookup(valueMap), prefix, suffix, escape, valueDelimiter);
     }
 
@@ -340,13 +338,12 @@ public class StrSubstitutor {
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix,
-                          final char escape) {
-        this.setVariableResolver(variableResolver);
-        this.setVariablePrefix(prefix);
-        this.setVariableSuffix(suffix);
-        this.setEscapeChar(escape);
-        this.setValueDelimiterMatcher(DEFAULT_VALUE_DELIMITER);
+    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix, final char escape) {
+        setVariableResolver(variableResolver);
+        setVariablePrefix(prefix);
+        setVariableSuffix(suffix);
+        setEscapeChar(escape);
+        setValueDelimiterMatcher(DEFAULT_VALUE_DELIMITER);
     }
 
     /**
@@ -360,13 +357,12 @@ public class StrSubstitutor {
      * @throws IllegalArgumentException if the prefix or suffix is null
      * @since 3.2
      */
-    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix,
-                          final char escape, final String valueDelimiter) {
-        this.setVariableResolver(variableResolver);
-        this.setVariablePrefix(prefix);
-        this.setVariableSuffix(suffix);
-        this.setEscapeChar(escape);
-        this.setValueDelimiter(valueDelimiter);
+    public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix, final char escape, final String valueDelimiter) {
+        setVariableResolver(variableResolver);
+        setVariablePrefix(prefix);
+        setVariableSuffix(suffix);
+        setEscapeChar(escape);
+        setValueDelimiter(valueDelimiter);
     }
 
     /**
@@ -378,9 +374,7 @@ public class StrSubstitutor {
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(
-            final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher,
-            final char escape) {
+    public StrSubstitutor(final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher, final char escape) {
         this(variableResolver, prefixMatcher, suffixMatcher, escape, DEFAULT_VALUE_DELIMITER);
     }
 
@@ -395,14 +389,13 @@ public class StrSubstitutor {
      * @throws IllegalArgumentException if the prefix or suffix is null
      * @since 3.2
      */
-    public StrSubstitutor(
-            final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher,
-            final char escape, final StrMatcher valueDelimiterMatcher) {
-        this.setVariableResolver(variableResolver);
-        this.setVariablePrefixMatcher(prefixMatcher);
-        this.setVariableSuffixMatcher(suffixMatcher);
-        this.setEscapeChar(escape);
-        this.setValueDelimiterMatcher(valueDelimiterMatcher);
+    public StrSubstitutor(final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher, final char escape,
+            final StrMatcher valueDelimiterMatcher) {
+        setVariableResolver(variableResolver);
+        setVariablePrefixMatcher(prefixMatcher);
+        setVariableSuffixMatcher(suffixMatcher);
+        setEscapeChar(escape);
+        setValueDelimiterMatcher(valueDelimiterMatcher);
     }
 
     /**
@@ -1115,7 +1108,6 @@ public class StrSubstitutor {
         final char escape = getEscapeChar();
         final StrMatcher valueDelimMatcher = getValueDelimiterMatcher();
         final boolean substitutionInVariablesEnabled = isEnableSubstitutionInVariables();
-
         final boolean top = priorVariables == null;
         boolean altered = false;
         int lengthChange = 0;
@@ -1123,8 +1115,7 @@ public class StrSubstitutor {
         int bufEnd = offset + length;
         int pos = offset;
         while (pos < bufEnd) {
-            final int startMatchLen = pfxMatcher.isMatch(chars, pos, offset,
-                    bufEnd);
+            final int startMatchLen = pfxMatcher.isMatch(chars, pos, offset, bufEnd);
             if (startMatchLen == 0) {
                 pos++;
             } else // found variable start marker
@@ -1146,25 +1137,19 @@ public class StrSubstitutor {
                 int endMatchLen;
                 int nestedVarCount = 0;
                 while (pos < bufEnd) {
-                    if (substitutionInVariablesEnabled
-                            && (endMatchLen = pfxMatcher.isMatch(chars,
-                                    pos, offset, bufEnd)) != 0) {
+                    if (substitutionInVariablesEnabled && (endMatchLen = pfxMatcher.isMatch(chars, pos, offset, bufEnd)) != 0) {
                         // found a nested variable start
                         nestedVarCount++;
                         pos += endMatchLen;
                         continue;
                     }
-
-                    endMatchLen = suffMatcher.isMatch(chars, pos, offset,
-                            bufEnd);
+                    endMatchLen = suffMatcher.isMatch(chars, pos, offset, bufEnd);
                     if (endMatchLen == 0) {
                         pos++;
                     } else {
                         // found variable end marker
                         if (nestedVarCount == 0) {
-                            String varNameExpr = new String(chars, startPos
-                                    + startMatchLen, pos - startPos
-                                    - startMatchLen);
+                            String varNameExpr = new String(chars, startPos + startMatchLen, pos - startPos - startMatchLen);
                             if (substitutionInVariablesEnabled) {
                                 final StrBuilder bufName = new StrBuilder(varNameExpr);
                                 substitute(bufName, 0, bufName.length());
@@ -1172,17 +1157,14 @@ public class StrSubstitutor {
                             }
                             pos += endMatchLen;
                             final int endPos = pos;
-
                             String varName = varNameExpr;
                             String varDefaultValue = null;
-
                             if (valueDelimMatcher != null) {
-                                final char [] varNameExprChars = varNameExpr.toCharArray();
+                                final char[] varNameExprChars = varNameExpr.toCharArray();
                                 int valueDelimiterMatchLen;
                                 for (int i = 0; i < varNameExprChars.length; i++) {
                                     // if there's any nested variable when nested variable substitution disabled, then stop resolving name and default value.
-                                    if (!substitutionInVariablesEnabled
-                                            && pfxMatcher.isMatch(varNameExprChars, i, i, varNameExprChars.length) != 0) {
+                                    if (!substitutionInVariablesEnabled && pfxMatcher.isMatch(varNameExprChars, i, i, varNameExprChars.length) != 0) {
                                         break;
                                     }
                                     if ((valueDelimiterMatchLen = valueDelimMatcher.isMatch(varNameExprChars, i)) != 0) {
@@ -1192,21 +1174,16 @@ public class StrSubstitutor {
                                     }
                                 }
                             }
-
                             // on the first call initialize priorVariables
                             if (priorVariables == null) {
                                 priorVariables = new ArrayList<>();
-                                priorVariables.add(new String(chars,
-                                        offset, length));
+                                priorVariables.add(new String(chars, offset, length));
                             }
-
                             // handle cyclic substitution
                             checkCyclicSubstitution(varName, priorVariables);
                             priorVariables.add(varName);
-
                             // resolve the variable
-                            String varValue = resolveVariable(varName, buf,
-                                    startPos, endPos);
+                            String varValue = resolveVariable(varName, buf, startPos, endPos);
                             if (varValue == null) {
                                 varValue = varDefaultValue;
                             }
@@ -1215,20 +1192,15 @@ public class StrSubstitutor {
                                 final int varLen = varValue.length();
                                 buf.replace(startPos, endPos, varValue);
                                 altered = true;
-                                int change = substitute(buf, startPos,
-                                        varLen, priorVariables);
-                                change = change
-                                        + varLen - (endPos - startPos);
+                                int change = substitute(buf, startPos, varLen, priorVariables);
+                                change = change + varLen - (endPos - startPos);
                                 pos += change;
                                 bufEnd += change;
                                 lengthChange += change;
-                                chars = buf.buffer; // in case buffer was
-                                                    // altered
+                                chars = buf.buffer; // in case buffer was altered
                             }
-
                             // remove variable from the cyclic stack
-                            priorVariables
-                                    .remove(priorVariables.size() - 1);
+                            priorVariables.remove(priorVariables.size() - 1);
                             break;
                         }
                         nestedVarCount--;
