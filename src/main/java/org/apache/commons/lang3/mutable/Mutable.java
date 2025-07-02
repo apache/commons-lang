@@ -41,6 +41,7 @@ public interface Mutable<T> extends Supplier<T> {
      * @return the stored value.
      * @since 3.18.0
      */
+    @Override
     default T get() {
         return getValue();
     }
