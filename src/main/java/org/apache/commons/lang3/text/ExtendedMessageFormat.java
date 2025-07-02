@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.apache.commons.lang3.LocaleUtils;
-import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -71,10 +71,9 @@ import org.apache.commons.lang3.Validate;
  */
 @Deprecated
 public class ExtendedMessageFormat extends MessageFormat {
-    private static final long serialVersionUID = -2362048321261811743L;
-    private static final int HASH_SEED = 31;
 
-    private static final String DUMMY_PATTERN = "";
+    private static final long serialVersionUID = -2362048321261811743L;
+    private static final String DUMMY_PATTERN = StringUtils.EMPTY;
     private static final char START_FMT = ',';
     private static final char END_FE = '}';
     private static final char START_FE = '{';
@@ -255,31 +254,19 @@ public class ExtendedMessageFormat extends MessageFormat {
         return coll.stream().anyMatch(Objects::nonNull);
     }
 
-    /**
-     * Check if this extended message format is equal to another object.
-     *
-     * @param obj the object to compare to
-     * @return true if this object equals the other, otherwise false
-     */
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this) {
+        if (this == obj) {
             return true;
-        }
-        if (obj == null) {
-            return false;
         }
         if (!super.equals(obj)) {
             return false;
         }
-        if (ObjectUtils.notEqual(getClass(), obj.getClass())) {
-          return false;
-        }
-        final ExtendedMessageFormat rhs = (ExtendedMessageFormat) obj;
-        if (ObjectUtils.notEqual(toPattern, rhs.toPattern)) {
+        if (!(obj instanceof ExtendedMessageFormat)) {
             return false;
         }
-        return !ObjectUtils.notEqual(registry, rhs.registry);
+        final ExtendedMessageFormat other = (ExtendedMessageFormat) obj;
+        return Objects.equals(registry, other.registry) && Objects.equals(toPattern, other.toPattern);
     }
 
     /**
@@ -315,15 +302,11 @@ public class ExtendedMessageFormat extends MessageFormat {
         appendQuotedString(pattern, pos, null);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int hashCode() {
+        final int prime = 31;
         int result = super.hashCode();
-        result = HASH_SEED * result + Objects.hashCode(registry);
-        result = HASH_SEED * result + Objects.hashCode(toPattern);
-        return result;
+        return prime * result + Objects.hash(registry, toPattern);
     }
 
     /**
