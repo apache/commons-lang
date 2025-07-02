@@ -263,7 +263,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * @return the value as a Byte, never null.
      * @deprecated Use {@link #get()}.
      */
-    @SuppressWarnings("deprecation")
     @Deprecated
     @Override
     public Byte getValue() {

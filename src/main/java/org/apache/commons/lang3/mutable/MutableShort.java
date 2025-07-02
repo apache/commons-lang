@@ -252,7 +252,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @return the value as a Short, never null.
      * @deprecated Use {@link #get()}.
      */
-    @SuppressWarnings("deprecation")
     @Deprecated
     @Override
     public Short getValue() {

@@ -271,7 +271,6 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * @return the value as a Float, never null.
      * @deprecated Use {@link #get()}.
      */
-    @SuppressWarnings("deprecation")
     @Deprecated
     @Override
     public Float getValue() {

@@ -269,7 +269,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @return the value as a Double, never null.
      * @deprecated Use {@link #get()}.
      */
-    @SuppressWarnings("deprecation")
     @Deprecated
     @Override
     public Double getValue() {

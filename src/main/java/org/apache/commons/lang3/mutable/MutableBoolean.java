@@ -115,7 +115,6 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * @return the value as a Boolean, never null.
      * @deprecated Use {@link #get()}.
      */
-    @SuppressWarnings("deprecation")
     @Deprecated
     @Override
     public Boolean getValue() {

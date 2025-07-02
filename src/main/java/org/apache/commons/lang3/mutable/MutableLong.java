@@ -258,7 +258,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @return the value as a Long, never null.
      * @deprecated Use {@link #get()}.
      */
-    @SuppressWarnings("deprecation")
     @Deprecated
     @Override
     public Long getValue() {
