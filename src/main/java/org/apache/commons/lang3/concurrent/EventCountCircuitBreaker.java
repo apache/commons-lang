@@ -138,6 +138,48 @@ import java.util.concurrent.atomic.AtomicReference;
 public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
 
     /**
+     * Internally used class for executing check logic based on the current state of the
+     * circuit breaker. Having this logic extracted into special classes avoids complex
+     * if-then-else cascades.
+     */
+    private abstract static class AbstractStateStrategy {
+        /**
+         * Obtains the check interval to applied for the represented state from the given
+         * {@link CircuitBreaker}.
+         *
+         * @param breaker the {@link CircuitBreaker}
+         * @return the check interval to be applied
+         */
+        protected abstract long fetchCheckInterval(EventCountCircuitBreaker breaker);
+
+        /**
+         * Returns a flag whether the end of the current check interval is reached.
+         *
+         * @param breaker the {@link CircuitBreaker}
+         * @param currentData the current state object
+         * @param now the current time
+         * @return a flag whether the end of the current check interval is reached
+         */
+        public boolean isCheckIntervalFinished(final EventCountCircuitBreaker breaker,
+                final CheckIntervalData currentData, final long now) {
+            return now - currentData.getCheckIntervalStart() > fetchCheckInterval(breaker);
+        }
+
+        /**
+         * Checks whether the specified {@link CheckIntervalData} objects indicate that a
+         * state transition should occur. Here the logic which checks for thresholds
+         * depending on the current state is implemented.
+         *
+         * @param breaker the {@link CircuitBreaker}
+         * @param currentData the current {@link CheckIntervalData} object
+         * @param nextData the updated {@link CheckIntervalData} object
+         * @return a flag whether a state transition should be performed
+         */
+        public abstract boolean isStateTransition(EventCountCircuitBreaker breaker,
+                CheckIntervalData currentData, CheckIntervalData nextData);
+    }
+
+    /**
      * An internally used data class holding information about the checks performed by
      * this class. Basically, the number of received events and the start time of the
      * current check interval are stored.
@@ -189,48 +231,6 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
             return delta == 0 ? this : new CheckIntervalData(getEventCount() + delta,
                     getCheckIntervalStart());
         }
-    }
-
-    /**
-     * Internally used class for executing check logic based on the current state of the
-     * circuit breaker. Having this logic extracted into special classes avoids complex
-     * if-then-else cascades.
-     */
-    private abstract static class AbstractStateStrategy {
-        /**
-         * Obtains the check interval to applied for the represented state from the given
-         * {@link CircuitBreaker}.
-         *
-         * @param breaker the {@link CircuitBreaker}
-         * @return the check interval to be applied
-         */
-        protected abstract long fetchCheckInterval(EventCountCircuitBreaker breaker);
-
-        /**
-         * Returns a flag whether the end of the current check interval is reached.
-         *
-         * @param breaker the {@link CircuitBreaker}
-         * @param currentData the current state object
-         * @param now the current time
-         * @return a flag whether the end of the current check interval is reached
-         */
-        public boolean isCheckIntervalFinished(final EventCountCircuitBreaker breaker,
-                final CheckIntervalData currentData, final long now) {
-            return now - currentData.getCheckIntervalStart() > fetchCheckInterval(breaker);
-        }
-
-        /**
-         * Checks whether the specified {@link CheckIntervalData} objects indicate that a
-         * state transition should occur. Here the logic which checks for thresholds
-         * depending on the current state is implemented.
-         *
-         * @param breaker the {@link CircuitBreaker}
-         * @param currentData the current {@link CheckIntervalData} object
-         * @param nextData the updated {@link CheckIntervalData} object
-         * @return a flag whether a state transition should be performed
-         */
-        public abstract boolean isStateTransition(EventCountCircuitBreaker breaker,
-                CheckIntervalData currentData, CheckIntervalData nextData);
     }
 
     /**
