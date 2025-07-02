@@ -1514,9 +1514,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                     if (!inLiteral && CharUtils.isAsciiAlpha(c2)) {
                         i--;
                         break;
-                    } else {
-                        buf.append(c);
                     }
+                    buf.append(c);
                 }
             }
         }
