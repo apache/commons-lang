@@ -4783,7 +4783,10 @@ public class StringUtils {
      */
     @Deprecated
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
-        return Strings.CS.lastIndexOf(seq, searchSeq, startPos);
+        if (seq == null || searchSeq == null) {
+            return -1;
+        }
+        return seq.toString().lastIndexOf(searchSeq.toString(), startPos);
     }
 
     /**
