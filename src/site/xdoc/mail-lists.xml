@@ -39,7 +39,9 @@ limitations under the License.
  |                                                                      |
  +======================================================================+
 -->
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
     <title>Apache Commons Lang Mailing Lists</title>
     <author email="dev@commons.apache.org">Apache Commons Documentation Team</author>
@@ -53,10 +55,10 @@ limitations under the License.
         To make it easier for people to only read messages related to components they are interested in,
         the convention in Commons is to prefix the subject line of messages with the component's name,
         for example:
-        <ul>
-          <li>[lang] Problem with the ...</li>
-        </ul>
       </p>
+      <ul>
+        <li>[lang] Problem with the ...</li>
+      </ul>
       <p>
         Questions related to the usage of Apache Commons Lang should be posted to the
         <a href="https://lists.apache.org/list.html?user@commons.apache.org">User List</a>.
