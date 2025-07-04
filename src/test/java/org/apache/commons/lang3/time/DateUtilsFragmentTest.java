@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.time;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -155,20 +155,20 @@ class DateUtilsFragmentTest extends AbstractLangTest {
 
     @Test
     void testInvalidFragmentWithCalendar() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.getFragmentInMilliseconds(aCalendar, 0));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.getFragmentInSeconds(aCalendar, 0));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.getFragmentInMinutes(aCalendar, 0));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.getFragmentInHours(aCalendar, 0));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.getFragmentInDays(aCalendar, 0));
+        assertIllegalArgumentException(() -> DateUtils.getFragmentInMilliseconds(aCalendar, 0));
+        assertIllegalArgumentException(() -> DateUtils.getFragmentInSeconds(aCalendar, 0));
+        assertIllegalArgumentException(() -> DateUtils.getFragmentInMinutes(aCalendar, 0));
+        assertIllegalArgumentException(() -> DateUtils.getFragmentInHours(aCalendar, 0));
+        assertIllegalArgumentException(() -> DateUtils.getFragmentInDays(aCalendar, 0));
     }
 
     @Test
     void testInvalidFragmentWithDate() {
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.getFragmentInMilliseconds(aDate, 0));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.getFragmentInSeconds(aDate, 0));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.getFragmentInMinutes(aDate, 0));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.getFragmentInHours(aDate, 0));
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.getFragmentInDays(aDate, 0));
+        assertIllegalArgumentException(() -> DateUtils.getFragmentInMilliseconds(aDate, 0));
+        assertIllegalArgumentException(() -> DateUtils.getFragmentInSeconds(aDate, 0));
+        assertIllegalArgumentException(() -> DateUtils.getFragmentInMinutes(aDate, 0));
+        assertIllegalArgumentException(() -> DateUtils.getFragmentInHours(aDate, 0));
+        assertIllegalArgumentException(() -> DateUtils.getFragmentInDays(aDate, 0));
     }
 
     // Calendar.MINUTE as useful fragment

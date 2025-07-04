@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -168,13 +169,13 @@ class ClassUtilsTest extends AbstractLangTest {
     @Test
     @DisplayName("When the desired length is negative then exception is thrown")
     void test_getAbbreviatedName_Class_NegativeLen() {
-        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getAbbreviatedName(String.class, -10));
+        assertIllegalArgumentException(() -> ClassUtils.getAbbreviatedName(String.class, -10));
     }
 
     @Test
     @DisplayName("When the desired length is zero then exception is thrown")
     void test_getAbbreviatedName_Class_ZeroLen() {
-        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getAbbreviatedName(String.class, 0));
+        assertIllegalArgumentException(() -> ClassUtils.getAbbreviatedName(String.class, 0));
     }
 
     @Test
@@ -567,7 +568,7 @@ class ClassUtilsTest extends AbstractLangTest {
         // fixed without backward compatibility break
         assertEquals("int[]", int[].class.getCanonicalName());
         assertEquals("[I", int[].class.getName());
-        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName(StringUtils.repeat("[", 256) + "I"));
+        assertIllegalArgumentException(() -> ClassUtils.getShortCanonicalName(StringUtils.repeat("[", 256) + "I"));
         assertEquals("int" + StringUtils.repeat("[]", 255), ClassUtils.getShortCanonicalName(StringUtils.repeat("[", 255) + "I"));
         // Inner types... the problem is that these are not canonical names, classes with this name do not even have canonical
         // name

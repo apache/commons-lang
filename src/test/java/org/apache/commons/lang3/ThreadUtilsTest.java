@@ -19,13 +19,13 @@
 
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
@@ -180,7 +180,7 @@ class ThreadUtilsTest extends AbstractLangTest {
 
     @Test
     void testInvalidThreadId() {
-        assertThrows(IllegalArgumentException.class, () -> ThreadUtils.findThreadById(-5L));
+        assertIllegalArgumentException(() -> ThreadUtils.findThreadById(-5L));
     }
 
     @Test

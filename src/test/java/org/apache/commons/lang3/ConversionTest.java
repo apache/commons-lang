@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertIndexOutOfBoundsException;
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -49,7 +51,7 @@ class ConversionTest extends AbstractLangTest {
     @ParameterizedTest
     @ValueSource(ints = {-1, 8, 99})
     public void binaryBeMsb0ToHexDigitPosOutsideArray(final int index) {
-        assertThrows(IndexOutOfBoundsException.class,
+        assertIndexOutOfBoundsException(
             () -> Conversion.binaryBeMsb0ToHexDigit(new boolean[8], index));
     }
 
@@ -95,7 +97,7 @@ class ConversionTest extends AbstractLangTest {
             Conversion.binaryBeMsb0ToHexDigit(new boolean[]{
                 true, false, false, false, false, false, false, false, false, false, false,
                 false, false, true, false, false}));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.binaryBeMsb0ToHexDigit(new boolean[]{}));
+        assertIllegalArgumentException(() -> Conversion.binaryBeMsb0ToHexDigit(new boolean[]{}));
     }
 
     /**
@@ -191,7 +193,7 @@ class ConversionTest extends AbstractLangTest {
         assertEquals('1', Conversion.binaryToHexDigit(new boolean[]{true}));
         assertEquals(
             'f', Conversion.binaryToHexDigit(new boolean[]{true, true, true, true, true}));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.binaryToHexDigit(new boolean[]{}));
+        assertIllegalArgumentException(() -> Conversion.binaryToHexDigit(new boolean[]{}));
     }
 
     /**
@@ -290,7 +292,7 @@ class ConversionTest extends AbstractLangTest {
             'e', Conversion.binaryToHexDigitMsb0_4bits(new boolean[]{true, true, true, false}));
         assertEquals(
             'f', Conversion.binaryToHexDigitMsb0_4bits(new boolean[]{true, true, true, true}));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.binaryToHexDigitMsb0_4bits(new boolean[]{}));
+        assertIllegalArgumentException(() -> Conversion.binaryToHexDigitMsb0_4bits(new boolean[]{}));
     }
 
     @Test
@@ -579,7 +581,7 @@ class ConversionTest extends AbstractLangTest {
             new boolean[]{true, true, true, true}, Conversion.hexDigitMsb0ToBinary('F'));
         assertArrayEquals(
             new boolean[]{true, true, true, true}, Conversion.hexDigitMsb0ToBinary('f'));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexDigitMsb0ToBinary('G'));
+        assertIllegalArgumentException(() -> Conversion.hexDigitMsb0ToBinary('G'));
     }
 
     /**
@@ -609,7 +611,7 @@ class ConversionTest extends AbstractLangTest {
         assertEquals(0x7, Conversion.hexDigitMsb0ToInt('e'));
         assertEquals(0xF, Conversion.hexDigitMsb0ToInt('F'));
         assertEquals(0xF, Conversion.hexDigitMsb0ToInt('f'));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexDigitMsb0ToInt('G'));
+        assertIllegalArgumentException(() -> Conversion.hexDigitMsb0ToInt('G'));
     }
 
     /**
@@ -661,7 +663,7 @@ class ConversionTest extends AbstractLangTest {
             new boolean[]{true, true, true, true}, Conversion.hexDigitToBinary('F'));
         assertArrayEquals(
             new boolean[]{true, true, true, true}, Conversion.hexDigitToBinary('f'));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexDigitToBinary('G'));
+        assertIllegalArgumentException(() -> Conversion.hexDigitToBinary('G'));
     }
 
     /**
@@ -691,7 +693,7 @@ class ConversionTest extends AbstractLangTest {
         assertEquals(14, Conversion.hexDigitToInt('e'));
         assertEquals(15, Conversion.hexDigitToInt('F'));
         assertEquals(15, Conversion.hexDigitToInt('f'));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexDigitToInt('G'));
+        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('G'));
     }
 
     /**
@@ -1009,7 +1011,7 @@ class ConversionTest extends AbstractLangTest {
         assertEquals('d', Conversion.intToHexDigit(13));
         assertEquals('e', Conversion.intToHexDigit(14));
         assertEquals('f', Conversion.intToHexDigit(15));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.intToHexDigit(16));
+        assertIllegalArgumentException(() -> Conversion.intToHexDigit(16));
     }
 
     /**
@@ -1033,7 +1035,7 @@ class ConversionTest extends AbstractLangTest {
         assertEquals('b', Conversion.intToHexDigitMsb0(13));
         assertEquals('7', Conversion.intToHexDigitMsb0(14));
         assertEquals('f', Conversion.intToHexDigitMsb0(15));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.intToHexDigitMsb0(16));
+        assertIllegalArgumentException(() -> Conversion.intToHexDigitMsb0(16));
     }
 
     /**

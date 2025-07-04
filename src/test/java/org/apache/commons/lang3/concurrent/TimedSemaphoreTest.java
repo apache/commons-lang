@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -409,7 +410,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
      */
     @Test
     void testInitInvalidPeriod() {
-        assertThrows(IllegalArgumentException.class, () -> new TimedSemaphore(0L, UNIT, LIMIT));
+        assertIllegalArgumentException(() -> new TimedSemaphore(0L, UNIT, LIMIT));
     }
 
     /**

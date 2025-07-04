@@ -17,8 +17,8 @@
 
 package org.apache.commons.lang3.text.translate;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -71,7 +71,7 @@ class NumericEntityUnescaperTest extends AbstractLangTest {
         final NumericEntityUnescaper failingNeu =
                 new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.errorIfNoSemiColon);
         final String failingInput = "Test &#x30 not test";
-        assertThrows(IllegalArgumentException.class, () -> failingNeu.translate(failingInput));
+        assertIllegalArgumentException(() -> failingNeu.translate(failingInput));
     }
 
 }

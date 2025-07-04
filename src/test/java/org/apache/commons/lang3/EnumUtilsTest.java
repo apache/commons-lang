@@ -18,11 +18,11 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -79,13 +79,13 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGenerateBitVector_longClass() {
-        assertThrows(IllegalArgumentException.class,
+        assertIllegalArgumentException(
             () -> EnumUtils.generateBitVector(TooMany.class, EnumSet.of(TooMany.A1)));
     }
 
     @Test
     void testGenerateBitVector_longClassWithArray() {
-        assertThrows(IllegalArgumentException.class, () -> EnumUtils.generateBitVector(TooMany.class, TooMany.A1));
+        assertIllegalArgumentException(() -> EnumUtils.generateBitVector(TooMany.class, TooMany.A1));
     }
 
     @SuppressWarnings("unchecked")
@@ -95,7 +95,7 @@ class EnumUtilsTest extends AbstractLangTest {
         final Class rawType = Object.class;
         @SuppressWarnings("rawtypes")
         final List rawList = new ArrayList();
-        assertThrows(IllegalArgumentException.class, () -> EnumUtils.generateBitVector(rawType, rawList));
+        assertIllegalArgumentException(() -> EnumUtils.generateBitVector(rawType, rawList));
     }
 
     @SuppressWarnings("unchecked")
@@ -103,7 +103,7 @@ class EnumUtilsTest extends AbstractLangTest {
     void testGenerateBitVector_nonEnumClassWithArray() {
         @SuppressWarnings("rawtypes")
         final Class rawType = Object.class;
-        assertThrows(IllegalArgumentException.class, () -> EnumUtils.generateBitVector(rawType));
+        assertIllegalArgumentException(() -> EnumUtils.generateBitVector(rawType));
     }
 
     @Test
@@ -113,7 +113,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGenerateBitVector_nullArrayElement() {
-        assertThrows(IllegalArgumentException.class,
+        assertIllegalArgumentException(
             () -> EnumUtils.generateBitVector(Traffic.class, Traffic.RED, null));
     }
 
@@ -191,7 +191,7 @@ class EnumUtilsTest extends AbstractLangTest {
         final Class rawType = Object.class;
         @SuppressWarnings("rawtypes")
         final List rawList = new ArrayList();
-        assertThrows(IllegalArgumentException.class, () -> EnumUtils.generateBitVectors(rawType, rawList));
+        assertIllegalArgumentException(() -> EnumUtils.generateBitVectors(rawType, rawList));
     }
 
     @SuppressWarnings("unchecked")
@@ -199,7 +199,7 @@ class EnumUtilsTest extends AbstractLangTest {
     void testGenerateBitVectors_nonEnumClassWithArray() {
         @SuppressWarnings("rawtypes")
         final Class rawType = Object.class;
-        assertThrows(IllegalArgumentException.class, () -> EnumUtils.generateBitVectors(rawType));
+        assertIllegalArgumentException(() -> EnumUtils.generateBitVectors(rawType));
     }
 
     @Test
@@ -209,7 +209,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGenerateBitVectors_nullArrayElement() {
-        assertThrows(IllegalArgumentException.class,
+        assertIllegalArgumentException(
             () -> EnumUtils.generateBitVectors(Traffic.class, Traffic.RED, null));
     }
 
@@ -508,7 +508,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testProcessBitVector_longClass() {
-        assertThrows(IllegalArgumentException.class, () -> EnumUtils.processBitVector(TooMany.class, 0L));
+        assertIllegalArgumentException(() -> EnumUtils.processBitVector(TooMany.class, 0L));
     }
 
     @Test

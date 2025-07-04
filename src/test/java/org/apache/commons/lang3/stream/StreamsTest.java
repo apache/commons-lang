@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.stream;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -84,7 +85,7 @@ class StreamsTest extends AbstractLangTest {
             dynamicTest("IllegalArgumentException", () -> {
                 final IllegalArgumentException iae = new IllegalArgumentException("Invalid argument: " + 5);
                 final Executable testMethod = () -> Failable.stream(input).map(Integer::valueOf).filter(asIntPredicate(iae)).collect(Collectors.toList());
-                final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
+                final IllegalArgumentException thrown = assertIllegalArgumentException(testMethod);
                 assertEquals("Invalid argument: " + 5, thrown.getMessage());
             }),
             dynamicTest("OutOfMemoryError", () -> {
@@ -109,7 +110,7 @@ class StreamsTest extends AbstractLangTest {
             dynamicTest("IllegalArgumentException", () -> {
                 final IllegalArgumentException ise = new IllegalArgumentException();
                 final Executable testMethod = () -> Failable.stream(input).forEach(asIntConsumer(ise));
-                final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
+                final IllegalArgumentException thrown = assertIllegalArgumentException(testMethod);
                 assertNull(thrown.getMessage());
             }),
             dynamicTest("OutOfMemoryError", () -> {

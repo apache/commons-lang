@@ -157,9 +157,7 @@ class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
         final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
         builder.setExcludeFieldNames(FIELDS[1], FIELDS[4]);
         builder.setIncludeFieldNames(FIELDS[0], FIELDS[1]);
-        Assertions.assertThrows(IllegalStateException.class, () -> {
-            builder.toString();
-        });
+        Assertions.assertThrows(IllegalStateException.class, () -> builder.toString());
     }
 
     @Test
@@ -176,9 +174,7 @@ class ReflectionToStringBuilderIncludeTest extends AbstractLangTest {
         final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(new TestFeature());
         builder.setExcludeFieldNames(FIELDS[1], "random1");
         builder.setIncludeFieldNames("random1");
-        Assertions.assertThrows(IllegalStateException.class, () -> {
-            builder.toString();
-        });
+        Assertions.assertThrows(IllegalStateException.class, () -> builder.toString());
     }
 
     @Test

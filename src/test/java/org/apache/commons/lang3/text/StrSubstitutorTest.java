@@ -204,18 +204,11 @@ class StrSubstitutorTest extends AbstractLangTest {
         map.put("critterColor", "brown");
         map.put("critterType", "${animal}");
         final StrSubstitutor sub = new StrSubstitutor(map);
-        assertThrows(
-                IllegalStateException.class,
-                () -> sub.replace("The ${animal} jumps over the ${target}."),
-                "Cyclic replacement was not detected!");
-
+        assertThrows(IllegalStateException.class, () -> sub.replace("The ${animal} jumps over the ${target}."), "Cyclic replacement was not detected!");
         // also check even when default value is set.
         map.put("critterType", "${animal:-fox}");
         final StrSubstitutor sub2 = new StrSubstitutor(map);
-        assertThrows(
-                IllegalStateException.class,
-                () -> sub2.replace("The ${animal} jumps over the ${target}."),
-                "Cyclic replacement was not detected!");
+        assertThrows(IllegalStateException.class, () -> sub2.replace("The ${animal} jumps over the ${target}."), "Cyclic replacement was not detected!");
     }
 
     @Test

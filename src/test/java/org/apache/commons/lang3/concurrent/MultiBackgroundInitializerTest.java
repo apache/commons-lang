@@ -230,9 +230,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
     @Test
     void testAddInitializerAfterStart() throws ConcurrentException {
         initializer.start();
-        assertThrows(
-                IllegalStateException.class,
-                () -> initializer.addInitializer(CHILD_INIT, createChildBackgroundInitializer()),
+        assertThrows(IllegalStateException.class, () -> initializer.addInitializer(CHILD_INIT, createChildBackgroundInitializer()),
                 "Could add initializer after start()!");
         initializer.get();
     }

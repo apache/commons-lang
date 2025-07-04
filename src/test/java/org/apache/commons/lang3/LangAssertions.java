@@ -28,11 +28,81 @@ import org.junit.jupiter.api.function.Executable;
 public class LangAssertions {
 
     /**
+     * Asserts that execution of the given {@code executable} throws a {@link IllegalArgumentException}.
+     *
+     * <p>
+     * The assertion passes if the thrown exception type is the same as {@link IllegalArgumentException} or a subtype. To check for the exact thrown type use
+     * {@link Assertions#assertThrowsExactly(Class, Executable) assertThrowsExactly}. If no exception is thrown, or if an exception of a different type is
+     * thrown, this method fails.
+     * </p>
+     *
+     * @param executable What to test.
+     * @return The thrown IllegalArgumentException.
+     * @see Assertions#assertThrowsExactly(Class, Executable)
+     */
+    public static IllegalArgumentException assertIllegalArgumentException(final Executable executable) {
+        return assertThrows(IllegalArgumentException.class, executable);
+    }
+
+    /**
+     * Asserts that execution of the given {@code executable} throws a {@link IllegalArgumentException}.
+     *
+     * <p>
+     * The assertion passes if the thrown exception type is the same as {@link IllegalArgumentException} or a subtype. To check for the exact thrown type use
+     * {@link Assertions#assertThrowsExactly(Class, Executable) assertThrowsExactly}. If no exception is thrown, or if an exception of a different type is
+     * thrown, this method fails with the given {@code message}.
+     * </p>
+     *
+     * @param executable What to test.
+     * @param message    The message for the failure if the executable doesn't throw a IllegalArgumentException.
+     * @return The thrown IllegalArgumentException.
+     * @see Assertions#assertThrowsExactly(Class, Executable)
+     */
+    public static IllegalArgumentException assertIllegalArgumentException(final Executable executable, final String message) {
+        return assertThrows(IllegalArgumentException.class, executable, message);
+    }
+
+    /**
+     * Asserts that execution of the given {@code executable} throws a {@link IndexOutOfBoundsException}.
+     *
+     * <p>
+     * The assertion passes if the thrown exception type is the same as {@link IndexOutOfBoundsException} or a subtype. To check for the exact thrown type use
+     * {@link Assertions#assertThrowsExactly(Class, Executable) assertThrowsExactly}. If no exception is thrown, or if an exception of a different type is
+     * thrown, this method fails.
+     * </p>
+     *
+     * @param executable What to test.
+     * @return The thrown IndexOutOfBoundsException.
+     * @see Assertions#assertThrowsExactly(Class, Executable)
+     */
+    public static IndexOutOfBoundsException assertIndexOutOfBoundsException(final Executable executable) {
+        return assertThrows(IndexOutOfBoundsException.class, executable);
+    }
+
+    /**
+     * Asserts that execution of the given {@code executable} throws a {@link IndexOutOfBoundsException}.
+     *
+     * <p>
+     * The assertion passes if the thrown exception type is the same as {@link IndexOutOfBoundsException} or a subtype. To check for the exact thrown type use
+     * {@link Assertions#assertThrowsExactly(Class, Executable) assertThrowsExactly}. If no exception is thrown, or if an exception of a different type is
+     * thrown, this method fails with the given {@code message}.
+     * </p>
+     *
+     * @param executable What to test.
+     * @param message    The message for the failure if the executable doesn't throw a IndexOutOfBoundsException.
+     * @return The thrown IndexOutOfBoundsException.
+     * @see Assertions#assertThrowsExactly(Class, Executable)
+     */
+    public static IndexOutOfBoundsException assertIndexOutOfBoundsException(final Executable executable, final String message) {
+        return assertThrows(IndexOutOfBoundsException.class, executable, message);
+    }
+
+    /**
      * Asserts that execution of the given {@code executable} throws a {@link NullPointerException}.
      *
      * <p>
-     * The assertion passes if the thrown exception type is the same as {@link NullPointerException} or a subtype. To check for the exact thrown type
-     * use {@link Assertions#assertThrowsExactly(Class, Executable) assertThrowsExactly}. If no exception is thrown, or if an exception of a different type is
+     * The assertion passes if the thrown exception type is the same as {@link NullPointerException} or a subtype. To check for the exact thrown type use
+     * {@link Assertions#assertThrowsExactly(Class, Executable) assertThrowsExactly}. If no exception is thrown, or if an exception of a different type is
      * thrown, this method fails.
      * </p>
      *
@@ -48,13 +118,13 @@ public class LangAssertions {
      * Asserts that execution of the given {@code executable} throws a {@link NullPointerException}.
      *
      * <p>
-     * The assertion passes if the thrown exception type is the same as {@link NullPointerException} or a subtype. To check for the exact thrown type
-     * use {@link Assertions#assertThrowsExactly(Class, Executable) assertThrowsExactly}. If no exception is thrown, or if an exception of a different type is
-     * thrown, this method fails.
+     * The assertion passes if the thrown exception type is the same as {@link NullPointerException} or a subtype. To check for the exact thrown type use
+     * {@link Assertions#assertThrowsExactly(Class, Executable) assertThrowsExactly}. If no exception is thrown, or if an exception of a different type is
+     * thrown, this method fails with the given {@code message}.
      * </p>
      *
      * @param executable What to test.
-     * @param message The message for the failure if the executable doesn't throw a NullPointerException.
+     * @param message    The message for the failure if the executable doesn't throw a NullPointerException.
      * @return The thrown NullPointerException.
      * @see Assertions#assertThrowsExactly(Class, Executable)
      */

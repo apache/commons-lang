@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.math;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -1194,7 +1195,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxByte_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
@@ -1207,7 +1208,7 @@ class NumberUtilsTest extends AbstractLangTest {
         final double[] d = null;
         assertNullPointerException(() -> NumberUtils.max(d), "No exception was thrown for null input.");
 
-        assertThrows(IllegalArgumentException.class, NumberUtils::max, "No exception was thrown for empty input.");
+        assertIllegalArgumentException(NumberUtils::max, "No exception was thrown for empty input.");
 
         assertEquals(5.1f, NumberUtils.max(5.1f), "max(double[]) failed for array length 1");
         assertEquals(9.2f, NumberUtils.max(6.3f, 9.2f), "max(double[]) failed for array length 2");
@@ -1218,7 +1219,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxDouble_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
@@ -1237,7 +1238,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxFloat_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
@@ -1320,7 +1321,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxInt_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
@@ -1339,7 +1340,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxLong_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
@@ -1359,7 +1360,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxShort_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
@@ -1378,7 +1379,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinByte_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test
@@ -1398,7 +1399,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinDouble_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test
@@ -1419,7 +1420,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinFloat_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test
@@ -1502,7 +1503,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinInt_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test
@@ -1521,7 +1522,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinLong_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test
@@ -1540,7 +1541,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMinShort_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test

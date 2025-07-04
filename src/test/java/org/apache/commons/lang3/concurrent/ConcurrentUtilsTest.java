@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -43,7 +44,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
      */
     @Test
     void testConcurrentExceptionCauseError() {
-        assertThrows(IllegalArgumentException.class, () -> new ConcurrentException("An error", new Error()));
+        assertIllegalArgumentException(() -> new ConcurrentException("An error", new Error()));
     }
 
     /**
@@ -51,7 +52,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
      */
     @Test
     void testConcurrentExceptionCauseNull() {
-        assertThrows(IllegalArgumentException.class, () -> new ConcurrentException(null));
+        assertIllegalArgumentException(() -> new ConcurrentException(null));
     }
 
     /**
@@ -59,7 +60,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
      */
     @Test
     void testConcurrentExceptionCauseUnchecked() {
-        assertThrows(IllegalArgumentException.class, () -> new ConcurrentException(new RuntimeException()));
+        assertIllegalArgumentException(() -> new ConcurrentException(new RuntimeException()));
     }
 
     /**
@@ -67,7 +68,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
      */
     @Test
     void testConcurrentRuntimeExceptionCauseError() {
-        assertThrows(IllegalArgumentException.class, () -> new ConcurrentRuntimeException("An error", new Error()));
+        assertIllegalArgumentException(() -> new ConcurrentRuntimeException("An error", new Error()));
     }
 
     /**
@@ -75,7 +76,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
      */
     @Test
     void testConcurrentRuntimeExceptionCauseNull() {
-        assertThrows(IllegalArgumentException.class, () -> new ConcurrentRuntimeException(null));
+        assertIllegalArgumentException(() -> new ConcurrentRuntimeException(null));
     }
 
     /**
@@ -83,7 +84,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
      */
     @Test
     void testConcurrentRuntimeExceptionCauseUnchecked() {
-        assertThrows(IllegalArgumentException.class, () -> new ConcurrentRuntimeException(new RuntimeException()));
+        assertIllegalArgumentException(() -> new ConcurrentRuntimeException(new RuntimeException()));
     }
 
     /**

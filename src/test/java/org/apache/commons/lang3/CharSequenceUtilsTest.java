@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertIndexOutOfBoundsException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -295,12 +296,12 @@ class CharSequenceUtilsTest extends AbstractLangTest {
 
     @Test
     void testSubSequenceNegativeStart() {
-        assertThrows(IndexOutOfBoundsException.class, () -> CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
+        assertIndexOutOfBoundsException(() -> CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
     }
 
     @Test
     void testSubSequenceTooLong() {
-        assertThrows(IndexOutOfBoundsException.class, () -> CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
+        assertIndexOutOfBoundsException(() -> CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
     }
 
     @Test

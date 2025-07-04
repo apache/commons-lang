@@ -203,8 +203,8 @@ class StringEscapeUtilsTest extends AbstractLangTest {
         assertEquals(original, unescaped, "High Unicode should have been unchanged");
 
 // TODO: I think this should hold, needs further investigation
-//        String unescapedFromEntity = StringEscapeUtils.unescapeHtml4( "&#119650;" );
-//        assertEquals( "High Unicode should have been unescaped", original, unescapedFromEntity);
+//        String unescapedFromEntity = StringEscapeUtils.unescapeHtml4("&#119650;");
+//        assertEquals("High Unicode should have been unescaped", original, unescapedFromEntity);
     }
 
     @Test

@@ -17,12 +17,12 @@
 
 package org.apache.commons.lang3.time;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
@@ -396,22 +396,22 @@ class DurationFormatUtilsTest extends AbstractLangTest {
 
     @Test
     void testFormatNegativeDuration() {
-        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(-5000, "S", true));
+        assertIllegalArgumentException(() -> DurationFormatUtils.formatDuration(-5000, "S", true));
     }
 
     @Test
     void testFormatNegativeDurationHMS() {
-        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDurationHMS(-5000));
+        assertIllegalArgumentException(() -> DurationFormatUtils.formatDurationHMS(-5000));
     }
 
     @Test
     void testFormatNegativeDurationISO() {
-        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDurationISO(-5000));
+        assertIllegalArgumentException(() -> DurationFormatUtils.formatDurationISO(-5000));
     }
 
     @Test
     void testFormatNegativeDurationWords() {
-        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDurationWords(-5000, true, true));
+        assertIllegalArgumentException(() -> DurationFormatUtils.formatDurationWords(-5000, true, true));
     }
 
     @Test
@@ -475,7 +475,7 @@ class DurationFormatUtilsTest extends AbstractLangTest {
 
     @Test
     void testFormatPeriodeStartGreaterEnd() {
-        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatPeriod(5000, 2500, "yy/MM"));
+        assertIllegalArgumentException(() -> DurationFormatUtils.formatPeriod(5000, 2500, "yy/MM"));
     }
 
     @SuppressWarnings("deprecation")
@@ -518,7 +518,7 @@ class DurationFormatUtilsTest extends AbstractLangTest {
 
     @Test
     void testFormatPeriodISOStartGreaterEnd() {
-        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatPeriodISO(5000, 2000));
+        assertIllegalArgumentException(() -> DurationFormatUtils.formatPeriodISO(5000, 2000));
     }
 
     /**
@@ -554,7 +554,7 @@ class DurationFormatUtilsTest extends AbstractLangTest {
 
     @Test
     void testLANG981() { // unmatched quote char in lexx
-        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.lexx("'yMdHms''S"));
+        assertIllegalArgumentException(() -> DurationFormatUtils.lexx("'yMdHms''S"));
     }
     @Test
     void testLANG982() { // More than 3 millisecond digits following a second
@@ -723,8 +723,8 @@ class DurationFormatUtilsTest extends AbstractLangTest {
 
     @Test
     void testUnmatchedOptionalTokens() {
-        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(1, "[s"));
-        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(1, "[[s"));
-        assertThrows(IllegalArgumentException.class, () -> DurationFormatUtils.formatDuration(1, "[s]]"));
+        assertIllegalArgumentException(() -> DurationFormatUtils.formatDuration(1, "[s"));
+        assertIllegalArgumentException(() -> DurationFormatUtils.formatDuration(1, "[[s"));
+        assertIllegalArgumentException(() -> DurationFormatUtils.formatDuration(1, "[s]]"));
     }
 }

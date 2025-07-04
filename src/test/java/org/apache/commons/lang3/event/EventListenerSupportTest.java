@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.event;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -98,7 +99,7 @@ class EventListenerSupportTest extends AbstractLangTest {
 
     @Test
     void testCreateWithNonInterfaceParameter() {
-        assertThrows(IllegalArgumentException.class, () -> EventListenerSupport.create(String.class));
+        assertIllegalArgumentException(() -> EventListenerSupport.create(String.class));
     }
 
     @Test

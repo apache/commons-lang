@@ -695,17 +695,12 @@ class ExceptionUtilsTest extends AbstractLangTest {
         ExceptionUtils.printRootCauseStackTrace(null, (PrintStream) null);
         ExceptionUtils.printRootCauseStackTrace(null, new PrintStream(out));
         assertEquals(0, out.toString().length());
-
-        assertThrows(
-                NullPointerException.class,
-                () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintStream) null));
-
+        assertNullPointerException(() -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintStream) null));
         out = new ByteArrayOutputStream(1024);
         final Throwable cause = createExceptionWithCause();
         ExceptionUtils.printRootCauseStackTrace(cause, new PrintStream(out));
         String stackTrace = out.toString();
         assertTrue(stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
-
         out = new ByteArrayOutputStream(1024);
         ExceptionUtils.printRootCauseStackTrace(withoutCause, new PrintStream(out));
         stackTrace = out.toString();
@@ -718,17 +713,12 @@ class ExceptionUtilsTest extends AbstractLangTest {
         ExceptionUtils.printRootCauseStackTrace(null, (PrintWriter) null);
         ExceptionUtils.printRootCauseStackTrace(null, new PrintWriter(writer));
         assertEquals(0, writer.getBuffer().length());
-
-        assertThrows(
-                NullPointerException.class,
-                () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintWriter) null));
-
+        assertNullPointerException(() -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintWriter) null));
         writer = new StringWriter(1024);
         final Throwable cause = createExceptionWithCause();
         ExceptionUtils.printRootCauseStackTrace(cause, new PrintWriter(writer));
         String stackTrace = writer.toString();
         assertTrue(stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
-
         writer = new StringWriter(1024);
         ExceptionUtils.printRootCauseStackTrace(withoutCause, new PrintWriter(writer));
         stackTrace = writer.toString();

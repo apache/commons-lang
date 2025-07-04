@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -704,22 +705,22 @@ class StringUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetFuzzyDistance_NullNullNull() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getFuzzyDistance(null, null, null));
+        assertIllegalArgumentException(() -> StringUtils.getFuzzyDistance(null, null, null));
     }
 
     @Test
     void testGetFuzzyDistance_NullStringLocale() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getFuzzyDistance(null, "clear", Locale.ENGLISH));
+        assertIllegalArgumentException(() -> StringUtils.getFuzzyDistance(null, "clear", Locale.ENGLISH));
     }
 
     @Test
     void testGetFuzzyDistance_StringNullLoclae() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getFuzzyDistance(" ", null, Locale.ENGLISH));
+        assertIllegalArgumentException(() -> StringUtils.getFuzzyDistance(" ", null, Locale.ENGLISH));
     }
 
     @Test
     void testGetFuzzyDistance_StringStringNull() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getFuzzyDistance(" ", "clear", null));
+        assertIllegalArgumentException(() -> StringUtils.getFuzzyDistance(" ", "clear", null));
     }
 
     @Test
@@ -775,17 +776,17 @@ class StringUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetJaroWinklerDistance_NullNull() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getJaroWinklerDistance(null, null));
+        assertIllegalArgumentException(() -> StringUtils.getJaroWinklerDistance(null, null));
     }
 
     @Test
     void testGetJaroWinklerDistance_NullString() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getJaroWinklerDistance(null, "clear"));
+        assertIllegalArgumentException(() -> StringUtils.getJaroWinklerDistance(null, "clear"));
     }
 
     @Test
     void testGetJaroWinklerDistance_StringNull() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getJaroWinklerDistance(" ", null));
+        assertIllegalArgumentException(() -> StringUtils.getJaroWinklerDistance(" ", null));
     }
 
     @Test
@@ -803,22 +804,22 @@ class StringUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetLevenshteinDistance_NullString() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getLevenshteinDistance("a", null));
+        assertIllegalArgumentException(() -> StringUtils.getLevenshteinDistance("a", null));
     }
 
     @Test
     void testGetLevenshteinDistance_NullStringInt() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getLevenshteinDistance(null, "a", 0));
+        assertIllegalArgumentException(() -> StringUtils.getLevenshteinDistance(null, "a", 0));
     }
 
     @Test
     void testGetLevenshteinDistance_StringNull() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getLevenshteinDistance(null, "a"));
+        assertIllegalArgumentException(() -> StringUtils.getLevenshteinDistance(null, "a"));
     }
 
     @Test
     void testGetLevenshteinDistance_StringNullInt() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getLevenshteinDistance("a", null, 0));
+        assertIllegalArgumentException(() -> StringUtils.getLevenshteinDistance("a", null, 0));
     }
 
     @Test
@@ -901,7 +902,7 @@ class StringUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetLevenshteinDistance_StringStringNegativeInt() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.getLevenshteinDistance("a", "a", -1));
+        assertIllegalArgumentException(() -> StringUtils.getLevenshteinDistance("a", "a", -1));
     }
 
     /**
@@ -1226,7 +1227,7 @@ class StringUtilsTest extends AbstractLangTest {
 
     @Test
     void testJoinWithThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> StringUtils.joinWith(",", (Object[]) null));
+        assertIllegalArgumentException(() -> StringUtils.joinWith(",", (Object[]) null));
     }
 
     @Disabled
@@ -1510,9 +1511,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("AB", StringUtils.removeAll("A<__>\n<__>B", "(?s)<.*>"));
         assertEquals("ABC123", StringUtils.removeAll("ABCabc123abc", "[a-z]"));
 
-        assertThrows(
-                PatternSyntaxException.class,
-                () -> StringUtils.removeAll("any", "{badRegexSyntax}"),
+        assertThrows(PatternSyntaxException.class, () -> StringUtils.removeAll("any", "{badRegexSyntax}"),
                 "StringUtils.removeAll expecting PatternSyntaxException");
     }
 
@@ -1575,9 +1574,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("ABCbc123", StringUtils.removeFirst("ABCabc123", "[a-z]"));
         assertEquals("ABC123abc", StringUtils.removeFirst("ABCabc123abc", "[a-z]+"));
 
-        assertThrows(
-                PatternSyntaxException.class,
-                () -> StringUtils.removeFirst("any", "{badRegexSyntax}"),
+        assertThrows(PatternSyntaxException.class, () -> StringUtils.removeFirst("any", "{badRegexSyntax}"),
                 "StringUtils.removeFirst expecting PatternSyntaxException");
     }
 
@@ -1766,9 +1763,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{null}), "aba");
         assertEquals(StringUtils.replaceEach("aba", new String[]{"a", "b"}, new String[]{"c", null}), "cbc");
 
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.replaceEach("abba", new String[]{"a"}, new String[]{"b", "a"}),
+        assertIllegalArgumentException(() -> StringUtils.replaceEach("abba", new String[] { "a" }, new String[] { "b", "a" }),
                 "StringUtils.replaceEach(String, String[], String[]) expecting IllegalArgumentException");
     }
 
@@ -1799,12 +1794,9 @@ class StringUtilsTest extends AbstractLangTest {
                 new String[]{"aa"}, new String[]{"a"}));
 
         // Test default TTL exceeded. 33 characters reduced to 17, then 9, 5, 3, 2 (still found).
-        assertThrows(
-                IllegalStateException.class,
-                () -> StringUtils.replaceEachRepeatedly("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                    new String[]{"aa"}, new String[]{"a"}),
-               "Cannot be resolved within the default time-to-live limit");
-
+        assertThrows(IllegalStateException.class,
+                () -> StringUtils.replaceEachRepeatedly("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new String[] { "aa" }, new String[] { "a" }),
+                "Cannot be resolved within the default time-to-live limit");
         // Test larger TTL for larger search lists. Replace repeatedly until there are no more possible replacements.
         assertEquals("000000000", StringUtils.replaceEachRepeatedly("aA0aA0aA0",
                 new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
@@ -1817,8 +1809,7 @@ class StringUtilsTest extends AbstractLangTest {
                         "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}));
 
         // Test long infinite cycle: a -> b -> ... -> 9 -> 0 -> a -> b -> ...
-        assertThrows(
-                IllegalStateException.class,
+        assertThrows(IllegalStateException.class,
                 () -> StringUtils.replaceEachRepeatedly("a",
                     new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
                             "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
@@ -1830,15 +1821,13 @@ class StringUtilsTest extends AbstractLangTest {
                             "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "a"}),
                 "Should be a circular reference");
 
-        assertThrows(
-                IllegalStateException.class,
+        assertThrows(IllegalStateException.class,
                 () -> StringUtils.replaceEachRepeatedly("%{key1}",
                     new String[] {"%{key1}", "%{key2}", "%{key3}"},
                     new String[] {"Key1 %{key2}", "Key2 %{key3}", "Key3 %{key1}"}),
                 "Should be a circular reference");
 
-        assertThrows(
-                IllegalStateException.class,
+        assertThrows(IllegalStateException.class,
                 () -> StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}),
                 "Should be a circular reference");
 
@@ -1914,9 +1903,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("Lorem_ipsum_dolor_sit",
                      StringUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
 
-        assertThrows(
-                PatternSyntaxException.class,
-                () -> StringUtils.replaceAll("any", "{badRegexSyntax}", ""),
+        assertThrows(PatternSyntaxException.class, () -> StringUtils.replaceAll("any", "{badRegexSyntax}", ""),
                 "StringUtils.replaceAll expecting PatternSyntaxException");
     }
 
@@ -1995,9 +1982,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("Lorem_ipsum  dolor   sit",
                      StringUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
 
-        assertThrows(
-                PatternSyntaxException.class,
-                () -> StringUtils.replaceFirst("any", "{badRegexSyntax}", ""),
+        assertThrows(PatternSyntaxException.class, () -> StringUtils.replaceFirst("any", "{badRegexSyntax}", ""),
                 "StringUtils.replaceFirst expecting PatternSyntaxException");
     }
 
@@ -2966,30 +2951,16 @@ class StringUtilsTest extends AbstractLangTest {
     @Test
     void testTruncate_StringInt() {
         assertNull(StringUtils.truncate(null, 12));
-        assertThrows(
-                IllegalArgumentException.class, () -> StringUtils.truncate(null, -1), "maxWith cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class, () -> StringUtils.truncate(null, -10), "maxWith cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate(null, Integer.MIN_VALUE),
-                "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate(null, -1), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate(null, -10), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate(null, Integer.MIN_VALUE), "maxWith cannot be negative");
         assertEquals("", StringUtils.truncate("", 10));
         assertEquals("abc", StringUtils.truncate("abcdefghij", 3));
         assertEquals("abcdef", StringUtils.truncate("abcdefghij", 6));
         assertEquals("", StringUtils.truncate("abcdefghij", 0));
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", -1),
-                "maxWith cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", -100),
-                "maxWith cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE),
-                "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -1), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -100), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE), "maxWith cannot be negative");
         assertEquals("abcdefghij", StringUtils.truncate("abcdefghijklmno", 10));
         assertEquals("abcdefghijklmno", StringUtils.truncate("abcdefghijklmno", Integer.MAX_VALUE));
         assertEquals("abcde", StringUtils.truncate("abcdefghijklmno", 5));
@@ -2999,73 +2970,28 @@ class StringUtilsTest extends AbstractLangTest {
     @Test
     void testTruncate_StringIntInt() {
         assertNull(StringUtils.truncate(null, 0, 12));
-        assertThrows(
-                IllegalArgumentException.class, () -> StringUtils.truncate(null, -1, 0), "offset cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate(null, -10, -4),
-                "offset cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate(null, Integer.MIN_VALUE, Integer.MIN_VALUE),
-                "offset cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate(null, -1, 0), "offset cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate(null, -10, -4), "offset cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate(null, Integer.MIN_VALUE, Integer.MIN_VALUE), "offset cannot be negative");
         assertNull(StringUtils.truncate(null, 10, 12));
         assertEquals("", StringUtils.truncate("", 0, 10));
         assertEquals("", StringUtils.truncate("", 2, 10));
         assertEquals("abc", StringUtils.truncate("abcdefghij", 0, 3));
         assertEquals("fghij", StringUtils.truncate("abcdefghij", 5, 6));
         assertEquals("", StringUtils.truncate("abcdefghij", 0, 0));
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", 0, -1),
-                "maxWith cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", 0, -10),
-                "maxWith cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", 0, -100),
-                "maxWith cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", 1, -100),
-                "maxWith cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", 0, Integer.MIN_VALUE),
-                "maxWith cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", -1, 0),
-                "offset cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", -10, 0),
-                "offset cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", -100, 1),
-                "offset cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, 0),
-                "offset cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", -1, -1),
-                "offset cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", -10, -10),
-                "offset cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", -100, -100),
-                "offset cannot be negative");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, Integer.MIN_VALUE),
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, -1), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, -10), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, -100), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 1, -100), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, Integer.MIN_VALUE), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -1, 0), "offset cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -10, 0), "offset cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -100, 1), "offset cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, 0), "offset cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -1, -1), "offset cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -10, -10), "offset cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -100, -100), "offset cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE, Integer.MIN_VALUE),
                 "offset cannot be negative");
         final String raspberry = "raspberry peach";
         assertEquals("peach", StringUtils.truncate(raspberry, 10, 15));
