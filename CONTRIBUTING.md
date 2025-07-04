@@ -61,11 +61,11 @@ Making Changes
 
 + Create a _topic branch_ for your isolated work.
   * Usually you should base your branch from the `master` branch.
-  * A good topic branch name can be the JIRA bug ID plus a keyword, for example, `LANG-123-InputStream`.
+  * A good topic branch name can be the JIRA bug ID plus a keyword, e.g. `LANG-123-InputStream`.
   * If you have submitted multiple JIRA issues, try to maintain separate branches and pull requests.
 + Make commits of logical units.
   * Make sure your commit messages are meaningful and in the proper format. Your commit message should contain the key of the JIRA issue.
-  * For example, `[LANG-123] Close input stream earlier`
+  * For example, `[LANG-123] Close input stream sooner`
 + Respect the original code style:
   + Only use spaces for indentation; you can check for unnecessary whitespace with `git diff` before committing.
   + Create minimal diffs - disable _On Save_ actions like _Reformat Source Code_ or _Organize Imports_. If you feel the source code should be reformatted create a separate PR for this change first.
