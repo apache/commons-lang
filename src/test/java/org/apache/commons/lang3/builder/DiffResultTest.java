@@ -117,7 +117,7 @@ class DiffResultTest extends AbstractLangTest {
 
     @Test
     void testNullLhs() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> new DiffResult<>(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT));
     }
 
@@ -128,7 +128,7 @@ class DiffResultTest extends AbstractLangTest {
 
     @Test
     void testNullRhs() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> new DiffResult<>(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT));
     }
 

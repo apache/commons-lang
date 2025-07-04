@@ -6704,7 +6704,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertArrayEquals(new byte[]{Byte.MIN_VALUE, Byte.MAX_VALUE, (byte) 9999999}, ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE),
                 Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte) 9999999)}));
 
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ArrayUtils.toPrimitive(new Byte[]{Byte.valueOf(Byte.MIN_VALUE), null}));
     }
 
@@ -6735,7 +6735,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertArrayEquals(new char[]{Character.MIN_VALUE, Character.MAX_VALUE, '0'}, ArrayUtils.toPrimitive(new Character[]{Character.valueOf(Character.MIN_VALUE),
                 Character.valueOf(Character.MAX_VALUE), Character.valueOf('0')}));
 
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ArrayUtils.toPrimitive(new Character[]{Character.valueOf(Character.MIN_VALUE), null}));
     }
 
@@ -6767,7 +6767,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertArrayEquals(new double[]{Double.MIN_VALUE, Double.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Double[]{Double.valueOf(Double.MIN_VALUE),
                 Double.valueOf(Double.MAX_VALUE), Double.valueOf(9999999)}));
 
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null}));
     }
 
@@ -6798,7 +6798,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertArrayEquals(new float[]{Float.MIN_VALUE, Float.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE),
                 Float.valueOf(Float.MAX_VALUE), Float.valueOf(9999999)}));
 
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ArrayUtils.toPrimitive(new Float[]{Float.valueOf(Float.MIN_VALUE), null}));
     }
 
@@ -6826,7 +6826,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertArrayEquals(new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE),
                 Integer.valueOf(Integer.MAX_VALUE), Integer.valueOf(9999999)}));
 
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ArrayUtils.toPrimitive(new Integer[]{Integer.valueOf(Integer.MIN_VALUE), null}));
     }
 
@@ -6860,7 +6860,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertArrayEquals(new long[]{Long.MIN_VALUE, Long.MAX_VALUE, 9999999}, ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE),
                 Long.valueOf(Long.MAX_VALUE), Long.valueOf(9999999)}));
 
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ArrayUtils.toPrimitive(new Long[]{Long.valueOf(Long.MIN_VALUE), null}));
     }
 
@@ -6890,7 +6890,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertArrayEquals(new short[]{Short.MIN_VALUE, Short.MAX_VALUE, (short) 9999999}, ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE),
                 Short.valueOf(Short.MAX_VALUE), Short.valueOf((short) 9999999)}));
 
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ArrayUtils.toPrimitive(new Short[]{Short.valueOf(Short.MIN_VALUE), null}));
     }
 

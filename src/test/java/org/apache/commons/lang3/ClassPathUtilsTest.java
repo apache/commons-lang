@@ -20,7 +20,6 @@ import static org.apache.commons.lang3.LangAssertions.assertNullPointerException
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
@@ -71,19 +70,19 @@ class ClassPathUtilsTest extends AbstractLangTest {
 
     @Test
     void testToFullyQualifiedNameNullClassString() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ClassPathUtils.toFullyQualifiedName((Class<?>) null, "Test.properties"));
     }
 
     @Test
     void testToFullyQualifiedNameNullPackageString() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ClassPathUtils.toFullyQualifiedName((Package) null, "Test.properties"));
     }
 
     @Test
     void testToFullyQualifiedNamePackageNull() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class.getPackage(), null));
     }
 
@@ -110,7 +109,7 @@ class ClassPathUtilsTest extends AbstractLangTest {
 
     @Test
     void testToFullyQualifiedPathClassNullString() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ClassPathUtils.toFullyQualifiedPath((Class<?>) null, "Test.properties"));
     }
 
@@ -124,13 +123,13 @@ class ClassPathUtilsTest extends AbstractLangTest {
 
     @Test
     void testToFullyQualifiedPathPackageNull() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class.getPackage(), null));
     }
 
     @Test
     void testToFullyQualifiedPathPackageNullString() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ClassPathUtils.toFullyQualifiedPath((Package) null, "Test.properties"));
     }
 }

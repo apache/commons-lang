@@ -734,9 +734,9 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertFalse(FailableBiPredicate.FALSE.and(FailableBiPredicate.TRUE).test(null, null));
         assertFalse(FailableBiPredicate.FALSE.and(FailableBiPredicate.FALSE).test(null, null));
         // null tests
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertFalse(FailableBiPredicate.falsePredicate().and(null).test(null, null)));
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertTrue(FailableBiPredicate.truePredicate().and(null).test(null, null)));
     }
 
@@ -755,9 +755,9 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertTrue(FailableBiPredicate.FALSE.or(FailableBiPredicate.TRUE).test(null, null));
         assertFalse(FailableBiPredicate.FALSE.or(FailableBiPredicate.FALSE).test(null, null));
         // null tests
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertFalse(FailableBiPredicate.falsePredicate().or(null).test(null, null)));
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertTrue(FailableBiPredicate.truePredicate().or(null).test(null, null)));
     }
 
@@ -823,9 +823,9 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertFalse(FailableDoublePredicate.FALSE.and(FailableDoublePredicate.TRUE).test(0));
         assertFalse(FailableDoublePredicate.FALSE.and(FailableDoublePredicate.FALSE).test(0));
         // null tests
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertFalse(FailableDoublePredicate.falsePredicate().and(null).test(0)));
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertTrue(FailableDoublePredicate.truePredicate().and(null).test(0)));
     }
 
@@ -844,9 +844,9 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertTrue(FailableDoublePredicate.FALSE.or(FailableDoublePredicate.TRUE).test(0));
         assertFalse(FailableDoublePredicate.FALSE.or(FailableDoublePredicate.FALSE).test(0));
         // null tests
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertFalse(FailableDoublePredicate.falsePredicate().or(null).test(0)));
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertTrue(FailableDoublePredicate.truePredicate().or(null).test(0)));
     }
 
@@ -1270,9 +1270,9 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertFalse(FailableIntPredicate.FALSE.and(FailableIntPredicate.TRUE).test(0));
         assertFalse(FailableIntPredicate.FALSE.and(FailableIntPredicate.FALSE).test(0));
         // null tests
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertFalse(FailableIntPredicate.falsePredicate().and(null).test(0)));
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertTrue(FailableIntPredicate.truePredicate().and(null).test(0)));
     }
 
@@ -1291,9 +1291,9 @@ class FailableFunctionsTest extends AbstractLangTest {
         assertTrue(FailableIntPredicate.FALSE.or(FailableIntPredicate.TRUE).test(0));
         assertFalse(FailableIntPredicate.FALSE.or(FailableIntPredicate.FALSE).test(0));
         // null tests
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertFalse(FailableIntPredicate.falsePredicate().or(null).test(0)));
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> assertTrue(FailableIntPredicate.truePredicate().or(null).test(0)));
     }
 

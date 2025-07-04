@@ -315,13 +315,13 @@ class ObjectUtilsTest extends AbstractLangTest {
 
     @Test
     void testComparatorMedian_nullComparator() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ObjectUtils.median((Comparator<CharSequence>) null, new NonComparableCharSequence("foo")));
     }
 
     @Test
     void testComparatorMedian_nullItems() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> ObjectUtils.median(new CharSequenceComparator(), (CharSequence[]) null));
     }
 

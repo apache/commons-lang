@@ -129,13 +129,13 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGenerateBitVector_nullElement() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> EnumUtils.generateBitVector(Traffic.class, Arrays.asList(Traffic.RED, null)));
     }
 
     @Test
     void testGenerateBitVector_nullIterable() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> EnumUtils.generateBitVector(Traffic.class, (Iterable<Traffic>) null));
     }
 
@@ -225,7 +225,7 @@ class EnumUtilsTest extends AbstractLangTest {
 
     @Test
     void testGenerateBitVectors_nullElement() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
             () -> EnumUtils.generateBitVectors(Traffic.class, Arrays.asList(Traffic.RED, null)));
     }
 

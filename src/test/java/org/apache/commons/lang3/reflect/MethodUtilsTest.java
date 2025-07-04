@@ -508,7 +508,7 @@ class MethodUtilsTest extends AbstractLangTest {
 
     @Test
     void testGetAnnotationIllegalArgumentException1() {
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> MethodUtils.getAnnotation(FieldUtilsTest.class.getDeclaredMethods()[0], null, true, true));
     }
 
@@ -668,7 +668,7 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals(GetMatchingMethodImpl.class.getMethod("testMethod6"),
             MethodUtils.getMatchingMethod(GetMatchingMethodImpl.class, "testMethod6"));
 
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> MethodUtils.getMatchingMethod(null, "testMethod5", RuntimeException.class));
     }
 
@@ -1032,9 +1032,9 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals("privateStringStuff(String)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", "Hi There"));
         assertEquals("privateStringStuff(Object)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", new Date()));
 
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> MethodUtils.invokeMethod(null, true, "privateStringStuff", "Hi There"));
-        assertThrows(NullPointerException.class,
+        assertNullPointerException(
                 () -> MethodUtils.invokeMethod(testBean, true, null, "Hi There"));
     }
 
