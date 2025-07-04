@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.function.Executable;
 
 /**
@@ -26,10 +27,37 @@ import org.junit.jupiter.api.function.Executable;
  */
 public class LangAssertions {
 
+    /**
+     * Asserts that execution of the given {@code executable} throws a {@link NullPointerException}.
+     *
+     * <p>
+     * The assertion passes if the thrown exception type is the same as {@link NullPointerException} or a subtype. To check for the exact thrown type
+     * use {@link Assertions#assertThrowsExactly(Class, Executable) assertThrowsExactly}. If no exception is thrown, or if an exception of a different type is
+     * thrown, this method fails.
+     * </p>
+     *
+     * @param executable What to test.
+     * @return The thrown NullPointerException.
+     * @see Assertions#assertThrowsExactly(Class, Executable)
+     */
     public static NullPointerException assertNullPointerException(final Executable executable) {
         return assertThrows(NullPointerException.class, executable);
     }
 
+    /**
+     * Asserts that execution of the given {@code executable} throws a {@link NullPointerException}.
+     *
+     * <p>
+     * The assertion passes if the thrown exception type is the same as {@link NullPointerException} or a subtype. To check for the exact thrown type
+     * use {@link Assertions#assertThrowsExactly(Class, Executable) assertThrowsExactly}. If no exception is thrown, or if an exception of a different type is
+     * thrown, this method fails.
+     * </p>
+     *
+     * @param executable What to test.
+     * @param message The message for the failure if the executable doesn't throw a NullPointerException.
+     * @return The thrown NullPointerException.
+     * @see Assertions#assertThrowsExactly(Class, Executable)
+     */
     public static NullPointerException assertNullPointerException(final Executable executable, final String message) {
         return assertThrows(NullPointerException.class, executable, message);
     }
