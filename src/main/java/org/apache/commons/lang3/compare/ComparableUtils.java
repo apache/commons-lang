@@ -21,9 +21,9 @@ import java.util.function.Predicate;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
- * Utility library to provide helper methods for translating {@link Comparable#compareTo} result into a boolean.
+ * Helper translating {@link Comparable#compareTo} results to booleans.
  *
- * <p>Example: {@code boolean x = is(myComparable).lessThanOrEqualTo(otherComparable)}</p>
+ * <p>Example: {@code boolean x = ComparableUtils.is(myComparable).lessThanOrEqualTo(otherComparable)}</p>
  *
  * <p>#ThreadSafe#</p>
  *
@@ -81,7 +81,7 @@ public class ComparableUtils {
          * @return true if the value returned by {@link Comparable#compareTo} is equal to {@code 0}
          */
         public boolean equalTo(final A b) {
-            return a.compareTo(b) == 0;
+            return a != null && a.compareTo(b) == 0;
         }
 
         /**
@@ -91,7 +91,7 @@ public class ComparableUtils {
          * @return true if the value returned by {@link Comparable#compareTo} is greater than {@code 0}
          */
         public boolean greaterThan(final A b) {
-            return a.compareTo(b) > 0;
+            return a != null && a.compareTo(b) > 0;
         }
 
         /**
@@ -101,7 +101,7 @@ public class ComparableUtils {
          * @return true if the value returned by {@link Comparable#compareTo} is greater than or equal to {@code 0}
          */
         public boolean greaterThanOrEqualTo(final A b) {
-            return a.compareTo(b) >= 0;
+            return a != null && a.compareTo(b) >= 0;
         }
 
         /**
@@ -111,7 +111,7 @@ public class ComparableUtils {
          * @return true if the value returned by {@link Comparable#compareTo} is less than {@code 0}
          */
         public boolean lessThan(final A b) {
-            return a.compareTo(b) < 0;
+            return a != null && a.compareTo(b) < 0;
         }
 
         /**
@@ -121,7 +121,7 @@ public class ComparableUtils {
          * @return true if the value returned by {@link Comparable#compareTo} is less than or equal to {@code 0}
          */
         public boolean lessThanOrEqualTo(final A b) {
-            return a.compareTo(b) <= 0;
+            return a != null && a.compareTo(b) <= 0;
         }
     }
 

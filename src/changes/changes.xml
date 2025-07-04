@@ -103,6 +103,11 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">org.apache.commons.lang3.EnumUtils.getFirstEnumIgnoreCase(Class, String, Function, E) now returns the given default enum on null enumClass input.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">org.apache.commons.lang3.EnumUtils.getEnumIgnoreCase(Class, String, E) now returns the given default enum on null enumClass input.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">org.apache.commons.lang3.EnumUtils.getEnumIgnoreCase(Class, String) now returns the given default enum on null enumClass input.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.equalTo(A).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.greaterThan(A).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.greaterThanOrEqualTo(A).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.lessThan(A).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.lessThanOrEqualTo(A).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
     <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
