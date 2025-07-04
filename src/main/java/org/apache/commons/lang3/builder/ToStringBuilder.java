@@ -982,7 +982,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * Returns the {@link Object} being output.
+     * Gets the {@link Object} being output.
      *
      * @return The object being output.
      * @since 2.0

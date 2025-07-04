@@ -41,7 +41,7 @@ public interface FailableSupplier<T, E extends Throwable> {
     FailableSupplier NUL = () -> null;
 
     /**
-     * Returns the singleton supplier that always returns null.
+     * Gets the singleton supplier that always returns null.
      * <p>
      * This supplier never throws an exception.
      * </p>

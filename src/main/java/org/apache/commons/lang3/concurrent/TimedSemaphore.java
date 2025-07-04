@@ -283,7 +283,7 @@ public class TimedSemaphore {
     }
 
     /**
-     * Returns the number of invocations of the {@link #acquire()} method for
+     * Gets the number of invocations of the {@link #acquire()} method for
      * the current period. This may be useful for testing or debugging purposes.
      *
      * @return the current number of {@link #acquire()} invocations
@@ -293,7 +293,7 @@ public class TimedSemaphore {
     }
 
     /**
-     * Returns the number of calls to the {@link #acquire()} method that can
+     * Gets the number of calls to the {@link #acquire()} method that can
      * still be performed in the current period without blocking. This method
      * can give an indication whether it is safe to call the {@link #acquire()}
      * method without risking to be suspended. However, there is no guarantee
@@ -308,7 +308,7 @@ public class TimedSemaphore {
     }
 
     /**
-     * Returns the average number of successful (i.e. non-blocking)
+     * Gets the average number of successful (i.e. non-blocking)
      * {@link #acquire()} invocations for the entire life-time of this {@code
      * TimedSemaphore}. This method can be used for instance for statistical
      * calculations.
@@ -322,7 +322,7 @@ public class TimedSemaphore {
     }
 
     /**
-     * Returns the executor service used by this instance.
+     * Gets the executor service used by this instance.
      *
      * @return the executor service
      */
@@ -331,7 +331,7 @@ public class TimedSemaphore {
     }
 
     /**
-     * Returns the number of (successful) acquire invocations during the last
+     * Gets the number of (successful) acquire invocations during the last
      * period. This is the number of times the {@link #acquire()} method was
      * called without blocking. This can be useful for testing or debugging
      * purposes or to determine a meaningful threshold value. If a limit is set,
@@ -345,7 +345,7 @@ public class TimedSemaphore {
     }
 
     /**
-     * Returns the limit enforced by this semaphore. The limit determines how
+     * Gets the limit enforced by this semaphore. The limit determines how
      * many invocations of {@link #acquire()} are allowed within the monitored
      * period.
      *
@@ -356,7 +356,7 @@ public class TimedSemaphore {
     }
 
     /**
-     * Returns the time period. This is the time monitored by this semaphore.
+     * Gets the time period. This is the time monitored by this semaphore.
      * Only a given number of invocations of the {@link #acquire()} method is
      * possible in this period.
      *
@@ -367,7 +367,7 @@ public class TimedSemaphore {
     }
 
     /**
-     * Returns the time unit. This is the unit used by {@link #getPeriod()}.
+     * Gets the time unit. This is the unit used by {@link #getPeriod()}.
      *
      * @return the time unit
      */

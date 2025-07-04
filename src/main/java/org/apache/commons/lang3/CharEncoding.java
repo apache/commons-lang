@@ -85,7 +85,7 @@ public class CharEncoding {
     public static final String UTF_8 = StandardCharsets.UTF_8.name();
 
     /**
-     * Returns whether the named charset is supported.
+     * Tests whether the named charset is supported.
      *
      * <p>This is similar to <a
      * href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html#isSupported%28java.lang.String%29">

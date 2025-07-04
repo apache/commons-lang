@@ -613,7 +613,7 @@ public abstract class ToStringStyle implements Serializable {
      */
 
     /**
-     * Returns the registry of objects being traversed by the {@code reflectionToString}
+     * Gets the registry of objects being traversed by the {@code reflectionToString}
      * methods in the current thread.
      *
      * @return Set the registry of objects being traversed
@@ -623,7 +623,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * Returns {@code true} if the registry contains the given object.
+     * Tests whether the registry contains the given object.
      * Used by the reflection methods to avoid infinite loops.
      *
      * @param value

@@ -233,7 +233,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the value of the bit with the specified index. The value is {@code true} if the bit with the index
+     * Gets the value of the bit with the specified index. The value is {@code true} if the bit with the index
      * {@code bitIndex} is currently set in this {@link BitSet}; otherwise, the result is {@code false}.
      *
      * @param bitIndex the bit index.
@@ -245,7 +245,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Returns a new {@link BitSet} composed of bits from this {@link BitSet} from {@code fromIndex} (inclusive) to
+     * Gets a new {@link BitSet} composed of bits from this {@link BitSet} from {@code fromIndex} (inclusive) to
      * {@code toIndex} (exclusive).
      *
      * @param fromIndex index of the first bit to include.
@@ -286,7 +286,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     }
 
     /**
-     * Returns true if this {@link BitSet} contains no bits that are set to {@code true}.
+     * Tests whether if this {@link BitSet} contains no bits that are set to {@code true}.
      *
      * @return boolean indicating whether this {@link BitSet} is empty.
      */

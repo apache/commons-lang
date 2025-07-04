@@ -117,7 +117,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     // @formatter:on
 
     /**
-     * Returns a clone of {@code CSV_TOKENIZER_PROTOTYPE}.
+     * Gets a clone of {@code CSV_TOKENIZER_PROTOTYPE}.
      *
      * @return a clone of {@code CSV_TOKENIZER_PROTOTYPE}.
      */
@@ -167,13 +167,14 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         return tok;
     }
     /**
-     * Returns a clone of {@code TSV_TOKENIZER_PROTOTYPE}.
+     * Gets a clone of {@code TSV_TOKENIZER_PROTOTYPE}.
      *
      * @return a clone of {@code TSV_TOKENIZER_PROTOTYPE}.
      */
     private static StrTokenizer getTSVClone() {
         return (StrTokenizer) TSV_TOKENIZER_PROTOTYPE.clone();
     }
+
     /**
      * Gets a new tokenizer instance which parses Tab Separated Value strings.
      * The default for CSV processing will be trim whitespace from both ends
@@ -186,6 +187,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     public static StrTokenizer getTSVInstance() {
         return getTSVClone();
     }
+
     /**
      * Gets a new tokenizer instance which parses Tab Separated Value strings.
      * The default for CSV processing will be trim whitespace from both ends

@@ -417,7 +417,7 @@ public class StrSubstitutor {
     }
 
     /**
-     * Returns the escape character.
+     * Gets the escape character.
      *
      * @return the character used for escaping variable references
      */
@@ -481,7 +481,7 @@ public class StrSubstitutor {
     }
 
     /**
-     * Returns a flag whether substitution is done in variable names.
+     * Tests whether substitution is done in variable names.
      *
      * @return the substitution in variable names flag
      * @since 3.0
@@ -491,8 +491,7 @@ public class StrSubstitutor {
     }
 
     /**
-     * Returns the flag controlling whether escapes are preserved during
-     * substitution.
+     * Tests whether escapes are preserved during substitution.
      *
      * @return the preserve escape flag
      * @since 3.5

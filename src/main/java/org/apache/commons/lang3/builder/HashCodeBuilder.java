@@ -138,7 +138,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
 
     /**
-     * Returns the registry of objects being traversed by the reflection methods in the current thread.
+     * Gets the registry of objects being traversed by the reflection methods in the current thread.
      *
      * @return Set the registry of objects being traversed
      * @since 2.3
@@ -148,7 +148,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * Returns {@code true} if the registry contains the given object. Used by the reflection methods to avoid
+     * Tests whether the registry contains the given object. Used by the reflection methods to avoid
      * infinite loops.
      *
      * @param value

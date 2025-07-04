@@ -124,7 +124,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Returns the registry of object pairs being traversed by the reflection
+     * Gets the registry of object pairs being traversed by the reflection
      * methods in the current thread.
      *
      * @return Set the registry of objects being traversed
@@ -135,10 +135,12 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Returns {@code true} if the registry contains the given object pair.
+     * Tests whether the registry contains the given object pair.
+     * <p>
      * Used by the reflection methods to avoid infinite loops.
      * Objects might be swapped therefore a check is needed if the object pair
      * is registered in given or swapped order.
+     * </p>
      *
      * @param lhs {@code this} object to lookup in registry
      * @param rhs the other object to lookup on registry

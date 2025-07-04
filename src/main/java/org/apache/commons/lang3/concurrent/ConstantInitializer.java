@@ -80,7 +80,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
     }
 
     /**
-     * Returns the object managed by this initializer. This implementation just
+     * Gets the object managed by this initializer. This implementation just
      * returns the object passed to the constructor.
      *
      * @return the object managed by this initializer

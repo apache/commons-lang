@@ -33,7 +33,7 @@ public interface BooleanConsumer {
     BooleanConsumer NOP = t -> { /* NOP */ };
 
     /**
-     * Returns the NOP singleton.
+     * Gets the NOP singleton.
      *
      * @return The NOP singleton.
      */

@@ -1834,7 +1834,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns the length of the specified array.
+     * Gets the length of the specified array.
      * This method can deal with {@link Object} arrays and with primitive arrays.
      * <p>
      * If the input array is {@code null}, {@code 0} is returned.
@@ -3188,7 +3188,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns whether a given array can safely be accessed at the given index.
+     * Tests whether a given array can safely be accessed at the given index.
      *
      * <pre>
      * ArrayUtils.isArrayIndexValid(null, 0)       = false
@@ -3207,7 +3207,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive booleans is empty or {@code null}.
+     * Tests whether an array of primitive booleans is empty or {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is empty or {@code null}
@@ -3218,7 +3218,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive bytes is empty or {@code null}.
+     * Tests whether an array of primitive bytes is empty or {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is empty or {@code null}
@@ -3229,7 +3229,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive chars is empty or {@code null}.
+     * Tests whether an array of primitive chars is empty or {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is empty or {@code null}
@@ -3240,7 +3240,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive doubles is empty or {@code null}.
+     * Tests whether an array of primitive doubles is empty or {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is empty or {@code null}
@@ -3251,7 +3251,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive floats is empty or {@code null}.
+     * Tests whether an array of primitive floats is empty or {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is empty or {@code null}
@@ -3262,7 +3262,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive ints is empty or {@code null}.
+     * Tests whether an array of primitive ints is empty or {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is empty or {@code null}
@@ -3273,7 +3273,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive longs is empty or {@code null}.
+     * Tests whether an array of primitive longs is empty or {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is empty or {@code null}
@@ -3284,7 +3284,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of Objects is empty or {@code null}.
+     * Tests whether an array of Objects is empty or {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is empty or {@code null}
@@ -3295,7 +3295,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive shorts is empty or {@code null}.
+     * Tests whether an array of primitive shorts is empty or {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is empty or {@code null}
@@ -3306,7 +3306,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Compares two arrays, using equals(), handling multidimensional arrays
+     * Tests whether two arrays have equal content, using equals(), handling multidimensional arrays
      * correctly.
      * <p>
      * Multi-dimensional primitive arrays are also handled correctly by this method.
@@ -3324,7 +3324,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive booleans is not empty and not {@code null}.
+     * Tests whether an array of primitive booleans is not empty and not {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is not empty and not {@code null}
@@ -3335,7 +3335,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive bytes is not empty and not {@code null}.
+     * Tests whether an array of primitive bytes is not empty and not {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is not empty and not {@code null}
@@ -3346,7 +3346,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive chars is not empty and not {@code null}.
+     * Tests whether an array of primitive chars is not empty and not {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is not empty and not {@code null}
@@ -3357,7 +3357,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive doubles is not empty and not {@code null}.
+     * Tests whether an array of primitive doubles is not empty and not {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is not empty and not {@code null}
@@ -3368,7 +3368,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive floats is not empty and not {@code null}.
+     * Tests whether an array of primitive floats is not empty and not {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is not empty and not {@code null}
@@ -3379,7 +3379,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive ints is not empty and not {@code null}.
+     * Tests whether an array of primitive ints is not empty and not {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is not empty and not {@code null}
@@ -3390,7 +3390,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive longs is not empty and not {@code null}.
+     * Tests whether an array of primitive longs is not empty and not {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is not empty and not {@code null}
@@ -3401,7 +3401,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of primitive shorts is not empty and not {@code null}.
+     * Tests whether an array of primitive shorts is not empty and not {@code null}.
      *
      * @param array  the array to test
      * @return {@code true} if the array is not empty and not {@code null}
@@ -3412,7 +3412,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks if an array of Objects is not empty and not {@code null}.
+     * Tests whether an array of Objects is not empty and not {@code null}.
      *
      * @param <T> the component type of the array
      * @param array  the array to test
@@ -3424,7 +3424,7 @@ public class ArrayUtils {
      }
 
     /**
-     * Checks whether two arrays are the same length, treating
+     * Tests whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
      *
      * @param array1 the first array, may be {@code null}
@@ -3437,7 +3437,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether two arrays are the same length, treating
+     * Tests whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
      *
      * @param array1 the first array, may be {@code null}
@@ -3450,7 +3450,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether two arrays are the same length, treating
+     * Tests whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
      *
      * @param array1 the first array, may be {@code null}
@@ -3463,7 +3463,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether two arrays are the same length, treating
+     * Tests whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
      *
      * @param array1 the first array, may be {@code null}
@@ -3476,7 +3476,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether two arrays are the same length, treating
+     * Tests whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
      *
      * @param array1 the first array, may be {@code null}
@@ -3489,7 +3489,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether two arrays are the same length, treating
+     * Tests whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
      *
      * @param array1 the first array, may be {@code null}
@@ -3502,7 +3502,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether two arrays are the same length, treating
+     * Tests whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
      *
      * @param array1 the first array, may be {@code null}
@@ -3515,7 +3515,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether two arrays are the same length, treating
+     * Tests whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
      * <p>
      * Any multi-dimensional aspects of the arrays are ignored.
@@ -3532,7 +3532,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether two arrays are the same length, treating
+     * Tests whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
      * <p>
      * Any multi-dimensional aspects of the arrays are ignored.
@@ -3548,7 +3548,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether two arrays are the same length, treating
+     * Tests whether two arrays are the same length, treating
      * {@code null} arrays as length {@code 0}.
      *
      * @param array1 the first array, may be {@code null}
@@ -3561,7 +3561,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether two arrays are the same type taking into account
+     * Tests whether two arrays are the same type taking into account
      * multidimensional arrays.
      *
      * @param array1 the first array, must not be {@code null}
@@ -3577,7 +3577,7 @@ public class ArrayUtils {
     }
 
     /**
-     * This method checks whether the provided array is sorted according to natural ordering
+     * Tests whether whether the provided array is sorted according to natural ordering
      * ({@code false} before {@code true}).
      *
      * @param array the array to check
@@ -3601,7 +3601,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether the provided array is sorted according to natural ordering.
+     * Tests whether the provided array is sorted according to natural ordering.
      *
      * @param array the array to check
      * @return whether the array is sorted according to natural ordering
@@ -3624,7 +3624,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Checks whether the provided array is sorted according to natural ordering.
+     * Tests whether the provided array is sorted according to natural ordering.
      *
      * @param array the array to check
      * @return whether the array is sorted according to natural ordering
@@ -3647,7 +3647,7 @@ public class ArrayUtils {
     }
 
     /**
-     * This method checks whether the provided array is sorted according to natural ordering.
+     * Tests whether the provided array is sorted according to natural ordering.
      *
      * @param array the array to check
      * @return whether the array is sorted according to natural ordering
@@ -3670,7 +3670,7 @@ public class ArrayUtils {
     }
 
     /**
-     * This method checks whether the provided array is sorted according to natural ordering.
+     * Tests whether the provided array is sorted according to natural ordering.
      *
      * @param array the array to check
      * @return whether the array is sorted according to natural ordering
@@ -3693,7 +3693,7 @@ public class ArrayUtils {
     }
 
     /**
-     * This method checks whether the provided array is sorted according to natural ordering.
+     * Tests whether the provided array is sorted according to natural ordering.
      *
      * @param array the array to check
      * @return whether the array is sorted according to natural ordering
@@ -3716,7 +3716,7 @@ public class ArrayUtils {
     }
 
     /**
-     * This method checks whether the provided array is sorted according to natural ordering.
+     * Tests whether the provided array is sorted according to natural ordering.
      *
      * @param array the array to check
      * @return whether the array is sorted according to natural ordering
@@ -3739,7 +3739,7 @@ public class ArrayUtils {
     }
 
     /**
-     * This method checks whether the provided array is sorted according to natural ordering.
+     * Tests whether the provided array is sorted according to natural ordering.
      *
      * @param array the array to check
      * @return whether the array is sorted according to natural ordering
@@ -3762,7 +3762,7 @@ public class ArrayUtils {
     }
 
     /**
-     * This method checks whether the provided array is sorted according to the class's
+     * Tests whether the provided array is sorted according to the class's
      * {@code compareTo} method.
      *
      * @param array the array to check
@@ -3775,7 +3775,7 @@ public class ArrayUtils {
     }
 
     /**
-     * This method checks whether the provided array is sorted according to the provided {@link Comparator}.
+     * Tests whether the provided array is sorted according to the provided {@link Comparator}.
      *
      * @param array the array to check
      * @param comparator the {@link Comparator} to compare over

@@ -61,7 +61,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
     }
 
     /**
-     * Returns the NOP singleton.
+     * Gets the NOP singleton.
      *
      * @param <T> Consumed type.
      * @param <R> Return type.

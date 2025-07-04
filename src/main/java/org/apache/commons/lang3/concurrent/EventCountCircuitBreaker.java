@@ -153,7 +153,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         protected abstract long fetchCheckInterval(EventCountCircuitBreaker breaker);
 
         /**
-         * Returns a flag whether the end of the current check interval is reached.
+         * Tests whether the end of the current check interval is reached.
          *
          * @param breaker the {@link CircuitBreaker}
          * @param currentData the current state object
@@ -166,7 +166,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         }
 
         /**
-         * Checks whether the specified {@link CheckIntervalData} objects indicate that a
+         * Tests whether the specified {@link CheckIntervalData} objects indicate that a
          * state transition should occur. Here the logic which checks for thresholds
          * depending on the current state is implemented.
          *
@@ -203,7 +203,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         }
 
         /**
-         * Returns the start time of the current check interval.
+         * Gets the start time of the current check interval.
          *
          * @return the check interval start time
          */
@@ -212,7 +212,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         }
 
         /**
-         * Returns the event counter.
+         * Gets the event counter.
          *
          * @return the number of received events
          */
@@ -421,7 +421,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Returns the interval (in nanoseconds) for checking for the closing threshold.
+     * Gets the interval (in nanoseconds) for checking for the closing threshold.
      *
      * @return the opening check interval
      */
@@ -430,7 +430,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Returns the threshold value for closing the circuit breaker. If the number of
+     * Gets the threshold value for closing the circuit breaker. If the number of
      * events received in the time span determined by the closing interval goes below this
      * threshold, the circuit breaker is closed again.
      *
@@ -441,7 +441,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Returns the interval (in nanoseconds) for checking for the opening threshold.
+     * Gets the interval (in nanoseconds) for checking for the opening threshold.
      *
      * @return the opening check interval
      */
@@ -450,7 +450,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Returns the threshold value for opening the circuit breaker. If this number of
+     * Gets the threshold value for opening the circuit breaker. If this number of
      * events is received in the time span determined by the opening interval, the circuit
      * breaker is opened.
      *

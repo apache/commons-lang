@@ -34,7 +34,7 @@ public interface FailableToDoubleFunction<T, E extends Throwable> {
     FailableToDoubleFunction NOP = t -> 0d;
 
     /**
-     * Returns the NOP singleton.
+     * Gets the NOP singleton.
      *
      * @param <T> the type of the argument to the function
      * @param <E> The kind of thrown exception or error.

@@ -33,7 +33,7 @@ public interface FailableLongToIntFunction<E extends Throwable> {
     FailableLongToIntFunction NOP = t -> 0;
 
     /**
-     * Returns the NOP singleton.
+     * Gets the NOP singleton.
      *
      * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.

@@ -155,7 +155,7 @@ public class MultiBackgroundInitializer
         }
 
         /**
-         * Returns the {@link ConcurrentException} object that was thrown by the
+         * Gets the {@link ConcurrentException} object that was thrown by the
          * {@link BackgroundInitializer} with the given name. If this
          * initializer did not throw an exception, the return value is
          * <strong>null</strong>. If the name cannot be resolved, an exception is thrown.
@@ -170,7 +170,7 @@ public class MultiBackgroundInitializer
         }
 
         /**
-         * Returns the {@link BackgroundInitializer} with the given name. If the
+         * Gets the {@link BackgroundInitializer} with the given name. If the
          * name cannot be resolved, an exception is thrown.
          *
          * @param name the name of the {@link BackgroundInitializer}
@@ -182,7 +182,7 @@ public class MultiBackgroundInitializer
         }
 
         /**
-         * Returns the result object produced by the {@code
+         * Gets the result object produced by the {@code
          * BackgroundInitializer} with the given name. This is the object
          * returned by the initializer's {@code initialize()} method. If this
          * {@link BackgroundInitializer} caused an exception, <strong>null</strong> is
@@ -210,7 +210,7 @@ public class MultiBackgroundInitializer
         }
 
         /**
-         * Returns a flag whether the {@link BackgroundInitializer} with the
+         * Tests whether the {@link BackgroundInitializer} with the
          * given name caused an exception.
          *
          * @param name the name of the {@link BackgroundInitializer}
@@ -223,7 +223,7 @@ public class MultiBackgroundInitializer
         }
 
         /**
-         * Returns a flag whether the whole initialization was successful. This
+         * Tests whether the whole initialization was successful. This
          * is the case if no child initializer has thrown an exception.
          *
          * @return a flag whether the initialization was successful
@@ -237,13 +237,13 @@ public class MultiBackgroundInitializer
     private final Map<String, BackgroundInitializer<?>> childInitializers = new HashMap<>();
 
     /**
-     * Creates a new instance of {@link MultiBackgroundInitializer}.
+     * Constructs a new instance of {@link MultiBackgroundInitializer}.
      */
     public MultiBackgroundInitializer() {
     }
 
     /**
-     * Creates a new instance of {@link MultiBackgroundInitializer} and
+     * Constructs a new instance of {@link MultiBackgroundInitializer} and
      * initializes it with the given external {@link ExecutorService}.
      *
      * @param exec the {@link ExecutorService} for executing the background
@@ -312,7 +312,7 @@ public class MultiBackgroundInitializer
     }
 
     /**
-     * Returns the number of tasks needed for executing all child {@code
+     * Gets the number of tasks needed for executing all child {@code
      * BackgroundInitializer} objects in parallel. This implementation sums up
      * the required tasks for all child initializers (which is necessary if one
      * of the child initializers is itself a {@link MultiBackgroundInitializer}

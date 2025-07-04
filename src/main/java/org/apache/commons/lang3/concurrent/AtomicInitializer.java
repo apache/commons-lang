@@ -125,7 +125,7 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
     }
 
     /**
-     * Returns the object managed by this initializer. The object is created if
+     * Gets the object managed by this initializer. The object is created if
      * it is not available yet and stored internally. This method always returns
      * the same object.
      *

@@ -55,7 +55,7 @@ public abstract class StrMatcher {
         }
 
         /**
-         * Returns whether or not the given character matches.
+         * Tests whether or not the given character matches.
          *
          * @param buffer  the text content to match against, do not change
          * @param pos  the starting position for the match, valid for buffer
@@ -140,7 +140,7 @@ public abstract class StrMatcher {
         }
 
         /**
-         * Returns whether or not the given text matches the stored string.
+         * Tests whether or not the given text matches the stored string.
          *
          * @param buffer  the text content to match against, do not change
          * @param pos  the starting position for the match, valid for buffer
@@ -180,7 +180,7 @@ public abstract class StrMatcher {
         }
 
         /**
-         * Returns whether or not the given character matches.
+         * Tests whether or not the given character matches.
          *
          * @param buffer  the text content to match against, do not change
          * @param pos  the starting position for the match, valid for buffer
@@ -237,7 +237,7 @@ public abstract class StrMatcher {
     private static final StrMatcher NONE_MATCHER = new NoMatcher();
 
     /**
-     * Constructor that creates a matcher from a character.
+     * Creates a matcher from a character.
      *
      * @param ch  the character to match, must not be null
      * @return a new Matcher for the given char
@@ -247,7 +247,7 @@ public abstract class StrMatcher {
     }
 
     /**
-     * Constructor that creates a matcher from a set of characters.
+     * Creates a matcher from a set of characters.
      *
      * @param chars  the characters to match, null or empty matches nothing
      * @return a new matcher for the given char[]
@@ -263,7 +263,7 @@ public abstract class StrMatcher {
     }
 
     /**
-     * Constructor that creates a matcher from a string representing a set of characters.
+     * Creates a matcher from a string representing a set of characters.
      *
      * @param chars  the characters to match, null or empty matches nothing
      * @return a new Matcher for the given characters
@@ -279,62 +279,62 @@ public abstract class StrMatcher {
     }
 
     /**
-     * Returns a matcher which matches the comma character.
+     * Gets the matcher for the comma character.
      *
-     * @return a matcher for a comma
+     * @return the matcher for a comma
      */
     public static StrMatcher commaMatcher() {
         return COMMA_MATCHER;
     }
 
     /**
-     * Returns a matcher which matches the double quote character.
+     * Gets the matcher for the double quote character.
      *
-     * @return a matcher for a double quote
+     * @return the matcher for a double quote
      */
     public static StrMatcher doubleQuoteMatcher() {
         return DOUBLE_QUOTE_MATCHER;
     }
 
     /**
-     * Matches no characters.
+     * Gets the matcher for no characters.
      *
-     * @return a matcher that matches nothing
+     * @return the matcher that matches nothing
      */
     public static StrMatcher noneMatcher() {
         return NONE_MATCHER;
     }
 
     /**
-     * Returns a matcher which matches the single or double quote character.
+     * Gets the matcher for the single or double quote character.
      *
-     * @return a matcher for a single or double quote
+     * @return the matcher for a single or double quote
      */
     public static StrMatcher quoteMatcher() {
         return QUOTE_MATCHER;
     }
 
     /**
-     * Returns a matcher which matches the single quote character.
+     * Gets the matcher for the single quote character.
      *
-     * @return a matcher for a single quote
+     * @return the matcher for a single quote
      */
     public static StrMatcher singleQuoteMatcher() {
         return SINGLE_QUOTE_MATCHER;
     }
 
     /**
-     * Returns a matcher which matches the space character.
+     * Gets the matcher for the space character.
      *
-     * @return a matcher for a space
+     * @return the matcher for a space
      */
     public static StrMatcher spaceMatcher() {
         return SPACE_MATCHER;
     }
 
     /**
-     * Matches the same characters as StringTokenizer,
-     * namely space, tab, newline and formfeed.
+     * Gets the matcher for the same characters as StringTokenizer,
+     * namely space, tab, newline and form-feed.
      *
      * @return the split matcher
      */
@@ -343,7 +343,7 @@ public abstract class StrMatcher {
     }
 
     /**
-     * Constructor that creates a matcher from a string.
+     * Creates a matcher for a string.
      *
      * @param str  the string to match, null or empty matches nothing
      * @return a new Matcher for the given String
@@ -356,16 +356,16 @@ public abstract class StrMatcher {
     }
 
     /**
-     * Returns a matcher which matches the tab character.
+     * Gets the matcher for the tab character.
      *
-     * @return a matcher for a tab
+     * @return the matcher for a tab
      */
     public static StrMatcher tabMatcher() {
         return TAB_MATCHER;
     }
 
     /**
-     * Matches the String trim() whitespace characters.
+     * Gets the matcher to String trim() whitespace characters.
      *
      * @return the trim matcher
      */
@@ -380,7 +380,7 @@ public abstract class StrMatcher {
     }
 
     /**
-     * Returns the number of matching characters, zero for no match.
+     * Tests whether the number of matching characters, zero for no match.
      * <p>
      * This method is called to check for a match.
      * The parameter {@code pos} represents the current position to be
@@ -407,7 +407,7 @@ public abstract class StrMatcher {
     }
 
     /**
-     * Returns the number of matching characters, zero for no match.
+     * Tests whether the number of matching characters, zero for no match.
      * <p>
      * This method is called to check for a match.
      * The parameter {@code pos} represents the current position to be

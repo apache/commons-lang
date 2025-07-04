@@ -466,7 +466,7 @@ public class DateUtils {
     }
 
     /**
-     * Returns the number of days within the
+     * Gets the number of days within the
      * fragment. All datefields greater than the fragment will be ignored.
      *
      * <p>Asking the days of any date will only return the number of days
@@ -506,7 +506,7 @@ public class DateUtils {
     }
 
     /**
-     * Returns the number of days within the
+     * Gets the number of days within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the days of any date will only return the number of days
@@ -544,7 +544,7 @@ public class DateUtils {
     }
 
     /**
-     * Returns the number of hours within the
+     * Gets the number of hours within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the hours of any date will only return the number of hours
@@ -582,7 +582,7 @@ public class DateUtils {
     }
 
     /**
-     * Returns the number of hours within the
+     * Gets the number of hours within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the hours of any date will only return the number of hours
@@ -620,7 +620,7 @@ public class DateUtils {
     }
 
     /**
-     * Returns the number of milliseconds within the
+     * Gets the number of milliseconds within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the milliseconds of any date will only return the number of milliseconds
@@ -658,7 +658,7 @@ public class DateUtils {
   }
 
     /**
-     * Returns the number of milliseconds within the
+     * Gets the number of milliseconds within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the milliseconds of any date will only return the number of milliseconds
@@ -693,7 +693,7 @@ public class DateUtils {
     }
 
     /**
-     * Returns the number of minutes within the
+     * Gets the number of minutes within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the minutes of any date will only return the number of minutes
@@ -731,7 +731,7 @@ public class DateUtils {
     }
 
     /**
-     * Returns the number of minutes within the
+     * Gets the number of minutes within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the minutes of any date will only return the number of minutes
@@ -769,7 +769,7 @@ public class DateUtils {
     }
 
     /**
-     * Returns the number of seconds within the
+     * Gets the number of seconds within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the seconds of any date will only return the number of seconds
@@ -807,7 +807,7 @@ public class DateUtils {
     }
 
     /**
-     * Returns the number of seconds within the
+     * Gets the number of seconds within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
      * <p>Asking the seconds of any date will only return the number of seconds
@@ -845,7 +845,7 @@ public class DateUtils {
     }
 
     /**
-     * Checks if two calendar objects are on the same day ignoring time.
+     * Tests whether two calendar objects are on the same day ignoring time.
      *
      * <p>28 Mar 2002 13:45 and 28 Mar 2002 06:01 would return true.
      * 28 Mar 2002 13:45 and 12 Mar 2002 13:45 would return false.
@@ -866,7 +866,7 @@ public class DateUtils {
     }
 
     /**
-     * Checks if two date objects are on the same day ignoring time.
+     * Tests whether two date objects are on the same day ignoring time.
      *
      * <p>28 Mar 2002 13:45 and 28 Mar 2002 06:01 would return true.
      * 28 Mar 2002 13:45 and 12 Mar 2002 13:45 would return false.
@@ -883,7 +883,7 @@ public class DateUtils {
     }
 
     /**
-     * Checks if two calendar objects represent the same instant in time.
+     * Tests whether two calendar objects represent the same instant in time.
      *
      * <p>This method compares the long millisecond time of the two objects.</p>
      *
@@ -900,7 +900,7 @@ public class DateUtils {
     }
 
     /**
-     * Checks if two date objects represent the same instant in time.
+     * Tests whether two date objects represent the same instant in time.
      *
      * <p>This method compares the long millisecond time of the two objects.</p>
      *
@@ -917,7 +917,7 @@ public class DateUtils {
     }
 
     /**
-     * Checks if two calendar objects represent the same local time.
+     * Tests whether two calendar objects represent the same local time.
      *
      * <p>This method compares the values of the fields of the two objects.
      * In addition, both calendars must be the same of the same type.</p>
@@ -1613,7 +1613,8 @@ public class DateUtils {
     }
 
     /**
-     * Converts a {@link Date} of a given {@link TimeZone} into a {@link Calendar}
+     * Converts a {@link Date} of a given {@link TimeZone} into a {@link Calendar}.
+     *
      * @param date the date to convert to a Calendar
      * @param tz the time zone of the {@code date}
      * @return the created Calendar

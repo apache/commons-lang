@@ -507,7 +507,7 @@ public class ClassUtils {
     }
 
     /**
-     * Returns the (initialized) class represented by {@code className} using the {@code classLoader}. This implementation
+     * Gets the (initialized) class represented by {@code className} using the {@code classLoader}. This implementation
      * supports the syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
      * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
      *
@@ -522,7 +522,7 @@ public class ClassUtils {
     }
 
     /**
-     * Returns the class represented by {@code className} using the {@code classLoader}. This implementation supports the
+     * Gets the class represented by {@code className} using the {@code classLoader}. This implementation supports the
      * syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}", "{@code [Ljava.util.Map.Entry;}", and
      * "{@code [Ljava.util.Map$Entry;}".
      *
@@ -552,7 +552,7 @@ public class ClassUtils {
     }
 
     /**
-     * Returns the (initialized) class represented by {@code className} using the current thread's context class loader.
+     * Gets the (initialized) class represented by {@code className} using the current thread's context class loader.
      * This implementation supports the syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
      * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
      *
@@ -566,7 +566,7 @@ public class ClassUtils {
     }
 
     /**
-     * Returns the class represented by {@code className} using the current thread's context class loader. This
+     * Gets the class represented by {@code className} using the current thread's context class loader. This
      * implementation supports the syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
      * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
      *
@@ -765,7 +765,7 @@ public class ClassUtils {
     }
 
     /**
-     * Returns the desired Method much like {@code Class.getMethod}, however it ensures that the returned Method is from a
+     * Gets the desired Method much like {@code Class.getMethod}, however it ensures that the returned Method is from a
      * public class or interface and not from an anonymous inner class. This means that the Method is invokable and doesn't
      * fall foul of Java bug <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
      *
@@ -1432,7 +1432,7 @@ public class ClassUtils {
         return type.isPrimitive() || isPrimitiveWrapper(type);
     }
     /**
-     * Returns whether the given {@code type} is a primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character},
+     * Tests whether the given {@code type} is a primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character},
      * {@link Short}, {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
      *
      * @param type The class to query or null.

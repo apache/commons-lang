@@ -350,7 +350,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     }
 
     /**
-     * Returns a flag whether this {@link BackgroundInitializer} has already
+     * Tests whether this {@link BackgroundInitializer} has already
      * been started.
      *
      * @return a flag whether the {@link #start()} method has already been

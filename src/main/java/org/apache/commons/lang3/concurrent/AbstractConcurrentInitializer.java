@@ -194,7 +194,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
     }
 
     /**
-     * Returns true if initialization has been completed. If initialization threw an exception this will return false, but it will return true if a subsequent
+     * Tests whether initialization has been completed. If initialization threw an exception this will return false, but it will return true if a subsequent
      * call to initialize completes successfully. If the implementation of ConcurrentInitializer can initialize multiple objects, this will only return true if
      * all objects have been initialized.
      *

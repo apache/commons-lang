@@ -955,6 +955,7 @@ public class FastDateParser implements DateParser, Serializable {
             throw new IllegalArgumentException("Format '" + f + "' not supported");
         }
     }
+
     /*
      * (non-Javadoc)
      *
@@ -964,6 +965,7 @@ public class FastDateParser implements DateParser, Serializable {
     public TimeZone getTimeZone() {
         return timeZone;
     }
+
     /**
      * Returns a hash code compatible with equals.
      *
@@ -973,6 +975,7 @@ public class FastDateParser implements DateParser, Serializable {
     public int hashCode() {
         return pattern.hashCode() + 13 * (timeZone.hashCode() + 13 * locale.hashCode());
     }
+
     /**
      * Initializes derived fields from defining fields. This is called from constructor and from readObject (de-serialization)
      *

@@ -30,7 +30,7 @@ public class Predicates {
     private static final Predicate<?> FALSE = t -> false;
 
     /**
-     * Returns the Predicate singleton that always returns false.
+     * Gets the Predicate singleton that always returns false.
      *
      * @param <T> the type of the input to the predicate.
      * @return the Predicate singleton.
@@ -42,7 +42,7 @@ public class Predicates {
     }
 
     /**
-     * Returns the Predicate singleton that always returns true.
+     * Gets the Predicate singleton that always returns true.
      *
      * @param <T> the type of the input to the predicate.
      * @return the Predicate singleton.

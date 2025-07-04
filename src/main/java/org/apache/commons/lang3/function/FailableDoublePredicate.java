@@ -38,7 +38,7 @@ public interface FailableDoublePredicate<E extends Throwable> {
     FailableDoublePredicate TRUE = t -> true;
 
     /**
-     * Returns the FALSE singleton.
+     * Gets the FALSE singleton.
      *
      * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
@@ -49,7 +49,7 @@ public interface FailableDoublePredicate<E extends Throwable> {
     }
 
     /**
-     * Returns the TRUE singleton.
+     * Gets the TRUE singleton.
      *
      * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.

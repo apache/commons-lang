@@ -192,7 +192,7 @@ final class MemberUtils {
     }
 
     /**
-     * Returns the sum of the object transformation cost for each class in the
+     * Gets the sum of the object transformation cost for each class in the
      * source argument list.
      * @param srcArgs The source arguments
      * @param executable The executable to calculate transformation costs for
