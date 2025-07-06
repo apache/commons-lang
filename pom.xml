@@ -41,14 +41,18 @@
   Please ensure your build environment is up-to-date and kindly report any build issues.
   </description>
   <url>https://commons.apache.org/proper/commons-lang/</url>
+  <ciManagement>
+    <system>github</system>
+    <url>https://github.com/apache/commons-lang/actions</url>
+  </ciManagement>
   <issueManagement>
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/LANG</url>
   </issueManagement>
   <scm>
-    <connection>scm:git:http://gitbox.apache.org/repos/asf/commons-lang.git</connection>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</developerConnection>
-    <url>https://gitbox.apache.org/repos/asf?p=commons-lang.git</url>
+    <url>https://gitbox.apache.org/repos/asf/commons-lang.git</url>
     <tag>rel/commons-lang-3.18.0</tag>
   </scm>
   <!-- Lang should depend on very little -->
