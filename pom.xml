@@ -41,14 +41,18 @@
   Please ensure your build environment is up-to-date and kindly report any build issues.
   </description>
   <url>https://commons.apache.org/proper/commons-lang/</url>
+  <ciManagement>
+    <system>github</system>
+    <url>https://github.com/apache/commons-lang/actions</url>
+  </ciManagement>
   <issueManagement>
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/LANG</url>
   </issueManagement>
   <scm>
-    <connection>scm:git:http://gitbox.apache.org/repos/asf/commons-lang.git</connection>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</developerConnection>
-    <url>https://gitbox.apache.org/repos/asf?p=commons-lang.git</url>
+    <url>https://gitbox.apache.org/repos/asf/commons-lang.git</url>
     <tag>rel/commons-lang-3.18.0</tag>
   </scm>
   <!-- Lang should depend on very little -->
@@ -154,7 +158,7 @@
 
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.17.0</commons.bc.version>
-    <commons.rc.version>RC1</commons.rc.version>
+    <commons.rc.version>RC2</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
     <!-- JaCoCo: Don't make code coverage worse than: -->

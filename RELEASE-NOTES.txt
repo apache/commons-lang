@@ -149,6 +149,7 @@ o            Fix NullPointerException in org.apache.commons.lang3.compare.Compar
 o            Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.greaterThanOrEqualTo(A). Thanks to Gary Gregory.
 o            Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.lessThan(A). Thanks to Gary Gregory.
 o            Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.lessThanOrEqualTo(A). Thanks to Gary Gregory.
+o LANG-1776: Use GitHub URL in POM for improved automation support.
 
 Changes:
 o            Bump org.apache.commons:commons-parent from 73 to 85 #1267, #1277, #1283, #1288, #1302, #1377. Thanks to Gary Gregory, Dependabot.
