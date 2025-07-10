@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
   <release version="3.18.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
+    <action                   type="fix" dev="ppkarwasz" due-to="Sebastian Steiner">[javadoc] Fix typo in Javadoc of Strings instances #1406.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
