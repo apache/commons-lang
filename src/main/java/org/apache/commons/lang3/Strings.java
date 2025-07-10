@@ -268,7 +268,7 @@ public abstract class Strings {
     public static final Strings CI = new CiStrings(true);
 
     /**
-     * The <strong>C</strong>ase-<strong>S</strong>nsensitive singleton instance.
+     * The <strong>C</strong>ase-<strong>S</strong>ensitive singleton instance.
      */
     public static final Strings CS = new CsStrings(true);
 
