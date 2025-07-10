@@ -57,6 +57,7 @@ public abstract class Diff<T> extends Pair<T, T> {
     protected Diff(final String fieldName) {
         this.fieldName = Objects.requireNonNull(fieldName);
         this.type = ObjectUtils.getIfNull(TypeUtils.getTypeArguments(getClass(), Diff.class).get(Diff.class.getTypeParameters()[0]), Object.class);
+         System.out.println("test");
     }
 
     Diff(final String fieldName, final Type type) {
