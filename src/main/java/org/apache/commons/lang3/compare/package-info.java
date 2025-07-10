@@ -21,3 +21,4 @@
  * @since 3.10
  */
 package org.apache.commons.lang3.compare;
+package org.apache.commons.lang3.compare;
