@@ -42,6 +42,7 @@ public class CharUtils {
      * @since 2.2
      */
     public static final char LF = '\n';
+    public static final char LF = '\n';
 
     /**
      * Carriage return character CR ('\r', Unicode 000d).
