@@ -767,7 +767,7 @@ public class ClassUtils {
     /**
      * Gets the desired Method much like {@code Class.getMethod}, however it ensures that the returned Method is from a
      * public class or interface and not from an anonymous inner class. This means that the Method is invokable and doesn't
-     * fall foul of Java bug <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
+     * fall foul of Java bug (<a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
      *
      * <pre>
      *  {@code Set set = Collections.unmodifiableSet(...);
