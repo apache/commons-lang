@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
  * </p>
  *
  * <p>
- * The notion of a {@code canonical name} includes the human readable name for the type, for example {@code int[]}. The
+ * The notion of a {@code canonical name} includes the human-readable name for the type, for example {@code int[]}. The
  * non-canonical method variants work with the JVM names, such as {@code [I}.
  * </p>
  *
