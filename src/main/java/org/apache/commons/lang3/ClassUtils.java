@@ -984,7 +984,7 @@ public class ClassUtils {
      * </p>
      *
      * <p>
-     * The difference is is significant only in case of classes that are inner classes of some other classes. In this case
+     * The difference is significant only in case of classes that are inner classes of some other classes. In this case
      * the separator between the outer and inner class (possibly on multiple hierarchy level) has to be {@code $} (dollar
      * sign) and not {@code .} (dot), as it is returned by {@code Class.getName()}
      * </p>
