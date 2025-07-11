@@ -474,7 +474,7 @@ public class ClassUtils {
      * </ul>
      * </p>
      *
-     * @param className the name of class.
+     * @param name the name of class.
      * @return canonical form of class name.
      */
     private static String getCanonicalName(final String name) {
