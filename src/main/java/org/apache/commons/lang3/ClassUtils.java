@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
  * </p>
  *
  * <p>
- * The notion of a {@code canonical name} includes the human readable name for the type, for example {@code int[]}. The
+ * The notion of a {@code canonical name} includes the human-readable name for the type, for example {@code int[]}. The
  * non-canonical method variants work with the JVM names, such as {@code [I}.
  * </p>
  *
@@ -474,7 +474,7 @@ public class ClassUtils {
      * </ul>
      * </p>
      *
-     * @param className the name of class.
+     * @param name the name of class.
      * @return canonical form of class name.
      */
     private static String getCanonicalName(final String name) {
@@ -767,7 +767,7 @@ public class ClassUtils {
     /**
      * Gets the desired Method much like {@code Class.getMethod}, however it ensures that the returned Method is from a
      * public class or interface and not from an anonymous inner class. This means that the Method is invokable and doesn't
-     * fall foul of Java bug <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
+     * fall foul of Java bug (<a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
      *
      * <pre>
      *  {@code Set set = Collections.unmodifiableSet(...);
@@ -984,7 +984,7 @@ public class ClassUtils {
      * </p>
      *
      * <p>
-     * The difference is is significant only in case of classes that are inner classes of some other classes. In this case
+     * The difference is significant only in case of classes that are inner classes of some other classes. In this case
      * the separator between the outer and inner class (possibly on multiple hierarchy level) has to be {@code $} (dollar
      * sign) and not {@code .} (dot), as it is returned by {@code Class.getName()}
      * </p>
@@ -997,7 +997,7 @@ public class ClassUtils {
      * <p>
      * Note that this method differs from {@link #getSimpleName(Class)} in that this will return, for example
      * {@code "Map.Entry"} whilst the {@link Class} variant will simply return {@code "Entry"}. In this example
-     * the argument {@code className} is the string {@code java.util.Map$Entry} (note the {@code $} sign.
+     * the argument {@code className} is the string {@code java.util.Map$Entry} (note the {@code $} sign).
      * </p>
      *
      * @param className the className to get the short name for. It has to be formatted as returned by
