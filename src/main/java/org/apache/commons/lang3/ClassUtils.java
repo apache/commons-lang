@@ -997,7 +997,7 @@ public class ClassUtils {
      * <p>
      * Note that this method differs from {@link #getSimpleName(Class)} in that this will return, for example
      * {@code "Map.Entry"} whilst the {@link Class} variant will simply return {@code "Entry"}. In this example
-     * the argument {@code className} is the string {@code java.util.Map$Entry} (note the {@code $} sign.
+     * the argument {@code className} is the string {@code java.util.Map$Entry} (note the {@code $} sign).
      * </p>
      *
      * @param className the className to get the short name for. It has to be formatted as returned by
