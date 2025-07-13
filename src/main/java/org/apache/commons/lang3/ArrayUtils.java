@@ -21,11 +21,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -8860,6 +8863,63 @@ public class ArrayUtils {
      */
     public static <T> T[] toArray(@SuppressWarnings("unchecked") final T... items) {
         return items;
+    }
+
+    /**
+     * Converts an {@link Iterator} into an array.
+     * <p>
+     * Returns {@code null} if the input iterator is {@code null}.
+     * If the iterator has no elements, an empty {@code Object[]} is returned.
+     * </p>
+     * <p>
+     * Note: The returned array has runtime type {@code Object[]}, and requires that all elements
+     * in the iterator are of the same type. If a type-safe array is needed, use
+     * {@link #iteratorToArray(Iterator, Class)} instead.
+     * </p>
+     *
+     * @param iterator the iterator to convert, may be {@code null}
+     * @param <T> the element type
+     * @return the array containing elements from the iterator,
+     *         or {@code null} if the input is {@code null}
+     * @since 3.18
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T[] iteratorToArray(Iterator<T> iterator) {
+        if (iterator == null) {
+            return null;
+        }
+
+        if (!iterator.hasNext()) {
+            return (T[]) ArrayUtils.EMPTY_OBJECT_ARRAY;
+        }
+
+        return (T[]) Streams.of(iterator).toArray();
+    }
+
+    /**
+     * Converts an {@link Iterator} into a typed array.
+     * <p>
+     * Returns {@code null} if the input iterator or class is {@code null}.
+     * If the iterator has no elements, an empty array of the specified type is returned.
+     * </p>
+     *
+     * @param iterator the iterator to convert, may be {@code null}
+     * @param clazz    the class of the array component type, must not be {@code null}
+     * @param <T>      the element type
+     * @return the array containing elements from the iterator, or {@code null} if the input is {@code null}
+     * @since 3.18
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T[] iteratorToArray(Iterator<T> iterator, Class<T> clazz) {
+        if (iterator == null || clazz == null) {
+            return null;
+        }
+
+        List<T> list = new ArrayList<>();
+        iterator.forEachRemaining(list::add);
+
+        T[] array = (T[]) Array.newInstance(clazz, list.size());
+        return list.toArray(array);
     }
 
     /**
