@@ -6454,50 +6454,50 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testIteratorToArray(){
-        Iterator<String> iterator = Arrays.asList("one", "two", "three").iterator();
-        Object[] normalResult = ArrayUtils.iteratorToArray(iterator);
+    void testIteratorToArray() {
+        final Iterator<String> iterator = Arrays.asList("one", "two", "three").iterator();
+        final Object[] normalResult = ArrayUtils.iteratorToArray(iterator);
 
         assertArrayEquals(new Object[]{"one", "two", "three"}, normalResult);
 
-        Iterator<Object> emptyIterator = Collections.emptyIterator();
-        Object[] emptyArray = ArrayUtils.iteratorToArray(emptyIterator);
+        final Iterator<Object> emptyIterator = Collections.emptyIterator();
+        final Object[] emptyArray = ArrayUtils.iteratorToArray(emptyIterator);
 
         assertEquals(0, emptyArray.length);
         assertNull(ArrayUtils.iteratorToArray(null));
 
-        Iterator<Integer> singletonIterator = Collections.singletonList(42).iterator();
-        Object[] result = ArrayUtils.iteratorToArray(singletonIterator);
+        final Iterator<Integer> singletonIterator = Collections.singletonList(42).iterator();
+        final Object[] result = ArrayUtils.iteratorToArray(singletonIterator);
 
         assertEquals(1, result.length);
         assertEquals(42, result[0]);
 
-        Iterator<?> mixed = Arrays.asList(1, "two", 3.0).iterator();
-        Object[] mixedResult = ArrayUtils.iteratorToArray(mixed);
+        final Iterator<?> mixed = Arrays.asList(1, "two", 3.0).iterator();
+        final Object[] mixedResult = ArrayUtils.iteratorToArray(mixed);
 
         assertArrayEquals(new Object[]{1, "two", 3.0}, mixedResult);
     }
 
     @Test
-    void testIteratorToArrayWithClazz(){
-        Iterator<String> it1 = Arrays.asList("a", "b", "c").iterator();
-        String[] result1 = ArrayUtils.iteratorToArray(it1, String.class);
+    void testIteratorToArrayWithClazz() {
+        final Iterator<String> it1 = Arrays.asList("a", "b", "c").iterator();
+        final String[] result1 = ArrayUtils.iteratorToArray(it1, String.class);
         assertArrayEquals(new String[] {"a", "b", "c"}, result1);
 
-        Iterator<Integer> it2 = Collections.<Integer>emptyList().iterator();
-        Integer[] result2 = ArrayUtils.iteratorToArray(it2, Integer.class);
+        final Iterator<Integer> it2 = Collections.<Integer>emptyList().iterator();
+        final Integer[] result2 = ArrayUtils.iteratorToArray(it2, Integer.class);
         assertNotNull(result2);
         assertEquals(0, result2.length);
 
-        String[] result3 = ArrayUtils.iteratorToArray(null, String.class);
+        final String[] result3 = ArrayUtils.iteratorToArray(null, String.class);
         assertNull(result3);
 
-        Iterator<Double> it4 = Arrays.asList(1.1, 2.2).iterator();
-        Double[] result4 = ArrayUtils.iteratorToArray(it4, null);
+        final Iterator<Double> it4 = Arrays.asList(1.1, 2.2).iterator();
+        final Double[] result4 = ArrayUtils.iteratorToArray(it4, null);
         assertNull(result4);
 
-        Iterator<String> it5 = Arrays.asList("x", null, "z").iterator();
-        String[] result5 = ArrayUtils.iteratorToArray(it5, String.class);
+        final Iterator<String> it5 = Arrays.asList("x", null, "z").iterator();
+        final String[] result5 = ArrayUtils.iteratorToArray(it5, String.class);
         assertArrayEquals(new String[] {"x", null, "z"}, result5);
     }
 

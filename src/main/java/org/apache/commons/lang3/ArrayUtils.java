@@ -8915,10 +8915,10 @@ public class ArrayUtils {
             return null;
         }
 
-        List<T> list = new ArrayList<>();
+        final List<T> list = new ArrayList<>();
         iterator.forEachRemaining(list::add);
 
-        T[] array = (T[]) Array.newInstance(clazz, list.size());
+        final T[] array = (T[]) Array.newInstance(clazz, list.size());
         return list.toArray(array);
     }
 
