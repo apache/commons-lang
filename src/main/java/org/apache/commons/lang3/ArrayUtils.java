@@ -9562,6 +9562,18 @@ public class ArrayUtils {
         return map(array, String.class, e -> Objects.toString(e, valueForNullElements));
     }
 
+    public static String[] toStringArray(final Object[] array) {
+    if (array == null) {
+        return null;
+    }
+    final String[] result = new String[array.length];
+    for (int i = 0; i < array.length; i++) {
+        result[i] = (array[i] == null) ? "null" : array[i].toString();
+    }
+    return result;
+}
+
+
     /**
      * ArrayUtils instances should NOT be constructed in standard programming.
      * Instead, the class should be used as {@code ArrayUtils.clone(new int[] {2})}.

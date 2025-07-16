@@ -91,6 +91,14 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+public void testToStringArrayHandlesNullElements() {
+    Object[] input = { "apple", null, 42 };
+    String[] result = ArrayUtils.toStringArray(input);
+
+    assertArrayEquals(new String[] { "apple", "null", "42" }, result);
+}
+
+    @Test
     void testArraycopySupplier() {
         final String[] arr = { "a", "b" };
         assertNullPointerException(() -> ArrayUtils.arraycopy(null, 0, 0, 1, () -> new String[3]));
