@@ -23,7 +23,7 @@
     <image src="/images/logo.png"/>
   </bannerRight>
   <body>
-    <menu name="Commons BCEL">
+    <menu name="Commons Lang">
       <!-- Start: For all components. -->
       <item name="About" href="/index.html" />
       <item name="Asking Questions" href="/mail-lists.html" />
