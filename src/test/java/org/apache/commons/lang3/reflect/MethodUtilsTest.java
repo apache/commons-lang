@@ -117,6 +117,10 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     private static final class ConcreteGetMatchingMethod2 extends AbstractGetMatchingMethod2 { }
+    private static final class ConcreteGetMatchingMethod22 extends AbstractGetMatchingMethod2 {
+        @Override
+        public void testMethod6() { }
+    }
 
     public static class GrandParentObject {
     }
@@ -677,9 +681,16 @@ class MethodUtilsTest extends AbstractLangTest {
         assertNullPointerException(
                 () -> MethodUtils.getMatchingMethod(null, "testMethod5", RuntimeException.class));
 
-        final Method testMethod6 = MethodUtils.getMatchingMethod(ConcreteGetMatchingMethod2.class, "testMethod6");
-        assertNotNull(testMethod6);
-        assertEquals(AbstractGetMatchingMethod2.class, testMethod6.getDeclaringClass());
+        {
+            final Method testMethod6 = MethodUtils.getMatchingMethod(ConcreteGetMatchingMethod2.class, "testMethod6");
+            assertNotNull(testMethod6);
+            assertEquals(AbstractGetMatchingMethod2.class, testMethod6.getDeclaringClass());
+        }
+        {
+            final Method testMethod6 = MethodUtils.getMatchingMethod(ConcreteGetMatchingMethod22.class, "testMethod6");
+            assertNotNull(testMethod6);
+            assertEquals(ConcreteGetMatchingMethod22.class, testMethod6.getDeclaringClass());
+        }
     }
 
     @Test
