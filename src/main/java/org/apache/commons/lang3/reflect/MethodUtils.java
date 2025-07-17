@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -382,7 +383,9 @@ public class MethodUtils {
                 .filter(method -> method.getName().equals(methodName))
                 .collect(Collectors.toList());
 
-        getAllSuperclassesAndInterfaces(cls).stream()
+        final List<Class<?>> allSuperclassesAndInterfaces = getAllSuperclassesAndInterfaces(cls);
+        Collections.reverse(allSuperclassesAndInterfaces);
+        allSuperclassesAndInterfaces.stream()
                 .map(Class::getDeclaredMethods)
                 .flatMap(Stream::of)
                 .filter(method -> method.getName().equals(methodName))
