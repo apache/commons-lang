@@ -61,6 +61,38 @@ import org.apache.commons.lang3.stream.Streams;
 public class ArrayUtils {
 
     /**
+ * Converts an array of objects to an array of strings, using {@code "null"} to represent {@code null} elements.
+ *
+ * @param array the array of objects to convert, may be {@code null}
+ * @return a string array, {@code null} if input is {@code null}
+ */
+public static String[] toStringArray(final Object[] array) {
+    return toStringArray(array, "null");
+}
+
+/**
+ * Converts an array of objects to an array of strings, using the provided
+ * {@code nullReplacement} to represent {@code null} elements.
+ *
+ * @param array the array of objects to convert, may be {@code null}
+ * @param nullReplacement the string to use for {@code null} elements
+ * @return a string array, {@code null} if input is {@code null}
+ */
+public static String[] toStringArray(final Object[] array, final String nullReplacement) {
+    if (array == null) {
+        return null;
+    }
+    final String[] result = new String[array.length];
+    for (int i = 0; i < array.length; i++) {
+        result[i] = array[i] == null ? nullReplacement : array[i].toString();
+    }
+    return result;
+}
+
+
+
+
+    /**
      * An empty immutable {@code boolean} array.
      */
     public static final boolean[] EMPTY_BOOLEAN_ARRAY = {};
@@ -9536,9 +9568,8 @@ public class ArrayUtils {
      * {@code null} if null array input
      * @since 3.6
      */
-    public static String[] toStringArray(final Object[] array) {
-        return toStringArray(array, "null");
-    }
+    /**
+
 
     /**
      * Returns an array containing the string representation of each element in the argument
@@ -9552,26 +9583,7 @@ public class ArrayUtils {
      * @return a {@link String} array, {@code null} if null array input
      * @since 3.6
      */
-    public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
-        if (null == array) {
-            return null;
-        }
-        if (array.length == 0) {
-            return EMPTY_STRING_ARRAY;
-        }
-        return map(array, String.class, e -> Objects.toString(e, valueForNullElements));
-    }
-
-    public static String[] toStringArray(final Object[] array) {
-    if (array == null) {
-        return null;
-    }
-    final String[] result = new String[array.length];
-    for (int i = 0; i < array.length; i++) {
-        result[i] = (array[i] == null) ? "null" : array[i].toString();
-    }
-    return result;
-}
+    
 
 
     /**
