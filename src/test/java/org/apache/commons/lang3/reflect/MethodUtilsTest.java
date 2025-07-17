@@ -63,6 +63,10 @@ class MethodUtilsTest extends AbstractLangTest {
     protected abstract static class AbstractGetMatchingMethod implements InterfaceGetMatchingMethod {
         public abstract void testMethod5(Exception exception);
     }
+    protected abstract static class AbstractGetMatchingMethod2 implements InterfaceGetMatchingMethod {
+        @Override
+        public void testMethod6() {}
+    }
 
     interface ChildInterface {
     }
@@ -111,6 +115,8 @@ class MethodUtilsTest extends AbstractLangTest {
         public void testMethod5(final Exception exception) {
         }
     }
+
+    private static final class ConcreteGetMatchingMethod2 extends AbstractGetMatchingMethod2 {}
 
     public static class GrandParentObject {
     }
@@ -670,6 +676,10 @@ class MethodUtilsTest extends AbstractLangTest {
 
         assertNullPointerException(
                 () -> MethodUtils.getMatchingMethod(null, "testMethod5", RuntimeException.class));
+
+        final Method testMethod6 = MethodUtils.getMatchingMethod(ConcreteGetMatchingMethod2.class, "testMethod6");
+        assertNotNull(testMethod6);
+        assertEquals(AbstractGetMatchingMethod2.class, testMethod6.getDeclaringClass());
     }
 
     @Test
