@@ -57,7 +57,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests MethodUtils
+ * {@link Tests MethodUtils}.
  */
 class MethodUtilsTest extends AbstractLangTest {
     protected abstract static class AbstractGetMatchingMethod implements InterfaceGetMatchingMethod {
@@ -72,6 +72,13 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     public static class ChildObject extends ParentObject implements ChildInterface {
+    }
+
+    private static final class ConcreteGetMatchingMethod2 extends AbstractGetMatchingMethod2 { }
+
+    private static final class ConcreteGetMatchingMethod22 extends AbstractGetMatchingMethod2 {
+        @Override
+        public void testMethod6() { }
     }
 
     private static final class GetMatchingMethodClass {
@@ -109,17 +116,10 @@ class MethodUtilsTest extends AbstractLangTest {
         public void testMethod4(final Long aLong, final Long anotherLong) {
         }
     }
-
     private static final class GetMatchingMethodImpl extends AbstractGetMatchingMethod {
         @Override
         public void testMethod5(final Exception exception) {
         }
-    }
-
-    private static final class ConcreteGetMatchingMethod2 extends AbstractGetMatchingMethod2 { }
-    private static final class ConcreteGetMatchingMethod22 extends AbstractGetMatchingMethod2 {
-        @Override
-        public void testMethod6() { }
     }
 
     public static class GrandParentObject {
@@ -681,16 +681,13 @@ class MethodUtilsTest extends AbstractLangTest {
         assertNullPointerException(
                 () -> MethodUtils.getMatchingMethod(null, "testMethod5", RuntimeException.class));
 
-        {
-            final Method testMethod6 = MethodUtils.getMatchingMethod(ConcreteGetMatchingMethod2.class, "testMethod6");
-            assertNotNull(testMethod6);
-            assertEquals(AbstractGetMatchingMethod2.class, testMethod6.getDeclaringClass());
-        }
-        {
-            final Method testMethod6 = MethodUtils.getMatchingMethod(ConcreteGetMatchingMethod22.class, "testMethod6");
-            assertNotNull(testMethod6);
-            assertEquals(ConcreteGetMatchingMethod22.class, testMethod6.getDeclaringClass());
-        }
+        Method testMethod6 = MethodUtils.getMatchingMethod(ConcreteGetMatchingMethod2.class, "testMethod6");
+        assertNotNull(testMethod6);
+        assertEquals(AbstractGetMatchingMethod2.class, testMethod6.getDeclaringClass());
+
+        testMethod6 = MethodUtils.getMatchingMethod(ConcreteGetMatchingMethod22.class, "testMethod6");
+        assertNotNull(testMethod6);
+        assertEquals(ConcreteGetMatchingMethod22.class, testMethod6.getDeclaringClass());
     }
 
     @Test
