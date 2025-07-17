@@ -65,7 +65,7 @@ class MethodUtilsTest extends AbstractLangTest {
     }
     protected abstract static class AbstractGetMatchingMethod2 implements InterfaceGetMatchingMethod {
         @Override
-        public void testMethod6() {}
+        public void testMethod6() { }
     }
 
     interface ChildInterface {
@@ -116,7 +116,7 @@ class MethodUtilsTest extends AbstractLangTest {
         }
     }
 
-    private static final class ConcreteGetMatchingMethod2 extends AbstractGetMatchingMethod2 {}
+    private static final class ConcreteGetMatchingMethod2 extends AbstractGetMatchingMethod2 { }
 
     public static class GrandParentObject {
     }
