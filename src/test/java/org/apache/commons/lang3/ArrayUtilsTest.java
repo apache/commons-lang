@@ -6783,28 +6783,29 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertEquals("{}", ArrayUtils.toString(null));
         assertEquals("{}", ArrayUtils.toString(new Object[0]));
         assertEquals("{}", ArrayUtils.toString(new String[0]));
-        assertEquals("{<null>}", ArrayUtils.toString(new String[]{null}));
-        assertEquals("{pink,blue}", ArrayUtils.toString(new String[]{"pink", "blue"}));
+        assertEquals("{<null>}", ArrayUtils.toString(new String[] { null }));
+        assertEquals("{pink,blue}", ArrayUtils.toString(new String[] { "pink", "blue" }));
+        assertEquals("{<null>,<null>}", ArrayUtils.toString(new String[] { null, null }));
     }
 
     @Test
     void testToStringArray_array() {
         assertNull(ArrayUtils.toStringArray(null));
         assertArrayEquals(new String[0], ArrayUtils.toStringArray(new Object[0]));
-        final Object[] array = {1, 2, 3, "array", "test"};
-        assertArrayEquals(new String[]{"1", "2", "3", "array", "test"}, ArrayUtils.toStringArray(array));
-        assertArrayEquals(new String[]{"null"}, ArrayUtils.toStringArray(new Object[]{null}));
+        assertArrayEquals(new String[] { "1", "2", "3", "array", "test" }, ArrayUtils.toStringArray(new Object[] { 1, 2, 3, "array", "test" }));
+        assertArrayEquals(new String[] { "null" }, ArrayUtils.toStringArray(new Object[] { null }));
+        assertArrayEquals(new String[] { "1", "null", "3", "null", "test" }, ArrayUtils.toStringArray(new Object[] { 1, null, 3, null, "test" }));
+        assertArrayEquals(new String[] { "null", "null", "null", "null", "null" }, ArrayUtils.toStringArray(new Object[] { null, null, null, null, null }));
     }
 
     @Test
     void testToStringArray_array_string() {
         assertNull(ArrayUtils.toStringArray(null, ""));
-
         assertArrayEquals(new String[0], ArrayUtils.toStringArray(new Object[0], ""));
-
-        final Object[] array = {1, null, "test"};
-        assertArrayEquals(new String[]{"1", "valueForNullElements", "test"},
-                ArrayUtils.toStringArray(array, "valueForNullElements"));
+        final Object[] array = { 1, null, "test" };
+        assertArrayEquals(new String[] { "1", "MyNull", "test" }, ArrayUtils.toStringArray(array, "MyNull"));
+        assertArrayEquals(new String[] { "MyNull" }, ArrayUtils.toStringArray(new Object[] { null }, "MyNull"));
+        assertArrayEquals(new String[] { "MyNull", "MyNull" }, ArrayUtils.toStringArray(new Object[] { null, null }, "MyNull"));
     }
 
     @Test
