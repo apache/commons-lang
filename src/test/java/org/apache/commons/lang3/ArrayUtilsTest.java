@@ -6802,8 +6802,7 @@ class ArrayUtilsTest extends AbstractLangTest {
     void testToStringArray_array_string() {
         assertNull(ArrayUtils.toStringArray(null, ""));
         assertArrayEquals(new String[0], ArrayUtils.toStringArray(new Object[0], ""));
-        final Object[] array = { 1, null, "test" };
-        assertArrayEquals(new String[] { "1", "MyNull", "test" }, ArrayUtils.toStringArray(array, "MyNull"));
+        assertArrayEquals(new String[] { "1", "MyNull", "test" }, ArrayUtils.toStringArray(new Object[] { 1, null, "test" }, "MyNull"));
         assertArrayEquals(new String[] { "MyNull" }, ArrayUtils.toStringArray(new Object[] { null }, "MyNull"));
         assertArrayEquals(new String[] { "MyNull", "MyNull" }, ArrayUtils.toStringArray(new Object[] { null, null }, "MyNull"));
     }
