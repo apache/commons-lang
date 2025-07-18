@@ -67,7 +67,7 @@ public class MethodUtils {
     private static final Comparator<Method> METHOD_BY_SIGNATURE = Comparator.comparing(Method::toString);
 
     /**
-     * Returns the aggregate number of inheritance hops between assignable argument class types.  Returns -1
+     * Computes the aggregate number of inheritance hops between assignable argument class types.  Returns -1
      * if the arguments aren't assignable.  Fills a specific purpose for getMatchingMethod and is not generalized.
      *
      * @param fromClassArray the Class array to calculate the distance from.
@@ -76,7 +76,6 @@ public class MethodUtils {
      */
     private static int distance(final Class<?>[] fromClassArray, final Class<?>[] toClassArray) {
         int answer = 0;
-
         if (!ClassUtils.isAssignable(fromClassArray, toClassArray, true)) {
             return -1;
         }
@@ -87,14 +86,12 @@ public class MethodUtils {
             if (aClass == null || aClass.equals(toClass)) {
                 continue;
             }
-            if (ClassUtils.isAssignable(aClass, toClass, true)
-                    && !ClassUtils.isAssignable(aClass, toClass, false)) {
+            if (ClassUtils.isAssignable(aClass, toClass, true) && !ClassUtils.isAssignable(aClass, toClass, false)) {
                 answer++;
             } else {
                 answer += 2;
             }
         }
-
         return answer;
     }
 
@@ -189,10 +186,10 @@ public class MethodUtils {
      * reflection) by scanning through the superclasses. If no such method
      * can be found, return {@code null}.
      *
-     * @param cls Class to be checked
-     * @param methodName Method name of the method we wish to call
-     * @param parameterTypes The parameter type signatures
-     * @return the accessible method or {@code null} if not found
+     * @param cls Class to be checked.
+     * @param methodName Method name of the method we wish to call.
+     * @param parameterTypes The parameter type signatures.
+     * @return the accessible method or {@code null} if not found.
      */
     private static Method getAccessibleMethodFromSuperclass(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
         Class<?> parentClass = cls.getSuperclass();
@@ -295,15 +292,14 @@ public class MethodUtils {
      * <p>
      * This method is used by {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
-     *
      * <p>
      * This method can match primitive parameter by passing in wrapper classes. For example, a {@link Boolean} will match a primitive {@code boolean} parameter.
      * </p>
      *
-     * @param cls            find method in this class
-     * @param methodName     find method with this name
-     * @param parameterTypes find method with most compatible parameters
-     * @return The accessible method
+     * @param cls            find method in this class.
+     * @param methodName     find method with this name.
+     * @param parameterTypes find method with most compatible parameters.
+     * @return The accessible method or null.
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
@@ -630,10 +626,10 @@ public class MethodUtils {
      * @throws NullPointerException        Thrown if the specified {@code object} is null.
      * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
      */
-    public static Object invokeExactMethod(final Object object, final String methodName, Object... args)
+    public static Object invokeExactMethod(final Object object, final String methodName, final Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeExactMethod(object, methodName, args, ClassUtils.toClass(args));
+        final Object[] actuals = ArrayUtils.nullToEmpty(args);
+        return invokeExactMethod(object, methodName, actuals, ClassUtils.toClass(actuals));
     }
 
     /**
@@ -664,17 +660,14 @@ public class MethodUtils {
      * @throws NullPointerException        Thrown if the specified {@code object} is null.
      * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
      */
-    public static Object invokeExactMethod(final Object object, final String methodName, Object[] args, Class<?>[] parameterTypes)
+    public static Object invokeExactMethod(final Object object, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Objects.requireNonNull(object, "object");
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Class<?> cls = object.getClass();
-        final Method method = getAccessibleMethod(cls, methodName, parameterTypes);
+        final Class<?> cls = Objects.requireNonNull(object, "object").getClass();
+        final Method method = getAccessibleMethod(cls, methodName, ArrayUtils.nullToEmpty(parameterTypes));
         if (method == null) {
             throw new NoSuchMethodException("No such accessible method: " + methodName + "() on object: " + cls.getName());
         }
-        return method.invoke(object, args);
+        return method.invoke(object, ArrayUtils.nullToEmpty(args));
     }
 
     /**
@@ -692,10 +685,10 @@ public class MethodUtils {
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException    if the requested method is not accessible via reflection
      */
-    public static Object invokeExactStaticMethod(final Class<?> cls, final String methodName, Object... args)
+    public static Object invokeExactStaticMethod(final Class<?> cls, final String methodName, final Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeExactStaticMethod(cls, methodName, args, ClassUtils.toClass(args));
+        final Object[] actuals = ArrayUtils.nullToEmpty(args);
+        return invokeExactStaticMethod(cls, methodName, actuals, ClassUtils.toClass(actuals));
     }
 
     /**
@@ -714,15 +707,13 @@ public class MethodUtils {
      * @throws InvocationTargetException wraps an exception thrown by the method invoked
      * @throws IllegalAccessException    if the requested method is not accessible via reflection
      */
-    public static Object invokeExactStaticMethod(final Class<?> cls, final String methodName, Object[] args, Class<?>[] parameterTypes)
+    public static Object invokeExactStaticMethod(final Class<?> cls, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Method method = getAccessibleMethod(cls, methodName, parameterTypes);
+        final Method method = getAccessibleMethod(cls, methodName, ArrayUtils.nullToEmpty(parameterTypes));
         if (method == null) {
             throw new NoSuchMethodException("No such accessible method: " + methodName + "() on class: " + cls.getName());
         }
-        return method.invoke(null, args);
+        return method.invoke(null, ArrayUtils.nullToEmpty(args));
     }
 
     /**
@@ -775,10 +766,10 @@ public class MethodUtils {
      * @see SecurityManager#checkPermission
      * @since 3.5
      */
-    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName, Object... args)
+    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName, final Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeMethod(object, forceAccess, methodName, args, ClassUtils.toClass(args));
+        final Object[] actuals = ArrayUtils.nullToEmpty(args);
+        return invokeMethod(object, forceAccess, methodName, actuals, ClassUtils.toClass(actuals));
     }
 
     /**
@@ -804,11 +795,10 @@ public class MethodUtils {
      * @see SecurityManager#checkPermission
      * @since 3.5
      */
-    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName, Object[] args, Class<?>[] parameterTypes)
+    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName, final Object[] args, Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Objects.requireNonNull(object, "object");
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        args = ArrayUtils.nullToEmpty(args);
         final String messagePrefix;
         final Method method;
         final Class<? extends Object> cls = object.getClass();
@@ -825,8 +815,7 @@ public class MethodUtils {
         if (method == null) {
             throw new NoSuchMethodException(messagePrefix + methodName + "() on object: " + cls.getName());
         }
-        args = toVarArgs(method, args);
-        return method.invoke(object, args);
+        return method.invoke(object, toVarArgs(method, ArrayUtils.nullToEmpty(args)));
     }
 
     /**
@@ -882,10 +871,10 @@ public class MethodUtils {
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
-    public static Object invokeMethod(final Object object, final String methodName, Object... args)
+    public static Object invokeMethod(final Object object, final String methodName, final Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeMethod(object, methodName, args, ClassUtils.toClass(args));
+        final Object[] actuals = ArrayUtils.nullToEmpty(args);
+        return invokeMethod(object, methodName, actuals, ClassUtils.toClass(actuals));
     }
 
     /**
@@ -911,10 +900,8 @@ public class MethodUtils {
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
-    public static Object invokeMethod(final Object object, final String methodName,
-            final Object[] args, final Class<?>[] parameterTypes)
-            throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
+    public static Object invokeMethod(final Object object, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         return invokeMethod(object, false, methodName, args, parameterTypes);
     }
 
@@ -944,11 +931,10 @@ public class MethodUtils {
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
-    public static Object invokeStaticMethod(final Class<?> cls, final String methodName,
-            Object... args) throws NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeStaticMethod(cls, methodName, args, ClassUtils.toClass(args));
+    public static Object invokeStaticMethod(final Class<?> cls, final String methodName, final Object... args)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        final Object[] actuals = ArrayUtils.nullToEmpty(args);
+        return invokeStaticMethod(cls, methodName, actuals, ClassUtils.toClass(actuals));
     }
 
     /**
@@ -974,16 +960,13 @@ public class MethodUtils {
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
-    public static Object invokeStaticMethod(final Class<?> cls, final String methodName, Object[] args, Class<?>[] parameterTypes)
+    public static Object invokeStaticMethod(final Class<?> cls, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Method method = getMatchingAccessibleMethod(cls, methodName, parameterTypes);
+        final Method method = getMatchingAccessibleMethod(cls, methodName, ArrayUtils.nullToEmpty(parameterTypes));
         if (method == null) {
             throw new NoSuchMethodException("No such accessible method: " + methodName + "() on class: " + cls.getName());
         }
-        args = toVarArgs(method, args);
-        return method.invoke(null, args);
+        return method.invoke(null, toVarArgs(method, ArrayUtils.nullToEmpty(args)));
     }
 
     private static Object[] toVarArgs(final Method method, Object[] args) {
