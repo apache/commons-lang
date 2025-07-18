@@ -99,10 +99,10 @@ public class MethodUtils {
      * Gets an accessible method (that is, one that can be invoked via reflection) with given name and parameters. If no such method can be found, return
      * {@code null}. This is just a convenience wrapper for {@link #getAccessibleMethod(Method)}.
      *
-     * @param cls            get method from this class
-     * @param methodName     get method with this name
-     * @param parameterTypes with these parameters types
-     * @return The accessible method
+     * @param cls            get method from this class.
+     * @param methodName     get method with this name.
+     * @param parameterTypes with these parameters types.
+     * @return The accessible method.
      */
     public static Method getAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
         return getAccessibleMethod(getMethodObject(cls, methodName, parameterTypes));
@@ -393,20 +393,19 @@ public class MethodUtils {
     }
 
     /**
-     * Gets a Method or null if a {@link Class#getMethod(String, Class...) documented} exception is thrown.
+     * Gets a Method, or {@code null} if a documented {@link Class#getMethod(String, Class...) } exception is thrown.
      *
-     * @param cls Receiver for {@link Class#getMethod(String, Class...)}.
-     * @param name the name of the method
-     * @param parameterTypes the list of parameters
-     * @return a Method or null.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @param cls            Receiver for {@link Class#getMethod(String, Class...)}.
+     * @param name           the name of the method.
+     * @param parameterTypes the list of parameters.
+     * @return a Method or {@code null}.
      * @see SecurityManager#checkPermission
      * @see Class#getMethod(String, Class...)
      * @since 3.15.0
      */
     public static Method getMethodObject(final Class<?> cls, final String name, final Class<?>... parameterTypes) {
         try {
-            return cls.getMethod(name, parameterTypes);
+            return name != null && cls != null ? cls.getMethod(name, parameterTypes) : null;
         } catch (final NoSuchMethodException | SecurityException e) {
             return null;
         }
