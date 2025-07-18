@@ -49,6 +49,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ppkarwasz" due-to="Sebastian Steiner">[javadoc] Fix typo in Javadoc of Strings instances #1406.</action>
     <action                   type="fix" dev="ggregory" due-to="Hassan A Hashim">[javadoc] Fix Javadocs in ClassUtils #1410.</action>
     <action issue="LANG-1778" type="fix" dev="ggregory" due-to="wuwu2000">MethodUtils.getMatchingMethod() doesn't respect the hierarchy of methods #1414.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">[javadoc] General improvements.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
