@@ -73,8 +73,7 @@ public class FieldUtils {
         final List<Field> allFields = new ArrayList<>();
         Class<?> currentClass = cls;
         while (currentClass != null) {
-            final Field[] declaredFields = currentClass.getDeclaredFields();
-            Collections.addAll(allFields, declaredFields);
+            Collections.addAll(allFields, currentClass.getDeclaredFields());
             currentClass = currentClass.getSuperclass();
         }
         return allFields;
