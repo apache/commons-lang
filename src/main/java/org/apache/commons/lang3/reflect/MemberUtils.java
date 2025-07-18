@@ -281,7 +281,7 @@ final class MemberUtils {
     /**
      * Tests whether a given set of modifiers implies package access.
      *
-     * @param modifiers to test
+     * @param modifiers to test.
      * @return {@code true} unless {@code package}/{@code protected}/{@code private} modifier detected
      */
     static boolean isPackageAccess(final int modifiers) {
@@ -292,7 +292,7 @@ final class MemberUtils {
      * Tests whether a {@link Member} is public.
      *
      * @param member Member to test, may be null.
-     * @return {@code true} if {@code m} is public
+     * @return {@code true} if {@code m} is public.
      */
     static boolean isPublic(final Member member) {
         return member != null && Modifier.isPublic(member.getModifiers());
@@ -302,7 +302,7 @@ final class MemberUtils {
      * Tests whether a {@link Member} is static.
      *
      * @param member Member to test, may be null.
-     * @return {@code true} if {@code m} is static
+     * @return {@code true} if {@code m} is static.
      */
     static boolean isStatic(final Member member) {
         return member != null && Modifier.isStatic(member.getModifiers());
