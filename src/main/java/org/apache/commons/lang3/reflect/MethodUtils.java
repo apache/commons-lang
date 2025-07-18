@@ -545,26 +545,29 @@ public class MethodUtils {
      * @since 3.5
      */
     static Object[] getVarArgs(final Object[] args, final Class<?>[] methodParameterTypes) {
-        if (args.length == methodParameterTypes.length
-                && (args[args.length - 1] == null || args[args.length - 1].getClass().equals(methodParameterTypes[methodParameterTypes.length - 1]))) {
-            // The args array is already in the canonical form for the method.
-            return args;
+        final int mptLength = methodParameterTypes.length;
+        if (args.length == mptLength) {
+            final Object lastArg = args[args.length - 1];
+            if (lastArg == null || lastArg.getClass().equals(methodParameterTypes[mptLength - 1])) {
+                // The args array is already in the canonical form for the method.
+                return args;
+            }
         }
         // Construct a new array matching the method's declared parameter types.
         // Copy the normal (non-varargs) parameters
-        final Object[] newArgs = ArrayUtils.arraycopy(args, 0, 0, methodParameterTypes.length - 1, () -> new Object[methodParameterTypes.length]);
+        final Object[] newArgs = ArrayUtils.arraycopy(args, 0, 0, mptLength - 1, () -> new Object[mptLength]);
         // Construct a new array for the variadic parameters
-        final Class<?> varArgComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
-        final int varArgLength = args.length - methodParameterTypes.length + 1;
+        final Class<?> varArgComponentType = methodParameterTypes[mptLength - 1].getComponentType();
+        final int varArgLength = args.length - mptLength + 1;
         // Copy the variadic arguments into the varargs array.
-        Object varArgsArray = ArrayUtils.arraycopy(args, methodParameterTypes.length - 1, 0, varArgLength,
+        Object varArgsArray = ArrayUtils.arraycopy(args, mptLength - 1, 0, varArgLength,
                 s -> Array.newInstance(ClassUtils.primitiveToWrapper(varArgComponentType), varArgLength));
         if (varArgComponentType.isPrimitive()) {
             // unbox from wrapper type to primitive type
             varArgsArray = ArrayUtils.toPrimitive(varArgsArray);
         }
         // Store the varargs array in the last position of the array to return
-        newArgs[methodParameterTypes.length - 1] = varArgsArray;
+        newArgs[mptLength - 1] = varArgsArray;
         // Return the canonical varargs array.
         return newArgs;
     }
