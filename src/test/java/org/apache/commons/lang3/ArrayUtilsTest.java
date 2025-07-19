@@ -6815,4 +6815,12 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertEquals("{<null>}", ArrayUtils.toString(new String[]{null}, "<empty>"));
         assertEquals("{pink,blue}", ArrayUtils.toString(new String[]{"pink", "blue"}, "<empty>"));
     }
+
+    @Test
+public void testToStringArray_withNullElement() {
+    final Object[] input = new Object[] { "x", null, "z" };
+    final String[] result = ArrayUtils.toStringArray(input);
+    assertArrayEquals(new String[] { "x", null, "z" }, result);
+}
+
 }

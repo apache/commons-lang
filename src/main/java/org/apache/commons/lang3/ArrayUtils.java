@@ -9525,6 +9525,7 @@ public class ArrayUtils {
         return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
     }
 
+   
     /**
      * Returns an array containing the string representation of each element in the argument array.
      * <p>
@@ -9536,22 +9537,20 @@ public class ArrayUtils {
      * {@code null} if null array input
      * @since 3.6
      */
-    public static String[] toStringArray(final Object[] array) {
-        return toStringArray(array, "null");
+    
+     public static String[] toStringArray(final Object[] array) {
+    if (array == null) {
+        return null;
     }
+    final String[] result = new String[array.length];
+    for (int i = 0; i < array.length; i++) {
+        final Object element = array[i];
+        result[i] = (element == null) ? null : element.toString();
+    }
+    return result;
+}
 
-    /**
-     * Returns an array containing the string representation of each element in the argument
-     * array handling {@code null} elements.
-     * <p>
-     * This method returns {@code null} for a {@code null} input array.
-     * </p>
-     *
-     * @param array the Object[] to be processed, may be {@code null}.
-     * @param valueForNullElements the value to insert if {@code null} is found
-     * @return a {@link String} array, {@code null} if null array input
-     * @since 3.6
-     */
+    
     public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
         if (null == array) {
             return null;
