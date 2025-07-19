@@ -746,7 +746,7 @@ public abstract class Strings {
      * Strings.CI.equalsAny(null, "abc", "def")  = false
      * Strings.CI.equalsAny("abc", null, "def")  = false
      * Strings.CI.equalsAny("abc", "abc", "def") = true
-     * Strings.CI.equalsAny("abc", "ABC", "DEF") = false
+     * Strings.CI.equalsAny("abc", "ABC", "DEF") = true
      * </pre>
      *
      * @param string        to compare, may be {@code null}.
