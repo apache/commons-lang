@@ -9524,34 +9524,30 @@ public class ArrayUtils {
         }
         return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
     }
-
     /**
-     * Returns an array containing the string representation of each element in the argument array.
-     * <p>
-     * This method returns {@code null} for a {@code null} input array.
-     * </p>
+     * <p>Converts an array of objects to an array of strings, handling {@code null} values gracefully.</p>
      *
-     * @param array the {@code Object[]} to be processed, may be {@code null}.
-     * @return {@code String[]} of the same size as the source with its element's string representation,
-     * {@code null} if null array input
+     * <p>{@code null} elements in the input array are converted to the string {@code "null"}.</p>
+     *
+     * @param array  the array to convert, may be {@code null}
+     * @return a string array, or {@code null} if the input array is {@code null}
      * @since 3.6
      */
     public static String[] toStringArray(final Object[] array) {
         return toStringArray(array, "null");
     }
 
-    /**
-     * Returns an array containing the string representation of each element in the argument
-     * array handling {@code null} elements.
-     * <p>
-     * This method returns {@code null} for a {@code null} input array.
-     * </p>
+        /**
+     * <p>Converts the given array of objects to an array of strings.</p>
      *
-     * @param array the Object[] to be processed, may be {@code null}.
-     * @param valueForNullElements the value to insert if {@code null} is found
-     * @return a {@link String} array, {@code null} if null array input
+     * <p>{@code null} elements are replaced with the provided {@code valueForNullElements}.</p>
+     *
+     * @param array  the array to convert, may be {@code null}
+     * @param valueForNullElements  the string to use for {@code null} elements
+     * @return a string array, or {@code null} if the input array is {@code null}
      * @since 3.6
      */
+
     public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
         if (null == array) {
             return null;
