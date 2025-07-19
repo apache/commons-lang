@@ -9526,32 +9526,28 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns an array containing the string representation of each element in the argument array.
-     * <p>
-     * This method returns {@code null} for a {@code null} input array.
-     * </p>
-     *
-     * @param array the {@code Object[]} to be processed, may be {@code null}.
-     * @return {@code String[]} of the same size as the source with its element's string representation,
-     * {@code null} if null array input
-     * @since 3.6
-     */
+ * Converts the given array of objects to an array of strings.
+ * <p>
+ * {@code null} elements are converted to the string {@code "null"}.
+ *
+ * @param array the array to convert
+ * @return a string array, or {@code null} if the input array is {@code null}
+ */
+
     public static String[] toStringArray(final Object[] array) {
         return toStringArray(array, "null");
     }
 
     /**
-     * Returns an array containing the string representation of each element in the argument
-     * array handling {@code null} elements.
-     * <p>
-     * This method returns {@code null} for a {@code null} input array.
-     * </p>
-     *
-     * @param array the Object[] to be processed, may be {@code null}.
-     * @param valueForNullElements the value to insert if {@code null} is found
-     * @return a {@link String} array, {@code null} if null array input
-     * @since 3.6
-     */
+ * Converts the given array of objects to an array of strings.
+ * <p>
+ * {@code null} elements are replaced with the provided {@code valueForNullElements}.
+ *
+ * @param array the array to convert
+ * @param valueForNullElements the string to use for {@code null} elements
+ * @return a string array, or {@code null} if the input array is {@code null}
+ */
+
     public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
         if (null == array) {
             return null;
