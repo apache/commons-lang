@@ -22,6 +22,7 @@ Thanks for your contribution to [Apache Commons](https://commons.apache.org/)! Y
 Before you push a pull request, review this list:
 
 - [ ] Read the [contribution guidelines](CONTRIBUTING.md) for this project.
+- [ ] Read the [ASF Generative Tooling Guidance](https://www.apache.org/legal/generative-tooling.html) if you use Artificial Intelligence (AI).
 - [ ] Run a successful build using the default [Maven](https://maven.apache.org/) goal with `mvn`; that's `mvn` on the command line by itself.
 - [ ] Write unit tests that match behavioral changes, where the tests fail if the changes to the runtime are not applied. This may not always be possible but is a best-practice.
 - [ ] Write a pull request description that is detailed enough to understand what the pull request does, how, and why.
