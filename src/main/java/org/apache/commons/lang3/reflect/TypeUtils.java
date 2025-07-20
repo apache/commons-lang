@@ -623,7 +623,7 @@ public class TypeUtils {
                 } else if (midType instanceof Class<?>) {
                     midClass = (Class<?>) midType;
                 } else {
-                    throw new IllegalStateException("Unexpected generic" + " interface type found: " + midType);
+                    throw new IllegalStateException("Unexpected generic interface type found: " + midType);
                 }
                 // check if this interface is further up the inheritance chain
                 // than the previously found match

@@ -182,9 +182,9 @@ class StrTokenizerTest extends AbstractLangTest {
 
         assertEquals(expected.length, tokens.length, ArrayUtils.toString(tokens));
 
-        assertEquals(nextCount, expected.length, "could not cycle through entire token list" + " using the 'hasNext' and 'next' methods");
+        assertEquals(nextCount, expected.length, "could not cycle through entire token list using the 'hasNext' and 'next' methods");
 
-        assertEquals(prevCount, expected.length, "could not cycle through entire token list" + " using the 'hasPrevious' and 'previous' methods");
+        assertEquals(prevCount, expected.length, "could not cycle through entire token list using the 'hasPrevious' and 'previous' methods");
 
     }
 

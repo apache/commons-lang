@@ -234,7 +234,7 @@ class StringEscapeUtilsTest extends AbstractLangTest {
         assertEscapeJava("Should use capitalized Unicode hex", "\\uABCD", "\uabcd");
 
         assertEscapeJava("He didn't say, \\\"stop!\\\"", "He didn't say, \"stop!\"");
-        assertEscapeJava("non-breaking space", "This space is non-breaking:" + "\\u00A0", "This space is non-breaking:\u00a0");
+        assertEscapeJava("non-breaking space", "This space is non-breaking:\\u00A0", "This space is non-breaking:\u00a0");
         assertEscapeJava("\\uABCD\\u1234\\u012C", "\uABCD\u1234\u012C");
     }
 

@@ -133,7 +133,7 @@ class TripleTest extends AbstractLangTest {
         final Calendar date = Calendar.getInstance();
         date.set(2011, Calendar.APRIL, 25);
         final Triple<String, String, Calendar> triple = Triple.of("DOB", "string", date);
-        assertEquals("Test created on " + "04-25-2011", triple.toString("Test created on %3$tm-%3$td-%3$tY"));
+        assertEquals("Test created on 04-25-2011", triple.toString("Test created on %3$tm-%3$td-%3$tY"));
     }
 
     @Test

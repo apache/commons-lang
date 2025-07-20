@@ -433,7 +433,7 @@ class JsonToStringStyleTest extends AbstractLangTest {
         object.pid = "dummy-text";
         object.map = baseMap;
 
-        assertEquals("{\"object\":{\"pid\":\"dummy-text\",\"map\":{\"k1\":\"v1\"," + "\"k2\":{\"k2.1\":\"v2.1\",\"k2.2\":\"v2.2\"}}}}",
+        assertEquals("{\"object\":{\"pid\":\"dummy-text\",\"map\":{\"k1\":\"v1\",\"k2\":{\"k2.1\":\"v2.1\",\"k2.2\":\"v2.2\"}}}}",
                 new ToStringBuilder(base).append("object", object).toString());
     }
 

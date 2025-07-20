@@ -320,7 +320,7 @@ class PairTest extends AbstractLangTest {
         final Calendar date = Calendar.getInstance();
         date.set(2011, Calendar.APRIL, 25);
         final Pair<String, Calendar> pair = Pair.of("DOB", date);
-        assertEquals("Test created on " + "04-25-2011", pair.toString("Test created on %2$tm-%2$td-%2$tY"));
+        assertEquals("Test created on 04-25-2011", pair.toString("Test created on %2$tm-%2$td-%2$tY"));
     }
 
 }

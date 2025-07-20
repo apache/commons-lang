@@ -790,7 +790,7 @@ class ToStringBuilderTest extends AbstractLangTest {
         final Object[] objects = new Object[1];
         final SimpleReflectionTestFixture simple = new SimpleReflectionTestFixture(objects);
         objects[0] = simple;
-        assertEquals(toBaseString(objects) + "[{" + toBaseString(simple) + "[o=" + toBaseString(objects) + "]" + "}]",
+        assertEquals(toBaseString(objects) + "[{" + toBaseString(simple) + "[o=" + toBaseString(objects) + "]}]",
                 ToStringBuilder.reflectionToString(objects));
         assertEquals(toBaseString(simple) + "[o={" + toBaseString(simple) + "}]", ToStringBuilder.reflectionToString(simple));
     }

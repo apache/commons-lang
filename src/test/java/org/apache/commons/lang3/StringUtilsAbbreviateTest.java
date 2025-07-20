@@ -176,7 +176,7 @@ class StringUtilsAbbreviateTest {
         assertEquals("ab.f", StringUtils.abbreviateMiddle("abcdef", ".", 4));
         // JIRA issue (LANG-405) example (slightly different than actual expected result)
         assertEquals("A very long text with un...f the text is complete.", StringUtils.abbreviateMiddle(
-                "A very long text with unimportant stuff in the middle but interesting start and " + "end to see if the text is complete.", "...", 50));
+                "A very long text with unimportant stuff in the middle but interesting start and end to see if the text is complete.", "...", 50));
         // Test a much longer text :)
         final String longText = "Start text" + StringUtils.repeat("x", 10000) + "Close text";
         assertEquals("Start text->Close text", StringUtils.abbreviateMiddle(longText, "->", 22));
