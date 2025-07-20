@@ -9525,43 +9525,44 @@ public class ArrayUtils {
         return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
     }
 
-   /**
- * Converts an array of objects to an array of strings, handling {@code null} values gracefully.
- * <p>
- * If the input array is {@code null}, this method returns {@code null}.
- * </p>
- * <p>
- * {@code null} elements in the input array are converted to the string {@code "null"}.
- * </p>
- *
- * @param array the array to convert, may be {@code null}
- * @return a string array, or {@code null} if the input array is {@code null}
- * @since 3.6
- */
-public static String[] toStringArray(final Object[] array) {
-    return toStringArray(array, "null");
-}
-/**
- * Converts the given array of objects to an array of strings.
- * <p>
- * {@code null} elements are replaced with the provided {@code valueForNullElements}.
- * </p>
- *
- * @param array  the array to convert, may be {@code null}
- * @param valueForNullElements  the string to use for {@code null} elements
- * @return a string array, or {@code null} if the input array is {@code null}
- * @since 3.6
- */
-public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
-    if (array == null) {
-        return null;
+       /**
+     * Converts an array of objects to an array of strings, handling {@code null} values gracefully.
+     * <p>
+     * If the input array is {@code null}, this method returns {@code null}.
+     * </p>
+     * <p>
+     * {@code null} elements in the input array are converted to the string {@code "null"}.
+     * </p>
+     *
+     * @param array the array to convert, may be {@code null}
+     * @return a string array, or {@code null} if the input array is {@code null}
+     * @since 3.6
+     */
+    public static String[] toStringArray(final Object[] array) {
+        return toStringArray(array, "null");
     }
-    final String[] result = new String[array.length];
-    for (int i = 0; i < array.length; i++) {
-        result[i] = array[i] == null ? valueForNullElements : array[i].toString();
+
+    /**
+     * Converts the given array of objects to an array of strings.
+     * <p>
+     * {@code null} elements are replaced with the provided {@code valueForNullElements}.
+     * </p>
+     *
+     * @param array the array to convert, may be {@code null}
+     * @param valueForNullElements the string to use for {@code null} elements
+     * @return a string array, or {@code null} if the input array is {@code null}
+     * @since 3.6
+     */
+    public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
+        if (array == null) {
+            return null;
+        }
+        final String[] result = new String[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i] == null ? valueForNullElements : array[i].toString();
+        }
+        return result;
     }
-    return result;
-}
 
     /**
      * ArrayUtils instances should NOT be constructed in standard programming.
