@@ -30,7 +30,7 @@ import java.util.Comparator;
 public final class ObjectToStringComparator implements Comparator<Object>, Serializable {
 
     /**
-     * Singleton instance.
+     * The singleton instance.
      *
      * This class is stateless.
      */
