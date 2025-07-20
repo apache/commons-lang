@@ -54,6 +54,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">org.apache.commons.lang3.reflect.MethodUtils.getMethodObject(Class&lt;?&gt;, String, Class&lt;?&gt;...) now returns null instead of throwing a NullPointerException, as it does for other exception types.</action>
     <action                   type="fix" dev="ggregory" due-to="Scott Parish">[javadoc] Strings::equalsAny: CI doc string should show it's insensitive #1416.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Reduce spurious failures in org.apache.commons.lang3.ArrayUtilsTest methods that test ArrayUtils.shuffle() methods.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">General Javadoc improvements.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
