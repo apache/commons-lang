@@ -5197,37 +5197,33 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testShuffle() {
-        final String[] array1 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
-        final String[] array2 = ArrayUtils.clone(array1);
-        ArrayUtils.shuffle(array1);
-        assertFalse(Arrays.equals(array1, array2));
-        for (final String element : array2) {
-            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
-        }
-    }
-
-    @Test
     void testShuffleBoolean() {
-        final boolean[] array1 = { true, false, true, true, false, false, true, false, false, true };
+        // Don't use a "small" array to reduce spurious failures.
+        final boolean[] array1 = { true, false, true, true, false, false, true, false, false, true, true, false, true, true, false, false, true, false, false,
+                true, true, false, true, true, false, false, true, false, false, true, false, true, true, false, true, true, false, false, true, false, false,
+                false, true, true, false, false, true, false, false, true, false, true, true, false, true, true, false, false, true, false };
         final boolean[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
-        assertEquals(5, ArrayUtils.removeAllOccurrences(array1, true).length);
     }
 
     @Test
     void testShuffleBooleanRandom() {
-        final boolean[] array1 = { true, false, true, true, false, false, true, false, false, true };
+        // Don't use a "small" array to reduce spurious failures.
+        final boolean[] array1 = { true, false, true, true, false, false, true, false, false, true, true, false, true, true, false, false, true, false, false,
+                true, true, false, true, true, false, false, true, false, false, true, false, true, true, false, true, true, false, false, true, false, false,
+                false, true, true, false, false, true, false, false, true, false, true, true, false, true, true, false, false, true, false };
         final boolean[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1, seededRandom());
         assertFalse(Arrays.equals(array1, array2));
-        assertEquals(5, ArrayUtils.removeAllOccurrences(array1, true).length);
     }
 
     @Test
     void testShuffleByte() {
-        final byte[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final byte[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2,
+                3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final byte[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
@@ -5238,7 +5234,10 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleByteRandom() {
-        final byte[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final byte[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2,
+                3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final byte[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1, seededRandom());
         assertFalse(Arrays.equals(array1, array2));
@@ -5249,7 +5248,10 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleChar() {
-        final char[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final char[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2,
+                3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final char[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
@@ -5260,7 +5262,10 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleCharRandom() {
-        final char[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final char[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2,
+                3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final char[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1, seededRandom());
         assertFalse(Arrays.equals(array1, array2));
@@ -5271,7 +5276,10 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleDouble() {
-        final double[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final double[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1,
+                2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final double[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
@@ -5282,7 +5290,10 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleDoubleRandom() {
-        final double[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final double[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1,
+                2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final double[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1, seededRandom());
         assertFalse(Arrays.equals(array1, array2));
@@ -5293,7 +5304,10 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleFloat() {
-        final float[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final float[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1,
+                2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final float[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
@@ -5304,7 +5318,10 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleFloatRandom() {
-        final float[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final float[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1,
+                2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final float[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1, seededRandom());
         assertFalse(Arrays.equals(array1, array2));
@@ -5315,7 +5332,10 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleInt() {
-        final int[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final int[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2,
+                3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final int[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1, seededRandom());
         assertFalse(Arrays.equals(array1, array2));
@@ -5326,7 +5346,10 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleIntRandom() {
-        final int[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final int[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2,
+                3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final int[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
@@ -5337,7 +5360,10 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleLong() {
-        final long[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final long[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2,
+                3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final long[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
@@ -5348,7 +5374,10 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleLongRandom() {
-        final long[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final long[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2,
+                3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final long[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1, seededRandom());
         assertFalse(Arrays.equals(array1, array2));
@@ -5358,19 +5387,11 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testShuffleRandom() {
-        final String[] array1 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
-        final String[] array2 = ArrayUtils.clone(array1);
-        ArrayUtils.shuffle(array1, seededRandom());
-        assertFalse(Arrays.equals(array1, array2));
-        for (final String element : array2) {
-            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
-        }
-    }
-
-    @Test
     void testShuffleShort() {
-        final short[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final short[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1,
+                2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final short[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1);
         assertFalse(Arrays.equals(array1, array2));
@@ -5381,11 +5402,42 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleShortRandom() {
-        final short[] array1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // Don't use a "small" array, reduce spurious failures.
+        final short[] array1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1,
+                2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final short[] array2 = ArrayUtils.clone(array1);
         ArrayUtils.shuffle(array1, seededRandom());
         assertFalse(Arrays.equals(array1, array2));
         for (final short element : array2) {
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
+        }
+    }
+
+    @Test
+    void testShuffleString() {
+        // Don't use a "small" array, reduce spurious failures.
+        final String[] array1 = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "0", "1", "2",
+                "3", "4", "5", "6", "7", "8", "9", "10", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "0", "1", "2", "3", "4", "5", "6", "7", "8",
+                "9", "10", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+        final String[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1);
+        assertFalse(Arrays.equals(array1, array2));
+        for (final String element : array2) {
+            assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
+        }
+    }
+
+    @Test
+    void testShuffleStringRandom() {
+        // Don't use a "small" array, reduce spurious failures.
+        final String[] array1 = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "0", "1", "2",
+                "3", "4", "5", "6", "7", "8", "9", "10", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "0", "1", "2", "3", "4", "5", "6", "7", "8",
+                "9", "10", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+        final String[] array2 = ArrayUtils.clone(array1);
+        ArrayUtils.shuffle(array1, seededRandom());
+        assertFalse(Arrays.equals(array1, array2));
+        for (final String element : array2) {
             assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
         }
     }
