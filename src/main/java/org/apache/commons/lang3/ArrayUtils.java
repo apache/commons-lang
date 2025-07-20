@@ -9524,15 +9524,17 @@ public class ArrayUtils {
         }
         return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
     }
+
     /**
-     * <p>Converts an array of objects to an array of strings, handling {@code null} values gracefully.</p>
-     *
-     * <p>{@code null} elements in the input array are converted to the string {@code "null"}.</p>
-     *
-     * @param array  the array to convert, may be {@code null}
-     * @return a string array, or {@code null} if the input array is {@code null}
-     * @since 3.6
-     */
+ * <p>Converts an array of objects to an array of strings, handling {@code null} values gracefully.</p>
+ * <p>If the input array is {@code null}, this method returns {@code null}.</p>
+ * <p>{@code null} elements in the input array are converted to the string {@code "null"}.</p>
+ *
+ * @param array  the array to convert, may be {@code null}
+ * @return a string array, or {@code null} if the input array is {@code null}
+ * @since 3.6
+ */
+
     public static String[] toStringArray(final Object[] array) {
         return toStringArray(array, "null");
     }
