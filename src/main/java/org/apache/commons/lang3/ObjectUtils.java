@@ -1166,15 +1166,11 @@ public class ObjectUtils {
      * Checks that the specified object reference is not {@code null} or empty per {@link #isEmpty(Object)}. Use this
      * method for validation, for example:
      *
-     * <blockquote>
-     *
      * <pre>
      * public Foo(Bar bar) {
      *     this.bar = Objects.requireNonEmpty(bar);
      * }
      * </pre>
-     *
-     * </blockquote>
      *
      * @param <T> the type of the reference.
      * @param obj the object reference to check for nullity.
@@ -1192,15 +1188,11 @@ public class ObjectUtils {
      * Checks that the specified object reference is not {@code null} or empty per {@link #isEmpty(Object)}. Use this
      * method for validation, for example:
      *
-     * <blockquote>
-     *
      * <pre>
      * public Foo(Bar bar) {
      *     this.bar = Objects.requireNonEmpty(bar, "bar");
      * }
      * </pre>
-     *
-     * </blockquote>
      *
      * @param <T> the type of the reference.
      * @param obj the object reference to check for nullity.
