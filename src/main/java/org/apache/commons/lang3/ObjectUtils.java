@@ -43,9 +43,11 @@ import org.apache.commons.lang3.time.DurationUtils;
 /**
  * Operations on {@link Object}.
  *
- * <p>This class tries to handle {@code null} input gracefully.
+ * <p>
+ * This class tries to handle {@code null} input gracefully.
  * An exception will generally not be thrown for a {@code null} input.
- * Each method documents its behavior in more detail.</p>
+ * Each method documents its behavior in more detail.
+ * </p>
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
@@ -83,7 +85,7 @@ public class ObjectUtils {
         }
 
         /**
-         * Ensure Singleton after serialization.
+         * Ensures singleton after serialization.
          *
          * @return the singleton value
          */
@@ -95,19 +97,20 @@ public class ObjectUtils {
     private static final char AT_SIGN = '@';
 
     /**
-     * Singleton used as a {@code null} placeholder where
-     * {@code null} has another meaning.
+     * Singleton used as a {@code null} placeholder where {@code null} has another meaning.
      *
-     * <p>For example, in a {@link HashMap} the
-     * {@link java.util.HashMap#get(Object)} method returns
-     * {@code null} if the {@link Map} contains {@code null} or if there
-     * is no matching key. The {@code null} placeholder can be used to
-     * distinguish between these two cases.</p>
+     * <p>
+     * For example, in a {@link HashMap} the {@link java.util.HashMap#get(Object)} method returns {@code null} if the {@link Map} contains {@code null} or if
+     * there is no matching key. The {@code null} placeholder can be used to distinguish between these two cases.
+     * </p>
      *
-     * <p>Another example is {@link Hashtable}, where {@code null}
-     * cannot be stored.</p>
+     * <p>
+     * Another example is {@link Hashtable}, where {@code null} cannot be stored.
+     * </p>
      *
-     * <p>This instance is Serializable.</p>
+     * <p>
+     * This instance is Serializable.
+     * </p>
      */
     public static final Null NULL = new Null();
 
@@ -254,22 +257,21 @@ public class ObjectUtils {
             }
             return (T) result;
         }
-
         return null;
     }
 
     /**
      * Clones an object if possible.
      *
-     * <p>This method is similar to {@link #clone(Object)}, but will return the provided
-     * instance as the return value instead of {@code null} if the instance
-     * is not cloneable. This is more convenient if the caller uses different
-     * implementations (e.g. of a service) and some of the implementations do not allow concurrent
-     * processing or have state. In such cases the implementation can simply provide a proper
-     * clone implementation and the caller's code does not have to change.</p>
+     * <p>
+     * This method is similar to {@link #clone(Object)}, but will return the provided instance as the return value instead of {@code null} if the instance is
+     * not cloneable. This is more convenient if the caller uses different implementations (e.g. of a service) and some of the implementations do not allow
+     * concurrent processing or have state. In such cases the implementation can simply provide a proper clone implementation and the caller's code does not
+     * have to change.
+     * </p>
      *
      * @param <T> the type of the object
-     * @param obj  the object to clone, null returns null
+     * @param obj the object to clone, null returns null
      * @return the clone if the object implements {@link Cloneable} otherwise the object itself
      * @throws CloneFailedException if the object is cloneable and the clone operation fails
      * @since 3.0
@@ -280,15 +282,15 @@ public class ObjectUtils {
     }
 
     /**
-     * Null safe comparison of Comparables.
-     * {@code null} is assumed to be less than a non-{@code null} value.
-     * <p>TODO Move to ComparableUtils.</p>
+     * Null safe comparison of Comparables. {@code null} is assumed to be less than a non-{@code null} value.
+     * <p>
+     * TODO Move to ComparableUtils.
+     * </p>
      *
      * @param <T> type of the values processed by this method
      * @param c1  the first comparable, may be null
      * @param c2  the second comparable, may be null
-     * @return a negative value if c1 &lt; c2, zero if c1 = c2
-     *  and a positive value if c1 &gt; c2
+     * @return a negative value if c1 &lt; c2, zero if c1 = c2 and a positive value if c1 &gt; c2
      */
     public static <T extends Comparable<? super T>> int compare(final T c1, final T c2) {
         return compare(c1, c2, false);
@@ -296,16 +298,16 @@ public class ObjectUtils {
 
     /**
      * Null safe comparison of Comparables.
-     * <p>TODO Move to ComparableUtils.</p>
+     * <p>
+     * TODO Move to ComparableUtils.
+     * </p>
      *
-     * @param <T> type of the values processed by this method
-     * @param c1  the first comparable, may be null
-     * @param c2  the second comparable, may be null
-     * @param nullGreater if true {@code null} is considered greater
-     *  than a non-{@code null} value or if false {@code null} is
-     *  considered less than a Non-{@code null} value
-     * @return a negative value if c1 &lt; c2, zero if c1 = c2
-     *  and a positive value if c1 &gt; c2
+     * @param <T>         type of the values processed by this method
+     * @param c1          the first comparable, may be null
+     * @param c2          the second comparable, may be null
+     * @param nullGreater if true {@code null} is considered greater than a non-{@code null} value or if false {@code null} is considered less than a
+     *                    Non-{@code null} value
+     * @return a negative value if c1 &lt; c2, zero if c1 = c2 and a positive value if c1 &gt; c2
      * @see java.util.Comparator#compare(Object, Object)
      */
     public static <T extends Comparable<? super T>> int compare(final T c1, final T c2, final boolean nullGreater) {
@@ -322,20 +324,16 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged.
-     * This can prevent javac from inlining a constant
-     * field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
      *
      * <pre>
-     *     public final static boolean MAGIC_FLAG = ObjectUtils.CONST(true);
+     * public final static boolean MAGIC_FLAG = ObjectUtils.CONST(true);
      * </pre>
      *
-     * This way any jars that refer to this field do not
-     * have to recompile themselves if the field's value
-     * changes at some future date.
+     * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param v the boolean value to return
-     * @return the boolean v, unchanged
+     * @param v the boolean value to return.
+     * @return the boolean v, unchanged.
      * @since 3.2
      */
     public static boolean CONST(final boolean v) {
@@ -343,20 +341,16 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged.
-     * This can prevent javac from inlining a constant
-     * field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
      *
      * <pre>
-     *     public final static byte MAGIC_BYTE = ObjectUtils.CONST((byte) 127);
+     * public final static byte MAGIC_BYTE = ObjectUtils.CONST((byte) 127);
      * </pre>
      *
-     * This way any jars that refer to this field do not
-     * have to recompile themselves if the field's value
-     * changes at some future date.
+     * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param v the byte value to return
-     * @return the byte v, unchanged
+     * @param v the byte value to return.
+     * @return the byte v, unchanged.
      * @since 3.2
      */
     public static byte CONST(final byte v) {
@@ -364,20 +358,16 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged.
-     * This can prevent javac from inlining a constant
-     * field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
      *
      * <pre>
-     *     public final static char MAGIC_CHAR = ObjectUtils.CONST('a');
+     * public final static char MAGIC_CHAR = ObjectUtils.CONST('a');
      * </pre>
      *
-     * This way any jars that refer to this field do not
-     * have to recompile themselves if the field's value
-     * changes at some future date.
+     * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param v the char value to return
-     * @return the char v, unchanged
+     * @param v the char value to return.
+     * @return the char v, unchanged.
      * @since 3.2
      */
     public static char CONST(final char v) {
@@ -385,20 +375,16 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged.
-     * This can prevent javac from inlining a constant
-     * field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
      *
      * <pre>
-     *     public final static double MAGIC_DOUBLE = ObjectUtils.CONST(1.0);
+     * public final static double MAGIC_DOUBLE = ObjectUtils.CONST(1.0);
      * </pre>
      *
-     * This way any jars that refer to this field do not
-     * have to recompile themselves if the field's value
-     * changes at some future date.
+     * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param v the double value to return
-     * @return the double v, unchanged
+     * @param v the double value to return.
+     * @return the double v, unchanged.
      * @since 3.2
      */
     public static double CONST(final double v) {
@@ -406,20 +392,16 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged.
-     * This can prevent javac from inlining a constant
-     * field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
      *
      * <pre>
-     *     public final static float MAGIC_FLOAT = ObjectUtils.CONST(1.0f);
+     * public final static float MAGIC_FLOAT = ObjectUtils.CONST(1.0f);
      * </pre>
      *
-     * This way any jars that refer to this field do not
-     * have to recompile themselves if the field's value
-     * changes at some future date.
+     * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param v the float value to return
-     * @return the float v, unchanged
+     * @param v the float value to return.
+     * @return the float v, unchanged.
      * @since 3.2
      */
     public static float CONST(final float v) {
@@ -427,20 +409,16 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged.
-     * This can prevent javac from inlining a constant
-     * field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
      *
      * <pre>
-     *     public final static int MAGIC_INT = ObjectUtils.CONST(123);
+     * public final static int MAGIC_INT = ObjectUtils.CONST(123);
      * </pre>
      *
-     * This way any jars that refer to this field do not
-     * have to recompile themselves if the field's value
-     * changes at some future date.
+     * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param v the int value to return
-     * @return the int v, unchanged
+     * @param v the int value to return.
+     * @return the int v, unchanged.
      * @since 3.2
      */
     public static int CONST(final int v) {
@@ -448,20 +426,16 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged.
-     * This can prevent javac from inlining a constant
-     * field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
      *
      * <pre>
-     *     public final static long MAGIC_LONG = ObjectUtils.CONST(123L);
+     * public final static long MAGIC_LONG = ObjectUtils.CONST(123L);
      * </pre>
      *
-     * This way any jars that refer to this field do not
-     * have to recompile themselves if the field's value
-     * changes at some future date.
+     * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param v the long value to return
-     * @return the long v, unchanged
+     * @param v the long value to return.
+     * @return the long v, unchanged.
      * @since 3.2
      */
     public static long CONST(final long v) {
@@ -469,20 +443,16 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged.
-     * This can prevent javac from inlining a constant
-     * field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
      *
      * <pre>
-     *     public final static short MAGIC_SHORT = ObjectUtils.CONST((short) 123);
+     * public final static short MAGIC_SHORT = ObjectUtils.CONST((short) 123);
      * </pre>
      *
-     * This way any jars that refer to this field do not
-     * have to recompile themselves if the field's value
-     * changes at some future date.
+     * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param v the short value to return
-     * @return the short v, unchanged
+     * @param v the short value to return.
+     * @return the short v, unchanged.
      * @since 3.2
      */
     public static short CONST(final short v) {
@@ -490,20 +460,16 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged.
-     * This can prevent javac from inlining a constant
-     * field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
      *
      * <pre>
-     *     public final static String MAGIC_STRING = ObjectUtils.CONST("abc");
+     * public final static String MAGIC_STRING = ObjectUtils.CONST("abc");
      * </pre>
      *
-     * This way any jars that refer to this field do not
-     * have to recompile themselves if the field's value
-     * changes at some future date.
+     * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param <T> the Object type
-     * @param v the genericized Object value to return (typically a String).
+     * @param <T> the Object type.
+     * @param v   the genericized Object value to return (typically a String).
      * @return the genericized Object v, unchanged (typically a String).
      * @since 3.2
      */
@@ -512,23 +478,17 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged.
-     * This can prevent javac from inlining a constant
-     * field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
      *
      * <pre>
-     *     public final static byte MAGIC_BYTE = ObjectUtils.CONST_BYTE(127);
+     * public final static byte MAGIC_BYTE = ObjectUtils.CONST_BYTE(127);
      * </pre>
      *
-     * This way any jars that refer to this field do not
-     * have to recompile themselves if the field's value
-     * changes at some future date.
+     * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param v the byte literal (as an int) value to return
-     * @throws IllegalArgumentException if the value passed to v
-     *         is larger than a byte, that is, smaller than -128 or
-     *         larger than 127.
-     * @return the byte v, unchanged
+     * @param v the byte literal (as an int) value to return.
+     * @throws IllegalArgumentException if the value passed to v is larger than a byte, that is, smaller than -128 or larger than 127.
+     * @return the byte v, unchanged.
      * @since 3.2
      */
     public static byte CONST_BYTE(final int v) {
@@ -539,23 +499,17 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged.
-     * This can prevent javac from inlining a constant
-     * field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
      *
      * <pre>
-     *     public final static short MAGIC_SHORT = ObjectUtils.CONST_SHORT(127);
+     * public final static short MAGIC_SHORT = ObjectUtils.CONST_SHORT(127);
      * </pre>
      *
-     * This way any jars that refer to this field do not
-     * have to recompile themselves if the field's value
-     * changes at some future date.
+     * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param v the short literal (as an int) value to return
-     * @throws IllegalArgumentException if the value passed to v
-     *         is larger than a short, that is, smaller than -32768 or
-     *         larger than 32767.
-     * @return the byte v, unchanged
+     * @param v the short literal (as an int) value to return.
+     * @throws IllegalArgumentException if the value passed to v is larger than a short, that is, smaller than -32768 or larger than 32767.
+     * @return the byte v, unchanged.
      * @since 3.2
      */
     public static short CONST_SHORT(final int v) {
@@ -576,10 +530,10 @@ public class ObjectUtils {
      * ObjectUtils.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
      * </pre>
      *
-     * @param <T> the type of the object
-     * @param object  the {@link Object} to test, may be {@code null}
-     * @param defaultValue  the default value to return, may be {@code null}
-     * @return {@code object} if it is not {@code null}, defaultValue otherwise
+     * @param <T> the type of the object.
+     * @param object  the {@link Object} to test, may be {@code null}.
+     * @param defaultValue  the default value to return, may be {@code null}.
+     * @return {@code object} if it is not {@code null}, defaultValue otherwise.
      * @see #getIfNull(Object, Object)
      * @see #getIfNull(Object, Supplier)
      * @deprecated Use {@link #getIfNull(Object, Object)}.
@@ -605,9 +559,9 @@ public class ObjectUtils {
      * ObjectUtils.equals(Boolean.TRUE, Boolean.FALSE) = false
      * </pre>
      *
-     * @param object1  the first object, may be {@code null}
-     * @param object2  the second object, may be {@code null}
-     * @return {@code true} if the values of both objects are the same
+     * @param object1  the first object, may be {@code null}.
+     * @param object2  the second object, may be {@code null}.
+     * @return {@code true} if the values of both objects are the same.
      * @deprecated this method has been replaced by {@code java.util.Objects.equals(Object, Object)} in Java 7 and will
      * be removed from future releases.
      */
@@ -632,10 +586,10 @@ public class ObjectUtils {
      * ObjectUtils.firstNonNull()                = null
      * </pre>
      *
-     * @param <T> the component type of the array
-     * @param values  the values to test, may be {@code null} or empty
+     * @param <T> the component type of the array.
+     * @param values  the values to test, may be {@code null} or empty.
      * @return the first value from {@code values} which is not {@code null},
-     *  or {@code null} if there are no non-null values
+     *  or {@code null} if there are no non-null values.
      * @since 3.0
      */
     @SafeVarargs
@@ -702,10 +656,10 @@ public class ObjectUtils {
      * ObjectUtils.getIfNull(Boolean.TRUE, *)         = Boolean.TRUE
      * </pre>
      *
-     * @param <T> the type of the object
-     * @param object the {@link Object} to test, may be {@code null}
-     * @param defaultSupplier the default value to return, may be {@code null}
-     * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise
+     * @param <T> the type of the object.
+     * @param object the {@link Object} to test, may be {@code null}.
+     * @param defaultSupplier the default value to return, may be {@code null}.
+     * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise.
      * @see #getIfNull(Object, Object)
      * @since 3.10
      */
@@ -724,10 +678,10 @@ public class ObjectUtils {
      * ObjectUtils.getIfNull(Boolean.TRUE, *) = Boolean.TRUE
      * </pre>
      *
-     * @param <T> the type of the object
-     * @param object  the {@link Object} to test, may be {@code null}
-     * @param defaultValue  the default value to return, may be {@code null}
-     * @return {@code object} if it is not {@code null}, defaultValue otherwise
+     * @param <T> the type of the object.
+     * @param object  the {@link Object} to test, may be {@code null}.
+     * @param defaultValue  the default value to return, may be {@code null}.
+     * @return {@code object} if it is not {@code null}, defaultValue otherwise.
      * @see #getIfNull(Object, Supplier)
      * @since 3.18.0
      */
@@ -744,8 +698,8 @@ public class ObjectUtils {
      * ObjectUtils.hashCode(obj)    = obj.hashCode()
      * </pre>
      *
-     * @param obj  the object to obtain the hash code of, may be {@code null}
-     * @return the hash code of the object, or zero if null
+     * @param obj  the object to obtain the hash code of, may be {@code null}.
+     * @return the hash code of the object, or zero if null.
      * @since 2.1
      * @deprecated this method has been replaced by {@code java.util.Objects.hashCode(Object)} in Java 7 and will be
      * removed in future releases
@@ -762,7 +716,7 @@ public class ObjectUtils {
      * Short hand for {@code Integer.toHexString(Objects.hashCode(object))}.
      * </p>
      *
-     * @param object object for which the hashCode is to be calculated
+     * @param object object for which the hashCode is to be calculated.
      * @return Hash code in hexadecimal format.
      * @since 3.13.0
      */
@@ -786,8 +740,8 @@ public class ObjectUtils {
      * ObjectUtils.hashCodeMulti(a,b,c)            = ((31 + a.hashCode()) * 31 + b.hashCode()) * 31 + c.hashCode()
      * </pre>
      *
-     * @param objects  the objects to obtain the hash code of, may be {@code null}
-     * @return the hash code of the objects, or zero if null
+     * @param objects  the objects to obtain the hash code of, may be {@code null}.
+     * @return the hash code of the objects, or zero if null.
      * @since 3.0
      * @deprecated this method has been replaced by {@code java.util.Objects.hash(Object...)} in Java 7 and will be
      * removed in future releases.
@@ -810,7 +764,7 @@ public class ObjectUtils {
      * Short hand for {@code Integer.toHexString(System.identityHashCode(object))}.
      * </p>
      *
-     * @param object object for which the hashCode is to be calculated
+     * @param object object for which the hashCode is to be calculated.
      * @return Hash code in hexadecimal format.
      * @since 3.13.0
      */
@@ -829,8 +783,8 @@ public class ObjectUtils {
      * ObjectUtils.identityToString(appendable, Boolean.TRUE)  = appendable.append("java.lang.Boolean@7fa")
      * </pre>
      *
-     * @param appendable  the appendable to append to
-     * @param object  the object to create a toString for
+     * @param appendable  the appendable to append to.
+     * @param object  the object to create a toString for.
      * @throws IOException if an I/O error occurs.
      * @since 3.2
      */
@@ -842,9 +796,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Gets the toString that would be produced by {@link Object}
-     * if a class did not override toString itself. {@code null}
-     * will return {@code null}.
+     * Gets the toString that would be produced by {@link Object} if a class did not override toString itself. {@code null} will return {@code null}.
      *
      * <pre>
      * ObjectUtils.identityToString(null)         = null
@@ -852,10 +804,8 @@ public class ObjectUtils {
      * ObjectUtils.identityToString(Boolean.TRUE) = "java.lang.Boolean@7fa"
      * </pre>
      *
-     * @param object  the object to create a toString for, may be
-     *  {@code null}
-     * @return the default toString text, or {@code null} if
-     *  {@code null} passed in
+     * @param object the object to create a toString for, may be {@code null}.
+     * @return the default toString text, or {@code null} if {@code null} passed in.
      */
     public static String identityToString(final Object object) {
         if (object == null) {
@@ -883,8 +833,8 @@ public class ObjectUtils {
      * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
      * </pre>
      *
-     * @param builder  the builder to append to
-     * @param object  the object to create a toString for
+     * @param builder  the builder to append to.
+     * @param object  the object to create a toString for.
      * @since 3.2
      * @deprecated as of 3.6, because StrBuilder was moved to commons-text,
      *  use one of the other {@code identityToString} methods instead
@@ -911,8 +861,8 @@ public class ObjectUtils {
      * ObjectUtils.identityToString(buf, Boolean.TRUE)  = buf.append("java.lang.Boolean@7fa")
      * </pre>
      *
-     * @param buffer  the buffer to append to
-     * @param object  the object to create a toString for
+     * @param buffer  the buffer to append to.
+     * @param object  the object to create a toString for.
      * @since 2.4
      */
     public static void identityToString(final StringBuffer buffer, final Object object) {
@@ -936,8 +886,8 @@ public class ObjectUtils {
      * ObjectUtils.identityToString(builder, Boolean.TRUE)  = builder.append("java.lang.Boolean@7fa")
      * </pre>
      *
-     * @param builder  the builder to append to
-     * @param object  the object to create a toString for
+     * @param builder  the builder to append to.
+     * @param object  the object to create a toString for.
      * @since 3.2
      */
     public static void identityToString(final StringBuilder builder, final Object object) {
@@ -949,26 +899,6 @@ public class ObjectUtils {
               .append(AT_SIGN)
               .append(hexString);
     }
-
-    // Constants (LANG-816):
-    /*
-        These methods ensure constants are not inlined by javac.
-        For example, typically a developer might declare a constant like so:
-
-            public final static int MAGIC_NUMBER = 5;
-
-        Should a different jar file refer to this, and the MAGIC_NUMBER
-        is changed a later date (e.g., MAGIC_NUMBER = 6), the different jar
-        file will need to recompile itself.  This is because javac
-        typically inlines the primitive or String constant directly into
-        the bytecode, and removes the reference to the MAGIC_NUMBER field.
-
-        To help the other jar (so that it does not need to recompile
-        when constants are changed) the original developer can declare
-        their constant using one of the CONST() utility methods, instead:
-
-            public final static int MAGIC_NUMBER = CONST(5);
-     */
 
     /**
      * Tests whether the given object is an Object array or a primitive array in a null-safe manner.
@@ -986,8 +916,8 @@ public class ObjectUtils {
      * ObjectUtils.isArray(1234)             = false
      * </pre>
      *
-     * @param object the object to check, may be {@code null}
-     * @return {@code true} if the object is an {@code array}, {@code false} otherwise
+     * @param object the object to check, may be {@code null}.
+     * @return {@code true} if the object is an {@code array}, {@code false} otherwise.
      * @since 3.13.0
      */
     public static boolean isArray(final Object object) {
@@ -996,8 +926,9 @@ public class ObjectUtils {
 
     /**
      * Tests if an Object is empty or null.
-     *
+     * <p>
      * The following types are supported:
+     * </p>
      * <ul>
      * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
      * <li>{@link Array}: Considered empty if its length is zero.</li>
@@ -1018,9 +949,8 @@ public class ObjectUtils {
      * ObjectUtils.isEmpty(Optional.empty()) = true
      * </pre>
      *
-     * @param object  the {@link Object} to test, may be {@code null}
-     * @return {@code true} if the object has a supported type and is empty or null,
-     * {@code false} otherwise
+     * @param object the {@link Object} to test, may be {@code null}.
+     * @return {@code true} if the object has a supported type and is empty or null, {@code false} otherwise.
      * @since 3.9
      */
     public static boolean isEmpty(final Object object) {
@@ -1048,8 +978,9 @@ public class ObjectUtils {
 
     /**
      * Tests if an Object is not empty and not null.
-     *
+     * <p>
      * The following types are supported:
+     * </p>
      * <ul>
      * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
      * <li>{@link Array}: Considered empty if its length is zero.</li>
@@ -1069,9 +1000,9 @@ public class ObjectUtils {
      * ObjectUtils.isNotEmpty(Optional.empty()) = false
      * </pre>
      *
-     * @param object  the {@link Object} to test, may be {@code null}
-     * @return {@code true} if the object has an unsupported type or is not empty
-     * and not null, {@code false} otherwise
+     * @param object  the {@link Object} to test, may be {@code null}.
+     * @return {@code true} if the object has an unsupported type or is not empty.
+     * and not null, {@code false} otherwise.
      * @since 3.9
      */
     public static boolean isNotEmpty(final Object object) {
@@ -1080,17 +1011,19 @@ public class ObjectUtils {
 
     /**
      * Null safe comparison of Comparables.
-     * <p>TODO Move to ComparableUtils.</p>
+     * <p>
+     * TODO Move to ComparableUtils.
+     * </p>
      *
-     * @param <T> type of the values processed by this method
-     * @param values the set of comparable values, may be null
+     * @param <T>    type of the values processed by this method.
+     * @param values the set of comparable values, may be null.
      * @return
-     *  <ul>
-     *   <li>If any objects are non-null and unequal, the greater object.
-     *   <li>If all objects are non-null and equal, the first.
-     *   <li>If any of the comparables are null, the greater of the non-null objects.
-     *   <li>If all the comparables are null, null is returned.
-     *  </ul>
+     *         <ul>
+     *         <li>If any objects are non-null and unequal, the greater object.
+     *         <li>If all objects are non-null and equal, the first.
+     *         <li>If any of the comparables are null, the greater of the non-null objects.
+     *         <li>If all the comparables are null, null is returned.
+     *         </ul>
      */
     @SafeVarargs
     public static <T extends Comparable<? super T>> T max(final T... values) {
@@ -1106,14 +1039,15 @@ public class ObjectUtils {
     }
 
     /**
-     * Find the "best guess" middle value among comparables. If there is an even
+     * Finds the "best guess" middle value among comparables. If there is an even
      * number of total values, the lower of the two middle values will be returned.
-     * @param <T> type of values processed by this method
-     * @param comparator to use for comparisons
-     * @param items to compare
-     * @return T at middle position
-     * @throws NullPointerException if items or comparator is {@code null}
-     * @throws IllegalArgumentException if items is empty or contains {@code null} values
+     *
+     * @param <T> type of values processed by this method.
+     * @param comparator to use for comparisons.
+     * @param items to compare.
+     * @return T at middle position.
+     * @throws NullPointerException if items or comparator is {@code null}.
+     * @throws IllegalArgumentException if items is empty or contains {@code null} values.
      * @since 3.0.1
      */
     @SafeVarargs
@@ -1127,13 +1061,13 @@ public class ObjectUtils {
     }
 
     /**
-     * Find the "best guess" middle value among comparables. If there is an even
-     * number of total values, the lower of the two middle values will be returned.
-     * @param <T> type of values processed by this method
-     * @param items to compare
-     * @return T at middle position
-     * @throws NullPointerException if items is {@code null}
-     * @throws IllegalArgumentException if items is empty or contains {@code null} values
+     * Finds the "best guess" middle value among comparables. If there is an even number of total values, the lower of the two middle values will be returned.
+     *
+     * @param <T>   type of values processed by this method.
+     * @param items to compare.
+     * @return T at middle position.
+     * @throws NullPointerException     if items is {@code null}.
+     * @throws IllegalArgumentException if items is empty or contains {@code null} values.
      * @since 3.0.1
      */
     @SafeVarargs
@@ -1147,17 +1081,19 @@ public class ObjectUtils {
 
     /**
      * Null safe comparison of Comparables.
-     * <p>TODO Move to ComparableUtils.</p>
+     * <p>
+     * TODO Move to ComparableUtils.
+     * </p>
      *
-     * @param <T> type of the values processed by this method
+     * @param <T>    type of the values processed by this method
      * @param values the set of comparable values, may be null
      * @return
-     *  <ul>
-     *   <li>If any objects are non-null and unequal, the lesser object.
-     *   <li>If all objects are non-null and equal, the first.
-     *   <li>If any of the comparables are null, the lesser of the non-null objects.
-     *   <li>If all the comparables are null, null is returned.
-     *  </ul>
+     *         <ul>
+     *         <li>If any objects are non-null and unequal, the lesser object.
+     *         <li>If all objects are non-null and equal, the first.
+     *         <li>If any of the comparables are null, the lesser of the non-null objects.
+     *         <li>If all the comparables are null, null is returned.
+     *         </ul>
      */
     @SafeVarargs
     public static <T extends Comparable<? super T>> T min(final T... values) {
@@ -1173,11 +1109,11 @@ public class ObjectUtils {
     }
 
     /**
-     * Find the most frequently occurring item.
+     * Finds the most frequently occurring item.
      *
-     * @param <T> type of values processed by this method
-     * @param items to check
-     * @return most populous T, {@code null} if non-unique or no items supplied
+     * @param <T> type of values processed by this method.
+     * @param items to check.
+     * @return most populous T, {@code null} if non-unique or no items supplied.
      * @since 3.0.1
      */
     @SafeVarargs
@@ -1218,9 +1154,9 @@ public class ObjectUtils {
      * ObjectUtils.notEqual(Boolean.TRUE, Boolean.FALSE) = true
      * </pre>
      *
-     * @param object1  the first object, may be {@code null}
-     * @param object2  the second object, may be {@code null}
-     * @return {@code false} if the values of both objects are the same
+     * @param object1  the first object, may be {@code null}.
+     * @param object2  the second object, may be {@code null}.
+     * @return {@code false} if the values of both objects are the same.
      */
     public static boolean notEqual(final Object object1, final Object object2) {
         return !Objects.equals(object1, object2);
@@ -1322,9 +1258,9 @@ public class ObjectUtils {
      * @see Objects#toString(Object, String)
      * @see StringUtils#defaultString(String,String)
      * @see String#valueOf(Object)
-     * @param obj  the Object to {@code toString}, may be null
-     * @param nullStr  the String to return if {@code null} input, may be null
-     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
+     * @param obj  the Object to {@code toString}, may be null.
+     * @param nullStr  the String to return if {@code null} input, may be null.
+     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
      * @since 2.0
      * @deprecated this method has been replaced by {@code java.util.Objects.toString(Object, String)} in Java 7 and
      * will be removed in future releases.
@@ -1349,9 +1285,9 @@ public class ObjectUtils {
      * ObjectUtils.toString(() -&gt; Boolean.TRUE, () -&gt; expensive()) = "true"
      * </pre>
      *
-     * @param obj  the Object to {@code toString}, may be null
-     * @param supplier  the Supplier of String used on {@code null} input, may be null
-     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
+     * @param obj  the Object to {@code toString}, may be null.
+     * @param supplier  the Supplier of String used on {@code null} input, may be null.
+     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
      * @since 3.14.0
      */
     public static String toString(final Supplier<Object> obj, final Supplier<String> supplier) {
@@ -1374,9 +1310,9 @@ public class ObjectUtils {
      * </pre>
      *
      * @param <T> the obj type (used to provide better source compatibility in 3.14.0).
-     * @param obj  the Object to {@code toString}, may be null
-     * @param supplier  the Supplier of String used on {@code null} input, may be null
-     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
+     * @param obj  the Object to {@code toString}, may be null.
+     * @param supplier  the Supplier of String used on {@code null} input, may be null.
+     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
      * @since 3.11
      */
     public static <T> String toString(final T obj, final Supplier<String> supplier) {
@@ -1401,12 +1337,12 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link ObjectUtils} instances should NOT be constructed in
-     * standard programming. Instead, the static methods on the class should
-     * be used, such as {@code ObjectUtils.defaultIfNull("a","b");}.
+     * {@link ObjectUtils} instances should NOT be constructed in standard programming. Instead, the static methods on the class should be used, such as
+     * {@code ObjectUtils.defaultIfNull("a","b");}.
      *
-     * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean instance to operate.
+     * </p>
      *
      * @deprecated TODO Make private in 4.0.
      */
