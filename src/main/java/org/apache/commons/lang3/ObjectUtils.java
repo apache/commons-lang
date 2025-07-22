@@ -58,17 +58,16 @@ import org.apache.commons.lang3.time.DurationUtils;
 public class ObjectUtils {
 
     /**
-     * Class used as a null placeholder where {@code null}
-     * has another meaning.
+     * Class used as a null placeholder where {@code null} has another meaning.
      *
-     * <p>For example, in a {@link HashMap} the
-     * {@link java.util.HashMap#get(Object)} method returns
-     * {@code null} if the {@link Map} contains {@code null} or if there is
-     * no matching key. The {@code null} placeholder can be used to distinguish
-     * between these two cases.</p>
+     * <p>
+     * For example, in a {@link HashMap} the {@link java.util.HashMap#get(Object)} method returns {@code null} if the {@link Map} contains {@code null} or if
+     * there is no matching key. The {@code null} placeholder can be used to distinguish between these two cases.
+     * </p>
      *
-     * <p>Another example is {@link Hashtable}, where {@code null}
-     * cannot be stored.</p>
+     * <p>
+     * Another example is {@link Hashtable}, where {@code null} cannot be stored.
+     * </p>
      */
     public static class Null implements Serializable {
         /**
@@ -87,7 +86,7 @@ public class ObjectUtils {
         /**
          * Ensures singleton after serialization.
          *
-         * @return the singleton value
+         * @return the singleton value.
          */
         private Object readResolve() {
             return NULL;
@@ -118,10 +117,8 @@ public class ObjectUtils {
      * Tests if all values in the array are not {@code nulls}.
      *
      * <p>
-     * If any value is {@code null} or the array is {@code null} then
-     * {@code false} is returned. If all elements in array are not
-     * {@code null} or the array is empty (contains no elements) {@code true}
-     * is returned.
+     * If any value is {@code null} or the array is {@code null} then {@code false} is returned. If all elements in array are not {@code null} or the array is
+     * empty (contains no elements) {@code true} is returned.
      * </p>
      *
      * <pre>
@@ -134,9 +131,9 @@ public class ObjectUtils {
      * ObjectUtils.allNotNull(*, *, null, *) = false
      * </pre>
      *
-     * @param values  the values to test, may be {@code null} or empty
-     * @return {@code false} if there is at least one {@code null} value in the array or the array is {@code null},
-     * {@code true} if all values in the array are not {@code null}s or array contains no elements.
+     * @param values the values to test, may be {@code null} or empty.
+     * @return {@code false} if there is at least one {@code null} value in the array or the array is {@code null}, {@code true} if all values in the array are
+     *         not {@code null}s or array contains no elements.
      * @since 3.5
      */
     public static boolean allNotNull(final Object... values) {
@@ -147,8 +144,7 @@ public class ObjectUtils {
      * Tests if all values in the given array are {@code null}.
      *
      * <p>
-     * If all the values are {@code null} or the array is {@code null}
-     * or empty, then {@code true} is returned, otherwise {@code false} is returned.
+     * If all the values are {@code null} or the array is {@code null} or empty, then {@code true} is returned, otherwise {@code false} is returned.
      * </p>
      *
      * <pre>
@@ -160,9 +156,8 @@ public class ObjectUtils {
      * ObjectUtils.allNull(null, null)       = true
      * </pre>
      *
-     * @param values  the values to test, may be {@code null} or empty
-     * @return {@code true} if all values in the array are {@code null}s,
-     * {@code false} if there is at least one non-null value in the array.
+     * @param values the values to test, may be {@code null} or empty.
+     * @return {@code true} if all values in the array are {@code null}s, {@code false} if there is at least one non-null value in the array.
      * @since 3.11
      */
     public static boolean allNull(final Object... values) {
@@ -173,8 +168,7 @@ public class ObjectUtils {
      * Tests if any value in the given array is not {@code null}.
      *
      * <p>
-     * If all the values are {@code null} or the array is {@code null}
-     * or empty then {@code false} is returned. Otherwise {@code true} is returned.
+     * If all the values are {@code null} or the array is {@code null} or empty then {@code false} is returned. Otherwise {@code true} is returned.
      * </p>
      *
      * <pre>
@@ -186,10 +180,9 @@ public class ObjectUtils {
      * ObjectUtils.anyNotNull(null, null)       = false
      * </pre>
      *
-     * @param values  the values to test, may be {@code null} or empty
-     * @return {@code true} if there is at least one non-null value in the array,
-     * {@code false} if all values in the array are {@code null}s.
-     * If the array is {@code null} or empty {@code false} is also returned.
+     * @param values the values to test, may be {@code null} or empty.
+     * @return {@code true} if there is at least one non-null value in the array, {@code false} if all values in the array are {@code null}s. If the array is
+     *         {@code null} or empty {@code false} is also returned.
      * @since 3.5
      */
     public static boolean anyNotNull(final Object... values) {
@@ -200,8 +193,7 @@ public class ObjectUtils {
      * Tests if any value in the given array is {@code null}.
      *
      * <p>
-     * If any of the values are {@code null} or the array is {@code null},
-     * then {@code true} is returned, otherwise {@code false} is returned.
+     * If any of the values are {@code null} or the array is {@code null}, then {@code true} is returned, otherwise {@code false} is returned.
      * </p>
      *
      * <pre>
@@ -214,10 +206,9 @@ public class ObjectUtils {
      * ObjectUtils.anyNull(*, *, null, *) = true
      * </pre>
      *
-     * @param values  the values to test, may be {@code null} or empty
-     * @return {@code true} if there is at least one {@code null} value in the array,
-     * {@code false} if all the values are non-null.
-     * If the array is {@code null} or empty, {@code true} is also returned.
+     * @param values the values to test, may be {@code null} or empty.
+     * @return {@code true} if there is at least one {@code null} value in the array, {@code false} if all the values are non-null. If the array is {@code null}
+     *         or empty, {@code true} is also returned.
      * @since 3.11
      */
     public static boolean anyNull(final Object... values) {
@@ -227,10 +218,10 @@ public class ObjectUtils {
     /**
      * Clones an object.
      *
-     * @param <T> the type of the object
-     * @param obj  the object to clone, null returns null
-     * @return the clone if the object implements {@link Cloneable} otherwise {@code null}
-     * @throws CloneFailedException if the object is cloneable and the clone operation fails
+     * @param <T> the type of the object.
+     * @param obj the object to clone, null returns null.
+     * @return the clone if the object implements {@link Cloneable} otherwise {@code null}.
+     * @throws CloneFailedException if the object is cloneable and the clone operation fails.
      * @since 3.0
      */
     public static <T> T clone(final T obj) {
@@ -270,10 +261,10 @@ public class ObjectUtils {
      * have to change.
      * </p>
      *
-     * @param <T> the type of the object
-     * @param obj the object to clone, null returns null
-     * @return the clone if the object implements {@link Cloneable} otherwise the object itself
-     * @throws CloneFailedException if the object is cloneable and the clone operation fails
+     * @param <T> the type of the object.
+     * @param obj the object to clone, null returns null.
+     * @return the clone if the object implements {@link Cloneable} otherwise the object itself.
+     * @throws CloneFailedException if the object is cloneable and the clone operation fails.
      * @since 3.0
      */
     public static <T> T cloneIfPossible(final T obj) {
@@ -287,10 +278,10 @@ public class ObjectUtils {
      * TODO Move to ComparableUtils.
      * </p>
      *
-     * @param <T> type of the values processed by this method
-     * @param c1  the first comparable, may be null
-     * @param c2  the second comparable, may be null
-     * @return a negative value if c1 &lt; c2, zero if c1 = c2 and a positive value if c1 &gt; c2
+     * @param <T> type of the values processed by this method.
+     * @param c1  the first comparable, may be null.
+     * @param c2  the second comparable, may be null.
+     * @return a negative value if c1 &lt; c2, zero if c1 = c2 and a positive value if c1 &gt; c2.
      */
     public static <T extends Comparable<? super T>> int compare(final T c1, final T c2) {
         return compare(c1, c2, false);
@@ -302,12 +293,12 @@ public class ObjectUtils {
      * TODO Move to ComparableUtils.
      * </p>
      *
-     * @param <T>         type of the values processed by this method
-     * @param c1          the first comparable, may be null
-     * @param c2          the second comparable, may be null
+     * @param <T>         type of the values processed by this method.
+     * @param c1          the first comparable, may be null.
+     * @param c2          the second comparable, may be null.
      * @param nullGreater if true {@code null} is considered greater than a non-{@code null} value or if false {@code null} is considered less than a
-     *                    Non-{@code null} value
-     * @return a negative value if c1 &lt; c2, zero if c1 = c2 and a positive value if c1 &gt; c2
+     *                    Non-{@code null} value.
+     * @return a negative value if c1 &lt; c2, zero if c1 = c2 and a positive value if c1 &gt; c2.
      * @see java.util.Comparator#compare(Object, Object)
      */
     public static <T extends Comparable<? super T>> int compare(final T c1, final T c2, final boolean nullGreater) {
@@ -611,12 +602,9 @@ public class ObjectUtils {
     }
 
     /**
-     * Executes the given suppliers in order and returns the first return
-     * value where a value other than {@code null} is returned.
-     * Once a non-{@code null} value is obtained, all following suppliers are
-     * not executed anymore.
-     * If all the return values are {@code null} or no suppliers are provided
-     * then {@code null} is returned.
+     * Executes the given suppliers in order and returns the first return value where a value other than {@code null} is returned. Once a non-{@code null} value
+     * is obtained, all following suppliers are not executed anymore. If all the return values are {@code null} or no suppliers are provided then {@code null}
+     * is returned.
      *
      * <pre>
      * ObjectUtils.firstNonNullLazy(null, () -&gt; null) = null
@@ -626,12 +614,10 @@ public class ObjectUtils {
      * ObjectUtils.firstNonNullLazy() = null
      * </pre>
      *
-     * @param <T> the type of the return values
-     * @param suppliers  the suppliers returning the values to test.
-     *                   {@code null} values are ignored.
-     *                   Suppliers may return {@code null} or a value of type {@code T}
-     * @return the first return value from {@code suppliers} which is not {@code null},
-     *  or {@code null} if there are no non-null values
+     * @param <T>       the type of the return values.
+     * @param suppliers the suppliers returning the values to test. {@code null} values are ignored. Suppliers may return {@code null} or a value of type
+     *                  {@code T}.
+     * @return the first return value from {@code suppliers} which is not {@code null}, or {@code null} if there are no non-null values.
      * @since 3.10
      */
     @SafeVarargs
@@ -690,19 +676,17 @@ public class ObjectUtils {
     }
 
     /**
-     * Gets the hash code of an object returning zero when the
-     * object is {@code null}.
+     * Gets the hash code of an object returning zero when the object is {@code null}.
      *
      * <pre>
      * ObjectUtils.hashCode(null)   = 0
      * ObjectUtils.hashCode(obj)    = obj.hashCode()
      * </pre>
      *
-     * @param obj  the object to obtain the hash code of, may be {@code null}.
+     * @param obj the object to obtain the hash code of, may be {@code null}.
      * @return the hash code of the object, or zero if null.
      * @since 2.1
-     * @deprecated this method has been replaced by {@code java.util.Objects.hashCode(Object)} in Java 7 and will be
-     * removed in future releases
+     * @deprecated this method has been replaced by {@code java.util.Objects.hashCode(Object)} in Java 7 and will be removed in future releases.
      */
     @Deprecated
     public static int hashCode(final Object obj) {
@@ -727,10 +711,10 @@ public class ObjectUtils {
     /**
      * Gets the hash code for multiple objects.
      *
-     * <p>This allows a hash code to be rapidly calculated for a number of objects.
-     * The hash code for a single object is the <em>not</em> same as {@link #hashCode(Object)}.
-     * The hash code for multiple objects is the same as that calculated by an
-     * {@link ArrayList} containing the specified objects.</p>
+     * <p>
+     * This allows a hash code to be rapidly calculated for a number of objects. The hash code for a single object is the <em>not</em> same as
+     * {@link #hashCode(Object)}. The hash code for multiple objects is the same as that calculated by an {@link ArrayList} containing the specified objects.
+     * </p>
      *
      * <pre>
      * ObjectUtils.hashCodeMulti()                 = 1
@@ -740,11 +724,10 @@ public class ObjectUtils {
      * ObjectUtils.hashCodeMulti(a,b,c)            = ((31 + a.hashCode()) * 31 + b.hashCode()) * 31 + c.hashCode()
      * </pre>
      *
-     * @param objects  the objects to obtain the hash code of, may be {@code null}.
+     * @param objects the objects to obtain the hash code of, may be {@code null}.
      * @return the hash code of the objects, or zero if null.
      * @since 3.0
-     * @deprecated this method has been replaced by {@code java.util.Objects.hash(Object...)} in Java 7 and will be
-     * removed in future releases.
+     * @deprecated this method has been replaced by {@code java.util.Objects.hash(Object...)} in Java 7 and will be removed in future releases.
      */
     @Deprecated
     public static int hashCodeMulti(final Object... objects) {
@@ -1222,12 +1205,12 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE) = "true"
      * </pre>
      *
+     * @param obj  the Object to {@code toString()}, may be {@code null}.
+     * @return the input's {@code toString()}, or {@code ""} if the input is {@code null}.
      * @see Objects#toString(Object)
      * @see Objects#toString(Object, String)
      * @see StringUtils#defaultString(String)
      * @see String#valueOf(Object)
-     * @param obj  the Object to {@code toString()}, may be {@code null}.
-     * @return the input's {@code toString()}, or {@code ""} if the input is {@code null}.
      * @since 2.0
      */
     public static String toString(final Object obj) {
@@ -1246,13 +1229,13 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE, "null") = "true"
      * </pre>
      *
+     * @param obj  the Object to {@code toString}, may be null.
+     * @param nullStr  the String to return if {@code null} input, may be null.
+     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
      * @see Objects#toString(Object)
      * @see Objects#toString(Object, String)
      * @see StringUtils#defaultString(String,String)
      * @see String#valueOf(Object)
-     * @param obj  the Object to {@code toString}, may be null.
-     * @param nullStr  the String to return if {@code null} input, may be null.
-     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
      * @since 2.0
      * @deprecated this method has been replaced by {@code java.util.Objects.toString(Object, String)} in Java 7 and
      * will be removed in future releases.
