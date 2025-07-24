@@ -57,6 +57,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">General Javadoc improvements.</action>
     <!-- ADD -->
     <!-- UPDATE -->
+    <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.13.1 to 1.14.0.</action>
   </release>
   <release version="3.18.0" date="2025-07-06" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
