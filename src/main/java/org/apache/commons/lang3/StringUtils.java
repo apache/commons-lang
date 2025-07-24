@@ -1754,7 +1754,7 @@ public class StringUtils {
      * @see String#endsWith(String)
      * @since 2.4
      * @since 3.0 Changed signature from endsWithIgnoreCase(String, String) to endsWithIgnoreCase(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#endsWith(CharSequence, CharSequence) Strings.CS.endsWith(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#endsWith(CharSequence, CharSequence) Strings.CI.endsWith(CharSequence, CharSequence)}
      */
     @Deprecated
     public static boolean endsWithIgnoreCase(final CharSequence str, final CharSequence suffix) {
