@@ -164,33 +164,31 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     }
 
     /**
-     * Compares this object against some other object. The result is {@code true} if and only if the argument is
-     * not {@code null} and is a {@link Float} object that represents a {@code float} that has the
-     * identical bit pattern to the bit pattern of the {@code float} represented by this object. For this
-     * purpose, two float values are considered to be the same if and only if the method
-     * {@link Float#floatToIntBits(float)}returns the same int value when applied to each.
+     * Compares this object against some other object. The result is {@code true} if and only if the argument is not {@code null} and is a {@link Float} object
+     * that represents a {@code float} that has the identical bit pattern to the bit pattern of the {@code float} represented by this object. For this purpose,
+     * two float values are considered to be the same if and only if the method {@link Float#floatToIntBits(float)}returns the same int value when applied to
+     * each.
      * <p>
-     * Note that in most cases, for two instances of class {@link Float},{@code f1} and {@code f2},
-     * the value of {@code f1.equals(f2)} is {@code true} if and only if <blockquote>
-     *
+     * Note that in most cases, for two instances of class {@link Float},{@code f1} and {@code f2}, the value of {@code f1.equals(f2)} is {@code true} if and
+     * only if:
+     * </p>
      * <pre>
-     *   f1.floatValue() == f2.floatValue()
+     * f1.floatValue() == f2.floatValue()
      * </pre>
-     *
-     * </blockquote>
      * <p>
      * also has the value {@code true}. However, there are two exceptions:
+     * </p>
      * <ul>
-     * <li>If {@code f1} and {@code f2} both represent {@code Float.NaN}, then the
-     * {@code equals} method returns {@code true}, even though {@code Float.NaN == Float.NaN} has
-     * the value {@code false}.
-     * <li>If {@code f1} represents {@code +0.0f} while {@code f2} represents {@code -0.0f},
-     * or vice versa, the {@code equal} test has the value {@code false}, even though
-     * {@code 0.0f == -0.0f} has the value {@code true}.
+     * <li>If {@code f1} and {@code f2} both represent {@code Float.NaN}, then the {@code equals} method returns {@code true}, even though
+     * {@code Float.NaN == Float.NaN} has the value {@code false}.
+     * <li>If {@code f1} represents {@code +0.0f} while {@code f2} represents {@code -0.0f}, or vice versa, the {@code equal} test has the value {@code false},
+     * even though {@code 0.0f == -0.0f} has the value {@code true}.
      * </ul>
+     * <p>
      * This definition allows hashtables to operate properly.
+     * </p>
      *
-     * @param obj  the object to compare with, null returns false
+     * @param obj the object to compare with, null returns false.
      * @return {@code true} if the objects are the same; {@code false} otherwise.
      * @see Float#floatToIntBits(float)
      */

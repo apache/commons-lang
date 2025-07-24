@@ -457,16 +457,16 @@ public abstract class Strings {
      * </p>
      *
      * <pre>{@code
-     * Strings.CI.compareIgnoreCase(null, null)   = 0
-     * Strings.CI.compareIgnoreCase(null , "a")   < 0
-     * Strings.CI.compareIgnoreCase("a", null)    > 0
-     * Strings.CI.compareIgnoreCase("abc", "abc") = 0
-     * Strings.CI.compareIgnoreCase("abc", "ABC") = 0
-     * Strings.CI.compareIgnoreCase("a", "b")     < 0
-     * Strings.CI.compareIgnoreCase("b", "a")     > 0
-     * Strings.CI.compareIgnoreCase("a", "B")     < 0
-     * Strings.CI.compareIgnoreCase("A", "b")     < 0
-     * Strings.CI.compareIgnoreCase("ab", "ABC")  < 0
+     * Strings.CI.compare(null, null)   = 0
+     * Strings.CI.compare(null , "a")   < 0
+     * Strings.CI.compare("a", null)    > 0
+     * Strings.CI.compare("abc", "abc") = 0
+     * Strings.CI.compare("abc", "ABC") = 0
+     * Strings.CI.compare("a", "b")     < 0
+     * Strings.CI.compare("b", "a")     > 0
+     * Strings.CI.compare("a", "B")     < 0
+     * Strings.CI.compare("A", "b")     < 0
+     * Strings.CI.compare("ab", "ABC")  < 0
      * }</pre>
      *
      * @see String#compareTo(String)
@@ -500,14 +500,14 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.containsIgnoreCase(null, *)    = false
-     * Strings.CI.containsIgnoreCase(*, null)    = false
-     * Strings.CI.containsIgnoreCase("", "")     = true
-     * Strings.CI.containsIgnoreCase("abc", "")  = true
-     * Strings.CI.containsIgnoreCase("abc", "a") = true
-     * Strings.CI.containsIgnoreCase("abc", "z") = false
-     * Strings.CI.containsIgnoreCase("abc", "A") = true
-     * Strings.CI.containsIgnoreCase("abc", "Z") = false
+     * Strings.CI.contains(null, *)    = false
+     * Strings.CI.contains(*, null)    = false
+     * Strings.CI.contains("", "")     = true
+     * Strings.CI.contains("abc", "")  = true
+     * Strings.CI.contains("abc", "a") = true
+     * Strings.CI.contains("abc", "z") = false
+     * Strings.CI.contains("abc", "A") = true
+     * Strings.CI.contains("abc", "Z") = false
      * </pre>
      *
      * @param seq       the CharSequence to check, may be null
@@ -665,11 +665,11 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.equalsIgnoreCase(null, null)   = true
-     * Strings.CI.equalsIgnoreCase(null, "abc")  = false
-     * Strings.CI.equalsIgnoreCase("abc", null)  = false
-     * Strings.CI.equalsIgnoreCase("abc", "abc") = true
-     * Strings.CI.equalsIgnoreCase("abc", "ABC") = true
+     * Strings.CI.equals(null, null)   = true
+     * Strings.CI.equals(null, "abc")  = false
+     * Strings.CI.equals("abc", null)  = false
+     * Strings.CI.equals("abc", "abc") = true
+     * Strings.CI.equals("abc", "ABC") = true
      * </pre>
      *
      * @param cs1 the first CharSequence, may be {@code null}
@@ -704,11 +704,11 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.equalsIgnoreCase(null, null)   = true
-     * Strings.CI.equalsIgnoreCase(null, "abc")  = false
-     * Strings.CI.equalsIgnoreCase("abc", null)  = false
-     * Strings.CI.equalsIgnoreCase("abc", "abc") = true
-     * Strings.CI.equalsIgnoreCase("abc", "ABC") = true
+     * Strings.CI.equals(null, null)   = true
+     * Strings.CI.equals(null, "abc")  = false
+     * Strings.CI.equals("abc", null)  = false
+     * Strings.CI.equals("abc", "abc") = true
+     * Strings.CI.equals("abc", "ABC") = true
      * </pre>
      *
      * @param str1 the first CharSequence, may be {@code null}
@@ -791,13 +791,13 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.indexOfIgnoreCase(null, *)          = -1
-     * Strings.CI.indexOfIgnoreCase(*, null)          = -1
-     * Strings.CI.indexOfIgnoreCase("", "")           = 0
-     * Strings.CI.indexOfIgnoreCase(" ", " ")         = 0
-     * Strings.CI.indexOfIgnoreCase("aabaabaa", "a")  = 0
-     * Strings.CI.indexOfIgnoreCase("aabaabaa", "b")  = 2
-     * Strings.CI.indexOfIgnoreCase("aabaabaa", "ab") = 1
+     * Strings.CI.indexOf(null, *)          = -1
+     * Strings.CI.indexOf(*, null)          = -1
+     * Strings.CI.indexOf("", "")           = 0
+     * Strings.CI.indexOf(" ", " ")         = 0
+     * Strings.CI.indexOf("aabaabaa", "a")  = 0
+     * Strings.CI.indexOf("aabaabaa", "b")  = 2
+     * Strings.CI.indexOf("aabaabaa", "ab") = 1
      * </pre>
      *
      * @param seq       the CharSequence to check, may be null
@@ -839,17 +839,17 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.indexOfIgnoreCase(null, *, *)          = -1
-     * Strings.CI.indexOfIgnoreCase(*, null, *)          = -1
-     * Strings.CI.indexOfIgnoreCase("", "", 0)           = 0
-     * Strings.CI.indexOfIgnoreCase("aabaabaa", "A", 0)  = 0
-     * Strings.CI.indexOfIgnoreCase("aabaabaa", "B", 0)  = 2
-     * Strings.CI.indexOfIgnoreCase("aabaabaa", "AB", 0) = 1
-     * Strings.CI.indexOfIgnoreCase("aabaabaa", "B", 3)  = 5
-     * Strings.CI.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
-     * Strings.CI.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
-     * Strings.CI.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
-     * Strings.CI.indexOfIgnoreCase("abc", "", 9)        = -1
+     * Strings.CI.indexOf(null, *, *)          = -1
+     * Strings.CI.indexOf(*, null, *)          = -1
+     * Strings.CI.indexOf("", "", 0)           = 0
+     * Strings.CI.indexOf("aabaabaa", "A", 0)  = 0
+     * Strings.CI.indexOf("aabaabaa", "B", 0)  = 2
+     * Strings.CI.indexOf("aabaabaa", "AB", 0) = 1
+     * Strings.CI.indexOf("aabaabaa", "B", 3)  = 5
+     * Strings.CI.indexOf("aabaabaa", "B", 9)  = -1
+     * Strings.CI.indexOf("aabaabaa", "B", -1) = 2
+     * Strings.CI.indexOf("aabaabaa", "", 2)   = 2
+     * Strings.CI.indexOf("abc", "", 9)        = -1
      * </pre>
      *
      * @param seq       the CharSequence to check, may be null
@@ -902,11 +902,11 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.lastIndexOfIgnoreCase(null, *)          = -1
-     * Strings.CI.lastIndexOfIgnoreCase(*, null)          = -1
-     * Strings.CI.lastIndexOfIgnoreCase("aabaabaa", "A")  = 7
-     * Strings.CI.lastIndexOfIgnoreCase("aabaabaa", "B")  = 5
-     * Strings.CI.lastIndexOfIgnoreCase("aabaabaa", "AB") = 4
+     * Strings.CI.lastIndexOf(null, *)          = -1
+     * Strings.CI.lastIndexOf(*, null)          = -1
+     * Strings.CI.lastIndexOf("aabaabaa", "A")  = 7
+     * Strings.CI.lastIndexOf("aabaabaa", "B")  = 5
+     * Strings.CI.lastIndexOf("aabaabaa", "AB") = 4
      * </pre>
      *
      * @param str       the CharSequence to check, may be null
@@ -952,15 +952,15 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.lastIndexOfIgnoreCase(null, *, *)          = -1
-     * Strings.CI.lastIndexOfIgnoreCase(*, null, *)          = -1
-     * Strings.CI.lastIndexOfIgnoreCase("aabaabaa", "A", 8)  = 7
-     * Strings.CI.lastIndexOfIgnoreCase("aabaabaa", "B", 8)  = 5
-     * Strings.CI.lastIndexOfIgnoreCase("aabaabaa", "AB", 8) = 4
-     * Strings.CI.lastIndexOfIgnoreCase("aabaabaa", "B", 9)  = 5
-     * Strings.CI.lastIndexOfIgnoreCase("aabaabaa", "B", -1) = -1
-     * Strings.CI.lastIndexOfIgnoreCase("aabaabaa", "A", 0)  = 0
-     * Strings.CI.lastIndexOfIgnoreCase("aabaabaa", "B", 0)  = -1
+     * Strings.CI.lastIndexOf(null, *, *)          = -1
+     * Strings.CI.lastIndexOf(*, null, *)          = -1
+     * Strings.CI.lastIndexOf("aabaabaa", "A", 8)  = 7
+     * Strings.CI.lastIndexOf("aabaabaa", "B", 8)  = 5
+     * Strings.CI.lastIndexOf("aabaabaa", "AB", 8) = 4
+     * Strings.CI.lastIndexOf("aabaabaa", "B", 9)  = 5
+     * Strings.CI.lastIndexOf("aabaabaa", "B", -1) = -1
+     * Strings.CI.lastIndexOf("aabaabaa", "A", 0)  = 0
+     * Strings.CI.lastIndexOf("aabaabaa", "B", 0)  = -1
      * </pre>
      *
      * @param seq       the CharSequence to check, may be null
@@ -1007,28 +1007,28 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.prependIfMissingIgnoreCase(null, null) = null
-     * Strings.CI.prependIfMissingIgnoreCase("abc", null) = "abc"
-     * Strings.CI.prependIfMissingIgnoreCase("", "xyz") = "xyz"
-     * Strings.CI.prependIfMissingIgnoreCase("abc", "xyz") = "xyzabc"
-     * Strings.CI.prependIfMissingIgnoreCase("xyzabc", "xyz") = "xyzabc"
-     * Strings.CI.prependIfMissingIgnoreCase("XYZabc", "xyz") = "XYZabc"
+     * Strings.CI.prependIfMissing(null, null) = null
+     * Strings.CI.prependIfMissing("abc", null) = "abc"
+     * Strings.CI.prependIfMissing("", "xyz") = "xyz"
+     * Strings.CI.prependIfMissing("abc", "xyz") = "xyzabc"
+     * Strings.CI.prependIfMissing("xyzabc", "xyz") = "xyzabc"
+     * Strings.CI.prependIfMissing("XYZabc", "xyz") = "XYZabc"
      * </pre>
      * <p>
      * With additional prefixes,
      * </p>
      *
      * <pre>
-     * Strings.CI.prependIfMissingIgnoreCase(null, null, null) = null
-     * Strings.CI.prependIfMissingIgnoreCase("abc", null, null) = "abc"
-     * Strings.CI.prependIfMissingIgnoreCase("", "xyz", null) = "xyz"
-     * Strings.CI.prependIfMissingIgnoreCase("abc", "xyz", new CharSequence[]{null}) = "xyzabc"
-     * Strings.CI.prependIfMissingIgnoreCase("abc", "xyz", "") = "abc"
-     * Strings.CI.prependIfMissingIgnoreCase("abc", "xyz", "mno") = "xyzabc"
-     * Strings.CI.prependIfMissingIgnoreCase("xyzabc", "xyz", "mno") = "xyzabc"
-     * Strings.CI.prependIfMissingIgnoreCase("mnoabc", "xyz", "mno") = "mnoabc"
-     * Strings.CI.prependIfMissingIgnoreCase("XYZabc", "xyz", "mno") = "XYZabc"
-     * Strings.CI.prependIfMissingIgnoreCase("MNOabc", "xyz", "mno") = "MNOabc"
+     * Strings.CI.prependIfMissing(null, null, null) = null
+     * Strings.CI.prependIfMissing("abc", null, null) = "abc"
+     * Strings.CI.prependIfMissing("", "xyz", null) = "xyz"
+     * Strings.CI.prependIfMissing("abc", "xyz", new CharSequence[]{null}) = "xyzabc"
+     * Strings.CI.prependIfMissing("abc", "xyz", "") = "abc"
+     * Strings.CI.prependIfMissing("abc", "xyz", "mno") = "xyzabc"
+     * Strings.CI.prependIfMissing("xyzabc", "xyz", "mno") = "xyzabc"
+     * Strings.CI.prependIfMissing("mnoabc", "xyz", "mno") = "mnoabc"
+     * Strings.CI.prependIfMissing("XYZabc", "xyz", "mno") = "XYZabc"
+     * Strings.CI.prependIfMissing("MNOabc", "xyz", "mno") = "MNOabc"
      * </pre>
      *
      * @param str      The string.
@@ -1076,14 +1076,14 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.removeIgnoreCase(null, *)        = null
-     * Strings.CI.removeIgnoreCase("", *)          = ""
-     * Strings.CI.removeIgnoreCase(*, null)        = *
-     * Strings.CI.removeIgnoreCase(*, "")          = *
-     * Strings.CI.removeIgnoreCase("queued", "ue") = "qd"
-     * Strings.CI.removeIgnoreCase("queued", "zz") = "queued"
-     * Strings.CI.removeIgnoreCase("quEUed", "UE") = "qd"
-     * Strings.CI.removeIgnoreCase("queued", "zZ") = "queued"
+     * Strings.CI.remove(null, *)        = null
+     * Strings.CI.remove("", *)          = ""
+     * Strings.CI.remove(*, null)        = *
+     * Strings.CI.remove(*, "")          = *
+     * Strings.CI.remove("queued", "ue") = "qd"
+     * Strings.CI.remove("queued", "zz") = "queued"
+     * Strings.CI.remove("quEUed", "UE") = "qd"
+     * Strings.CI.remove("queued", "zZ") = "queued"
      * </pre>
      *
      * @param str    the source String to search, may be null
@@ -1120,15 +1120,15 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.removeEndIgnoreCase(null, *)      = null
-     * Strings.CI.removeEndIgnoreCase("", *)        = ""
-     * Strings.CI.removeEndIgnoreCase(*, null)      = *
-     * Strings.CI.removeEndIgnoreCase("www.domain.com", ".com.")  = "www.domain.com"
-     * Strings.CI.removeEndIgnoreCase("www.domain.com", ".com")   = "www.domain"
-     * Strings.CI.removeEndIgnoreCase("www.domain.com", "domain") = "www.domain.com"
-     * Strings.CI.removeEndIgnoreCase("abc", "")    = "abc"
-     * Strings.CI.removeEndIgnoreCase("www.domain.com", ".COM") = "www.domain")
-     * Strings.CI.removeEndIgnoreCase("www.domain.COM", ".com") = "www.domain")
+     * Strings.CI.removeEnd(null, *)      = null
+     * Strings.CI.removeEnd("", *)        = ""
+     * Strings.CI.removeEnd(*, null)      = *
+     * Strings.CI.removeEnd("www.domain.com", ".com.")  = "www.domain.com"
+     * Strings.CI.removeEnd("www.domain.com", ".com")   = "www.domain"
+     * Strings.CI.removeEnd("www.domain.com", "domain") = "www.domain.com"
+     * Strings.CI.removeEnd("abc", "")    = "abc"
+     * Strings.CI.removeEnd("www.domain.com", ".COM") = "www.domain")
+     * Strings.CI.removeEnd("www.domain.COM", ".com") = "www.domain")
      * </pre>
      *
      * @param str    the source String to search, may be null
@@ -1171,14 +1171,14 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.removeStartIgnoreCase(null, *)      = null
-     * Strings.CI.removeStartIgnoreCase("", *)        = ""
-     * Strings.CI.removeStartIgnoreCase(*, null)      = *
-     * Strings.CI.removeStartIgnoreCase("www.domain.com", "www.")   = "domain.com"
-     * Strings.CI.removeStartIgnoreCase("www.domain.com", "WWW.")   = "domain.com"
-     * Strings.CI.removeStartIgnoreCase("domain.com", "www.")       = "domain.com"
-     * Strings.CI.removeStartIgnoreCase("www.domain.com", "domain") = "www.domain.com"
-     * Strings.CI.removeStartIgnoreCase("abc", "")    = "abc"
+     * Strings.CI.removeStart(null, *)      = null
+     * Strings.CI.removeStart("", *)        = ""
+     * Strings.CI.removeStart(*, null)      = *
+     * Strings.CI.removeStart("www.domain.com", "www.")   = "domain.com"
+     * Strings.CI.removeStart("www.domain.com", "WWW.")   = "domain.com"
+     * Strings.CI.removeStart("domain.com", "www.")       = "domain.com"
+     * Strings.CI.removeStart("www.domain.com", "domain") = "www.domain.com"
+     * Strings.CI.removeStart("abc", "")    = "abc"
      * </pre>
      *
      * @param str    the source String to search, may be null
@@ -1218,14 +1218,14 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.replaceIgnoreCase(null, *, *)        = null
-     * Strings.CI.replaceIgnoreCase("", *, *)          = ""
-     * Strings.CI.replaceIgnoreCase("any", null, *)    = "any"
-     * Strings.CI.replaceIgnoreCase("any", *, null)    = "any"
-     * Strings.CI.replaceIgnoreCase("any", "", *)      = "any"
-     * Strings.CI.replaceIgnoreCase("aba", "a", null)  = "aba"
-     * Strings.CI.replaceIgnoreCase("abA", "A", "")    = "b"
-     * Strings.CI.replaceIgnoreCase("aba", "A", "z")   = "zbz"
+     * Strings.CI.replace(null, *, *)        = null
+     * Strings.CI.replace("", *, *)          = ""
+     * Strings.CI.replace("any", null, *)    = "any"
+     * Strings.CI.replace("any", *, null)    = "any"
+     * Strings.CI.replace("any", "", *)      = "any"
+     * Strings.CI.replace("aba", "a", null)  = "aba"
+     * Strings.CI.replace("abA", "A", "")    = "b"
+     * Strings.CI.replace("aba", "A", "z")   = "zbz"
      * </pre>
      *
      * @see #replace(String text, String searchString, String replacement, int max)
@@ -1268,18 +1268,18 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.replaceIgnoreCase(null, *, *, *)         = null
-     * Strings.CI.replaceIgnoreCase("", *, *, *)           = ""
-     * Strings.CI.replaceIgnoreCase("any", null, *, *)     = "any"
-     * Strings.CI.replaceIgnoreCase("any", *, null, *)     = "any"
-     * Strings.CI.replaceIgnoreCase("any", "", *, *)       = "any"
-     * Strings.CI.replaceIgnoreCase("any", *, *, 0)        = "any"
-     * Strings.CI.replaceIgnoreCase("abaa", "a", null, -1) = "abaa"
-     * Strings.CI.replaceIgnoreCase("abaa", "a", "", -1)   = "b"
-     * Strings.CI.replaceIgnoreCase("abaa", "a", "z", 0)   = "abaa"
-     * Strings.CI.replaceIgnoreCase("abaa", "A", "z", 1)   = "zbaa"
-     * Strings.CI.replaceIgnoreCase("abAa", "a", "z", 2)   = "zbza"
-     * Strings.CI.replaceIgnoreCase("abAa", "a", "z", -1)  = "zbzz"
+     * Strings.CI.replace(null, *, *, *)         = null
+     * Strings.CI.replace("", *, *, *)           = ""
+     * Strings.CI.replace("any", null, *, *)     = "any"
+     * Strings.CI.replace("any", *, null, *)     = "any"
+     * Strings.CI.replace("any", "", *, *)       = "any"
+     * Strings.CI.replace("any", *, *, 0)        = "any"
+     * Strings.CI.replace("abaa", "a", null, -1) = "abaa"
+     * Strings.CI.replace("abaa", "a", "", -1)   = "b"
+     * Strings.CI.replace("abaa", "a", "z", 0)   = "abaa"
+     * Strings.CI.replace("abaa", "A", "z", 1)   = "zbaa"
+     * Strings.CI.replace("abAa", "a", "z", 2)   = "zbza"
+     * Strings.CI.replace("abAa", "a", "z", -1)  = "zbzz"
      * </pre>
      *
      * @param text         text to search and replace in, may be null
@@ -1343,15 +1343,15 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.replaceOnceIgnoreCase(null, *, *)        = null
-     * Strings.CI.replaceOnceIgnoreCase("", *, *)          = ""
-     * Strings.CI.replaceOnceIgnoreCase("any", null, *)    = "any"
-     * Strings.CI.replaceOnceIgnoreCase("any", *, null)    = "any"
-     * Strings.CI.replaceOnceIgnoreCase("any", "", *)      = "any"
-     * Strings.CI.replaceOnceIgnoreCase("aba", "a", null)  = "aba"
-     * Strings.CI.replaceOnceIgnoreCase("aba", "a", "")    = "ba"
-     * Strings.CI.replaceOnceIgnoreCase("aba", "a", "z")   = "zba"
-     * Strings.CI.replaceOnceIgnoreCase("FoOFoofoo", "foo", "") = "Foofoo"
+     * Strings.CI.replaceOnce(null, *, *)        = null
+     * Strings.CI.replaceOnce("", *, *)          = ""
+     * Strings.CI.replaceOnce("any", null, *)    = "any"
+     * Strings.CI.replaceOnce("any", *, null)    = "any"
+     * Strings.CI.replaceOnce("any", "", *)      = "any"
+     * Strings.CI.replaceOnce("aba", "a", null)  = "aba"
+     * Strings.CI.replaceOnce("aba", "a", "")    = "ba"
+     * Strings.CI.replaceOnce("aba", "a", "z")   = "zba"
+     * Strings.CI.replaceOnce("FoOFoofoo", "foo", "") = "Foofoo"
      * </pre>
      *
      * @see #replace(String text, String searchString, String replacement, int max)
@@ -1388,11 +1388,11 @@ public abstract class Strings {
      * </p>
      *
      * <pre>
-     * Strings.CI.startsWithIgnoreCase(null, null)      = true
-     * Strings.CI.startsWithIgnoreCase(null, "abc")     = false
-     * Strings.CI.startsWithIgnoreCase("abcdef", null)  = false
-     * Strings.CI.startsWithIgnoreCase("abcdef", "abc") = true
-     * Strings.CI.startsWithIgnoreCase("ABCDEF", "abc") = true
+     * Strings.CI.startsWith(null, null)      = true
+     * Strings.CI.startsWith(null, "abc")     = false
+     * Strings.CI.startsWith("abcdef", null)  = false
+     * Strings.CI.startsWith("abcdef", "abc") = true
+     * Strings.CI.startsWith("ABCDEF", "abc") = true
      * </pre>
      *
      * @see String#startsWith(String)
