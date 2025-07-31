@@ -458,52 +458,90 @@ public class ClassUtils {
     }
 
     /**
-     * Converts a given name of class into canonical format. If name of class is not a name of array class it returns
-     * unchanged name.
-     *
+     * Converts a given internal class name into its canonical format.
      * <p>
-     * The method does not change the {@code $} separators in case the class is inner class.
+     * If the name is a valid Java array type descriptor (e.g., "[I", "[[Ljava.lang.String;"),
+     * it will be converted to a canonical form such as "int[]" or "java.lang.String[][]".
+     * If the name is a non-array class name (e.g., "java.lang.String"), it will be returned as-is
+     * after whitespace trimming.
      * </p>
      *
-     * <p>
-     * Example:
+     * <p>Special handling includes:
      * <ul>
-     * <li>{@code getCanonicalName("[I") = "int[]"}</li>
-     * <li>{@code getCanonicalName("[Ljava.lang.String;") = "java.lang.String[]"}</li>
-     * <li>{@code getCanonicalName("java.lang.String") = "java.lang.String"}</li>
+     *   <li>{@code null} or blank input returns an empty string</li>
+     *   <li>Invalid or malformed input will result in an {@link IllegalArgumentException}</li>
      * </ul>
      * </p>
      *
-     * @param name the name of class.
-     * @return canonical form of class name.
+     * <p>Examples:
+     * <ul>
+     *   <li>{@code getCanonicalName("[I")} → {@code "int[]"}</li>
+     *   <li>{@code getCanonicalName("[[Ljava.lang.String;")} → {@code "java.lang.String[][]"}</li>
+     *   <li>{@code getCanonicalName("java.lang.String")} → {@code "java.lang.String"}</li>
+     * </ul>
+     * </p>
+     *
+     * @param name the internal name of a class
+     * @return canonical form of the class name, or an empty string if input is blank or null
+     * @throws IllegalArgumentException if the class name is invalid or malformed
      */
+
     private static String getCanonicalName(final String name) {
-        String className = StringUtils.deleteWhitespace(name);
-        if (className == null) {
-            return null;
+        if (StringUtils.isBlank(name)) {
+            return StringUtils.EMPTY;
         }
-        int dim = 0;
-        while (className.charAt(dim) == '[') {
-            dim++;
-            if (dim > MAX_DIMENSIONS) {
+
+        String className = StringUtils.deleteWhitespace(name);
+
+        char firstChar = className.charAt(0);
+        boolean firstCharValid = Character.isJavaIdentifierStart(firstChar) || firstChar == '[';
+        if (!firstCharValid) {
+            throw new IllegalArgumentException(
+                String.format("Invalid class name '%s': first character '%c' is not a valid Java identifier start character", 
+                className, firstChar));
+        }
+        if (firstChar != '[') {
+            // If the first character is not an array marker, return the class name as is.
+            return className;
+        }
+
+        int arrayDim = 0;
+        while (arrayDim < className.length() && className.charAt(arrayDim) == '[') {
+            arrayDim++;
+            if (arrayDim > MAX_DIMENSIONS) {
                 throw new IllegalArgumentException(String.format("Maximum array dimension %d exceeded", MAX_DIMENSIONS));
             }
         }
-        if (dim < 1) {
-            return className;
+
+        String rest = className.substring(arrayDim);
+        if (rest.isEmpty()) {
+            throw new IllegalArgumentException("Invalid class name: empty after array dimension");
         }
-        className = className.substring(dim);
-        if (className.startsWith("L")) {
-            className = className.substring(1, className.endsWith(";") ? className.length() - 1 : className.length());
-        } else if (!className.isEmpty()) {
-            className = REVERSE_ABBREVIATION_MAP.get(className.substring(0, 1));
+
+        String baseType;
+        if (rest.startsWith("L")) {
+            // Handle object type
+            if (!rest.endsWith(";")) {
+                throw new IllegalArgumentException(String.format("Invalid class name '%s': missing ';' at the end", className));
+            }
+            if (rest.length() < 3) {
+                throw new IllegalArgumentException(String.format("Invalid class name '%s': too short for object type", className));
+            }
+            baseType = rest.substring(1, rest.length() - 1);
+        } else {
+            // Handle primitive type
+            baseType = REVERSE_ABBREVIATION_MAP.get(rest);
+            if (baseType == null) {
+                throw new IllegalArgumentException(String.format("Invalid class name '%s': unknown primitive type", className));
+            }
         }
-        final StringBuilder canonicalClassNameBuffer = new StringBuilder(className.length() + dim * 2);
-        canonicalClassNameBuffer.append(className);
-        for (int i = 0; i < dim; i++) {
-            canonicalClassNameBuffer.append("[]");
+
+        StringBuilder canonicalNameBuilder = new StringBuilder();
+        canonicalNameBuilder.append(baseType);
+        for (int i = 0; i < arrayDim; i++) {
+            canonicalNameBuilder.append("[]");
         }
-        return canonicalClassNameBuffer.toString();
+        return canonicalNameBuilder.toString();
     }
 
     /**
