@@ -475,9 +475,9 @@ public class ClassUtils {
      *
      * <p>Examples:
      * <ul>
-     *   <li>{@code getCanonicalName("[I")} → {@code "int[]"}</li>
-     *   <li>{@code getCanonicalName("[[Ljava.lang.String;")} → {@code "java.lang.String[][]"}</li>
-     *   <li>{@code getCanonicalName("java.lang.String")} → {@code "java.lang.String"}</li>
+     *   <li>{@code getCanonicalName("[I") = "int[]"}</li>
+     *   <li>{@code getCanonicalName("[Ljava.lang.String;") = "java.lang.String[]"}</li>
+     *   <li>{@code getCanonicalName("java.lang.String") = "java.lang.String"}</li>
      * </ul>
      * </p>
      *
@@ -485,23 +485,21 @@ public class ClassUtils {
      * @return canonical form of the class name, or an empty string if input is blank or null
      * @throws IllegalArgumentException if the class name is invalid or malformed
      */
-
     private static String getCanonicalName(final String name) {
         if (StringUtils.isBlank(name)) {
             return StringUtils.EMPTY;
         }
 
-        String className = StringUtils.deleteWhitespace(name);
+        final String className = StringUtils.deleteWhitespace(name);
 
-        char firstChar = className.charAt(0);
-        boolean firstCharValid = Character.isJavaIdentifierStart(firstChar) || firstChar == '[';
+        final char firstChar = className.charAt(0);
+        final boolean firstCharValid = Character.isJavaIdentifierStart(firstChar) || firstChar == '[';
         if (!firstCharValid) {
             throw new IllegalArgumentException(
                 String.format("Invalid class name '%s': first character '%c' is not a valid Java identifier start character", 
                 className, firstChar));
         }
         if (firstChar != '[') {
-            // If the first character is not an array marker, return the class name as is.
             return className;
         }
 
@@ -513,14 +511,13 @@ public class ClassUtils {
             }
         }
 
-        String rest = className.substring(arrayDim);
+        final String rest = className.substring(arrayDim);
         if (rest.isEmpty()) {
             throw new IllegalArgumentException("Invalid class name: empty after array dimension");
         }
 
-        String baseType;
+        final String baseType;
         if (rest.startsWith("L")) {
-            // Handle object type
             if (!rest.endsWith(";")) {
                 throw new IllegalArgumentException(String.format("Invalid class name '%s': missing ';' at the end", className));
             }
@@ -529,14 +526,13 @@ public class ClassUtils {
             }
             baseType = rest.substring(1, rest.length() - 1);
         } else {
-            // Handle primitive type
             baseType = REVERSE_ABBREVIATION_MAP.get(rest);
             if (baseType == null) {
                 throw new IllegalArgumentException(String.format("Invalid class name '%s': unknown primitive type", className));
             }
         }
 
-        StringBuilder canonicalNameBuilder = new StringBuilder();
+        final StringBuilder canonicalNameBuilder = new StringBuilder();
         canonicalNameBuilder.append(baseType);
         for (int i = 0; i < arrayDim; i++) {
             canonicalNameBuilder.append("[]");
