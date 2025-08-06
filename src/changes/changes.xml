@@ -44,7 +44,7 @@ The <action> type attribute can be add,update,fix,remove.
     <title>Apache Commons Lang Release Notes</title>
   </properties>
   <body>
-  <release version="3.18.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
+  <release version="3.19.0" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
     <action                   type="fix" dev="ppkarwasz" due-to="Sebastian Steiner">[javadoc] Fix typo in Javadoc of Strings instances #1406.</action>
     <action                   type="fix" dev="ggregory" due-to="Hassan A Hashim">[javadoc] Fix Javadocs in ClassUtils #1410.</action>
@@ -57,6 +57,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">General Javadoc improvements.</action>
     <action issue="LANG-1780" type="fix" dev="ggregory" due-to="tza">Fix Strings Javadoc #1419.</action>
     <!-- ADD -->
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.ArrayUtils.SOFT_MAX_ARRAY_LENGTH.</action>
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.13.1 to 1.14.0.</action>
   </release>
