@@ -7707,7 +7707,7 @@ public class StringUtils {
      * @see StringUtils#startsWith(CharSequence, CharSequence)
      * @since 2.5
      * @since 3.0 Changed signature from startsWithAny(String, String[]) to startsWithAny(CharSequence, CharSequence...)
-     * @deprecated Use {@link Strings#startsWithAny(CharSequence, CharSequence...) Strings.CI.startsWithAny(CharSequence, CharSequence...)}
+     * @deprecated Use {@link Strings#startsWithAny(CharSequence, CharSequence...) Strings.CS.startsWithAny(CharSequence, CharSequence...)}
      */
     @Deprecated
     public static boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
