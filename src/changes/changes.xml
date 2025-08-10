@@ -59,7 +59,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Hassan A Hashim">[javadoc] Fix Javadocs in ClassUtils #1410.</action>
     <action                   type="fix" dev="ggregory" due-to="mfg92">[javadoc] Fix @deprecated link for StringUtils#startsWithAny #1424.</action>
     <!-- ADD -->
-    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.ArrayUtils.SOFT_MAX_ARRAY_LENGTH.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.ArrayUtils.SOFT_MAX_ARRAY_LENGTH.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemUtils.IS_OS_NETWARE.</action>
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.13.1 to 1.14.0.</action>
   </release>

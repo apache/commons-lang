@@ -153,24 +153,29 @@ class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_OS_SOLARIS);
             assertFalse(SystemUtils.IS_OS_LINUX);
             assertFalse(SystemUtils.IS_OS_MAC_OSX);
+            assertFalse(SystemUtils.IS_OS_NETWARE);
         } else if (osName.startsWith("Windows")) {
             assertTrue(SystemUtils.IS_OS_WINDOWS);
             assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_UNIX);
+            assertFalse(SystemUtils.IS_OS_NETWARE);
         } else if (osName.startsWith("Solaris")) {
             assertTrue(SystemUtils.IS_OS_SOLARIS);
             assertTrue(SystemUtils.IS_OS_UNIX);
             assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
+            assertFalse(SystemUtils.IS_OS_NETWARE);
         } else if (osName.toLowerCase(Locale.ENGLISH).startsWith("linux")) {
             assertTrue(SystemUtils.IS_OS_LINUX);
             assertTrue(SystemUtils.IS_OS_UNIX);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
+            assertFalse(SystemUtils.IS_OS_NETWARE);
         } else if (osName.startsWith("Mac OS X")) {
             assertTrue(SystemUtils.IS_OS_MAC_OSX);
             assertTrue(SystemUtils.IS_OS_UNIX);
             assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
+            assertFalse(SystemUtils.IS_OS_NETWARE);
             // @formatter:off
             final boolean[] macOsValues = {
                     SystemUtils.IS_OS_MAC_OSX_BIG_SUR,
@@ -204,16 +209,19 @@ class SystemUtilsTest extends AbstractLangTest {
             assertFalse(SystemUtils.IS_OS_UNIX);
             assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
+            assertFalse(SystemUtils.IS_OS_NETWARE);
         } else if (osName.startsWith("SunOS")) {
             assertTrue(SystemUtils.IS_OS_SUN_OS);
             assertTrue(SystemUtils.IS_OS_UNIX);
             assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
+            assertFalse(SystemUtils.IS_OS_NETWARE);
         } else if (osName.startsWith("FreeBSD")) {
             assertTrue(SystemUtils.IS_OS_FREE_BSD);
             assertTrue(SystemUtils.IS_OS_UNIX);
             assertFalse(SystemUtils.IS_OS_ANDROID);
             assertFalse(SystemUtils.IS_OS_WINDOWS);
+            assertFalse(SystemUtils.IS_OS_NETWARE);
         } else {
             System.err.println("Can't test IS_OS_ value: " + osName);
         }

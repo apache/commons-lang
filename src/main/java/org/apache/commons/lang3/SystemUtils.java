@@ -1641,6 +1641,22 @@ public class SystemUtils {
     public static final boolean IS_OS_NET_BSD = getOsNameMatches("NetBSD");
 
     /**
+     * The constant {@code true} if this is Netware.
+     * <p>
+     * The result depends on the value of the {@link #OS_NAME} constant.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #OS_NAME} is {@code null}.
+     * </p>
+     * <p>
+     * This value is initialized when the class is loaded.
+     * </p>
+     *
+     * @since 3.19.0
+     */
+    public static final boolean IS_OS_NETWARE = getOsNameMatches("Netware");
+
+    /**
      * The constant {@code true} if this is OS/2.
      * <p>
      * The result depends on the value of the {@link #OS_NAME} constant.
