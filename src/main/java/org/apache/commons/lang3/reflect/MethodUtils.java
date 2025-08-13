@@ -109,31 +109,39 @@ public class MethodUtils {
     }
 
     /**
-     * Gets an accessible method (that is, one that can be invoked via
-     * reflection) that implements the specified Method. If no such method
-     * can be found, return {@code null}.
+     * Gets an accessible method (that is, one that can be invoked via reflection) that implements the specified Method. If no such method can be found, return
+     * {@code null}.
      *
      * @param method The method that we wish to call, may be null.
      * @return The accessible method
      */
-    public static Method getAccessibleMethod(Method method) {
-        if (!MemberUtils.isAccessible(method)) {
+    public static Method getAccessibleMethod(final Method method) {
+        return method != null ? getAccessibleMethod(method.getDeclaringClass(), method) : null;
+    }
+
+    /**
+     * Gets an accessible method (that is, one that can be invoked via reflection) that implements the specified Method. If no such method can be found, return
+     * {@code null}.
+     *
+     * @param cls The implementing class, may be null.
+     * @param method The method that we wish to call, may be null.
+     * @return The accessible method or null.
+     * @since 3.19.0
+     */
+    public static Method getAccessibleMethod(final Class<?> cls, final Method method) {
+        if (!MemberUtils.isPublic(method)) {
             return null;
         }
         // If the declaring class is public, we are done
-        final Class<?> cls = method.getDeclaringClass();
         if (ClassUtils.isPublic(cls)) {
             return method;
         }
         final String methodName = method.getName();
         final Class<?>[] parameterTypes = method.getParameterTypes();
         // Check the implemented interfaces and subinterfaces
-        method = getAccessibleMethodFromInterfaceNest(cls, methodName, parameterTypes);
+        final Method method2 = getAccessibleMethodFromInterfaceNest(cls, methodName, parameterTypes);
         // Check the superclass chain
-        if (method == null) {
-            method = getAccessibleMethodFromSuperclass(cls, methodName, parameterTypes);
-        }
-        return method;
+        return method2 != null ? method2 : getAccessibleMethodFromSuperclass(cls, methodName, parameterTypes);
     }
 
     /**
