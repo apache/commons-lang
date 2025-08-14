@@ -1897,4 +1897,34 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(5, NumberUtils.toShort("", (short) 5));
         assertEquals(5, NumberUtils.toShort(null, (short) 5));
     }
+
+    /**
+     * Test for {@link NumberUtils#convertIfNotNarrowing}.
+     */
+    @Test
+    void testConvertIfNotNarrowing() {
+        assertEquals(42L, NumberUtils.convertIfNotNarrowing((Integer) 42, Long.class));
+        assertEquals(42.0, NumberUtils.convertIfNotNarrowing((Long) 42L, Double.class));
+        assertEquals(100, NumberUtils.convertIfNotNarrowing((Integer) 100, Integer.class));
+
+        final IllegalArgumentException exNarrowing = assertThrows(IllegalArgumentException.class,
+                () -> NumberUtils.convertIfNotNarrowing((Long) 100L, Integer.class));
+        assertTrue(exNarrowing.getMessage().contains("Narrowing conversion"));
+
+        final IllegalArgumentException exNumberNull = assertThrows(IllegalArgumentException.class,
+                () -> NumberUtils.convertIfNotNarrowing(null, Integer.class));
+        assertTrue(exNumberNull.getMessage().contains("must not be null"));
+
+        final IllegalArgumentException exTargetTypeNull = assertThrows(IllegalArgumentException.class,
+                () -> NumberUtils.convertIfNotNarrowing(42, null));
+        assertTrue(exTargetTypeNull.getMessage().contains("must not be null"));
+
+        final IllegalArgumentException exUnsupportedFromBigInteger = assertThrows(IllegalArgumentException.class,
+                () -> NumberUtils.convertIfNotNarrowing(new java.math.BigInteger("42"), Double.class));
+        assertTrue(exUnsupportedFromBigInteger.getMessage().contains("Unsupported number type"));
+
+        final IllegalArgumentException exUnsupportedToBigInteger = assertThrows(IllegalArgumentException.class,
+                () -> NumberUtils.convertIfNotNarrowing(42, java.math.BigInteger.class));
+        assertTrue(exUnsupportedToBigInteger.getMessage().contains("Unsupported number type"));
+    }
 }
