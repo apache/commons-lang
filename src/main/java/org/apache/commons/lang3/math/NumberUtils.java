@@ -152,6 +152,130 @@ public class NumberUtils {
     }
 
     /**
+     * Converts a given {@link Number} to the specified target number type, if and
+     * only if the conversion is not a narrowing conversion. Narrowing conversions
+     * (e.g., from
+     * {@link Long} to {@link Integer}) will result in an
+     * {@link IllegalArgumentException}.
+     * <p>
+     * Widening conversions are allowed in accordance with the following numeric
+     * rank:
+     *
+     * <pre>
+     * Byte &lt; Short &lt; Integer &lt; Long &lt; Float &lt; Double
+     * </pre>
+     *
+     * For example:
+     * <ul>
+     * <li>{@code Integer -> Long} is allowed</li>
+     * <li>{@code Long -> Double} is allowed</li>
+     * <li>{@code Long -> Integer} is not allowed (narrowing)</li>
+     * </ul>
+     *
+     * @param number     the source {@link Number} to convert; must not be
+     *                   {@code null}
+     * @param targetType the target number type; must not be {@code null} and must
+     *                   be one of:
+     *                   {@link Byte}, {@link Short}, {@link Integer}, {@link Long},
+     *                   {@link Float}, or {@link Double}
+     * @param <T>        the target number type parameter
+     * @return the converted value as an instance of {@code targetType}
+     * @throws IllegalArgumentException if:
+     *                                  <ul>
+     *                                  <li>{@code number} is {@code null}</li>
+     *                                  <li>{@code targetType} is {@code null}</li>
+     *                                  <li>{@code targetType} is not supported</li>
+     *                                  <li>the conversion would narrow the
+     *                                  value</li>
+     *                                  </ul>
+     */
+    public static <T extends Number> T convertIfNotNarrowing(Number number, Class<T> targetType) {
+        if (number == null || targetType == null) {
+            throw new IllegalArgumentException("Number and targetType must not be null.");
+        }
+
+        final Class<? extends Number> sourceType = number.getClass();
+
+        // Check the widening rank
+        final int sourceRank = getRank(sourceType);
+        final int targetRank = getRank(targetType);
+
+        if (sourceRank < 0 || targetRank < 0) {
+            throw new IllegalArgumentException("Unsupported number type: " + sourceType + " or " + targetType);
+        }
+
+        if (targetRank < sourceRank) {
+            throw new IllegalArgumentException(
+                    "Narrowing conversion from " + sourceType.getSimpleName() + " to " + targetType.getSimpleName()
+                            + " is not allowed.");
+        }
+
+        // Perform conversion
+        if (targetType == Byte.class) {
+            return targetType.cast(number.byteValue());
+        }
+        if (targetType == Short.class) {
+            return targetType.cast(number.shortValue());
+        }
+        if (targetType == Integer.class) {
+            return targetType.cast(number.intValue());
+        }
+        if (targetType == Long.class) {
+            return targetType.cast(number.longValue());
+        }
+        if (targetType == Float.class) {
+            return targetType.cast(number.floatValue());
+        }
+        if (targetType == Double.class) {
+            return targetType.cast(number.doubleValue());
+        }
+
+        throw new IllegalArgumentException("Unsupported target number type: " + targetType);
+    }
+
+    /**
+     * Returns a numeric rank for the specified number type to determine
+     * its position in the widening conversion hierarchy.
+     * <p>
+     * The ranks are defined as:
+     * <pre>
+     * Byte    = 1
+     * Short   = 2
+     * Integer = 3
+     * Long    = 4
+     * Float   = 5
+     * Double  = 6
+     * </pre>
+     * These ranks are used to determine whether a conversion is widening
+     * (allowed) or narrowing (disallowed) such as in the
+     * {@link #convertIfNotNarrowing(Number, Class)} method.
+     *
+     * @param type the number type class; must not be {@code null}
+     * @return the numeric rank of the type, or {@code -1} if the type is unsupported
+     */
+    private static <T extends Number> int getRank(Class<T> type) {
+        if (type == Byte.class) {
+            return 1;
+        }
+        if (type == Short.class) {
+            return 2;
+        }
+        if (type == Integer.class) {
+            return 3;
+        }
+        if (type == Long.class) {
+            return 4;
+        }
+        if (type == Float.class) {
+            return 5;
+        }
+        if (type == Double.class) {
+            return 6;
+        }
+        return -1;
+    }
+
+    /**
      * Creates a {@link BigDecimal} from a {@link String}.
      *
      * <p>Returns {@code null} if the string is {@code null}.</p>

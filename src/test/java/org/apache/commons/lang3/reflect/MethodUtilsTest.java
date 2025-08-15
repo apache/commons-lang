@@ -72,6 +72,16 @@ class MethodUtilsTest extends AbstractLangTest {
         @Override
         public void testMethod6() { }
     }
+
+    interface VarArgInterface {
+    }
+
+    public static class VarArgInterfaceImpl1 implements VarArgInterface {
+    }
+
+    public static class VarArgInterfaceImpl2 implements VarArgInterface {
+    }
+
     interface ChildInterface {
     }
 
@@ -287,6 +297,14 @@ class MethodUtilsTest extends AbstractLangTest {
 
         public static String varOverload(final String... args) {
             return "String...";
+        }
+
+        public static String varargsWithOtherArg(final int firstArg, final String... args) {
+            return "int, String...";
+        }
+
+        public static String varargsInterface(final VarArgInterface... args) {
+            return "VarArgInterface...";
         }
 
         public static ImmutablePair<String, Object[]> varOverloadEchoStatic(final Number... args) {
@@ -995,6 +1013,16 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testInvokeJavaVarargsResolution() throws Exception {
+        assertEquals("int, String...", MethodUtils.invokeStaticMethod(TestBean.class, "varargsWithOtherArg", 1));
+        assertEquals("int, String...", MethodUtils.invokeStaticMethod(TestBean.class, "varargsWithOtherArg", 1, "s"));
+        assertEquals("int, String...", MethodUtils.invokeStaticMethod(TestBean.class, "varargsWithOtherArg", 1, "s1", "s2"));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(TestBean.class, "varargsWithOtherArg", 1, "s1", 5));
+        assertEquals("VarArgInterface...", MethodUtils.invokeStaticMethod(TestBean.class, "varargsInterface",
+            new VarArgInterfaceImpl1(), new VarArgInterfaceImpl2()));
+    }
+
+    @Test
     void testInvokeMethod() throws Exception {
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo", (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo"));
@@ -1011,7 +1039,7 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals("foo(String...)", MethodUtils.invokeMethod(testBean, "foo", "a", "b", "c"));
         assertEquals("foo(int, String...)", MethodUtils.invokeMethod(testBean, "foo", 5, "a", "b", "c"));
         assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo", 1L, 2L));
-        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "foo", 1, 2));
+        assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo", 1, 2));
         TestBean.verify(new ImmutablePair<>("String...", new String[] { "x", "y" }), MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
         TestBean.verify(new ImmutablePair<>("Number...", new Number[] { 17, 23, 42 }), MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
         TestBean.verify(new ImmutablePair<>("String...", new String[] { "x", "y" }), MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
@@ -1129,5 +1157,9 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals("Number...", TestBean.varOverload((short) 1, (byte) 1));
         assertEquals("Object...", TestBean.varOverload(1, 'c'));
         assertEquals("Object...", TestBean.varOverload('c', "s"));
+        assertEquals("VarArgInterface...", TestBean.varargsInterface(
+            new VarArgInterfaceImpl1(),
+            new VarArgInterfaceImpl2()
+        ));
     }
 }
