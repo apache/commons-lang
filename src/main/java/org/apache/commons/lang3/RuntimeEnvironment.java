@@ -36,28 +36,71 @@ public class RuntimeEnvironment {
 
     /**
      * Tests whether we are running in a container like Docker or Podman.
+     * <p>
+     * <em>The following may change if we find better detection logic.</em>
+     * </p>
+     * <p>
+     * We roughly follow the logic in SystemD:
+     * </p>
+     * <p>
+     * <a href=
+     * "https://github.com/systemd/systemd/blob/0747e3b60eb4496ee122066c844210ce818d76d9/src/basic/virt.c#L692">https://github.com/systemd/systemd/blob/0747e3b60eb4496ee122066c844210ce818d76d9/src/basic/virt.c#L692</a>
+     * </p>
+     * <p>
+     * We check the `container` environment variable of process 1:
+     * </p>
+     * <ol>
+     * <li>If the variable is empty, we return false. This includes the case, where the container developer wants to hide the fact that the application runs in
+     * a container.</li>
+     * <li>If the variable is not empty, we return true.</li>
+     * <li>If the variable is absent, we continue.</li>
+     * <li>We check files in the container. According to SystemD:/
+     * <ol>
+     * <li>/.dockerenv is used by Docker.</li>
+     * <li>/run/.containerenv is used by PodMan.</li>
+     * </ol>
+     * </li>
+     * </ol>
      *
-     * @return whether we are running in a container like Docker or Podman. Never null
+     * @return whether we are running in a container like Docker or Podman. Never null.
+     * @see <a href="https://github.com/systemd/systemd/blob/0747e3b60eb4496ee122066c844210ce818d76d9/src/basic/virt.c#L692">SystemD virt.c</a>
      */
     public static Boolean inContainer() {
         return inContainer(StringUtils.EMPTY);
     }
 
+    /**
+     * Tests whether we are running in a container like Docker or Podman.
+     * <p>
+     * <em>The following may change if we find better detection logic.</em>
+     * </p>
+     * <p>
+     * We roughly follow the logic in SystemD:
+     * </p>
+     * <p>
+     * <a href=
+     * "https://github.com/systemd/systemd/blob/0747e3b60eb4496ee122066c844210ce818d76d9/src/basic/virt.c#L692">https://github.com/systemd/systemd/blob/0747e3b60eb4496ee122066c844210ce818d76d9/src/basic/virt.c#L692</a>
+     * </p>
+     * <p>
+     * We check the `container` environment variable of process 1:
+     * </p>
+     * <ol>
+     * <li>If the variable is empty, we return false. This includes the case, where the container developer wants to hide the fact that the application runs in
+     * a container.</li>
+     * <li>If the variable is not empty, we return true.</li>
+     * <li>If the variable is absent, we continue.</li>
+     * <li>We check files in the container. According to SystemD:/
+     * <ol>
+     * <li>/.dockerenv is used by Docker.</li>
+     * <li>/run/.containerenv is used by PodMan.</li>
+     * </ol>
+     * </li>
+     * </ol>
+     *
+     * @return Whether we are running in a container like Docker or Podman.
+     * @see <a href="https://github.com/systemd/systemd/blob/0747e3b60eb4496ee122066c844210ce818d76d9/src/basic/virt.c#L692">SystemD virt.c</a>
+     */
     static boolean inContainer(final String dirPrefix) {
-        /*
-        Roughly follow the logic in SystemD:
-        https://github.com/systemd/systemd/blob/0747e3b60eb4496ee122066c844210ce818d76d9/src/basic/virt.c#L692
-
-        We check the `container` environment variable of process 1:
-        If the variable is empty, we return false. This includes the case, where the container developer wants to hide the fact that the application runs in a container.
-        If the variable is not empty, we return true.
-        If the variable is absent, we continue.
-
-        We check files in the container. According to SystemD:
-        /.dockerenv is used by Docker.
-        /run/.containerenv is used by PodMan.
-
-         */
         final String value = readFile(dirPrefix + "/proc/1/environ", "container");
         if (value != null) {
             return !value.isEmpty();
@@ -79,12 +122,14 @@ public class RuntimeEnvironment {
             // Split by null byte character
             final String[] lines = content.split(String.valueOf(CharUtils.NUL));
             final String prefix = key + "=";
+            // @formatter:off
             return Arrays.stream(lines)
                     .filter(line -> line.startsWith(prefix))
                     .map(line -> line.split("=", 2))
                     .map(keyValue -> keyValue[1])
                     .findFirst()
                     .orElse(null);
+            // @formatter:on
         } catch (final IOException e) {
             return null;
         }
