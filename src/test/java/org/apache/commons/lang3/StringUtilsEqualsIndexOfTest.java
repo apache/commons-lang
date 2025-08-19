@@ -388,11 +388,9 @@ class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         assertEquals(-1, StringUtils.indexOfAny(null, (char[]) null));
         assertEquals(-1, StringUtils.indexOfAny(null, new char[0]));
         assertEquals(-1, StringUtils.indexOfAny(null, 'a', 'b'));
-
         assertEquals(-1, StringUtils.indexOfAny("", (char[]) null));
         assertEquals(-1, StringUtils.indexOfAny("", new char[0]));
         assertEquals(-1, StringUtils.indexOfAny("", 'a', 'b'));
-
         assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", (char[]) null));
         assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", new char[0]));
         assertEquals(0, StringUtils.indexOfAny("zzabyycdxx", 'z', 'a'));
@@ -402,6 +400,42 @@ class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         assertEquals(0, StringUtils.indexOfAny("abcd", 'a', 'b', 'c', 'd'));
         assertEquals(0, StringUtils.indexOfAny("bcda", 'a', 'b', 'c', 'd'));
         assertEquals(0, StringUtils.indexOfAny("cbda", 'a', 'b', 'c', 'd'));
+    }
+
+    @Test
+    void testIndexOfAny_StringIntCharArray() {
+        // default cases
+        assertEquals(-1, StringUtils.indexOfAny(null, 0, (char[]) null));
+        assertEquals(-1, StringUtils.indexOfAny(null, 0, new char[0]));
+        assertEquals(-1, StringUtils.indexOfAny(null, 0, 'a', 'b'));
+        assertEquals(-1, StringUtils.indexOfAny("", 0, (char[]) null));
+        assertEquals(-1, StringUtils.indexOfAny("", 0, new char[0]));
+        assertEquals(-1, StringUtils.indexOfAny("", 0, 'a', 'b'));
+        assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", 0, (char[]) null));
+        assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", 0, new char[0]));
+        assertEquals(0, StringUtils.indexOfAny("zzabyycdxx", 0, 'z', 'a'));
+        assertEquals(3, StringUtils.indexOfAny("zzabyycdxx", 0, 'b', 'y'));
+        assertEquals(-1, StringUtils.indexOfAny("ab", 0, 'z'));
+        // if more than one search char is present, the order of the search chars matters:
+        assertEquals(0, StringUtils.indexOfAny("abcd", 0, 'a', 'b', 'c', 'd'));
+        assertEquals(0, StringUtils.indexOfAny("bcda", 0, 'a', 'b', 'c', 'd'));
+        assertEquals(0, StringUtils.indexOfAny("cbda", 0, 'a', 'b', 'c', 'd'));
+        // Actually use the index
+        assertEquals(-1, StringUtils.indexOfAny(null, 1, (char[]) null));
+        assertEquals(-1, StringUtils.indexOfAny(null, 1, new char[0]));
+        assertEquals(-1, StringUtils.indexOfAny(null, 1, 'a', 'b'));
+        assertEquals(-1, StringUtils.indexOfAny("", 1, (char[]) null));
+        assertEquals(-1, StringUtils.indexOfAny("", 1, new char[0]));
+        assertEquals(-1, StringUtils.indexOfAny("", 1, 'a', 'b'));
+        assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", 1, (char[]) null));
+        assertEquals(-1, StringUtils.indexOfAny("zzabyycdxx", 1, new char[0]));
+        assertEquals(1, StringUtils.indexOfAny("zzabyycdxx", 1, 'z', 'a'));
+        assertEquals(3, StringUtils.indexOfAny("zzabyycdxx", 1, 'b', 'y'));
+        assertEquals(-1, StringUtils.indexOfAny("ab", 1, 'z'));
+        // if more than one search char is present, the order of the search chars matters:
+        assertEquals(1, StringUtils.indexOfAny("abcd", 1, 'a', 'b', 'c', 'd'));
+        assertEquals(1, StringUtils.indexOfAny("bcda", 1, 'a', 'b', 'c', 'd'));
+        assertEquals(1, StringUtils.indexOfAny("cbda", 1, 'a', 'b', 'c', 'd'));
     }
 
     /**
