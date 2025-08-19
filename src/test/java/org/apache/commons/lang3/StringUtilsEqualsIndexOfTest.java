@@ -398,6 +398,10 @@ class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         assertEquals(0, StringUtils.indexOfAny("zzabyycdxx", 'z', 'a'));
         assertEquals(3, StringUtils.indexOfAny("zzabyycdxx", 'b', 'y'));
         assertEquals(-1, StringUtils.indexOfAny("ab", 'z'));
+        // if more than one search char is present, the order of the search chars matters:
+        assertEquals(0, StringUtils.indexOfAny("abcd", 'a', 'b', 'c', 'd'));
+        assertEquals(0, StringUtils.indexOfAny("bcda", 'a', 'b', 'c', 'd'));
+        assertEquals(0, StringUtils.indexOfAny("cbda", 'a', 'b', 'c', 'd'));
     }
 
     /**
