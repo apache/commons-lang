@@ -76,7 +76,7 @@ class BackgroundInitializerTest extends AbstractLangTest {
          * Records this invocation. Optionally throws an exception or sleeps a
          * while.
          *
-         * @throws Exception in case of an error
+         * @throws Exception in case of an error.
          */
         protected CloseableCounter initializeInternal() throws Exception {
             if (ex != null) {
@@ -140,7 +140,7 @@ class BackgroundInitializerTest extends AbstractLangTest {
      * Helper method for checking whether the initialize() method was correctly
      * called. start() must already have been invoked.
      *
-     * @param init the initializer to test
+     * @param init the initializer to test.
      */
     private void checkInitialize(final AbstractBackgroundInitializerTestImpl init) throws ConcurrentException {
         final Integer result = init.get().getInitializeCalls();

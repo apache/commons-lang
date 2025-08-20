@@ -62,7 +62,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * {@link LazyInitializer} is more appropriate.
  * </p>
  *
- * @param <T> the type of the object managed by this initializer class
+ * @param <T> the type of the object managed by this initializer class.
  * @since 3.0
  */
 public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, ConcurrentException> {
@@ -125,18 +125,15 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
     }
 
     /**
-     * Gets the object managed by this initializer. The object is created if
-     * it is not available yet and stored internally. This method always returns
-     * the same object.
+     * Gets the object managed by this initializer. The object is created if it is not available yet and stored internally. This method always returns the same
+     * object.
      *
-     * @return the object created by this {@link AtomicInitializer}
-     * @throws ConcurrentException if an error occurred during initialization of
-     * the object
+     * @return the object created by this {@link AtomicInitializer}.
+     * @throws ConcurrentException if an error occurred during initialization of the object.
      */
     @Override
     public T get() throws ConcurrentException {
         T result = reference.get();
-
         if (result == getNoInit()) {
             result = initialize();
             if (!reference.compareAndSet(getNoInit(), result)) {
@@ -144,7 +141,6 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
                 result = reference.get();
             }
         }
-
         return result;
     }
 
