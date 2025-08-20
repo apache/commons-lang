@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3.concurrent;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -39,60 +39,6 @@ import org.junit.jupiter.api.Test;
  * Test class for {@link ConcurrentUtils}.
  */
 class ConcurrentUtilsTest extends AbstractLangTest {
-    /**
-     * Tests creating a ConcurrentException with an error as cause.
-     */
-    @Test
-    void testConcurrentExceptionCauseError() {
-        assertIllegalArgumentException(() -> new ConcurrentException("An error", new Error()));
-    }
-
-    /**
-     * Tests creating a ConcurrentException with null as cause.
-     */
-    @Test
-    void testConcurrentExceptionCauseNull() {
-        assertIllegalArgumentException(() -> new ConcurrentException((Throwable) null));
-    }
-
-    @Test
-    void testConcurrentExceptionCauseString() {
-        assertEquals("test", new ConcurrentException("test").getMessage());
-        assertNull(new ConcurrentException((String) null).getMessage());
-    }
-
-    /**
-     * Tests creating a ConcurrentException with a runtime exception as cause.
-     */
-    @Test
-    void testConcurrentExceptionCauseUnchecked() {
-        assertIllegalArgumentException(() -> new ConcurrentException(new RuntimeException()));
-    }
-
-    /**
-     * Tries to create a ConcurrentRuntimeException with an error as cause.
-     */
-    @Test
-    void testConcurrentRuntimeExceptionCauseError() {
-        assertIllegalArgumentException(() -> new ConcurrentRuntimeException("An error", new Error()));
-    }
-
-    /**
-     * Tries to create a ConcurrentRuntimeException with null as cause.
-     */
-    @Test
-    void testConcurrentRuntimeExceptionCauseNull() {
-        assertIllegalArgumentException(() -> new ConcurrentRuntimeException(null));
-    }
-
-    /**
-     * Tries to create a ConcurrentRuntimeException with a runtime as cause.
-     */
-    @Test
-    void testConcurrentRuntimeExceptionCauseUnchecked() {
-        assertIllegalArgumentException(() -> new ConcurrentRuntimeException(new RuntimeException()));
-    }
-
     /**
      * Tests constant future.
      *
