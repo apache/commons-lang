@@ -117,11 +117,10 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
     }
 
     /**
-     * Gets (and initialize, if not initialized yet) the required object
+     * Gets (and initialize, if not initialized yet) the required object.
      *
-     * @return lazily initialized object
-     * @throws ConcurrentException if the initialization of the object causes an
-     * exception
+     * @return lazily initialized object.
+     * @throws ConcurrentException if the initialization of the object causes an exception.
      */
     @Override
     public final T get() throws ConcurrentException {
