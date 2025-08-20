@@ -52,7 +52,13 @@ class ConcurrentUtilsTest extends AbstractLangTest {
      */
     @Test
     void testConcurrentExceptionCauseNull() {
-        assertIllegalArgumentException(() -> new ConcurrentException(null));
+        assertIllegalArgumentException(() -> new ConcurrentException((Throwable) null));
+    }
+
+    @Test
+    void testConcurrentExceptionCauseString() {
+        assertEquals("test", new ConcurrentException("test").getMessage());
+        assertNull(new ConcurrentException((String) null).getMessage());
     }
 
     /**

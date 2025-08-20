@@ -65,6 +65,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.reflect.MethodUtils.getAccessibleMethod(Class, Method).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add documentation to site for CVE-2025-48924 ClassUtils.getClass(...) can throw a StackOverflowError on very long inputs.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.StringUtils.indexOfAny(CharSequence, int, char...).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.concurrent.ConcurrentException.ConcurrentException(String).</action>
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.13.1 to 1.14.0.</action>
   </release>
