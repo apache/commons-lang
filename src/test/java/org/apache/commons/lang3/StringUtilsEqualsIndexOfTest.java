@@ -402,6 +402,17 @@ class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         assertEquals(0, StringUtils.indexOfAny("cbda", 'a', 'b', 'c', 'd'));
     }
 
+    /**
+     * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     */
+    @Test
+    void testIndexOfAny_StringCharArrayWithSupplementaryChars() {
+        assertEquals(0, StringUtils.indexOfAny(CharU20000 + CharU20001, CharU20000.toCharArray()));
+        assertEquals(2, StringUtils.indexOfAny(CharU20000 + CharU20001, CharU20001.toCharArray()));
+        assertEquals(0, StringUtils.indexOfAny(CharU20000, CharU20000.toCharArray()));
+        assertEquals(-1, StringUtils.indexOfAny(CharU20000, CharU20001.toCharArray()));
+    }
+
     @Test
     void testIndexOfAny_StringIntCharArray() {
         // default cases
@@ -436,17 +447,6 @@ class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         assertEquals(1, StringUtils.indexOfAny("abcd", 1, 'a', 'b', 'c', 'd'));
         assertEquals(1, StringUtils.indexOfAny("bcda", 1, 'a', 'b', 'c', 'd'));
         assertEquals(1, StringUtils.indexOfAny("cbda", 1, 'a', 'b', 'c', 'd'));
-    }
-
-    /**
-     * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
-     */
-    @Test
-    void testIndexOfAny_StringCharArrayWithSupplementaryChars() {
-        assertEquals(0, StringUtils.indexOfAny(CharU20000 + CharU20001, CharU20000.toCharArray()));
-        assertEquals(2, StringUtils.indexOfAny(CharU20000 + CharU20001, CharU20001.toCharArray()));
-        assertEquals(0, StringUtils.indexOfAny(CharU20000, CharU20000.toCharArray()));
-        assertEquals(-1, StringUtils.indexOfAny(CharU20000, CharU20001.toCharArray()));
     }
 
     @Test
