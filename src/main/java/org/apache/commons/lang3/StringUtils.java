@@ -2709,54 +2709,6 @@ public class StringUtils {
     }
 
     /**
-     * Search a CharSequence to find the first index of any character in the given set of characters.
-     *
-     * <p>
-     * A {@code null} String will return {@code -1}. A {@code null} or zero length search array will return {@code -1}.
-     * </p>
-     * <p>
-     * The following is the same as {@code indexOfAny(cs, 0, searchChars)}.
-     * </p>
-     * <pre>
-     * StringUtils.indexOfAny(null, 0, *)                  = -1
-     * StringUtils.indexOfAny("", 0, *)                    = -1
-     * StringUtils.indexOfAny(*, 0, null)                  = -1
-     * StringUtils.indexOfAny(*, 0, [])                    = -1
-     * StringUtils.indexOfAny("zzabyycdxx", 0, ['z', 'a']) = 0
-     * StringUtils.indexOfAny("zzabyycdxx", 0, ['b', 'y']) = 3
-     * StringUtils.indexOfAny("aba", 0, ['z'])             = -1
-     * </pre>
-     *
-     * @param cs          the CharSequence to check, may be null.
-     * @param csStart Start searching the input {@code cs} at this index.
-     * @param searchChars the chars to search for, may be null.
-     * @return the index of any of the chars, -1 if no match or null input.
-     * @since 2.0
-     * @since 3.0 Changed signature from indexOfAny(String, char[]) to indexOfAny(CharSequence, char...)
-     */
-    public static int indexOfAny(final CharSequence cs, final int csStart, final char... searchChars) {
-        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
-            return INDEX_NOT_FOUND;
-        }
-        final int csLen = cs.length();
-        final int csLast = csLen - 1;
-        final int searchLen = searchChars.length;
-        final int searchLast = searchLen - 1;
-        for (int i = csStart; i < csLen; i++) {
-            final char ch = cs.charAt(i);
-            for (int j = 0; j < searchLen; j++) {
-                if (searchChars[j] == ch) {
-                    // ch is a supplementary character
-                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch) || searchChars[j + 1] == cs.charAt(i + 1)) {
-                        return i;
-                    }
-                }
-            }
-        }
-        return INDEX_NOT_FOUND;
-    }
-
-    /**
      * Find the first index of any of a set of potential substrings.
      *
      * <p>
@@ -2803,6 +2755,54 @@ public class StringUtils {
             }
         }
         return ret == Integer.MAX_VALUE ? INDEX_NOT_FOUND : ret;
+    }
+
+    /**
+     * Search a CharSequence to find the first index of any character in the given set of characters.
+     *
+     * <p>
+     * A {@code null} String will return {@code -1}. A {@code null} or zero length search array will return {@code -1}.
+     * </p>
+     * <p>
+     * The following is the same as {@code indexOfAny(cs, 0, searchChars)}.
+     * </p>
+     * <pre>
+     * StringUtils.indexOfAny(null, 0, *)                  = -1
+     * StringUtils.indexOfAny("", 0, *)                    = -1
+     * StringUtils.indexOfAny(*, 0, null)                  = -1
+     * StringUtils.indexOfAny(*, 0, [])                    = -1
+     * StringUtils.indexOfAny("zzabyycdxx", 0, ['z', 'a']) = 0
+     * StringUtils.indexOfAny("zzabyycdxx", 0, ['b', 'y']) = 3
+     * StringUtils.indexOfAny("aba", 0, ['z'])             = -1
+     * </pre>
+     *
+     * @param cs          the CharSequence to check, may be null.
+     * @param csStart Start searching the input {@code cs} at this index.
+     * @param searchChars the chars to search for, may be null.
+     * @return the index of any of the chars, -1 if no match or null input.
+     * @since 2.0
+     * @since 3.0 Changed signature from indexOfAny(String, char[]) to indexOfAny(CharSequence, char...)
+     */
+    public static int indexOfAny(final CharSequence cs, final int csStart, final char... searchChars) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
+            return INDEX_NOT_FOUND;
+        }
+        final int csLen = cs.length();
+        final int csLast = csLen - 1;
+        final int searchLen = searchChars.length;
+        final int searchLast = searchLen - 1;
+        for (int i = csStart; i < csLen; i++) {
+            final char ch = cs.charAt(i);
+            for (int j = 0; j < searchLen; j++) {
+                if (searchChars[j] == ch) {
+                    // ch is a supplementary character
+                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch) || searchChars[j + 1] == cs.charAt(i + 1)) {
+                        return i;
+                    }
+                }
+            }
+        }
+        return INDEX_NOT_FOUND;
     }
 
     /**

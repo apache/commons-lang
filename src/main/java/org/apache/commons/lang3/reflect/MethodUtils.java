@@ -96,30 +96,6 @@ public class MethodUtils {
     }
 
     /**
-     * Gets an accessible method (that is, one that can be invoked via reflection) with given name and parameters. If no such method can be found, return
-     * {@code null}. This is just a convenience wrapper for {@link #getAccessibleMethod(Method)}.
-     *
-     * @param cls            get method from this class.
-     * @param methodName     get method with this name.
-     * @param parameterTypes with these parameters types.
-     * @return The accessible method.
-     */
-    public static Method getAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
-        return getAccessibleMethod(getMethodObject(cls, methodName, parameterTypes));
-    }
-
-    /**
-     * Gets an accessible method (that is, one that can be invoked via reflection) that implements the specified Method. If no such method can be found, return
-     * {@code null}.
-     *
-     * @param method The method that we wish to call, may be null.
-     * @return The accessible method
-     */
-    public static Method getAccessibleMethod(final Method method) {
-        return method != null ? getAccessibleMethod(method.getDeclaringClass(), method) : null;
-    }
-
-    /**
      * Gets an accessible method (that is, one that can be invoked via reflection) that implements the specified Method. If no such method can be found, return
      * {@code null}.
      *
@@ -142,6 +118,30 @@ public class MethodUtils {
         final Method method2 = getAccessibleMethodFromInterfaceNest(cls, methodName, parameterTypes);
         // Check the superclass chain
         return method2 != null ? method2 : getAccessibleMethodFromSuperclass(cls, methodName, parameterTypes);
+    }
+
+    /**
+     * Gets an accessible method (that is, one that can be invoked via reflection) with given name and parameters. If no such method can be found, return
+     * {@code null}. This is just a convenience wrapper for {@link #getAccessibleMethod(Method)}.
+     *
+     * @param cls            get method from this class.
+     * @param methodName     get method with this name.
+     * @param parameterTypes with these parameters types.
+     * @return The accessible method.
+     */
+    public static Method getAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
+        return getAccessibleMethod(getMethodObject(cls, methodName, parameterTypes));
+    }
+
+    /**
+     * Gets an accessible method (that is, one that can be invoked via reflection) that implements the specified Method. If no such method can be found, return
+     * {@code null}.
+     *
+     * @param method The method that we wish to call, may be null.
+     * @return The accessible method
+     */
+    public static Method getAccessibleMethod(final Method method) {
+        return method != null ? getAccessibleMethod(method.getDeclaringClass(), method) : null;
     }
 
     /**
