@@ -137,16 +137,13 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest<T> ext
     @Test
     void testSupplierThrowsConcurrentException() {
         final ConcurrentException concurrentException = new ConcurrentException();
-
         @SuppressWarnings("unchecked")
-        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
-                () -> {
-                    if ("test".equals("test")) {
-                        throw concurrentException;
-                    }
-                    return new CloseableObject();
-                },
-                FailableConsumer.NOP);
+        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(() -> {
+            if ("test".equals("test")) {
+                throw concurrentException;
+            }
+            return new CloseableObject();
+        }, FailableConsumer.NOP);
         try {
             initializer.get();
             fail();

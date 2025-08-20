@@ -18,6 +18,7 @@ package org.apache.commons.lang3.concurrent;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableSupplier;
 
@@ -125,13 +126,19 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
     @Override
     public final T get() throws ConcurrentException {
         T result;
-
         while ((result = reference.get()) == getNoInit()) {
             if (factory.compareAndSet(null, this)) {
-                reference.set(initialize());
+                try {
+                    reference.set(initialize());
+                } catch (final Throwable t) {
+                    // Allow retry on failure; otherwise callers spin forever.
+                    factory.set(null);
+                    // Rethrow preserving original semantics: unchecked as-is, checked wrapped.
+                    final Throwable checked = ExceptionUtils.throwUnchecked(t);
+                    throw checked instanceof ConcurrentException ? (ConcurrentException) checked : new ConcurrentException(checked);
+                }
             }
         }
-
         return result;
     }
 
