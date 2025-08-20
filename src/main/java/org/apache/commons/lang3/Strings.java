@@ -65,7 +65,7 @@ public abstract class Strings {
          * Sets the ignoreCase property for new Strings instances.
          *
          * @param ignoreCase the ignoreCase property for new Strings instances.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder setIgnoreCase(final boolean ignoreCase) {
             this.ignoreCase = ignoreCase;
@@ -76,7 +76,7 @@ public abstract class Strings {
          * Sets the nullIsLess property for new Strings instances.
          *
          * @param nullIsLess the nullIsLess property for new Strings instances.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder setNullIsLess(final boolean nullIsLess) {
             this.nullIsLess = nullIsLess;
