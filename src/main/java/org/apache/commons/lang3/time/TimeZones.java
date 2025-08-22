@@ -22,7 +22,7 @@ import java.util.TimeZone;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
- * Helps to deal with {@link java.util.TimeZone}s.
+ * Helps dealing with {@link java.util.TimeZone}s.
  *
  * @since 3.7
  */
