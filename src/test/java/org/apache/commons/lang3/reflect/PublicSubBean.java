@@ -21,7 +21,7 @@ package org.apache.commons.lang3.reflect;
  * This class is designed to test the default access JVM problem workaround. The issue is that public methods of a public subclass contained in a default access
  * superclass are returned by reflection but an IllegalAccessException is thrown when they are invoked.
  * <p>
- * This is the default access superclass
+ * This is the default access superclass.
  * </p>
  */
 public class PublicSubBean extends PackageBean {
