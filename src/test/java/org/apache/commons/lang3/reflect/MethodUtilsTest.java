@@ -52,6 +52,7 @@ import org.apache.commons.lang3.reflect.testbed.Annotated;
 import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.PublicChild;
+import org.apache.commons.lang3.reflect.testbed.PublicSubBeanOtherPackage;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeEach;
@@ -547,6 +548,41 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals("1111", bean.getFoo(), "Set value (foo:3)");
         // PublicSubBean.setBar(String)
         method = MethodUtils.getAccessibleMethod(PublicSubBean.class, "setBar", String.class);
+        assertNotNull(method, "getAccessibleMethod() setBar is Null");
+        method.invoke(bean, "2222");
+        assertEquals("2222", bean.getBar(), "Set value (bar:3)");
+    }
+
+    @Test
+    void testGetAccessibleMethodPublicSubOtherPackage() throws Exception {
+        // PackageBeanOtherPackage class is package-private
+        final int modifiers = Class.forName("org.apache.commons.lang3.reflect.testbed.PackageBeanOtherPackage").getModifiers();
+        assertFalse(Modifier.isPrivate(modifiers));
+        assertFalse(Modifier.isProtected(modifiers));
+        assertFalse(Modifier.isPublic(modifiers));
+        // make sure that bean does what it should: compile
+        new PublicSubBeanOtherPackage().setBar("");
+        // make sure that bean does what it should
+        final PublicSubBeanOtherPackage bean = new PublicSubBeanOtherPackage();
+        assertEquals(bean.getFoo(), "This is foo", "Start value (foo)");
+        assertEquals(bean.getBar(), "This is bar", "Start value (bar)");
+        bean.setFoo("new foo");
+        bean.setBar("new bar");
+        assertEquals(bean.getFoo(), "new foo", "Set value (foo)");
+        assertEquals(bean.getBar(), "new bar", "Set value (bar)");
+        // see if we can access public methods in a default access superclass
+        // from a public access subclass instance
+        MethodUtils.invokeExactMethod(bean, "setFoo", "alpha");
+        assertEquals(bean.getFoo(), "alpha", "Set value (foo:2)");
+        MethodUtils.invokeExactMethod(bean, "setBar", "beta");
+        assertEquals(bean.getBar(), "beta", "Set value (bar:2)");
+        // PublicSubBean.setFoo(String)
+        Method method = MethodUtils.getAccessibleMethod(PublicSubBeanOtherPackage.class, "setFoo", String.class);
+        assertNotNull(method, "getAccessibleMethod() setFoo is Null");
+        method.invoke(bean, "1111");
+        assertEquals("1111", bean.getFoo(), "Set value (foo:3)");
+        // PublicSubBean.setBar(String)
+        method = MethodUtils.getAccessibleMethod(PublicSubBeanOtherPackage.class, "setBar", String.class);
         assertNotNull(method, "getAccessibleMethod() setBar is Null");
         method.invoke(bean, "2222");
         assertEquals("2222", bean.getBar(), "Set value (bar:3)");
