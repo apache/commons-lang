@@ -1198,13 +1198,13 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.containsNone(null, *)       = true
-     * StringUtils.containsNone(*, null)       = true
-     * StringUtils.containsNone("", *)         = true
-     * StringUtils.containsNone("ab", '')      = true
-     * StringUtils.containsNone("abab", 'xyz') = true
-     * StringUtils.containsNone("ab1", 'xyz')  = true
-     * StringUtils.containsNone("abz", 'xyz')  = false
+     * StringUtils.containsNone(null, *)            = true
+     * StringUtils.containsNone("", *)              = true
+     * StringUtils.containsNone(*, null)            = true
+     * StringUtils.containsNone(*, [])              = true
+     * StringUtils.containsNone("abc", ['x', 'y'])  = true
+     * StringUtils.containsNone("abc", ['1', '.'])  = true
+     * StringUtils.containsNone("abc", ['b', 'z'])  = false
      * </pre>
      *
      * @param cs          the CharSequence to check, may be null.
@@ -1244,12 +1244,12 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.containsNone(null, *)       = true
-     * StringUtils.containsNone(*, null)       = true
      * StringUtils.containsNone("", *)         = true
-     * StringUtils.containsNone("ab", "")      = true
-     * StringUtils.containsNone("abab", "xyz") = true
-     * StringUtils.containsNone("ab1", "xyz")  = true
-     * StringUtils.containsNone("abz", "xyz")  = false
+     * StringUtils.containsNone(*, null)       = true
+     * StringUtils.containsNone(*, "")         = true
+     * StringUtils.containsNone("abc", "xy")   = true
+     * StringUtils.containsNone("abc", "1.")   = true
+     * StringUtils.containsNone("abc", "bz")   = false
      * </pre>
      *
      * @param cs           the CharSequence to check, may be null.
@@ -1274,13 +1274,13 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.containsOnly(null, *)       = false
-     * StringUtils.containsOnly(*, null)       = false
-     * StringUtils.containsOnly("", *)         = true
-     * StringUtils.containsOnly("ab", '')      = false
-     * StringUtils.containsOnly("abab", 'abc') = true
-     * StringUtils.containsOnly("ab1", 'abc')  = false
-     * StringUtils.containsOnly("abz", 'abc')  = false
+     * StringUtils.containsOnly(null, *)                 = false
+     * StringUtils.containsOnly("", *)                   = true
+     * StringUtils.containsOnly(*, null)                 = false
+     * StringUtils.containsOnly(*, [])                   = false
+     * StringUtils.containsOnly("abab", ['a', 'b', 'c']) = true
+     * StringUtils.containsOnly("ab1", ['a', 'b', 'c'])  = false
+     * StringUtils.containsOnly("abz", ['a', 'b', 'c'])  = false
      * </pre>
      *
      * @param cs    the String to check, may be null.
@@ -1312,9 +1312,9 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.containsOnly(null, *)       = false
-     * StringUtils.containsOnly(*, null)       = false
      * StringUtils.containsOnly("", *)         = true
-     * StringUtils.containsOnly("ab", "")      = false
+     * StringUtils.containsOnly(*, null)       = false
+     * StringUtils.containsOnly(*, "")         = false
      * StringUtils.containsOnly("abab", "abc") = true
      * StringUtils.containsOnly("ab1", "abc")  = false
      * StringUtils.containsOnly("abz", "abc")  = false
