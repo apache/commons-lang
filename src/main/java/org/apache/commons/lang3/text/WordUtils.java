@@ -198,7 +198,7 @@ public class WordUtils {
             if (StringUtils.isBlank(w)) {
                 return false;
             }
-            final Pattern p = Pattern.compile(".*\\b" + w + "\\b.*");
+            final Pattern p = Pattern.compile(".*\\b" + Pattern.quote(w.toString()) + "\\b.*");
             if (!p.matcher(word).matches()) {
                 return false;
             }
