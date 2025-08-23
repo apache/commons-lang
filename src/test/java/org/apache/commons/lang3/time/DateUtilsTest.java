@@ -30,9 +30,12 @@ import java.lang.reflect.Modifier;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -64,70 +67,6 @@ class DateUtilsTest extends AbstractLangTest {
     private static final TimeZone TIME_ZONE_DEFAULT = TimeZone.getDefault();
     private static final TimeZone TIME_ZONE_MET = TimeZone.getTimeZone("MET");
     private static Date BASE_DATE;
-
-    private static Stream<Arguments> testToLocalDateTimeTimeZone() {
-        // @formatter:off
-        return Stream.of(
-                Arguments.of(
-                        LocalDateTime.ofInstant(
-                                java.sql.Timestamp.valueOf("2000-01-01 12:30:45").toInstant(),
-                                TimeZone.getTimeZone("America/New_York").toZoneId()
-                        ),
-                        java.sql.Timestamp.valueOf("2000-01-01 12:30:45"),
-                        TimeZone.getTimeZone("America/New_York")
-                ),
-                Arguments.of(
-                        LocalDateTime.ofInstant(
-                                java.sql.Timestamp.valueOf("2023-03-12 02:30:00").toInstant(),
-                                TimeZone.getTimeZone("America/New_York").toZoneId()
-                        ),
-                        java.sql.Timestamp.valueOf("2023-03-12 02:30:00"),
-                        TimeZone.getTimeZone("America/New_York")
-                ),
-                Arguments.of(
-                        LocalDateTime.ofInstant(
-                                java.sql.Timestamp.valueOf("2023-03-12 02:30:00").toInstant(),
-                                TimeZone.getDefault().toZoneId()
-                        ),
-                        java.sql.Timestamp.valueOf("2023-03-12 02:30:00"),
-                        null
-                ),
-                Arguments.of(
-                        LocalDateTime.of(2022, 12, 31, 19, 0),
-                        Date.from(LocalDateTime.of(2023, 1, 1, 0, 0)
-                                .atOffset(ZoneOffset.UTC)
-                                .toInstant()),
-                        TimeZone.getTimeZone("America/New_York")
-                ),
-                Arguments.of(
-                        LocalDateTime.of(2023, 3, 12, 3, 0),
-                        Date.from(LocalDateTime.of(2023, 3, 12, 7, 0)
-                                .atOffset(ZoneOffset.UTC)
-                                .toInstant()),
-                        TimeZone.getTimeZone("America/New_York")
-                ),
-                Arguments.of(
-                        LocalDateTime.of(2023, 1, 1, 14, 0),
-                        Date.from(LocalDateTime.of(2023, 1, 1, 0, 0)
-                                .atOffset(ZoneOffset.UTC)
-                                .toInstant()),
-                        TimeZone.getTimeZone("Pacific/Kiritimati")
-                )
-        );
-        // @formatter:on
-    }
-
-    @ParameterizedTest
-    @MethodSource
-    void testToLocalDateTimeTimeZone(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
-        assertEquals(expected, DateUtils.toLocalDateTime(date, timeZone));
-    }
-
-    @Test
-    void testToLocalDateTime() {
-        final Date date = new Date();
-        assertEquals(LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), DateUtils.toLocalDateTime(date));
-    }
 
     /**
      * Used to check that Calendar objects are close enough
@@ -195,9 +134,74 @@ class DateUtilsTest extends AbstractLangTest {
         BASE_DATE = cal.getTime();
     }
 
+    private static Stream<Arguments> testToLocalDateTimeTimeZone() {
+        // @formatter:off
+        return Stream.of(
+                Arguments.of(
+                        LocalDateTime.ofInstant(Instant.EPOCH, TimeZone.getTimeZone("GMT").toZoneId()),
+                        java.sql.Timestamp.valueOf("1970-01-01 00:00:00"),
+                        TimeZone.getTimeZone("America/New_York")
+                ),
+                Arguments.of(
+                        LocalDateTime.ofInstant(Instant.EPOCH.minus(1, ChronoUnit.DAYS), TimeZone.getTimeZone("GMT").toZoneId()),
+                        java.sql.Timestamp.valueOf("1969-12-31 00:00:00"),
+                        TimeZone.getTimeZone("America/New_York")
+                ),
+                Arguments.of(
+                        LocalDateTime.ofInstant(
+                                java.sql.Timestamp.valueOf("2000-01-01 12:30:45").toInstant(),
+                                TimeZone.getTimeZone("America/New_York").toZoneId()
+                        ),
+                        java.sql.Timestamp.valueOf("2000-01-01 12:30:45"),
+                        TimeZone.getTimeZone("America/New_York")
+                ),
+                Arguments.of(
+                        LocalDateTime.ofInstant(
+                                java.sql.Timestamp.valueOf("2023-03-12 02:30:00").toInstant(),
+                                TimeZone.getTimeZone("America/New_York").toZoneId()
+                        ),
+                        java.sql.Timestamp.valueOf("2023-03-12 02:30:00"),
+                        TimeZone.getTimeZone("America/New_York")
+                ),
+                Arguments.of(
+                        LocalDateTime.ofInstant(
+                                java.sql.Timestamp.valueOf("2023-03-12 02:30:00").toInstant(),
+                                TimeZone.getDefault().toZoneId()
+                        ),
+                        java.sql.Timestamp.valueOf("2023-03-12 02:30:00"),
+                        null
+                ),
+                Arguments.of(
+                        LocalDateTime.of(2022, 12, 31, 19, 0),
+                        Date.from(LocalDateTime.of(2023, 1, 1, 0, 0)
+                                .atOffset(ZoneOffset.UTC)
+                                .toInstant()),
+                        TimeZone.getTimeZone("America/New_York")
+                ),
+                Arguments.of(
+                        LocalDateTime.of(2023, 3, 12, 3, 0),
+                        Date.from(LocalDateTime.of(2023, 3, 12, 7, 0)
+                                .atOffset(ZoneOffset.UTC)
+                                .toInstant()),
+                        TimeZone.getTimeZone("America/New_York")
+                ),
+                Arguments.of(
+                        LocalDateTime.of(2023, 1, 1, 14, 0),
+                        Date.from(LocalDateTime.of(2023, 1, 1, 0, 0)
+                                .atOffset(ZoneOffset.UTC)
+                                .toInstant()),
+                        TimeZone.getTimeZone("Pacific/Kiritimati")
+                )
+        );
+        // @formatter:on
+    }
+
     private DateFormat dateParser;
+
     private DateFormat dateTimeParser;
+
     private Date dateAmPm1;
+
     private Date dateAmPm2;
     private Date dateAmPm3;
     private Date dateAmPm4;
@@ -222,13 +226,11 @@ class DateUtilsTest extends AbstractLangTest {
     private Calendar cal6;
     private Calendar cal7;
     private Calendar cal8;
-
     @AfterEach
     public void afterEachResetTimeZones() {
         TimeZone.setDefault(TIME_ZONE_DEFAULT);
         dateTimeParser.setTimeZone(TIME_ZONE_DEFAULT);
     }
-
     private void assertDate(final Date date, final int year, final int month, final int day, final int hour, final int min, final int sec, final int mil) {
         final GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(date);
@@ -240,7 +242,6 @@ class DateUtilsTest extends AbstractLangTest {
         assertEquals(sec, cal.get(Calendar.SECOND));
         assertEquals(mil, cal.get(Calendar.MILLISECOND));
     }
-
     @BeforeEach
     public void setUp() throws Exception {
         dateParser = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
@@ -1303,10 +1304,34 @@ class DateUtilsTest extends AbstractLangTest {
         assertNullPointerException(() -> DateUtils.toCalendar(date1, null));
     }
 
+    @ParameterizedTest
+    @MethodSource("testToLocalDateTimeTimeZone")
+    void testToLocalDateTime(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
+        assertEquals(LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), DateUtils.toLocalDateTime(date));
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void testToLocalDateTimeTimeZone(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
+        assertEquals(expected, DateUtils.toLocalDateTime(date, timeZone));
+    }
+
+    @ParameterizedTest
+    @MethodSource("testToLocalDateTimeTimeZone")
+    void testToOffsetDateTime(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
+        assertEquals(OffsetDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), DateUtils.toOffsetDateTime(date));
+    }
+
+    @ParameterizedTest
+    @MethodSource("testToLocalDateTimeTimeZone")
+    void testToOffsetDateTimeTimeZone(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
+        assertEquals(expected, DateUtils.toOffsetDateTime(date, timeZone).toLocalDateTime());
+    }
+
     /**
-     * Tests various values with the trunc method
+     * Tests various values with the trunc method.
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception so we don't have to catch it.
      */
     @Test
     void testTruncate() throws Exception {

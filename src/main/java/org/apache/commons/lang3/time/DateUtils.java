@@ -19,6 +19,8 @@ package org.apache.commons.lang3.time;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -1647,7 +1649,34 @@ public class DateUtils {
      * @since 3.19.0
      */
     public static LocalDateTime toLocalDateTime(final Date date, final TimeZone timeZone) {
-        return LocalDateTime.ofInstant(date.toInstant(), TimeZones.toTimeZone(timeZone).toZoneId());
+        return LocalDateTime.ofInstant(date.toInstant(), toZoneId(timeZone));
+    }
+
+    /**
+     * Converts a {@link Date} to a {@link OffsetDateTime}.
+     *
+     * @param date the Date to convert, not null.
+     * @return a new OffsetDateTime.
+     * @since 3.19.0
+     */
+    public static OffsetDateTime toOffsetDateTime(final Date date) {
+        return toOffsetDateTime(date, TimeZone.getDefault());
+    }
+
+    /**
+     * Converts a {@link Date} to a {@link OffsetDateTime}.
+     *
+     * @param date     the Date to convert to a OffsetDateTime, not null.
+     * @param timeZone the time zone, null maps to to the default time zone.
+     * @return a new OffsetDateTime.
+     * @since 3.19.0
+     */
+    public static OffsetDateTime toOffsetDateTime(final Date date, final TimeZone timeZone) {
+        return OffsetDateTime.ofInstant(date.toInstant(), toZoneId(timeZone));
+    }
+
+    private static ZoneId toZoneId(final TimeZone timeZone) {
+        return TimeZones.toTimeZone(timeZone).toZoneId();
     }
 
     /**
