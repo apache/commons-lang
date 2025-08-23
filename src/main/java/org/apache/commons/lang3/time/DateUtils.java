@@ -21,6 +21,7 @@ import java.text.ParsePosition;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -1673,6 +1674,29 @@ public class DateUtils {
      */
     public static OffsetDateTime toOffsetDateTime(final Date date, final TimeZone timeZone) {
         return OffsetDateTime.ofInstant(date.toInstant(), toZoneId(timeZone));
+    }
+
+    /**
+     * Converts a {@link Date} to a {@link ZonedDateTime}.
+     *
+     * @param date the Date to convert, not null.
+     * @return a new ZonedDateTime.
+     * @since 3.19.0
+     */
+    public static ZonedDateTime toZonedDateTime(final Date date) {
+        return toZonedDateTime(date, TimeZone.getDefault());
+    }
+
+    /**
+     * Converts a {@link Date} to a {@link ZonedDateTime}.
+     *
+     * @param date     the Date to convert to a ZonedDateTime, not null.
+     * @param timeZone the time zone, null maps to to the default time zone.
+     * @return a new ZonedDateTime.
+     * @since 3.19.0
+     */
+    public static ZonedDateTime toZonedDateTime(final Date date, final TimeZone timeZone) {
+        return ZonedDateTime.ofInstant(date.toInstant(), toZoneId(timeZone));
     }
 
     private static ZoneId toZoneId(final TimeZone timeZone) {

@@ -35,6 +35,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
@@ -1319,13 +1320,32 @@ class DateUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
     void testToOffsetDateTime(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
-        assertEquals(OffsetDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), DateUtils.toOffsetDateTime(date));
+        final OffsetDateTime offsetDateTime = DateUtils.toOffsetDateTime(date);
+        assertEquals(OffsetDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), offsetDateTime);
     }
 
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
     void testToOffsetDateTimeTimeZone(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         assertEquals(expected, DateUtils.toOffsetDateTime(date, timeZone).toLocalDateTime());
+    }
+
+    @ParameterizedTest
+    @MethodSource("testToLocalDateTimeTimeZone")
+    void testToZonedDateTime(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
+        final ZonedDateTime zonedDateTime = DateUtils.toZonedDateTime(date);
+        assertEquals(ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), zonedDateTime);
+        // Using atZone()
+        assertEquals(date.toInstant().atZone(ZoneId.systemDefault()), zonedDateTime);
+    }
+
+    @ParameterizedTest
+    @MethodSource("testToLocalDateTimeTimeZone")
+    void testToZonedDateTimeTimeZone(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
+        final ZonedDateTime zonedDateTime = DateUtils.toZonedDateTime(date, timeZone);
+        assertEquals(expected, zonedDateTime.toOffsetDateTime().toLocalDateTime());
+        // Using atZone()
+        assertEquals(date.toInstant().atZone(TimeZones.toTimeZone(timeZone).toZoneId()), zonedDateTime);
     }
 
     /**
