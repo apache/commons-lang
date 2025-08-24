@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeSet;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -213,6 +214,199 @@ public class ObjectUtils {
      */
     public static boolean anyNull(final Object... values) {
         return !allNotNull(values);
+    }
+
+    /**
+     * Applies a function to a value if it's not {@code null}. The
+     * function is only applied if the value is not {@code null},
+     * otherwise the method returns {@code null} immediately. If the
+     * value is not {@code null} then the result of the function is
+     * returned.
+     *
+     * <pre>
+     * ObjectUtils.applyIfNotNull("a", String::toUpperCase)  = "A"
+     * ObjectUtils.applyIfNotNull(null, String::toUpperCase) = null
+     * ObjectUtils.applyIfNotNull("a", s -&gt; null)         = null
+     * </pre>
+     *
+     * Useful when working with expressions that may return {@code null}
+     * as it allows a single-line expression without making temporary
+     * local variables or evaluating expressions twice. Provides an
+     * alternative to using {@link Optional} that is shorter and has
+     * less allocation.
+     *
+     * <pre>
+     * String name = applyIfNotNull(peopleMap.get(key), Person::getName);
+     *
+     * // Alternative - requires local to avoid calling Map.get twice
+     * Person person = peopleMap.get(key);
+     * String name = (person != null) ? person.getName() : null;
+     *
+     * // Alternative with Optional - idiomatic, but longer and requires
+     * // allocation
+     * String name = Optional.ofNullable(peopleMap.get(key))
+     *                       .map(Person::getName)
+     *                       .orElse(null);
+     * </pre>
+     *
+     * @param <T> The type of the input value.
+     * @param <R> The type of the returned value.
+     * @param value The value to apply the function to, may be
+     * {@code null}.
+     * @param mapper The function to apply, must not be {@code null}.
+     * @return The result of the function (which may be {@code null})
+     * or {@code null} if the input value is {@code null}.
+     * @since 3.19.0
+     */
+    public static <T, R> R applyIfNotNull(
+            final T value,
+            final Function<? super T, ? extends R> mapper) {
+        Objects.requireNonNull(mapper, "mapper");
+        if (value == null) {
+            return null;
+        }
+        return mapper.apply(value);
+    }
+
+    /**
+     * Applies two functions to a value, handling {@code null} at each
+     * step. The functions are only applied if the previous value is not
+     * {@code null}, otherwise the method exits early and returns
+     * {@code null}.
+     *
+     * <pre>
+     * ObjectUtils.applyIfNotNull(" a ", String::toUpperCase, String::trim) = "A"
+     * ObjectUtils.applyIfNotNull(null, String::toUpperCase, String::trim)  = null
+     * ObjectUtils.applyIfNotNull(" a ", s -&gt; null, String::trim)        = null
+     * ObjectUtils.applyIfNotNull(" a ", String::toUpperCase, s -&gt; null) = null
+     * </pre>
+     *
+     * Useful when working with expressions that may return {@code null}
+     * as it allows a single-line expression without making temporary
+     * local variables or evaluating expressions twice. Provides an
+     * alternative to using {@link Optional} that is shorter and has
+     * less allocation.
+     *
+     * <pre>
+     * String petName = applyIfNotNull(peopleMap.get(key),
+     *                                 Person::getPet,
+     *                                 Pet::getName);
+     *
+     * // Alternative - requires locals to avoid calling Map.get or
+     * // Person.getPet twice
+     * Person person = peopleMap.get(key);
+     * Pet pet = (person != null) ? person.getPet() : null;
+     * String petName = (pet != null) ? pet.getName() : null;
+     *
+     * // Alternative with Optional - idiomatic, but longer and requires
+     * // allocation
+     * String petName = Optional.ofNullable(peopleMap.get(key))
+     *                          .map(Person::getPet)
+     *                          .map(Pet::getName)
+     *                          .orElse(null);
+     * </pre>
+     *
+     * @param <T> The type of the input value.
+     * @param <U> The type of the intermediate value.
+     * @param <R> The type of the returned value.
+     * @param value The value to apply the functions to, may be {@code null}.
+     * @param mapper1 The first function to apply, must not be {@code null}.
+     * @param mapper2 The second function to apply, must not be {@code null}.
+     * @return The result of the final function (which may be {@code null})
+     * or {@code null} if the input value or any intermediate value is
+     * {@code null}.
+     * @since 3.19.0
+     */
+    public static <T, U, R> R applyIfNotNull(
+            final T value,
+            final Function<? super T, ? extends U> mapper1,
+            final Function<? super U, ? extends R> mapper2) {
+        Objects.requireNonNull(mapper1, "mapper1");
+        Objects.requireNonNull(mapper2, "mapper2");
+        if (value == null) {
+            return null;
+        }
+        final U value1 = mapper1.apply(value);
+        if (value1 == null) {
+            return null;
+        }
+        return mapper2.apply(value1);
+    }
+
+    /**
+     * Applies three functions to a value, handling {@code null} at each
+     * step. The functions are only applied if the previous value is not
+     * {@code null}, otherwise the method exits early and returns
+     * {@code null}.
+     *
+     * <pre>
+     * ObjectUtils.applyIfNotNull(" abc ", String::toUpperCase, String::trim, StringUtils::reverse) = "CBA"
+     * ObjectUtils.applyIfNotNull(null, String::toUpperCase, String::trim, StringUtils::reverse)    = null
+     * ObjectUtils.applyIfNotNull(" abc ", s -&gt; null, String::trim, StringUtils::reverse)        = null
+     * ObjectUtils.applyIfNotNull(" abc ", String::toUpperCase, s -&gt; null, StringUtils::reverse) = null
+     * ObjectUtils.applyIfNotNull(" abc ", String::toUpperCase, String::trim, s -&gt; null)         = null
+     * </pre>
+     *
+     * Useful when working with expressions that may return {@code null}
+     * as it allows a single-line expression without making temporary
+     * local variables or evaluating expressions twice. Provides an
+     * alternative to using {@link Optional} that is shorter and has
+     * less allocation.
+     *
+     * <pre>
+     * String grandChildName = applyIfNotNull(peopleMap.get(key),
+     *                                        Person::getChild,
+     *                                        Person::getChild,
+     *                                        Person::getName);
+     *
+     * // Alternative - requires locals to avoid multiple lookups
+     * Person person = peopleMap.get(key);
+     * Person child = (person != null) ? person.getChild() : null;
+     * Person grandChild = (child != null) ? child.getChild() : null;
+     * String grandChildName = (grandChild != null) ? grandChild.getName() : null;
+     *
+     * // Alternative with Optional - idiomatic, but longer and requires
+     * // allocation
+     * String grandChildName = Optional.ofNullable(peopleMap.get(key))
+     *                                   .map(Person::getChild)
+     *                                   .map(Person::getChild)
+     *                                   .map(Person::getName)
+     *                                   .orElse(null);
+     * </pre>
+     *
+     * @param <T> The type of the input value.
+     * @param <U> The type of the first intermediate value.
+     * @param <V> The type of the second intermediate value.
+     * @param <R> The type of the returned valueg.
+     * @param value The value to apply the functions to, may be {@code null}.
+     * @param mapper1 The first function to apply, must not be {@code null}.
+     * @param mapper2 The second function to apply, must not be {@code null}.
+     * @param mapper3 The third function to apply, must not be {@code null}.
+     * @return The result of the final function (which may be {@code null})
+     * or {@code null} if the input value or any intermediate value is
+     * {@code null}.
+     * @since 3.19.0
+     */
+    public static <T, U, V, R> R applyIfNotNull(
+            final T value,
+            final Function<? super T, ? extends U> mapper1,
+            final Function<? super U, ? extends V> mapper2,
+            final Function<? super V, ? extends R> mapper3) {
+        Objects.requireNonNull(mapper1, "mapper1");
+        Objects.requireNonNull(mapper2, "mapper2");
+        Objects.requireNonNull(mapper3, "mapper3");
+        if (value == null) {
+            return null;
+        }
+        final U value1 = mapper1.apply(value);
+        if (value1 == null) {
+            return null;
+        }
+        final V value2 = mapper2.apply(value1);
+        if (value2 == null) {
+            return null;
+        }
+        return mapper3.apply(value2);
     }
 
     /**
