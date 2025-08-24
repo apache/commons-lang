@@ -142,12 +142,12 @@ class DateUtilsTest extends AbstractLangTest {
                 Arguments.of(
                         LocalDateTime.ofInstant(Instant.EPOCH, TimeZone.getTimeZone("GMT").toZoneId()),
                         java.sql.Timestamp.valueOf("1970-01-01 00:00:00"),
-                        TimeZone.getTimeZone("America/New_York")
+                        TimeZone.getTimeZone("GMT")
                 ),
                 Arguments.of(
                         LocalDateTime.ofInstant(Instant.EPOCH.minus(1, ChronoUnit.DAYS), TimeZone.getTimeZone("GMT").toZoneId()),
                         java.sql.Timestamp.valueOf("1969-12-31 00:00:00"),
-                        TimeZone.getTimeZone("America/New_York")
+                        TimeZone.getTimeZone("GMT")
                 ),
                 Arguments.of(
                         LocalDateTime.ofInstant(
