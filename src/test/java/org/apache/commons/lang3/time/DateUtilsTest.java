@@ -140,6 +140,12 @@ class DateUtilsTest extends AbstractLangTest {
         // @formatter:off
         return Stream.of(
                 Arguments.of(
+                        // -292275055-05-16T16:47:04.192
+                        LocalDateTime.of(-292275055, 5, 16, 16, 47, 04, 192_000_000),
+                        new Date(Long.MIN_VALUE),
+                        TimeZone.getTimeZone("GMT")
+                ),
+                Arguments.of(
                         LocalDateTime.ofInstant(Instant.EPOCH, TimeZone.getTimeZone("GMT").toZoneId()),
                         java.sql.Timestamp.valueOf("1970-01-01 00:00:00"),
                         TimeZone.getTimeZone("GMT")
