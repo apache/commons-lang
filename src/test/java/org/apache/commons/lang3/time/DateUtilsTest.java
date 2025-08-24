@@ -55,6 +55,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.DefaultTimeZone;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
 import org.junitpioneer.jupiter.WritesDefaultLocale;
 
@@ -1307,6 +1308,7 @@ class DateUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
+    @DefaultTimeZone("GMT")
     void testToLocalDateTime(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         assertEquals(LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), DateUtils.toLocalDateTime(date),
                 () -> String.format("expected = %s, date = %s, timeZone = %s, TimeZone.getDefault() = %s", expected, date, timeZone, TimeZone.getDefault()));
@@ -1314,14 +1316,16 @@ class DateUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource
-    void testToLocalDateTimeTimeZone(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
+    @DefaultTimeZone("GMT")
+    void testToLocalDateTimeTimeZoneGmt(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         assertEquals(expected, DateUtils.toLocalDateTime(date, timeZone),
                 () -> String.format("expected = %s, date = %s, timeZone = %s, TimeZone.getDefault() = %s", expected, date, timeZone, TimeZone.getDefault()));
     }
 
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
-    void testToOffsetDateTime(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
+    @DefaultTimeZone("GMT")
+    void testToOffsetDateTimeGmt(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         final OffsetDateTime offsetDateTime = DateUtils.toOffsetDateTime(date);
         assertEquals(OffsetDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), offsetDateTime,
                 () -> String.format("expected = %s, date = %s, timeZone = %s, TimeZone.getDefault() = %s", expected, date, timeZone, TimeZone.getDefault()));
@@ -1329,14 +1333,16 @@ class DateUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
-    void testToOffsetDateTimeTimeZone(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
+    @DefaultTimeZone("GMT")
+    void testToOffsetDateTimeTimeZoneGmt(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         assertEquals(expected, DateUtils.toOffsetDateTime(date, timeZone).toLocalDateTime(),
                 () -> String.format("expected = %s, date = %s, timeZone = %s, TimeZone.getDefault() = %s", expected, date, timeZone, TimeZone.getDefault()));
     }
 
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
-    void testToZonedDateTime(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
+    @DefaultTimeZone("GMT")
+    void testToZonedDateTimeGmt(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         final ZonedDateTime zonedDateTime = DateUtils.toZonedDateTime(date);
         assertEquals(ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), zonedDateTime,
                 () -> String.format("expected = %s, date = %s, timeZone = %s, TimeZone.getDefault() = %s", expected, date, timeZone, TimeZone.getDefault()));
@@ -1347,7 +1353,8 @@ class DateUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
-    void testToZonedDateTimeTimeZone(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
+    @DefaultTimeZone("GMT")
+    void testToZonedDateTimeTimeZoneGmt(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         final ZonedDateTime zonedDateTime = DateUtils.toZonedDateTime(date, timeZone);
         assertEquals(expected, zonedDateTime.toOffsetDateTime().toLocalDateTime(),
                 () -> String.format("expected = %s, date = %s, timeZone = %s, TimeZone.getDefault() = %s", expected, date, timeZone, TimeZone.getDefault()));
