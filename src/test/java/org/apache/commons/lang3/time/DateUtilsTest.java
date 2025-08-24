@@ -1308,6 +1308,7 @@ class DateUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
+    @DefaultLocale(language = "en")
     @DefaultTimeZone("GMT")
     void testToLocalDateTime(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         assertEquals(LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), DateUtils.toLocalDateTime(date),
@@ -1316,6 +1317,7 @@ class DateUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
+    @DefaultLocale(language = "en")
     @DefaultTimeZone("GMT")
     void testToLocalDateTimeTimeZoneGmt(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         assertEquals(expected, DateUtils.toLocalDateTime(date, timeZone),
@@ -1324,6 +1326,7 @@ class DateUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
+    @DefaultLocale(language = "en")
     @DefaultTimeZone("GMT")
     void testToOffsetDateTimeGmt(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         final OffsetDateTime offsetDateTime = DateUtils.toOffsetDateTime(date);
@@ -1333,6 +1336,7 @@ class DateUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
+    @DefaultLocale(language = "en")
     @DefaultTimeZone("GMT")
     void testToOffsetDateTimeTimeZoneGmt(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         assertEquals(expected, DateUtils.toOffsetDateTime(date, timeZone).toLocalDateTime(),
@@ -1341,6 +1345,7 @@ class DateUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
+    @DefaultLocale(language = "en")
     @DefaultTimeZone("GMT")
     void testToZonedDateTimeGmt(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         final ZonedDateTime zonedDateTime = DateUtils.toZonedDateTime(date);
@@ -1352,6 +1357,7 @@ class DateUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
+    @DefaultLocale(language = "en")
     @MethodSource("testToLocalDateTimeTimeZone")
     @DefaultTimeZone("GMT")
     void testToZonedDateTimeTimeZoneGmt(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
