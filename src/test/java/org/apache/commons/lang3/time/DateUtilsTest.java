@@ -143,23 +143,23 @@ class DateUtilsTest extends AbstractLangTest {
                         // -292275055-05-16T16:47:04.192
                         LocalDateTime.of(-292275055, 5, 16, 16, 47, 04, 192_000_000),
                         new Date(Long.MIN_VALUE),
-                        TimeZone.getTimeZone("GMT")
+                        TimeZones.GMT
                 ),
                 Arguments.of(
                         // +292278994-08-17T07:12:55.807
                         LocalDateTime.of(292278994, 8, 17, 7, 12, 55, 807_000_000),
                         new Date(Long.MAX_VALUE),
-                        TimeZone.getTimeZone("GMT")
+                        TimeZones.GMT
                 ),
                 Arguments.of(
-                        LocalDateTime.ofInstant(Instant.EPOCH, TimeZone.getTimeZone("GMT").toZoneId()),
+                        LocalDateTime.ofInstant(Instant.EPOCH, TimeZones.GMT.toZoneId()),
                         java.sql.Timestamp.valueOf("1970-01-01 00:00:00"),
-                        TimeZone.getTimeZone("GMT")
+                        TimeZones.GMT
                 ),
                 Arguments.of(
-                        LocalDateTime.ofInstant(Instant.EPOCH.minus(1, ChronoUnit.DAYS), TimeZone.getTimeZone("GMT").toZoneId()),
+                        LocalDateTime.ofInstant(Instant.EPOCH.minus(1, ChronoUnit.DAYS), TimeZones.GMT.toZoneId()),
                         java.sql.Timestamp.valueOf("1969-12-31 00:00:00"),
-                        TimeZone.getTimeZone("GMT")
+                        TimeZones.GMT
                 ),
                 Arguments.of(
                         LocalDateTime.ofInstant(
