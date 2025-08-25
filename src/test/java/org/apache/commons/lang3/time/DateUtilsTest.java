@@ -1321,7 +1321,7 @@ class DateUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
     @DefaultLocale(language = "en", country = "US")
-    @DefaultTimeZone("GMT")
+    @DefaultTimeZone(TimeZones.GMT_ID)
     void testToLocalDateTime(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         assertEquals(LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), DateUtils.toLocalDateTime(date),
                 () -> String.format("expected = %s, date = %s, timeZone = %s, TimeZone.getDefault() = %s", expected, date, timeZone, TimeZone.getDefault()));
@@ -1330,7 +1330,7 @@ class DateUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
     @DefaultLocale(language = "en", country = "US")
-    @DefaultTimeZone("GMT")
+    @DefaultTimeZone(TimeZones.GMT_ID)
     void testToLocalDateTimeTimeZone(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         assertEquals(expected, DateUtils.toLocalDateTime(date, timeZone),
                 () -> String.format("expected = %s, date = %s, timeZone = %s, TimeZone.getDefault() = %s", expected, date, timeZone, TimeZone.getDefault()));
@@ -1339,7 +1339,7 @@ class DateUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
     @DefaultLocale(language = "en", country = "US")
-    @DefaultTimeZone("GMT")
+    @DefaultTimeZone(TimeZones.GMT_ID)
     void testToOffsetDateTime(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         final OffsetDateTime offsetDateTime = DateUtils.toOffsetDateTime(date);
         assertEquals(OffsetDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), offsetDateTime,
@@ -1349,7 +1349,7 @@ class DateUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
     @DefaultLocale(language = "en", country = "US")
-    @DefaultTimeZone("GMT")
+    @DefaultTimeZone(TimeZones.GMT_ID)
     void testToOffsetDateTimeTimeZone(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         assertEquals(expected, DateUtils.toOffsetDateTime(date, timeZone).toLocalDateTime(),
                 () -> String.format("expected = %s, date = %s, timeZone = %s, TimeZone.getDefault() = %s", expected, date, timeZone, TimeZone.getDefault()));
@@ -1358,7 +1358,7 @@ class DateUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("testToLocalDateTimeTimeZone")
     @DefaultLocale(language = "en", country = "US")
-    @DefaultTimeZone("GMT")
+    @DefaultTimeZone(TimeZones.GMT_ID)
     void testToZonedDateTime(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         final ZonedDateTime zonedDateTime = DateUtils.toZonedDateTime(date);
         assertEquals(ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()), zonedDateTime,
@@ -1369,9 +1369,9 @@ class DateUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @DefaultLocale(language = "en", country = "US")
     @MethodSource("testToLocalDateTimeTimeZone")
-    @DefaultTimeZone("GMT")
+    @DefaultLocale(language = "en", country = "US")
+    @DefaultTimeZone(TimeZones.GMT_ID)
     void testToZonedDateTimeTimeZone(final LocalDateTime expected, final Date date, final TimeZone timeZone) {
         final ZonedDateTime zonedDateTime = DateUtils.toZonedDateTime(date, timeZone);
         assertEquals(expected, zonedDateTime.toOffsetDateTime().toLocalDateTime(),
