@@ -38,34 +38,35 @@ final class MemberUtils {
      * providing a common representation for function signatures for Constructors and Methods.
      */
     private static final class Executable {
-      private static Executable of(final Constructor<?> constructor) {
-          return new Executable(constructor);
-      }
-      private static Executable of(final Method method) {
-          return new Executable(method);
-      }
 
-      private final Class<?>[] parameterTypes;
+        private static Executable of(final Constructor<?> constructor) {
+            return new Executable(constructor);
+        }
 
-      private final boolean  isVarArgs;
+        private static Executable of(final Method method) {
+            return new Executable(method);
+        }
 
-      private Executable(final Constructor<?> constructor) {
-        parameterTypes = constructor.getParameterTypes();
-        isVarArgs = constructor.isVarArgs();
-      }
+        private final Class<?>[] parameterTypes;
+        private final boolean isVarArgs;
 
-      private Executable(final Method method) {
-        parameterTypes = method.getParameterTypes();
-        isVarArgs = method.isVarArgs();
-      }
+        private Executable(final Constructor<?> constructor) {
+            parameterTypes = constructor.getParameterTypes();
+            isVarArgs = constructor.isVarArgs();
+        }
 
-      public Class<?>[] getParameterTypes() {
-          return parameterTypes;
-      }
+        private Executable(final Method method) {
+            parameterTypes = method.getParameterTypes();
+            isVarArgs = method.isVarArgs();
+        }
 
-      public boolean isVarArgs() {
-          return isVarArgs;
-      }
+        public Class<?>[] getParameterTypes() {
+            return parameterTypes;
+        }
+
+        public boolean isVarArgs() {
+            return isVarArgs;
+        }
     }
 
     private static final int ACCESS_TEST = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
@@ -153,8 +154,7 @@ final class MemberUtils {
             srcClass = srcClass.getSuperclass();
         }
         /*
-         * If the destination class is null, we've traveled all the way up to
-         * an Object match. We'll penalize this by adding 1.5 to the cost.
+         * If the destination class is null, we've traveled all the way up to an Object match. We'll penalize this by adding 1.5 to the cost.
          */
         if (srcClass == null) {
             cost += 1.5f;
