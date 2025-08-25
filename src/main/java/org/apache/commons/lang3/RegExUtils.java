@@ -29,6 +29,11 @@ import java.util.regex.Pattern;
 public class RegExUtils {
 
     /**
+     * The pattern to split version strings.
+     */
+    static final Pattern VERSION_SPLIT_PATTERN = Pattern.compile("\\.");
+
+    /**
      * Compiles the given regular expression into a pattern with the {@link Pattern#DOTALL} flag.
      *
      * @param regex The expression to be compiled

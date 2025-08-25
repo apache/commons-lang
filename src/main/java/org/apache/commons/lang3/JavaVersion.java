@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
@@ -200,11 +198,6 @@ public enum JavaVersion {
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
 
     /**
-     * The regex to split version pattern.
-     */
-    private static final Pattern VERSION_SPLIT_PATTERN = Pattern.compile("\\.");
-
-    /**
      * Transforms the given string with a Java version number to the
      * corresponding constant of this enumeration class. This method is used
      * internally.
@@ -307,7 +300,7 @@ public enum JavaVersion {
     }
 
     static String[] split(final String value) {
-        return VERSION_SPLIT_PATTERN.split(value);
+        return RegExUtils.VERSION_SPLIT_PATTERN.split(value);
     }
 
     /**
