@@ -585,15 +585,19 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("String[]", ClassUtils.getShortCanonicalName(String[].class.getName()));
         assertEquals("String[]", ClassUtils.getShortCanonicalName(String[].class.getCanonicalName()));
         assertEquals("String[]", ClassUtils.getShortCanonicalName("String[]"));
-        // Note that we throw RuntimeException (but not which one) for the following bad inputs:
-        assertThrows(RuntimeException.class, () -> ClassUtils.getShortCanonicalName(""));
-        assertThrows(RuntimeException.class, () -> ClassUtils.getShortCanonicalName("["));
-        assertThrows(RuntimeException.class, () -> ClassUtils.getShortCanonicalName("[]"));
-        assertThrows(RuntimeException.class, () -> ClassUtils.getShortCanonicalName("[;"));
-        assertThrows(RuntimeException.class, () -> ClassUtils.getShortCanonicalName("[];"));
-        assertThrows(RuntimeException.class, () -> ClassUtils.getShortCanonicalName(" "));
-        assertThrows(RuntimeException.class, () -> ClassUtils.getShortCanonicalName("[$"));
-        assertThrows(RuntimeException.class, () -> ClassUtils.getShortCanonicalName("[$a"));
+        // Note that we throw IllegalArgumentException for the following bad inputs:
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName(""));
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName("["));
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName("[]"));
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName("[;"));
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName("[];"));
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName(" "));
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName("[$"));
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName("[$a"));
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName("[["));
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName("[[L"));
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName("[org.apache.commons.lang3.ClassUtilsTest"));
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getShortCanonicalName("[Lorg.apache.commons.lang3.ClassUtilsTest"));
     }
 
     @Test
