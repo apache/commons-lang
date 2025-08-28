@@ -309,6 +309,20 @@ class MethodUtilsTest extends AbstractLangTest {
             verify(a, pair);
         }
 
+        boolean unboxBooleanArray;
+
+        boolean unboxByteArray;
+
+        boolean unboxCharArray;
+
+        boolean unboxDoubleArray;
+
+        boolean unboxFloatArray;
+
+        boolean unboxIntArray;
+
+        boolean unboxLongArray;
+
         public String foo() {
             return "foo()";
         }
@@ -391,7 +405,38 @@ class MethodUtilsTest extends AbstractLangTest {
         private void privateStuff() {
         }
 
+        public boolean[] unboxing(final boolean... values) {
+            unboxBooleanArray = true;
+            return values;
+        }
+
+        public byte[] unboxing(final byte... values) {
+            unboxByteArray = true;
+            return values;
+        }
+
+        public char[] unboxing(final char... values) {
+            unboxCharArray = true;
+            return values;
+        }
+
+        public double[] unboxing(final double... values) {
+            unboxDoubleArray = true;
+            return values;
+        }
+
+        public float[] unboxing(final float... values) {
+            unboxFloatArray = true;
+            return values;
+        }
+
         public int[] unboxing(final int... values) {
+            unboxIntArray = true;
+            return values;
+        }
+
+        public long[] unboxing(final long... values) {
+            unboxLongArray = true;
             return values;
         }
 
@@ -432,16 +477,14 @@ class MethodUtilsTest extends AbstractLangTest {
 
     }
 
-    private TestBean testBean;
-
     private final Map<Class<?>, Class<?>[]> classCache = new HashMap<>();
 
-    private void expectMatchingAccessibleMethodParameterTypes(final Class<?> cls,
-                                                              final String methodName, final Class<?>[] requestTypes, final Class<?>[] actualTypes) {
-        final Method m = MethodUtils.getMatchingAccessibleMethod(cls, methodName,
-                requestTypes);
-        assertNotNull(m, "could not find any matches for " + methodName
-                + " (" + (requestTypes == null ? null : toString(requestTypes)) + ")");
+    private TestBean testBean;
+
+    private void expectMatchingAccessibleMethodParameterTypes(final Class<?> cls, final String methodName, final Class<?>[] requestTypes,
+            final Class<?>[] actualTypes) {
+        final Method m = MethodUtils.getMatchingAccessibleMethod(cls, methodName, requestTypes);
+        assertNotNull(m, "could not find any matches for " + methodName + " (" + (requestTypes == null ? null : toString(requestTypes)) + ")");
         assertArrayEquals(actualTypes, m.getParameterTypes(), toString(m.getParameterTypes()) + " not equals " + toString(actualTypes));
     }
 
@@ -1130,10 +1173,59 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testVarArgsUnboxing() throws Exception {
+    void testVarArgsUnboxingBooleanArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final boolean[] actual = (boolean[]) MethodUtils.invokeMethod(testBean, "unboxing", Boolean.TRUE, Boolean.FALSE);
+        assertArrayEquals(new boolean[] { true, false }, actual);
+        assertTrue(testBean.unboxBooleanArray);
+    }
+
+    @Test
+    void testVarArgsUnboxingByteArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final byte[] actual = (byte[]) MethodUtils.invokeMethod(testBean, "unboxing", Byte.valueOf((byte) 1), Byte.valueOf((byte) 2));
+        assertArrayEquals(new byte[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxByteArray);
+    }
+
+    @Test
+    void testVarArgsUnboxingCharArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final char[] actual = (char[]) MethodUtils.invokeMethod(testBean, "unboxing", Character.valueOf((char) 1), Character.valueOf((char) 2));
+        assertArrayEquals(new char[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxCharArray);
+    }
+
+    @Test
+    void testVarArgsUnboxingDoubleArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final double[] actual = (double[]) MethodUtils.invokeMethod(testBean, "unboxing", Double.valueOf(1), Double.valueOf(2));
+        assertArrayEquals(new double[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxDoubleArray);
+    }
+
+    @Test
+    void testVarArgsUnboxingFloatArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final float[] actual = (float[]) MethodUtils.invokeMethod(testBean, "unboxing", Float.valueOf(1), Float.valueOf(2));
+        assertArrayEquals(new float[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxFloatArray);
+    }
+
+    @Test
+    void testVarArgsUnboxingIntArray() throws Exception {
         final TestBean testBean = new TestBean();
         final int[] actual = (int[]) MethodUtils.invokeMethod(testBean, "unboxing", Integer.valueOf(1), Integer.valueOf(2));
-        assertArrayEquals(new int[]{1, 2}, actual);
+        assertArrayEquals(new int[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxIntArray);
+    }
+
+    @Test
+    void testVarArgsUnboxingLongArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final long[] actual = (long[]) MethodUtils.invokeMethod(testBean, "unboxing", Long.valueOf(1), Long.valueOf(2));
+        assertArrayEquals(new long[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxLongArray);
     }
 
     private String toString(final Class<?>[] c) {
