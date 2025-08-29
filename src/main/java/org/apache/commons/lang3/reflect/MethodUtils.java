@@ -298,9 +298,7 @@ public class MethodUtils {
         final Method method;
         if (forceAccess) {
             method = getMatchingMethod(cls, methodName, parameterTypes);
-            if (method != null && !method.isAccessible()) {
-                method.setAccessible(true);
-            }
+            AccessibleObjects.setAccessible(method);
         } else {
             method = getMatchingAccessibleMethod(cls, methodName, parameterTypes);
         }

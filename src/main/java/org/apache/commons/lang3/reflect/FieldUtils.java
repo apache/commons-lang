@@ -399,12 +399,7 @@ public class FieldUtils {
      */
     public static Object readField(final Field field, final Object target, final boolean forceAccess) throws IllegalAccessException {
         Objects.requireNonNull(field, "field");
-        if (forceAccess && !field.isAccessible()) {
-            field.setAccessible(true);
-        } else {
-            MemberUtils.setAccessibleWorkaround(field);
-        }
-        return field.get(target);
+        return setAccessible(field, forceAccess).get(target);
     }
 
     /**
@@ -610,6 +605,15 @@ public class FieldUtils {
         }
     }
 
+    static Field setAccessible(final Field field, final boolean forceAccess) {
+        if (forceAccess && !field.isAccessible()) {
+            field.setAccessible(true);
+        } else {
+            MemberUtils.setAccessibleWorkaround(field);
+        }
+        return field;
+    }
+
     /**
      * Writes a {@code public} {@link Field}. Only the specified class will be considered.
      *
@@ -762,12 +766,7 @@ public class FieldUtils {
     public static void writeField(final Field field, final Object target, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
         Objects.requireNonNull(field, "field");
-        if (forceAccess && !field.isAccessible()) {
-            field.setAccessible(true);
-        } else {
-            MemberUtils.setAccessibleWorkaround(field);
-        }
-        field.set(target, value);
+        setAccessible(field, forceAccess).set(target, value);
     }
 
     /**

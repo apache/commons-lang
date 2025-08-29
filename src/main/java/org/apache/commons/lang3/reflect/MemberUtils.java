@@ -282,7 +282,7 @@ final class MemberUtils {
      * @param modifiers to test.
      * @return {@code true} unless {@code package}/{@code protected}/{@code private} modifier detected
      */
-    static boolean isPackageAccess(final int modifiers) {
+    static boolean isPackage(final int modifiers) {
         return (modifiers & ACCESS_TEST) == 0;
     }
 
@@ -322,16 +322,16 @@ final class MemberUtils {
      * @return a boolean indicating whether the accessibility of the object was set to true.
      */
     static <T extends AccessibleObject> T setAccessibleWorkaround(final T obj) {
-        if (obj == null || obj.isAccessible()) {
+        if (AccessibleObjects.isAccessible(obj)) {
             return obj;
         }
         final Member m = (Member) obj;
-        if (isPublic(m) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
+        if (isPublic(m) && isPackage(m.getDeclaringClass().getModifiers())) {
             try {
                 obj.setAccessible(true);
                 return obj;
             } catch (final SecurityException ignored) {
-                // ignore in favor of subsequent IllegalAccessException
+                // Ignore in favor of subsequent IllegalAccessException
             }
         }
         return obj;
