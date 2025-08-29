@@ -586,7 +586,6 @@ public class FieldUtils {
     @Deprecated
     public static void removeFinalModifier(final Field field, final boolean forceAccess) {
         Objects.requireNonNull(field, "field");
-
         try {
             if (Modifier.isFinal(field.getModifiers())) {
                 // Do all JREs implement Field with a private ivar called "modifiers"?
@@ -605,10 +604,7 @@ public class FieldUtils {
             }
         } catch (final NoSuchFieldException | IllegalAccessException e) {
             if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_12)) {
-              throw new UnsupportedOperationException(
-                  "In java 12+ final cannot be removed.",
-                  e
-              );
+                throw new UnsupportedOperationException("In java 12+ final cannot be removed.", e);
             }
             // else no exception is thrown because we can modify final.
         }
