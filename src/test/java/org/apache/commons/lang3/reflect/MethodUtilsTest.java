@@ -73,10 +73,8 @@ class MethodUtilsTest extends AbstractLangTest {
         @Override
         public void testMethod6() { }
     }
-    interface ChildInterface {
-    }
 
-    public static class ChildObject extends ParentObject implements ChildInterface {
+    public static class ChildObject extends ParentObject implements PackagePrivateEmptyInterface {
     }
 
     private static final class ConcreteGetMatchingMethod2 extends AbstractGetMatchingMethod2 { }
@@ -127,9 +125,9 @@ class MethodUtilsTest extends AbstractLangTest {
         public void testMethod5(final Exception exception) {
         }
     }
+
     public static class GrandParentObject {
     }
-
     public static class InheritanceBean {
         public void testOne(final GrandParentObject obj) {
         }
@@ -140,20 +138,20 @@ class MethodUtilsTest extends AbstractLangTest {
         public void testOne(final ParentObject obj) {
         }
 
-        public void testTwo(final ChildInterface obj) {
-        }
-
         public void testTwo(final GrandParentObject obj) {
         }
 
         public void testTwo(final Object obj) {
         }
+
+        public void testTwo(final PackagePrivateEmptyInterface obj) {
+        }
     }
+
     interface InterfaceGetMatchingMethod {
         default void testMethod6() {
         }
     }
-
     private static final class MethodDescriptor {
         final Class<?> declaringClass;
         final String name;
@@ -166,10 +164,13 @@ class MethodUtilsTest extends AbstractLangTest {
         }
     }
 
+    interface PackagePrivateEmptyInterface {
+    }
+
     public static class ParentObject extends GrandParentObject {
     }
 
-    private interface PrivateInterface {
+    private interface PrivateEmptyInterface {
     }
 
     public static class TestBean {
@@ -463,7 +464,7 @@ class MethodUtilsTest extends AbstractLangTest {
     static class TestBeanSubclass extends TestBean {
     }
 
-    static class TestBeanWithInterfaces implements PrivateInterface {
+    static class TestBeanWithInterfaces implements PrivateEmptyInterface {
         public String foo() {
             return "foo()";
         }
@@ -768,7 +769,7 @@ class MethodUtilsTest extends AbstractLangTest {
         expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testOne", singletonArray(ChildObject.class), singletonArray(ParentObject.class));
         expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testTwo", singletonArray(ParentObject.class),
                 singletonArray(GrandParentObject.class));
-        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testTwo", singletonArray(ChildObject.class), singletonArray(ChildInterface.class));
+        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testTwo", singletonArray(ChildObject.class), singletonArray(PackagePrivateEmptyInterface.class));
         // LANG-1757
         expectMatchingAccessibleMethodParameterTypes(Files.class, "exists", singletonArray(Path.class), new Class[] { Path.class, LinkOption[].class });
     }
@@ -1108,6 +1109,32 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testJavaVarargsOverloadingResolution() {
+        // This code is not a test of MethodUtils.
+        // Rather it makes explicit the behavior of the Java specification for
+        // various cases of overload resolution.
+        assertEquals("Byte...", TestBean.varOverload((byte) 1, (byte) 2));
+        assertEquals("Short...", TestBean.varOverload((short) 1, (short) 2));
+        assertEquals("Integer...", TestBean.varOverload(1, 2));
+        assertEquals("Long...", TestBean.varOverload(1L, 2L));
+        assertEquals("Float...", TestBean.varOverload(1f, 2f));
+        assertEquals("Double...", TestBean.varOverload(1d, 2d));
+        assertEquals("Character...", TestBean.varOverload('a', 'b'));
+        assertEquals("String...", TestBean.varOverload("a", "b"));
+        assertEquals("Boolean...", TestBean.varOverload(true, false));
+        assertEquals("Object...", TestBean.varOverload(1, "s"));
+        assertEquals("Object...", TestBean.varOverload(1, true));
+        assertEquals("Object...", TestBean.varOverload(1.1, true));
+        assertEquals("Object...", TestBean.varOverload('c', true));
+        assertEquals("Number...", TestBean.varOverload(1, 1.1));
+        assertEquals("Number...", TestBean.varOverload(1, 1L));
+        assertEquals("Number...", TestBean.varOverload(1d, 1f));
+        assertEquals("Number...", TestBean.varOverload((short) 1, (byte) 1));
+        assertEquals("Object...", TestBean.varOverload(1, 'c'));
+        assertEquals("Object...", TestBean.varOverload('c', "s"));
+    }
+
+    @Test
     void testNullArgument() {
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "oneParameter", singletonArray(null), singletonArray(String.class));
     }
@@ -1178,31 +1205,5 @@ class MethodUtilsTest extends AbstractLangTest {
 
     private String toString(final Class<?>[] c) {
         return Arrays.asList(c).toString();
-    }
-
-    @Test
-    void testJavaVarargsOverloadingResolution() {
-        // This code is not a test of MethodUtils.
-        // Rather it makes explicit the behavior of the Java specification for
-        // various cases of overload resolution.
-        assertEquals("Byte...", TestBean.varOverload((byte) 1, (byte) 2));
-        assertEquals("Short...", TestBean.varOverload((short) 1, (short) 2));
-        assertEquals("Integer...", TestBean.varOverload(1, 2));
-        assertEquals("Long...", TestBean.varOverload(1L, 2L));
-        assertEquals("Float...", TestBean.varOverload(1f, 2f));
-        assertEquals("Double...", TestBean.varOverload(1d, 2d));
-        assertEquals("Character...", TestBean.varOverload('a', 'b'));
-        assertEquals("String...", TestBean.varOverload("a", "b"));
-        assertEquals("Boolean...", TestBean.varOverload(true, false));
-        assertEquals("Object...", TestBean.varOverload(1, "s"));
-        assertEquals("Object...", TestBean.varOverload(1, true));
-        assertEquals("Object...", TestBean.varOverload(1.1, true));
-        assertEquals("Object...", TestBean.varOverload('c', true));
-        assertEquals("Number...", TestBean.varOverload(1, 1.1));
-        assertEquals("Number...", TestBean.varOverload(1, 1L));
-        assertEquals("Number...", TestBean.varOverload(1d, 1f));
-        assertEquals("Number...", TestBean.varOverload((short) 1, (byte) 1));
-        assertEquals("Object...", TestBean.varOverload(1, 'c'));
-        assertEquals("Object...", TestBean.varOverload('c', "s"));
     }
 }
