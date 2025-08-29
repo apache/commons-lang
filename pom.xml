@@ -143,19 +143,15 @@
     <commons.release.2.name>commons-lang-${commons.release.2.version}</commons.release.2.name>
     <commons.jira.id>LANG</commons.jira.id>
     <commons.jira.pid>12310481</commons.jira.pid>
-
     <commons.site.path>lang</commons.site.path>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-lang</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>UTF-8</commons.encoding>
-
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
-
     <japicmp.skip>false</japicmp.skip>
     <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
     <jmh.version>1.37</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
-
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.18.0</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
@@ -171,7 +167,6 @@
     <commons.jacoco.complexityRatio>0.91</commons.jacoco.complexityRatio>
     <commons.text.version>1.14.0</commons.text.version>
   </properties>
-
   <build>
     <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
     <pluginManagement>
@@ -432,11 +427,9 @@
                     <exec executable="svn">
                       <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}" />
                     </exec>
-
                     <exec executable="svn">
                       <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs" />
                     </exec>
-
                     <pathconvert pathsep=" " property="dirs">
                       <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*" />
                     </pathconvert>
@@ -451,7 +444,6 @@
         </plugins>
       </build>
     </profile>
-
     <profile>
       <id>java9+</id>
       <activation>
@@ -483,7 +475,6 @@
         </plugins>
       </build>
     </profile>
-
     <profile>
       <id>benchmark</id>
       <properties>
