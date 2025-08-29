@@ -320,44 +320,48 @@ public class MethodUtils {
      *
      * @param cls            find method in this class.
      * @param methodName     find method with this name.
-     * @param parameterTypes find method with most compatible parameters.
+     * @param requestTypes find method with most compatible parameters.
      * @return The accessible method or null.
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
-    public static Method getMatchingAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
-        final Method candidate = getMethodObject(cls, methodName, parameterTypes);
+    public static Method getMatchingAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... requestTypes) {
+        final Method candidate = getMethodObject(cls, methodName, requestTypes);
         if (candidate != null) {
             return MemberUtils.setAccessibleWorkaround(candidate);
         }
         // search through all methods
         final Method[] methods = cls.getMethods();
         final List<Method> matchingMethods = Stream.of(methods)
-                .filter(method -> method.getName().equals(methodName) && MemberUtils.isMatchingMethod(method, parameterTypes)).collect(Collectors.toList());
+                .filter(method -> method.getName().equals(methodName) && MemberUtils.isMatchingMethod(method, requestTypes)).collect(Collectors.toList());
         // Sort methods by signature to force deterministic result
         matchingMethods.sort(METHOD_BY_SIGNATURE);
         Method bestMatch = null;
         for (final Method method : matchingMethods) {
             // get accessible version of method
             final Method accessibleMethod = getAccessibleMethod(method);
-            if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(accessibleMethod, bestMatch, parameterTypes) < 0)) {
+            if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(accessibleMethod, bestMatch, requestTypes) < 0)) {
                 bestMatch = accessibleMethod;
             }
         }
         if (bestMatch != null) {
             MemberUtils.setAccessibleWorkaround(bestMatch);
-        }
-        if (bestMatch != null && bestMatch.isVarArgs() && bestMatch.getParameterTypes().length > 0 && parameterTypes.length > 0) {
-            final Class<?>[] methodParameterTypes = bestMatch.getParameterTypes();
-            final Class<?> methodParameterComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
-            final String varVargTypeName = ClassUtils.primitiveToWrapper(methodParameterComponentType).getName();
-            final Class<?> lastParameterType = parameterTypes[parameterTypes.length - 1];
-            final String parameterTypeName = lastParameterType == null ? null : lastParameterType.getName();
-            final String parameterTypeSuperClassName = lastParameterType == null ? null
-                    : lastParameterType.getSuperclass() != null ? lastParameterType.getSuperclass().getName() : null;
-            if (parameterTypeName != null && parameterTypeSuperClassName != null && !varVargTypeName.equals(parameterTypeName)
-                    && !varVargTypeName.equals(parameterTypeSuperClassName)) {
-                return null;
+            if (bestMatch.isVarArgs()) {
+                final int paramLen = bestMatch.getParameterTypes().length;
+                final int requestTypesLen = requestTypes.length;
+                if (paramLen > 0 && requestTypesLen > 0 && !(requestTypesLen == paramLen - 1)) {
+                    final Class<?>[] methodTypes = bestMatch.getParameterTypes();
+                    final Class<?> componentType = methodTypes[methodTypes.length - 1].getComponentType();
+                    final String varVargTypeName = ClassUtils.primitiveToWrapper(componentType).getName();
+                    final Class<?> requestLastType = requestTypes[requestTypesLen - 1];
+                    final String requestTypeName = requestLastType == null ? null : requestLastType.getName();
+                    final String requestTypeSuperClassName = requestLastType == null ? null
+                            : requestLastType.getSuperclass() != null ? requestLastType.getSuperclass().getName() : null;
+                    if (requestTypeName != null && requestTypeSuperClassName != null && !varVargTypeName.equals(requestTypeName)
+                            && !varVargTypeName.equals(requestTypeSuperClassName)) {
+                        return null;
+                    }
+                }
             }
         }
         return bestMatch;

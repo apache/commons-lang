@@ -249,6 +249,14 @@ class MethodUtilsTest extends AbstractLangTest {
             return "static int, String...";
         }
 
+        public static String staticIntLongVarArg(final int intArg, final long... args) {
+            return "static int, long...";
+        }
+
+        public static String staticIntIntVarArg(final int intArg, final int... args) {
+            return "static int, int...";
+        }
+
         public static String varOverload(final Boolean... args) {
             return "Boolean...";
         }
@@ -376,6 +384,14 @@ class MethodUtilsTest extends AbstractLangTest {
 
         public String intStringVarArg(final int intArg, final String... args) {
             return "int, String...";
+        }
+
+        public String intLongVarArg(final int intArg, final long... args) {
+            return "int, long...";
+        }
+
+        public String intIntVarArg(final int intArg, final int... args) {
+            return "int, int...";
         }
 
         public void oneParameter(final String s) {
@@ -1072,10 +1088,21 @@ class MethodUtilsTest extends AbstractLangTest {
 
     @Test
     void testInvokeMethod1PlusVarArgs() throws Exception {
-        // assertEquals("int, String...", MethodUtils.invokeMethod(testBean, "intStringVarArg", 1));
+        // intStringVarArg
+        assertEquals("int, String...", MethodUtils.invokeMethod(testBean, "intStringVarArg", 1));
         assertEquals("int, String...", MethodUtils.invokeMethod(testBean, "intStringVarArg", 1, "s"));
         assertEquals("int, String...", MethodUtils.invokeMethod(testBean, "intStringVarArg", 1, "s1", "s2"));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "intStringVarArg", 1, "s1", 5));
+        // intLongVarArg
+        assertEquals("int, long...", MethodUtils.invokeMethod(testBean, "intLongVarArg", 1));
+        assertEquals("int, long...", MethodUtils.invokeMethod(testBean, "intLongVarArg", 1, 2L));
+        assertEquals("int, long...", MethodUtils.invokeMethod(testBean, "intLongVarArg", 1, 2L, 3L));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "intLongVarArg", 1, "s1", 5));
+        // intIntVarArg
+        assertEquals("int, int...", MethodUtils.invokeMethod(testBean, "intIntVarArg", 1));
+        assertEquals("int, int...", MethodUtils.invokeMethod(testBean, "intIntVarArg", 1, 2));
+        assertEquals("int, int...", MethodUtils.invokeMethod(testBean, "intIntVarArg", 1, 2, 3));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "intLongVarArg", 1, "s1", 5));
     }
 
     @Test
@@ -1191,10 +1218,21 @@ class MethodUtilsTest extends AbstractLangTest {
 
     @Test
     void testInvokeStaticMethod1PlusVarArgs() throws Exception {
-        // assertEquals("static int, String...", MethodUtils.invokeStaticMethod(TestBean.class, "staticIntStringVarArg", 1));
+        // staticIntStringVarArg
+        assertEquals("static int, String...", MethodUtils.invokeStaticMethod(TestBean.class, "staticIntStringVarArg", 1));
         assertEquals("static int, String...", MethodUtils.invokeStaticMethod(TestBean.class, "staticIntStringVarArg", 1, "s"));
         assertEquals("static int, String...", MethodUtils.invokeStaticMethod(TestBean.class, "staticIntStringVarArg", 1, "s1", "s2"));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(TestBean.class, "staticIntStringVarArg", 1, "s1", 5));
+        // staticIntLongVarArg
+        assertEquals("static int, long...", MethodUtils.invokeMethod(testBean, "staticIntLongVarArg", 1));
+        assertEquals("static int, long...", MethodUtils.invokeMethod(testBean, "staticIntLongVarArg", 1, 2L));
+        assertEquals("static int, long...", MethodUtils.invokeMethod(testBean, "staticIntLongVarArg", 1, 2L, 3L));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "staticIntLongVarArg", 1, "s1", 5));
+        // staticIntIntVarArg
+        assertEquals("static int, int...", MethodUtils.invokeMethod(testBean, "staticIntIntVarArg", 1));
+        assertEquals("static int, int...", MethodUtils.invokeMethod(testBean, "staticIntIntVarArg", 1, 2));
+        assertEquals("static int, int...", MethodUtils.invokeMethod(testBean, "staticIntIntVarArg", 1, 2, 3));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "staticIntIntVarArg", 1, "s1", 5));
     }
 
     @Test
