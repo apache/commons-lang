@@ -176,6 +176,14 @@ class MethodUtilsTest extends AbstractLangTest {
         // empty
     }
 
+    public static class PublicImpl1OfPackagePrivateEmptyInterface implements PackagePrivateEmptyInterface {
+        // empty
+    }
+
+    public static class PublicImpl2OfPackagePrivateEmptyInterface implements PackagePrivateEmptyInterface {
+        // empty
+    }
+
     public static class TestBean {
 
         public static String bar() {
@@ -248,16 +256,24 @@ class MethodUtilsTest extends AbstractLangTest {
             // empty
         }
 
-        public static String staticIntStringVarArg(final int intArg, final String... args) {
-            return "static int, String...";
+        public static String staticIntIntVarArg(final int intArg, final int... args) {
+            return "static int, int...";
         }
 
         public static String staticIntLongVarArg(final int intArg, final long... args) {
             return "static int, long...";
         }
 
-        public static String staticIntIntVarArg(final int intArg, final int... args) {
-            return "static int, int...";
+        public static String staticIntStringVarArg(final int intArg, final String... args) {
+            return "static int, String...";
+        }
+
+        public static String staticPackagePrivateEmptyInterface(final PackagePrivateEmptyInterface... args) {
+            return "static PackagePrivateEmptyInterface...";
+        }
+
+        public String packagePrivateEmptyInterface(final PackagePrivateEmptyInterface... args) {
+            return "PackagePrivateEmptyInterface...";
         }
 
         public static String varOverload(final Boolean... args) {
@@ -385,16 +401,16 @@ class MethodUtilsTest extends AbstractLangTest {
             return "foo(String...)";
         }
 
-        public String intStringVarArg(final int intArg, final String... args) {
-            return "int, String...";
+        public String intIntVarArg(final int intArg, final int... args) {
+            return "int, int...";
         }
 
         public String intLongVarArg(final int intArg, final long... args) {
             return "int, long...";
         }
 
-        public String intIntVarArg(final int intArg, final int... args) {
-            return "int, int...";
+        public String intStringVarArg(final int intArg, final String... args) {
+            return "int, String...";
         }
 
         public void oneParameter(final String s) {
@@ -1236,6 +1252,31 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals("static int, int...", MethodUtils.invokeMethod(testBean, "staticIntIntVarArg", 1, 2));
         assertEquals("static int, int...", MethodUtils.invokeMethod(testBean, "staticIntIntVarArg", 1, 2, 3));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "staticIntIntVarArg", 1, "s1", 5));
+    }
+
+    @Test
+    void testInvokeStaticMethodVarArgsOfInterface() throws Exception {
+        // staticPackagePrivateEmptyInterface
+        assertEquals("static PackagePrivateEmptyInterface...", MethodUtils.invokeStaticMethod(TestBean.class, "staticPackagePrivateEmptyInterface",
+                new PublicImpl1OfPackagePrivateEmptyInterface(), new PublicImpl2OfPackagePrivateEmptyInterface()));
+        assertEquals("static PackagePrivateEmptyInterface...",
+                MethodUtils.invokeStaticMethod(TestBean.class, "staticPackagePrivateEmptyInterface", new PackagePrivateEmptyInterface() {
+                    // empty
+                }, new PackagePrivateEmptyInterface() {
+                    // empty
+                }));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsOfInterface() throws Exception {
+        // packagePrivateEmptyInterface
+        assertEquals("PackagePrivateEmptyInterface...", MethodUtils.invokeMethod(testBean, "packagePrivateEmptyInterface",
+                new PublicImpl1OfPackagePrivateEmptyInterface(), new PublicImpl2OfPackagePrivateEmptyInterface()));
+        assertEquals("PackagePrivateEmptyInterface...", MethodUtils.invokeMethod(testBean, "packagePrivateEmptyInterface", new PackagePrivateEmptyInterface() {
+            // empty
+        }, new PackagePrivateEmptyInterface() {
+            // empty
+        }));
     }
 
     @Test

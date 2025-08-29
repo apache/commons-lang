@@ -358,7 +358,7 @@ public class MethodUtils {
                     final String requestTypeSuperClassName = requestLastType == null ? null
                             : requestLastType.getSuperclass() != null ? requestLastType.getSuperclass().getName() : null;
                     if (requestTypeName != null && requestTypeSuperClassName != null && !varVargTypeName.equals(requestTypeName)
-                            && !varVargTypeName.equals(requestTypeSuperClassName)) {
+                            && !varVargTypeName.equals(requestTypeSuperClassName) && !componentType.isAssignableFrom(requestLastType)) {
                         return null;
                     }
                 }
