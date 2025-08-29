@@ -165,12 +165,15 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     interface PackagePrivateEmptyInterface {
+        // empty
     }
 
     public static class ParentObject extends GrandParentObject {
+        // empty
     }
 
     private interface PrivateEmptyInterface {
+        // empty
     }
 
     public static class TestBean {
