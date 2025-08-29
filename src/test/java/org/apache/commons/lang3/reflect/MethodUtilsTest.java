@@ -211,6 +211,10 @@ class MethodUtilsTest extends AbstractLangTest {
             return "bar(String...)";
         }
 
+        public static String intStringVarArg(final int intArg, final String... args) {
+            return "int, String...";
+        }
+
         // This method is overloaded for the wrapper class for every numeric primitive type, plus the common
         // supertype Number
         public static String numOverload(final Byte... args) {
@@ -997,7 +1001,7 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testInvokeJavaVarargsOverloadingResolution() throws Exception {
+    void testInvokeJavaVarArgsOverloadingResolution() throws Exception {
         // Primitive wrappers
         assertEquals("Byte...", MethodUtils.invokeStaticMethod(TestBean.class, "varOverload", (byte) 1, (byte) 2));
         assertEquals("Short...", MethodUtils.invokeStaticMethod(TestBean.class, "varOverload", (short) 1, (short) 2));
@@ -1084,6 +1088,70 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testInvokeMethodVarArgsUnboxingBooleanArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final boolean[] actual = (boolean[]) MethodUtils.invokeMethod(testBean, "unboxing", Boolean.TRUE, Boolean.FALSE);
+        assertArrayEquals(new boolean[] { true, false }, actual);
+        assertTrue(testBean.unboxBooleanArray);
+    }
+
+    @Test
+    void testInvokeMethodVarArgsUnboxingByteArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final byte[] actual = (byte[]) MethodUtils.invokeMethod(testBean, "unboxing", Byte.valueOf((byte) 1), Byte.valueOf((byte) 2));
+        assertArrayEquals(new byte[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxByteArray);
+    }
+
+    @Test
+    void testInvokeMethodVarArgsUnboxingCharArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final char[] actual = (char[]) MethodUtils.invokeMethod(testBean, "unboxing", Character.valueOf((char) 1), Character.valueOf((char) 2));
+        assertArrayEquals(new char[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxCharArray);
+    }
+
+    @Test
+    void testInvokeMethodVarArgsUnboxingDoubleArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final double[] actual = (double[]) MethodUtils.invokeMethod(testBean, "unboxing", Double.valueOf(1), Double.valueOf(2));
+        assertArrayEquals(new double[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxDoubleArray);
+    }
+
+    @Test
+    void testInvokeMethodVarArgsUnboxingFloatArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final float[] actual = (float[]) MethodUtils.invokeMethod(testBean, "unboxing", Float.valueOf(1), Float.valueOf(2));
+        assertArrayEquals(new float[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxFloatArray);
+    }
+
+    @Test
+    void testInvokeMethodVarArgsUnboxingIntArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final int[] actual = (int[]) MethodUtils.invokeMethod(testBean, "unboxing", Integer.valueOf(1), Integer.valueOf(2));
+        assertArrayEquals(new int[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxIntArray);
+    }
+
+    @Test
+    void testInvokeMethodVarArgsUnboxingLongArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final long[] actual = (long[]) MethodUtils.invokeMethod(testBean, "unboxing", Long.valueOf(1), Long.valueOf(2));
+        assertArrayEquals(new long[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxLongArray);
+    }
+
+    @Test
+    void testInvokeMethodVarArgsUnboxingShortArray() throws Exception {
+        final TestBean testBean = new TestBean();
+        final short[] actual = (short[]) MethodUtils.invokeMethod(testBean, "unboxing", Short.valueOf((short) 1), Short.valueOf((short) 2));
+        assertArrayEquals(new short[] { 1, 2 }, actual);
+        assertTrue(testBean.unboxShortArray);
+    }
+
+    @Test
     void testInvokeStaticMethod() throws Exception {
         assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class, "bar", (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
         assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class, "bar", (Object[]) null));
@@ -1109,7 +1177,12 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testJavaVarargsOverloadingResolution() {
+    void testNullArgument() {
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "oneParameter", singletonArray(null), singletonArray(String.class));
+    }
+
+    @Test
+    void testVarargsOverloadingResolution() {
         // This code is not a test of MethodUtils.
         // Rather it makes explicit the behavior of the Java specification for
         // various cases of overload resolution.
@@ -1132,75 +1205,6 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals("Number...", TestBean.varOverload((short) 1, (byte) 1));
         assertEquals("Object...", TestBean.varOverload(1, 'c'));
         assertEquals("Object...", TestBean.varOverload('c', "s"));
-    }
-
-    @Test
-    void testNullArgument() {
-        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "oneParameter", singletonArray(null), singletonArray(String.class));
-    }
-
-    @Test
-    void testVarArgsUnboxingBooleanArray() throws Exception {
-        final TestBean testBean = new TestBean();
-        final boolean[] actual = (boolean[]) MethodUtils.invokeMethod(testBean, "unboxing", Boolean.TRUE, Boolean.FALSE);
-        assertArrayEquals(new boolean[] { true, false }, actual);
-        assertTrue(testBean.unboxBooleanArray);
-    }
-
-    @Test
-    void testVarArgsUnboxingByteArray() throws Exception {
-        final TestBean testBean = new TestBean();
-        final byte[] actual = (byte[]) MethodUtils.invokeMethod(testBean, "unboxing", Byte.valueOf((byte) 1), Byte.valueOf((byte) 2));
-        assertArrayEquals(new byte[] { 1, 2 }, actual);
-        assertTrue(testBean.unboxByteArray);
-    }
-
-    @Test
-    void testVarArgsUnboxingCharArray() throws Exception {
-        final TestBean testBean = new TestBean();
-        final char[] actual = (char[]) MethodUtils.invokeMethod(testBean, "unboxing", Character.valueOf((char) 1), Character.valueOf((char) 2));
-        assertArrayEquals(new char[] { 1, 2 }, actual);
-        assertTrue(testBean.unboxCharArray);
-    }
-
-    @Test
-    void testVarArgsUnboxingDoubleArray() throws Exception {
-        final TestBean testBean = new TestBean();
-        final double[] actual = (double[]) MethodUtils.invokeMethod(testBean, "unboxing", Double.valueOf(1), Double.valueOf(2));
-        assertArrayEquals(new double[] { 1, 2 }, actual);
-        assertTrue(testBean.unboxDoubleArray);
-    }
-
-    @Test
-    void testVarArgsUnboxingFloatArray() throws Exception {
-        final TestBean testBean = new TestBean();
-        final float[] actual = (float[]) MethodUtils.invokeMethod(testBean, "unboxing", Float.valueOf(1), Float.valueOf(2));
-        assertArrayEquals(new float[] { 1, 2 }, actual);
-        assertTrue(testBean.unboxFloatArray);
-    }
-
-    @Test
-    void testVarArgsUnboxingIntArray() throws Exception {
-        final TestBean testBean = new TestBean();
-        final int[] actual = (int[]) MethodUtils.invokeMethod(testBean, "unboxing", Integer.valueOf(1), Integer.valueOf(2));
-        assertArrayEquals(new int[] { 1, 2 }, actual);
-        assertTrue(testBean.unboxIntArray);
-    }
-
-    @Test
-    void testVarArgsUnboxingLongArray() throws Exception {
-        final TestBean testBean = new TestBean();
-        final long[] actual = (long[]) MethodUtils.invokeMethod(testBean, "unboxing", Long.valueOf(1), Long.valueOf(2));
-        assertArrayEquals(new long[] { 1, 2 }, actual);
-        assertTrue(testBean.unboxLongArray);
-    }
-
-    @Test
-    void testVarArgsUnboxingShortArray() throws Exception {
-        final TestBean testBean = new TestBean();
-        final short[] actual = (short[]) MethodUtils.invokeMethod(testBean, "unboxing", Short.valueOf((short) 1), Short.valueOf((short) 2));
-        assertArrayEquals(new short[] { 1, 2 }, actual);
-        assertTrue(testBean.unboxShortArray);
     }
 
     private String toString(final Class<?>[] c) {
