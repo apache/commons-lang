@@ -40,6 +40,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.stream.LangCollectors;
 
 /**
  * Utility reflection methods focused on {@link Method}s, originally from Commons BeanUtils.
@@ -293,6 +294,19 @@ public class MethodUtils {
         return annotation;
     }
 
+    private static Method getInvokeMethod(final boolean forceAccess, final String methodName, final Class<?>[] parameterTypes, final Class<? extends Object> cls) {
+        final Method method;
+        if (forceAccess) {
+            method = getMatchingMethod(cls, methodName, parameterTypes);
+            if (method != null && !method.isAccessible()) {
+                method.setAccessible(true);
+            }
+        } else {
+            method = getMatchingAccessibleMethod(cls, methodName, parameterTypes);
+        }
+        return method;
+    }
+
     /**
      * Gets an accessible method that matches the given name and has compatible parameters. Compatible parameters mean that every method parameter is assignable
      * from the given parameters. In other words, it finds a method with the given name that will take the parameters given.
@@ -336,13 +350,13 @@ public class MethodUtils {
         if (bestMatch != null && bestMatch.isVarArgs() && bestMatch.getParameterTypes().length > 0 && parameterTypes.length > 0) {
             final Class<?>[] methodParameterTypes = bestMatch.getParameterTypes();
             final Class<?> methodParameterComponentType = methodParameterTypes[methodParameterTypes.length - 1].getComponentType();
-            final String methodParameterComponentTypeName = ClassUtils.primitiveToWrapper(methodParameterComponentType).getName();
+            final String varVargTypeName = ClassUtils.primitiveToWrapper(methodParameterComponentType).getName();
             final Class<?> lastParameterType = parameterTypes[parameterTypes.length - 1];
             final String parameterTypeName = lastParameterType == null ? null : lastParameterType.getName();
             final String parameterTypeSuperClassName = lastParameterType == null ? null
                     : lastParameterType.getSuperclass() != null ? lastParameterType.getSuperclass().getName() : null;
-            if (parameterTypeName != null && parameterTypeSuperClassName != null && !methodParameterComponentTypeName.equals(parameterTypeName)
-                    && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
+            if (parameterTypeName != null && parameterTypeSuperClassName != null && !varVargTypeName.equals(parameterTypeName)
+                    && !varVargTypeName.equals(parameterTypeSuperClassName)) {
                 return null;
             }
         }
@@ -673,10 +687,9 @@ public class MethodUtils {
     public static Object invokeExactMethod(final Object object, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         final Class<?> cls = Objects.requireNonNull(object, "object").getClass();
-        final Method method = getAccessibleMethod(cls, methodName, ArrayUtils.nullToEmpty(parameterTypes));
-        if (method == null) {
-            throw new NoSuchMethodException("No such accessible method: " + methodName + "() on object: " + cls.getName());
-        }
+        final Class<?>[] paramTypes = ArrayUtils.nullToEmpty(parameterTypes);
+        final Method method = getAccessibleMethod(cls, methodName, paramTypes);
+        requireNonNull(method, cls, methodName, paramTypes);
         return method.invoke(object, ArrayUtils.nullToEmpty(args));
     }
 
@@ -741,10 +754,9 @@ public class MethodUtils {
      */
     public static Object invokeExactStaticMethod(final Class<?> cls, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        final Method method = getAccessibleMethod(cls, methodName, ArrayUtils.nullToEmpty(parameterTypes));
-        if (method == null) {
-            throw new NoSuchMethodException("No such accessible method: " + methodName + "() on class: " + cls.getName());
-        }
+        final Class<?>[] paramTypes = ArrayUtils.nullToEmpty(parameterTypes);
+        final Method method = getAccessibleMethod(cls, methodName, ArrayUtils.nullToEmpty(paramTypes));
+        requireNonNull(method, cls, methodName, paramTypes);
         return method.invoke(null, ArrayUtils.nullToEmpty(args));
     }
 
@@ -858,26 +870,12 @@ public class MethodUtils {
      * @see SecurityManager#checkPermission
      * @since 3.5
      */
-    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName, final Object[] args, Class<?>[] parameterTypes)
+    public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Objects.requireNonNull(object, "object");
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final String messagePrefix;
-        final Method method;
-        final Class<? extends Object> cls = object.getClass();
-        if (forceAccess) {
-            messagePrefix = "No such method: ";
-            method = getMatchingMethod(cls, methodName, parameterTypes);
-            if (method != null && !method.isAccessible()) {
-                method.setAccessible(true);
-            }
-        } else {
-            messagePrefix = "No such accessible method: ";
-            method = getMatchingAccessibleMethod(cls, methodName, parameterTypes);
-        }
-        if (method == null) {
-            throw new NoSuchMethodException(messagePrefix + methodName + "() on object: " + cls.getName());
-        }
+        final Class<? extends Object> cls = Objects.requireNonNull(object, "object").getClass();
+        final Class<?>[] paramTypes = ArrayUtils.nullToEmpty(parameterTypes);
+        final Method method = getInvokeMethod(forceAccess, methodName, paramTypes, cls);
+        requireNonNull(method, cls, methodName, paramTypes);
         return method.invoke(object, toVarArgs(method, ArrayUtils.nullToEmpty(args)));
     }
 
@@ -1056,11 +1054,19 @@ public class MethodUtils {
      */
     public static Object invokeStaticMethod(final Class<?> cls, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        final Method method = getMatchingAccessibleMethod(cls, methodName, ArrayUtils.nullToEmpty(parameterTypes));
-        if (method == null) {
-            throw new NoSuchMethodException("No such accessible method: " + methodName + "() on class: " + cls.getName());
-        }
+        final Class<?>[] paramTypes = ArrayUtils.nullToEmpty(parameterTypes);
+        final Method method = getMatchingAccessibleMethod(cls, methodName, paramTypes);
+        requireNonNull(method, cls, methodName, paramTypes);
         return method.invoke(null, toVarArgs(method, ArrayUtils.nullToEmpty(args)));
+    }
+
+    private static Method requireNonNull(final Method method, final Class<?> cls, final String methodName, final Class<?>[] parameterTypes)
+            throws NoSuchMethodException {
+        if (method == null) {
+            throw new NoSuchMethodException(String.format("No method: %s.%s(%s)", cls.getName(), methodName,
+                    Stream.of(parameterTypes).map(Class::getName).collect(LangCollectors.joining())));
+        }
+        return method;
     }
 
     private static Object[] toVarArgs(final Method method, final Object[] args) {
