@@ -211,10 +211,6 @@ class MethodUtilsTest extends AbstractLangTest {
             return "bar(String...)";
         }
 
-        public static String intStringVarArg(final int intArg, final String... args) {
-            return "int, String...";
-        }
-
         // This method is overloaded for the wrapper class for every numeric primitive type, plus the common
         // supertype Number
         public static String numOverload(final Byte... args) {
@@ -247,6 +243,10 @@ class MethodUtilsTest extends AbstractLangTest {
 
         public static void oneParameterStatic(final String s) {
             // empty
+        }
+
+        public static String staticIntStringVarArg(final int intArg, final String... args) {
+            return "static int, String...";
         }
 
         public static String varOverload(final Boolean... args) {
@@ -372,6 +372,10 @@ class MethodUtilsTest extends AbstractLangTest {
 
         public String foo(final String... s) {
             return "foo(String...)";
+        }
+
+        public String intStringVarArg(final int intArg, final String... args) {
+            return "int, String...";
         }
 
         public void oneParameter(final String s) {
@@ -1061,15 +1065,17 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testInvokeMethod_VarArgsNotUniqueResolvable() throws Exception {
-        assertEquals("Boolean...", MethodUtils.invokeMethod(testBean, "varOverload", new Object[] { null }));
-        assertEquals("Object...", MethodUtils.invokeMethod(testBean, "varOverload", (Object[]) null));
-    }
-
-    @Test
     void testInvokeMethod_VarArgsWithNullValues() throws Exception {
         assertEquals("String...", MethodUtils.invokeMethod(testBean, "varOverload", "a", null, "c"));
         assertEquals("String...", MethodUtils.invokeMethod(testBean, "varOverload", "a", "b", null));
+    }
+
+    @Test
+    void testInvokeMethod1PlusVarArgs() throws Exception {
+        // assertEquals("int, String...", MethodUtils.invokeMethod(testBean, "intStringVarArg", 1));
+        assertEquals("int, String...", MethodUtils.invokeMethod(testBean, "intStringVarArg", 1, "s"));
+        assertEquals("int, String...", MethodUtils.invokeMethod(testBean, "intStringVarArg", 1, "s1", "s2"));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "intStringVarArg", 1, "s1", 5));
     }
 
     @Test
@@ -1085,6 +1091,12 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals("privateStringStuff(Object)", MethodUtils.invokeMethod(testBean, true, "privateStringStuff", new Date()));
         assertNullPointerException(() -> MethodUtils.invokeMethod(null, true, "privateStringStuff", "Hi There"));
         assertNullPointerException(() -> MethodUtils.invokeMethod(testBean, true, null, "Hi There"));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsNotUniqueResolvable() throws Exception {
+        assertEquals("Boolean...", MethodUtils.invokeMethod(testBean, "varOverload", new Object[] { null }));
+        assertEquals("Object...", MethodUtils.invokeMethod(testBean, "varOverload", (Object[]) null));
     }
 
     @Test
@@ -1153,6 +1165,7 @@ class MethodUtilsTest extends AbstractLangTest {
 
     @Test
     void testInvokeStaticMethod() throws Exception {
+        assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class, "bar"));
         assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class, "bar", (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
         assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class, "bar", (Object[]) null));
         assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class, "bar", null, null));
@@ -1174,6 +1187,14 @@ class MethodUtilsTest extends AbstractLangTest {
         TestBean.verify(new ImmutablePair<>("Number...", new Number[] { 17, 23, 42 }),
                 MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", 17, 23, 42));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(TestBean.class, "does_not_exist"));
+    }
+
+    @Test
+    void testInvokeStaticMethod1PlusVarArgs() throws Exception {
+        // assertEquals("static int, String...", MethodUtils.invokeStaticMethod(TestBean.class, "staticIntStringVarArg", 1));
+        assertEquals("static int, String...", MethodUtils.invokeStaticMethod(TestBean.class, "staticIntStringVarArg", 1, "s"));
+        assertEquals("static int, String...", MethodUtils.invokeStaticMethod(TestBean.class, "staticIntStringVarArg", 1, "s1", "s2"));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(TestBean.class, "staticIntStringVarArg", 1, "s1", 5));
     }
 
     @Test
