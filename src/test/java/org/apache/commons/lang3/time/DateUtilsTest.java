@@ -66,6 +66,7 @@ import org.junitpioneer.jupiter.WritesDefaultLocale;
 @WritesDefaultLocale
 class DateUtilsTest extends AbstractLangTest {
 
+    private static final TimeZone TIME_ZONE_NY = TimeZone.getTimeZone("America/New_York");
     private static final TimeZone TIME_ZONE_DEFAULT = TimeZone.getDefault();
     private static final TimeZone TIME_ZONE_MET = TimeZone.getTimeZone("MET");
     private static Date BASE_DATE;
@@ -139,44 +140,51 @@ class DateUtilsTest extends AbstractLangTest {
     private static Stream<Arguments> testToLocalDateTimeTimeZone() {
         // @formatter:off
         return Stream.of(
+                // [1]
                 Arguments.of(
                         // -292275055-05-16T16:47:04.192
                         LocalDateTime.of(-292275055, 5, 16, 16, 47, 04, 192_000_000),
                         new Date(Long.MIN_VALUE),
                         TimeZones.GMT
                 ),
+                // [2]
                 Arguments.of(
                         // +292278994-08-17T07:12:55.807
                         LocalDateTime.of(292278994, 8, 17, 7, 12, 55, 807_000_000),
                         new Date(Long.MAX_VALUE),
                         TimeZones.GMT
                 ),
+                // [3]
                 Arguments.of(
                         LocalDateTime.ofInstant(Instant.EPOCH, TimeZones.GMT.toZoneId()),
-                        java.sql.Timestamp.valueOf("1970-01-01 00:00:00"),
+                        Date.from(LocalDateTime.of(1970, 1, 1, 0, 0).atOffset(ZoneOffset.UTC).toInstant()),
                         TimeZones.GMT
                 ),
+                // [4]
                 Arguments.of(
                         LocalDateTime.ofInstant(Instant.EPOCH.minus(1, ChronoUnit.DAYS), TimeZones.GMT.toZoneId()),
-                        java.sql.Timestamp.valueOf("1969-12-31 00:00:00"),
+                        Date.from(LocalDateTime.of(1969, 12, 31, 0, 0).atOffset(ZoneOffset.UTC).toInstant()),
                         TimeZones.GMT
                 ),
+                // [5]
                 Arguments.of(
                         LocalDateTime.ofInstant(
                                 java.sql.Timestamp.valueOf("2000-01-01 12:30:45").toInstant(),
-                                TimeZone.getTimeZone("America/New_York").toZoneId()
+                                TIME_ZONE_NY.toZoneId()
                         ),
                         java.sql.Timestamp.valueOf("2000-01-01 12:30:45"),
-                        TimeZone.getTimeZone("America/New_York")
+                        TIME_ZONE_NY
                 ),
+                // [6]
                 Arguments.of(
                         LocalDateTime.ofInstant(
                                 java.sql.Timestamp.valueOf("2023-03-12 02:30:00").toInstant(),
-                                TimeZone.getTimeZone("America/New_York").toZoneId()
+                                TIME_ZONE_NY.toZoneId()
                         ),
                         java.sql.Timestamp.valueOf("2023-03-12 02:30:00"),
-                        TimeZone.getTimeZone("America/New_York")
+                        TIME_ZONE_NY
                 ),
+                // [7]
                 Arguments.of(
                         LocalDateTime.ofInstant(
                                 java.sql.Timestamp.valueOf("2023-03-12 02:30:00").toInstant(),
@@ -185,25 +193,22 @@ class DateUtilsTest extends AbstractLangTest {
                         java.sql.Timestamp.valueOf("2023-03-12 02:30:00"),
                         null
                 ),
+                // [8]
                 Arguments.of(
                         LocalDateTime.of(2022, 12, 31, 19, 0),
-                        Date.from(LocalDateTime.of(2023, 1, 1, 0, 0)
-                                .atOffset(ZoneOffset.UTC)
-                                .toInstant()),
-                        TimeZone.getTimeZone("America/New_York")
+                        Date.from(LocalDateTime.of(2023, 1, 1, 0, 0).atOffset(ZoneOffset.UTC).toInstant()),
+                        TIME_ZONE_NY
                 ),
+                // [9]
                 Arguments.of(
                         LocalDateTime.of(2023, 3, 12, 3, 0),
-                        Date.from(LocalDateTime.of(2023, 3, 12, 7, 0)
-                                .atOffset(ZoneOffset.UTC)
-                                .toInstant()),
-                        TimeZone.getTimeZone("America/New_York")
+                        Date.from(LocalDateTime.of(2023, 3, 12, 7, 0).atOffset(ZoneOffset.UTC).toInstant()),
+                        TIME_ZONE_NY
                 ),
+                // [10]
                 Arguments.of(
                         LocalDateTime.of(2023, 1, 1, 14, 0),
-                        Date.from(LocalDateTime.of(2023, 1, 1, 0, 0)
-                                .atOffset(ZoneOffset.UTC)
-                                .toInstant()),
+                        Date.from(LocalDateTime.of(2023, 1, 1, 0, 0).atOffset(ZoneOffset.UTC).toInstant()),
                         TimeZone.getTimeZone("Pacific/Kiritimati")
                 )
         );
@@ -211,11 +216,8 @@ class DateUtilsTest extends AbstractLangTest {
     }
 
     private DateFormat dateParser;
-
     private DateFormat dateTimeParser;
-
     private Date dateAmPm1;
-
     private Date dateAmPm2;
     private Date dateAmPm3;
     private Date dateAmPm4;
@@ -240,6 +242,7 @@ class DateUtilsTest extends AbstractLangTest {
     private Calendar cal6;
     private Calendar cal7;
     private Calendar cal8;
+
     @AfterEach
     public void afterEachResetTimeZones() {
         TimeZone.setDefault(TIME_ZONE_DEFAULT);
@@ -260,7 +263,6 @@ class DateUtilsTest extends AbstractLangTest {
     public void setUp() throws Exception {
         dateParser = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
         dateTimeParser = new SimpleDateFormat("MMM dd, yyyy H:mm:ss.SSS", Locale.ENGLISH);
-
         dateAmPm1 = dateTimeParser.parse("February 3, 2002 01:10:00.000");
         dateAmPm2 = dateTimeParser.parse("February 3, 2002 11:10:00.000");
         dateAmPm3 = dateTimeParser.parse("February 3, 2002 13:10:00.000");
