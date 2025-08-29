@@ -328,7 +328,7 @@ final class MemberUtils {
             return obj;
         }
         final Member m = (Member) obj;
-        if (!obj.isAccessible() && isPublic(m) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
+        if (isPublic(m) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
             try {
                 obj.setAccessible(true);
                 return obj;
