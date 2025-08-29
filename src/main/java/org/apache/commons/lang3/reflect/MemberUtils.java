@@ -201,7 +201,6 @@ final class MemberUtils {
     private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Executable executable) {
         final Class<?>[] destArgs = executable.getParameterTypes();
         final boolean isVarArgs = executable.isVarArgs();
-
         // "source" and "destination" are the actual and declared args respectively.
         float totalCost = 0.0f;
         final long normalArgsLen = isVarArgs ? destArgs.length - 1 : destArgs.length;
@@ -216,8 +215,7 @@ final class MemberUtils {
             // There are two special cases to consider:
             final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
             final boolean explicitArrayForVarargs = srcArgs.length == destArgs.length && srcArgs[srcArgs.length - 1] != null
-                && srcArgs[srcArgs.length - 1].isArray();
-
+                    && srcArgs[srcArgs.length - 1].isArray();
             final float varArgsCost = 0.001f;
             final Class<?> destClass = destArgs[destArgs.length - 1].getComponentType();
             if (noVarArgsPassed) {
