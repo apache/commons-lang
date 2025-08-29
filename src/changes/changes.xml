@@ -73,6 +73,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.time.DateUtils.toZonedDateTime(Date[, TimeZone]).</action>
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.13.1 to 1.14.0.</action>
+    <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 85 to 87.</action>
   </release>
   <release version="3.18.0" date="2025-07-06" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->

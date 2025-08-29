@@ -130,11 +130,16 @@
     <Method name="createNumber"/>
     <Bug pattern="SF_SWITCH_FALLTHROUGH" />
   </Match>
-
   <!-- Reason: Intended -->
   <Match>
     <Class name="org.apache.commons.lang3.time.DateUtils" />
     <Method name="getFragment"/>
+    <Bug pattern="SF_SWITCH_FALLTHROUGH" />
+  </Match>
+  <!-- Reason: False positive -->
+  <Match>
+    <Class name="org.apache.commons.lang3.text.ExtendedMessageFormat" />
+    <Method name="applyPattern"/>
     <Bug pattern="SF_SWITCH_FALLTHROUGH" />
   </Match>
 
