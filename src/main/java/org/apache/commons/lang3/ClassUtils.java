@@ -1465,16 +1465,11 @@ public class ClassUtils {
      * </p>
      *
      * @param cls the class to convert, may be null.
-     * @return the wrapper class for {@code cls} or {@code cls} if {@code cls} is not a primitive. {@code null} if null
-     *         input.
+     * @return the wrapper class for {@code cls} or {@code cls} if {@code cls} is not a primitive. {@code null} if null input.
      * @since 2.1
      */
     public static Class<?> primitiveToWrapper(final Class<?> cls) {
-        Class<?> convertedClass = cls;
-        if (cls != null && cls.isPrimitive()) {
-            convertedClass = PRIMITIVE_WRAPPER_MAP.get(cls);
-        }
-        return convertedClass;
+        return cls != null && cls.isPrimitive() ? PRIMITIVE_WRAPPER_MAP.get(cls) : cls;
     }
 
     /**
