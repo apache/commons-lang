@@ -7920,9 +7920,7 @@ public class StringUtils {
         if (strsLen == 0) {
             return strs;
         }
-        final String[] newArr = new String[strsLen];
-        Arrays.setAll(newArr, i -> strip(strs[i], stripChars));
-        return newArr;
+        return ArrayUtils.setAll(new String[strsLen], i -> strip(strs[i], stripChars));
     }
 
     /**
