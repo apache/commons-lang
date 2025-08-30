@@ -55,6 +55,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1782" type="fix" dev="ggregory" due-to="Joe Ferner, Gary Gregory">MethodUtils cannot find or invoke vararg methods without providing vararg types or values #1427.</action>
     <action                   type="fix" dev="ggregory" due-to="Joe Ferner, Gary Gregory">MethodUtils cannot find or invoke vararg methods of interface types.</action>
     <action                   type="fix" dev="ggregory" due-to="Joe Ferner, Gary Gregory">MethodUtils cannot find or invoke vararg methods when widening primitive types following the JLS 5.1.2. Widening Primitive Conversion.</action>
+    <action issue="LANG-1597" type="fix" dev="ggregory" due-to="Richard Eckart de Castilho, Gary Gregory">Invocation fails because matching varargs method found but then discarded.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Don't check accessibility twice in MemberUtils.setAccessibleWorkaround(T).</action>
     <!-- FIX Javadoc -->
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">[javadoc] General improvements.</action>
