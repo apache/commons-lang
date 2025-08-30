@@ -71,9 +71,20 @@ final class MemberUtils {
 
     private static final int ACCESS_TEST = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
 
-    /** Array of primitive number types ordered by "promotability" */
-    private static final Class<?>[] ORDERED_PRIMITIVE_TYPES = { Byte.TYPE, Short.TYPE,
-            Character.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
+    /**
+     * Array of primitive number types ordered by "promotability" from narrow to wide.
+     */
+    private static final Class<?>[] WIDENING_PRIMITIVE_TYPES = {
+            // @formatter:off
+            Byte.TYPE,      // byte
+            Short.TYPE,     // short
+            Character.TYPE, // char
+            Integer.TYPE,   // int
+            Long.TYPE,      // long
+            Float.TYPE,     // float
+            Double.TYPE     // double
+            // @formatter:on
+    };
 
     /**
      * Compares the relative fitness of two Constructors in terms of how well they
@@ -128,10 +139,9 @@ final class MemberUtils {
     }
 
     /**
-     * Gets the number of steps needed to turn the source class into
-     * the destination class. This represents the number of steps in the object
-     * hierarchy graph.
-     * @param srcClass The source class
+     * Gets the number of steps needed to turn the source class into the destination class. This represents the number of steps in the object hierarchy graph.
+     *
+     * @param srcClass  The source class
      * @param destClass The destination class
      * @return The cost of transforming an object
      */
@@ -163,9 +173,9 @@ final class MemberUtils {
     }
 
     /**
-     * Gets the number of steps required to promote a primitive number to another
-     * type.
-     * @param srcClass the (primitive) source class
+     * Gets the number of steps required to promote a primitive number to another type.
+     *
+     * @param srcClass  the (primitive) source class
      * @param destClass the (primitive) destination class
      * @return The cost of promoting the primitive
      */
@@ -180,11 +190,11 @@ final class MemberUtils {
             cost += 0.1f;
             cls = ClassUtils.wrapperToPrimitive(cls);
         }
-        for (int i = 0; cls != destClass && i < ORDERED_PRIMITIVE_TYPES.length; i++) {
-            if (cls == ORDERED_PRIMITIVE_TYPES[i]) {
+        for (int i = 0; cls != destClass && i < WIDENING_PRIMITIVE_TYPES.length; i++) {
+            if (cls == WIDENING_PRIMITIVE_TYPES[i]) {
                 cost += 0.1f;
-                if (i < ORDERED_PRIMITIVE_TYPES.length - 1) {
-                    cls = ORDERED_PRIMITIVE_TYPES[i + 1];
+                if (i < WIDENING_PRIMITIVE_TYPES.length - 1) {
+                    cls = WIDENING_PRIMITIVE_TYPES[i + 1];
                 }
             }
         }
@@ -192,9 +202,9 @@ final class MemberUtils {
     }
 
     /**
-     * Gets the sum of the object transformation cost for each class in the
-     * source argument list.
-     * @param srcArgs The source arguments
+     * Gets the sum of the object transformation cost for each class in the source argument list.
+     *
+     * @param srcArgs    The source arguments
      * @param executable The executable to calculate transformation costs for
      * @return The total transformation cost
      */
