@@ -765,7 +765,6 @@ class ClassUtilsTest extends AbstractLangTest {
     void test_isAssignable_Autoboxing() {
         assertFalse(ClassUtils.isAssignable((Class<?>) null, null, true));
         assertFalse(ClassUtils.isAssignable(String.class, null, true));
-
         assertTrue(ClassUtils.isAssignable(null, Object.class, true));
         assertTrue(ClassUtils.isAssignable(null, Integer.class, true));
         assertFalse(ClassUtils.isAssignable(null, Integer.TYPE, true));
@@ -956,7 +955,6 @@ class ClassUtilsTest extends AbstractLangTest {
     void test_isAssignable_NoAutoboxing() {
         assertFalse(ClassUtils.isAssignable((Class<?>) null, null, false));
         assertFalse(ClassUtils.isAssignable(String.class, null, false));
-
         assertTrue(ClassUtils.isAssignable(null, Object.class, false));
         assertTrue(ClassUtils.isAssignable(null, Integer.class, false));
         assertFalse(ClassUtils.isAssignable(null, Integer.TYPE, false));
@@ -987,7 +985,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Byte.class, Float.TYPE, true), "byte -> float");
         assertTrue(ClassUtils.isAssignable(Byte.class, Double.TYPE, true), "byte -> double");
         assertFalse(ClassUtils.isAssignable(Byte.class, Boolean.TYPE, true), "byte -> boolean");
-
         // test short conversions
         assertFalse(ClassUtils.isAssignable(Short.class, Character.TYPE, true), "short -> char");
         assertFalse(ClassUtils.isAssignable(Short.class, Byte.TYPE, true), "short -> byte");
@@ -997,7 +994,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Short.class, Float.TYPE, true), "short -> float");
         assertTrue(ClassUtils.isAssignable(Short.class, Double.TYPE, true), "short -> double");
         assertFalse(ClassUtils.isAssignable(Short.class, Boolean.TYPE, true), "short -> boolean");
-
         // test char conversions
         assertTrue(ClassUtils.isAssignable(Character.class, Character.TYPE, true), "char -> char");
         assertFalse(ClassUtils.isAssignable(Character.class, Byte.TYPE, true), "char -> byte");
@@ -1007,7 +1003,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Character.class, Float.TYPE, true), "char -> float");
         assertTrue(ClassUtils.isAssignable(Character.class, Double.TYPE, true), "char -> double");
         assertFalse(ClassUtils.isAssignable(Character.class, Boolean.TYPE, true), "char -> boolean");
-
         // test int conversions
         assertFalse(ClassUtils.isAssignable(Integer.class, Character.TYPE, true), "int -> char");
         assertFalse(ClassUtils.isAssignable(Integer.class, Byte.TYPE, true), "int -> byte");
@@ -1017,7 +1012,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Integer.class, Float.TYPE, true), "int -> float");
         assertTrue(ClassUtils.isAssignable(Integer.class, Double.TYPE, true), "int -> double");
         assertFalse(ClassUtils.isAssignable(Integer.class, Boolean.TYPE, true), "int -> boolean");
-
         // test long conversions
         assertFalse(ClassUtils.isAssignable(Long.class, Character.TYPE, true), "long -> char");
         assertFalse(ClassUtils.isAssignable(Long.class, Byte.TYPE, true), "long -> byte");
@@ -1027,7 +1021,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Long.class, Float.TYPE, true), "long -> float");
         assertTrue(ClassUtils.isAssignable(Long.class, Double.TYPE, true), "long -> double");
         assertFalse(ClassUtils.isAssignable(Long.class, Boolean.TYPE, true), "long -> boolean");
-
         // test float conversions
         assertFalse(ClassUtils.isAssignable(Float.class, Character.TYPE, true), "float -> char");
         assertFalse(ClassUtils.isAssignable(Float.class, Byte.TYPE, true), "float -> byte");
@@ -1037,7 +1030,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Float.class, Float.TYPE, true), "float -> float");
         assertTrue(ClassUtils.isAssignable(Float.class, Double.TYPE, true), "float -> double");
         assertFalse(ClassUtils.isAssignable(Float.class, Boolean.TYPE, true), "float -> boolean");
-
         // test double conversions
         assertFalse(ClassUtils.isAssignable(Double.class, Character.TYPE, true), "double -> char");
         assertFalse(ClassUtils.isAssignable(Double.class, Byte.TYPE, true), "double -> byte");
@@ -1047,7 +1039,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertFalse(ClassUtils.isAssignable(Double.class, Float.TYPE, true), "double -> float");
         assertTrue(ClassUtils.isAssignable(Double.class, Double.TYPE, true), "double -> double");
         assertFalse(ClassUtils.isAssignable(Double.class, Boolean.TYPE, true), "double -> boolean");
-
         // test boolean conversions
         assertFalse(ClassUtils.isAssignable(Boolean.class, Character.TYPE, true), "boolean -> char");
         assertFalse(ClassUtils.isAssignable(Boolean.class, Byte.TYPE, true), "boolean -> byte");
@@ -1070,7 +1061,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Byte.TYPE, Float.TYPE), "byte -> float");
         assertTrue(ClassUtils.isAssignable(Byte.TYPE, Double.TYPE), "byte -> double");
         assertFalse(ClassUtils.isAssignable(Byte.TYPE, Boolean.TYPE), "byte -> boolean");
-
         // test short conversions
         assertFalse(ClassUtils.isAssignable(Short.TYPE, Character.TYPE), "short -> char");
         assertFalse(ClassUtils.isAssignable(Short.TYPE, Byte.TYPE), "short -> byte");
@@ -1080,7 +1070,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Short.TYPE, Float.TYPE), "short -> float");
         assertTrue(ClassUtils.isAssignable(Short.TYPE, Double.TYPE), "short -> double");
         assertFalse(ClassUtils.isAssignable(Short.TYPE, Boolean.TYPE), "short -> boolean");
-
         // test char conversions
         assertTrue(ClassUtils.isAssignable(Character.TYPE, Character.TYPE), "char -> char");
         assertFalse(ClassUtils.isAssignable(Character.TYPE, Byte.TYPE), "char -> byte");
@@ -1090,7 +1079,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Character.TYPE, Float.TYPE), "char -> float");
         assertTrue(ClassUtils.isAssignable(Character.TYPE, Double.TYPE), "char -> double");
         assertFalse(ClassUtils.isAssignable(Character.TYPE, Boolean.TYPE), "char -> boolean");
-
         // test int conversions
         assertFalse(ClassUtils.isAssignable(Integer.TYPE, Character.TYPE), "int -> char");
         assertFalse(ClassUtils.isAssignable(Integer.TYPE, Byte.TYPE), "int -> byte");
@@ -1100,7 +1088,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Integer.TYPE, Float.TYPE), "int -> float");
         assertTrue(ClassUtils.isAssignable(Integer.TYPE, Double.TYPE), "int -> double");
         assertFalse(ClassUtils.isAssignable(Integer.TYPE, Boolean.TYPE), "int -> boolean");
-
         // test long conversions
         assertFalse(ClassUtils.isAssignable(Long.TYPE, Character.TYPE), "long -> char");
         assertFalse(ClassUtils.isAssignable(Long.TYPE, Byte.TYPE), "long -> byte");
@@ -1110,7 +1097,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Long.TYPE, Float.TYPE), "long -> float");
         assertTrue(ClassUtils.isAssignable(Long.TYPE, Double.TYPE), "long -> double");
         assertFalse(ClassUtils.isAssignable(Long.TYPE, Boolean.TYPE), "long -> boolean");
-
         // test float conversions
         assertFalse(ClassUtils.isAssignable(Float.TYPE, Character.TYPE), "float -> char");
         assertFalse(ClassUtils.isAssignable(Float.TYPE, Byte.TYPE), "float -> byte");
@@ -1120,7 +1106,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isAssignable(Float.TYPE, Float.TYPE), "float -> float");
         assertTrue(ClassUtils.isAssignable(Float.TYPE, Double.TYPE), "float -> double");
         assertFalse(ClassUtils.isAssignable(Float.TYPE, Boolean.TYPE), "float -> boolean");
-
         // test double conversions
         assertFalse(ClassUtils.isAssignable(Double.TYPE, Character.TYPE), "double -> char");
         assertFalse(ClassUtils.isAssignable(Double.TYPE, Byte.TYPE), "double -> byte");
@@ -1130,7 +1115,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertFalse(ClassUtils.isAssignable(Double.TYPE, Float.TYPE), "double -> float");
         assertTrue(ClassUtils.isAssignable(Double.TYPE, Double.TYPE), "double -> double");
         assertFalse(ClassUtils.isAssignable(Double.TYPE, Boolean.TYPE), "double -> boolean");
-
         // test boolean conversions
         assertFalse(ClassUtils.isAssignable(Boolean.TYPE, Character.TYPE), "boolean -> char");
         assertFalse(ClassUtils.isAssignable(Boolean.TYPE, Byte.TYPE), "boolean -> byte");
