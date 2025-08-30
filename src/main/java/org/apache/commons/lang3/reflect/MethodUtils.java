@@ -18,6 +18,7 @@ package org.apache.commons.lang3.reflect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
+import java.lang.reflect.Executable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -345,18 +346,11 @@ public class MethodUtils {
         if (bestMatch != null) {
             MemberUtils.setAccessibleWorkaround(bestMatch);
             if (bestMatch.isVarArgs()) {
-                final int paramLen = bestMatch.getParameterTypes().length;
-                final int requestTypesLen = requestTypes.length;
-                if (paramLen > 0 && requestTypesLen > 0 && !(requestTypesLen == paramLen - 1)) {
-                    final Class<?>[] methodTypes = bestMatch.getParameterTypes();
-                    final Class<?> componentType = methodTypes[methodTypes.length - 1].getComponentType();
-                    final String varVargTypeName = ClassUtils.primitiveToWrapper(componentType).getName();
-                    final Class<?> requestLastType = requestTypes[requestTypesLen - 1];
-                    final String requestTypeName = requestLastType == null ? null : requestLastType.getName();
-                    final String requestTypeSuperClassName = requestLastType == null ? null
-                            : requestLastType.getSuperclass() != null ? requestLastType.getSuperclass().getName() : null;
-                    if (requestTypeName != null && requestTypeSuperClassName != null && !varVargTypeName.equals(requestTypeName)
-                            && !varVargTypeName.equals(requestTypeSuperClassName) && !componentType.isAssignableFrom(requestLastType)) {
+                final Class<?>[] bestMatchParameterTypes = bestMatch.getParameterTypes();
+                final Class<?> varArgType = bestMatchParameterTypes[bestMatchParameterTypes.length - 1].getComponentType();
+                for (int paramIdx = bestMatchParameterTypes.length - 1; paramIdx < requestTypes.length; paramIdx++) {
+                    final Class<?> parameterType = requestTypes[paramIdx];
+                    if (!ClassUtils.isAssignable(parameterType, varArgType, true)) {
                         return null;
                     }
                 }
@@ -557,43 +551,6 @@ public class MethodUtils {
             result.add(m);
         }
         return result;
-    }
-
-    /**
-     * Gets an array of arguments in the canonical form, given an arguments array passed to a varargs method,
-     * for example an array with the declared number of parameters, and whose last parameter is an array of the varargs type.
-     *
-     * @param args the array of arguments passed to the varags method
-     * @param methodParameterTypes the declared array of method parameter types
-     * @return an array of the variadic arguments passed to the method
-     * @since 3.5
-     */
-    static Object[] getVarArgs(final Object[] args, final Class<?>[] methodParameterTypes) {
-        final int mptLength = methodParameterTypes.length;
-        if (args.length == mptLength) {
-            final Object lastArg = args[args.length - 1];
-            if (lastArg == null || lastArg.getClass().equals(methodParameterTypes[mptLength - 1])) {
-                // The args array is already in the canonical form for the method.
-                return args;
-            }
-        }
-        // Construct a new array matching the method's declared parameter types.
-        // Copy the normal (non-varargs) parameters
-        final Object[] newArgs = ArrayUtils.arraycopy(args, 0, 0, mptLength - 1, () -> new Object[mptLength]);
-        // Construct a new array for the variadic parameters
-        final Class<?> varArgComponentType = methodParameterTypes[mptLength - 1].getComponentType();
-        final int varArgLength = args.length - mptLength + 1;
-        // Copy the variadic arguments into the varargs array.
-        Object varArgsArray = ArrayUtils.arraycopy(args, mptLength - 1, 0, varArgLength,
-                s -> Array.newInstance(ClassUtils.primitiveToWrapper(varArgComponentType), varArgLength));
-        if (varArgComponentType.isPrimitive()) {
-            // unbox from wrapper type to primitive type
-            varArgsArray = ArrayUtils.toPrimitive(varArgsArray);
-        }
-        // Store the varargs array in the last position of the array to return
-        newArgs[mptLength - 1] = varArgsArray;
-        // Return the canonical varargs array.
-        return newArgs;
     }
 
     /**
@@ -1071,8 +1028,70 @@ public class MethodUtils {
         return method;
     }
 
-    private static Object[] toVarArgs(final Method method, final Object[] args) {
-        return method.isVarArgs() ? getVarArgs(args, method.getParameterTypes()) : args;
+    static Object[] toVarArgs(final Executable executable, final Object[] args)
+            throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        return executable.isVarArgs() ? toVarArgs(args, executable.getParameterTypes()) : args;
+    }
+
+    /**
+     * Gets an array of arguments in the canonical form, given an arguments array passed to a varargs method, for example an array with the declared number of
+     * parameters, and whose last parameter is an array of the varargs type.
+     * <p>
+     * We follow the <a href="https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html#jls-5.1.2">JLS 5.1.2. Widening Primitive Conversion</a> rules.
+     * </p>
+     *
+     * @param args                 the array of arguments passed to the varags method.
+     * @param methodParameterTypes the declared array of method parameter types.
+     * @return an array of the variadic arguments passed to the method.
+     * @throws NoSuchMethodException       Thrown if the constructor could not be found.
+     * @throws IllegalAccessException      Thrown if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is
+     *                                     inaccessible.
+     * @throws IllegalArgumentException    Thrown if the number of actual and formal parameters differ; if an unwrapping conversion for primitive arguments
+     *                                     fails; or if, after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter
+     *                                     type by a method invocation conversion; if this constructor pertains to an enum type.
+     * @throws InstantiationException      Thrown if a class that declares the underlying constructor represents an abstract class.
+     * @throws InvocationTargetException   Thrown if an underlying constructor throws an exception.
+     * @throws ExceptionInInitializerError Thrown if an initialization provoked by this method fails.
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html#jls-5.1.2">JLS 5.1.2. Widening Primitive Conversion</a>
+     */
+    private static Object[] toVarArgs(final Object[] args, final Class<?>[] methodParameterTypes)
+            throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        final int mptLength = methodParameterTypes.length;
+        if (args.length == mptLength) {
+            final Object lastArg = args[args.length - 1];
+            if (lastArg == null || lastArg.getClass().equals(methodParameterTypes[mptLength - 1])) {
+                // The args array is already in the canonical form for the method.
+                return args;
+            }
+        }
+        // Construct a new array matching the method's declared parameter types.
+        // Copy the normal (non-varargs) parameters
+        final Object[] newArgs = ArrayUtils.arraycopy(args, 0, 0, mptLength - 1, () -> new Object[mptLength]);
+        // Construct a new array for the variadic parameters
+        final Class<?> varArgComponentType = methodParameterTypes[mptLength - 1].getComponentType();
+        final Class<?> varArgComponentWrappedType = ClassUtils.primitiveToWrapper(varArgComponentType);
+        final int varArgLength = args.length - mptLength + 1;
+        // Copy the variadic arguments into the varargs array, converting types if needed.
+        Object varArgsArray = Array.newInstance(varArgComponentWrappedType, varArgLength);
+        final boolean primitiveOrWrapper = ClassUtils.isPrimitiveOrWrapper(varArgComponentWrappedType);
+        for (int i = 0; i < varArgLength; i++) {
+            final Object arg = args[mptLength - 1 + i];
+            try {
+                Array.set(varArgsArray, i, primitiveOrWrapper
+                        ? varArgComponentWrappedType.getConstructor(ClassUtils.wrapperToPrimitive(varArgComponentWrappedType)).newInstance(arg)
+                        : varArgComponentWrappedType.cast(arg));
+            } catch (final InstantiationException e) {
+                throw new IllegalArgumentException("Cannot convert vararg #" + i, e);
+            }
+        }
+        if (varArgComponentType.isPrimitive()) {
+            // unbox from wrapper type to primitive type
+            varArgsArray = ArrayUtils.toPrimitive(varArgsArray);
+        }
+        // Store the varargs array in the last position of the array to return
+        newArgs[mptLength - 1] = varArgsArray;
+        // Return the canonical varargs array.
+        return newArgs;
     }
 
     /**

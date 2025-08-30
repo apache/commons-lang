@@ -203,7 +203,7 @@ class MethodUtilsTest extends AbstractLangTest {
         }
 
         public static String bar(final Integer i, final String... s) {
-            return "bar(int, String...)";
+            return "bar(Integer, String...)";
         }
 
         public static String bar(final long... s) {
@@ -254,6 +254,10 @@ class MethodUtilsTest extends AbstractLangTest {
 
         public static void oneParameterStatic(final String s) {
             // empty
+        }
+
+        public static String staticInt(final int intArg) {
+            return "static int";
         }
 
         public static String staticIntIntVarArg(final int intArg, final int... args) {
@@ -1090,7 +1094,10 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals("foo(String...)", MethodUtils.invokeMethod(testBean, "foo", "a", "b", "c"));
         assertEquals("foo(int, String...)", MethodUtils.invokeMethod(testBean, "foo", 5, "a", "b", "c"));
         assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo", 1L, 2L));
-        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "foo", 1, 2));
+        assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo", 1, 2));
+        assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo", (byte) 1, (byte) 2)); // widen
+        assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo", (short) 1, (short) 2)); // widen
+        assertEquals("foo(long...)", MethodUtils.invokeMethod(testBean, "foo", (char) 1, (char) 2)); // widen
         TestBean.verify(new ImmutablePair<>("String...", new String[] { "x", "y" }), MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
         TestBean.verify(new ImmutablePair<>("Number...", new Number[] { 17, 23, 42 }), MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
         TestBean.verify(new ImmutablePair<>("String...", new String[] { "x", "y" }), MethodUtils.invokeMethod(testBean, "varOverloadEcho", "x", "y"));
@@ -1220,10 +1227,20 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals("bar(Object)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", Boolean.TRUE));
         assertEquals("bar(Integer)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", NumberUtils.INTEGER_ONE));
         assertEquals("bar(int)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", NumberUtils.BYTE_ONE));
+        assertEquals("static int", MethodUtils.invokeStaticMethod(TestBean.class, "staticInt", NumberUtils.BYTE_ONE));
+        assertEquals("static int", MethodUtils.invokeStaticMethod(TestBean.class, "staticInt", NumberUtils.SHORT_ONE));
+        assertEquals("static int", MethodUtils.invokeStaticMethod(TestBean.class, "staticInt", NumberUtils.INTEGER_ONE));
+        assertEquals("static int", MethodUtils.invokeStaticMethod(TestBean.class, "staticInt", 'a'));
         assertEquals("bar(double)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", NumberUtils.DOUBLE_ONE));
         assertEquals("bar(String...)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", "a", "b"));
         assertEquals("bar(long...)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", 1L, 2L));
-        assertEquals("bar(int, String...)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", NumberUtils.INTEGER_ONE, "a", "b"));
+        assertEquals("bar(long...)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", (byte) 1, (byte) 2)); // widen
+        assertEquals("bar(long...)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", (short) 1, (short) 2)); // widen
+        assertEquals("bar(long...)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", 1, 2)); // widen
+        assertEquals("bar(Integer, String...)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", NumberUtils.INTEGER_ONE, "a", "b"));
+        // You cannot widen a Short to an Integer in Java source, but you can a short to an int but this API declares an Integer, not an int.
+        assertThrows(NoSuchMethodException.class,
+                () -> assertEquals("bar(Integer, String...)", MethodUtils.invokeStaticMethod(TestBean.class, "bar", NumberUtils.SHORT_ONE, "a", "b"))); // widen
         TestBean.verify(new ImmutablePair<>("String...", new String[] { "x", "y" }),
                 MethodUtils.invokeStaticMethod(TestBean.class, "varOverloadEchoStatic", "x", "y"));
         TestBean.verify(new ImmutablePair<>("Number...", new Number[] { 17, 23, 42 }),

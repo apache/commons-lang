@@ -221,7 +221,7 @@ public class ConstructorUtils {
         if (ctor == null) {
             throw new NoSuchMethodException("No such accessible constructor on object: " + cls.getName());
         }
-        return ctor.newInstance(ctor.isVarArgs() ? MethodUtils.getVarArgs(actuals, ctor.getParameterTypes()) : actuals);
+        return ctor.newInstance(MethodUtils.toVarArgs(ctor, actuals));
     }
 
     /**
