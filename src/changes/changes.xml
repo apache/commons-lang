@@ -52,7 +52,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">MethodUtils cannot find or invoke a public method on a public class implemented in its package-private superclass.</action>
     <action                   type="fix" dev="ggregory" due-to="Stanislav Fort, Gary Gregory">org.apache.commons.lang3.concurrent.AtomicSafeInitializer.get() can spin internally if the FailableSupplier given to org.apache.commons.lang3.concurrent.AbstractConcurrentInitializer.AbstractBuilder.setInitializer(FailableSupplier) throws a RuntimeException.</action>
     <action issue="LANG-1783" type="fix" dev="ggregory" due-to="Arnout Engelen, Stanislav Fort, Gary Gregory">WordUtils.containsAllWords​() may throw PatternSyntaxException.</action>
-    <action                   type="fix" dev="ggregory" due-to="Joe Ferner, Gary Gregory">MethodUtils cannot find or invoke vararg methods without providing vararg types or values #1427.</action>
+    <action issue="LANG-1782" type="fix" dev="ggregory" due-to="Joe Ferner, Gary Gregory">MethodUtils cannot find or invoke vararg methods without providing vararg types or values #1427.</action>
     <action                   type="fix" dev="ggregory" due-to="Joe Ferner, Gary Gregory">MethodUtils cannot find or invoke vararg methods of interface types.</action>
     <action                   type="fix" dev="ggregory" due-to="Joe Ferner, Gary Gregory">MethodUtils cannot find or invoke vararg methods when widening primitive types following the JLS 5.1.2. Widening Primitive Conversion.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Don't check accessibility twice in MemberUtils.setAccessibleWorkaround(T).</action>
