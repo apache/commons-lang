@@ -27,14 +27,12 @@ import org.apache.commons.lang3.ClassUtils;
 /**
  * Contains common code for working with {@link java.lang.reflect.Method Methods}/{@link java.lang.reflect.Constructor Constructors},
  * extracted and refactored from {@link MethodUtils} when it was imported from Commons BeanUtils.
- *
- * @since 2.5
  */
 final class MemberUtils {
     // TODO extract an interface to implement compareParameterSets(...)?
 
     /**
-     *  A class providing a subset of the API of java.lang.reflect.Executable in Java 1.8,
+     * A class providing a subset of the API of java.lang.reflect.Executable in Java 1.8,
      * providing a common representation for function signatures for Constructors and Methods.
      */
     private static final class Executable {
@@ -87,50 +85,39 @@ final class MemberUtils {
     };
 
     /**
-     * Compares the relative fitness of two Constructors in terms of how well they
-     * match a set of runtime parameter types, such that a list ordered
-     * by the results of the comparison would return the best match first
-     * (least).
+     * Compares the relative fitness of two Constructors in terms of how well they match a set of runtime parameter types, such that a list ordered by the
+     * results of the comparison would return the best match first (least).
      *
-     * @param left the "left" Constructor
-     * @param right the "right" Constructor
-     * @param actual the runtime parameter types to match against
-     * {@code left}/{@code right}
-     * @return int consistent with {@code compare} semantics
-     * @since 3.5
+     * @param left   the "left" Constructor.
+     * @param right  the "right" Constructor.
+     * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
+     * @return int consistent with {@code compare} semantics.
      */
     static int compareConstructorFit(final Constructor<?> left, final Constructor<?> right, final Class<?>[] actual) {
       return compareParameterTypes(Executable.of(left), Executable.of(right), actual);
     }
 
     /**
-     * Compares the relative fitness of two Methods in terms of how well they
-     * match a set of runtime parameter types, such that a list ordered
-     * by the results of the comparison would return the best match first
-     * (least).
+     * Compares the relative fitness of two Methods in terms of how well they match a set of runtime parameter types, such that a list ordered by the results of
+     * the comparison would return the best match first (least).
      *
-     * @param left the "left" Method
-     * @param right the "right" Method
-     * @param actual the runtime parameter types to match against
-     * {@code left}/{@code right}
-     * @return int consistent with {@code compare} semantics
-     * @since 3.5
+     * @param left   the "left" Method.
+     * @param right  the "right" Method.
+     * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
+     * @return int consistent with {@code compare} semantics.
      */
     static int compareMethodFit(final Method left, final Method right, final Class<?>[] actual) {
       return compareParameterTypes(Executable.of(left), Executable.of(right), actual);
     }
 
     /**
-     * Compares the relative fitness of two Executables in terms of how well they
-     * match a set of runtime parameter types, such that a list ordered
-     * by the results of the comparison would return the best match first
-     * (least).
+     * Compares the relative fitness of two Executables in terms of how well they match a set of runtime parameter types, such that a list ordered by the
+     * results of the comparison would return the best match first (least).
      *
-     * @param left the "left" Executable
-     * @param right the "right" Executable
-     * @param actual the runtime parameter types to match against
-     * {@code left}/{@code right}
-     * @return int consistent with {@code compare} semantics
+     * @param left   the "left" Executable.
+     * @param right  the "right" Executable.
+     * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
+     * @return int consistent with {@code compare} semantics.
      */
     private static int compareParameterTypes(final Executable left, final Executable right, final Class<?>[] actual) {
         final float leftCost = getTotalTransformationCost(actual, left);
@@ -141,9 +128,9 @@ final class MemberUtils {
     /**
      * Gets the number of steps needed to turn the source class into the destination class. This represents the number of steps in the object hierarchy graph.
      *
-     * @param srcClass  The source class
-     * @param destClass The destination class
-     * @return The cost of transforming an object
+     * @param srcClass  The source class.
+     * @param destClass The destination class.
+     * @return The cost of transforming an object.
      */
     private static float getObjectTransformationCost(Class<?> srcClass, final Class<?> destClass) {
         if (destClass.isPrimitive()) {
@@ -173,11 +160,11 @@ final class MemberUtils {
     }
 
     /**
-     * Gets the number of steps required to promote a primitive number to another type.
+     * Gets the number of steps required to promote a primitive to another type.
      *
-     * @param srcClass  the (primitive) source class
-     * @param destClass the (primitive) destination class
-     * @return The cost of promoting the primitive
+     * @param srcClass  the (primitive) source class.
+     * @param destClass the (primitive) destination class.
+     * @return The cost of promoting the primitive.
      */
     private static float getPrimitivePromotionCost(final Class<?> srcClass, final Class<?> destClass) {
         if (srcClass == null) {
@@ -204,9 +191,9 @@ final class MemberUtils {
     /**
      * Gets the sum of the object transformation cost for each class in the source argument list.
      *
-     * @param srcArgs    The source arguments
-     * @param executable The executable to calculate transformation costs for
-     * @return The total transformation cost
+     * @param srcArgs    The source arguments.
+     * @param executable The executable to calculate transformation costs for.
+     * @return The total transformation cost.
      */
     private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Executable executable) {
         final Class<?>[] destArgs = executable.getParameterTypes();
@@ -249,7 +236,7 @@ final class MemberUtils {
      * Tests whether a {@link Member} is accessible.
      *
      * @param member Member to test, may be null.
-     * @return {@code true} if {@code m} is accessible
+     * @return {@code true} if {@code m} is accessible.
      */
     static boolean isAccessible(final Member member) {
         return isPublic(member) && !member.isSynthetic();
