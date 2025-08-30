@@ -1318,7 +1318,6 @@ class ClassUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsPrimitiveOrWrapper() {
-
         // test primitive wrapper classes
         assertTrue(ClassUtils.isPrimitiveOrWrapper(Boolean.class), "Boolean.class");
         assertTrue(ClassUtils.isPrimitiveOrWrapper(Byte.class), "Byte.class");
@@ -1328,7 +1327,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isPrimitiveOrWrapper(Long.class), "Long.class");
         assertTrue(ClassUtils.isPrimitiveOrWrapper(Double.class), "Double.class");
         assertTrue(ClassUtils.isPrimitiveOrWrapper(Float.class), "Float.class");
-
         // test primitive classes
         assertTrue(ClassUtils.isPrimitiveOrWrapper(Boolean.TYPE), "boolean");
         assertTrue(ClassUtils.isPrimitiveOrWrapper(Byte.TYPE), "byte");
@@ -1339,7 +1337,6 @@ class ClassUtilsTest extends AbstractLangTest {
         assertTrue(ClassUtils.isPrimitiveOrWrapper(Double.TYPE), "double");
         assertTrue(ClassUtils.isPrimitiveOrWrapper(Float.TYPE), "float");
         assertTrue(ClassUtils.isPrimitiveOrWrapper(Void.TYPE), "Void.TYPE");
-
         // others
         assertFalse(ClassUtils.isPrimitiveOrWrapper(null), "null");
         assertFalse(ClassUtils.isPrimitiveOrWrapper(Void.class), "Void.class");
