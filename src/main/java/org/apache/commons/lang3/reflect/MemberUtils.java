@@ -177,6 +177,7 @@ final class MemberUtils {
             cost += 0.1f;
             cls = ClassUtils.wrapperToPrimitive(cls);
         }
+        // Increase the cost as the loop widens the type.
         for (int i = 0; cls != destClass && i < WIDENING_PRIMITIVE_TYPES.length; i++) {
             if (cls == WIDENING_PRIMITIVE_TYPES[i]) {
                 cost += 0.1f;
