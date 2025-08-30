@@ -1442,9 +1442,9 @@ public class ClassUtils {
     /**
      * Converts the specified array of primitive Class objects to an array of its corresponding wrapper Class objects.
      *
-     * @param classes the class array to convert, may be null or empty
-     * @return an array which contains for each given class, the wrapper class or the original class if class is not a
-     *         primitive. {@code null} if null input. Empty array if an empty array passed in.
+     * @param classes the class array to convert, may be null or empty.
+     * @return an array which contains for each given class, the wrapper class or the original class if class is not a primitive. {@code null} if null input.
+     *         Empty array if an empty array passed in.
      * @since 2.1
      */
     public static Class<?>[] primitivesToWrappers(final Class<?>... classes) {
@@ -1454,9 +1454,7 @@ public class ClassUtils {
         if (classes.length == 0) {
             return classes;
         }
-        final Class<?>[] convertedClasses = new Class[classes.length];
-        Arrays.setAll(convertedClasses, i -> primitiveToWrapper(classes[i]));
-        return convertedClasses;
+        return ArrayUtils.setAll(new Class[classes.length], i -> primitiveToWrapper(classes[i]));
     }
 
     /**
@@ -1466,7 +1464,7 @@ public class ClassUtils {
      * NOTE: From v2.2, this method handles {@code Void.TYPE}, returning {@code Void.TYPE}.
      * </p>
      *
-     * @param cls the class to convert, may be null
+     * @param cls the class to convert, may be null.
      * @return the wrapper class for {@code cls} or {@code cls} if {@code cls} is not a primitive. {@code null} if null
      *         input.
      * @since 2.1
