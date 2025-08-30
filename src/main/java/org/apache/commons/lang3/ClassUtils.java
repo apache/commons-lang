@@ -1501,8 +1501,8 @@ public class ClassUtils {
     }
 
     /**
-     * Converts an array of {@link Object} in to an array of {@link Class} objects. If any of these objects is null, a null
-     * element will be inserted into the array.
+     * Converts an array of {@link Object} in to an array of {@link Class} objects. If any of these objects is null, a null element will be inserted into the
+     * array.
      *
      * <p>
      * This method returns {@code null} for a {@code null} input array.
@@ -1519,9 +1519,7 @@ public class ClassUtils {
         if (array.length == 0) {
             return ArrayUtils.EMPTY_CLASS_ARRAY;
         }
-        final Class<?>[] classes = new Class[array.length];
-        Arrays.setAll(classes, i -> array[i] == null ? null : array[i].getClass());
-        return classes;
+        return ArrayUtils.setAll(new Class[array.length], i -> array[i] == null ? null : array[i].getClass());
     }
 
     /**
@@ -1557,8 +1555,8 @@ public class ClassUtils {
      * </p>
      *
      * @param classes the class array to convert, may be null or empty
-     * @return an array which contains for each given class, the primitive class or <strong>null</strong> if the original class is not
-     *         a wrapper class. {@code null} if null input. Empty array if an empty array passed in.
+     * @return an array which contains for each given class, the primitive class or <strong>null</strong> if the original class is not a wrapper class.
+     *         {@code null} if null input. Empty array if an empty array passed in.
      * @see #wrapperToPrimitive(Class)
      * @since 2.4
      */
@@ -1569,9 +1567,7 @@ public class ClassUtils {
         if (classes.length == 0) {
             return classes;
         }
-        final Class<?>[] convertedClasses = new Class[classes.length];
-        Arrays.setAll(convertedClasses, i -> wrapperToPrimitive(classes[i]));
-        return convertedClasses;
+        return ArrayUtils.setAll(new Class[classes.length], i -> wrapperToPrimitive(classes[i]));
     }
 
     /**
