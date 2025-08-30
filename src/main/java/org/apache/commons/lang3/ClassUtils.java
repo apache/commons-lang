@@ -353,10 +353,8 @@ public class ClassUtils {
         if (cls == null) {
             return null;
         }
-
         final LinkedHashSet<Class<?>> interfacesFound = new LinkedHashSet<>();
         getAllInterfaces(cls, interfacesFound);
-
         return new ArrayList<>(interfacesFound);
     }
 
@@ -369,13 +367,11 @@ public class ClassUtils {
     private static void getAllInterfaces(Class<?> cls, final HashSet<Class<?>> interfacesFound) {
         while (cls != null) {
             final Class<?>[] interfaces = cls.getInterfaces();
-
             for (final Class<?> i : interfaces) {
                 if (interfacesFound.add(i)) {
                     getAllInterfaces(i, interfacesFound);
                 }
             }
-
             cls = cls.getSuperclass();
         }
     }
@@ -737,7 +733,6 @@ public class ClassUtils {
         if (StringUtils.isEmpty(className)) {
             return StringUtils.EMPTY;
         }
-
         // Strip array encoding
         while (className.charAt(0) == '[') {
             className = className.substring(1);
@@ -746,7 +741,6 @@ public class ClassUtils {
         if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
             className = className.substring(1);
         }
-
         final int i = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
         if (i == -1) {
             return StringUtils.EMPTY;
@@ -785,15 +779,12 @@ public class ClassUtils {
      *         requirements
      */
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) throws NoSuchMethodException {
-
         final Method declaredMethod = cls.getMethod(methodName, parameterTypes);
         if (isPublic(declaredMethod.getDeclaringClass())) {
             return declaredMethod;
         }
-
         final List<Class<?>> candidateClasses = new ArrayList<>(getAllInterfaces(cls));
         candidateClasses.addAll(getAllSuperclasses(cls));
-
         for (final Class<?> candidateClass : candidateClasses) {
             if (!isPublic(candidateClass)) {
                 continue;
@@ -808,7 +799,6 @@ public class ClassUtils {
                 return candidateMethod;
             }
         }
-
         throw new NoSuchMethodException("Can't find a public method for " + methodName + " " + ArrayUtils.toString(parameterTypes));
     }
 
@@ -1009,9 +999,7 @@ public class ClassUtils {
         if (StringUtils.isEmpty(className)) {
             return StringUtils.EMPTY;
         }
-
         final StringBuilder arrayPrefix = new StringBuilder();
-
         // Handle array encoding
         if (className.startsWith("[")) {
             while (className.charAt(0) == '[') {
@@ -1022,12 +1010,10 @@ public class ClassUtils {
             if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
                 className = className.substring(1, className.length() - 1);
             }
-
             if (REVERSE_ABBREVIATION_MAP.containsKey(className)) {
                 className = REVERSE_ABBREVIATION_MAP.get(className);
             }
         }
-
         final int lastDotIdx = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
         final int innerIdx = className.indexOf(INNER_CLASS_SEPARATOR_CHAR, lastDotIdx == -1 ? 0 : lastDotIdx + 1);
         String out = className.substring(lastDotIdx + 1);
@@ -1185,7 +1171,7 @@ public class ClassUtils {
     }
 
     /**
-     * Checks if one {@link Class} can be assigned to a variable of another {@link Class}.
+     * Tests whether one {@link Class} can be assigned to a variable of another {@link Class}.
      *
      * <p>
      * Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this method takes into account widenings of
@@ -1224,7 +1210,7 @@ public class ClassUtils {
     }
 
     /**
-     * Checks if one {@link Class} can be assigned to a variable of another {@link Class}.
+     * Tests whether one {@link Class} can be assigned to a variable of another {@link Class}.
      *
      * <p>
      * Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this method takes into account widenings of
@@ -1312,7 +1298,7 @@ public class ClassUtils {
     }
 
     /**
-     * Checks if an array of Classes can be assigned to another array of Classes.
+     * Tests whether an array of Classes can be assigned to another array of Classes.
      *
      * <p>
      * This method calls {@link #isAssignable(Class, Class) isAssignable} for each Class pair in the input arrays. It can be
@@ -1357,7 +1343,7 @@ public class ClassUtils {
     }
 
     /**
-     * Checks if an array of Classes can be assigned to another array of Classes.
+     * Tests whether an array of Classes can be assigned to another array of Classes.
      *
      * <p>
      * This method calls {@link #isAssignable(Class, Class) isAssignable} for each Class pair in the input arrays. It can be
@@ -1407,7 +1393,7 @@ public class ClassUtils {
     }
 
     /**
-     * Is the specified class an inner class or static nested class.
+     * Tests whether the specified class an inner class or static nested class.
      *
      * @param cls the class to check, may be null
      * @return {@code true} if the class is an inner or static nested class, false if not or {@code null}
@@ -1417,7 +1403,7 @@ public class ClassUtils {
     }
 
     /**
-     * Returns whether the given {@code type} is a primitive or primitive wrapper ({@link Boolean}, {@link Byte},
+     * Tests whether the given {@code type} is a primitive or primitive wrapper ({@link Boolean}, {@link Byte},
      * {@link Character}, {@link Short}, {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
      *
      * @param type The class to query or null.
@@ -1431,6 +1417,7 @@ public class ClassUtils {
         }
         return type.isPrimitive() || isPrimitiveWrapper(type);
     }
+
     /**
      * Tests whether the given {@code type} is a primitive wrapper ({@link Boolean}, {@link Byte}, {@link Character},
      * {@link Short}, {@link Integer}, {@link Long}, {@link Double}, {@link Float}).
@@ -1446,6 +1433,7 @@ public class ClassUtils {
 
     /**
      * Tests whether a {@link Class} is public.
+     *
      * @param cls Class to test.
      * @return {@code true} if {@code cls} is public.
      * @since 3.13.0
@@ -1466,11 +1454,9 @@ public class ClassUtils {
         if (classes == null) {
             return null;
         }
-
         if (classes.length == 0) {
             return classes;
         }
-
         final Class<?>[] convertedClasses = new Class[classes.length];
         Arrays.setAll(convertedClasses, i -> primitiveToWrapper(classes[i]));
         return convertedClasses;
@@ -1590,11 +1576,9 @@ public class ClassUtils {
         if (classes == null) {
             return null;
         }
-
         if (classes.length == 0) {
             return classes;
         }
-
         final Class<?>[] convertedClasses = new Class[classes.length];
         Arrays.setAll(convertedClasses, i -> wrapperToPrimitive(classes[i]));
         return convertedClasses;
