@@ -719,28 +719,30 @@ public class ClassUtils {
      * Gets the package name from a {@link String}.
      *
      * <p>
-     * The string passed in is assumed to be a class name - it is not checked.
+     * The string passed in is assumed to be a class name.
      * </p>
      * <p>
      * If the class is unpackaged, return an empty string.
      * </p>
      *
-     * @param className the className to get the package name for, may be {@code null}
-     * @return the package name or an empty string
+     * @param className the className to get the package name for, may be {@code null}.
+     * @return the package name or an empty string.
      */
     public static String getPackageName(String className) {
         if (StringUtils.isEmpty(className)) {
             return StringUtils.EMPTY;
         }
+        int i = 0;
         // Strip array encoding
-        while (className.charAt(0) == '[') {
-            className = className.substring(1);
+        while (className.charAt(i) == '[') {
+            i++;
         }
+        className = className.substring(i);
         // Strip Object type encoding
         if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
             className = className.substring(1);
         }
-        final int i = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
+        i = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
         if (i == -1) {
             return StringUtils.EMPTY;
         }
