@@ -823,7 +823,7 @@ public class ClassUtils {
      * @see Class#getCanonicalName()
      */
     public static String getShortCanonicalName(final Object object, final String valueIfNull) {
-        return object == null ? valueIfNull : getShortCanonicalName(object.getClass().getCanonicalName());
+        return object == null ? valueIfNull : getShortCanonicalName(object.getClass());
     }
 
     /**
