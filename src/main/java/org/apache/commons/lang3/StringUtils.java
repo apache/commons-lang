@@ -8196,15 +8196,15 @@ public class StringUtils {
      * </pre>
      *
      * @param str       the String to get a substring from, may be null.
-     * @param separator the character (Unicode code point) to search.
-     * @return the substring after the first occurrence of the separator, {@code null} if null String input.
+     * @param find the character (Unicode code point) to find.
+     * @return the substring after the first occurrence of the specified character, {@code null} if null String input.
      * @since 3.11
      */
-    public static String substringAfter(final String str, final int separator) {
+    public static String substringAfter(final String str, final int find) {
         if (isEmpty(str)) {
             return str;
         }
-        final int pos = str.indexOf(separator);
+        final int pos = str.indexOf(find);
         if (pos == INDEX_NOT_FOUND) {
             return EMPTY;
         }
@@ -8235,22 +8235,22 @@ public class StringUtils {
      * </pre>
      *
      * @param str       the String to get a substring from, may be null.
-     * @param separator the String to search for, may be null.
-     * @return the substring after the first occurrence of the separator, {@code null} if null String input.
+     * @param find the String to find, may be null.
+     * @return the substring after the first occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
-    public static String substringAfter(final String str, final String separator) {
+    public static String substringAfter(final String str, final String find) {
         if (isEmpty(str)) {
             return str;
         }
-        if (separator == null) {
+        if (find == null) {
             return EMPTY;
         }
-        final int pos = str.indexOf(separator);
+        final int pos = str.indexOf(find);
         if (pos == INDEX_NOT_FOUND) {
             return EMPTY;
         }
-        return str.substring(pos + separator.length());
+        return str.substring(pos + find.length());
     }
 
     /**
@@ -8275,15 +8275,15 @@ public class StringUtils {
      * </pre>
      *
      * @param str       the String to get a substring from, may be null.
-     * @param separator the character (Unicode code point) to search.
-     * @return the substring after the last occurrence of the separator, {@code null} if null String input.
+     * @param find the character (Unicode code point) to find.
+     * @return the substring after the last occurrence of the specified character, {@code null} if null String input.
      * @since 3.11
      */
-    public static String substringAfterLast(final String str, final int separator) {
+    public static String substringAfterLast(final String str, final int find) {
         if (isEmpty(str)) {
             return str;
         }
-        final int pos = str.lastIndexOf(separator);
+        final int pos = str.lastIndexOf(find);
         if (pos == INDEX_NOT_FOUND || pos == str.length() - 1) {
             return EMPTY;
         }
@@ -8315,22 +8315,22 @@ public class StringUtils {
      * </pre>
      *
      * @param str       the String to get a substring from, may be null.
-     * @param separator the String to search for, may be null.
-     * @return the substring after the last occurrence of the separator, {@code null} if null String input.
+     * @param find the String to find, may be null.
+     * @return the substring after the last occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
-    public static String substringAfterLast(final String str, final String separator) {
+    public static String substringAfterLast(final String str, final String find) {
         if (isEmpty(str)) {
             return str;
         }
-        if (isEmpty(separator)) {
+        if (isEmpty(find)) {
             return EMPTY;
         }
-        final int pos = str.lastIndexOf(separator);
-        if (pos == INDEX_NOT_FOUND || pos == str.length() - separator.length()) {
+        final int pos = str.lastIndexOf(find);
+        if (pos == INDEX_NOT_FOUND || pos == str.length() - find.length()) {
             return EMPTY;
         }
-        return str.substring(pos + separator.length());
+        return str.substring(pos + find.length());
     }
 
     /**
@@ -8354,15 +8354,15 @@ public class StringUtils {
      * </pre>
      *
      * @param str       the String to get a substring from, may be null.
-     * @param separator the character (Unicode code point) to search.
-     * @return the substring before the first occurrence of the separator, {@code null} if null String input.
+     * @param find the character (Unicode code point) to find.
+     * @return the substring before the first occurrence of the specified character, {@code null} if null String input.
      * @since 3.12.0
      */
-    public static String substringBefore(final String str, final int separator) {
+    public static String substringBefore(final String str, final int find) {
         if (isEmpty(str)) {
             return str;
         }
-        final int pos = str.indexOf(separator);
+        final int pos = str.indexOf(find);
         if (pos == INDEX_NOT_FOUND) {
             return str;
         }
@@ -8393,18 +8393,18 @@ public class StringUtils {
      * </pre>
      *
      * @param str       the String to get a substring from, may be null.
-     * @param separator the String to search for, may be null.
-     * @return the substring before the first occurrence of the separator, {@code null} if null String input.
+     * @param find the String to find, may be null.
+     * @return the substring before the first occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
-    public static String substringBefore(final String str, final String separator) {
-        if (isEmpty(str) || separator == null) {
+    public static String substringBefore(final String str, final String find) {
+        if (isEmpty(str) || find == null) {
             return str;
         }
-        if (separator.isEmpty()) {
+        if (find.isEmpty()) {
             return EMPTY;
         }
-        final int pos = str.indexOf(separator);
+        final int pos = str.indexOf(find);
         if (pos == INDEX_NOT_FOUND) {
             return str;
         }
@@ -8435,15 +8435,15 @@ public class StringUtils {
      * </pre>
      *
      * @param str       the String to get a substring from, may be null.
-     * @param separator the String to search for, may be null.
-     * @return the substring before the last occurrence of the separator, {@code null} if null String input.
+     * @param find the String to find, may be null.
+     * @return the substring before the last occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
-    public static String substringBeforeLast(final String str, final String separator) {
-        if (isEmpty(str) || isEmpty(separator)) {
+    public static String substringBeforeLast(final String str, final String find) {
+        if (isEmpty(str) || isEmpty(find)) {
             return str;
         }
-        final int pos = str.lastIndexOf(separator);
+        final int pos = str.lastIndexOf(find);
         if (pos == INDEX_NOT_FOUND) {
             return str;
         }
