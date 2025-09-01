@@ -446,17 +446,19 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName("org.apache.commons.lang3.ClassUtils"));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName("[Lorg.apache.commons.lang3.ClassUtils;"));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName("[[Lorg.apache.commons.lang3.ClassUtils;"));
+        assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[Lorg.apache.commons.lang3.ClassUtils;"));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName("org.apache.commons.lang3.ClassUtils[]"));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName("org.apache.commons.lang3.ClassUtils[][]"));
+        assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName("org.apache.commons.lang3.ClassUtils[][][][][][][][][][][][][][][][]"));
         assertEquals("", ClassUtils.getPackageCanonicalName("[I"));
         assertEquals("", ClassUtils.getPackageCanonicalName("[[I"));
         assertEquals("", ClassUtils.getPackageCanonicalName("int[]"));
         assertEquals("", ClassUtils.getPackageCanonicalName("int[][]"));
-
         // Inner types
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName("org.apache.commons.lang3.ClassUtilsTest$6"));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName("org.apache.commons.lang3.ClassUtilsTest$5Named"));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageCanonicalName("org.apache.commons.lang3.ClassUtilsTest$Inner"));
+        assertEquals("a.b.c.D.e.f", ClassUtils.getPackageCanonicalName("a.b.c.D.e.f.D"));
     }
 
     @Test
@@ -515,6 +517,7 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("ClassUtils[][]", ClassUtils.getShortCanonicalName(ClassUtils[][].class));
         assertEquals("int[]", ClassUtils.getShortCanonicalName(int[].class));
         assertEquals("int[][]", ClassUtils.getShortCanonicalName(int[][].class));
+        assertEquals("int[][][][][][][][][][]", ClassUtils.getShortCanonicalName(int[][][][][][][][][][].class));
 
         // Inner types
         final class Named {
@@ -537,6 +540,7 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("ClassUtils[][]", ClassUtils.getShortCanonicalName(new ClassUtils[0][0], "<null>"));
         assertEquals("int[]", ClassUtils.getShortCanonicalName(new int[0], "<null>"));
         assertEquals("int[][]", ClassUtils.getShortCanonicalName(new int[0][0], "<null>"));
+        assertEquals("int[][][][][][][][][][]", ClassUtils.getShortCanonicalName(new int[0][0][0][0][0][0][0][0][0][0], "<null>"));
 
         // Inner types
         final class Named {
@@ -565,6 +569,7 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("int[][]", ClassUtils.getShortCanonicalName("[[I"));
         assertEquals("int[]", ClassUtils.getShortCanonicalName("int[]"));
         assertEquals("int[][]", ClassUtils.getShortCanonicalName("int[][]"));
+        assertEquals("int[][][][][][][][][][]", ClassUtils.getShortCanonicalName("int[][][][][][][][][][][][]"));
         // this is to demonstrate that the documentation and the naming of the methods
         // uses the class name and canonical name totally mixed up, which cannot be
         // fixed without backward compatibility break
