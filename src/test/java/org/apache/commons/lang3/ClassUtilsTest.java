@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.Function;
 
 import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
@@ -462,10 +464,8 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("java.lang", ClassUtils.getPackageName(String.class));
         assertEquals("java.util", ClassUtils.getPackageName(Map.Entry.class));
         assertEquals("", ClassUtils.getPackageName((Class<?>) null));
-
         // LANG-535
         assertEquals("java.lang", ClassUtils.getPackageName(String[].class));
-
         // Primitive Arrays
         assertEquals("", ClassUtils.getPackageName(boolean[].class));
         assertEquals("", ClassUtils.getPackageName(byte[].class));
@@ -475,12 +475,10 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("", ClassUtils.getPackageName(long[].class));
         assertEquals("", ClassUtils.getPackageName(float[].class));
         assertEquals("", ClassUtils.getPackageName(double[].class));
-
         // Arrays of arrays of ...
         assertEquals("java.lang", ClassUtils.getPackageName(String[][].class));
         assertEquals("java.lang", ClassUtils.getPackageName(String[][][].class));
         assertEquals("java.lang", ClassUtils.getPackageName(String[][][][].class));
-
         // On-the-fly types
         final class Named {
             // empty
@@ -489,6 +487,10 @@ class ClassUtilsTest extends AbstractLangTest {
             // empty
         }.getClass()));
         assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(Named.class));
+        assertEquals("org.apache.commons.lang3", ClassUtils.getPackageName(new Serializable() {
+            private static final long serialVersionUID = 1L;
+        }.getClass()));
+        assertEquals("java.util.function", ClassUtils.getPackageName(Function.identity().getClass()));
     }
 
     @Test
@@ -578,7 +580,7 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("ClassUtilsTest.5Named", ClassUtils.getShortCanonicalName("org.apache.commons.lang3.ClassUtilsTest$5Named"));
         assertEquals("ClassUtilsTest.Inner", ClassUtils.getShortCanonicalName("org.apache.commons.lang3.ClassUtilsTest$Inner"));
         // demonstrating what a canonical name is... it is a bigger issue to clean this up
-        assertEquals("org.apache.commons.lang3.ClassUtilsTest$10", new org.apache.commons.lang3.ClassUtilsTest() {
+        assertEquals("org.apache.commons.lang3.ClassUtilsTest$11", new org.apache.commons.lang3.ClassUtilsTest() {
         }.getClass().getName());
         assertNull(new org.apache.commons.lang3.ClassUtilsTest() {
         }.getClass().getCanonicalName());
@@ -636,7 +638,7 @@ class ClassUtilsTest extends AbstractLangTest {
             // empty
         }
         // WARNING: this is fragile, implementation may change, naming is not guaranteed
-        assertEquals("ClassUtilsTest.12", ClassUtils.getShortClassName(new Object() {
+        assertEquals("ClassUtilsTest.13", ClassUtils.getShortClassName(new Object() {
             // empty
         }.getClass()));
         // WARNING: this is fragile, implementation may change, naming is not guaranteed
@@ -656,7 +658,7 @@ class ClassUtilsTest extends AbstractLangTest {
             // empty
         }
         // WARNING: this is fragile, implementation may change, naming is not guaranteed
-        assertEquals("ClassUtilsTest.13", ClassUtils.getShortClassName(new Object() {
+        assertEquals("ClassUtilsTest.14", ClassUtils.getShortClassName(new Object() {
             // empty
         }, "<null>"));
         // WARNING: this is fragile, implementation may change, naming is not guaranteed
