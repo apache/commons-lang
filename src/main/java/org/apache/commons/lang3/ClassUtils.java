@@ -471,6 +471,7 @@ public class ClassUtils {
      *
      * @param name the name of class.
      * @return canonical form of class name.
+     * @throws IllegalArgumentException if the class name is invalid
      */
     private static String getCanonicalName(final String name) {
         String className = StringUtils.deleteWhitespace(name);
@@ -478,20 +479,33 @@ public class ClassUtils {
             return null;
         }
         int dim = 0;
-        while (className.charAt(dim) == '[') {
+        final int len = className.length();
+        while (dim < len && className.charAt(dim) == '[') {
             dim++;
             if (dim > MAX_DIMENSIONS) {
                 throw new IllegalArgumentException(String.format("Maximum array dimension %d exceeded", MAX_DIMENSIONS));
             }
+        }
+        if (dim >= len) {
+            throw new IllegalArgumentException(String.format("Invalid class name %s", name));
         }
         if (dim < 1) {
             return className;
         }
         className = className.substring(dim);
         if (className.startsWith("L")) {
-            className = className.substring(1, className.endsWith(";") ? className.length() - 1 : className.length());
-        } else if (!className.isEmpty()) {
-            className = REVERSE_ABBREVIATION_MAP.get(className.substring(0, 1));
+            if (!className.endsWith(";") || className.length() < 3) {
+                throw new IllegalArgumentException(String.format("Invalid class name %s", name));
+            }
+            className = className.substring(1, className.length() - 1);
+        } else if (className.length() == 1) {
+            final String primitive = REVERSE_ABBREVIATION_MAP.get(className.substring(0, 1));
+            if (primitive == null) {
+                throw new IllegalArgumentException(String.format("Invalid class name %s", name));
+            }
+            className = primitive;
+        } else {
+            throw new IllegalArgumentException(String.format("Invalid class name %s", name));
         }
         final StringBuilder canonicalClassNameBuffer = new StringBuilder(className.length() + dim * 2);
         canonicalClassNameBuffer.append(className);
