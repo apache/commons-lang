@@ -569,7 +569,7 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("int[][]", ClassUtils.getShortCanonicalName("[[I"));
         assertEquals("int[]", ClassUtils.getShortCanonicalName("int[]"));
         assertEquals("int[][]", ClassUtils.getShortCanonicalName("int[][]"));
-        assertEquals("int[][][][][][][][][][]", ClassUtils.getShortCanonicalName("int[][][][][][][][][][][][]"));
+        assertEquals("int[][][][][][][][][][][][]", ClassUtils.getShortCanonicalName("int[][][][][][][][][][][][]"));
         // this is to demonstrate that the documentation and the naming of the methods
         // uses the class name and canonical name totally mixed up, which cannot be
         // fixed without backward compatibility break
