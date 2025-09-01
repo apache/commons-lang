@@ -504,7 +504,7 @@ public class ClassUtils {
             }
             className = className.substring(1, className.length() - 1);
         } else if (className.length() == 1) {
-            String primitive = REVERSE_ABBREVIATION_MAP.get(className.substring(0, 1));
+            final String primitive = REVERSE_ABBREVIATION_MAP.get(className.substring(0, 1));
             if (primitive == null) {
                 throw new IllegalArgumentException(String.format("Invalid class name %s", name));
             }
