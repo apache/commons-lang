@@ -859,7 +859,7 @@ public class StringUtils {
             return nullIsLess ? -1 : 1;
         }
         if (str2 == null) {
-            return nullIsLess ? 1 : - 1;
+            return nullIsLess ? 1 : -1;
         }
         return str1.compareTo(str2);
     }
