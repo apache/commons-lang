@@ -105,7 +105,7 @@ public class Conversion {
      * </p>
      *
      * @param src the binary to convert
-     * @param srcPos the position of the lsb to start the conversion
+     * @param srcPos the position of the LSB to start the conversion
      * @return a hexadecimal digit representing the selected bits
      * @throws IllegalArgumentException if {@code src} is empty
      * @throws NullPointerException if {@code src} is {@code null}
@@ -154,7 +154,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination byte
-     * @param dstPos the position of the lsb, in bits, in the result byte
+     * @param dstPos the position of the LSB, in bits, in the result byte
      * @param nBools the number of booleans to convert
      * @return a byte containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
@@ -205,7 +205,7 @@ public class Conversion {
      * </p>
      *
      * @param src the binary to convert
-     * @param srcPos the position of the lsb to start the conversion
+     * @param srcPos the position of the LSB to start the conversion
      * @return a hexadecimal digit representing the selected bits
      * @throws IllegalArgumentException if {@code src} is empty
      * @throws NullPointerException if {@code src} is {@code null}
@@ -266,7 +266,7 @@ public class Conversion {
      * </p>
      *
      * @param src the binary to convert
-     * @param srcPos the position of the lsb to start the conversion
+     * @param srcPos the position of the LSB to start the conversion
      * @return a hexadecimal digit representing the selected bits
      * @throws IllegalArgumentException if {@code src} is empty, {@code src.length > 8} or
      *             {@code src.length - srcPos < 4}
@@ -311,7 +311,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination int
-     * @param dstPos the position of the lsb, in bits, in the result int
+     * @param dstPos the position of the LSB, in bits, in the result int
      * @param nBools the number of booleans to convert
      * @return an int containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
@@ -344,7 +344,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination long
-     * @param dstPos the position of the lsb, in bits, in the result long
+     * @param dstPos the position of the LSB, in bits, in the result long
      * @param nBools the number of booleans to convert
      * @return a long containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
@@ -377,7 +377,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in boolean unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination short
-     * @param dstPos the position of the lsb, in bits, in the result short
+     * @param dstPos the position of the LSB, in bits, in the result short
      * @param nBools the number of booleans to convert
      * @return a short containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
@@ -410,7 +410,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in byte unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination int
-     * @param dstPos the position of the lsb, in bits, in the result int
+     * @param dstPos the position of the LSB, in bits, in the result int
      * @param nBytes the number of bytes to convert
      * @return an int containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
@@ -443,7 +443,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in byte unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination long
-     * @param dstPos the position of the lsb, in bits, in the result long
+     * @param dstPos the position of the LSB, in bits, in the result long
      * @param nBytes the number of bytes to convert
      * @return a long containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
@@ -476,7 +476,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in byte unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination short
-     * @param dstPos the position of the lsb, in bits, in the result short
+     * @param dstPos the position of the LSB, in bits, in the result short
      * @param nBytes the number of bytes to convert
      * @return a short containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
@@ -528,7 +528,7 @@ public class Conversion {
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     *            the width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws NullPointerException if {@code dst} is {@code null}
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 8}
@@ -558,7 +558,7 @@ public class Conversion {
      * @param dstInit the initial value for the result String
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to the
-     *            width of the input (from srcPos to msb)
+     *            width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 8}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
@@ -783,7 +783,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination byte
-     * @param dstPos the position of the lsb, in bits, in the result byte
+     * @param dstPos the position of the LSB, in bits, in the result byte
      * @param nHex the number of Chars to convert
      * @return a byte containing the selected bits
      * @throws IllegalArgumentException if {@code (nHex-1)*4+dstPos >= 8}
@@ -814,7 +814,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination int
-     * @param dstPos the position of the lsb, in bits, in the result int
+     * @param dstPos the position of the LSB, in bits, in the result int
      * @param nHex the number of Chars to convert
      * @return an int containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 32}
@@ -844,7 +844,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination long
-     * @param dstPos the position of the lsb, in bits, in the result long
+     * @param dstPos the position of the LSB, in bits, in the result long
      * @param nHex the number of Chars to convert
      * @return a long containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 64}
@@ -875,7 +875,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in Char unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination short
-     * @param dstPos the position of the lsb, in bits, in the result short
+     * @param dstPos the position of the LSB, in bits, in the result short
      * @param nHex the number of Chars to convert
      * @return a short containing the selected bits
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 16}
@@ -906,7 +906,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in int unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination long
-     * @param dstPos the position of the lsb, in bits, in the result long
+     * @param dstPos the position of the LSB, in bits, in the result long
      * @param nInts the number of ints to convert
      * @return a long containing the selected bits
      * @throws IllegalArgumentException if {@code (nInts-1)*32+dstPos >= 64}
@@ -940,7 +940,7 @@ public class Conversion {
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     *            the width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws NullPointerException if {@code dst} is {@code null}
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 32}
@@ -970,7 +970,7 @@ public class Conversion {
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to the
-     *            width of the input (from srcPos to msb)
+     *            width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws NullPointerException if {@code dst} is {@code null}
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 32}
@@ -1000,7 +1000,7 @@ public class Conversion {
      * @param dstInit the initial value for the result String
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to the
-     *            width of the input (from srcPos to msb)
+     *            width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 32}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
@@ -1029,7 +1029,7 @@ public class Conversion {
     }
 
     /**
-     * Converts the 4 lsb of an int to a hexadecimal digit.
+     * Converts the 4 LSB of an int to a hexadecimal digit.
      *
      * <p>
      * 0 returns '0'
@@ -1042,7 +1042,7 @@ public class Conversion {
      * </p>
      *
      * @param nibble the 4 bits to convert
-     * @return a hexadecimal digit representing the 4 lsb of {@code nibble}
+     * @return a hexadecimal digit representing the 4 LSB of {@code nibble}
      * @throws IllegalArgumentException if {@code nibble < 0} or {@code nibble > 15}
      */
     public static char intToHexDigit(final int nibble) {
@@ -1054,7 +1054,7 @@ public class Conversion {
     }
 
     /**
-     * Converts the 4 lsb of an int to a hexadecimal digit encoded using the Msb0 bit ordering.
+     * Converts the 4 LSB of an int to a hexadecimal digit encoded using the Msb0 bit ordering.
      *
      * <p>
      * 0 returns '0'
@@ -1067,7 +1067,7 @@ public class Conversion {
      * </p>
      *
      * @param nibble the 4 bits to convert
-     * @return a hexadecimal digit representing the 4 lsb of {@code nibble}
+     * @return a hexadecimal digit representing the 4 LSB of {@code nibble}
      * @throws IllegalArgumentException if {@code nibble < 0} or {@code nibble > 15}
      */
     public static char intToHexDigitMsb0(final int nibble) {
@@ -1118,7 +1118,7 @@ public class Conversion {
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nShorts the number of shorts to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     *            the width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws NullPointerException if {@code dst} is {@code null}
      * @throws IllegalArgumentException if {@code (nShorts-1)*16+srcPos >= 32}
@@ -1148,7 +1148,7 @@ public class Conversion {
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     *            the width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws NullPointerException if {@code dst} is {@code null}
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 64}
@@ -1178,7 +1178,7 @@ public class Conversion {
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to the
-     *            width of the input (from srcPos to msb)
+     *            width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws NullPointerException if {@code dst} is {@code null}
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 64}
@@ -1208,7 +1208,7 @@ public class Conversion {
      * @param dstInit the initial value for the result String
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to the
-     *            width of the input (from srcPos to msb)
+     *            width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 64}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
@@ -1245,7 +1245,7 @@ public class Conversion {
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nInts the number of ints to copy to {@code dst}, must be smaller or equal to the
-     *            width of the input (from srcPos to msb)
+     *            width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws NullPointerException if {@code dst} is {@code null} and {@code nInts > 0}
      * @throws IllegalArgumentException if {@code (nInts-1)*32+srcPos >= 64}
@@ -1275,7 +1275,7 @@ public class Conversion {
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nShorts the number of shorts to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     *            the width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws NullPointerException if {@code dst} is {@code null}
      * @throws IllegalArgumentException if {@code (nShorts-1)*16+srcPos >= 64}
@@ -1304,7 +1304,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in short unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination int
-     * @param dstPos the position of the lsb, in bits, in the result int
+     * @param dstPos the position of the LSB, in bits, in the result int
      * @param nShorts the number of shorts to convert
      * @return an int containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
@@ -1337,7 +1337,7 @@ public class Conversion {
      * @param srcPos the position in {@code src}, in short unit, from where to start the
      *            conversion
      * @param dstInit initial value of the destination long
-     * @param dstPos the position of the lsb, in bits, in the result long
+     * @param dstPos the position of the LSB, in bits, in the result long
      * @param nShorts the number of shorts to convert
      * @return a long containing the selected bits
      * @throws NullPointerException if {@code src} is {@code null}
@@ -1371,7 +1371,7 @@ public class Conversion {
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nBools the number of booleans to copy to {@code dst}, must be smaller or equal to
-     *            the width of the input (from srcPos to msb)
+     *            the width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws NullPointerException if {@code dst} is {@code null}
      * @throws IllegalArgumentException if {@code nBools-1+srcPos >= 16}
@@ -1402,7 +1402,7 @@ public class Conversion {
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to the
-     *            width of the input (from srcPos to msb)
+     *            width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws NullPointerException if {@code dst} is {@code null}
      * @throws IllegalArgumentException if {@code (nBytes-1)*8+srcPos >= 16}
@@ -1432,7 +1432,7 @@ public class Conversion {
      * @param dstInit the initial value for the result String
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nHexs the number of Chars to copy to {@code dst}, must be smaller or equal to the
-     *            width of the input (from srcPos to msb)
+     *            width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 16}
      * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
@@ -1468,7 +1468,7 @@ public class Conversion {
      * @param dst the destination array
      * @param dstPos the position in {@code dst} where to copy the result
      * @param nBytes the number of bytes to copy to {@code dst}, must be smaller or equal to the
-     *            width of the input (from srcPos to msb)
+     *            width of the input (from srcPos to MSB)
      * @return {@code dst}
      * @throws NullPointerException if {@code dst} is {@code null}
      * @throws IllegalArgumentException if {@code nBytes > 16}
