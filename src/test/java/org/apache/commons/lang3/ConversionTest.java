@@ -724,6 +724,8 @@ class ConversionTest extends AbstractLangTest {
         assertEquals(0x12345679, Conversion.hexToInt(src, 0, 0x12345679, 0, 0));
         assertEquals(0x87645679, Conversion.hexToInt(src, 15, 0x12345679, 20, 3));
         assertThrows(IllegalArgumentException.class, () -> Conversion.hexToInt(src, src.length(), 0, 0, 1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToInt(src, Integer.MIN_VALUE, 0, 0, 1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToInt(src, Integer.MAX_VALUE, 0, 0, 1));
     }
 
     /**
@@ -739,6 +741,8 @@ class ConversionTest extends AbstractLangTest {
         assertEquals(0x123456798ABCDEF0L, Conversion.hexToLong(src, 0, 0x123456798ABCDEF0L, 0, 0));
         assertEquals(0x1234567876BCDEF0L, Conversion.hexToLong(src, 15, 0x123456798ABCDEF0L, 24, 3));
         assertThrows(IllegalArgumentException.class, () -> Conversion.hexToLong(src, src.length(), 0, 0, 1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToLong(src, Integer.MIN_VALUE, 0, 0, 1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToLong(src, Integer.MAX_VALUE, 0, 0, 1));
     }
 
     /**
@@ -754,6 +758,8 @@ class ConversionTest extends AbstractLangTest {
         assertEquals((short) 0x1234, Conversion.hexToShort(src, 0, (short) 0x1234, 0, 0));
         assertEquals((short) 0x8764, Conversion.hexToShort(src, 15, (short) 0x1234, 4, 3));
         assertThrows(IllegalArgumentException.class, () -> Conversion.hexToShort(src, src.length(), (short) 0, 0, 1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToShort(src, Integer.MIN_VALUE, (short) 0, 0, 1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToShort(src, Integer.MAX_VALUE, (short) 0, 0, 1));
     }
 
     /**
