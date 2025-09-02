@@ -793,8 +793,9 @@ public class Conversion {
         if ((nHex - 1) * 4 + dstPos >= 8) {
             throw new IllegalArgumentException("(nHex - 1) * 4 + dstPos is greater than or equal to 8");
         }
-        if (srcPos + nHex > src.length()) {
-            throw new IllegalArgumentException(String.format("srcPos %,d, + nHex %,d  > src.length()", srcPos, nHex, src.length()));
+        if (srcPos < 0 || nHex < 0 || srcPos > src.length() - nHex) {
+            throw new IllegalArgumentException(
+                    String.format("srcPos %,d, dstInit %,d, dstPos %,d, nHex %,d, src.length() %,d", srcPos, dstInit, dstPos, nHex, src.length()));
         }
         byte out = dstInit;
         for (int i = 0; i < nHex; i++) {

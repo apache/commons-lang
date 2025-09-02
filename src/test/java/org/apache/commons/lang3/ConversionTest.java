@@ -709,6 +709,8 @@ class ConversionTest extends AbstractLangTest {
         assertEquals((byte) 0x34, Conversion.hexToByte(src, 0, (byte) 0x34, 0, 0));
         assertEquals((byte) 0x84, Conversion.hexToByte(src, 17, (byte) 0x34, 4, 1));
         assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByte(src, src.length(), (byte) 0, 0, 1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByte(src, Integer.MIN_VALUE, (byte) 0, 0, 1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByte(src, Integer.MAX_VALUE, (byte) 0, 0, 1));
     }
 
     /**
