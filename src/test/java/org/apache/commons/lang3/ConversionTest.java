@@ -49,10 +49,9 @@ class ConversionTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {-1, 8, 99})
+    @ValueSource(ints = {Integer.MIN_VALUE -1, 8, 9, Integer.MAX_VALUE})
     public void binaryBeMsb0ToHexDigitPosOutsideArray(final int index) {
-        assertIndexOutOfBoundsException(
-            () -> Conversion.binaryBeMsb0ToHexDigit(new boolean[8], index));
+        assertIndexOutOfBoundsException(() -> Conversion.binaryBeMsb0ToHexDigit(new boolean[8], index));
     }
 
     /**
@@ -60,44 +59,25 @@ class ConversionTest extends AbstractLangTest {
      */
     @Test
     void testBinaryBeMsb0ToHexDigit() {
-        assertEquals(
-            '0', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, false, false, false}));
-        assertEquals(
-            '1', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, false, false, true}));
-        assertEquals(
-            '2', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, false, true, false}));
-        assertEquals(
-            '3', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, false, true, true}));
-        assertEquals(
-            '4', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, true, false, false}));
-        assertEquals(
-            '5', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, true, false, true}));
-        assertEquals(
-            '6', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, true, true, false}));
-        assertEquals(
-            '7', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, true, true, true}));
-        assertEquals(
-            '8', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, false, false, false}));
-        assertEquals(
-            '9', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, false, false, true}));
-        assertEquals(
-            'a', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, false, true, false}));
-        assertEquals(
-            'b', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, false, true, true}));
-        assertEquals(
-            'c', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, true, false, false}));
-        assertEquals(
-            'd', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, true, false, true}));
-        assertEquals(
-            'e', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, true, true, false}));
-        assertEquals(
-            'f', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, true, true, true}));
-        assertEquals(
-            '4',
-            Conversion.binaryBeMsb0ToHexDigit(new boolean[]{
-                true, false, false, false, false, false, false, false, false, false, false,
-                false, false, true, false, false}));
-        assertIllegalArgumentException(() -> Conversion.binaryBeMsb0ToHexDigit(new boolean[]{}));
+        assertEquals('0', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, false, false, false }));
+        assertEquals('1', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, false, false, true }));
+        assertEquals('2', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, false, true, false }));
+        assertEquals('3', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, false, true, true }));
+        assertEquals('4', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, true, false, false }));
+        assertEquals('5', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, true, false, true }));
+        assertEquals('6', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, true, true, false }));
+        assertEquals('7', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, true, true, true }));
+        assertEquals('8', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, false, false, false }));
+        assertEquals('9', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, false, false, true }));
+        assertEquals('a', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, false, true, false }));
+        assertEquals('b', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, false, true, true }));
+        assertEquals('c', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, true, false, false }));
+        assertEquals('d', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, true, false, true }));
+        assertEquals('e', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, true, true, false }));
+        assertEquals('f', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, true, true, true }));
+        assertEquals('4', Conversion.binaryBeMsb0ToHexDigit(
+                new boolean[] { true, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false }));
+        assertIllegalArgumentException(() -> Conversion.binaryBeMsb0ToHexDigit(new boolean[] {}));
     }
 
     /**
