@@ -197,7 +197,7 @@ public class CalendarUtils {
     /**
      * Converts this instance to a {@link LocalDate}.
      *
-     * @return a LocalDateTime.
+     * @return a LocalDate.
      * @since 3.18.0
      */
     public LocalDate toLocalDate() {
