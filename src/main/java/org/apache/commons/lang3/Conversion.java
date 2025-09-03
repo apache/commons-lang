@@ -83,13 +83,13 @@ public class Conversion {
      *
      * <p>
      * (1, 0, 0, 0) is converted as follow: '8' (1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0) is converted
-     * to '4'
+     * to '4'.
      * </p>
      *
-     * @param src the binary to convert
-     * @return a hexadecimal digit representing the selected bits
-     * @throws IllegalArgumentException if {@code src} is empty
-     * @throws NullPointerException if {@code src} is {@code null}
+     * @param src the binary to convert.
+     * @return a hexadecimal digit representing the selected bits.
+     * @throws IllegalArgumentException if {@code src} is empty.
+     * @throws NullPointerException if {@code src} is {@code null}.
      */
     public static char binaryBeMsb0ToHexDigit(final boolean[] src) {
         return binaryBeMsb0ToHexDigit(src, 0);
@@ -101,14 +101,14 @@ public class Conversion {
      *
      * <p>
      * (1, 0, 0, 0) with srcPos = 0 is converted as follow: '8' (1, 0, 0, 0, 0, 0, 0, 0,
-     * 0, 0, 0, 1, 0, 1, 0, 0) with srcPos = 2 is converted to '5'
+     * 0, 0, 0, 1, 0, 1, 0, 0) with srcPos = 2 is converted to '5'.
      * </p>
      *
-     * @param src the binary to convert
-     * @param srcPos the position of the LSB to start the conversion
-     * @return a hexadecimal digit representing the selected bits
-     * @throws IllegalArgumentException if {@code src} is empty
-     * @throws NullPointerException if {@code src} is {@code null}
+     * @param src the binary to convert.
+     * @param srcPos the position of the LSB to start the conversion.
+     * @return a hexadecimal digit representing the selected bits.
+     * @throws IllegalArgumentException if {@code src} is empty.
+     * @throws NullPointerException if {@code src} is {@code null}.
      * @throws IndexOutOfBoundsException if {@code srcPos} is outside the array.
      */
     public static char binaryBeMsb0ToHexDigit(final boolean[] src, final int srcPos) {
@@ -147,19 +147,17 @@ public class Conversion {
     }
 
     /**
-     * Converts binary (represented as boolean array) into a byte using the default (little
-     * endian, Lsb0) byte and bit ordering.
+     * Converts binary (represented as boolean array) into a byte using the default (little endian, Lsb0) byte and bit ordering.
      *
-     * @param src the binary to convert
-     * @param srcPos the position in {@code src}, in boolean unit, from where to start the
-     *            conversion
-     * @param dstInit initial value of the destination byte
-     * @param dstPos the position of the LSB, in bits, in the result byte
-     * @param nBools the number of booleans to convert
-     * @return a byte containing the selected bits
-     * @throws NullPointerException if {@code src} is {@code null}
-     * @throws IllegalArgumentException if {@code nBools-1+dstPos >= 8}
-     * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}
+     * @param src     the binary to convert.
+     * @param srcPos  the position in {@code src}, in boolean unit, from where to start the conversion.
+     * @param dstInit initial value of the destination byte.
+     * @param dstPos  the position of the LSB, in bits, in the result byte.
+     * @param nBools  the number of booleans to convert.
+     * @return a byte containing the selected bits.
+     * @throws NullPointerException           if {@code src} is {@code null}.
+     * @throws IllegalArgumentException       if {@code nBools-1+dstPos >= 8}.
+     * @throws ArrayIndexOutOfBoundsException if {@code srcPos + nBools > src.length}.
      */
     public static byte binaryToByte(final boolean[] src, final int srcPos, final byte dstInit, final int dstPos,
             final int nBools) {
@@ -988,18 +986,16 @@ public class Conversion {
     }
 
     /**
-     * Converts an int into an array of Char using the default (little-endian, Lsb0) byte and bit
-     * ordering.
+     * Converts an int into an array of Char using the default (little-endian, Lsb0) byte and bit ordering.
      *
-     * @param src the int to convert
-     * @param srcPos the position in {@code src}, in bits, from where to start the conversion
-     * @param dstInit the initial value for the result String
-     * @param dstPos the position in {@code dst} where to copy the result
-     * @param nHexs the number of chars to copy to {@code dst}, must be smaller or equal to the
-     *            width of the input (from srcPos to MSB)
-     * @return {@code dst}
-     * @throws IllegalArgumentException if {@code (nHexs-1)*4+srcPos >= 32}
-     * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}
+     * @param src     the int to convert.
+     * @param srcPos  the position in {@code src}, in bits, from where to start the conversion.
+     * @param dstInit the initial value for the result String.
+     * @param dstPos  the position in {@code dst} where to copy the result.
+     * @param nHexs   the number of chars to copy to {@code dst}, must be smaller or equal to the width of the input (from srcPos to MSB).
+     * @return {@code dst}.
+     * @throws IllegalArgumentException        if {@code (nHexs-1)*4+srcPos >= 32}.
+     * @throws StringIndexOutOfBoundsException if {@code dst.init.length() < dstPos}.
      */
     public static String intToHex(final int src, final int srcPos, final String dstInit, final int dstPos,
             final int nHexs) {
