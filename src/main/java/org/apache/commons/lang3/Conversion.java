@@ -156,7 +156,7 @@ public class Conversion {
         if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
-        if (nBools - 1 + dstPos >= 8) {
+        if (nBools - 1 + dstPos >= Byte.SIZE) {
             throw new IllegalArgumentException("nBools - 1 + dstPos >= 8");
         }
         byte out = dstInit;
@@ -256,7 +256,7 @@ public class Conversion {
      * @throws NullPointerException     if {@code src} is {@code null}.
      */
     public static char binaryToHexDigitMsb0_4bits(final boolean[] src, final int srcPos) {
-        if (src.length > 8) {
+        if (src.length > Byte.SIZE) {
             throw new IllegalArgumentException("src.length > 8: src.length=" + src.length);
         }
         if (src.length - srcPos < 4) {
@@ -303,7 +303,7 @@ public class Conversion {
         if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
-        if (nBools - 1 + dstPos >= 32) {
+        if (nBools - 1 + dstPos >= Integer.SIZE) {
             throw new IllegalArgumentException("nBools - 1 + dstPos >= 32");
         }
         int out = dstInit;
@@ -333,7 +333,7 @@ public class Conversion {
         if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
-        if (nBools - 1 + dstPos >= 64) {
+        if (nBools - 1 + dstPos >= Long.SIZE) {
             throw new IllegalArgumentException("nBools - 1 + dstPos >= 64");
         }
         long out = dstInit;
@@ -363,7 +363,7 @@ public class Conversion {
         if (src.length == 0 && srcPos == 0 || 0 == nBools) {
             return dstInit;
         }
-        if (nBools - 1 + dstPos >= 16) {
+        if (nBools - 1 + dstPos >= Short.SIZE) {
             throw new IllegalArgumentException("nBools - 1 + dstPos >= 16");
         }
         short out = dstInit;
@@ -393,12 +393,12 @@ public class Conversion {
         if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
-        if ((nBytes - 1) * 8 + dstPos >= 32) {
+        if ((nBytes - 1) * Byte.SIZE + dstPos >= Integer.SIZE) {
             throw new IllegalArgumentException("(nBytes - 1) * 8 + dstPos >= 32");
         }
         int out = dstInit;
         for (int i = 0; i < nBytes; i++) {
-            final int shift = i * 8 + dstPos;
+            final int shift = i * Byte.SIZE + dstPos;
             final int bits = (0xff & src[i + srcPos]) << shift;
             final int mask = 0xff << shift;
             out = out & ~mask | bits;
@@ -423,12 +423,12 @@ public class Conversion {
         if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
-        if ((nBytes - 1) * 8 + dstPos >= 64) {
+        if ((nBytes - 1) * Byte.SIZE + dstPos >= Long.SIZE) {
             throw new IllegalArgumentException("(nBytes - 1) * 8 + dstPos >= 64");
         }
         long out = dstInit;
         for (int i = 0; i < nBytes; i++) {
-            final int shift = i * 8 + dstPos;
+            final int shift = i * Byte.SIZE + dstPos;
             final long bits = (0xffL & src[i + srcPos]) << shift;
             final long mask = 0xffL << shift;
             out = out & ~mask | bits;
@@ -453,12 +453,12 @@ public class Conversion {
         if (src.length == 0 && srcPos == 0 || 0 == nBytes) {
             return dstInit;
         }
-        if ((nBytes - 1) * 8 + dstPos >= 16) {
+        if ((nBytes - 1) * Byte.SIZE + dstPos >= Short.SIZE) {
             throw new IllegalArgumentException("(nBytes - 1) * 8 + dstPos >= 16");
         }
         short out = dstInit;
         for (int i = 0; i < nBytes; i++) {
-            final int shift = i * 8 + dstPos;
+            final int shift = i * Byte.SIZE + dstPos;
             final int bits = (0xff & src[i + srcPos]) << shift;
             final int mask = 0xff << shift;
             out = (short) (out & ~mask | bits);
@@ -479,7 +479,7 @@ public class Conversion {
         if (src.length - srcPos < 16) {
             throw new IllegalArgumentException("Need at least 16 bytes for UUID");
         }
-        return new UUID(byteArrayToLong(src, srcPos, 0, 0, 8), byteArrayToLong(src, srcPos + 8, 0, 0, 8));
+        return new UUID(byteArrayToLong(src, srcPos, 0, 0, Byte.SIZE), byteArrayToLong(src, srcPos + 8, 0, 0, Byte.SIZE));
     }
 
     /**
@@ -499,7 +499,7 @@ public class Conversion {
         if (0 == nBools) {
             return dst;
         }
-        if (nBools - 1 + srcPos >= 8) {
+        if (nBools - 1 + srcPos >= Byte.SIZE) {
             throw new IllegalArgumentException("nBools -  1 + srcPos >= 8");
         }
         for (int i = 0; i < nBools; i++) {
@@ -525,7 +525,7 @@ public class Conversion {
         if (0 == nHexs) {
             return dstInit;
         }
-        if ((nHexs - 1) * 4 + srcPos >= 8) {
+        if ((nHexs - 1) * 4 + srcPos >= Byte.SIZE) {
             throw new IllegalArgumentException("(nHexs - 1) * 4 + srcPos >= 8");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
@@ -745,7 +745,7 @@ public class Conversion {
         if (0 == nHex) {
             return dstInit;
         }
-        if ((nHex - 1) * 4 + dstPos >= 8) {
+        if ((nHex - 1) * 4 + dstPos >= Byte.SIZE) {
             throw new IllegalArgumentException("(nHex - 1) * 4 + dstPos >= 8");
         }
         byte out = dstInit;
@@ -773,7 +773,7 @@ public class Conversion {
         if (0 == nHex) {
             return dstInit;
         }
-        if ((nHex - 1) * 4 + dstPos >= 32) {
+        if ((nHex - 1) * 4 + dstPos >= Integer.SIZE) {
             throw new IllegalArgumentException("(nHexs - 1) * 4 + dstPos >= 32");
         }
         int out = dstInit;
@@ -801,7 +801,7 @@ public class Conversion {
         if (0 == nHex) {
             return dstInit;
         }
-        if ((nHex - 1) * 4 + dstPos >= 64) {
+        if ((nHex - 1) * 4 + dstPos >= Long.SIZE) {
             throw new IllegalArgumentException("(nHexs - 1) * 4 + dstPos >= 64");
         }
         long out = dstInit;
@@ -829,7 +829,7 @@ public class Conversion {
         if (0 == nHex) {
             return dstInit;
         }
-        if ((nHex - 1) * 4 + dstPos >= 16) {
+        if ((nHex - 1) * 4 + dstPos >= Short.SIZE) {
             throw new IllegalArgumentException("(nHexs - 1) * 4 + dstPos >= 16");
         }
         short out = dstInit;
@@ -859,12 +859,12 @@ public class Conversion {
         if (src.length == 0 && srcPos == 0 || 0 == nInts) {
             return dstInit;
         }
-        if ((nInts - 1) * 32 + dstPos >= 64) {
+        if ((nInts - 1) * Integer.SIZE + dstPos >= Long.SIZE) {
             throw new IllegalArgumentException("(nInts - 1) * 32 + dstPos >= 64");
         }
         long out = dstInit;
         for (int i = 0; i < nInts; i++) {
-            final int shift = i * 32 + dstPos;
+            final int shift = i * Integer.SIZE + dstPos;
             final long bits = (0xffffffffL & src[i + srcPos]) << shift;
             final long mask = 0xffffffffL << shift;
             out = out & ~mask | bits;
@@ -889,7 +889,7 @@ public class Conversion {
         if (0 == nBools) {
             return dst;
         }
-        if (nBools - 1 + srcPos >= 32) {
+        if (nBools - 1 + srcPos >= Integer.SIZE) {
             throw new IllegalArgumentException("nBools -  1 + srcPos >= 32");
         }
         for (int i = 0; i < nBools; i++) {
@@ -916,11 +916,11 @@ public class Conversion {
         if (0 == nBytes) {
             return dst;
         }
-        if ((nBytes - 1) * 8 + srcPos >= 32) {
+        if ((nBytes - 1) * Byte.SIZE + srcPos >= Integer.SIZE) {
             throw new IllegalArgumentException("(nBytes - 1) * 8 + srcPos >= 32");
         }
         for (int i = 0; i < nBytes; i++) {
-            final int shift = i * 8 + srcPos;
+            final int shift = i * Byte.SIZE + srcPos;
             dst[dstPos + i] = (byte) (0xff & src >> shift);
         }
         return dst;
@@ -942,7 +942,7 @@ public class Conversion {
         if (0 == nHexs) {
             return dstInit;
         }
-        if ((nHexs - 1) * 4 + srcPos >= 32) {
+        if ((nHexs - 1) * 4 + srcPos >= Integer.SIZE) {
             throw new IllegalArgumentException("(nHexs - 1) * 4 + srcPos >= 32");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
@@ -1058,11 +1058,11 @@ public class Conversion {
         if (0 == nShorts) {
             return dst;
         }
-        if ((nShorts - 1) * 16 + srcPos >= 32) {
+        if ((nShorts - 1) * Short.SIZE + srcPos >= Integer.SIZE) {
             throw new IllegalArgumentException("(nShorts - 1) * 16 + srcPos >= 32");
         }
         for (int i = 0; i < nShorts; i++) {
-            final int shift = i * 16 + srcPos;
+            final int shift = i * Short.SIZE + srcPos;
             dst[dstPos + i] = (short) (0xffff & src >> shift);
         }
         return dst;
@@ -1085,7 +1085,7 @@ public class Conversion {
         if (0 == nBools) {
             return dst;
         }
-        if (nBools - 1 + srcPos >= 64) {
+        if (nBools - 1 + srcPos >= Long.SIZE) {
             throw new IllegalArgumentException("nBools -  1 + srcPos >= 64");
         }
         for (int i = 0; i < nBools; i++) {
@@ -1112,11 +1112,11 @@ public class Conversion {
         if (0 == nBytes) {
             return dst;
         }
-        if ((nBytes - 1) * 8 + srcPos >= 64) {
+        if ((nBytes - 1) * Byte.SIZE + srcPos >= Long.SIZE) {
             throw new IllegalArgumentException("(nBytes - 1) * 8 + srcPos >= 64");
         }
         for (int i = 0; i < nBytes; i++) {
-            final int shift = i * 8 + srcPos;
+            final int shift = i * Byte.SIZE + srcPos;
             dst[dstPos + i] = (byte) (0xff & src >> shift);
         }
         return dst;
@@ -1138,7 +1138,7 @@ public class Conversion {
         if (0 == nHexs) {
             return dstInit;
         }
-        if ((nHexs - 1) * 4 + srcPos >= 64) {
+        if ((nHexs - 1) * 4 + srcPos >= Long.SIZE) {
             throw new IllegalArgumentException("(nHexs - 1) * 4 + srcPos >= 64");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
@@ -1173,11 +1173,11 @@ public class Conversion {
         if (0 == nInts) {
             return dst;
         }
-        if ((nInts - 1) * 32 + srcPos >= 64) {
+        if ((nInts - 1) * Integer.SIZE + srcPos >= Long.SIZE) {
             throw new IllegalArgumentException("(nInts - 1) * 32 + srcPos >= 64");
         }
         for (int i = 0; i < nInts; i++) {
-            final int shift = i * 32 + srcPos;
+            final int shift = i * Integer.SIZE + srcPos;
             dst[dstPos + i] = (int) (0xffffffff & src >> shift);
         }
         return dst;
@@ -1200,11 +1200,11 @@ public class Conversion {
         if (0 == nShorts) {
             return dst;
         }
-        if ((nShorts - 1) * 16 + srcPos >= 64) {
+        if ((nShorts - 1) * Short.SIZE + srcPos >= Long.SIZE) {
             throw new IllegalArgumentException("(nShorts - 1) * 16 + srcPos >= 64");
         }
         for (int i = 0; i < nShorts; i++) {
-            final int shift = i * 16 + srcPos;
+            final int shift = i * Short.SIZE + srcPos;
             dst[dstPos + i] = (short) (0xffff & src >> shift);
         }
         return dst;
@@ -1227,12 +1227,12 @@ public class Conversion {
         if (src.length == 0 && srcPos == 0 || 0 == nShorts) {
             return dstInit;
         }
-        if ((nShorts - 1) * 16 + dstPos >= 32) {
+        if ((nShorts - 1) * Short.SIZE + dstPos >= Integer.SIZE) {
             throw new IllegalArgumentException("(nShorts - 1) * 16 + dstPos >= 32");
         }
         int out = dstInit;
         for (int i = 0; i < nShorts; i++) {
-            final int shift = i * 16 + dstPos;
+            final int shift = i * Short.SIZE + dstPos;
             final int bits = (0xffff & src[i + srcPos]) << shift;
             final int mask = 0xffff << shift;
             out = out & ~mask | bits;
@@ -1257,12 +1257,12 @@ public class Conversion {
         if (src.length == 0 && srcPos == 0 || 0 == nShorts) {
             return dstInit;
         }
-        if ((nShorts - 1) * 16 + dstPos >= 64) {
+        if ((nShorts - 1) * Short.SIZE + dstPos >= Long.SIZE) {
             throw new IllegalArgumentException("(nShorts - 1) * 16 + dstPos >= 64");
         }
         long out = dstInit;
         for (int i = 0; i < nShorts; i++) {
-            final int shift = i * 16 + dstPos;
+            final int shift = i * Short.SIZE + dstPos;
             final long bits = (0xffffL & src[i + srcPos]) << shift;
             final long mask = 0xffffL << shift;
             out = out & ~mask | bits;
@@ -1287,10 +1287,10 @@ public class Conversion {
         if (0 == nBools) {
             return dst;
         }
-        if (nBools - 1 + srcPos >= 16) {
+        if (nBools - 1 + srcPos >= Short.SIZE) {
             throw new IllegalArgumentException("nBools -  1 + srcPos >= 16");
         }
-        assert nBools - 1 < 16 - srcPos;
+        assert nBools - 1 < Short.SIZE - srcPos;
         for (int i = 0; i < nBools; i++) {
             final int shift = i + srcPos;
             dst[dstPos + i] = (0x1 & src >> shift) != 0;
@@ -1315,11 +1315,11 @@ public class Conversion {
         if (0 == nBytes) {
             return dst;
         }
-        if ((nBytes - 1) * 8 + srcPos >= 16) {
+        if ((nBytes - 1) * Byte.SIZE + srcPos >= Short.SIZE) {
             throw new IllegalArgumentException("(nBytes - 1) * 8 + srcPos >= 16");
         }
         for (int i = 0; i < nBytes; i++) {
-            final int shift = i * 8 + srcPos;
+            final int shift = i * Byte.SIZE + srcPos;
             dst[dstPos + i] = (byte) (0xff & src >> shift);
         }
         return dst;
@@ -1341,7 +1341,7 @@ public class Conversion {
         if (0 == nHexs) {
             return dstInit;
         }
-        if ((nHexs - 1) * 4 + srcPos >= 16) {
+        if ((nHexs - 1) * 4 + srcPos >= Short.SIZE) {
             throw new IllegalArgumentException("(nHexs - 1) * 4 + srcPos >= 16");
         }
         final StringBuilder sb = new StringBuilder(dstInit);
