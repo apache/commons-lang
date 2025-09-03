@@ -778,13 +778,14 @@ public class Conversion {
     /**
      * Converts a hexadecimal string into a byte using the default (little-endian, Lsb0) byte and bit ordering.
      *
-     * @param src     the hexadecimal string to convert.
-     * @param srcPos  the position in {@code src}, in char unit, from where to start the conversion.
-     * @param dstInit initial value of the destination byte.
-     * @param dstPos  the position of the LSB, in bits, in the result byte.
-     * @param nHex    the number of chars to convert.
-     * @return a byte containing the selected bits.
-     * @throws IllegalArgumentException Thrown on invalid input like {@code (nHex - 1) * 4 + dstPos >= 8}.
+     * @param src the hexadecimal string to convert
+     * @param srcPos the position in {@code src}, in Char unit, from where to start the
+     *            conversion
+     * @param dstInit initial value of the destination byte
+     * @param dstPos the position of the LSB, in bits, in the result byte
+     * @param nHex the number of Chars to convert
+     * @return a byte containing the selected bits
+     * @throws IllegalArgumentException if {@code (nHex-1)*4+dstPos >= 8}
      */
     public static byte hexToByte(final String src, final int srcPos, final byte dstInit, final int dstPos, final int nHex) {
         if (0 == nHex) {
@@ -792,10 +793,6 @@ public class Conversion {
         }
         if ((nHex - 1) * 4 + dstPos >= 8) {
             throw new IllegalArgumentException("(nHex - 1) * 4 + dstPos is greater than or equal to 8");
-        }
-        if (srcPos < 0 || nHex < 0 || srcPos > src.length() - nHex) {
-            throw new IllegalArgumentException(
-                    String.format("srcPos %,d, dstInit %,d, dstPos %,d, nHex %,d, src.length() %,d", srcPos, dstInit, dstPos, nHex, src.length()));
         }
         byte out = dstInit;
         for (int i = 0; i < nHex; i++) {
@@ -818,18 +815,14 @@ public class Conversion {
      * @param dstPos the position of the LSB, in bits, in the result int
      * @param nHex the number of chars to convert
      * @return an int containing the selected bits
-     * @throws IllegalArgumentException Thrown on invalid input like {@code (nHex - 1) * 4 + dstPos >= 32}
+     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 32}
      */
     public static int hexToInt(final String src, final int srcPos, final int dstInit, final int dstPos, final int nHex) {
         if (0 == nHex) {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 32) {
-            throw new IllegalArgumentException("(nHex - 1) * 4 + dstPos is greater or equal to than 32");
-        }
-        if (srcPos < 0 || nHex < 0 || srcPos > src.length() - nHex) {
-            throw new IllegalArgumentException(
-                    String.format("srcPos %,d, dstInit %,d, dstPos %,d, nHex %,d, src.length() %,d", srcPos, dstInit, dstPos, nHex, src.length()));
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greater or equal to than 32");
         }
         int out = dstInit;
         for (int i = 0; i < nHex; i++) {
@@ -852,18 +845,14 @@ public class Conversion {
      * @param dstPos the position of the LSB, in bits, in the result long
      * @param nHex the number of chars to convert
      * @return a long containing the selected bits
-     * @throws IllegalArgumentException Thrown on invalid input like {@code (nHex - 1) * 4 + dstPos >= 64}
+     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 64}
      */
     public static long hexToLong(final String src, final int srcPos, final long dstInit, final int dstPos, final int nHex) {
         if (0 == nHex) {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 64) {
-            throw new IllegalArgumentException("(nHex - 1) * 4 + dstPos is greater or equal to than 64");
-        }
-        if (srcPos < 0 || nHex < 0 || srcPos > src.length() - nHex) {
-            throw new IllegalArgumentException(
-                    String.format("srcPos %,d, dstInit %,d, dstPos %,d, nHex %,d, src.length() %,d", srcPos, dstInit, dstPos, nHex, src.length()));
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greater or equal to than 64");
         }
         long out = dstInit;
         for (int i = 0; i < nHex; i++) {
@@ -886,18 +875,14 @@ public class Conversion {
      * @param dstPos the position of the LSB, in bits, in the result short
      * @param nHex the number of chars to convert
      * @return a short containing the selected bits
-     * @throws IllegalArgumentException Thrown on invalid input like {@code (nHex - 1) * 4 + dstPos >= 16}
+     * @throws IllegalArgumentException if {@code (nHexs-1)*4+dstPos >= 16}
      */
     public static short hexToShort(final String src, final int srcPos, final short dstInit, final int dstPos, final int nHex) {
         if (0 == nHex) {
             return dstInit;
         }
         if ((nHex - 1) * 4 + dstPos >= 16) {
-            throw new IllegalArgumentException("(nHex - 1) * 4 + dstPos is greater or equal to than 16");
-        }
-        if (srcPos < 0 || nHex < 0 || srcPos > src.length() - nHex) {
-            throw new IllegalArgumentException(
-                    String.format("srcPos %,d, dstInit %,d, dstPos %,d, nHex %,d, src.length() %,d", srcPos, dstInit, dstPos, nHex, src.length()));
+            throw new IllegalArgumentException("(nHexs-1)*4+dstPos is greater or equal to than 16");
         }
         short out = dstInit;
         for (int i = 0; i < nHex; i++) {
