@@ -97,7 +97,10 @@ public class NumberUtils {
      * @since 3.4
      */
     public static int compare(final byte x, final byte y) {
-        return x - y;
+        if (x == y) {
+            return 0;
+        }
+        return x < y ? -1 : 1;
     }
 
     /**
