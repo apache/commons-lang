@@ -58,7 +58,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1597" type="fix" dev="ggregory" due-to="Richard Eckart de Castilho, Gary Gregory">Invocation fails because matching varargs method found but then discarded.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Don't check accessibility twice in MemberUtils.setAccessibleWorkaround(T).</action>
     <action issue="LANG-1774" type="fix" dev="ggregory" due-to="Zhongxin Yan, Madhur Lathi, Yudan Liu, Gary Gregory">Improve handling of ClassUtils.getShortCanonicalName() for invalid input #1437.</action>
-    <action issue="LANG-1720" type="fix" dev="ggregory" due-to="Sheung Chi Chan, Arthur Chan, Gary Gregory, Elliotte Rusty Harold">Conversion.hexTo*() methods now throw IllegalArgumentException instead of StringIndexOutOfBoundsException.</action>
+    <action issue="LANG-1720" type="fix" dev="ggregory" due-to="Sheung Chi Chan, Arthur Chan, Gary Gregory, Elliotte Rusty Harold">Improve Javadocs for Conversion.</action>
+    <action                   type="fix" dev="ggregory" due-to="mayuming">Fix CalendarUtils.toLocalDate() Javadoc return type description #1440.</action>
     <!-- FIX Javadoc -->
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">[javadoc] General improvements.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">[javadoc] Fix thrown exception documentation for org.apache.commons.lang3.reflect.MethodUtils.getMethodObject(Class&lt;?&gt;, String, Class&lt;?&gt;...).</action>

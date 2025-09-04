@@ -49,10 +49,9 @@ class ConversionTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {-1, 8, 99})
+    @ValueSource(ints = { Integer.MIN_VALUE, -1, 8, 9, Integer.MAX_VALUE })
     public void binaryBeMsb0ToHexDigitPosOutsideArray(final int index) {
-        assertIndexOutOfBoundsException(
-            () -> Conversion.binaryBeMsb0ToHexDigit(new boolean[8], index));
+        assertIndexOutOfBoundsException(() -> Conversion.binaryBeMsb0ToHexDigit(new boolean[8], index));
     }
 
     /**
@@ -60,44 +59,25 @@ class ConversionTest extends AbstractLangTest {
      */
     @Test
     void testBinaryBeMsb0ToHexDigit() {
-        assertEquals(
-            '0', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, false, false, false}));
-        assertEquals(
-            '1', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, false, false, true}));
-        assertEquals(
-            '2', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, false, true, false}));
-        assertEquals(
-            '3', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, false, true, true}));
-        assertEquals(
-            '4', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, true, false, false}));
-        assertEquals(
-            '5', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, true, false, true}));
-        assertEquals(
-            '6', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, true, true, false}));
-        assertEquals(
-            '7', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{false, true, true, true}));
-        assertEquals(
-            '8', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, false, false, false}));
-        assertEquals(
-            '9', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, false, false, true}));
-        assertEquals(
-            'a', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, false, true, false}));
-        assertEquals(
-            'b', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, false, true, true}));
-        assertEquals(
-            'c', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, true, false, false}));
-        assertEquals(
-            'd', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, true, false, true}));
-        assertEquals(
-            'e', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, true, true, false}));
-        assertEquals(
-            'f', Conversion.binaryBeMsb0ToHexDigit(new boolean[]{true, true, true, true}));
-        assertEquals(
-            '4',
-            Conversion.binaryBeMsb0ToHexDigit(new boolean[]{
-                true, false, false, false, false, false, false, false, false, false, false,
-                false, false, true, false, false}));
-        assertIllegalArgumentException(() -> Conversion.binaryBeMsb0ToHexDigit(new boolean[]{}));
+        assertEquals('0', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, false, false, false }));
+        assertEquals('1', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, false, false, true }));
+        assertEquals('2', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, false, true, false }));
+        assertEquals('3', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, false, true, true }));
+        assertEquals('4', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, true, false, false }));
+        assertEquals('5', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, true, false, true }));
+        assertEquals('6', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, true, true, false }));
+        assertEquals('7', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { false, true, true, true }));
+        assertEquals('8', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, false, false, false }));
+        assertEquals('9', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, false, false, true }));
+        assertEquals('a', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, false, true, false }));
+        assertEquals('b', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, false, true, true }));
+        assertEquals('c', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, true, false, false }));
+        assertEquals('d', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, true, false, true }));
+        assertEquals('e', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, true, true, false }));
+        assertEquals('f', Conversion.binaryBeMsb0ToHexDigit(new boolean[] { true, true, true, true }));
+        assertEquals('4', Conversion.binaryBeMsb0ToHexDigit(
+                new boolean[] { true, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false }));
+        assertIllegalArgumentException(() -> Conversion.binaryBeMsb0ToHexDigit(new boolean[] {}));
     }
 
     /**
@@ -708,9 +688,9 @@ class ConversionTest extends AbstractLangTest {
         assertEquals((byte) 0xFD, Conversion.hexToByte(src, 1, (byte) 0, 0, 2));
         assertEquals((byte) 0x34, Conversion.hexToByte(src, 0, (byte) 0x34, 0, 0));
         assertEquals((byte) 0x84, Conversion.hexToByte(src, 17, (byte) 0x34, 4, 1));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByte(src, src.length(), (byte) 0, 0, 1));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByte(src, Integer.MIN_VALUE, (byte) 0, 0, 1));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByte(src, Integer.MAX_VALUE, (byte) 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToByte(src, src.length(), (byte) 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToByte(src, Integer.MIN_VALUE, (byte) 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToByte(src, Integer.MAX_VALUE, (byte) 0, 0, 1));
     }
 
     /**
@@ -725,9 +705,9 @@ class ConversionTest extends AbstractLangTest {
         assertEquals(0x01C0F1FD, Conversion.hexToInt(src, 1, 0, 0, 8));
         assertEquals(0x12345679, Conversion.hexToInt(src, 0, 0x12345679, 0, 0));
         assertEquals(0x87645679, Conversion.hexToInt(src, 15, 0x12345679, 20, 3));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToInt(src, src.length(), 0, 0, 1));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToInt(src, Integer.MIN_VALUE, 0, 0, 1));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToInt(src, Integer.MAX_VALUE, 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToInt(src, src.length(), 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToInt(src, Integer.MIN_VALUE, 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToInt(src, Integer.MAX_VALUE, 0, 0, 1));
     }
 
     /**
@@ -742,9 +722,9 @@ class ConversionTest extends AbstractLangTest {
         assertEquals(0x0000000001C0F1FDL, Conversion.hexToLong(src, 1, 0L, 0, 8));
         assertEquals(0x123456798ABCDEF0L, Conversion.hexToLong(src, 0, 0x123456798ABCDEF0L, 0, 0));
         assertEquals(0x1234567876BCDEF0L, Conversion.hexToLong(src, 15, 0x123456798ABCDEF0L, 24, 3));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToLong(src, src.length(), 0, 0, 1));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToLong(src, Integer.MIN_VALUE, 0, 0, 1));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToLong(src, Integer.MAX_VALUE, 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToLong(src, src.length(), 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToLong(src, Integer.MIN_VALUE, 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToLong(src, Integer.MAX_VALUE, 0, 0, 1));
     }
 
     /**
@@ -759,9 +739,9 @@ class ConversionTest extends AbstractLangTest {
         assertEquals((short) 0xF1FD, Conversion.hexToShort(src, 1, (short) 0, 0, 4));
         assertEquals((short) 0x1234, Conversion.hexToShort(src, 0, (short) 0x1234, 0, 0));
         assertEquals((short) 0x8764, Conversion.hexToShort(src, 15, (short) 0x1234, 4, 3));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToShort(src, src.length(), (short) 0, 0, 1));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToShort(src, Integer.MIN_VALUE, (short) 0, 0, 1));
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToShort(src, Integer.MAX_VALUE, (short) 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToShort(src, src.length(), (short) 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToShort(src, Integer.MIN_VALUE, (short) 0, 0, 1));
+        assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToShort(src, Integer.MAX_VALUE, (short) 0, 0, 1));
     }
 
     /**
