@@ -127,12 +127,11 @@ public class NumberUtils {
      *         a value less than {@code 0} if {@code x < y}; and
      *         a value greater than {@code 0} if {@code x > y}
      * @since 3.4
+     * @deprecated Use {@link Long#compare(long, long)}.
      */
+    @Deprecated
     public static int compare(final long x, final long y) {
-        if (x == y) {
-            return 0;
-        }
-        return x < y ? -1 : 1;
+        return Long.compare(x, y);
     }
 
     /**

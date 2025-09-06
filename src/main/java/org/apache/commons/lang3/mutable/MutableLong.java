@@ -18,8 +18,6 @@ package org.apache.commons.lang3.mutable;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.commons.lang3.math.NumberUtils;
-
 /**
  * A mutable {@code long} wrapper.
  * <p>
@@ -137,7 +135,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      */
     @Override
     public int compareTo(final MutableLong other) {
-        return NumberUtils.compare(this.value, other.value);
+        return Long.compare(this.value, other.value);
     }
 
     /**
