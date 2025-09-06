@@ -229,18 +229,18 @@ public class CharUtils {
      * Tests whether a character is a hexadecimal character.
      *
      * <pre>
-     *   CharUtils.isAsciiPrintable('0')  = true
-     *   CharUtils.isAsciiPrintable('9')  = true
-     *   CharUtils.isAsciiPrintable('a')  = true
-     *   CharUtils.isAsciiPrintable('f')  = true
-     *   CharUtils.isAsciiPrintable('g')  = false
-     *   CharUtils.isAsciiPrintable('A')  = true
-     *   CharUtils.isAsciiPrintable('F')  = true
-     *   CharUtils.isAsciiPrintable('G')  = false
-     *   CharUtils.isAsciiPrintable('3')  = false
-     *   CharUtils.isAsciiPrintable('-')  = false
-     *   CharUtils.isAsciiPrintable('\n') = false
-     *   CharUtils.isAsciiPrintable('&copy;') = false
+     *   CharUtils.isHex('0')  = true
+     *   CharUtils.isHex('9')  = true
+     *   CharUtils.isHex('a')  = true
+     *   CharUtils.isHex('f')  = true
+     *   CharUtils.isHex('g')  = false
+     *   CharUtils.isHex('A')  = true
+     *   CharUtils.isHex('F')  = true
+     *   CharUtils.isHex('G')  = false
+     *   CharUtils.isHex('3')  = false
+     *   CharUtils.isHex('-')  = false
+     *   CharUtils.isHex('\n') = false
+     *   CharUtils.isHex('&copy;') = false
      * </pre>
      *
      * @param ch  the character to test.
