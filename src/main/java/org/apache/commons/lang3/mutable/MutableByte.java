@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import org.apache.commons.lang3.math.NumberUtils;
-
 /**
  * A mutable {@code byte} wrapper.
  * <p>
@@ -142,7 +140,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      */
     @Override
     public int compareTo(final MutableByte other) {
-        return NumberUtils.compare(this.value, other.value);
+        return Byte.compare(this.value, other.value);
     }
 
     /**

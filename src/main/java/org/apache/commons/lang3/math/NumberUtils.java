@@ -95,9 +95,11 @@ public class NumberUtils {
      *         a value less than {@code 0} if {@code x < y}; and
      *         a value greater than {@code 0} if {@code x > y}
      * @since 3.4
+     * @deprecated Use {@link Byte#compare(byte, byte)}.
      */
+    @Deprecated
     public static int compare(final byte x, final byte y) {
-        return x - y;
+        return Byte.compare(x, y);
     }
 
     /**

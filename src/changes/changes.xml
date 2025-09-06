@@ -61,6 +61,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1720" type="fix" dev="ggregory" due-to="Sheung Chi Chan, Arthur Chan, Gary Gregory, Elliotte Rusty Harold">Improve Javadocs for Conversion.</action>
     <action                   type="fix" dev="ggregory" due-to="mayuming">Fix CalendarUtils.toLocalDate() Javadoc return type description #1440.</action>
     <action                   type="fix" dev="ggregory" due-to="mayuming">Fix the method name in Javadoc examples for CharUtils.isHex() #1444.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumberUtils.compare(byte, byte) in favor of Byte.compare(byte, byte).</action>
     <!-- FIX Javadoc -->
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">[javadoc] General improvements.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">[javadoc] Fix thrown exception documentation for org.apache.commons.lang3.reflect.MethodUtils.getMethodObject(Class&lt;?&gt;, String, Class&lt;?&gt;...).</action>

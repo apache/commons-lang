@@ -3622,7 +3622,7 @@ public class ArrayUtils {
         final int n = array.length;
         for (int i = 1; i < n; i++) {
             final byte current = array[i];
-            if (NumberUtils.compare(previous, current) > 0) {
+            if (Byte.compare(previous, current) > 0) {
                 return false;
             }
             previous = current;
