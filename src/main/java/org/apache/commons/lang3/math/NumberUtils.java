@@ -143,12 +143,11 @@ public class NumberUtils {
      *         a value less than {@code 0} if {@code x < y}; and
      *         a value greater than {@code 0} if {@code x > y}
      * @since 3.4
+     * @deprecated Use {@link Short#compare(short, short)}.
      */
+    @Deprecated
     public static int compare(final short x, final short y) {
-        if (x == y) {
-            return 0;
-        }
-        return x < y ? -1 : 1;
+        return Short.compare(x, y);
     }
 
     /**

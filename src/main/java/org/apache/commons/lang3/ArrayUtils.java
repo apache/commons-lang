@@ -39,7 +39,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.function.FailableFunction;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.stream.IntStreams;
 import org.apache.commons.lang3.stream.Streams;
@@ -3760,7 +3759,7 @@ public class ArrayUtils {
         final int n = array.length;
         for (int i = 1; i < n; i++) {
             final short current = array[i];
-            if (NumberUtils.compare(previous, current) > 0) {
+            if (Short.compare(previous, current) > 0) {
                 return false;
             }
             previous = current;
