@@ -230,6 +230,7 @@ public class CharUtils {
      *
      * <pre>
      *   CharUtils.isHex('0')  = true
+     *   CharUtils.isHex('3')  = true
      *   CharUtils.isHex('9')  = true
      *   CharUtils.isHex('a')  = true
      *   CharUtils.isHex('f')  = true
@@ -237,7 +238,7 @@ public class CharUtils {
      *   CharUtils.isHex('A')  = true
      *   CharUtils.isHex('F')  = true
      *   CharUtils.isHex('G')  = false
-     *   CharUtils.isHex('3')  = false
+     *   CharUtils.isHex('#')  = false
      *   CharUtils.isHex('-')  = false
      *   CharUtils.isHex('\n') = false
      *   CharUtils.isHex('&copy;') = false
