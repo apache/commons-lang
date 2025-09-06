@@ -3714,7 +3714,7 @@ public class ArrayUtils {
         final int n = array.length;
         for (int i = 1; i < n; i++) {
             final int current = array[i];
-            if (NumberUtils.compare(previous, current) > 0) {
+            if (Integer.compare(previous, current) > 0) {
                 return false;
             }
             previous = current;

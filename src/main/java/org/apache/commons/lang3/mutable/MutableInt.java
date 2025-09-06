@@ -18,8 +18,6 @@ package org.apache.commons.lang3.mutable;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.commons.lang3.math.NumberUtils;
-
 /**
  * A mutable {@code int} wrapper.
  * <p>
@@ -132,12 +130,12 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Compares this mutable to another in ascending order.
      *
-     * @param other  the other mutable to compare to, not null
-     * @return negative if this is less, zero if equal, positive if greater
+     * @param other  the other mutable to compare to, not null.
+     * @return negative if this is less, zero if equal, positive if greater.
      */
     @Override
     public int compareTo(final MutableInt other) {
-        return NumberUtils.compare(this.value, other.value);
+        return Integer.compare(this.value, other.value);
     }
 
     /**

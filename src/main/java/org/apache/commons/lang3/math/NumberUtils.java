@@ -111,12 +111,11 @@ public class NumberUtils {
      *         a value less than {@code 0} if {@code x < y}; and
      *         a value greater than {@code 0} if {@code x > y}
      * @since 3.4
+     * @deprecated Use {@link Integer#compare(int, int)}.
      */
+    @Deprecated
     public static int compare(final int x, final int y) {
-        if (x == y) {
-            return 0;
-        }
-        return x < y ? -1 : 1;
+        return Integer.compare(x, y);
     }
 
     /**
