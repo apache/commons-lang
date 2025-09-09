@@ -85,6 +85,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.time.DateUtils.toOffsetDateTime(Date[, TimeZone]).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.time.DateUtils.toZonedDateTime(Date[, TimeZone]).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ByteConsumer.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ByteSupplier.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableByteConsumer.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableByteSupplier.</action>
     <!-- UPDATE -->
