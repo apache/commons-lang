@@ -762,6 +762,24 @@ class FailableFunctionsTest extends AbstractLangTest {
     }
 
     @Test
+    void testByteConsumerAndThen() throws Throwable {
+        final Testable<?, ?> testable = new Testable<>(null);
+        final FailableByteConsumer<Throwable> failing = t -> {
+            testable.setThrowable(ERROR);
+            testable.test();
+        };
+        final FailableByteConsumer<Throwable> nop = FailableByteConsumer.nop();
+        Throwable e = assertThrows(OutOfMemoryError.class, () -> nop.andThen(failing).accept((byte) 0));
+        assertSame(ERROR, e);
+        e = assertThrows(OutOfMemoryError.class, () -> failing.andThen(nop).accept((byte) 0));
+        assertSame(ERROR, e);
+        // Does not throw
+        nop.andThen(nop);
+        // Documented in Javadoc edge-case.
+        assertNullPointerException(() -> failing.andThen(null));
+    }
+
+    @Test
     void testCallable() {
         FailureOnOddInvocations.invocations = 0;
         final UndeclaredThrowableException e = assertThrows(UndeclaredThrowableException.class,
@@ -1627,6 +1645,37 @@ class FailableFunctionsTest extends AbstractLangTest {
                 throw new IOException("test");
             }
         }.getAsBoolean());
+    }
+
+    /**
+     * Tests that our failable interface is properly defined to throw any exception using String and IOExceptions as
+     * generic test types.
+     */
+    @Test
+    void testThrows_FailableByteConsumer_IOException() {
+        assertThrows(IOException.class, () -> new FailableByteConsumer<IOException>() {
+
+            @Override
+            public void accept(final byte value) throws IOException {
+                throw new IOException("test");
+            }
+        }.accept((byte) 0));
+    }
+
+    /**
+     * Tests that our failable interface is properly defined to throw any exception using the top level generic types
+     * Object and Throwable.
+     */
+    @Test
+    void testThrows_FailableByteConsumer_Throwable() {
+        assertThrows(IOException.class, () -> new FailableByteConsumer<Throwable>() {
+
+            @Override
+            public void accept(final byte value) throws Throwable {
+                throw new IOException("test");
+
+            }
+        }.accept((byte) 0));
     }
 
     /**
