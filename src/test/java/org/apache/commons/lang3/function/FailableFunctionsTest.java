@@ -1679,6 +1679,36 @@ class FailableFunctionsTest extends AbstractLangTest {
     }
 
     /**
+     * Tests that our failable interface is properly defined to throw any exception using String and IOExceptions as
+     * generic test types.
+     */
+    @Test
+    void testThrows_FailableByteSupplier_IOException() {
+        assertThrows(IOException.class, () -> new FailableByteSupplier<IOException>() {
+
+            @Override
+            public byte getAsByte() throws IOException {
+                throw new IOException("test");
+            }
+        }.getAsByte());
+    }
+
+    /**
+     * Tests that our failable interface is properly defined to throw any exception using the top level generic types
+     * Object and Throwable.
+     */
+    @Test
+    void testThrows_FailableByteSupplier_Throwable() {
+        assertThrows(IOException.class, () -> new FailableByteSupplier<Throwable>() {
+
+            @Override
+            public byte getAsByte() throws Throwable {
+                throw new IOException("test");
+            }
+        }.getAsByte());
+    }
+
+    /**
      * Tests that our failable interface is properly defined to throw any exception using the top level generic types
      * Object and Throwable.
      */

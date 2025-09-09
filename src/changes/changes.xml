@@ -86,6 +86,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.time.DateUtils.toZonedDateTime(Date[, TimeZone]).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ByteConsumer.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableByteConsumer.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableByteSupplier.</action>
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.13.1 to 1.14.0.</action>
     <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 85 to 87.</action>
