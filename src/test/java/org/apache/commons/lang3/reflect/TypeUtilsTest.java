@@ -223,6 +223,15 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         // empty
     }
 
+    public interface TestIF<T> {
+    }
+
+    public static class TestImpl<T> implements TestIF<T> {
+    }
+
+    public static class TestImpl2<R> implements TestIF<Number> {
+    }
+
     public static Comparable<Integer> intComparable;
 
     public static Comparable<Long> longComparable;
@@ -1148,5 +1157,28 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         final Type t = getClass().getTypeParameters()[0];
         assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
         assertEquals(String.class, TypeUtils.wrap(String.class).getType());
+    }
+
+    @Test
+    void testIsAssignableWithClassAndTypeVariables() {
+        final TypeVariable<?> typeVar1 = TestIF.class.getTypeParameters()[0];
+        final Type targetWildcardUpperBound1 = TypeUtils.parameterize(TestIF.class, TypeUtils.wildcardType().build());
+        final Type targetType1 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(targetWildcardUpperBound1).build());
+        final Type sourceType1 = TypeUtils.parameterize(Class.class, TypeUtils.parameterize(TestIF.class, typeVar1));
+        assertFalse(TypeUtils.isAssignable(sourceType1, targetType1), "Class<TestIF<T>> should not be assignable to Class<? extends TestIF<?>>");
+
+        // Test case 2: Class<TestImpl<T>> to Class<? extends TestIF<?>>
+        final TypeVariable<?> typeVar2 = TestImpl.class.getTypeParameters()[0];
+        final Type targetWildcardUpperBound2 = TypeUtils.parameterize(TestIF.class, TypeUtils.wildcardType().build());
+        final Type targetType2 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(targetWildcardUpperBound2).build());
+        final Type sourceType2 = TypeUtils.parameterize(Class.class, TypeUtils.parameterize(TestImpl.class, typeVar2));
+        assertFalse(TypeUtils.isAssignable(sourceType2, targetType2), "Class<TestImpl<T>> should not be assignable to Class<? extends TestIF<?>>");
+
+        // Test case 3: Class<TestImpl2<R>> to Class<? extends TestIF<Number>>
+        final TypeVariable<?> typeVar3 = TestImpl2.class.getTypeParameters()[0];
+        final Type targetWildcardUpperBound3 = TypeUtils.parameterize(TestIF.class, Number.class);
+        final Type targetType3 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(targetWildcardUpperBound3).build());
+        final Type sourceType3 = TypeUtils.parameterize(Class.class, TypeUtils.parameterize(TestImpl2.class, typeVar3));
+        assertFalse(TypeUtils.isAssignable(sourceType3, targetType3), "Class<TestImpl2<R>> should not be assignable to Class<? extends TestIF<Number>>");
     }
 }
