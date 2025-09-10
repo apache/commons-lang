@@ -1065,18 +1065,6 @@ public class TypeUtils {
         }
         // get the target type's raw type
         final Class<?> toClass = getRawType(toParameterizedType);
-        // If the target class is Class and the source type is a ParameterizedType,
-        // check if the type argument contains type variables.
-        // If it does, the types are not assignable.
-        if (type instanceof ParameterizedType && toClass == Class.class) {
-            ParameterizedType fromParamType = (ParameterizedType) type;
-            Type[] fromArgs = fromParamType.getActualTypeArguments();
-            for (Type arg : fromArgs) {
-                if (containsTypeVariables(arg)) {
-                    return false;
-                }
-            }
-        }
         // get the subject type's type arguments including owner type arguments
         // and supertype arguments up to and including the target class.
         final Map<TypeVariable<?>, Type> fromTypeVarAssigns = getTypeArguments(type, toClass, null);
