@@ -1694,9 +1694,9 @@ public class TypeUtils {
     }
 
     /**
-     * Gets a {@link WildcardTypeBuilder}.
+     * Creates a new {@link WildcardTypeBuilder}.
      *
-     * @return {@link WildcardTypeBuilder}
+     * @return a new {@link WildcardTypeBuilder}
      * @since 3.2
      */
     public static WildcardTypeBuilder wildcardType() {
