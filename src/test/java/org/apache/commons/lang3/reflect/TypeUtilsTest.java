@@ -1113,7 +1113,7 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource
     void testTypeToString(final Type type) {
-        // No stack overflow
+        // No stack overflow.
         assertNotNull(TypeUtils.toString(type));
     }
 
