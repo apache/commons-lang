@@ -1069,8 +1069,8 @@ public class TypeUtils {
         // check if the type argument contains type variables.
         // If it does, the types are not assignable.
         if (type instanceof ParameterizedType && toClass == Class.class) {
-            ParameterizedType fromParamType = (ParameterizedType) type;
-            Type[] fromArgs = fromParamType.getActualTypeArguments();
+            final ParameterizedType fromParamType = (ParameterizedType) type;
+            final Type[] fromArgs = fromParamType.getActualTypeArguments();
             for (Type arg : fromArgs) {
                 if (containsTypeVariables(arg)) {
                     return false;
