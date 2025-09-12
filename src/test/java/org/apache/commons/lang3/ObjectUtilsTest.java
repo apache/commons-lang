@@ -209,6 +209,39 @@ class ObjectUtilsTest extends AbstractLangTest {
         assertFalse(ObjectUtils.anyNull(FOO, BAR, 1, Boolean.TRUE, new Object(), new Object[]{}));
     }
 
+    @Test
+    void testApplyIfNotNull() {
+        assertEquals("A", ObjectUtils.applyIfNotNull("a", String::toUpperCase));
+        assertNull(ObjectUtils.applyIfNotNull((String) null, String::toUpperCase));
+        assertNull(ObjectUtils.applyIfNotNull("a", s -> null));
+
+        assertThrows(NullPointerException.class, () -> ObjectUtils.applyIfNotNull("a", null));
+    }
+
+    @Test
+    void testApplyIfNotNull2() {
+        assertEquals("A", ObjectUtils.applyIfNotNull(" a ", String::toUpperCase, String::trim));
+        assertNull(ObjectUtils.applyIfNotNull((String) null, String::toUpperCase, String::trim));
+        assertNull(ObjectUtils.applyIfNotNull(" a ", s -> null, String::trim));
+        assertNull(ObjectUtils.applyIfNotNull(" a ", String::toUpperCase, s -> null));
+
+        assertThrows(NullPointerException.class, () -> ObjectUtils.applyIfNotNull(" a ", null, String::trim));
+        assertThrows(NullPointerException.class, () -> ObjectUtils.applyIfNotNull(" a ", String::toUpperCase, null));
+    }
+
+    @Test
+    void testApplyIfNotNull3() {
+        assertEquals("CBA", ObjectUtils.applyIfNotNull(" abc ", String::toUpperCase, String::trim, StringUtils::reverse));
+        assertNull(ObjectUtils.applyIfNotNull((String) null, String::toUpperCase, String::trim, StringUtils::reverse));
+        assertNull(ObjectUtils.applyIfNotNull(" abc ", s -> null, String::trim, StringUtils::reverse));
+        assertNull(ObjectUtils.applyIfNotNull(" abc ", String::toUpperCase, s -> null, StringUtils::reverse));
+        assertNull(ObjectUtils.applyIfNotNull(" abc ", String::toUpperCase, String::trim, s -> null));
+
+        assertThrows(NullPointerException.class, () -> ObjectUtils.applyIfNotNull(" abc ", null, String::trim, StringUtils::reverse));
+        assertThrows(NullPointerException.class, () -> ObjectUtils.applyIfNotNull(" abc ", String::toUpperCase, null, StringUtils::reverse));
+        assertThrows(NullPointerException.class, () -> ObjectUtils.applyIfNotNull(" abc ", String::toUpperCase, String::trim, null));
+    }
+
     /**
      * Test for {@link ObjectUtils#isArray(Object)}.
      */
