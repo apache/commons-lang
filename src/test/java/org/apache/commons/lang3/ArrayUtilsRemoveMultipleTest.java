@@ -564,6 +564,7 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllNullByteArray() {
+        assertNull(ArrayUtils.removeAll((byte[]) null));
         assertNull(ArrayUtils.removeAll((byte[]) null, 0));
         assertNull(ArrayUtils.removeAll((byte[]) null, NULL_INDICES));
         final byte[] array0 = {};
@@ -576,6 +577,7 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllNullCharArray() {
+        assertNull(ArrayUtils.removeAll((char[]) null));
         assertNull(ArrayUtils.removeAll((char[]) null, 0));
         assertNull(ArrayUtils.removeAll((char[]) null, NULL_INDICES));
         final char[] array0 = {};
@@ -588,6 +590,7 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllNullDoubleArray() {
+        assertNull(ArrayUtils.removeAll((double[]) null));
         assertNull(ArrayUtils.removeAll((double[]) null, 0));
         assertNull(ArrayUtils.removeAll((double[]) null, NULL_INDICES));
         final double[] array0 = {};
@@ -600,6 +603,7 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllNullFloatArray() {
+        assertNull(ArrayUtils.removeAll((float[]) null));
         assertNull(ArrayUtils.removeAll((float[]) null, 0));
         assertNull(ArrayUtils.removeAll((float[]) null, NULL_INDICES));
         final float[] array0 = {};
@@ -612,6 +616,7 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllNullIntArray() {
+        assertNull(ArrayUtils.removeAll((int[]) null));
         assertNull(ArrayUtils.removeAll((int[]) null, 0));
         assertNull(ArrayUtils.removeAll((int[]) null, NULL_INDICES));
         final int[] array0 = {};
@@ -624,6 +629,7 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllNullLongArray() {
+        assertNull(ArrayUtils.removeAll((long[]) null));
         assertNull(ArrayUtils.removeAll((long[]) null, 0));
         assertNull(ArrayUtils.removeAll((long[]) null, NULL_INDICES));
         final long[] array0 = {};
@@ -636,6 +642,7 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllNullObjectArray() {
+        assertNull(ArrayUtils.removeAll((Object[]) null));
         assertNull(ArrayUtils.removeAll((Object[]) null, 0));
         assertNull(ArrayUtils.removeAll((Object[]) null, NULL_INDICES));
         final Object[] array0 = {};
@@ -648,6 +655,7 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllNullShortArray() {
+        assertNull(ArrayUtils.removeAll((short[]) null));
         assertNull(ArrayUtils.removeAll((short[]) null, 0));
         assertNull(ArrayUtils.removeAll((short[]) null, NULL_INDICES));
         final short[] array0 = {};
