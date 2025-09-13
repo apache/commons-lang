@@ -39,7 +39,7 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
 /**
  * This class provides utility functions, and classes for working with the {@code java.util.function} package, or more
  * generally, with Java 8 lambdas. More specifically, it attempts to address the fact that lambdas are supposed not to
- * throw Exceptions, at least not checked Exceptions, AKA instances of {@link Exception}. This enforces the use of
+ * throw Exceptions, at least not checked Exceptions, like instances of {@link Exception}. This enforces the use of
  * constructs like:
  *
  * <pre>{@code
