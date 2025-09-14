@@ -22,6 +22,7 @@ import java.io.UncheckedIOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -108,7 +109,6 @@ public class Failable {
     public static <E extends Throwable> void accept(final FailableDoubleConsumer<E> consumer, final double value) {
         run(consumer, () -> consumer.accept(value));
     }
-
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
@@ -174,6 +174,111 @@ public class Failable {
     public static <E extends Throwable> double applyAsDouble(final FailableDoubleBinaryOperator<E> function,
         final double left, final double right) {
         return getAsDouble(() -> function.applyAsDouble(left, right));
+    }
+
+    /**
+     * Applies a value to a function if the value isn't {@code null}, otherwise the method returns {@code null}. If the value isn't {@code null} then return the
+     * result of the applying function.
+     *
+     * <pre>{@code
+     * Failable.applyNotNull("a", String::toUpperCase)  = "A"
+     * Failable.applyNotNull(null, String::toUpperCase) = null
+     * Failable.applyNotNull("a", s -> null)            = null
+     * }</pre>
+     * <p>
+     * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
+     * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
+     * </p>
+     *
+     * @param <T>    The type of the input of this method and the function.
+     * @param <R>    The type of the result of the function and this method.
+     * @param <E>    The type of thrown exception or error.
+     * @param value  The value to apply the function to, may be {@code null}.
+     * @param mapper The function to apply, must not be {@code null}.
+     * @return The result of the function (which may be {@code null}) or {@code null} if the input value is {@code null}.
+     * @throws E Thrown by the given function.
+     * @see #applyNotNull(Object, FailableFunction, FailableFunction)
+     * @see #applyNotNull(Object, FailableFunction, FailableFunction, FailableFunction)
+     * @since 3.19.0
+     */
+    public static <T, R, E extends Throwable> R applyNotNull(final T value, final FailableFunction<? super T, ? extends R, E> mapper) throws E {
+        return value != null ? Objects.requireNonNull(mapper, "mapper").apply(value) : null;
+    }
+
+    /**
+     * Applies values to a chain of functions, where a {@code null} can short-circuit each step. A function is only applied if the previous value is not
+     * {@code null}, otherwise this method returns {@code null}.
+     *
+     * <pre>{@code
+     * Failable.applyNotNull(" a ", String::toUpperCase, String::trim) = "A"
+     * Failable.applyNotNull(null, String::toUpperCase, String::trim)  = null
+     * Failable.applyNotNull(" a ", s -> null, String::trim)           = null
+     * Failable.applyNotNull(" a ", String::toUpperCase, s -> null)    = null
+     * }</pre>
+     * <p>
+     * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
+     * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
+     * </p>
+     *
+     * @param <T>     The type of the input of this method and the first function.
+     * @param <U>     The type of the result of the first function and the input to the second function.
+     * @param <R>     The type of the result of the second function and this method.
+     * @param <E1>    The type of thrown exception or error by the first function.
+     * @param <E2>    The type of thrown exception or error by the second function.
+     * @param value1  The value to apply the functions to, may be {@code null}.
+     * @param mapper1 The first function to apply, must not be {@code null}.
+     * @param mapper2 The second function to apply, must not be {@code null}.
+     * @return The result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}.
+     * @throws E1 Thrown by the first function.
+     * @throws E2 Thrown by the second function.
+     * @see #applyNotNull(Object, FailableFunction)
+     * @see #applyNotNull(Object, FailableFunction, FailableFunction, FailableFunction)
+     * @since 3.19.0
+     */
+    public static <T, U, R, E1 extends Throwable, E2 extends Throwable> R applyNotNull(final T value1,
+            final FailableFunction<? super T, ? extends U, E1> mapper1, final FailableFunction<? super U, ? extends R, E2> mapper2) throws E1, E2 {
+        return applyNotNull(applyNotNull(value1, mapper1), mapper2);
+    }
+
+    /**
+     * Applies values to a chain of functions, where a {@code null} can short-circuit each step. A function is only applied if the previous value is not
+     * {@code null}, otherwise this method returns {@code null}.
+     *
+     * <pre>{@code
+     * Failable.applyNotNull(" abc ", String::toUpperCase, String::trim, StringUtils::reverse) = "CBA"
+     * Failable.applyNotNull(null, String::toUpperCase, String::trim, StringUtils::reverse)    = null
+     * Failable.applyNotNull(" abc ", s -> null, String::trim, StringUtils::reverse)           = null
+     * Failable.applyNotNull(" abc ", String::toUpperCase, s -> null, StringUtils::reverse)    = null
+     * Failable.applyNotNull(" abc ", String::toUpperCase, String::trim, s -> null)            = null
+     * }</pre>
+     * <p>
+     * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
+     * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
+     * </p>
+     *
+     * @param <T>     The type of the input of this method and the first function.
+     * @param <U>     The type of the result of the first function and the input to the second function.
+     * @param <V>     The type of the result of the second function and the input to the third function.
+     * @param <R>     The type of the result of the third function and this method.
+     * @param <E1>    The type of thrown exception or error by the first function.
+     * @param <E2>    The type of thrown exception or error by the second function.
+     * @param <E3>    The type of thrown exception or error by the second function.
+     * @param value1  The value to apply the first function, may be {@code null}.
+     * @param mapper1 The first function to apply, must not be {@code null}.
+     * @param mapper2 The second function to apply, must not be {@code null}.
+     * @param mapper3 The third function to apply, must not be {@code null}.
+     * @return The result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}.
+     * @throws E1 Thrown by the first function.
+     * @throws E2 Thrown by the second function.
+     * @throws E3 Thrown by the third function.
+     * @see #applyNotNull(Object, FailableFunction)
+     * @see #applyNotNull(Object, FailableFunction, FailableFunction)
+     * @since 3.19.0
+     */
+    public static <T, U, V, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable> R applyNotNull(final T value1,
+            final FailableFunction<? super T, ? extends U, E1> mapper1, final FailableFunction<? super U, ? extends V, E2> mapper2,
+            final FailableFunction<? super V, ? extends R, E3> mapper3) throws E1, E2, E3 {
+        return applyNotNull(applyNotNull(applyNotNull(value1, mapper1), mapper2), mapper3);
     }
 
     /**
