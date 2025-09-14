@@ -47,9 +47,9 @@ public final class Functions {
      * result of the applying function.
      *
      * <pre>{@code
-     * Functions.applyNotNull("a", String::toUpperCase)  = "A"
-     * Functions.applyNotNull(null, String::toUpperCase) = null
-     * Functions.applyNotNull("a", s -> null)            = null
+     * Functions.applyNonNull("a", String::toUpperCase)  = "A"
+     * Functions.applyNonNull(null, String::toUpperCase) = null
+     * Functions.applyNonNull("a", s -> null)            = null
      * }</pre>
      * <p>
      * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
@@ -61,11 +61,11 @@ public final class Functions {
      * @param value  The value to apply the function to, may be {@code null}.
      * @param mapper The function to apply, must not be {@code null}.
      * @return The result of the function (which may be {@code null}) or {@code null} if the input value is {@code null}.
-     * @see #applyNotNull(Object, Function, Function)
-     * @see #applyNotNull(Object, Function, Function, Function)
+     * @see #applyNonNull(Object, Function, Function)
+     * @see #applyNonNull(Object, Function, Function, Function)
      * @since 3.19.0
      */
-    public static <T, R> R applyNotNull(final T value, final Function<? super T, ? extends R> mapper) {
+    public static <T, R> R applyNonNull(final T value, final Function<? super T, ? extends R> mapper) {
         return value != null ? Objects.requireNonNull(mapper, "mapper").apply(value) : null;
     }
 
@@ -74,10 +74,10 @@ public final class Functions {
      * {@code null}, otherwise this method returns {@code null}.
      *
      * <pre>{@code
-     * Functions.applyNotNull(" a ", String::toUpperCase, String::trim) = "A"
-     * Functions.applyNotNull(null, String::toUpperCase, String::trim)  = null
-     * Functions.applyNotNull(" a ", s -> null, String::trim)           = null
-     * Functions.applyNotNull(" a ", String::toUpperCase, s -> null)    = null
+     * Functions.applyNonNull(" a ", String::toUpperCase, String::trim) = "A"
+     * Functions.applyNonNull(null, String::toUpperCase, String::trim)  = null
+     * Functions.applyNonNull(" a ", s -> null, String::trim)           = null
+     * Functions.applyNonNull(" a ", String::toUpperCase, s -> null)    = null
      * }</pre>
      * <p>
      * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
@@ -91,12 +91,12 @@ public final class Functions {
      * @param mapper1 The first function to apply, must not be {@code null}.
      * @param mapper2 The second function to apply, must not be {@code null}.
      * @return The result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}.
-     * @see #applyNotNull(Object, Function)
-     * @see #applyNotNull(Object, Function, Function, Function)
+     * @see #applyNonNull(Object, Function)
+     * @see #applyNonNull(Object, Function, Function, Function)
      * @since 3.19.0
      */
-    public static <T, U, R> R applyNotNull(final T value1, final Function<? super T, ? extends U> mapper1, final Function<? super U, ? extends R> mapper2) {
-        return applyNotNull(applyNotNull(value1, mapper1), mapper2);
+    public static <T, U, R> R applyNonNull(final T value1, final Function<? super T, ? extends U> mapper1, final Function<? super U, ? extends R> mapper2) {
+        return applyNonNull(applyNonNull(value1, mapper1), mapper2);
     }
 
     /**
@@ -104,11 +104,11 @@ public final class Functions {
      * {@code null}, otherwise this method returns {@code null}.
      *
      * <pre>{@code
-     * Functions.applyNotNull(" abc ", String::toUpperCase, String::trim, StringUtils::reverse) = "CBA"
-     * Functions.applyNotNull(null, String::toUpperCase, String::trim, StringUtils::reverse)    = null
-     * Functions.applyNotNull(" abc ", s -> null, String::trim, StringUtils::reverse)           = null
-     * Functions.applyNotNull(" abc ", String::toUpperCase, s -> null, StringUtils::reverse)    = null
-     * Functions.applyNotNull(" abc ", String::toUpperCase, String::trim, s -> null)            = null
+     * Functions.applyNonNull(" abc ", String::toUpperCase, String::trim, StringUtils::reverse) = "CBA"
+     * Functions.applyNonNull(null, String::toUpperCase, String::trim, StringUtils::reverse)    = null
+     * Functions.applyNonNull(" abc ", s -> null, String::trim, StringUtils::reverse)           = null
+     * Functions.applyNonNull(" abc ", String::toUpperCase, s -> null, StringUtils::reverse)    = null
+     * Functions.applyNonNull(" abc ", String::toUpperCase, String::trim, s -> null)            = null
      * }</pre>
      * <p>
      * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
@@ -124,13 +124,13 @@ public final class Functions {
      * @param mapper2 The second function to apply, must not be {@code null}.
      * @param mapper3 The third function to apply, must not be {@code null}.
      * @return The result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}.
-     * @see #applyNotNull(Object, Function)
-     * @see #applyNotNull(Object, Function, Function)
+     * @see #applyNonNull(Object, Function)
+     * @see #applyNonNull(Object, Function, Function)
      * @since 3.19.0
      */
-    public static <T, U, V, R> R applyNotNull(final T value1, final Function<? super T, ? extends U> mapper1, final Function<? super U, ? extends V> mapper2,
+    public static <T, U, V, R> R applyNonNull(final T value1, final Function<? super T, ? extends U> mapper1, final Function<? super U, ? extends V> mapper2,
             final Function<? super V, ? extends R> mapper3) {
-        return applyNotNull(applyNotNull(applyNotNull(value1, mapper1), mapper2), mapper3);
+        return applyNonNull(applyNonNull(applyNonNull(value1, mapper1), mapper2), mapper3);
     }
 
     /**

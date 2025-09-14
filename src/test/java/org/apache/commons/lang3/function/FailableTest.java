@@ -616,74 +616,74 @@ class FailableTest extends AbstractLangTest {
     }
 
     @Test
-    void testApplyNotNull() throws SomeException {
+    void testApplyNonNull() throws SomeException {
         // No checked exceptions in signatures
-        assertEquals("A", Failable.applyNotNull("a", String::toUpperCase));
-        assertNull(Failable.applyNotNull((String) null, String::toUpperCase));
-        assertNull(Failable.applyNotNull("a", s -> null));
-        assertThrows(NullPointerException.class, () -> Failable.applyNotNull("a", null));
+        assertEquals("A", Failable.applyNonNull("a", String::toUpperCase));
+        assertNull(Failable.applyNonNull((String) null, String::toUpperCase));
+        assertNull(Failable.applyNonNull("a", s -> null));
+        assertThrows(NullPointerException.class, () -> Failable.applyNonNull("a", null));
         // Checked exceptions in signatures
         final FailureOnInvocationCount obj1 = new FailureOnInvocationCount(1);
-        assertEquals(1, assertThrows(SomeException.class, () -> Failable.applyNotNull(1, obj1::inc)).value);
-        assertEquals(2, Failable.applyNotNull(1, obj1::inc));
+        assertEquals(1, assertThrows(SomeException.class, () -> Failable.applyNonNull(1, obj1::inc)).value);
+        assertEquals(2, Failable.applyNonNull(1, obj1::inc));
     }
 
     @Test
-    void testApplyNotNull2() throws SomeException, IOException {
+    void testApplyNonNull2() throws SomeException, IOException {
         // No checked exceptions in signatures
-        assertEquals("A", Failable.applyNotNull(" a ", String::toUpperCase, String::trim));
-        assertNull(Failable.applyNotNull((String) null, String::toUpperCase, String::trim));
-        assertNull(Failable.applyNotNull(" a ", s -> null, String::trim));
-        assertNull(Failable.applyNotNull(" a ", String::toUpperCase, s -> null));
-        assertThrows(NullPointerException.class, () -> Failable.applyNotNull(" a ", null, String::trim));
-        assertThrows(NullPointerException.class, () -> Failable.applyNotNull(" a ", String::toUpperCase, null));
+        assertEquals("A", Failable.applyNonNull(" a ", String::toUpperCase, String::trim));
+        assertNull(Failable.applyNonNull((String) null, String::toUpperCase, String::trim));
+        assertNull(Failable.applyNonNull(" a ", s -> null, String::trim));
+        assertNull(Failable.applyNonNull(" a ", String::toUpperCase, s -> null));
+        assertThrows(NullPointerException.class, () -> Failable.applyNonNull(" a ", null, String::trim));
+        assertThrows(NullPointerException.class, () -> Failable.applyNonNull(" a ", String::toUpperCase, null));
         // Same checked exceptions in signatures
         final FailureOnInvocationCount obj1 = new FailureOnInvocationCount(1);
         final FailureOnInvocationCount obj2 = new FailureOnInvocationCount(2);
-        assertEquals(1, assertThrows(SomeException.class, () -> Failable.applyNotNull(1, obj1::inc, obj1::inc)).value);
-        assertEquals(2, assertThrows(SomeException.class, () -> Failable.applyNotNull(1, obj2::inc, obj2::inc)).value);
-        assertEquals(3, Failable.applyNotNull(1, obj1::inc, obj1::inc));
-        assertEquals(3, Failable.applyNotNull(1, obj2::inc, obj2::inc));
+        assertEquals(1, assertThrows(SomeException.class, () -> Failable.applyNonNull(1, obj1::inc, obj1::inc)).value);
+        assertEquals(2, assertThrows(SomeException.class, () -> Failable.applyNonNull(1, obj2::inc, obj2::inc)).value);
+        assertEquals(3, Failable.applyNonNull(1, obj1::inc, obj1::inc));
+        assertEquals(3, Failable.applyNonNull(1, obj2::inc, obj2::inc));
         // Different checked exceptions in signatures
         obj1.reset();
         obj2.reset();
-        assertEquals(1, assertThrows(SomeException.class, () -> Failable.applyNotNull(1, obj1::inc, obj1::incIo)).value);
-        assertEquals(2, ((SomeException) assertThrows(IOException.class, () -> Failable.applyNotNull(1, obj2::inc, obj2::incIo)).getCause()).value);
-        assertEquals(3, Failable.applyNotNull(1, obj1::inc, obj1::incIo));
-        assertEquals(3, Failable.applyNotNull(1, obj2::inc, obj2::incIo));
+        assertEquals(1, assertThrows(SomeException.class, () -> Failable.applyNonNull(1, obj1::inc, obj1::incIo)).value);
+        assertEquals(2, ((SomeException) assertThrows(IOException.class, () -> Failable.applyNonNull(1, obj2::inc, obj2::incIo)).getCause()).value);
+        assertEquals(3, Failable.applyNonNull(1, obj1::inc, obj1::incIo));
+        assertEquals(3, Failable.applyNonNull(1, obj2::inc, obj2::incIo));
     }
 
     @Test
-    void testApplyNotNull3() throws SomeException, IOException, ClassNotFoundException {
+    void testApplyNonNull3() throws SomeException, IOException, ClassNotFoundException {
         // No checked exceptions in signatures
-        assertEquals("CBA", Failable.applyNotNull(" abc ", String::toUpperCase, String::trim, StringUtils::reverse));
-        assertNull(Failable.applyNotNull((String) null, String::toUpperCase, String::trim, StringUtils::reverse));
-        assertNull(Failable.applyNotNull(" abc ", s -> null, String::trim, StringUtils::reverse));
-        assertNull(Failable.applyNotNull(" abc ", String::toUpperCase, s -> null, StringUtils::reverse));
-        assertNull(Failable.applyNotNull(" abc ", String::toUpperCase, String::trim, s -> null));
-        assertThrows(NullPointerException.class, () -> Failable.applyNotNull(" abc ", null, String::trim, StringUtils::reverse));
-        assertThrows(NullPointerException.class, () -> Failable.applyNotNull(" abc ", String::toUpperCase, null, StringUtils::reverse));
-        assertThrows(NullPointerException.class, () -> Failable.applyNotNull(" abc ", String::toUpperCase, String::trim, null));
+        assertEquals("CBA", Failable.applyNonNull(" abc ", String::toUpperCase, String::trim, StringUtils::reverse));
+        assertNull(Failable.applyNonNull((String) null, String::toUpperCase, String::trim, StringUtils::reverse));
+        assertNull(Failable.applyNonNull(" abc ", s -> null, String::trim, StringUtils::reverse));
+        assertNull(Failable.applyNonNull(" abc ", String::toUpperCase, s -> null, StringUtils::reverse));
+        assertNull(Failable.applyNonNull(" abc ", String::toUpperCase, String::trim, s -> null));
+        assertThrows(NullPointerException.class, () -> Failable.applyNonNull(" abc ", null, String::trim, StringUtils::reverse));
+        assertThrows(NullPointerException.class, () -> Failable.applyNonNull(" abc ", String::toUpperCase, null, StringUtils::reverse));
+        assertThrows(NullPointerException.class, () -> Failable.applyNonNull(" abc ", String::toUpperCase, String::trim, null));
         // Same checked exceptions in signatures
         final FailureOnInvocationCount obj1 = new FailureOnInvocationCount(1);
         final FailureOnInvocationCount obj2 = new FailureOnInvocationCount(2);
         final FailureOnInvocationCount obj3 = new FailureOnInvocationCount(3);
-        assertEquals(1, assertThrows(SomeException.class, () -> Failable.applyNotNull(1, obj1::inc, obj1::inc, obj1::inc)).value);
-        assertEquals(2, assertThrows(SomeException.class, () -> Failable.applyNotNull(1, obj2::inc, obj2::inc, obj2::inc)).value);
-        assertEquals(3, assertThrows(SomeException.class, () -> Failable.applyNotNull(1, obj3::inc, obj3::inc, obj3::inc)).value);
-        assertEquals(4, Failable.applyNotNull(1, obj1::inc, obj1::inc, obj1::inc));
-        assertEquals(4, Failable.applyNotNull(1, obj2::inc, obj2::inc, obj2::inc));
-        assertEquals(4, Failable.applyNotNull(1, obj3::inc, obj3::inc, obj3::inc));
+        assertEquals(1, assertThrows(SomeException.class, () -> Failable.applyNonNull(1, obj1::inc, obj1::inc, obj1::inc)).value);
+        assertEquals(2, assertThrows(SomeException.class, () -> Failable.applyNonNull(1, obj2::inc, obj2::inc, obj2::inc)).value);
+        assertEquals(3, assertThrows(SomeException.class, () -> Failable.applyNonNull(1, obj3::inc, obj3::inc, obj3::inc)).value);
+        assertEquals(4, Failable.applyNonNull(1, obj1::inc, obj1::inc, obj1::inc));
+        assertEquals(4, Failable.applyNonNull(1, obj2::inc, obj2::inc, obj2::inc));
+        assertEquals(4, Failable.applyNonNull(1, obj3::inc, obj3::inc, obj3::inc));
         // Different checked exceptions in signatures
         obj1.reset();
         obj2.reset();
         obj3.reset();
-        assertEquals(1, assertThrows(SomeException.class, () -> Failable.applyNotNull(1, obj1::inc, obj1::incIo, obj1::incIo)).value);
-        assertEquals(2, ((SomeException) assertThrows(IOException.class, () -> Failable.applyNotNull(1, obj2::inc, obj2::incIo, obj2::incIo)).getCause()).value);
-        assertEquals(3, ((SomeException) assertThrows(IOException.class, () -> Failable.applyNotNull(1, obj3::inc, obj3::incIo, obj3::incIo)).getCause()).value);
-        assertEquals(4, Failable.applyNotNull(1, obj1::inc, obj1::incIo, obj1::incIo));
-        assertEquals(4, Failable.applyNotNull(1, obj2::inc, obj2::incIo, obj2::incIo));
-        assertEquals(4, Failable.applyNotNull(1, obj3::inc, obj3::incIo, obj3::incIo));
+        assertEquals(1, assertThrows(SomeException.class, () -> Failable.applyNonNull(1, obj1::inc, obj1::incIo, obj1::incIo)).value);
+        assertEquals(2, ((SomeException) assertThrows(IOException.class, () -> Failable.applyNonNull(1, obj2::inc, obj2::incIo, obj2::incIo)).getCause()).value);
+        assertEquals(3, ((SomeException) assertThrows(IOException.class, () -> Failable.applyNonNull(1, obj3::inc, obj3::incIo, obj3::incIo)).getCause()).value);
+        assertEquals(4, Failable.applyNonNull(1, obj1::inc, obj1::incIo, obj1::incIo));
+        assertEquals(4, Failable.applyNonNull(1, obj2::inc, obj2::incIo, obj2::incIo));
+        assertEquals(4, Failable.applyNonNull(1, obj3::inc, obj3::incIo, obj3::incIo));
     }
 
     @Test

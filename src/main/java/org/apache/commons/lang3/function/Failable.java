@@ -181,9 +181,9 @@ public class Failable {
      * result of the applying function.
      *
      * <pre>{@code
-     * Failable.applyNotNull("a", String::toUpperCase)  = "A"
-     * Failable.applyNotNull(null, String::toUpperCase) = null
-     * Failable.applyNotNull("a", s -> null)            = null
+     * Failable.applyNonNull("a", String::toUpperCase)  = "A"
+     * Failable.applyNonNull(null, String::toUpperCase) = null
+     * Failable.applyNonNull("a", s -> null)            = null
      * }</pre>
      * <p>
      * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
@@ -197,11 +197,11 @@ public class Failable {
      * @param mapper The function to apply, must not be {@code null}.
      * @return The result of the function (which may be {@code null}) or {@code null} if the input value is {@code null}.
      * @throws E Thrown by the given function.
-     * @see #applyNotNull(Object, FailableFunction, FailableFunction)
-     * @see #applyNotNull(Object, FailableFunction, FailableFunction, FailableFunction)
+     * @see #applyNonNull(Object, FailableFunction, FailableFunction)
+     * @see #applyNonNull(Object, FailableFunction, FailableFunction, FailableFunction)
      * @since 3.19.0
      */
-    public static <T, R, E extends Throwable> R applyNotNull(final T value, final FailableFunction<? super T, ? extends R, E> mapper) throws E {
+    public static <T, R, E extends Throwable> R applyNonNull(final T value, final FailableFunction<? super T, ? extends R, E> mapper) throws E {
         return value != null ? Objects.requireNonNull(mapper, "mapper").apply(value) : null;
     }
 
@@ -210,10 +210,10 @@ public class Failable {
      * {@code null}, otherwise this method returns {@code null}.
      *
      * <pre>{@code
-     * Failable.applyNotNull(" a ", String::toUpperCase, String::trim) = "A"
-     * Failable.applyNotNull(null, String::toUpperCase, String::trim)  = null
-     * Failable.applyNotNull(" a ", s -> null, String::trim)           = null
-     * Failable.applyNotNull(" a ", String::toUpperCase, s -> null)    = null
+     * Failable.applyNonNull(" a ", String::toUpperCase, String::trim) = "A"
+     * Failable.applyNonNull(null, String::toUpperCase, String::trim)  = null
+     * Failable.applyNonNull(" a ", s -> null, String::trim)           = null
+     * Failable.applyNonNull(" a ", String::toUpperCase, s -> null)    = null
      * }</pre>
      * <p>
      * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
@@ -231,13 +231,13 @@ public class Failable {
      * @return The result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}.
      * @throws E1 Thrown by the first function.
      * @throws E2 Thrown by the second function.
-     * @see #applyNotNull(Object, FailableFunction)
-     * @see #applyNotNull(Object, FailableFunction, FailableFunction, FailableFunction)
+     * @see #applyNonNull(Object, FailableFunction)
+     * @see #applyNonNull(Object, FailableFunction, FailableFunction, FailableFunction)
      * @since 3.19.0
      */
-    public static <T, U, R, E1 extends Throwable, E2 extends Throwable> R applyNotNull(final T value1,
+    public static <T, U, R, E1 extends Throwable, E2 extends Throwable> R applyNonNull(final T value1,
             final FailableFunction<? super T, ? extends U, E1> mapper1, final FailableFunction<? super U, ? extends R, E2> mapper2) throws E1, E2 {
-        return applyNotNull(applyNotNull(value1, mapper1), mapper2);
+        return applyNonNull(applyNonNull(value1, mapper1), mapper2);
     }
 
     /**
@@ -245,11 +245,11 @@ public class Failable {
      * {@code null}, otherwise this method returns {@code null}.
      *
      * <pre>{@code
-     * Failable.applyNotNull(" abc ", String::toUpperCase, String::trim, StringUtils::reverse) = "CBA"
-     * Failable.applyNotNull(null, String::toUpperCase, String::trim, StringUtils::reverse)    = null
-     * Failable.applyNotNull(" abc ", s -> null, String::trim, StringUtils::reverse)           = null
-     * Failable.applyNotNull(" abc ", String::toUpperCase, s -> null, StringUtils::reverse)    = null
-     * Failable.applyNotNull(" abc ", String::toUpperCase, String::trim, s -> null)            = null
+     * Failable.applyNonNull(" abc ", String::toUpperCase, String::trim, StringUtils::reverse) = "CBA"
+     * Failable.applyNonNull(null, String::toUpperCase, String::trim, StringUtils::reverse)    = null
+     * Failable.applyNonNull(" abc ", s -> null, String::trim, StringUtils::reverse)           = null
+     * Failable.applyNonNull(" abc ", String::toUpperCase, s -> null, StringUtils::reverse)    = null
+     * Failable.applyNonNull(" abc ", String::toUpperCase, String::trim, s -> null)            = null
      * }</pre>
      * <p>
      * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
@@ -271,14 +271,14 @@ public class Failable {
      * @throws E1 Thrown by the first function.
      * @throws E2 Thrown by the second function.
      * @throws E3 Thrown by the third function.
-     * @see #applyNotNull(Object, FailableFunction)
-     * @see #applyNotNull(Object, FailableFunction, FailableFunction)
+     * @see #applyNonNull(Object, FailableFunction)
+     * @see #applyNonNull(Object, FailableFunction, FailableFunction)
      * @since 3.19.0
      */
-    public static <T, U, V, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable> R applyNotNull(final T value1,
+    public static <T, U, V, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable> R applyNonNull(final T value1,
             final FailableFunction<? super T, ? extends U, E1> mapper1, final FailableFunction<? super U, ? extends V, E2> mapper2,
             final FailableFunction<? super V, ? extends R, E3> mapper3) throws E1, E2, E3 {
-        return applyNotNull(applyNotNull(applyNotNull(value1, mapper1), mapper2), mapper3);
+        return applyNonNull(applyNonNull(applyNonNull(value1, mapper1), mapper2), mapper3);
     }
 
     /**
