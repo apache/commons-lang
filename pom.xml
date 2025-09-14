@@ -84,13 +84,13 @@
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-core</artifactId>
-      <version>${jmh.version}</version>
+      <version>${commons.jmh.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-generator-annprocess</artifactId>
-      <version>${jmh.version}</version>
+      <version>${commons.jmh.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -154,8 +154,6 @@
     <commons.encoding>UTF-8</commons.encoding>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
     <japicmp.skip>false</japicmp.skip>
-    <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
-    <jmh.version>1.37</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
     <!-- Commons Release Plugin -->
     <commons.bc.version>3.18.0</commons.bc.version>
