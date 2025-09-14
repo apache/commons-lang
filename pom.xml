@@ -169,7 +169,7 @@
     <commons.jacoco.methodRatio>0.96</commons.jacoco.methodRatio>
     <commons.jacoco.branchRatio>0.92</commons.jacoco.branchRatio>
     <commons.jacoco.lineRatio>0.96</commons.jacoco.lineRatio>
-    <commons.jacoco.complexityRatio>0.91</commons.jacoco.complexityRatio>
+    <commons.jacoco.complexityRatio>0.92</commons.jacoco.complexityRatio>
     <commons.text.version>1.14.0</commons.text.version>
   </properties>
   <build>
@@ -198,6 +198,8 @@
               <exclude>src/site/resources/download_lang.cgi</exclude>
               <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
               <exclude>src/test/resources/lang-708-input.txt</exclude>
+              <exclude>**/*.svg</exclude>
+              <exclude>**/*.xcf</exclude>
             </excludes>
           </configuration>
         </plugin>
