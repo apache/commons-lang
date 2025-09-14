@@ -103,6 +103,13 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
 
     private static final AbstractFormatCache<FastDateFormat> CACHE = new AbstractFormatCache<FastDateFormat>() {
         @Override
+        public FastDateFormat getInstance(String pattern, TimeZone timeZone, Locale locale) {
+            final FastDateFormat instance = super.getInstance(pattern, timeZone, locale);
+            instance.reset();
+            return instance;
+        }
+
+        @Override
         protected FastDateFormat createInstance(final String pattern, final TimeZone timeZone, final Locale locale) {
             return new FastDateFormat(pattern, timeZone, locale);
         }
@@ -664,6 +671,33 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     @Override
     public Object parseObject(final String source, final ParsePosition pos) {
         return parser.parseObject(source, pos);
+    }
+
+    /**
+     * Tell whether date/time parsing is to be lenient.
+     * @return {@code true} if the {@link #parser} is lenient;
+     *         {@code false} otherwise.
+     */
+    public boolean isLenient() {
+        return parser.isLenient();
+    }
+
+    /**
+     * Support lenient mode, same like {@link java.text.SimpleDateFormat}.
+     * Modifies the lenient mode of the {@link #parser}.
+     * @param lenient <code>true</code> if the lenient mode is
+     * to be turned on; <code>false</code> if it is to be turned off.
+     */
+    public void setLenient(boolean lenient) {
+        parser.setLenient(lenient);
+    }
+
+    /**
+     * Reset the current state of the cached instance.
+     * Resetting the lenient mode of the {@link #parser}.
+     */
+    private void reset() {
+        parser.reset();
     }
 
     /**

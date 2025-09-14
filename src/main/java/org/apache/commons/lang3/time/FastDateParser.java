@@ -792,6 +792,9 @@ public class FastDateParser implements DateParser, Serializable {
     /** Initialized from Calendar. */
     private transient List<StrategyAndWidth> patterns;
 
+    /** Support lenient mode, same like {@link java.text.SimpleDateFormat}. */
+    private transient ThreadLocal<Boolean> lenient;
+
     /**
      * Constructs a new FastDateParser.
      *
@@ -992,6 +995,8 @@ public class FastDateParser implements DateParser, Serializable {
             }
             patterns.add(field);
         }
+
+        lenient = ThreadLocal.withInitial(() -> Boolean.TRUE);
     }
 
     /*
@@ -1028,6 +1033,7 @@ public class FastDateParser implements DateParser, Serializable {
         // timing tests indicate getting new instance is 19% faster than cloning
         final Calendar cal = Calendar.getInstance(timeZone, locale);
         cal.clear();
+        cal.setLenient(this.isLenient());
         return parse(source, pos, cal) ? cal.getTime() : null;
     }
     /**
@@ -1074,6 +1080,32 @@ public class FastDateParser implements DateParser, Serializable {
         return parse(source, pos);
     }
 
+    /**
+     * Tell whether date/time parsing is to be lenient.
+     * @return {@code true} if the parser is lenient;
+     *         {@code false} otherwise.
+     */
+    public boolean isLenient() {
+        return this.lenient.get();
+    }
+
+    /**
+     * Support lenient mode, same like {@link java.text.SimpleDateFormat}.
+     * @param lenient <code>true</code> default-value; if the lenient mode is
+     * to be turned on; <code>false</code> if it is to be turned off.
+     */
+    public void setLenient(boolean lenient) {
+        this.lenient.set(Boolean.valueOf(lenient));
+    }
+
+    /**
+     * Reset the current state of the parser.
+     * Resetting the {@link #lenient} mode to <code>true</code>
+     */
+    public void reset() {
+        this.lenient.set(Boolean.TRUE);
+    }
+
     // Serializing
     /**
      * Creates the object after serialization. This implementation reinitializes the transient properties.
@@ -1106,6 +1138,6 @@ public class FastDateParser implements DateParser, Serializable {
      */
     public String toStringAll() {
         return "FastDateParser [pattern=" + pattern + ", timeZone=" + timeZone + ", locale=" + locale + ", century=" + century + ", startYear=" + startYear
-                + ", patterns=" + patterns + "]";
+                + ", patterns=" + patterns + ", lenient=" + lenient.get().booleanValue() + "]";
     }
 }

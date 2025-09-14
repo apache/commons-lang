@@ -17,10 +17,13 @@
 package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.FieldPosition;
@@ -36,6 +39,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLongArray;
@@ -384,5 +388,108 @@ class FastDateFormatTest extends AbstractLangTest {
 
         assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG),
                 FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.getDefault()));
+    }
+
+    @Test
+    void test_getInstance_String_InvalidValue_LenientTrue() throws ParseException {
+        final FastDateFormat fastDateFormat = FastDateFormat.getInstance("MM/dd/yyyy", Locale.US);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+
+        // Validate the default lenient mode value
+        assertTrue(fastDateFormat.isLenient());
+
+        // Invalid values
+        final String source1 = "13/02/9999";
+        assertNotNull(fastDateFormat.parse(source1));
+        assertEquals(simpleDateFormat.parse(source1), fastDateFormat.parse(source1));
+
+        final String source2 = "9/31/2025";
+        assertNotNull(fastDateFormat.parse(source2));
+        assertEquals(simpleDateFormat.parse(source2), fastDateFormat.parse(source2));
+
+        final String source3 = "9/1/0000";
+        assertNotNull(fastDateFormat.parse(source3));
+        assertEquals(simpleDateFormat.parse(source3), fastDateFormat.parse(source3));
+
+        // Valid values
+        final String source4 = "9/1/2025";
+        assertNotNull(fastDateFormat.parse(source4));
+        assertEquals(simpleDateFormat.parse(source4), fastDateFormat.parse(source4));
+    }
+
+    @Test
+    void test_getInstance_String_InvalidValue_LenientFalse() throws ParseException {
+        final FastDateFormat fastDateFormat = FastDateFormat.getInstance("MM/dd/yyyy", Locale.US);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        simpleDateFormat.setLenient(false);
+        fastDateFormat.setLenient(false);
+
+        // Validate the lenient mode value
+        assertFalse(fastDateFormat.isLenient());
+
+        final String source1 = "13/02/9999";
+        assertThrows(IllegalArgumentException.class, () -> fastDateFormat.parse(source1));
+
+        final String source2 = "9/31/2025";
+        assertThrows(IllegalArgumentException.class, () -> fastDateFormat.parse(source2));
+
+        final String source3 = "9/1/0000";
+        assertThrows(IllegalArgumentException.class, () -> fastDateFormat.parse(source3));
+
+        final String source4 = "9/1/2025";
+        assertNotNull(fastDateFormat.parse(source4));
+        assertEquals(simpleDateFormat.parse(source4), fastDateFormat.parse(source4));
+    }
+
+    @Test
+    void test_getInstance_String_LenientMode_ThreadSafe() throws InterruptedException {
+        final String[] invalid_data = {"13/02/9999", "9/31/2025", "9/1/0000"};
+        final String[] valid_data = {"9/1/2025", "1/1/2010", "2/29/2000"};
+        final AtomicInteger failures = new AtomicInteger();
+        final ExecutorService pool = Executors.newFixedThreadPool(NTHREADS);
+        try {
+            for (int i = 0; i < NTHREADS; ++i) {
+                pool.submit(() -> {
+                    final boolean lenient = ThreadLocalRandom.current().nextBoolean();
+                    try {
+                        final FastDateFormat fastDateFormat = FastDateFormat.getInstance("MM/dd/yyyy", Locale.US);
+                        fastDateFormat.setLenient(lenient);
+                        for (String data : invalid_data) {
+                            try {
+                                final boolean parsed = fastDateFormat.parse(data) != null;
+                                if (parsed != lenient) {
+                                    throw new Exception("Unexpected parse() result for invalid data: " + data + " with lenient: " + lenient);
+                                }
+                            } catch (IllegalArgumentException e) {
+                                if (lenient) {
+                                    throw new Exception("Exception thrown for invalid data in lenient mode: " + data, e);
+                                }
+                            }
+                        }
+                        for (String data : valid_data) {
+                            if (null == fastDateFormat.parse(data)) {
+                                throw new Exception("parse() returned null for valid data: " + data);
+                            }
+                        }
+                        if (lenient != fastDateFormat.isLenient()) {
+                            throw new Exception("Unexpected lenient mode");
+                        }
+                    } catch (Exception e) {
+                        failures.incrementAndGet();
+                        e.printStackTrace();
+                    }
+                });
+            }
+        } finally {
+            pool.shutdown();
+            // depending on the performance of the machine used to run the parsing,
+            // the tests can run for a while. It should however complete within
+            // 30 seconds. Might need increase on very slow machines.
+            if (!pool.awaitTermination(30, TimeUnit.SECONDS)) {
+                pool.shutdownNow();
+                fail("did not complete tasks");
+            }
+        }
+        assertEquals(0, failures.get());
     }
 }
