@@ -276,10 +276,6 @@ class MethodUtilsTest extends AbstractLangTest {
             return "static PackagePrivateEmptyInterface...";
         }
 
-        public String packagePrivateEmptyInterface(final PackagePrivateEmptyInterface... args) {
-            return "PackagePrivateEmptyInterface...";
-        }
-
         public static String varOverload(final Boolean... args) {
             return "Boolean...";
         }
@@ -419,6 +415,10 @@ class MethodUtilsTest extends AbstractLangTest {
 
         public void oneParameter(final String s) {
             // empty
+        }
+
+        public String packagePrivateEmptyInterface(final PackagePrivateEmptyInterface... args) {
+            return "PackagePrivateEmptyInterface...";
         }
 
         @SuppressWarnings("unused")
@@ -1153,6 +1153,18 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testInvokeMethodVarArgsOfInterface() throws Exception {
+        // packagePrivateEmptyInterface
+        assertEquals("PackagePrivateEmptyInterface...", MethodUtils.invokeMethod(testBean, "packagePrivateEmptyInterface",
+                new PublicImpl1OfPackagePrivateEmptyInterface(), new PublicImpl2OfPackagePrivateEmptyInterface()));
+        assertEquals("PackagePrivateEmptyInterface...", MethodUtils.invokeMethod(testBean, "packagePrivateEmptyInterface", new PackagePrivateEmptyInterface() {
+            // empty
+        }, new PackagePrivateEmptyInterface() {
+            // empty
+        }));
+    }
+
+    @Test
     void testInvokeMethodVarArgsUnboxingBooleanArray() throws Exception {
         final TestBean testBean = new TestBean();
         final boolean[] actual = (boolean[]) MethodUtils.invokeMethod(testBean, "unboxing", Boolean.TRUE, Boolean.FALSE);
@@ -1282,18 +1294,6 @@ class MethodUtilsTest extends AbstractLangTest {
                 }, new PackagePrivateEmptyInterface() {
                     // empty
                 }));
-    }
-
-    @Test
-    void testInvokeMethodVarArgsOfInterface() throws Exception {
-        // packagePrivateEmptyInterface
-        assertEquals("PackagePrivateEmptyInterface...", MethodUtils.invokeMethod(testBean, "packagePrivateEmptyInterface",
-                new PublicImpl1OfPackagePrivateEmptyInterface(), new PublicImpl2OfPackagePrivateEmptyInterface()));
-        assertEquals("PackagePrivateEmptyInterface...", MethodUtils.invokeMethod(testBean, "packagePrivateEmptyInterface", new PackagePrivateEmptyInterface() {
-            // empty
-        }, new PackagePrivateEmptyInterface() {
-            // empty
-        }));
     }
 
     @Test
