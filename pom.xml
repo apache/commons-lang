@@ -167,7 +167,9 @@
     <commons.jacoco.methodRatio>0.96</commons.jacoco.methodRatio>
     <commons.jacoco.branchRatio>0.92</commons.jacoco.branchRatio>
     <commons.jacoco.lineRatio>0.96</commons.jacoco.lineRatio>
-    <commons.jacoco.complexityRatio>0.92</commons.jacoco.complexityRatio>
+    <!-- GH CI Java 17 Ubuntu says 0.91 -->
+    <!-- Local macOS Java 21 says 0.92 -->
+    <commons.jacoco.complexityRatio>0.91</commons.jacoco.complexityRatio>
     <commons.text.version>1.14.0</commons.text.version>
   </properties>
   <build>
