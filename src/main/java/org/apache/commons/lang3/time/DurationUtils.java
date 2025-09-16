@@ -21,11 +21,13 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
+import java.time.temporal.TemporalUnit;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.LongRange;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
@@ -58,6 +60,35 @@ public class DurationUtils {
         if (consumer != null && duration != null) {
             consumer.accept(duration.toMillis(), getNanosOfMilli(duration));
         }
+    }
+
+    /**
+     * Gets a Duration of unit stored in the system property at the given key.
+     *
+     * @param key  The property name.
+     * @param unit The unit that the duration is measured in, not null.
+     * @param def  The default value in the given unit.
+     * @return a Duration of seconds.
+     * @since 3.19.0
+     */
+    public static Duration get(final String key, final TemporalUnit unit, final long def) {
+        return Duration.of(getLong(key, def), unit);
+    }
+
+    private static long getLong(final String key, final long def) {
+        return StringUtils.isEmpty(key) ? def : Long.getLong(key, def);
+    }
+
+    /**
+     * Gets a Duration of milliseconds stored in the system property at the given key.
+     *
+     * @param key The property name.
+     * @param def The default value in milliseconds.
+     * @return a Duration of milliseconds.
+     * @since 3.19.0
+     */
+    public static Duration getMillis(final String key, final long def) {
+        return Duration.ofMillis(getLong(key, def));
     }
 
     /**
@@ -95,6 +126,18 @@ public class DurationUtils {
      */
     public static int getNanosOfMilli(final Duration duration) {
         return zeroIfNull(duration).getNano() % 1_000_000;
+    }
+
+    /**
+     * Gets a Duration of seconds stored in the system property at the given key.
+     *
+     * @param key The property name.
+     * @param def The default value in seconds.
+     * @return a Duration of seconds.
+     * @since 3.19.0
+     */
+    public static Duration getSeconds(final String key, final long def) {
+        return Duration.ofSeconds(getLong(key, def));
     }
 
     /**

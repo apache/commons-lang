@@ -26,16 +26,47 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetSystemProperty;
+import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
 
 /**
  * Tests {@link DurationUtils}.
  */
 class DurationUtilsTest extends AbstractLangTest {
+
+    @Test
+    @SetSystemProperties({
+        @SetSystemProperty(key = "Seconds1", value = "1"),
+        @SetSystemProperty(key = "Seconds2", value = "9223372036854775807") }) // Long.MAX_VALUE
+    void testGet() {
+        // ChronoUnit.SECONDS
+        assertEquals(Duration.ofSeconds(0), DurationUtils.get(null, ChronoUnit.SECONDS, 0));
+        assertEquals(Duration.ofSeconds(0), DurationUtils.get("", ChronoUnit.SECONDS, 0));
+        assertEquals(Duration.ofSeconds(1), DurationUtils.get("Seconds1", ChronoUnit.SECONDS, 0));
+        assertEquals(Duration.ofSeconds(Long.MAX_VALUE), DurationUtils.get("Seconds2", ChronoUnit.SECONDS, 0));
+        // ChronoUnit.MILLIS
+        assertEquals(Duration.ofMillis(0), DurationUtils.get(null, ChronoUnit.MILLIS, 0));
+        assertEquals(Duration.ofMillis(0), DurationUtils.get("", ChronoUnit.MILLIS, 0));
+        assertEquals(Duration.ofMillis(1), DurationUtils.get("Seconds1", ChronoUnit.MILLIS, 0));
+        assertEquals(Duration.ofMillis(Long.MAX_VALUE), DurationUtils.get("Seconds2", ChronoUnit.MILLIS, 0));
+    }
+
+    @Test
+    @SetSystemProperties({
+        @SetSystemProperty(key = "Seconds1", value = "1"),
+        @SetSystemProperty(key = "Seconds2", value = "9223372036854775807") }) // Long.MAX_VALUE
+    void testGetMilliseconds() {
+        assertEquals(Duration.ofMillis(0), DurationUtils.getMillis(null, 0));
+        assertEquals(Duration.ofMillis(0), DurationUtils.getMillis("", 0));
+        assertEquals(Duration.ofMillis(1), DurationUtils.getMillis("Seconds1", 0));
+        assertEquals(Duration.ofMillis(Long.MAX_VALUE), DurationUtils.getMillis("Seconds2", 0));
+    }
 
     @Test
     void testGetNanosOfMiili() {
@@ -63,6 +94,17 @@ class DurationUtilsTest extends AbstractLangTest {
         assertEquals(100_000, DurationUtils.getNanosOfMilli(Duration.ofNanos(100_000)));
         assertEquals(0, DurationUtils.getNanosOfMilli(Duration.ofNanos(1_000_000)));
         assertEquals(1, DurationUtils.getNanosOfMilli(Duration.ofNanos(1_000_001)));
+    }
+
+    @Test
+    @SetSystemProperties({
+        @SetSystemProperty(key = "Seconds1", value = "1"),
+        @SetSystemProperty(key = "Seconds2", value = "9223372036854775807") }) // Long.MAX_VALUE
+    void testGetSeconds() {
+        assertEquals(Duration.ofSeconds(0), DurationUtils.getSeconds(null, 0));
+        assertEquals(Duration.ofSeconds(0), DurationUtils.getSeconds("", 0));
+        assertEquals(Duration.ofSeconds(1), DurationUtils.getSeconds("Seconds1", 0));
+        assertEquals(Duration.ofSeconds(Long.MAX_VALUE), DurationUtils.getSeconds("Seconds2", 0));
     }
 
     @Test
