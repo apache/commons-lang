@@ -84,6 +84,31 @@ public final class IntegerRange extends NumberRange<Integer> {
     }
 
     /**
+     * Fits the given value into this range by returning the given value or, if out of bounds, the range minimum if
+     * below, or the range maximum if above.
+     *
+     * <pre>{@code
+     * IntegerRange range = IntegerRange.of(16, 64);
+     * range.fit(-9) -->  16
+     * range.fit(0)  -->  16
+     * range.fit(15) -->  16
+     * range.fit(16) -->  16
+     * range.fit(17) -->  17
+     * ...
+     * range.fit(63) -->  63
+     * range.fit(64) -->  64
+     * range.fit(99) -->  64
+     * }</pre>
+     *
+     * @param element the element to test.
+     * @return the minimum, the element, or the maximum depending on the element's location relative to the range.
+     * @since 3.19.0
+     */
+    public int fit(final int element) {
+        return super.fit(element).intValue();
+    }
+
+    /**
      * Returns a sequential ordered {@code IntStream} from {@link #getMinimum()} (inclusive) to {@link #getMaximum()} (inclusive) by an incremental step of
      * {@code 1}.
      *
