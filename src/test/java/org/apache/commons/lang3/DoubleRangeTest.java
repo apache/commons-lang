@@ -148,6 +148,8 @@ class DoubleRangeTest extends AbstractLangTest {
         assertEquals(range1.getMinimum(), range1.fit(range1.getMinimum()));
         assertEquals(range1.getMaximum(), range1.fit(Double.MAX_VALUE));
         assertEquals(range1.getMaximum(), range1.fit(range1.getMaximum()));
+        assertEquals(15, range1.fit(15));
+        assertEquals(15, range1.fit(15f));
         assertEquals(15, range1.fit(15d));
     }
 
