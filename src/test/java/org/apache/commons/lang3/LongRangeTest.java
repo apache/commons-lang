@@ -160,9 +160,9 @@ class LongRangeTest extends AbstractLangTest {
 
     @Test
     void testFit() {
-        assertEquals(range1.getMinimum(), range1.fit((long) Integer.MIN_VALUE));
+        assertEquals(range1.getMinimum(), range1.fit(Integer.MIN_VALUE));
         assertEquals(range1.getMinimum(), range1.fit(range1.getMinimum()));
-        assertEquals(range1.getMaximum(), range1.fit((long) Integer.MAX_VALUE));
+        assertEquals(range1.getMaximum(), range1.fit(Integer.MAX_VALUE));
         assertEquals(range1.getMaximum(), range1.fit(range1.getMaximum()));
         assertEquals(15, range1.fit(15L));
     }

@@ -91,6 +91,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1784" type="add" dev="ggregory" due-to="Rich Dougherty, Gary Gregory">Add Functions methods for null-safe mapping and chaining #1435.</action>
     <action issue="LANG-1784" type="add" dev="ggregory" due-to="Rich Dougherty, Gary Gregory">Add Failable methods for null-safe mapping and chaining #1435.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add IntegerRange.fit(int).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LongRange.fit(long).</action>
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.13.1 to 1.14.0.</action>
     <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 85 to 87.</action>
