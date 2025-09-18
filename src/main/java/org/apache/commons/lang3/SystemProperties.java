@@ -43,7 +43,7 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and 21 (Javadoc).
+     * Not in Java 17 and above (Javadoc).
      * </p>
      *
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
@@ -235,7 +235,7 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and 21 (Javadoc).
+     * Not in Java 17 and above (Javadoc).
      * </p>
      *
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.fonts</a>
@@ -245,7 +245,7 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and 21 (Javadoc).
+     * Not in Java 17 and above (Javadoc).
      * </p>
      *
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.graphicsenv</a>
@@ -255,7 +255,7 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and 21 (Javadoc).
+     * Not in Java 17 and above (Javadoc).
      * </p>
      *
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.headless</a>
@@ -265,7 +265,7 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and 21 (Javadoc).
+     * Not in Java 17 and above (Javadoc).
      * </p>
      *
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.printerjob</a>
@@ -302,7 +302,7 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and 21 (Javadoc).
+     * Not in Java 17 and above (Javadoc).
      * </p>
      */
     public static final String JAVA_ENDORSED_DIRS = "java.endorsed.dirs";
@@ -310,7 +310,7 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and 21 (Javadoc).
+     * Not in Java 17 and above (Javadoc).
      * </p>
      */
     public static final String JAVA_EXT_DIRS = "java.ext.dirs";
