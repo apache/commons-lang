@@ -187,7 +187,7 @@ public class RandomStringUtils {
      * @param numbers if {@code true}, generated string may include numeric characters.
      * @return the random string.
      * @throws IllegalArgumentException if {@code count} &lt; 0.
-     * @deprecated Use {@link #next(int, int, int, boolean)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
+     * @deprecated Use {@link #next(int, int, int, boolean, boolean)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static String random(final int count, final int start, final int end, final boolean letters,
