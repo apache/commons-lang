@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 import org.apache.commons.lang3.function.Suppliers;
 
 /**
- * Accesses current system property names and values.
+ * Accesses current <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Property</a> names and values.
  *
  * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
  * @since 3.13.0
@@ -43,7 +43,7 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and above (Javadoc).
+     * Not in Java 17 and above according to <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a> Javadoc.
      * </p>
      *
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
@@ -237,10 +237,10 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and above (Javadoc).
+     * Not in Java 17 and above according to <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a> Javadoc.
      * </p>
      *
-     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.fonts</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @deprecated Deprecated without replacement.
      */
     @Deprecated
@@ -249,10 +249,10 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and above (Javadoc).
+     * Not in Java 17 and above according to <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a> Javadoc.
      * </p>
      *
-     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.graphicsenv</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @deprecated Deprecated without replacement.
      */
     @Deprecated
@@ -261,10 +261,10 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and above (Javadoc).
+     * Not in Java 17 and above according to <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a> Javadoc.
      * </p>
      *
-     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.headless</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @deprecated Deprecated without replacement.
      */
     @Deprecated
@@ -273,10 +273,10 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and above (Javadoc).
+     * Not in Java 17 and above according to <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a> Javadoc.
      * </p>
      *
-     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.printerjob</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @deprecated Deprecated without replacement.
      */
     @Deprecated
@@ -297,7 +297,7 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and above (Javadoc).
+     * Not in Java 17 and above according to <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a> Javadoc.
      * </p>
      *
      * @see <a href="https://bugs.openjdk.org/browse/JDK-8305998">JDK-8305998</a>
@@ -319,9 +319,10 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and above (Javadoc).
+     * Not in Java 17 and above according to <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a> Javadoc.
      * </p>
      *
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @deprecated Deprecated without replacement.
      */
     @Deprecated
@@ -330,9 +331,10 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 17 and above (Javadoc).
+     * Not in Java 17 and above according to <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a> Javadoc.
      * </p>
      *
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @deprecated Deprecated without replacement.
      */
     @Deprecated
@@ -1429,6 +1431,8 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      *
+     * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/25/docs/api/jdk.httpserver/module-summary.html#sun.net.httpserver.drainAmount">sun.net.httpserver.drainAmount</a>
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @since 3.15.0
      */
@@ -1437,6 +1441,8 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      *
+     * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/25/docs/api/jdk.httpserver/module-summary.html#sun.net.httpserver.idleInterval">sun.net.httpserver.idleInterval</a>
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @since 3.15.0
      */
@@ -1445,6 +1451,8 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      *
+     * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/25/docs/api/jdk.httpserver/module-summary.html#sun.net.httpserver.maxIdleConnections">sun.net.httpserver.maxIdleConnections</a>
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @since 3.15.0
      */
@@ -1453,6 +1461,8 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      *
+     * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/25/docs/api/jdk.httpserver/module-summary.html#sun.net.httpserver.maxReqHeaders">sun.net.httpserver.maxReqHeaders</a>
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @since 3.15.0
      */
@@ -1461,6 +1471,8 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      *
+     * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/25/docs/api/jdk.httpserver/module-summary.html#sun.net.httpserver.maxReqTime">sun.net.httpserver.maxReqTime</a>
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @since 3.15.0
      */
@@ -1469,6 +1481,8 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      *
+     * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/25/docs/api/jdk.httpserver/module-summary.html#sun.net.httpserver.maxRspTime">sun.net.httpserver.maxRspTime</a>
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @since 3.15.0
      */
@@ -1477,6 +1491,8 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      *
+     * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/25/docs/api/jdk.httpserver/module-summary.html#sun.net.httpserver.nodelay">sun.net.httpserver.nodelay</a>
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @since 3.15.0
      */
@@ -1485,6 +1501,8 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      *
+     * @see <a href=
+     *      "https://docs.oracle.com/en/java/javase/25/docs/api/jdk.httpserver/module-summary.html#sun.security.krb5.principal">sun.security.krb5.principal</a>
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @since 3.15.0
      */
@@ -1949,7 +1967,7 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
-     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.fonts</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @see #JAVA_AWT_FONTS
      * @deprecated Deprecated without replacement.
      */
@@ -1965,6 +1983,7 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @deprecated Deprecated without replacement.
      */
     @Deprecated
@@ -1979,7 +1998,7 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
-     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.graphicsenv</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @see #JAVA_AWT_HEADLESS
      * @deprecated Deprecated without replacement.
      */
@@ -1995,7 +2014,7 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
-     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.printerjob</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @see #JAVA_AWT_PRINTERJOB
      * @deprecated Deprecated without replacement.
      */
