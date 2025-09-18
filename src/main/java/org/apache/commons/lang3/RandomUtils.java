@@ -108,7 +108,7 @@ public class RandomUtils {
      *
      * @return the random boolean
      * @since 3.5
-     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static boolean nextBoolean() {
@@ -121,7 +121,7 @@ public class RandomUtils {
      * @param count the size of the returned array
      * @return the random byte array
      * @throws IllegalArgumentException if {@code count} is negative
-     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static byte[] nextBytes(final int count) {
@@ -134,7 +134,7 @@ public class RandomUtils {
      * @return the random double
      * @see #nextDouble(double, double)
      * @since 3.5
-     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static double nextDouble() {
@@ -149,7 +149,7 @@ public class RandomUtils {
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
      *                                  negative
      * @return the random double
-     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static double nextDouble(final double startInclusive, final double endExclusive) {
@@ -162,7 +162,7 @@ public class RandomUtils {
      * @return the random float
      * @see #nextFloat(float, float)
      * @since 3.5
-     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static float nextFloat() {
@@ -177,7 +177,7 @@ public class RandomUtils {
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
      *                                  negative
      * @return the random float
-     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static float nextFloat(final float startInclusive, final float endExclusive) {
@@ -190,7 +190,7 @@ public class RandomUtils {
      * @return the random integer
      * @see #nextInt(int, int)
      * @since 3.5
-     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static int nextInt() {
@@ -205,7 +205,7 @@ public class RandomUtils {
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
      *                                  negative
      * @return the random integer
-     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static int nextInt(final int startInclusive, final int endExclusive) {
@@ -218,7 +218,7 @@ public class RandomUtils {
      * @return the random long
      * @see #nextLong(long, long)
      * @since 3.5
-     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static long nextLong() {
@@ -233,7 +233,7 @@ public class RandomUtils {
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is
      *                                  negative
      * @return the random long
-     * @deprecated Use {@link #secure()}, {@link #secureStrong()},or {@link #insecure()}.
+     * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static long nextLong(final long startInclusive, final long endExclusive) {
