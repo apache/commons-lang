@@ -103,7 +103,9 @@ public class SystemUtils {
      *
      * @see SystemProperties#getJavaAwtFonts()
      * @since 2.1
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_AWT_FONTS = SystemProperties.getJavaAwtFonts();
 
     /**
@@ -119,7 +121,9 @@ public class SystemUtils {
      *
      * @see SystemProperties#getJavaAwtGraphicsenv()
      * @since 2.1
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_AWT_GRAPHICSENV = SystemProperties.getJavaAwtGraphicsenv();
 
     /**
@@ -137,7 +141,9 @@ public class SystemUtils {
      * @see SystemProperties#getJavaAwtHeadless()
      * @since 2.1
      * @since Java 1.4
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_AWT_HEADLESS = SystemProperties.getJavaAwtHeadless();
 
     /**
@@ -153,7 +159,9 @@ public class SystemUtils {
      *
      * @see SystemProperties#getJavaAwtPrinterjob()
      * @since 2.1
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_AWT_PRINTERJOB = SystemProperties.getJavaAwtPrinterjob();
 
     /**
@@ -201,7 +209,9 @@ public class SystemUtils {
      *
      * @see SystemProperties#getJavaCompiler()
      * @since Java 1.2. Not used in Sun versions after 1.2.
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_COMPILER = SystemProperties.getJavaCompiler();
 
     /**
@@ -217,7 +227,9 @@ public class SystemUtils {
      *
      * @see SystemProperties#getJavaEndorsedDirs()
      * @since Java 1.4
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_ENDORSED_DIRS = SystemProperties.getJavaEndorsedDirs();
 
     /**
@@ -233,7 +245,9 @@ public class SystemUtils {
      *
      * @see SystemProperties#getJavaExtDirs()
      * @since Java 1.3
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_EXT_DIRS = SystemProperties.getJavaExtDirs();
 
     /**
@@ -864,7 +878,7 @@ public class SystemUtils {
      * </p>
      *
      * @since 3.4
-     * @deprecated As of release 3.5, replaced by {@link #IS_JAVA_9}
+     * @deprecated As of release 3.5, replaced by {@link #IS_JAVA_9}.
      */
     @Deprecated
     public static final boolean IS_JAVA_1_9 = getJavaVersionMatches("9");
@@ -2043,7 +2057,9 @@ public class SystemUtils {
      *
      * @since 2.1
      * @see SystemProperties#getAwtToolkit()
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String AWT_TOOLKIT = SystemProperties.getAwtToolkit();
 
     /**
