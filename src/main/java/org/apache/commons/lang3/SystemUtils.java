@@ -2282,7 +2282,9 @@ public class SystemUtils {
      * @see #JAVA_AWT_HEADLESS
      * @since 2.1
      * @since Java 1.4
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static boolean isJavaAwtHeadless() {
         return Boolean.TRUE.toString().equals(JAVA_AWT_HEADLESS);
     }

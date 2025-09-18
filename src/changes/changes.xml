@@ -65,7 +65,23 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumberUtils.compare(int, int) in favor of Integer.compare(int, int).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumberUtils.compare(long, long) in favor of Long.compare(long, long).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumberUtils.compare(short, short) in favor of Short.compare(short, short).</action>
-    <!-- FIX Javadoc -->
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.AWT_TOOLKIT.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_AWT_FONTS.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_AWT_GRAPHICSENV.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_AWT_HEADLESS.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_AWT_PRINTERJOB.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_COMPILER.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_ENDORSED_DIRS.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_EXT_DIRS.</action>    <!-- FIX Javadoc -->
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getAwtToolkit()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaAwtFonts()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaAwtGraphicsenv()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaAwtHeadless()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaAwtPrinterjob()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaCompiler()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaEndorsedDirs()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaExtDirs()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemUtils.isJavaAwtHeadless()</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">[javadoc] General improvements.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">[javadoc] Fix thrown exception documentation for MethodUtils.getMethodObject(Class&lt;?&gt;, String, Class&lt;?&gt;...).</action>
     <action                   type="fix" dev="ggregory" due-to="Scott Parish">[javadoc] Strings::equalsAny: CI doc string should show it's insensitive #1416.</action>

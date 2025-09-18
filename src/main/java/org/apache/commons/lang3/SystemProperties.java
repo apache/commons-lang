@@ -47,7 +47,9 @@ public final class SystemProperties {
      * </p>
      *
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String AWT_TOOLKIT = "awt.toolkit";
 
     /**
@@ -239,7 +241,9 @@ public final class SystemProperties {
      * </p>
      *
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.fonts</a>
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_AWT_FONTS = "java.awt.fonts";
 
     /**
@@ -249,7 +253,9 @@ public final class SystemProperties {
      * </p>
      *
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.graphicsenv</a>
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_AWT_GRAPHICSENV = "java.awt.graphicsenv";
 
     /**
@@ -259,7 +265,9 @@ public final class SystemProperties {
      * </p>
      *
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.headless</a>
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_AWT_HEADLESS = "java.awt.headless";
 
     /**
@@ -269,11 +277,15 @@ public final class SystemProperties {
      * </p>
      *
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.printerjob</a>
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_AWT_PRINTERJOB = "java.awt.printerjob";
 
     /**
      * The System property name {@value}.
+     *
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.class.path</a>
      */
     public static final String JAVA_CLASS_PATH = "java.class.path";
 
@@ -285,9 +297,14 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      * <p>
-     * Not in Java 21. Last seen in Java 17.
+     * Not in Java 17 and above (Javadoc).
      * </p>
+     *
+     * @see <a href="https://bugs.openjdk.org/browse/JDK-8305998">JDK-8305998</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_COMPILER = "java.compiler";
 
     /**
@@ -304,7 +321,10 @@ public final class SystemProperties {
      * <p>
      * Not in Java 17 and above (Javadoc).
      * </p>
+     *
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_ENDORSED_DIRS = "java.endorsed.dirs";
 
     /**
@@ -312,7 +332,10 @@ public final class SystemProperties {
      * <p>
      * Not in Java 17 and above (Javadoc).
      * </p>
+     *
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static final String JAVA_EXT_DIRS = "java.ext.dirs";
 
     /**
@@ -1546,7 +1569,11 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
+     * @see #AWT_TOOLKIT
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static String getAwtToolkit() {
         return getProperty(AWT_TOOLKIT);
     }
@@ -1922,7 +1949,11 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.fonts</a>
+     * @see #JAVA_AWT_FONTS
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static String getJavaAwtFonts() {
         return getProperty(JAVA_AWT_FONTS);
     }
@@ -1934,7 +1965,9 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static String getJavaAwtGraphicsenv() {
         return getProperty(JAVA_AWT_GRAPHICSENV);
     }
@@ -1946,7 +1979,11 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.graphicsenv</a>
+     * @see #JAVA_AWT_HEADLESS
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static String getJavaAwtHeadless() {
         return getProperty(JAVA_AWT_HEADLESS);
     }
@@ -1958,7 +1995,11 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.awt.printerjob</a>
+     * @see #JAVA_AWT_PRINTERJOB
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static String getJavaAwtPrinterjob() {
         return getProperty(JAVA_AWT_PRINTERJOB);
     }
@@ -1970,6 +2011,8 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.class.path</a>
+     * @see #JAVA_CLASS_PATH
      */
     public static String getJavaClassPath() {
         return getProperty(JAVA_CLASS_PATH);
@@ -1994,7 +2037,11 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @see <a href="https://bugs.openjdk.org/browse/JDK-8305998">JDK-8305998</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static String getJavaCompiler() {
         return getProperty(JAVA_COMPILER);
     }
@@ -2019,7 +2066,10 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static String getJavaEndorsedDirs() {
         return getProperty(JAVA_ENDORSED_DIRS);
     }
@@ -2031,7 +2081,11 @@ public final class SystemProperties {
      * </p>
      *
      * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
+     * @see #JAVA_EXT_DIRS
+     * @deprecated Deprecated without replacement.
      */
+    @Deprecated
     public static String getJavaExtDirs() {
         return getProperty(JAVA_EXT_DIRS);
     }
