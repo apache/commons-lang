@@ -264,8 +264,8 @@ class SystemPropertiesTest {
 
     @Test
     void testGetBoolean() {
-        final String key = RandomStringUtils.random(10);
-        final String absentKey = RandomStringUtils.random(10);
+        final String key = RandomStringUtils.insecure().next(10);
+        final String absentKey = RandomStringUtils.insecure().next(10);
         assertNull(System.getProperty(absentKey));
         try {
             System.setProperty(key, Boolean.toString(Boolean.TRUE));
@@ -483,8 +483,8 @@ class SystemPropertiesTest {
 
     @Test
     void testGetInt() {
-        final String key = RandomStringUtils.random(10);
-        final String absentKey = RandomStringUtils.random(10);
+        final String key = RandomStringUtils.insecure().next(10);
+        final String absentKey = RandomStringUtils.insecure().next(10);
         assertNull(System.getProperty(absentKey));
         try {
             System.setProperty(key, Integer.toString(Integer.MAX_VALUE));
@@ -674,8 +674,8 @@ class SystemPropertiesTest {
 
     @Test
     void testGetLong() {
-        final String key = RandomStringUtils.random(10);
-        final String absentKey = RandomStringUtils.random(10);
+        final String key = RandomStringUtils.insecure().next(10);
+        final String absentKey = RandomStringUtils.insecure().next(10);
         assertNull(System.getProperty(absentKey));
         try {
             System.setProperty(key, Long.toString(Long.MAX_VALUE));
