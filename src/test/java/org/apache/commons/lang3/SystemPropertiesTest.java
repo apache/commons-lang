@@ -39,6 +39,7 @@ import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
     @SetSystemProperty(key = SystemPropertiesTest.KEY_TAB_1, value = "value2") })
 class SystemPropertiesTest {
 
+    private static final String SIMPLE_NAME = SystemPropertiesTest.class.getSimpleName();
     static final String KEY_SPACE_1 = " ";
     static final String KEY_TAB_1 = "\t";
 
@@ -279,6 +280,24 @@ class SystemPropertiesTest {
     }
 
     @Test
+    void testGetBooleanClass() {
+        final String key = RandomStringUtils.insecure().next(10);
+        final String absentKey = RandomStringUtils.insecure().next(10);
+        final String keyFull = SIMPLE_NAME + "." + key;
+        final String absentKeyFull = SIMPLE_NAME + "." + absentKey;
+        assertNull(System.getProperty(absentKeyFull));
+        try {
+            System.setProperty(keyFull, Boolean.TRUE.toString());
+            assertTrue(SystemProperties.getBoolean(SystemPropertiesTest.class, key, () -> false));
+            assertTrue(SystemProperties.getBoolean(SystemPropertiesTest.class, absentKey, () -> true));
+            assertFalse(SystemProperties.getBoolean(SystemPropertiesTest.class, absentKey, () -> false));
+            assertTrue(SystemProperties.getBoolean(SystemPropertiesTest.class, absentKey, () -> true));
+        } finally {
+            System.clearProperty(keyFull);
+        }
+    }
+
+    @Test
     void testGetDoesNotThrow() {
         assertDoesNotThrow(SystemProperties::getAppleAwtEnableTemplateImages);
         assertDoesNotThrow(SystemProperties::getAwtToolkit);
@@ -498,6 +517,24 @@ class SystemPropertiesTest {
     }
 
     @Test
+    void testGetIntClass() {
+        final String key = RandomStringUtils.insecure().next(10);
+        final String absentKey = RandomStringUtils.insecure().next(10);
+        final String keyFull = SIMPLE_NAME + "." + key;
+        final String absentKeyFull = SIMPLE_NAME + "." + absentKey;
+        assertNull(System.getProperty(absentKeyFull));
+        try {
+            System.setProperty(keyFull, Long.toString(Integer.MAX_VALUE));
+            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(SystemPropertiesTest.class, key, () -> 0));
+            assertEquals(Integer.MAX_VALUE, SystemProperties.getInt(SystemPropertiesTest.class, absentKey, () -> Integer.MAX_VALUE));
+            assertEquals(0, SystemProperties.getInt(SystemPropertiesTest.class, absentKey, () -> 0));
+            assertEquals(1, SystemProperties.getInt(SystemPropertiesTest.class, absentKey, () -> 1));
+        } finally {
+            System.clearProperty(keyFull);
+        }
+    }
+
+    @Test
     void testGetJavaAwtFonts() {
         assertNull(SystemProperties.getJavaAwtFonts());
     }
@@ -685,6 +722,24 @@ class SystemPropertiesTest {
             assertEquals(0, SystemProperties.getLong(absentKey, null));
         } finally {
             System.clearProperty(key);
+        }
+    }
+
+    @Test
+    void testGetLongClass() {
+        final String key = RandomStringUtils.insecure().next(10);
+        final String absentKey = RandomStringUtils.insecure().next(10);
+        final String keyFull = SIMPLE_NAME + "." + key;
+        final String absentKeyFull = SIMPLE_NAME + "." + absentKey;
+        assertNull(System.getProperty(absentKeyFull));
+        try {
+            System.setProperty(keyFull, Long.toString(Long.MAX_VALUE));
+            assertEquals(Long.MAX_VALUE, SystemProperties.getLong(SystemPropertiesTest.class, key, () -> 0));
+            assertEquals(Long.MAX_VALUE, SystemProperties.getLong(SystemPropertiesTest.class, absentKey, () -> Long.MAX_VALUE));
+            assertEquals(0, SystemProperties.getLong(SystemPropertiesTest.class, absentKey, () -> 0));
+            assertEquals(1, SystemProperties.getLong(SystemPropertiesTest.class, absentKey, () -> 1));
+        } finally {
+            System.clearProperty(keyFull);
         }
     }
 

@@ -1552,11 +1552,31 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value for the property named {@code key} as an {@code boolean}.
+     * Gets the current value for the property named {@code "SimpleClassName.Key"} as a {@code boolean}.
+     * <p>
+     * If a {@link SecurityException} is caught, the return value is {@code null}.
+     * </p>
      *
-     * @param key             The key
-     * @param defaultIfAbsent The default value
-     * @return an {@code boolean} or defaultIfAbsent
+     * @param clazz           The Class to use for the SimpleClassName.
+     * @param key             The subkey.
+     * @param defaultIfAbsent The default value.
+     * @return an int or defaultIfAbsent.
+     * @see Class#getSimpleName()
+     * @since 3.19.0
+     */
+    public static boolean getBoolean(final Class<?> clazz, final String key, final BooleanSupplier defaultIfAbsent) {
+        return getBoolean(toKey(clazz, key, true), defaultIfAbsent);
+    }
+
+    /**
+     * Gets the current value for the property named {@code key} as an {@code boolean}.
+     * <p>
+     * If a {@link SecurityException} is caught, the return value is {@code null}.
+     * </p>
+     *
+     * @param key             The key.
+     * @param defaultIfAbsent The default value.
+     * @return an {@code boolean} or defaultIfAbsent.
      */
     public static boolean getBoolean(final String key, final BooleanSupplier defaultIfAbsent) {
         final String str = getProperty(key);
@@ -1864,11 +1884,31 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value for the property named {@code key} as an {@code int}.
+     * Gets the current value for the property named {@code "SimpleClassName.Key"} as an {@code int}.
+     * <p>
+     * If a {@link SecurityException} is caught, the return value is {@code null}.
+     * </p>
      *
-     * @param key             The key
-     * @param defaultIfAbsent The default value
-     * @return an {@code int} or defaultIfAbsent
+     * @param clazz           The Class to use for the SimpleClassName.
+     * @param key             The subkey.
+     * @param defaultIfAbsent The default value.
+     * @return an int or defaultIfAbsent.
+     * @see Class#getSimpleName()
+     * @since 3.19.0
+     */
+    public static int getInt(final Class<?> clazz, final String key, final IntSupplier defaultIfAbsent) {
+        return getInt(toKey(clazz, key, true), defaultIfAbsent);
+    }
+
+    /**
+     * Gets the current value for the property named {@code key} as an {@code int}.
+     * <p>
+     * If a {@link SecurityException} is caught, the return value is {@code null}.
+     * </p>
+     *
+     * @param key             The key.
+     * @param defaultIfAbsent The default value.
+     * @return an {@code int} or defaultIfAbsent.
      */
     public static int getInt(final String key, final IntSupplier defaultIfAbsent) {
         final String str = getProperty(key);
@@ -3580,11 +3620,31 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value for the property named {@code key} as a {@code long}.
+     * Gets the current value for the property named {@code "SimpleClassName.Key"} as a {@code long}.
+     * <p>
+     * If a {@link SecurityException} is caught, the return value is {@code null}.
+     * </p>
      *
-     * @param key             The key
-     * @param defaultIfAbsent The default value
-     * @return a {@code long} or defaultIfAbsent
+     * @param clazz           The Class to use for the SimpleClassName.
+     * @param key             The subkey.
+     * @param defaultIfAbsent The default value.
+     * @return a long or defaultIfAbsent.
+     * @see Class#getSimpleName()
+     * @since 3.19.0
+     */
+    public static long getLong(final Class<?> clazz, final String key, final LongSupplier defaultIfAbsent) {
+        return getLong(toKey(clazz, key, true), defaultIfAbsent);
+    }
+
+    /**
+     * Gets the current value for the property named {@code key} as a {@code long}.
+     * <p>
+     * If a {@link SecurityException} is caught, the return value is {@code null}.
+     * </p>
+     *
+     * @param key             The key.
+     * @param defaultIfAbsent The default value.
+     * @return a {@code long} or defaultIfAbsent.
      */
     public static long getLong(final String key, final LongSupplier defaultIfAbsent) {
         final String str = getProperty(key);
@@ -4091,6 +4151,10 @@ public final class SystemProperties {
      */
     public static boolean isPropertySet(final String property) {
         return getProperty(property) != null;
+    }
+
+    private static String toKey(final Class<?> clazz, final String key, final boolean simpleKey) {
+        return ClassUtils.getName(clazz, StringUtils.EMPTY, simpleKey) + "." + key;
     }
 
     /**

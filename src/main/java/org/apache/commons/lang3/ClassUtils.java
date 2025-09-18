@@ -627,7 +627,11 @@ public class ClassUtils {
      * @see Class#getName()
      */
     public static String getName(final Class<?> cls, final String valueIfNull) {
-        return cls == null ? valueIfNull : cls.getName();
+        return getName(cls, valueIfNull, false);
+    }
+
+    static String getName(final Class<?> cls, final String valueIfNull, final boolean simple) {
+        return cls == null ? valueIfNull : simple ? cls.getSimpleName() : cls.getName();
     }
 
     /**
