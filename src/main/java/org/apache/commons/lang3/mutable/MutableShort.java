@@ -16,13 +16,19 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * A mutable {@code short} wrapper.
+ * <p>
+ * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link AtomicInteger} class.
+ * </p>
  * <p>
  * Note that as MutableShort does not extend Short, it is not treated by String.format as a Short parameter.
  * </p>
  *
  * @see Short
+ * @see AtomicInteger
  * @since 2.1
  */
 public class MutableShort extends Number implements Comparable<MutableShort>, Mutable<Number> {

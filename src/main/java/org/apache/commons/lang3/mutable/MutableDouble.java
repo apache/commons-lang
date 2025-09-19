@@ -16,13 +16,21 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.util.concurrent.atomic.DoubleAccumulator;
+import java.util.concurrent.atomic.DoubleAdder;
+
 /**
  * A mutable {@code double} wrapper.
+ * <p>
+ * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link DoubleAccumulator} class.
+ * </p>
  * <p>
  * Note that as MutableDouble does not extend Double, it is not treated by String.format as a Double parameter.
  * </p>
  *
  * @see Double
+ * @see DoubleAccumulator
+ * @see DoubleAdder
  * @since 2.1
  */
 public class MutableDouble extends Number implements Comparable<MutableDouble>, Mutable<Number> {

@@ -16,13 +16,21 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.util.concurrent.atomic.DoubleAccumulator;
+import java.util.concurrent.atomic.DoubleAdder;
+
 /**
  * A mutable {@code float} wrapper.
+ * <p>
+ * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link DoubleAccumulator} class.
+ * </p>
  * <p>
  * Note that as MutableFloat does not extend Float, it is not treated by String.format as a Float parameter.
  * </p>
  *
  * @see Float
+ * @see DoubleAccumulator
+ * @see DoubleAdder
  * @since 2.1
  */
 public class MutableFloat extends Number implements Comparable<MutableFloat>, Mutable<Number> {

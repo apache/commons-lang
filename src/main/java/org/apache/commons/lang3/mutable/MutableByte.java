@@ -16,13 +16,20 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * A mutable {@code byte} wrapper.
  * <p>
+ * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link AtomicInteger} class.
+ * </p>
+ * <p>
  * Note that as MutableByte does not extend Byte, it is not treated by String.format as a Byte parameter.
  * </p>
+ * <p>
  *
  * @see Byte
+ * @see AtomicInteger
  * @since 2.1
  */
 public class MutableByte extends Number implements Comparable<MutableByte>, Mutable<Number> {
