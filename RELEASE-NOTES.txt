@@ -14,6 +14,147 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+Apache Commons Lang 3.19.0 Release Notes
+----------------------------------------
+
+The Apache Commons Lang team is pleased to announce the release of Apache Commons Lang 3.19.0.
+
+Commons Lang is a set of utility functions and reusable components that should be useful in any Java environment.
+
+Starting with Commons Lang 3.9, we target Java 8, using those features.
+
+For advice on upgrading from 2.x to 3.x, see:
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+The code is tested using the latest revision of the JDK for supported
+LTS releases: 8, 11, 17 and 21 currently.
+See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
+
+Please ensure your build environment is up-to-date and kindly report any build issues.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+Changes in this version include:
+
+New features:
+o            Add ArrayUtils.SOFT_MAX_ARRAY_LENGTH. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_OS_NETWARE. Thanks to Gary Gregory.
+o            Add MethodUtils.getAccessibleMethod(Class, Method). Thanks to Gary Gregory.
+o            Add documentation to site for CVE-2025-48924 ClassUtils.getClass(...) can throw a StackOverflowError on very long inputs. Thanks to Gary Gregory.
+o            Add StringUtils.indexOfAny(CharSequence, int, char...). Thanks to Gary Gregory.
+o            Add ConcurrentException.ConcurrentException(String). Thanks to Gary Gregory.
+o            Add DateUtils.toLocalDateTime(Date[, TimeZone]) #1385. Thanks to Finger, Gary Gregory, Piotr P. Karwasz.
+o            Add DateUtils.toOffsetDateTime(Date[, TimeZone]). Thanks to Gary Gregory.
+o            Add DateUtils.toZonedDateTime(Date[, TimeZone]). Thanks to Gary Gregory.
+o            Add ByteConsumer. Thanks to Gary Gregory.
+o            Add ByteSupplier. Thanks to Gary Gregory.
+o            Add FailableByteConsumer. Thanks to Gary Gregory.
+o            Add FailableByteSupplier. Thanks to Gary Gregory.
+o LANG-1784: Add Functions methods for null-safe mapping and chaining #1435. Thanks to Rich Dougherty, Gary Gregory.
+o LANG-1784: Add Failable methods for null-safe mapping and chaining #1435. Thanks to Rich Dougherty, Gary Gregory.
+o            Add DoubleRange.fit(double). Thanks to Gary Gregory.
+o            Add IntegerRange.fit(int). Thanks to Gary Gregory.
+o            Add LongRange.fit(long). Thanks to Gary Gregory.
+o            Add DurationUtils.get(String, TemporalUnit, long). Thanks to Gary Gregory.
+o            Add DurationUtils.getMillis(String, long). Thanks to Gary Gregory.
+o            Add DurationUtils.getSeconds(String, long). Thanks to Gary Gregory.
+o            Add SystemProperties.getBoolean(Class, String, boolean). Thanks to Gary Gregory.
+o            Add SystemProperties.getInt(Class, String, int). Thanks to Gary Gregory.
+o            Add SystemProperties.getLong(Class, String, long). Thanks to Gary Gregory.
+
+Fixed Bugs:
+o LANG-1778: MethodUtils.getMatchingMethod() doesn't respect the hierarchy of methods #1414. Thanks to wuwu2000.
+o            MethodUtils.getMethodObject(Class<?>, String, Class<?>...) now returns null instead of throwing a NullPointerException, as it does for other exception types. Thanks to Gary Gregory.
+o            Reduce spurious failures in ArrayUtilsTest methods that test ArrayUtils.shuffle() methods. Thanks to Gary Gregory.
+o            MethodUtils cannot find or invoke a public method on a public class implemented in its package-private superclass. Thanks to Gary Gregory.
+o            AtomicSafeInitializer.get() can spin internally if the FailableSupplier given to AbstractConcurrentInitializer.AbstractBuilder.setInitializer(FailableSupplier) throws a RuntimeException. Thanks to Stanislav Fort, Gary Gregory.
+o LANG-1783: WordUtils.containsAllWords?() may throw PatternSyntaxException. Thanks to Arnout Engelen, Stanislav Fort, Gary Gregory.
+o LANG-1782: MethodUtils cannot find or invoke vararg methods without providing vararg types or values #1427. Thanks to Joe Ferner, Gary Gregory.
+o            MethodUtils cannot find or invoke vararg methods of interface types. Thanks to Joe Ferner, Gary Gregory.
+o            MethodUtils cannot find or invoke vararg methods when widening primitive types following the JLS 5.1.2. Widening Primitive Conversion. Thanks to Joe Ferner, Gary Gregory.
+o LANG-1597: Invocation fails because matching varargs method found but then discarded. Thanks to Richard Eckart de Castilho, Gary Gregory.
+o            Don't check accessibility twice in MemberUtils.setAccessibleWorkaround(T). Thanks to Gary Gregory.
+o LANG-1774: Improve handling of ClassUtils.getShortCanonicalName() for invalid input #1437. Thanks to Zhongxin Yan, Madhur Lathi, Yudan Liu, Gary Gregory.
+o LANG-1720: Improve Javadocs for Conversion. Thanks to Sheung Chi Chan, Arthur Chan, Gary Gregory, Elliotte Rusty Harold.
+o            Fix CalendarUtils.toLocalDate() Javadoc return type description #1440. Thanks to mayuming.
+o            Fix the method name in Javadoc examples for CharUtils.isHex() #1444. Thanks to mayuming.
+o            Deprecate NumberUtils.compare(byte, byte) in favor of Byte.compare(byte, byte). Thanks to Gary Gregory.
+o            Deprecate NumberUtils.compare(int, int) in favor of Integer.compare(int, int). Thanks to Gary Gregory.
+o            Deprecate NumberUtils.compare(long, long) in favor of Long.compare(long, long). Thanks to Gary Gregory.
+o            Deprecate NumberUtils.compare(short, short) in favor of Short.compare(short, short). Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.AWT_TOOLKIT. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_AWT_FONTS. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_AWT_GRAPHICSENV. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_AWT_HEADLESS. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_AWT_PRINTERJOB. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_COMPILER. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_ENDORSED_DIRS. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_EXT_DIRS. Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getAwtToolkit() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaAwtFonts() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaAwtGraphicsenv() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaAwtHeadless() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaAwtPrinterjob() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaCompiler() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaEndorsedDirs() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaExtDirs() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemUtils.isJavaAwtHeadless() Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_FONTS. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_GRAPHICSENV. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_HEADLESS. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_PRINTERJOB. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_COMPILER. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_ENDORSED_DIRS. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_EXT_DIRS. Thanks to Gary Gregory.
+o            [javadoc] General improvements. Thanks to Gary Gregory.
+o            [javadoc] Fix thrown exception documentation for MethodUtils.getMethodObject(Class<?>, String, Class<?>...). Thanks to Gary Gregory.
+o            [javadoc] Strings::equalsAny: CI doc string should show it's insensitive #1416. Thanks to Scott Parish.
+o            [javadoc] General Javadoc improvements. Thanks to Gary Gregory.
+o LANG-1780: [javadoc] Fix Strings Javadoc #1419. Thanks to tza.
+o            [javadoc] Fix typo in Javadoc of Strings instances #1406. Thanks to Sebastian Steiner.
+o            [javadoc] Fix Javadocs in ClassUtils #1410. Thanks to Hassan A Hashim.
+o            [javadoc] Fix @deprecated link for StringUtils#startsWithAny #1424. Thanks to mfg92.
+o            Replace old feather logotype with new oak logotype. Thanks to Gary Gregory.
+
+Changes:
+o            [test] Bump org.apache.commons:commons-text from 1.13.1 to 1.14.0. Thanks to Gary Gregory.
+o            Bump org.apache.commons:commons-parent from 85 to 88. Thanks to Gary Gregory.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+Apache Commons Team
+
+-----------------------------------------------------------------------------
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
 Apache Commons Lang 3.18.0 Release Notes
 ----------------------------------------
 

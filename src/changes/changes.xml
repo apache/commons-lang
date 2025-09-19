@@ -44,7 +44,7 @@ The <action> type attribute can be add,update,fix,remove.
     <title>Apache Commons Lang Release Notes</title>
   </properties>
   <body>
-  <release version="3.19.0" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
+  <release version="3.19.0" date="2025-09-19" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
     <action issue="LANG-1778" type="fix" dev="ggregory" due-to="wuwu2000">MethodUtils.getMatchingMethod() doesn't respect the hierarchy of methods #1414.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">MethodUtils.getMethodObject(Class&lt;?&gt;, String, Class&lt;?&gt;...) now returns null instead of throwing a NullPointerException, as it does for other exception types.</action>
