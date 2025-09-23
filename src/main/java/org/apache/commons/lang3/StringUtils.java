@@ -1522,7 +1522,7 @@ public class StringUtils {
      *
      * @param <T>        the specific kind of CharSequence.
      * @param str        the CharSequence to check, may be null.
-     * @param defaultStr the default CharSequence to return if {@code str} is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code""}) or
+     * @param defaultStr the default CharSequence to return if {@code str} is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or
      *                   {@code null}); may be null.
      * @return the passed in CharSequence, or the default.
      * @see StringUtils#defaultString(String, String)
@@ -1832,7 +1832,7 @@ public class StringUtils {
      * @return {@code true} if the string is equal (case-insensitive) to any other element of {@code searchStrings};
      * {@code false} if {@code searchStrings} is null or contains no matches.
      * @since 3.5
-     * @deprecated Use {@link Strings#equalsAny(CharSequence, CharSequence...) Strings.CI-.equalsAny(CharSequence, CharSequence...)}
+     * @deprecated Use {@link Strings#equalsAny(CharSequence, CharSequence...) Strings.CI.equalsAny(CharSequence, CharSequence...)}
      */
     @Deprecated
     public static boolean equalsAnyIgnoreCase(final CharSequence string, final CharSequence... searchStrings) {
@@ -3129,7 +3129,7 @@ public class StringUtils {
         }
         for (final CharSequence cs : css) {
             if (isNotBlank(cs)) {
-               return false;
+                return false;
             }
         }
         return true;
@@ -3608,7 +3608,7 @@ public class StringUtils {
      * @since 3.2
      */
     public static boolean isNoneBlank(final CharSequence... css) {
-      return !isAnyBlank(css);
+        return !isAnyBlank(css);
     }
 
     /**
@@ -3632,7 +3632,7 @@ public class StringUtils {
      * @since 3.2
      */
     public static boolean isNoneEmpty(final CharSequence... css) {
-      return !isAnyEmpty(css);
+        return !isAnyEmpty(css);
     }
 
     /**
@@ -5751,7 +5751,7 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#removeAll(String, String)}
      */
     @Deprecated
     public static String removeAll(final String text, final String regex) {
@@ -5803,8 +5803,8 @@ public class StringUtils {
      * StringUtils.removeEndIgnoreCase("www.domain.com", ".com")   = "www.domain"
      * StringUtils.removeEndIgnoreCase("www.domain.com", "domain") = "www.domain.com"
      * StringUtils.removeEndIgnoreCase("abc", "")    = "abc"
-     * StringUtils.removeEndIgnoreCase("www.domain.com", ".COM") = "www.domain")
-     * StringUtils.removeEndIgnoreCase("www.domain.COM", ".com") = "www.domain")
+     * StringUtils.removeEndIgnoreCase("www.domain.com", ".COM") = "www.domain"
+     * StringUtils.removeEndIgnoreCase("www.domain.COM", ".com") = "www.domain"
      * </pre>
      *
      * @param str    the source String to search, may be null.
@@ -5858,7 +5858,7 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#replaceFirst(String, String, String) RegExUtils.replaceFirst(String, String, EMPTY)}
      */
     @Deprecated
     public static String removeFirst(final String text, final String regex) {
@@ -5923,7 +5923,7 @@ public class StringUtils {
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#removePattern(CharSequence, String)}
      */
     @Deprecated
     public static String removePattern(final String source, final String regex) {
@@ -6233,7 +6233,7 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#replaceAll(String, String, String)}
      */
     @Deprecated
     public static String replaceAll(final String text, final String regex, final String replacement) {
@@ -6594,7 +6594,7 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#replaceFirst(String, String, String)}
      */
     @Deprecated
     public static String replaceFirst(final String text, final String regex, final String replacement) {
@@ -6766,7 +6766,7 @@ public class StringUtils {
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#replacePattern(CharSequence, String, String)}
      */
     @Deprecated
     public static String replacePattern(final String source, final String regex, final String replacement) {
@@ -6825,7 +6825,7 @@ public class StringUtils {
      * Gets the rightmost {@code len} characters of a String.
      *
      * <p>
-     * If {@code len} characters are not available, or the String is {@code null}, the String will be returned without an an exception. An empty String is
+     * If {@code len} characters are not available, or the String is {@code null}, the String will be returned without an exception. An empty String is
      * returned if len is negative.
      * </p>
      *
