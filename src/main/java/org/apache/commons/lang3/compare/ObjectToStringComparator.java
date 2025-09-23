@@ -53,7 +53,7 @@ public final class ObjectToStringComparator implements Comparator<Object>, Seria
 
     @Override
     public int compare(final Object o1, final Object o2) {
-        if (o1 == null && o2 == null) {
+        if (o1 == o2) {
             return 0;
         }
         if (o1 == null) {
