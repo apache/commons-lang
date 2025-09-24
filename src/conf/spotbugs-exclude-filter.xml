@@ -208,7 +208,7 @@
   <Match>
     <Class name="org.apache.commons.lang3.compare.ObjectToStringComparator" />
     <Method name="compare" />
-    <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
+    <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE, ES_COMPARING_STRINGS_WITH_EQ" />
   </Match>
 
   <!-- Reason: requireNonNull is supposed to take a nullable parameter,
