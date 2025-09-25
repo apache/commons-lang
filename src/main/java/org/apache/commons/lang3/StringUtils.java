@@ -460,7 +460,7 @@ public class StringUtils {
      * @param suffixes Additional suffixes that are valid terminators.
      * @return A new String if suffix was appended, the same string otherwise.
      * @since 3.2
-     * @deprecated Use {@link Strings#appendIfMissing(String, CharSequence, CharSequence...) Strings.CS.appendIfMissing(String, CharSequence, CharSequence...)}
+     * @deprecated Use {@link Strings#appendIfMissing(String, CharSequence, CharSequence...) Strings.CS.appendIfMissing(String, CharSequence, CharSequence...)}.
      */
     @Deprecated
     public static String appendIfMissing(final String str, final CharSequence suffix, final CharSequence... suffixes) {
@@ -498,7 +498,7 @@ public class StringUtils {
      * @param suffixes Additional suffixes that are valid terminators.
      * @return A new String if suffix was appended, the same string otherwise.
      * @since 3.2
-     * @deprecated Use {@link Strings#appendIfMissing(String, CharSequence, CharSequence...) Strings.CI.appendIfMissing(String, CharSequence, CharSequence...)}
+     * @deprecated Use {@link Strings#appendIfMissing(String, CharSequence, CharSequence...) Strings.CI.appendIfMissing(String, CharSequence, CharSequence...)}.
      */
     @Deprecated
     public static String appendIfMissingIgnoreCase(final String str, final CharSequence suffix, final CharSequence... suffixes) {
@@ -804,7 +804,7 @@ public class StringUtils {
      * @see #compare(String, String, boolean)
      * @see String#compareTo(String)
      * @since 3.5
-     * @deprecated Use {@link Strings#compare(String, String) Strings.CS.compare(String, String)}
+     * @deprecated Use {@link Strings#compare(String, String) Strings.CS.compare(String, String)}.
      */
     @Deprecated
     public static int compare(final String str1, final String str2) {
@@ -903,7 +903,7 @@ public class StringUtils {
      * @see #compareIgnoreCase(String, String, boolean)
      * @see String#compareToIgnoreCase(String)
      * @since 3.5
-     * @deprecated Use {@link Strings#compare(String, String) Strings.CI.compare(String, String)}
+     * @deprecated Use {@link Strings#compare(String, String) Strings.CI.compare(String, String)}.
      */
     @Deprecated
     public static int compareIgnoreCase(final String str1, final String str2) {
@@ -986,7 +986,7 @@ public class StringUtils {
      *  false if not or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from contains(String, String) to contains(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#contains(CharSequence, CharSequence) Strings.CS.contains(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#contains(CharSequence, CharSequence) Strings.CS.contains(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static boolean contains(final CharSequence seq, final CharSequence searchSeq) {
@@ -1121,7 +1121,7 @@ public class StringUtils {
      *        null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise.
      * @since 3.4
-     * @deprecated Use {@link Strings#containsAny(CharSequence, CharSequence...) Strings.CS.containsAny(CharSequence, CharSequence...)}
+     * @deprecated Use {@link Strings#containsAny(CharSequence, CharSequence...) Strings.CS.containsAny(CharSequence, CharSequence...)}.
      */
     @Deprecated
     public static boolean containsAny(final CharSequence cs, final CharSequence... searchCharSequences) {
@@ -1153,7 +1153,7 @@ public class StringUtils {
      *        null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      * @since 3.12.0
-     * @deprecated Use {@link Strings#containsAny(CharSequence, CharSequence...) Strings.CI.containsAny(CharSequence, CharSequence...)}
+     * @deprecated Use {@link Strings#containsAny(CharSequence, CharSequence...) Strings.CI.containsAny(CharSequence, CharSequence...)}.
      */
     @Deprecated
     public static boolean containsAnyIgnoreCase(final CharSequence cs, final CharSequence... searchCharSequences) {
@@ -1182,7 +1182,7 @@ public class StringUtils {
      * @param searchStr the CharSequence to find, may be null.
      * @return true if the CharSequence contains the search CharSequence irrespective of case or false if not or {@code null} string input.
      * @since 3.0 Changed signature from containsIgnoreCase(String, String) to containsIgnoreCase(CharSequence, CharSequence).
-     * @deprecated Use {@link Strings#contains(CharSequence, CharSequence) Strings.CI.contains(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#contains(CharSequence, CharSequence) Strings.CI.contains(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static boolean containsIgnoreCase(final CharSequence str, final CharSequence searchStr) {
@@ -1594,7 +1594,7 @@ public class StringUtils {
      * @return the passed in String, or the default if it was {@code null}.
      * @see Objects#toString(Object, String)
      * @see String#valueOf(Object)
-     * @deprecated Use {@link Objects#toString(Object, String)}
+     * @deprecated Use {@link Objects#toString(Object, String)}.
      */
     @Deprecated
     public static String defaultString(final String str, final String nullDefault) {
@@ -1698,7 +1698,7 @@ public class StringUtils {
      * @see String#endsWith(String)
      * @since 2.4
      * @since 3.0 Changed signature from endsWith(String, String) to endsWith(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#endsWith(CharSequence, CharSequence) Strings.CS.endsWith(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#endsWith(CharSequence, CharSequence) Strings.CS.endsWith(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static boolean endsWith(final CharSequence str, final CharSequence suffix) {
@@ -1725,7 +1725,7 @@ public class StringUtils {
      *         of the provided case-sensitive {@code searchStrings}.
      * @see StringUtils#endsWith(CharSequence, CharSequence)
      * @since 3.0
-     * @deprecated Use {@link Strings#endsWithAny(CharSequence, CharSequence...) Strings.CS.endsWithAny(CharSequence, CharSequence...)}
+     * @deprecated Use {@link Strings#endsWithAny(CharSequence, CharSequence...) Strings.CS.endsWithAny(CharSequence, CharSequence...)}.
      */
     @Deprecated
     public static boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
@@ -1754,7 +1754,7 @@ public class StringUtils {
      * @see String#endsWith(String)
      * @since 2.4
      * @since 3.0 Changed signature from endsWithIgnoreCase(String, String) to endsWithIgnoreCase(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#endsWith(CharSequence, CharSequence) Strings.CI.endsWith(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#endsWith(CharSequence, CharSequence) Strings.CI.endsWith(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static boolean endsWithIgnoreCase(final CharSequence str, final CharSequence suffix) {
@@ -1782,7 +1782,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from equals(String, String) to equals(CharSequence, CharSequence)
      * @see Object#equals(Object)
      * @see #equalsIgnoreCase(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#equals(CharSequence, CharSequence) Strings.CS.equals(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#equals(CharSequence, CharSequence) Strings.CS.equals(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static boolean equals(final CharSequence cs1, final CharSequence cs2) {
@@ -1807,7 +1807,7 @@ public class StringUtils {
      * @return {@code true} if the string is equal (case-sensitive) to any other element of {@code searchStrings}; {@code false} if {@code searchStrings} is
      *         null or contains no matches.
      * @since 3.5
-     * @deprecated Use {@link Strings#equalsAny(CharSequence, CharSequence...) Strings.CS.equalsAny(CharSequence, CharSequence...)}
+     * @deprecated Use {@link Strings#equalsAny(CharSequence, CharSequence...) Strings.CS.equalsAny(CharSequence, CharSequence...)}.
      */
     @Deprecated
     public static boolean equalsAny(final CharSequence string, final CharSequence... searchStrings) {
@@ -1832,7 +1832,7 @@ public class StringUtils {
      * @return {@code true} if the string is equal (case-insensitive) to any other element of {@code searchStrings};
      * {@code false} if {@code searchStrings} is null or contains no matches.
      * @since 3.5
-     * @deprecated Use {@link Strings#equalsAny(CharSequence, CharSequence...) Strings.CI.equalsAny(CharSequence, CharSequence...)}
+     * @deprecated Use {@link Strings#equalsAny(CharSequence, CharSequence...) Strings.CI.equalsAny(CharSequence, CharSequence...)}.
      */
     @Deprecated
     public static boolean equalsAnyIgnoreCase(final CharSequence string, final CharSequence... searchStrings) {
@@ -1859,7 +1859,7 @@ public class StringUtils {
      * @return {@code true} if the CharSequences are equal (case-insensitive), or both {@code null}.
      * @since 3.0 Changed signature from equalsIgnoreCase(String, String) to equalsIgnoreCase(CharSequence, CharSequence)
      * @see #equals(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#equals(CharSequence, CharSequence) Strings.CI.equals(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#equals(CharSequence, CharSequence) Strings.CI.equals(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static boolean equalsIgnoreCase(final CharSequence cs1, final CharSequence cs2) {
@@ -2081,7 +2081,7 @@ public class StringUtils {
      * @since 3.4
      * @deprecated As of 3.6, use Apache Commons Text
      *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/FuzzyScore.html">
-     *             FuzzyScore</a> instead
+     *             FuzzyScore</a> instead.
      */
     @Deprecated
     public static int getFuzzyDistance(final CharSequence term, final CharSequence query, final Locale locale) {
@@ -2228,7 +2228,7 @@ public class StringUtils {
      * @since 3.3
      * @deprecated As of 3.6, use Apache Commons Text
      *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/JaroWinklerDistance.html">
-     *             JaroWinklerDistance</a> instead
+     *             JaroWinklerDistance</a> instead.
      */
     @Deprecated
     public static double getJaroWinklerDistance(final CharSequence first, final CharSequence second) {
@@ -2375,7 +2375,7 @@ public class StringUtils {
      * @throws IllegalArgumentException if either String input {@code null} or negative threshold.
      * @deprecated As of 3.6, use Apache Commons Text
      *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
-     *             LevenshteinDistance</a> instead
+     *             LevenshteinDistance</a> instead.
      */
     @Deprecated
     public static int getLevenshteinDistance(CharSequence s, CharSequence t, final int threshold) {
@@ -2535,7 +2535,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence, -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, String) to indexOf(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence) Strings.CS.indexOf(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence) Strings.CS.indexOf(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq) {
@@ -2571,7 +2571,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, String, int) to indexOf(CharSequence, CharSequence, int)
-     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence, int) Strings.CS.indexOf(CharSequence, CharSequence, int)}
+     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence, int) Strings.CS.indexOf(CharSequence, CharSequence, int)}.
      */
     @Deprecated
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
@@ -3058,7 +3058,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence, -1 if no match or {@code null} string input.
      * @since 2.5
      * @since 3.0 Changed signature from indexOfIgnoreCase(String, String) to indexOfIgnoreCase(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence) Strings.CI.indexOf(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence) Strings.CI.indexOf(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
@@ -3093,7 +3093,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input.
      * @since 2.5
      * @since 3.0 Changed signature from indexOfIgnoreCase(String, String, int) to indexOfIgnoreCase(CharSequence, CharSequence, int)
-     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence, int) Strings.CI.indexOf(CharSequence, CharSequence, int)}
+     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence, int) Strings.CI.indexOf(CharSequence, CharSequence, int)}.
      */
     @Deprecated
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, final int startPos) {
@@ -4751,7 +4751,7 @@ public class StringUtils {
      * @return the last index of the search String, -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, String) to lastIndexOf(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence) Strings.CS.lastIndexOf(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence) Strings.CS.lastIndexOf(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq) {
@@ -4788,7 +4788,7 @@ public class StringUtils {
      * @return the last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, String, int) to lastIndexOf(CharSequence, CharSequence, int)
-     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence, int) Strings.CS.lastIndexOf(CharSequence, CharSequence, int)}
+     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence, int) Strings.CS.lastIndexOf(CharSequence, CharSequence, int)}.
      */
     @Deprecated
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
@@ -4953,7 +4953,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence, -1 if no match or {@code null} string input.
      * @since 2.5
      * @since 3.0 Changed signature from lastIndexOfIgnoreCase(String, String) to lastIndexOfIgnoreCase(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence) Strings.CI.lastIndexOf(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence) Strings.CI.lastIndexOf(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static int lastIndexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
@@ -4987,7 +4987,7 @@ public class StringUtils {
      * @return the last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} input.
      * @since 2.5
      * @since 3.0 Changed signature from lastIndexOfIgnoreCase(String, String, int) to lastIndexOfIgnoreCase(CharSequence, CharSequence, int)
-     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence, int) Strings.CI.lastIndexOf(CharSequence, CharSequence, int)}
+     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence, int) Strings.CI.lastIndexOf(CharSequence, CharSequence, int)}.
      */
     @Deprecated
     public static int lastIndexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, final int startPos) {
@@ -5602,7 +5602,7 @@ public class StringUtils {
      * @return A new String if prefix was prepended, the same string otherwise.
      * @since 3.2
      * @deprecated Use {@link Strings#prependIfMissing(String, CharSequence, CharSequence...) Strings.CS.prependIfMissing(String, CharSequence,
-     *             CharSequence...)}
+     *             CharSequence...)}.
      */
     @Deprecated
     public static String prependIfMissing(final String str, final CharSequence prefix, final CharSequence... prefixes) {
@@ -5643,7 +5643,7 @@ public class StringUtils {
      * @return A new String if prefix was prepended, the same string otherwise.
      * @since 3.2
      * @deprecated Use {@link Strings#prependIfMissing(String, CharSequence, CharSequence...) Strings.CI.prependIfMissing(String, CharSequence,
-     *             CharSequence...)}
+     *             CharSequence...)}.
      */
     @Deprecated
     public static String prependIfMissingIgnoreCase(final String str, final CharSequence prefix, final CharSequence... prefixes) {
@@ -5704,7 +5704,7 @@ public class StringUtils {
      * @param remove the String to search for and remove, may be null.
      * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 2.1
-     * @deprecated Use {@link Strings#remove(String, String) Strings.CS.remove(String, String)}
+     * @deprecated Use {@link Strings#remove(String, String) Strings.CS.remove(String, String)}.
      */
     @Deprecated
     public static String remove(final String str, final String remove) {
@@ -5751,7 +5751,7 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     * @deprecated Use {@link RegExUtils#removeAll(String, String)}
+     * @deprecated Use {@link RegExUtils#removeAll(String, String)}.
      */
     @Deprecated
     public static String removeAll(final String text, final String regex) {
@@ -5780,7 +5780,7 @@ public class StringUtils {
      * @param remove the String to search for and remove, may be null.
      * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 2.1
-     * @deprecated Use {@link Strings#removeEnd(String, CharSequence) Strings.CS.removeEnd(String, CharSequence)}
+     * @deprecated Use {@link Strings#removeEnd(String, CharSequence) Strings.CS.removeEnd(String, CharSequence)}.
      */
     @Deprecated
     public static String removeEnd(final String str, final String remove) {
@@ -5811,7 +5811,7 @@ public class StringUtils {
      * @param remove the String to search for (case-insensitive) and remove, may be null.
      * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 2.4
-     * @deprecated Use {@link Strings#removeEnd(String, CharSequence) Strings.CI.removeEnd(String, CharSequence)}
+     * @deprecated Use {@link Strings#removeEnd(String, CharSequence) Strings.CI.removeEnd(String, CharSequence)}.
      */
     @Deprecated
     public static String removeEndIgnoreCase(final String str, final String remove) {
@@ -5858,7 +5858,7 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     * @deprecated Use {@link RegExUtils#replaceFirst(String, String, String) RegExUtils.replaceFirst(String, String, EMPTY)}
+     * @deprecated Use {@link RegExUtils#replaceFirst(String, String, String) RegExUtils.replaceFirst(String, String, EMPTY)}.
      */
     @Deprecated
     public static String removeFirst(final String text, final String regex) {
@@ -5888,7 +5888,7 @@ public class StringUtils {
      * @param remove the String to search for (case-insensitive) and remove, may be null.
      * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 3.5
-     * @deprecated Use {@link Strings#remove(String, String) Strings.CI.remove(String, String)}
+     * @deprecated Use {@link Strings#remove(String, String) Strings.CI.remove(String, String)}.
      */
     @Deprecated
     public static String removeIgnoreCase(final String str, final String remove) {
@@ -5923,7 +5923,7 @@ public class StringUtils {
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     * @deprecated Use {@link RegExUtils#removePattern(CharSequence, String)}
+     * @deprecated Use {@link RegExUtils#removePattern(CharSequence, String)}.
      */
     @Deprecated
     public static String removePattern(final String source, final String regex) {
@@ -5981,7 +5981,7 @@ public class StringUtils {
      * @param remove the String to search for and remove, may be null.
      * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 2.1
-     * @deprecated Use {@link Strings#removeStart(String, CharSequence) Strings.CS.removeStart(String, CharSequence)}
+     * @deprecated Use {@link Strings#removeStart(String, CharSequence) Strings.CS.removeStart(String, CharSequence)}.
      */
     @Deprecated
     public static String removeStart(final String str, final String remove) {
@@ -6011,7 +6011,7 @@ public class StringUtils {
      * @param remove the String to search for (case-insensitive) and remove, may be null.
      * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 2.4
-     * @deprecated Use {@link Strings#removeStart(String, CharSequence) Strings.CI.removeStart(String, CharSequence)}
+     * @deprecated Use {@link Strings#removeStart(String, CharSequence) Strings.CI.removeStart(String, CharSequence)}.
      */
     @Deprecated
     public static String removeStartIgnoreCase(final String str, final String remove) {
@@ -6148,7 +6148,7 @@ public class StringUtils {
      * @param replacement  the String to replace it with, may be null.
      * @return the text with any replacements processed, {@code null} if null String input.
      * @see #replace(String text, String searchString, String replacement, int max)
-     * @deprecated Use {@link Strings#replace(String, String, String) Strings.CS.replace(String, String, String)}
+     * @deprecated Use {@link Strings#replace(String, String, String) Strings.CS.replace(String, String, String)}.
      */
     @Deprecated
     public static String replace(final String text, final String searchString, final String replacement) {
@@ -6182,7 +6182,7 @@ public class StringUtils {
      * @param replacement  the String to replace it with, may be null.
      * @param max          maximum number of values to replace, or {@code -1} if no maximum.
      * @return the text with any replacements processed, {@code null} if null String input.
-     * @deprecated Use {@link Strings#replace(String, String, String, int) Strings.CS.replace(String, String, String, int)}
+     * @deprecated Use {@link Strings#replace(String, String, String, int) Strings.CS.replace(String, String, String, int)}.
      */
     @Deprecated
     public static String replace(final String text, final String searchString, final String replacement, final int max) {
@@ -6233,7 +6233,7 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     * @deprecated Use {@link RegExUtils#replaceAll(String, String, String)}
+     * @deprecated Use {@link RegExUtils#replaceAll(String, String, String)}.
      */
     @Deprecated
     public static String replaceAll(final String text, final String regex, final String replacement) {
@@ -6594,7 +6594,7 @@ public class StringUtils {
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     * @deprecated Use {@link RegExUtils#replaceFirst(String, String, String)}
+     * @deprecated Use {@link RegExUtils#replaceFirst(String, String, String)}.
      */
     @Deprecated
     public static String replaceFirst(final String text, final String regex, final String replacement) {
@@ -6625,7 +6625,7 @@ public class StringUtils {
      * @return the text with any replacements processed, {@code null} if null String input.
      * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
      * @since 3.5
-     * @deprecated Use {@link Strings#replace(String, String, String) Strings.CI.replace(String, String, String)}
+     * @deprecated Use {@link Strings#replace(String, String, String) Strings.CI.replace(String, String, String)}.
      */
     @Deprecated
     public static String replaceIgnoreCase(final String text, final String searchString, final String replacement) {
@@ -6660,7 +6660,7 @@ public class StringUtils {
      * @param max          maximum number of values to replace, or {@code -1} if no maximum.
      * @return the text with any replacements processed, {@code null} if null String input.
      * @since 3.5
-     * @deprecated Use {@link Strings#replace(String, String, String, int) Strings.CI.replace(String, String, String, int)}
+     * @deprecated Use {@link Strings#replace(String, String, String, int) Strings.CI.replace(String, String, String, int)}.
      */
     @Deprecated
     public static String replaceIgnoreCase(final String text, final String searchString, final String replacement, final int max) {
@@ -6690,7 +6690,7 @@ public class StringUtils {
      * @param replacement  the String to replace with, may be null.
      * @return the text with any replacements processed, {@code null} if null String input.
      * @see #replace(String text, String searchString, String replacement, int max)
-     * @deprecated Use {@link Strings#replaceOnce(String, String, String) Strings.CS.replaceOnce(String, String, String)}
+     * @deprecated Use {@link Strings#replaceOnce(String, String, String) Strings.CS.replaceOnce(String, String, String)}.
      */
     @Deprecated
     public static String replaceOnce(final String text, final String searchString, final String replacement) {
@@ -6722,7 +6722,7 @@ public class StringUtils {
      * @return the text with any replacements processed, {@code null} if null String input.
      * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
      * @since 3.5
-     * @deprecated Use {@link Strings#replaceOnce(String, String, String) Strings.CI.replaceOnce(String, String, String)}
+     * @deprecated Use {@link Strings#replaceOnce(String, String, String) Strings.CI.replaceOnce(String, String, String)}.
      */
     @Deprecated
     public static String replaceOnceIgnoreCase(final String text, final String searchString, final String replacement) {
@@ -6766,7 +6766,7 @@ public class StringUtils {
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     * @deprecated Use {@link RegExUtils#replacePattern(CharSequence, String, String)}
+     * @deprecated Use {@link RegExUtils#replacePattern(CharSequence, String, String)}.
      */
     @Deprecated
     public static String replacePattern(final String source, final String regex, final String replacement) {
@@ -8689,7 +8689,7 @@ public class StringUtils {
      * @param charsetName the encoding to use, if null then use the platform default.
      * @return a new String.
      * @throws NullPointerException if the input is null.
-     * @deprecated use {@link StringUtils#toEncodedString(byte[], Charset)} instead of String constants in your code
+     * @deprecated use {@link StringUtils#toEncodedString(byte[], Charset)} instead of String constants in your code.
      * @since 3.1
      */
     @Deprecated
