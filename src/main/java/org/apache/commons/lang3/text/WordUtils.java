@@ -54,8 +54,8 @@ public class WordUtils {
      * WordUtils.capitalize("i am FINE") = "I Am FINE"
      * </pre>
      *
-     * @param str  the String to capitalize, may be null
-     * @return capitalized String, {@code null} if null String input
+     * @param str  the String to capitalize, may be null.
+     * @return capitalized String, {@code null} if null String input.
      * @see #uncapitalize(String)
      * @see #capitalizeFully(String)
      */
@@ -85,9 +85,9 @@ public class WordUtils {
      * WordUtils.capitalize("i aM.fine", {'.'}) = "I aM.Fine"
      * </pre>
      *
-     * @param str  the String to capitalize, may be null
-     * @param delimiters  set of characters to determine capitalization, null means whitespace
-     * @return capitalized String, {@code null} if null String input
+     * @param str  the String to capitalize, may be null.
+     * @param delimiters  set of characters to determine capitalization, null means whitespace.
+     * @return capitalized String, {@code null} if null String input.
      * @see #uncapitalize(String)
      * @see #capitalizeFully(String)
      * @since 2.1
@@ -127,8 +127,8 @@ public class WordUtils {
      * WordUtils.capitalizeFully("i am FINE") = "I Am Fine"
      * </pre>
      *
-     * @param str  the String to capitalize, may be null
-     * @return capitalized String, {@code null} if null String input
+     * @param str  the String to capitalize, may be null.
+     * @return capitalized String, {@code null} if null String input.
      */
     public static String capitalizeFully(final String str) {
         return capitalizeFully(str, null);
@@ -155,9 +155,9 @@ public class WordUtils {
      * WordUtils.capitalizeFully("i aM.fine", {'.'}) = "I am.Fine"
      * </pre>
      *
-     * @param str  the String to capitalize, may be null
-     * @param delimiters  set of characters to determine capitalization, null means whitespace
-     * @return capitalized String, {@code null} if null String input
+     * @param str  the String to capitalize, may be null.
+     * @param delimiters  set of characters to determine capitalization, null means whitespace.
+     * @return capitalized String, {@code null} if null String input.
      * @since 2.1
      */
     public static String capitalizeFully(final String str, final char... delimiters) {
@@ -185,9 +185,9 @@ public class WordUtils {
      * WordUtils.containsAllWords("abc def", "def", "abc") = true
      * </pre>
      *
-     * @param word The CharSequence to check, may be null
-     * @param words The array of String words to search for, may be null
-     * @return {@code true} if all search words are found, {@code false} otherwise
+     * @param word The CharSequence to check, may be null.
+     * @param words The array of String words to search for, may be null.
+     * @return {@code true} if all search words are found, {@code false} otherwise.
      * @since 3.5
      */
     public static boolean containsAllWords(final CharSequence word, final CharSequence... words) {
@@ -222,8 +222,8 @@ public class WordUtils {
      * WordUtils.initials("Ben J.Lee")      = "BJ"
      * </pre>
      *
-     * @param str  the String to get initials from, may be null
-     * @return String of initial letters, {@code null} if null String input
+     * @param str  the String to get initials from, may be null.
+     * @return String of initial letters, {@code null} if null String input.
      * @see #initials(String,char[])
      * @since 2.2
      */
@@ -251,9 +251,9 @@ public class WordUtils {
      * WordUtils.initials(*, new char[0])         = ""
      * </pre>
      *
-     * @param str  the String to get initials from, may be null
-     * @param delimiters  set of characters to determine words, null means whitespace
-     * @return String of initial characters, {@code null} if null String input
+     * @param str  the String to get initials from, may be null.
+     * @param delimiters  set of characters to determine words, null means whitespace.
+     * @return String of initial characters, {@code null} if null String input.
      * @see #initials(String)
      * @since 2.2
      */
@@ -285,9 +285,9 @@ public class WordUtils {
     /**
      * Tests if the character is a delimiter.
      *
-     * @param ch  the character to check
-     * @param delimiters  the delimiters
-     * @return true if it is a delimiter
+     * @param ch  the character to check.
+     * @param delimiters  the delimiters.
+     * @return true if it is a delimiter.
      */
     private static boolean isDelimiter(final char ch, final char[] delimiters) {
         return delimiters == null ? Character.isWhitespace(ch) : ArrayUtils.contains(delimiters, ch);
@@ -312,8 +312,8 @@ public class WordUtils {
      * StringUtils.swapCase("The dog has a BONE") = "tHE DOG HAS A bone"
      * </pre>
      *
-     * @param str  the String to swap case, may be null
-     * @return the changed String, {@code null} if null String input
+     * @param str  the String to swap case, may be null.
+     * @return A new String, {@code null} if null String input.
      */
     public static String swapCase(final String str) {
         if (StringUtils.isEmpty(str)) {
@@ -355,8 +355,8 @@ public class WordUtils {
      * WordUtils.uncapitalize("I Am FINE") = "i am fINE"
      * </pre>
      *
-     * @param str  the String to uncapitalize, may be null
-     * @return uncapitalized String, {@code null} if null String input
+     * @param str  the String to uncapitalize, may be null.
+     * @return uncapitalized String, {@code null} if null String input.
      * @see #capitalize(String)
      */
     public static String uncapitalize(final String str) {
@@ -382,9 +382,9 @@ public class WordUtils {
      * WordUtils.uncapitalize("I AM.FINE", {'.'}) = "i AM.fINE"
      * </pre>
      *
-     * @param str  the String to uncapitalize, may be null
-     * @param delimiters  set of characters to determine uncapitalization, null means whitespace
-     * @return uncapitalized String, {@code null} if null String input
+     * @param str  the String to uncapitalize, may be null.
+     * @param delimiters  set of characters to determine uncapitalization, null means whitespace.
+     * @return uncapitalized String, {@code null} if null String input.
      * @see #capitalize(String)
      * @since 2.1
      */
@@ -452,9 +452,9 @@ public class WordUtils {
      *
      * (assuming that '\n' is the systems line separator)
      *
-     * @param str  the String to be word wrapped, may be null
-     * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1
-     * @return a line with newlines inserted, {@code null} if null input
+     * @param str  the String to be word wrapped, may be null.
+     * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1.
+     * @return a line with newlines inserted, {@code null} if null input.
      */
     public static String wrap(final String str, final int wrapLength) {
         return wrap(str, wrapLength, null, false);
@@ -526,12 +526,12 @@ public class WordUtils {
      *  </tr>
      * </table>
      *
-     * @param str  the String to be word wrapped, may be null
-     * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1
+     * @param str  the String to be word wrapped, may be null.
+     * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1.
      * @param newLineStr  the string to insert for a new line,
-     *  {@code null} uses the system property line separator
-     * @param wrapLongWords  true if long words (such as URLs) should be wrapped
-     * @return a line with newlines inserted, {@code null} if null input
+     *  {@code null} uses the system property line separator.
+     * @param wrapLongWords  true if long words (such as URLs) should be wrapped.
+     * @return a line with newlines inserted, {@code null} if null input.
      */
     public static String wrap(final String str, final int wrapLength, final String newLineStr, final boolean wrapLongWords) {
         return wrap(str, wrapLength, newLineStr, wrapLongWords, " ");
@@ -618,14 +618,14 @@ public class WordUtils {
      *   <td>"flammable\ninflammable"</td>
      *  </tr>
      * </table>
-     * @param str  the String to be word wrapped, may be null
-     * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1
+     * @param str  the String to be word wrapped, may be null.
+     * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1.
      * @param newLineStr  the string to insert for a new line,
-     *  {@code null} uses the system property line separator
-     * @param wrapLongWords  true if long words (such as URLs) should be wrapped
+     *  {@code null} uses the system property line separator.
+     * @param wrapLongWords  true if long words (such as URLs) should be wrapped.
      * @param wrapOn regex expression to be used as a breakable characters,
-     *               if blank string is provided a space character will be used
-     * @return a line with newlines inserted, {@code null} if null input
+     *               if blank string is provided a space character will be used.
+     * @return a line with newlines inserted, {@code null} if null input.
      */
     public static String wrap(final String str, int wrapLength, String newLineStr, final boolean wrapLongWords, String wrapOn) {
         if (str == null) {

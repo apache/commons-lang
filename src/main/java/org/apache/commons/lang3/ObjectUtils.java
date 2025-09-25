@@ -820,7 +820,7 @@ public class ObjectUtils {
      * @param object  the object to create a toString for.
      * @since 3.2
      * @deprecated as of 3.6, because StrBuilder was moved to commons-text,
-     *  use one of the other {@code identityToString} methods instead
+     *  use one of the other {@code identityToString} methods instead.
      */
     @Deprecated
     public static void identityToString(final StrBuilder builder, final Object object) {

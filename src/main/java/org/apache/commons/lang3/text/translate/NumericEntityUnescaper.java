@@ -80,7 +80,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      *
      * Note that the default behavior is to ignore them.
      *
-     * @param options to apply to this unescaper
+     * @param options to apply to this unescaper.
      */
     public NumericEntityUnescaper(final OPTION... options) {
         if (options.length > 0) {
@@ -93,8 +93,8 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
     /**
      * Tests whether the passed in option is currently set.
      *
-     * @param option to check state of
-     * @return whether the option is set
+     * @param option to check state of.
+     * @return whether the option is set.
      */
     public boolean isSet(final OPTION option) {
         return options != null && options.contains(option);

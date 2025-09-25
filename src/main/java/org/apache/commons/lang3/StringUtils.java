@@ -799,8 +799,8 @@ public class StringUtils {
      * }</pre>
      *
      * @param str1 the String to compare from.
-     * @param str2 the String to compare to
-     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal or greater than {@code str2}
+     * @param str2 the String to compare to.
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal or greater than {@code str2}.
      * @see #compare(String, String, boolean)
      * @see String#compareTo(String)
      * @since 3.5
@@ -2283,7 +2283,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to getLevenshteinDistance(CharSequence, CharSequence)
      * @deprecated As of 3.6, use Apache Commons Text
      *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
-     *             LevenshteinDistance</a> instead
+     *             LevenshteinDistance</a> instead.
      */
     @Deprecated
     public static int getLevenshteinDistance(CharSequence s, CharSequence t) {
@@ -7709,7 +7709,7 @@ public class StringUtils {
      * @see String#startsWith(String)
      * @since 2.4
      * @since 3.0 Changed signature from startsWith(String, String) to startsWith(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#startsWith(CharSequence, CharSequence) Strings.CS.startsWith(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#startsWith(CharSequence, CharSequence) Strings.CS.startsWith(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static boolean startsWith(final CharSequence str, final CharSequence prefix) {
@@ -7737,7 +7737,7 @@ public class StringUtils {
      * @see StringUtils#startsWith(CharSequence, CharSequence)
      * @since 2.5
      * @since 3.0 Changed signature from startsWithAny(String, String[]) to startsWithAny(CharSequence, CharSequence...)
-     * @deprecated Use {@link Strings#startsWithAny(CharSequence, CharSequence...) Strings.CS.startsWithAny(CharSequence, CharSequence...)}
+     * @deprecated Use {@link Strings#startsWithAny(CharSequence, CharSequence...) Strings.CS.startsWithAny(CharSequence, CharSequence...)}.
      */
     @Deprecated
     public static boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
@@ -7765,7 +7765,7 @@ public class StringUtils {
      * @see String#startsWith(String)
      * @since 2.4
      * @since 3.0 Changed signature from startsWithIgnoreCase(String, String) to startsWithIgnoreCase(CharSequence, CharSequence)
-     * @deprecated Use {@link Strings#startsWith(CharSequence, CharSequence) Strings.CI.startsWith(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#startsWith(CharSequence, CharSequence) Strings.CI.startsWith(CharSequence, CharSequence)}.
      */
     @Deprecated
     public static boolean startsWithIgnoreCase(final CharSequence str, final CharSequence prefix) {

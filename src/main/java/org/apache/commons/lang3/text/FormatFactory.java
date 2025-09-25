@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3.text;
 
 import java.text.Format;
@@ -24,8 +25,7 @@ import java.util.Locale;
  *
  * @since 2.4
  * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/FormatFactory.html">
- * FormatFactory</a>.
+ *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/FormatFactory.html"> FormatFactory</a>.
  */
 @Deprecated
 public interface FormatFactory {
@@ -33,13 +33,11 @@ public interface FormatFactory {
     /**
      * Create or retrieve a format instance.
      *
-     * @param name The format type name
-     * @param arguments Arguments used to create the format instance. This allows the
-     *                  {@link FormatFactory} to implement the "format style"
-     *                  concept from {@link java.text.MessageFormat}.
-     * @param locale The locale, may be null
-     * @return The format instance
+     * @param name      The format type name.
+     * @param arguments Arguments used to create the format instance. This allows the {@link FormatFactory} to implement the "format style" concept from
+     *                  {@link java.text.MessageFormat}.
+     * @param locale    The locale, may be null.
+     * @return The format instance.
      */
     Format getFormat(String name, String arguments, Locale locale);
-
 }
