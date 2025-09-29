@@ -2025,11 +2025,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param arrayEnd the new array end text.
      */
-    protected void setArrayEnd(String arrayEnd) {
-        if (arrayEnd == null) {
-            arrayEnd = StringUtils.EMPTY;
-        }
-        this.arrayEnd = arrayEnd;
+    protected void setArrayEnd(final String arrayEnd) {
+        this.arrayEnd = ObjectUtils.toString(arrayEnd);
     }
 
     /**
@@ -2041,11 +2038,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param arraySeparator the new array separator text.
      */
-    protected void setArraySeparator(String arraySeparator) {
-        if (arraySeparator == null) {
-            arraySeparator = StringUtils.EMPTY;
-        }
-        this.arraySeparator = arraySeparator;
+    protected void setArraySeparator(final String arraySeparator) {
+        this.arraySeparator = ObjectUtils.toString(arraySeparator);
     }
 
     /**
@@ -2057,11 +2051,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param arrayStart the new array start text.
      */
-    protected void setArrayStart(String arrayStart) {
-        if (arrayStart == null) {
-            arrayStart = StringUtils.EMPTY;
-        }
-        this.arrayStart = arrayStart;
+    protected void setArrayStart(final String arrayStart) {
+        this.arrayStart = ObjectUtils.toString(arrayStart);
     }
 
     /**
@@ -2073,11 +2064,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param contentEnd the new content end text.
      */
-    protected void setContentEnd(String contentEnd) {
-        if (contentEnd == null) {
-            contentEnd = StringUtils.EMPTY;
-        }
-        this.contentEnd = contentEnd;
+    protected void setContentEnd(final String contentEnd) {
+        this.contentEnd = ObjectUtils.toString(contentEnd);
     }
 
     /**
@@ -2089,11 +2077,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param contentStart the new content start text.
      */
-    protected void setContentStart(String contentStart) {
-        if (contentStart == null) {
-            contentStart = StringUtils.EMPTY;
-        }
-        this.contentStart = contentStart;
+    protected void setContentStart(final String contentStart) {
+        this.contentStart = ObjectUtils.toString(contentStart);
     }
 
     /**
@@ -2114,11 +2099,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param fieldNameValueSeparator the new field name value separator text.
      */
-    protected void setFieldNameValueSeparator(String fieldNameValueSeparator) {
-        if (fieldNameValueSeparator == null) {
-            fieldNameValueSeparator = StringUtils.EMPTY;
-        }
-        this.fieldNameValueSeparator = fieldNameValueSeparator;
+    protected void setFieldNameValueSeparator(final String fieldNameValueSeparator) {
+        this.fieldNameValueSeparator = ObjectUtils.toString(fieldNameValueSeparator);
     }
 
     /**
@@ -2130,11 +2112,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param fieldSeparator the new field separator text.
      */
-    protected void setFieldSeparator(String fieldSeparator) {
-        if (fieldSeparator == null) {
-            fieldSeparator = StringUtils.EMPTY;
-        }
-        this.fieldSeparator = fieldSeparator;
+    protected void setFieldSeparator(final String fieldSeparator) {
+        this.fieldSeparator = ObjectUtils.toString(fieldSeparator);
     }
 
     /**
@@ -2166,11 +2145,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param nullText the new text to output when null found.
      */
-    protected void setNullText(String nullText) {
-        if (nullText == null) {
-            nullText = StringUtils.EMPTY;
-        }
-        this.nullText = nullText;
+    protected void setNullText(final String nullText) {
+        this.nullText = ObjectUtils.toString(nullText);
     }
 
     /**
@@ -2186,11 +2162,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param sizeEndText the new end of size text.
      */
-    protected void setSizeEndText(String sizeEndText) {
-        if (sizeEndText == null) {
-            sizeEndText = StringUtils.EMPTY;
-        }
-        this.sizeEndText = sizeEndText;
+    protected void setSizeEndText(final String sizeEndText) {
+        this.sizeEndText = ObjectUtils.toString(sizeEndText);
     }
 
     /**
@@ -2206,11 +2179,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param sizeStartText the new start of size text.
      */
-    protected void setSizeStartText(String sizeStartText) {
-        if (sizeStartText == null) {
-            sizeStartText = StringUtils.EMPTY;
-        }
-        this.sizeStartText = sizeStartText;
+    protected void setSizeStartText(final String sizeStartText) {
+        this.sizeStartText = ObjectUtils.toString(sizeStartText);
     }
 
     /**
@@ -2226,11 +2196,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param summaryObjectEndText the new end of summary text.
      */
-    protected void setSummaryObjectEndText(String summaryObjectEndText) {
-        if (summaryObjectEndText == null) {
-            summaryObjectEndText = StringUtils.EMPTY;
-        }
-        this.summaryObjectEndText = summaryObjectEndText;
+    protected void setSummaryObjectEndText(final String summaryObjectEndText) {
+        this.summaryObjectEndText = ObjectUtils.toString(summaryObjectEndText);
     }
 
     /**
@@ -2246,11 +2213,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @param summaryObjectStartText the new start of summary text.
      */
-    protected void setSummaryObjectStartText(String summaryObjectStartText) {
-        if (summaryObjectStartText == null) {
-            summaryObjectStartText = StringUtils.EMPTY;
-        }
-        this.summaryObjectStartText = summaryObjectStartText;
+    protected void setSummaryObjectStartText(final String summaryObjectStartText) {
+        this.summaryObjectStartText = ObjectUtils.toString(summaryObjectStartText);
     }
 
     /**
