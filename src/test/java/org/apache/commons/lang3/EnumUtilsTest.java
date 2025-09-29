@@ -457,6 +457,9 @@ class EnumUtilsTest extends AbstractLangTest {
         assertEquals(Traffic2.GREEN, EnumUtils.getFirstEnum(Traffic2.class, -1, f, Traffic2.GREEN));
         assertEquals(Traffic2.RED, EnumUtils.getFirstEnum(Traffic2.class, 0, f, Traffic2.RED));
         assertNull(EnumUtils.getFirstEnum(Traffic2.class, 7, f, null));
+        // Edge cases for 1st argument
+        assertEquals(Traffic2.AMBER, EnumUtils.getFirstEnum(null, 1, f, Traffic2.AMBER));
+        assertEquals(Traffic2.AMBER, EnumUtils.getFirstEnum((Class) String.class, 1, f, Traffic2.AMBER));
     }
 
     @Test
