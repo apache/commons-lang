@@ -45,7 +45,7 @@ public abstract class CharSequenceTranslator {
      * character.
      *
      * @param codePoint The code point to convert.
-     * @return An upper case hexadecimal {@link String}
+     * @return An upper case hexadecimal {@link String}.
      */
     public static String hex(final int codePoint) {
         return Integer.toHexString(codePoint).toUpperCase(Locale.ENGLISH);
@@ -60,8 +60,9 @@ public abstract class CharSequenceTranslator {
 
     /**
      * Helper for non-Writer usage.
-     * @param input CharSequence to be translated
-     * @return String output of translation
+     *
+     * @param input CharSequence to be translated.
+     * @return String output of translation.
      */
     public final String translate(final CharSequence input) {
         if (input == null) {
@@ -83,11 +84,11 @@ public abstract class CharSequenceTranslator {
      * and the only IOExceptions thrown must be from interacting with the Writer so that
      * the top level API may reliably ignore StringWriter IOExceptions.
      *
-     * @param input CharSequence that is being translated
-     * @param index int representing the current point of translation
-     * @param out Writer to translate the text to
-     * @return int count of code points consumed
-     * @throws IOException if and only if the Writer produces an IOException
+     * @param input CharSequence that is being translated.
+     * @param index int representing the current point of translation.
+     * @param out Writer to translate the text to.
+     * @return int count of code points consumed.
+     * @throws IOException if and only if the Writer produces an IOException.
      */
     public abstract int translate(CharSequence input, int index, Writer out) throws IOException;
 
@@ -95,9 +96,9 @@ public abstract class CharSequenceTranslator {
      * Translate an input onto a Writer. This is intentionally final as its algorithm is
      * tightly coupled with the abstract method of this class.
      *
-     * @param input CharSequence that is being translated
-     * @param writer Writer to translate the text to
-     * @throws IOException if and only if the Writer produces an IOException
+     * @param input CharSequence that is being translated.
+     * @param writer Writer to translate the text to.
+     * @throws IOException if and only if the Writer produces an IOException.
      */
     @SuppressWarnings("resource") // Caller closes writer
     public final void translate(final CharSequence input, final Writer writer) throws IOException {
@@ -136,8 +137,8 @@ public abstract class CharSequenceTranslator {
      * Helper method to create a merger of this translator with another set of
      * translators. Useful in customizing the standard functionality.
      *
-     * @param translators CharSequenceTranslator array of translators to merge with this one
-     * @return CharSequenceTranslator merging this translator with the others
+     * @param translators CharSequenceTranslator array of translators to merge with this one.
+     * @return CharSequenceTranslator merging this translator with the others.
      */
     public final CharSequenceTranslator with(final CharSequenceTranslator... translators) {
         final CharSequenceTranslator[] newArray = new CharSequenceTranslator[translators.length + 1];

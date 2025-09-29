@@ -572,8 +572,8 @@ public class SystemUtils {
      * </p>
      *
      * @see SystemProperties#getLineSeparator()
-     * @deprecated Use {@link System#lineSeparator()} instead, since it does not require a privilege check.
      * @since Java 1.1
+     * @deprecated Use {@link System#lineSeparator()} instead, since it does not require a privilege check.
      */
     @Deprecated
     public static final String LINE_SEPARATOR = SystemProperties.getLineSeparator();
@@ -638,9 +638,9 @@ public class SystemUtils {
      * </p>
      *
      * @see SystemProperties#getPathSeparator()
+     * @since Java 1.1
      * @deprecated Use {@link File#pathSeparator}, since it is guaranteed to be a string containing a single character and it does not require a privilege
      *             check.
-     * @since Java 1.1
      */
     @Deprecated
     public static final String PATH_SEPARATOR = SystemProperties.getPathSeparator();

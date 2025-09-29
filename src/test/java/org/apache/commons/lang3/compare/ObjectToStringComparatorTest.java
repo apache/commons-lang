@@ -19,6 +19,7 @@ package org.apache.commons.lang3.compare;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,12 +47,36 @@ class ObjectToStringComparatorTest extends AbstractLangTest {
     }
 
     @Test
-    void testNull() {
-        final List<Thing> things = Arrays.asList(null, new Thing("y"), null);
+    void testNulls() {
+        final Thing thing = new Thing("y");
+        final List<Thing> things = Arrays.asList(null, thing, null);
         things.sort(ObjectToStringComparator.INSTANCE);
         assertEquals("y", things.get(0).string);
+        assertEquals(3, things.size());
+        assertSame(thing, things.get(0));
         assertNull(things.get(1));
         assertNull(things.get(2));
+    }
+
+    @Test
+    void testNullLeft() {
+        final Thing thing = new Thing("y");
+        final List<Thing> things = Arrays.asList(null, thing);
+        things.sort(ObjectToStringComparator.INSTANCE);
+        assertEquals("y", things.get(0).string);
+        assertEquals(2, things.size());
+        assertSame(thing, things.get(0));
+        assertNull(things.get(1));
+    }
+
+    @Test
+    void testNullRight() {
+        final Thing thing = new Thing("y");
+        final List<Thing> things = Arrays.asList(thing, null);
+        things.sort(ObjectToStringComparator.INSTANCE);
+        assertEquals(2, things.size());
+        assertSame(thing, things.get(0));
+        assertNull(things.get(1));
     }
 
     @Test

@@ -75,7 +75,7 @@ public enum JavaVersion {
     /**
      * Java 1.9.
      *
-     * @deprecated As of release 3.5, replaced by {@link #JAVA_9}
+     * @deprecated As of release 3.5, replaced by {@link #JAVA_9}.
      */
     @Deprecated
     JAVA_1_9(9.0f, "9"),

@@ -46,8 +46,8 @@ public class OctalUnescaper extends CharSequenceTranslator {
 
     /**
      * Checks if the given char is the character representation of one of the digit from 0 to 3.
-     * @param ch the char to check
-     * @return true if the given char is the character representation of one of the digits from 0 to 3
+     * @param ch the char to check.
+     * @return true if the given char is the character representation of one of the digits from 0 to 3.
      */
     private boolean isZeroToThree(final char ch) {
         return ch >= '0' && ch <= '3';

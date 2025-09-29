@@ -250,16 +250,12 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Reads a {@link Field}, forcing access if needed.
      *
-     * @param field
-     *            the field to use
-     * @param target
-     *            the object to call on, may be {@code null} for {@code static} fields
-     * @return the field value
-     * @throws NullPointerException
-     *             if the field is {@code null}
-     * @throws IllegalAccessException
-     *             if the field is not made accessible
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @param field  the field to use.
+     * @param target the object to call on, may be {@code null} for {@code static} fields.
+     * @return the field value.
+     * @throws NullPointerException   if the field is {@code null}.
+     * @throws IllegalAccessException if the field is not made accessible.
+     * @throws SecurityException      if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     private Object readField(final Field field, final Object target) throws IllegalAccessException {
@@ -270,7 +266,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      * Sets the field names to exclude.
      *
      * @param excludeFieldNames The field names to exclude from the diff or {@code null}.
-     * @return {@code this}
+     * @return {@code this} instance.
      * @since 3.13.0
      * @deprecated Use {@link Builder#setExcludeFieldNames(String[])}.
      */

@@ -5437,7 +5437,7 @@ public class ArrayUtils {
      * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(boolean[], boolean)}
+     * @deprecated Use {@link #removeAllOccurrences(boolean[], boolean)}.
      */
     @Deprecated
     public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
@@ -5456,7 +5456,7 @@ public class ArrayUtils {
      * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(byte[], byte)}
+     * @deprecated Use {@link #removeAllOccurrences(byte[], byte)}.
      */
     @Deprecated
     public static byte[] removeAllOccurences(final byte[] array, final byte element) {
@@ -5475,7 +5475,7 @@ public class ArrayUtils {
      * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(char[], char)}
+     * @deprecated Use {@link #removeAllOccurrences(char[], char)}.
      */
     @Deprecated
     public static char[] removeAllOccurences(final char[] array, final char element) {
@@ -5494,7 +5494,7 @@ public class ArrayUtils {
      * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(double[], double)}
+     * @deprecated Use {@link #removeAllOccurrences(double[], double)}.
      */
     @Deprecated
     public static double[] removeAllOccurences(final double[] array, final double element) {
@@ -5513,7 +5513,7 @@ public class ArrayUtils {
      * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(float[], float)}
+     * @deprecated Use {@link #removeAllOccurrences(float[], float)}.
      */
     @Deprecated
     public static float[] removeAllOccurences(final float[] array, final float element) {
@@ -5532,7 +5532,7 @@ public class ArrayUtils {
      * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(int[], int)}
+     * @deprecated Use {@link #removeAllOccurrences(int[], int)}.
      */
     @Deprecated
     public static int[] removeAllOccurences(final int[] array, final int element) {
@@ -5551,7 +5551,7 @@ public class ArrayUtils {
      * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(long[], long)}
+     * @deprecated Use {@link #removeAllOccurrences(long[], long)}.
      */
     @Deprecated
     public static long[] removeAllOccurences(final long[] array, final long element) {
@@ -5570,7 +5570,7 @@ public class ArrayUtils {
      * @param element the element to remove.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(short[], short)}
+     * @deprecated Use {@link #removeAllOccurrences(short[], short)}.
      */
     @Deprecated
     public static short[] removeAllOccurences(final short[] array, final short element) {
@@ -5590,7 +5590,7 @@ public class ArrayUtils {
      * @param element the element to remove, may be {@code null}.
      * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(Object[], Object)}
+     * @deprecated Use {@link #removeAllOccurrences(Object[], Object)}.
      */
     @Deprecated
     public static <T> T[] removeAllOccurences(final T[] array, final T element) {
