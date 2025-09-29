@@ -44,7 +44,7 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  * constructs like:
  *
  * <pre>{@code
- * Consumer<java.lang.reflect.Method> consumer = m -&gt; {
+ * Consumer<java.lang.reflect.Method> consumer = m -> {
  *     try {
  *         m.invoke(o, args);
  *     } catch (Throwable t) {
@@ -59,9 +59,9 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  * FailableConsumer&lt;O,? extends Throwable&gt;}, this can be written like follows:
  * </p>
  *
- * <pre>
- * Functions.accept((m) -&gt; m.invoke(o, args));
- * </pre>
+ * <pre>{@code
+ * Functions.accept(m -> m.invoke(o, args));
+ * }</pre>
  *
  * <p>
  * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than the second

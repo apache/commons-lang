@@ -606,13 +606,13 @@ public class ObjectUtils {
      * is obtained, all following suppliers are not executed anymore. If all the return values are {@code null} or no suppliers are provided then {@code null}
      * is returned.
      *
-     * <pre>
-     * ObjectUtils.firstNonNullLazy(null, () -&gt; null) = null
-     * ObjectUtils.firstNonNullLazy(() -&gt; null, () -&gt; "") = ""
-     * ObjectUtils.firstNonNullLazy(() -&gt; "", () -&gt; throw new IllegalStateException()) = ""
-     * ObjectUtils.firstNonNullLazy(() -&gt; null, () -&gt; "zz) = "zz"
-     * ObjectUtils.firstNonNullLazy() = null
-     * </pre>
+     * <pre>{@code
+     * ObjectUtils.firstNonNullLazy(null, () -> null)                                  = null
+     * ObjectUtils.firstNonNullLazy(() -> null, () -> "")                              = ""
+     * ObjectUtils.firstNonNullLazy(() -> "", () -> throw new IllegalStateException()) = ""
+     * ObjectUtils.firstNonNullLazy(() -> null, () -> "zz)                             = "zz"
+     * ObjectUtils.firstNonNullLazy()                                                  = null
+     * }</pre>
      *
      * @param <T>       the type of the return values.
      * @param suppliers the suppliers returning the values to test. {@code null} values are ignored. Suppliers may return {@code null} or a value of type
@@ -633,14 +633,14 @@ public class ObjectUtils {
      * The caller responsible for thread-safety and exception handling of default value supplier.
      * </p>
      *
-     * <pre>
-     * ObjectUtils.getIfNull(null, () -&gt; null)     = null
-     * ObjectUtils.getIfNull(null, null)              = null
-     * ObjectUtils.getIfNull(null, () -&gt; "")       = ""
-     * ObjectUtils.getIfNull(null, () -&gt; "zz")     = "zz"
-     * ObjectUtils.getIfNull("abc", *)                = "abc"
-     * ObjectUtils.getIfNull(Boolean.TRUE, *)         = Boolean.TRUE
-     * </pre>
+     * <pre>{@code
+     * ObjectUtils.getIfNull(null, () -> null)     = null
+     * ObjectUtils.getIfNull(null, null)           = null
+     * ObjectUtils.getIfNull(null, () -> "")       = ""
+     * ObjectUtils.getIfNull(null, () -> "zz")     = "zz"
+     * ObjectUtils.getIfNull("abc", *)             = "abc"
+     * ObjectUtils.getIfNull(Boolean.TRUE, *)      = Boolean.TRUE
+     * }</pre>
      *
      * @param <T> the type of the object.
      * @param object the {@link Object} to test, may be {@code null}.
@@ -1249,16 +1249,16 @@ public class ObjectUtils {
      * Gets the {@code toString} of an {@link Supplier}'s {@link Supplier#get()} returning
      * a specified text if {@code null} input.
      *
-     * <pre>
-     * ObjectUtils.toString(() -&gt; obj, () -&gt; expensive())
+     * <pre>{@code
+     * ObjectUtils.toString(() -> obj, () -> expensive())
      * </pre>
      * <pre>
-     * ObjectUtils.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
-     * ObjectUtils.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
-     * ObjectUtils.toString(() -&gt; "", () -&gt; expensive())           = ""
-     * ObjectUtils.toString(() -&gt; "bat", () -&gt; expensive())        = "bat"
-     * ObjectUtils.toString(() -&gt; Boolean.TRUE, () -&gt; expensive()) = "true"
-     * </pre>
+     * ObjectUtils.toString(() -> null, () -> expensive())         = result of expensive()
+     * ObjectUtils.toString(() -> null, () -> expensive())         = result of expensive()
+     * ObjectUtils.toString(() -> "", () -> expensive())           = ""
+     * ObjectUtils.toString(() -> "bat", () -> expensive())        = "bat"
+     * ObjectUtils.toString(() -> Boolean.TRUE, () -> expensive()) = "true"
+     * }</pre>
      *
      * @param obj  the Object to {@code toString}, may be null.
      * @param supplier  the Supplier of String used on {@code null} input, may be null.
@@ -1273,16 +1273,16 @@ public class ObjectUtils {
      * Gets the {@code toString} of an {@link Object} returning
      * a specified text if {@code null} input.
      *
-     * <pre>
-     * ObjectUtils.toString(obj, () -&gt; expensive())
-     * </pre>
-     * <pre>
-     * ObjectUtils.toString(null, () -&gt; expensive())         = result of expensive()
-     * ObjectUtils.toString(null, () -&gt; expensive())         = result of expensive()
-     * ObjectUtils.toString("", () -&gt; expensive())           = ""
-     * ObjectUtils.toString("bat", () -&gt; expensive())        = "bat"
-     * ObjectUtils.toString(Boolean.TRUE, () -&gt; expensive()) = "true"
-     * </pre>
+     * <pre>{@code
+     * ObjectUtils.toString(obj, () -> expensive())
+     * }</pre>
+     * <pre>{@code
+     * ObjectUtils.toString(null, () -> expensive())         = result of expensive()
+     * ObjectUtils.toString(null, () -> expensive())         = result of expensive()
+     * ObjectUtils.toString("", () -> expensive())           = ""
+     * ObjectUtils.toString("bat", () -> expensive())        = "bat"
+     * ObjectUtils.toString(Boolean.TRUE, () -> expensive()) = "true"
+     * }</pre>
      *
      * @param <T> the obj type (used to provide better source compatibility in 3.14.0).
      * @param obj  the Object to {@code toString}, may be null.
