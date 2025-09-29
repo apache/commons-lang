@@ -1152,9 +1152,9 @@ public abstract class ToStringStyle implements Serializable {
      * @param object  the {@link Object} whose name to output
      */
     protected void appendClassName(final StringBuffer buffer, final Object object) {
-        if (useClassName && object != null) {
+        if (isUseClassName() && object != null) {
             register(object);
-            if (useShortClassName) {
+            if (isUseShortClassName()) {
                 buffer.append(getShortClassName(object.getClass()));
             } else {
                 buffer.append(object.getClass().getName());
@@ -1168,7 +1168,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param buffer  the {@link StringBuffer} to populate
      */
     protected void appendContentEnd(final StringBuffer buffer) {
-        buffer.append(contentEnd);
+        buffer.append(getContentEnd());
     }
 
     /**
@@ -1177,7 +1177,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param buffer  the {@link StringBuffer} to populate
      */
     protected void appendContentStart(final StringBuffer buffer) {
-        buffer.append(contentStart);
+        buffer.append(getContentStart());
     }
 
     /**
@@ -1218,14 +1218,14 @@ public abstract class ToStringStyle implements Serializable {
      *  not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final boolean[] array) {
-        buffer.append(arrayStart);
+        buffer.append(getArrayStart());
         for (int i = 0; i < array.length; i++) {
             if (i > 0) {
-                buffer.append(arraySeparator);
+                buffer.append(getArraySeparator());
             }
             appendDetail(buffer, fieldName, array[i]);
         }
-        buffer.append(arrayEnd);
+        buffer.append(getArrayEnd());
     }
 
     /**
@@ -1250,14 +1250,14 @@ public abstract class ToStringStyle implements Serializable {
      *  not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final byte[] array) {
-        buffer.append(arrayStart);
+        buffer.append(getArrayStart());
         for (int i = 0; i < array.length; i++) {
             if (i > 0) {
-                buffer.append(arraySeparator);
+                buffer.append(getArraySeparator());
             }
             appendDetail(buffer, fieldName, array[i]);
         }
-        buffer.append(arrayEnd);
+        buffer.append(getArrayEnd());
     }
 
     /**
@@ -1282,14 +1282,14 @@ public abstract class ToStringStyle implements Serializable {
      *  not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final char[] array) {
-        buffer.append(arrayStart);
+        buffer.append(getArrayStart());
         for (int i = 0; i < array.length; i++) {
             if (i > 0) {
-                buffer.append(arraySeparator);
+                buffer.append(getArraySeparator());
             }
             appendDetail(buffer, fieldName, array[i]);
         }
-        buffer.append(arrayEnd);
+        buffer.append(getArrayEnd());
     }
 
     /**
@@ -1326,14 +1326,14 @@ public abstract class ToStringStyle implements Serializable {
      *  not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final double[] array) {
-        buffer.append(arrayStart);
+        buffer.append(getArrayStart());
         for (int i = 0; i < array.length; i++) {
             if (i > 0) {
-                buffer.append(arraySeparator);
+                buffer.append(getArraySeparator());
             }
             appendDetail(buffer, fieldName, array[i]);
         }
-        buffer.append(arrayEnd);
+        buffer.append(getArrayEnd());
     }
 
     /**
@@ -1358,14 +1358,14 @@ public abstract class ToStringStyle implements Serializable {
      *  not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final float[] array) {
-        buffer.append(arrayStart);
+        buffer.append(getArrayStart());
         for (int i = 0; i < array.length; i++) {
             if (i > 0) {
-                buffer.append(arraySeparator);
+                buffer.append(getArraySeparator());
             }
             appendDetail(buffer, fieldName, array[i]);
         }
-        buffer.append(arrayEnd);
+        buffer.append(getArrayEnd());
     }
 
     /**
@@ -1392,12 +1392,12 @@ public abstract class ToStringStyle implements Serializable {
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final int i, final Object item) {
         if (i > 0) {
-            buffer.append(arraySeparator);
+            buffer.append(getArraySeparator());
         }
         if (item == null) {
             appendNullText(buffer, fieldName);
         } else {
-            appendInternal(buffer, fieldName, item, arrayContentDetail);
+            appendInternal(buffer, fieldName, item, isArrayContentDetail());
         }
     }
 
@@ -1411,14 +1411,14 @@ public abstract class ToStringStyle implements Serializable {
      *  not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final int[] array) {
-        buffer.append(arrayStart);
+        buffer.append(getArrayStart());
         for (int i = 0; i < array.length; i++) {
             if (i > 0) {
-                buffer.append(arraySeparator);
+                buffer.append(getArraySeparator());
             }
             appendDetail(buffer, fieldName, array[i]);
         }
-        buffer.append(arrayEnd);
+        buffer.append(getArrayEnd());
     }
 
     /**
@@ -1443,14 +1443,14 @@ public abstract class ToStringStyle implements Serializable {
      *  not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final long[] array) {
-        buffer.append(arrayStart);
+        buffer.append(getArrayStart());
         for (int i = 0; i < array.length; i++) {
             if (i > 0) {
-                buffer.append(arraySeparator);
+                buffer.append(getArraySeparator());
             }
             appendDetail(buffer, fieldName, array[i]);
         }
-        buffer.append(arrayEnd);
+        buffer.append(getArrayEnd());
     }
 
     /**
@@ -1488,11 +1488,11 @@ public abstract class ToStringStyle implements Serializable {
      *  not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Object[] array) {
-        buffer.append(arrayStart);
+        buffer.append(getArrayStart());
         for (int i = 0; i < array.length; i++) {
             appendDetail(buffer, fieldName, i, array[i]);
         }
-        buffer.append(arrayEnd);
+        buffer.append(getArrayEnd());
     }
 
     /**
@@ -1517,14 +1517,14 @@ public abstract class ToStringStyle implements Serializable {
      *  not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final short[] array) {
-        buffer.append(arrayStart);
+        buffer.append(getArrayStart());
         for (int i = 0; i < array.length; i++) {
             if (i > 0) {
-                buffer.append(arraySeparator);
+                buffer.append(getArraySeparator());
             }
             appendDetail(buffer, fieldName, array[i]);
         }
-        buffer.append(arrayEnd);
+        buffer.append(getArrayEnd());
     }
 
     /**
@@ -1535,7 +1535,7 @@ public abstract class ToStringStyle implements Serializable {
      *  {@code toString} for.
      */
     public void appendEnd(final StringBuffer buffer, final Object object) {
-        if (!this.fieldSeparatorAtEnd) {
+        if (!isFieldSeparatorAtEnd()) {
             removeLastFieldSeparator(buffer);
         }
         appendContentEnd(buffer);
@@ -1558,7 +1558,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param buffer  the {@link StringBuffer} to populate
      */
     protected void appendFieldSeparator(final StringBuffer buffer) {
-        buffer.append(fieldSeparator);
+        buffer.append(getFieldSeparator());
     }
 
     /**
@@ -1568,9 +1568,9 @@ public abstract class ToStringStyle implements Serializable {
      * @param fieldName  the field name
      */
     protected void appendFieldStart(final StringBuffer buffer, final String fieldName) {
-        if (useFieldNames && fieldName != null) {
+        if (isUseFieldNames() && fieldName != null) {
             buffer.append(fieldName);
-            buffer.append(fieldNameValueSeparator);
+            buffer.append(getFieldNameValueSeparator());
         }
     }
 
@@ -1713,7 +1713,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param fieldName  the field name, typically not used as already appended
      */
     protected void appendNullText(final StringBuffer buffer, final String fieldName) {
-        buffer.append(nullText);
+        buffer.append(getNullText());
     }
 
     /**
@@ -1727,7 +1727,7 @@ public abstract class ToStringStyle implements Serializable {
             appendClassName(buffer, object);
             appendIdentityHashCode(buffer, object);
             appendContentStart(buffer);
-            if (fieldSeparatorAtStart) {
+            if (isFieldSeparatorAtStart()) {
                 appendFieldSeparator(buffer);
             }
         }
@@ -1834,9 +1834,9 @@ public abstract class ToStringStyle implements Serializable {
      *  not {@code null}
      */
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final Object value) {
-        buffer.append(summaryObjectStartText);
+        buffer.append(getSummaryObjectStartText());
         buffer.append(getShortClassName(value.getClass()));
-        buffer.append(summaryObjectEndText);
+        buffer.append(getSummaryObjectEndText());
     }
 
     /**
@@ -1881,9 +1881,9 @@ public abstract class ToStringStyle implements Serializable {
      * @param size  the size to append
      */
     protected void appendSummarySize(final StringBuffer buffer, final String fieldName, final int size) {
-        buffer.append(sizeStartText);
+        buffer.append(getSizeStartText());
         buffer.append(size);
-        buffer.append(sizeEndText);
+        buffer.append(getSizeEndText());
     }
 
     /**
@@ -1912,10 +1912,10 @@ public abstract class ToStringStyle implements Serializable {
      */
     public void appendToString(final StringBuffer buffer, final String toString) {
         if (toString != null) {
-            final int pos1 = toString.indexOf(contentStart) + contentStart.length();
-            final int pos2 = toString.lastIndexOf(contentEnd);
+            final int pos1 = toString.indexOf(getContentStart()) + getContentStart().length();
+            final int pos2 = toString.lastIndexOf(getContentEnd());
             if (pos1 != pos2 && pos1 >= 0 && pos2 >= 0) {
-                if (fieldSeparatorAtStart) {
+                if (isFieldSeparatorAtStart()) {
                     removeLastFieldSeparator(buffer);
                 }
                 buffer.append(toString, pos1, pos2);
@@ -2114,7 +2114,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     protected boolean isFullDetail(final Boolean fullDetailRequest) {
         if (fullDetailRequest == null) {
-            return defaultFullDetail;
+            return isDefaultFullDetail();
         }
         return fullDetailRequest.booleanValue();
     }
@@ -2169,12 +2169,12 @@ public abstract class ToStringStyle implements Serializable {
      * @since 2.0
      */
     protected void reflectionAppendArrayDetail(final StringBuffer buffer, final String fieldName, final Object array) {
-        buffer.append(arrayStart);
+        buffer.append(getArrayStart());
         final int length = Array.getLength(array);
         for (int i = 0; i < length; i++) {
             appendDetail(buffer, fieldName, i, Array.get(array, i));
         }
-        buffer.append(arrayEnd);
+        buffer.append(getArrayEnd());
     }
 
     /**
@@ -2184,8 +2184,8 @@ public abstract class ToStringStyle implements Serializable {
      * @since 2.0
      */
     protected void removeLastFieldSeparator(final StringBuffer buffer) {
-        if (Strings.CS.endsWith(buffer, fieldSeparator)) {
-            buffer.setLength(buffer.length() - fieldSeparator.length());
+        if (Strings.CS.endsWith(buffer, getFieldSeparator())) {
+            buffer.setLength(buffer.length() - getFieldSeparator().length());
         }
     }
 
