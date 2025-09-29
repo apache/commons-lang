@@ -343,7 +343,7 @@ public class EnumUtils {
      * @since 3.18.0
      */
     public static <E extends Enum<E>> E getFirstEnum(final Class<E> enumClass, final int value, final ToIntFunction<E> toIntFunction, final E defaultEnum) {
-        if (isEnum(enumClass)) {
+        if (!isEnum(enumClass)) {
             return defaultEnum;
         }
         return stream(enumClass).filter(e -> value == toIntFunction.applyAsInt(e)).findFirst().orElse(defaultEnum);
@@ -372,7 +372,7 @@ public class EnumUtils {
     }
 
     private static <E extends Enum<E>> boolean isEnum(final Class<E> enumClass) {
-        return enumClass != null && !enumClass.isEnum();
+        return enumClass != null && enumClass.isEnum();
     }
 
     /**
