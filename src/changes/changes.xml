@@ -47,7 +47,8 @@ The <action> type attribute can be add,update,fix,remove.
   <release version="3.19.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Optimize ObjectToStringComparator.compare() method #1449.</action>
-    <action                   type="fix" dev="ggregory" due-to="Marcono1234 Gary Gregory">[javadoc] Improve StringUtils Javadoc #1450.</action>
+    <action                   type="fix" dev="ggregory" due-to="Marcono1234, Gary Gregory">[javadoc] Improve StringUtils Javadoc #1450.</action>
+    <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Fix internal inverted logic in private isEnum() method and correct its usage in getFirstEnum() #1454.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
