@@ -30,6 +30,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeSet;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -213,6 +215,67 @@ public class ObjectUtils {
      */
     public static boolean anyNull(final Object... values) {
         return !allNotNull(values);
+    }
+
+
+    /**
+     * Invokes the consumer on the given object if it is not {@code null}.
+     * <p>This method is intended as a replacement to common antipatterns, such as
+     * <ul>
+     *   <li>accessing a getter twice, just for the sake of null-checking
+     *   <pre>{@code
+     *     if (obj.getProperty() != null) {
+     *       consume(obj.getProperty());
+     *     }
+     *   }</pre>
+     *   </li>
+     *   <li>creating useless {@link Optional}s
+     *   <pre>{@code
+     *     Optional.ofNullable(obj.getProperty())
+     *       .ifPresent(c -> consume(c));
+     *   }</pre>
+     *   </li>
+     * </ul>
+     * </p>
+     * <pre>
+     *   ObjectUtils.ifNotNull(obj.getProperty(), prop -> doSomethingWith(prop));
+     * </pre>
+     *
+     * @param maybeNull the object to possibly consume
+     * @param consumer the {@link Consumer} to invoke if the object is not {@code null}
+     * @param <T> the type of the object to consume
+     * @see #ifNotNull(Object, Object, BiConsumer)
+     * @throws RuntimeException if the {@link Consumer} does
+     */
+    public static <T> void ifNotNull(final T maybeNull, final Consumer<T> consumer) {
+        if (maybeNull != null) {
+            consumer.accept(maybeNull);
+        }
+    }
+
+    /**
+     * Invokes the consumer on the given object if it is not {@code null}, passing a possible context
+     * as an argument (for performance reasons), to avoid generating capturing lambdas that can
+     * pollute the heap and causes pressure on the garbage collector.
+     * <p>
+     * A common use case can be to consume the current instance:
+     * <pre>
+     *   ObjectUtils.ifNotNull(obj.getProperty(), this, (prop, ctx) -> prop.setContext(ctx));
+     * </pre>
+     * </p>
+     *
+     * @param maybeNull  the object to possibly consume
+     * @param context    a context, to be consumed together with the object, may be {@code null}
+     * @param biConsumer a {@link BiConsumer} that accepts the object and the context
+     * @param <T>        the type of the object to consume
+     * @param <CTX>      the type of the context to consume
+     * @see #ifNotNull(Object, Consumer)
+     * @throws RuntimeException if the {@link BiConsumer} does
+     */
+    public static <T, CTX> void ifNotNull(final T maybeNull, final CTX context, final BiConsumer<T, CTX> biConsumer) {
+        if (maybeNull != null) {
+            biConsumer.accept(maybeNull, context);
+        }
     }
 
     /**
