@@ -52,6 +52,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Damien Carbonne, Gary Gregory, Rob Spoor">Use accessors in ToStringStyle so subclasses can effectively override them.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getPath(String, Supplier&lt;Path&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_25.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_25.</action>
     <!-- UPDATE -->
   </release>
   <release version="3.19.0" date="2025-09-19" description="This is a feature and maintenance release. Java 8 or later is required.">
