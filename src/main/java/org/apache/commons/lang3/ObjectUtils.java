@@ -30,10 +30,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeSet;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
+import org.apache.commons.lang3.function.Consumers;
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.stream.Streams;
@@ -50,6 +52,9 @@ import org.apache.commons.lang3.time.DurationUtils;
  * </p>
  *
  * <p>#ThreadSafe#</p>
+ *
+ * @see Consumers
+ * @see Suppliers
  * @since 1.0
  */
 //@Immutable
@@ -613,11 +618,16 @@ public class ObjectUtils {
      * ObjectUtils.firstNonNullLazy(() -> null, () -> "zz)                             = "zz"
      * ObjectUtils.firstNonNullLazy()                                                  = null
      * }</pre>
+     * <p>
+     * See also {@link Consumers#accept(Consumer, Object)} and {@link Suppliers#get(Supplier)}.
+     * </p>
      *
      * @param <T>       the type of the return values.
      * @param suppliers the suppliers returning the values to test. {@code null} values are ignored. Suppliers may return {@code null} or a value of type
      *                  {@code T}.
      * @return the first return value from {@code suppliers} which is not {@code null}, or {@code null} if there are no non-null values.
+     * @see Consumers#accept(Consumer, Object)
+     * @see Suppliers#get(Supplier)
      * @since 3.10
      */
     @SafeVarargs
@@ -641,12 +651,17 @@ public class ObjectUtils {
      * ObjectUtils.getIfNull("abc", *)             = "abc"
      * ObjectUtils.getIfNull(Boolean.TRUE, *)      = Boolean.TRUE
      * }</pre>
+     * <p>
+     * See also {@link Consumers#accept(Consumer, Object)} and {@link Suppliers#get(Supplier)}.
+     * </p>
      *
      * @param <T> the type of the object.
      * @param object the {@link Object} to test, may be {@code null}.
      * @param defaultSupplier the default value to return, may be {@code null}.
      * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise.
      * @see #getIfNull(Object, Object)
+     * @see Consumers#accept(Consumer, Object)
+     * @see Suppliers#get(Supplier)
      * @since 3.10
      */
     public static <T> T getIfNull(final T object, final Supplier<T> defaultSupplier) {
@@ -663,12 +678,17 @@ public class ObjectUtils {
      * ObjectUtils.getIfNull("abc", *)        = "abc"
      * ObjectUtils.getIfNull(Boolean.TRUE, *) = Boolean.TRUE
      * </pre>
+     * <p>
+     * See also {@link Consumers#accept(Consumer, Object)} and {@link Suppliers#get(Supplier)}.
+     * </p>
      *
      * @param <T> the type of the object.
      * @param object  the {@link Object} to test, may be {@code null}.
      * @param defaultValue  the default value to return, may be {@code null}.
      * @return {@code object} if it is not {@code null}, defaultValue otherwise.
      * @see #getIfNull(Object, Supplier)
+     * @see Consumers#accept(Consumer, Object)
+     * @see Suppliers#get(Supplier)
      * @since 3.18.0
      */
     public static <T> T getIfNull(final T object, final T defaultValue) {
