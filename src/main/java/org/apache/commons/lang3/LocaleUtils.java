@@ -133,7 +133,27 @@ public class LocaleUtils {
             return Collections.emptyList();
         }
         return cCountriesByLanguage.computeIfAbsent(languageCode, lc -> Collections.unmodifiableList(
-            availableLocaleList(locale -> languageCode.equals(locale.getLanguage()) && !locale.getCountry().isEmpty() && locale.getVariant().isEmpty())));
+            availableLocaleList(locale -> languageCode.equals(locale.getLanguage()) && !hasCountry(locale) && hasVariant(locale))));
+    }
+
+    /**
+     * Tests whether the given Locale defines a variant.
+     *
+     * @param locale The Locale to test.
+     * @return whether the given Locale defines a variant.
+     */
+    private static boolean hasCountry(final Locale locale) {
+        return locale.getCountry().isEmpty();
+    }
+
+    /**
+     * Tests whether the given Locale defines a country.
+     *
+     * @param locale The Locale to test.
+     * @return whether the given Locale defines a country.
+     */
+    private static boolean hasVariant(final Locale locale) {
+        return locale.getVariant().isEmpty();
     }
 
     /**
@@ -226,7 +246,7 @@ public class LocaleUtils {
             return Collections.emptyList();
         }
         return cLanguagesByCountry.computeIfAbsent(countryCode,
-            k -> Collections.unmodifiableList(availableLocaleList(locale -> countryCode.equals(locale.getCountry()) && locale.getVariant().isEmpty())));
+            k -> Collections.unmodifiableList(availableLocaleList(locale -> countryCode.equals(locale.getCountry()) && hasVariant(locale))));
     }
 
     /**
@@ -266,10 +286,10 @@ public class LocaleUtils {
         final List<Locale> list = new ArrayList<>(4);
         if (locale != null) {
             list.add(locale);
-            if (!locale.getVariant().isEmpty()) {
+            if (!hasVariant(locale)) {
                 list.add(new Locale(locale.getLanguage(), locale.getCountry()));
             }
-            if (!locale.getCountry().isEmpty()) {
+            if (!hasCountry(locale)) {
                 list.add(new Locale(locale.getLanguage(), StringUtils.EMPTY));
             }
             if (!list.contains(defaultLocale)) {
