@@ -33,10 +33,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArraySorter;
@@ -44,6 +41,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.compare.ObjectToStringComparator;
+import org.apache.commons.lang3.function.Objects;
 import org.apache.commons.lang3.reflect.testbed.Ambig;
 import org.apache.commons.lang3.reflect.testbed.Annotated;
 import org.apache.commons.lang3.reflect.testbed.AnotherParent;
@@ -117,6 +115,7 @@ class FieldUtilsTest extends AbstractLangTest {
         assertTrue(Modifier.isPublic(cons[0].getModifiers()));
         assertTrue(Modifier.isPublic(FieldUtils.class.getModifiers()));
         assertFalse(Modifier.isFinal(FieldUtils.class.getModifiers()));
+
     }
 
     @Test
@@ -141,6 +140,8 @@ class FieldUtilsTest extends AbstractLangTest {
         }
         assertEquals(expected, allFields.length, Arrays.toString(allFields));
     }
+
+
 
     @Test
     void testGetAllFieldsList() {
