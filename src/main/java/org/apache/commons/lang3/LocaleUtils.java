@@ -304,6 +304,19 @@ public class LocaleUtils {
     }
 
     /**
+     * Creates new {@linkplain Locale} for the given country.
+     *
+     * @param country An ISO 3166 alpha-2 country code or a UN M.49 numeric-3 area code. See the {@linkplain Locale} class description about valid country
+     *                values.
+     * @throws NullPointerException thrown if either argument is null.
+     * @return a new new Locale for the given country.
+     * @see Locale#Locale(String, String)
+     */
+    static Locale ofCountry(final String country) {
+        return new Locale(StringUtils.EMPTY, country);
+    }
+
+    /**
      * Tries to parse a Locale from the given String.
      * <p>
      * See {@link Locale} for the format.

@@ -517,8 +517,14 @@ class LocaleUtilsTest extends AbstractLangTest {
         assertEquals(Locale.getDefault(), LocaleUtils.toLocale(Locale.getDefault()));
     }
 
+    @ParameterizedTest
+    @MethodSource("java.util.Locale#getISOCountries")
+    void testToLocaleGetIso3Country(final String country) {
+        assertEquals(LocaleUtils.ofCountry(country).getISO3Country(), LocaleUtils.toLocale(country).getISO3Country());
+    }
+
     @Test
-    void testToLocaleGetIso3Country() {
+    void testToLocaleGetIso3CountryKnown() {
         assertEquals("USA", LocaleUtils.toLocale("US").getISO3Country());
         assertEquals("GBR", LocaleUtils.toLocale("GB").getISO3Country());
         assertEquals("PAK", LocaleUtils.toLocale("PK").getISO3Country());
@@ -528,12 +534,18 @@ class LocaleUtilsTest extends AbstractLangTest {
 
     @Test
     @DefaultLocale(country = "US", language = "en")
-    void testToLocaleGetIso3Language() {
+    void testToLocaleGetIso3LanguageKown() {
         assertEquals("United States", LocaleUtils.toLocale("US").getDisplayCountry());
         assertEquals("United Kingdom", LocaleUtils.toLocale("GB").getDisplayCountry());
         assertEquals("Pakistan", LocaleUtils.toLocale("PK").getDisplayCountry());
         assertEquals("India", LocaleUtils.toLocale("IN").getDisplayCountry());
         assertEquals("France", LocaleUtils.toLocale("FR").getDisplayCountry());
+    }
+
+    @ParameterizedTest
+    @MethodSource("java.util.Locale#getISOCountries")
+    void testToLocaleGetIso3LanguageKown(final String country) {
+        assertEquals(LocaleUtils.ofCountry(country).getDisplayCountry(), LocaleUtils.toLocale(country).getDisplayCountry());
     }
 
     /**
