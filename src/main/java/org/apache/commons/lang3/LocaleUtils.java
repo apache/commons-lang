@@ -36,12 +36,13 @@ import java.util.stream.Collectors;
  * An exception will not be thrown for a {@code null} input.
  * Each method documents its behavior in more detail.</p>
  *
+ * @see Locale
  * @since 2.2
  */
 public class LocaleUtils {
 
     /**
-     * Avoids synchronization, inits on demand.
+     * Avoids synchronization, initializes on demand.
      */
     private static final class SyncAvoid {
 
@@ -136,6 +137,26 @@ public class LocaleUtils {
     }
 
     /**
+     * Tests whether the given string is the length of an <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> alpha-2 country code.
+     *
+     * @param str The string to test.
+     * @return whether the given string is the length of an <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> alpha-2 country code.
+     */
+    private static boolean isAlpha2Len(final String str) {
+        return str.length() == 2;
+    }
+
+    /**
+     * Tests whether the given string is the length of an <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> alpha-3 country code.
+     *
+     * @param str The string to test.
+     * @return whether the given string is the length of an <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> alpha-3 country code.
+     */
+    private static boolean isAlpha3Len(final String str) {
+        return str.length() == 3;
+    }
+
+    /**
      * Checks if the locale specified is in the set of available locales.
      *
      * @param locale the Locale object to check if it is available
@@ -146,23 +167,23 @@ public class LocaleUtils {
     }
 
     /**
-     * Tests whether the given String is a ISO 3166 alpha-2 country code.
+     * Tests whether the given String is a <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> alpha-2 country code.
      *
      * @param str the String to check
-     * @return true, is the given String is a ISO 3166 compliant country code.
+     * @return true, is the given String is a <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> compliant country code.
      */
     private static boolean isISO3166CountryCode(final String str) {
-        return StringUtils.isAllUpperCase(str) && str.length() == 2;
+        return StringUtils.isAllUpperCase(str) && isAlpha2Len(str);
     }
 
     /**
-     * Tests whether the given String is a ISO 639 compliant language code.
+     * Tests whether the given String is a <a href="https://www.iso.org/iso-639-language-code">ISO 639</a> compliant language code.
      *
      * @param str the String to check.
-     * @return true, if the given String is a ISO 639 compliant language code.
+     * @return true, if the given String is a <a href="https://www.iso.org/iso-639-language-code">ISO 639</a> compliant language code.
      */
     private static boolean isISO639LanguageCode(final String str) {
-        return StringUtils.isAllLowerCase(str) && (str.length() == 2 || str.length() == 3);
+        return StringUtils.isAllLowerCase(str) && (isAlpha2Len(str) || isAlpha3Len(str));
     }
 
     /**
@@ -188,7 +209,7 @@ public class LocaleUtils {
      * @return true, is the given String is a UN M.49 numeric area code.
      */
     private static boolean isNumericAreaCode(final String str) {
-        return StringUtils.isNumeric(str) && str.length() == 3;
+        return StringUtils.isNumeric(str) && isAlpha3Len(str);
     }
 
     /**
