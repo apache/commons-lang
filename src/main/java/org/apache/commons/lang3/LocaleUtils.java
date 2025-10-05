@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3;
 
 import java.util.ArrayList;
@@ -32,9 +33,10 @@ import java.util.stream.Collectors;
 /**
  * Operations to assist when working with a {@link Locale}.
  *
- * <p>This class tries to handle {@code null} input gracefully.
- * An exception will not be thrown for a {@code null} input.
- * Each method documents its behavior in more detail.</p>
+ * <p>
+ * This class tries to handle {@code null} input gracefully. An exception will not be thrown for a {@code null} input. Each method documents its behavior in
+ * more detail.
+ * </p>
  *
  * @see Locale
  * @since 2.2
@@ -51,7 +53,6 @@ public class LocaleUtils {
 
         /** Private unmodifiable set of available locales. */
         private static final Set<Locale> AVAILABLE_LOCALE_USET;
-
         static {
             AVAILABLE_LOCALE_ULIST = Collections
                     .unmodifiableList(Arrays.asList(ArraySorter.sort(Locale.getAvailableLocales(), Comparator.comparing(Locale::toString))));
@@ -92,9 +93,10 @@ public class LocaleUtils {
     /**
      * Obtains an unmodifiable and sorted list of installed locales.
      *
-     * <p>This method is a wrapper around {@link Locale#getAvailableLocales()}.
-     * It is more efficient, as the JDK method must create a new array each
-     * time it is called.</p>
+     * <p>
+     * This method is a wrapper around {@link Locale#getAvailableLocales()}. It is more efficient, as the JDK method must create a new array each time it is
+     * called.
+     * </p>
      *
      * @return the unmodifiable and sorted list of available locales
      */
@@ -109,9 +111,10 @@ public class LocaleUtils {
     /**
      * Obtains an unmodifiable set of installed locales.
      *
-     * <p>This method is a wrapper around {@link Locale#getAvailableLocales()}.
-     * It is more efficient, as the JDK method must create a new array each
-     * time it is called.</p>
+     * <p>
+     * This method is a wrapper around {@link Locale#getAvailableLocales()}. It is more efficient, as the JDK method must create a new array each time it is
+     * called.
+     * </p>
      *
      * @return the unmodifiable set of available locales
      */
@@ -122,10 +125,11 @@ public class LocaleUtils {
     /**
      * Obtains the list of countries supported for a given language.
      *
-     * <p>This method takes a language code and searches to find the
-     * countries available for that language. Variant locales are removed.</p>
+     * <p>
+     * This method takes a language code and searches to find the countries available for that language. Variant locales are removed.
+     * </p>
      *
-     * @param languageCode  the 2 letter language code, null returns empty
+     * @param languageCode the 2 letter language code, null returns empty
      * @return an unmodifiable List of Locale objects, not null
      */
     public static List<Locale> countriesByLanguage(final String languageCode) {
@@ -235,10 +239,11 @@ public class LocaleUtils {
     /**
      * Obtains the list of languages supported for a given country.
      *
-     * <p>This method takes a country code and searches to find the
-     * languages available for that country. Variant locales are removed.</p>
+     * <p>
+     * This method takes a country code and searches to find the languages available for that country. Variant locales are removed.
+     * </p>
      *
-     * @param countryCode  the 2-letter country code, null returns empty
+     * @param countryCode the 2-letter country code, null returns empty
      * @return an unmodifiable List of Locale objects, not null
      */
     public static List<Locale> languagesByCountry(final String countryCode) {
@@ -250,15 +255,14 @@ public class LocaleUtils {
     }
 
     /**
-     * Obtains the list of locales to search through when performing
-     * a locale search.
+     * Obtains the list of locales to search through when performing a locale search.
      *
      * <pre>
      * localeLookupList(Locale("fr", "CA", "xxx"))
      *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr")]
      * </pre>
      *
-     * @param locale  the locale to start from
+     * @param locale the locale to start from
      * @return the unmodifiable list of Locale objects, 0 being locale, not null
      */
     public static List<Locale> localeLookupList(final Locale locale) {
@@ -266,20 +270,20 @@ public class LocaleUtils {
     }
 
     /**
-     * Obtains the list of locales to search through when performing
-     * a locale search.
+     * Obtains the list of locales to search through when performing a locale search.
      *
      * <pre>
      * localeLookupList(Locale("fr", "CA", "xxx"), Locale("en"))
      *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr"), Locale("en"]
      * </pre>
      *
-     * <p>The result list begins with the most specific locale, then the
-     * next more general and so on, finishing with the default locale.
-     * The list will never contain the same locale twice.</p>
+     * <p>
+     * The result list begins with the most specific locale, then the next more general and so on, finishing with the default locale. The list will never
+     * contain the same locale twice.
+     * </p>
      *
-     * @param locale  the locale to start from, null returns empty list
-     * @param defaultLocale  the default locale to use if no other is found
+     * @param locale        the locale to start from, null returns empty list
+     * @param defaultLocale the default locale to use if no other is found
      * @return the unmodifiable list of Locale objects, 0 being locale, not null
      */
     public static List<Locale> localeLookupList(final Locale locale, final Locale defaultLocale) {
@@ -347,8 +351,9 @@ public class LocaleUtils {
     /**
      * Converts a String to a Locale.
      *
-     * <p>This method takes the string format of a locale and creates the
-     * locale object from it.</p>
+     * <p>
+     * This method takes the string format of a locale and creates the locale object from it.
+     * </p>
      *
      * <pre>
      *   LocaleUtils.toLocale("")           = new Locale("", "")
@@ -359,18 +364,17 @@ public class LocaleUtils {
      *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
      * </pre>
      *
-     * <p>(#) The behavior of the JDK variant constructor changed between JDK1.3 and JDK1.4.
-     * In JDK1.3, the constructor upper cases the variant, in JDK1.4, it doesn't.
-     * Thus, the result from getVariant() may vary depending on your JDK.</p>
-     *
-     * <p>This method validates the input strictly.
-     * The language code must be lowercase.
-     * The country code must be uppercase.
-     * The separator must be an underscore or a dash.
-     * The length must be correct.
+     * <p>
+     * (#) The behavior of the JDK variant constructor changed between JDK1.3 and JDK1.4. In JDK1.3, the constructor upper cases the variant, in JDK1.4, it
+     * doesn't. Thus, the result from getVariant() may vary depending on your JDK.
      * </p>
      *
-     * @param str  the locale String to convert, null returns null
+     * <p>
+     * This method validates the input strictly. The language code must be lowercase. The country code must be uppercase. The separator must be an underscore or
+     * a dash. The length must be correct.
+     * </p>
+     *
+     * @param str the locale String to convert, null returns null
      * @return a Locale, null if null input
      * @throws IllegalArgumentException if the string is an invalid format
      * @see Locale#forLanguageTag(String)
@@ -415,11 +419,12 @@ public class LocaleUtils {
     }
 
     /**
-     * {@link LocaleUtils} instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code LocaleUtils.toLocale("en_GB");}.
+     * {@link LocaleUtils} instances should NOT be constructed in standard programming. Instead, the class should be used as
+     * {@code LocaleUtils.toLocale("en_GB");}.
      *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean instance to operate.
+     * </p>
      *
      * @deprecated TODO Make private in 4.0.
      */
@@ -427,5 +432,4 @@ public class LocaleUtils {
     public LocaleUtils() {
         // empty
     }
-
 }
