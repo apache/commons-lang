@@ -132,8 +132,8 @@ public class LocaleUtils {
         if (languageCode == null) {
             return Collections.emptyList();
         }
-        return cCountriesByLanguage.computeIfAbsent(languageCode, lc -> Collections.unmodifiableList(
-            availableLocaleList(locale -> languageCode.equals(locale.getLanguage()) && !hasCountry(locale) && hasVariant(locale))));
+        return cCountriesByLanguage.computeIfAbsent(languageCode, lc -> Collections
+                .unmodifiableList(availableLocaleList(locale -> languageCode.equals(locale.getLanguage()) && !hasCountry(locale) && hasVariant(locale))));
     }
 
     /**
@@ -246,7 +246,7 @@ public class LocaleUtils {
             return Collections.emptyList();
         }
         return cLanguagesByCountry.computeIfAbsent(countryCode,
-            k -> Collections.unmodifiableList(availableLocaleList(locale -> countryCode.equals(locale.getCountry()) && hasVariant(locale))));
+                k -> Collections.unmodifiableList(availableLocaleList(locale -> countryCode.equals(locale.getCountry()) && hasVariant(locale))));
     }
 
     /**
@@ -326,9 +326,7 @@ public class LocaleUtils {
         } else if (segments.length == limit) {
             final String country = segments[1];
             final String variant = segments[2];
-            if (isISO639LanguageCode(language) &&
-                    (country.isEmpty() || isISO3166CountryCode(country) || isNumericAreaCode(country)) &&
-                    !variant.isEmpty()) {
+            if (isISO639LanguageCode(language) && (country.isEmpty() || isISO3166CountryCode(country) || isNumericAreaCode(country)) && !variant.isEmpty()) {
                 return new Locale(language, country, variant);
             }
         }
@@ -413,7 +411,6 @@ public class LocaleUtils {
             }
             return new Locale(StringUtils.EMPTY, str.substring(1, 3), str.substring(4));
         }
-
         return parseLocale(str);
     }
 
