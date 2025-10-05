@@ -98,7 +98,7 @@ public class LocaleUtils {
      * called.
      * </p>
      *
-     * @return the unmodifiable and sorted list of available locales
+     * @return the unmodifiable and sorted list of available locales.
      */
     public static List<Locale> availableLocaleList() {
         return SyncAvoid.AVAILABLE_LOCALE_ULIST;
@@ -116,7 +116,7 @@ public class LocaleUtils {
      * called.
      * </p>
      *
-     * @return the unmodifiable set of available locales
+     * @return the unmodifiable set of available locales.
      */
     public static Set<Locale> availableLocaleSet() {
         return SyncAvoid.AVAILABLE_LOCALE_USET;
@@ -129,8 +129,8 @@ public class LocaleUtils {
      * This method takes a language code and searches to find the countries available for that language. Variant locales are removed.
      * </p>
      *
-     * @param languageCode the 2 letter language code, null returns empty
-     * @return an unmodifiable List of Locale objects, not null
+     * @param languageCode the 2 letter language code, null returns empty.
+     * @return an unmodifiable List of Locale objects, not null.
      */
     public static List<Locale> countriesByLanguage(final String languageCode) {
         if (languageCode == null) {
@@ -183,8 +183,8 @@ public class LocaleUtils {
     /**
      * Checks if the locale specified is in the set of available locales.
      *
-     * @param locale the Locale object to check if it is available
-     * @return true if the locale is a known locale
+     * @param locale the Locale object to check if it is available.
+     * @return true if the locale is a known locale.
      */
     public static boolean isAvailableLocale(final Locale locale) {
         return availableLocaleSet().contains(locale);
@@ -193,7 +193,7 @@ public class LocaleUtils {
     /**
      * Tests whether the given String is a <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> alpha-2 country code.
      *
-     * @param str the String to check
+     * @param str the String to check.
      * @return true, is the given String is a <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> compliant country code.
      */
     private static boolean isISO3166CountryCode(final String str) {
@@ -229,7 +229,7 @@ public class LocaleUtils {
     /**
      * TestsNo whether the given String is a UN M.49 numeric area code.
      *
-     * @param str the String to check
+     * @param str the String to check.
      * @return true, is the given String is a UN M.49 numeric area code.
      */
     private static boolean isNumericAreaCode(final String str) {
@@ -243,8 +243,8 @@ public class LocaleUtils {
      * This method takes a country code and searches to find the languages available for that country. Variant locales are removed.
      * </p>
      *
-     * @param countryCode the 2-letter country code, null returns empty
-     * @return an unmodifiable List of Locale objects, not null
+     * @param countryCode the 2-letter country code, null returns empty.
+     * @return an unmodifiable List of Locale objects, not null.
      */
     public static List<Locale> languagesByCountry(final String countryCode) {
         if (countryCode == null) {
@@ -262,8 +262,8 @@ public class LocaleUtils {
      *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr")]
      * </pre>
      *
-     * @param locale the locale to start from
-     * @return the unmodifiable list of Locale objects, 0 being locale, not null
+     * @param locale the locale to start from.
+     * @return the unmodifiable list of Locale objects, 0 being locale, not null.
      */
     public static List<Locale> localeLookupList(final Locale locale) {
         return localeLookupList(locale, locale);
@@ -282,9 +282,9 @@ public class LocaleUtils {
      * contain the same locale twice.
      * </p>
      *
-     * @param locale        the locale to start from, null returns empty list
-     * @param defaultLocale the default locale to use if no other is found
-     * @return the unmodifiable list of Locale objects, 0 being locale, not null
+     * @param locale        the locale to start from, null returns empty list.
+     * @param defaultLocale the default locale to use if no other is found.
+     * @return the unmodifiable list of Locale objects, 0 being locale, not null.
      */
     public static List<Locale> localeLookupList(final Locale locale, final Locale defaultLocale) {
         final List<Locale> list = new ArrayList<>(4);
@@ -365,6 +365,7 @@ public class LocaleUtils {
      *   LocaleUtils.toLocale("en-GB")      = new Locale("en", "GB")
      *   LocaleUtils.toLocale("en_001")     = new Locale("en", "001")
      *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
+     *   LocaleUtils.toLocale("US")         = new Locale("", "US") // Because "US" is Locale.getISOCountries()
      * </pre>
      *
      * <p>
@@ -377,10 +378,11 @@ public class LocaleUtils {
      * a dash. The length must be correct.
      * </p>
      *
-     * @param str the locale String to convert, null returns null
-     * @return a Locale, null if null input
-     * @throws IllegalArgumentException if the string is an invalid format
+     * @param str the locale String to convert, null returns null.
+     * @return a Locale, null if null input.
+     * @throws IllegalArgumentException if the string is an invalid format.
      * @see Locale#forLanguageTag(String)
+     * @see Locale#getISOCountries()
      */
     public static Locale toLocale(final String str) {
         if (str == null) {
