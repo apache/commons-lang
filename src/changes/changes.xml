@@ -50,6 +50,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Marcono1234, Gary Gregory">[javadoc] Improve StringUtils Javadoc #1450.</action>
     <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Fix internal inverted logic in private isEnum() method and correct its usage in getFirstEnum() #1454.</action>
     <action                   type="fix" dev="ggregory" due-to="William Degrange, Gary Gregory, Rob Spoor">Use accessors in ToStringStyle so subclasses can effectively override them.</action>
+    <action                   type="fix" dev="ggregory" due-to="aaaaaa, Gary Gregory">`LocaleUtils.toLocale(String)` for a 2 letter country code now returns a value instead of throwing an `IllegalArgumentException`.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getPath(String, Supplier&lt;Path&gt;).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_25.</action>

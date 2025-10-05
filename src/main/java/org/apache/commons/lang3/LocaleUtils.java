@@ -334,6 +334,9 @@ public class LocaleUtils {
                 return new Locale(language, country, variant);
             }
         }
+        if (ArrayUtils.contains(Locale.getISOCountries(), str)) {
+            return new Locale(StringUtils.EMPTY, str);
+        }
         throw new IllegalArgumentException("Invalid locale format: " + str);
     }
 

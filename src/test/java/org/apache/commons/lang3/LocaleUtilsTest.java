@@ -41,6 +41,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
  * Tests for {@link LocaleUtils}.
@@ -514,6 +515,25 @@ class LocaleUtilsTest extends AbstractLangTest {
         assertNull(LocaleUtils.toLocale((String) null));
         assertEquals(Locale.getDefault(), LocaleUtils.toLocale((Locale) null));
         assertEquals(Locale.getDefault(), LocaleUtils.toLocale(Locale.getDefault()));
+    }
+
+    @Test
+    void testToLocaleGetIso3Country() {
+        assertEquals("USA", LocaleUtils.toLocale("US").getISO3Country());
+        assertEquals("GBR", LocaleUtils.toLocale("GB").getISO3Country());
+        assertEquals("PAK", LocaleUtils.toLocale("PK").getISO3Country());
+        assertEquals("IND", LocaleUtils.toLocale("IN").getISO3Country());
+        assertEquals("FRA", LocaleUtils.toLocale("FR").getISO3Country());
+    }
+
+    @Test
+    @DefaultLocale(country = "US", language = "en")
+    void testToLocaleGetIso3Language() {
+        assertEquals("United States", LocaleUtils.toLocale("US").getDisplayCountry());
+        assertEquals("United Kingdom", LocaleUtils.toLocale("GB").getDisplayCountry());
+        assertEquals("Pakistan", LocaleUtils.toLocale("PK").getDisplayCountry());
+        assertEquals("India", LocaleUtils.toLocale("IN").getDisplayCountry());
+        assertEquals("France", LocaleUtils.toLocale("FR").getDisplayCountry());
     }
 
     /**
