@@ -17,14 +17,7 @@
 
 package org.apache.commons.lang3;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Predicate;
@@ -46,6 +39,298 @@ public class LocaleUtils {
     /**
      * Avoids synchronization, initializes on demand.
      */
+
+    private static final Map<String,String> ISO2_TO_NUMERIC;
+
+    static {
+        Map<String, String> numeric = new HashMap<>();
+        numeric.put("AF", "004");
+        numeric.put("AL", "008");
+        numeric.put("DZ", "012");
+        numeric.put("AS", "016");
+        numeric.put("AD", "020");
+        numeric.put("AO", "024");
+        numeric.put("AI", "660");
+        numeric.put("AQ", "010");
+        numeric.put("AG", "028");
+        numeric.put("AR", "032");
+        numeric.put("AM", "051");
+        numeric.put("AW", "533");
+        numeric.put("AU", "036");
+        numeric.put("AT", "040");
+        numeric.put("AZ", "031");
+        numeric.put("BS", "044");
+        numeric.put("BH", "048");
+        numeric.put("BD", "050");
+        numeric.put("BB", "052");
+        numeric.put("BY", "112");
+        numeric.put("BE", "056");
+        numeric.put("BZ", "084");
+        numeric.put("BJ", "204");
+        numeric.put("BM", "060");
+        numeric.put("BT", "064");
+        numeric.put("BO", "068");
+        numeric.put("BQ", "535");
+        numeric.put("BA", "070");
+        numeric.put("BW", "072");
+        numeric.put("BV", "074");
+        numeric.put("BR", "076");
+        numeric.put("IO", "086");
+        numeric.put("BN", "096");
+        numeric.put("BG", "100");
+        numeric.put("BF", "854");
+        numeric.put("BI", "108");
+        numeric.put("CV", "132");
+        numeric.put("KH", "116");
+        numeric.put("CM", "120");
+        numeric.put("CA", "124");
+        numeric.put("KY", "136");
+        numeric.put("CF", "140");
+        numeric.put("TD", "148");
+        numeric.put("CL", "152");
+        numeric.put("CN", "156");
+        numeric.put("CX", "162");
+        numeric.put("CC", "166");
+        numeric.put("CO", "170");
+        numeric.put("KM", "174");
+        numeric.put("CG", "178");
+        numeric.put("CD", "180");
+        numeric.put("CK", "184");
+        numeric.put("CR", "188");
+        numeric.put("CI", "384");
+        numeric.put("HR", "191");
+        numeric.put("CU", "192");
+        numeric.put("CW", "531");
+        numeric.put("CY", "196");
+        numeric.put("CZ", "203");
+        numeric.put("DK", "208");
+        numeric.put("DJ", "262");
+        numeric.put("DM", "212");
+        numeric.put("DO", "214");
+        numeric.put("EC", "218");
+        numeric.put("EG", "818");
+        numeric.put("SV", "222");
+        numeric.put("GQ", "226");
+        numeric.put("ER", "232");
+        numeric.put("EE", "233");
+        numeric.put("SZ", "748");
+        numeric.put("ET", "231");
+        numeric.put("FK", "238");
+        numeric.put("FO", "234");
+        numeric.put("FJ", "242");
+        numeric.put("FI", "246");
+        numeric.put("FR", "250");
+        numeric.put("GF", "254");
+        numeric.put("PF", "258");
+        numeric.put("TF", "260");
+        numeric.put("GA", "266");
+        numeric.put("GM", "270");
+        numeric.put("GE", "268");
+        numeric.put("DE", "276");
+        numeric.put("GH", "288");
+        numeric.put("GI", "292");
+        numeric.put("GR", "300");
+        numeric.put("GL", "304");
+        numeric.put("GD", "308");
+        numeric.put("GP", "312");
+        numeric.put("GU", "316");
+        numeric.put("GT", "320");
+        numeric.put("GG", "831");
+        numeric.put("GN", "324");
+        numeric.put("GW", "624");
+        numeric.put("GY", "328");
+        numeric.put("HT", "332");
+        numeric.put("HM", "334");
+        numeric.put("VA", "336");
+        numeric.put("HN", "340");
+        numeric.put("HK", "344");
+        numeric.put("HU", "348");
+        numeric.put("IS", "352");
+        numeric.put("IN", "356");
+        numeric.put("ID", "360");
+        numeric.put("IR", "364");
+        numeric.put("IQ", "368");
+        numeric.put("IE", "372");
+        numeric.put("IM", "833");
+        numeric.put("IL", "376");
+        numeric.put("IT", "380");
+        numeric.put("JM", "388");
+        numeric.put("JP", "392");
+        numeric.put("JE", "832");
+        numeric.put("JO", "400");
+        numeric.put("KZ", "398");
+        numeric.put("KE", "404");
+        numeric.put("KI", "296");
+        numeric.put("KP", "408");
+        numeric.put("KR", "410");
+        numeric.put("KW", "414");
+        numeric.put("KG", "417");
+        numeric.put("LA", "418");
+        numeric.put("LV", "428");
+        numeric.put("LB", "422");
+        numeric.put("LS", "426");
+        numeric.put("LR", "430");
+        numeric.put("LY", "434");
+        numeric.put("LI", "438");
+        numeric.put("LT", "440");
+        numeric.put("LU", "442");
+        numeric.put("MO", "446");
+        numeric.put("MG", "450");
+        numeric.put("MW", "454");
+        numeric.put("MY", "458");
+        numeric.put("MV", "462");
+        numeric.put("ML", "466");
+        numeric.put("MT", "470");
+        numeric.put("MH", "584");
+        numeric.put("MQ", "474");
+        numeric.put("MR", "478");
+        numeric.put("MU", "480");
+        numeric.put("YT", "175");
+        numeric.put("MX", "484");
+        numeric.put("FM", "583");
+        numeric.put("MD", "498");
+        numeric.put("MC", "492");
+        numeric.put("MN", "496");
+        numeric.put("ME", "499");
+        numeric.put("MS", "500");
+        numeric.put("MA", "504");
+        numeric.put("MZ", "508");
+        numeric.put("MM", "104");
+        numeric.put("NA", "516");
+        numeric.put("NR", "520");
+        numeric.put("NP", "524");
+        numeric.put("NL", "528");
+        numeric.put("NC", "540");
+        numeric.put("NZ", "554");
+        numeric.put("NI", "558");
+        numeric.put("NE", "562");
+        numeric.put("NG", "566");
+        numeric.put("NU", "570");
+        numeric.put("NF", "574");
+        numeric.put("MK", "807");
+        numeric.put("MP", "580");
+        numeric.put("NO", "578");
+        numeric.put("OM", "512");
+        numeric.put("PK", "586");
+        numeric.put("PW", "585");
+        numeric.put("PS", "275");
+        numeric.put("PA", "591");
+        numeric.put("PG", "598");
+        numeric.put("PY", "600");
+        numeric.put("PE", "604");
+        numeric.put("PH", "608");
+        numeric.put("PN", "612");
+        numeric.put("PL", "616");
+        numeric.put("PT", "620");
+        numeric.put("PR", "630");
+        numeric.put("QA", "634");
+
+        numeric.put("RE", "638");
+        numeric.put("RO", "642");
+        numeric.put("RU", "643");
+        numeric.put("RW", "646");
+        numeric.put("BL", "652");
+        numeric.put("SH", "654");
+        numeric.put("KN", "659");
+        numeric.put("LC", "662");
+        numeric.put("MF", "663");
+        numeric.put("PM", "666");
+        numeric.put("VC", "670");
+        numeric.put("WS", "882");
+        numeric.put("SM", "674");
+        numeric.put("ST", "678");
+        numeric.put("SA", "682");
+        numeric.put("SN", "686");
+        numeric.put("RS", "688");
+        numeric.put("SC", "690");
+        numeric.put("SL", "694");
+        numeric.put("SG", "702");
+        numeric.put("SX", "534");
+        numeric.put("SK", "703");
+        numeric.put("SI", "705");
+        numeric.put("ZW", "716");
+        numeric.put("SB", "090");
+        numeric.put("SO", "706");
+        numeric.put("ZA", "710");
+        numeric.put("GS", "239");
+        numeric.put("SS", "728");
+        numeric.put("ES", "724");
+        numeric.put("LK", "144");
+        numeric.put("SD", "729");
+        numeric.put("SR", "740");
+        numeric.put("SJ", "744");
+        numeric.put("SE", "752");
+        numeric.put("CH", "756");
+
+        numeric.put("SY", "760");
+        numeric.put("TW", "158");
+        numeric.put("TJ", "762");
+        numeric.put("TZ", "834");
+        numeric.put("TH", "764");
+        numeric.put("TL", "626");
+        numeric.put("TG", "768");
+        numeric.put("TK", "772");
+        numeric.put("TO", "776");
+        numeric.put("TT", "780");
+        numeric.put("TN", "788");
+        numeric.put("TR", "792");
+        numeric.put("TM", "795");
+        numeric.put("TC", "796");
+        numeric.put("TV", "798");
+        numeric.put("UG", "800");
+        numeric.put("UA", "804");
+        numeric.put("AE", "784");
+        numeric.put("GB", "826");
+        numeric.put("UM", "581");
+        numeric.put("US", "840");
+        numeric.put("UY", "858");
+        numeric.put("UZ", "860");
+        numeric.put("VU", "548");
+        numeric.put("VE", "862");
+        numeric.put("VN", "704");
+        numeric.put("VG", "092");
+        numeric.put("VI", "850");
+        numeric.put("WF", "876");
+        numeric.put("EH", "732");
+        numeric.put("YE", "887");
+        numeric.put("ZM", "894");
+        ISO2_TO_NUMERIC = Collections.unmodifiableMap(numeric);
+
+    }
+
+    /**
+     *
+     * This method performs a reverse lookup in the ISO2_TO_NUMERIC map to find the
+     * two-letter country code that corresponds to the given three-digit numeric code.
+     *
+     *
+     * @param numeric the three-digit numeric country code (e.g., "840" for US)
+     * @return the corresponding two-letter ISO country code (e.g., "US"), or null if not found
+     * */
+    public static  String numericToIso2(final String numeric) {
+        Objects.requireNonNull(numeric, "Numeric country code must not be null");
+        for (Map.Entry<String, String> entry : ISO2_TO_NUMERIC.entrySet()) {
+            if (entry.getValue().equals(numeric)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Converts a two-letter ISO country code to its corresponding three-digit numeric code.
+     *
+     * @param iso2 the two-letter ISO country code (e.g., "US")
+     * @return the corresponding three-digit numeric country code (e.g., "840"), or null if not found
+     */
+    public static String toNumeric(final String iso2) {
+        Objects.requireNonNull(iso2, "ISO2 country code must not be null");
+        return ISO2_TO_NUMERIC.getOrDefault(iso2,null);
+    }
+
+
+
+
     private static final class SyncAvoid {
 
         /** Private unmodifiable and sorted list of available locales. */
