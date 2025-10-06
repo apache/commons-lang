@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.Serializable;
@@ -122,7 +122,7 @@ class FastDatePrinterTest extends AbstractLangTest {
 
     @Test
     void test1806Argument() {
-        assertIllegalArgumentException(() -> getInstance("XXXX"));
+        assertThrows(IllegalArgumentException.class, () -> getInstance("XXXX"));
     }
 
     @Test

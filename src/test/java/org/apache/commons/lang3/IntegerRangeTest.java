@@ -17,13 +17,13 @@
 
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Comparator;
@@ -187,12 +187,12 @@ class IntegerRangeTest extends AbstractLangTest {
 
     @Test
     void testIntersectionWithNonOverlapping() {
-        assertIllegalArgumentException(() -> range1.intersectionWith(Range.of(0, 9)));
+        assertThrows(IllegalArgumentException.class, () -> range1.intersectionWith(Range.of(0, 9)));
     }
 
     @Test
     void testIntersectionWithNull() {
-        assertIllegalArgumentException(() -> range1.intersectionWith(null));
+        assertThrows(IllegalArgumentException.class, () -> range1.intersectionWith(null));
     }
 
     @Test

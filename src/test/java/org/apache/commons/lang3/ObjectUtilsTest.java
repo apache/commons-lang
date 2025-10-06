@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -311,7 +310,7 @@ class ObjectUtilsTest extends AbstractLangTest {
 
     @Test
     void testComparatorMedian_emptyItems() {
-        assertIllegalArgumentException(() -> ObjectUtils.median(new CharSequenceComparator()));
+        assertThrows(IllegalArgumentException.class, () -> ObjectUtils.median(new CharSequenceComparator()));
     }
 
     @Test
@@ -350,9 +349,11 @@ class ObjectUtilsTest extends AbstractLangTest {
 
     @Test
     void testConstMethods() {
+
         // To truly test the CONST() method, we'd want to look in the
         // bytecode to see if the literals were folded into the
         // class, or if the bytecode kept the method call.
+
         assertTrue(ObjectUtils.CONST(true), "CONST(boolean)");
         assertEquals((byte) 3, ObjectUtils.CONST((byte) 3), "CONST(byte)");
         assertEquals((char) 3, ObjectUtils.CONST((char) 3), "CONST(char)");
@@ -362,12 +363,13 @@ class ObjectUtilsTest extends AbstractLangTest {
         assertEquals(3f, ObjectUtils.CONST(3f), "CONST(float)");
         assertEquals(3.0, ObjectUtils.CONST(3.0), "CONST(double)");
         assertEquals("abc", ObjectUtils.CONST("abc"), "CONST(Object)");
+
         // Make sure documentation examples from Javadoc all work
         // (this fixed a lot of my bugs when I these!)
         //
         // My bugs should be in a software engineering textbook
-        // for "Can you screw this up?" The answer is, yes,
-        // you can even screw this up. (When you == Julius)
+        // for "Can you screw this up?"  The answer is, yes,
+        // you can even screw this up.  (When you == Julius)
         // .
         final boolean MAGIC_FLAG = ObjectUtils.CONST(true);
         final byte MAGIC_BYTE1 = ObjectUtils.CONST((byte) 127);
@@ -381,6 +383,7 @@ class ObjectUtilsTest extends AbstractLangTest {
         final float MAGIC_FLOAT = ObjectUtils.CONST(1.0f);
         final double MAGIC_DOUBLE = ObjectUtils.CONST(1.0);
         final String MAGIC_STRING = ObjectUtils.CONST("abc");
+
         assertTrue(MAGIC_FLAG);
         assertEquals(127, MAGIC_BYTE1);
         assertEquals(127, MAGIC_BYTE2);
@@ -393,11 +396,21 @@ class ObjectUtilsTest extends AbstractLangTest {
         assertEquals(1.0f, MAGIC_FLOAT);
         assertEquals(1.0, MAGIC_DOUBLE);
         assertEquals("abc", MAGIC_STRING);
-        assertIllegalArgumentException(() -> ObjectUtils.CONST_BYTE(-129), "CONST_BYTE(-129): IllegalArgumentException should have been thrown.");
-        assertIllegalArgumentException(() -> ObjectUtils.CONST_BYTE(128), "CONST_BYTE(128): IllegalArgumentException should have been thrown.");
-        assertIllegalArgumentException(() -> ObjectUtils.CONST_SHORT(-32769),
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ObjectUtils.CONST_BYTE(-129),
+                "CONST_BYTE(-129): IllegalArgumentException should have been thrown.");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ObjectUtils.CONST_BYTE(128),
+                "CONST_BYTE(128): IllegalArgumentException should have been thrown.");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ObjectUtils.CONST_SHORT(-32769),
                 "CONST_SHORT(-32769): IllegalArgumentException should have been thrown.");
-        assertIllegalArgumentException(() -> ObjectUtils.CONST_BYTE(32768),
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ObjectUtils.CONST_BYTE(32768),
                 "CONST_SHORT(32768): IllegalArgumentException should have been thrown.");
     }
 
@@ -575,11 +588,16 @@ class ObjectUtilsTest extends AbstractLangTest {
     void testIdentityToStringAppendable() throws IOException {
         final Integer i = Integer.valueOf(121);
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
+
         final Appendable appendable = new StringBuilder();
         ObjectUtils.identityToString(appendable, i);
         assertEquals(expected, appendable.toString());
+
         assertNullPointerException(() -> ObjectUtils.identityToString((Appendable) null, "tmp"));
-        assertNullPointerException(() -> ObjectUtils.identityToString((Appendable) new StringBuilder(), null));
+
+        assertThrows(
+                NullPointerException.class,
+                () -> ObjectUtils.identityToString((Appendable) new StringBuilder(), null));
     }
 
     @Test
@@ -599,10 +617,13 @@ class ObjectUtilsTest extends AbstractLangTest {
     void testIdentityToStringStrBuilder() {
         final Integer i = Integer.valueOf(102);
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
+
         final StrBuilder builder = new StrBuilder();
         ObjectUtils.identityToString(builder, i);
         assertEquals(expected, builder.toString());
+
         assertNullPointerException(() -> ObjectUtils.identityToString((StrBuilder) null, "tmp"));
+
         assertNullPointerException(() -> ObjectUtils.identityToString(new StrBuilder(), null));
     }
 
@@ -617,9 +638,11 @@ class ObjectUtilsTest extends AbstractLangTest {
     void testIdentityToStringStringBuffer() {
         final Integer i = Integer.valueOf(45);
         final String expected = "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
+
         final StringBuffer buffer = new StringBuffer();
         ObjectUtils.identityToString(buffer, i);
         assertEquals(expected, buffer.toString());
+
         assertNullPointerException(() -> ObjectUtils.identityToString((StringBuffer) null, "tmp"));
         assertNullPointerException(() -> ObjectUtils.identityToString(new StringBuffer(), null));
     }
@@ -638,6 +661,7 @@ class ObjectUtilsTest extends AbstractLangTest {
     void testIdentityToStringStringBuilderInUse() {
         final Integer i = Integer.valueOf(90);
         final String expected = "ABC = java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i));
+
         final StringBuilder builder = new StringBuilder("ABC = ");
         ObjectUtils.identityToString(builder, i);
         assertEquals(expected, builder.toString());
@@ -740,7 +764,7 @@ class ObjectUtilsTest extends AbstractLangTest {
 
     @Test
     void testMedian_emptyItems() {
-        assertIllegalArgumentException(ObjectUtils::<String>median);
+        assertThrows(IllegalArgumentException.class, ObjectUtils::<String>median);
     }
 
     @Test
@@ -842,8 +866,8 @@ class ObjectUtilsTest extends AbstractLangTest {
         assertNullPointerException(() -> ObjectUtils.requireNonEmpty(null));
         assertNullPointerException(() -> ObjectUtils.requireNonEmpty(null, "foo"));
         //
-        assertIllegalArgumentException(() -> ObjectUtils.requireNonEmpty(""));
-        assertIllegalArgumentException(() -> ObjectUtils.requireNonEmpty("", "foo"));
+        assertThrows(IllegalArgumentException.class, () -> ObjectUtils.requireNonEmpty(""));
+        assertThrows(IllegalArgumentException.class, () -> ObjectUtils.requireNonEmpty("", "foo"));
     }
 
     @Test

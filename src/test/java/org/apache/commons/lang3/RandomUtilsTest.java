@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.stream.Stream;
@@ -211,13 +211,13 @@ class RandomUtilsTest extends AbstractLangTest {
 
     @Test
     void testNextBytesNegative() {
-        assertIllegalArgumentException(() -> RandomUtils.nextBytes(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextBytes(-1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testNextBytesNegative(final RandomUtils ru) {
-        assertIllegalArgumentException(() -> ru.randomBytes(-1));
+        assertThrows(IllegalArgumentException.class, () -> ru.randomBytes(-1));
     }
 
     /**
@@ -243,13 +243,13 @@ class RandomUtilsTest extends AbstractLangTest {
 
     @Test
     void testNextDoubleLowerGreaterUpper() {
-        assertIllegalArgumentException(() -> RandomUtils.nextDouble(2, 1));
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextDouble(2, 1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testNextDoubleLowerGreaterUpper(final RandomUtils ru) {
-        assertIllegalArgumentException(() -> ru.randomDouble(2, 1));
+        assertThrows(IllegalArgumentException.class, () -> ru.randomDouble(2, 1));
     }
 
     /**
@@ -271,13 +271,13 @@ class RandomUtilsTest extends AbstractLangTest {
 
     @Test
     void testNextDoubleNegative() {
-        assertIllegalArgumentException(() -> RandomUtils.nextDouble(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextDouble(-1, 1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testNextDoubleNegative(final RandomUtils ru) {
-        assertIllegalArgumentException(() -> ru.randomDouble(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> ru.randomDouble(-1, 1));
     }
 
     /**
@@ -324,13 +324,13 @@ class RandomUtilsTest extends AbstractLangTest {
 
     @Test
     void testNextFloatLowerGreaterUpper() {
-        assertIllegalArgumentException(() -> RandomUtils.nextFloat(2, 1));
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextFloat(2, 1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testNextFloatLowerGreaterUpper(final RandomUtils ru) {
-        assertIllegalArgumentException(() -> ru.randomFloat(2, 1));
+        assertThrows(IllegalArgumentException.class, () -> ru.randomFloat(2, 1));
     }
 
     /**
@@ -352,13 +352,13 @@ class RandomUtilsTest extends AbstractLangTest {
 
     @Test
     void testNextFloatNegative() {
-        assertIllegalArgumentException(() -> RandomUtils.nextFloat(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextFloat(-1, 1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testNextFloatNegative(final RandomUtils ru) {
-        assertIllegalArgumentException(() -> ru.randomFloat(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> ru.randomFloat(-1, 1));
     }
 
     /**
@@ -405,13 +405,13 @@ class RandomUtilsTest extends AbstractLangTest {
 
     @Test
     void testNextIntLowerGreaterUpper() {
-        assertIllegalArgumentException(() -> RandomUtils.nextInt(2, 1));
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextInt(2, 1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testNextIntLowerGreaterUpper(final RandomUtils ru) {
-        assertIllegalArgumentException(() -> ru.randomInt(2, 1));
+        assertThrows(IllegalArgumentException.class, () -> ru.randomInt(2, 1));
     }
 
     /**
@@ -433,13 +433,13 @@ class RandomUtilsTest extends AbstractLangTest {
 
     @Test
     void testNextIntNegative() {
-        assertIllegalArgumentException(() -> RandomUtils.nextInt(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextInt(-1, 1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testNextIntNegative(final RandomUtils ru) {
-        assertIllegalArgumentException(() -> ru.randomInt(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> ru.randomInt(-1, 1));
     }
 
     /**
@@ -486,13 +486,13 @@ class RandomUtilsTest extends AbstractLangTest {
 
     @Test
     void testNextLongLowerGreaterUpper() {
-        assertIllegalArgumentException(() -> RandomUtils.nextLong(2, 1));
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextLong(2, 1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testNextLongLowerGreaterUpper(final RandomUtils ru) {
-        assertIllegalArgumentException(() -> ru.randomLong(2, 1));
+        assertThrows(IllegalArgumentException.class, () -> ru.randomLong(2, 1));
     }
 
     /**
@@ -514,13 +514,13 @@ class RandomUtilsTest extends AbstractLangTest {
 
     @Test
     void testNextLongNegative() {
-        assertIllegalArgumentException(() -> RandomUtils.nextLong(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> RandomUtils.nextLong(-1, 1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testNextLongNegative(final RandomUtils ru) {
-        assertIllegalArgumentException(() -> ru.randomLong(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> ru.randomLong(-1, 1));
     }
 
     /**

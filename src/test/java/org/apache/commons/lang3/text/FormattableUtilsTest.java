@@ -16,8 +16,8 @@
  */
 package org.apache.commons.lang3.text;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.FormattableFlags;
 import java.util.Formatter;
@@ -112,7 +112,7 @@ class FormattableUtilsTest extends AbstractLangTest {
 
     @Test
     void testIllegalEllipsis() {
-        assertIllegalArgumentException(() -> FormattableUtils.append("foo", new Formatter(), 0, -1, 1, "xx"));
+        assertThrows(IllegalArgumentException.class, () -> FormattableUtils.append("foo", new Formatter(), 0, -1, 1, "xx"));
     }
 
 }

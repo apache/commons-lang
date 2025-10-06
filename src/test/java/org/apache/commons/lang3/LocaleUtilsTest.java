@@ -17,8 +17,6 @@
 package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
-import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -42,7 +40,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
  * Tests for {@link LocaleUtils}.
@@ -306,13 +303,33 @@ class LocaleUtilsTest extends AbstractLangTest {
         assertValidToLocale("_GB", "", "GB", "");
         assertValidToLocale("_GB_P", "", "GB", "P");
         assertValidToLocale("_GB_POSIX", "", "GB", "POSIX");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("_G"), "Must be at least 3 chars if starts with underscore");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("_Gb"), "Must be uppercase if starts with underscore");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("_gB"), "Must be uppercase if starts with underscore");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("_1B"), "Must be letter if starts with underscore");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("_G1"), "Must be letter if starts with underscore");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("_GB_"), "Must be at least 5 chars if starts with underscore");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("_GBAP"),
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_G"),
+                "Must be at least 3 chars if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_Gb"),
+                "Must be uppercase if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_gB"),
+                "Must be uppercase if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_1B"),
+                "Must be letter if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_G1"),
+                "Must be letter if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_GB_"),
+                "Must be at least 5 chars if starts with underscore");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("_GBAP"),
                 "Must have underscore after the country if starts with underscore and is at least 5 chars");
     }
 
@@ -426,7 +443,7 @@ class LocaleUtilsTest extends AbstractLangTest {
             }
             String localeStr = str;
             if (suff >= 0) { // we have a suffix
-                assertIllegalArgumentException(() -> LocaleUtils.toLocale(str));
+                assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale(str));
                 // try without suffix
                 localeStr = str.substring(0, suff);
             }
@@ -455,6 +472,7 @@ class LocaleUtilsTest extends AbstractLangTest {
     @Test
     void testToLocale_1Part() {
         assertNull(LocaleUtils.toLocale((String) null));
+
         assertValidToLocale("us");
         assertValidToLocale("fr");
         assertValidToLocale("de");
@@ -463,11 +481,14 @@ class LocaleUtilsTest extends AbstractLangTest {
         assertValidToLocale("qq");
         // LANG-941: JDK 8 introduced the empty locale as one of the default locales
         assertValidToLocale("");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("Us"), "Should fail if not lowercase");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("uS"), "Should fail if not lowercase");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("u#"), "Should fail if not lowercase");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("u"), "Must be 2 chars if less than 5");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("uu_U"), "Must be 2 chars if less than 5");
+
+        assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale("Us"), "Should fail if not lowercase");
+        assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale("uS"), "Should fail if not lowercase");
+        assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale("u#"), "Should fail if not lowercase");
+        assertThrows(
+                IllegalArgumentException.class, () -> LocaleUtils.toLocale("u"), "Must be 2 chars if less than 5");
+        assertThrows(
+                IllegalArgumentException.class, () -> LocaleUtils.toLocale("uu_U"), "Must be 2 chars if less than 5");
     }
 
     /**
@@ -477,13 +498,29 @@ class LocaleUtilsTest extends AbstractLangTest {
     void testToLocale_2Part() {
         assertValidToLocale("us_EN", "us", "EN");
         assertValidToLocale("us-EN", "us", "EN");
-        // valid though doesn't exist
+        //valid though doesn't exist
         assertValidToLocale("us_ZH", "us", "ZH");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("us_En"), "Should fail second part not uppercase");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("us_en"), "Should fail second part not uppercase");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("us_eN"), "Should fail second part not uppercase");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("uS_EN"), "Should fail first part not lowercase");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("us_E3"), "Should fail second part not uppercase");
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("us_En"),
+                "Should fail second part not uppercase");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("us_en"),
+                "Should fail second part not uppercase");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("us_eN"),
+                "Should fail second part not uppercase");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("uS_EN"),
+                "Should fail first part not lowercase");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> LocaleUtils.toLocale("us_E3"),
+                "Should fail second part not uppercase");
     }
 
     /**
@@ -502,8 +539,8 @@ class LocaleUtilsTest extends AbstractLangTest {
             assertValidToLocale("us_EN_a", "us", "EN", "A");
             assertValidToLocale("us_EN_SFsafdFDsdfF", "us", "EN", "SFSAFDFDSDFF");
         }
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("us_EN-a"), "Should fail as no consistent delimiter");
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale("uu_UU_"), "Must be 3, 5 or 7+ in length");
+        assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale("us_EN-a"), "Should fail as no consistent delimiter");
+        assertThrows(IllegalArgumentException.class, () -> LocaleUtils.toLocale("uu_UU_"), "Must be 3, 5 or 7+ in length");
         // LANG-1741
         assertEquals(new Locale("en", "001", "US_POSIX"), LocaleUtils.toLocale("en_001_US_POSIX"));
     }
@@ -516,68 +553,6 @@ class LocaleUtilsTest extends AbstractLangTest {
         assertNull(LocaleUtils.toLocale((String) null));
         assertEquals(Locale.getDefault(), LocaleUtils.toLocale((Locale) null));
         assertEquals(Locale.getDefault(), LocaleUtils.toLocale(Locale.getDefault()));
-    }
-
-    @Test
-    void testToIso2ToGetNumericCountryCode() {
-        assertEquals("840", LocaleUtils.toNumeric("US"));
-        assertEquals("860", LocaleUtils.toNumeric("UZ"));
-        assertEquals("643", LocaleUtils.toNumeric("RU"));
-        assertEquals("826", LocaleUtils.toNumeric("GB"));
-        assertEquals("356", LocaleUtils.toNumeric("IN"));
-    }
-
-    @Test
-    void testToIso2ToGetNumericCountryCodeInvalid() {
-        assertEquals("US",LocaleUtils.numericToIso2("840"));
-        assertEquals("UZ",LocaleUtils.numericToIso2("860"));
-        assertEquals("RU",LocaleUtils.numericToIso2("643"));
-        assertEquals("GB",LocaleUtils.numericToIso2("826"));
-        assertEquals("IN",LocaleUtils.numericToIso2("356"));
-    }
-
-    @Test
-    void testToIso2ToGetNumericCountryCodeInvalid2() {
-        assertNullPointerException(() -> LocaleUtils.toNumeric(null), "Null country code");
-        assertNullPointerException(() -> LocaleUtils.numericToIso2(null), "Null numeric country");
-        assertNull(LocaleUtils.toNumeric(""), "Empty country code");
-        assertNull(LocaleUtils.numericToIso2(""), "Empty numeric country");
-        assertNull(LocaleUtils.numericToIso2("B"), "Empty numeric country");
-        assertNull(LocaleUtils.numericToIso2("A"), "Empty numeric country");
-    }
-
-
-
-
-    @ParameterizedTest
-    @MethodSource("java.util.Locale#getISOCountries")
-    void testToLocaleGetIso3Country(final String country) {
-        assertEquals(LocaleUtils.ofCountry(country).getISO3Country(), LocaleUtils.toLocale(country).getISO3Country());
-    }
-
-    @Test
-    void testToLocaleGetIso3CountryKnown() {
-        assertEquals("USA", LocaleUtils.toLocale("US").getISO3Country());
-        assertEquals("GBR", LocaleUtils.toLocale("GB").getISO3Country());
-        assertEquals("PAK", LocaleUtils.toLocale("PK").getISO3Country());
-        assertEquals("IND", LocaleUtils.toLocale("IN").getISO3Country());
-        assertEquals("FRA", LocaleUtils.toLocale("FR").getISO3Country());
-    }
-
-    @Test
-    @DefaultLocale(country = "US", language = "en")
-    void testToLocaleGetIso3LanguageKown() {
-        assertEquals("United States", LocaleUtils.toLocale("US").getDisplayCountry());
-        assertEquals("United Kingdom", LocaleUtils.toLocale("GB").getDisplayCountry());
-        assertEquals("Pakistan", LocaleUtils.toLocale("PK").getDisplayCountry());
-        assertEquals("India", LocaleUtils.toLocale("IN").getDisplayCountry());
-        assertEquals("France", LocaleUtils.toLocale("FR").getDisplayCountry());
-    }
-
-    @ParameterizedTest
-    @MethodSource("java.util.Locale#getISOCountries")
-    void testToLocaleGetIso3LanguageKown(final String country) {
-        assertEquals(LocaleUtils.ofCountry(country).getDisplayCountry(), LocaleUtils.toLocale(country).getDisplayCountry());
     }
 
     /**

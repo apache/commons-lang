@@ -17,11 +17,11 @@
 
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.LangAssertions.assertIndexOutOfBoundsException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -95,12 +95,12 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllBooleanArrayNegativeIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new boolean[] { true, false }, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new boolean[] { true, false }, -1));
     }
 
     @Test
     void testRemoveAllBooleanArrayOutOfBoundsIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new boolean[] { true, false }, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new boolean[] { true, false }, 2));
     }
 
     @Test
@@ -167,12 +167,12 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllByteArrayNegativeIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new byte[] { 1, 2 }, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new byte[] { 1, 2 }, -1));
     }
 
     @Test
     void testRemoveAllByteArrayOutOfBoundsIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new byte[] { 1, 2 }, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new byte[] { 1, 2 }, 2));
     }
 
     @Test
@@ -239,12 +239,12 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllCharArrayNegativeIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new char[] { 'a', 'b' }, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new char[] { 'a', 'b' }, -1));
     }
 
     @Test
     void testRemoveAllCharArrayOutOfBoundsIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new char[] { 'a', 'b' }, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new char[] { 'a', 'b' }, 2));
     }
 
     @Test
@@ -311,12 +311,12 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllDoubleArrayNegativeIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new double[] { 1, 2 }, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new double[] { 1, 2 }, -1));
     }
 
     @Test
     void testRemoveAllDoubleArrayOutOfBoundsIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new double[] { 1, 2 }, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new double[] { 1, 2 }, 2));
     }
 
     @Test
@@ -383,12 +383,12 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllFloatArrayNegativeIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new float[] { 1, 2 }, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new float[] { 1, 2 }, -1));
     }
 
     @Test
     void testRemoveAllFloatArrayOutOfBoundsIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new float[] { 1, 2 }, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new float[] { 1, 2 }, 2));
     }
 
     @Test
@@ -461,12 +461,12 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllIntArrayNegativeIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new int[] { 1, 2 }, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new int[] { 1, 2 }, -1));
     }
 
     @Test
     void testRemoveAllIntArrayOutOfBoundsIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new int[] { 1, 2 }, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new int[] { 1, 2 }, 2));
     }
 
     @Test
@@ -533,12 +533,12 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllLongArrayNegativeIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new long[] { 1, 2 }, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new long[] { 1, 2 }, -1));
     }
 
     @Test
     void testRemoveAllLongArrayOutOfBoundsIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new long[] { 1, 2 }, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new long[] { 1, 2 }, 2));
     }
 
     @Test
@@ -748,12 +748,12 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllObjectArrayNegativeIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new Object[] { "a", "b" }, -1));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new Object[] { "a", "b" }, -1));
     }
 
     @Test
     void testRemoveAllObjectArrayOutOfBoundsIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new Object[] { "a", "b" }, 2));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new Object[] { "a", "b" }, 2));
     }
 
     @Test
@@ -820,12 +820,12 @@ class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     @Test
     void testRemoveAllShortArrayNegativeIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new short[] { 1, 2 }, -1, 0));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new short[] { 1, 2 }, -1, 0));
     }
 
     @Test
     void testRemoveAllShortArrayOutOfBoundsIndex() {
-        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new short[] { 1, 2 }, 2, 0));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new short[] { 1, 2 }, 2, 0));
     }
 
     @Test

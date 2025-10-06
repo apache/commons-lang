@@ -16,11 +16,11 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -232,7 +232,7 @@ class ToStringBuilderTest extends AbstractLangTest {
     void test_setUpToClass_invalid() {
         final Integer val = Integer.valueOf(5);
         final ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
-        assertIllegalArgumentException(() -> test.setUpToClass(String.class));
+        assertThrows(IllegalArgumentException.class, () -> test.setUpToClass(String.class));
         test.toString();
     }
 

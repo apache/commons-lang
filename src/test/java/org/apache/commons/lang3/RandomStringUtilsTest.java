@@ -16,10 +16,10 @@
  */
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -92,89 +92,89 @@ class RandomStringUtilsTest extends AbstractLangTest {
 
     @Test
     void testExceptionsRandom() {
-        assertIllegalArgumentException(() -> RandomStringUtils.random(-1));
-        assertIllegalArgumentException(() -> RandomStringUtils.random(-1, true, true));
-        assertIllegalArgumentException(() -> RandomStringUtils.random(-1, new char[] { 'a' }));
-        assertIllegalArgumentException(() -> RandomStringUtils.random(1, new char[0]));
-        assertIllegalArgumentException(() -> RandomStringUtils.random(-1, ""));
-        assertIllegalArgumentException(() -> RandomStringUtils.random(-1, (String) null));
-        assertIllegalArgumentException(() -> RandomStringUtils.random(-1, 'a', 'z', false, false));
-        assertIllegalArgumentException(() -> RandomStringUtils.random(-1, 'a', 'z', false, false, new char[] { 'a' }));
-        assertIllegalArgumentException(() -> RandomStringUtils.random(-1, 'a', 'z', false, false, new char[] { 'a' }, new Random()));
-        assertIllegalArgumentException(() -> RandomStringUtils.random(8, 32, 48, false, true));
-        assertIllegalArgumentException(() -> RandomStringUtils.random(8, 32, 65, true, false));
-        assertIllegalArgumentException(() -> RandomStringUtils.random(1, Integer.MIN_VALUE, -10, false, false, null));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, true, true));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, new char[] { 'a' }));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(1, new char[0]));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, ""));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, (String) null));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false, new char[] { 'a' }));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(-1, 'a', 'z', false, false, new char[] { 'a' }, new Random()));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 48, false, true));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(8, 32, 65, true, false));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(1, Integer.MIN_VALUE, -10, false, false, null));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testExceptionsRandom(final RandomStringUtils rsu) {
-        assertIllegalArgumentException(() -> rsu.next(-1));
-        assertIllegalArgumentException(() -> rsu.next(-1, true, true));
-        assertIllegalArgumentException(() -> rsu.next(-1, new char[] { 'a' }));
-        assertIllegalArgumentException(() -> rsu.next(1, new char[0]));
-        assertIllegalArgumentException(() -> rsu.next(-1, ""));
-        assertIllegalArgumentException(() -> rsu.next(-1, (String) null));
-        assertIllegalArgumentException(() -> rsu.next(-1, 'a', 'z', false, false));
-        assertIllegalArgumentException(() -> rsu.next(-1, 'a', 'z', false, false, new char[] { 'a' }));
-        assertIllegalArgumentException(() -> rsu.next(8, 32, 48, false, true));
-        assertIllegalArgumentException(() -> rsu.next(8, 32, 65, true, false));
-        assertIllegalArgumentException(() -> rsu.next(1, Integer.MIN_VALUE, -10, false, false, null));
+        assertThrows(IllegalArgumentException.class, () -> rsu.next(-1));
+        assertThrows(IllegalArgumentException.class, () -> rsu.next(-1, true, true));
+        assertThrows(IllegalArgumentException.class, () -> rsu.next(-1, new char[] { 'a' }));
+        assertThrows(IllegalArgumentException.class, () -> rsu.next(1, new char[0]));
+        assertThrows(IllegalArgumentException.class, () -> rsu.next(-1, ""));
+        assertThrows(IllegalArgumentException.class, () -> rsu.next(-1, (String) null));
+        assertThrows(IllegalArgumentException.class, () -> rsu.next(-1, 'a', 'z', false, false));
+        assertThrows(IllegalArgumentException.class, () -> rsu.next(-1, 'a', 'z', false, false, new char[] { 'a' }));
+        assertThrows(IllegalArgumentException.class, () -> rsu.next(8, 32, 48, false, true));
+        assertThrows(IllegalArgumentException.class, () -> rsu.next(8, 32, 65, true, false));
+        assertThrows(IllegalArgumentException.class, () -> rsu.next(1, Integer.MIN_VALUE, -10, false, false, null));
     }
 
     @Test
     void testExceptionsRandomAlphabetic() {
-        assertIllegalArgumentException(() -> RandomStringUtils.randomAlphabetic(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomAlphabetic(-1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testExceptionsRandomAlphabetic(final RandomStringUtils rsu) {
-        assertIllegalArgumentException(() -> rsu.nextAlphabetic(-1));
+        assertThrows(IllegalArgumentException.class, () -> rsu.nextAlphabetic(-1));
     }
 
     @Test
     void testExceptionsRandomAscii() {
-        assertIllegalArgumentException(() -> RandomStringUtils.randomAscii(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomAscii(-1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testExceptionsRandomAscii(final RandomStringUtils rsu) {
-        assertIllegalArgumentException(() -> rsu.nextAscii(-1));
+        assertThrows(IllegalArgumentException.class, () -> rsu.nextAscii(-1));
     }
 
     @Test
     void testExceptionsRandomGraph() {
-        assertIllegalArgumentException(() -> RandomStringUtils.randomGraph(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomGraph(-1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testExceptionsRandomGraph(final RandomStringUtils rsu) {
-        assertIllegalArgumentException(() -> rsu.nextGraph(-1));
+        assertThrows(IllegalArgumentException.class, () -> rsu.nextGraph(-1));
     }
 
     @Test
     void testExceptionsRandomNumeric() {
-        assertIllegalArgumentException(() -> RandomStringUtils.randomNumeric(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomNumeric(-1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testExceptionsRandomNumeric(final RandomStringUtils rsu) {
-        assertIllegalArgumentException(() -> rsu.nextNumeric(-1));
+        assertThrows(IllegalArgumentException.class, () -> rsu.nextNumeric(-1));
     }
 
     @Test
     void testExceptionsRandomPrint() {
-        assertIllegalArgumentException(() -> RandomStringUtils.randomPrint(-1));
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.randomPrint(-1));
     }
 
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testExceptionsRandomPrint(final RandomStringUtils rsu) {
-        assertIllegalArgumentException(() -> rsu.nextPrint(-1));
+        assertThrows(IllegalArgumentException.class, () -> rsu.nextPrint(-1));
     }
 
     /**
@@ -289,7 +289,7 @@ class RandomStringUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testLANG807(final RandomStringUtils rsu) {
-        final IllegalArgumentException ex = assertIllegalArgumentException(() -> rsu.next(3, 5, 5, false, false));
+        final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> rsu.next(3, 5, 5, false, false));
         final String msg = ex.getMessage();
         assertTrue(msg.contains("start"), "Message (" + msg + ") must contain 'start'");
         assertTrue(msg.contains("end"), "Message (" + msg + ") must contain 'end'");

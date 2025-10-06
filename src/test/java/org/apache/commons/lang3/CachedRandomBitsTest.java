@@ -16,8 +16,8 @@
  */
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Objects;
 import java.util.Random;
@@ -69,8 +69,8 @@ class CachedRandomBitsTest {
 
         final CachedRandomBits arb = new CachedRandomBits(cacheSize, random);
 
-        assertIllegalArgumentException(() -> arb.nextBits(0));
-        assertIllegalArgumentException(() -> arb.nextBits(33));
+        assertThrows(IllegalArgumentException.class, () -> arb.nextBits(0));
+        assertThrows(IllegalArgumentException.class, () -> arb.nextBits(33));
 
         assertEquals(0x11, arb.nextBits(8));
         assertEquals(0x12, arb.nextBits(8));

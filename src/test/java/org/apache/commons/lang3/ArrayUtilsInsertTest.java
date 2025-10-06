@@ -17,10 +17,10 @@
 
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.LangAssertions.assertIndexOutOfBoundsException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,8 +42,8 @@ class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new boolean[0], ArrayUtils.insert(0, new boolean[0], null));
         assertNull(ArrayUtils.insert(42, (boolean[]) null, null));
 
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(-1, array, array));
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(array.length + 1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(-1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(array.length + 1, array, array));
 
         assertArrayEquals(new boolean[]{false, true, false, true}, ArrayUtils.insert(0, array, false));
         assertArrayEquals(new boolean[]{true, false, false, true}, ArrayUtils.insert(1, array, false));
@@ -66,8 +66,8 @@ class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new byte[0], ArrayUtils.insert(0, new byte[0], null));
         assertNull(ArrayUtils.insert(42, (byte[]) null, null));
 
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(-1, array, array));
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(array.length + 1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(-1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(array.length + 1, array, array));
 
         assertArrayEquals(new byte[]{0, 1, 2, 3}, ArrayUtils.insert(0, array, (byte) 0));
         assertArrayEquals(new byte[]{1, 0, 2, 3}, ArrayUtils.insert(1, array, (byte) 0));
@@ -90,8 +90,8 @@ class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new char[0], ArrayUtils.insert(0, new char[0], null));
         assertNull(ArrayUtils.insert(42, (char[]) null, null));
 
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(-1, array, array));
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(array.length + 1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(-1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(array.length + 1, array, array));
 
         assertArrayEquals(new char[]{'z', 'a', 'b', 'c'}, ArrayUtils.insert(0, array, 'z'));
         assertArrayEquals(new char[]{'a', 'z', 'b', 'c'}, ArrayUtils.insert(1, array, 'z'));
@@ -115,8 +115,8 @@ class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new double[0], ArrayUtils.insert(0, new double[0], null), delta);
         assertNull(ArrayUtils.insert(42, (double[]) null, null));
 
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(-1, array, array));
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(array.length + 1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(-1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(array.length + 1, array, array));
 
         assertArrayEquals(new double[]{0, 1, 2, 3}, ArrayUtils.insert(0, array, 0), delta);
         assertArrayEquals(new double[]{1, 0, 2, 3}, ArrayUtils.insert(1, array, 0), delta);
@@ -140,8 +140,8 @@ class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new float[0], ArrayUtils.insert(0, new float[0], null), delta);
         assertNull(ArrayUtils.insert(42, (float[]) null, null));
 
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(-1, array, array));
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(array.length + 1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(-1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(array.length + 1, array, array));
 
         assertArrayEquals(new float[]{0, 1, 2, 3}, ArrayUtils.insert(0, array, 0), delta);
         assertArrayEquals(new float[]{1, 0, 2, 3}, ArrayUtils.insert(1, array, 0), delta);
@@ -164,8 +164,8 @@ class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new String[0], ArrayUtils.insert(0, new String[0], (String[]) null));
         assertNull(ArrayUtils.insert(42, null, (String[]) null));
 
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(-1, array, array));
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(array.length + 1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(-1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(array.length + 1, array, array));
 
         assertArrayEquals(new String[]{"z", "a", "b", "c"}, ArrayUtils.insert(0, array, "z"));
         assertArrayEquals(new String[]{"a", "z", "b", "c"}, ArrayUtils.insert(1, array, "z"));
@@ -188,8 +188,8 @@ class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new int[0], ArrayUtils.insert(0, new int[0], null));
         assertNull(ArrayUtils.insert(42, (int[]) null, null));
 
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(-1, array, array));
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(array.length + 1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(-1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(array.length + 1, array, array));
 
         assertArrayEquals(new int[]{0, 1, 2, 3}, ArrayUtils.insert(0, array, 0));
         assertArrayEquals(new int[]{1, 0, 2, 3}, ArrayUtils.insert(1, array, 0));
@@ -212,8 +212,8 @@ class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new long[0], ArrayUtils.insert(0, new long[0], null));
         assertNull(ArrayUtils.insert(42, (long[]) null, null));
 
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(-1, array, array));
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(array.length + 1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(-1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(array.length + 1, array, array));
 
         assertArrayEquals(new long[]{0, 1, 2, 3}, ArrayUtils.insert(0, array, 0));
         assertArrayEquals(new long[]{1, 0, 2, 3}, ArrayUtils.insert(1, array, 0));
@@ -236,8 +236,8 @@ class ArrayUtilsInsertTest extends AbstractLangTest {
         assertArrayEquals(new short[0], ArrayUtils.insert(0, new short[0], null));
         assertNull(ArrayUtils.insert(42, (short[]) null, null));
 
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(-1, array, array));
-        assertIndexOutOfBoundsException(() -> ArrayUtils.insert(array.length + 1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(-1, array, array));
+        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.insert(array.length + 1, array, array));
 
         assertArrayEquals(new short[]{0, 1, 2, 3}, ArrayUtils.insert(0, array, (short) 0));
         assertArrayEquals(new short[]{1, 0, 2, 3}, ArrayUtils.insert(1, array, (short) 0));

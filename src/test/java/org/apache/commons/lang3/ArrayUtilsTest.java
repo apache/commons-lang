@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -540,7 +539,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(0, ArrayUtils.getLength(emptyBooleanArray));
         assertEquals(1, ArrayUtils.getLength(notEmptyBooleanArray));
 
-        assertIllegalArgumentException(() -> ArrayUtils.getLength("notAnArray"));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.getLength("notAnArray"));
     }
 
     @Test
@@ -2205,7 +2204,7 @@ class ArrayUtilsTest extends AbstractLangTest {
     @Test
     void testNullToEmptyGenericNullType() {
         final TestClass[] input = {};
-        assertIllegalArgumentException(() -> ArrayUtils.nullToEmpty(input, null));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.nullToEmpty(input, null));
     }
 
     @Test
@@ -4373,9 +4372,9 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testSameType() {
-        assertIllegalArgumentException(() -> ArrayUtils.isSameType(null, null));
-        assertIllegalArgumentException(() -> ArrayUtils.isSameType(null, new Object[0]));
-        assertIllegalArgumentException(() -> ArrayUtils.isSameType(new Object[0], null));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(null, null));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(null, new Object[0]));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.isSameType(new Object[0], null));
 
         assertTrue(ArrayUtils.isSameType(new Object[0], new Object[0]));
         assertFalse(ArrayUtils.isSameType(new String[0], new Object[0]));
@@ -6510,9 +6509,9 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertEquals("bar", map.get("foo"));
         assertEquals("world", map.get("hello"));
         assertNull(ArrayUtils.toMap(null));
-        assertIllegalArgumentException(() -> ArrayUtils.toMap(new String[][] { { "foo", "bar" }, { "short" } }));
-        assertIllegalArgumentException(() -> ArrayUtils.toMap(new Object[] { new Object[] { "foo", "bar" }, "illegal type" }));
-        assertIllegalArgumentException(() -> ArrayUtils.toMap(new Object[] { new Object[] { "foo", "bar" }, null }));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.toMap(new String[][] { { "foo", "bar" }, { "short" } }));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.toMap(new Object[] { new Object[] { "foo", "bar" }, "illegal type" }));
+        assertThrows(IllegalArgumentException.class, () -> ArrayUtils.toMap(new Object[] { new Object[] { "foo", "bar" }, null }));
         map = ArrayUtils.toMap(new Object[] { new Map.Entry<Object, Object>() {
 
             @Override

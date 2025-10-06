@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,7 +46,7 @@ class MemoizerFunctionTest extends AbstractLangTest {
         replay(function);
 
         assertThrows(Throwable.class, () -> memoizer.compute(input));
-        assertIllegalArgumentException(() -> memoizer.compute(input));
+        assertThrows(IllegalArgumentException.class, () -> memoizer.compute(input));
     }
 
     @Test
@@ -59,7 +58,7 @@ class MemoizerFunctionTest extends AbstractLangTest {
         replay(function);
 
         assertThrows(Throwable.class, () -> memoizer.compute(input));
-        assertIllegalArgumentException(() -> memoizer.compute(input));
+        assertThrows(IllegalArgumentException.class, () -> memoizer.compute(input));
     }
 
     @Test

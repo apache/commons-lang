@@ -17,7 +17,6 @@
 
 package org.apache.commons.lang3.util;
 
-import static org.apache.commons.lang3.LangAssertions.assertIndexOutOfBoundsException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -215,7 +214,7 @@ class FluentBitSetTest extends AbstractLangTest {
         eightFbs.clear(165);
         assertFalse(eightFbs.get(165), "Failed to clear bit");
         // Try out of range
-        assertIndexOutOfBoundsException(() -> eightFbs.clear(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> eightFbs.clear(-1));
 
         final FluentBitSet bs = newInstance(0);
         assertEquals(0, bs.length(), "Test1: Wrong length,");
@@ -383,17 +382,17 @@ class FluentBitSetTest extends AbstractLangTest {
 
         // test illegal args
         bs = newInstance(10);
-        assertIndexOutOfBoundsException(() -> newInstance(10).clear(-1, 3),
+        assertThrows(IndexOutOfBoundsException.class, () -> newInstance(10).clear(-1, 3),
             "Test1: Attempt to flip with negative index failed to generate exception");
 
-        assertIndexOutOfBoundsException(() -> newInstance(10).clear(2, -1),
+        assertThrows(IndexOutOfBoundsException.class, () -> newInstance(10).clear(2, -1),
             "Test2: Attempt to flip with negative index failed to generate exception");
 
         bs.set(2, 4);
         bs.clear(2, 2);
         assertTrue(bs.get(2), "Bit got cleared incorrectly ");
 
-        assertIndexOutOfBoundsException(() -> newInstance(10).clear(4, 2),
+        assertThrows(IndexOutOfBoundsException.class, () -> newInstance(10).clear(4, 2),
             "Test4: Attempt to flip with illegal args failed to generate exception");
 
         bs = newInstance(0);
@@ -451,7 +450,7 @@ class FluentBitSetTest extends AbstractLangTest {
         eightFbs.clear(165);
         assertFalse(eightFbs.get(165), "Failed to clear bit");
         // Try out of range
-        assertIndexOutOfBoundsException(() -> eightFbs.clear(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> eightFbs.clear(-1));
 
         final FluentBitSet bs = newInstance(0);
         assertEquals(0, bs.length(), "Test1: Wrong length,");
@@ -560,7 +559,7 @@ class FluentBitSetTest extends AbstractLangTest {
         assertFalse(bs.get(9), "Failed to flip bit");
         assertFalse(bs.get(10), "Failed to flip bit");
 
-        assertIndexOutOfBoundsException(() -> newInstance().flip(-1), "Attempt to flip at negative index failed to generate exception");
+        assertThrows(IndexOutOfBoundsException.class, () -> newInstance().flip(-1), "Attempt to flip at negative index failed to generate exception");
 
         // Try setting a bit on a 64 boundary
         bs.flip(128);
@@ -770,7 +769,7 @@ class FluentBitSetTest extends AbstractLangTest {
         assertTrue(eightFbs.get(3), "Get returned false for set value");
         assertFalse(bs.get(0), "Get returned true for a non set value");
 
-        assertIndexOutOfBoundsException(() -> newInstance().get(-1), "Attempt to get at negative index failed to generate exception");
+        assertThrows(IndexOutOfBoundsException.class, () -> newInstance().get(-1), "Attempt to get at negative index failed to generate exception");
 
         bs = newInstance(1);
         assertFalse(bs.get(64), "Access greater than size");

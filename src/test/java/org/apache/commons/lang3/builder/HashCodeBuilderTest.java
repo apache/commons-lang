@@ -17,10 +17,10 @@
 
 package org.apache.commons.lang3.builder;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -290,22 +290,22 @@ class HashCodeBuilderTest extends AbstractLangTest {
 
     @Test
     void testConstructorExEvenFirst() {
-        assertIllegalArgumentException(() -> new HashCodeBuilder(2, 3));
+        assertThrows(IllegalArgumentException.class, () -> new HashCodeBuilder(2, 3));
     }
 
     @Test
     void testConstructorExEvenNegative() {
-        assertIllegalArgumentException(() -> new HashCodeBuilder(-2, -2));
+        assertThrows(IllegalArgumentException.class, () -> new HashCodeBuilder(-2, -2));
     }
 
     @Test
     void testConstructorExEvenSecond() {
-        assertIllegalArgumentException(() -> new HashCodeBuilder(3, 2));
+        assertThrows(IllegalArgumentException.class, () -> new HashCodeBuilder(3, 2));
     }
 
     @Test
     void testConstructorExZero() {
-        assertIllegalArgumentException(() -> new HashCodeBuilder(0, 0));
+        assertThrows(IllegalArgumentException.class, () -> new HashCodeBuilder(0, 0));
     }
 
     @Test
@@ -496,12 +496,12 @@ class HashCodeBuilderTest extends AbstractLangTest {
 
     @Test
     void testReflectionHashCodeEx1() {
-        assertIllegalArgumentException(() -> HashCodeBuilder.reflectionHashCode(0, 0, new TestObject(0), true));
+        assertThrows(IllegalArgumentException.class, () -> HashCodeBuilder.reflectionHashCode(0, 0, new TestObject(0), true));
     }
 
     @Test
     void testReflectionHashCodeEx2() {
-        assertIllegalArgumentException(() -> HashCodeBuilder.reflectionHashCode(2, 2, new TestObject(0), true));
+        assertThrows(IllegalArgumentException.class, () -> HashCodeBuilder.reflectionHashCode(2, 2, new TestObject(0), true));
     }
 
     @Test
@@ -540,12 +540,12 @@ class HashCodeBuilderTest extends AbstractLangTest {
 
     @Test
     void testReflectionHierarchyHashCodeEx1() {
-        assertIllegalArgumentException(() -> HashCodeBuilder.reflectionHashCode(0, 0, new TestSubObject(0, 0, 0), true));
+        assertThrows(IllegalArgumentException.class, () -> HashCodeBuilder.reflectionHashCode(0, 0, new TestSubObject(0, 0, 0), true));
     }
 
     @Test
     void testReflectionHierarchyHashCodeEx2() {
-        assertIllegalArgumentException(() -> HashCodeBuilder.reflectionHashCode(2, 2, new TestSubObject(0, 0, 0), true));
+        assertThrows(IllegalArgumentException.class, () -> HashCodeBuilder.reflectionHashCode(2, 2, new TestSubObject(0, 0, 0), true));
     }
 
     /**

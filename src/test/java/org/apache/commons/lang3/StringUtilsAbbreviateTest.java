@@ -17,10 +17,10 @@
 
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -67,7 +67,7 @@ class StringUtilsAbbreviateTest {
         assertEquals("abcdefg", StringUtils.abbreviate("abcdefg", 8));
         assertEquals("a...", StringUtils.abbreviate("abcdefg", 4));
         assertEquals("", StringUtils.abbreviate("", 4));
-        assertIllegalArgumentException(() -> StringUtils.abbreviate("abc", 3), "StringUtils.abbreviate expecting IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.abbreviate("abc", 3), "StringUtils.abbreviate expecting IllegalArgumentException");
     }
 
     @Test
@@ -75,9 +75,9 @@ class StringUtilsAbbreviateTest {
         assertNull(StringUtils.abbreviate(null, 10, 12));
         assertEquals("", StringUtils.abbreviate("", 0, 10));
         assertEquals("", StringUtils.abbreviate("", 2, 10));
-        assertIllegalArgumentException(() -> StringUtils.abbreviate("abcdefghij", 0, 3),
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.abbreviate("abcdefghij", 0, 3),
                 "StringUtils.abbreviate expecting IllegalArgumentException");
-        assertIllegalArgumentException(() -> StringUtils.abbreviate("abcdefghij", 5, 6),
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.abbreviate("abcdefghij", 5, 6),
                 "StringUtils.abbreviate expecting IllegalArgumentException");
         final String raspberry = "raspberry peach";
         assertEquals("raspberry peach", StringUtils.abbreviate(raspberry, 11, 15));
@@ -120,7 +120,7 @@ class StringUtilsAbbreviateTest {
         assertEquals("abcdefg", StringUtils.abbreviate("abcdefg", "_-", 8));
         assertEquals("abc.", StringUtils.abbreviate("abcdefg", ".", 4));
         assertEquals("", StringUtils.abbreviate("", 4));
-        assertIllegalArgumentException(() -> StringUtils.abbreviate("abcdefghij", "...", 3),
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.abbreviate("abcdefghij", "...", 3),
                 "StringUtils.abbreviate expecting IllegalArgumentException");
     }
 
@@ -130,9 +130,9 @@ class StringUtilsAbbreviateTest {
         assertNull(StringUtils.abbreviate(null, "...", 10, 12));
         assertEquals("", StringUtils.abbreviate("", null, 0, 10));
         assertEquals("", StringUtils.abbreviate("", "...", 2, 10));
-        assertIllegalArgumentException(() -> StringUtils.abbreviate("abcdefghij", "::", 0, 2),
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.abbreviate("abcdefghij", "::", 0, 2),
                 "StringUtils.abbreviate expecting IllegalArgumentException");
-        assertIllegalArgumentException(() -> StringUtils.abbreviate("abcdefghij", "!!!", 5, 6),
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.abbreviate("abcdefghij", "!!!", 5, 6),
                 "StringUtils.abbreviate expecting IllegalArgumentException");
         final String raspberry = "raspberry peach";
         assertEquals("raspberry peach", StringUtils.abbreviate(raspberry, "--", 12, 15));

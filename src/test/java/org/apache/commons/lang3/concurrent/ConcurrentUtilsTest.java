@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang3.concurrent;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,6 +38,54 @@ import org.junit.jupiter.api.Test;
  * Test class for {@link ConcurrentUtils}.
  */
 class ConcurrentUtilsTest extends AbstractLangTest {
+    /**
+     * Tests creating a ConcurrentException with an error as cause.
+     */
+    @Test
+    void testConcurrentExceptionCauseError() {
+        assertThrows(IllegalArgumentException.class, () -> new ConcurrentException("An error", new Error()));
+    }
+
+    /**
+     * Tests creating a ConcurrentException with null as cause.
+     */
+    @Test
+    void testConcurrentExceptionCauseNull() {
+        assertThrows(IllegalArgumentException.class, () -> new ConcurrentException(null));
+    }
+
+    /**
+     * Tests creating a ConcurrentException with a runtime exception as cause.
+     */
+    @Test
+    void testConcurrentExceptionCauseUnchecked() {
+        assertThrows(IllegalArgumentException.class, () -> new ConcurrentException(new RuntimeException()));
+    }
+
+    /**
+     * Tries to create a ConcurrentRuntimeException with an error as cause.
+     */
+    @Test
+    void testConcurrentRuntimeExceptionCauseError() {
+        assertThrows(IllegalArgumentException.class, () -> new ConcurrentRuntimeException("An error", new Error()));
+    }
+
+    /**
+     * Tries to create a ConcurrentRuntimeException with null as cause.
+     */
+    @Test
+    void testConcurrentRuntimeExceptionCauseNull() {
+        assertThrows(IllegalArgumentException.class, () -> new ConcurrentRuntimeException(null));
+    }
+
+    /**
+     * Tries to create a ConcurrentRuntimeException with a runtime as cause.
+     */
+    @Test
+    void testConcurrentRuntimeExceptionCauseUnchecked() {
+        assertThrows(IllegalArgumentException.class, () -> new ConcurrentRuntimeException(new RuntimeException()));
+    }
+
     /**
      * Tests constant future.
      *

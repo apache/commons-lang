@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.commons.lang3.Conversion;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ class ConversionTest {
 
     @Test
     void testHexToByte_IllegalArgument() {
-        assertIllegalArgumentException(() -> Conversion.hexToByte("A0", 0, (byte) 0, 4, 2));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByte("A0", 0, (byte) 0, 4, 2));
     }
 
     @Test

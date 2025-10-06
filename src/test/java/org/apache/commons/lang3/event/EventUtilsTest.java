@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.event;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -68,11 +67,12 @@ class EventUtilsTest extends AbstractLangTest {
     }
 
     private static final class EventCountingInvocationHandler implements InvocationHandler {
-
         private final Map<String, Integer> eventCounts = new TreeMap<>();
 
         public <L> L createListener(final Class<L> listenerType) {
-            return listenerType.cast(Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[] { listenerType }, this));
+            return listenerType.cast(Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
+                    new Class[]{listenerType},
+                    this));
         }
 
         public int getEventCount(final String eventName) {
@@ -151,9 +151,11 @@ class EventUtilsTest extends AbstractLangTest {
     @Test
     void testAddEventListenerThrowsException() {
         final ExceptionEventSource src = new ExceptionEventSource();
-        assertThrows(RuntimeException.class, () -> EventUtils.addEventListener(src, PropertyChangeListener.class, e -> {
-            // Do nothing!
-        }));
+        assertThrows(RuntimeException.class, () ->
+            EventUtils.addEventListener(src, PropertyChangeListener.class, e -> {
+                // Do nothing!
+            })
+        );
     }
 
     @Test
@@ -161,7 +163,8 @@ class EventUtilsTest extends AbstractLangTest {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCountingInvocationHandler handler = new EventCountingInvocationHandler();
         final ObjectChangeListener listener = handler.createListener(ObjectChangeListener.class);
-        final IllegalArgumentException e = assertIllegalArgumentException(() -> EventUtils.addEventListener(src, ObjectChangeListener.class, listener));
+        final IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> EventUtils.addEventListener(src, ObjectChangeListener.class, listener));
         assertEquals("Unable to add listener for class " + src.getClass().getName() + " and public add" + ObjectChangeListener.class.getSimpleName()
                 + " method which takes a parameter of type " + ObjectChangeListener.class.getName() + ".", e.getMessage());
     }
@@ -171,7 +174,8 @@ class EventUtilsTest extends AbstractLangTest {
         final PropertyChangeSource src = new PropertyChangeSource();
         final EventCountingInvocationHandler handler = new EventCountingInvocationHandler();
         final VetoableChangeListener listener = handler.createListener(VetoableChangeListener.class);
-        final IllegalArgumentException e = assertIllegalArgumentException(() -> EventUtils.addEventListener(src, VetoableChangeListener.class, listener));
+        final IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> EventUtils.addEventListener(src, VetoableChangeListener.class, listener));
         assertEquals("Unable to add listener for class " + src.getClass().getName() + " and public add" + VetoableChangeListener.class.getSimpleName()
                 + " method which takes a parameter of type " + VetoableChangeListener.class.getName() + ".", e.getMessage());
     }

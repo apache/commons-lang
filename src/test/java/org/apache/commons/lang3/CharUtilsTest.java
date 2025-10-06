@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -24,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
@@ -216,7 +216,7 @@ class CharUtilsTest extends AbstractLangTest {
         assertEquals('A', CharUtils.toChar("A"));
         assertEquals('B', CharUtils.toChar("BA"));
         assertNullPointerException(() -> CharUtils.toChar((String) null));
-        assertIllegalArgumentException(() -> CharUtils.toChar(""));
+        assertThrows(IllegalArgumentException.class, () -> CharUtils.toChar(""));
     }
 
     @Test
@@ -271,7 +271,7 @@ class CharUtilsTest extends AbstractLangTest {
         assertEquals(7, CharUtils.toIntValue('7'));
         assertEquals(8, CharUtils.toIntValue('8'));
         assertEquals(9, CharUtils.toIntValue('9'));
-        assertIllegalArgumentException(() -> CharUtils.toIntValue('a'));
+        assertThrows(IllegalArgumentException.class, () -> CharUtils.toIntValue('a'));
     }
 
     @Test
@@ -286,7 +286,7 @@ class CharUtilsTest extends AbstractLangTest {
         assertEquals(0, CharUtils.toIntValue(Character.valueOf('0')));
         assertEquals(3, CharUtils.toIntValue(Character.valueOf('3')));
         assertNullPointerException(() -> CharUtils.toIntValue(null));
-        assertIllegalArgumentException(() -> CharUtils.toIntValue(CHARACTER_A));
+        assertThrows(IllegalArgumentException.class, () -> CharUtils.toIntValue(CHARACTER_A));
     }
 
     @Test

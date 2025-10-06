@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -629,7 +628,7 @@ class DateUtilsTest extends AbstractLangTest {
         assertNullPointerException(() -> DateUtils.ceiling((Calendar) null, Calendar.SECOND));
         assertNullPointerException(() -> DateUtils.ceiling((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.ceiling("", Calendar.SECOND));
-        assertIllegalArgumentException(() -> DateUtils.ceiling(date1, -9999));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.ceiling(date1, -9999));
 
     }
 
@@ -860,7 +859,7 @@ class DateUtilsTest extends AbstractLangTest {
      */
     @Test
     void testIteratorEx() {
-        assertIllegalArgumentException(() -> DateUtils.iterator(Calendar.getInstance(), -9999));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.iterator(Calendar.getInstance(), -9999));
         assertNullPointerException(() -> DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER));
         assertNullPointerException(() -> DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER));
         assertNullPointerException(() -> DateUtils.iterator((Object) null, DateUtils.RANGE_WEEK_CENTER));
@@ -1059,7 +1058,7 @@ class DateUtilsTest extends AbstractLangTest {
         assertNullPointerException(() -> DateUtils.round((Calendar) null, Calendar.SECOND));
         assertNullPointerException(() -> DateUtils.round((Object) null, Calendar.SECOND));
         assertThrows(ClassCastException.class, () -> DateUtils.round("", Calendar.SECOND));
-        assertIllegalArgumentException(() -> DateUtils.round(date1, -9999));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.round(date1, -9999));
 
         assertEquals(dateTimeParser.parse("February 3, 2002 00:00:00.000"), DateUtils.round((Object) calAmPm1, Calendar.AM_PM), "round ampm-1 failed");
         assertEquals(dateTimeParser.parse("February 3, 2002 12:00:00.000"), DateUtils.round((Object) calAmPm2, Calendar.AM_PM), "round ampm-2 failed");
@@ -1178,13 +1177,22 @@ class DateUtilsTest extends AbstractLangTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 1, 4, 3, 2, 1);
+
         result = DateUtils.setDays(BASE_DATE, 29);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 29, 4, 3, 2, 1);
+
         final String outsideOfRangeAssertionMessage = "DateUtils.setDays did not throw an expected IllegalArgumentException for amount outside of range 1 to 31.";
-        assertIllegalArgumentException(() -> DateUtils.setDays(BASE_DATE, 32), outsideOfRangeAssertionMessage);
-        assertIllegalArgumentException(() -> DateUtils.setDays(BASE_DATE, 0), outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setDays(BASE_DATE, 32),
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setDays(BASE_DATE, 0),
+                outsideOfRangeAssertionMessage);
+
         assertNullPointerException(() -> DateUtils.setDays(null, 1));
     }
 
@@ -1194,13 +1202,22 @@ class DateUtilsTest extends AbstractLangTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 0, 3, 2, 1);
+
         result = DateUtils.setHours(BASE_DATE, 23);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 23, 3, 2, 1);
+
         final String outsideOfRangeAssertionMessage = "DateUtils.setHours did not throw an expected IllegalArgumentException for amount outside of range 0 to 23.";
-        assertIllegalArgumentException(() -> DateUtils.setHours(BASE_DATE, 24), outsideOfRangeAssertionMessage);
-        assertIllegalArgumentException(() -> DateUtils.setHours(BASE_DATE, -1), outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setHours(BASE_DATE, 24),
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setHours(BASE_DATE, -1),
+                outsideOfRangeAssertionMessage);
+
         assertNullPointerException(() -> DateUtils.setHours(null, 0));
     }
 
@@ -1210,13 +1227,22 @@ class DateUtilsTest extends AbstractLangTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 0);
+
         result = DateUtils.setMilliseconds(BASE_DATE, 999);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 2, 999);
+
         final String outsideOfRangeAssertionMessage = "DateUtils.setMilliseconds did not throw an expected IllegalArgumentException for range outside of 0 to 999.";
-        assertIllegalArgumentException(() -> DateUtils.setMilliseconds(BASE_DATE, 1000), outsideOfRangeAssertionMessage);
-        assertIllegalArgumentException(() -> DateUtils.setMilliseconds(BASE_DATE, -1), outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMilliseconds(BASE_DATE, 1000),
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMilliseconds(BASE_DATE, -1),
+                outsideOfRangeAssertionMessage);
+
         assertNullPointerException(() -> DateUtils.setMilliseconds(null, 0));
     }
 
@@ -1226,13 +1252,22 @@ class DateUtilsTest extends AbstractLangTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 0, 2, 1);
+
         result = DateUtils.setMinutes(BASE_DATE, 59);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 59, 2, 1);
+
         final String outsideOfRangeAssertionMessage = "DateUtils.setMinutes did not throw an expected IllegalArgumentException for amount outside of range 0 to 59.";
-        assertIllegalArgumentException(() -> DateUtils.setMinutes(BASE_DATE, 60), outsideOfRangeAssertionMessage);
-        assertIllegalArgumentException(() -> DateUtils.setMinutes(BASE_DATE, -1), outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMinutes(BASE_DATE, 60),
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMinutes(BASE_DATE, -1),
+                outsideOfRangeAssertionMessage);
+
         assertNullPointerException(() -> DateUtils.setMinutes(null, 0));
     }
 
@@ -1242,17 +1277,27 @@ class DateUtilsTest extends AbstractLangTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 5, 5, 4, 3, 2, 1);
+
         result = DateUtils.setMonths(BASE_DATE, 1);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 1, 5, 4, 3, 2, 1);
+
         result = DateUtils.setMonths(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 0, 5, 4, 3, 2, 1);
+
         final String outsideOfRangeAssertionMessage = "DateUtils.setMonths did not throw an expected IllegalArgumentException for amount outside of range 0 to 11.";
-        assertIllegalArgumentException(() -> DateUtils.setMonths(BASE_DATE, 12), outsideOfRangeAssertionMessage);
-        assertIllegalArgumentException(() -> DateUtils.setMonths(BASE_DATE, -1), outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMonths(BASE_DATE, 12),
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setMonths(BASE_DATE, -1),
+                outsideOfRangeAssertionMessage);
+
         assertNullPointerException(() -> DateUtils.setMonths(null, 0));
     }
 
@@ -1262,13 +1307,22 @@ class DateUtilsTest extends AbstractLangTest {
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 0, 1);
+
         result = DateUtils.setSeconds(BASE_DATE, 59);
         assertNotSame(BASE_DATE, result);
         assertDate(BASE_DATE, 2000, 6, 5, 4, 3, 2, 1);
         assertDate(result, 2000, 6, 5, 4, 3, 59, 1);
+
         final String outsideOfRangeAssertionMessage = "DateUtils.setSeconds did not throw an expected IllegalArgumentException for amount outside of range 0 to 59.";
-        assertIllegalArgumentException(() -> DateUtils.setSeconds(BASE_DATE, 60), outsideOfRangeAssertionMessage);
-        assertIllegalArgumentException(() -> DateUtils.setSeconds(BASE_DATE, -1), outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setSeconds(BASE_DATE, 60),
+                outsideOfRangeAssertionMessage);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> DateUtils.setSeconds(BASE_DATE, -1),
+                outsideOfRangeAssertionMessage);
+
         assertNullPointerException(() -> DateUtils.setSeconds(null, 0));
     }
 
@@ -1581,34 +1635,50 @@ class DateUtilsTest extends AbstractLangTest {
         TimeZone.setDefault(denverZone);
         final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS XXX");
         format.setTimeZone(denverZone);
+
         final Date oct31_01MDT = new Date(1099206000000L);
+
         final Date oct31MDT = new Date(oct31_01MDT.getTime() - 3600000L); // - 1 hour
         final Date oct31_01_02MDT = new Date(oct31_01MDT.getTime() + 120000L); // + 2 minutes
         final Date oct31_01_02_03MDT = new Date(oct31_01_02MDT.getTime() + 3000L); // + 3 seconds
         final Date oct31_01_02_03_04MDT = new Date(oct31_01_02_03MDT.getTime() + 4L); // + 4 milliseconds
+
         assertEquals("2004-10-31 00:00:00.000 -06:00", format.format(oct31MDT), "Check 00:00:00.000");
         assertEquals("2004-10-31 01:00:00.000 -06:00", format.format(oct31_01MDT), "Check 01:00:00.000");
         assertEquals("2004-10-31 01:02:00.000 -06:00", format.format(oct31_01_02MDT), "Check 01:02:00.000");
         assertEquals("2004-10-31 01:02:03.000 -06:00", format.format(oct31_01_02_03MDT), "Check 01:02:03.000");
         assertEquals("2004-10-31 01:02:03.004 -06:00", format.format(oct31_01_02_03_04MDT), "Check 01:02:03.004");
+
         // Demonstrate Problem
         final Calendar gval = Calendar.getInstance();
         gval.setTime(new Date(oct31_01MDT.getTime()));
         gval.set(Calendar.MINUTE, gval.get(Calendar.MINUTE)); // set minutes to the same value
         assertEquals(gval.getTime().getTime(), oct31_01MDT.getTime() + 3600000L, "Demonstrate Problem");
+
         // Test Truncate
         assertEquals(oct31_01_02_03_04MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MILLISECOND), "Truncate Calendar.MILLISECOND");
+
         assertEquals(oct31_01_02_03MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.SECOND), "Truncate Calendar.SECOND");
+
         assertEquals(oct31_01_02MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MINUTE), "Truncate Calendar.MINUTE");
+
         assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY), "Truncate Calendar.HOUR_OF_DAY");
+
         assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR), "Truncate Calendar.HOUR");
+
         assertEquals(oct31MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.DATE), "Truncate Calendar.DATE");
+
         // Test Round (down)
         assertEquals(oct31_01_02_03_04MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MILLISECOND), "Round Calendar.MILLISECOND");
+
         assertEquals(oct31_01_02_03MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.SECOND), "Round Calendar.SECOND");
+
         assertEquals(oct31_01_02MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MINUTE), "Round Calendar.MINUTE");
+
         assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY), "Round Calendar.HOUR_OF_DAY");
+
         assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR), "Round Calendar.HOUR");
+
         assertEquals(oct31MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.DATE), "Round Calendar.DATE");
     }
 

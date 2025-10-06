@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.time;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -57,7 +56,7 @@ class GmtTimeZoneTest extends AbstractLangTest {
 
     @Test
     void testHoursOutOfRange() {
-        assertIllegalArgumentException(() -> new GmtTimeZone(false, 24, 0));
+        assertThrows(IllegalArgumentException.class, () -> new GmtTimeZone(false, 24, 0));
     }
 
     @Test
@@ -72,7 +71,7 @@ class GmtTimeZoneTest extends AbstractLangTest {
 
     @Test
     void testMinutesOutOfRange() {
-        assertIllegalArgumentException(() -> new GmtTimeZone(false, 0, 60));
+        assertThrows(IllegalArgumentException.class, () -> new GmtTimeZone(false, 0, 60));
     }
 
     @Test

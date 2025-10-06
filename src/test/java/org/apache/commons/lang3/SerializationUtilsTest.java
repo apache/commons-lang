@@ -199,7 +199,8 @@ class SerializationUtilsTest extends AbstractLangTest {
 
     @Test
     void testDeserializeStreamBadStream() {
-        assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(new ByteArrayInputStream(new byte[0])));
+        assertThrows(SerializationException.class,
+                () -> SerializationUtils.deserialize(new ByteArrayInputStream(new byte[0])));
     }
 
     @Test
