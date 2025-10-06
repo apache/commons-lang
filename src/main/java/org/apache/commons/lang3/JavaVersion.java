@@ -19,9 +19,8 @@ package org.apache.commons.lang3;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * An enum representing all the versions of the Java specification.
- * This is intended to mirror available values from the
- * <em>java.specification.version</em> System property.
+ * Enumerates all known versions of the Java specification. This is intended to mirror available values from the <em>java.specification.version</em> System
+ * property.
  *
  * @since 3.0
  */
@@ -205,13 +204,10 @@ public enum JavaVersion {
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
 
     /**
-     * Transforms the given string with a Java version number to the
-     * corresponding constant of this enumeration class. This method is used
-     * internally.
+     * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
      *
      * @param versionStr the Java version as string
-     * @return the corresponding enumeration constant or <strong>null</strong> if the
-     * version is unknown
+     * @return the corresponding enumeration constant or <strong>null</strong> if the version is unknown
      */
     static JavaVersion get(final String versionStr) {
         if (versionStr == null) {
@@ -286,13 +282,10 @@ public enum JavaVersion {
     }
 
     /**
-     * Transforms the given string with a Java version number to the
-     * corresponding constant of this enumeration class. This method is used
-     * internally.
+     * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
      *
      * @param versionStr the Java version as string
-     * @return the corresponding enumeration constant or <strong>null</strong> if the
-     * version is unknown
+     * @return the corresponding enumeration constant or <strong>null</strong> if the version is unknown
      */
     static JavaVersion getJavaVersion(final String versionStr) {
         return get(versionStr);
@@ -343,7 +336,7 @@ public enum JavaVersion {
     /**
      * Constructs a new instance.
      *
-     * @param value  the float value
+     * @param value the float value
      * @param name  the standard name, not null
      */
     JavaVersion(final float value, final String name) {
@@ -354,10 +347,16 @@ public enum JavaVersion {
     /**
      * Tests whether this version of Java is at least the version of Java passed in.
      *
-     * <p>For example:<br>
-     *  {@code myVersion.atLeast(JavaVersion.JAVA_1_4)}</p>
+     * <p>
+     * For example:
+     * </p>
      *
-     * @param requiredVersion  the version to check against, not null
+     * <pre>
+     *  {@code
+     * myVersion.atLeast(JavaVersion.JAVA_1_8)
+     * }</pre>
+     *
+     * @param requiredVersion the version to check against, not null
      * @return true if this version is equal to or greater than the specified version
      */
     public boolean atLeast(final JavaVersion requiredVersion) {
@@ -367,10 +366,16 @@ public enum JavaVersion {
     /**
      * Tests whether this version of Java is at most the version of Java passed in.
      *
-     * <p>For example:<br>
-     *  {@code myVersion.atMost(JavaVersion.JAVA_1_4)}</p>
+     * <p>
+     * For example:
+     * </p>
      *
-     * @param requiredVersion  the version to check against, not null
+     * <pre>
+     *  {@code
+     * myVersion.atMost(JavaVersion.JAVA_1_4)
+     * }</pre>
+     *
+     * @param requiredVersion the version to check against, not null
      * @return true if this version is equal to or greater than the specified version
      * @since 3.9
      */
@@ -381,7 +386,9 @@ public enum JavaVersion {
     /**
      * The string value is overridden to return the standard name.
      *
-     * <p>For example, {@code "1.5"}.</p>
+     * <p>
+     * For example, {@code "1.5"}.
+     * </p>
      *
      * @return the name, not null
      */

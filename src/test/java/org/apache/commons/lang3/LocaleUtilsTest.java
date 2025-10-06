@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -41,6 +42,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
  * Tests for {@link LocaleUtils}.
@@ -514,6 +516,68 @@ class LocaleUtilsTest extends AbstractLangTest {
         assertNull(LocaleUtils.toLocale((String) null));
         assertEquals(Locale.getDefault(), LocaleUtils.toLocale((Locale) null));
         assertEquals(Locale.getDefault(), LocaleUtils.toLocale(Locale.getDefault()));
+    }
+
+    @Test
+    void testToIso2ToGetNumericCountryCode() {
+        assertEquals("840", LocaleUtils.toNumeric("US"));
+        assertEquals("860", LocaleUtils.toNumeric("UZ"));
+        assertEquals("643", LocaleUtils.toNumeric("RU"));
+        assertEquals("826", LocaleUtils.toNumeric("GB"));
+        assertEquals("356", LocaleUtils.toNumeric("IN"));
+    }
+
+    @Test
+    void testToIso2ToGetNumericCountryCodeInvalid() {
+        assertEquals("US",LocaleUtils.numericToIso2("840"));
+        assertEquals("UZ",LocaleUtils.numericToIso2("860"));
+        assertEquals("RU",LocaleUtils.numericToIso2("643"));
+        assertEquals("GB",LocaleUtils.numericToIso2("826"));
+        assertEquals("IN",LocaleUtils.numericToIso2("356"));
+    }
+
+    @Test
+    void testToIso2ToGetNumericCountryCodeInvalid2() {
+        assertNullPointerException(() -> LocaleUtils.toNumeric(null), "Null country code");
+        assertNullPointerException(() -> LocaleUtils.numericToIso2(null), "Null numeric country");
+        assertNull(LocaleUtils.toNumeric(""), "Empty country code");
+        assertNull(LocaleUtils.numericToIso2(""), "Empty numeric country");
+        assertNull(LocaleUtils.numericToIso2("B"), "Empty numeric country");
+        assertNull(LocaleUtils.numericToIso2("A"), "Empty numeric country");
+    }
+
+
+
+
+    @ParameterizedTest
+    @MethodSource("java.util.Locale#getISOCountries")
+    void testToLocaleGetIso3Country(final String country) {
+        assertEquals(LocaleUtils.ofCountry(country).getISO3Country(), LocaleUtils.toLocale(country).getISO3Country());
+    }
+
+    @Test
+    void testToLocaleGetIso3CountryKnown() {
+        assertEquals("USA", LocaleUtils.toLocale("US").getISO3Country());
+        assertEquals("GBR", LocaleUtils.toLocale("GB").getISO3Country());
+        assertEquals("PAK", LocaleUtils.toLocale("PK").getISO3Country());
+        assertEquals("IND", LocaleUtils.toLocale("IN").getISO3Country());
+        assertEquals("FRA", LocaleUtils.toLocale("FR").getISO3Country());
+    }
+
+    @Test
+    @DefaultLocale(country = "US", language = "en")
+    void testToLocaleGetIso3LanguageKown() {
+        assertEquals("United States", LocaleUtils.toLocale("US").getDisplayCountry());
+        assertEquals("United Kingdom", LocaleUtils.toLocale("GB").getDisplayCountry());
+        assertEquals("Pakistan", LocaleUtils.toLocale("PK").getDisplayCountry());
+        assertEquals("India", LocaleUtils.toLocale("IN").getDisplayCountry());
+        assertEquals("France", LocaleUtils.toLocale("FR").getDisplayCountry());
+    }
+
+    @ParameterizedTest
+    @MethodSource("java.util.Locale#getISOCountries")
+    void testToLocaleGetIso3LanguageKown(final String country) {
+        assertEquals(LocaleUtils.ofCountry(country).getDisplayCountry(), LocaleUtils.toLocale(country).getDisplayCountry());
     }
 
     /**
