@@ -17,17 +17,17 @@
 
 package org.apache.commons.lang3;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.Map;
-import java.util.HashMap;
-import java.util.Collections;
 import java.util.Objects;
-import java.util.Comparator;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Predicate;
@@ -49,11 +49,9 @@ public class LocaleUtils {
     /**
      * Avoids synchronization, initializes on demand.
      */
-
-    private static final Map<String,String> ISO2_TO_NUMERIC;
-
+    private static final Map<String, String> ISO2_TO_NUMERIC;
     static {
-        Map<String, String> numeric = new HashMap<>();
+        final Map<String, String> numeric = new HashMap<>();
         numeric.put("AF", "004");
         numeric.put("AL", "008");
         numeric.put("DZ", "012");
@@ -335,7 +333,7 @@ public class LocaleUtils {
      */
     public static String toNumeric(final String iso2) {
         Objects.requireNonNull(iso2, "ISO2 country code must not be null");
-        return ISO2_TO_NUMERIC.getOrDefault(iso2,null);
+        return ISO2_TO_NUMERIC.getOrDefault(iso2, null);
     }
 
 
@@ -534,9 +532,9 @@ public class LocaleUtils {
     /**
      * Obtains the list of languages supported for a given country.
      *
-     * <p>
+     * <pre>
      * This method takes a country code and searches to find the languages available for that country. Variant locales are removed.
-     * </p>
+     * </pre>
      *
      * @param countryCode the 2-letter country code, null returns empty.
      * @return an unmodifiable List of Locale objects, not null.

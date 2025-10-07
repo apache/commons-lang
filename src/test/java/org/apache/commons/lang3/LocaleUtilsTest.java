@@ -529,11 +529,11 @@ class LocaleUtilsTest extends AbstractLangTest {
 
     @Test
     void testToIso2ToGetNumericCountryCodeInvalid() {
-        assertEquals("US",LocaleUtils.numericToIso2("840"));
-        assertEquals("UZ",LocaleUtils.numericToIso2("860"));
-        assertEquals("RU",LocaleUtils.numericToIso2("643"));
-        assertEquals("GB",LocaleUtils.numericToIso2("826"));
-        assertEquals("IN",LocaleUtils.numericToIso2("356"));
+        assertEquals("US", LocaleUtils.numericToIso2("840"));
+        assertEquals("UZ", LocaleUtils.numericToIso2("860"));
+        assertEquals("RU", LocaleUtils.numericToIso2("643"));
+        assertEquals("GB", LocaleUtils.numericToIso2("826"));
+        assertEquals("IN", LocaleUtils.numericToIso2("356"));
     }
 
     @Test
