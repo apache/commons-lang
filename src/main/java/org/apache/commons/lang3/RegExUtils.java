@@ -371,7 +371,7 @@ public class RegExUtils {
      * @see #replacePattern(CharSequence, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
-     * @deprecated use {@link #removePattern(CharSequence, String)}.
+     * @deprecated Use {@link #removePattern(CharSequence, String)}.
      */
     @Deprecated
     public static String removePattern(final String text, final String regex) {
