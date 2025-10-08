@@ -66,7 +66,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      * @param left  the left element, may be null.
      * @param middle  the middle element, may be null.
      * @param right  the right element, may be null.
-     * @return a triple formed from the three parameters, not null.
+     * @return a mutable triple formed from the three parameters, not null.
      */
     public static <L, M, R> MutableTriple<L, M, R> of(final L left, final M middle, final R right) {
         return new MutableTriple<>(left, middle, right);
@@ -81,7 +81,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      * @param left  the left element, may not be null.
      * @param middle  the middle element, may not be null.
      * @param right  the right element, may not be null.
-     * @return a triple formed from the three parameters, not null.
+     * @return a mutable triple formed from the three parameters, not null.
      * @throws NullPointerException if any input is null.
      * @since 3.13.0
      */
