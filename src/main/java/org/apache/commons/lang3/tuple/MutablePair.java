@@ -114,6 +114,20 @@ public class MutablePair<L, R> extends Pair<L, R> {
         return of(Objects.requireNonNull(left, "left"), Objects.requireNonNull(right, "right"));
     }
 
+    /**
+     * Creates a mutable pair from a map entry.
+     *
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param pair the existing map entry.
+     * @return a mutable pair formed from the map entry
+     * @throws NullPointerException if the pair is null.
+     * @since 3.20
+     */
+    public static <L, R> MutablePair<L, R> ofNonNull(final Map.Entry<L, R> pair) {
+        return of(Objects.requireNonNull(pair, "pair"));
+    }
+
     /** Left object. */
     public L left;
 

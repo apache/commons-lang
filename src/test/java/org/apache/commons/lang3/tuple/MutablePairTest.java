@@ -115,6 +115,15 @@ class MutablePairTest extends AbstractLangTest {
     }
 
     @Test
+    void testOfNonNullMapEntry() {
+        assertNullPointerException(() -> MutablePair.ofNonNull(null));
+        final Pair<Integer, String> pair = Pair.of(0, "foo");
+        final MutablePair<Integer, String> mutablePair = MutablePair.ofNonNull(pair);
+        assertEquals(pair.getLeft(), mutablePair.getLeft());
+        assertEquals(pair.getRight(), mutablePair.getRight());
+    }
+
+    @Test
     void testPairOfMapEntry() {
         assertNull(MutablePair.of(null).getLeft());
         assertNull(MutablePair.of(null).getRight());
