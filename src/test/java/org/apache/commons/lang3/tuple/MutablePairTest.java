@@ -91,6 +91,15 @@ class MutablePairTest extends AbstractLangTest {
     }
 
     @Test
+    void testCopyOf() {
+        assertNullPointerException(() -> MutablePair.copyOf(null));
+        final Pair<Integer, String> pair = Pair.of(0, "foo");
+        final MutablePair<Integer, String> mutablePair = MutablePair.copyOf(pair);
+        assertEquals(pair.getLeft(), mutablePair.getLeft());
+        assertEquals(pair.getRight(), mutablePair.getRight());
+    }
+
+    @Test
     void testHashCode() {
         assertEquals(MutablePair.of(null, "foo").hashCode(), MutablePair.of(null, "foo").hashCode());
     }
