@@ -70,9 +70,6 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
      * @param <L> the left element type
      * @param <R> the right element type
      * @param left  the left element, may be null
@@ -99,9 +96,6 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
      * @param <L> the left element type
      * @param <R> the right element type
      * @param left  the left element, may be null
@@ -115,9 +109,6 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair from a map entry.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
      * @param <L> the left element type
      * @param <R> the right element type
      * @param pair the existing map entry.
@@ -130,9 +121,6 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
 
     /**
      * Creates an immutable pair of two non-null objects inferring the generic types.
-     *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
      *
      * @param <L> the left element type
      * @param <R> the right element type
@@ -148,9 +136,6 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
 
     /**
      * Creates an immutable pair of two objects inferring the generic types.
-     *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
      *
      * @param <L> the left element type
      * @param <R> the right element type

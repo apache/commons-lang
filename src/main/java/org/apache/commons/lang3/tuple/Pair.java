@@ -70,9 +70,6 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
      * @param <L> the left element type.
      * @param <R> the right element type.
      * @param left  the left element, may be null.
@@ -86,9 +83,6 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Creates an immutable pair from a map entry.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
      * @param <L> the left element type.
      * @param <R> the right element type.
      * @param pair the map entry.
@@ -101,9 +95,6 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
 
     /**
      * Creates an immutable pair of two non-null objects inferring the generic types.
-     *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
      *
      * @param <L> the left element type.
      * @param <R> the right element type.
