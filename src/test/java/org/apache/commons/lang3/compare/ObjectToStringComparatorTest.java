@@ -47,18 +47,6 @@ class ObjectToStringComparatorTest extends AbstractLangTest {
     }
 
     @Test
-    void testNulls() {
-        final Thing thing = new Thing("y");
-        final List<Thing> things = Arrays.asList(null, thing, null);
-        things.sort(ObjectToStringComparator.INSTANCE);
-        assertEquals("y", things.get(0).string);
-        assertEquals(3, things.size());
-        assertSame(thing, things.get(0));
-        assertNull(things.get(1));
-        assertNull(things.get(2));
-    }
-
-    @Test
     void testNullLeft() {
         final Thing thing = new Thing("y");
         final List<Thing> things = Arrays.asList(null, thing);
@@ -77,6 +65,18 @@ class ObjectToStringComparatorTest extends AbstractLangTest {
         assertEquals(2, things.size());
         assertSame(thing, things.get(0));
         assertNull(things.get(1));
+    }
+
+    @Test
+    void testNulls() {
+        final Thing thing = new Thing("y");
+        final List<Thing> things = Arrays.asList(null, thing, null);
+        things.sort(ObjectToStringComparator.INSTANCE);
+        assertEquals("y", things.get(0).string);
+        assertEquals(3, things.size());
+        assertSame(thing, things.get(0));
+        assertNull(things.get(1));
+        assertNull(things.get(2));
     }
 
     @Test
