@@ -59,9 +59,6 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates a mutable pair of two objects inferring the generic types.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
      * @param <L> the left element type.
      * @param <R> the right element type.
      * @param left  the left element, may be null.
@@ -74,9 +71,6 @@ public class MutablePair<L, R> extends Pair<L, R> {
 
     /**
      * Creates a mutable pair from a map entry.
-     *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
      *
      * @param <L> the left element type.
      * @param <R> the right element type.
@@ -98,9 +92,6 @@ public class MutablePair<L, R> extends Pair<L, R> {
 
     /**
      * Creates a mutable pair of two non-null objects inferring the generic types.
-     *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
      *
      * @param <L> the left element type.
      * @param <R> the right element type.
