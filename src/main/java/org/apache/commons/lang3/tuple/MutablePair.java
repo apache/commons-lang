@@ -79,6 +79,8 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * obtain the generic types.</p>
      *
      * @param pair the existing pair.
+     * @param <L> the left element type.
+     * @param <R> the right element type.
      * @return a pair formed from the two parameters, not null.
      * @throws NullPointerException if {@code pair} is null.
      * @since 3.20.0
