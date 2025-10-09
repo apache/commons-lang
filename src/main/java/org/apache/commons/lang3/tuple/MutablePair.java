@@ -78,15 +78,16 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * <p>This factory allows the pair to be created using inference to
      * obtain the generic types.</p>
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
      * @param pair the existing pair.
      * @return a pair formed from the two parameters, not null.
      * @throws NullPointerException if {@code pair} is null.
+     * @since 3.13.0
      */
-    public static <L,R> MutablePair<L,R> copyOf(final Pair<L,R> pair) {
-        Objects.requireNonNull(pair, "pair");
-        return new MutablePair<>(pair.getLeft(), pair.getRight());
+    public static <L,R> MutablePair<L,R> copyOf(final Map.Entry<L, R> pair) {
+        of(Objects.requireNonNull(pair, "pair"));
+        final L left = pair.getKey();
+        final R right = pair.getValue();
+        return new MutablePair<>(left, right);
     }
 
     /**
