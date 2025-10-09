@@ -85,7 +85,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * @throws NullPointerException if {@code pair} is null.
      * @since 3.20.0
      */
-    public static <L,R> MutablePair<L,R> copyOf(final Map.Entry<L, R> pair) {
+    public static <L, R> MutablePair<L, R> copyOf(final Map.Entry<L, R> pair) {
         of(Objects.requireNonNull(pair, "pair"));
         final L left = pair.getKey();
         final R right = pair.getValue();
