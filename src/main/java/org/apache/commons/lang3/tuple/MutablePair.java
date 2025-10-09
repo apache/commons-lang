@@ -81,7 +81,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * @param pair the existing pair.
      * @return a pair formed from the two parameters, not null.
      * @throws NullPointerException if {@code pair} is null.
-     * @since 3.13.0
+     * @since 3.20.0
      */
     public static <L,R> MutablePair<L,R> copyOf(final Map.Entry<L, R> pair) {
         of(Objects.requireNonNull(pair, "pair"));
