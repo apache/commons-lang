@@ -59,14 +59,11 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates a mutable pair of two objects inferring the generic types.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
      * @param <L> the left element type.
      * @param <R> the right element type.
      * @param left  the left element, may be null.
      * @param right  the right element, may be null.
-     * @return a pair formed from the two parameters, not null.
+     * @return a mutable pair formed from the two parameters, not null.
      */
     public static <L, R> MutablePair<L, R> of(final L left, final R right) {
         return new MutablePair<>(left, right);
@@ -75,13 +72,10 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates a mutable pair from a map entry.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
      * @param <L> the left element type.
      * @param <R> the right element type.
      * @param pair the existing map entry.
-     * @return a pair formed from the map entry.
+     * @return a mutable pair formed from the map entry.
      */
     public static <L, R> MutablePair<L, R> of(final Map.Entry<L, R> pair) {
         final L left;
@@ -99,19 +93,30 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates a mutable pair of two non-null objects inferring the generic types.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
      * @param <L> the left element type.
      * @param <R> the right element type.
      * @param left  the left element, may not be null.
      * @param right  the right element, may not be null.
-     * @return a pair formed from the two parameters, not null.
+     * @return a mutable pair formed from the two parameters, not null.
      * @throws NullPointerException if any input is null.
      * @since 3.13.0
      */
     public static <L, R> MutablePair<L, R> ofNonNull(final L left, final R right) {
         return of(Objects.requireNonNull(left, "left"), Objects.requireNonNull(right, "right"));
+    }
+
+    /**
+     * Creates a mutable pair from a map entry.
+     *
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param pair the existing map entry.
+     * @return a mutable pair formed from the map entry
+     * @throws NullPointerException if the pair is null.
+     * @since 3.20
+     */
+    public static <L, R> MutablePair<L, R> ofNonNull(final Map.Entry<L, R> pair) {
+        return of(Objects.requireNonNull(pair, "pair"));
     }
 
     /** Left object. */

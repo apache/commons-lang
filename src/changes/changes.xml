@@ -44,12 +44,20 @@ The <action> type attribute can be add,update,fix,remove.
     <title>Apache Commons Lang Release Notes</title>
   </properties>
   <body>
-  <release version="3.19.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
+  <release version="3.20.0" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Optimize ObjectToStringComparator.compare() method #1449.</action>
-    <action                   type="fix" dev="ggregory" due-to="Marcono1234 Gary Gregory">[javadoc] Improve StringUtils Javadoc #1450.</action>
+    <action                   type="fix" dev="ggregory" due-to="Marcono1234, Gary Gregory">[javadoc] Improve StringUtils Javadoc #1450.</action>
+    <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Fix internal inverted logic in private isEnum() method and correct its usage in getFirstEnum() #1454.</action>
+    <action                   type="fix" dev="ggregory" due-to="William Degrange, Gary Gregory, Rob Spoor">Use accessors in ToStringStyle so subclasses can effectively override them.</action>
+    <action                   type="fix" dev="ggregory" due-to="aaaaaa, Gary Gregory">`LocaleUtils.toLocale(String)` for a 2 letter country code now returns a value instead of throwing an `IllegalArgumentException`.</action>
     <!-- ADD -->
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getPath(String, Supplier&lt;Path&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_25.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_25.</action>
+    <action                   type="add" dev="ggregory" due-to="jack5505, Gary Gregory">Add MutablePair.ofNonNull(Map.Entry).</action>
     <!-- UPDATE -->
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 88 to 89.</action>
   </release>
   <release version="3.19.0" date="2025-09-19" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->

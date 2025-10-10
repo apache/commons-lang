@@ -167,7 +167,7 @@ public class StringEscapeUtils {
      * as the foundation for a custom translator.
      *
      * @since 3.0
-     * @deprecated use {@link #ESCAPE_XML10} or {@link #ESCAPE_XML11} instead.
+     * @deprecated Use {@link #ESCAPE_XML10} or {@link #ESCAPE_XML11} instead.
      */
     @Deprecated
     public static final CharSequenceTranslator ESCAPE_XML =
@@ -569,7 +569,7 @@ public class StringEscapeUtils {
      * @param input  the {@link String} to escape, may be null
      * @return a new escaped {@link String}, {@code null} if null string input
      * @see #unescapeXml(String)
-     * @deprecated use {@link #escapeXml10(java.lang.String)} or {@link #escapeXml11(java.lang.String)} instead.
+     * @deprecated Use {@link #escapeXml10(java.lang.String)} or {@link #escapeXml11(java.lang.String)} instead.
      */
     @Deprecated
     public static final String escapeXml(final String input) {

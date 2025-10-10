@@ -85,16 +85,13 @@ public class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Creates an immutable triple of three objects inferring the generic types.
      *
-     * <p>This factory allows the triple to be created using inference to
-     * obtain the generic types.</p>
-     *
      * @param <L> the left element type.
      * @param <M> the middle element type.
      * @param <R> the right element type.
      * @param left  the left element, may be null.
      * @param middle  the middle element, may be null.
      * @param right  the right element, may be null.
-     * @return a triple formed from the three parameters, not null.
+     * @return an immutable triple formed from the three parameters, not null.
      */
     public static <L, M, R> ImmutableTriple<L, M, R> of(final L left, final M middle, final R right) {
         return left != null | middle != null || right != null ? new ImmutableTriple<>(left, middle, right) : nullTriple();
@@ -103,16 +100,13 @@ public class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Creates an immutable triple of three non-null objects inferring the generic types.
      *
-     * <p>This factory allows the triple to be created using inference to
-     * obtain the generic types.</p>
-     *
      * @param <L> the left element type.
      * @param <M> the middle element type.
      * @param <R> the right element type.
      * @param left  the left element, may not be null.
      * @param middle  the middle element, may not be null.
      * @param right  the right element, may not be null.
-     * @return a triple formed from the three parameters, not null.
+     * @return an immutable triple formed from the three parameters, not null.
      * @throws NullPointerException if any input is null.
      * @since 3.13.0
      */

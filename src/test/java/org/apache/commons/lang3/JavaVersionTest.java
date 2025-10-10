@@ -34,7 +34,7 @@ class JavaVersionTest extends AbstractLangTest {
         assertFalse(JavaVersion.JAVA_1_2.atLeast(JavaVersion.JAVA_1_5), "1.2 at least 1.5 passed");
         assertTrue(JavaVersion.JAVA_1_5.atLeast(JavaVersion.JAVA_1_2), "1.5 at least 1.2 failed");
         assertFalse(JavaVersion.JAVA_1_6.atLeast(JavaVersion.JAVA_1_7), "1.6 at least 1.7 passed");
-
+        // 0.x
         assertTrue(JavaVersion.JAVA_0_9.atLeast(JavaVersion.JAVA_1_5), "0.9 at least 1.5 failed");
         assertFalse(JavaVersion.JAVA_0_9.atLeast(JavaVersion.JAVA_1_6), "0.9 at least 1.6 passed");
     }
@@ -66,11 +66,12 @@ class JavaVersionTest extends AbstractLangTest {
         assertEquals(JavaVersion.JAVA_22, JavaVersion.get("22"));
         assertEquals(JavaVersion.JAVA_23, JavaVersion.get("23"));
         assertEquals(JavaVersion.JAVA_24, JavaVersion.get("24"));
-
+        assertEquals(JavaVersion.JAVA_25, JavaVersion.get("25"));
+        // Failures
         assertEquals(JavaVersion.JAVA_RECENT, JavaVersion.get("1.10"), "1.10 failed");
         // assertNull("2.10 unexpectedly worked", JavaVersion.get("2.10"));
         assertEquals(JavaVersion.get("1.5"), JavaVersion.getJavaVersion("1.5"), "Wrapper method failed");
-        assertEquals(JavaVersion.JAVA_RECENT, JavaVersion.get("25"), "Unhandled"); // LANG-1384
+        assertEquals(JavaVersion.JAVA_RECENT, JavaVersion.get("26"), "Unhandled"); // LANG-1384
     }
 
     @Test

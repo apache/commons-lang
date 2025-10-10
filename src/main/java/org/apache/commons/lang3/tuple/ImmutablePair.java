@@ -70,13 +70,10 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
-     * @param <L> the left element type
-     * @param <R> the right element type
-     * @param left  the left element, may be null
-     * @return a pair formed from the two parameters, not null
+     * @param <L> the left element type.
+     * @param <R> the right element type.
+     * @param left  the left element, may be null.
+     * @return an immutable formed from the two parameters, not null.
      * @since 3.11
      */
     public static <L, R> Pair<L, R> left(final L left) {
@@ -99,14 +96,11 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
-     * @param <L> the left element type
-     * @param <R> the right element type
-     * @param left  the left element, may be null
-     * @param right  the right element, may be null
-     * @return a pair formed from the two parameters, not null
+     * @param <L> the left element type.
+     * @param <R> the right element type.
+     * @param left  the left element, may be null.
+     * @param right  the right element, may be null.
+     * @return an immutable formed from the two parameters, not null.
      */
     public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
         return left != null || right != null ? new ImmutablePair<>(left, right) : nullPair();
@@ -115,13 +109,10 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair from a map entry.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
-     * @param <L> the left element type
-     * @param <R> the right element type
+     * @param <L> the left element type.
+     * @param <R> the right element type.
      * @param pair the existing map entry.
-     * @return a pair formed from the map entry
+     * @return an immutable formed from the map entry.
      * @since 3.10
      */
     public static <L, R> ImmutablePair<L, R> of(final Map.Entry<L, R> pair) {
@@ -131,15 +122,12 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two non-null objects inferring the generic types.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
-     * @param <L> the left element type
-     * @param <R> the right element type
-     * @param left  the left element, may not be null
-     * @param right  the right element, may not  be null
-     * @return a pair formed from the two parameters, not null
-     * @throws NullPointerException if any input is null
+     * @param <L> the left element type.
+     * @param <R> the right element type.
+     * @param left  the left element, may not be null.
+     * @param right  the right element, may not  be null.
+     * @return an immutable formed from the two parameters, not null.
+     * @throws NullPointerException if any input is null.
      * @since 3.13.0
      */
     public static <L, R> ImmutablePair<L, R> ofNonNull(final L left, final R right) {
@@ -149,13 +137,10 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * <p>This factory allows the pair to be created using inference to
-     * obtain the generic types.</p>
-     *
-     * @param <L> the left element type
-     * @param <R> the right element type
-     * @param right  the right element, may be null
-     * @return a pair formed from the two parameters, not null
+     * @param <L> the left element type.
+     * @param <R> the right element type.
+     * @param right  the right element, may be null.
+     * @return an immutable formed from the two parameters, not null.
      * @since 3.11
      */
     public static <L, R> Pair<L, R> right(final R right) {

@@ -2931,7 +2931,7 @@ class StringUtilsTest extends AbstractLangTest {
     /**
      * Tests {@link StringUtils#toString(byte[], String)}
      *
-     * @throws java.io.UnsupportedEncodingException because the method under test max throw it
+     * @throws UnsupportedEncodingException because the method under test max throw it
      * @see StringUtils#toString(byte[], String)
      */
     @Test

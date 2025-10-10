@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.function.BooleanSupplier;
 import java.util.function.IntSupplier;
 import java.util.function.LongSupplier;
@@ -1605,7 +1607,7 @@ public final class SystemProperties {
      * @param clazz           The Class to use for the SimpleClassName.
      * @param key             The subkey.
      * @param defaultIfAbsent The default value.
-     * @return an int or defaultIfAbsent.
+     * @return an int or {@code defaultIfAbsent}'s value.
      * @see Class#getSimpleName()
      * @since 3.19.0
      */
@@ -1614,14 +1616,14 @@ public final class SystemProperties {
     }
 
     /**
-     * Gets the current value for the property named {@code key} as an {@code boolean}.
+     * Gets the current value for the property named {@code key} as a {@code boolean}.
      * <p>
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
      * @param key             The key.
      * @param defaultIfAbsent The default value.
-     * @return an {@code boolean} or defaultIfAbsent.
+     * @return a {@code boolean} or {@code defaultIfAbsent}'s value.
      */
     public static boolean getBoolean(final String key, final BooleanSupplier defaultIfAbsent) {
         final String str = getProperty(key);
@@ -1937,7 +1939,7 @@ public final class SystemProperties {
      * @param clazz           The Class to use for the SimpleClassName.
      * @param key             The subkey.
      * @param defaultIfAbsent The default value.
-     * @return an int or defaultIfAbsent.
+     * @return an int or {@code defaultIfAbsent}'s value.
      * @see Class#getSimpleName()
      * @since 3.19.0
      */
@@ -1953,7 +1955,7 @@ public final class SystemProperties {
      *
      * @param key             The key.
      * @param defaultIfAbsent The default value.
-     * @return an {@code int} or defaultIfAbsent.
+     * @return an {@code int} or {@code defaultIfAbsent}'s value.
      */
     public static int getInt(final String key, final IntSupplier defaultIfAbsent) {
         final String str = getProperty(key);
@@ -3701,7 +3703,7 @@ public final class SystemProperties {
      * @param clazz           The Class to use for the SimpleClassName.
      * @param key             The subkey.
      * @param defaultIfAbsent The default value.
-     * @return a long or defaultIfAbsent.
+     * @return a long or {@code defaultIfAbsent}'s value.
      * @see Class#getSimpleName()
      * @since 3.19.0
      */
@@ -3717,7 +3719,7 @@ public final class SystemProperties {
      *
      * @param key             The key.
      * @param defaultIfAbsent The default value.
-     * @return a {@code long} or defaultIfAbsent.
+     * @return a {@code long} or {@code defaultIfAbsent}'s value.
      */
     public static long getLong(final String key, final LongSupplier defaultIfAbsent) {
         final String str = getProperty(key);
@@ -3836,6 +3838,22 @@ public final class SystemProperties {
      */
     public static String getOsVersion() {
         return getProperty(OS_VERSION);
+    }
+
+    /**
+     * Gets the current value for the property named {@code key} as a {@link Path}.
+     * <p>
+     * If a {@link SecurityException} is caught, the return value is {@code null}.
+     * </p>
+     *
+     * @param key             The key.
+     * @param defaultIfAbsent The default value.
+     * @return a {@link Path} or {@code defaultIfAbsent}'s value.
+     * @since 3.20.0
+     */
+    public static Path getPath(final String key, final Supplier<Path> defaultIfAbsent) {
+        final String str = getProperty(key);
+        return str == null ? defaultIfAbsent != null ? defaultIfAbsent.get() : null : Paths.get(str);
     }
 
     /**

@@ -30,10 +30,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeSet;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
+import org.apache.commons.lang3.function.Consumers;
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.stream.Streams;
@@ -50,6 +52,9 @@ import org.apache.commons.lang3.time.DurationUtils;
  * </p>
  *
  * <p>#ThreadSafe#</p>
+ *
+ * @see Consumers
+ * @see Suppliers
  * @since 1.0
  */
 //@Immutable
@@ -606,18 +611,23 @@ public class ObjectUtils {
      * is obtained, all following suppliers are not executed anymore. If all the return values are {@code null} or no suppliers are provided then {@code null}
      * is returned.
      *
-     * <pre>
-     * ObjectUtils.firstNonNullLazy(null, () -&gt; null) = null
-     * ObjectUtils.firstNonNullLazy(() -&gt; null, () -&gt; "") = ""
-     * ObjectUtils.firstNonNullLazy(() -&gt; "", () -&gt; throw new IllegalStateException()) = ""
-     * ObjectUtils.firstNonNullLazy(() -&gt; null, () -&gt; "zz) = "zz"
-     * ObjectUtils.firstNonNullLazy() = null
-     * </pre>
+     * <pre>{@code
+     * ObjectUtils.firstNonNullLazy(null, () -> null)                                  = null
+     * ObjectUtils.firstNonNullLazy(() -> null, () -> "")                              = ""
+     * ObjectUtils.firstNonNullLazy(() -> "", () -> throw new IllegalStateException()) = ""
+     * ObjectUtils.firstNonNullLazy(() -> null, () -> "zz)                             = "zz"
+     * ObjectUtils.firstNonNullLazy()                                                  = null
+     * }</pre>
+     * <p>
+     * See also {@link Consumers#accept(Consumer, Object)} and {@link Suppliers#get(Supplier)}.
+     * </p>
      *
      * @param <T>       the type of the return values.
      * @param suppliers the suppliers returning the values to test. {@code null} values are ignored. Suppliers may return {@code null} or a value of type
      *                  {@code T}.
      * @return the first return value from {@code suppliers} which is not {@code null}, or {@code null} if there are no non-null values.
+     * @see Consumers#accept(Consumer, Object)
+     * @see Suppliers#get(Supplier)
      * @since 3.10
      */
     @SafeVarargs
@@ -633,20 +643,25 @@ public class ObjectUtils {
      * The caller responsible for thread-safety and exception handling of default value supplier.
      * </p>
      *
-     * <pre>
-     * ObjectUtils.getIfNull(null, () -&gt; null)     = null
-     * ObjectUtils.getIfNull(null, null)              = null
-     * ObjectUtils.getIfNull(null, () -&gt; "")       = ""
-     * ObjectUtils.getIfNull(null, () -&gt; "zz")     = "zz"
-     * ObjectUtils.getIfNull("abc", *)                = "abc"
-     * ObjectUtils.getIfNull(Boolean.TRUE, *)         = Boolean.TRUE
-     * </pre>
+     * <pre>{@code
+     * ObjectUtils.getIfNull(null, () -> null)     = null
+     * ObjectUtils.getIfNull(null, null)           = null
+     * ObjectUtils.getIfNull(null, () -> "")       = ""
+     * ObjectUtils.getIfNull(null, () -> "zz")     = "zz"
+     * ObjectUtils.getIfNull("abc", *)             = "abc"
+     * ObjectUtils.getIfNull(Boolean.TRUE, *)      = Boolean.TRUE
+     * }</pre>
+     * <p>
+     * See also {@link Consumers#accept(Consumer, Object)} and {@link Suppliers#get(Supplier)}.
+     * </p>
      *
      * @param <T> the type of the object.
      * @param object the {@link Object} to test, may be {@code null}.
      * @param defaultSupplier the default value to return, may be {@code null}.
      * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise.
      * @see #getIfNull(Object, Object)
+     * @see Consumers#accept(Consumer, Object)
+     * @see Suppliers#get(Supplier)
      * @since 3.10
      */
     public static <T> T getIfNull(final T object, final Supplier<T> defaultSupplier) {
@@ -663,12 +678,17 @@ public class ObjectUtils {
      * ObjectUtils.getIfNull("abc", *)        = "abc"
      * ObjectUtils.getIfNull(Boolean.TRUE, *) = Boolean.TRUE
      * </pre>
+     * <p>
+     * See also {@link Consumers#accept(Consumer, Object)} and {@link Suppliers#get(Supplier)}.
+     * </p>
      *
      * @param <T> the type of the object.
      * @param object  the {@link Object} to test, may be {@code null}.
      * @param defaultValue  the default value to return, may be {@code null}.
      * @return {@code object} if it is not {@code null}, defaultValue otherwise.
      * @see #getIfNull(Object, Supplier)
+     * @see Consumers#accept(Consumer, Object)
+     * @see Suppliers#get(Supplier)
      * @since 3.18.0
      */
     public static <T> T getIfNull(final T object, final T defaultValue) {
@@ -1249,16 +1269,16 @@ public class ObjectUtils {
      * Gets the {@code toString} of an {@link Supplier}'s {@link Supplier#get()} returning
      * a specified text if {@code null} input.
      *
-     * <pre>
-     * ObjectUtils.toString(() -&gt; obj, () -&gt; expensive())
+     * <pre>{@code
+     * ObjectUtils.toString(() -> obj, () -> expensive())
      * </pre>
      * <pre>
-     * ObjectUtils.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
-     * ObjectUtils.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
-     * ObjectUtils.toString(() -&gt; "", () -&gt; expensive())           = ""
-     * ObjectUtils.toString(() -&gt; "bat", () -&gt; expensive())        = "bat"
-     * ObjectUtils.toString(() -&gt; Boolean.TRUE, () -&gt; expensive()) = "true"
-     * </pre>
+     * ObjectUtils.toString(() -> null, () -> expensive())         = result of expensive()
+     * ObjectUtils.toString(() -> null, () -> expensive())         = result of expensive()
+     * ObjectUtils.toString(() -> "", () -> expensive())           = ""
+     * ObjectUtils.toString(() -> "bat", () -> expensive())        = "bat"
+     * ObjectUtils.toString(() -> Boolean.TRUE, () -> expensive()) = "true"
+     * }</pre>
      *
      * @param obj  the Object to {@code toString}, may be null.
      * @param supplier  the Supplier of String used on {@code null} input, may be null.
@@ -1273,16 +1293,16 @@ public class ObjectUtils {
      * Gets the {@code toString} of an {@link Object} returning
      * a specified text if {@code null} input.
      *
-     * <pre>
-     * ObjectUtils.toString(obj, () -&gt; expensive())
-     * </pre>
-     * <pre>
-     * ObjectUtils.toString(null, () -&gt; expensive())         = result of expensive()
-     * ObjectUtils.toString(null, () -&gt; expensive())         = result of expensive()
-     * ObjectUtils.toString("", () -&gt; expensive())           = ""
-     * ObjectUtils.toString("bat", () -&gt; expensive())        = "bat"
-     * ObjectUtils.toString(Boolean.TRUE, () -&gt; expensive()) = "true"
-     * </pre>
+     * <pre>{@code
+     * ObjectUtils.toString(obj, () -> expensive())
+     * }</pre>
+     * <pre>{@code
+     * ObjectUtils.toString(null, () -> expensive())         = result of expensive()
+     * ObjectUtils.toString(null, () -> expensive())         = result of expensive()
+     * ObjectUtils.toString("", () -> expensive())           = ""
+     * ObjectUtils.toString("bat", () -> expensive())        = "bat"
+     * ObjectUtils.toString(Boolean.TRUE, () -> expensive()) = "true"
+     * }</pre>
      *
      * @param <T> the obj type (used to provide better source compatibility in 3.14.0).
      * @param obj  the Object to {@code toString}, may be null.
