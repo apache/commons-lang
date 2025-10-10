@@ -25,9 +25,9 @@ import java.math.BigInteger;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
-///**
-// * Tests {@link ReflectionDiffBuilder}.
-// */
+/**
+ * Tests {@link ReflectionDiffBuilder}.
+ */
 class ReflectionDiffBuilderTest extends AbstractLangTest {
 
     @SuppressWarnings("unused")
