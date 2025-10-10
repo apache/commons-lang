@@ -287,7 +287,7 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         final TypeTestClass firstObject = new TypeTestClass();
         firstObject.transientField = "a";
         final TypeTestClass secondObject = new TypeTestClass();
-        firstObject.transientField = "b";
+        secondObject.transientField = "b";
         DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
         assertEquals(0, list.getNumberOfDiffs());
         list = firstObject.diffDeprecated(secondObject);
