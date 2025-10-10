@@ -2951,16 +2951,16 @@ class StringUtilsTest extends AbstractLangTest {
     @Test
     void testTruncate_StringInt() {
         assertNull(StringUtils.truncate(null, 12));
-        assertIllegalArgumentException(() -> StringUtils.truncate(null, -1), "maxWith cannot be negative");
-        assertIllegalArgumentException(() -> StringUtils.truncate(null, -10), "maxWith cannot be negative");
-        assertIllegalArgumentException(() -> StringUtils.truncate(null, Integer.MIN_VALUE), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate(null, -1), "maxWidth cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate(null, -10), "maxWidth cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate(null, Integer.MIN_VALUE), "maxWidth cannot be negative");
         assertEquals("", StringUtils.truncate("", 10));
         assertEquals("abc", StringUtils.truncate("abcdefghij", 3));
         assertEquals("abcdef", StringUtils.truncate("abcdefghij", 6));
         assertEquals("", StringUtils.truncate("abcdefghij", 0));
-        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -1), "maxWith cannot be negative");
-        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -100), "maxWith cannot be negative");
-        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -1), "maxWidth cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -100), "maxWidth cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", Integer.MIN_VALUE), "maxWidth cannot be negative");
         assertEquals("abcdefghij", StringUtils.truncate("abcdefghijklmno", 10));
         assertEquals("abcdefghijklmno", StringUtils.truncate("abcdefghijklmno", Integer.MAX_VALUE));
         assertEquals("abcde", StringUtils.truncate("abcdefghijklmno", 5));
@@ -2979,11 +2979,11 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("abc", StringUtils.truncate("abcdefghij", 0, 3));
         assertEquals("fghij", StringUtils.truncate("abcdefghij", 5, 6));
         assertEquals("", StringUtils.truncate("abcdefghij", 0, 0));
-        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, -1), "maxWith cannot be negative");
-        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, -10), "maxWith cannot be negative");
-        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, -100), "maxWith cannot be negative");
-        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 1, -100), "maxWith cannot be negative");
-        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, Integer.MIN_VALUE), "maxWith cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, -1), "maxWidth cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, -10), "maxWidth cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, -100), "maxWidth cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 1, -100), "maxWidth cannot be negative");
+        assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", 0, Integer.MIN_VALUE), "maxWidth cannot be negative");
         assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -1, 0), "offset cannot be negative");
         assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -10, 0), "offset cannot be negative");
         assertIllegalArgumentException(() -> StringUtils.truncate("abcdefghij", -100, 1), "offset cannot be negative");
