@@ -1113,6 +1113,16 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testInvokeNonExistingMethod_VarArgsWithNullValues() throws Exception {
+        assertThrows(NoSuchMethodException.class, () -> {
+            assertEquals("String...", MethodUtils.invokeMethod(testBean, "noSuchMethod", "a", null, "c"));
+        });
+        assertThrows(NoSuchMethodException.class, () -> {
+            assertEquals("String...", MethodUtils.invokeMethod(testBean, "noSuchMethod", "a", "b", null));
+        });
+    }
+
+    @Test
     void testInvokeMethod1PlusVarArgs() throws Exception {
         // intStringVarArg
         assertEquals("int, String...", MethodUtils.invokeMethod(testBean, "intStringVarArg", 1));
