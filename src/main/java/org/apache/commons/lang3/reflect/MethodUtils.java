@@ -402,7 +402,7 @@ public class MethodUtils {
     }
 
     /**
-     * Gets a Method, or {@code null} if a documented {@link Class#getMethod(String, Class...) } exception is thrown.
+     * Gets a Method, or {@code null} if a checked {@link Class#getMethod(String, Class...) } exception is thrown.
      *
      * @param cls            Receiver for {@link Class#getMethod(String, Class...)}.
      * @param name           the name of the method.
