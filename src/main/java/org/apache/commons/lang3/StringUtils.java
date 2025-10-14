@@ -8866,7 +8866,7 @@ public class StringUtils {
             throw new IllegalArgumentException("offset cannot be negative");
         }
         if (maxWidth < 0) {
-            throw new IllegalArgumentException("maxWith cannot be negative");
+            throw new IllegalArgumentException("maxWidth cannot be negative");
         }
         if (str == null) {
             return null;

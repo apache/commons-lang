@@ -42,6 +42,7 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.stream.LangCollectors;
+import org.apache.commons.lang3.stream.Streams;
 
 /**
  * Utility reflection methods focused on {@link Method}s, originally from Commons BeanUtils.
@@ -158,10 +159,10 @@ public class MethodUtils {
      * call this rather than the higher level methods.
      * </p>
      *
-     * @param cls Parent class for the interfaces to be checked
-     * @param methodName Method name of the method we wish to call
-     * @param parameterTypes The parameter type signatures
-     * @return the accessible method or {@code null} if not found
+     * @param cls Parent class for the interfaces to be checked.
+     * @param methodName Method name of the method we wish to call.
+     * @param parameterTypes The parameter type signatures.
+     * @return the accessible method or {@code null} if not found.
      */
     private static Method getAccessibleMethodFromInterfaceNest(Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
         // Search up the superclass chain
@@ -213,14 +214,11 @@ public class MethodUtils {
     }
 
     /**
-     * Gets a combination of {@link ClassUtils#getAllSuperclasses(Class)} and
-     * {@link ClassUtils#getAllInterfaces(Class)}, one from superclasses, one
-     * from interfaces, and so on in a breadth first way.
+     * Gets a combination of {@link ClassUtils#getAllSuperclasses(Class)} and {@link ClassUtils#getAllInterfaces(Class)}, one from superclasses, one from
+     * interfaces, and so on in a breadth first way.
      *
-     * @param cls  the class to look up, may be {@code null}
-     * @return the combined {@link List} of superclasses and interfaces in order
-     * going up from this one
-     *  {@code null} if null input
+     * @param cls the class to look up, may be {@code null}.
+     * @return the combined {@link List} of superclasses and interfaces in order going up from this one {@code null} if null input.
      */
     private static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls) {
         if (cls == null) {
@@ -244,29 +242,23 @@ public class MethodUtils {
     }
 
     /**
-     * Gets the annotation object with the given annotation type that is present on the given method
-     * or optionally on any equivalent method in super classes and interfaces. Returns null if the annotation
-     * type was not present.
+     * Gets the annotation object with the given annotation type that is present on the given method or optionally on any equivalent method in super classes and
+     * interfaces. Returns null if the annotation type was not present.
      *
      * <p>
-     * Stops searching for an annotation once the first annotation of the specified type has been
-     * found. Additional annotations of the specified type will be silently ignored.
+     * Stops searching for an annotation once the first annotation of the specified type has been found. Additional annotations of the specified type will be
+     * silently ignored.
      * </p>
      *
-     * @param <A>
-     *            the annotation type
-     * @param method
-     *            the {@link Method} to query, may be null.
-     * @param annotationCls
-     *            the {@link Annotation} to check if is present on the method
-     * @param searchSupers
-     *            determines if a lookup in the entire inheritance hierarchy of the given class is performed
-     *            if the annotation was not directly present
-     * @param ignoreAccess
-     *            determines if underlying method has to be accessible
-     * @return the first matching annotation, or {@code null} if not found
-     * @throws NullPointerException if either the method or annotation class is {@code null}
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @param <A>           the annotation type.
+     * @param method        the {@link Method} to query, may be null.
+     * @param annotationCls the {@link Annotation} to check if is present on the method.
+     * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class is performed if the annotation was not directly
+     *                      present.
+     * @param ignoreAccess  determines if underlying method has to be accessible.
+     * @return the first matching annotation, or {@code null} if not found.
+     * @throws NullPointerException if either the method or annotation class is {@code null}.
+     * @throws SecurityException    if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      * @since 3.6
      */
@@ -360,15 +352,14 @@ public class MethodUtils {
     }
 
     /**
-     * Gets a method whether or not it's accessible. If no such method
-     * can be found, return {@code null}.
+     * Gets a method whether or not it's accessible. If no such method can be found, return {@code null}.
      *
-     * @param cls The class that will be subjected to the method search
-     * @param methodName The method that we wish to call
-     * @param parameterTypes Argument class types
-     * @throws IllegalStateException if there is no unique result
-     * @throws NullPointerException if the class is {@code null}
-     * @return The method
+     * @param cls            The class that will be subjected to the method search.
+     * @param methodName     The method that we wish to call.
+     * @param parameterTypes Argument class types.
+     * @throws IllegalStateException if there is no unique result.
+     * @throws NullPointerException  if the class is {@code null}.
+     * @return The method.
      * @since 3.5
      */
     public static Method getMatchingMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
@@ -411,7 +402,7 @@ public class MethodUtils {
     }
 
     /**
-     * Gets a Method, or {@code null} if a documented {@link Class#getMethod(String, Class...) } exception is thrown.
+     * Gets a Method, or {@code null} if a checked {@link Class#getMethod(String, Class...) } exception is thrown.
      *
      * @param cls            Receiver for {@link Class#getMethod(String, Class...)}.
      * @param name           the name of the method.
@@ -431,13 +422,11 @@ public class MethodUtils {
 
     /**
      * Gets all class level public methods of the given class that are annotated with the given annotation.
-     * @param cls
-     *            the {@link Class} to query
-     * @param annotationCls
-     *            the {@link Annotation} that must be present on a method to be matched
+     *
+     * @param cls           the {@link Class} to query.
+     * @param annotationCls the {@link Annotation} that must be present on a method to be matched.
      * @return a list of Methods (possibly empty).
-     * @throws NullPointerException
-     *            if the class or annotation are {@code null}
+     * @throws NullPointerException if the class or annotation are {@code null}.
      * @since 3.4
      */
     public static List<Method> getMethodsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
@@ -447,16 +436,12 @@ public class MethodUtils {
     /**
      * Gets all methods of the given class that are annotated with the given annotation.
      *
-     * @param cls
-     *            the {@link Class} to query
-     * @param annotationCls
-     *            the {@link Annotation} that must be present on a method to be matched
-     * @param searchSupers
-     *            determines if a lookup in the entire inheritance hierarchy of the given class should be performed
-     * @param ignoreAccess
-     *            determines if non-public methods should be considered
+     * @param cls           the {@link Class} to query.
+     * @param annotationCls the {@link Annotation} that must be present on a method to be matched.
+     * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class should be performed.
+     * @param ignoreAccess  determines if non-public methods should be considered.
      * @return a list of Methods (possibly empty).
-     * @throws NullPointerException if either the class or annotation class is {@code null}
+     * @throws NullPointerException if either the class or annotation class is {@code null}.
      * @since 3.6
      */
     public static List<Method> getMethodsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls, final boolean searchSupers,
@@ -476,10 +461,8 @@ public class MethodUtils {
     /**
      * Gets all class level public methods of the given class that are annotated with the given annotation.
      *
-     * @param cls
-     *            the {@link Class} to query
-     * @param annotationCls
-     *            the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
+     * @param cls           the {@link Class} to query.
+     * @param annotationCls the {@link java.lang.annotation.Annotation} that must be present on a method to be matched.
      * @return an array of Methods (possibly empty).
      * @throws NullPointerException if the class or annotation are {@code null}
      * @since 3.4
@@ -491,16 +474,12 @@ public class MethodUtils {
     /**
      * Gets all methods of the given class that are annotated with the given annotation.
      *
-     * @param cls
-     *            the {@link Class} to query
-     * @param annotationCls
-     *            the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
-     * @param searchSupers
-     *            determines if a lookup in the entire inheritance hierarchy of the given class should be performed
-     * @param ignoreAccess
-     *            determines if non-public methods should be considered
+     * @param cls           the {@link Class} to query.
+     * @param annotationCls the {@link java.lang.annotation.Annotation} that must be present on a method to be matched.
+     * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class should be performed.
+     * @param ignoreAccess  determines if non-public methods should be considered.
      * @return an array of Methods (possibly empty).
-     * @throws NullPointerException if the class or annotation are {@code null}
+     * @throws NullPointerException if the class or annotation are {@code null}.
      * @since 3.6
      */
     public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls, final boolean searchSupers,
@@ -511,10 +490,10 @@ public class MethodUtils {
     /**
      * Gets the hierarchy of overridden methods down to {@code result} respecting generics.
      *
-     * @param method lowest to consider
-     * @param interfacesBehavior whether to search interfaces, {@code null} {@code implies} false
-     * @return a {@code Set<Method>} in ascending order from subclass to superclass
-     * @throws NullPointerException if the specified method is {@code null}
+     * @param method lowest to consider.
+     * @param interfacesBehavior whether to search interfaces, {@code null} {@code implies} false.
+     * @return a {@code Set<Method>} in ascending order from subclass to superclass.
+     * @throws NullPointerException if the specified method is {@code null}.
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      * @since 3.2
@@ -659,10 +638,10 @@ public class MethodUtils {
      * This uses reflection to invoke the method obtained from a call to {@link #getAccessibleMethod(Class, String, Class[])}.
      * </p>
      *
-     * @param cls        invoke static method on this class
-     * @param methodName get method with this name
-     * @param args       use these arguments - treat {@code null} as empty array
-     * @return The value returned by the invoked method
+     * @param cls        invoke static method on this class.
+     * @param methodName get method with this name.
+     * @param args       use these arguments - treat {@code null} as empty array.
+     * @return The value returned by the invoked method.
      * @throws NoSuchMethodException       Thrown if there is no such accessible method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
@@ -691,11 +670,11 @@ public class MethodUtils {
      * This uses reflection to invoke the method obtained from a call to {@link #getAccessibleMethod(Class, String, Class[])}.
      * </p>
      *
-     * @param cls            invoke static method on this class
-     * @param methodName     get method with this name
-     * @param args           use these arguments - treat {@code null} as empty array
-     * @param parameterTypes match these parameters - treat {@code null} as empty array
-     * @return The value returned by the invoked method
+     * @param cls            invoke static method on this class.
+     * @param methodName     get method with this name.
+     * @param args           use these arguments - treat {@code null} as empty array.
+     * @param parameterTypes match these parameters - treat {@code null} as empty array.
+     * @return The value returned by the invoked method.
      * @throws NoSuchMethodException       Thrown if there is no such accessible method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
@@ -727,10 +706,10 @@ public class MethodUtils {
      * {@link #invokeMethod(Object object, boolean forceAccess, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
-     * @param object invoke method on this object
-     * @param forceAccess force access to invoke method even if it's not accessible
-     * @param methodName get method with this name
-     * @return The value returned by the invoked method
+     * @param object invoke method on this object.
+     * @param forceAccess force access to invoke method even if it's not accessible.
+     * @param methodName get method with this name.
+     * @return The value returned by the invoked method.
      * @throws NoSuchMethodException       Thrown if there is no such accessible method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
@@ -767,11 +746,11 @@ public class MethodUtils {
      * {@link #invokeMethod(Object object, boolean forceAccess, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
-     * @param object invoke method on this object
-     * @param forceAccess force access to invoke method even if it's not accessible
-     * @param methodName get method with this name
-     * @param args use these arguments - treat null as empty array
-     * @return The value returned by the invoked method
+     * @param object invoke method on this object.
+     * @param forceAccess force access to invoke method even if it's not accessible.
+     * @param methodName get method with this name.
+     * @param args use these arguments - treat null as empty array.
+     * @return The value returned by the invoked method.
      * @throws NoSuchMethodException       Thrown if there is no such accessible method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
@@ -805,12 +784,12 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.
      * </p>
      *
-     * @param object invoke method on this object
-     * @param forceAccess force access to invoke method even if it's not accessible
-     * @param methodName get method with this name
-     * @param args use these arguments - treat null as empty array
-     * @param parameterTypes match these parameters - treat null as empty array
-     * @return The value returned by the invoked method
+     * @param object invoke method on this object.
+     * @param forceAccess force access to invoke method even if it's not accessible.
+     * @param methodName get method with this name.
+     * @param args use these arguments - treat null as empty array.
+     * @param parameterTypes match these parameters - treat null as empty array.
+     * @return The value returned by the invoked method.
      * @throws NoSuchMethodException       Thrown if there is no such accessible method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
@@ -849,12 +828,12 @@ public class MethodUtils {
      * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
-     * @param object invoke method on this object
-     * @param methodName get method with this name
-     * @return The value returned by the invoked method
-     * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the method invoked
-     * @throws IllegalAccessException if the requested method is not accessible via reflection
+     * @param object invoke method on this object.
+     * @param methodName get method with this name.
+     * @return The value returned by the invoked method.
+     * @throws NoSuchMethodException if there is no such accessible method.
+     * @throws InvocationTargetException wraps an exception thrown by the method invoked.
+     * @throws IllegalAccessException if the requested method is not accessible via reflection.
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      * @since 3.4
@@ -880,14 +859,14 @@ public class MethodUtils {
      * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
-     * @param object invoke method on this object
-     * @param methodName get method with this name
-     * @param args use these arguments - treat null as empty array
-     * @return The value returned by the invoked method
-     * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the method invoked
-     * @throws IllegalAccessException if the requested method is not accessible via reflection
-     * @throws NullPointerException if the object or method name are {@code null}
+     * @param object invoke method on this object.
+     * @param methodName get method with this name.
+     * @param args use these arguments - treat null as empty array.
+     * @return The value returned by the invoked method.
+     * @throws NoSuchMethodException if there is no such accessible method.
+     * @throws InvocationTargetException wraps an exception thrown by the method invoked.
+     * @throws IllegalAccessException if the requested method is not accessible via reflection.
+     * @throws NullPointerException if the object or method name are {@code null}.
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
@@ -909,11 +888,11 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.
      * </p>
      *
-     * @param object invoke method on this object
-     * @param methodName get method with this name
-     * @param args use these arguments - treat null as empty array
-     * @param parameterTypes match these parameters - treat null as empty array
-     * @return The value returned by the invoked method
+     * @param object invoke method on this object.
+     * @param methodName get method with this name.
+     * @param args use these arguments - treat null as empty array.
+     * @param parameterTypes match these parameters - treat null as empty array.
+     * @return The value returned by the invoked method.
      * @throws NoSuchMethodException       Thrown if there is no such accessible method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
@@ -952,10 +931,10 @@ public class MethodUtils {
      * {@link #invokeStaticMethod(Class, String, Object[], Class[])}.
      * </p>
      *
-     * @param cls invoke static method on this class
-     * @param methodName get method with this name
-     * @param args use these arguments - treat {@code null} as empty array
-     * @return The value returned by the invoked method
+     * @param cls invoke static method on this class.
+     * @param methodName get method with this name.
+     * @param args use these arguments - treat {@code null} as empty array.
+     * @return The value returned by the invoked method.
      * @throws NoSuchMethodException       Thrown if there is no such accessible method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
@@ -990,11 +969,11 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.
      * </p>
      *
-     * @param cls invoke static method on this class
-     * @param methodName get method with this name
-     * @param args use these arguments - treat {@code null} as empty array
-     * @param parameterTypes match these parameters - treat {@code null} as empty array
-     * @return The value returned by the invoked method
+     * @param cls invoke static method on this class.
+     * @param methodName get method with this name.
+     * @param args use these arguments - treat {@code null} as empty array.
+     * @param parameterTypes match these parameters - treat {@code null} as empty array.
+     * @return The value returned by the invoked method.
      * @throws NoSuchMethodException       Thrown if there is no such accessible method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
@@ -1022,8 +1001,8 @@ public class MethodUtils {
     private static Method requireNonNull(final Method method, final Class<?> cls, final String methodName, final Class<?>[] parameterTypes)
             throws NoSuchMethodException {
         if (method == null) {
-            throw new NoSuchMethodException(String.format("No method: %s.%s(%s)", cls.getName(), methodName,
-                    Stream.of(parameterTypes).map(Class::getName).collect(LangCollectors.joining(", "))));
+            throw new NoSuchMethodException(String.format("No method: %s.%s(%s)", ClassUtils.getName(cls), methodName,
+                    Streams.of(parameterTypes).map(ClassUtils::getName).collect(LangCollectors.joining(", "))));
         }
         return method;
     }
