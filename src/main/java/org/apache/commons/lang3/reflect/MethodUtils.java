@@ -1023,7 +1023,7 @@ public class MethodUtils {
             throws NoSuchMethodException {
         if (method == null) {
             throw new NoSuchMethodException(String.format("No method: %s.%s(%s)", cls.getName(), methodName,
-                    Stream.of(parameterTypes).map(c -> c != null ? c.getName() : null).collect(LangCollectors.joining(", "))));
+                    Stream.of(parameterTypes).map(ClassUtils::getName).collect(LangCollectors.joining(", "))));
         }
         return method;
     }
