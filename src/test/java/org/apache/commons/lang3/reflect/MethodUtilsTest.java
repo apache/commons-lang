@@ -1110,6 +1110,9 @@ class MethodUtilsTest extends AbstractLangTest {
     void testInvokeMethod_VarArgsWithNullValues() throws Exception {
         assertEquals("String...", MethodUtils.invokeMethod(testBean, "varOverload", "a", null, "c"));
         assertEquals("String...", MethodUtils.invokeMethod(testBean, "varOverload", "a", "b", null));
+        assertEquals("String...", MethodUtils.invokeMethod(testBean, "varOverload", new String[] { "a" }, new Class<?>[] { String.class }));
+        assertThrows(NoSuchMethodException.class,
+                () -> assertEquals("String...", MethodUtils.invokeMethod(testBean, "doesn't exist", new String[] { "a" }, new Class<?>[] { null })));
     }
 
     @Test
