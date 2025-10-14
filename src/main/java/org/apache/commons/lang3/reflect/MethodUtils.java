@@ -42,6 +42,7 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.stream.LangCollectors;
+import org.apache.commons.lang3.stream.Streams;
 
 /**
  * Utility reflection methods focused on {@link Method}s, originally from Commons BeanUtils.
@@ -1022,8 +1023,8 @@ public class MethodUtils {
     private static Method requireNonNull(final Method method, final Class<?> cls, final String methodName, final Class<?>[] parameterTypes)
             throws NoSuchMethodException {
         if (method == null) {
-            throw new NoSuchMethodException(String.format("No method: %s.%s(%s)", cls.getName(), methodName,
-                    Stream.of(parameterTypes).map(ClassUtils::getName).collect(LangCollectors.joining(", "))));
+            throw new NoSuchMethodException(String.format("No method: %s.%s(%s)", ClassUtils.getName(cls), methodName,
+                    Streams.of(parameterTypes).map(ClassUtils::getName).collect(LangCollectors.joining(", "))));
         }
         return method;
     }
