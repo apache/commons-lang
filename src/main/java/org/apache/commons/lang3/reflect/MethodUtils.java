@@ -1023,9 +1023,16 @@ public class MethodUtils {
             throws NoSuchMethodException {
         if (method == null) {
             throw new NoSuchMethodException(String.format("No method: %s.%s(%s)", cls.getName(), methodName,
-                    Stream.of(parameterTypes).map(Class::getName).collect(LangCollectors.joining(", "))));
+                    Stream.of(parameterTypes).map(t -> nullSafeGetClassName(t)).collect(LangCollectors.joining(", "))));
         }
         return method;
+    }
+
+    private static String nullSafeGetClassName(Class<?> cls) {
+        if (cls == null) {
+            return "null";
+        }
+        return cls.getName();
     }
 
     static Object[] toVarArgs(final Executable executable, final Object[] args)
