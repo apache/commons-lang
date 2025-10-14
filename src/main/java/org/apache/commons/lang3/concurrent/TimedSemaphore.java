@@ -255,10 +255,10 @@ public class TimedSemaphore {
     /**
      * Constructs a new instance of {@link TimedSemaphore} and initializes it with the given time period and the limit.
      *
-     * @param timePeriod the time period
-     * @param timeUnit   the unit for the period
-     * @param limit      the limit for the semaphore
-     * @throws IllegalArgumentException if the period is less or equals 0
+     * @param timePeriod the time period.
+     * @param timeUnit   the unit for the period.
+     * @param limit      the limit for the semaphore.
+     * @throws IllegalArgumentException if the period is less or equals 0.
      */
     public TimedSemaphore(final long timePeriod, final TimeUnit timeUnit, final int limit) {
         this(null, timePeriod, timeUnit, limit);
