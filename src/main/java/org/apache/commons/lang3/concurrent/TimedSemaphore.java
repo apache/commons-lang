@@ -21,6 +21,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.Validate;
 
@@ -112,6 +113,75 @@ import org.apache.commons.lang3.Validate;
 public class TimedSemaphore {
 
     /**
+     * Builds new {@link TimedSemaphore}.
+     *
+     * @since 3.20.0
+     */
+    public static class Builder implements Supplier<TimedSemaphore> {
+
+        private ScheduledExecutorService service;
+        private long period;
+        private TimeUnit timeUnit;
+        private int limit;
+
+        /**
+         * Constructs a new Builder.
+         */
+        public Builder() {
+            // empty
+        }
+
+        @Override
+        public TimedSemaphore get() {
+            return new TimedSemaphore(this);
+        }
+
+        /**
+         * Sets the limit.
+         *
+         * @param limit The limit.
+         * @return {@code this} instance.
+         */
+        public Builder setLimit(final int limit) {
+            this.limit = limit;
+            return this;
+        }
+
+        /**
+         * Sets the time period.
+         *
+         * @param period The time period.
+         * @return {@code this} instance.
+         */
+        public Builder setPeriod(final long period) {
+            this.period = period;
+            return this;
+        }
+
+        /**
+         * Sets the executor service.
+         *
+         * @param service The executor service.
+         * @return {@code this} instance.
+         */
+        public Builder setService(final ScheduledExecutorService service) {
+            this.service = service;
+            return this;
+        }
+
+        /**
+         * Sets the time unit for the period.
+         *
+         * @param timeUnit The time unit for the period.
+         * @return {@code this} instance.
+         */
+        public Builder setTimeUnit(final TimeUnit timeUnit) {
+            this.timeUnit = timeUnit;
+            return this;
+        }
+    }
+
+    /**
      * Constant for a value representing no limit. If the limit is set to a value less or equal this constant, the {@link TimedSemaphore} will be effectively
      * switched off.
      */
@@ -120,10 +190,20 @@ public class TimedSemaphore {
     /** Constant for the thread pool size for the executor. */
     private static final int THREAD_POOL_SIZE = 1;
 
+    /**
+     * Constructs a new Builder.
+     *
+     * @return a new Builder.
+     * @since 3.20.0
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
     /** The executor service for managing the timer thread. */
     private final ScheduledExecutorService executorService;
 
-    /** Stores the period for this timed semaphore. */
+    /** The period for this timed semaphore. */
     private final long period;
 
     /** The time unit for the period. */
@@ -155,6 +235,23 @@ public class TimedSemaphore {
     /** A flag whether shutdown() was called. */
     private boolean shutdown; // @GuardedBy("this")
 
+    private TimedSemaphore(final Builder builder) {
+        Validate.inclusiveBetween(1, Long.MAX_VALUE, builder.period, "Time period must be greater than 0.");
+        period = builder.period;
+        unit = builder.timeUnit;
+        if (builder.service != null) {
+            executorService = builder.service;
+            ownExecutor = false;
+        } else {
+            final ScheduledThreadPoolExecutor stpe = new ScheduledThreadPoolExecutor(THREAD_POOL_SIZE);
+            stpe.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
+            stpe.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
+            executorService = stpe;
+            ownExecutor = true;
+        }
+        setLimit(builder.limit);
+    }
+
     /**
      * Constructs a new instance of {@link TimedSemaphore} and initializes it with the given time period and the limit.
      *
@@ -178,20 +275,7 @@ public class TimedSemaphore {
      * @throws IllegalArgumentException if the period is less or equals 0.
      */
     public TimedSemaphore(final ScheduledExecutorService service, final long timePeriod, final TimeUnit timeUnit, final int limit) {
-        Validate.inclusiveBetween(1, Long.MAX_VALUE, timePeriod, "Time period must be greater than 0!");
-        period = timePeriod;
-        unit = timeUnit;
-        if (service != null) {
-            executorService = service;
-            ownExecutor = false;
-        } else {
-            final ScheduledThreadPoolExecutor s = new ScheduledThreadPoolExecutor(THREAD_POOL_SIZE);
-            s.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
-            s.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
-            executorService = s;
-            ownExecutor = true;
-        }
-        setLimit(limit);
+        this(builder().setService(service).setPeriod(timePeriod).setTimeUnit(timeUnit).setLimit(limit));
     }
 
     /**
