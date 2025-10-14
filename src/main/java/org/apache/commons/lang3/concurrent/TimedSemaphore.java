@@ -259,7 +259,9 @@ public class TimedSemaphore {
      * @param timeUnit   the unit for the period.
      * @param limit      the limit for the semaphore.
      * @throws IllegalArgumentException if the period is less or equals 0.
+     * @deprecated Use {@link #builder()} and {@link Builder}.
      */
+    @Deprecated
     public TimedSemaphore(final long timePeriod, final TimeUnit timeUnit, final int limit) {
         this(null, timePeriod, timeUnit, limit);
     }
@@ -273,7 +275,9 @@ public class TimedSemaphore {
      * @param timeUnit   the unit for the period.
      * @param limit      the limit for the semaphore.
      * @throws IllegalArgumentException if the period is less or equals 0.
+     * @deprecated Use {@link #builder()} and {@link Builder}.
      */
+    @Deprecated
     public TimedSemaphore(final ScheduledExecutorService service, final long timePeriod, final TimeUnit timeUnit, final int limit) {
         this(builder().setService(service).setPeriod(timePeriod).setTimeUnit(timeUnit).setLimit(limit));
     }
