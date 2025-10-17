@@ -1905,6 +1905,53 @@ public class StringUtils {
     }
 
     /**
+     * Returns the first value supplied which is not empty (""), {@code null} or whitespace only.
+     *
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
+     *
+     * <p>
+     * Each supplier is evaluated lazily in order until a non-blank value is found.
+     * This allows the caller to defer expensive computations until they are needed.
+     * </p>
+     *
+     * <p>
+     * If all supplied values are blank, or the array of suppliers is {@code null} or empty,
+     * then {@code null} is returned.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.firstNonBlankSupplier(() -> null, () -> null, () -> null)     = null
+     * StringUtils.firstNonBlankSupplier(() -> null, () -> "", () -> " ")        = null
+     * StringUtils.firstNonBlankSupplier(() -> "abc")                            = "abc"
+     * StringUtils.firstNonBlankSupplier(() -> null, () -> "xyz")                = "xyz"
+     * StringUtils.firstNonBlankSupplier(() -> null, () -> "", () -> " ", () -> "xyz") = "xyz"
+     * StringUtils.firstNonBlankSupplier(() -> null, () -> "xyz", () -> "abc")   = "xyz"
+     * StringUtils.firstNonBlankSupplier()                                       = null
+     * </pre>
+     *
+     * @param suppliers the suppliers providing String values, may be {@code null} or empty.
+     * @return the first non-blank value returned by a supplier, or {@code null} if there are none
+     * @since 3.19
+     */
+    @SafeVarargs
+    public static String firstNonBlankSupplier(final Supplier<String>... suppliers) {
+        if (suppliers != null) {
+            for (final Supplier<String> supplier : suppliers) {
+                if (supplier != null) {
+                    final String value = supplier.get();
+                    if (isNotBlank(value)) {
+                        return value;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+
+    /**
      * Returns the first value in the array which is not empty.
      *
      * <p>
