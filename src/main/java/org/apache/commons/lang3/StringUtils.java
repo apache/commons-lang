@@ -1987,6 +1987,48 @@ public class StringUtils {
     }
 
     /**
+     * Returns the first value supplied which is not empty ("") or {@code null}.
+     *
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
+     *
+     * <p>
+     * Each supplier is evaluated lazily in order until a non-empty value is found.
+     * This allows the caller to defer expensive computations until they are needed.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.firstNonEmptySuppler(() -> null, () -> null, () -> null)     = null
+     * StringUtils.firstNonEmptySuppler(() -> null, () -> null, () -> null)     = null
+     * StringUtils.firstNonEmptySuppler(() -> null, () -> "", () -> " ")        = " "
+     * StringUtils.firstNonEmptySuppler(() -> "abc")                            = "abc"
+     * StringUtils.firstNonEmptySuppler(() -> null, () -> "xyz")                = "xyz"
+     * StringUtils.firstNonEmptySuppler(() -> null, () -> "", () -> "xyz")      = "xyz"
+     * StringUtils.firstNonEmptySuppler(() -> null, () -> "xyz", () -> "abc")   = "xyz"
+     * StringUtils.firstNonEmptySuppler()                                       = null
+     * </pre>
+     *
+     * @param suppliers the suppliers providing String values, may be {@code null} or empty.
+     * @return the first non-blank value returned by a supplier, or {@code null} if there are none
+     * @since 3.19
+     */
+    @SafeVarargs
+    public static String firstNonEmptySuppler(final Supplier<String>... suppliers) {
+        if (suppliers != null) {
+            for (final Supplier<String> supplier : suppliers) {
+                if (supplier != null) {
+                    final String value = supplier.get();
+                    if (isNotEmpty(value)) {
+                        return value;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Calls {@link String#getBytes(Charset)} in a null-safe manner.
      *
      * @param string input string.
