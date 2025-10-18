@@ -2014,7 +2014,7 @@ public class StringUtils {
      * @since 3.19
      */
     @SafeVarargs
-    public static String firstNonEmptySuppler(final Supplier<String>... suppliers) {
+    public static String firstNonEmptySupplier(final Supplier<String>... suppliers) {
         if (suppliers != null) {
             for (final Supplier<String> supplier : suppliers) {
                 if (supplier != null) {
