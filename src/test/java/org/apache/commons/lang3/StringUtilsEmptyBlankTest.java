@@ -21,10 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link StringUtils} - Empty/Blank methods
@@ -83,13 +83,19 @@ class StringUtilsEmptyBlankTest extends AbstractLangTest {
 
     @Test
     void testFirstNonBlankSupplierLazyEvaluation() {
-        AtomicBoolean secondCalled = new AtomicBoolean(false);
-        AtomicBoolean thirdCalled = new AtomicBoolean(false);
+        final AtomicBoolean secondCalled = new AtomicBoolean(false);
+        final AtomicBoolean thirdCalled = new AtomicBoolean(false);
 
-        String result = StringUtils.firstNonBlankSupplier(
+        final String result = StringUtils.firstNonBlankSupplier(
                 () -> "first",
-                () -> { secondCalled.set(true); return "second"; },
-                () -> { thirdCalled.set(true); return "third"; }
+                () -> {
+                    secondCalled.set(true);
+                    return "second";
+                },
+                () -> {
+                    thirdCalled.set(true);
+                    return "third";
+                }
         );
 
         assertEquals("first", result);
@@ -99,9 +105,9 @@ class StringUtilsEmptyBlankTest extends AbstractLangTest {
 
     @Test
     void testFirstNonEmptySupplierLazyEvaluation() {
-        AtomicBoolean secondCalled = new AtomicBoolean(false);
+        final AtomicBoolean secondCalled = new AtomicBoolean(false);
 
-        String result = StringUtils.firstNonEmptySupplier(
+        final String result = StringUtils.firstNonEmptySupplier(
                 () -> "value",
                 () -> {
                     secondCalled.set(true);
