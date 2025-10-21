@@ -209,7 +209,7 @@ public class SystemUtils {
      *
      * @see SystemProperties#getJavaCompiler()
      * @since Java 1.2. Not used in Sun versions after 1.2.
-     * @deprecated Deprecated without replacement.
+     * @deprecated Deprecated without replacement; see https://bugs.openjdk.org/browse/JDK-8305998
      */
     @Deprecated
     public static final String JAVA_COMPILER = SystemProperties.getJavaCompiler();
