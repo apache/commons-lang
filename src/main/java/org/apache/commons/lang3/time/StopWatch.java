@@ -19,6 +19,9 @@ package org.apache.commons.lang3.time;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -27,6 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.apache.commons.lang3.function.FailableSupplier;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 /**
  * {@link StopWatch} provides a convenient API for timings.
@@ -249,6 +253,11 @@ public class StopWatch {
     private long stopTimeNanos;
 
     /**
+     * The split history list.
+     */
+    private List<Split> splitHistory;
+
+    /**
      * Constructs a new instance.
      */
     public StopWatch() {
@@ -324,6 +333,16 @@ public class StopWatch {
      */
     public String getMessage() {
         return message;
+    }
+
+    /**
+     * Gets the split history list.
+     *
+     * @return the list of splits.
+     * @since 3.19.0
+     */
+    public List<Split> getSplitHistory() {
+        return Collections.unmodifiableList(splitHistory);
     }
 
     /**
@@ -557,6 +576,7 @@ public class StopWatch {
     public void reset() {
         runningState = State.UNSTARTED;
         splitState = SplitState.UNSPLIT;
+        splitHistory = new ArrayList<>();
     }
 
     /**
@@ -627,6 +647,23 @@ public class StopWatch {
     }
 
     /**
+     * <p>
+     * Captures the time in ns and records in a history list.
+     * The label specified is used to identify the current split.
+     * </p>
+     *
+     * @param label A message for string presentation.
+     * @throws IllegalStateException if the StopWatch is not running.
+     * @since 3.19.0
+     */
+    public void recordSplit(final String label) {
+        if (runningState != State.RUNNING) {
+            throw new IllegalStateException("Stopwatch is not running.");
+        }
+        splitHistory.add(new Split(label, System.nanoTime()));
+    }
+
+    /**
      * Starts this StopWatch.
      *
      * <p>
@@ -645,6 +682,7 @@ public class StopWatch {
         startTimeNanos = System.nanoTime();
         startInstant = Instant.now();
         runningState = State.RUNNING;
+        splitHistory = new ArrayList<>();
     }
 
     /**
@@ -744,6 +782,47 @@ public class StopWatch {
             throw new IllegalStateException("Stopwatch has not been split.");
         }
         splitState = SplitState.UNSPLIT;
+    }
+
+    /**
+     * Class to store details of each split.
+     * @since 3.19.0
+     */
+    public static final class Split extends ImmutablePair<String, Long> {
+
+        /**
+         * Constructor with label and duration.
+         * @param label Label for this split.
+         * @param timeNanos time in ns.
+         */
+        public Split(String label, Long timeNanos) {
+            super(label, timeNanos);
+        }
+
+        /**
+         * Get the label of this split.
+         * @return label.
+         */
+        public String getLabel() {
+            return getLeft();
+        }
+
+        /**
+         * Get the time in nanoseconds.
+         * @return time in ns.
+         */
+        public Long getTimeNanos() {
+            return getRight();
+        }
+
+        /**
+         * Converts this instance to a handy string.
+         * @return this instance as a string.
+         */
+        @Override
+        public String toString() {
+            return String.format("Split [label=%s, timeNanos=%d])", getLabel(), getTimeNanos());
+        }
     }
 
 }

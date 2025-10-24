@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -498,6 +499,32 @@ class StopWatchTest extends AbstractLangTest {
         watch.split();
         final String splitStr = watch.toString();
         assertEquals(SPLIT_CLOCK_STR_LEN + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
+    }
+
+    @Test
+    void testSplitsWithStringLabels() {
+        final StopWatch watch = new StopWatch();
+        final String firstLabel = "one";
+        final String secondLabel = "two";
+        final String thirdLabel = "three";
+        watch.start();
+        // starting splits
+        watch.recordSplit(firstLabel);
+        watch.recordSplit(secondLabel);
+        watch.recordSplit(thirdLabel);
+        watch.stop();
+        // getting splits
+        final List<StopWatch.Split> splits = watch.getSplitHistory();
+        // check size
+        assertEquals(3, splits.size());
+        // check labels
+        assertEquals(firstLabel, splits.get(0).getLabel());
+        assertEquals(secondLabel, splits.get(1).getLabel());
+        assertEquals(thirdLabel, splits.get(2).getLabel());
+        // check time in nanos
+        assertTrue(splits.get(0).getTimeNanos() > 0);
+        assertTrue(splits.get(1).getTimeNanos() > 0);
+        assertTrue(splits.get(2).getTimeNanos() > 0);
     }
 
     private int throwIOException() throws IOException {
