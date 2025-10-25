@@ -377,7 +377,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      */
     @Deprecated
     protected StringBuffer applyRules(final Calendar calendar, final StringBuffer buf) {
-        return printer.applyRules(calendar, buf);
+        return printer.format(calendar, buf);
     }
 
     // Basics
