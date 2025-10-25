@@ -1936,11 +1936,11 @@ public class StringUtils {
      * @since 3.19
      */
     @SafeVarargs
-    public static String firstNonBlankSupplier(final Supplier<String>... suppliers) {
+    public static <T extends CharSequence> T firstNonBlankSupplier(final Supplier<T>... suppliers) {
         if (suppliers != null) {
-            for (final Supplier<String> supplier : suppliers) {
+            for (final Supplier<T> supplier : suppliers) {
                 if (supplier != null) {
-                    final String value = supplier.get();
+                    final T value = supplier.get();
                     if (isNotBlank(value)) {
                         return value;
                     }
@@ -2014,11 +2014,11 @@ public class StringUtils {
      * @since 3.19
      */
     @SafeVarargs
-    public static String firstNonEmptySupplier(final Supplier<String>... suppliers) {
+    public static <T extends CharSequence> T firstNonEmptySupplier(final Supplier<T>... suppliers) {
         if (suppliers != null) {
-            for (final Supplier<String> supplier : suppliers) {
+            for (final Supplier<T> supplier : suppliers) {
                 if (supplier != null) {
-                    final String value = supplier.get();
+                    final T value = supplier.get();
                     if (isNotEmpty(value)) {
                         return value;
                     }
