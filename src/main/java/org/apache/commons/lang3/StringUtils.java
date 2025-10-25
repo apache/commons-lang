@@ -1931,6 +1931,7 @@ public class StringUtils {
      * StringUtils.firstNonBlankSupplier()                                       = null
      * </pre>
      *
+     * @param <T>       the specific kind of CharSequence.
      * @param suppliers the suppliers providing String values, may be {@code null} or empty.
      * @return the first non-blank value returned by a supplier, or {@code null} if there are none
      * @since 3.19
@@ -2009,6 +2010,7 @@ public class StringUtils {
      * StringUtils.firstNonEmptySuppler()                                       = null
      * </pre>
      *
+     * @param <T>       the specific kind of CharSequence.
      * @param suppliers the suppliers providing String values, may be {@code null} or empty.
      * @return the first non-blank value returned by a supplier, or {@code null} if there are none
      * @since 3.19
