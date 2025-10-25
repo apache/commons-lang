@@ -187,8 +187,7 @@ abstract class AbstractFormatCache<F extends Format> {
     // This must remain private, see LANG-884
     private F getDateTimeInstance(final Integer dateStyle, final Integer timeStyle, final TimeZone timeZone, Locale locale) {
         locale = LocaleUtils.toLocale(locale);
-        final String pattern = getPatternForStyle(dateStyle, timeStyle, locale);
-        return getInstance(pattern, timeZone, locale);
+        return getInstance(getPatternForStyle(dateStyle, timeStyle, locale), timeZone, locale);
     }
 
     /**
