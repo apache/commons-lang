@@ -31,6 +31,9 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -384,5 +387,28 @@ class FastDateFormatTest extends AbstractLangTest {
 
         assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG),
                 FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.getDefault()));
+    }
+
+    /*
+    * org.apache.commons.lang3.time.FastDateFormat
+    * In dateFormatter.format(timeCal), when time was not set explicitly, would make e.g.
+    * the following timestamps in Toronto at 10 am on 2025-09-17:
+    * "2025091714" - GMT, as expected, when using commons-lang3 v3.0.1
+    * "2025091710" - EDT, when using commons-lang3 v3.18.0 or 3.19.0 (likely some other versions <3.18.0 too, but I did not test that)
+    */
+    @Test
+    public void fastDateFormatFormatterUsingCalendarShouldMakeGmtTimestamp() {
+        final Instant now = Instant.now();
+        final ZoneId zoneId = ZoneId.systemDefault(); // e.g. America/Toronto
+        final ZoneOffset offset = zoneId.getRules().getOffset(now);
+        System.out.printf("Current time: %s, zone: %s, offset: %sh\n", now, zoneId, offset);
+        // some legacy code that should still work the same after commons-lang3 minor ver. upgrade but it does not:
+        final FastDateFormat dateFormatter = FastDateFormat.getInstance("yyyyMMddHH");
+        final TimeZone timeZone = TimeZone.getTimeZone("GMT");
+        final Calendar timeCal = Calendar.getInstance(timeZone);
+        final String timestamp = dateFormatter.format(timeCal); // makes local zone timestamp when commons-lang3 v3.18.0, 3.19.0 is used (ignores Calendar's zone).
+        // expected GMT timestamp
+        final String expected = DateTimeFormatter.ofPattern("yyyyMMddHH").withZone(ZoneId.of("GMT")).format(now);
+        assertEquals(expected, timestamp);
     }
 }
