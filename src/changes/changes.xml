@@ -1001,7 +1001,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1226" type="fix" dev="pschumacher" due-to="pschumacher">StringUtils#normalizeSpace does not trim the string anymore</action>
     <action issue="LANG-1251" type="fix" dev="pschumacher" due-to="Takuya Ueshin">SerializationUtils.ClassLoaderAwareObjectInputStream should use static initializer to initialize primitiveTypes map</action>
     <action issue="LANG-1253" type="add" dev="ggregory" due-to="adilek">[GitHub issue #170] Add RandomUtils#nextBoolean() method</action>
-    <action issue="LANG-1248" type="fix" dev="chas" due-to="Benoit Wiart">FastDatePrinter Memory allocation regression</action>
+    <action issue="LANG-1248" type="fix" dev="chas" due-to="Benoit Wiart">FastDatePrinter memory allocation regression</action>
     <action issue="LANG-1247" type="update" dev="chas" due-to="Benoit Wiart">FastDatePrinter generates extra Date objects</action>
     <action issue="LANG-1018" type="fix" dev="pschumacher" due-to="Nick Manley">Fix precision loss on NumberUtils.createNumber(String)</action>
     <action issue="LANG-1229" type="update" dev="pschumacher" due-to="Ruslan Cheremin">HashCodeBuilder.append(Object,Object) is too big to be inlined, which prevents whole builder to be scalarized</action>
