@@ -202,7 +202,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
      * @param future the future
      */
     private void prepareStartTimer(final ScheduledExecutorService service,
-            final ScheduledFuture<?> future) {
+                                   final ScheduledFuture<?> future) {
         service.scheduleAtFixedRate((Runnable) EasyMock.anyObject(), EasyMock.eq(PERIOD_MILLIS), EasyMock.eq(PERIOD_MILLIS), EasyMock.eq(UNIT));
         EasyMock.expectLastCall().andReturn(future);
     }
