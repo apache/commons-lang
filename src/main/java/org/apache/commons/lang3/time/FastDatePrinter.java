@@ -1127,13 +1127,14 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @see org.apache.commons.lang3.time.DatePrinter#format(java.util.Calendar, Appendable)
      */
     @Override
-    public <B extends Appendable> B format(Calendar calendar, final B buf) {
-        // do not pass in calendar directly, this will cause TimeZone of FastDatePrinter to be ignored
+    public <B extends Appendable> B format(final Calendar calendar, final B buf) {
+        // Don't edit the given Calendar, clone it only if needed.
+        Calendar actual = calendar;
         if (!calendar.getTimeZone().equals(timeZone)) {
-            calendar = (Calendar) calendar.clone();
-            calendar.setTimeZone(timeZone);
+            actual = (Calendar) calendar.clone();
+            actual.setTimeZone(timeZone);
         }
-        return applyRules(calendar, buf);
+        return applyRules(actual, buf);
     }
 
     /* (non-Javadoc)
