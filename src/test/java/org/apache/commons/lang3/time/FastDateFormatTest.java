@@ -61,6 +61,12 @@ class FastDateFormatTest extends AbstractLangTest {
     final Locale FINNISH = Locale.forLanguageTag("fi");
     final Locale HUNGARIAN = Locale.forLanguageTag("hu");
 
+    private void assertCalendar(final TimeZone expectedTimeZone, final Date expectedDate, final Calendar actual) {
+        assertSame(expectedTimeZone, actual.getTimeZone());
+        // Calendar.getTime() returns a new Date in Java 8.
+        assertEquals(expectedDate, actual.getTime());
+    }
+
     private AtomicLongArray measureTime(final Format printer, final Format parser) throws InterruptedException {
         final ExecutorService pool = Executors.newFixedThreadPool(NTHREADS);
         final AtomicInteger failures = new AtomicInteger();
@@ -262,11 +268,11 @@ class FastDateFormatTest extends AbstractLangTest {
         dateAsString = FastDateFormat.getInstance("dd/MM/yyyy", utc, Locale.US).format(date);
         assertEquals("17/08/292278994", dateAsString);
     }
-
     @Test
     void testLang1267() {
         FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
     }
+
     @Test
     void testLang1641() {
         assertSame(FastDateFormat.getInstance(ISO_8601_DATE_FORMAT), FastDateFormat.getInstance(ISO_8601_DATE_FORMAT));
@@ -291,10 +297,16 @@ class FastDateFormatTest extends AbstractLangTest {
         final String pattern = "yyyyMMddHH";
         final FastDateFormat gmtFormatter = FastDateFormat.getInstance(pattern, TimeZones.GMT);
         final Calendar gmtCal = Calendar.getInstance(TimeZones.GMT);
+        final TimeZone timeZone = gmtCal.getTimeZone();
+        final Date date = gmtCal.getTime();
         final String gmtString = gmtFormatter.format(gmtCal);
+        // Asserts formatting doesn't edit the given Calendar
+        assertCalendar(timeZone, date, gmtCal);
         assertEquals(DateTimeFormatter.ofPattern(pattern).withZone(ZoneId.of("GMT")).format(now), gmtString);
         final FastDateFormat defaultFormatter = FastDateFormat.getInstance(pattern);
         final String defaultString = defaultFormatter.format(gmtCal);
+        // Asserts formatting doesn't edit the given Calendar
+        assertCalendar(timeZone, date, gmtCal);
         assertEquals(DateTimeFormatter.ofPattern(pattern).withZone(ZoneId.systemDefault()).format(now), defaultString);
     }
 
