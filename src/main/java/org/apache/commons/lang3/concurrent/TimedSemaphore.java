@@ -17,7 +17,11 @@
 
 package org.apache.commons.lang3.concurrent;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.Validate;
@@ -126,6 +130,7 @@ public class TimedSemaphore {
          * Constructs a new Builder.
          */
         public Builder() {
+            // empty
         }
 
         @Override
@@ -255,7 +260,7 @@ public class TimedSemaphore {
         Validate.inclusiveBetween(1, Long.MAX_VALUE, builder.period, "Time period must be greater than 0.");
         period = builder.period;
         unit = builder.timeUnit;
-        fair = builder.fair;
+        this.fair = builder.fair;
         if (builder.service != null) {
             executorService = builder.service;
             ownExecutor = false;
@@ -464,11 +469,15 @@ public class TimedSemaphore {
      */
     public final synchronized void setLimit(final int limit) {
         this.limit = limit;
+
         if (semaphore != null) {
             final int target = Math.max(0, limit);
-            final int drained = semaphore.drainPermits();
-            if (target > 0) {
-                semaphore.release(target);
+            final int used = Math.max(0, acquireCount);
+            final int toSeed = Math.max(0, target - used);
+
+            semaphore.drainPermits();
+            if (toSeed > 0) {
+                semaphore.release(toSeed);
             }
         }
     }
