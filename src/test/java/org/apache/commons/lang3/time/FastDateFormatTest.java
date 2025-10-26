@@ -31,6 +31,8 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -277,6 +279,23 @@ class FastDateFormatTest extends AbstractLangTest {
         // TimeZones that are identical in every way except ID
         assertNotSame(FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getTimeZone("Australia/Broken_Hill")),
                 FastDateFormat.getInstance(ISO_8601_DATE_FORMAT, TimeZone.getTimeZone("Australia/Yancowinna")));
+    }
+
+    /**
+     * See LANG-1791 https://issues.apache.org/jira/browse/LANG-1791.
+     */
+    @Test
+    @DefaultTimeZone("America/Toronto")
+    void testLang1791() {
+        final Instant now = Instant.now();
+        final String pattern = "yyyyMMddHH";
+        final FastDateFormat gmtFormatter = FastDateFormat.getInstance(pattern, TimeZones.GMT);
+        final Calendar gmtCal = Calendar.getInstance(TimeZones.GMT);
+        final String gmtString = gmtFormatter.format(gmtCal);
+        assertEquals(DateTimeFormatter.ofPattern(pattern).withZone(ZoneId.of("GMT")).format(now), gmtString);
+        final FastDateFormat defaultFormatter = FastDateFormat.getInstance(pattern);
+        final String defaultString = defaultFormatter.format(gmtCal);
+        assertEquals(DateTimeFormatter.ofPattern(pattern).withZone(ZoneId.systemDefault()).format(now), defaultString);
     }
 
     /**
