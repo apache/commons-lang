@@ -58,12 +58,12 @@ import java.util.TimeZone;
  * </p>
  *
  * <p>
- * Java 1.4 introduced a new pattern letter, {@code 'Z'}, to represent time zones in RFC822 format (eg. {@code +0800} or {@code -1100}). This pattern letter can
+ * Java 1.4 introduced a new pattern letter, {@code 'Z'}, to represent time zones in RFC822 format (for example, {@code +0800} or {@code -1100}). This pattern letter can
  * be used here (on all JDK versions).
  * </p>
  *
  * <p>
- * In addition, the pattern {@code 'ZZ'} has been made to represent ISO 8601 extended format time zones (eg. {@code +08:00} or {@code -11:00}). This introduces
+ * In addition, the pattern {@code 'ZZ'} has been made to represent ISO 8601 extended format time zones (for example, {@code +08:00} or {@code -11:00}). This introduces
  * a minor incompatibility with Java 1.4, but at a gain of useful functionality.
  * </p>
  *

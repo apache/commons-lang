@@ -2396,7 +2396,7 @@ public class StringUtils {
         d is the distance.
 
         One subtlety comes from needing to ignore entries on the border of our stripe
-        eg.
+        for example,
         p[] = |#|#|#|*
         d[] =  *|#|#|#|
         We must ignore the entry to the left of the leftmost member
