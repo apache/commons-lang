@@ -550,7 +550,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
         return printer.getMaxLengthEstimate();
     }
 
-    // Accessors
     /**
      * Gets the pattern used by this formatter.
      *
