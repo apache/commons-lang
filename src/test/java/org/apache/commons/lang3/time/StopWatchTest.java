@@ -221,6 +221,23 @@ class StopWatchTest extends AbstractLangTest {
     }
 
     @Test
+    void testGetSplits() {
+        final StopWatch stopWatch = StopWatch.create();
+        assertTrue(stopWatch.getSplits().isEmpty());
+        stopWatch.start();
+        testGetSplits(stopWatch);
+        testGetSplits(StopWatch.createStarted());
+    }
+
+    private void testGetSplits(final StopWatch watch) {
+        assertTrue(watch.getSplits().isEmpty());
+        watch.split();
+        assertEquals(1, watch.getSplits().size());
+        watch.unsplit();
+        assertTrue(watch.getSplits().isEmpty());
+    }
+
+    @Test
     void testGetStartInstant() {
         final long beforeStopWatchMillis = System.currentTimeMillis();
         final StopWatch watch = new StopWatch();
