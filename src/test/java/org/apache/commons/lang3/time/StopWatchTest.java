@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -70,8 +71,11 @@ class StopWatchTest extends AbstractLangTest {
     private StopWatch set(final StopWatch watch, final long nanos) {
         try {
             final long currentNanos = System.nanoTime();
+            final List<StopWatch.Split> splits = new ArrayList<>();
+            splits.add(new StopWatch.Split(String.valueOf(0), Duration.ofNanos(nanos)));
             FieldUtils.writeField(watch, "startTimeNanos", currentNanos - nanos, true);
             FieldUtils.writeField(watch, "stopTimeNanos", currentNanos, true);
+            FieldUtils.writeField(watch, "splits", splits, true);
         } catch (final IllegalAccessException e) {
             return null;
         }
@@ -509,12 +513,12 @@ class StopWatchTest extends AbstractLangTest {
         final String thirdLabel = "three";
         watch.start();
         // starting splits
-        watch.recordSplit(firstLabel);
-        watch.recordSplit(secondLabel);
-        watch.recordSplit(thirdLabel);
+        watch.split(firstLabel);
+        watch.split(secondLabel);
+        watch.split(thirdLabel);
         watch.stop();
         // getting splits
-        final List<StopWatch.Split> splits = watch.getSplitHistory();
+        final List<StopWatch.Split> splits = watch.getSplits();
         // check size
         assertEquals(3, splits.size());
         // check labels
@@ -522,9 +526,9 @@ class StopWatchTest extends AbstractLangTest {
         assertEquals(secondLabel, splits.get(1).getLabel());
         assertEquals(thirdLabel, splits.get(2).getLabel());
         // check time in nanos
-        assertTrue(splits.get(0).getTimeNanos() > 0);
-        assertTrue(splits.get(1).getTimeNanos() > 0);
-        assertTrue(splits.get(2).getTimeNanos() > 0);
+        assertTrue(splits.get(0).getDuration().toNanos() > 0);
+        assertTrue(splits.get(1).getDuration().toNanos() > 0);
+        assertTrue(splits.get(2).getDuration().toNanos() > 0);
     }
 
     private int throwIOException() throws IOException {
