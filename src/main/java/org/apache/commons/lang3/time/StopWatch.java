@@ -339,7 +339,7 @@ public class StopWatch {
      * Gets the split list.
      *
      * @return the list of splits.
-     * @since 3.19.0
+     * @since 3.20.0
      */
     public List<Split> getSplits() {
         return Collections.unmodifiableList(splits);
@@ -657,7 +657,7 @@ public class StopWatch {
      *
      * @param label A message for string presentation.
      * @throws IllegalStateException if the StopWatch is not running.
-     * @since 3.19.0
+     * @since 3.20.0
      */
     public void split(final String label) {
         if (runningState != State.RUNNING) {
@@ -791,13 +791,15 @@ public class StopWatch {
     }
 
     /**
-     * Class to store a label with duration.
-     * @since 3.19.0
+     * Stores a split as a label and duration.
+     *
+     * @since 3.20.0
      */
     public static final class Split extends ImmutablePair<String, Duration> {
 
         /**
          * Constructs a Split object with label and duration.
+         *
          * @param label Label for this split.
          * @param duration Duration for this split.
          */
@@ -807,7 +809,8 @@ public class StopWatch {
 
         /**
          * Gets the label of this split.
-         * @return label.
+         *
+         * @return The label of this split.
          */
         public String getLabel() {
             return getLeft();
@@ -815,15 +818,17 @@ public class StopWatch {
 
         /**
          * Gets the duration of this split.
-         * @return duration.
+         *
+         * @return The duration of this split..
          */
         public Duration getDuration() {
             return getRight();
         }
 
         /**
-         * Converts this instance to a handy string.
-         * @return this instance as a string.
+         * Converts this instance to a string.
+         *
+         * @return this instance to a string.
          */
         @Override
         public String toString() {
