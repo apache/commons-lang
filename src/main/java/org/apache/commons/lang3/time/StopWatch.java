@@ -255,7 +255,7 @@ public class StopWatch {
     /**
      * The split list.
      */
-    private List<Split> splits;
+    private final List<Split> splits = new ArrayList<>();
 
     /**
      * Constructs a new instance.
@@ -576,7 +576,7 @@ public class StopWatch {
     public void reset() {
         runningState = State.UNSTARTED;
         splitState = SplitState.UNSPLIT;
-        splits = new ArrayList<>();
+        splits.clear();
     }
 
     /**
@@ -687,7 +687,7 @@ public class StopWatch {
         startTimeNanos = System.nanoTime();
         startInstant = Instant.now();
         runningState = State.RUNNING;
-        splits = new ArrayList<>();
+        splits.clear();
     }
 
     /**
