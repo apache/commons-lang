@@ -546,6 +546,10 @@ class StopWatchTest extends AbstractLangTest {
         assertTrue(splits.get(0).getDuration().toNanos() > 0);
         assertTrue(splits.get(1).getDuration().toNanos() > 0);
         assertTrue(splits.get(2).getDuration().toNanos() > 0);
+        // We can only unsplit once
+        watch.unsplit();
+        assertEquals(2, watch.getSplits().size());
+        assertThrows(IllegalStateException.class, watch::unsplit);
     }
 
     private int throwIOException() throws IOException {
