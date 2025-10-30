@@ -1287,6 +1287,14 @@ class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testConcatMethod() {
+        assertEquals("abc", StringUtils.concat("a", "b", "c"));
+        assertEquals("a" + "c", StringUtils.concat("a", null, "c"));
+        assertEquals("", StringUtils.concat(null, null, null));
+        assertEquals("", StringUtils.concat());
+    }
+
+    @Test
     void testLength_CharBuffer() {
         assertEquals(0, StringUtils.length(CharBuffer.wrap("")));
         assertEquals(1, StringUtils.length(CharBuffer.wrap("A")));

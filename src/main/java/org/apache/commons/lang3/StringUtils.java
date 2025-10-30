@@ -5129,6 +5129,31 @@ public class StringUtils {
     }
 
     /**
+     * Concatenates the provided strings into a single String, skipping {@code null} and blank strings
+     * (empty or whitespace-only).
+     *
+     * <p>Each non-blank string is appended in order with no delimiter.</p>
+     *
+     * <pre>
+     * concat("a", null, "b") = "ab"
+     * concat(" ", "x")       = "x"
+     * concat()               = ""  // returns empty string when called with no arguments
+     * </pre>
+     *
+     * @param strings varargs of strings to concatenate;
+     * @return the concatenated string; empty string if no non-blank elements
+     */
+    public static String concat(final String ... strings) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : strings) {
+            if (isNoneBlank(s)) {
+                sb.append(s);
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
      * Left pad a String with a specified String.
      *
      * <p>
