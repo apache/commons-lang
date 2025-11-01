@@ -26,6 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -69,8 +71,11 @@ class StopWatchTest extends AbstractLangTest {
     private StopWatch set(final StopWatch watch, final long nanos) {
         try {
             final long currentNanos = System.nanoTime();
+            final List<StopWatch.Split> splits = new ArrayList<>();
+            splits.add(new StopWatch.Split(String.valueOf(0), Duration.ofNanos(nanos)));
             FieldUtils.writeField(watch, "startTimeNanos", currentNanos - nanos, true);
             FieldUtils.writeField(watch, "stopTimeNanos", currentNanos, true);
+            FieldUtils.writeField(watch, "splits", splits, true);
         } catch (final IllegalAccessException e) {
             return null;
         }
@@ -213,6 +218,23 @@ class StopWatchTest extends AbstractLangTest {
         watch.split();
         set(watch, 123456);
         assertEquals(Duration.ofNanos(123456), watch.getSplitDuration());
+    }
+
+    @Test
+    void testGetSplits() {
+        final StopWatch stopWatch = StopWatch.create();
+        assertTrue(stopWatch.getSplits().isEmpty());
+        stopWatch.start();
+        testGetSplits(stopWatch);
+        testGetSplits(StopWatch.createStarted());
+    }
+
+    private void testGetSplits(final StopWatch watch) {
+        assertTrue(watch.getSplits().isEmpty());
+        watch.split();
+        assertEquals(1, watch.getSplits().size());
+        watch.unsplit();
+        assertTrue(watch.getSplits().isEmpty());
     }
 
     @Test
@@ -498,6 +520,36 @@ class StopWatchTest extends AbstractLangTest {
         watch.split();
         final String splitStr = watch.toString();
         assertEquals(SPLIT_CLOCK_STR_LEN + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
+    }
+
+    @Test
+    void testSplitsWithStringLabels() {
+        final StopWatch watch = new StopWatch();
+        final String firstLabel = "one";
+        final String secondLabel = "two";
+        final String thirdLabel = "three";
+        watch.start();
+        // starting splits
+        watch.split(firstLabel);
+        watch.split(secondLabel);
+        watch.split(thirdLabel);
+        watch.stop();
+        // getting splits
+        final List<StopWatch.Split> splits = watch.getSplits();
+        // check size
+        assertEquals(3, splits.size());
+        // check labels
+        assertEquals(firstLabel, splits.get(0).getLabel());
+        assertEquals(secondLabel, splits.get(1).getLabel());
+        assertEquals(thirdLabel, splits.get(2).getLabel());
+        // check time in nanos
+        assertTrue(splits.get(0).getDuration().toNanos() > 0);
+        assertTrue(splits.get(1).getDuration().toNanos() > 0);
+        assertTrue(splits.get(2).getDuration().toNanos() > 0);
+        // We can only unsplit once
+        watch.unsplit();
+        assertEquals(2, watch.getSplits().size());
+        assertThrows(IllegalStateException.class, watch::unsplit);
     }
 
     private int throwIOException() throws IOException {
