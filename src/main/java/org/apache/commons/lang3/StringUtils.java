@@ -7851,7 +7851,7 @@ public class StringUtils {
      * StringUtils.stripAccents("\u00BC \u00BD \u00BE")      = "1⁄4 1⁄2 3⁄4"
      * </pre>
      * <p>
-     * See also <a href="http://www.unicode.org/unicode/reports/tr15/tr15-23.html">Unicode Standard Annex #15 Unicode Normalization Forms</a>.
+     * See also <a href="https://www.unicode.org/unicode/reports/tr15/tr15-23.html">Unicode Standard Annex #15 Unicode Normalization Forms</a>.
      * </p>
      *
      * @param input String to be stripped.
