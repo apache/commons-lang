@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableLong
  */
-public class MutableLongTest extends AbstractLangTest {
+class MutableLongTest extends AbstractLangTest {
 
     @Test
-    public void testAddAndGetValueObject() {
+    void testAddAndGetValueObject() {
         final MutableLong mutableLong = new MutableLong(0L);
         final long result = mutableLong.addAndGet(Long.valueOf(1L));
 
@@ -40,7 +40,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddAndGetValuePrimitive() {
+    void testAddAndGetValuePrimitive() {
         final MutableLong mutableLong = new MutableLong(0L);
         final long result = mutableLong.addAndGet(1L);
 
@@ -49,7 +49,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddValueObject() {
+    void testAddValueObject() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.add(Long.valueOf(1));
 
@@ -58,7 +58,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddValuePrimitive() {
+    void testAddValuePrimitive() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.add(1);
 
@@ -67,7 +67,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         final MutableLong mutNum = new MutableLong(0);
 
         assertEquals(0, mutNum.compareTo(new MutableLong(0)));
@@ -76,18 +76,18 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareToNull() {
+    void testCompareToNull() {
         final MutableLong mutNum = new MutableLong(0);
-        assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
+        assertNullPointerException(() -> mutNum.compareTo(null));
     }
 
     @Test
-    public void testConstructorNull() {
-        assertThrows(NullPointerException.class, () -> new MutableLong((Number) null));
+    void testConstructorNull() {
+        assertNullPointerException(() -> new MutableLong((Number) null));
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         assertEquals(0, new MutableLong().longValue());
 
         assertEquals(1, new MutableLong(1).longValue());
@@ -100,7 +100,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDecrement() {
+    void testDecrement() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.decrement();
 
@@ -109,7 +109,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDecrementAndGet() {
+    void testDecrementAndGet() {
         final MutableLong mutNum = new MutableLong(1L);
         final long result = mutNum.decrementAndGet();
 
@@ -119,7 +119,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final MutableLong mutNumA = new MutableLong(0);
         final MutableLong mutNumB = new MutableLong(0);
         final MutableLong mutNumC = new MutableLong(1);
@@ -137,7 +137,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndAddValueObject() {
+    void testGetAndAddValueObject() {
         final MutableLong mutableLong = new MutableLong(0L);
         final long result = mutableLong.getAndAdd(Long.valueOf(1L));
 
@@ -146,7 +146,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndAddValuePrimitive() {
+    void testGetAndAddValuePrimitive() {
         final MutableLong mutableLong = new MutableLong(0L);
         final long result = mutableLong.getAndAdd(1L);
 
@@ -155,7 +155,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndDecrement() {
+    void testGetAndDecrement() {
         final MutableLong mutNum = new MutableLong(1L);
         final long result = mutNum.getAndDecrement();
 
@@ -165,7 +165,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndIncrement() {
+    void testGetAndIncrement() {
         final MutableLong mutNum = new MutableLong(1L);
         final long result = mutNum.getAndIncrement();
 
@@ -175,26 +175,30 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetSet() {
+    void testGetSet() {
         final MutableLong mutNum = new MutableLong(0);
         assertEquals(0, new MutableLong().longValue());
+        assertEquals(Long.valueOf(0), new MutableLong().get());
         assertEquals(Long.valueOf(0), new MutableLong().getValue());
 
         mutNum.setValue(1);
         assertEquals(1, mutNum.longValue());
+        assertEquals(Long.valueOf(1), mutNum.get());
         assertEquals(Long.valueOf(1), mutNum.getValue());
 
         mutNum.setValue(Long.valueOf(2));
         assertEquals(2, mutNum.longValue());
+        assertEquals(Long.valueOf(2), mutNum.get());
         assertEquals(Long.valueOf(2), mutNum.getValue());
 
         mutNum.setValue(new MutableLong(3));
         assertEquals(3, mutNum.longValue());
+        assertEquals(Long.valueOf(3), mutNum.get());
         assertEquals(Long.valueOf(3), mutNum.getValue());
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final MutableLong mutNumA = new MutableLong(0);
         final MutableLong mutNumB = new MutableLong(0);
         final MutableLong mutNumC = new MutableLong(1);
@@ -206,7 +210,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIncrement() {
+    void testIncrement() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.increment();
 
@@ -215,7 +219,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIncrementAndGet() {
+    void testIncrementAndGet() {
         final MutableLong mutNum = new MutableLong(1L);
         final long result = mutNum.incrementAndGet();
 
@@ -225,24 +229,24 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPrimitiveValues() {
+    void testPrimitiveValues() {
         final MutableLong mutNum = new MutableLong(1L);
         assertEquals(1.0F, mutNum.floatValue());
         assertEquals(1.0, mutNum.doubleValue());
-        assertEquals( (byte) 1, mutNum.byteValue() );
-        assertEquals( (short) 1, mutNum.shortValue() );
-        assertEquals( 1, mutNum.intValue() );
-        assertEquals( 1L, mutNum.longValue() );
+        assertEquals((byte) 1, mutNum.byteValue());
+        assertEquals((short) 1, mutNum.shortValue());
+        assertEquals(1, mutNum.intValue());
+        assertEquals(1L, mutNum.longValue());
     }
 
     @Test
-    public void testSetNull() {
+    void testSetNull() {
         final MutableLong mutNum = new MutableLong(0);
-        assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
+        assertNullPointerException(() -> mutNum.setValue(null));
     }
 
     @Test
-    public void testSubtractValueObject() {
+    void testSubtractValueObject() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.subtract(Long.valueOf(1));
 
@@ -251,7 +255,7 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSubtractValuePrimitive() {
+    void testSubtractValuePrimitive() {
         final MutableLong mutNum = new MutableLong(1);
         mutNum.subtract(1);
 
@@ -260,13 +264,13 @@ public class MutableLongTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToLong() {
+    void testToLong() {
         assertEquals(Long.valueOf(0L), new MutableLong(0L).toLong());
         assertEquals(Long.valueOf(123L), new MutableLong(123L).toLong());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("0", new MutableLong(0).toString());
         assertEquals("10", new MutableLong(10).toString());
         assertEquals("-123", new MutableLong(-123).toString());

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -82,16 +82,16 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * operation is complete or to cancel the operation.
  * </p>
  *
- * @since 3.0
  * @param <T> the type of the object managed by this initializer class
+ * @since 3.0
  */
 public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, Exception> {
 
     /**
      * Builds a new instance.
      *
-     * @param <T> the type of the object managed by the initializer.
-     * @param <I> the type of the initializer managed by this builder.
+     * @param <T> The type of results supplied by this builder.
+     * @param <I> The type of the initializer managed by this builder.
      * @since 3.14.0
      */
     public static class Builder<I extends BackgroundInitializer<T>, T> extends AbstractBuilder<I, T, Builder<I, T>, Exception> {
@@ -100,6 +100,13 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
          * The external executor service for executing tasks. null is a permitted value.
          */
         private ExecutorService externalExecutor;
+
+        /**
+         * Constructs a new instance.
+         */
+        public Builder() {
+            // empty
+        }
 
         @SuppressWarnings("unchecked")
         @Override
@@ -111,7 +118,6 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
          * Sets the external executor service for executing tasks. null is a permitted value.
          *
          * @see org.apache.commons.lang3.concurrent.BackgroundInitializer#setExternalExecutor(ExecutorService)
-         *
          * @param externalExecutor the {@link ExecutorService} to be used.
          * @return {@code this} instance.
          */
@@ -189,7 +195,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * scheduled at this service. Otherwise a new temporary {@code
      * ExecutorService} is created.
      *
-     * @param exec an external {@link ExecutorService} to be used for task
+     * @param exec an external {@link ExecutorService} to be used for task.
      * execution
      */
     protected BackgroundInitializer(final ExecutorService exec) {
@@ -212,7 +218,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * Creates the {@link ExecutorService} to be used. This method is called if
      * no {@link ExecutorService} was provided at construction time.
      *
-     * @return the {@link ExecutorService} to be used
+     * @return the {@link ExecutorService} to be used.
      */
     private ExecutorService createExecutor() {
         return Executors.newFixedThreadPool(getTaskCount());
@@ -226,15 +232,15 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * at the end of the task.
      *
      * @param execDestroy the {@link ExecutorService} to be destroyed by the
-     * task
-     * @return a task for the background initialization
+     * task.
+     * @return a task for the background initialization.
      */
     private Callable<T> createTask(final ExecutorService execDestroy) {
         return new InitializationTask(execDestroy);
     }
 
     /**
-     * Returns the result of the background initialization. This method blocks
+     * Gets the result of the background initialization. This method blocks
      * until initialization is complete. If the background processing caused a
      * runtime exception, it is directly thrown by this method. Checked
      * exceptions, including {@link InterruptedException} are wrapped in a
@@ -242,10 +248,10 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * was called causes an {@link IllegalStateException} exception to be
      * thrown.
      *
-     * @return the object produced by this initializer
+     * @return the object produced by this initializer.
      * @throws ConcurrentException if a checked exception occurred during
-     * background processing
-     * @throws IllegalStateException if {@link #start()} has not been called
+     * background processing.
+     * @throws IllegalStateException if {@link #start()} has not been called.
      */
     @Override
     public T get() throws ConcurrentException {
@@ -262,45 +268,44 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     }
 
     /**
-     * Returns the {@link ExecutorService} that is actually used for executing
+     * Gets the {@link ExecutorService} that is actually used for executing
      * the background task. This method can be called after {@link #start()}
-     * (before {@code start()} it returns <b>null</b>). If an external executor
+     * (before {@code start()} it returns <strong>null</strong>). If an external executor
      * was set, this is also the active executor. Otherwise this method returns
      * the temporary executor that was created by this object.
      *
-     * @return the {@link ExecutorService} for executing the background task
+     * @return the {@link ExecutorService} for executing the background task.
      */
     protected final synchronized ExecutorService getActiveExecutor() {
         return executor;
     }
 
     /**
-     * Returns the external {@link ExecutorService} to be used by this class.
+     * Gets the external {@link ExecutorService} to be used by this class.
      *
-     * @return the {@link ExecutorService}
+     * @return the {@link ExecutorService}.
      */
     public final synchronized ExecutorService getExternalExecutor() {
         return externalExecutor;
     }
 
     /**
-     * Returns the {@link Future} object that was created when {@link #start()}
+     * Gets the {@link Future} object that was created when {@link #start()}
      * was called. Therefore this method can only be called after {@code
      * start()}.
      *
-     * @return the {@link Future} object wrapped by this initializer
-     * @throws IllegalStateException if {@link #start()} has not been called
+     * @return the {@link Future} object wrapped by this initializer.
+     * @throws IllegalStateException if {@link #start()} has not been called.
      */
     public synchronized Future<T> getFuture() {
         if (future == null) {
             throw new IllegalStateException("start() must be called first!");
         }
-
         return future;
     }
 
     /**
-     * Returns the number of background tasks to be created for this
+     * Gets the number of background tasks to be created for this
      * initializer. This information is evaluated when a temporary {@code
      * ExecutorService} is created. This base implementation returns 1. Derived
      * classes that do more complex background processing can override it. This
@@ -308,7 +313,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * method. Therefore overriding methods should be careful with obtaining
      * other locks and return as fast as possible.
      *
-     * @return the number of background tasks required by this initializer
+     * @return the number of background tasks required by this initializer.
      */
     protected int getTaskCount() {
         return 1;
@@ -328,15 +333,14 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * If initialization failed then the failure will be cached and this will never return
      * true.
      *
-     * @return true if initialization completed successfully, otherwise false
+     * @return true if initialization completed successfully, otherwise false.
      * @since 3.14.0
      */
     @Override
     public synchronized boolean isInitialized() {
-        if (future == null || ! future.isDone() ) {
+        if (future == null || !future.isDone()) {
             return false;
         }
-
         try {
             future.get();
             return true;
@@ -346,11 +350,11 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     }
 
     /**
-     * Returns a flag whether this {@link BackgroundInitializer} has already
+     * Tests whether this {@link BackgroundInitializer} has already
      * been started.
      *
      * @return a flag whether the {@link #start()} method has already been
-     * called
+     * called.
      */
     public synchronized boolean isStarted() {
         return future != null;
@@ -366,17 +370,14 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * method must be called before {@link #start()}; otherwise an exception is
      * thrown.
      *
-     * @param externalExecutor the {@link ExecutorService} to be used
+     * @param externalExecutor the {@link ExecutorService} to be used.
      * @throws IllegalStateException if this initializer has already been
-     * started
+     * started.
      */
-    public final synchronized void setExternalExecutor(
-            final ExecutorService externalExecutor) {
+    public final synchronized void setExternalExecutor(final ExecutorService externalExecutor) {
         if (isStarted()) {
-            throw new IllegalStateException(
-                    "Cannot set ExecutorService after start()!");
+            throw new IllegalStateException("Cannot set ExecutorService after start()!");
         }
-
         this.externalExecutor = externalExecutor;
     }
 
@@ -385,17 +386,15 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * becomes active and invokes the {@link #initialize()} method in a
      * background task. A {@link BackgroundInitializer} can be started exactly
      * once. The return value of this method determines whether the start was
-     * successful: only the first invocation of this method returns <b>true</b>,
-     * following invocations will return <b>false</b>.
+     * successful: only the first invocation of this method returns <strong>true</strong>,
+     * following invocations will return <strong>false</strong>.
      *
-     * @return a flag whether the initializer could be started successfully
+     * @return a flag whether the initializer could be started successfully.
      */
     public synchronized boolean start() {
         // Not yet started?
         if (!isStarted()) {
-
-            // Determine the executor to use and whether a temporary one has to
-            // be created
+            // Determine the executor to use and whether a temporary one has to be created.
             final ExecutorService tempExec;
             executor = getExternalExecutor();
             if (executor == null) {
@@ -403,12 +402,9 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
             } else {
                 tempExec = null;
             }
-
             future = executor.submit(createTask(tempExec));
-
             return true;
         }
-
         return false;
     }
 }

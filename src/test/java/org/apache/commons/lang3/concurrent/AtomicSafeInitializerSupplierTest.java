@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code AtomicSafeInitializer} which also serves as a simple example.
  */
-public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest {
+class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndExceptionsTest<Object> {
 
     /** An initCounter used in testing. Reset before each test */
     private AtomicInteger initCounter = new AtomicInteger();
@@ -64,7 +64,7 @@ public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitial
     }
 
     @Test
-    public void testGetThatReturnsNullFirstTime() throws ConcurrentException {
+    void testGetThatReturnsNullFirstTime() throws ConcurrentException {
         final AtomicSafeInitializer<Object> initializer = new AtomicSafeInitializer<Object>() {
             final AtomicBoolean firstRun = new AtomicBoolean(true);
 
@@ -88,7 +88,7 @@ public class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitial
      * @throws InterruptedException because {@link #testGetConcurrent()} may throw it
      */
     @Test
-    public void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
+    void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
         testGetConcurrent();
         assertEquals(1, initCounter.get(), "Wrong number of invocations");
     }

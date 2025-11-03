@@ -7,7 +7,7 @@ The ASF licenses this file to You under the Apache License, Version 2.0
 (the "License"); you may not use this file except in compliance with
 the License.  You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+     https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,9 +21,15 @@ limitations under the License.
 <!-- Apache Commons Lang customization of default Checkstyle behavior -->
 <module name="Checker">
   <property name="localeLanguage" value="en"/>
-  <module name="JavadocPackage"/>
   <module name="FileTabCharacter">
     <property name="fileExtensions" value="java,xml"/>
+  </module>
+  <module name="JavadocPackage"/>
+  <module name="RegexpSingleline">
+    <property name="format" value="^\s+\*\s+@author\s" />
+    <property name="message" value="Deprecated @author tag" />
+    <property name="fileExtensions" value="java" />
+    <property name="severity" value="warning" />
   </module>
   <module name="RegexpSingleline">
     <!-- \s matches whitespace character, $ matches end of line. -->
@@ -34,32 +40,54 @@ limitations under the License.
     <property name="file" value="src/site/resources/checkstyle/checkstyle-suppressions.xml"/>
   </module>
   <module name="TreeWalker">
-    <module name="ExplicitInitializationCheck" />
+    <module name="ArrayTypeStyle"/>
     <module name="AvoidStarImport"/>
-    <module name="IllegalImport"/>
-    <module name="RedundantImport"/>
-    <module name="UnusedImports"/>
-    <module name="NeedBraces"/>
-    <module name="JavadocMethod">
-      <property name="accessModifiers" value="public" />
+    <module name="CovariantEquals" />
+    <module name="ExplicitInitializationCheck" />
+    <module name="DefaultComesLast" />
+    <module name="EmptyBlock">
+      <property name="option" value="text" />
     </module>
-    <module name="ModifierOrder"/>
-    <module name="RedundantModifier"/>
-    <module name="UpperEll" />
-    <module name="LeftCurly"/>
-    <module name="NeedBraces"/>
-    <module name="RightCurly"/>
+    <module name="EqualsHashCode" />
+    <module name="ExplicitInitialization" />
+    <module name="FallThrough" />
+    <module name="FinalLocalVariable" />
     <module name="GenericWhitespace"/>
-    <module name="WhitespaceAfter"/>
-    <module name="WhitespaceAround"/>
-    <module name="WhitespaceAroundCheck"/>
-    <module name="NoWhitespaceBefore"/>
+    <module name="IllegalImport"/>
+    <module name="IllegalInstantiation" />
     <module name="ImportOrder">
       <property name="option" value="top"/>
       <property name="groups" value="java,javax,org"/>
       <property name="ordered" value="true"/>
       <property name="separated" value="true"/>
     </module>
+    <module name="JavadocMethod">
+      <property name="accessModifiers" value="public" />
+    </module>
+    <module name="LeftCurly"/>
     <module name="MissingOverride"/>
+    <module name="ModifierOrder"/>
+    <module name="MultipleVariableDeclarations" />
+    <module name="NeedBraces"/>
+    <module name="NoWhitespaceBefore"/>
+    <module name="ParenPad"/>
+    <module name="RedundantImport"/>
+    <module name="RedundantModifier"/>
+    <module name="RightCurly"/>
+    <module name="SimplifyBooleanExpression" />
+    <module name="SimplifyBooleanReturn" />
+    <module name="StringLiteralEquality" />
+    <!-- <module name="SuperClone" /> -->
+    <module name="SuperFinalize" />
+    <module name="TypecastParenPad" />
+    <module name="UnnecessaryParentheses" />
+    <module name="UnusedImports"/>
+    <module name="UpperEll" />
+    <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround"/>
+    <module name="ImportControl">
+      <property name="file" value="src/conf/checkstyle/import-control.xml"/>
+      <property name="path" value="^.*[\\/]src[\\/]main[\\/].*$"/>
+    </module>
  </module>
 </module>

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,9 +28,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.builder.MultiLineToStringStyleTest}.
+ * Tests {@link org.apache.commons.lang3.builder.MultiLineToStringStyleTest}.
  */
-public class MultiLineToStringStyleTest extends AbstractLangTest {
+class MultiLineToStringStyleTest extends AbstractLangTest {
 
     private final Integer base = Integer.valueOf(5);
     private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
@@ -46,7 +46,7 @@ public class MultiLineToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAppendSuper() {
+    void testAppendSuper() {
         assertEquals(baseStr + "[" + System.lineSeparator() + "]", new ToStringBuilder(base).appendSuper("Integer@8888[" + System.lineSeparator() + "]").toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  <null>" + System.lineSeparator() + "]", new ToStringBuilder(base).appendSuper("Integer@8888[" + System.lineSeparator() + "  <null>" + System.lineSeparator() + "]").toString());
 
@@ -56,7 +56,7 @@ public class MultiLineToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testArray() {
+    void testArray() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=0>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", (Object) new Integer[0], false).toString());
@@ -68,12 +68,12 @@ public class MultiLineToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBlank() {
+    void testBlank() {
         assertEquals(baseStr + "[" + System.lineSeparator() + "]", new ToStringBuilder(base).toString());
     }
 
     @Test
-    public void testCollection() {
+    void testCollection() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=0>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.emptyList(), false).toString());
@@ -85,14 +85,14 @@ public class MultiLineToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLong() {
+    void testLong() {
         assertEquals(baseStr + "[" + System.lineSeparator() + "  3" + System.lineSeparator() + "]", new ToStringBuilder(base).append(3L).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  a=3" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", 3L).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  a=3" + System.lineSeparator() + "  b=4" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", 3L).append("b", 4L).toString());
     }
 
     @Test
-    public void testLongArray() {
+    void testLongArray() {
         long[] array = {1, 2, -3, 4};
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {1,2,-3,4}" + System.lineSeparator() + "]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {1,2,-3,4}" + System.lineSeparator() + "]", new ToStringBuilder(base).append((Object) array).toString());
@@ -102,7 +102,7 @@ public class MultiLineToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLongArrayArray() {
+    void testLongArrayArray() {
         long[][] array = {{1, 2}, null, {5}};
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {{1,2},<null>,{5}}" + System.lineSeparator() + "]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {{1,2},<null>,{5}}" + System.lineSeparator() + "]", new ToStringBuilder(base).append((Object) array).toString());
@@ -112,7 +112,7 @@ public class MultiLineToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMap() {
+    void testMap() {
         assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=0>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.emptyMap(), false).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  a={}" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.emptyMap(), true).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  a=<size=1>" + System.lineSeparator() + "]", new ToStringBuilder(base).append("a", Collections.singletonMap("k", "v"), false).toString());
@@ -120,7 +120,7 @@ public class MultiLineToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObject() {
+    void testObject() {
         final Integer i3 = Integer.valueOf(3);
         final Integer i4 = Integer.valueOf(4);
         assertEquals(baseStr + "[" + System.lineSeparator() + "  <null>" + System.lineSeparator() + "]", new ToStringBuilder(base).append((Object) null).toString());
@@ -132,7 +132,7 @@ public class MultiLineToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectArray() {
+    void testObjectArray() {
         Object[] array = {null, base, new int[] {3, 6}};
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {<null>,5,{3,6}}" + System.lineSeparator() + "]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[" + System.lineSeparator() + "  {<null>,5,{3,6}}" + System.lineSeparator() + "]", new ToStringBuilder(base).append((Object) array).toString());
@@ -142,13 +142,13 @@ public class MultiLineToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPerson() {
+    void testPerson() {
         final Person p = new Person();
         p.name = "Jane Doe";
         p.age = 25;
         p.smoker = true;
-        final String pBaseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
-        assertEquals(pBaseStr + "[" + System.lineSeparator() + "  name=Jane Doe" + System.lineSeparator() + "  age=25" + System.lineSeparator() + "  smoker=true" + System.lineSeparator() + "]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
+        final String baseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
+        assertEquals(baseStr + "[" + System.lineSeparator() + "  name=Jane Doe" + System.lineSeparator() + "  age=25" + System.lineSeparator() + "  smoker=true" + System.lineSeparator() + "]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 
 }

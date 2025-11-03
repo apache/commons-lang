@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,10 +27,10 @@ import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
-public class ArrayUtilsSetTest extends AbstractLangTest {
+class ArrayUtilsSetTest extends AbstractLangTest {
 
     @Test
-    public void testSetAll_IntFunction() {
+    void testSetAll_IntFunction() {
         final IntFunction<?> nullIntFunction = null;
         assertNull(ArrayUtils.setAll(null, nullIntFunction));
         assertArrayEquals(null, ArrayUtils.setAll(null, nullIntFunction));
@@ -45,7 +45,7 @@ public class ArrayUtilsSetTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSetAll_Supplier() {
+    void testSetAll_Supplier() {
         final Supplier<?> nullSupplier = null;
         assertNull(ArrayUtils.setAll(null, nullSupplier));
         assertArrayEquals(null, ArrayUtils.setAll(null, nullSupplier));

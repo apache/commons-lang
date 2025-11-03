@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,6 +26,7 @@ import java.util.TimeZone;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -44,7 +45,7 @@ import org.apache.commons.lang3.Validate;
  *  <tr><td>'text'</td><td>arbitrary text content</td></tr>
  * </table>
  *
- * <b>Note: It's not currently possible to include a single-quote in a format.</b>
+ * <strong>Note: It's not currently possible to include a single-quote in a format.</strong>
  * <br>
  * Token values are printed using decimal digits.
  * A token character can be repeated to ensure that the field occupies a certain minimum
@@ -57,8 +58,8 @@ import org.apache.commons.lang3.Validate;
  * Multiple optional blocks can be used to group literals with the desired token.
  * <p>
  * Notes on Optional Tokens:<br>
- * <b>Multiple optional tokens without literals can result in impossible to understand output.</b><br>
- * <b>Patterns where all tokens are optional can produce empty strings.</b><br>
+ * <strong>Multiple optional tokens without literals can result in impossible to understand output.</strong><br>
+ * <strong>Patterns where all tokens are optional can produce empty strings.</strong><br>
  * (See examples below)
  * </p>
  * <br>
@@ -73,22 +74,16 @@ import org.apache.commons.lang3.Validate;
  * <tr><td>['{'dd'}']['&lt;'HH'&gt;']['('mm')']</td><td>{01}</td><td>&lt;01&gt;</td><td>(00)</td><td></td></tr>
  * <tr><td>[dHms]</td><td>1</td><td>1</td><td>1</td><td></td></tr>
  * </table>
- * <b>Note: Optional blocks cannot be nested.</b>
+ * <strong>Note: Optional blocks cannot be nested.</strong>
  *
  * @since 2.1
  */
 public class DurationFormatUtils {
 
-    private static final int MINUTES_PER_HOUR = 60;
-
-    private static final int SECONDS_PER_MINUTES = 60;
-
-    private static final int HOURS_PER_DAY = 24;
-
     /**
      * Element that is parsed from the format pattern.
      */
-    static class Token {
+    static final class Token {
 
         /** Empty array. */
         private static final Token[] EMPTY_ARRAY = {};
@@ -197,6 +192,12 @@ public class DurationFormatUtils {
             return StringUtils.repeat(this.value.toString(), this.count);
         }
     }
+
+    private static final int MINUTES_PER_HOUR = 60;
+
+    private static final int SECONDS_PER_MINUTES = 60;
+
+    private static final int HOURS_PER_DAY = 24;
 
     /**
      * Pattern used with {@link FastDateFormat} and {@link SimpleDateFormat}
@@ -438,13 +439,16 @@ public class DurationFormatUtils {
         if (suppressLeadingZeroElements) {
             // this is a temporary marker on the front. Like ^ in regexp.
             duration = " " + duration;
-            String tmp = StringUtils.replaceOnce(duration, " 0 days", StringUtils.EMPTY);
+            final String text = duration;
+            String tmp = Strings.CS.replaceOnce(text, " 0 days", StringUtils.EMPTY);
             if (tmp.length() != duration.length()) {
                 duration = tmp;
-                tmp = StringUtils.replaceOnce(duration, " 0 hours", StringUtils.EMPTY);
+                final String text1 = duration;
+                tmp = Strings.CS.replaceOnce(text1, " 0 hours", StringUtils.EMPTY);
                 if (tmp.length() != duration.length()) {
                     duration = tmp;
-                    tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
+                    final String text2 = duration;
+                    tmp = Strings.CS.replaceOnce(text2, " 0 minutes", StringUtils.EMPTY);
                     duration = tmp;
                 }
             }
@@ -454,25 +458,33 @@ public class DurationFormatUtils {
             }
         }
         if (suppressTrailingZeroElements) {
-            String tmp = StringUtils.replaceOnce(duration, " 0 seconds", StringUtils.EMPTY);
+            final String text = duration;
+            String tmp = Strings.CS.replaceOnce(text, " 0 seconds", StringUtils.EMPTY);
             if (tmp.length() != duration.length()) {
                 duration = tmp;
-                tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
+                final String text1 = duration;
+                tmp = Strings.CS.replaceOnce(text1, " 0 minutes", StringUtils.EMPTY);
                 if (tmp.length() != duration.length()) {
                     duration = tmp;
-                    tmp = StringUtils.replaceOnce(duration, " 0 hours", StringUtils.EMPTY);
+                    final String text2 = duration;
+                    tmp = Strings.CS.replaceOnce(text2, " 0 hours", StringUtils.EMPTY);
                     if (tmp.length() != duration.length()) {
-                        duration = StringUtils.replaceOnce(tmp, " 0 days", StringUtils.EMPTY);
+                        final String text3 = tmp;
+                        duration = Strings.CS.replaceOnce(text3, " 0 days", StringUtils.EMPTY);
                     }
                 }
             }
         }
         // handle plurals
         duration = " " + duration;
-        duration = StringUtils.replaceOnce(duration, " 1 seconds", " 1 second");
-        duration = StringUtils.replaceOnce(duration, " 1 minutes", " 1 minute");
-        duration = StringUtils.replaceOnce(duration, " 1 hours", " 1 hour");
-        duration = StringUtils.replaceOnce(duration, " 1 days", " 1 day");
+        final String text = duration;
+        duration = Strings.CS.replaceOnce(text, " 1 seconds", " 1 second");
+        final String text1 = duration;
+        duration = Strings.CS.replaceOnce(text1, " 1 minutes", " 1 minute");
+        final String text2 = duration;
+        duration = Strings.CS.replaceOnce(text2, " 1 hours", " 1 hour");
+        final String text3 = duration;
+        duration = Strings.CS.replaceOnce(text3, " 1 days", " 1 day");
         return duration.trim();
     }
 

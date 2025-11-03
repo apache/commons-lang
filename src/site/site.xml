@@ -7,7 +7,7 @@
  (the "License"); you may not use this file except in compliance with
  the License.  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+      https://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,32 +15,36 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project name="Lang">
-    <bannerRight>
-        <name>Commons Lang</name>
-        <src>/images/logo.png</src>
-        <href>/index.html</href>
-    </bannerRight>
-
-    <body>
-        <menu name="Lang">
-            <item name="Overview" href="/index.html" />
-            <item name="Download" href="/download_lang.cgi" />
-            <item name="Users guide" href="/userguide.html" />
-            <item name="Release History" href="/changes-report.html" />
-            <item name="Javadoc" href="/apidocs/index.html" />
-            <item name="Javadoc Archive" href="https://javadoc.io/doc/org.apache.commons/commons-lang3" />
-        </menu>
-
-        <menu name="Development">
-            <item name="Building" href="/building.html" />
-            <item name="Mailing Lists" href="/mail-lists.html" />
-            <item name="Issue Tracking" href="/issue-tracking.html" />
-            <item name="Proposal" href="/proposal.html" />
-            <item name="Developer guide" href="/developerguide.html" />
-            <item name="Source Repository" href="/scm.html" />
-        </menu>
-
-    </body>
-
-</project>
+<site xmlns="http://maven.apache.org/SITE/2.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd"
+  name="Apache Commons Lang">
+  <bannerRight name="Commons Lang" href="/index.html">
+    <image src="/images/logo.png"/>
+  </bannerRight>
+  <body>
+    <menu name="Commons Lang">
+      <!-- Start: For all components. -->
+      <item name="About" href="/index.html" />
+      <item name="Asking Questions" href="/mail-lists.html" />
+      <item name="Release History" href="/changes.html" />
+      <item name="Issue Tracking" href="/issue-management.html" />
+      <item name="Dependency Management" href="/dependency-info.html" />
+      <item name="Sources" href="/scm.html" />
+      <item name="Security" href="/security.html" />
+      <item name="License" href="https://www.apache.org/licenses/LICENSE-2.0" />
+      <item name="Code of Conduct" href="https://www.apache.org/foundation/policies/conduct.html" />
+      <item name="Download" href="/download_lang.cgi" />
+      <item name="Javadoc">
+        <item name="Javadoc Current" href="/apidocs/index.html" />
+        <item name="Javadoc Archive" href="https://javadoc.io/doc/org.apache.commons/commons-lang3" />
+      </item>
+      <!-- End: For all components. -->
+      <!-- Specific to this component: -->
+      <item name="Users guide" href="/userguide.html" />
+      <item name="Building" href="/building.html" />
+      <item name="Proposal" href="/proposal.html" />
+      <item name="Developer guide" href="/developerguide.html" />
+    </menu>
+  </body>
+</site>

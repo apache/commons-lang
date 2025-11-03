@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,7 +16,7 @@
  */
 
 /**
- * Assists in creating consistent {@code equals(Object)}, {@code toString()}, {@code hashCode()}, and {@code compareTo(Object)} methods.
+ * Provides classes to create consistent {@code equals(Object)}, {@code toString()}, {@code hashCode()}, and {@code compareTo(Object)} methods.
  * These classes are not thread-safe.
  *
  * <p>When you write a {@link Object#hashCode() hashCode()}, do you check Bloch's Effective Java? No?
@@ -28,7 +28,6 @@
  * @see Object#toString()
  * @see Object#hashCode()
  * @see Comparable#compareTo(Object)
- *
  * @since 1.0
  */
 package org.apache.commons.lang3.builder;

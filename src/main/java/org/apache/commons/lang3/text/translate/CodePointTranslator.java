@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,12 +24,19 @@ import java.io.Writer;
  * will replace up to one character at a time.
  *
  * @since 3.0
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/CodePointTranslator.html">
- * CharSequenceTranslator</a> instead
+ * CharSequenceTranslator</a>.
  */
 @Deprecated
 public abstract class CodePointTranslator extends CharSequenceTranslator {
+
+    /**
+     * Constructs a new instance.
+     */
+    public CodePointTranslator() {
+        // empty
+    }
 
     /**
      * Implements translate to map onto the abstract translate(int, Writer) method.
@@ -45,10 +52,10 @@ public abstract class CodePointTranslator extends CharSequenceTranslator {
     /**
      * Translate the specified code point into another.
      *
-     * @param codePoint int character input to translate
-     * @param out Writer to optionally push the translated output to
-     * @return boolean as to whether translation occurred or not
-     * @throws IOException if and only if the Writer produces an IOException
+     * @param codePoint int character input to translate.
+     * @param out Writer to optionally push the translated output to.
+     * @return boolean as to whether translation occurred or not.
+     * @throws IOException if and only if the Writer produces an IOException.
      */
     public abstract boolean translate(int codePoint, Writer out) throws IOException;
 

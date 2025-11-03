@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,20 +17,20 @@
 
 package org.apache.commons.lang3.text.translate;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link org.apache.commons.lang3.text.translate.NumericEntityUnescaper}.
+ * Tests for {@link org.apache.commons.lang3.text.translate.NumericEntityUnescaper}.
  */
 @Deprecated
-public class NumericEntityUnescaperTest extends AbstractLangTest {
+class NumericEntityUnescaperTest extends AbstractLangTest {
 
     @Test
-    public void testOutOfBounds() {
+    void testOutOfBounds() {
         final NumericEntityUnescaper neu = new NumericEntityUnescaper();
 
         assertEquals("Test &", neu.translate("Test &"), "Failed to ignore when last character is &");
@@ -40,7 +40,7 @@ public class NumericEntityUnescaperTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSupplementaryUnescaping() {
+    void testSupplementaryUnescaping() {
         final NumericEntityUnescaper neu = new NumericEntityUnescaper();
         final String input = "&#68642;";
         final String expected = "\uD803\uDC22";
@@ -50,7 +50,7 @@ public class NumericEntityUnescaperTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUnfinishedEntity() {
+    void testUnfinishedEntity() {
         // parse it
         NumericEntityUnescaper neu = new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.semiColonOptional);
         String input = "Test &#x30 not test";
@@ -71,7 +71,7 @@ public class NumericEntityUnescaperTest extends AbstractLangTest {
         final NumericEntityUnescaper failingNeu =
                 new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.errorIfNoSemiColon);
         final String failingInput = "Test &#x30 not test";
-        assertThrows(IllegalArgumentException.class, () -> failingNeu.translate(failingInput));
+        assertIllegalArgumentException(() -> failingNeu.translate(failingInput));
     }
 
 }

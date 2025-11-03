@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 /**
  * A functional interface like {@link Supplier} that declares a {@link Throwable}.
  *
- * @param <T> Return type.
+ * @param <T> The type of results supplied by this supplier.
  * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
@@ -41,7 +41,7 @@ public interface FailableSupplier<T, E extends Throwable> {
     FailableSupplier NUL = () -> null;
 
     /**
-     * Returns the singleton supplier that always returns null.
+     * Gets the singleton supplier that always returns null.
      * <p>
      * This supplier never throws an exception.
      * </p>

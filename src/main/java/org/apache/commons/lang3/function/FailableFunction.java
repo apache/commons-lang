@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,7 @@ import java.util.function.Function;
  *
  * @param <T> Input type 1.
  * @param <R> Return type.
- * @param <E> The kind of thrown exception or error.
+ * @param <E> The type of thrown exception or error.
  * @since 3.11
  */
 @FunctionalInterface
@@ -40,7 +40,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      *
      * @param <T> Input type.
      * @param <R> Return type.
-     * @param <E> The kind of thrown exception or error.
+     * @param <E> The type of thrown exception or error.
      * @param function   the argument to return.
      * @return the argument
      * @since 3.14.0
@@ -53,7 +53,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * Returns a function that always returns its input argument.
      *
      * @param <T> the type of the input and output objects to the function
-     * @param <E> The kind of thrown exception or error.
+     * @param <E> The type of thrown exception or error.
      * @return a function that always returns its input argument
      */
     static <T, E extends Throwable> FailableFunction<T, T, E> identity() {
@@ -61,11 +61,11 @@ public interface FailableFunction<T, R, E extends Throwable> {
     }
 
     /**
-     * Returns The NOP singleton.
+     * Gets the NOP singleton.
      *
      * @param <T> Consumed type.
      * @param <R> Return type.
-     * @param <E> The kind of thrown exception or error.
+     * @param <E> The type of thrown exception or error.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")

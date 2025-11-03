@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -103,7 +103,7 @@ public class SerializationUtils {
     }
 
     /**
-     * Deep clone an {@link Object} using serialization.
+     * Deep clones an {@link Object} using serialization.
      *
      * <p>This is many times slower than writing clone methods by hand
      * on all objects in your object graph. However, for complex object
@@ -111,29 +111,24 @@ public class SerializationUtils {
      * be a simple alternative implementation. Of course all the objects
      * must be {@link Serializable}.</p>
      *
-     * @param <T> the type of the object involved
-     * @param object  the {@link Serializable} object to clone
-     * @return the cloned object
-     * @throws SerializationException (runtime) if the serialization fails
+     * @param <T> the type of the object involved.
+     * @param object  the {@link Serializable} object to clone.
+     * @return the cloned object.
+     * @throws SerializationException (runtime) if the serialization fails.
      */
     public static <T extends Serializable> T clone(final T object) {
         if (object == null) {
             return null;
         }
-        final byte[] objectData = serialize(object);
-        final ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
-
+        final ByteArrayInputStream bais = new ByteArrayInputStream(serialize(object));
         final Class<T> cls = ObjectUtils.getClass(object);
         try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais, cls.getClassLoader())) {
-            /*
-             * when we serialize and deserialize an object, it is reasonable to assume the deserialized object is of the
-             * same type as the original serialized object
-             */
-            return cls.cast(in.readObject());
+            // When we serialize and deserialize an object, it is reasonable to assume the deserialized object is of the
+            // same type as the original serialized object
+            return (T) in.readObject();
 
         } catch (final ClassNotFoundException | IOException ex) {
-            throw new SerializationException(
-                String.format("%s while reading cloned object data", ex.getClass().getSimpleName()), ex);
+            throw new SerializationException(String.format("%s while reading cloned object data", ex.getClass().getSimpleName()), ex);
         }
     }
 
@@ -146,12 +141,12 @@ public class SerializationUtils {
      * Note that in both cases, the ClassCastException is in the call site, not in this method.
      * </p>
      *
-     * @param <T>  the object type to be deserialized
+     * @param <T>  the object type to be deserialized.
      * @param objectData
-     *            the serialized object, must not be null
-     * @return the deserialized object
-     * @throws NullPointerException if {@code objectData} is {@code null}
-     * @throws SerializationException (runtime) if the serialization fails
+     *            the serialized object, must not be null.
+     * @return the deserialized object.
+     * @throws NullPointerException if {@code objectData} is {@code null}.
+     * @throws SerializationException (runtime) if the serialization fails.
      */
     public static <T> T deserialize(final byte[] objectData) {
         Objects.requireNonNull(objectData, "objectData");
@@ -177,12 +172,12 @@ public class SerializationUtils {
      * Note that in both cases, the ClassCastException is in the call site, not in this method.
      * </p>
      *
-     * @param <T>  the object type to be deserialized
+     * @param <T>  the object type to be deserialized.
      * @param inputStream
-     *            the serialized object input stream, must not be null
-     * @return the deserialized object
-     * @throws NullPointerException if {@code inputStream} is {@code null}
-     * @throws SerializationException (runtime) if the serialization fails
+     *            the serialized object input stream, must not be null.
+     * @return the deserialized object.
+     * @throws NullPointerException if {@code inputStream} is {@code null}.
+     * @throws SerializationException (runtime) if the serialization fails.
      */
     @SuppressWarnings("resource") // inputStream is managed by the caller
     public static <T> T deserialize(final InputStream inputStream) {
@@ -201,10 +196,10 @@ public class SerializationUtils {
      * implement {@link Serializable}.
      *
      * @param <T>
-     *           the type of the object involved
+     *           the type of the object involved.
      * @param obj
-     *            the object to roundtrip
-     * @return the serialized and deserialized object
+     *            the object to roundtrip.
+     * @return the serialized and deserialized object.
      * @since 3.3
      */
     @SuppressWarnings("unchecked") // OK, because we serialized a type `T`
@@ -216,9 +211,9 @@ public class SerializationUtils {
      * Serializes an {@link Object} to a byte array for
      * storage/serialization.
      *
-     * @param obj  the object to serialize to bytes
-     * @return a byte[] with the converted Serializable
-     * @throws SerializationException (runtime) if the serialization fails
+     * @param obj  the object to serialize to bytes.
+     * @return a byte[] with the converted Serializable.
+     * @throws SerializationException (runtime) if the serialization fails.
      */
     public static byte[] serialize(final Serializable obj) {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
@@ -236,10 +231,10 @@ public class SerializationUtils {
      * <p>The stream passed in is not buffered internally within this method.
      * This is the responsibility of your application if desired.</p>
      *
-     * @param obj  the object to serialize to bytes, may be null
-     * @param outputStream  the stream to write to, must not be null
-     * @throws NullPointerException if {@code outputStream} is {@code null}
-     * @throws SerializationException (runtime) if the serialization fails
+     * @param obj  the object to serialize to bytes, may be null.
+     * @param outputStream  the stream to write to, must not be null.
+     * @throws NullPointerException if {@code outputStream} is {@code null}.
+     * @throws SerializationException (runtime) if the serialization fails.
      */
     @SuppressWarnings("resource") // outputStream is managed by the caller
     public static void serialize(final Serializable obj, final OutputStream outputStream) {
@@ -258,7 +253,6 @@ public class SerializationUtils {
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
      * @since 2.0
-     *
      * @deprecated TODO Make private in 4.0.
      */
     @Deprecated

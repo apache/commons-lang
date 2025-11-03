@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ import org.openjdk.jmh.annotations.Warmup;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Thread)
 @Warmup(iterations = 5, time = 10)
-public class StringUtilsIsMixedCaseTest {
+class StringUtilsIsMixedCaseTest {
 
     public static final String LOWER_CASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
     public static final String END_MATCH = "at the enD";

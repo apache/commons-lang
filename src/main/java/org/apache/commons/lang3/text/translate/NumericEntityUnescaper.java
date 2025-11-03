@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,21 +22,29 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 
+import org.apache.commons.lang3.CharUtils;
+
 /**
- * Translate XML numeric entities of the form &amp;#[xX]?\d+;? to
- * the specific code point.
+ * Translate XML numeric entities of the form &amp;#[xX]?\d+;? to the specific code point.
  *
  * Note that the semicolon is optional.
  *
  * @since 3.0
- * @deprecated As of 3.6, use Apache Commons Text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityUnescaper.html">
- * NumericEntityUnescaper</a> instead
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
+ *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityUnescaper.html">
+ *             NumericEntityUnescaper</a>.
  */
 @Deprecated
 public class NumericEntityUnescaper extends CharSequenceTranslator {
 
-    /** Enumerates NumericEntityUnescaper options for unescaping. */
+    /**
+     * Enumerates NumericEntityUnescaper options for unescaping.
+     *
+     * @deprecated As of 3.18.0, use Apache Commons Text <a href=
+     *             "https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityUnescaper.OPTION.html">
+     *             NumericEntityUnescaper.OPTION</a>.
+     */
+    @Deprecated
     public enum OPTION {
 
         /**
@@ -72,7 +80,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      *
      * Note that the default behavior is to ignore them.
      *
-     * @param options to apply to this unescaper
+     * @param options to apply to this unescaper.
      */
     public NumericEntityUnescaper(final OPTION... options) {
         if (options.length > 0) {
@@ -83,10 +91,10 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
     }
 
     /**
-     * Whether the passed in option is currently set.
+     * Tests whether the passed in option is currently set.
      *
-     * @param option to check state of
-     * @return whether the option is set
+     * @param option to check state of.
+     * @return whether the option is set.
      */
     public boolean isSet(final OPTION option) {
         return options != null && options.contains(option);
@@ -116,9 +124,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
 
             int end = start;
             // Note that this supports character codes without a ; on the end
-            while (end < seqEnd && ( input.charAt(end) >= '0' && input.charAt(end) <= '9' ||
-                                    input.charAt(end) >= 'a' && input.charAt(end) <= 'f' ||
-                                    input.charAt(end) >= 'A' && input.charAt(end) <= 'F' ) ) {
+            while (end < seqEnd && CharUtils.isHex(input.charAt(end))) {
                 end++;
             }
 

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
  * @see <a href="https://issues.apache.org/jira/browse/LANG-762">[LANG-762] Handle or document ReflectionToStringBuilder
  *      and ToStringBuilder for collections that are not thread safe</a>
  */
-public class ReflectionToStringBuilderMutateInspectConcurrencyTest extends AbstractLangTest {
+class ReflectionToStringBuilderMutateInspectConcurrencyTest extends AbstractLangTest {
 
     final class InspectingClient implements Runnable {
         private final TestFixture testFixture;
@@ -91,7 +91,7 @@ public class ReflectionToStringBuilderMutateInspectConcurrencyTest extends Abstr
 
     @Test
     @Disabled
-    public void testConcurrency() {
+    void testConcurrency() {
         final TestFixture testFixture = new TestFixture();
         final int numMutators = 10;
         final int numIterations = 10;

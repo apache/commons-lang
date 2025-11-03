@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ import org.openjdk.jmh.annotations.State;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Thread)
-public class HashSetvBitSetTest extends AbstractLangTest {
+class HashSetvBitSetTest extends AbstractLangTest {
 
     private static final int numberOfElementsToCompute = 10;
 
@@ -46,8 +46,6 @@ public class HashSetvBitSetTest extends AbstractLangTest {
         }
         return result;
     }
-
-    // --- utility methods
     private static int[] extractIndices(final HashSet<Integer> coll) {
         final int[] result = new int[coll.size()];
         int i = 0;
@@ -82,7 +80,7 @@ public class HashSetvBitSetTest extends AbstractLangTest {
         final BitSet toRemove = new BitSet();
         final int[] array = new int[100];
         toRemove.set(10, 20);
-        return (int[]) ArrayUtils.removeAll(array, toRemove);
+        return (int[]) ArrayUtils.removeAt(array, toRemove);
     }
 
     @Benchmark

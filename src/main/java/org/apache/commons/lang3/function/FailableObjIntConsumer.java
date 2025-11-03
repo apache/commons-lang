@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,7 @@ public interface FailableObjIntConsumer<T, E extends Throwable> {
     FailableObjIntConsumer NOP = (t, u) -> { /* NOP */ };
 
     /**
-     * Returns The NOP singleton.
+     * Gets the NOP singleton.
      *
      * @param <T> the type of the object argument to the operation.
      * @param <E> The kind of thrown exception or error.

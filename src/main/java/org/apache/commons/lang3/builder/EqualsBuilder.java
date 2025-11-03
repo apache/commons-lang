@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -117,7 +117,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs {@code this} object
      * @param rhs the other object
-     *
      * @return the pair
      */
     static Pair<IDKey, IDKey> getRegisterPair(final Object lhs, final Object rhs) {
@@ -125,7 +124,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Returns the registry of object pairs being traversed by the reflection
+     * Gets the registry of object pairs being traversed by the reflection
      * methods in the current thread.
      *
      * @return Set the registry of objects being traversed
@@ -136,10 +135,12 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * Returns {@code true} if the registry contains the given object pair.
+     * Tests whether the registry contains the given object pair.
+     * <p>
      * Used by the reflection methods to avoid infinite loops.
      * Objects might be swapped therefore a check is needed if the object pair
      * is registered in given or swapped order.
+     * </p>
      *
      * @param lhs {@code this} object to lookup in registry
      * @param rhs the other object to lookup on registry
@@ -173,7 +174,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param testTransients  whether to include transient fields
      * @return {@code true} if the two Objects have tested equals.
-     *
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final boolean testTransients) {
@@ -212,7 +212,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      *  fields recursively.
      * @param excludeFields  array of field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
-     *
      * @see EqualsExclude
      * @since 3.6
      */
@@ -260,7 +259,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      *  may be {@code null}
      * @param excludeFields  array of field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
-     *
      * @see EqualsExclude
      * @since 2.0
      */
@@ -288,7 +286,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param excludeFields  Collection of String field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
-     *
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final Collection<String> excludeFields) {
@@ -314,7 +311,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the other object
      * @param excludeFields  array of field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
-     *
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final String... excludeFields) {
@@ -412,11 +408,11 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setEquals(false);
+            setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {

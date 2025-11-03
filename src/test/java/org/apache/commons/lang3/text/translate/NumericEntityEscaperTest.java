@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,13 +23,13 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link org.apache.commons.lang3.text.translate.NumericEntityEscaper}.
+ * Tests for {@link org.apache.commons.lang3.text.translate.NumericEntityEscaper}.
  */
 @Deprecated
-public class NumericEntityEscaperTest extends AbstractLangTest {
+class NumericEntityEscaperTest extends AbstractLangTest {
 
     @Test
-    public void testAbove() {
+    void testAbove() {
         final NumericEntityEscaper nee = NumericEntityEscaper.above('F');
 
         final String input = "ADFGZ";
@@ -38,7 +38,7 @@ public class NumericEntityEscaperTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBelow() {
+    void testBelow() {
         final NumericEntityEscaper nee = NumericEntityEscaper.below('F');
 
         final String input = "ADFGZ";
@@ -47,7 +47,7 @@ public class NumericEntityEscaperTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBetween() {
+    void testBetween() {
         final NumericEntityEscaper nee = NumericEntityEscaper.between('F', 'L');
 
         final String input = "ADFGZ";
@@ -57,7 +57,7 @@ public class NumericEntityEscaperTest extends AbstractLangTest {
 
     // See LANG-617
     @Test
-    public void testSupplementary() {
+    void testSupplementary() {
         final NumericEntityEscaper nee = new NumericEntityEscaper();
         final String input = "\uD803\uDC22";
         final String expected = "&#68642;";

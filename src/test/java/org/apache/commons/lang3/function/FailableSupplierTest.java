@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,25 +24,25 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link FailableSupplier}.
  */
-public class FailableSupplierTest {
+class FailableSupplierTest {
 
     @Test
-    public void testNULL() throws Throwable {
+    void testNULL() throws Throwable {
         assertNull(FailableSupplier.NUL.get());
     }
 
     @Test
-    public void testNullSupplierDefaultException() throws Exception {
+    void testNullSupplierDefaultException() throws Exception {
         assertNull(FailableSupplier.nul().get());
     }
 
     @Test
-    public void testNullSupplierException() throws Exception {
+    void testNullSupplierException() throws Exception {
         assertNull(FailableSupplier.<Object, Exception>nul().get());
     }
 
     @Test
-    public void testNullSupplierRuntimeException() {
+    void testNullSupplierRuntimeException() {
         assertNull(FailableSupplier.<Object, RuntimeException>nul().get());
     }
 }

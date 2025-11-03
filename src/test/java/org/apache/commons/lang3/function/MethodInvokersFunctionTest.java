@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,32 +39,32 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asFunction(Method)}.
  */
-public class MethodInvokersFunctionTest extends MethodFixtures {
+class MethodInvokersFunctionTest extends MethodFixtures {
 
     @Test
-    public void testApply0Arg() throws NoSuchMethodException, SecurityException {
+    void testApply0Arg() throws NoSuchMethodException, SecurityException {
         final Function<MethodFixtures, String> func = MethodInvokers.asFunction(getMethodForGetString());
         assertEquals(INSTANCE.getString(), func.apply(INSTANCE));
     }
 
     @Test
-    public void testApply0ArgThrowsUnchecked() throws NoSuchMethodException, SecurityException {
+    void testApply0ArgThrowsUnchecked() throws NoSuchMethodException, SecurityException {
         final Function<MethodFixtures, String> func = MethodInvokers.asFunction(getMethodForGetStringThrowsUnchecked());
         assertThrows(CustomUncheckedException.class, () -> func.apply(INSTANCE));
     }
 
     @Test
-    public void testBuildVarArg() throws SecurityException, NoSuchMethodException {
+    void testBuildVarArg() throws SecurityException, NoSuchMethodException {
         MethodInvokers.asFunction(getMethodForGetStringVarStringArgs());
     }
 
     @Test
-    public void testConstructorForNull() throws SecurityException {
-        assertThrows(NullPointerException.class, () -> MethodInvokers.asFunction(null));
+    void testConstructorForNull() throws SecurityException {
+        assertNullPointerException(() -> MethodInvokers.asFunction(null));
     }
 
     @Test
-    public void testFindAndInvoke() throws SecurityException {
+    void testFindAndInvoke() throws SecurityException {
         // Finding
         final List<Function<Object, Object>> invokers = Stream.of(MethodFixtures.class.getDeclaredMethods())
             .filter(m -> m.isAnnotationPresent(AnnotationTestFixture.class)).map(MethodInvokers::asFunction).collect(Collectors.toList());
@@ -79,21 +80,21 @@ public class MethodInvokersFunctionTest extends MethodFixtures {
     }
 
     @Test
-    public void testFullExample() throws SecurityException, ReflectiveOperationException {
+    void testFullExample() throws SecurityException, ReflectiveOperationException {
         final Method method = String.class.getMethod("length");
         final Function<String, Integer> function = MethodInvokers.asFunction(method);
         assertEquals(3, function.apply("ABC"));
     }
 
     @Test
-    public void testMapComputeIfAbsent() throws NoSuchMethodException, SecurityException {
+    void testMapComputeIfAbsent() throws NoSuchMethodException, SecurityException {
         final Map<MethodFixtures, String> map = new HashMap<>();
         map.computeIfAbsent(INSTANCE, MethodInvokers.asFunction(getMethodForGetString()));
         assertEquals(INSTANCE.getString(), map.get(INSTANCE));
     }
 
     @Test
-    public void testToString() throws SecurityException, ReflectiveOperationException {
+    void testToString() throws SecurityException, ReflectiveOperationException {
         // Should not blow up and must return _something_
         assertFalse(MethodInvokers.asFunction(getMethodForGetString()).toString().isEmpty());
     }

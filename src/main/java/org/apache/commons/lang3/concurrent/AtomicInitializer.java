@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -62,19 +62,26 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * {@link LazyInitializer} is more appropriate.
  * </p>
  *
+ * @param <T> the type of the object managed by this initializer class.
  * @since 3.0
- * @param <T> the type of the object managed by this initializer class
  */
 public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, ConcurrentException> {
 
     /**
      * Builds a new instance.
      *
-     * @param <T> the type of the object managed by the initializer.
-     * @param <I> the type of the initializer managed by this builder.
+     * @param <T> The type of results supplied by this builder.
+     * @param <I> The type of the initializer managed by this builder.
      * @since 3.14.0
      */
     public static class Builder<I extends AtomicInitializer<T>, T> extends AbstractBuilder<I, T, Builder<I, T>, ConcurrentException> {
+
+        /**
+         * Constructs a new instance.
+         */
+        public Builder() {
+            // empty
+        }
 
         @SuppressWarnings("unchecked")
         @Override
@@ -118,18 +125,15 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
     }
 
     /**
-     * Returns the object managed by this initializer. The object is created if
-     * it is not available yet and stored internally. This method always returns
-     * the same object.
+     * Gets the object managed by this initializer. The object is created if it is not available yet and stored internally. This method always returns the same
+     * object.
      *
-     * @return the object created by this {@link AtomicInitializer}
-     * @throws ConcurrentException if an error occurred during initialization of
-     * the object
+     * @return the object created by this {@link AtomicInitializer}.
+     * @throws ConcurrentException if an error occurred during initialization of the object.
      */
     @Override
     public T get() throws ConcurrentException {
         T result = reference.get();
-
         if (result == getNoInit()) {
             result = initialize();
             if (!reference.compareAndSet(getNoInit(), result)) {
@@ -137,7 +141,6 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
                 result = reference.get();
             }
         }
-
         return result;
     }
 

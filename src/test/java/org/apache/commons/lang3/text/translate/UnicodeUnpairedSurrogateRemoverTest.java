@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,22 +27,22 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover}.
+ * Tests for {@link org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemover}.
  */
 @Deprecated
-public class UnicodeUnpairedSurrogateRemoverTest extends AbstractLangTest {
+class UnicodeUnpairedSurrogateRemoverTest extends AbstractLangTest {
     final UnicodeUnpairedSurrogateRemover subject = new UnicodeUnpairedSurrogateRemover();
     final CharArrayWriter writer = new CharArrayWriter(); // nothing is ever written to it
 
     @Test
-    public void testInvalidCharacters() throws IOException {
+    void testInvalidCharacters() throws IOException {
         assertTrue(subject.translate(0xd800, writer));
         assertTrue(subject.translate(0xdfff, writer));
         assertEquals(0, writer.size());
     }
 
     @Test
-    public void testValidCharacters() throws IOException {
+    void testValidCharacters() throws IOException {
         assertFalse(subject.translate(0xd7ff, writer));
         assertFalse(subject.translate(0xe000, writer));
         assertEquals(0, writer.size());

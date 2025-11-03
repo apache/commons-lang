@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,7 +16,7 @@
  */
 
 /**
- * Extends {@link java.math} for business mathematical classes.
+ * Provides {@link java.math} extensions for business mathematical classes.
  * This package is intended for business mathematical use, not scientific use.
  * See <a href="https://commons.apache.org/proper/commons-math/">Commons Math</a> for a more complete set of mathematical classes.
  * These classes are immutable, and therefore thread-safe.

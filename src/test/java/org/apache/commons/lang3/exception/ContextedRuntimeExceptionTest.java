@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * JUnit tests for ContextedRuntimeException.
  */
-public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<ContextedRuntimeException> {
+class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<ContextedRuntimeException> {
 
     @BeforeEach
     @Override
@@ -40,7 +40,7 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     }
 
     @Test
-    public void testContextedException() {
+    void testContextedException() {
         exceptionContext = new ContextedRuntimeException();
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
@@ -49,7 +49,7 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     }
 
     @Test
-    public void testContextedExceptionString() {
+    void testContextedExceptionString() {
         exceptionContext = new ContextedRuntimeException(TEST_MESSAGE);
         assertEquals(TEST_MESSAGE, exceptionContext.getMessage());
 
@@ -58,7 +58,7 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     }
 
     @Test
-    public void testContextedExceptionStringThrowable() {
+    void testContextedExceptionStringThrowable() {
         exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE));
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
@@ -69,7 +69,7 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     }
 
     @Test
-    public void testContextedExceptionStringThrowableContext() {
+    void testContextedExceptionStringThrowableContext() {
         // Use an anonymous subclass to make sure users can provide custom implementations
         exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE),
                 new DefaultExceptionContext() {
@@ -84,7 +84,7 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     }
 
     @Test
-    public void testContextedExceptionThrowable() {
+    void testContextedExceptionThrowable() {
         exceptionContext = new ContextedRuntimeException(new Exception(TEST_MESSAGE));
         final String message = exceptionContext.getMessage();
         final String trace = ExceptionUtils.getStackTrace(exceptionContext);
@@ -94,7 +94,7 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     }
 
     @Test
-    public void testNullExceptionPassing() {
+    void testNullExceptionPassing() {
         exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), null)
         .addContextValue("test1", null)
         .addContextValue("test2", "some value")
@@ -107,7 +107,7 @@ public class ContextedRuntimeExceptionTest extends AbstractExceptionContextTest<
     }
 
     @Test
-    public void testRawMessage() {
+    void testRawMessage() {
         assertEquals(Exception.class.getName() + ": " + TEST_MESSAGE, exceptionContext.getRawMessage());
         exceptionContext = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), new DefaultExceptionContext());
         assertEquals(TEST_MESSAGE_2, exceptionContext.getRawMessage());

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,6 +19,7 @@ package org.apache.commons.lang3.compare;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +30,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ObjectToStringComparator}.
  */
-public class ObjectToStringComparatorTest extends AbstractLangTest {
+class ObjectToStringComparatorTest extends AbstractLangTest {
 
     private static final class Thing {
 
@@ -46,16 +47,40 @@ public class ObjectToStringComparatorTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNull() {
-        final List<Thing> things = Arrays.asList(null, new Thing("y"), null);
+    void testNullLeft() {
+        final Thing thing = new Thing("y");
+        final List<Thing> things = Arrays.asList(null, thing);
         things.sort(ObjectToStringComparator.INSTANCE);
         assertEquals("y", things.get(0).string);
+        assertEquals(2, things.size());
+        assertSame(thing, things.get(0));
+        assertNull(things.get(1));
+    }
+
+    @Test
+    void testNullRight() {
+        final Thing thing = new Thing("y");
+        final List<Thing> things = Arrays.asList(thing, null);
+        things.sort(ObjectToStringComparator.INSTANCE);
+        assertEquals(2, things.size());
+        assertSame(thing, things.get(0));
+        assertNull(things.get(1));
+    }
+
+    @Test
+    void testNulls() {
+        final Thing thing = new Thing("y");
+        final List<Thing> things = Arrays.asList(null, thing, null);
+        things.sort(ObjectToStringComparator.INSTANCE);
+        assertEquals("y", things.get(0).string);
+        assertEquals(3, things.size());
+        assertSame(thing, things.get(0));
         assertNull(things.get(1));
         assertNull(things.get(2));
     }
 
     @Test
-    public void testNullToString() {
+    void testNullToString() {
         final List<Thing> things = Arrays.asList(new Thing(null), new Thing("y"), new Thing(null));
         things.sort(ObjectToStringComparator.INSTANCE);
         assertEquals("y", things.get(0).string);
@@ -64,7 +89,7 @@ public class ObjectToStringComparatorTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSortCollection() {
+    void testSortCollection() {
         final List<Thing> things = Arrays.asList(new Thing("z"), new Thing("y"), new Thing("x"));
         things.sort(ObjectToStringComparator.INSTANCE);
         assertEquals("x", things.get(0).string);

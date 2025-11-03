@@ -7,7 +7,7 @@ The ASF licenses this file to You under the Apache License, Version 2.0
 (the "License"); you may not use this file except in compliance with
 the License.  You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+     https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,10 +15,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
  <properties>
   <title>What's new in Commons Lang 2.4?</title>
-  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+  <author email="dev@commons.apache.org">Apache Commons Team</author>
  </properties>
 <body>
 
@@ -26,6 +28,7 @@ limitations under the License.
 <p>Commons Lang 2.4 is out, and the obvious question is: <em>"So what? What's changed?"</em>.</p>
 <p>This article aims to briefly cover the changes and save you from having to dig through each JIRA
 issue to see what went on in the year of development between Lang 2.3 and 2.4.</p>
+</section>
 <section name="Deprecations">
 <p>First, let us start with a couple of deprecations. As you can see in the release notes, we chose
 to deprecate the <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.4/org/apache/commons/lang/ObjectUtils.html#appendIdentityToString(java.lang.StringBuffer,%20java.lang.Object)"><code>ObjectUtils.appendIdentityToString(StringBuffer, Object)</code></a> method as its
@@ -60,7 +63,7 @@ followed by a four-digit number, and that it is customary within our organizatio
 with a hyphen following the department identifier. Here we'll represent the EIN as a simple
 String (of course in real life we would likely create a class composed of department and number).
 We can create a custom <code>Format</code> class:
-<pre><code>
+<source>
 public class EINFormat extends Format {
   private char[] idMask;
 
@@ -92,10 +95,10 @@ public class EINFormat extends Format {
     return source.substring(idx, endIdx).deleteCharAt(2);
   }
 }
-</code></pre>
+</source>
 Our custom EIN format is made available for <code>MessageFormat</code>-style processing by a
 <code>FormatFactory</code> implementation:
-<pre><code>
+<source>
 public class EINFormatFactory implements FormatFactory {
   public static final String EIN_FORMAT = "ein";
   public Format getFormat(String name, String arguments, Locale locale) {
@@ -108,19 +111,19 @@ public class EINFormatFactory implements FormatFactory {
     return null;
   }
 }
-</code></pre>
+</source>
 
 Now you simply provide a <code>java.util.Map&lt;String, FormatFactory&gt;</code> registry (keyed
 by format type) to <code>ExtendedMessageFormat</code>:
-<pre><code>
+<source>
 new ExtendedMessageFormat("EIN: {0,ein}", Collections.singletonMap(EINFormatFactory.EIN_FORMAT, new EINFormatFactory()));
-</code></pre>
+</source>
 As expected, this will render a String EIN "AA9999" as: <code>"EIN: AA-9999"</code>.
 <br /> <br />
 If we wanted to trigger the EIN masking code, we could trigger that in the format pattern:
-<pre><code>
+<source>
 new ExtendedMessageFormat("EIN: {0,ein,#}", Collections.singletonMap(EINFormatFactory.EIN_FORMAT, new EINFormatFactory()));
-</code></pre>
+</source>
 This should render "AA9999" as: <code>"EIN: AA-####"</code>.
 <br /> <br />
 You can also use <code>ExtendedMessageFormat</code> to override any or all of the built-in
@@ -187,8 +190,6 @@ and fortunately there are some nice groupings that we can discuss instead:</p>
 
 <section name="So long, farewell...">
 <p>Hopefully that was all of interest. Don't forget to download <a href="https://commons.apache.org/lang/download_lang.cgi">Lang 2.4</a>, or, for the Maven repository users, upgrade your &lt;version&gt; tag to 2.4. Please feel free to raise any questions you might have on the <a href="mail-lists.html">mailing lists</a>, and report bugs or enhancements in the <a href="issue-tracking.html">issue tracker</a>.</p>
-</section>
-
 </section>
 
 </body>

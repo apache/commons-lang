@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,7 +22,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
 /**
  * Abstracts supplying an instance of {@code T}. Use to implement the builder pattern.
  *
- * @param <T> the type of instances to build.
+ * @param <T> The type of results supplied by this supplier.
  * @param <B> the type of builder.
  * @param <E> The kind of thrown exception or error.
  * @since 3.14.0
@@ -30,9 +30,22 @@ import org.apache.commons.lang3.function.FailableSupplier;
 public abstract class AbstractSupplier<T, B extends AbstractSupplier<T, B, E>, E extends Throwable> implements FailableSupplier<T, E> {
 
     /**
-     * Returns this instance typed as the proper subclass type.
+     * Constructs a new instance.
+     */
+    public AbstractSupplier() {
+        // empty
+    }
+
+    /**
+     * Returns this instance typed as the subclass type {@code B}.
+     * <p>
+     * This is the same as the expression:
+     * </p>
+     * <pre>
+     * (B) this
+     * </pre>
      *
-     * @return this instance typed as the proper subclass type.
+     * @return {@code this} instance typed as the subclass type {@code B}.
      */
     @SuppressWarnings("unchecked")
     protected B asThis() {

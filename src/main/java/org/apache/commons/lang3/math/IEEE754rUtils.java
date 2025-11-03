@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,10 +32,10 @@ public class IEEE754rUtils {
      /**
      * Returns the maximum value in an array.
      *
-     * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty
+     * @param array  an array, must not be null or empty.
+     * @return the minimum value in the array.
+     * @throws NullPointerException if {@code array} is {@code null}.
+     * @throws IllegalArgumentException if {@code array} is empty.
      * @since 3.4 Changed signature from max(double[]) to max(double...)
      */
     public static double max(final double... array) {
@@ -56,9 +56,9 @@ public class IEEE754rUtils {
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
      *
-     * @param a  value 1
-     * @param b  value 2
-     * @return  the largest of the values
+     * @param a  value 1.
+     * @param b  value 2.
+     * @return  the largest of the values.
      */
     public static double max(final double a, final double b) {
         if (Double.isNaN(a)) {
@@ -75,10 +75,10 @@ public class IEEE754rUtils {
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
      *
-     * @param a  value 1
-     * @param b  value 2
-     * @param c  value 3
-     * @return  the largest of the values
+     * @param a  value 1.
+     * @param b  value 2.
+     * @param c  value 3.
+     * @return  the largest of the values.
      */
     public static double max(final double a, final double b, final double c) {
         return max(max(a, b), c);
@@ -87,10 +87,10 @@ public class IEEE754rUtils {
     /**
      * Returns the maximum value in an array.
      *
-     * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty
+     * @param array  an array, must not be null or empty.
+     * @return the minimum value in the array.
+     * @throws NullPointerException if {@code array} is {@code null}.
+     * @throws IllegalArgumentException if {@code array} is empty.
      * @since 3.4 Changed signature from max(float[]) to max(float...)
      */
     public static float max(final float... array) {
@@ -111,9 +111,9 @@ public class IEEE754rUtils {
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
      *
-     * @param a  value 1
-     * @param b  value 2
-     * @return  the largest of the values
+     * @param a  value 1.
+     * @param b  value 2.
+     * @return  the largest of the values.
      */
     public static float max(final float a, final float b) {
         if (Float.isNaN(a)) {
@@ -130,10 +130,10 @@ public class IEEE754rUtils {
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
      *
-     * @param a  value 1
-     * @param b  value 2
-     * @param c  value 3
-     * @return  the largest of the values
+     * @param a  value 1.
+     * @param b  value 2.
+     * @param c  value 3.
+     * @return  the largest of the values.
      */
     public static float max(final float a, final float b, final float c) {
         return max(max(a, b), c);
@@ -142,11 +142,11 @@ public class IEEE754rUtils {
     /**
      * Returns the minimum value in an array.
      *
-     * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty
-     * @since 3.4 Changed signature from min(double[]) to min(double...)
+     * @param array  an array, must not be null or empty.
+     * @return the minimum value in the array.
+     * @throws NullPointerException if {@code array} is {@code null}.
+     * @throws IllegalArgumentException if {@code array} is empty.
+     * @since 3.4 Changed signature from min(double[]) to min(double...).
      */
     public static double min(final double... array) {
         Objects.requireNonNull(array, "array");
@@ -166,9 +166,9 @@ public class IEEE754rUtils {
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
      *
-     * @param a  value 1
-     * @param b  value 2
-     * @return  the smallest of the values
+     * @param a  value 1.
+     * @param b  value 2.
+     * @return  the smallest of the values.
      */
     public static double min(final double a, final double b) {
         if (Double.isNaN(a)) {
@@ -197,11 +197,11 @@ public class IEEE754rUtils {
     /**
      * Returns the minimum value in an array.
      *
-     * @param array  an array, must not be null or empty
-     * @return the minimum value in the array
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty
-     * @since 3.4 Changed signature from min(float[]) to min(float...)
+     * @param array  an array, must not be null or empty.
+     * @return the minimum value in the array.
+     * @throws NullPointerException if {@code array} is {@code null}.
+     * @throws IllegalArgumentException if {@code array} is empty.
+     * @since 3.4 Changed signature from min(float[]) to min(float...).
      */
     public static float min(final float... array) {
         Objects.requireNonNull(array, "array");
@@ -221,9 +221,9 @@ public class IEEE754rUtils {
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
      *
-     * @param a  value 1
-     * @param b  value 2
-     * @return  the smallest of the values
+     * @param a  value 1.
+     * @param b  value 2.
+     * @return  the smallest of the values.
      */
     public static float min(final float a, final float b) {
         if (Float.isNaN(a)) {
@@ -240,10 +240,10 @@ public class IEEE754rUtils {
      *
      * <p>NaN is only returned if all numbers are NaN as per IEEE-754r.</p>
      *
-     * @param a  value 1
-     * @param b  value 2
-     * @param c  value 3
-     * @return  the smallest of the values
+     * @param a  value 1.
+     * @param b  value 2.
+     * @param c  value 3.
+     * @return  the smallest of the values.
      */
     public static float min(final float a, final float b, final float c) {
         return min(min(a, b), c);

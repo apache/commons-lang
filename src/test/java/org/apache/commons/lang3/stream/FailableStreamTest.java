@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link FailableStream}.
  */
-public class FailableStreamTest {
+class FailableStreamTest {
 
     private Integer failable(final Map.Entry<String, AtomicInteger> value) throws IOException {
         if (value == new Object()) {
@@ -51,7 +51,7 @@ public class FailableStreamTest {
     }
 
     @Test
-    public void testFailableStreamOfArray() {
+    void testFailableStreamOfArray() {
         assertArrayEquals(new String[] {}, toArray());
         assertArrayEquals(new String[] { "a" }, toArray("A"));
         assertArrayEquals(new String[] { "a", "b" }, toArray("A", "B"));
@@ -59,7 +59,7 @@ public class FailableStreamTest {
     }
 
     @Test
-    public void testFailableStreamOfCollection() {
+    void testFailableStreamOfCollection() {
         assertArrayEquals(new String[] {}, toArray());
         assertArrayEquals(new String[] { "a" }, toArray(Arrays.asList("A")));
         assertArrayEquals(new String[] { "a", "b" }, toArray(Arrays.asList("A", "B")));
@@ -67,7 +67,7 @@ public class FailableStreamTest {
     }
 
     @Test
-    public void testFailableStreamOfMap() {
+    void testFailableStreamOfMap() {
         final Map<String, AtomicInteger> map = new LinkedHashMap<>();
         assertArrayEquals(new Integer[] {}, toArrayMap(map));
         map.put("a", new AtomicInteger(1));

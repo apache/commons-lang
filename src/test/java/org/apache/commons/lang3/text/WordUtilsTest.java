@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,77 +29,77 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for WordUtils class.
+ * Tests for WordUtils class.
  */
 @Deprecated
-public class WordUtilsTest extends AbstractLangTest {
+class WordUtilsTest extends AbstractLangTest {
 
     @Test
-    public void testCapitalize_String() {
+    void testCapitalize_String() {
         assertNull(WordUtils.capitalize(null));
         assertEquals("", WordUtils.capitalize(""));
         assertEquals("  ", WordUtils.capitalize("  "));
 
-        assertEquals("I", WordUtils.capitalize("I") );
-        assertEquals("I", WordUtils.capitalize("i") );
-        assertEquals("I Am Here 123", WordUtils.capitalize("i am here 123") );
-        assertEquals("I Am Here 123", WordUtils.capitalize("I Am Here 123") );
-        assertEquals("I Am HERE 123", WordUtils.capitalize("i am HERE 123") );
-        assertEquals("I AM HERE 123", WordUtils.capitalize("I AM HERE 123") );
+        assertEquals("I", WordUtils.capitalize("I"));
+        assertEquals("I", WordUtils.capitalize("i"));
+        assertEquals("I Am Here 123", WordUtils.capitalize("i am here 123"));
+        assertEquals("I Am Here 123", WordUtils.capitalize("I Am Here 123"));
+        assertEquals("I Am HERE 123", WordUtils.capitalize("i am HERE 123"));
+        assertEquals("I AM HERE 123", WordUtils.capitalize("I AM HERE 123"));
     }
 
     @Test
-    public void testCapitalizeFully_String() {
+    void testCapitalizeFully_String() {
         assertNull(WordUtils.capitalizeFully(null));
         assertEquals("", WordUtils.capitalizeFully(""));
         assertEquals("  ", WordUtils.capitalizeFully("  "));
 
-        assertEquals("I", WordUtils.capitalizeFully("I") );
-        assertEquals("I", WordUtils.capitalizeFully("i") );
-        assertEquals("I Am Here 123", WordUtils.capitalizeFully("i am here 123") );
-        assertEquals("I Am Here 123", WordUtils.capitalizeFully("I Am Here 123") );
-        assertEquals("I Am Here 123", WordUtils.capitalizeFully("i am HERE 123") );
-        assertEquals("I Am Here 123", WordUtils.capitalizeFully("I AM HERE 123") );
+        assertEquals("I", WordUtils.capitalizeFully("I"));
+        assertEquals("I", WordUtils.capitalizeFully("i"));
+        assertEquals("I Am Here 123", WordUtils.capitalizeFully("i am here 123"));
+        assertEquals("I Am Here 123", WordUtils.capitalizeFully("I Am Here 123"));
+        assertEquals("I Am Here 123", WordUtils.capitalizeFully("i am HERE 123"));
+        assertEquals("I Am Here 123", WordUtils.capitalizeFully("I AM HERE 123"));
     }
 
     @Test
-    public void testCapitalizeFullyWithDelimiters_String() {
+    void testCapitalizeFullyWithDelimiters_String() {
         assertNull(WordUtils.capitalizeFully(null, null));
         assertEquals("", WordUtils.capitalizeFully(""));
         assertEquals("  ", WordUtils.capitalizeFully("  "));
 
         char[] chars = { '-', '+', ' ', '@' };
-        assertEquals("I", WordUtils.capitalizeFully("I", chars) );
-        assertEquals("I", WordUtils.capitalizeFully("i", chars) );
-        assertEquals("I-Am Here+123", WordUtils.capitalizeFully("i-am here+123", chars) );
-        assertEquals("I Am+Here-123", WordUtils.capitalizeFully("I Am+Here-123", chars) );
-        assertEquals("I+Am-Here 123", WordUtils.capitalizeFully("i+am-HERE 123", chars) );
-        assertEquals("I-Am Here+123", WordUtils.capitalizeFully("I-AM HERE+123", chars) );
+        assertEquals("I", WordUtils.capitalizeFully("I", chars));
+        assertEquals("I", WordUtils.capitalizeFully("i", chars));
+        assertEquals("I-Am Here+123", WordUtils.capitalizeFully("i-am here+123", chars));
+        assertEquals("I Am+Here-123", WordUtils.capitalizeFully("I Am+Here-123", chars));
+        assertEquals("I+Am-Here 123", WordUtils.capitalizeFully("i+am-HERE 123", chars));
+        assertEquals("I-Am Here+123", WordUtils.capitalizeFully("I-AM HERE+123", chars));
         chars = new char[] {'.'};
-        assertEquals("I am.Fine", WordUtils.capitalizeFully("i aM.fine", chars) );
-        assertEquals("I Am.fine", WordUtils.capitalizeFully("i am.fine", null) );
+        assertEquals("I am.Fine", WordUtils.capitalizeFully("i aM.fine", chars));
+        assertEquals("I Am.fine", WordUtils.capitalizeFully("i am.fine", null));
     }
 
     @Test
-    public void testCapitalizeWithDelimiters_String() {
+    void testCapitalizeWithDelimiters_String() {
         assertNull(WordUtils.capitalize(null, null));
         assertEquals("", WordUtils.capitalize(""));
         assertEquals("  ", WordUtils.capitalize("  "));
 
         char[] chars = { '-', '+', ' ', '@' };
-        assertEquals("I", WordUtils.capitalize("I", chars) );
-        assertEquals("I", WordUtils.capitalize("i", chars) );
-        assertEquals("I-Am Here+123", WordUtils.capitalize("i-am here+123", chars) );
-        assertEquals("I Am+Here-123", WordUtils.capitalize("I Am+Here-123", chars) );
-        assertEquals("I+Am-HERE 123", WordUtils.capitalize("i+am-HERE 123", chars) );
-        assertEquals("I-AM HERE+123", WordUtils.capitalize("I-AM HERE+123", chars) );
+        assertEquals("I", WordUtils.capitalize("I", chars));
+        assertEquals("I", WordUtils.capitalize("i", chars));
+        assertEquals("I-Am Here+123", WordUtils.capitalize("i-am here+123", chars));
+        assertEquals("I Am+Here-123", WordUtils.capitalize("I Am+Here-123", chars));
+        assertEquals("I+Am-HERE 123", WordUtils.capitalize("i+am-HERE 123", chars));
+        assertEquals("I-AM HERE+123", WordUtils.capitalize("I-AM HERE+123", chars));
         chars = new char[] {'.'};
-        assertEquals("I aM.Fine", WordUtils.capitalize("i aM.fine", chars) );
-        assertEquals("I Am.fine", WordUtils.capitalize("i am.fine", null) );
+        assertEquals("I aM.Fine", WordUtils.capitalize("i aM.fine", chars));
+        assertEquals("I Am.fine", WordUtils.capitalize("i am.fine", null));
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new WordUtils());
         final Constructor<?>[] cons = WordUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -109,7 +109,7 @@ public class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testContainsAllWords_StringString() {
+    void testContainsAllWords_StringString() {
         assertFalse(WordUtils.containsAllWords(null, (String) null));
         assertFalse(WordUtils.containsAllWords(null, ""));
         assertFalse(WordUtils.containsAllWords(null, "ab"));
@@ -129,7 +129,7 @@ public class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInitials_String() {
+    void testInitials_String() {
         assertNull(WordUtils.initials(null));
         assertEquals("", WordUtils.initials(""));
         assertEquals("", WordUtils.initials("  "));
@@ -144,7 +144,7 @@ public class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInitials_String_charArray() {
+    void testInitials_String_charArray() {
         char[] array = null;
         assertNull(WordUtils.initials(null, array));
         assertEquals("", WordUtils.initials("", array));
@@ -228,7 +228,7 @@ public class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLANG1292() {
+    void testLANG1292() {
         // Prior to fix, this was throwing StringIndexOutOfBoundsException
         WordUtils.wrap("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
                 + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
@@ -236,7 +236,7 @@ public class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLANG1397() {
+    void testLANG1397() {
         // Prior to fix, this was throwing StringIndexOutOfBoundsException
         WordUtils.wrap("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
             + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "
@@ -244,17 +244,17 @@ public class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSwapCase_String() {
+    void testSwapCase_String() {
         assertNull(WordUtils.swapCase(null));
         assertEquals("", WordUtils.swapCase(""));
         assertEquals("  ", WordUtils.swapCase("  "));
 
-        assertEquals("i", WordUtils.swapCase("I") );
-        assertEquals("I", WordUtils.swapCase("i") );
-        assertEquals("I AM HERE 123", WordUtils.swapCase("i am here 123") );
-        assertEquals("i aM hERE 123", WordUtils.swapCase("I Am Here 123") );
-        assertEquals("I AM here 123", WordUtils.swapCase("i am HERE 123") );
-        assertEquals("i am here 123", WordUtils.swapCase("I AM HERE 123") );
+        assertEquals("i", WordUtils.swapCase("I"));
+        assertEquals("I", WordUtils.swapCase("i"));
+        assertEquals("I AM HERE 123", WordUtils.swapCase("i am here 123"));
+        assertEquals("i aM hERE 123", WordUtils.swapCase("I Am Here 123"));
+        assertEquals("I AM here 123", WordUtils.swapCase("i am HERE 123"));
+        assertEquals("i am here 123", WordUtils.swapCase("I AM HERE 123"));
 
         final String test = "This String contains a TitleCase character: \u01C8";
         final String expect = "tHIS sTRING CONTAINS A tITLEcASE CHARACTER: \u01C9";
@@ -262,39 +262,39 @@ public class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUncapitalize_String() {
+    void testUncapitalize_String() {
         assertNull(WordUtils.uncapitalize(null));
         assertEquals("", WordUtils.uncapitalize(""));
         assertEquals("  ", WordUtils.uncapitalize("  "));
 
-        assertEquals("i", WordUtils.uncapitalize("I") );
-        assertEquals("i", WordUtils.uncapitalize("i") );
-        assertEquals("i am here 123", WordUtils.uncapitalize("i am here 123") );
-        assertEquals("i am here 123", WordUtils.uncapitalize("I Am Here 123") );
-        assertEquals("i am hERE 123", WordUtils.uncapitalize("i am HERE 123") );
-        assertEquals("i aM hERE 123", WordUtils.uncapitalize("I AM HERE 123") );
+        assertEquals("i", WordUtils.uncapitalize("I"));
+        assertEquals("i", WordUtils.uncapitalize("i"));
+        assertEquals("i am here 123", WordUtils.uncapitalize("i am here 123"));
+        assertEquals("i am here 123", WordUtils.uncapitalize("I Am Here 123"));
+        assertEquals("i am hERE 123", WordUtils.uncapitalize("i am HERE 123"));
+        assertEquals("i aM hERE 123", WordUtils.uncapitalize("I AM HERE 123"));
     }
 
     @Test
-    public void testUncapitalizeWithDelimiters_String() {
+    void testUncapitalizeWithDelimiters_String() {
         assertNull(WordUtils.uncapitalize(null, null));
         assertEquals("", WordUtils.uncapitalize(""));
         assertEquals("  ", WordUtils.uncapitalize("  "));
 
         char[] chars = { '-', '+', ' ', '@' };
-        assertEquals("i", WordUtils.uncapitalize("I", chars) );
-        assertEquals("i", WordUtils.uncapitalize("i", chars) );
-        assertEquals("i am-here+123", WordUtils.uncapitalize("i am-here+123", chars) );
-        assertEquals("i+am here-123", WordUtils.uncapitalize("I+Am Here-123", chars) );
-        assertEquals("i-am+hERE 123", WordUtils.uncapitalize("i-am+HERE 123", chars) );
-        assertEquals("i aM-hERE+123", WordUtils.uncapitalize("I AM-HERE+123", chars) );
+        assertEquals("i", WordUtils.uncapitalize("I", chars));
+        assertEquals("i", WordUtils.uncapitalize("i", chars));
+        assertEquals("i am-here+123", WordUtils.uncapitalize("i am-here+123", chars));
+        assertEquals("i+am here-123", WordUtils.uncapitalize("I+Am Here-123", chars));
+        assertEquals("i-am+hERE 123", WordUtils.uncapitalize("i-am+HERE 123", chars));
+        assertEquals("i aM-hERE+123", WordUtils.uncapitalize("I AM-HERE+123", chars));
         chars = new char[] {'.'};
-        assertEquals("i AM.fINE", WordUtils.uncapitalize("I AM.FINE", chars) );
-        assertEquals("i aM.FINE", WordUtils.uncapitalize("I AM.FINE", null) );
+        assertEquals("i AM.fINE", WordUtils.uncapitalize("I AM.FINE", chars));
+        assertEquals("i aM.FINE", WordUtils.uncapitalize("I AM.FINE", null));
     }
 
     @Test
-    public void testWrap_StringInt() {
+    void testWrap_StringInt() {
         assertNull(WordUtils.wrap(null, 20));
         assertNull(WordUtils.wrap(null, -1));
 
@@ -328,7 +328,7 @@ public class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWrap_StringIntStringBoolean() {
+    void testWrap_StringIntStringBoolean() {
         assertNull(WordUtils.wrap(null, 20, "\n", false));
         assertNull(WordUtils.wrap(null, 20, "\n", true));
         assertNull(WordUtils.wrap(null, 20, null, true));
@@ -405,7 +405,7 @@ public class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWrap_StringIntStringBooleanString() {
+    void testWrap_StringIntStringBooleanString() {
 
         //no changes test
         String input = "flammable/inflammable";

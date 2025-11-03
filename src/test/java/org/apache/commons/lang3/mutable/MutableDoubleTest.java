@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableDouble
  */
-public class MutableDoubleTest extends AbstractLangTest {
+class MutableDoubleTest extends AbstractLangTest {
 
     @Test
-    public void testAddAndGetValueObject() {
+    void testAddAndGetValueObject() {
         final MutableDouble mutableDouble = new MutableDouble(7.5d);
         final double result = mutableDouble.addAndGet(Double.valueOf(-2.5d));
 
@@ -41,7 +41,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddAndGetValuePrimitive() {
+    void testAddAndGetValuePrimitive() {
         final MutableDouble mutableDouble = new MutableDouble(10.5d);
         final double result = mutableDouble.addAndGet(-0.5d);
 
@@ -50,7 +50,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddValueObject() {
+    void testAddValueObject() {
         final MutableDouble mutNum = new MutableDouble(1);
         mutNum.add(Double.valueOf(1.1d));
 
@@ -58,7 +58,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddValuePrimitive() {
+    void testAddValuePrimitive() {
         final MutableDouble mutNum = new MutableDouble(1);
         mutNum.add(1.1d);
 
@@ -66,7 +66,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         final MutableDouble mutNum = new MutableDouble(0d);
 
         assertEquals(0, mutNum.compareTo(new MutableDouble(0d)));
@@ -75,18 +75,18 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareToNull() {
+    void testCompareToNull() {
         final MutableDouble mutNum = new MutableDouble(0d);
-        assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
+        assertNullPointerException(() -> mutNum.compareTo(null));
     }
 
     @Test
-    public void testConstructorNull() {
-        assertThrows(NullPointerException.class, () -> new MutableDouble((Number) null));
+    void testConstructorNull() {
+        assertNullPointerException(() -> new MutableDouble((Number) null));
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         assertEquals(0d, new MutableDouble().doubleValue(), 0.0001d);
 
         assertEquals(1d, new MutableDouble(1d).doubleValue(), 0.0001d);
@@ -99,7 +99,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDecrement() {
+    void testDecrement() {
         final MutableDouble mutNum = new MutableDouble(1);
         mutNum.decrement();
 
@@ -108,7 +108,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDecrementAndGet() {
+    void testDecrementAndGet() {
         final MutableDouble mutNum = new MutableDouble(1d);
         final double result = mutNum.decrementAndGet();
 
@@ -118,7 +118,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final MutableDouble mutNumA = new MutableDouble(0d);
         final MutableDouble mutNumB = new MutableDouble(0d);
         final MutableDouble mutNumC = new MutableDouble(1d);
@@ -136,7 +136,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndAddValueObject() {
+    void testGetAndAddValueObject() {
         final MutableDouble mutableDouble = new MutableDouble(0.5d);
         final double result = mutableDouble.getAndAdd(Double.valueOf(2d));
 
@@ -145,7 +145,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndAddValuePrimitive() {
+    void testGetAndAddValuePrimitive() {
         final MutableDouble mutableDouble = new MutableDouble(0.5d);
         final double result = mutableDouble.getAndAdd(1d);
 
@@ -154,7 +154,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndDecrement() {
+    void testGetAndDecrement() {
         final MutableDouble mutNum = new MutableDouble(1d);
         final double result = mutNum.getAndDecrement();
 
@@ -164,7 +164,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndIncrement() {
+    void testGetAndIncrement() {
         final MutableDouble mutNum = new MutableDouble(1d);
         final double result = mutNum.getAndIncrement();
 
@@ -174,26 +174,30 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetSet() {
+    void testGetSet() {
         final MutableDouble mutNum = new MutableDouble(0d);
         assertEquals(0d, new MutableDouble().doubleValue(), 0.0001d);
+        assertEquals(Double.valueOf(0), new MutableDouble().get());
         assertEquals(Double.valueOf(0), new MutableDouble().getValue());
 
         mutNum.setValue(1);
         assertEquals(1d, mutNum.doubleValue(), 0.0001d);
+        assertEquals(Double.valueOf(1d), mutNum.get());
         assertEquals(Double.valueOf(1d), mutNum.getValue());
 
         mutNum.setValue(Double.valueOf(2d));
         assertEquals(2d, mutNum.doubleValue(), 0.0001d);
+        assertEquals(Double.valueOf(2d), mutNum.get());
         assertEquals(Double.valueOf(2d), mutNum.getValue());
 
         mutNum.setValue(new MutableDouble(3d));
         assertEquals(3d, mutNum.doubleValue(), 0.0001d);
+        assertEquals(Double.valueOf(3d), mutNum.get());
         assertEquals(Double.valueOf(3d), mutNum.getValue());
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final MutableDouble mutNumA = new MutableDouble(0d);
         final MutableDouble mutNumB = new MutableDouble(0d);
         final MutableDouble mutNumC = new MutableDouble(1d);
@@ -205,7 +209,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIncrement() {
+    void testIncrement() {
         final MutableDouble mutNum = new MutableDouble(1);
         mutNum.increment();
 
@@ -214,7 +218,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIncrementAndGet() {
+    void testIncrementAndGet() {
         final MutableDouble mutNum = new MutableDouble(1d);
         final double result = mutNum.incrementAndGet();
 
@@ -224,7 +228,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNanInfinite() {
+    void testNanInfinite() {
         MutableDouble mutNum = new MutableDouble(Double.NaN);
         assertTrue(mutNum.isNaN());
 
@@ -236,24 +240,24 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPrimitiveValues() {
+    void testPrimitiveValues() {
         final MutableDouble mutNum = new MutableDouble(1.7);
         assertEquals(1.7F, mutNum.floatValue());
         assertEquals(1.7, mutNum.doubleValue());
-        assertEquals( (byte) 1, mutNum.byteValue() );
-        assertEquals( (short) 1, mutNum.shortValue() );
-        assertEquals( 1, mutNum.intValue() );
-        assertEquals( 1L, mutNum.longValue() );
+        assertEquals((byte) 1, mutNum.byteValue());
+        assertEquals((short) 1, mutNum.shortValue());
+        assertEquals(1, mutNum.intValue());
+        assertEquals(1L, mutNum.longValue());
     }
 
     @Test
-    public void testSetNull() {
+    void testSetNull() {
         final MutableDouble mutNum = new MutableDouble(0d);
-        assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
+        assertNullPointerException(() -> mutNum.setValue(null));
     }
 
     @Test
-    public void testSubtractValueObject() {
+    void testSubtractValueObject() {
         final MutableDouble mutNum = new MutableDouble(1);
         mutNum.subtract(Double.valueOf(0.9d));
 
@@ -261,7 +265,7 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSubtractValuePrimitive() {
+    void testSubtractValuePrimitive() {
         final MutableDouble mutNum = new MutableDouble(1);
         mutNum.subtract(0.9d);
 
@@ -269,13 +273,13 @@ public class MutableDoubleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToDouble() {
+    void testToDouble() {
         assertEquals(Double.valueOf(0d), new MutableDouble(0d).toDouble());
         assertEquals(Double.valueOf(12.3d), new MutableDouble(12.3d).toDouble());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("0.0", new MutableDouble(0d).toString());
         assertEquals("10.0", new MutableDouble(10d).toString());
         assertEquals("-123.0", new MutableDouble(-123d).toString());

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,17 +28,17 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asSupplier(Method)}.
  */
-public class MethodInvokersSupplierTest extends MethodFixtures {
+class MethodInvokersSupplierTest extends MethodFixtures {
 
     @Test
-    public void testSupplierStaticGetMethod() throws NoSuchMethodException, SecurityException {
+    void testSupplierStaticGetMethod() throws NoSuchMethodException, SecurityException {
         final Supplier<String> supplier = MethodInvokers.asSupplier(getMethodForStaticGetString());
         assertEquals(staticGetString(), supplier.get());
         assertEquals(staticGetString(), supplier.get());
     }
 
     @Test
-    public void testSupplierStaticGetMethodToString() throws SecurityException, ReflectiveOperationException {
+    void testSupplierStaticGetMethodToString() throws SecurityException, ReflectiveOperationException {
         // Should not blow up and must return _something_
         final Supplier<Object> supplier = MethodInvokers.asSupplier(getMethodForStaticGetString());
         assertFalse(supplier.toString().isEmpty());

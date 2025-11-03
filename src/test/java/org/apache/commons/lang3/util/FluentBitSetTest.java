@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
@@ -17,9 +17,11 @@
 
 package org.apache.commons.lang3.util;
 
+import static org.apache.commons.lang3.LangAssertions.assertIndexOutOfBoundsException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -37,7 +39,7 @@ import org.junit.jupiter.api.Test;
  * Test code originally from Apache Harmony for FluentBitSet and adapted.
  * </p>
  */
-public class FluentBitSetTest extends AbstractLangTest {
+class FluentBitSetTest extends AbstractLangTest {
 
     private BitSet eightBs;
     private FluentBitSet eightFbs;
@@ -68,7 +70,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#and(FluentBitSet)}.
      */
     @Test
-    public void test_and() {
+    void test_and() {
         // Test for method void java.util.BitSet.and(BitSet)
         final FluentBitSet bs = newInstance(128);
         // Initialize the bottom half of the BitSet
@@ -77,7 +79,7 @@ public class FluentBitSetTest extends AbstractLangTest {
             bs.set(i);
         }
         eightFbs.and(bs);
-        assertFalse(eightFbs.equals(bs), "AND failed to clear bits");
+        assertNotEquals(eightFbs, bs, "AND failed to clear bits");
         eightFbs.set(3);
         bs.set(3);
         eightFbs.and(bs);
@@ -92,7 +94,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#and(BitSet)}.
      */
     @Test
-    public void test_and_BitSet() {
+    void test_and_BitSet() {
         // Test for method void java.util.BitSet.and(BitSet)
         final FluentBitSet bs = newInstance(128);
         // Initialize the bottom half of the BitSet
@@ -101,7 +103,7 @@ public class FluentBitSetTest extends AbstractLangTest {
             bs.set(i);
         }
         eightFbs.and(bs.bitSet());
-        assertFalse(eightFbs.equals(bs), "AND failed to clear bits");
+        assertNotEquals(eightFbs, bs, "AND failed to clear bits");
         eightFbs.set(3);
         bs.set(3);
         eightFbs.and(bs.bitSet());
@@ -116,7 +118,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#andNot(BitSet)}.
      */
     @Test
-    public void test_andNot() {
+    void test_andNot() {
         FluentBitSet bs = (FluentBitSet) eightFbs.clone();
         bs.clear(5);
         final FluentBitSet bs2 = newInstance();
@@ -134,7 +136,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#andNot(BitSet)}.
      */
     @Test
-    public void test_andNot_BitSet() {
+    void test_andNot_BitSet() {
         FluentBitSet bs = (FluentBitSet) eightFbs.clone();
         bs.clear(5);
         final FluentBitSet bs2 = newInstance();
@@ -152,7 +154,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#cardinality()}.
      */
     @Test
-    public void test_cardinality() {
+    void test_cardinality() {
         // test for method int java.util.BitSet.cardinality()
         final FluentBitSet bs = newInstance(500);
         bs.set(5);
@@ -179,7 +181,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#clear()}.
      */
     @Test
-    public void test_clear() {
+    void test_clear() {
         eightFbs.clear();
         for (int i = 0; i < 8; i++) {
             assertFalse(eightFbs.get(i), "Clear didn't clear bit " + i);
@@ -199,7 +201,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#clear(int)}.
      */
     @Test
-    public void test_clearI() {
+    void test_clearI() {
         // Test for method void java.util.BitSet.clear(int)
 
         eightFbs.clear(7);
@@ -213,7 +215,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         eightFbs.clear(165);
         assertFalse(eightFbs.get(165), "Failed to clear bit");
         // Try out of range
-        assertThrows(IndexOutOfBoundsException.class, () -> eightFbs.clear(-1));
+        assertIndexOutOfBoundsException(() -> eightFbs.clear(-1));
 
         final FluentBitSet bs = newInstance(0);
         assertEquals(0, bs.length(), "Test1: Wrong length,");
@@ -248,7 +250,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#clear(int, int)}.
      */
     @Test
-    public void test_clearII() {
+    void test_clearII() {
         // Regression for HARMONY-98
         final FluentBitSet bitset = newInstance();
         for (int i = 0; i < 20; i++) {
@@ -300,7 +302,7 @@ public class FluentBitSetTest extends AbstractLangTest {
             assertFalse(bs.get(i), "Failed to clear bit " + i);
         }
         for (int i = 64; i < bs.size(); i++) {
-            assertTrue(!bs.get(i), "Shouldn't have flipped bit " + i);
+            assertFalse(bs.get(i), "Shouldn't have flipped bit " + i);
         }
         // more boundary testing
         bs = newInstance(32);
@@ -381,17 +383,17 @@ public class FluentBitSetTest extends AbstractLangTest {
 
         // test illegal args
         bs = newInstance(10);
-        assertThrows(IndexOutOfBoundsException.class, () -> newInstance(10).clear(-1, 3),
+        assertIndexOutOfBoundsException(() -> newInstance(10).clear(-1, 3),
             "Test1: Attempt to flip with negative index failed to generate exception");
 
-        assertThrows(IndexOutOfBoundsException.class, () -> newInstance(10).clear(2, -1),
+        assertIndexOutOfBoundsException(() -> newInstance(10).clear(2, -1),
             "Test2: Attempt to flip with negative index failed to generate exception");
 
         bs.set(2, 4);
         bs.clear(2, 2);
         assertTrue(bs.get(2), "Bit got cleared incorrectly ");
 
-        assertThrows(IndexOutOfBoundsException.class, () -> newInstance(10).clear(4, 2),
+        assertIndexOutOfBoundsException(() -> newInstance(10).clear(4, 2),
             "Test4: Attempt to flip with illegal args failed to generate exception");
 
         bs = newInstance(0);
@@ -435,7 +437,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#clear(int...)}.
      */
     @Test
-    public void test_clearIntArray() {
+    void test_clearIntArray() {
         // Test for method void java.util.BitSet.clear(int)
 
         eightFbs.clear(new int[] {7});
@@ -449,7 +451,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         eightFbs.clear(165);
         assertFalse(eightFbs.get(165), "Failed to clear bit");
         // Try out of range
-        assertThrows(IndexOutOfBoundsException.class, () -> eightFbs.clear(-1));
+        assertIndexOutOfBoundsException(() -> eightFbs.clear(-1));
 
         final FluentBitSet bs = newInstance(0);
         assertEquals(0, bs.length(), "Test1: Wrong length,");
@@ -484,7 +486,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests FluentBitSet#clone()
      */
     @Test
-    public void test_clone() {
+    void test_clone() {
         final FluentBitSet bs = (FluentBitSet) eightFbs.clone();
         assertEquals(bs, eightFbs, "clone failed to return equal BitSet");
     }
@@ -493,7 +495,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#FluentBitSet()}.
      */
     @Test
-    public void test_Constructor() {
+    void test_Constructor() {
         final FluentBitSet bs = newInstance();
         assertEquals(64, bs.size(), "Create FluentBitSet of incorrect size");
         assertEquals("{}", bs.toString(), "New FluentBitSet had invalid string representation");
@@ -503,7 +505,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#FluentBitSet(int)}.
      */
     @Test
-    public void test_ConstructorInt() {
+    void test_ConstructorInt() {
         FluentBitSet bs = newInstance(128);
         assertEquals(128, bs.size(), "Create FluentBitSet of incorrect size");
         assertEquals("{}", bs.toString(), "New FluentBitSet had invalid string representation: " + bs);
@@ -518,28 +520,28 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#equals(java.lang.Object)}.
      */
     @Test
-    public void test_equals() {
+    void test_equals() {
         FluentBitSet bs;
         bs = (FluentBitSet) eightFbs.clone();
         assertEquals(eightFbs, eightFbs, "Same FluentBitSet returned false");
         assertEquals(bs, eightFbs, "Identical FluentBitSet returned false");
         bs.clear(6);
-        assertFalse(eightFbs.equals(bs), "Different BitSets returned true");
+        assertNotEquals(bs, eightFbs, "Different BitSets returned true");
         assertFalse(eightFbs.equals(null), "Different BitSets returned true");
         assertFalse(eightFbs.equals(new Object()), "Different BitSets returned true");
 
         bs = (FluentBitSet) eightFbs.clone();
         bs.set(128);
-        assertFalse(eightFbs.equals(bs), "Different sized FluentBitSet with higher bit set returned true");
+        assertNotEquals(bs, eightFbs, "Different sized FluentBitSet with higher bit set returned true");
         bs.clear(128);
-        assertTrue(eightFbs.equals(bs), "Different sized FluentBitSet with higher bits not set returned false");
+        assertEquals(bs, eightFbs, "Different sized FluentBitSet with higher bits not set returned false");
     }
 
     /**
      * Tests {@link FluentBitSet#flip(int)}.
      */
     @Test
-    public void test_flipI() {
+    void test_flipI() {
         // Test for method void java.util.BitSet.flip(int)
         FluentBitSet bs = newInstance();
         bs.clear(8);
@@ -558,7 +560,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         assertFalse(bs.get(9), "Failed to flip bit");
         assertFalse(bs.get(10), "Failed to flip bit");
 
-        assertThrows(IndexOutOfBoundsException.class, () -> newInstance().flip(-1), "Attempt to flip at negative index failed to generate exception");
+        assertIndexOutOfBoundsException(() -> newInstance().flip(-1), "Attempt to flip at negative index failed to generate exception");
 
         // Try setting a bit on a 64 boundary
         bs.flip(128);
@@ -571,10 +573,10 @@ public class FluentBitSetTest extends AbstractLangTest {
             assertTrue(bs.get(i), "Test1: Incorrectly flipped bit" + i);
             assertEquals(i + 1, bs.length(), "Incorrect length");
             for (int j = bs.size(); --j > i;) {
-                assertTrue(!bs.get(j), "Test2: Incorrectly flipped bit" + j);
+                assertFalse(bs.get(j), "Test2: Incorrectly flipped bit" + j);
             }
             for (int j = i; --j >= 0;) {
-                assertTrue(!bs.get(j), "Test3: Incorrectly flipped bit" + j);
+                assertFalse(bs.get(j), "Test3: Incorrectly flipped bit" + j);
             }
             bs.flip(i);
         }
@@ -592,7 +594,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         assertEquals(64, bs0.length(), "Test3: Wrong length");
 
         eightFbs.flip(7);
-        assertTrue(!eightFbs.get(7), "Failed to flip bit 7");
+        assertFalse(eightFbs.get(7), "Failed to flip bit 7");
 
         // Check to see all other bits are still set
         for (int i = 0; i < 7; i++) {
@@ -603,14 +605,14 @@ public class FluentBitSetTest extends AbstractLangTest {
         assertTrue(eightFbs.get(127), "Failed to flip bit 127");
 
         eightFbs.flip(127);
-        assertTrue(!eightFbs.get(127), "Failed to flip bit 127");
+        assertFalse(eightFbs.get(127), "Failed to flip bit 127");
     }
 
     /**
      * Tests {@link FluentBitSet#clear(int, int)}.
      */
     @Test
-    public void test_flipII() {
+    void test_flipII() {
         final FluentBitSet bitset = newInstance();
         for (int i = 0; i < 20; i++) {
             bitset.set(i);
@@ -624,14 +626,14 @@ public class FluentBitSetTest extends AbstractLangTest {
         bs.set(10);
         bs.flip(7, 11);
         for (int i = 0; i < 7; i++) {
-            assertTrue(!bs.get(i), "Shouldn't have flipped bit " + i);
+            assertFalse(bs.get(i), "Shouldn't have flipped bit " + i);
         }
         assertFalse(bs.get(7), "Failed to flip bit 7");
         assertTrue(bs.get(8), "Failed to flip bit 8");
         assertTrue(bs.get(9), "Failed to flip bit 9");
         assertFalse(bs.get(10), "Failed to flip bit 10");
         for (int i = 11; i < bs.size(); i++) {
-            assertTrue(!bs.get(i), "Shouldn't have flipped bit " + i);
+            assertFalse(bs.get(i), "Shouldn't have flipped bit " + i);
         }
 
         // pos1 and pos2 is in the same bitset element, boundary testing
@@ -641,7 +643,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         bs.flip(7, 64);
         assertEquals(64, bs.size(), "Failed to grow BitSet");
         for (int i = 0; i < 7; i++) {
-            assertTrue(!bs.get(i), "Shouldn't have flipped bit " + i);
+            assertFalse(bs.get(i), "Shouldn't have flipped bit " + i);
         }
         assertFalse(bs.get(7), "Failed to flip bit 7");
         assertTrue(bs.get(8), "Failed to flip bit 8");
@@ -728,7 +730,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         assertFalse(bs.get(219), "Shouldn't have flipped bit 219");
         assertTrue(bs.get(220), "Shouldn't have flipped bit 220");
         for (int i = 221; i < bs.size(); i++) {
-            assertTrue(!bs.get(i), "Shouldn't have flipped bit " + i);
+            assertFalse(bs.get(i), "Shouldn't have flipped bit " + i);
         }
 
         // test illegal args
@@ -759,7 +761,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#get(int)}.
      */
     @Test
-    public void test_getI() {
+    void test_getI() {
         // Test for method boolean java.util.BitSet.get(int)
 
         FluentBitSet bs = newInstance();
@@ -768,7 +770,7 @@ public class FluentBitSetTest extends AbstractLangTest {
         assertTrue(eightFbs.get(3), "Get returned false for set value");
         assertFalse(bs.get(0), "Get returned true for a non set value");
 
-        assertThrows(IndexOutOfBoundsException.class, () -> newInstance().get(-1), "Attempt to get at negative index failed to generate exception");
+        assertIndexOutOfBoundsException(() -> newInstance().get(-1), "Attempt to get at negative index failed to generate exception");
 
         bs = newInstance(1);
         assertFalse(bs.get(64), "Access greater than size");
@@ -795,13 +797,12 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#get(int, int)}.
      */
     @Test
-    public void test_getII() {
+    void test_getII() {
         final FluentBitSet bitset = newInstance(30);
         bitset.get(3, 3);
 
         // Test for method boolean java.util.BitSet.get(int, int)
-        FluentBitSet bs, resultbs, correctbs;
-        bs = newInstance(512);
+        FluentBitSet bs = newInstance(512);
         bs.set(3, 9);
         bs.set(10, 20);
         bs.set(60, 75);
@@ -809,8 +810,8 @@ public class FluentBitSetTest extends AbstractLangTest {
         bs.set(130, 140);
 
         // pos1 and pos2 are in the same bitset element, at index0
-        resultbs = bs.get(3, 6);
-        correctbs = newInstance(3);
+        FluentBitSet resultbs = bs.get(3, 6);
+        FluentBitSet correctbs = newInstance(3);
         correctbs.set(0, 3);
         assertEquals(correctbs, resultbs, "Test1: Returned incorrect BitSet");
 
@@ -934,7 +935,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#hashCode()}.
      */
     @Test
-    public void test_hashCode() {
+    void test_hashCode() {
         // Test for method int java.util.BitSet.hashCode()
         final FluentBitSet bs = (FluentBitSet) eightFbs.clone();
         bs.clear(2);
@@ -949,7 +950,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#intersects(FluentBitSet)}.
      */
     @Test
-    public void test_intersects() {
+    void test_intersects() {
         // Test for method boolean java.util.BitSet.intersects(BitSet)
         final FluentBitSet bs = newInstance(500);
         bs.set(5);
@@ -1008,7 +1009,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#intersects(BitSet)}.
      */
     @Test
-    public void test_intersects_BitSet() {
+    void test_intersects_BitSet() {
         // Test for method boolean java.util.BitSet.intersects(BitSet)
         final FluentBitSet bs = newInstance(500);
         bs.set(5);
@@ -1067,7 +1068,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#isEmpty()}.
      */
     @Test
-    public void test_isEmpty() {
+    void test_isEmpty() {
         final FluentBitSet bs = newInstance(500);
         assertTrue(bs.isEmpty(), "Test: isEmpty() returned wrong value");
 
@@ -1099,7 +1100,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#length()}.
      */
     @Test
-    public void test_length() {
+    void test_length() {
         final FluentBitSet bs = newInstance();
         assertEquals(0, bs.length(), "BitSet returned wrong length");
         bs.set(5);
@@ -1116,7 +1117,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#nextClearBit(int)}.
      */
     @Test
-    public void test_nextClearBitI() {
+    void test_nextClearBitI() {
         // Test for method int java.util.BitSet.nextSetBit()
         final FluentBitSet bs = newInstance(500);
         bs.set(0, bs.size() - 1); // ensure all the bits from 0 to bs.size()
@@ -1184,7 +1185,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#nextSetBit(int)}.
      */
     @Test
-    public void test_nextSetBitI() {
+    void test_nextSetBitI() {
         // Test for method int java.util.BitSet.nextSetBit()
         final FluentBitSet bs = newInstance(500);
         bs.set(5);
@@ -1242,7 +1243,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#or(FluentBitSet)}.
      */
     @Test
-    public void test_or() {
+    void test_or() {
         // Test for method void java.util.BitSet.or(BitSet)
         FluentBitSet bs = newInstance(128);
         bs.or(eightFbs);
@@ -1266,7 +1267,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#or(BitSet)}.
      */
     @Test
-    public void test_or_BitSet() {
+    void test_or_BitSet() {
         // Test for method void java.util.BitSet.or(BitSet)
         FluentBitSet bs = newInstance(128);
         bs.or(eightFbs.bitSet());
@@ -1290,7 +1291,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#or(FluentBitSet)}.
      */
     @Test
-    public void test_or_FluentBitSetArray() {
+    void test_or_FluentBitSetArray() {
         // Test for method void java.util.BitSet.or(BitSet)
         FluentBitSet bs = newInstance(128);
         bs.or(new FluentBitSet[] {eightFbs});
@@ -1314,7 +1315,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#previousClearBit(int)}.
      */
     @Test
-    public void test_previousClearBit() {
+    void test_previousClearBit() {
         final FluentBitSet bs = newInstance();
         assertEquals(1, bs.previousClearBit(1), "previousClearBit");
     }
@@ -1323,7 +1324,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#previousSetBit(int)}.
      */
     @Test
-    public void test_previousSetBit() {
+    void test_previousSetBit() {
         final FluentBitSet bs = newInstance();
         assertEquals(-1, bs.previousSetBit(1), "previousSetBit");
     }
@@ -1332,7 +1333,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#set(int, int)}.
      */
     @Test
-    public void test_setII() {
+    void test_setII() {
         final FluentBitSet bitset = newInstance(30);
         bitset.set(29, 29);
 
@@ -1464,7 +1465,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#set(int, int, boolean)}.
      */
     @Test
-    public void test_setIIZ() {
+    void test_setIIZ() {
         // Test for method void java.util.BitSet.set(int, int, boolean)
         eightFbs.set(3, 6, false);
         assertTrue(!eightFbs.get(3) && !eightFbs.get(4) && !eightFbs.get(5), "Should have set bits 3, 4, and 5 to false");
@@ -1478,7 +1479,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#setInclusive(int, int)}.
      */
     @Test
-    public void test_setInclusive() {
+    void test_setInclusive() {
         final FluentBitSet bitset = newInstance(30);
         bitset.set(29, 29);
 
@@ -1610,7 +1611,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#set(int)}.
      */
     @Test
-    public void test_setInt() {
+    void test_setInt() {
         // Test for method void java.util.BitSet.set(int)
 
         FluentBitSet bs = newInstance();
@@ -1653,7 +1654,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#set(int...)}.
      */
     @Test
-    public void test_setIntArray() {
+    void test_setIntArray() {
         // Test for method void java.util.BitSet.set(int)
 
         FluentBitSet bs = newInstance();
@@ -1696,7 +1697,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#set(int, boolean)}.
      */
     @Test
-    public void test_setIZ() {
+    void test_setIZ() {
         // Test for method void java.util.BitSet.set(int, boolean)
         eightFbs.set(5, false);
         assertFalse(eightFbs.get(5), "Should have set bit 5 to true");
@@ -1709,7 +1710,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#setInclusive(int, int)}.
      */
     @Test
-    public void test_setRangeInclusive() {
+    void test_setRangeInclusive() {
         // Test for method int java.util.BitSet.size()
         assertEquals(64, eightFbs.size(), "Returned incorrect size");
         eightFbs.set(129);
@@ -1721,7 +1722,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#size()}.
      */
     @Test
-    public void test_size() {
+    void test_size() {
         // Test for method int java.util.BitSet.size()
         assertEquals(64, eightFbs.size(), "Returned incorrect size");
         eightFbs.set(129);
@@ -1733,7 +1734,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#previousSetBit(int)}.
      */
     @Test
-    public void test_stream() {
+    void test_stream() {
         final FluentBitSet bs = newInstance();
         assertEquals(0, bs.stream().count(), "stream");
     }
@@ -1742,7 +1743,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#previousSetBit(int)}.
      */
     @Test
-    public void test_toByteArray() {
+    void test_toByteArray() {
         final FluentBitSet bs = newInstance();
         assertArrayEquals(ArrayUtils.EMPTY_BYTE_ARRAY, bs.toByteArray(), "stream");
     }
@@ -1751,7 +1752,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#previousSetBit(int)}.
      */
     @Test
-    public void test_toLongArray() {
+    void test_toLongArray() {
         final FluentBitSet bs = newInstance();
         assertArrayEquals(ArrayUtils.EMPTY_LONG_ARRAY, bs.toLongArray(), "stream");
     }
@@ -1760,7 +1761,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#toString()}.
      */
     @Test
-    public void test_toString() {
+    void test_toString() {
         // Test for method java.lang.String java.util.BitSet.toString()
         assertEquals("{0, 1, 2, 3, 4, 5, 6, 7}", eightFbs.toString(), "Returned incorrect string representation");
         eightFbs.clear(2);
@@ -1771,7 +1772,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#xor(FluentBitSet)}.
      */
     @Test
-    public void test_xor() {
+    void test_xor() {
         // Test for method void java.util.BitSet.xor(BitSet)
 
         FluentBitSet bs = (FluentBitSet) eightFbs.clone();
@@ -1800,7 +1801,7 @@ public class FluentBitSetTest extends AbstractLangTest {
      * Tests {@link FluentBitSet#xor(BitSet)}.
      */
     @Test
-    public void test_xor_BitSet() {
+    void test_xor_BitSet() {
         // Test for method void java.util.BitSet.xor(BitSet)
 
         FluentBitSet bs = (FluentBitSet) eightFbs.clone();

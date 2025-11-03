@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,8 +16,9 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.commons.lang3.Conversion;
 import org.junit.jupiter.api.Test;
@@ -32,12 +33,12 @@ class ConversionTest {
 
     @Test
     void testHexToByte_IllegalArgument() {
-        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToByte("A0", 0, (byte) 0, 4, 2));
+        assertIllegalArgumentException(() -> Conversion.hexToByte("A0", 0, (byte) 0, 4, 2));
     }
 
     @Test
     void testHexToByte_nullString() {
-        assertThrows(NullPointerException.class, () -> Conversion.hexToByte(null, 0, (byte) 0, 0, 2));
+        assertNullPointerException(() -> Conversion.hexToByte(null, 0, (byte) 0, 0, 2));
     }
 
 }

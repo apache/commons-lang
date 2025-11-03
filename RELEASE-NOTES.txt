@@ -6,7 +6,7 @@ The ASF licenses this file to You under the Apache License, Version 2.0
 (the "License"); you may not use this file except in compliance with
 the License.  You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,11 +14,443 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+Apache Commons Lang 3.19.0 Release Notes
+----------------------------------------
 
-                        Apache Commons Lang
-                        Version 3.15.0
-                        Release Notes
+The Apache Commons Lang team is pleased to announce the release of Apache Commons Lang 3.19.0.
 
+Commons Lang is a set of utility functions and reusable components that should be useful in any Java environment.
+
+Starting with Commons Lang 3.9, we target Java 8, using those features.
+
+For advice on upgrading from 2.x to 3.x, see:
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+The code is tested using the latest revision of the JDK for supported
+LTS releases: 8, 11, 17 and 21 currently.
+See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
+
+Please ensure your build environment is up-to-date and kindly report any build issues.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+Changes in this version include:
+
+New features:
+o            Add ArrayUtils.SOFT_MAX_ARRAY_LENGTH. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_OS_NETWARE. Thanks to Gary Gregory.
+o            Add MethodUtils.getAccessibleMethod(Class, Method). Thanks to Gary Gregory.
+o            Add documentation to site for CVE-2025-48924 ClassUtils.getClass(...) can throw a StackOverflowError on very long inputs. Thanks to Gary Gregory.
+o            Add StringUtils.indexOfAny(CharSequence, int, char...). Thanks to Gary Gregory.
+o            Add ConcurrentException.ConcurrentException(String). Thanks to Gary Gregory.
+o            Add DateUtils.toLocalDateTime(Date[, TimeZone]) #1385. Thanks to Finger, Gary Gregory, Piotr P. Karwasz.
+o            Add DateUtils.toOffsetDateTime(Date[, TimeZone]). Thanks to Gary Gregory.
+o            Add DateUtils.toZonedDateTime(Date[, TimeZone]). Thanks to Gary Gregory.
+o            Add ByteConsumer. Thanks to Gary Gregory.
+o            Add ByteSupplier. Thanks to Gary Gregory.
+o            Add FailableByteConsumer. Thanks to Gary Gregory.
+o            Add FailableByteSupplier. Thanks to Gary Gregory.
+o LANG-1784: Add Functions methods for null-safe mapping and chaining #1435. Thanks to Rich Dougherty, Gary Gregory.
+o LANG-1784: Add Failable methods for null-safe mapping and chaining #1435. Thanks to Rich Dougherty, Gary Gregory.
+o            Add DoubleRange.fit(double). Thanks to Gary Gregory.
+o            Add IntegerRange.fit(int). Thanks to Gary Gregory.
+o            Add LongRange.fit(long). Thanks to Gary Gregory.
+o            Add DurationUtils.get(String, TemporalUnit, long). Thanks to Gary Gregory.
+o            Add DurationUtils.getMillis(String, long). Thanks to Gary Gregory.
+o            Add DurationUtils.getSeconds(String, long). Thanks to Gary Gregory.
+o            Add SystemProperties.getBoolean(Class, String, boolean). Thanks to Gary Gregory.
+o            Add SystemProperties.getInt(Class, String, int). Thanks to Gary Gregory.
+o            Add SystemProperties.getLong(Class, String, long). Thanks to Gary Gregory.
+
+Fixed Bugs:
+o LANG-1778: MethodUtils.getMatchingMethod() doesn't respect the hierarchy of methods #1414. Thanks to wuwu2000.
+o            MethodUtils.getMethodObject(Class<?>, String, Class<?>...) now returns null instead of throwing a NullPointerException, as it does for other exception types. Thanks to Gary Gregory.
+o            Reduce spurious failures in ArrayUtilsTest methods that test ArrayUtils.shuffle() methods. Thanks to Gary Gregory.
+o            MethodUtils cannot find or invoke a public method on a public class implemented in its package-private superclass. Thanks to Gary Gregory.
+o            AtomicSafeInitializer.get() can spin internally if the FailableSupplier given to AbstractConcurrentInitializer.AbstractBuilder.setInitializer(FailableSupplier) throws a RuntimeException. Thanks to Stanislav Fort, Gary Gregory.
+o LANG-1783: WordUtils.containsAllWords?() may throw PatternSyntaxException. Thanks to Arnout Engelen, Stanislav Fort, Gary Gregory.
+o LANG-1782: MethodUtils cannot find or invoke vararg methods without providing vararg types or values #1427. Thanks to Joe Ferner, Gary Gregory.
+o            MethodUtils cannot find or invoke vararg methods of interface types. Thanks to Joe Ferner, Gary Gregory.
+o            MethodUtils cannot find or invoke vararg methods when widening primitive types following the JLS 5.1.2. Widening Primitive Conversion. Thanks to Joe Ferner, Gary Gregory.
+o LANG-1597: Invocation fails because matching varargs method found but then discarded. Thanks to Richard Eckart de Castilho, Gary Gregory.
+o            Don't check accessibility twice in MemberUtils.setAccessibleWorkaround(T). Thanks to Gary Gregory.
+o LANG-1774: Improve handling of ClassUtils.getShortCanonicalName() for invalid input #1437. Thanks to Zhongxin Yan, Madhur Lathi, Yudan Liu, Gary Gregory.
+o LANG-1720: Improve Javadocs for Conversion. Thanks to Sheung Chi Chan, Arthur Chan, Gary Gregory, Elliotte Rusty Harold.
+o            Fix CalendarUtils.toLocalDate() Javadoc return type description #1440. Thanks to mayuming.
+o            Fix the method name in Javadoc examples for CharUtils.isHex() #1444. Thanks to mayuming.
+o            Deprecate NumberUtils.compare(byte, byte) in favor of Byte.compare(byte, byte). Thanks to Gary Gregory.
+o            Deprecate NumberUtils.compare(int, int) in favor of Integer.compare(int, int). Thanks to Gary Gregory.
+o            Deprecate NumberUtils.compare(long, long) in favor of Long.compare(long, long). Thanks to Gary Gregory.
+o            Deprecate NumberUtils.compare(short, short) in favor of Short.compare(short, short). Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.AWT_TOOLKIT. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_AWT_FONTS. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_AWT_GRAPHICSENV. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_AWT_HEADLESS. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_AWT_PRINTERJOB. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_COMPILER. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_ENDORSED_DIRS. Thanks to Gary Gregory.
+o            Deprecate obsolete system property constant SystemProperties.JAVA_EXT_DIRS. Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getAwtToolkit() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaAwtFonts() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaAwtGraphicsenv() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaAwtHeadless() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaAwtPrinterjob() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaCompiler() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaEndorsedDirs() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemProperties.getJavaExtDirs() Thanks to Gary Gregory.
+o            Deprecate method for obsolete system property constant SystemUtils.isJavaAwtHeadless() Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_FONTS. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_GRAPHICSENV. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_HEADLESS. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_PRINTERJOB. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_COMPILER. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_ENDORSED_DIRS. Thanks to Gary Gregory.
+o            Deprecate constants for obsolete system property SystemUtils.JAVA_EXT_DIRS. Thanks to Gary Gregory.
+o            [javadoc] General improvements. Thanks to Gary Gregory.
+o            [javadoc] Fix thrown exception documentation for MethodUtils.getMethodObject(Class<?>, String, Class<?>...). Thanks to Gary Gregory.
+o            [javadoc] Strings::equalsAny: CI doc string should show it's insensitive #1416. Thanks to Scott Parish.
+o            [javadoc] General Javadoc improvements. Thanks to Gary Gregory.
+o LANG-1780: [javadoc] Fix Strings Javadoc #1419. Thanks to tza.
+o            [javadoc] Fix typo in Javadoc of Strings instances #1406. Thanks to Sebastian Steiner.
+o            [javadoc] Fix Javadocs in ClassUtils #1410. Thanks to Hassan A Hashim.
+o            [javadoc] Fix @deprecated link for StringUtils#startsWithAny #1424. Thanks to mfg92.
+o            Replace old feather logotype with new oak logotype. Thanks to Gary Gregory.
+
+Changes:
+o            [test] Bump org.apache.commons:commons-text from 1.13.1 to 1.14.0. Thanks to Gary Gregory.
+o            Bump org.apache.commons:commons-parent from 85 to 88. Thanks to Gary Gregory.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+Apache Commons Team
+
+-----------------------------------------------------------------------------
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Apache Commons Lang 3.18.0 Release Notes
+----------------------------------------
+
+The Apache Commons Lang team is pleased to announce the release of Apache Commons Lang 3.18.0.
+
+Commons Lang is a set of utility functions and reusable components that should be useful in any Java environment.
+
+Starting with Commons Lang 3.9, we target Java 8, using those features.
+
+For advice on upgrading from 2.x to 3.x, see:
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+The code is tested using the latest revision of the JDK for supported
+LTS releases: 8, 11, 17 and 21 currently.
+See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
+
+Please ensure your build environment is up-to-date and kindly report any build issues.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+Changes in this version include:
+
+New features:
+o            Add Strings and refactor StringUtils. Thanks to Gary Gregory.
+o LANG-1747: Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier). Thanks to Oliver B. Fischer, Gary Gregory.
+o            Add JavaVersion.JAVA_23. Thanks to Gary Gregory.
+o            Add JavaVersion.JAVA_24. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_JAVA_23. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_JAVA_24. Thanks to Gary Gregory.
+o            Add IntegerRange.toIntStream(). Thanks to Gary Gregory.
+o            Add LongRange.toLongStream(). Thanks to Gary Gregory.
+o            Add IntStrams.of(int...). Thanks to Gary Gregory.
+o            Add ArrayUtils.containsAny(int[], int...). Thanks to Gary Gregory.
+o            Add CalendarUtils.toLocalDate() #725. Thanks to asgh, Gary Gregory.
+o            Add SystemUtils.IS_OS_MAC_OSX_SEQUOIA. Thanks to Gary Gregory.
+o            Add BasicThreadFactory.builder() and deprecate BasicThreadFactory.Builder(). Thanks to Gary Gregory.
+o            Add BasicThreadFactory.daemon(). Thanks to Gary Gregory.
+o            Add ArrayUtils.startsWith. Thanks to Gary Gregory.
+o            Add Predicates. Thanks to Gary Gregory.
+o            Add RegExUtils methods typed to CharSequence input and deprecate old versions typed to String. Thanks to Gary Gregory.
+o            Add IterableStringTokenizer. Thanks to Gary Gregory.
+o            Add FailableIntToFloatFunction. Thanks to Gary Gregory.
+o            Add Validate.isTrue(boolean, Supplier<String>). Thanks to Gary Gregory.
+o            Add EnumUtils.getFirstEnum(Class<E>, int, ToIntFunction<E>, E). Thanks to Gary Gregory.
+o            Add FailableToBooleanFunction. Thanks to Gary Gregory.
+o            Add the @FunctionalInterface annotation to org.apache.commons.lang3.concurrent.Computable. Thanks to Gary Gregory.
+o            Add SystemUtils.getJavaIoTmpDirPath(). Thanks to Gary Gregory.
+o            Add SystemUtils.getJavaHomePath(). Thanks to Gary Gregory.
+o            Add SystemUtils.getUserDirPath(). Thanks to Gary Gregory.
+o            Add SystemUtils.getUserHomePath(). Thanks to Gary Gregory.
+o            Add ArrayFill.fill(T[], FailableIntFunction)). Thanks to Gary Gregory.
+o            Add SystemProperties.JAVA_SECURITY_DEBUG. Thanks to Gary Gregory.
+o            Add SystemProperties.JAVA_SECURITY_KERBEROS_CONF. Thanks to Gary Gregory.
+o            Add SystemProperties.JAVA_SECURITY_KERBEROS_KDC. Thanks to Gary Gregory.
+o            Add SystemProperties.JAVA_SECURITY_KERBEROS_REAL. Thanks to Gary Gregory.
+o            Add ArrayFill.fill(boolean[], boolean) #1386. Thanks to kommalapatiraviteja.
+o            Add ObjectUtils.getIfNull(Object, Object) and deprecate defaultIfNull(Object, Object). Thanks to Pankraz76, Gary Gregory.
+o            org.apache.commons.lang3.mutable.Mutable now extends Supplier. Thanks to Gary Gregory.
+o            Add org.apache.commons.lang3.CharUtils.isHex(char). Thanks to Gary Gregory.
+o            Add org.apache.commons.lang3.CharUtils.isOctal(char). Thanks to Gary Gregory.
+o            Add org.apache.commons.lang3.concurrent.locks.LockingVisitors.reentrantLockVisitor(Object). Thanks to Gary Gregory.
+o            Add org.apache.commons.lang3.concurrent.locks.LockingVisitors.create(Object, ReentrantLock). Thanks to Gary Gregory.
+o            Add org.apache.commons.lang3.concurrent.locks.LockingVisitors.ReentrantLockVisitor. Thanks to Gary Gregory.
+o            Add builders for LockingVisitors implementations. Thanks to Gary Gregory.
+o            Add EnumSet.stream(Class). Thanks to Gary Gregory.
+o            Add org.apache.commons.lang3.SystemProperties.isPropertySet(String). Thanks to Gary Gregory.
+
+Fixed Bugs:
+o            Fix flaky FileUtilsWaitForTest.testWaitForNegativeDuration(). Thanks to Gary Gregory.
+o            Pick up exec-maven-plugin version from parent POM. Thanks to Gary Gregory.
+o            Speed up and sanitize StopWatchTest. Thanks to Gary Gregory.
+o            Fix handling of non-ASCII letters and numbers in RandomStringUtils #1273. Thanks to Fabrice Benhamouda.
+o            Rewrite ClassUtils.getClass(...) without recursion to avoid StackOverflowError on very long inputs.
+             OSS-Fuzz Issue 42522972: apache-commons-text:StringSubstitutorInterpolatorFuzzer: Security exception in org.apache.commons.lang3.ClassUtils.getClass. Thanks to OSS-Fuzz, Gary Gregory.
+o            Remove trailing whitespace in StopWatch exception messages. Thanks to Gary Gregory.
+o LANG-1754: Use getAllSuperclassesAndInterfaces() in getMatchingMethod() #1289. Thanks to vhbcm.
+o            Add details to the ArrayFill Javadoc. Thanks to Gary Gregory.
+o            Add details to the ArraySorter Javadoc. Thanks to Gary Gregory.
+o            Fix broken URL to project location in Maven Central #1296. Thanks to Capt. Cutlass.
+o LANG-1753: StringUtils.replaceEachRepeatedly regression in 3.11+ #1297. Thanks to Capt. Cutlass.
+o            Use simplified JUnit assertion methods #1298. Thanks to Capt. Cutlass.
+o LANG-1682: Javadoc and test: Use Strings.CI.startsWithAny method instead #1299. Thanks to Capt. Cutlass.
+o            Fix NullPointerException in FastDateParser.TimeZoneStrategy.setCalendar(FastDateParser, Calendar, String) on Java 23. Thanks to Gary Gregory.
+o LANG-1757: Fix NullPointerException in MethodUtils.getMatchingAccessibleMethod((Class, String, Class...)). Thanks to Gary Gregory.
+o LANG-1698: Fix StackOverflowError in TypeUtils.typeVariableToString(TypeVariable), TypeUtils.toString(Type) on Java 17 and up. Thanks to Jan Arne Sparka, Gary Gregory.
+o LANG-1511: SystemUtils is missing important documentation. Thanks to david cogen, Gary Gregory, Bruno P. Kinoshita.
+o            Make Failable.run(FailableRunnable) null-safe. Thanks to Gary Gregory.
+o            Make Failable.accept(*) null-safe. Thanks to Gary Gregory.
+o            Improve container detection by mimicking systemd #1323. Thanks to maxxedev, Piotr P. Karwasz, Gary Gregory.
+o            Make LangCollectors.collect(...) null-safe. Thanks to Gary Gregory.
+o            Make LangCollectors.collect(...) null-safe. Thanks to Gary Gregory.
+o            Fix names of UTF-16 surrogate character test fixture constants, see also #1326. Thanks to IBue, Gary Gregory.
+o            Moditect plugin generates split package warnings. Thanks to Gary Gregory.
+o            LocaleUtils.availableLocaleSet() uses predictable iteration order. Thanks to Gary Gregory.
+o LANG-1759: SerializationUtils.clone(Object) throws ClassCastException when called with a Serializable lambda. Thanks to Maxim Butov, Gary Gregory.
+o LANG-1759: [StringUtils::indexOfAnyBut] redesign due to inconsistent/faulty behavior regarding UTF-16 surrogates #1327. Thanks to IBue, Gary Gregory, Piotr P. Karwasz.
+o            Undeprecate ObjectUtils.toString(Object). Thanks to Gary Gregory.
+o            Fix Spotbugs [ERROR] Medium: The field org.apache.commons.lang3.builder.DiffBuilder$SDiff.leftSupplier is transient but isn't set by deserialization [org.apache.commons.lang3.builder.DiffBuilder$SDiff] In DiffBuilder.java SE_TRANSIENT_FIELD_NOT_RESTORED. Thanks to Gary Gregory.
+o            Fix Spotbugs [ERROR] Medium: The field org.apache.commons.lang3.builder.DiffBuilder$SDiff.rightSupplier is transient but isn't set by deserialization [org.apache.commons.lang3.builder.DiffBuilder$SDiff] In DiffBuilder.java SE_TRANSIENT_FIELD_NOT_RESTORED. Thanks to Gary Gregory.
+o LANG-1762: StopWatch methods should not delegate to deprecated methods. Thanks to Alonso Gonzalez, Gary Gregory.
+o            Don't call TypeUtils.toString(Type) on every array item in TypeUtils.parameterize[WithOwner](Type, Class, Map, Type>) unless required. Thanks to Gary Gregory.
+o            Remove -nouses directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80). Thanks to Gary Gregory.
+o            Instead of throwing a NullPointerException, ArrayUtils.toStringArray(Object[]) should return "null" for null elements like ArrayUtils.toStringArray(Object[], String) returns its valueForNullElements. Thanks to Gary Gregory.
+o LANG-1764: Deprecate NumericEntityUnescaper.OPTION in favor of Apache Commons Text. Thanks to Gary Gregory.
+o            Several hash collisions in Fraction class. Thanks to Gary Gregory.
+o LANG-1768: MutableLong and friends should provide better parsing exceptions Javadocs. Thanks to Wang Hailong, Gary Gregory.
+o            Reimplement StringUtils.toCodePoints(CharSequence) to use java.lang.CharSequence.codePoints(). Thanks to Gary Gregory.
+o            Reimplement StringUtils.capitalize(String) to use java.lang.CharSequence.codePoints(). Thanks to Gary Gregory.
+o            Reimplement StringUtils.uncapitalize(String) to use java.lang.CharSequence.codePoints(). Thanks to Gary Gregory.
+o            org.apache.commons.lang3.ClassUtils.getCanonicalName(String) now throws an IllegalArgumentException for array dimensions greater than 255. Thanks to Gary Gregory.
+o            Fix Javadoc typo and improve clarity in defaultIfBlank method #1376. Thanks to Sridhar Balijepalli, Piotr P. Karwasz.
+o LANG-1773: Apache Commons Lang no longer builds on Android #1381. Thanks to Éamonn McManus, Gary Gregory.
+o LANG-1772: Restrict size of cache to prevent overflow errors #1379. Thanks to James Winters, Piotr P. Karwasz, Gary Gregory.
+o LANG-1772: Reimplement org.apache.commons.lang3.ClassUtils.hierarchy(Class, Interfaces) using an AtomicReference. Thanks to Gary Gregory.
+o            Fix Javadoc code examples in DiffBuilder and ReflectionDiffBuilder #1400. Thanks to Ken Dombeck.
+o            Fix generics in org.apache.commons.lang3.stream.Streams.toArray(Class) signature. Thanks to Gary Gregory.
+o LANG-1727: EventListenerSupport doesn't document ordering of events. Thanks to Elliotte Rusty Harold, Gary Gregory.
+o            Fix edge-case NullPointerException in org.apache.commons.lang3.SystemUtils.IS_OS_ANDROID. Thanks to Gary Gregory.
+o            Fix edge-case NullPointerException in org.apache.commons.lang3.SystemUtils.isJavaVersionAtLeast(JavaVersion). Thanks to Gary Gregory.
+o            Fix edge-case NullPointerException in org.apache.commons.lang3.SystemUtils.isJavaVersionAtMost(JavaVersion). Thanks to Gary Gregory.
+o            Return the default enum if a SecurityException is caught in getEnumSystemProperty(). Thanks to Gary Gregory.
+o            Fix edge-case NullPointerException in org.apache.commons.lang3.EnumUtils.getEnum(Class, String, E). Thanks to Gary Gregory.
+o            org.apache.commons.lang3.EnumUtils.getFirstEnumIgnoreCase(Class, String, Function, E) now returns the given default enum on null enumClass input. Thanks to Gary Gregory.
+o            org.apache.commons.lang3.EnumUtils.getEnumIgnoreCase(Class, String, E) now returns the given default enum on null enumClass input. Thanks to Gary Gregory.
+o            org.apache.commons.lang3.EnumUtils.getEnumIgnoreCase(Class, String) now returns the given default enum on null enumClass input. Thanks to Gary Gregory.
+o            Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.equalTo(A). Thanks to Gary Gregory.
+o            Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.greaterThan(A). Thanks to Gary Gregory.
+o            Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.greaterThanOrEqualTo(A). Thanks to Gary Gregory.
+o            Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.lessThan(A). Thanks to Gary Gregory.
+o            Fix NullPointerException in org.apache.commons.lang3.compare.ComparableUtils.ComparableCheckBuilder.lessThanOrEqualTo(A). Thanks to Gary Gregory.
+o LANG-1776: Use GitHub URL in POM for improved automation support.
+
+Changes:
+o            Bump org.apache.commons:commons-parent from 73 to 85 #1267, #1277, #1283, #1288, #1302, #1377. Thanks to Gary Gregory, Dependabot.
+o            [site] Bump org.codehaus.mojo:taglist-maven-plugin from 3.1.0 to 3.2.1 #1300. Thanks to Gary Gregory, Dependabot.
+o            [test] Bump org.easymock:easymock from 5.4.0 to 5.6.0 #1317, #1387. Thanks to Gary Gregory, Dependabot.
+o            [test] Bump org.apache.commons:commons-text from 1.12.0 to 1.13.1 #1336. Thanks to Gary Gregory, Dependabot.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+Apache Commons Team
+
+-----------------------------------------------------------------------------
+
+Apache Commons Lang 3.17.0 Release Notes
+----------------------------------------
+
+The Apache Commons team is pleased to announce Apache Commons Lang Version 3.17.0.
+
+Commons Lang is a set of utility functions and reusable components that should be useful in any Java environment.
+
+Starting with Commons Lang 3.9, we target Java 8, using those features.
+
+For advice on upgrading from 2.x to 3.x, see:
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+The code is tested using the latest revision of the JDK for supported
+LTS releases: 8, 11, 17 and 21 currently.
+See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
+
+Please ensure your build environment is up-to-date and kindly report any build issues.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+Changes in this version include:
+
+New features:
+o            RandomUtils.secure() now uses SecureRandom() instead of SecureRandom.getInstanceStrong(). Thanks to Gary Gregory.
+o            RandomStringUtils.secure() now uses SecureRandom() instead of SecureRandom.getInstanceStrong(). Thanks to Gary Gregory.
+o            Remove unused exception from deprecated StringUtils.toString(byte[], String). Thanks to Gary Gregory.
+o            Make RandomUtils.insecure() public. Thanks to Gary Gregory.
+o            Add RandomUtils.secureStrong(). Thanks to Gary Gregory.
+o            Add RandomStringUtils.secureStrong(). Thanks to Gary Gregory.
+o            Add CalendarUtils.toLocalDateTime(Calendar). Thanks to Gary Gregory.
+o            Add CalendarUtils.toLocalDateTime(). Thanks to Gary Gregory.
+o            Add CalendarUtils.toZonedDateTime(Calendar). Thanks to Gary Gregory.
+o            Add CalendarUtils.toZonedDateTime(). Thanks to Gary Gregory.
+o            Add CalendarUtils.toOffsetDateTime(Calendar). Thanks to Gary Gregory.
+o            Add CalendarUtils.toOffsetDateTime(). Thanks to Gary Gregory.
+
+Fixed Bugs:
+o LANG-1760: Using RandomStringUtils.insecure() still leads to using the secure() random. Thanks to Marco Hoek, Gary Gregory.
+o            Deprecate static RandomUtils.next*() methods in favor or .secure() and .insecure() versions. Thanks to Gary Gregory.
+o            Deprecate static RandomStringUtils.random*() methods in favor or .secure() and .insecure() versions. Thanks to Gary Gregory.
+
+Changes:
+o            Bump org.hamcrest:hamcrest from 2.2 to 3.0 #1255. Thanks to Gary Gregory, Dependabot.
+o            Bump org.easymock:easymock from 5.3.0 to 5.4.0 #1256. Thanks to Gary Gregory, Dependabot.
+o            Bump org.codehaus.mojo:exec-maven-plugin from 3.3.0 to 3.4.1 #1262, #1264. Thanks to Gary Gregory, Dependabot.
+o            Bump org.apache.commons:commons-parent from 72 to 73 #1265. Thanks to Gary Gregory, Dependabot.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+Apache Commons Team
+
+-----------------------------------------------------------------------------
+
+Apache Commons Lang 3.16.0 Release Notes
+----------------------------------------
+
+The Apache Commons team is pleased to announce Apache Commons Lang Version 3.16.0.
+
+Commons Lang is a set of utility functions and reusable components that should be useful in any Java environment.
+
+Starting with Commons Lang 3.9, we target Java 8, using those features.
+
+For advice on upgrading from 2.x to 3.x, see:
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+The code is tested using the latest revision of the JDK for supported
+LTS releases: 8, 11, 17 and 21 currently.
+See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
+
+Please ensure your build environment is up-to-date and kindly report any build issues.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+Changes in this version include:
+
+New features:
+o            Add StopWatch.getSplitDuration() and deprecate getSplitTime(). Thanks to Gary Gregory.
+o            Add StopWatch.getStartInstant() and deprecate getStartTime(). Thanks to Gary Gregory.
+o            Add StopWatch.getStopInstant() and deprecate getStopTime(). Thanks to Gary Gregory.
+o            Add StopWatch.getDuration() and deprecate getTime(). Thanks to Gary Gregory.
+o            Add Javadoc links from StopWatch to DurationUtils #1249. Thanks to Oliver B. Fischer, Gary Gregory.
+o            Add LangCollectors.collect(Collector, T...). Thanks to Gary Gregory.
+o            Add RandomStringUtils.secure(). Thanks to Gary Gregory.
+o            Add RandomStringUtils.insecure(). Thanks to Gary Gregory.
+
+Fixed Bugs:
+o            Reimplement StopWatch internals to use java.time. Thanks to Gary Gregory.
+o LANG-1745: RandomStringUtils.random() with a negative character index should throw IllegalArgumentException. Thanks to Wang Hailong, Gary Gregory.
+o LANG-1741: LocaleUtils.toLocale(String) cannot parse four segments. Thanks to Wang Hailong, Gary Gregory.
+o            Use fewer intermediary strings in DefaultExceptionContext.getFormattedExceptionMessage(String). Thanks to Gary Gregory.
+o            Fix Javadoc in StringUtils.splitPreserveAllTokens() #1251. Thanks to Vï¿½clav Haisman.
+o            Deprecate ArraySort constructor for removal. Thanks to Gary Gregory.
+o            Deprecate CharEncoding constructor for removal. Thanks to Gary Gregory.
+o            Deprecate Conversion constructor for removal. Thanks to Gary Gregory.
+o            Deprecate Conversion constructor for removal. Thanks to Gary Gregory.
+o            Deprecate EntityArrays constructor for removal. Thanks to Gary Gregory.
+o            Deprecate ObjectToStringComparator constructor for removal. Thanks to Gary Gregory.
+o            Deprecate RuntimeEnvironment constructor for removal. Thanks to Gary Gregory.
+
+Changes:
+o            Bump org.apache.commons:commons-parent from 71 to 72 #1253. Thanks to Gary Gregory, Dependabot.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+Apache Commons Team
+
+-----------------------------------------------------------------------------
+
+Apache Commons Lang 3.15.0 Release Notes
+----------------------------------------
 
 The Apache Commons team is pleased to announce Apache Commons Lang Version 3.15.0.
 
@@ -70,15 +502,15 @@ o            Add RuntimeEnvironment.inContainer() #1241. Thanks to Gary Gregory.
 o            Add AppendableJoiner and refactor string joining #1244. Thanks to Gary Gregory.
 
 Fixed Bugs:
-o            Improve Javadoc in ExceptionUtils #1136. Thanks to Miklós Karakó, Gary Gregory.
+o            Improve Javadoc in ExceptionUtils #1136. Thanks to Miklï¿½s Karakï¿½, Gary Gregory.
 o            Fixed two non-deterministic tests in EnumUtilsTest.java #1131. Thanks to Saiharshith Karuneegar Ramesh, Gary Gregory.
 o LANG-1721: Fix wrong number check that cause StringIndexOutOfBoundsException #1140. Thanks to Arthur Chan, Gary Gregory.
 o LANG-1722: Rethrow NegativeArraySizeException as SerializationException in SerializationUtils.deserialize(InputStream) #1141. Thanks to Arthur Chan.
 o LANG-1723: Throw NumberFormatException instead of IndexOutOfBoundsException in NumberUtils.getMantissa(String, int) #1145. Thanks to Arthur Chan, Gary Gregory.
-o            Minor grammar fixes #1143. Thanks to Paranoïd User.
+o            Minor grammar fixes #1143. Thanks to Paranoï¿½d User.
 o LANG-1713: ArrayUtils will return null when adding two null arrays, but undocumented. Thanks to John Hendrikx, Gary Gregory.
 o            Let parent POM figure out commons.spdx.version. Thanks to Gary Gregory.
-o LANG-1726: Undeprecate ExceptionUtils.rethrow(Throwable). Thanks to Václav Haisman, Gary Gregory.
+o LANG-1726: Undeprecate ExceptionUtils.rethrow(Throwable). Thanks to Vï¿½clav Haisman, Gary Gregory.
 o LANG-1702: Test the Conversion class #1155. Thanks to Elliotte Rusty Harold.
 o            Address minor redundancies after code inspection #1148. Thanks to ParanoidUser, Elliotte Rusty Harold, Gary Gregory.
 o            Allow EventListenerSupport to handle (and ignore) exception from listeners allowing invocation of all listeners #1167. Thanks to Gary Gregory.
@@ -153,7 +585,7 @@ o            Bump org.easymock:easymock from 5.2.0 to 5.3.0 #1232. Thanks to Dep
 o            Bump org.codehaus.mojo:taglist-maven-plugin from 3.0.0 to 3.1.0 #1242. Thanks to Dependabot.
 
 Removed:
-o            Drop obsolete JDK 13 Maven profile #1142. Thanks to Paranoïd User.
+o            Drop obsolete JDK 13 Maven profile #1142. Thanks to Paranoï¿½d User.
 
 Historical list of changes: https://commons.apache.org/proper/commons-lang/changes-report.html
 
@@ -169,10 +601,8 @@ Have fun!
 
 -----------------------------------------------------------------------------
 
-                        Apache Commons Lang
-                        Version 3.14.0
-                        Release Notes
-
+Apache Commons Lang 3.14.0 Release Notes
+----------------------------------------
 
 This document contains the release notes for the 3.14.0 version of Apache Commons Lang.
 Commons Lang is a set of utility functions and reusable components that should be of use in any 
@@ -219,7 +649,7 @@ o LANG-1704: ImmutablePair and ImmutableTriple implementation don't match final 
 o            [Javadoc] Fix Incorrect Description in Processor isAarch64() #1093. Thanks to Sung Ho Yoon.
 o            [Javadoc] Point to right getShortClassName flavor in Javadoc for relevant notes #1097. Thanks to ljacqu.
 o            Improve performance of StringUtils.isMixedCase() #1096. Thanks to hduelme.
-o LANG-1706: ThreadUtils find methods should not return null items #1098. Thanks to Alberto Fernández.
+o LANG-1706: ThreadUtils find methods should not return null items #1098. Thanks to Alberto Fernï¿½ndez.
 o LANG-1710: ReflectionToStringBuilder changes in version 3.13.0 has broken the logic for overriding classes. Thanks to Shashank Sharma, Gary Gregory, Oksana.
 o            Return "null" instead of NPE in ClassLoaderUtils.toString(ClassLoader). Thanks to Gary Gregory.
 o            Return "null" instead of NPE in ClassLoaderUtils.toString(URLClassLoader). Thanks to Gary Gregory.
@@ -250,9 +680,8 @@ Have fun!
 
 -----------------------------------------------------------------------------
 
-                        Apache Commons Lang
-                        Version 3.13.0
-                        Release Notes
+Apache Commons Lang 3.13.0 Release Notes
+----------------------------------------
 
 
 This document contains the release notes for the 3.13.0 version of Apache Commons Lang.
@@ -488,11 +917,10 @@ Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
 Have fun!
 -Apache Commons Team
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Apache Commons Lang
-                        Version 3.12.0
-                        Release Notes
+Apache Commons Lang 3.12.0 Release Notes
+----------------------------------------
 
 INTRODUCTION:
 
@@ -605,11 +1033,10 @@ Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
 Have fun!
 -Apache Commons Team
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Apache Commons Lang
-                        Version 3.11
-                        Release Notes
+Apache Commons Lang 3.11.0 Release Notes
+----------------------------------------
 
 
 INTRODUCTION:
@@ -675,7 +1102,7 @@ o LANG-1564: Use Collections.singletonList insteadof Arrays.asList when there be
 o LANG-1553: Change array style from `int a[]` to `int[] a` #537. Thanks to XenoAmess.
 o LANG-1552: Change from addAll to constructors for some List #536. Thanks to XenoAmess.
 o LANG-1558: Simplify if as some conditions are covered by others #543. Thanks to XenoAmess.
-o LANG-1567: Fixed Javadocs for setTestRecursive() #556. Thanks to Miguel Muñoz, Bruno P. Kinoshita, Gary Gregory.
+o LANG-1567: Fixed Javadocs for setTestRecursive() #556. Thanks to Miguel Muï¿½oz, Bruno P. Kinoshita, Gary Gregory.
 o LANG-1542: ToStringBuilder.reflectionToString - Wrong JSON format when object has a List of Enum. Thanks to Tr?n Ng?c Khoa, Gary Gregory.
 o            Make org.apache.commons.lang3.CharSequenceUtils.toCharArray(CharSequence) public.
 o            org.apache.commons:commons-parent 50 -> 51.
@@ -693,16 +1120,15 @@ patches, or suggestions for improvement, see the Apache Commons Lang website:
 
 https://commons.apache.org/proper/commons-lang/
 
-Download page: https://commons.apache.org/proper/commons-lang/download_csv.cgi
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
 
 Have fun!
 -Apache Commons Team
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Apache Commons Lang
-                        Version 3.10
-                        Release Notes
+Apache Commons Lang 3.10.0 Release Notes
+----------------------------------------
 
 
 INTRODUCTION:
@@ -805,11 +1231,10 @@ https://commons.apache.org/proper/commons-lang/
 
 Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Apache Commons Lang
-                            Version 3.9
-                           Release Notes
+Apache Commons Lang 3.9 Release Notes
+-------------------------------------
 
 
 INTRODUCTION:
@@ -856,11 +1281,10 @@ patches, or suggestions for improvement, see the Apache Commons Lang website:
 
 https://commons.apache.org/proper/commons-lang/
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Apache Commons Lang
-                            Version 3.8.1
-                           Release Notes
+Apache Commons Lang 3.8.1 Release Notes
+----------------------------------------
 
 
 INTRODUCTION:
@@ -887,11 +1311,10 @@ Changes in this version include:
 Fixed Bugs:
 o LANG-1419: Restore BundleSymbolicName for OSGi
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Apache Commons Lang
-                            Version 3.8
-                           Release Notes
+Apache Commons Lang 3.8 Release Notes
+-------------------------------------
 
 
 INTRODUCTION:
@@ -916,7 +1339,7 @@ Changes in this version include:
 
 New features:
 o LANG-1352: EnumUtils.getEnumIgnoreCase and isValidEnumIgnoreCase methods added Thanks to Ruslan Sibgatullin.
-o LANG-1372: Add ToStringSummary annotation Thanks to Sérgio Ozaki.
+o LANG-1372: Add ToStringSummary annotation Thanks to Sï¿½rgio Ozaki.
 o LANG-1356: Add bypass option for classes to recursive and reflective EqualsBuilder Thanks to Yathos UG.
 o LANG-1391: Improve Javadoc for StringUtils.isAnyEmpty(null) Thanks to Sauro Matulli, Oleg Chubaryov.
 o LANG-1393: Add API SystemUtils.String getEnvironmentVariable(final String name, final String defaultValue) Thanks to Gary Gregory.
@@ -946,12 +1369,10 @@ o LANG-1367: ObjectUtils.identityToString(Object) and friends should allocate bu
 o LANG-1405: Remove checks for java versions below the minimum supported one Thanks to Lars Grefer.
 o LANG-1402: Null/index safe get methods for ArrayUtils Thanks to Mark Dacek.
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Apache Commons Lang
-                            Version 3.7
-                           Release Notes
-
+Apache Commons Lang 3.7 Release Notes
+----------------------------------------
 
 INTRODUCTION:
 
@@ -992,11 +1413,10 @@ o LANG-1346: Remove deprecation from RandomStringUtils
 o LANG-1361: ExceptionUtils.getThrowableList() is using deprecated ExceptionUtils.getCause() Thanks to Ana.
 
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                           Apache Commons Lang
-                               Version 3.6
-                              Release Notes
+Apache Commons Lang 3.6 Release Notes
+----------------------------------------
 
 
 INTRODUCTION:
@@ -1128,7 +1548,7 @@ o LANG-1292: WordUtils.wrap throws StringIndexOutOfBoundsException.
 o LANG-1287: RandomStringUtils#random can enter infinite loop if end parameter
              is to small. Thanks to Ivan Morozov.
 o LANG-1285: NullPointerException in FastDateParser$TimeZoneStrategy.
-             Thanks to Francesco Chicchiriccò.
+             Thanks to Francesco Chicchiriccï¿½.
 o LANG-1281: Javadoc of StringUtils.ordinalIndexOf is contradictory.
              Thanks to Andreas Lundblad.
 o LANG-1188: StringUtils#join(T...): warning: [unchecked] Possible heap
@@ -1176,9 +1596,10 @@ o LANG-1301: Moving apache-rat-plugin configuration into pluginManagement.
              Thanks to Karl Heinz Marbaise.
 o LANG-1316: Deprecate classes/methods moved to commons-text.
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Release Notes for version 3.5
+Apache Commons Lang 3.5 Release Notes
+----------------------------------------
 
 
 HIGHLIGHTS
@@ -1446,9 +1867,9 @@ o LANG-1176: Improve ArrayUtils removeElements time complexity to O(n). Thanks
              to Jeffery Yuan.
 o LANG-1234: getLevenshteinDistance with a threshold: optimize implementation
              if the strings lengths differ more than the threshold. Thanks to
-             Jonatan Jönsson.
+             Jonatan Jï¿½nsson.
 o LANG-1151: Performance improvements for NumberUtils.isParsable. Thanks to
-             Juan Pablo Santos Rodríguez.
+             Juan Pablo Santos Rodrï¿½guez.
 o LANG-1218: EqualsBuilder.append(Object,Object) is too big to be inlined,
              which prevents whole builder to be scalarized. Thanks to
              Ruslan Cheremin.
@@ -1460,7 +1881,7 @@ o LANG-1182: Clarify Javadoc of StringUtils.containsAny(). Thanks to
 o LANG-1183: Making replacePattern/removePattern methods null safe in
              StringUtils.
 o LANG-1057: Replace StringBuilder with String concatenation for better
-             optimization. Thanks to Otávio Santana.
+             optimization. Thanks to Otï¿½vio Santana.
 o LANG-1075: Deprecate SystemUtils.FILE_SEPARATOR and
              SystemUtils.PATH_SEPARATOR.
 o LANG-979:  TypeUtils.parameterizeWithOwner - wrong format descriptor for
@@ -1475,10 +1896,10 @@ o LANG-1107: Fix parsing edge cases in FastDateParser.
 o LANG-1273: Added new property IS_OS_MAC_OSX_EL_CAPITAN in SystemUtils. Thanks
              to Jake Wang.
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Release Notes for version 3.4
-
+Apache Commons Lang 3.4 Release Notes
+-------------------------------------
 
 COMPATIBILITY
 =============
@@ -1507,13 +1928,13 @@ o LANG-1080: Add NoClassNameToStringStyle implementation of ToStringStyle.
              Thanks to Innokenty Shuvalov.
 o LANG-883:  Add StringUtils.containsAny(CharSequence, CharSequence...) method.
              Thanks to Daniel Stewart.
-o LANG-1052: Multiline recursive to string style. Thanks to Jan Matèrne.
+o LANG-1052: Multiline recursive to string style. Thanks to Jan Matï¿½rne.
 o LANG-536:  Add isSorted() to ArrayUtils. Thanks to James Sawle.
 o LANG-1033: Add StringUtils.countMatches(CharSequence, char)
 o LANG-1021: Provide methods to retrieve all fields/methods annotated with a
-             specific type. Thanks to Alexander Müller.
+             specific type. Thanks to Alexander Mï¿½ller.
 o LANG-1016: NumberUtils#isParsable method(s). Thanks to
-             Juan Pablo Santos Rodríguez.
+             Juan Pablo Santos Rodrï¿½guez.
 o LANG-999:  Add fuzzy String matching logic to StringUtils. Thanks to
              Ben Ripkens.
 o LANG-994:  Add zero copy read method to StrBuilder. Thanks to
@@ -1611,9 +2032,10 @@ o LANG-1003: DurationFormatUtils are not able to handle negative
 o LANG-998:  Javadoc is not clear on preferred pattern to instantiate
              FastDateParser / FastDatePrinter
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Release Notes for version 3.3.2
+Apache Commons Lang 3.3.2 Release Notes
+---------------------------------------
 
 NEW FEATURES
 ==============
@@ -1625,9 +2047,10 @@ FIXED BUGS
 
 o LANG-992:  NumberUtils#isNumber() returns false for "0.0", "0.4790", et al
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Release Notes for version 3.3.1
+Apache Commons Lang 3.3.1 Release Notes
+---------------------------------------
 
 FIXED BUGS
 ============
@@ -1641,9 +2064,10 @@ o LANG-982:  DurationFormatUtils.formatDuration(61999, "s.SSSS") - ms field
              size should be 4 digits
 o LANG-978:  Failing tests with Java 8 b128
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Release Notes for version 3.3
+Apache Commons Lang 3.3 Release Notes
+-------------------------------------
 
 NEW FEATURES
 ==============
@@ -1688,12 +2112,12 @@ o LANG-943:  Test DurationFormatUtilsTest.testEdgeDuration fails in
 o LANG-613:  ConstructorUtils.getAccessibleConstructor() Does Not Check the
              Accessibility of Enclosing Classes
 o LANG-951:  Fragments are wrong by 1 day when using fragment YEAR or MONTH.
-             Thanks to Sebastian Götz.
+             Thanks to Sebastian Gï¿½tz.
 o LANG-950:  FastDateParser does not handle two digit year parsing like
              SimpleDateFormat
 o LANG-949:  FastDateParserTest.testParses does not test FastDateParser
 o LANG-915:  Wrong locale handling in LocaleUtils.toLocale().
-             Thanks to Sergio Fernández.
+             Thanks to Sergio Fernï¿½ndez.
 
 CHANGES
 =========
@@ -1708,9 +2132,10 @@ o LANG-953:  Convert package.html files to package-info.java files
 o LANG-940:  Fix deprecation warnings
 o LANG-819:  EnumUtils.generateBitVector needs a "? extends"
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Release Notes for version 3.2.1
+Apache Commons Lang 3.2.1 Release Notes
+---------------------------------------
 
 BUG FIXES
 ===========
@@ -1722,9 +2147,10 @@ o LANG-942:  Test failure in FastDateParserTest and FastDateFormat_ParserTest
              Henri Yandell.
 o LANG-938:  Build fails with test failures when building with JDK 8
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Release Notes for version 3.2
+Apache Commons Lang 3.2 Release Notes
+----------------------------------------
 
 COMPATIBILITY WITH 3.1
 ========================
@@ -1792,7 +2218,7 @@ o LANG-462:  FastDateFormat supports parse methods.
 BUG FIXES
 ===========
 
-o LANG-932:  Spelling fixes. Thanks to Ville Skyttä.
+o LANG-932:  Spelling fixes. Thanks to Ville Skyttï¿½.
 o LANG-929:  OctalUnescaper tried to parse all of \279.
 o LANG-928:  OctalUnescaper had bugs when parsing octals starting with a zero.
 o LANG-905:  EqualsBuilder returned true when comparing arrays, even when the
@@ -1884,9 +2310,10 @@ CHANGES WITHOUT TICKET
 
 o Fixed URLs in javadoc to point to new oracle.com pages
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Release Notes for version 3.1
+Apache Commons Lang 3.1 Release Notes
+-------------------------------------
 
 NEW FEATURES
 ==============
@@ -1919,9 +2346,10 @@ o LANG-748:  Deprecating chomp(String, String)
 o LANG-736:  CharUtils static final array CHAR_STRING is not needed to compute
              CHAR_STRING_ARRAY
 
-=============================================================================
+-----------------------------------------------------------------------------
 
-                        Release Notes for version 3.0
+Apache Commons Lang 3.0 Release Notes
+-------------------------------------
 
 ADDITIONS
 ===========

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,7 +39,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  */
-public class AnnotationUtilsTest extends AbstractLangTest {
+class AnnotationUtilsTest extends AbstractLangTest {
     @Retention(RetentionPolicy.RUNTIME)
     public @interface NestAnnotation {
         boolean booleanValue();
@@ -405,24 +405,24 @@ public class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAnnotationsOfDifferingTypes() {
+    void testAnnotationsOfDifferingTypes() {
         assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field4.getAnnotation(NestAnnotation.class)));
         assertFalse(AnnotationUtils.equals(field4.getAnnotation(NestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test
-    public void testBothArgsNull() {
+    void testBothArgsNull() {
         assertTrue(AnnotationUtils.equals(null, null));
     }
 
     @Test
-    public void testEquivalence() {
+    void testEquivalence() {
         assertTrue(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field2.getAnnotation(TestAnnotation.class)));
         assertTrue(AnnotationUtils.equals(field2.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test
-    public void testGeneratedAnnotationEquivalentToRealAnnotation() {
+    void testGeneratedAnnotationEquivalentToRealAnnotation() {
         assertTimeoutPreemptively(Duration.ofSeconds(666L), () -> {
             final Test real = getClass().getDeclaredMethod(
                     "testGeneratedAnnotationEquivalentToRealAnnotation").getAnnotation(Test.class);
@@ -459,7 +459,7 @@ public class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertTimeoutPreemptively(Duration.ofSeconds(666L), () -> {
             final Test test = getClass().getDeclaredMethod("testHashCode").getAnnotation(Test.class);
             assertEquals(test.hashCode(), AnnotationUtils.hashCode(test));
@@ -471,7 +471,7 @@ public class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsValidAnnotationMemberType() {
+    void testIsValidAnnotationMemberType() {
         for (final Class<?> type : new Class[] { byte.class, short.class, int.class, char.class,
                 long.class, float.class, double.class, boolean.class, String.class, Class.class,
                 NestAnnotation.class, TestAnnotation.class, Stooge.class, ElementType.class }) {
@@ -487,25 +487,25 @@ public class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNonEquivalentAnnotationsOfSameType() {
+    void testNonEquivalentAnnotationsOfSameType() {
         assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field3.getAnnotation(TestAnnotation.class)));
         assertFalse(AnnotationUtils.equals(field3.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test
-    public void testOneArgNull() {
+    void testOneArgNull() {
         assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), null));
         assertFalse(AnnotationUtils.equals(null, field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test
-    public void testSameInstance() {
+    void testSameInstance() {
         assertTrue(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test
     @TestMethodAnnotation(timeout = 666000)
-    public void testToString() {
+    void testToString() {
         assertTimeoutPreemptively(Duration.ofSeconds(666L), () -> {
             final TestMethodAnnotation testAnnotation =
                     getClass().getDeclaredMethod("testToString").getAnnotation(TestMethodAnnotation.class);

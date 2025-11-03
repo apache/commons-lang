@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,16 +18,21 @@
 package org.apache.commons.lang3.mutable;
 
 import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.lang3.BooleanUtils;
 
 /**
  * A mutable {@code boolean} wrapper.
  * <p>
- * Note that as MutableBoolean does not extend Boolean, it is not treated by String.format as a Boolean parameter.
+ * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link AtomicBoolean} class.
+ * </p>
+ * <p>
+ * Note that as MutableBoolean does not extend {@link Boolean}, it is not treated by {@link String#format(String, Object...)} as a Boolean parameter.
  * </p>
  *
  * @see Boolean
+ * @see AtomicBoolean
  * @since 2.2
  */
 public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparable<MutableBoolean> {
@@ -107,8 +112,10 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Gets the value as a Boolean instance.
      *
-     * @return the value as a Boolean, never null
+     * @return the value as a Boolean, never null.
+     * @deprecated Use {@link #get()}.
      */
+    @Deprecated
     @Override
     public Boolean getValue() {
         return Boolean.valueOf(this.value);

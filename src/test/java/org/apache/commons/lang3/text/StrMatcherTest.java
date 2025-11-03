@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,24 +18,24 @@
 package org.apache.commons.lang3.text;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link org.apache.commons.lang3.text.StrMatcher}.
+ * Tests for {@link org.apache.commons.lang3.text.StrMatcher}.
  */
 @Deprecated
-public class StrMatcherTest extends AbstractLangTest {
+class StrMatcherTest extends AbstractLangTest {
 
     private static final char[] BUFFER1 = "0,1\t2 3\n\r\f\u0000'\"".toCharArray();
 
     private static final char[] BUFFER2 = "abcdef".toCharArray();
 
     @Test
-    public void testCharMatcher_char() {
+    void testCharMatcher_char() {
         final StrMatcher matcher = StrMatcher.charMatcher('c');
         assertEquals(0, matcher.isMatch(BUFFER2, 0));
         assertEquals(0, matcher.isMatch(BUFFER2, 1));
@@ -46,7 +46,7 @@ public class StrMatcherTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCharSetMatcher_charArray() {
+    void testCharSetMatcher_charArray() {
         final StrMatcher matcher = StrMatcher.charSetMatcher("ace".toCharArray());
         assertEquals(1, matcher.isMatch(BUFFER2, 0));
         assertEquals(0, matcher.isMatch(BUFFER2, 1));
@@ -56,11 +56,11 @@ public class StrMatcherTest extends AbstractLangTest {
         assertEquals(0, matcher.isMatch(BUFFER2, 5));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher());
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher((char[]) null));
-        assertTrue(StrMatcher.charSetMatcher("a".toCharArray()) instanceof StrMatcher.CharMatcher);
+        assertInstanceOf(StrMatcher.CharMatcher.class, StrMatcher.charSetMatcher("a".toCharArray()));
     }
 
     @Test
-    public void testCharSetMatcher_String() {
+    void testCharSetMatcher_String() {
         final StrMatcher matcher = StrMatcher.charSetMatcher("ace");
         assertEquals(1, matcher.isMatch(BUFFER2, 0));
         assertEquals(0, matcher.isMatch(BUFFER2, 1));
@@ -70,11 +70,11 @@ public class StrMatcherTest extends AbstractLangTest {
         assertEquals(0, matcher.isMatch(BUFFER2, 5));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher(""));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher((String) null));
-        assertTrue(StrMatcher.charSetMatcher("a") instanceof StrMatcher.CharMatcher);
+        assertInstanceOf(StrMatcher.CharMatcher.class, StrMatcher.charSetMatcher("a"));
     }
 
     @Test
-    public void testCommaMatcher() {
+    void testCommaMatcher() {
         final StrMatcher matcher = StrMatcher.commaMatcher();
         assertSame(matcher, StrMatcher.commaMatcher());
         assertEquals(0, matcher.isMatch(BUFFER1, 0));
@@ -83,7 +83,7 @@ public class StrMatcherTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDoubleQuoteMatcher() {
+    void testDoubleQuoteMatcher() {
         final StrMatcher matcher = StrMatcher.doubleQuoteMatcher();
         assertSame(matcher, StrMatcher.doubleQuoteMatcher());
         assertEquals(0, matcher.isMatch(BUFFER1, 11));
@@ -91,7 +91,7 @@ public class StrMatcherTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMatcherIndices() {
+    void testMatcherIndices() {
         // remember that the API contract is tight for the isMatch() method
         // all the onus is on the caller, so invalid inputs are not
         // the concern of StrMatcher, and are not bugs
@@ -102,7 +102,7 @@ public class StrMatcherTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNoneMatcher() {
+    void testNoneMatcher() {
         final StrMatcher matcher = StrMatcher.noneMatcher();
         assertSame(matcher, StrMatcher.noneMatcher());
         assertEquals(0, matcher.isMatch(BUFFER1, 0));
@@ -121,7 +121,7 @@ public class StrMatcherTest extends AbstractLangTest {
     }
 
     @Test
-    public void testQuoteMatcher() {
+    void testQuoteMatcher() {
         final StrMatcher matcher = StrMatcher.quoteMatcher();
         assertSame(matcher, StrMatcher.quoteMatcher());
         assertEquals(0, matcher.isMatch(BUFFER1, 10));
@@ -130,7 +130,7 @@ public class StrMatcherTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSingleQuoteMatcher() {
+    void testSingleQuoteMatcher() {
         final StrMatcher matcher = StrMatcher.singleQuoteMatcher();
         assertSame(matcher, StrMatcher.singleQuoteMatcher());
         assertEquals(0, matcher.isMatch(BUFFER1, 10));
@@ -139,7 +139,7 @@ public class StrMatcherTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSpaceMatcher() {
+    void testSpaceMatcher() {
         final StrMatcher matcher = StrMatcher.spaceMatcher();
         assertSame(matcher, StrMatcher.spaceMatcher());
         assertEquals(0, matcher.isMatch(BUFFER1, 4));
@@ -148,7 +148,7 @@ public class StrMatcherTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSplitMatcher() {
+    void testSplitMatcher() {
         final StrMatcher matcher = StrMatcher.splitMatcher();
         assertSame(matcher, StrMatcher.splitMatcher());
         assertEquals(0, matcher.isMatch(BUFFER1, 2));
@@ -163,7 +163,7 @@ public class StrMatcherTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStringMatcher_String() {
+    void testStringMatcher_String() {
         final StrMatcher matcher = StrMatcher.stringMatcher("bc");
         assertEquals(0, matcher.isMatch(BUFFER2, 0));
         assertEquals(2, matcher.isMatch(BUFFER2, 1));
@@ -176,7 +176,7 @@ public class StrMatcherTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTabMatcher() {
+    void testTabMatcher() {
         final StrMatcher matcher = StrMatcher.tabMatcher();
         assertSame(matcher, StrMatcher.tabMatcher());
         assertEquals(0, matcher.isMatch(BUFFER1, 2));
@@ -185,7 +185,7 @@ public class StrMatcherTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTrimMatcher() {
+    void testTrimMatcher() {
         final StrMatcher matcher = StrMatcher.trimMatcher();
         assertSame(matcher, StrMatcher.trimMatcher());
         assertEquals(0, matcher.isMatch(BUFFER1, 2));

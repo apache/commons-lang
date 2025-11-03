@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,7 +16,7 @@
  */
 package org.apache.commons.lang3.compare;
 
-import static org.apache.commons.lang3.compare.ComparableUtils.is;
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,13 +26,10 @@ import java.time.Instant;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-public class ComparableUtilsTest extends AbstractLangTest {
+class ComparableUtilsTest extends AbstractLangTest {
 
     @Nested
     final class A_is_1 {
@@ -49,12 +46,12 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
                 @Test
                 void between_returns_false() {
-                    assertFalse(is(a).between(b, c));
+                    assertFalse(ComparableUtils.is(a).between(b, c));
                 }
 
                 @Test
                 void betweenExclusive_returns_false() {
-                    assertFalse(is(a).betweenExclusive(b, c));
+                    assertFalse(ComparableUtils.is(a).betweenExclusive(b, c));
                 }
 
                 @Test
@@ -77,12 +74,12 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
                 @Test
                 void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
+                    assertTrue(ComparableUtils.is(a).between(b, c));
                 }
 
                 @Test
                 void betweenExclusive_returns_false() {
-                    assertFalse(is(a).betweenExclusive(b, c));
+                    assertFalse(ComparableUtils.is(a).betweenExclusive(b, c));
                 }
 
                 @Test
@@ -104,12 +101,12 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
                 @Test
                 void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
+                    assertTrue(ComparableUtils.is(a).between(b, c));
                 }
 
                 @Test
                 void betweenExclusive_returns_true() {
-                    assertTrue(is(a).betweenExclusive(b, c));
+                    assertTrue(ComparableUtils.is(a).betweenExclusive(b, c));
                 }
 
                 @Test
@@ -127,27 +124,27 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
             @Test
             void equalTo_returns_false() {
-                assertFalse(is(a).equalTo(b));
+                assertFalse(ComparableUtils.is(a).equalTo(b));
             }
 
             @Test
             void greaterThan_returns_true() {
-                assertTrue(is(a).greaterThan(b));
+                assertTrue(ComparableUtils.is(a).greaterThan(b));
             }
 
             @Test
             void greaterThanOrEqualTo_returns_true() {
-                assertTrue(is(a).greaterThanOrEqualTo(b));
+                assertTrue(ComparableUtils.is(a).greaterThanOrEqualTo(b));
             }
 
             @Test
             void lessThan_returns_false() {
-                assertFalse(is(a).lessThan(b));
+                assertFalse(ComparableUtils.is(a).lessThan(b));
             }
 
             @Test
             void lessThanOrEqualTo_returns_false() {
-                assertFalse(is(a).lessThanOrEqualTo(b));
+                assertFalse(ComparableUtils.is(a).lessThanOrEqualTo(b));
             }
 
             @Test
@@ -183,12 +180,12 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
                 @Test
                 void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
+                    assertTrue(ComparableUtils.is(a).between(b, c));
                 }
 
                 @Test
                 void betweenExclusive_returns_false() {
-                    assertFalse(is(a).betweenExclusive(b, c));
+                    assertFalse(ComparableUtils.is(a).betweenExclusive(b, c));
                 }
 
                 @Test
@@ -210,12 +207,12 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
                 @Test
                 void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
+                    assertTrue(ComparableUtils.is(a).between(b, c));
                 }
 
                 @Test
                 void betweenExclusive_returns_false() {
-                    assertFalse(is(a).betweenExclusive(b, c));
+                    assertFalse(ComparableUtils.is(a).betweenExclusive(b, c));
                 }
 
                 @Test
@@ -237,12 +234,12 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
                 @Test
                 void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
+                    assertTrue(ComparableUtils.is(a).between(b, c));
                 }
 
                 @Test
                 void betweenExclusive_returns_false() {
-                    assertFalse(is(a).betweenExclusive(b, c));
+                    assertFalse(ComparableUtils.is(a).betweenExclusive(b, c));
                 }
 
                 @Test
@@ -260,27 +257,27 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
             @Test
             void equalTo_returns_true() {
-                assertTrue(is(a).equalTo(b));
+                assertTrue(ComparableUtils.is(a).equalTo(b));
             }
 
             @Test
             void greaterThan_returns_false() {
-                assertFalse(is(a).greaterThan(b));
+                assertFalse(ComparableUtils.is(a).greaterThan(b));
             }
 
             @Test
             void greaterThanOrEqualTo_returns_true() {
-                assertTrue(is(a).greaterThanOrEqualTo(b));
+                assertTrue(ComparableUtils.is(a).greaterThanOrEqualTo(b));
             }
 
             @Test
             void lessThan_returns_false() {
-                assertFalse(is(a).lessThan(b));
+                assertFalse(ComparableUtils.is(a).lessThan(b));
             }
 
             @Test
             void lessThanOrEqualTo_returns_true() {
-                assertTrue(is(a).lessThanOrEqualTo(b));
+                assertTrue(ComparableUtils.is(a).lessThanOrEqualTo(b));
             }
 
             @Test
@@ -316,12 +313,12 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
                 @Test
                 void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
+                    assertTrue(ComparableUtils.is(a).between(b, c));
                 }
 
                 @Test
                 void betweenExclusive_returns_true() {
-                    assertTrue(is(a).betweenExclusive(b, c));
+                    assertTrue(ComparableUtils.is(a).betweenExclusive(b, c));
                 }
 
                 @Test
@@ -343,12 +340,12 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
                 @Test
                 void between_returns_true() {
-                    assertTrue(is(a).between(b, c));
+                    assertTrue(ComparableUtils.is(a).between(b, c));
                 }
 
                 @Test
                 void betweenExclusive_returns_false() {
-                    assertFalse(is(a).betweenExclusive(b, c));
+                    assertFalse(ComparableUtils.is(a).betweenExclusive(b, c));
                 }
 
                 @Test
@@ -370,12 +367,12 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
                 @Test
                 void between_returns_false() {
-                    assertFalse(is(a).between(b, c));
+                    assertFalse(ComparableUtils.is(a).between(b, c));
                 }
 
                 @Test
                 void betweenExclusive_returns_false() {
-                    assertFalse(is(a).betweenExclusive(b, c));
+                    assertFalse(ComparableUtils.is(a).betweenExclusive(b, c));
                 }
 
                 @Test
@@ -393,27 +390,27 @@ public class ComparableUtilsTest extends AbstractLangTest {
 
             @Test
             void equalTo_returns_false() {
-                assertFalse(is(a).equalTo(b));
+                assertFalse(ComparableUtils.is(a).equalTo(b));
             }
 
             @Test
             void greaterThan_returns_false() {
-                assertFalse(is(a).greaterThan(b));
+                assertFalse(ComparableUtils.is(a).greaterThan(b));
             }
 
             @Test
             void greaterThanOrEqualTo_returns_false() {
-                assertFalse(is(a).greaterThanOrEqualTo(b));
+                assertFalse(ComparableUtils.is(a).greaterThanOrEqualTo(b));
             }
 
             @Test
             void lessThan_returns_true() {
-                assertTrue(is(a).lessThan(b));
+                assertTrue(ComparableUtils.is(a).lessThan(b));
             }
 
             @Test
             void lessThanOrEqualTo_returns_true() {
-                assertTrue(is(a).lessThanOrEqualTo(b));
+                assertTrue(ComparableUtils.is(a).lessThanOrEqualTo(b));
             }
 
             @Test
@@ -440,8 +437,63 @@ public class ComparableUtilsTest extends AbstractLangTest {
         BigDecimal a = BigDecimal.ONE;
     }
 
+    private static class MyComparable implements Comparable<MyComparable> {
+
+        private final int i;
+
+        MyComparable(final int i) {
+            this.i = i;
+        }
+
+        @Override
+        public int compareTo(final MyComparable o) {
+            return Integer.compare(i, o != null ? o.i : 0);
+        }
+
+    }
+
     @Test
-    public void testMax() {
+    void testIsEqualTo() {
+        assertNullPointerException(() -> ComparableUtils.is("a").equalTo(null));
+        assertFalse(ComparableUtils.is(new MyComparable(1)).equalTo(null));
+        assertFalse(ComparableUtils.is((String) null).equalTo("a"));
+        assertTrue(ComparableUtils.is("a").equalTo("a"));
+    }
+
+    @Test
+    void testIsGreaterThan() {
+        assertNullPointerException(() -> ComparableUtils.is("a").greaterThan(null));
+        assertTrue(ComparableUtils.is(new MyComparable(1)).greaterThan(null));
+        assertFalse(ComparableUtils.is((String) null).greaterThan("a"));
+        assertFalse(ComparableUtils.is("a").greaterThan("a"));
+    }
+
+    @Test
+    void testIsGreaterThanOrEqualTo() {
+        assertNullPointerException(() -> ComparableUtils.is("a").greaterThanOrEqualTo(null));
+        assertTrue(ComparableUtils.is(new MyComparable(1)).greaterThanOrEqualTo(null));
+        assertFalse(ComparableUtils.is((String) null).greaterThanOrEqualTo("a"));
+        assertTrue(ComparableUtils.is("a").greaterThanOrEqualTo("a"));
+    }
+
+    @Test
+    void testIsLessThan() {
+        assertNullPointerException(() -> ComparableUtils.is("a").lessThan(null));
+        assertFalse(ComparableUtils.is(new MyComparable(1)).lessThan(null));
+        assertFalse(ComparableUtils.is((String) null).lessThan("a"));
+        assertFalse(ComparableUtils.is("a").lessThan("a"));
+    }
+
+    @Test
+    void testIsLessThanOrEqualTo() {
+        assertNullPointerException(() -> ComparableUtils.is("a").greaterThanOrEqualTo(null));
+        assertTrue(ComparableUtils.is(new MyComparable(1)).greaterThanOrEqualTo(null));
+        assertFalse(ComparableUtils.is((String) null).lessThanOrEqualTo("a"));
+        assertTrue(ComparableUtils.is("a").lessThanOrEqualTo("a"));
+    }
+
+    @Test
+    void testMax() {
         assertEquals(Instant.MAX, ComparableUtils.max(Instant.MAX, Instant.MAX));
         assertEquals(Instant.MIN, ComparableUtils.max(Instant.MIN, Instant.MIN));
         assertEquals(Instant.MAX, ComparableUtils.max(Instant.MIN, Instant.MAX));
@@ -457,7 +509,7 @@ public class ComparableUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMin() {
+    void testMin() {
         assertEquals(Instant.MAX, ComparableUtils.min(Instant.MAX, Instant.MAX));
         assertEquals(Instant.MIN, ComparableUtils.min(Instant.MIN, Instant.MIN));
         assertEquals(Instant.MIN, ComparableUtils.min(Instant.MIN, Instant.MAX));

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertIndexOutOfBoundsException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -39,7 +40,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests CharSequenceUtils
  */
-public class CharSequenceUtilsTest extends AbstractLangTest {
+class CharSequenceUtilsTest extends AbstractLangTest {
 
     private abstract static class RunTest {
 
@@ -178,7 +179,7 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new CharSequenceUtils());
         final Constructor<?>[] cons = CharSequenceUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -189,12 +190,12 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("lastIndexWithStandardCharSequence")
-    public void testLastIndexOfWithDifferentCharSequences(final CharSequence cs, final CharSequence search, final int start, final int expected) {
+    void testLastIndexOfWithDifferentCharSequences(final CharSequence cs, final CharSequence search, final int start, final int expected) {
         assertEquals(expected, CharSequenceUtils.lastIndexOf(cs, search, start));
     }
 
     @Test
-    public void testNewLastIndexOf() {
+    void testNewLastIndexOf() {
         testNewLastIndexOfSingle("808087847-1321060740-635567660180086727-925755305", "-1321060740-635567660", 21);
         testNewLastIndexOfSingle("", "");
         testNewLastIndexOfSingle("1", "");
@@ -252,7 +253,7 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRegionMatches() {
+    void testRegionMatches() {
         for (final TestData data : TEST_DATA) {
             new RunTest() {
                 @Override
@@ -276,7 +277,7 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSubSequence() {
+    void testSubSequence() {
         //
         // null input
         //
@@ -294,17 +295,17 @@ public class CharSequenceUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSubSequenceNegativeStart() {
-        assertThrows(IndexOutOfBoundsException.class, () -> CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
+    void testSubSequenceNegativeStart() {
+        assertIndexOutOfBoundsException(() -> CharSequenceUtils.subSequence(StringUtils.EMPTY, -1));
     }
 
     @Test
-    public void testSubSequenceTooLong() {
-        assertThrows(IndexOutOfBoundsException.class, () -> CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
+    void testSubSequenceTooLong() {
+        assertIndexOutOfBoundsException(() -> CharSequenceUtils.subSequence(StringUtils.EMPTY, 1));
     }
 
     @Test
-    public void testToCharArray() {
+    void testToCharArray() {
         final StringBuilder builder = new StringBuilder("abcdefg");
         final char[] expected = builder.toString().toCharArray();
         assertArrayEquals(expected, CharSequenceUtils.toCharArray(builder));

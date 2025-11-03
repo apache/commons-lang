@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,14 +34,14 @@ import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.builder.EqualsBuilder}.
+ * Tests {@link org.apache.commons.lang3.builder.EqualsBuilder}.
  */
-public class EqualsBuilderTest extends AbstractLangTest {
+class EqualsBuilderTest extends AbstractLangTest {
 
     public static class TestACanEqualB {
         private final int a;
 
-        public TestACanEqualB(final int a) {
+        TestACanEqualB(final int a) {
             this.a = a;
         }
 
@@ -70,7 +72,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     public static class TestBCanEqualA {
         private final int b;
 
-        public TestBCanEqualA(final int b) {
+        TestBCanEqualA(final int b) {
             this.b = b;
         }
 
@@ -176,6 +178,11 @@ public class EqualsBuilderTest extends AbstractLangTest {
         @Override
         public boolean equals(final Object obj) {
             return EqualsBuilder.reflectionEquals(this, obj);
+        }
+
+        @Override
+        public int hashCode() {
+            return one.hashCode();
         }
 
         public void setObjectReference(final TestObjectReference reference) {
@@ -364,7 +371,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAccessors() {
+    void testAccessors() {
         final EqualsBuilder equalsBuilder = new EqualsBuilder();
         assertTrue(equalsBuilder.isEquals());
         equalsBuilder.setEquals(true);
@@ -374,7 +381,38 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBoolean() {
+    void testBigDecimal() {
+        testBigDecimalNotEq(BigDecimal.valueOf(1), BigDecimal.valueOf(2));
+        testBigDecimalNotEq(BigDecimal.valueOf(1), BigDecimal.valueOf(1.0));
+        testBigDecimalNotEq(BigDecimal.valueOf(1), BigDecimal.valueOf(1.00));
+        // 2.0 is not equal to 2.00, see BigDecimal#equals()
+        testBigDecimalNotEq(BigDecimal.valueOf(20, 1), BigDecimal.valueOf(200, 2));
+    }
+
+    private void testBigDecimalNotEq(final BigDecimal o1, final BigDecimal o2) {
+        assertNotEquals(o1, o2);
+        assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, Double.NaN).isEquals());
+        assertTrue(new EqualsBuilder().append(Double.NaN, Double.NaN).isEquals());
+        assertTrue(new EqualsBuilder().append(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY).isEquals());
+    }
+
+    @Test
+    void testBigInteger() {
+        final BigInteger o1 = BigInteger.valueOf(1);
+        final BigInteger o2 = BigInteger.valueOf(2);
+        assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, o2).append(o1, o1).isEquals());
+        assertFalse(new EqualsBuilder().append(o1, Double.NaN).isEquals());
+        assertTrue(new EqualsBuilder().append(Double.NaN, Double.NaN).isEquals());
+        assertTrue(new EqualsBuilder().append(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY).isEquals());
+    }
+
+    @Test
+    void testBoolean() {
         final boolean o1 = true;
         final boolean o2 = false;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
@@ -383,7 +421,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBooleanArray() {
+    void testBooleanArray() {
         final boolean[] obj1 = new boolean[2];
         obj1[0] = true;
         obj1[1] = false;
@@ -405,7 +443,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testBooleanArrayHiddenByObject() {
+    void testBooleanArrayHiddenByObject() {
         final boolean[] array1 = new boolean[2];
         array1[0] = true;
         array1[1] = false;
@@ -423,7 +461,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testByte() {
+    void testByte() {
         final byte o1 = 1;
         final byte o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
@@ -432,7 +470,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testByteArray() {
+    void testByteArray() {
         final byte[] obj1 = new byte[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -454,7 +492,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testByteArrayHiddenByObject() {
+    void testByteArrayHiddenByObject() {
         final byte[] array1 = new byte[2];
         array1[0] = 5;
         array1[1] = 6;
@@ -472,7 +510,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testChar() {
+    void testChar() {
         final char o1 = 1;
         final char o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
@@ -481,7 +519,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCharArray() {
+    void testCharArray() {
         final char[] obj1 = new char[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -503,7 +541,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCharArrayHiddenByObject() {
+    void testCharArrayHiddenByObject() {
         final char[] array1 = new char[2];
         array1[0] = 5;
         array1[1] = 6;
@@ -525,7 +563,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
      * not handled properly. s. LANG-606
      */
     @Test
-    public void testCyclicalObjectReferences() {
+    void testCyclicalObjectReferences() {
         final TestObjectReference refX1 = new TestObjectReference(1);
         final TestObjectReference x1 = new TestObjectReference(1);
         x1.setObjectReference(refX1);
@@ -547,7 +585,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDouble() {
+    void testDouble() {
         final double o1 = 1;
         final double o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
@@ -559,7 +597,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDoubleArray() {
+    void testDoubleArray() {
         final double[] obj1 = new double[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -581,7 +619,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDoubleArrayHiddenByObject() {
+    void testDoubleArrayHiddenByObject() {
         final double[] array1 = new double[2];
         array1[0] = 5;
         array1[1] = 6;
@@ -599,7 +637,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFloat() {
+    void testFloat() {
         final float o1 = 1;
         final float o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
@@ -611,7 +649,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFloatArray() {
+    void testFloatArray() {
         final float[] obj1 = new float[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -633,7 +671,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFloatArrayHiddenByObject() {
+    void testFloatArrayHiddenByObject() {
         final float[] array1 = new float[2];
         array1[0] = 5;
         array1[1] = 6;
@@ -651,7 +689,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInt() {
+    void testInt() {
         final int o1 = 1;
         final int o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
@@ -660,7 +698,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIntArray() {
+    void testIntArray() {
         final int[] obj1 = new int[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -682,7 +720,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIntArrayHiddenByObject() {
+    void testIntArrayHiddenByObject() {
         final int[] array1 = new int[2];
         array1[0] = 5;
         array1[1] = 6;
@@ -700,7 +738,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsRegistered() throws Exception {
+    void testIsRegistered() throws Exception {
         final Object firstObject = new Object();
         final Object secondObject = new Object();
 
@@ -719,7 +757,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLong() {
+    void testLong() {
         final long o1 = 1L;
         final long o2 = 2L;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
@@ -728,7 +766,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLongArray() {
+    void testLongArray() {
         final long[] obj1 = new long[2];
         obj1[0] = 5L;
         obj1[1] = 6L;
@@ -750,7 +788,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLongArrayHiddenByObject() {
+    void testLongArrayHiddenByObject() {
         final long[] array1 = new long[2];
         array1[0] = 5L;
         array1[1] = 6L;
@@ -768,7 +806,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMixedArray() {
+    void testMixedArray() {
         final Object[] array1 = new Object[2];
         final Object[] array2 = new Object[2];
         for (int i = 0; i < array1.length; ++i) {
@@ -787,7 +825,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiBooleanArray() {
+    void testMultiBooleanArray() {
         final boolean[][] array1 = new boolean[2][2];
         final boolean[][] array2 = new boolean[2][2];
         for (int i = 0; i < array1.length; ++i) {
@@ -810,7 +848,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiByteArray() {
+    void testMultiByteArray() {
         final byte[][] array1 = new byte[2][2];
         final byte[][] array2 = new byte[2][2];
         for (byte i = 0; i < array1.length; ++i) {
@@ -826,7 +864,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiCharArray() {
+    void testMultiCharArray() {
         final char[][] array1 = new char[2][2];
         final char[][] array2 = new char[2][2];
         for (char i = 0; i < array1.length; ++i) {
@@ -842,7 +880,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiDoubleArray() {
+    void testMultiDoubleArray() {
         final double[][] array1 = new double[2][2];
         final double[][] array2 = new double[2][2];
         for (int i = 0; i < array1.length; ++i) {
@@ -858,7 +896,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiFloatArray() {
+    void testMultiFloatArray() {
         final float[][] array1 = new float[2][2];
         final float[][] array2 = new float[2][2];
         for (int i = 0; i < array1.length; ++i) {
@@ -874,7 +912,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiIntArray() {
+    void testMultiIntArray() {
         final int[][] array1 = new int[2][2];
         final int[][] array2 = new int[2][2];
         for (int i = 0; i < array1.length; ++i) {
@@ -890,7 +928,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiLongArray() {
+    void testMultiLongArray() {
         final long[][] array1 = new long[2][2];
         final long[][] array2 = new long[2][2];
         for (int i = 0; i < array1.length; ++i) {
@@ -906,7 +944,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiShortArray() {
+    void testMultiShortArray() {
         final short[][] array1 = new short[2][2];
         final short[][] array2 = new short[2][2];
         for (short i = 0; i < array1.length; ++i) {
@@ -925,7 +963,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
      * Test from https://issues.apache.org/jira/browse/LANG-42
      */
     @Test
-    public void testNpeForNullElement() {
+    void testNpeForNullElement() {
         final Object[] x1 = {Integer.valueOf(1), null, Integer.valueOf(3)};
         final Object[] x2 = {Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)};
 
@@ -935,7 +973,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObject() {
+    void testObject() {
         final TestObject o1 = new TestObject(4);
         final TestObject o2 = new TestObject(5);
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
@@ -951,7 +989,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectArray() {
+    void testObjectArray() {
         final TestObject[] obj1 = new TestObject[3];
         obj1[0] = new TestObject(4);
         obj1[1] = new TestObject(5);
@@ -983,7 +1021,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectArrayHiddenByObject() {
+    void testObjectArrayHiddenByObject() {
         final TestObject[] array1 = new TestObject[2];
         array1[0] = new TestObject(4);
         array1[1] = new TestObject(5);
@@ -1001,7 +1039,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectBuild() {
+    void testObjectBuild() {
         final TestObject o1 = new TestObject(4);
         final TestObject o2 = new TestObject(5);
         assertEquals(Boolean.TRUE, new EqualsBuilder().append(o1, o1).build());
@@ -1017,7 +1055,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectRecursive() {
+    void testObjectRecursive() {
         final TestRecursiveInnerObject i1_1 = new TestRecursiveInnerObject(1);
         final TestRecursiveInnerObject i1_2 = new TestRecursiveInnerObject(1);
         final TestRecursiveInnerObject i2_1 = new TestRecursiveInnerObject(2);
@@ -1040,7 +1078,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectRecursiveCycle() {
+    void testObjectRecursiveCycle() {
         final TestRecursiveCycleObject o1A = new TestRecursiveCycleObject(1);
         final TestRecursiveCycleObject i1A = new TestRecursiveCycleObject(o1A, 100);
         o1A.setCycle(i1A);
@@ -1062,7 +1100,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectRecursiveCycleSelfreference() {
+    void testObjectRecursiveCycleSelfreference() {
         final TestRecursiveCycleObject o1A = new TestRecursiveCycleObject(1);
         final TestRecursiveCycleObject o1B = new TestRecursiveCycleObject(1);
         final TestRecursiveCycleObject o2 = new TestRecursiveCycleObject(2);
@@ -1073,7 +1111,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectRecursiveGenericInteger() {
+    void testObjectRecursiveGenericInteger() {
         final TestRecursiveGenericObject<Integer> o1A = new TestRecursiveGenericObject<>(1);
         final TestRecursiveGenericObject<Integer> o1B = new TestRecursiveGenericObject<>(1);
         final TestRecursiveGenericObject<Integer> o2 = new TestRecursiveGenericObject<>(2);
@@ -1085,7 +1123,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectRecursiveGenericString() {
+    void testObjectRecursiveGenericString() {
         // Note: Do not use literals, because string literals are always mapped by same object (internal() of String))!
         final String s1A = String.valueOf(1);
         final TestRecursiveGenericObject<String> o1A = new TestRecursiveGenericObject<>(s1A);
@@ -1102,7 +1140,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testObjectsBypassReflectionClasses() {
+    void testObjectsBypassReflectionClasses() {
         final List<Class<?>> bypassReflectionClasses = new ArrayList<>();
         bypassReflectionClasses.add(List.class);
         bypassReflectionClasses.add(Boolean.class);
@@ -1110,7 +1148,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRaggedArray() {
+    void testRaggedArray() {
         final long[][] array1 = new long[2][];
         final long[][] array2 = new long[2][];
         for (int i = 0; i < array1.length; ++i) {
@@ -1128,7 +1166,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionAppend() {
+    void testReflectionAppend() {
         assertTrue(EqualsBuilder.reflectionEquals(null, null));
 
         final TestObject o1 = new TestObject(4);
@@ -1147,7 +1185,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionArrays() {
+    void testReflectionArrays() {
 
         final TestObject one = new TestObject(1);
         final TestObject two = new TestObject(2);
@@ -1170,7 +1208,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionEquals() {
+    void testReflectionEquals() {
         final TestObject o1 = new TestObject(4);
         final TestObject o2 = new TestObject(5);
         assertTrue(EqualsBuilder.reflectionEquals(o1, o1));
@@ -1246,7 +1284,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionEqualsExcludeFields() {
+    void testReflectionEqualsExcludeFields() {
         final TestObjectWithMultipleFields x1 = new TestObjectWithMultipleFields(1, 2, 3);
         final TestObjectWithMultipleFields x2 = new TestObjectWithMultipleFields(1, 3, 4);
 
@@ -1276,7 +1314,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReflectionHierarchyEquals() {
+    void testReflectionHierarchyEquals() {
         testReflectionHierarchyEquals(false);
         testReflectionHierarchyEquals(true);
         // Transients
@@ -1344,7 +1382,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReset() {
+    void testReset() {
         final EqualsBuilder equalsBuilder = new EqualsBuilder();
         assertTrue(equalsBuilder.isEquals());
         equalsBuilder.setEquals(false);
@@ -1354,7 +1392,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testShort() {
+    void testShort() {
         final short o1 = 1;
         final short o2 = 2;
         assertTrue(new EqualsBuilder().append(o1, o1).isEquals());
@@ -1363,7 +1401,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testShortArray() {
+    void testShortArray() {
         final short[] obj1 = new short[2];
         obj1[0] = 5;
         obj1[1] = 6;
@@ -1385,7 +1423,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testShortArrayHiddenByObject() {
+    void testShortArrayHiddenByObject() {
         final short[] array1 = new short[2];
         array1[0] = 5;
         array1[1] = 6;
@@ -1403,7 +1441,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSuper() {
+    void testSuper() {
         final TestObject o1 = new TestObject(4);
         final TestObject o2 = new TestObject(5);
         assertTrue(new EqualsBuilder().appendSuper(true).append(o1, o1).isEquals());
@@ -1415,7 +1453,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToEqualsExclude() {
+    void testToEqualsExclude() {
         TestObjectEqualsExclude one = new TestObjectEqualsExclude(1, 2);
         TestObjectEqualsExclude two = new TestObjectEqualsExclude(1, 3);
 
@@ -1433,7 +1471,7 @@ public class EqualsBuilderTest extends AbstractLangTest {
      * See https://issues.apache.org/jira/browse/LANG-6
      */
     @Test
-    public void testUnrelatedClasses() {
+    void testUnrelatedClasses() {
         final Object[] x = {new TestACanEqualB(1)};
         final Object[] y = {new TestBCanEqualA(1)};
 

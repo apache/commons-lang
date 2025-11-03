@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,9 +21,9 @@ import java.util.function.Predicate;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
- * Utility library to provide helper methods for translating {@link Comparable#compareTo} result into a boolean.
+ * Helper translating {@link Comparable#compareTo} results to booleans.
  *
- * <p>Example: {@code boolean x = is(myComparable).lessThanOrEqualTo(otherComparable)}</p>
+ * <p>Example: {@code boolean x = ComparableUtils.is(myComparable).lessThanOrEqualTo(otherComparable)}</p>
  *
  * <p>#ThreadSafe#</p>
  *
@@ -32,7 +32,7 @@ import org.apache.commons.lang3.ObjectUtils;
 public class ComparableUtils {
 
     /**
-     * Provides access to the available methods
+     * Compares objects of a given generic type {@code A}.
      *
      * @param <A> the type of objects that this object may be compared against.
      */
@@ -45,7 +45,7 @@ public class ComparableUtils {
         }
 
         /**
-         * Checks if {@code [b <= a <= c]} or {@code [b >= a >= c]} where the {@code a} is object passed to {@link #is}.
+         * Tests if {@code [b <= a <= c]} or {@code [b >= a >= c]} where the {@code a} is object passed to {@link #is}.
          *
          * @param b the object to compare to the base object
          * @param c the object to compare to the base object
@@ -56,7 +56,7 @@ public class ComparableUtils {
         }
 
         /**
-         * Checks if {@code (b < a < c)} or {@code (b > a > c)} where the {@code a} is object passed to {@link #is}.
+         * Tests if {@code (b < a < c)} or {@code (b > a > c)} where the {@code a} is object passed to {@link #is}.
          *
          * @param b the object to compare to the base object
          * @param c the object to compare to the base object
@@ -75,58 +75,58 @@ public class ComparableUtils {
         }
 
         /**
-         * Checks if the object passed to {@link #is} is equal to {@code b}
+         * Tests if the object passed to {@link #is} is equal to {@code b}
          *
          * @param b the object to compare to the base object
          * @return true if the value returned by {@link Comparable#compareTo} is equal to {@code 0}
          */
         public boolean equalTo(final A b) {
-            return a.compareTo(b) == 0;
+            return a != null && a.compareTo(b) == 0;
         }
 
         /**
-         * Checks if the object passed to {@link #is} is greater than {@code b}
+         * Tests if the object passed to {@link #is} is greater than {@code b}
          *
          * @param b the object to compare to the base object
          * @return true if the value returned by {@link Comparable#compareTo} is greater than {@code 0}
          */
         public boolean greaterThan(final A b) {
-            return a.compareTo(b) > 0;
+            return a != null && a.compareTo(b) > 0;
         }
 
         /**
-         * Checks if the object passed to {@link #is} is greater than or equal to {@code b}
+         * Tests if the object passed to {@link #is} is greater than or equal to {@code b}
          *
          * @param b the object to compare to the base object
          * @return true if the value returned by {@link Comparable#compareTo} is greater than or equal to {@code 0}
          */
         public boolean greaterThanOrEqualTo(final A b) {
-            return a.compareTo(b) >= 0;
+            return a != null && a.compareTo(b) >= 0;
         }
 
         /**
-         * Checks if the object passed to {@link #is} is less than {@code b}
+         * Tests if the object passed to {@link #is} is less than {@code b}
          *
          * @param b the object to compare to the base object
          * @return true if the value returned by {@link Comparable#compareTo} is less than {@code 0}
          */
         public boolean lessThan(final A b) {
-            return a.compareTo(b) < 0;
+            return a != null && a.compareTo(b) < 0;
         }
 
         /**
-         * Checks if the object passed to {@link #is} is less than or equal to {@code b}
+         * Tests if the object passed to {@link #is} is less than or equal to {@code b}
          *
          * @param b the object to compare to the base object
          * @return true if the value returned by {@link Comparable#compareTo} is less than or equal to {@code 0}
          */
         public boolean lessThanOrEqualTo(final A b) {
-            return a.compareTo(b) <= 0;
+            return a != null && a.compareTo(b) <= 0;
         }
     }
 
     /**
-     * Checks if {@code [b <= a <= c]} or {@code [b >= a >= c]} where the {@code a} is the tested object.
+     * Creates a predicate to test if {@code [b <= a <= c]} or {@code [b >= a >= c]} where the {@code a} is the tested object.
      *
      * @param b the object to compare to the tested object
      * @param c the object to compare to the tested object
@@ -138,7 +138,7 @@ public class ComparableUtils {
     }
 
     /**
-     * Checks if {@code (b < a < c)} or {@code (b > a > c)} where the {@code a} is the tested object.
+     * Creates a predicate to test if {@code (b < a < c)} or {@code (b > a > c)} where the {@code a} is the tested object.
      *
      * @param b the object to compare to the tested object
      * @param c the object to compare to the tested object
@@ -150,7 +150,7 @@ public class ComparableUtils {
     }
 
     /**
-     * Checks if the tested object is greater than or equal to {@code b}
+     * Creates a predicate to test if the tested object is greater than or equal to {@code b}
      *
      * @param b the object to compare to the tested object
      * @param <A> type of the test object
@@ -162,7 +162,7 @@ public class ComparableUtils {
     }
 
     /**
-     * Checks if the tested object is greater than {@code b}
+     * Creates a predicate to test if the tested object is greater than {@code b}
      *
      * @param b the object to compare to the tested object
      * @param <A> type of the test object
@@ -173,7 +173,7 @@ public class ComparableUtils {
     }
 
     /**
-     * Provides access to the available methods
+     * Creates a new {@link ComparableCheckBuilder}.
      *
      * @param a base object in the further comparison
      * @param <A> type of the base object
@@ -184,7 +184,7 @@ public class ComparableUtils {
     }
 
     /**
-     * Checks if the tested object is less than or equal to {@code b}
+     * Creates a predicate to test if the tested object is less than or equal to {@code b}
      *
      * @param b the object to compare to the tested object
      * @param <A> type of the test object
@@ -196,7 +196,7 @@ public class ComparableUtils {
     }
 
     /**
-     * Checks if the tested object is less than {@code b}
+     * Creates a predicate to test if the tested object is less than {@code b}
      *
      * @param b the object to compare to the tested object
      * @param <A> type of the test object

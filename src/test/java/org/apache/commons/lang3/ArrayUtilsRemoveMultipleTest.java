@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,23 +17,23 @@
 
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertIndexOutOfBoundsException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link ArrayUtils} remove and removeElement methods.
  */
-public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
+class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
 
     private static final int[] NULL_INDICES = null;
 
     @Test
-    public void testRemoveAllBooleanArray() {
+    void testRemoveAllBooleanArray() {
         boolean[] array;
 
         array = ArrayUtils.removeAll(new boolean[] { true }, 0);
@@ -94,17 +94,17 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllBooleanArrayNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new boolean[] { true, false }, -1));
+    void testRemoveAllBooleanArrayNegativeIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new boolean[] { true, false }, -1));
     }
 
     @Test
-    public void testRemoveAllBooleanArrayOutOfBoundsIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new boolean[] { true, false }, 2));
+    void testRemoveAllBooleanArrayOutOfBoundsIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new boolean[] { true, false }, 2));
     }
 
     @Test
-    public void testRemoveAllBooleanArrayRemoveNone() {
+    void testRemoveAllBooleanArrayRemoveNone() {
         final boolean[] array1 = { true, false };
         final boolean[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
@@ -113,7 +113,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllByteArray() {
+    void testRemoveAllByteArray() {
         byte[] array;
 
         array = ArrayUtils.removeAll(new byte[] { 1 }, 0);
@@ -166,17 +166,17 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllByteArrayNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new byte[] { 1, 2 }, -1));
+    void testRemoveAllByteArrayNegativeIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new byte[] { 1, 2 }, -1));
     }
 
     @Test
-    public void testRemoveAllByteArrayOutOfBoundsIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new byte[] { 1, 2 }, 2));
+    void testRemoveAllByteArrayOutOfBoundsIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new byte[] { 1, 2 }, 2));
     }
 
     @Test
-    public void testRemoveAllByteArrayRemoveNone() {
+    void testRemoveAllByteArrayRemoveNone() {
         final byte[] array1 = { 1, 2 };
         final byte[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
@@ -185,7 +185,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllCharArray() {
+    void testRemoveAllCharArray() {
         char[] array;
 
         array = ArrayUtils.removeAll(new char[] { 'a' }, 0);
@@ -238,17 +238,17 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllCharArrayNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new char[] { 'a', 'b' }, -1));
+    void testRemoveAllCharArrayNegativeIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new char[] { 'a', 'b' }, -1));
     }
 
     @Test
-    public void testRemoveAllCharArrayOutOfBoundsIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new char[] { 'a', 'b' }, 2));
+    void testRemoveAllCharArrayOutOfBoundsIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new char[] { 'a', 'b' }, 2));
     }
 
     @Test
-    public void testRemoveAllCharArrayRemoveNone() {
+    void testRemoveAllCharArrayRemoveNone() {
         final char[] array1 = { 'a', 'b' };
         final char[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
@@ -257,7 +257,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllDoubleArray() {
+    void testRemoveAllDoubleArray() {
         double[] array;
 
         array = ArrayUtils.removeAll(new double[] { 1 }, 0);
@@ -310,17 +310,17 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllDoubleArrayNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new double[] { 1, 2 }, -1));
+    void testRemoveAllDoubleArrayNegativeIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new double[] { 1, 2 }, -1));
     }
 
     @Test
-    public void testRemoveAllDoubleArrayOutOfBoundsIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new double[] { 1, 2 }, 2));
+    void testRemoveAllDoubleArrayOutOfBoundsIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new double[] { 1, 2 }, 2));
     }
 
     @Test
-    public void testRemoveAllDoubleArrayRemoveNone() {
+    void testRemoveAllDoubleArrayRemoveNone() {
         final double[] array1 = { 1, 2 };
         final double[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
@@ -329,7 +329,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllFloatArray() {
+    void testRemoveAllFloatArray() {
         float[] array;
 
         array = ArrayUtils.removeAll(new float[] { 1 }, 0);
@@ -382,17 +382,17 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllFloatArrayNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new float[] { 1, 2 }, -1));
+    void testRemoveAllFloatArrayNegativeIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new float[] { 1, 2 }, -1));
     }
 
     @Test
-    public void testRemoveAllFloatArrayOutOfBoundsIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new float[] { 1, 2 }, 2));
+    void testRemoveAllFloatArrayOutOfBoundsIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new float[] { 1, 2 }, 2));
     }
 
     @Test
-    public void testRemoveAllFloatArrayRemoveNone() {
+    void testRemoveAllFloatArrayRemoveNone() {
         final float[] array1 = { 1, 2 };
         final float[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
@@ -401,7 +401,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllIntArray() {
+    void testRemoveAllIntArray() {
         int[] array;
 
         array = ArrayUtils.removeAll(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.EMPTY_INT_ARRAY);
@@ -460,17 +460,17 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllIntArrayNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new int[] { 1, 2 }, -1));
+    void testRemoveAllIntArrayNegativeIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new int[] { 1, 2 }, -1));
     }
 
     @Test
-    public void testRemoveAllIntArrayOutOfBoundsIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new int[] { 1, 2 }, 2));
+    void testRemoveAllIntArrayOutOfBoundsIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new int[] { 1, 2 }, 2));
     }
 
     @Test
-    public void testRemoveAllIntArrayRemoveNone() {
+    void testRemoveAllIntArrayRemoveNone() {
         final int[] array1 = { 1, 2 };
         final int[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
@@ -479,7 +479,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllLongArray() {
+    void testRemoveAllLongArray() {
         long[] array;
 
         array = ArrayUtils.removeAll(new long[] { 1 }, 0);
@@ -532,17 +532,17 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllLongArrayNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new long[] { 1, 2 }, -1));
+    void testRemoveAllLongArrayNegativeIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new long[] { 1, 2 }, -1));
     }
 
     @Test
-    public void testRemoveAllLongArrayOutOfBoundsIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new long[] { 1, 2 }, 2));
+    void testRemoveAllLongArrayOutOfBoundsIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new long[] { 1, 2 }, 2));
     }
 
     @Test
-    public void testRemoveAllLongArrayRemoveNone() {
+    void testRemoveAllLongArrayRemoveNone() {
         final long[] array1 = { 1, 2 };
         final long[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
@@ -551,7 +551,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllNullBooleanArray() {
+    void testRemoveAllNullBooleanArray() {
         assertNull(ArrayUtils.removeAll((boolean[]) null, 0));
         assertNull(ArrayUtils.removeAll((boolean[]) null, NULL_INDICES));
         final boolean[] array0 = {};
@@ -563,7 +563,8 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllNullByteArray() {
+    void testRemoveAllNullByteArray() {
+        assertNull(ArrayUtils.removeAll((byte[]) null));
         assertNull(ArrayUtils.removeAll((byte[]) null, 0));
         assertNull(ArrayUtils.removeAll((byte[]) null, NULL_INDICES));
         final byte[] array0 = {};
@@ -575,7 +576,8 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllNullCharArray() {
+    void testRemoveAllNullCharArray() {
+        assertNull(ArrayUtils.removeAll((char[]) null));
         assertNull(ArrayUtils.removeAll((char[]) null, 0));
         assertNull(ArrayUtils.removeAll((char[]) null, NULL_INDICES));
         final char[] array0 = {};
@@ -587,7 +589,8 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllNullDoubleArray() {
+    void testRemoveAllNullDoubleArray() {
+        assertNull(ArrayUtils.removeAll((double[]) null));
         assertNull(ArrayUtils.removeAll((double[]) null, 0));
         assertNull(ArrayUtils.removeAll((double[]) null, NULL_INDICES));
         final double[] array0 = {};
@@ -599,7 +602,8 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllNullFloatArray() {
+    void testRemoveAllNullFloatArray() {
+        assertNull(ArrayUtils.removeAll((float[]) null));
         assertNull(ArrayUtils.removeAll((float[]) null, 0));
         assertNull(ArrayUtils.removeAll((float[]) null, NULL_INDICES));
         final float[] array0 = {};
@@ -611,7 +615,8 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllNullIntArray() {
+    void testRemoveAllNullIntArray() {
+        assertNull(ArrayUtils.removeAll((int[]) null));
         assertNull(ArrayUtils.removeAll((int[]) null, 0));
         assertNull(ArrayUtils.removeAll((int[]) null, NULL_INDICES));
         final int[] array0 = {};
@@ -623,7 +628,8 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllNullLongArray() {
+    void testRemoveAllNullLongArray() {
+        assertNull(ArrayUtils.removeAll((long[]) null));
         assertNull(ArrayUtils.removeAll((long[]) null, 0));
         assertNull(ArrayUtils.removeAll((long[]) null, NULL_INDICES));
         final long[] array0 = {};
@@ -635,7 +641,8 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllNullObjectArray() {
+    void testRemoveAllNullObjectArray() {
+        assertNull(ArrayUtils.removeAll((Object[]) null));
         assertNull(ArrayUtils.removeAll((Object[]) null, 0));
         assertNull(ArrayUtils.removeAll((Object[]) null, NULL_INDICES));
         final Object[] array0 = {};
@@ -647,7 +654,8 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllNullShortArray() {
+    void testRemoveAllNullShortArray() {
+        assertNull(ArrayUtils.removeAll((short[]) null));
         assertNull(ArrayUtils.removeAll((short[]) null, 0));
         assertNull(ArrayUtils.removeAll((short[]) null, NULL_INDICES));
         final short[] array0 = {};
@@ -659,7 +667,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllNumberArray() {
+    void testRemoveAllNumberArray() {
         final Number[] inarray = { Integer.valueOf(1), Long.valueOf(2L), Byte.valueOf((byte) 3) };
         assertEquals(3, inarray.length);
         Number[] outarray;
@@ -690,7 +698,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllObjectArray() {
+    void testRemoveAllObjectArray() {
         Object[] array;
 
         array = ArrayUtils.removeAll(new Object[] { "a" }, 0);
@@ -739,17 +747,17 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllObjectArrayNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new Object[] { "a", "b" }, -1));
+    void testRemoveAllObjectArrayNegativeIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new Object[] { "a", "b" }, -1));
     }
 
     @Test
-    public void testRemoveAllObjectArrayOutOfBoundsIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new Object[] { "a", "b" }, 2));
+    void testRemoveAllObjectArrayOutOfBoundsIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new Object[] { "a", "b" }, 2));
     }
 
     @Test
-    public void testRemoveAllObjectArrayRemoveNone() {
+    void testRemoveAllObjectArrayRemoveNone() {
         final Object[] array1 = { "foo", "bar", "baz" };
         final Object[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
@@ -758,7 +766,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllShortArray() {
+    void testRemoveAllShortArray() {
         short[] array;
 
         array = ArrayUtils.removeAll(new short[] { 1 }, 0);
@@ -811,17 +819,17 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveAllShortArrayNegativeIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new short[] { 1, 2 }, -1, 0));
+    void testRemoveAllShortArrayNegativeIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new short[] { 1, 2 }, -1, 0));
     }
 
     @Test
-    public void testRemoveAllShortArrayOutOfBoundsIndex() {
-        assertThrows(IndexOutOfBoundsException.class, () -> ArrayUtils.removeAll(new short[] { 1, 2 }, 2, 0));
+    void testRemoveAllShortArrayOutOfBoundsIndex() {
+        assertIndexOutOfBoundsException(() -> ArrayUtils.removeAll(new short[] { 1, 2 }, 2, 0));
     }
 
     @Test
-    public void testRemoveAllShortArrayRemoveNone() {
+    void testRemoveAllShortArrayRemoveNone() {
         final short[] array1 = { 1, 2 };
         final short[] array2 = ArrayUtils.removeAll(array1);
         assertNotSame(array1, array2);
@@ -830,7 +838,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveElementBooleanArray() {
+    void testRemoveElementBooleanArray() {
         boolean[] array;
 
         array = ArrayUtils.removeElements((boolean[]) null, true);
@@ -885,7 +893,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveElementByteArray() {
+    void testRemoveElementByteArray() {
         byte[] array;
 
         array = ArrayUtils.removeElements((byte[]) null, (byte) 1);
@@ -940,7 +948,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveElementCharArray() {
+    void testRemoveElementCharArray() {
         char[] array;
 
         array = ArrayUtils.removeElements((char[]) null, 'a');
@@ -995,7 +1003,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveElementDoubleArray() {
+    void testRemoveElementDoubleArray() {
         double[] array;
 
         array = ArrayUtils.removeElements((double[]) null, (double) 1);
@@ -1050,7 +1058,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveElementFloatArray() {
+    void testRemoveElementFloatArray() {
         float[] array;
 
         array = ArrayUtils.removeElements((float[]) null, (float) 1);
@@ -1105,7 +1113,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveElementIntArray() {
+    void testRemoveElementIntArray() {
         int[] array;
 
         array = ArrayUtils.removeElements((int[]) null, 1);
@@ -1160,7 +1168,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveElementLongArray() {
+    void testRemoveElementLongArray() {
         long[] array;
 
         array = ArrayUtils.removeElements((long[]) null, 1L);
@@ -1215,7 +1223,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveElementShortArray() {
+    void testRemoveElementShortArray() {
         short[] array;
 
         array = ArrayUtils.removeElements((short[]) null, (short) 1);
@@ -1270,7 +1278,7 @@ public class ArrayUtilsRemoveMultipleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveElementsObjectArray() {
+    void testRemoveElementsObjectArray() {
         Object[] array;
 
         array = ArrayUtils.removeElements((Object[]) null, "a");

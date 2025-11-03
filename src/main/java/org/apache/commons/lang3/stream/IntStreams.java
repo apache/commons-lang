@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,6 +27,18 @@ import java.util.stream.IntStream;
  * @since 3.13.0
  */
 public class IntStreams {
+
+    /**
+     * Null-safe version of {@link IntStream#of(int[])}.
+     *
+     * @param values the elements of the new stream, may be {@code null}.
+     * @return the new stream on {@code values} or {@link IntStream#empty()}.
+     * @since 3.18.0
+     */
+    @SafeVarargs // Creating a stream from an array is safe
+    public static IntStream of(final int... values) {
+        return values == null ? IntStream.empty() : IntStream.of(values);
+    }
 
     /**
      * Shorthand for {@code IntStream.range(0, i)}.

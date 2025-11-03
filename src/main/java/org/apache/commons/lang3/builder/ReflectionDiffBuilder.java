@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,22 +37,23 @@ import org.apache.commons.lang3.reflect.FieldUtils;
  * </p>
  *
  * <pre>{@code
- * public class Person implements Diffable&lt;Person&gt; {
+ * public class Person implements Diffable<Person> {
  *   String name;
  *   int age;
  *   boolean smoker;
  *   ...
  *
- *   public DiffResult diff(Person obj) {
+ *   public DiffResult<Person> diff(Person obj) {
  *     // No need for null check, as NullPointerException correct if obj is null
- *     return new ReflectionDiffBuilder.<Person>builder()
+ *     return ReflectionDiffBuilder.<Person>builder()
  *       .setDiffBuilder(DiffBuilder.<Person>builder()
  *           .setLeft(this)
  *           .setRight(obj)
  *           .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
  *           .build())
  *       .setExcludeFieldNames("userName", "password")
- *       .build();
+ *       .build()  // -> ReflectionDiffBuilder
+ *       .build(); // -> DiffResult
  *   }
  * }
  * }</pre>
@@ -85,6 +86,13 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
 
         private String[] excludeFieldNames = ArrayUtils.EMPTY_STRING_ARRAY;
         private DiffBuilder<T> diffBuilder;
+
+        /**
+         * Constructs a new instance.
+         */
+        public Builder() {
+            // empty
+        }
 
         /**
          * Builds a new configured {@link ReflectionDiffBuilder}.
@@ -186,6 +194,12 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         return !field.isAnnotationPresent(DiffExclude.class);
     }
 
+    /**
+     * Appends fields using reflection.
+     *
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
+     */
     private void appendFields(final Class<?> clazz) {
         for (final Field field : FieldUtils.getAllFields(clazz)) {
             if (accept(field)) {
@@ -200,12 +214,17 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
+     */
     @Override
     public DiffResult<T> build() {
         if (getLeft().equals(getRight())) {
             return diffBuilder.build();
         }
-
         appendFields(getLeft().getClass());
         return diffBuilder.build();
     }
@@ -213,7 +232,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Gets the field names that should be excluded from the diff.
      *
-     * @return Returns the excludeFieldNames.
+     * @return the excludeFieldNames.
      * @since 3.13.0
      */
     public String[] getExcludeFieldNames() {
@@ -228,6 +247,17 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         return diffBuilder.getRight();
     }
 
+    /**
+     * Reads a {@link Field}, forcing access if needed.
+     *
+     * @param field  the field to use.
+     * @param target the object to call on, may be {@code null} for {@code static} fields.
+     * @return the field value.
+     * @throws NullPointerException   if the field is {@code null}.
+     * @throws IllegalAccessException if the field is not made accessible.
+     * @throws SecurityException      if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
+     */
     private Object readField(final Field field, final Object target) throws IllegalAccessException {
         return FieldUtils.readField(field, target, true);
     }
@@ -236,7 +266,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      * Sets the field names to exclude.
      *
      * @param excludeFieldNames The field names to exclude from the diff or {@code null}.
-     * @return {@code this}
+     * @return {@code this} instance.
      * @since 3.13.0
      * @deprecated Use {@link Builder#setExcludeFieldNames(String[])}.
      */

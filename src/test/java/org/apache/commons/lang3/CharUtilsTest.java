@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,13 +16,14 @@
  */
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
@@ -31,23 +32,23 @@ import java.lang.reflect.Modifier;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link CharUtils}.
+ * Tests {@link CharUtils}.
  */
-public class CharUtilsTest extends AbstractLangTest {
+class CharUtilsTest extends AbstractLangTest {
 
     private static final char CHAR_COPY = '\u00a9';
     private static final Character CHARACTER_A = Character.valueOf('A');
     private static final Character CHARACTER_B = Character.valueOf('B');
 
     @Test
-    public void testCompare() {
+    void testCompare() {
         assertTrue(CharUtils.compare('a', 'b') < 0);
         assertEquals(0, CharUtils.compare('c', 'c'));
         assertTrue(CharUtils.compare('c', 'a') > 0);
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new CharUtils());
         final Constructor<?>[] cons = CharUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -57,7 +58,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAscii_char() {
+    void testIsAscii_char() {
         assertTrue(CharUtils.isAscii('a'));
         assertTrue(CharUtils.isAscii('A'));
         assertTrue(CharUtils.isAscii('3'));
@@ -71,7 +72,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAsciiAlpha_char() {
+    void testIsAsciiAlpha_char() {
         assertTrue(CharUtils.isAsciiAlpha('a'));
         assertTrue(CharUtils.isAsciiAlpha('A'));
         assertFalse(CharUtils.isAsciiAlpha('3'));
@@ -89,7 +90,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAsciiAlphaLower_char() {
+    void testIsAsciiAlphaLower_char() {
         assertTrue(CharUtils.isAsciiAlphaLower('a'));
         assertFalse(CharUtils.isAsciiAlphaLower('A'));
         assertFalse(CharUtils.isAsciiAlphaLower('3'));
@@ -107,7 +108,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAsciiAlphanumeric_char() {
+    void testIsAsciiAlphanumeric_char() {
         assertTrue(CharUtils.isAsciiAlphanumeric('a'));
         assertTrue(CharUtils.isAsciiAlphanumeric('A'));
         assertTrue(CharUtils.isAsciiAlphanumeric('3'));
@@ -125,7 +126,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAsciiAlphaUpper_char() {
+    void testIsAsciiAlphaUpper_char() {
         assertFalse(CharUtils.isAsciiAlphaUpper('a'));
         assertTrue(CharUtils.isAsciiAlphaUpper('A'));
         assertFalse(CharUtils.isAsciiAlphaUpper('3'));
@@ -143,7 +144,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAsciiControl_char() {
+    void testIsAsciiControl_char() {
         assertFalse(CharUtils.isAsciiControl('a'));
         assertFalse(CharUtils.isAsciiControl('A'));
         assertFalse(CharUtils.isAsciiControl('3'));
@@ -161,7 +162,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAsciiNumeric_char() {
+    void testIsAsciiNumeric_char() {
         assertFalse(CharUtils.isAsciiNumeric('a'));
         assertFalse(CharUtils.isAsciiNumeric('A'));
         assertTrue(CharUtils.isAsciiNumeric('3'));
@@ -179,7 +180,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsAsciiPrintable_char() {
+    void testIsAsciiPrintable_char() {
         assertTrue(CharUtils.isAsciiPrintable('a'));
         assertTrue(CharUtils.isAsciiPrintable('A'));
         assertTrue(CharUtils.isAsciiPrintable('3'));
@@ -197,29 +198,29 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToChar_Character() {
+    void testToChar_Character() {
         assertEquals('A', CharUtils.toChar(CHARACTER_A));
         assertEquals('B', CharUtils.toChar(CHARACTER_B));
-        assertThrows(NullPointerException.class, () -> CharUtils.toChar((Character) null));
+        assertNullPointerException(() -> CharUtils.toChar((Character) null));
     }
 
     @Test
-    public void testToChar_Character_char() {
+    void testToChar_Character_char() {
         assertEquals('A', CharUtils.toChar(CHARACTER_A, 'X'));
         assertEquals('B', CharUtils.toChar(CHARACTER_B, 'X'));
         assertEquals('X', CharUtils.toChar((Character) null, 'X'));
     }
 
     @Test
-    public void testToChar_String() {
+    void testToChar_String() {
         assertEquals('A', CharUtils.toChar("A"));
         assertEquals('B', CharUtils.toChar("BA"));
-        assertThrows(NullPointerException.class, () -> CharUtils.toChar((String) null));
-        assertThrows(IllegalArgumentException.class, () -> CharUtils.toChar(""));
+        assertNullPointerException(() -> CharUtils.toChar((String) null));
+        assertIllegalArgumentException(() -> CharUtils.toChar(""));
     }
 
     @Test
-    public void testToChar_String_char() {
+    void testToChar_String_char() {
         assertEquals('A', CharUtils.toChar("A", 'X'));
         assertEquals('B', CharUtils.toChar("BA", 'X'));
         assertEquals('X', CharUtils.toChar("", 'X'));
@@ -228,7 +229,7 @@ public class CharUtilsTest extends AbstractLangTest {
 
     @SuppressWarnings("deprecation") // intentional test of deprecated method
     @Test
-    public void testToCharacterObject_char() {
+    void testToCharacterObject_char() {
         assertEquals(Character.valueOf('a'), CharUtils.toCharacterObject('a'));
         assertSame(CharUtils.toCharacterObject('a'), CharUtils.toCharacterObject('a'));
 
@@ -250,7 +251,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToCharacterObject_String() {
+    void testToCharacterObject_String() {
         assertNull(CharUtils.toCharacterObject(null));
         assertNull(CharUtils.toCharacterObject(""));
         assertEquals(Character.valueOf('a'), CharUtils.toCharacterObject("a"));
@@ -259,7 +260,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToIntValue_char() {
+    void testToIntValue_char() {
         assertEquals(0, CharUtils.toIntValue('0'));
         assertEquals(1, CharUtils.toIntValue('1'));
         assertEquals(2, CharUtils.toIntValue('2'));
@@ -270,26 +271,26 @@ public class CharUtilsTest extends AbstractLangTest {
         assertEquals(7, CharUtils.toIntValue('7'));
         assertEquals(8, CharUtils.toIntValue('8'));
         assertEquals(9, CharUtils.toIntValue('9'));
-        assertThrows(IllegalArgumentException.class, () -> CharUtils.toIntValue('a'));
+        assertIllegalArgumentException(() -> CharUtils.toIntValue('a'));
     }
 
     @Test
-    public void testToIntValue_char_int() {
+    void testToIntValue_char_int() {
         assertEquals(0, CharUtils.toIntValue('0', -1));
         assertEquals(3, CharUtils.toIntValue('3', -1));
         assertEquals(-1, CharUtils.toIntValue('a', -1));
     }
 
     @Test
-    public void testToIntValue_Character() {
+    void testToIntValue_Character() {
         assertEquals(0, CharUtils.toIntValue(Character.valueOf('0')));
         assertEquals(3, CharUtils.toIntValue(Character.valueOf('3')));
-        assertThrows(NullPointerException.class, () -> CharUtils.toIntValue(null));
-        assertThrows(IllegalArgumentException.class, () -> CharUtils.toIntValue(CHARACTER_A));
+        assertNullPointerException(() -> CharUtils.toIntValue(null));
+        assertIllegalArgumentException(() -> CharUtils.toIntValue(CHARACTER_A));
     }
 
     @Test
-    public void testToIntValue_Character_int() {
+    void testToIntValue_Character_int() {
         assertEquals(0, CharUtils.toIntValue(Character.valueOf('0'), -1));
         assertEquals(3, CharUtils.toIntValue(Character.valueOf('3'), -1));
         assertEquals(-1, CharUtils.toIntValue(Character.valueOf('A'), -1));
@@ -297,7 +298,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToString_char() {
+    void testToString_char() {
         assertEquals("a", CharUtils.toString('a'));
         assertSame(CharUtils.toString('a'), CharUtils.toString('a'));
 
@@ -321,14 +322,14 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToString_Character() {
+    void testToString_Character() {
         assertNull(CharUtils.toString(null));
         assertEquals("A", CharUtils.toString(CHARACTER_A));
         assertSame(CharUtils.toString(CHARACTER_A), CharUtils.toString(CHARACTER_A));
     }
 
     @Test
-    public void testToUnicodeEscaped_char() {
+    void testToUnicodeEscaped_char() {
         assertEquals("\\u0041", CharUtils.unicodeEscaped('A'));
         assertEquals("\\u004c", CharUtils.unicodeEscaped('L'));
 
@@ -343,7 +344,7 @@ public class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToUnicodeEscaped_Character() {
+    void testToUnicodeEscaped_Character() {
         assertNull(CharUtils.unicodeEscaped(null));
         assertEquals("\\u0041", CharUtils.unicodeEscaped(CHARACTER_A));
     }

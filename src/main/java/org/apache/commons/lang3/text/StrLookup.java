@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,9 +39,9 @@ import org.apache.commons.lang3.SystemProperties;
  *
  * @param <V> Unused.
  * @since 2.2
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/lookup/StringLookupFactory.html">
- * StringLookupFactory</a> instead
+ * StringLookupFactory</a>.
  */
 @Deprecated
 public abstract class StrLookup<V> {
@@ -51,7 +51,7 @@ public abstract class StrLookup<V> {
      *
      * @param <V> the type of mapped values.
      */
-    static class MapStrLookup<V> extends StrLookup<V> {
+    private static final class MapStrLookup<V> extends StrLookup<V> {
 
         /** Map keys are variable names and value. */
         private final Map<String, V> map;
@@ -59,7 +59,7 @@ public abstract class StrLookup<V> {
         /**
          * Creates a new instance backed by a Map.
          *
-         * @param map  the map of keys to values, may be null
+         * @param map  the map of keys to values, may be null.
          */
         MapStrLookup(final Map<String, V> map) {
             this.map = map;
@@ -72,8 +72,8 @@ public abstract class StrLookup<V> {
          * The map result object is converted to a string using toString().
          * </p>
          *
-         * @param key  the key to be looked up, may be null
-         * @return the matching value, null if no match
+         * @param key  the key to be looked up, may be null.
+         * @return the matching value, null if no match.
          */
         @Override
         public String lookup(final String key) {
@@ -114,9 +114,9 @@ public abstract class StrLookup<V> {
      * The map result object is converted to a string using toString().
      * </p>
      *
-     * @param <V> the type of the values supported by the lookup
-     * @param map  the map of keys to values, may be null
-     * @return a lookup using the map, not null
+     * @param <V> the type of the values supported by the lookup.
+     * @param map  the map of keys to values, may be null.
+     * @return a lookup using the map, not null.
      */
     public static <V> StrLookup<V> mapLookup(final Map<String, V> map) {
         return new MapStrLookup<>(map);
@@ -125,7 +125,7 @@ public abstract class StrLookup<V> {
     /**
      * Returns a lookup which always returns null.
      *
-     * @return a lookup that always returns null, not null
+     * @return a lookup that always returns null, not null.
      */
     public static StrLookup<?> noneLookup() {
         return NONE_LOOKUP;
@@ -142,7 +142,7 @@ public abstract class StrLookup<V> {
      * If a null key is used, this lookup will throw a NullPointerException.
      * </p>
      *
-     * @return a lookup using system properties, not null
+     * @return a lookup using system properties, not null.
      */
     public static StrLookup<String> systemPropertiesLookup() {
         return SYSTEM_PROPERTIES_LOOKUP;
@@ -172,13 +172,13 @@ public abstract class StrLookup<V> {
      * The {@link #lookup(String)} method always returns a String, regardless of
      * the underlying data, by converting it as necessary. For example:
      * </p>
-     * <pre>
-     * Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+     * <pre>{@code
+     * Map<String, Object> map = new HashMap<String, Object>();
      * map.put("number", Integer.valueOf(2));
      * assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
-     * </pre>
-     * @param key  the key to be looked up, may be null
-     * @return the matching value, null if no match
+     * }</pre>
+     * @param key  the key to be looked up, may be null.
+     * @return the matching value, null if no match.
      */
     public abstract String lookup(String key);
 }

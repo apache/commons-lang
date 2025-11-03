@@ -7,7 +7,7 @@
    (the "License"); you may not use this file except in compliance with
    the License.  You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+       https://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
@@ -113,18 +113,33 @@
     </Or>
     <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
   </Match>
+  <Match>
+    <Class name="org.apache.commons.lang3.Strings$CiStrings" />
+    <Method name="compare" params="java.lang.String,java.lang.String"/>
+    <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
+  </Match>
+  <Match>
+    <Class name="org.apache.commons.lang3.Strings$CsStrings" />
+    <Method name="compare" params="java.lang.String,java.lang.String"/>
+    <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
+  </Match>
 
-  <!-- Reason: Very much intended to do a fall through on the switch -->
+  <!-- Reason: Intended -->
   <Match>
     <Class name="org.apache.commons.lang3.math.NumberUtils" />
     <Method name="createNumber"/>
     <Bug pattern="SF_SWITCH_FALLTHROUGH" />
   </Match>
-
-  <!-- Reason: Very much intended to do a fall through on the switch -->
+  <!-- Reason: Intended -->
   <Match>
     <Class name="org.apache.commons.lang3.time.DateUtils" />
     <Method name="getFragment"/>
+    <Bug pattern="SF_SWITCH_FALLTHROUGH" />
+  </Match>
+  <!-- Reason: False positive -->
+  <Match>
+    <Class name="org.apache.commons.lang3.text.ExtendedMessageFormat" />
+    <Method name="applyPattern"/>
     <Bug pattern="SF_SWITCH_FALLTHROUGH" />
   </Match>
 
@@ -193,7 +208,7 @@
   <Match>
     <Class name="org.apache.commons.lang3.compare.ObjectToStringComparator" />
     <Method name="compare" />
-    <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
+    <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE, ES_COMPARING_STRINGS_WITH_EQ" />
   </Match>
 
   <!-- Reason: requireNonNull is supposed to take a nullable parameter,
@@ -203,7 +218,7 @@
     <Method name="requireNonNull" />
     <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" />
   </Match>
-  <!-- What can be done?-->
+  <!-- False positive https://github.com/spotbugs/spotbugs/issues/2957 to be fixed in 4.9.0 -->
   <Match>
     <Class name="org.apache.commons.lang3.event.EventListenerSupport" />
     <Method name="readObject" />

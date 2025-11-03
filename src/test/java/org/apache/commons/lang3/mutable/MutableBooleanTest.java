@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,10 +17,10 @@
 
 package org.apache.commons.lang3.mutable;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -31,10 +31,10 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableBoolean
  */
-public class MutableBooleanTest extends AbstractLangTest {
+class MutableBooleanTest extends AbstractLangTest {
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         final MutableBoolean mutBool = new MutableBoolean(false);
 
         assertEquals(0, mutBool.compareTo(new MutableBoolean(false)));
@@ -45,18 +45,18 @@ public class MutableBooleanTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareToNull() {
+    void testCompareToNull() {
         final MutableBoolean mutBool = new MutableBoolean(false);
-        assertThrows(NullPointerException.class, () -> mutBool.compareTo(null));
+        assertNullPointerException(() -> mutBool.compareTo(null));
     }
 
     @Test
-    public void testConstructorNull() {
-        assertThrows(NullPointerException.class, () -> new MutableBoolean(null));
+    void testConstructorNull() {
+        assertNullPointerException(() -> new MutableBoolean(null));
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         assertFalse(new MutableBoolean().booleanValue());
 
         assertTrue(new MutableBoolean(true).booleanValue());
@@ -68,7 +68,7 @@ public class MutableBooleanTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final MutableBoolean mutBoolA = new MutableBoolean(false);
         final MutableBoolean mutBoolB = new MutableBoolean(false);
         final MutableBoolean mutBoolC = new MutableBoolean(true);
@@ -86,8 +86,9 @@ public class MutableBooleanTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetSet() {
+    void testGetSet() {
         assertFalse(new MutableBoolean().booleanValue());
+        assertEquals(Boolean.FALSE, new MutableBoolean().get());
         assertEquals(Boolean.FALSE, new MutableBoolean().getValue());
 
         final MutableBoolean mutBool = new MutableBoolean(false);
@@ -117,7 +118,7 @@ public class MutableBooleanTest extends AbstractLangTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final MutableBoolean mutBoolA = new MutableBoolean(false);
         final MutableBoolean mutBoolB = new MutableBoolean(false);
         final MutableBoolean mutBoolC = new MutableBoolean(true);
@@ -130,13 +131,13 @@ public class MutableBooleanTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSetNull() {
+    void testSetNull() {
         final MutableBoolean mutBool = new MutableBoolean(false);
-        assertThrows(NullPointerException.class, () -> mutBool.setValue(null));
+        assertNullPointerException(() -> mutBool.setValue(null));
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals(Boolean.FALSE.toString(), new MutableBoolean(false).toString());
         assertEquals(Boolean.TRUE.toString(), new MutableBoolean(true).toString());
     }

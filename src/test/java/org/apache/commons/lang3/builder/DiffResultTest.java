@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.builder;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,9 +28,9 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link DiffResult}.
+ * Tests {@link DiffResult}.
  */
-public class DiffResultTest extends AbstractLangTest {
+class DiffResultTest extends AbstractLangTest {
 
     private static final class EmptyClass {
         // empty
@@ -59,14 +60,14 @@ public class DiffResultTest extends AbstractLangTest {
     private static final SimpleClass SIMPLE_TRUE = new SimpleClass(true);
 
     @Test
-    public void testDefaultStyle() {
+    void testDefaultStyle() {
         final DiffResult<SimpleClass> diffResult = new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(),
                 ToStringStyle.DEFAULT_STYLE, DiffBuilder.TO_STRING_FORMAT);
         assertEquals(ToStringStyle.DEFAULT_STYLE, diffResult.getToStringStyle());
     }
 
     @Test
-    public void testIterator() {
+    void testIterator() {
         final SimpleClass lhs = new SimpleClass(true);
         final SimpleClass rhs = new SimpleClass(false);
 
@@ -83,19 +84,19 @@ public class DiffResultTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLeftAndRightGetters() {
+    void testLeftAndRightGetters() {
         final SimpleClass left = new SimpleClass(true);
         final SimpleClass right = new SimpleClass(false);
 
         final List<Diff<?>> diffs = left.diff(right).getDiffs();
-        final DiffResult diffResult = new DiffResult(left, right, diffs, SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT);
+        final DiffResult<SimpleClass> diffResult = new DiffResult<>(left, right, diffs, SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT);
 
         assertEquals(left, diffResult.getLeft());
         assertEquals(right, diffResult.getRight());
     }
 
     @Test
-    public void testListIsNonModifiable() {
+    void testListIsNonModifiable() {
         final SimpleClass lhs = new SimpleClass(true);
         final SimpleClass rhs = new SimpleClass(false);
 
@@ -108,31 +109,31 @@ public class DiffResultTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNoDifferencesString() {
+    void testNoDifferencesString() {
         final DiffResult<SimpleClass> diffResult = DiffBuilder.<SimpleClass>builder().setLeft(SIMPLE_TRUE).setRight(SIMPLE_TRUE).setStyle(SHORT_STYLE).build()
                 .build();
         assertEquals(DiffResult.OBJECTS_SAME_STRING, diffResult.toString());
     }
 
     @Test
-    public void testNullLhs() {
-        assertThrows(NullPointerException.class,
+    void testNullLhs() {
+        assertNullPointerException(
                 () -> new DiffResult<>(null, SIMPLE_FALSE, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT));
     }
 
     @Test
-    public void testNullList() {
-        assertThrows(NullPointerException.class, () -> new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE, null));
+    void testNullList() {
+        assertNullPointerException(() -> new DiffResult<>(SIMPLE_TRUE, SIMPLE_FALSE, null, SHORT_STYLE, null));
     }
 
     @Test
-    public void testNullRhs() {
-        assertThrows(NullPointerException.class,
+    void testNullRhs() {
+        assertNullPointerException(
                 () -> new DiffResult<>(SIMPLE_TRUE, null, SIMPLE_TRUE.diff(SIMPLE_FALSE).getDiffs(), SHORT_STYLE, DiffBuilder.TO_STRING_FORMAT));
     }
 
     @Test
-    public void testToStringFormat() {
+    void testToStringFormat() {
         // @formatter:off
         final DiffResult<EmptyClass> result = DiffBuilder.<EmptyClass>builder()
                 .setLeft(new EmptyClass())
@@ -147,7 +148,7 @@ public class DiffResultTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToStringOutput() {
+    void testToStringOutput() {
         // @formatter:off
         final DiffResult<EmptyClass> result = DiffBuilder.<EmptyClass>builder()
                 .setLeft(new EmptyClass())
@@ -161,7 +162,7 @@ public class DiffResultTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToStringSpecifyStyleOutput() {
+    void testToStringSpecifyStyleOutput() {
         final DiffResult<SimpleClass> result = SIMPLE_FALSE.diff(SIMPLE_TRUE);
         assertEquals(result.getToStringStyle(), SHORT_STYLE);
 

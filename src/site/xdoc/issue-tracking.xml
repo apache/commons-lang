@@ -7,7 +7,7 @@ The ASF licenses this file to You under the Apache License, Version 2.0
 (the "License"); you may not use this file except in compliance with
 the License.  You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+     https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,10 +41,12 @@ limitations under the License.
  |                                                                      |
  +======================================================================+
 -->
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
     <title>Apache Commons Lang Issue tracking</title>
-    <author email="dev@commons.apache.org">Apache Commons Documentation Team</author>
+    <author email="dev@commons.apache.org">Apache Commons Team</author>
   </properties>
   <body>
 
@@ -64,6 +66,7 @@ limitations under the License.
       <p>
       If you would like to report a bug, or raise an enhancement request with
       Apache Commons Lang please do the following:
+      </p>
       <ol>
         <li><a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;pid=12310481&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;status=1&amp;status=3&amp;status=4">Search existing open bugs</a>.
             If you find your issue listed then please add a comment with your details.</li>
@@ -73,16 +76,15 @@ limitations under the License.
         <li>Submit either a <a href="https://issues.apache.org/jira/secure/CreateIssueDetails!init.jspa?pid=12310481&amp;issuetype=1&amp;priority=4&amp;assignee=-1">bug report</a>
             or <a href="https://issues.apache.org/jira/secure/CreateIssueDetails!init.jspa?pid=12310481&amp;issuetype=4&amp;priority=4&amp;assignee=-1">enhancement request</a>.</li>
       </ol>
-      </p>
 
       <p>
       Please also remember these points:
+      </p>
       <ul>
         <li>the more information you provide, the better we can help you</li>
         <li>test cases are vital, particularly for any proposed enhancements</li>
         <li>the developers of Apache Commons Lang are all unpaid volunteers</li>
       </ul>
-      </p>
 
       <p>
       For more information on creating patches see the
@@ -91,12 +93,12 @@ limitations under the License.
 
       <p>
       You may also find these links useful:
+      </p>
       <ul>
         <li><a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;pid=12310481&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;status=1&amp;status=3&amp;status=4">All Open Apache Commons Lang bugs</a></li>
         <li><a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;pid=12310481&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;status=5&amp;status=6">All Resolved Apache Commons Lang bugs</a></li>
         <li><a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;pid=12310481&amp;sorter/field=issuekey&amp;sorter/order=DESC">All Apache Commons Lang bugs</a></li>
       </ul>
-      </p>
     </section>
   </body>
 </document>

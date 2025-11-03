@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,8 +36,8 @@ package org.apache.commons.lang3.builder;
  *
  * <p>
  * Example Builder:
- * <pre><code>
- * class FontBuilder implements Builder&lt;Font&gt; {
+ * <pre>{@code
+ * class FontBuilder implements Builder<Font> {
  *     private Font font;
  *
  *     public FontBuilder(String fontName) {
@@ -60,17 +60,16 @@ package org.apache.commons.lang3.builder;
  *         return this.font;
  *     }
  * }
- * </code></pre>
+ * }</pre>
  *
  * Example Builder Usage:
- * <pre><code>
+ * <pre>{@code
  * Font bold14ptSansSerifFont = new FontBuilder(Font.SANS_SERIF).bold()
  *                                                              .size(14.0f)
  *                                                              .build();
- * </code></pre>
+ * }</pre>
  *
  * @param <T> the type of object that the builder will construct or compute.
- *
  * @since 3.0
  */
 @FunctionalInterface

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -38,7 +38,7 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
  * TestCase for DateFormatUtils.
  */
 @SuppressWarnings("deprecation") // tests lots of deprecated items
-public class DateFormatUtilsTest extends AbstractLangTest {
+class DateFormatUtilsTest extends AbstractLangTest {
     private void assertFormats(final String expectedValue, final String pattern, final TimeZone timeZone, final Calendar cal) {
         assertEquals(expectedValue, DateFormatUtils.format(cal.getTime(), pattern, timeZone));
         assertEquals(expectedValue, DateFormatUtils.format(cal.getTime().getTime(), pattern, timeZone));
@@ -58,7 +58,7 @@ public class DateFormatUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new DateFormatUtils());
         final Constructor<?>[] cons = DateFormatUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -68,21 +68,21 @@ public class DateFormatUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDateISO() {
+    void testDateISO() {
         testGmtMinus3("2002-02-23", DateFormatUtils.ISO_DATE_FORMAT.getPattern());
         testGmtMinus3("2002-02-23-03:00", DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.getPattern());
         testUTC("2002-02-23Z", DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.getPattern());
     }
 
     @Test
-    public void testDateTimeISO() {
+    void testDateTimeISO() {
         testGmtMinus3("2002-02-23T09:11:12", DateFormatUtils.ISO_DATETIME_FORMAT.getPattern());
         testGmtMinus3("2002-02-23T09:11:12-03:00", DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
         testUTC("2002-02-23T09:11:12Z", DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
     }
 
     @Test
-    public void testFormat() {
+    void testFormat() {
         final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
         c.set(2005, Calendar.JANUARY, 1, 12, 0, 0);
         c.setTimeZone(TimeZone.getDefault());
@@ -105,7 +105,7 @@ public class DateFormatUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFormatCalendar() {
+    void testFormatCalendar() {
         final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
         c.set(2005, Calendar.JANUARY, 1, 12, 0, 0);
         c.setTimeZone(TimeZone.getDefault());
@@ -128,7 +128,7 @@ public class DateFormatUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFormatUTC() {
+    void testFormatUTC() {
         final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
         c.set(2005, Calendar.JANUARY, 1, 12, 0, 0);
         assertEquals ("2005-01-01T12:00:00", DateFormatUtils.formatUTC(c.getTime(), DateFormatUtils.ISO_DATETIME_FORMAT.getPattern()));
@@ -146,13 +146,13 @@ public class DateFormatUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLANG1000() throws Exception {
+    void testLANG1000() throws Exception {
         final String date = "2013-11-18T12:48:05Z";
         DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.parse(date);
     }
 
     @Test
-    public void testLANG1462() {
+    void testLANG1462() {
         final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         final Calendar calendar = createJuneTestDate(timeZone);
         assertEquals("20030608101112", DateFormatUtils.format(calendar, "yyyyMMddHHmmss"));
@@ -162,7 +162,7 @@ public class DateFormatUtilsTest extends AbstractLangTest {
 
     @DefaultTimeZone("UTC")
     @Test
-    public void testLang530() throws ParseException {
+    void testLang530() throws ParseException {
         final Date d = new Date();
         final String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
         final Date d2 = DateUtils.parseDate(isoDateStr, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern());
@@ -177,7 +177,7 @@ public class DateFormatUtilsTest extends AbstractLangTest {
      * This method test that the bug is fixed.
      */
     @Test
-    public void testLang916() {
+    void testLang916() {
 
         final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         cal.clear();
@@ -214,7 +214,7 @@ public class DateFormatUtilsTest extends AbstractLangTest {
 
     @DefaultLocale(language = "en")
     @Test
-    public void testSMTP() {
+    void testSMTP() {
         TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         Calendar june = createJuneTestDate(timeZone);
 
@@ -228,14 +228,14 @@ public class DateFormatUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTimeISO() {
+    void testTimeISO() {
         testGmtMinus3("T09:11:12", DateFormatUtils.ISO_TIME_FORMAT.getPattern());
         testGmtMinus3("T09:11:12-03:00", DateFormatUtils.ISO_TIME_TIME_ZONE_FORMAT.getPattern());
         testUTC("T09:11:12Z", DateFormatUtils.ISO_TIME_TIME_ZONE_FORMAT.getPattern());
     }
 
     @Test
-    public void testTimeNoTISO() {
+    void testTimeNoTISO() {
         testGmtMinus3("09:11:12", DateFormatUtils.ISO_TIME_NO_T_FORMAT.getPattern());
         testGmtMinus3("09:11:12-03:00", DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern());
         testUTC("09:11:12Z", DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern());

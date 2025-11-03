@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,7 +41,7 @@ import org.junit.jupiter.api.Test;
  * Test case for {@link ExtendedMessageFormat}.
  */
 @Deprecated
-public class ExtendedMessageFormatTest extends AbstractLangTest {
+class ExtendedMessageFormatTest extends AbstractLangTest {
 
     /**
      * {@link Format} implementation which converts to lower case.
@@ -58,8 +58,6 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
             throw new UnsupportedOperationException();
         }
     }
-
-    // ------------------------ Test Format Factories ---------------
     /**
      * {@link FormatFactory} implementation for lower case format.
      */
@@ -135,7 +133,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
 //     *
 //     * NOTE: FAILING - currently sub-formats not supported
 //     */
-//    public void testExtendedWithChoiceFormat() {
+//    void testExtendedWithChoiceFormat() {
 //        String pattern = "Choice: {0,choice,1.0#{1,lower}|2.0#{1,upper}}";
 //        ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
 //        assertPatterns(null, pattern, emf.toPattern());
@@ -152,7 +150,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
 //     *
 //     * NOTE: FAILING - currently sub-formats not supported
 //     */
-//    public void testExtendedAndBuiltInWithChoiceFormat() {
+//    void testExtendedAndBuiltInWithChoiceFormat() {
 //        String pattern = "Choice: {0,choice,1.0#{0} {1,lower} {2,number}|2.0#{0} {1,upper} {2,number,currency}}";
 //        Object[] lowArgs  = new Object[] {Integer.valueOf(1), "Low",  Double.valueOf("1234.56")};
 //        Object[] highArgs = new Object[] {Integer.valueOf(2), "High", Double.valueOf("9876.54")};
@@ -201,7 +199,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
         buffer.append(locale);
         buffer.append("]");
         final MessageFormat mf = createMessageFormat(pattern, locale);
-        ExtendedMessageFormat emf;
+        final ExtendedMessageFormat emf;
         if (locale == null) {
             emf = new ExtendedMessageFormat(pattern);
         } else {
@@ -260,7 +258,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      * Test the built-in choice format.
      */
     @Test
-    public void testBuiltInChoiceFormat() {
+    void testBuiltInChoiceFormat() {
         final Object[] values = new Number[] {Integer.valueOf(1), Double.valueOf("2.2"), Double.valueOf("1234.5")};
         String choicePattern;
         final Locale[] availableLocales = NumberFormat.getAvailableLocales();
@@ -280,7 +278,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      * Test the built-in date/time formats
      */
     @Test
-    public void testBuiltInDateTimeFormat() {
+    void testBuiltInDateTimeFormat() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
         final Object[] args = {cal.getTime()};
@@ -304,7 +302,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      * Test the built-in number formats.
      */
     @Test
-    public void testBuiltInNumberFormat() {
+    void testBuiltInNumberFormat() {
         final Object[] args = {Double.valueOf("6543.21")};
         final Locale[] availableLocales = NumberFormat.getAvailableLocales();
         checkBuiltInFormat("1: {0,number}",            args, availableLocales);
@@ -318,19 +316,17 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      * Test Bug LANG-917 - IndexOutOfBoundsException and/or infinite loop when using a choice pattern
      */
     @Test
-    public void testEmbeddedPatternInChoice() {
+    void testEmbeddedPatternInChoice() {
         final String pattern = "Hi {0,lower}, got {1,choice,0#none|1#one|1<{1,number}}, {2,upper}!";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
         assertEquals(emf.format(new Object[] {"there", 3, "great"}), "Hi there, got 3, GREAT!");
     }
 
-    // ------------------------ Test Formats ------------------------
-
     /**
      * Test equals() and hashCode().
      */
     @Test
-    public void testEqualsHashcode() {
+    void testEqualsHashcode() {
         final Map<String, ? extends FormatFactory> fmtRegistry = Collections.singletonMap("testfmt", new LowerCaseFormatFactory());
         final Map<String, ? extends FormatFactory> otherRegistry = Collections.singletonMap("testfmt", new UpperCaseFormatFactory());
 
@@ -373,7 +369,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      * Test Bug LANG-948 - Exception while using ExtendedMessageFormat and escaping braces
      */
     @Test
-    public void testEscapedBraces_LANG_948() {
+    void testEscapedBraces_LANG_948() {
         // message without placeholder because braces are escaped by quotes
         final String pattern = "Message without placeholders '{}'";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
@@ -389,7 +385,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      * Test Bug LANG-477 - out of memory error with escaped quote
      */
     @Test
-    public void testEscapedQuote_LANG_477() {
+    void testEscapedQuote_LANG_477() {
         final String pattern = "it''s a {0,lower} 'test'!";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
         assertEquals("it's a dummy test!", emf.format(new Object[] {"DUMMY"}));
@@ -398,7 +394,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      * Test extended and built-in formats with available locales.
      */
     @Test
-    public void testExtendedAndBuiltInFormatsWithAvailableLocales() {
+    void testExtendedAndBuiltInFormatsWithAvailableLocales() {
         final String extendedPattern = "Name: {0,upper} ";
         final String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
         final String pattern = extendedPattern + builtinsPattern;
@@ -432,7 +428,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      * Test extended and built-in formats with the default locale.
      */
     @Test
-    public void testExtendedAndBuiltInFormatsWithDefaultLocale() {
+    void testExtendedAndBuiltInFormatsWithDefaultLocale() {
         final String extendedPattern = "Name: {0,upper} ";
         final String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
         final String pattern = extendedPattern + builtinsPattern;
@@ -460,7 +456,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
      * Test extended formats.
      */
     @Test
-    public void testExtendedFormats() {
+    void testExtendedFormats() {
         final String pattern = "Lower: {0,lower} Upper: {1,upper}";
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
         assertEquals(pattern, emf.toPattern(), "TOPATTERN");
@@ -472,7 +468,7 @@ public class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOverriddenBuiltinFormat() {
+    void testOverriddenBuiltinFormat() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23);
         final Object[] args = {cal.getTime()};

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,9 +16,8 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -34,7 +33,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@link MultiBackgroundInitializer}.
  */
-public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundInitializerTest {
+class MultiBackgroundInitializerSupplierTest extends MultiBackgroundInitializerTest {
 
     /**
      * A concrete implementation of {@code BackgroundInitializer} used for
@@ -94,7 +93,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
      * @throws Exception
      */
     @Test
-    public void testClose()
+    void testClose()
             throws ConcurrentException, InterruptedException {
         final AbstractChildBackgroundInitializer childOne = createChildBackgroundInitializer();
         final AbstractChildBackgroundInitializer childTwo = createChildBackgroundInitializer();
@@ -145,7 +144,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
      * @throws Exception
      */
     @Test
-    public void testCloseWithCheckedException() throws Exception {
+    void testCloseWithCheckedException() throws Exception {
         final AbstractChildBackgroundInitializer childOne = new SupplierChildBackgroundInitializer(ioExceptionConsumer);
 
         initializer.addInitializer("child one", childOne);
@@ -167,7 +166,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
             initializer.close();
             fail();
         } catch (final Exception e) {
-            assertThat(e, instanceOf(ConcurrentException.class));
+            assertInstanceOf(ConcurrentException.class, e);
             assertSame(ioException, e.getSuppressed()[0]);
         }
     }
@@ -178,7 +177,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
      * @throws Exception
      */
     @Test
-    public void testCloseWithRuntimeException() throws Exception {
+    void testCloseWithRuntimeException() throws Exception {
         final AbstractChildBackgroundInitializer childOne = new SupplierChildBackgroundInitializer(nullPointerExceptionConsumer);
 
         initializer.addInitializer("child one", childOne);
@@ -200,7 +199,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
             initializer.close();
             fail();
         } catch (final Exception e) {
-            assertThat(e, instanceOf(ConcurrentException.class));
+            assertInstanceOf(ConcurrentException.class, e);
             assertSame(npe, e.getSuppressed()[0]);
         }
     }
@@ -212,7 +211,7 @@ public class MultiBackgroundInitializerSupplierTest extends MultiBackgroundIniti
      * @throws Exception
      */
     @Test
-    public void testCloseWithTwoExceptions()
+    void testCloseWithTwoExceptions()
             throws ConcurrentException, InterruptedException {
 
         final AbstractChildBackgroundInitializer childOne = new SupplierChildBackgroundInitializer(ioExceptionConsumer);

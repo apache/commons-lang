@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,53 +26,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link StringUtils} Trim/Strip methods.
  */
-public class StringUtilsTrimStripTest extends AbstractLangTest {
+class StringUtilsTrimStripTest extends AbstractLangTest {
     private static final String FOO = "foo";
 
     @Test
-    public void testStrip_String() {
-        assertNull(StringUtils.strip(null));
-        assertEquals("", StringUtils.strip(""));
-        assertEquals("", StringUtils.strip("        "));
-        assertEquals("abc", StringUtils.strip("  abc  "));
-        assertEquals(StringUtilsTest.NON_WHITESPACE,
-                StringUtils.strip(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE));
-    }
-
-    @Test
-    public void testStrip_StringString() {
-        // null strip
-        assertNull(StringUtils.strip(null, null));
-        assertEquals("", StringUtils.strip("", null));
-        assertEquals("", StringUtils.strip("        ", null));
-        assertEquals("abc", StringUtils.strip("  abc  ", null));
-        assertEquals(StringUtilsTest.NON_WHITESPACE,
-                StringUtils.strip(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE, null));
-
-        // "" strip
-        assertNull(StringUtils.strip(null, ""));
-        assertEquals("", StringUtils.strip("", ""));
-        assertEquals("        ", StringUtils.strip("        ", ""));
-        assertEquals("  abc  ", StringUtils.strip("  abc  ", ""));
-        assertEquals(StringUtilsTest.WHITESPACE, StringUtils.strip(StringUtilsTest.WHITESPACE, ""));
-
-        // " " strip
-        assertNull(StringUtils.strip(null, " "));
-        assertEquals("", StringUtils.strip("", " "));
-        assertEquals("", StringUtils.strip("        ", " "));
-        assertEquals("abc", StringUtils.strip("  abc  ", " "));
-
-        // "ab" strip
-        assertNull(StringUtils.strip(null, "ab"));
-        assertEquals("", StringUtils.strip("", "ab"));
-        assertEquals("        ", StringUtils.strip("        ", "ab"));
-        assertEquals("  abc  ", StringUtils.strip("  abc  ", "ab"));
-        assertEquals("c", StringUtils.strip("abcabab", "ab"));
-        assertEquals(StringUtilsTest.WHITESPACE, StringUtils.strip(StringUtilsTest.WHITESPACE, ""));
-    }
-
-    @Test
-    public void testStripAccents() {
+    void testStripAccents() {
         final String cue = "\u00C7\u00FA\u00EA";
         assertEquals("Cue", StringUtils.stripAccents(cue), "Failed to strip accents from " + cue);
 
@@ -98,30 +56,43 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
+    void testStripAccentsIWithBar() {
+        assertEquals("I i I i I", StringUtils.stripAccents("\u0197 \u0268 \u1D7B \u1DA4 \u1DA7"));
+    }
+
+    @Test
     @Disabled
-    public void testStripAccents_Korean() {
+    void testStripAccentsKorean() {
         // LANG-1655
         final String input = "\uC78A\uC9C0\uB9C8 \uB10C \uD750\uB9B0 \uC5B4\uB460\uC0AC\uC774 \uC67C\uC190\uC73C\uB85C \uADF8\uB9B0 \uBCC4 \uD558\uB098";
         assertEquals(input, StringUtils.stripAccents(input), "Failed to handle Korean text");
     }
 
     @Test
-    public void testStripAccentsIWithBar() {
-        assertEquals("I i I i I", StringUtils.stripAccents("\u0197 \u0268 \u1D7B \u1DA4 \u1DA7"));
-    }
-
-    @Test
-    public void testStripAccentsTWithStroke() {
+    void testStripAccentsTWithStroke() {
         assertEquals("T t", StringUtils.stripAccents("\u0166 \u0167"));
     }
 
+    /**
+     * Tests Unicode vulgar fractions.
+     */
     @Test
-    public void testStripAccentsUWithBar() {
+    void testStripAccentsUnicodeVulgarFractions() {
+        // 1/4, note "⁄", not "/".
+        assertEquals("1⁄4", StringUtils.stripAccents("\u00BC"));
+        // 1/2, note "⁄", not "/".
+        assertEquals("1⁄2", StringUtils.stripAccents("\u00BD"));
+        // 3/4, note "⁄", not "/".
+        assertEquals("3⁄4", StringUtils.stripAccents("\u00BE"));
+    }
+
+    @Test
+    void testStripAccentsUWithBar() {
         assertEquals("U u U u", StringUtils.stripAccents("\u0244 \u0289 \u1D7E \u1DB6"));
     }
 
     @Test
-    public void testStripAll() {
+    void testStripAll() {
         // test stripAll method, merely an array version of the above strip
         final String[] empty = {};
         final String[] fooSpace = { "  " + FOO + "  ", "  " + FOO, FOO + "  " };
@@ -142,7 +113,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripEnd_StringString() {
+    void testStripEndStringString() {
         // null stripEnd
         assertNull(StringUtils.stripEnd(null, null));
         assertEquals("", StringUtils.stripEnd("", null));
@@ -174,7 +145,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripStart_StringString() {
+    void testStripStartStringString() {
         // null stripStart
         assertNull(StringUtils.stripStart(null, null));
         assertEquals("", StringUtils.stripStart("", null));
@@ -206,7 +177,49 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripToEmpty_String() {
+    void testStripString() {
+        assertNull(StringUtils.strip(null));
+        assertEquals("", StringUtils.strip(""));
+        assertEquals("", StringUtils.strip("        "));
+        assertEquals("abc", StringUtils.strip("  abc  "));
+        assertEquals(StringUtilsTest.NON_WHITESPACE,
+                StringUtils.strip(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE));
+    }
+
+    @Test
+    void testStripStringString() {
+        // null strip
+        assertNull(StringUtils.strip(null, null));
+        assertEquals("", StringUtils.strip("", null));
+        assertEquals("", StringUtils.strip("        ", null));
+        assertEquals("abc", StringUtils.strip("  abc  ", null));
+        assertEquals(StringUtilsTest.NON_WHITESPACE,
+                StringUtils.strip(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE, null));
+
+        // "" strip
+        assertNull(StringUtils.strip(null, ""));
+        assertEquals("", StringUtils.strip("", ""));
+        assertEquals("        ", StringUtils.strip("        ", ""));
+        assertEquals("  abc  ", StringUtils.strip("  abc  ", ""));
+        assertEquals(StringUtilsTest.WHITESPACE, StringUtils.strip(StringUtilsTest.WHITESPACE, ""));
+
+        // " " strip
+        assertNull(StringUtils.strip(null, " "));
+        assertEquals("", StringUtils.strip("", " "));
+        assertEquals("", StringUtils.strip("        ", " "));
+        assertEquals("abc", StringUtils.strip("  abc  ", " "));
+
+        // "ab" strip
+        assertNull(StringUtils.strip(null, "ab"));
+        assertEquals("", StringUtils.strip("", "ab"));
+        assertEquals("        ", StringUtils.strip("        ", "ab"));
+        assertEquals("  abc  ", StringUtils.strip("  abc  ", "ab"));
+        assertEquals("c", StringUtils.strip("abcabab", "ab"));
+        assertEquals(StringUtilsTest.WHITESPACE, StringUtils.strip(StringUtilsTest.WHITESPACE, ""));
+    }
+
+    @Test
+    void testStripToEmptyString() {
         assertEquals("", StringUtils.stripToEmpty(null));
         assertEquals("", StringUtils.stripToEmpty(""));
         assertEquals("", StringUtils.stripToEmpty("        "));
@@ -217,7 +230,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStripToNull_String() {
+    void testStripToNullString() {
         assertNull(StringUtils.stripToNull(null));
         assertNull(StringUtils.stripToNull(""));
         assertNull(StringUtils.stripToNull("        "));
@@ -228,7 +241,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTrim() {
+    void testTrim() {
         assertEquals(FOO, StringUtils.trim(FOO + "  "));
         assertEquals(FOO, StringUtils.trim(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.trim(" " + FOO));
@@ -241,7 +254,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTrimToEmpty() {
+    void testTrimToEmpty() {
         assertEquals(FOO, StringUtils.trimToEmpty(FOO + "  "));
         assertEquals(FOO, StringUtils.trimToEmpty(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.trimToEmpty(" " + FOO));
@@ -254,7 +267,7 @@ public class StringUtilsTrimStripTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTrimToNull() {
+    void testTrimToNull() {
         assertEquals(FOO, StringUtils.trimToNull(FOO + "  "));
         assertEquals(FOO, StringUtils.trimToNull(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.trimToNull(" " + FOO));

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,6 +21,7 @@ import java.io.Reader;
 import java.io.Serializable;
 import java.io.Writer;
 import java.nio.CharBuffer;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -29,6 +30,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.builder.Builder;
 
 /**
@@ -76,9 +78,9 @@ import org.apache.commons.lang3.builder.Builder;
  * </p>
  *
  * @since 2.2
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/TextStringBuilder.html">
- * TextStringBuilder</a> instead
+ * TextStringBuilder</a>.
  */
 @Deprecated
 public class StrBuilder implements CharSequence, Appendable, Serializable, Builder<String> {
@@ -122,7 +124,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             if (!ready()) {
                 return -1;
             }
-            return StrBuilder.this.charAt(pos++);
+            return charAt(pos++);
         }
 
         /** {@inheritDoc} */
@@ -135,11 +137,11 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             if (len == 0) {
                 return 0;
             }
-            if (pos >= StrBuilder.this.size()) {
+            if (pos >= size()) {
                 return -1;
             }
             if (pos + len > size()) {
-                len = StrBuilder.this.size() - pos;
+                len = size() - pos;
             }
             StrBuilder.this.getChars(pos, pos + len, b, off);
             pos += len;
@@ -149,7 +151,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         /** {@inheritDoc} */
         @Override
         public boolean ready() {
-            return pos < StrBuilder.this.size();
+            return pos < size();
         }
 
         /** {@inheritDoc} */
@@ -161,8 +163,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         /** {@inheritDoc} */
         @Override
         public long skip(long n) {
-            if (pos + n > StrBuilder.this.size()) {
-                n = StrBuilder.this.size() - pos;
+            if (pos + n > size()) {
+                n = size() - pos;
             }
             if (n < 0) {
                 return 0;
@@ -256,16 +258,19 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             StrBuilder.this.append(str, off, len);
         }
     }
+
     /**
      * The extra capacity for new builders.
      */
     static final int CAPACITY = 32;
+
     /**
      * Required for serialization support.
      *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 7628716375283629643L;
+
     /** Internal data storage. */
     protected char[] buffer; // TODO make private?
 
@@ -865,10 +870,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
                 str.getChars(strLen - width, strLen, buffer, size);
             } else {
                 final int padLen = width - strLen;
-                for (int i = 0; i < padLen; i++) {
-                    buffer[size + i] = padChar;
-                }
-                str.getChars(0, strLen, buffer, size + padLen);
+                final int toIndex = size + padLen;
+                Arrays.fill(buffer, size, toIndex, padChar);
+                str.getChars(0, strLen, buffer, toIndex);
             }
             size += width;
         }
@@ -911,11 +915,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             if (strLen >= width) {
                 str.getChars(0, width, buffer, size);
             } else {
-                final int padLen = width - strLen;
                 str.getChars(0, strLen, buffer, size);
-                for (int i = 0; i < padLen; i++) {
-                    buffer[size + strLen + i] = padChar;
-                }
+                final int fromIndex = size + strLen;
+                Arrays.fill(buffer, fromIndex, fromIndex + width - strLen, padChar);
             }
             size += width;
         }
@@ -1149,7 +1151,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * By default, the new line is the system default from {@link System#lineSeparator()}.
      * </p>
      * <p>
-     * The new line string can be changed using {@link #setNewLineText(String)}. For example, you can use this to force the output to always use UNIX line
+     * The new line string can be changed using {@link #setNewLineText(String)}. For example, you can use this to force the output to always use Unix line
      * endings even when on Windows.
      * </p>
      *
@@ -1248,10 +1250,11 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * This method is useful for adding a separator each time around the
      * loop except the first.
      * </p>
-     * <pre>
-     * for (int i = 0; i &lt; list.size(); i++) {
+     * <pre>{@code
+     * for (int i = 0; i < list.size(); i++) {
      *   appendSeparator(",", i);
      *   append(list.get(i));
+     * }
      * }
      * </pre>
      * Note that for this simple example, you should use
@@ -1304,12 +1307,12 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * This method is useful for adding a separator each time around the
      * loop except the first.
      * </p>
-     * <pre>
-     * for (int i = 0; i &lt; list.size(); i++) {
+     * <pre>{@code
+     * for (int i = 0; i < list.size(); i++) {
      *   appendSeparator(",", i);
      *   append(list.get(i));
      * }
-     * </pre>
+     * }</pre>
      * Note that for this simple example, you should use
      * {@link #appendWithSeparators(Iterable, String)}.
      *
@@ -1370,7 +1373,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param appendable  the appendable to append data to
      * @throws IOException  if an I/O error occurs
-     *
      * @since 3.4
      * @see #readFrom(Readable)
      */
@@ -2034,7 +2036,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return the first index of the string, or -1 if not found
      */
     public int indexOf(final String str, final int startIndex) {
-        return StringUtils.indexOf(this, str, startIndex);
+        return Strings.CS.indexOf(this, str, startIndex);
     }
 
     /**
@@ -2356,7 +2358,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return the last index of the string, or -1 if not found
      */
     public int lastIndexOf(final String str, final int startIndex) {
-        return StringUtils.lastIndexOf(this, str, startIndex);
+        return Strings.CS.lastIndexOf(this, str, startIndex);
     }
 
     /**
@@ -2484,7 +2486,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param readable  object to read from
      * @return the number of characters read
      * @throws IOException if an I/O error occurs.
-     *
      * @since 3.4
      * @see #appendTo(Appendable)
      */
@@ -2807,11 +2808,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             size = length;
         } else if (length > size) {
             ensureCapacity(length);
-            final int oldEnd = size;
+            Arrays.fill(buffer, size, length, CharUtils.NUL);
             size = length;
-            for (int i = oldEnd; i < length; i++) {
-                buffer[i] = CharUtils.NUL;
-            }
         }
         return this;
     }

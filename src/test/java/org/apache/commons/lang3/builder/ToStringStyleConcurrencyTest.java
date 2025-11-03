@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -45,7 +45,7 @@ import org.junit.jupiter.api.Test;
  * @see <a href="https://issues.apache.org/jira/browse/LANG-762">[LANG-762] Handle or document ReflectionToStringBuilder
  *      and ToStringBuilder for collections that are not thread safe</a>
  */
-public class ToStringStyleConcurrencyTest extends AbstractLangTest {
+class ToStringStyleConcurrencyTest extends AbstractLangTest {
 
     static class CollectionHolder<T extends Collection<?>> {
         T collection;
@@ -67,8 +67,8 @@ public class ToStringStyleConcurrencyTest extends AbstractLangTest {
     }
 
     @Test
-    public void testArrayList() throws InterruptedException {
-        this.testConcurrency(new CollectionHolder<>(new ArrayList<>()));
+    void testArrayList() throws InterruptedException {
+        testConcurrency(new CollectionHolder<>(new ArrayList<>()));
     }
 
     private void testConcurrency(final CollectionHolder<List<Integer>> holder) throws InterruptedException {
@@ -98,12 +98,12 @@ public class ToStringStyleConcurrencyTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCopyOnWriteArrayList() throws InterruptedException {
-        this.testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
+    void testCopyOnWriteArrayList() throws InterruptedException {
+        testConcurrency(new CollectionHolder<>(new CopyOnWriteArrayList<>()));
     }
 
     @Test
-    public void testLinkedList() throws InterruptedException {
-        this.testConcurrency(new CollectionHolder<>(new LinkedList<>()));
+    void testLinkedList() throws InterruptedException {
+        testConcurrency(new CollectionHolder<>(new LinkedList<>()));
     }
 }

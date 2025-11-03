@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -45,13 +45,11 @@ import org.apache.commons.lang3.function.FailableFunction;
 import org.apache.commons.lang3.function.FailablePredicate;
 
 /**
- * Provides utility functions, and classes for working with the {@link java.util.stream} package, or more generally,
- * with Java 8 lambdas. More specifically, it attempts to address the fact that lambdas are supposed not to throw
- * Exceptions, at least not checked Exceptions, AKA instances of {@link Exception}. This enforces the use of constructs
- * like:
+ * Provides utility functions, and classes for working with the {@link java.util.stream} package, or more generally, with Java 8 lambdas. More specifically, it
+ * attempts to address the fact that lambdas are supposed not to throw Exceptions, at least not checked Exceptions, AKA instances of {@link Exception}. This
+ * enforces the use of constructs like:
  *
- * <pre>
- * {@code
+ * <pre>{@code
  * Consumer<java.lang.reflect.Method> consumer = m -> {
  *     try {
  *         m.invoke(o, args);
@@ -60,20 +58,17 @@ import org.apache.commons.lang3.function.FailablePredicate;
  *     }
  * };
  * stream.forEach(consumer);
- * }
- * </pre>
+ * }</pre>
  * <p>
  * Using a {@link FailableStream}, this can be rewritten as follows:
  * </p>
  *
- * <pre>
- * {@code
- * Streams.failable(stream).forEach((m) -> m.invoke(o, args));
- * }
- * </pre>
- *
- * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than in the
- * first version.
+ * <pre>{@code
+ * Streams.failable(stream).forEach(m -> m.invoke(o, args));
+ * }</pre>
+ * <p>
+ * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than in the first version.
+ * </p>
  *
  * @see Stream
  * @see Failable
@@ -694,7 +689,7 @@ public class Streams {
     }
 
     /**
-     * Creates a stream on the given Iterable.
+     * Creates a sequential stream on the given Iterable.
      *
      * @param <E> the type of elements in the Iterable.
      * @param iterable the Iterable to stream or null.
@@ -706,7 +701,7 @@ public class Streams {
     }
 
     /**
-     * Creates a stream on the given Iterator.
+     * Creates a sequential stream on the given Iterator.
      *
      * @param <E> the type of elements in the Iterator.
      * @param iterator the Iterator to stream or null.
@@ -839,18 +834,18 @@ public class Streams {
     /**
      * Returns a {@link Collector} that accumulates the input elements into a new array.
      *
-     * @param pElementType Type of an element in the array.
      * @param <T> the type of the input elements
+     * @param elementType Type of an element in the array.
      * @return a {@link Collector} which collects all the input elements into an array, in encounter order
      */
-    public static <T> Collector<T, ?, T[]> toArray(final Class<T> pElementType) {
-        return new ArrayCollector<>(pElementType);
+    public static <T> Collector<T, List<T>, T[]> toArray(final Class<T> elementType) {
+        return new ArrayCollector<>(elementType);
     }
 
     /**
-     * Make private in 4.0.
+     * Constructs a new instance.
      *
-     * @deprecated TODO Make private in 4.0.
+     * @deprecated Will be private in 4.0.0.
      */
     @Deprecated
     public Streams() {

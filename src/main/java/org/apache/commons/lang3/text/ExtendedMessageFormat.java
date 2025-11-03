@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.apache.commons.lang3.LocaleUtils;
-import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -37,20 +37,20 @@ import org.apache.commons.lang3.Validate;
  * parsed from the message pattern.  In this way custom patterns can be specified,
  * and the formats supported by {@link java.text.MessageFormat} can be overridden
  * at the format and/or format style level (see MessageFormat).  A "format element"
- * embedded in the message pattern is specified (<b>()?</b> signifies optionality):<br>
- * <code>{</code><i>argument-number</i><b>(</b>{@code ,}<i>format-name</i><b>
- * (</b>{@code ,}<i>format-style</i><b>)?)?</b><code>}</code>
+ * embedded in the message pattern is specified (<strong>()?</strong> signifies optionality):<br>
+ * <code>{</code><em>argument-number</em><strong>(</strong>{@code ,}<em>format-name</em><b>
+ * (</b>{@code ,}<em>format-style</em><strong>)?)?</strong><code>}</code>
  *
  * <p>
- * <i>format-name</i> and <i>format-style</i> values are trimmed of surrounding whitespace
- * in the manner of {@link java.text.MessageFormat}.  If <i>format-name</i> denotes
+ * <em>format-name</em> and <em>format-style</em> values are trimmed of surrounding whitespace
+ * in the manner of {@link java.text.MessageFormat}.  If <em>format-name</em> denotes
  * {@code FormatFactory formatFactoryInstance} in {@code registry}, a {@link Format}
- * matching <i>format-name</i> and <i>format-style</i> is requested from
+ * matching <em>format-name</em> and <em>format-style</em> is requested from
  * {@code formatFactoryInstance}.  If this is successful, the {@link Format}
  * found is used for this format element.
  * </p>
  *
- * <p><b>NOTICE:</b> The various subformat mutator methods are considered unnecessary; they exist on the parent
+ * <p><strong>NOTICE:</strong> The various subformat mutator methods are considered unnecessary; they exist on the parent
  * class to allow the type of customization which it is the job of this class to provide in
  * a configurable fashion.  These methods have thus been disabled and will throw
  * {@link UnsupportedOperationException} if called.
@@ -65,16 +65,15 @@ import org.apache.commons.lang3.Validate;
  * </ul>
  *
  * @since 2.4
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/ExtendedMessageFormat.html">
- * ExtendedMessageFormat</a> instead
+ * ExtendedMessageFormat</a>.
  */
 @Deprecated
 public class ExtendedMessageFormat extends MessageFormat {
-    private static final long serialVersionUID = -2362048321261811743L;
-    private static final int HASH_SEED = 31;
 
-    private static final String DUMMY_PATTERN = "";
+    private static final long serialVersionUID = -2362048321261811743L;
+    private static final String EMPTY_PATTERN = StringUtils.EMPTY;
     private static final char START_FMT = ',';
     private static final char END_FE = '}';
     private static final char START_FE = '{';
@@ -120,7 +119,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(final String pattern, final Locale locale, final Map<String, ? extends FormatFactory> registry) {
-        super(DUMMY_PATTERN);
+        super(EMPTY_PATTERN);
         setLocale(LocaleUtils.toLocale(locale));
         this.registry = registry;
         applyPattern(pattern);
@@ -220,7 +219,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                     throw new IllegalArgumentException(
                             "Unreadable format element at position " + start);
                 }
-                //$FALL-THROUGH$
+                // falls-through
             default:
                 stripCustom.append(c[pos.getIndex()]);
                 next(pos);
@@ -255,31 +254,19 @@ public class ExtendedMessageFormat extends MessageFormat {
         return coll.stream().anyMatch(Objects::nonNull);
     }
 
-    /**
-     * Check if this extended message format is equal to another object.
-     *
-     * @param obj the object to compare to
-     * @return true if this object equals the other, otherwise false
-     */
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this) {
+        if (this == obj) {
             return true;
-        }
-        if (obj == null) {
-            return false;
         }
         if (!super.equals(obj)) {
             return false;
         }
-        if (ObjectUtils.notEqual(getClass(), obj.getClass())) {
-          return false;
-        }
-        final ExtendedMessageFormat rhs = (ExtendedMessageFormat) obj;
-        if (ObjectUtils.notEqual(toPattern, rhs.toPattern)) {
+        if (!(obj instanceof ExtendedMessageFormat)) {
             return false;
         }
-        return !ObjectUtils.notEqual(registry, rhs.registry);
+        final ExtendedMessageFormat other = (ExtendedMessageFormat) obj;
+        return Objects.equals(registry, other.registry) && Objects.equals(toPattern, other.toPattern);
     }
 
     /**
@@ -315,15 +302,11 @@ public class ExtendedMessageFormat extends MessageFormat {
         appendQuotedString(pattern, pos, null);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = HASH_SEED * result + Objects.hashCode(registry);
-        result = HASH_SEED * result + Objects.hashCode(toPattern);
-        return result;
+        final int prime = 31;
+        final int result = super.hashCode();
+        return prime * result + Objects.hash(registry, toPattern);
     }
 
     /**
@@ -361,7 +344,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                 break;
             case END_FE:
                 depth--;
-                //$FALL-THROUGH$
+                // falls-through
             default:
                 sb.append(c);
                 next(pos);
@@ -416,7 +399,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Read the argument index from the current format element
+     * Reads the argument index from the current format element
      *
      * @param pattern pattern to parse
      * @param pos current parse position

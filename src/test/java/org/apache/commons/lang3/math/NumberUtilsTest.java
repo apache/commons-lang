@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,8 +16,11 @@
  */
 package org.apache.commons.lang3.math;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -36,9 +39,9 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.math.NumberUtils}.
+ * Tests {@link org.apache.commons.lang3.math.NumberUtils}.
  */
-public class NumberUtilsTest extends AbstractLangTest {
+class NumberUtilsTest extends AbstractLangTest {
 
     private static void assertCreateNumberZero(final String number, final Object zero, final Object negativeZero) {
         assertEquals(zero, NumberUtils.createNumber(number), () -> "Input: " + number);
@@ -185,7 +188,7 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toDouble(BigDecimal)}
      */
     @Test
-    public void testBigIntegerToDoubleBigInteger() {
+    void testBigIntegerToDoubleBigInteger() {
         assertEquals(0.0d, NumberUtils.toDouble((BigDecimal) null), "toDouble(BigInteger) 1 failed");
         assertEquals(8.5d, NumberUtils.toDouble(BigDecimal.valueOf(8.5d)), "toDouble(BigInteger) 2 failed");
     }
@@ -194,14 +197,14 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toDouble(BigDecimal, double)}
      */
     @Test
-    public void testBigIntegerToDoubleBigIntegerD() {
+    void testBigIntegerToDoubleBigIntegerD() {
         assertEquals(1.1d, NumberUtils.toDouble((BigDecimal) null, 1.1d), "toDouble(BigInteger) 1 failed");
         assertEquals(8.5d, NumberUtils.toDouble(BigDecimal.valueOf(8.5d), 1.1d), "toDouble(BigInteger) 2 failed");
     }
 
     // Testing JDK against old Lang functionality
     @Test
-    public void testCompareDouble() {
+    void testCompareDouble() {
         assertEquals(0, Double.compare(Double.NaN, Double.NaN));
         assertEquals(Double.compare(Double.NaN, Double.POSITIVE_INFINITY), +1);
         assertEquals(Double.compare(Double.NaN, Double.MAX_VALUE), +1);
@@ -294,7 +297,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareFloat() {
+    void testCompareFloat() {
         assertEquals(0, Float.compare(Float.NaN, Float.NaN));
         assertEquals(Float.compare(Float.NaN, Float.POSITIVE_INFINITY), +1);
         assertEquals(Float.compare(Float.NaN, Float.MAX_VALUE), +1);
@@ -388,25 +391,25 @@ public class NumberUtilsTest extends AbstractLangTest {
 
     @SuppressWarnings("cast") // suppress instanceof warning check
     @Test
-    public void testConstants() {
-        assertTrue(NumberUtils.LONG_ZERO instanceof Long);
-        assertTrue(NumberUtils.LONG_ONE instanceof Long);
-        assertTrue(NumberUtils.LONG_MINUS_ONE instanceof Long);
-        assertTrue(NumberUtils.INTEGER_ZERO instanceof Integer);
-        assertTrue(NumberUtils.INTEGER_ONE instanceof Integer);
-        assertTrue(NumberUtils.INTEGER_MINUS_ONE instanceof Integer);
-        assertTrue(NumberUtils.SHORT_ZERO instanceof Short);
-        assertTrue(NumberUtils.SHORT_ONE instanceof Short);
-        assertTrue(NumberUtils.SHORT_MINUS_ONE instanceof Short);
-        assertTrue(NumberUtils.BYTE_ZERO instanceof Byte);
-        assertTrue(NumberUtils.BYTE_ONE instanceof Byte);
-        assertTrue(NumberUtils.BYTE_MINUS_ONE instanceof Byte);
-        assertTrue(NumberUtils.DOUBLE_ZERO instanceof Double);
-        assertTrue(NumberUtils.DOUBLE_ONE instanceof Double);
-        assertTrue(NumberUtils.DOUBLE_MINUS_ONE instanceof Double);
-        assertTrue(NumberUtils.FLOAT_ZERO instanceof Float);
-        assertTrue(NumberUtils.FLOAT_ONE instanceof Float);
-        assertTrue(NumberUtils.FLOAT_MINUS_ONE instanceof Float);
+    void testConstants() {
+        assertInstanceOf(Long.class, NumberUtils.LONG_ZERO);
+        assertInstanceOf(Long.class, NumberUtils.LONG_ONE);
+        assertInstanceOf(Long.class, NumberUtils.LONG_MINUS_ONE);
+        assertInstanceOf(Integer.class, NumberUtils.INTEGER_ZERO);
+        assertInstanceOf(Integer.class, NumberUtils.INTEGER_ONE);
+        assertInstanceOf(Integer.class, NumberUtils.INTEGER_MINUS_ONE);
+        assertInstanceOf(Short.class, NumberUtils.SHORT_ZERO);
+        assertInstanceOf(Short.class, NumberUtils.SHORT_ONE);
+        assertInstanceOf(Short.class, NumberUtils.SHORT_MINUS_ONE);
+        assertInstanceOf(Byte.class, NumberUtils.BYTE_ZERO);
+        assertInstanceOf(Byte.class, NumberUtils.BYTE_ONE);
+        assertInstanceOf(Byte.class, NumberUtils.BYTE_MINUS_ONE);
+        assertInstanceOf(Double.class, NumberUtils.DOUBLE_ZERO);
+        assertInstanceOf(Double.class, NumberUtils.DOUBLE_ONE);
+        assertInstanceOf(Double.class, NumberUtils.DOUBLE_MINUS_ONE);
+        assertInstanceOf(Float.class, NumberUtils.FLOAT_ZERO);
+        assertInstanceOf(Float.class, NumberUtils.FLOAT_ONE);
+        assertInstanceOf(Float.class, NumberUtils.FLOAT_MINUS_ONE);
 
         assertEquals(0, NumberUtils.LONG_ZERO.longValue());
         assertEquals(1, NumberUtils.LONG_ONE.longValue());
@@ -429,7 +432,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new NumberUtils());
         final Constructor<?>[] cons = NumberUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -439,25 +442,25 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCreateBigDecimal() {
+    void testCreateBigDecimal() {
         assertEquals(new BigDecimal("1234.5"), NumberUtils.createBigDecimal("1234.5"),
             "createBigDecimal(String) failed");
         assertNull(NumberUtils.createBigDecimal(null), "createBigDecimal(null) failed");
-        this.testCreateBigDecimalFailure("");
-        this.testCreateBigDecimalFailure(" ");
-        this.testCreateBigDecimalFailure("\b\t\n\f\r");
+        testCreateBigDecimalFailure("");
+        testCreateBigDecimalFailure(" ");
+        testCreateBigDecimalFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateBigDecimalFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateBigDecimalFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
         // sign alone not valid
-        this.testCreateBigDecimalFailure("-");
+        testCreateBigDecimalFailure("-");
         // comment in NumberUtils suggests some implementations may incorrectly allow this
-        this.testCreateBigDecimalFailure("--");
-        this.testCreateBigDecimalFailure("--0");
+        testCreateBigDecimalFailure("--");
+        testCreateBigDecimalFailure("--0");
         // sign alone not valid
-        this.testCreateBigDecimalFailure("+");
+        testCreateBigDecimalFailure("+");
         // in case this was also allowed by some JVMs
-        this.testCreateBigDecimalFailure("++");
-        this.testCreateBigDecimalFailure("++0");
+        testCreateBigDecimalFailure("++");
+        testCreateBigDecimalFailure("++0");
     }
 
     protected void testCreateBigDecimalFailure(final String str) {
@@ -466,14 +469,14 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCreateBigInteger() {
+    void testCreateBigInteger() {
         assertEquals(new BigInteger("12345"), NumberUtils.createBigInteger("12345"), "createBigInteger(String) failed");
         assertNull(NumberUtils.createBigInteger(null), "createBigInteger(null) failed");
-        this.testCreateBigIntegerFailure("");
-        this.testCreateBigIntegerFailure(" ");
-        this.testCreateBigIntegerFailure("\b\t\n\f\r");
+        testCreateBigIntegerFailure("");
+        testCreateBigIntegerFailure(" ");
+        testCreateBigIntegerFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateBigIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateBigIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
         assertEquals(new BigInteger("255"), NumberUtils.createBigInteger("0xff"), "createBigInteger(String) failed");
         assertEquals(new BigInteger("255"), NumberUtils.createBigInteger("0Xff"), "createBigInteger(String) failed");
         assertEquals(new BigInteger("255"), NumberUtils.createBigInteger("#ff"), "createBigInteger(String) failed");
@@ -499,14 +502,14 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCreateDouble() {
+    void testCreateDouble() {
         assertEquals(Double.valueOf("1234.5"), NumberUtils.createDouble("1234.5"), "createDouble(String) failed");
         assertNull(NumberUtils.createDouble(null), "createDouble(null) failed");
-        this.testCreateDoubleFailure("");
-        this.testCreateDoubleFailure(" ");
-        this.testCreateDoubleFailure("\b\t\n\f\r");
+        testCreateDoubleFailure("");
+        testCreateDoubleFailure(" ");
+        testCreateDoubleFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateDoubleFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateDoubleFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
     }
 
     protected void testCreateDoubleFailure(final String str) {
@@ -515,14 +518,14 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCreateFloat() {
+    void testCreateFloat() {
         assertEquals(Float.valueOf("1234.5"), NumberUtils.createFloat("1234.5"), "createFloat(String) failed");
         assertNull(NumberUtils.createFloat(null), "createFloat(null) failed");
-        this.testCreateFloatFailure("");
-        this.testCreateFloatFailure(" ");
-        this.testCreateFloatFailure("\b\t\n\f\r");
+        testCreateFloatFailure("");
+        testCreateFloatFailure(" ");
+        testCreateFloatFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateFloatFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateFloatFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
     }
 
     protected void testCreateFloatFailure(final String str) {
@@ -531,14 +534,14 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCreateInteger() {
+    void testCreateInteger() {
         assertEquals(Integer.valueOf("12345"), NumberUtils.createInteger("12345"), "createInteger(String) failed");
         assertNull(NumberUtils.createInteger(null), "createInteger(null) failed");
-        this.testCreateIntegerFailure("");
-        this.testCreateIntegerFailure(" ");
-        this.testCreateIntegerFailure("\b\t\n\f\r");
+        testCreateIntegerFailure("");
+        testCreateIntegerFailure(" ");
+        testCreateIntegerFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
         // LANG-1645
         assertEquals(Integer.decode("+0xF"), NumberUtils.createInteger("+0xF"));
     }
@@ -549,14 +552,14 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCreateLong() {
+    void testCreateLong() {
         assertEquals(Long.valueOf("12345"), NumberUtils.createLong("12345"), "createLong(String) failed");
         assertNull(NumberUtils.createLong(null), "createLong(null) failed");
-        this.testCreateLongFailure("");
-        this.testCreateLongFailure(" ");
-        this.testCreateLongFailure("\b\t\n\f\r");
+        testCreateLongFailure("");
+        testCreateLongFailure(" ");
+        testCreateLongFailure("\b\t\n\f\r");
         // Funky whitespaces
-        this.testCreateLongFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+        testCreateLongFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
         // LANG-1645
         assertEquals(Long.decode("+0xFFFFFFFF"), NumberUtils.createLong("+0xFFFFFFFF"));
     }
@@ -567,7 +570,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCreateNumber() {
+    void testCreateNumber() {
         // a lot of things can go wrong
         assertEquals(Float.valueOf("1234.5"), NumberUtils.createNumber("1234.5"), "createNumber(String) 1 failed");
         assertEquals(Integer.valueOf("12345"), NumberUtils.createNumber("12345"), "createNumber(String) 2 failed");
@@ -670,56 +673,56 @@ public class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     // Check that the code fails to create a valid number when preceded by -- rather than -
-    public void testCreateNumberFailure_1() {
+    void testCreateNumberFailure_1() {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("--1.1E-700F"));
     }
 
     @Test
     // Check that the code fails to create a valid number when both e and E are present (with decimal)
-    public void testCreateNumberFailure_2() {
+    void testCreateNumberFailure_2() {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("-1.1E+0-7e00"));
     }
 
     @Test
     // Check that the code fails to create a valid number when both e and E are present (no decimal)
-    public void testCreateNumberFailure_3() {
+    void testCreateNumberFailure_3() {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("-11E+0-7e00"));
     }
 
     @Test
     // Check that the code fails to create a valid number when both e and E are present (no decimal)
-    public void testCreateNumberFailure_4() {
+    void testCreateNumberFailure_4() {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("1eE+00001"));
     }
 
     @Test
     // Check that the code fails to create a valid number when there are multiple trailing 'f' characters (LANG-1205)
-    public void testCreateNumberFailure_5() {
+    void testCreateNumberFailure_5() {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("1234.5ff"));
     }
 
     @Test
     // Check that the code fails to create a valid number when there are multiple trailing 'F' characters (LANG-1205)
-    public void testCreateNumberFailure_6() {
+    void testCreateNumberFailure_6() {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("1234.5FF"));
     }
 
     @Test
     // Check that the code fails to create a valid number when there are multiple trailing 'd' characters (LANG-1205)
-    public void testCreateNumberFailure_7() {
+    void testCreateNumberFailure_7() {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("1234.5dd"));
     }
 
     @Test
     // Check that the code fails to create a valid number when there are multiple trailing 'D' characters (LANG-1205)
-    public void testCreateNumberFailure_8() {
+    void testCreateNumberFailure_8() {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("1234.5DD"));
     }
 
     // Tests to show when magnitude causes switch to next Number type
     // Will probably need to be adjusted if code is changed to check precision (LANG-693)
     @Test
-    public void testCreateNumberMagnitude() {
+    void testCreateNumberMagnitude() {
         // Test Float.MAX_VALUE, and same with +1 in final digit to check conversion changes to next Number type
         assertEquals(Float.valueOf(Float.MAX_VALUE), NumberUtils.createNumber("3.4028235e+38"));
         assertEquals(Double.valueOf(3.4028236e+38), NumberUtils.createNumber("3.4028236e+38"));
@@ -768,7 +771,7 @@ public class NumberUtilsTest extends AbstractLangTest {
      * LANG-1646: Support the requested Number type (Long, Float, Double) of valid zero input.
      */
     @Test
-    public void testCreateNumberZero() {
+    void testCreateNumberZero() {
         // Handle integers
         assertEquals(Integer.valueOf(0), NumberUtils.createNumber("0"));
         assertEquals(Integer.valueOf(0), NumberUtils.createNumber("-0"));
@@ -808,7 +811,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInvalidNumber() {
+    void testInvalidNumber() {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("E123e.3"));
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("-"));
     }
@@ -818,7 +821,7 @@ public class NumberUtilsTest extends AbstractLangTest {
      * returns false.
      */
     @Test
-    public void testIsCreatable() {
+    void testIsCreatable() {
         compareIsCreatableWithCreateNumber("12345", true);
         compareIsCreatableWithCreateNumber("1234.5", true);
         compareIsCreatableWithCreateNumber(".12345", true);
@@ -884,7 +887,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsDigits() {
+    void testIsDigits() {
         assertFalse(NumberUtils.isDigits(null), "isDigits(null) failed");
         assertFalse(NumberUtils.isDigits(""), "isDigits('') failed");
         assertTrue(NumberUtils.isDigits("12345"), "isDigits(String) failed");
@@ -898,7 +901,7 @@ public class NumberUtilsTest extends AbstractLangTest {
      * returns false.
      */
     @Test
-    public void testIsNumber() {
+    void testIsNumber() {
         compareIsNumberWithCreateNumber("12345", true);
         compareIsNumberWithCreateNumber("1234.5", true);
         compareIsNumberWithCreateNumber(".12345", true);
@@ -970,18 +973,18 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsNumberLANG1252() {
+    void testIsNumberLANG1252() {
         compareIsNumberWithCreateNumber("+2", true);
         compareIsNumberWithCreateNumber("+2.0", true);
     }
 
     @Test
-    public void testIsNumberLANG1385() {
+    void testIsNumberLANG1385() {
         compareIsNumberWithCreateNumber("L", false);
     }
 
     @Test
-    public void testIsNumberLANG971() {
+    void testIsNumberLANG971() {
         compareIsNumberWithCreateNumber("0085", false);
         compareIsNumberWithCreateNumber("085", false);
         compareIsNumberWithCreateNumber("08", false);
@@ -990,19 +993,19 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsNumberLANG972() {
+    void testIsNumberLANG972() {
         compareIsNumberWithCreateNumber("0xABCD", true);
         compareIsNumberWithCreateNumber("0XABCD", true);
     }
 
     @Test
-    public void testIsNumberLANG992() {
+    void testIsNumberLANG992() {
         compareIsNumberWithCreateNumber("0.0", true);
         compareIsNumberWithCreateNumber("0.4790", true);
     }
 
     @Test
-    public void testIsParsable() {
+    void testIsParsable() {
         assertFalse(NumberUtils.isParsable(null));
         assertFalse(NumberUtils.isParsable(""));
         assertFalse(NumberUtils.isParsable("0xC1AB"));
@@ -1025,7 +1028,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang1087() {
+    void testLang1087() {
         // no sign cases
         assertEquals(Float.class, NumberUtils.createNumber("0.0").getClass());
         assertEquals(Float.valueOf("0.0"), NumberUtils.createNumber("0.0"));
@@ -1038,13 +1041,13 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLANG1252() {
+    void testLANG1252() {
         compareIsCreatableWithCreateNumber("+2", true);
         compareIsCreatableWithCreateNumber("+2.0", true);
     }
 
     @Test
-    public void testLang1729IsParsableByte() {
+    void testLang1729IsParsableByte() {
         assertTrue(isParsableByte("1"));
         assertFalse(isParsableByte("1 2 3"));
         assertTrue(isParsableByte("１２３"));
@@ -1052,7 +1055,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang1729IsParsableDouble() {
+    void testLang1729IsParsableDouble() {
         assertTrue(isParsableDouble("1"));
         assertFalse(isParsableDouble("1 2 3"));
         // TODO Expected to be fixed in Java 23
@@ -1061,7 +1064,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang1729IsParsableFloat() {
+    void testLang1729IsParsableFloat() {
         assertTrue(isParsableFloat("1"));
         assertFalse(isParsableFloat("1 2 3"));
         // TODO Expected to be fixed in Java 23
@@ -1070,7 +1073,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang1729IsParsableInteger() {
+    void testLang1729IsParsableInteger() {
         assertTrue(isParsableInteger("1"));
         assertFalse(isParsableInteger("1 2 3"));
         assertTrue(isParsableInteger("１２３"));
@@ -1078,7 +1081,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang1729IsParsableLong() {
+    void testLang1729IsParsableLong() {
         assertTrue(isParsableLong("1"));
         assertFalse(isParsableLong("1 2 3"));
         assertTrue(isParsableLong("１２３"));
@@ -1086,7 +1089,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang1729IsParsableShort() {
+    void testLang1729IsParsableShort() {
         assertTrue(isParsableShort("1"));
         assertFalse(isParsableShort("1 2 3"));
         assertTrue(isParsableShort("１２３"));
@@ -1094,14 +1097,14 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang300() {
+    void testLang300() {
         NumberUtils.createNumber("-1l");
         NumberUtils.createNumber("01l");
         NumberUtils.createNumber("1l");
     }
 
     @Test
-    public void testLang381() {
+    void testLang381() {
         assertTrue(Double.isNaN(NumberUtils.min(1.2, 2.5, Double.NaN)));
         assertTrue(Double.isNaN(NumberUtils.max(1.2, 2.5, Double.NaN)));
         assertTrue(Float.isNaN(NumberUtils.min(1.2f, 2.5f, Float.NaN)));
@@ -1146,7 +1149,7 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(Long.valueOf(0x80000000000000L), NumberUtils.createNumber("0x80000000000000"));
         assertEquals(Long.valueOf(0x800000000000000L), NumberUtils.createNumber("0x800000000000000"));
         assertEquals(Long.valueOf(0x7FFFFFFFFFFFFFFFL), NumberUtils.createNumber("0x7FFFFFFFFFFFFFFF"));
-        // N.B. Cannot use a hex constant such as 0x8000000000000000L here as that is interpreted as a negative long
+        // Cannot use a hex constant such as 0x8000000000000000L here as that is interpreted as a negative long
         assertEquals(new BigInteger("8000000000000000", 16), NumberUtils.createNumber("0x8000000000000000"));
         assertEquals(new BigInteger("FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("0xFFFFFFFFFFFFFFFF"));
 
@@ -1154,13 +1157,13 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(Long.valueOf(0x80000000000000L), NumberUtils.createNumber("0x00080000000000000"));
         assertEquals(Long.valueOf(0x800000000000000L), NumberUtils.createNumber("0x0800000000000000"));
         assertEquals(Long.valueOf(0x7FFFFFFFFFFFFFFFL), NumberUtils.createNumber("0x07FFFFFFFFFFFFFFF"));
-        // N.B. Cannot use a hex constant such as 0x8000000000000000L here as that is interpreted as a negative long
+        // Cannot use a hex constant such as 0x8000000000000000L here as that is interpreted as a negative long
         assertEquals(new BigInteger("8000000000000000", 16), NumberUtils.createNumber("0x00008000000000000000"));
         assertEquals(new BigInteger("FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("0x0FFFFFFFFFFFFFFFF"));
     }
 
     @Test
-    public void testLANG971() {
+    void testLANG971() {
         compareIsCreatableWithCreateNumber("0085", false);
         compareIsCreatableWithCreateNumber("085", false);
         compareIsCreatableWithCreateNumber("08", false);
@@ -1169,19 +1172,19 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLANG972() {
+    void testLANG972() {
         compareIsCreatableWithCreateNumber("0xABCD", true);
         compareIsCreatableWithCreateNumber("0XABCD", true);
     }
 
     @Test
-    public void testLANG992() {
+    void testLANG992() {
         compareIsCreatableWithCreateNumber("0.0", true);
         compareIsCreatableWithCreateNumber("0.4790", true);
     }
 
     @Test
-    public void testMaxByte() {
+    void testMaxByte() {
         assertEquals((byte) 5, NumberUtils.max((byte) 5), "max(byte[]) failed for array length 1");
         assertEquals((byte) 9, NumberUtils.max((byte) 6, (byte) 9), "max(byte[]) failed for array length 2");
         assertEquals((byte) 10, NumberUtils.max((byte) -10, (byte) -5, (byte) 0, (byte) 5, (byte) 10),
@@ -1191,21 +1194,21 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaxByte_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+    void testMaxByte_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
-    public void testMaxByte_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((byte[]) null));
+    void testMaxByte_nullArray() {
+        assertNullPointerException(() -> NumberUtils.max((byte[]) null));
     }
 
     @Test
-    public void testMaxDouble() {
+    void testMaxDouble() {
         final double[] d = null;
-        assertThrows(NullPointerException.class, () -> NumberUtils.max(d), "No exception was thrown for null input.");
+        assertNullPointerException(() -> NumberUtils.max(d), "No exception was thrown for null input.");
 
-        assertThrows(IllegalArgumentException.class, NumberUtils::max, "No exception was thrown for empty input.");
+        assertIllegalArgumentException(NumberUtils::max, "No exception was thrown for empty input.");
 
         assertEquals(5.1f, NumberUtils.max(5.1f), "max(double[]) failed for array length 1");
         assertEquals(9.2f, NumberUtils.max(6.3f, 9.2f), "max(double[]) failed for array length 2");
@@ -1215,17 +1218,17 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaxDouble_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+    void testMaxDouble_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
-    public void testMaxDouble_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((double[]) null));
+    void testMaxDouble_nullArray() {
+        assertNullPointerException(() -> NumberUtils.max((double[]) null));
     }
 
     @Test
-    public void testMaxFloat() {
+    void testMaxFloat() {
         assertEquals(5.1f, NumberUtils.max(5.1f), "max(float[]) failed for array length 1");
         assertEquals(9.2f, NumberUtils.max(6.3f, 9.2f), "max(float[]) failed for array length 2");
         assertEquals(10.4f, NumberUtils.max(-10.5f, -5.6f, 0, 5.7f, 10.4f), "max(float[]) failed for float length 5");
@@ -1234,17 +1237,17 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaxFloat_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+    void testMaxFloat_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
-    public void testMaxFloat_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((float[]) null));
+    void testMaxFloat_nullArray() {
+        assertNullPointerException(() -> NumberUtils.max((float[]) null));
     }
 
     @Test
-    public void testMaximumByte() {
+    void testMaximumByte() {
         final byte low = 123;
         final byte mid = 123 + 1;
         final byte high = 123 + 2;
@@ -1255,7 +1258,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaximumDouble() {
+    void testMaximumDouble() {
         final double low = 12.3;
         final double mid = 12.3 + 1;
         final double high = 12.3 + 2;
@@ -1267,7 +1270,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaximumFloat() {
+    void testMaximumFloat() {
         final float low = 12.3f;
         final float mid = 12.3f + 1;
         final float high = 12.3f + 2;
@@ -1279,7 +1282,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaximumInt() {
+    void testMaximumInt() {
         assertEquals(12345, NumberUtils.max(12345, 12345 - 1, 12345 - 2), "maximum(int, int, int) 1 failed");
         assertEquals(12345, NumberUtils.max(12345 - 1, 12345, 12345 - 2), "maximum(int, int, int) 2 failed");
         assertEquals(12345, NumberUtils.max(12345 - 1, 12345 - 2, 12345), "maximum(int, int, int) 3 failed");
@@ -1288,7 +1291,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaximumLong() {
+    void testMaximumLong() {
         assertEquals(12345L, NumberUtils.max(12345L, 12345L - 1L, 12345L - 2L), "maximum(long, long, long) 1 failed");
         assertEquals(12345L, NumberUtils.max(12345L - 1L, 12345L, 12345L - 2L), "maximum(long, long, long) 2 failed");
         assertEquals(12345L, NumberUtils.max(12345L - 1L, 12345L - 2L, 12345L), "maximum(long, long, long) 3 failed");
@@ -1297,7 +1300,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaximumShort() {
+    void testMaximumShort() {
         final short low = 1234;
         final short mid = 1234 + 1;
         final short high = 1234 + 2;
@@ -1308,7 +1311,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaxInt() {
+    void testMaxInt() {
         assertEquals(5, NumberUtils.max(5), "max(int[]) failed for array length 1");
         assertEquals(9, NumberUtils.max(6, 9), "max(int[]) failed for array length 2");
         assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10), "max(int[]) failed for array length 5");
@@ -1317,17 +1320,17 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaxInt_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+    void testMaxInt_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
-    public void testMaxInt_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((int[]) null));
+    void testMaxInt_nullArray() {
+        assertNullPointerException(() -> NumberUtils.max((int[]) null));
     }
 
     @Test
-    public void testMaxLong() {
+    void testMaxLong() {
         assertEquals(5L, NumberUtils.max(5L), "max(long[]) failed for array length 1");
         assertEquals(9L, NumberUtils.max(6L, 9L), "max(long[]) failed for array length 2");
         assertEquals(10L, NumberUtils.max(-10L, -5L, 0L, 5L, 10L), "max(long[]) failed for array length 5");
@@ -1336,17 +1339,17 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaxLong_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+    void testMaxLong_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
-    public void testMaxLong_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((long[]) null));
+    void testMaxLong_nullArray() {
+        assertNullPointerException(() -> NumberUtils.max((long[]) null));
     }
 
     @Test
-    public void testMaxShort() {
+    void testMaxShort() {
         assertEquals((short) 5, NumberUtils.max((short) 5), "max(short[]) failed for array length 1");
         assertEquals((short) 9, NumberUtils.max((short) 6, (short) 9), "max(short[]) failed for array length 2");
         assertEquals((short) 10, NumberUtils.max((short) -10, (short) -5, (short) 0, (short) 5, (short) 10),
@@ -1356,17 +1359,17 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMaxShort_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::max);
+    void testMaxShort_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
-    public void testMaxShort_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.max((short[]) null));
+    void testMaxShort_nullArray() {
+        assertNullPointerException(() -> NumberUtils.max((short[]) null));
     }
 
     @Test
-    public void testMinByte() {
+    void testMinByte() {
         assertEquals((byte) 5, NumberUtils.min((byte) 5), "min(byte[]) failed for array length 1");
         assertEquals((byte) 6, NumberUtils.min((byte) 6, (byte) 9), "min(byte[]) failed for array length 2");
 
@@ -1375,17 +1378,17 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinByte_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+    void testMinByte_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test
-    public void testMinByte_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((byte[]) null));
+    void testMinByte_nullArray() {
+        assertNullPointerException(() -> NumberUtils.min((byte[]) null));
     }
 
     @Test
-    public void testMinDouble() {
+    void testMinDouble() {
         assertEquals(5.12, NumberUtils.min(5.12), "min(double[]) failed for array length 1");
         assertEquals(6.23, NumberUtils.min(6.23, 9.34), "min(double[]) failed for array length 2");
         assertEquals(-10.45, NumberUtils.min(-10.45, -5.56, 0, 5.67, 10.78), "min(double[]) failed for array length 5");
@@ -1395,17 +1398,17 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinDouble_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+    void testMinDouble_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test
-    public void testMinDouble_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((double[]) null));
+    void testMinDouble_nullArray() {
+        assertNullPointerException(() -> NumberUtils.min((double[]) null));
     }
 
     @Test
-    public void testMinFloat() {
+    void testMinFloat() {
         assertEquals(5.9f, NumberUtils.min(5.9f), "min(float[]) failed for array length 1");
         assertEquals(6.8f, NumberUtils.min(6.8f, 9.7f), "min(float[]) failed for array length 2");
         assertEquals(-10.6f, NumberUtils.min(-10.6f, -5.5f, 0, 5.4f, 10.3f), "min(float[]) failed for array length 5");
@@ -1416,17 +1419,17 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinFloat_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+    void testMinFloat_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test
-    public void testMinFloat_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((float[]) null));
+    void testMinFloat_nullArray() {
+        assertNullPointerException(() -> NumberUtils.min((float[]) null));
     }
 
     @Test
-    public void testMinimumByte() {
+    void testMinimumByte() {
         final byte low = 123;
         final byte mid = 123 + 1;
         final byte high = 123 + 2;
@@ -1437,7 +1440,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinimumDouble() {
+    void testMinimumDouble() {
         final double low = 12.3;
         final double mid = 12.3 + 1;
         final double high = 12.3 + 2;
@@ -1449,7 +1452,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinimumFloat() {
+    void testMinimumFloat() {
         final float low = 12.3f;
         final float mid = 12.3f + 1;
         final float high = 12.3f + 2;
@@ -1461,7 +1464,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinimumInt() {
+    void testMinimumInt() {
         assertEquals(12345, NumberUtils.min(12345, 12345 + 1, 12345 + 2), "minimum(int, int, int) 1 failed");
         assertEquals(12345, NumberUtils.min(12345 + 1, 12345, 12345 + 2), "minimum(int, int, int) 2 failed");
         assertEquals(12345, NumberUtils.min(12345 + 1, 12345 + 2, 12345), "minimum(int, int, int) 3 failed");
@@ -1470,7 +1473,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinimumLong() {
+    void testMinimumLong() {
         assertEquals(12345L, NumberUtils.min(12345L, 12345L + 1L, 12345L + 2L), "minimum(long, long, long) 1 failed");
         assertEquals(12345L, NumberUtils.min(12345L + 1L, 12345L, 12345 + 2L), "minimum(long, long, long) 2 failed");
         assertEquals(12345L, NumberUtils.min(12345L + 1L, 12345L + 2L, 12345L), "minimum(long, long, long) 3 failed");
@@ -1479,7 +1482,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinimumShort() {
+    void testMinimumShort() {
         final short low = 1234;
         final short mid = 1234 + 1;
         final short high = 1234 + 2;
@@ -1490,7 +1493,7 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinInt() {
+    void testMinInt() {
         assertEquals(5, NumberUtils.min(5), "min(int[]) failed for array length 1");
         assertEquals(6, NumberUtils.min(6, 9), "min(int[]) failed for array length 2");
 
@@ -1499,17 +1502,17 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinInt_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+    void testMinInt_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test
-    public void testMinInt_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((int[]) null));
+    void testMinInt_nullArray() {
+        assertNullPointerException(() -> NumberUtils.min((int[]) null));
     }
 
     @Test
-    public void testMinLong() {
+    void testMinLong() {
         assertEquals(5L, NumberUtils.min(5L), "min(long[]) failed for array length 1");
         assertEquals(6L, NumberUtils.min(6L, 9L), "min(long[]) failed for array length 2");
 
@@ -1518,17 +1521,17 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinLong_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+    void testMinLong_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test
-    public void testMinLong_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((long[]) null));
+    void testMinLong_nullArray() {
+        assertNullPointerException(() -> NumberUtils.min((long[]) null));
     }
 
     @Test
-    public void testMinShort() {
+    void testMinShort() {
         assertEquals((short) 5, NumberUtils.min((short) 5), "min(short[]) failed for array length 1");
         assertEquals((short) 6, NumberUtils.min((short) 6, (short) 9), "min(short[]) failed for array length 2");
 
@@ -1537,52 +1540,52 @@ public class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMinShort_emptyArray() {
-        assertThrows(IllegalArgumentException.class, NumberUtils::min);
+    void testMinShort_emptyArray() {
+        assertIllegalArgumentException(NumberUtils::min);
     }
 
     @Test
-    public void testMinShort_nullArray() {
-        assertThrows(NullPointerException.class, () -> NumberUtils.min((short[]) null));
+    void testMinShort_nullArray() {
+        assertNullPointerException(() -> NumberUtils.min((short[]) null));
     }
 
     /**
      * Test for {(@link NumberUtils#createNumber(String)}
      */
     @Test
-    public void testStringCreateNumberEnsureNoPrecisionLoss() {
-        assertTrue(NumberUtils.createNumber("1.23") instanceof Float);
-        assertTrue(NumberUtils.createNumber("3.40282354e+38") instanceof Double);
-        assertTrue(NumberUtils.createNumber("1.797693134862315759e+308") instanceof BigDecimal);
+    void testStringCreateNumberEnsureNoPrecisionLoss() {
+        assertInstanceOf(Float.class, NumberUtils.createNumber("1.23"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("3.40282354e+38"));
+        assertInstanceOf(BigDecimal.class, NumberUtils.createNumber("1.797693134862315759e+308"));
         // LANG-1060
-        assertTrue(NumberUtils.createNumber("001.12") instanceof Float);
-        assertTrue(NumberUtils.createNumber("-001.12") instanceof Float);
-        assertTrue(NumberUtils.createNumber("+001.12") instanceof Float);
-        assertTrue(NumberUtils.createNumber("003.40282354e+38") instanceof Double);
-        assertTrue(NumberUtils.createNumber("-003.40282354e+38") instanceof Double);
-        assertTrue(NumberUtils.createNumber("+003.40282354e+38") instanceof Double);
-        assertTrue(NumberUtils.createNumber("0001.797693134862315759e+308") instanceof BigDecimal);
-        assertTrue(NumberUtils.createNumber("-001.797693134862315759e+308") instanceof BigDecimal);
-        assertTrue(NumberUtils.createNumber("+001.797693134862315759e+308") instanceof BigDecimal);
+        assertInstanceOf(Float.class, NumberUtils.createNumber("001.12"));
+        assertInstanceOf(Float.class, NumberUtils.createNumber("-001.12"));
+        assertInstanceOf(Float.class, NumberUtils.createNumber("+001.12"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("003.40282354e+38"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("-003.40282354e+38"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("+003.40282354e+38"));
+        assertInstanceOf(BigDecimal.class, NumberUtils.createNumber("0001.797693134862315759e+308"));
+        assertInstanceOf(BigDecimal.class, NumberUtils.createNumber("-001.797693134862315759e+308"));
+        assertInstanceOf(BigDecimal.class, NumberUtils.createNumber("+001.797693134862315759e+308"));
         //LANG-1613
-        assertTrue(NumberUtils.createNumber("2.2250738585072014E-308") instanceof Double);
-        assertTrue(NumberUtils.createNumber("2.2250738585072014E-308D") instanceof Double);
-        assertTrue(NumberUtils.createNumber("2.2250738585072014E-308F") instanceof Double);
-        assertTrue(NumberUtils.createNumber("4.9E-324") instanceof Double);
-        assertTrue(NumberUtils.createNumber("4.9E-324D") instanceof Double);
-        assertTrue(NumberUtils.createNumber("4.9E-324F") instanceof Double);
-        assertTrue(NumberUtils.createNumber("1.7976931348623157E308") instanceof Double);
-        assertTrue(NumberUtils.createNumber("1.7976931348623157E308D") instanceof Double);
-        assertTrue(NumberUtils.createNumber("1.7976931348623157E308F") instanceof Double);
-        assertTrue(NumberUtils.createNumber("4.9e-324D") instanceof Double);
-        assertTrue(NumberUtils.createNumber("4.9e-324F") instanceof Double);
+        assertInstanceOf(Double.class, NumberUtils.createNumber("2.2250738585072014E-308"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("2.2250738585072014E-308D"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("2.2250738585072014E-308F"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("4.9E-324"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("4.9E-324D"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("4.9E-324F"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("1.7976931348623157E308"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("1.7976931348623157E308D"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("1.7976931348623157E308F"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("4.9e-324D"));
+        assertInstanceOf(Double.class, NumberUtils.createNumber("4.9e-324F"));
     }
 
     /**
      * Test for {@link NumberUtils#toDouble(String)}.
      */
     @Test
-    public void testStringToDoubleString() {
+    void testStringToDoubleString() {
         assertEquals(NumberUtils.toDouble("-1.2345"), -1.2345d, "toDouble(String) 1 failed");
         assertEquals(1.2345d, NumberUtils.toDouble("1.2345"), "toDouble(String) 2 failed");
         assertEquals(0.0d, NumberUtils.toDouble("abc"), "toDouble(String) 3 failed");
@@ -1604,7 +1607,7 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toDouble(String, double)}.
      */
     @Test
-    public void testStringToDoubleStringD() {
+    void testStringToDoubleStringD() {
         assertEquals(1.2345d, NumberUtils.toDouble("1.2345", 5.1d), "toDouble(String, int) 1 failed");
         assertEquals(5.0d, NumberUtils.toDouble("a", 5.0d), "toDouble(String, int) 2 failed");
         // LANG-1060
@@ -1612,13 +1615,15 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals(NumberUtils.toDouble("-001.2345", 5.1d), -1.2345d, "toDouble(String, int) 4 failed");
         assertEquals(1.2345d, NumberUtils.toDouble("+001.2345", 5.1d), "toDouble(String, int) 5 failed");
         assertEquals(0d, NumberUtils.toDouble("000.00", 5.1d), "toDouble(String, int) 7 failed");
+        assertEquals(5.1d, NumberUtils.toDouble("", 5.1d));
+        assertEquals(5.1d, NumberUtils.toDouble((String) null, 5.1d));
     }
 
     /**
      * Test for {@link NumberUtils#toByte(String)}.
      */
     @Test
-    public void testToByteString() {
+    void testToByteString() {
         assertEquals(123, NumberUtils.toByte("123"), "toByte(String) 1 failed");
         assertEquals(0, NumberUtils.toByte("abc"), "toByte(String) 2 failed");
         assertEquals(0, NumberUtils.toByte(""), "toByte(empty) failed");
@@ -1629,16 +1634,18 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toByte(String, byte)}.
      */
     @Test
-    public void testToByteStringI() {
+    void testToByteStringI() {
         assertEquals(123, NumberUtils.toByte("123", (byte) 5), "toByte(String, byte) 1 failed");
         assertEquals(5, NumberUtils.toByte("12.3", (byte) 5), "toByte(String, byte) 2 failed");
+        assertEquals(5, NumberUtils.toByte("", (byte) 5));
+        assertEquals(5, NumberUtils.toByte(null, (byte) 5));
     }
 
     /**
      * Test for {@link NumberUtils#toFloat(String)}.
      */
     @Test
-    public void testToFloatString() {
+    void testToFloatString() {
         assertEquals(NumberUtils.toFloat("-1.2345"), -1.2345f, "toFloat(String) 1 failed");
         assertEquals(1.2345f, NumberUtils.toFloat("1.2345"), "toFloat(String) 2 failed");
         assertEquals(0.0f, NumberUtils.toFloat("abc"), "toFloat(String) 3 failed");
@@ -1658,20 +1665,22 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toFloat(String, float)}.
      */
     @Test
-    public void testToFloatStringF() {
+    void testToFloatStringF() {
         assertEquals(1.2345f, NumberUtils.toFloat("1.2345", 5.1f), "toFloat(String, int) 1 failed");
         assertEquals(5.0f, NumberUtils.toFloat("a", 5.0f), "toFloat(String, int) 2 failed");
         // LANG-1060
         assertEquals(5.0f, NumberUtils.toFloat("-001Z.2345", 5.0f), "toFloat(String, int) 3 failed");
         assertEquals(5.0f, NumberUtils.toFloat("+001AB.2345", 5.0f), "toFloat(String, int) 4 failed");
         assertEquals(5.0f, NumberUtils.toFloat("001Z.2345", 5.0f), "toFloat(String, int) 5 failed");
+        assertEquals(5.0f, NumberUtils.toFloat("", 5.0f));
+        assertEquals(5.0f, NumberUtils.toFloat(null, 5.0f));
     }
 
     /**
      * Test for {@link NumberUtils#toInt(String)}.
      */
     @Test
-    public void testToIntString() {
+    void testToIntString() {
         assertEquals(12345, NumberUtils.toInt("12345"), "toInt(String) 1 failed");
         assertEquals(0, NumberUtils.toInt("abc"), "toInt(String) 2 failed");
         assertEquals(0, NumberUtils.toInt(""), "toInt(empty) failed");
@@ -1682,16 +1691,18 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toInt(String, int)}.
      */
     @Test
-    public void testToIntStringI() {
+    void testToIntStringI() {
         assertEquals(12345, NumberUtils.toInt("12345", 5), "toInt(String, int) 1 failed");
         assertEquals(5, NumberUtils.toInt("1234.5", 5), "toInt(String, int) 2 failed");
+        assertEquals(5, NumberUtils.toInt("", 5));
+        assertEquals(5, NumberUtils.toInt(null, 5));
     }
 
     /**
      * Test for {@link NumberUtils#toLong(String)}.
      */
     @Test
-    public void testToLongString() {
+    void testToLongString() {
         assertEquals(12345L, NumberUtils.toLong("12345"), "toLong(String) 1 failed");
         assertEquals(0L, NumberUtils.toLong("abc"), "toLong(String) 2 failed");
         assertEquals(0L, NumberUtils.toLong("1L"), "toLong(String) 3 failed");
@@ -1706,16 +1717,18 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toLong(String, long)}.
      */
     @Test
-    public void testToLongStringL() {
+    void testToLongStringL() {
         assertEquals(12345L, NumberUtils.toLong("12345", 5L), "toLong(String, long) 1 failed");
         assertEquals(5L, NumberUtils.toLong("1234.5", 5L), "toLong(String, long) 2 failed");
+        assertEquals(5L, NumberUtils.toLong("", 5L));
+        assertEquals(5L, NumberUtils.toLong(null, 5L));
     }
 
     /**
      * Test for {@link NumberUtils#toScaledBigDecimal(BigDecimal)}.
      */
     @Test
-    public void testToScaledBigDecimalBigDecimal() {
+    void testToScaledBigDecimalBigDecimal() {
         assertEquals(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(123.456)), BigDecimal.valueOf(123.46),
             "toScaledBigDecimal(BigDecimal) 1 failed");
         // Test RoundingMode.HALF_EVEN default rounding.
@@ -1734,7 +1747,7 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toScaledBigDecimal(BigDecimal, int, RoundingMode)}.
      */
     @Test
-    public void testToScaledBigDecimalBigDecimalIRM() {
+    void testToScaledBigDecimalBigDecimalIRM() {
         assertEquals(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(123.456), 1, RoundingMode.CEILING),
             BigDecimal.valueOf(123.5), "toScaledBigDecimal(BigDecimal, int, RoundingMode) 1 failed");
         assertEquals(NumberUtils.toScaledBigDecimal(BigDecimal.valueOf(23.5159), 3, RoundingMode.FLOOR),
@@ -1753,7 +1766,7 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toScaledBigDecimal(Double)}.
      */
     @Test
-    public void testToScaledBigDecimalDouble() {
+    void testToScaledBigDecimalDouble() {
         assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(123.456d)), BigDecimal.valueOf(123.46),
             "toScaledBigDecimal(Double) 1 failed");
         // Test RoundingMode.HALF_EVEN default rounding.
@@ -1772,7 +1785,7 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toScaledBigDecimal(Double, int, RoundingMode)}.
      */
     @Test
-    public void testToScaledBigDecimalDoubleIRM() {
+    void testToScaledBigDecimalDoubleIRM() {
         assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(123.456d), 1, RoundingMode.CEILING),
             BigDecimal.valueOf(123.5), "toScaledBigDecimal(Double, int, RoundingMode) 1 failed");
         assertEquals(NumberUtils.toScaledBigDecimal(Double.valueOf(23.5159d), 3, RoundingMode.FLOOR),
@@ -1791,7 +1804,7 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toScaledBigDecimal(Float)}.
      */
     @Test
-    public void testToScaledBigDecimalFloat() {
+    void testToScaledBigDecimalFloat() {
         assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(123.456f)), BigDecimal.valueOf(123.46),
             "toScaledBigDecimal(Float) 1 failed");
         // Test RoundingMode.HALF_EVEN default rounding.
@@ -1812,7 +1825,7 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toScaledBigDecimal(Float, int, RoundingMode)}.
      */
     @Test
-    public void testToScaledBigDecimalFloatIRM() {
+    void testToScaledBigDecimalFloatIRM() {
         assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(123.456f), 1, RoundingMode.CEILING),
             BigDecimal.valueOf(123.5), "toScaledBigDecimal(Float, int, RoundingMode) 1 failed");
         assertEquals(NumberUtils.toScaledBigDecimal(Float.valueOf(23.5159f), 3, RoundingMode.FLOOR),
@@ -1823,14 +1836,14 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals("23521.0000", NumberUtils.toScaledBigDecimal(Float.valueOf(23.521f), 4, RoundingMode.HALF_EVEN)
             .multiply(BigDecimal.valueOf(1000)).toString(), "toScaledBigDecimal(Float, int, RoundingMode) 4 failed");
         assertEquals(NumberUtils.toScaledBigDecimal((Float) null, 2, RoundingMode.HALF_UP), BigDecimal.ZERO,
-            "toScaledBigDecimal(Float, int, RoundingMode) 5 failed");
+                "toScaledBigDecimal(Float, int, RoundingMode) 5 failed");
     }
 
     /**
      * Test for {@link NumberUtils#toScaledBigDecimal(Double)}.
      */
     @Test
-    public void testToScaledBigDecimalString() {
+    void testToScaledBigDecimalString() {
         assertEquals(NumberUtils.toScaledBigDecimal("123.456"), BigDecimal.valueOf(123.46),
             "toScaledBigDecimal(String) 1 failed");
         // Test RoundingMode.HALF_EVEN default rounding.
@@ -1841,14 +1854,14 @@ public class NumberUtilsTest extends AbstractLangTest {
         assertEquals("2352.00", NumberUtils.toScaledBigDecimal("23.525").multiply(BigDecimal.valueOf(100)).toString(),
             "toScaledBigDecimal(String) 4 failed");
         assertEquals(NumberUtils.toScaledBigDecimal((String) null), BigDecimal.ZERO,
-            "toScaledBigDecimal(String) 5 failed");
+                "toScaledBigDecimal(String) 5 failed");
     }
 
     /**
      * Test for {@link NumberUtils#toScaledBigDecimal(Double, int, RoundingMode)}.
      */
     @Test
-    public void testToScaledBigDecimalStringIRM() {
+    void testToScaledBigDecimalStringIRM() {
         assertEquals(NumberUtils.toScaledBigDecimal("123.456", 1, RoundingMode.CEILING), BigDecimal.valueOf(123.5),
             "toScaledBigDecimal(String, int, RoundingMode) 1 failed");
         assertEquals(NumberUtils.toScaledBigDecimal("23.5159", 3, RoundingMode.FLOOR), BigDecimal.valueOf(23.515),
@@ -1860,14 +1873,14 @@ public class NumberUtilsTest extends AbstractLangTest {
                 .multiply(BigDecimal.valueOf(1000)).toString(),
             "toScaledBigDecimal(String, int, RoundingMode) 4 failed");
         assertEquals(NumberUtils.toScaledBigDecimal((String) null, 2, RoundingMode.HALF_UP), BigDecimal.ZERO,
-            "toScaledBigDecimal(String, int, RoundingMode) 5 failed");
+                "toScaledBigDecimal(String, int, RoundingMode) 5 failed");
     }
 
     /**
      * Test for {@link NumberUtils#toShort(String)}.
      */
     @Test
-    public void testToShortString() {
+    void testToShortString() {
         assertEquals(12345, NumberUtils.toShort("12345"), "toShort(String) 1 failed");
         assertEquals(0, NumberUtils.toShort("abc"), "toShort(String) 2 failed");
         assertEquals(0, NumberUtils.toShort(""), "toShort(empty) failed");
@@ -1878,8 +1891,10 @@ public class NumberUtilsTest extends AbstractLangTest {
      * Test for {@link NumberUtils#toShort(String, short)}.
      */
     @Test
-    public void testToShortStringI() {
+    void testToShortStringI() {
         assertEquals(12345, NumberUtils.toShort("12345", (short) 5), "toShort(String, short) 1 failed");
         assertEquals(5, NumberUtils.toShort("1234.5", (short) 5), "toShort(String, short) 2 failed");
+        assertEquals(5, NumberUtils.toShort("", (short) 5));
+        assertEquals(5, NumberUtils.toShort(null, (short) 5));
     }
 }

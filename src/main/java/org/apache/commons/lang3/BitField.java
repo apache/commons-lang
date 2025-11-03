@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -183,7 +183,7 @@ public class BitField {
     }
 
     /**
-     * Returns whether all of the bits are set or not.
+     * Tests whether all of the bits are set or not.
      *
      * <p>This is a stricter test than {@link #isSet(int)},
      * in that all of the bits in a multi-bit set must be set
@@ -199,7 +199,7 @@ public class BitField {
     }
 
     /**
-     * Returns whether the field is set or not.
+     * Tests whether the field is set or not.
      *
      * <p>This is most commonly used for a single-bit field, which is
      * often used to represent a boolean value; the results of using

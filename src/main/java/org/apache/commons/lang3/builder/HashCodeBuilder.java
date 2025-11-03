@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -138,7 +138,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
 
     /**
-     * Returns the registry of objects being traversed by the reflection methods in the current thread.
+     * Gets the registry of objects being traversed by the reflection methods in the current thread.
      *
      * @return Set the registry of objects being traversed
      * @since 2.3
@@ -148,7 +148,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     }
 
     /**
-     * Returns {@code true} if the registry contains the given object. Used by the reflection methods to avoid
+     * Tests whether the registry contains the given object. Used by the reflection methods to avoid
      * infinite loops.
      *
      * @param value
@@ -542,7 +542,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * that represent {@code false}.
      * </p>
      * <p>
-     * This is in accordance with the <i>Effective Java</i> design.
+     * This is in accordance with the <em>Effective Java</em> design.
      * </p>
      *
      * @param value

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3.text;
 
 import java.text.Format;
@@ -23,9 +24,8 @@ import java.util.Locale;
  * Format factory.
  *
  * @since 2.4
- * @deprecated As of 3.6, use Apache Commons Text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/FormatFactory.html">
- * FormatFactory</a> instead
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
+ *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/FormatFactory.html"> FormatFactory</a>.
  */
 @Deprecated
 public interface FormatFactory {
@@ -33,13 +33,11 @@ public interface FormatFactory {
     /**
      * Create or retrieve a format instance.
      *
-     * @param name The format type name
-     * @param arguments Arguments used to create the format instance. This allows the
-     *                  {@link FormatFactory} to implement the "format style"
-     *                  concept from {@link java.text.MessageFormat}.
-     * @param locale The locale, may be null
-     * @return The format instance
+     * @param name      The format type name.
+     * @param arguments Arguments used to create the format instance. This allows the {@link FormatFactory} to implement the "format style" concept from
+     *                  {@link java.text.MessageFormat}.
+     * @param locale    The locale, may be null.
+     * @return The format instance.
      */
     Format getFormat(String name, String arguments, Locale locale);
-
 }

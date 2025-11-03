@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,13 +28,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link Suppliers}.
  */
-public class SuppliersTest extends AbstractLangTest {
+class SuppliersTest extends AbstractLangTest {
 
     /**
      * Tests {@link Suppliers#get(Supplier)}.
      */
     @Test
-    public void testGet() {
+    void testGet() {
         assertNull(Suppliers.get(null));
         assertNull(Suppliers.get(() -> null));
         assertNull(Suppliers.get(Suppliers.nul()));

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,9 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link StringUtils} - StartsWith/EndsWith methods
+ * Tests {@link StringUtils} - StartsWith/EndsWith methods
  */
-public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
+class StringUtilsStartsEndsWithTest extends AbstractLangTest {
     private static final String foo    = "foo";
     private static final String bar    = "bar";
     private static final String foobar = "foobar";
@@ -36,7 +36,7 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
      * Test StringUtils.endsWith()
      */
     @Test
-    public void testEndsWith() {
+    void testEndsWith() {
         assertTrue(StringUtils.endsWith(null, null), "endsWith(null, null)");
         assertFalse(StringUtils.endsWith(FOOBAR, null), "endsWith(FOOBAR, null)");
         assertFalse(StringUtils.endsWith(null, FOO), "endsWith(null, FOO)");
@@ -64,7 +64,7 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEndsWithAny() {
+    void testEndsWithAny() {
         assertFalse(StringUtils.endsWithAny(null, (String) null), "StringUtils.endsWithAny(null, null)");
         assertFalse(StringUtils.endsWithAny(null, "abc"), "StringUtils.endsWithAny(null, new String[] {abc})");
         assertFalse(StringUtils.endsWithAny("abcxyz", (String) null), "StringUtils.endsWithAny(abcxyz, null)");
@@ -96,7 +96,7 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
      * Test StringUtils.endsWithIgnoreCase()
      */
     @Test
-    public void testEndsWithIgnoreCase() {
+    void testEndsWithIgnoreCase() {
         assertTrue(StringUtils.endsWithIgnoreCase(null, null), "endsWithIgnoreCase(null, null)");
         assertFalse(StringUtils.endsWithIgnoreCase(FOOBAR, null), "endsWithIgnoreCase(FOOBAR, null)");
         assertFalse(StringUtils.endsWithIgnoreCase(null, FOO), "endsWithIgnoreCase(null, FOO)");
@@ -132,7 +132,7 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
      * Test StringUtils.startsWith()
      */
     @Test
-    public void testStartsWith() {
+    void testStartsWith() {
         assertTrue(StringUtils.startsWith(null, null), "startsWith(null, null)");
         assertFalse(StringUtils.startsWith(FOOBAR, null), "startsWith(FOOBAR, null)");
         assertFalse(StringUtils.startsWith(null, FOO), "startsWith(null, FOO)");
@@ -153,7 +153,7 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStartsWithAny() {
+    void testStartsWithAny() {
         assertFalse(StringUtils.startsWithAny(null, (String[]) null));
         assertFalse(StringUtils.startsWithAny(null, "abc"));
         assertFalse(StringUtils.startsWithAny("abcxyz", (String[]) null));
@@ -173,7 +173,7 @@ public class StringUtilsStartsEndsWithTest extends AbstractLangTest {
      * Test StringUtils.testStartsWithIgnoreCase()
      */
     @Test
-    public void testStartsWithIgnoreCase() {
+    void testStartsWithIgnoreCase() {
         assertTrue(StringUtils.startsWithIgnoreCase(null, null), "startsWithIgnoreCase(null, null)");
         assertFalse(StringUtils.startsWithIgnoreCase(FOOBAR, null), "startsWithIgnoreCase(FOOBAR, null)");
         assertFalse(StringUtils.startsWithIgnoreCase(null, FOO), "startsWithIgnoreCase(null, FOO)");

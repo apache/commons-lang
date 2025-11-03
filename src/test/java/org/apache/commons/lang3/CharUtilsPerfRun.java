@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -99,22 +99,22 @@ public class CharUtilsPerfRun {
     }
 
     private void run() {
-        this.printSysInfo();
+        printSysInfo();
         long startMillis;
         startMillis = System.currentTimeMillis();
-        this.printlnTotal("Do nothing", startMillis);
+        printlnTotal("Do nothing", startMillis);
         run_CharUtils_isAsciiNumeric(WARM_UP);
         startMillis = System.currentTimeMillis();
         run_CharUtils_isAsciiNumeric(COUNT);
-        this.printlnTotal("run_CharUtils_isAsciiNumeric", startMillis);
+        printlnTotal("run_CharUtils_isAsciiNumeric", startMillis);
         run_inlined_CharUtils_isAsciiNumeric(WARM_UP);
         startMillis = System.currentTimeMillis();
         run_inlined_CharUtils_isAsciiNumeric(COUNT);
-        this.printlnTotal("run_inlined_CharUtils_isAsciiNumeric", startMillis);
+        printlnTotal("run_inlined_CharUtils_isAsciiNumeric", startMillis);
         run_CharSet(WARM_UP);
         startMillis = System.currentTimeMillis();
         run_CharSet(COUNT);
-        this.printlnTotal("run_CharSet", startMillis);
+        printlnTotal("run_CharSet", startMillis);
     }
 
     private int run_CharSet(final int loopCount) {

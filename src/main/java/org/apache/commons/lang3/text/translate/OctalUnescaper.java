@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,6 +19,8 @@ package org.apache.commons.lang3.text.translate;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.apache.commons.lang3.CharUtils;
+
 /**
  * Translate escaped octal Strings back to their octal values.
  *
@@ -28,26 +30,24 @@ import java.io.Writer;
  * 1 to 377. This is because parsing Java is the main use case.
  *
  * @since 3.0
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/OctalUnescaper.html">
- * OctalUnescaper</a> instead
+ * OctalUnescaper</a>.
  */
 @Deprecated
 public class OctalUnescaper extends CharSequenceTranslator {
 
     /**
-     * Checks if the given char is an octal digit. Octal digits are the character representations of the digits 0 to 7.
-     * @param ch the char to check
-     * @return true if the given char is the character representation of one of the digits from 0 to 7
+     * Constructs a new instance.
      */
-    private boolean isOctalDigit(final char ch) {
-        return ch >= '0' && ch <= '7';
+    public OctalUnescaper() {
+        // empty
     }
 
     /**
      * Checks if the given char is the character representation of one of the digit from 0 to 3.
-     * @param ch the char to check
-     * @return true if the given char is the character representation of one of the digits from 0 to 3
+     * @param ch the char to check.
+     * @return true if the given char is the character representation of one of the digits from 0 to 3.
      */
     private boolean isZeroToThree(final char ch) {
         return ch >= '0' && ch <= '3';
@@ -60,22 +60,19 @@ public class OctalUnescaper extends CharSequenceTranslator {
     public int translate(final CharSequence input, final int index, final Writer out) throws IOException {
         final int remaining = input.length() - index - 1; // how many characters left, ignoring the first \
         final StringBuilder builder = new StringBuilder();
-        if (input.charAt(index) == '\\' && remaining > 0 && isOctalDigit(input.charAt(index + 1)) ) {
+        if (input.charAt(index) == '\\' && remaining > 0 && CharUtils.isOctal(input.charAt(index + 1))) {
             final int next = index + 1;
             final int next2 = index + 2;
             final int next3 = index + 3;
-
             // we know this is good as we checked it in the if block above
             builder.append(input.charAt(next));
-
-            if (remaining > 1 && isOctalDigit(input.charAt(next2))) {
+            if (remaining > 1 && CharUtils.isOctal(input.charAt(next2))) {
                 builder.append(input.charAt(next2));
-                if (remaining > 2 && isZeroToThree(input.charAt(next)) && isOctalDigit(input.charAt(next3))) {
+                if (remaining > 2 && isZeroToThree(input.charAt(next)) && CharUtils.isOctal(input.charAt(next3))) {
                     builder.append(input.charAt(next3));
                 }
             }
-
-            out.write( Integer.parseInt(builder.toString(), 8) );
+            out.write(Integer.parseInt(builder.toString(), 8));
             return 1 + builder.length();
         }
         return 0;

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,13 +16,10 @@
  */
 package org.apache.commons.lang3;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
@@ -41,21 +38,27 @@ import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.function.Executable;
 import org.xml.sax.SAXException;
 
-public class StreamsTest extends AbstractLangTest {
+/**
+ * Tests Streams.
+ *
+ * @deprecated this test can be removed once the deprecated source class {@link org.apache.commons.lang3.Streams} is removed.
+ */
+@Deprecated
+class StreamsTest extends AbstractLangTest {
 
-    protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T pThrowable) {
+    protected <T extends Throwable> FailableConsumer<String, T> asIntConsumer(final T throwable) {
         return s -> {
             final int i = Integer.parseInt(s);
             if (i == 4) {
-                throw pThrowable;
+                throw throwable;
             }
         };
     }
 
-    protected <T extends Throwable> FailablePredicate<Integer, T> asIntPredicate(final T pThrowable) {
+    protected <T extends Throwable> FailablePredicate<Integer, T> asIntPredicate(final T phrowable) {
         return i -> {
-            if (i.intValue() == 5 && pThrowable != null) {
-                throw pThrowable;
+            if (i.intValue() == 5 && phrowable != null) {
+                throw phrowable;
             }
             return i % 2 == 0;
         };
@@ -83,8 +86,8 @@ public class StreamsTest extends AbstractLangTest {
                             .map(Integer::valueOf)
                             .filter(asIntPredicate(iae))
                             .collect(Collectors.toList());
-                    final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
-                    assertThat(thrown.getMessage(), is(equalTo("Invalid argument: " + 5)));
+                    final IllegalArgumentException thrown = assertIllegalArgumentException(testMethod);
+                    assertEquals("Invalid argument: " + 5, thrown.getMessage());
                 }),
                 dynamicTest("OutOfMemoryError", () -> {
                     final OutOfMemoryError oome = new OutOfMemoryError();
@@ -93,7 +96,7 @@ public class StreamsTest extends AbstractLangTest {
                             .filter(asIntPredicate(oome))
                             .collect(Collectors.toList());
                     final OutOfMemoryError thrown = assertThrows(OutOfMemoryError.class, testMethod);
-                    assertThat(thrown.getMessage(), is(nullValue()));
+                    assertNull(thrown.getMessage());
                 }),
                 dynamicTest("SAXException", () -> {
                     final SAXException se = new SAXException();
@@ -102,10 +105,8 @@ public class StreamsTest extends AbstractLangTest {
                             .filter(asIntPredicate(se))
                             .collect(Collectors.toList());
                     final UndeclaredThrowableException thrown = assertThrows(UndeclaredThrowableException.class, testMethod);
-                    assertAll(
-                            () -> assertThat(thrown.getMessage(), is(nullValue())),
-                            () -> assertThat(thrown.getCause(), is(equalTo(se)))
-                    );
+                    assertNull(thrown.getMessage());
+                    assertEquals(se, thrown.getCause());
                 })
         );
     }
@@ -117,39 +118,37 @@ public class StreamsTest extends AbstractLangTest {
                 dynamicTest("IllegalArgumentException", () -> {
                     final IllegalArgumentException ise = new IllegalArgumentException();
                     final Executable testMethod = () -> Functions.stream(input).forEach(asIntConsumer(ise));
-                    final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
-                    assertThat(thrown.getMessage(), is(nullValue()));
+                    final IllegalArgumentException thrown = assertIllegalArgumentException(testMethod);
+                    assertNull(thrown.getMessage());
                 }),
                 dynamicTest("OutOfMemoryError", () -> {
                     final OutOfMemoryError oome = new OutOfMemoryError();
                     final Executable oomeTestMethod = () -> Functions.stream(input).forEach(asIntConsumer(oome));
                     final OutOfMemoryError oomeThrown = assertThrows(OutOfMemoryError.class, oomeTestMethod);
-                    assertThat(oomeThrown.getMessage(), is(nullValue()));
+                    assertNull(oomeThrown.getMessage());
                 }),
                 dynamicTest("SAXException", () -> {
                     final SAXException se = new SAXException();
                     final Executable seTestMethod = () -> Functions.stream(input).forEach(asIntConsumer(se));
                     final UndeclaredThrowableException seThrown = assertThrows(UndeclaredThrowableException.class, seTestMethod);
-                    assertAll(
-                            () -> assertThat(seThrown.getMessage(), is(nullValue())),
-                            () -> assertThat(seThrown.getCause(), is(equalTo(se)))
-                    );
+                    assertNull(seThrown.getMessage());
+                    assertEquals(se, seThrown.getCause());
                 })
         );
     }
 
     @Test
-    public void testSimpleStreamFilter() {
+    void testSimpleStreamFilter() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input)
                 .map(Integer::valueOf)
-                .filter(i -> (i.intValue() % 2 == 0))
+                .filter(i -> i.intValue() % 2 == 0)
                 .collect(Collectors.toList());
         assertEvenNumbers(output);
     }
 
     @Test
-    public void testSimpleStreamForEach() {
+    void testSimpleStreamForEach() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = new ArrayList<>();
         Functions.stream(input).forEach(s -> output.add(Integer.valueOf(s)));
@@ -160,7 +159,7 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSimpleStreamMap() {
+    void testSimpleStreamMap() {
         final List<String> input = Arrays.asList("1", "2", "3", "4", "5", "6");
         final List<Integer> output = Functions.stream(input).map(Integer::valueOf).collect(Collectors.toList());
         assertEquals(6, output.size());
@@ -170,7 +169,7 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSimpleStreamMapFailing() {
+    void testSimpleStreamMapFailing() {
         final List<String> input = Arrays.asList("1", "2", "3", "4 ", "5", "6");
         final Executable testMethod = () -> Functions.stream(input).map(Integer::valueOf).collect(Collectors.toList());
         final NumberFormatException thrown = assertThrows(NumberFormatException.class, testMethod);
@@ -178,7 +177,7 @@ public class StreamsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToArray() {
+    void testToArray() {
         final String[] array = Arrays.asList("2", "3", "1").stream().collect(Streams.toArray(String.class));
         assertNotNull(array);
         assertEquals(3, array.length);

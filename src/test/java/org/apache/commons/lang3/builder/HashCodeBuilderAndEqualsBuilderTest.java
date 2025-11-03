@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * {@link org.apache.commons.lang3.builder.EqualsBuilderTest} to ensure that equal
  * objects must have equal hash codes.
  */
-public class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
+class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
 
     static class AllTransientFixture {
         transient int i;
@@ -92,7 +92,7 @@ public class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFixture() {
+    void testFixture() {
         testFixture(false);
     }
 
@@ -110,15 +110,16 @@ public class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
             new SubAllTransientFixture(2, 'c', "Test", (short) 2, "Same"),
             new SubAllTransientFixture(2, 'c', "Test", (short) 2, "Same"),
             testTransients);
+
     }
 
     @Test
-    public void testFixtureWithTransients() {
+    void testFixtureWithTransients() {
         testFixture(true);
     }
 
     @Test
-    public void testInteger() {
+    void testInteger() {
         testInteger(false);
     }
 
@@ -129,8 +130,17 @@ public class HashCodeBuilderAndEqualsBuilderTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIntegerWithTransients() {
+    void testIntegerWithTransients() {
         testInteger(true);
+    }
+
+    @Test
+    void testRetention() throws Exception {
+        // The following should not retain memory.
+        for (int i = 0; i < Integer.getInteger("testRecursive", 10_000); i++) {
+            final Class<?> clazz = TestClassBuilder.defineSimpleClass(getClass().getPackage().getName(), i);
+            assertEqualsAndHashCodeContract(clazz.newInstance(), clazz.newInstance(), false);
+        }
     }
 
 }

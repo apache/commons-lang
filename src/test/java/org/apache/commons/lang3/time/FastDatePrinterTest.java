@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.time;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.Serializable;
@@ -37,9 +37,9 @@ import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
- * Unit tests {@link org.apache.commons.lang3.time.FastDatePrinter}.
+ * Tests {@link org.apache.commons.lang3.time.FastDatePrinter}.
  */
-public class FastDatePrinterTest extends AbstractLangTest {
+class FastDatePrinterTest extends AbstractLangTest {
 
     private enum Expected1806 {
         India(INDIA, "+05", "+0530", "+05:30"), Greenwich(TimeZones.GMT, "Z", "Z", "Z"), NewYork(NEW_YORK, "-05", "-0500", "-05:00");
@@ -105,7 +105,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void test1806() {
+    void test1806() {
         for (final Expected1806 trial : Expected1806.values()) {
             final Calendar cal = initializeCalendar(trial.zone);
 
@@ -121,12 +121,12 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void test1806Argument() {
-        assertThrows(IllegalArgumentException.class, () -> getInstance("XXXX"));
+    void test1806Argument() {
+        assertIllegalArgumentException(() -> getInstance("XXXX"));
     }
 
     @Test
-    public void testAppendableOptions() {
+    void testAppendableOptions() {
         final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZones.GMT);
         final Calendar calendar = Calendar.getInstance();
         final StringBuilder sb = new StringBuilder();
@@ -142,7 +142,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDayNumberOfWeek() {
+    void testDayNumberOfWeek() {
         final DatePrinter printer = getInstance("u");
         final Calendar calendar = Calendar.getInstance();
 
@@ -157,7 +157,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final DatePrinter printer1 = getInstance(YYYY_MM_DD);
         final DatePrinter printer2 = getInstance(YYYY_MM_DD);
 
@@ -170,7 +170,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     @DefaultLocale(language = "en", country = "US")
     @DefaultTimeZone("America/New_York")
     @Test
-    public void testFormat() {
+    void testFormat() {
         final GregorianCalendar cal1 = new GregorianCalendar(2003, 0, 10, 15, 33, 20);
         final GregorianCalendar cal2 = new GregorianCalendar(2003, 6, 10, 9, 0, 0);
         final Date date1 = cal1.getTime();
@@ -216,7 +216,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testHourFormats() {
+    void testHourFormats() {
         final Calendar calendar = Calendar.getInstance();
         calendar.clear();
         final DatePrinter printer = getInstance("K k H h");
@@ -232,7 +232,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang1103() {
+    void testLang1103() {
         final Calendar cal = Calendar.getInstance(SWEDEN);
         cal.set(Calendar.DAY_OF_MONTH, 2);
 
@@ -244,7 +244,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang303() {
+    void testLang303() {
         final Calendar cal = Calendar.getInstance();
         cal.set(2004, Calendar.DECEMBER, 31);
 
@@ -256,7 +256,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang538() {
+    void testLang538() {
         // more commonly constructed with: cal = new GregorianCalendar(2009, 9, 16, 8, 42, 16)
         // for the unit test to work in any time zone, constructing with GMT-8 rather than default locale time zone
         final GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT-8"));
@@ -269,7 +269,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLang645() {
+    void testLang645() {
         final Locale locale = new Locale("sv", "SE");
 
         final Calendar cal = Calendar.getInstance();
@@ -287,7 +287,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
      * This method test that the bug is fixed.
      */
     @Test
-    public void testLang916() {
+    void testLang916() {
 
         final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         cal.clear();
@@ -309,7 +309,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testLocaleMatches() {
+    void testLocaleMatches() {
         final DatePrinter printer = getInstance(YYYY_MM_DD, SWEDEN);
         assertEquals(SWEDEN, printer.getLocale());
     }
@@ -318,7 +318,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
      * Tests that pre-1000AD years get padded with yyyy
      */
     @Test
-    public void testLowYearPadding() {
+    void testLowYearPadding() {
         final Calendar cal = Calendar.getInstance();
         final DatePrinter format = getInstance(YYYY_MM_DD);
 
@@ -336,7 +336,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
      * Show Bug #39410 is solved
      */
     @Test
-    public void testMilleniumBug() {
+    void testMilleniumBug() {
         final Calendar cal = Calendar.getInstance();
         final DatePrinter format = getInstance("dd.MM.yyyy");
 
@@ -345,7 +345,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPatternMatches() {
+    void testPatternMatches() {
         final DatePrinter printer = getInstance(YYYY_MM_DD);
         assertEquals(YYYY_MM_DD, printer.getPattern());
     }
@@ -354,7 +354,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
      * Test case for {@link FastDateParser#FastDateParser(String, TimeZone, Locale)}.
      */
     @Test
-    public void testShortDateStyleWithLocales() {
+    void testShortDateStyleWithLocales() {
         final Locale usLocale = Locale.US;
         final Locale swedishLocale = new Locale("sv", "SE");
         final Calendar cal = Calendar.getInstance();
@@ -371,7 +371,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
      * testLowYearPadding showed that the date was buggy This test confirms it, getting 366 back as a date
      */
     @Test
-    public void testSimpleDate() {
+    void testSimpleDate() {
         final Calendar cal = Calendar.getInstance();
         final DatePrinter format = getInstance(YYYY_MM_DD);
 
@@ -385,7 +385,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void testStringBufferOptions() {
+    void testStringBufferOptions() {
         final DatePrinter format = getInstance("yyyy-MM-dd HH:mm:ss.SSS Z", TimeZones.GMT);
         final Calendar calendar = Calendar.getInstance();
         final StringBuffer sb = new StringBuffer();
@@ -408,7 +408,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
 
     @DefaultTimeZone("UTC")
     @Test
-    public void testTimeZoneAsZ() {
+    void testTimeZoneAsZ() {
         final Calendar c = Calendar.getInstance(FastTimeZone.getGmtTimeZone());
         final FastDateFormat noColonFormat = FastDateFormat.getInstance("Z");
         assertEquals("+0000", noColonFormat.format(c));
@@ -421,13 +421,13 @@ public class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testTimeZoneMatches() {
+    void testTimeZoneMatches() {
         final DatePrinter printer = getInstance(YYYY_MM_DD, NEW_YORK);
         assertEquals(NEW_YORK, printer.getTimeZone());
     }
 
     @Test
-    public void testToStringContainsName() {
+    void testToStringContainsName() {
         final DatePrinter printer = getInstance(YYYY_MM_DD);
         assertTrue(printer.toString().startsWith("FastDate"));
     }
@@ -435,7 +435,7 @@ public class FastDatePrinterTest extends AbstractLangTest {
     @DefaultLocale(language = "en", country = "US")
     @DefaultTimeZone("America/New_York")
     @Test
-    public void testWeekYear() {
+    void testWeekYear() {
         final GregorianCalendar cal = new GregorianCalendar(2020, 12, 31, 0, 0, 0);
         final DatePrinter printer4Digits = getInstance("YYYY");
         final DatePrinter printer4DigitsFallback = getInstance("YYY");

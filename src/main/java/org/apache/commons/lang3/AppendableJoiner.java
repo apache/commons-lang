@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -121,7 +121,7 @@ public final class AppendableJoiner<T> {
          * Sets the delimiter that separates each element.
          *
          * @param delimiter The delimiter that separates each element.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder<T> setDelimiter(final CharSequence delimiter) {
             this.delimiter = delimiter;
@@ -132,7 +132,7 @@ public final class AppendableJoiner<T> {
          * Sets the consumer used to render each element of type {@code T} onto an {@link Appendable}.
          *
          * @param appender The consumer used to render each element of type {@code T} onto an {@link Appendable}.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder<T> setElementAppender(final FailableBiConsumer<Appendable, T, IOException> appender) {
             this.appender = appender;
@@ -143,7 +143,7 @@ public final class AppendableJoiner<T> {
          * Sets the sequence of characters to be used at the beginning.
          *
          * @param prefix The sequence of characters to be used at the beginning.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder<T> setPrefix(final CharSequence prefix) {
             this.prefix = prefix;
@@ -154,7 +154,7 @@ public final class AppendableJoiner<T> {
          * Sets the sequence of characters to be used at the end.
          *
          * @param suffix The sequence of characters to be used at the end.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder<T> setSuffix(final CharSequence suffix) {
             this.suffix = suffix;

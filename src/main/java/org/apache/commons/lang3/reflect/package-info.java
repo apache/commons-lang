@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,8 +16,8 @@
  */
 
 /**
- * Accumulates common high-level uses of the {@code java.lang.reflect} APIs.
- * <p>These classes are immutable, and therefore thread-safe.</p>
+ * Provides high-level uses of the {@code java.lang.reflect} APIs.
+ * <p>These classes are immutable and thread-safe.</p>
  *
  * @since 3.0
  */

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,8 +41,8 @@ import org.apache.commons.lang3.Functions.FailablePredicate;
  * specifically, it attempts to address the fact that lambdas are supposed
  * not to throw Exceptions, at least not checked Exceptions, AKA instances
  * of {@link Exception}. This enforces the use of constructs like
- * <pre>
- *     Consumer&lt;java.lang.reflect.Method&gt; consumer = m -&gt; {
+ * <pre>{@code
+ *     Consumer<java.lang.reflect.Method> consumer = m -> {
  *         try {
  *             m.invoke(o, args);
  *         } catch (Throwable t) {
@@ -50,11 +50,11 @@ import org.apache.commons.lang3.Functions.FailablePredicate;
  *         }
  *    };
  *    stream.forEach(consumer);
- * </pre>
+ * }</pre>
  * Using a {@link FailableStream}, this can be rewritten as follows:
- * <pre>
- *     Streams.failable(stream).forEach((m) -&gt; m.invoke(o, args));
- * </pre>
+ * <pre>{@code
+ *     Streams.failable(stream).forEach(m -> m.invoke(o, args));
+ * }</pre>
  * Obviously, the second version is much more concise and the spirit of
  * Lambda expressions is met better than in the first version.
  *
@@ -154,7 +154,7 @@ public class Streams {
          * </p>
          *
          * @param predicate A non-interfering, stateless predicate to apply to
-         * elements of this stream
+         * elements of this stream.
          * @return {@code true} If either all elements of the stream match the
          * provided predicate or the stream is empty, otherwise {@code false}.
          */
@@ -178,9 +178,9 @@ public class Streams {
          * predicate over the elements of the stream (for some x P(x)).
          *
          * @param predicate A non-interfering, stateless predicate to apply to
-         * elements of this stream
+         * elements of this stream.
          * @return {@code true} if any elements of the stream match the provided
-         * predicate, otherwise {@code false}
+         * predicate, otherwise {@code false}.
          */
         public boolean anyMatch(final FailablePredicate<O, ?> predicate) {
             assertNotTerminated();
@@ -250,10 +250,10 @@ public class Streams {
          *                                                      Collectors.groupingBy(Person::getCity)));
          * }</pre>
          *
-         * @param <R> the type of the result
-         * @param <A> the intermediate accumulation type of the {@link Collector}
-         * @param collector the {@link Collector} describing the reduction
-         * @return the result of the reduction
+         * @param <R> the type of the result.
+         * @param <A> the intermediate accumulation type of the {@link Collector}.
+         * @param collector the {@link Collector} describing the reduction.
+         * @return the result of the reduction.
          * @see #collect(Supplier, BiConsumer, BiConsumer)
          * @see Collectors
          */
@@ -303,17 +303,17 @@ public class Streams {
          *                                 .toString();
          * }</pre>
          *
-         * @param <R> type of the result
+         * @param <R> type of the result.
          * @param <A> Type of the accumulator.
          * @param supplier a function that creates a new result container. For a
          *                 parallel execution, this function may be called
          *                 multiple times and must return a fresh value each time.
          * @param accumulator An associative, non-interfering, stateless function for
-         *   incorporating an additional element into a result
+         *   incorporating an additional element into a result.
          * @param combiner An associative, non-interfering, stateless
          *   function for combining two values, which must be compatible with the
-         *   accumulator function
-         * @return The result of the reduction
+         *   accumulator function.
+         * @return The result of the reduction.
          */
         public <A, R> R collect(final Supplier<R> supplier, final BiConsumer<R, ? super O> accumulator, final BiConsumer<R, R> combiner) {
             makeTerminated();
@@ -330,7 +330,7 @@ public class Streams {
          *
          * @param predicate a non-interfering, stateless predicate to apply to each
          * element to determine if it should be included.
-         * @return the new stream
+         * @return the new stream.
          */
         public FailableStream<O> filter(final FailablePredicate<O, ?> predicate) {
             assertNotTerminated();
@@ -355,7 +355,7 @@ public class Streams {
          * responsible for providing the required synchronization.
          * </p>
          *
-         * @param action a non-interfering action to perform on the elements
+         * @param action a non-interfering action to perform on the elements.
          */
         public void forEach(final FailableConsumer<O, ?> action) {
             makeTerminated();
@@ -380,9 +380,9 @@ public class Streams {
          * This is an intermediate operation.
          * </p>
          *
-         * @param <R> The element type of the new stream
-         * @param mapper A non-interfering, stateless function to apply to each element
-         * @return the new stream
+         * @param <R> The element type of the new stream.
+         * @param mapper A non-interfering, stateless function to apply to each element.
+         * @return the new stream.
          */
         public <R> FailableStream<R> map(final FailableFunction<O, R, ?> mapper) {
             assertNotTerminated();
@@ -433,10 +433,10 @@ public class Streams {
          * synchronization and with greatly reduced risk of data races.
          * </p>
          *
-         * @param identity the identity value for the accumulating function
+         * @param identity the identity value for the accumulating function.
          * @param accumulator an associative, non-interfering, stateless
-         *                    function for combining two values
-         * @return the result of the reduction
+         *                    function for combining two values.
+         * @return the result of the reduction.
          */
         public O reduce(final O identity, final BinaryOperator<O> accumulator) {
             makeTerminated();
@@ -460,26 +460,26 @@ public class Streams {
      * {@link FailableConsumer} may be applied, instead of
      * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is
      * to rewrite a code snippet like this:
-     * <pre>
-     *     final List&lt;O&gt; list;
+     * <pre>{@code
+     *     final List<O> list;
      *     final Method m;
-     *     final Function&lt;O,String&gt; mapper = (o) -&gt; {
+     *     final Function<O,String> mapper = (o) -> {
      *         try {
      *             return (String) m.invoke(o);
      *         } catch (Throwable t) {
      *             throw Functions.rethrow(t);
      *         }
      *     };
-     *     final List&lt;String&gt; strList = list.stream()
+     *     final List<String> strList = list.stream()
      *         .map(mapper).collect(Collectors.toList());
-     *  </pre>
+     *  }</pre>
      *  as follows:
-     *  <pre>
-     *     final List&lt;O&gt; list;
+     *  <pre>{@code
+     *     final List<O> list;
      *     final Method m;
-     *     final List&lt;String&gt; strList = Functions.stream(list.stream())
-     *         .map((o) -&gt; (String) m.invoke(o)).collect(Collectors.toList());
-     *  </pre>
+     *     final List<String> strList = Functions.stream(list.stream())
+     *         .map((o) -> (String) m.invoke(o)).collect(Collectors.toList());
+     *  }</pre>
      *  While the second version may not be <em>quite</em> as
      *  efficient (because it depends on the creation of additional,
      *  intermediate objects, of type FailableStream), it is much more
@@ -502,26 +502,26 @@ public class Streams {
      * {@link FailableConsumer} may be applied, instead of
      * {@link Predicate}, {@link Function}, or {@link Consumer}. The idea is
      * to rewrite a code snippet like this:
-     * <pre>
-     *     final List&lt;O&gt; list;
+     * <pre>{@code
+     *     final List<O> list;
      *     final Method m;
-     *     final Function&lt;O,String&gt; mapper = (o) -&gt; {
+     *     final Function<O,String> mapper = (o) -> {
      *         try {
      *             return (String) m.invoke(o);
      *         } catch (Throwable t) {
      *             throw Functions.rethrow(t);
      *         }
      *     };
-     *     final List&lt;String&gt; strList = list.stream()
+     *     final List<String> strList = list.stream()
      *         .map(mapper).collect(Collectors.toList());
-     *  </pre>
+     *  }</pre>
      *  as follows:
-     *  <pre>
-     *     final List&lt;O&gt; list;
+     *  <pre>{@code
+     *     final List<O> list;
      *     final Method m;
-     *     final List&lt;String&gt; strList = Functions.stream(list.stream())
-     *         .map((o) -&gt; (String) m.invoke(o)).collect(Collectors.toList());
-     *  </pre>
+     *     final List<String> strList = Functions.stream(list.stream())
+     *         .map((o) -> (String) m.invoke(o)).collect(Collectors.toList());
+     *  }</pre>
      *  While the second version may not be <em>quite</em> as
      *  efficient (because it depends on the creation of additional,
      *  intermediate objects, of type FailableStream), it is much more
@@ -540,12 +540,19 @@ public class Streams {
      * Returns a {@link Collector} that accumulates the input elements into a
      * new array.
      *
-     * @param pElementType Type of an element in the array.
-     * @param <O> the type of the input elements
+     * @param elementType Type of an element in the array.
+     * @param <O> the type of the input elements.
      * @return a {@link Collector} which collects all the input elements into an
-     * array, in encounter order
+     * array, in encounter order.
      */
-    public static <O> Collector<O, ?, O[]> toArray(final Class<O> pElementType) {
-        return new ArrayCollector<>(pElementType);
+    public static <O> Collector<O, ?, O[]> toArray(final Class<O> elementType) {
+        return new ArrayCollector<>(elementType);
+    }
+
+    /**
+     * Constructs a new instance.
+     */
+    public Streams() {
+        // empty
     }
 }

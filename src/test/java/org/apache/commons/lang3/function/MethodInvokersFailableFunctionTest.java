@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,25 +36,25 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link MethodInvokers#asFailableFunction(Method)}.
  */
-public class MethodInvokersFailableFunctionTest extends MethodFixtures {
+class MethodInvokersFailableFunctionTest extends MethodFixtures {
 
     @Test
-    public void testApply0Arg() throws Throwable {
+    void testApply0Arg() throws Throwable {
         assertEquals(INSTANCE.getString(), MethodInvokers.asFailableFunction(getMethodForGetString()).apply(INSTANCE));
     }
 
     @Test
-    public void testBuildVarArg() throws SecurityException, NoSuchMethodException {
+    void testBuildVarArg() throws SecurityException, NoSuchMethodException {
         MethodInvokers.asFailableFunction(getMethodForGetStringVarStringArgs());
     }
 
     @Test
-    public void testConstructorForNull() throws SecurityException {
-        assertThrows(NullPointerException.class, () -> MethodInvokers.asFailableFunction((Method) null));
+    void testConstructorForNull() throws SecurityException {
+        assertNullPointerException(() -> MethodInvokers.asFailableFunction((Method) null));
     }
 
     @Test
-    public void testFindAndInvoke() throws SecurityException {
+    void testFindAndInvoke() throws SecurityException {
         // Finding
         final List<FailableFunction<Object, Object, Throwable>> invokers = Stream.of(MethodFixtures.class.getDeclaredMethods())
             .filter(m -> m.isAnnotationPresent(AnnotationTestFixture.class)).map(MethodInvokers::asFailableFunction).collect(Collectors.toList());
@@ -71,12 +72,12 @@ public class MethodInvokersFailableFunctionTest extends MethodFixtures {
     }
 
     @Test
-    public void testThrowsChecked() throws Exception {
+    void testThrowsChecked() throws Exception {
         assertThrows(Exception.class, () -> MethodInvokers.asFailableFunction(getMethodForGetStringThrowsChecked()).apply(INSTANCE));
     }
 
     @Test
-    public void testToString() throws SecurityException, ReflectiveOperationException {
+    void testToString() throws SecurityException, ReflectiveOperationException {
         // Should not blow up and must return _something_
         assertFalse(MethodInvokers.asFailableFunction(getMethodForGetString()).toString().isEmpty());
     }

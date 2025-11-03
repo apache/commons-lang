@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,7 +41,6 @@ public interface UncheckedFuture<V> extends Future<V> {
      * Maps the given instances as unchecked.
      *
      * @param <T> The result type returned by the Futures' {@link #get()} and {@link #get(long, TimeUnit)} methods.
-     *
      * @param futures The Futures to uncheck.
      * @return a new stream.
      */
@@ -53,7 +52,6 @@ public interface UncheckedFuture<V> extends Future<V> {
      * Maps the given instances as unchecked.
      *
      * @param <T> The result type returned by the Futures' {@link #get()} and {@link #get(long, TimeUnit)} methods.
-     *
      * @param futures The Futures to uncheck.
      * @return a new collection.
      */
@@ -65,7 +63,6 @@ public interface UncheckedFuture<V> extends Future<V> {
      * Creates a new instance on the given Future.
      *
      * @param <T> The result type returned by this Future's {@link #get()} and {@link #get(long, TimeUnit)} methods.
-     *
      * @param future The Future to uncheck.
      * @return a new instance.
      */

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@link ArchUtils}.
  */
-public class ArchUtilsTest extends AbstractLangTest {
+class ArchUtilsTest extends AbstractLangTest {
 
     private static final String IA64 = "ia64";
     private static final String IA64_32 = "ia64_32";
@@ -68,7 +68,7 @@ public class ArchUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testArch() {
+    void testArch() {
         Processor processor = ArchUtils.getProcessor(X86);
         assertEqualsTypeNotNull(Processor.Type.X86, processor);
         assertTrue(processor.isX86());
@@ -113,7 +113,7 @@ public class ArchUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testArchLabels() {
+    void testArchLabels() {
         for (final Arch arch : Arch.values()) {
             // Only test label presence.
             assertFalse(arch.getLabel().isEmpty());
@@ -121,7 +121,7 @@ public class ArchUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetProcessor() {
+    void testGetProcessor() {
         assertNotNull(ArchUtils.getProcessor(X86));
         assertNull(ArchUtils.getProcessor("NA"));
         assertNull(ArchUtils.getProcessor(null));
@@ -131,7 +131,7 @@ public class ArchUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIs32BitJVM() {
+    void testIs32BitJVM() {
         Processor processor = ArchUtils.getProcessor(X86);
         assertEqualsArchNotNull(Processor.Arch.BIT_32, processor);
         assertTrue(processor.is32Bit());
@@ -166,7 +166,7 @@ public class ArchUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIs64BitJVM() {
+    void testIs64BitJVM() {
         Processor processor = ArchUtils.getProcessor(X86_64);
         assertEqualsArchNotNull(Processor.Arch.BIT_64, processor);
         assertTrue(processor.is64Bit());
@@ -207,7 +207,7 @@ public class ArchUtilsTest extends AbstractLangTest {
 }
 
     @Test
-    public void testTypeLabels() {
+    void testTypeLabels() {
         for (final Type type : Type.values()) {
             // Only test label presence.
             assertFalse(type.getLabel().isEmpty());

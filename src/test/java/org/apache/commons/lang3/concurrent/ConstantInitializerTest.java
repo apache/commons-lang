@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code ConstantInitializer}.
  */
-public class ConstantInitializerTest extends AbstractLangTest {
+class ConstantInitializerTest extends AbstractLangTest {
     /** Constant for the object managed by the initializer. */
     private static final Integer VALUE = 42;
 
@@ -60,7 +60,7 @@ public class ConstantInitializerTest extends AbstractLangTest {
      * Tests equals() if the expected result is false.
      */
     @Test
-    public void testEqualsFalse() {
+    void testEqualsFalse() {
         ConstantInitializer<Integer> init2 = new ConstantInitializer<>(
                 null);
         checkEquals(init2, false);
@@ -72,7 +72,7 @@ public class ConstantInitializerTest extends AbstractLangTest {
      * Tests equals() if the expected result is true.
      */
     @Test
-    public void testEqualsTrue() {
+    void testEqualsTrue() {
         checkEquals(init, true);
         ConstantInitializer<Integer> init2 = new ConstantInitializer<>(
                 Integer.valueOf(VALUE.intValue()));
@@ -86,7 +86,7 @@ public class ConstantInitializerTest extends AbstractLangTest {
      * Tests equals() with objects of other classes.
      */
     @Test
-    public void testEqualsWithOtherObjects() {
+    void testEqualsWithOtherObjects() {
         checkEquals(null, false);
         checkEquals(this, false);
         checkEquals(new ConstantInitializer<>("Test"), false);
@@ -98,7 +98,7 @@ public class ConstantInitializerTest extends AbstractLangTest {
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     @Test
-    public void testGet() throws ConcurrentException {
+    void testGet() throws ConcurrentException {
         assertEquals(VALUE, init.get(), "Wrong object");
     }
 
@@ -106,7 +106,7 @@ public class ConstantInitializerTest extends AbstractLangTest {
      * Tests whether the correct object is returned.
      */
     @Test
-    public void testGetObject() {
+    void testGetObject() {
         assertEquals(VALUE, init.getObject(), "Wrong object");
     }
 
@@ -114,7 +114,7 @@ public class ConstantInitializerTest extends AbstractLangTest {
      * Tests a simple invocation of the isInitialized() method.
      */
     @Test
-    public void testisInitialized() {
+    void testisInitialized() {
         assertTrue(init.isInitialized(), "was not initialized before get()");
         assertEquals(VALUE, init.getObject(), "Wrong object");
         assertTrue(init.isInitialized(), "was not initialized after get()");
@@ -124,7 +124,7 @@ public class ConstantInitializerTest extends AbstractLangTest {
      * Tests the string representation.
      */
     @Test
-    public void testToString() {
+    void testToString() {
         final String s = init.toString();
         final Pattern pattern = Pattern
                 .compile("ConstantInitializer@-?\\d+ \\[ object = " + VALUE
@@ -136,7 +136,7 @@ public class ConstantInitializerTest extends AbstractLangTest {
      * Tests the string representation if the managed object is null.
      */
     @Test
-    public void testToStringNull() {
+    void testToStringNull() {
         final String s = new ConstantInitializer<>(null).toString();
         assertTrue(s.indexOf("object = null") > 0, "Object not found: " + s);
     }

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,19 +26,19 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link org.apache.commons.lang3.text.translate.EntityArrays}.
+ * Tests for {@link org.apache.commons.lang3.text.translate.EntityArrays}.
  */
 @Deprecated
-public class EntityArraysTest extends AbstractLangTest {
+class EntityArraysTest extends AbstractLangTest {
 
     @Test
-    public void testConstructorExists() {
+    void testConstructorExists() {
         new EntityArrays();
     }
 
     // LANG-659 - check arrays for duplicate entries
     @Test
-    public void testHTML40_EXTENDED_ESCAPE() {
+    void testHTML40_EXTENDED_ESCAPE() {
         final Set<String> col0 = new HashSet<>();
         final Set<String> col1 = new HashSet<>();
         final String[][] sa = EntityArrays.HTML40_EXTENDED_ESCAPE();
@@ -50,7 +50,7 @@ public class EntityArraysTest extends AbstractLangTest {
 
     // LANG-658 - check arrays for duplicate entries
     @Test
-    public void testISO8859_1_ESCAPE() {
+    void testISO8859_1_ESCAPE() {
         final Set<String> col0 = new HashSet<>();
         final Set<String> col1 = new HashSet<>();
         final String[][] sa = EntityArrays.ISO8859_1_ESCAPE();

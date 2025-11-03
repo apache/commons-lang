@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,7 @@ public interface FailableIntConsumer<E extends Throwable> {
     FailableIntConsumer NOP = t -> { /* NOP */ };
 
     /**
-     * Returns The NOP singleton.
+     * Gets the NOP singleton.
      *
      * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
@@ -56,7 +56,7 @@ public interface FailableIntConsumer<E extends Throwable> {
      * Returns a composed {@link FailableIntConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
      *
      * @param after the operation to perform after this one.
-     * @return a composed {@link FailableLongConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
+     * @return a composed {@link FailableIntConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
      * @throws NullPointerException if {@code after} is null
      */
     default FailableIntConsumer<E> andThen(final FailableIntConsumer<E> after) {

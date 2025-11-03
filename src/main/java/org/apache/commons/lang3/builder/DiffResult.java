@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,6 @@ import org.apache.commons.lang3.StringUtils;
  * Use a {@link DiffBuilder} to build a {@link DiffResult} comparing two objects.
  * </p>
  * @param <T> type of the left and right object.
- *
  * @since 3.3
  */
 public class DiffResult<T> implements Iterable<Diff<?>> {
@@ -77,7 +76,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * Returns an unmodifiable list of {@link Diff}s. The list may be empty if
+     * Gets an unmodifiable list of {@link Diff}s. The list may be empty if
      * there were no differences between the objects.
      *
      * @return an unmodifiable list of {@link Diff}s
@@ -87,7 +86,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * Returns the object the right object has been compared to.
+     * Gets the object the right object has been compared to.
      *
      * @return the left object of the diff
      * @since 3.10
@@ -97,7 +96,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * Returns the number of differences between the two objects.
+     * Gets the number of differences between the two objects.
      *
      * @return the number of differences
      */
@@ -106,7 +105,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * Returns the object the left object has been compared to.
+     * Gets the object the left object has been compared to.
      *
      * @return the right object of the diff
      * @since 3.10
@@ -116,7 +115,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     }
 
     /**
-     * Returns the style used by the {@link #toString()} method.
+     * Gets the style used by the {@link #toString()} method.
      *
      * @return the style
      */

@@ -7,7 +7,7 @@ The ASF licenses this file to You under the Apache License, Version 2.0
 (the "License"); you may not use this file except in compliance with
 the License.  You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+     https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,10 +15,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
  <properties>
   <title>Home</title>
-  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+  <author email="dev@commons.apache.org">Apache Commons Team</author>
  </properties>
 <body>
 <!-- ================================================== -->
@@ -44,16 +46,17 @@ allowing Commons Lang 3 to be used at the same time as Commons Lang 2.
 <!-- ================================================== -->
 <section name="Documentation">
 <p>
-The package descriptions in the <a href="javadocs/api-release/index.html">Javadoc</a> give an overview of the available features
+The package descriptions in the <a href="apidocs/index.html">Javadoc</a> give an overview of the available features
 and various <a href="project-reports.html">project reports</a> are provided.
 </p>
 <p>
 The Javadoc API documents are available online:
 </p>
 <ul>
-<li>The <a href="javadocs/api-release/index.html">current release</a> [Java 8 and up]</li>
-<li>The <a href="javadocs/api-2.6/index.html">legacy release 2.6</a> [Java 1.2 and up]</li>
-<li>Older releases - see the <a href="changes-report.html">Release History</a> page</li>
+<li>The <a href="apidocs/index.html">current release</a> [Java 8 and up]</li>
+<li>The <a href="https://javadoc.io/doc/org.apache.commons/commons-lang3">legacy releases for 3.x</a></li>
+<li>The <a href="https://javadoc.io/doc/commons-lang/commons-lang">legacy releases for 2.x</a> [Java 1.2 and up]</li>
+<li>Older releases - see the <a href="changes.html">Release History</a> page</li>
 </ul>
 <p>
 The <a href="scm.html">git repository</a> can be
@@ -66,13 +69,13 @@ The <a href="scm.html">git repository</a> can be
 <ul>
 <li>Pull it using a build tool like Maven using a <a href="dependency-info.html">dependency management reference</a>.</li>
 <li>Download the latest release from a <a href="https://commons.apache.org/lang/download_lang.cgi">mirror</a>.</li>
-<li>Read the <a href="changes-report.html">change report</a>.</li>
+<li>Read the <a href="changes.html">change report</a>.</li>
 <li>Examine the <a href="article3_0.html">2.x to 3.0 upgrade notes</a>.</li>
 <li>Compare major versions via the <a href="lang2-lang3-clirr-report.html">Lang2 to Lang3 Clirr report</a>.</li>
 </ul>
 
 <p>
-For information on previous releases see the <a href="changes-report.html">Release History</a>, and to download previous releases see the <a href="https://archive.apache.org/dist/commons/lang/">Commons Lang Archive</a>.
+For information on previous releases see the <a href="changes.html">Release History</a>, and to download previous releases see the <a href="https://archive.apache.org/dist/commons/lang/">Commons Lang Archive</a>.
 </p>
 </section>
 <!-- ================================================== -->

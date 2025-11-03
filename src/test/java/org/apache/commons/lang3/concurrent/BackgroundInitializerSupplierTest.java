@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,9 +16,8 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -31,7 +30,7 @@ import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableSupplier;
 import org.junit.jupiter.api.Test;
 
-public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest {
+class BackgroundInitializerSupplierTest extends BackgroundInitializerTest {
 
     /**
      * A concrete implementation of BackgroundInitializer. It is designed as a wrapper so the test can
@@ -85,7 +84,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
      * @throws Exception
      */
     @Test
-    public void testClose() throws Exception {
+    void testClose() throws Exception {
         final AbstractBackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
         assertFalse(init.getCloseableCounter().isClosed(), "closed without close() call");
         init.close();
@@ -103,7 +102,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
      * @throws Exception
      */
     @Test
-    public void testCloseWithCheckedException() throws Exception {
+    void testCloseWithCheckedException() throws Exception {
 
         final IOException ioException = new IOException();
         final FailableConsumer<?, ?> IOExceptionConsumer = (final CloseableCounter cc) -> {
@@ -117,7 +116,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
             init.close();
             fail();
         } catch (final Exception e) {
-            assertThat(e, instanceOf(ConcurrentException.class));
+            assertInstanceOf(ConcurrentException.class, e);
             assertSame(ioException, e.getCause());
         }
     }
@@ -128,7 +127,7 @@ public class BackgroundInitializerSupplierTest extends BackgroundInitializerTest
      * @throws Exception
      */
     @Test
-    public void testCloseWithRuntimeException() throws Exception {
+    void testCloseWithRuntimeException() throws Exception {
 
         final NullPointerException npe = new NullPointerException();
         final FailableConsumer<?, ?> NullPointerExceptionConsumer = (final CloseableCounter cc) -> {

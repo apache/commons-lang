@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,20 +22,20 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link StringUtils}'s valueOf() methods.
  */
-public class StringUtilsValueOfTest extends AbstractLangTest {
+class StringUtilsValueOfTest extends AbstractLangTest {
 
     @Test
-    public void testValueOfChar() {
+    void testValueOfChar() {
         Assertions.assertEquals("ABC", StringUtils.valueOf(new char[] {'A', 'B', 'C' }));
     }
 
     @Test
-    public void testValueOfCharEmpty() {
+    void testValueOfCharEmpty() {
         Assertions.assertEquals(StringUtils.EMPTY, StringUtils.valueOf(ArrayUtils.EMPTY_CHAR_ARRAY));
     }
 
     @Test
-    public void testValueOfCharNull() {
+    void testValueOfCharNull() {
         Assertions.assertNull(StringUtils.valueOf(null));
     }
 }

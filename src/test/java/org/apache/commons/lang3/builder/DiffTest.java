@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,9 +23,9 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests {@link Diff}.
+ * Tests {@link Diff}.
  */
-public class DiffTest extends AbstractLangTest {
+class DiffTest extends AbstractLangTest {
 
     private static final class BooleanDiff extends Diff<Boolean> {
         private static final long serialVersionUID = 1L;
@@ -49,22 +49,22 @@ public class DiffTest extends AbstractLangTest {
     private static final Diff<Boolean> booleanDiff = new BooleanDiff(FIELD_NAME);
 
     @Test
-    public void testCannotModify() {
+    void testCannotModify() {
         assertThrows(UnsupportedOperationException.class, () -> booleanDiff.setValue(Boolean.FALSE));
     }
 
     @Test
-    public void testGetFieldName() {
+    void testGetFieldName() {
         assertEquals(FIELD_NAME, booleanDiff.getFieldName());
     }
 
     @Test
-    public void testGetType() {
+    void testGetType() {
         assertEquals(Boolean.class, booleanDiff.getType());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals(String.format("[%s: %s, %s]", FIELD_NAME, booleanDiff.getLeft(),
                 booleanDiff.getRight()), booleanDiff.toString());
     }

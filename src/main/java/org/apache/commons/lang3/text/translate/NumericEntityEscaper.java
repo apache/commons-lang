@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,9 +23,9 @@ import java.io.Writer;
  * Translates code points to their XML numeric entity escaped value.
  *
  * @since 3.0
- * @deprecated As of 3.6, use Apache Commons Text
+ * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/NumericEntityEscaper.html">
- * NumericEntityEscaper</a> instead
+ * NumericEntityEscaper</a>.
  */
 @Deprecated
 public class NumericEntityEscaper extends CodePointTranslator {
@@ -33,8 +33,8 @@ public class NumericEntityEscaper extends CodePointTranslator {
     /**
      * Constructs a {@link NumericEntityEscaper} above the specified value (exclusive).
      *
-     * @param codePoint above which to escape
-     * @return the newly created {@link NumericEntityEscaper} instance
+     * @param codePoint above which to escape.
+     * @return the newly created {@link NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper above(final int codePoint) {
         return outsideOf(0, codePoint);
@@ -42,8 +42,8 @@ public class NumericEntityEscaper extends CodePointTranslator {
     /**
      * Constructs a {@link NumericEntityEscaper} below the specified value (exclusive).
      *
-     * @param codePoint below which to escape
-     * @return the newly created {@link NumericEntityEscaper} instance
+     * @param codePoint below which to escape.
+     * @return the newly created {@link NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper below(final int codePoint) {
         return outsideOf(codePoint, Integer.MAX_VALUE);
@@ -51,9 +51,9 @@ public class NumericEntityEscaper extends CodePointTranslator {
     /**
      * Constructs a {@link NumericEntityEscaper} between the specified values (inclusive).
      *
-     * @param codePointLow above which to escape
-     * @param codePointHigh below which to escape
-     * @return the newly created {@link NumericEntityEscaper} instance
+     * @param codePointLow above which to escape.
+     * @param codePointHigh below which to escape.
+     * @return the newly created {@link NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper between(final int codePointLow, final int codePointHigh) {
         return new NumericEntityEscaper(codePointLow, codePointHigh, true);
@@ -62,9 +62,9 @@ public class NumericEntityEscaper extends CodePointTranslator {
     /**
      * Constructs a {@link NumericEntityEscaper} outside of the specified values (exclusive).
      *
-     * @param codePointLow below which to escape
-     * @param codePointHigh above which to escape
-     * @return the newly created {@link NumericEntityEscaper} instance
+     * @param codePointLow below which to escape.
+     * @param codePointHigh above which to escape.
+     * @return the newly created {@link NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper outsideOf(final int codePointLow, final int codePointHigh) {
         return new NumericEntityEscaper(codePointLow, codePointHigh, false);
@@ -89,9 +89,9 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * and {@code above} boundaries are inclusive when {@code between} is
      * {@code true} and exclusive when it is {@code false}.
      *
-     * @param below int value representing the lowest code point boundary
-     * @param above int value representing the highest code point boundary
-     * @param between whether to escape between the boundaries or outside them
+     * @param below int value representing the lowest code point boundary.
+     * @param above int value representing the highest code point boundary.
+     * @param between whether to escape between the boundaries or outside them.
      */
     private NumericEntityEscaper(final int below, final int above, final boolean between) {
         this.below = below;

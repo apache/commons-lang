@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for FastTimeZone
  */
-public class FastTimeZoneTest extends AbstractLangTest {
+class FastTimeZoneTest extends AbstractLangTest {
 
     private static final int HOURS_23 = 23 * 60 * 60 * 1000;
     private static final int HOURS_2 = 2 * 60 * 60 * 1000;
@@ -34,23 +34,23 @@ public class FastTimeZoneTest extends AbstractLangTest {
     private static final int MINUTES_5 = 5 * 60 * 1000;
 
     @Test
-    public void testBareGmt() {
+    void testBareGmt() {
         assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone(TimeZones.GMT_ID));
     }
 
     @Test
-    public void testGetGmtTimeZone() {
+    void testGetGmtTimeZone() {
         assertEquals(0, FastTimeZone.getGmtTimeZone().getRawOffset());
     }
 
     @Test
-    public void testGmtPrefix() {
+    void testGmtPrefix() {
         assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("GMT+23:00").getRawOffset());
         assertEquals(-HOURS_23, FastTimeZone.getGmtTimeZone("GMT-23:00").getRawOffset());
     }
 
     @Test
-    public void testHoursColonMinutes() {
+    void testHoursColonMinutes() {
         assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("23:00").getRawOffset());
         assertEquals(HOURS_2, FastTimeZone.getGmtTimeZone("2:00").getRawOffset());
         assertEquals(MINUTES_59, FastTimeZone.getGmtTimeZone("00:59").getRawOffset());
@@ -60,7 +60,7 @@ public class FastTimeZoneTest extends AbstractLangTest {
     }
 
     @Test
-    public void testHoursMinutes() {
+    void testHoursMinutes() {
         assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("2300").getRawOffset());
         assertEquals(HOURS_2, FastTimeZone.getGmtTimeZone("0200").getRawOffset());
         assertEquals(MINUTES_59, FastTimeZone.getGmtTimeZone("0059").getRawOffset());
@@ -70,12 +70,12 @@ public class FastTimeZoneTest extends AbstractLangTest {
     }
 
     @Test
-    public void testOlson() {
+    void testOlson() {
         assertEquals(TimeZone.getTimeZone("America/New_York"), FastTimeZone.getTimeZone("America/New_York"));
     }
 
     @Test
-    public void testSign() {
+    void testSign() {
         assertEquals(HOURS_23, FastTimeZone.getGmtTimeZone("+23:00").getRawOffset());
         assertEquals(HOURS_2, FastTimeZone.getGmtTimeZone("+2:00").getRawOffset());
         assertEquals(-HOURS_23, FastTimeZone.getGmtTimeZone("-23:00").getRawOffset());
@@ -83,17 +83,17 @@ public class FastTimeZoneTest extends AbstractLangTest {
     }
 
     @Test
-    public void testUTC() {
+    void testUTC() {
         assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("UTC"));
     }
 
     @Test
-    public void testZ() {
+    void testZ() {
         assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("Z"));
     }
 
     @Test
-    public void testZeroOffsetsReturnSingleton() {
+    void testZeroOffsetsReturnSingleton() {
         assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("+0"));
         assertEquals(FastTimeZone.getGmtTimeZone(), FastTimeZone.getTimeZone("-0"));
     }

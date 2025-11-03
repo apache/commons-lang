@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -35,15 +36,17 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for TimedSemaphore.
+ * Tests {@link TimedSemaphore}.
  */
-public class TimedSemaphoreTest extends AbstractLangTest {
+class TimedSemaphoreTest extends AbstractLangTest {
+
     /**
      * A test thread class that will be used by tests for triggering the
      * semaphore. The thread calls the semaphore a configurable number of times.
-     * When this is done, it can notify the main thread.
+     * When this is done, it cannotify the main thread.
      */
     private static final class SemaphoreThread extends Thread {
+
         /** The semaphore. */
         private final TimedSemaphore semaphore;
 
@@ -89,6 +92,7 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * test.
      */
     private static final class TimedSemaphoreTestImpl extends TimedSemaphore {
+
         /** A mock scheduled future. */
         ScheduledFuture<?> schedFuture;
 
@@ -98,13 +102,11 @@ public class TimedSemaphoreTest extends AbstractLangTest {
         /** Counter for the endOfPeriod() invocations. */
         private int periodEnds;
 
-        TimedSemaphoreTestImpl(final long timePeriod, final TimeUnit timeUnit,
-                final int limit) {
+        TimedSemaphoreTestImpl(final long timePeriod, final TimeUnit timeUnit, final int limit) {
             super(timePeriod, timeUnit, limit);
         }
 
-        TimedSemaphoreTestImpl(final ScheduledExecutorService service,
-                final long timePeriod, final TimeUnit timeUnit, final int limit) {
+        TimedSemaphoreTestImpl(final ScheduledExecutorService service, final long timePeriod, final TimeUnit timeUnit, final int limit) {
             super(service, timePeriod, timeUnit, limit);
         }
 
@@ -155,6 +157,7 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * records the return value.
      */
     private static final class TryAcquireThread extends Thread {
+
         /** The semaphore. */
         private final TimedSemaphore semaphore;
 
@@ -200,8 +203,7 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      */
     private void prepareStartTimer(final ScheduledExecutorService service,
             final ScheduledFuture<?> future) {
-        service.scheduleAtFixedRate((Runnable) EasyMock.anyObject(), EasyMock
-                .eq(PERIOD_MILLIS), EasyMock.eq(PERIOD_MILLIS), EasyMock.eq(UNIT));
+        service.scheduleAtFixedRate((Runnable) EasyMock.anyObject(), EasyMock.eq(PERIOD_MILLIS), EasyMock.eq(PERIOD_MILLIS), EasyMock.eq(UNIT));
         EasyMock.expectLastCall().andReturn(future);
     }
 
@@ -211,25 +213,21 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * @throws InterruptedException so we don't have to catch it
      */
     @Test
-    public void testAcquireLimit() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+    void testAcquireLimit() throws InterruptedException {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.replay(service, future);
         final int count = 10;
         final CountDownLatch latch = new CountDownLatch(count - 1);
         final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD_MILLIS, UNIT, 1);
-        final SemaphoreThread t = new SemaphoreThread(semaphore, latch, count,
-                count - 1);
+        final SemaphoreThread t = new SemaphoreThread(semaphore, latch, count, count - 1);
         semaphore.setLimit(count - 1);
-
         // start a thread that calls the semaphore count times
         t.start();
         latch.await();
         // now the semaphore's limit should be reached and the thread blocked
         assertEquals(count - 1, semaphore.getAcquireCount(), "Wrong semaphore count");
-
         // this wakes up the thread, it should call the semaphore once more
         semaphore.endOfPeriod();
         t.join();
@@ -247,10 +245,9 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * @throws InterruptedException so we don't have to catch it
      */
     @Test
-    public void testAcquireMultiplePeriods() throws InterruptedException {
+    void testAcquireMultiplePeriods() throws InterruptedException {
         final int count = 1000;
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(
-                PERIOD_MILLIS / 10, TimeUnit.MILLISECONDS, 1);
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(PERIOD_MILLIS / 10, TimeUnit.MILLISECONDS, 1);
         semaphore.setLimit(count / 4);
         final CountDownLatch latch = new CountDownLatch(count);
         final SemaphoreThread t = new SemaphoreThread(semaphore, latch, count, count);
@@ -269,14 +266,12 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * @throws InterruptedException so we don't have to catch it
      */
     @Test
-    public void testAcquireMultipleThreads() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+    void testAcquireMultipleThreads() throws InterruptedException {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.replay(service, future);
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service,
-                PERIOD_MILLIS, UNIT, 1);
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service, PERIOD_MILLIS, UNIT, 1);
         semaphore.latch = new CountDownLatch(1);
         final int count = 10;
         final SemaphoreThread[] threads = new SemaphoreThread[count];
@@ -305,14 +300,12 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * @throws InterruptedException so we don't have to catch it
      */
     @Test
-    public void testAcquireNoLimit() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+    void testAcquireNoLimit() throws InterruptedException {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.replay(service, future);
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service,
-                PERIOD_MILLIS, UNIT, TimedSemaphore.NO_LIMIT);
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service, PERIOD_MILLIS, UNIT, TimedSemaphore.NO_LIMIT);
         final int count = 1000;
         final CountDownLatch latch = new CountDownLatch(count);
         final SemaphoreThread t = new SemaphoreThread(semaphore, latch, count, count);
@@ -327,14 +320,12 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * @throws InterruptedException so we don't have to catch it
      */
     @Test
-    public void testGetAvailablePermits() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+    void testGetAvailablePermits() throws InterruptedException {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.replay(service, future);
-        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD_MILLIS, UNIT,
-                LIMIT);
+        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD_MILLIS, UNIT, LIMIT);
         for (int i = 0; i < LIMIT; i++) {
             assertEquals(LIMIT - i, semaphore.getAvailablePermits(), "Wrong available count at " + i);
             semaphore.acquire();
@@ -350,14 +341,12 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * @throws InterruptedException so we don't have to catch it
      */
     @Test
-    public void testGetAverageCallsPerPeriod() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+    void testGetAverageCallsPerPeriod() throws InterruptedException {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.replay(service, future);
-        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD_MILLIS, UNIT,
-                LIMIT);
+        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD_MILLIS, UNIT, LIMIT);
         semaphore.acquire();
         semaphore.endOfPeriod();
         assertEquals(1.0, semaphore.getAverageCallsPerPeriod(), .005, "Wrong average (1)");
@@ -372,12 +361,10 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * Tests creating a new instance.
      */
     @Test
-    public void testInit() {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+    void testInit() {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         EasyMock.replay(service);
-        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD_MILLIS, UNIT,
-                LIMIT);
+        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD_MILLIS, UNIT, LIMIT);
         EasyMock.verify(service);
         assertEquals(service, semaphore.getExecutorService(), "Wrong service");
         assertEquals(PERIOD_MILLIS, semaphore.getPeriod(), "Wrong period");
@@ -393,10 +380,9 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * provided.
      */
     @Test
-    public void testInitDefaultService() {
+    void testInitDefaultService() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD_MILLIS, UNIT, LIMIT);
-        final ScheduledThreadPoolExecutor exec = (ScheduledThreadPoolExecutor) semaphore
-                .getExecutorService();
+        final ScheduledThreadPoolExecutor exec = (ScheduledThreadPoolExecutor) semaphore.getExecutorService();
         assertFalse(exec.getContinueExistingPeriodicTasksAfterShutdownPolicy(), "Wrong periodic task policy");
         assertFalse(exec.getExecuteExistingDelayedTasksAfterShutdownPolicy(), "Wrong delayed task policy");
         assertFalse(exec.isShutdown(), "Already shutdown");
@@ -408,15 +394,15 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * exception.
      */
     @Test
-    public void testInitInvalidPeriod() {
-        assertThrows(IllegalArgumentException.class, () -> new TimedSemaphore(0L, UNIT, LIMIT));
+    void testInitInvalidPeriod() {
+        assertIllegalArgumentException(() -> new TimedSemaphore(0L, UNIT, LIMIT));
     }
 
     /**
      * Tries to call acquire() after shutdown(). This should cause an exception.
      */
     @Test
-    public void testPassAfterShutdown() {
+    void testPassAfterShutdown() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD_MILLIS, UNIT, LIMIT);
         semaphore.shutdown();
         assertThrows(IllegalStateException.class, semaphore::acquire);
@@ -428,15 +414,13 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * @throws InterruptedException so we don't have to catch it
      */
     @Test
-    public void testShutdownMultipleTimes() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+    void testShutdownMultipleTimes() throws InterruptedException {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.expect(Boolean.valueOf(future.cancel(false))).andReturn(Boolean.TRUE);
         EasyMock.replay(service, future);
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service,
-                PERIOD_MILLIS, UNIT, LIMIT);
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service, PERIOD_MILLIS, UNIT, LIMIT);
         semaphore.acquire();
         for (int i = 0; i < 10; i++) {
             semaphore.shutdown();
@@ -449,7 +433,7 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * this case it has to be shut down.
      */
     @Test
-    public void testShutdownOwnExecutor() {
+    void testShutdownOwnExecutor() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD_MILLIS, UNIT, LIMIT);
         semaphore.shutdown();
         assertTrue(semaphore.isShutdown(), "Not shutdown");
@@ -461,12 +445,10 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * was started. This should do pretty much nothing.
      */
     @Test
-    public void testShutdownSharedExecutorNoTask() {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+    void testShutdownSharedExecutorNoTask() {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         EasyMock.replay(service);
-        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD_MILLIS, UNIT,
-                LIMIT);
+        final TimedSemaphore semaphore = new TimedSemaphore(service, PERIOD_MILLIS, UNIT, LIMIT);
         semaphore.shutdown();
         assertTrue(semaphore.isShutdown(), "Not shutdown");
         EasyMock.verify(service);
@@ -479,15 +461,13 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * @throws InterruptedException so we don't have to catch it
      */
     @Test
-    public void testShutdownSharedExecutorTask() throws InterruptedException {
-        final ScheduledExecutorService service = EasyMock
-                .createMock(ScheduledExecutorService.class);
+    void testShutdownSharedExecutorTask() throws InterruptedException {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
         final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
         prepareStartTimer(service, future);
         EasyMock.expect(Boolean.valueOf(future.cancel(false))).andReturn(Boolean.TRUE);
         EasyMock.replay(service, future);
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service,
-                PERIOD_MILLIS, UNIT, LIMIT);
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(service, PERIOD_MILLIS, UNIT, LIMIT);
         semaphore.acquire();
         semaphore.shutdown();
         assertTrue(semaphore.isShutdown(), "Not shutdown");
@@ -500,9 +480,8 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * @throws InterruptedException so we don't have to catch it
      */
     @Test
-    public void testStartTimer() throws InterruptedException {
-        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(PERIOD_MILLIS,
-                UNIT, LIMIT);
+    void testStartTimer() throws InterruptedException {
+        final TimedSemaphoreTestImpl semaphore = new TimedSemaphoreTestImpl(PERIOD_MILLIS, UNIT, LIMIT);
         final ScheduledFuture<?> future = semaphore.startTimer();
         assertNotNull(future, "No future returned");
         ThreadUtils.sleepQuietly(DURATION);
@@ -520,16 +499,14 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * by a bunch of threads the expected number of times and not more.
      */
     @Test
-    public void testTryAcquire() throws InterruptedException {
-        final TimedSemaphore semaphore = new TimedSemaphore(PERIOD_MILLIS, TimeUnit.SECONDS,
-                LIMIT);
+    void testTryAcquire() throws InterruptedException {
+        final TimedSemaphore semaphore = new TimedSemaphore(PERIOD_MILLIS, TimeUnit.SECONDS, LIMIT);
         final TryAcquireThread[] threads = new TryAcquireThread[3 * LIMIT];
         final CountDownLatch latch = new CountDownLatch(1);
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new TryAcquireThread(semaphore, latch);
             threads[i].start();
         }
-
         latch.countDown();
         int permits = 0;
         for (final TryAcquireThread t : threads) {
@@ -545,7 +522,7 @@ public class TimedSemaphoreTest extends AbstractLangTest {
      * Tries to call tryAcquire() after shutdown(). This should cause an exception.
      */
     @Test
-    public void testTryAcquireAfterShutdown() {
+    void testTryAcquireAfterShutdown() {
         final TimedSemaphore semaphore = new TimedSemaphore(PERIOD_MILLIS, UNIT, LIMIT);
         semaphore.shutdown();
         assertThrows(IllegalStateException.class, semaphore::tryAcquire);

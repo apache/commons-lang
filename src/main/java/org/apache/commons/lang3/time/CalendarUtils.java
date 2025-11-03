@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,6 +17,11 @@
 
 package org.apache.commons.lang3.time;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Locale.Category;
@@ -59,6 +64,43 @@ public class CalendarUtils {
         return new CalendarUtils(Calendar.getInstance(locale), locale);
     }
 
+    /**
+     * Converts a Calendar to a LocalDateTime.
+     *
+     * @param calendar the Calendar to convert.
+     * @return a LocalDateTime.
+     * @since 3.17.0
+     */
+    public static LocalDateTime toLocalDateTime(final Calendar calendar) {
+        return LocalDateTime.ofInstant(calendar.toInstant(), toZoneId(calendar));
+    }
+
+    /**
+     * Converts a Calendar to a OffsetDateTime.
+     *
+     * @param calendar the Calendar to convert.
+     * @return a OffsetDateTime.
+     * @since 3.17.0
+     */
+    public static OffsetDateTime toOffsetDateTime(final Calendar calendar) {
+        return OffsetDateTime.ofInstant(calendar.toInstant(), toZoneId(calendar));
+    }
+
+    /**
+     * Converts a Calendar to a ZonedDateTime.
+     *
+     * @param calendar the Calendar to convert.
+     * @return a ZonedDateTime.
+     * @since 3.17.0
+     */
+    public static ZonedDateTime toZonedDateTime(final Calendar calendar) {
+        return ZonedDateTime.ofInstant(calendar.toInstant(), toZoneId(calendar));
+    }
+
+    private static ZoneId toZoneId(final Calendar calendar) {
+        return calendar.getTimeZone().toZoneId();
+    }
+
     private final Calendar calendar;
 
     private final Locale locale;
@@ -71,7 +113,6 @@ public class CalendarUtils {
     public CalendarUtils(final Calendar calendar) {
         this(calendar, Locale.getDefault());
     }
-
     /**
      * Creates an instance for the given Calendar.
      *
@@ -82,6 +123,7 @@ public class CalendarUtils {
         this.calendar = Objects.requireNonNull(calendar, "calendar");
         this.locale = Objects.requireNonNull(locale, "locale");
     }
+
     /**
      * Gets the current day of month.
      *
@@ -151,4 +193,45 @@ public class CalendarUtils {
     public int getYear() {
         return calendar.get(Calendar.YEAR);
     }
+
+    /**
+     * Converts this instance to a {@link LocalDate}.
+     *
+     * @return a LocalDate.
+     * @since 3.18.0
+     */
+    public LocalDate toLocalDate() {
+        return toLocalDateTime().toLocalDate();
+    }
+
+    /**
+     * Converts this instance to a {@link LocalDateTime}.
+     *
+     * @return a LocalDateTime.
+     * @since 3.17.0
+     */
+    public LocalDateTime toLocalDateTime() {
+        return toLocalDateTime(calendar);
+    }
+
+    /**
+     * Converts this instance to a {@link OffsetDateTime}.
+     *
+     * @return a OffsetDateTime.
+     * @since 3.17.0
+     */
+    public OffsetDateTime toOffsetDateTime() {
+        return toOffsetDateTime(calendar);
+    }
+
+    /**
+     * Converts this instance to a {@link ZonedDateTime}.
+     *
+     * @return a ZonedDateTime.
+     * @since 3.17.0
+     */
+    public ZonedDateTime toZonedDateTime() {
+        return toZonedDateTime(calendar);
+    }
+
 }

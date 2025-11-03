@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
-public class ReflectionToStringBuilderSummaryTest extends AbstractLangTest {
+class ReflectionToStringBuilderSummaryTest extends AbstractLangTest {
 
     @SuppressWarnings("unused")
     private final String stringField = "string";
@@ -30,7 +30,7 @@ public class ReflectionToStringBuilderSummaryTest extends AbstractLangTest {
     private final String summaryString = "summary";
 
     @Test
-    public void testSummary() {
+    void testSummary() {
         assertEquals("[stringField=string,summaryString=<String>]",
                 new ReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
     }

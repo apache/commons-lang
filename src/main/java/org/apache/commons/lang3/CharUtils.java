@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,7 @@ import java.util.Objects;
  */
 public class CharUtils {
 
-    private static final String[] CHAR_STRING_ARRAY = new String[128];
+    private static final String[] CHAR_STRING_ARRAY = ArrayUtils.setAll(new String[128], i -> String.valueOf((char) i));
 
     private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
@@ -59,10 +59,6 @@ public class CharUtils {
      */
     public static final char NUL = '\0';
 
-    static {
-        ArrayUtils.setAll(CHAR_STRING_ARRAY, i -> String.valueOf((char) i));
-    }
-
     /**
      * Compares two {@code char} values numerically. This is the same functionality as provided in Java 7.
      *
@@ -78,7 +74,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit.
+     * Tests whether the character is ASCII 7 bit.
      *
      * <pre>
      *   CharUtils.isAscii('a')  = true
@@ -97,7 +93,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit alphabetic.
+     * Tests whether the character is ASCII 7 bit alphabetic.
      *
      * <pre>
      *   CharUtils.isAsciiAlpha('a')  = true
@@ -116,7 +112,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit alphabetic lower case.
+     * Tests whether the character is ASCII 7 bit alphabetic lower case.
      *
      * <pre>
      *   CharUtils.isAsciiAlphaLower('a')  = true
@@ -135,7 +131,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit numeric.
+     * Tests whether the character is ASCII 7 bit numeric.
      *
      * <pre>
      *   CharUtils.isAsciiAlphanumeric('a')  = true
@@ -154,7 +150,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit alphabetic upper case.
+     * Tests whether the character is ASCII 7 bit alphabetic upper case.
      *
      * <pre>
      *   CharUtils.isAsciiAlphaUpper('a')  = false
@@ -173,7 +169,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit control.
+     * Tests whether the character is ASCII 7 bit control.
      *
      * <pre>
      *   CharUtils.isAsciiControl('a')  = false
@@ -192,7 +188,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit numeric.
+     * Tests whether the character is ASCII 7 bit numeric.
      *
      * <pre>
      *   CharUtils.isAsciiNumeric('a')  = false
@@ -211,7 +207,7 @@ public class CharUtils {
     }
 
     /**
-     * Checks whether the character is ASCII 7 bit printable.
+     * Tests whether the character is ASCII 7 bit printable.
      *
      * <pre>
      *   CharUtils.isAsciiPrintable('a')  = true
@@ -227,6 +223,44 @@ public class CharUtils {
      */
     public static boolean isAsciiPrintable(final char ch) {
         return ch >= 32 && ch < 127;
+    }
+
+    /**
+     * Tests whether a character is a hexadecimal character.
+     *
+     * <pre>
+     *   CharUtils.isHex('0')  = true
+     *   CharUtils.isHex('3')  = true
+     *   CharUtils.isHex('9')  = true
+     *   CharUtils.isHex('a')  = true
+     *   CharUtils.isHex('f')  = true
+     *   CharUtils.isHex('g')  = false
+     *   CharUtils.isHex('A')  = true
+     *   CharUtils.isHex('F')  = true
+     *   CharUtils.isHex('G')  = false
+     *   CharUtils.isHex('#')  = false
+     *   CharUtils.isHex('-')  = false
+     *   CharUtils.isHex('\n') = false
+     *   CharUtils.isHex('&copy;') = false
+     * </pre>
+     *
+     * @param ch  the character to test.
+     * @return true if character is a hexadecimal character.
+     * @since 3.18.0
+     */
+    public static boolean isHex(final char ch) {
+        return isAsciiNumeric(ch) || ch >= 'a' && ch <= 'f' || ch >= 'A' && ch <= 'F';
+    }
+
+    /**
+     * Tests if the given char is an octal digit. Octal digits are the character representations of the digits 0 to 7.
+     *
+     * @param ch the char to check
+     * @return true if the given char is the character representation of one of the digits from 0 to 7
+     * @since 3.18.0
+     */
+    public static boolean isOctal(final char ch) {
+        return ch >= '0' && ch <= '7';
     }
 
     /**

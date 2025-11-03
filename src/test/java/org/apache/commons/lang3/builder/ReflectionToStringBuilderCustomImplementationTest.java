@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,13 +27,13 @@ import org.junit.jupiter.api.Test;
  * Tests {@link ReflectionToStringBuilder} always uses {@link ReflectionToStringBuilder#getValue(Field)} to get the
  * value of every field in the class.
  */
-public class ReflectionToStringBuilderCustomImplementationTest extends AbstractLangTest {
+class ReflectionToStringBuilderCustomImplementationTest extends AbstractLangTest {
 
     public static class CustomReflectionToStringBuilder extends ReflectionToStringBuilder {
 
         private static final String CUSTOM_PREFIX = "prefix:";
 
-        public CustomReflectionToStringBuilder(final Object object, final ToStringStyle toStringStyle) {
+        CustomReflectionToStringBuilder(final Object object, final ToStringStyle toStringStyle) {
             super(object, toStringStyle);
         }
 
@@ -47,7 +47,7 @@ public class ReflectionToStringBuilderCustomImplementationTest extends AbstractL
     private final String stringField = "string";
 
     @Test
-    public void testBuild() {
+    void testBuild() {
         assertEquals("[stringField=prefix:string]",
                 new CustomReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
     }

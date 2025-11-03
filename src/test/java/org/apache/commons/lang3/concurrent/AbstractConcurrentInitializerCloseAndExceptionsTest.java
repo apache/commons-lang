@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,10 +16,10 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -38,8 +38,10 @@ import org.junit.jupiter.api.Test;
  * This class provides some basic tests for initializer implementations. Derived
  * class have to create a {@link ConcurrentInitializer} object on which the
  * tests are executed.
+ *
+ * @param <T> Domain type.
  */
-public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extends AbstractConcurrentInitializerTest {
+public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest<T> extends AbstractConcurrentInitializerTest<T> {
 
     protected static final class CloseableObject {
         boolean closed;
@@ -84,7 +86,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      */
     @SuppressWarnings("rawtypes")
     @Test
-    public void testCloserThrowsCheckedException() throws ConcurrentException {
+    void testCloserThrowsCheckedException() throws ConcurrentException {
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 CloseableObject::new,
                 CloseableObject -> methodThatThrowsException(ExceptionToThrow.IOException));
@@ -93,8 +95,8 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
             ((AbstractConcurrentInitializer) initializer).close();
             fail();
         } catch (final Exception e) {
-            assertThat(e, instanceOf(ConcurrentException.class));
-            assertThat(e.getCause(), instanceOf(IOException.class));
+            assertInstanceOf(ConcurrentException.class, e);
+            assertInstanceOf(IOException.class, e.getCause());
         }
     }
 
@@ -104,13 +106,13 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      */
     @SuppressWarnings("rawtypes")
     @Test
-    public void testCloserThrowsRuntimeException() throws ConcurrentException {
+    void testCloserThrowsRuntimeException() throws ConcurrentException {
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 CloseableObject::new,
                 CloseableObject -> methodThatThrowsException(ExceptionToThrow.NullPointerException));
 
         initializer.get();
-        assertThrows(NullPointerException.class, () -> {
+        assertNullPointerException(() -> {
             ((AbstractConcurrentInitializer) initializer).close();
             });
     }
@@ -121,7 +123,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      */
     @SuppressWarnings("unchecked") //for NOP
     @Test
-    public void testSupplierThrowsCheckedException() {
+    void testSupplierThrowsCheckedException() {
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 () -> methodThatThrowsException(ExceptionToThrow.IOException),
                 FailableConsumer.NOP);
@@ -133,18 +135,15 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      * ConcurrentException it will rethrow it without wrapping it.
      */
     @Test
-    public void testSupplierThrowsConcurrentException() {
+    void testSupplierThrowsConcurrentException() {
         final ConcurrentException concurrentException = new ConcurrentException();
-
         @SuppressWarnings("unchecked")
-        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
-                () -> {
-                    if ("test".equals("test")) {
-                        throw concurrentException;
-                    }
-                    return new CloseableObject();
-                },
-                FailableConsumer.NOP);
+        final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(() -> {
+            if ("test".equals("test")) {
+                throw concurrentException;
+            }
+            return new CloseableObject();
+        }, FailableConsumer.NOP);
         try {
             initializer.get();
             fail();
@@ -159,11 +158,11 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      */
     @SuppressWarnings("unchecked")
     @Test
-    public void testSupplierThrowsRuntimeException() {
+    void testSupplierThrowsRuntimeException() {
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 () -> methodThatThrowsException(ExceptionToThrow.NullPointerException),
                 FailableConsumer.NOP);
-        assertThrows(NullPointerException.class, () -> initializer.get());
+        assertNullPointerException(() -> initializer.get());
     }
 
     /**
@@ -171,7 +170,7 @@ public abstract class AbstractConcurrentInitializerCloseAndExceptionsTest extend
      */
     @SuppressWarnings("rawtypes")
     @Test
-    public void testWorkingCloser() throws Exception {
+    void testWorkingCloser() throws Exception {
         final ConcurrentInitializer<CloseableObject> initializer = createInitializerThatThrowsException(
                 CloseableObject::new,
                 CloseableObject::close);

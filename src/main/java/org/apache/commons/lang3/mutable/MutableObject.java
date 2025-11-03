@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,11 +19,16 @@ package org.apache.commons.lang3.mutable;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * A mutable {@link Object} wrapper.
+ * <p>
+ * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link AtomicReference} class.
+ * </p>
  *
- * @param <T> the type to set and get
+ * @param <T> the type to set and get.
+ * @see AtomicReference
  * @since 2.1
  */
 public class MutableObject<T> implements Mutable<T>, Serializable {
@@ -47,7 +52,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Constructs a new MutableObject with the specified value.
      *
-     * @param value  the initial value to store
+     * @param value  the initial value to store.
      */
     public MutableObject(final T value) {
         this.value = value;
@@ -58,7 +63,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      * is not {@code null} and is a {@link MutableObject} object that contains the same {@link T}
      * value as this object.
      *
-     * @param obj  the object to compare with, {@code null} returns {@code false}
+     * @param obj  the object to compare with, {@code null} returns {@code false}.
      * @return  {@code true} if the objects are the same;
      *          {@code true} if the objects have equivalent {@code value} fields;
      *          {@code false} otherwise.
@@ -81,8 +86,10 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Gets the value.
      *
-     * @return the value, may be null
+     * @return the value, may be null.
+     * @deprecated Use {@link #get()}.
      */
+    @Deprecated
     @Override
     public T getValue() {
         return this.value;
@@ -101,7 +108,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Sets the value.
      *
-     * @param value  the value to set
+     * @param value  the value to set.
      */
     @Override
     public void setValue(final T value) {
@@ -111,7 +118,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Returns the String value of this mutable.
      *
-     * @return the mutable value as a string
+     * @return the mutable value as a string.
      */
     @Override
     public String toString() {

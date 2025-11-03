@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ArraySorter}.
  */
-public class ArraySorterTest extends AbstractLangTest {
+class ArraySorterTest extends AbstractLangTest {
 
     @Test
-    public void testSortByteArray() {
+    void testSortByteArray() {
         final byte[] array1 = {2, 1};
         final byte[] array2 = array1.clone();
         Arrays.sort(array1);
@@ -39,7 +39,7 @@ public class ArraySorterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSortCharArray() {
+    void testSortCharArray() {
         final char[] array1 = {2, 1};
         final char[] array2 = array1.clone();
         Arrays.sort(array1);
@@ -48,7 +48,7 @@ public class ArraySorterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSortComparable() {
+    void testSortComparable() {
         final String[] array1 = ArrayUtils.toArray("foo", "bar");
         final String[] array2 = array1.clone();
         Arrays.sort(array1);
@@ -57,7 +57,7 @@ public class ArraySorterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSortDoubleArray() {
+    void testSortDoubleArray() {
         final double[] array1 = {2, 1};
         final double[] array2 = array1.clone();
         Arrays.sort(array1);
@@ -66,7 +66,7 @@ public class ArraySorterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSortFloatArray() {
+    void testSortFloatArray() {
         final float[] array1 = {2, 1};
         final float[] array2 = array1.clone();
         Arrays.sort(array1);
@@ -75,7 +75,7 @@ public class ArraySorterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSortIntArray() {
+    void testSortIntArray() {
         final int[] array1 = {2, 1};
         final int[] array2 = array1.clone();
         Arrays.sort(array1);
@@ -84,7 +84,7 @@ public class ArraySorterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSortLongArray() {
+    void testSortLongArray() {
         final long[] array1 = {2, 1};
         final long[] array2 = array1.clone();
         Arrays.sort(array1);
@@ -93,7 +93,7 @@ public class ArraySorterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSortObjects() {
+    void testSortObjects() {
         final String[] array1 = ArrayUtils.toArray("foo", "bar");
         final String[] array2 = array1.clone();
         Arrays.sort(array1);
@@ -102,7 +102,7 @@ public class ArraySorterTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSortShortArray() {
+    void testSortShortArray() {
         final short[] array1 = {2, 1};
         final short[] array2 = array1.clone();
         Arrays.sort(array1);

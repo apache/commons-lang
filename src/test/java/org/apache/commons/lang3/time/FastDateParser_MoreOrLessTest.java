@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,12 +29,12 @@ import java.util.TimeZone;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
-public class FastDateParser_MoreOrLessTest extends AbstractLangTest {
+class FastDateParser_MoreOrLessTest extends AbstractLangTest {
 
     private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
 
     @Test
-    public void testInputHasLessCharacters() {
+    void testInputHasLessCharacters() {
         final FastDateParser parser = new FastDateParser("MM/dd/yyy", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
         assertNull(parser.parse("03/23", parsePosition));
@@ -42,7 +42,7 @@ public class FastDateParser_MoreOrLessTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInputHasMoreCharacters() {
+    void testInputHasMoreCharacters() {
         final FastDateParser parser = new FastDateParser("MM/dd", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
         final Date date = parser.parse("3/23/61", parsePosition);
@@ -55,7 +55,7 @@ public class FastDateParser_MoreOrLessTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInputHasPrecedingCharacters() {
+    void testInputHasPrecedingCharacters() {
         final FastDateParser parser = new FastDateParser("MM/dd", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
         final Date date = parser.parse("A 3/23/61", parsePosition);
@@ -65,7 +65,7 @@ public class FastDateParser_MoreOrLessTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInputHasWhitespace() {
+    void testInputHasWhitespace() {
         final FastDateParser parser = new FastDateParser("M/d/y", TimeZone.getDefault(), Locale.getDefault());
         //SimpleDateFormat parser = new SimpleDateFormat("M/d/y");
         final ParsePosition parsePosition = new ParsePosition(0);
@@ -80,7 +80,7 @@ public class FastDateParser_MoreOrLessTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInputHasWrongCharacters() {
+    void testInputHasWrongCharacters() {
         final FastDateParser parser = new FastDateParser("MM-dd-yyy", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
         assertNull(parser.parse("03/23/1961", parsePosition));
@@ -88,7 +88,7 @@ public class FastDateParser_MoreOrLessTest extends AbstractLangTest {
     }
 
     @Test
-    public void testInputHasWrongDay() {
+    void testInputHasWrongDay() {
         final FastDateParser parser = new FastDateParser("EEEE, MM/dd/yyy", NEW_YORK, Locale.US);
         final String input = "Thursday, 03/23/61";
         final ParsePosition parsePosition = new ParsePosition(0);
@@ -96,12 +96,12 @@ public class FastDateParser_MoreOrLessTest extends AbstractLangTest {
         assertEquals(input.length(), parsePosition.getIndex());
 
         parsePosition.setIndex(0);
-        assertNull(parser.parse( "Thorsday, 03/23/61", parsePosition));
+        assertNull(parser.parse("Thorsday, 03/23/61", parsePosition));
         assertEquals(0, parsePosition.getErrorIndex());
     }
 
     @Test
-    public void testInputHasWrongTimeZone() {
+    void testInputHasWrongTimeZone() {
         final FastDateParser parser = new FastDateParser("mm:ss z", NEW_YORK, Locale.US);
 
         final String input = "11:23 Pacific Standard Time";
@@ -110,7 +110,7 @@ public class FastDateParser_MoreOrLessTest extends AbstractLangTest {
         assertEquals(input.length(), parsePosition.getIndex());
 
         parsePosition.setIndex(0);
-        assertNull(parser.parse( "11:23 Pacific Standard ", parsePosition));
+        assertNull(parser.parse("11:23 Pacific Standard ", parsePosition));
         assertEquals(6, parsePosition.getErrorIndex());
     }
 }

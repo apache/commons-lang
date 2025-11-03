@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,11 +17,11 @@
 package org.apache.commons.lang3;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -29,9 +29,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.function.Suppliers;
-import org.apache.commons.lang3.function.ToBooleanBiFunction;
 import org.apache.commons.lang3.stream.LangCollectors;
 import org.apache.commons.lang3.stream.Streams;
 
@@ -40,57 +40,57 @@ import org.apache.commons.lang3.stream.Streams;
  * {@code null} safe.
  *
  * <ul>
- *  <li><b>IsEmpty/IsBlank</b>
+ *  <li><strong>IsEmpty/IsBlank</strong>
  *      - checks if a String contains text</li>
- *  <li><b>Trim/Strip</b>
+ *  <li><strong>Trim/Strip</strong>
  *      - removes leading and trailing whitespace</li>
- *  <li><b>Equals/Compare</b>
+ *  <li><strong>Equals/Compare</strong>
  *      - compares two strings in a null-safe manner</li>
- *  <li><b>startsWith</b>
+ *  <li><strong>startsWith</strong>
  *      - check if a String starts with a prefix in a null-safe manner</li>
- *  <li><b>endsWith</b>
+ *  <li><strong>endsWith</strong>
  *      - check if a String ends with a suffix in a null-safe manner</li>
- *  <li><b>IndexOf/LastIndexOf/Contains</b>
+ *  <li><strong>IndexOf/LastIndexOf/Contains</strong>
  *      - null-safe index-of checks
- *  <li><b>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</b>
+ *  <li><strong>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</strong>
  *      - index-of any of a set of Strings</li>
- *  <li><b>ContainsOnly/ContainsNone/ContainsAny</b>
+ *  <li><strong>ContainsOnly/ContainsNone/ContainsAny</strong>
  *      - checks if String contains only/none/any of these characters</li>
- *  <li><b>Substring/Left/Right/Mid</b>
+ *  <li><strong>Substring/Left/Right/Mid</strong>
  *      - null-safe substring extractions</li>
- *  <li><b>SubstringBefore/SubstringAfter/SubstringBetween</b>
+ *  <li><strong>SubstringBefore/SubstringAfter/SubstringBetween</strong>
  *      - substring extraction relative to other strings</li>
- *  <li><b>Split/Join</b>
+ *  <li><strong>Split/Join</strong>
  *      - splits a String into an array of substrings and vice versa</li>
- *  <li><b>Remove/Delete</b>
+ *  <li><strong>Remove/Delete</strong>
  *      - removes part of a String</li>
- *  <li><b>Replace/Overlay</b>
+ *  <li><strong>Replace/Overlay</strong>
  *      - Searches a String and replaces one String with another</li>
- *  <li><b>Chomp/Chop</b>
+ *  <li><strong>Chomp/Chop</strong>
  *      - removes the last part of a String</li>
- *  <li><b>AppendIfMissing</b>
+ *  <li><strong>AppendIfMissing</strong>
  *      - appends a suffix to the end of the String if not present</li>
- *  <li><b>PrependIfMissing</b>
+ *  <li><strong>PrependIfMissing</strong>
  *      - prepends a prefix to the start of the String if not present</li>
- *  <li><b>LeftPad/RightPad/Center/Repeat</b>
+ *  <li><strong>LeftPad/RightPad/Center/Repeat</strong>
  *      - pads a String</li>
- *  <li><b>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</b>
+ *  <li><strong>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</strong>
  *      - changes the case of a String</li>
- *  <li><b>CountMatches</b>
+ *  <li><strong>CountMatches</strong>
  *      - counts the number of occurrences of one String in another</li>
- *  <li><b>IsAlpha/IsNumeric/IsWhitespace/IsAsciiPrintable</b>
+ *  <li><strong>IsAlpha/IsNumeric/IsWhitespace/IsAsciiPrintable</strong>
  *      - checks the characters in a String</li>
- *  <li><b>DefaultString</b>
+ *  <li><strong>DefaultString</strong>
  *      - protects against a null input String</li>
- *  <li><b>Rotate</b>
+ *  <li><strong>Rotate</strong>
  *      - rotate (circular shift) a String</li>
- *  <li><b>Reverse/ReverseDelimited</b>
+ *  <li><strong>Reverse/ReverseDelimited</strong>
  *      - reverses a String</li>
- *  <li><b>Abbreviate</b>
+ *  <li><strong>Abbreviate</strong>
  *      - abbreviates a string using ellipses or another given String</li>
- *  <li><b>Difference</b>
+ *  <li><strong>Difference</strong>
  *      - compares Strings and reports on their differences</li>
- *  <li><b>LevenshteinDistance</b>
+ *  <li><strong>LevenshteinDistance</strong>
  *      - the number of changes needed to change one String into another</li>
  * </ul>
  *
@@ -141,6 +141,11 @@ public class StringUtils {
     // (not sure who tested this)
 
     /**
+     * This is a 3 character version of an ellipsis. There is a Unicode character for a HORIZONTAL ELLIPSIS, U+2026 … this isn't it.
+     */
+    private static final String ELLIPSIS3 = "...";
+
+    /**
      * A String for a space character.
      *
      * @since 3.2
@@ -152,6 +157,11 @@ public class StringUtils {
      * @since 2.0
      */
     public static final String EMPTY = "";
+
+    /**
+     * The null String {@code null}. Package-private only.
+     */
+    static final String NULL = null;
 
     /**
      * A String for linefeed LF ("\n").
@@ -183,6 +193,11 @@ public class StringUtils {
     private static final int PAD_LIMIT = 8192;
 
     /**
+     * The default maximum depth at which recursive replacement will continue until no further search replacements are possible.
+     */
+    private static final int DEFAULT_TTL = 5;
+
+    /**
      * Pattern used in {@link #stripAccents(String)}.
      */
     private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
@@ -212,27 +227,26 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param maxWidth  maximum length of result String, must be at least 4
-     * @return abbreviated String, {@code null} if null String input
-     * @throws IllegalArgumentException if the width is too small
+     * @param str  the String to check, may be null.
+     * @param maxWidth  maximum length of result String, must be at least 4.
+     * @return abbreviated String, {@code null} if null String input.
+     * @throws IllegalArgumentException if the width is too small.
      * @since 2.0
      */
     public static String abbreviate(final String str, final int maxWidth) {
-        return abbreviate(str, "...", 0, maxWidth);
+        return abbreviate(str, ELLIPSIS3, 0, maxWidth);
     }
 
     /**
-     * Abbreviates a String using ellipses. This will turn
-     * "Now is the time for all good men" into "...is the time for..."
+     * Abbreviates a String using ellipses. This will turn "Now is the time for all good men" into "...is the time for..."
      *
-     * <p>Works like {@code abbreviate(String, int)}, but allows you to specify
-     * a "left edge" offset.  Note that this left edge is not necessarily going to
-     * be the leftmost character in the result, or the first character following the
-     * ellipses, but it will appear somewhere in the result.
+     * <p>
+     * Works like {@code abbreviate(String, int)}, but allows you to specify a "left edge" offset. Note that this left edge is not necessarily going to be the
+     * leftmost character in the result, or the first character following the ellipses, but it will appear somewhere in the result.
      *
-     * <p>In no case will it return a String of length greater than
-     * {@code maxWidth}.</p>
+     * <p>
+     * In no case will it return a String of length greater than {@code maxWidth}.
+     * </p>
      *
      * <pre>
      * StringUtils.abbreviate(null, *, *)                = null
@@ -250,31 +264,29 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefghij", 5, 6)        = IllegalArgumentException
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param offset  left edge of source String
-     * @param maxWidth  maximum length of result String, must be at least 4
-     * @return abbreviated String, {@code null} if null String input
-     * @throws IllegalArgumentException if the width is too small
+     * @param str      the String to check, may be null.
+     * @param offset   left edge of source String.
+     * @param maxWidth maximum length of result String, must be at least 4.
+     * @return abbreviated String, {@code null} if null String input.
+     * @throws IllegalArgumentException if the width is too small.
      * @since 2.0
      */
     public static String abbreviate(final String str, final int offset, final int maxWidth) {
-        return abbreviate(str, "...", offset, maxWidth);
+        return abbreviate(str, ELLIPSIS3, offset, maxWidth);
     }
 
     /**
-     * Abbreviates a String using another given String as replacement marker. This will turn
-     * "Now is the time for all good men" into "Now is the time for..." if "..." was defined
-     * as the replacement marker.
+     * Abbreviates a String using another given String as replacement marker. This will turn "Now is the time for all good men" into "Now is the time for..." if
+     * "..." was defined as the replacement marker.
      *
-     * <p>Specifically:</p>
+     * <p>
+     * Specifically:
+     * </p>
      * <ul>
-     *   <li>If the number of characters in {@code str} is less than or equal to
-     *       {@code maxWidth}, return {@code str}.</li>
-     *   <li>Else abbreviate it to {@code (substring(str, 0, max-abbrevMarker.length) + abbrevMarker)}.</li>
-     *   <li>If {@code maxWidth} is less than {@code abbrevMarker.length + 1}, throw an
-     *       {@link IllegalArgumentException}.</li>
-     *   <li>In no case will it return a String of length greater than
-     *       {@code maxWidth}.</li>
+     * <li>If the number of characters in {@code str} is less than or equal to {@code maxWidth}, return {@code str}.</li>
+     * <li>Else abbreviate it to {@code (substring(str, 0, max-abbrevMarker.length) + abbrevMarker)}.</li>
+     * <li>If {@code maxWidth} is less than {@code abbrevMarker.length + 1}, throw an {@link IllegalArgumentException}.</li>
+     * <li>In no case will it return a String of length greater than {@code maxWidth}.</li>
      * </ul>
      *
      * <pre>
@@ -290,27 +302,28 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefg", "...", 3) = IllegalArgumentException
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param abbrevMarker  the String used as replacement marker
-     * @param maxWidth  maximum length of result String, must be at least {@code abbrevMarker.length + 1}
-     * @return abbreviated String, {@code null} if null String input
-     * @throws IllegalArgumentException if the width is too small
+     * @param str          the String to check, may be null.
+     * @param abbrevMarker the String used as replacement marker.
+     * @param maxWidth     maximum length of result String, must be at least {@code abbrevMarker.length + 1}.
+     * @return abbreviated String, {@code null} if null String input.
+     * @throws IllegalArgumentException if the width is too small.
      * @since 3.6
      */
     public static String abbreviate(final String str, final String abbrevMarker, final int maxWidth) {
         return abbreviate(str, abbrevMarker, 0, maxWidth);
     }
+
     /**
-     * Abbreviates a String using a given replacement marker. This will turn
-     * "Now is the time for all good men" into "...is the time for..." if "..." was defined
-     * as the replacement marker.
+     * Abbreviates a String using a given replacement marker. This will turn "Now is the time for all good men" into "...is the time for..." if "..." was
+     * defined as the replacement marker.
      *
-     * <p>Works like {@code abbreviate(String, String, int)}, but allows you to specify
-     * a "left edge" offset.  Note that this left edge is not necessarily going to
-     * be the leftmost character in the result, or the first character following the
-     * replacement marker, but it will appear somewhere in the result.
+     * <p>
+     * Works like {@code abbreviate(String, String, int)}, but allows you to specify a "left edge" offset. Note that this left edge is not necessarily going to
+     * be the leftmost character in the result, or the first character following the replacement marker, but it will appear somewhere in the result.
      *
-     * <p>In no case will it return a String of length greater than {@code maxWidth}.</p>
+     * <p>
+     * In no case will it return a String of length greater than {@code maxWidth}.
+     * </p>
      *
      * <pre>
      * StringUtils.abbreviate(null, null, *, *)                 = null
@@ -329,12 +342,12 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefghij", "...", 5, 6)        = IllegalArgumentException
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param abbrevMarker  the String used as replacement marker
-     * @param offset  left edge of source String
-     * @param maxWidth  maximum length of result String, must be at least 4
-     * @return abbreviated String, {@code null} if null String input
-     * @throws IllegalArgumentException if the width is too small
+     * @param str          the String to check, may be null.
+     * @param abbrevMarker the String used as replacement marker.
+     * @param offset       left edge of source String.
+     * @param maxWidth     maximum length of result String, must be at least 4.
+     * @return abbreviated String, {@code null} if null String input.
+     * @throws IllegalArgumentException if the width is too small.
      * @since 3.6
      */
     public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
@@ -374,18 +387,20 @@ public class StringUtils {
     }
 
     /**
-     * Abbreviates a String to the length passed, replacing the middle characters with the supplied
-     * replacement String.
+     * Abbreviates a String to the length passed, replacing the middle characters with the supplied replacement String.
      *
-     * <p>This abbreviation only occurs if the following criteria is met:</p>
+     * <p>
+     * This abbreviation only occurs if the following criteria is met:
+     * </p>
      * <ul>
-     * <li>Neither the String for abbreviation nor the replacement String are null or empty </li>
+     * <li>Neither the String for abbreviation nor the replacement String are null or empty</li>
      * <li>The length to truncate to is less than the length of the supplied String</li>
      * <li>The length to truncate to is greater than 0</li>
-     * <li>The abbreviated String will have enough room for the length supplied replacement String
-     * and the first and last characters of the supplied String for abbreviation</li>
+     * <li>The abbreviated String will have enough room for the length supplied replacement String and the first and last characters of the supplied String for
+     * abbreviation</li>
      * </ul>
-     * <p>Otherwise, the returned String will be the same as the supplied String for abbreviation.
+     * <p>
+     * Otherwise, the returned String will be the same as the supplied String for abbreviation.
      * </p>
      *
      * <pre>
@@ -396,8 +411,8 @@ public class StringUtils {
      * StringUtils.abbreviateMiddle("abcdef", ".", 4) = "ab.f"
      * </pre>
      *
-     * @param str  the String to abbreviate, may be null
-     * @param middle the String to replace the middle characters with, may be null
+     * @param str    the String to abbreviate, may be null.
+     * @param middle the String to replace the middle characters with, may be null.
      * @param length the length to abbreviate {@code str} to.
      * @return the abbreviated String if the above criteria is met, or the original String supplied for abbreviation.
      * @since 2.5
@@ -413,33 +428,7 @@ public class StringUtils {
     }
 
     /**
-     * Appends the suffix to the end of the string if the string does not
-     * already end with the suffix.
-     *
-     * @param str The string.
-     * @param suffix The suffix to append to the end of the string.
-     * @param ignoreCase Indicates whether the compare should ignore case.
-     * @param suffixes Additional suffixes that are valid terminators (optional).
-     *
-     * @return A new String if suffix was appended, the same string otherwise.
-     */
-    private static String appendIfMissing(final String str, final CharSequence suffix, final boolean ignoreCase, final CharSequence... suffixes) {
-        if (str == null || isEmpty(suffix) || endsWith(str, suffix, ignoreCase)) {
-            return str;
-        }
-        if (ArrayUtils.isNotEmpty(suffixes)) {
-            for (final CharSequence s : suffixes) {
-                if (endsWith(str, s, ignoreCase)) {
-                    return str;
-                }
-            }
-        }
-        return str + suffix;
-    }
-
-    /**
-     * Appends the suffix to the end of the string if the string does not
-     * already end with any of the suffixes.
+     * Appends the suffix to the end of the string if the string does not already end with any of the suffixes.
      *
      * <pre>
      * StringUtils.appendIfMissing(null, null)      = null
@@ -449,7 +438,10 @@ public class StringUtils {
      * StringUtils.appendIfMissing("abcxyz", "xyz") = "abcxyz"
      * StringUtils.appendIfMissing("abcXYZ", "xyz") = "abcXYZxyz"
      * </pre>
-     * <p>With additional suffixes,</p>
+     * <p>
+     * With additional suffixes,
+     * </p>
+     *
      * <pre>
      * StringUtils.appendIfMissing(null, null, null)       = null
      * StringUtils.appendIfMissing("abc", null, null)      = "abc"
@@ -463,16 +455,16 @@ public class StringUtils {
      * StringUtils.appendIfMissing("abcMNO", "xyz", "mno") = "abcMNOxyz"
      * </pre>
      *
-     * @param str The string.
-     * @param suffix The suffix to append to the end of the string.
+     * @param str      The string.
+     * @param suffix   The suffix to append to the end of the string.
      * @param suffixes Additional suffixes that are valid terminators.
-     *
      * @return A new String if suffix was appended, the same string otherwise.
-     *
      * @since 3.2
+     * @deprecated Use {@link Strings#appendIfMissing(String, CharSequence, CharSequence...) Strings.CS.appendIfMissing(String, CharSequence, CharSequence...)}.
      */
+    @Deprecated
     public static String appendIfMissing(final String str, final CharSequence suffix, final CharSequence... suffixes) {
-        return appendIfMissing(str, suffix, false, suffixes);
+        return Strings.CS.appendIfMissing(str, suffix, suffixes);
     }
 
     /**
@@ -504,21 +496,21 @@ public class StringUtils {
      * @param str The string.
      * @param suffix The suffix to append to the end of the string.
      * @param suffixes Additional suffixes that are valid terminators.
-     *
      * @return A new String if suffix was appended, the same string otherwise.
-     *
      * @since 3.2
+     * @deprecated Use {@link Strings#appendIfMissing(String, CharSequence, CharSequence...) Strings.CI.appendIfMissing(String, CharSequence, CharSequence...)}.
      */
+    @Deprecated
     public static String appendIfMissingIgnoreCase(final String str, final CharSequence suffix, final CharSequence... suffixes) {
-        return appendIfMissing(str, suffix, true, suffixes);
+        return Strings.CI.appendIfMissing(str, suffix, suffixes);
     }
 
     /**
-     * Capitalizes a String changing the first character to title case as
-     * per {@link Character#toTitleCase(int)}. No other characters are changed.
+     * Capitalizes a String changing the first character to title case as per {@link Character#toTitleCase(int)}. No other characters are changed.
      *
-     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
-     * A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}. A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.capitalize(null)    = null
@@ -528,45 +520,38 @@ public class StringUtils {
      * StringUtils.capitalize("'cat'") = "'cat'"
      * </pre>
      *
-     * @param str the String to capitalize, may be null
-     * @return the capitalized String, {@code null} if null String input
+     * @param str the String to capitalize, may be null.
+     * @return the capitalized String, {@code null} if null String input.
      * @see org.apache.commons.text.WordUtils#capitalize(String)
      * @see #uncapitalize(String)
      * @since 2.0
      */
     public static String capitalize(final String str) {
-        final int strLen = length(str);
-        if (strLen == 0) {
+        if (isEmpty(str)) {
             return str;
         }
-
         final int firstCodepoint = str.codePointAt(0);
         final int newCodePoint = Character.toTitleCase(firstCodepoint);
         if (firstCodepoint == newCodePoint) {
             // already capitalized
             return str;
         }
-
-        final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
-        int outOffset = 0;
-        newCodePoints[outOffset++] = newCodePoint; // copy the first code point
-        for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen; ) {
-            final int codePoint = str.codePointAt(inOffset);
-            newCodePoints[outOffset++] = codePoint; // copy the remaining ones
-            inOffset += Character.charCount(codePoint);
-         }
-        return new String(newCodePoints, 0, outOffset);
+        final int[] newCodePoints = str.codePoints().toArray();
+        newCodePoints[0] = newCodePoint; // copy the first code point
+        return new String(newCodePoints, 0, newCodePoints.length);
     }
 
     /**
-     * Centers a String in a larger String of size {@code size}
-     * using the space character (' ').
+     * Centers a String in a larger String of size {@code size} using the space character (' ').
      *
-     * <p>If the size is less than the String length, the original String is returned.
-     * A {@code null} String returns {@code null}.
-     * A negative size is treated as zero.</p>
+     * <p>
+     * If the size is less than the String length, the original String is returned. A {@code null} String returns {@code null}. A negative size is treated as
+     * zero.
+     * </p>
      *
-     * <p>Equivalent to {@code center(str, size, " ")}.</p>
+     * <p>
+     * Equivalent to {@code center(str, size, " ")}.
+     * </p>
      *
      * <pre>
      * StringUtils.center(null, *)   = null
@@ -577,21 +562,20 @@ public class StringUtils {
      * StringUtils.center("a", 4)    = " a  "
      * </pre>
      *
-     * @param str  the String to center, may be null
-     * @param size  the int size of new String, negative treated as zero
-     * @return centered String, {@code null} if null String input
+     * @param str  the String to center, may be null.
+     * @param size the int size of new String, negative treated as zero.
+     * @return centered String, {@code null} if null String input.
      */
     public static String center(final String str, final int size) {
         return center(str, size, ' ');
     }
 
     /**
-     * Centers a String in a larger String of size {@code size}.
-     * Uses a supplied character as the value to pad the String with.
+     * Centers a String in a larger String of size {@code size}. Uses a supplied character as the value to pad the String with.
      *
-     * <p>If the size is less than the String length, the String is returned.
-     * A {@code null} String returns {@code null}.
-     * A negative size is treated as zero.</p>
+     * <p>
+     * If the size is less than the String length, the String is returned. A {@code null} String returns {@code null}. A negative size is treated as zero.
+     * </p>
      *
      * <pre>
      * StringUtils.center(null, *, *)     = null
@@ -603,10 +587,10 @@ public class StringUtils {
      * StringUtils.center("a", 4, 'y')    = "yayy"
      * </pre>
      *
-     * @param str  the String to center, may be null
-     * @param size  the int size of new String, negative treated as zero
-     * @param padChar  the character to pad the new String with
-     * @return centered String, {@code null} if null String input
+     * @param str     the String to center, may be null.
+     * @param size    the int size of new String, negative treated as zero.
+     * @param padChar the character to pad the new String with.
+     * @return centered String, {@code null} if null String input.
      * @since 2.0
      */
     public static String center(String str, final int size, final char padChar) {
@@ -623,12 +607,11 @@ public class StringUtils {
     }
 
     /**
-     * Centers a String in a larger String of size {@code size}.
-     * Uses a supplied String as the value to pad the String with.
+     * Centers a String in a larger String of size {@code size}. Uses a supplied String as the value to pad the String with.
      *
-     * <p>If the size is less than the String length, the String is returned.
-     * A {@code null} String returns {@code null}.
-     * A negative size is treated as zero.</p>
+     * <p>
+     * If the size is less than the String length, the String is returned. A {@code null} String returns {@code null}. A negative size is treated as zero.
+     * </p>
      *
      * <pre>
      * StringUtils.center(null, *, *)     = null
@@ -642,11 +625,11 @@ public class StringUtils {
      * StringUtils.center("abc", 7, "")   = "  abc  "
      * </pre>
      *
-     * @param str  the String to center, may be null
-     * @param size  the int size of new String, negative treated as zero
-     * @param padStr  the String to pad the new String with, must not be null or empty
-     * @return centered String, {@code null} if null String input
-     * @throws IllegalArgumentException if padStr is {@code null} or empty
+     * @param str    the String to center, may be null.
+     * @param size   the int size of new String, negative treated as zero.
+     * @param padStr the String to pad the new String with, must not be null or empty.
+     * @return centered String, {@code null} if null String input.
+     * @throws IllegalArgumentException if padStr is {@code null} or empty.
      */
     public static String center(String str, final int size, String padStr) {
         if (str == null || size <= 0) {
@@ -665,12 +648,12 @@ public class StringUtils {
     }
 
     /**
-     * Removes one newline from end of a String if it's there,
-     * otherwise leave it alone.  A newline is &quot;{@code \n}&quot;,
-     * &quot;{@code \r}&quot;, or &quot;{@code \r\n}&quot;.
+     * Removes one newline from end of a String if it's there, otherwise leave it alone. A newline is &quot;{@code \n}&quot;, &quot;{@code \r}&quot;, or
+     * &quot;{@code \r\n}&quot;.
      *
-     * <p>NOTE: This method changed in 2.0.
-     * It now more closely matches Perl chomp.</p>
+     * <p>
+     * NOTE: This method changed in 2.0. It now more closely matches Perl chomp.
+     * </p>
      *
      * <pre>
      * StringUtils.chomp(null)          = null
@@ -686,14 +669,13 @@ public class StringUtils {
      * StringUtils.chomp("\r\n")        = ""
      * </pre>
      *
-     * @param str  the String to chomp a newline from, may be null
-     * @return String without newline, {@code null} if null String input
+     * @param str the String to chomp a newline from, may be null.
+     * @return String without newline, {@code null} if null String input.
      */
     public static String chomp(final String str) {
         if (isEmpty(str)) {
             return str;
         }
-
         if (str.length() == 1) {
             final char ch = str.charAt(0);
             if (ch == CharUtils.CR || ch == CharUtils.LF) {
@@ -701,10 +683,8 @@ public class StringUtils {
             }
             return str;
         }
-
         int lastIdx = str.length() - 1;
         final char last = str.charAt(lastIdx);
-
         if (last == CharUtils.LF) {
             if (str.charAt(lastIdx - 1) == CharUtils.CR) {
                 lastIdx--;
@@ -716,13 +696,12 @@ public class StringUtils {
     }
 
     /**
-     * Removes {@code separator} from the end of
-     * {@code str} if it's there, otherwise leave it alone.
+     * Removes {@code separator} from the end of {@code str} if it's there, otherwise leave it alone.
      *
-     * <p>NOTE: This method changed in version 2.0.
-     * It now more closely matches Perl chomp.
-     * For the previous behavior, use {@link #substringBeforeLast(String, String)}.
-     * This method uses {@link String#endsWith(String)}.</p>
+     * <p>
+     * NOTE: This method changed in version 2.0. It now more closely matches Perl chomp. For the previous behavior, use
+     * {@link #substringBeforeLast(String, String)}. This method uses {@link String#endsWith(String)}.
+     * </p>
      *
      * <pre>
      * StringUtils.chomp(null, *)         = null
@@ -737,21 +716,22 @@ public class StringUtils {
      * StringUtils.chomp("foo", null)     = "foo"
      * </pre>
      *
-     * @param str  the String to chomp from, may be null
-     * @param separator  separator String, may be null
-     * @return String without trailing separator, {@code null} if null String input
-     * @deprecated This feature will be removed in Lang 4, use {@link StringUtils#removeEnd(String, String)} instead
+     * @param str       the String to chomp from, may be null.
+     * @param separator separator String, may be null.
+     * @return String without trailing separator, {@code null} if null String input.
+     * @deprecated This feature will be removed in Lang 4, use {@link StringUtils#removeEnd(String, String)} instead.
      */
     @Deprecated
     public static String chomp(final String str, final String separator) {
-        return removeEnd(str, separator);
+        return Strings.CS.removeEnd(str, separator);
     }
 
     /**
-     * Remove the last character from a String.
+     * Removes the last character from a String.
      *
-     * <p>If the String ends in {@code \r\n}, then remove both
-     * of them.</p>
+     * <p>
+     * If the String ends in {@code \r\n}, then remove both of them.
+     * </p>
      *
      * <pre>
      * StringUtils.chop(null)          = null
@@ -767,8 +747,8 @@ public class StringUtils {
      * StringUtils.chop("\r\n")        = ""
      * </pre>
      *
-     * @param str  the String to chop last character from, may be null
-     * @return String without last character, {@code null} if null String input
+     * @param str the String to chop last character from, may be null.
+     * @return String without last character, {@code null} if null String input.
      */
     public static String chop(final String str) {
         if (str == null) {
@@ -788,73 +768,87 @@ public class StringUtils {
     }
 
     /**
-     * Compare two Strings lexicographically, as per {@link String#compareTo(String)}, returning :
+     * Compares two Strings lexicographically, as per {@link String#compareTo(String)}, returning :
      * <ul>
-     *  <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
-     *  <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
-     *  <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
+     * <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
+     * <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
+     * <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
      * </ul>
      *
-     * <p>This is a {@code null} safe version of :</p>
-     * <blockquote><pre>str1.compareTo(str2)</pre></blockquote>
-     *
-     * <p>{@code null} value is considered less than non-{@code null} value.
-     * Two {@code null} references are considered equal.</p>
+     * <p>
+     * This is a {@code null} safe version of:
+     * </p>
      *
      * <pre>
-     * StringUtils.compare(null, null)   = 0
-     * StringUtils.compare(null , "a")   &lt; 0
-     * StringUtils.compare("a", null)    &gt; 0
-     * StringUtils.compare("abc", "abc") = 0
-     * StringUtils.compare("a", "b")     &lt; 0
-     * StringUtils.compare("b", "a")     &gt; 0
-     * StringUtils.compare("a", "B")     &gt; 0
-     * StringUtils.compare("ab", "abc")  &lt; 0
+     * str1.compareTo(str2)
      * </pre>
      *
+     * <p>
+     * {@code null} value is considered less than non-{@code null} value. Two {@code null} references are considered equal.
+     * </p>
+     *
+     * <pre>{@code
+     * StringUtils.compare(null, null)   = 0
+     * StringUtils.compare(null , "a")   < 0
+     * StringUtils.compare("a", null)   > 0
+     * StringUtils.compare("abc", "abc") = 0
+     * StringUtils.compare("a", "b")     < 0
+     * StringUtils.compare("b", "a")     > 0
+     * StringUtils.compare("a", "B")     > 0
+     * StringUtils.compare("ab", "abc")  < 0
+     * }</pre>
+     *
+     * @param str1 the String to compare from.
+     * @param str2 the String to compare to.
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal or greater than {@code str2}.
      * @see #compare(String, String, boolean)
      * @see String#compareTo(String)
-     * @param str1  the String to compare from
-     * @param str2  the String to compare to
-     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal or greater than {@code str2}
      * @since 3.5
+     * @deprecated Use {@link Strings#compare(String, String) Strings.CS.compare(String, String)}.
      */
+    @Deprecated
     public static int compare(final String str1, final String str2) {
-        return compare(str1, str2, true);
+        return Strings.CS.compare(str1, str2);
     }
 
     /**
-     * Compare two Strings lexicographically, as per {@link String#compareTo(String)}, returning :
+     * Compares two Strings lexicographically, as per {@link String#compareTo(String)}, returning :
      * <ul>
-     *  <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
-     *  <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
-     *  <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
+     * <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
+     * <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
+     * <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
      * </ul>
      *
-     * <p>This is a {@code null} safe version of :</p>
-     * <blockquote><pre>str1.compareTo(str2)</pre></blockquote>
-     *
-     * <p>{@code null} inputs are handled according to the {@code nullIsLess} parameter.
-     * Two {@code null} references are considered equal.</p>
+     * <p>
+     * This is a {@code null} safe version of :
+     * </p>
      *
      * <pre>
-     * StringUtils.compare(null, null, *)     = 0
-     * StringUtils.compare(null , "a", true)  &lt; 0
-     * StringUtils.compare(null , "a", false) &gt; 0
-     * StringUtils.compare("a", null, true)   &gt; 0
-     * StringUtils.compare("a", null, false)  &lt; 0
-     * StringUtils.compare("abc", "abc", *)   = 0
-     * StringUtils.compare("a", "b", *)       &lt; 0
-     * StringUtils.compare("b", "a", *)       &gt; 0
-     * StringUtils.compare("a", "B", *)       &gt; 0
-     * StringUtils.compare("ab", "abc", *)    &lt; 0
+     * str1.compareTo(str2)
      * </pre>
      *
+     * <p>
+     * {@code null} inputs are handled according to the {@code nullIsLess} parameter. Two {@code null} references are considered equal.
+     * </p>
+     *
+     * <pre>{@code
+     * StringUtils.compare(null, null, *)     = 0
+     * StringUtils.compare(null , "a", true)  < 0
+     * StringUtils.compare(null , "a", false) > 0
+     * StringUtils.compare("a", null, true)   > 0
+     * StringUtils.compare("a", null, false)  < 0
+     * StringUtils.compare("abc", "abc", *)   = 0
+     * StringUtils.compare("a", "b", *)       < 0
+     * StringUtils.compare("b", "a", *)       > 0
+     * StringUtils.compare("a", "B", *)       > 0
+     * StringUtils.compare("ab", "abc", *)    < 0
+     * }</pre>
+     *
+     * @param str1       the String to compare from.
+     * @param str2       the String to compare to.
+     * @param nullIsLess whether consider {@code null} value less than non-{@code null} value.
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2}.
      * @see String#compareTo(String)
-     * @param str1  the String to compare from
-     * @param str2  the String to compare to
-     * @param nullIsLess  whether consider {@code null} value less than non-{@code null} value
-     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2}
      * @since 3.5
      */
     public static int compare(final String str1, final String str2, final boolean nullIsLess) {
@@ -865,89 +859,97 @@ public class StringUtils {
             return nullIsLess ? -1 : 1;
         }
         if (str2 == null) {
-            return nullIsLess ? 1 : - 1;
+            return nullIsLess ? 1 : -1;
         }
         return str1.compareTo(str2);
     }
 
     /**
-     * Compare two Strings lexicographically, ignoring case differences,
-     * as per {@link String#compareToIgnoreCase(String)}, returning :
+     * Compares two Strings lexicographically, ignoring case differences, as per {@link String#compareToIgnoreCase(String)}, returning :
      * <ul>
-     *  <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
-     *  <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
-     *  <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
+     * <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
+     * <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
+     * <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
      * </ul>
      *
-     * <p>This is a {@code null} safe version of :</p>
-     * <blockquote><pre>str1.compareToIgnoreCase(str2)</pre></blockquote>
-     *
-     * <p>{@code null} value is considered less than non-{@code null} value.
-     * Two {@code null} references are considered equal.
-     * Comparison is case insensitive.</p>
+     * <p>
+     * This is a {@code null} safe version of:
+     * </p>
      *
      * <pre>
-     * StringUtils.compareIgnoreCase(null, null)   = 0
-     * StringUtils.compareIgnoreCase(null , "a")   &lt; 0
-     * StringUtils.compareIgnoreCase("a", null)    &gt; 0
-     * StringUtils.compareIgnoreCase("abc", "abc") = 0
-     * StringUtils.compareIgnoreCase("abc", "ABC") = 0
-     * StringUtils.compareIgnoreCase("a", "b")     &lt; 0
-     * StringUtils.compareIgnoreCase("b", "a")     &gt; 0
-     * StringUtils.compareIgnoreCase("a", "B")     &lt; 0
-     * StringUtils.compareIgnoreCase("A", "b")     &lt; 0
-     * StringUtils.compareIgnoreCase("ab", "ABC")  &lt; 0
+     * str1.compareToIgnoreCase(str2)
      * </pre>
      *
+     * <p>
+     * {@code null} value is considered less than non-{@code null} value. Two {@code null} references are considered equal. Comparison is case insensitive.
+     * </p>
+     *
+     * <pre>{@code
+     * StringUtils.compareIgnoreCase(null, null)   = 0
+     * StringUtils.compareIgnoreCase(null , "a")   < 0
+     * StringUtils.compareIgnoreCase("a", null)    > 0
+     * StringUtils.compareIgnoreCase("abc", "abc") = 0
+     * StringUtils.compareIgnoreCase("abc", "ABC") = 0
+     * StringUtils.compareIgnoreCase("a", "b")     < 0
+     * StringUtils.compareIgnoreCase("b", "a")     > 0
+     * StringUtils.compareIgnoreCase("a", "B")     < 0
+     * StringUtils.compareIgnoreCase("A", "b")     < 0
+     * StringUtils.compareIgnoreCase("ab", "ABC")  < 0
+     * }</pre>
+     *
+     * @param str1 the String to compare from.
+     * @param str2 the String to compare to.
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2}, ignoring case differences.
      * @see #compareIgnoreCase(String, String, boolean)
      * @see String#compareToIgnoreCase(String)
-     * @param str1  the String to compare from
-     * @param str2  the String to compare to
-     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2},
-     *          ignoring case differences.
      * @since 3.5
+     * @deprecated Use {@link Strings#compare(String, String) Strings.CI.compare(String, String)}.
      */
+    @Deprecated
     public static int compareIgnoreCase(final String str1, final String str2) {
-        return compareIgnoreCase(str1, str2, true);
+        return Strings.CI.compare(str1, str2);
     }
 
     /**
-     * Compare two Strings lexicographically, ignoring case differences,
-     * as per {@link String#compareToIgnoreCase(String)}, returning :
+     * Compares two Strings lexicographically, ignoring case differences, as per {@link String#compareToIgnoreCase(String)}, returning :
      * <ul>
-     *  <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
-     *  <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
-     *  <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
+     * <li>{@code int = 0}, if {@code str1} is equal to {@code str2} (or both {@code null})</li>
+     * <li>{@code int < 0}, if {@code str1} is less than {@code str2}</li>
+     * <li>{@code int > 0}, if {@code str1} is greater than {@code str2}</li>
      * </ul>
      *
-     * <p>This is a {@code null} safe version of :</p>
-     * <blockquote><pre>str1.compareToIgnoreCase(str2)</pre></blockquote>
-     *
-     * <p>{@code null} inputs are handled according to the {@code nullIsLess} parameter.
-     * Two {@code null} references are considered equal.
-     * Comparison is case insensitive.</p>
-     *
+     * <p>
+     * This is a {@code null} safe version of :
+     * </p>
      * <pre>
-     * StringUtils.compareIgnoreCase(null, null, *)     = 0
-     * StringUtils.compareIgnoreCase(null , "a", true)  &lt; 0
-     * StringUtils.compareIgnoreCase(null , "a", false) &gt; 0
-     * StringUtils.compareIgnoreCase("a", null, true)   &gt; 0
-     * StringUtils.compareIgnoreCase("a", null, false)  &lt; 0
-     * StringUtils.compareIgnoreCase("abc", "abc", *)   = 0
-     * StringUtils.compareIgnoreCase("abc", "ABC", *)   = 0
-     * StringUtils.compareIgnoreCase("a", "b", *)       &lt; 0
-     * StringUtils.compareIgnoreCase("b", "a", *)       &gt; 0
-     * StringUtils.compareIgnoreCase("a", "B", *)       &lt; 0
-     * StringUtils.compareIgnoreCase("A", "b", *)       &lt; 0
-     * StringUtils.compareIgnoreCase("ab", "abc", *)    &lt; 0
+     * str1.compareToIgnoreCase(str2)
      * </pre>
      *
+     * <p>
+     * {@code null} inputs are handled according to the {@code nullIsLess} parameter. Two {@code null} references are considered equal. Comparison is case
+     * insensitive.
+     * </p>
+     *
+     * <pre>{@code
+     * StringUtils.compareIgnoreCase(null, null, *)     = 0
+     * StringUtils.compareIgnoreCase(null , "a", true)  < 0
+     * StringUtils.compareIgnoreCase(null , "a", false) > 0
+     * StringUtils.compareIgnoreCase("a", null, true)   > 0
+     * StringUtils.compareIgnoreCase("a", null, false)  < 0
+     * StringUtils.compareIgnoreCase("abc", "abc", *)   = 0
+     * StringUtils.compareIgnoreCase("abc", "ABC", *)   = 0
+     * StringUtils.compareIgnoreCase("a", "b", *)       < 0
+     * StringUtils.compareIgnoreCase("b", "a", *)       > 0
+     * StringUtils.compareIgnoreCase("a", "B", *)       < 0
+     * StringUtils.compareIgnoreCase("A", "b", *)       < 0
+     * StringUtils.compareIgnoreCase("ab", "abc", *)    < 0
+     * }</pre>
+     *
+     * @param str1       the String to compare from.
+     * @param str2       the String to compare to.
+     * @param nullIsLess whether consider {@code null} value less than non-{@code null} value.
+     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2}, ignoring case differences.
      * @see String#compareToIgnoreCase(String)
-     * @param str1  the String to compare from
-     * @param str2  the String to compare to
-     * @param nullIsLess  whether consider {@code null} value less than non-{@code null} value
-     * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal ou greater than {@code str2},
-     *          ignoring case differences.
      * @since 3.5
      */
     public static int compareIgnoreCase(final String str1, final String str2, final boolean nullIsLess) {
@@ -958,13 +960,13 @@ public class StringUtils {
             return nullIsLess ? -1 : 1;
         }
         if (str2 == null) {
-            return nullIsLess ? 1 : - 1;
+            return nullIsLess ? 1 : -1;
         }
         return str1.compareToIgnoreCase(str2);
     }
 
     /**
-     * Checks if CharSequence contains a search CharSequence, handling {@code null}.
+     * Tests if CharSequence contains a search CharSequence, handling {@code null}.
      * This method uses {@link String#indexOf(String)} if possible.
      *
      * <p>A {@code null} CharSequence will return {@code false}.</p>
@@ -984,19 +986,19 @@ public class StringUtils {
      *  false if not or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from contains(String, String) to contains(CharSequence, CharSequence)
+     * @deprecated Use {@link Strings#contains(CharSequence, CharSequence) Strings.CS.contains(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static boolean contains(final CharSequence seq, final CharSequence searchSeq) {
-        if (seq == null || searchSeq == null) {
-            return false;
-        }
-        return CharSequenceUtils.indexOf(seq, searchSeq, 0) >= 0;
+        return Strings.CS.contains(seq, searchSeq);
     }
 
     /**
-     * Checks if CharSequence contains a search character, handling {@code null}.
-     * This method uses {@link String#indexOf(int)} if possible.
+     * Tests if CharSequence contains a search character, handling {@code null}. This method uses {@link String#indexOf(int)} if possible.
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.</p>
+     * <p>
+     * A {@code null} or empty ("") CharSequence will return {@code false}.
+     * </p>
      *
      * <pre>
      * StringUtils.contains(null, *)    = false
@@ -1005,10 +1007,9 @@ public class StringUtils {
      * StringUtils.contains("abc", 'z') = false
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchChar  the character to find
-     * @return true if the CharSequence contains the search character,
-     *  false if not or {@code null} string input
+     * @param seq        the CharSequence to check, may be null
+     * @param searchChar the character to find
+     * @return true if the CharSequence contains the search character, false if not or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from contains(String, int) to contains(CharSequence, int)
      */
@@ -1020,11 +1021,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains any character in the given
-     * set of characters.
+     * Tests if the CharSequence contains any character in the given set of characters.
      *
-     * <p>A {@code null} CharSequence will return {@code false}.
-     * A {@code null} or zero length search array will return {@code false}.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code false}. A {@code null} or zero length search array will return {@code false}.
+     * </p>
      *
      * <pre>
      * StringUtils.containsAny(null, *)                  = false
@@ -1037,10 +1038,9 @@ public class StringUtils {
      * StringUtils.containsAny("aba", ['z'])             = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
-     * @return the {@code true} if any of the chars are found,
-     * {@code false} if no match or null input
+     * @param cs          the CharSequence to check, may be null.
+     * @param searchChars the chars to search for, may be null.
+     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input.
      * @since 2.4
      * @since 3.0 Changed signature from containsAny(String, char[]) to containsAny(CharSequence, char...)
      */
@@ -1056,15 +1056,7 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLength; j++) {
                 if (searchChars[j] == ch) {
-                    if (!Character.isHighSurrogate(ch)) {
-                        // ch is in the Basic Multilingual Plane
-                        return true;
-                    }
-                    if (j == searchLast) {
-                        // missing low surrogate, fine, like String.indexOf(String)
-                        return true;
-                    }
-                    if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
+                    if (!Character.isHighSurrogate(ch) || j == searchLast || i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
                         return true;
                     }
                 }
@@ -1074,11 +1066,10 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains any character in the given set of characters.
+     * Tests if the CharSequence contains any character in the given set of characters.
      *
      * <p>
-     * A {@code null} CharSequence will return {@code false}. A {@code null} search CharSequence will return
-     * {@code false}.
+     * A {@code null} CharSequence will return {@code false}. A {@code null} search CharSequence will return {@code false}.
      * </p>
      *
      * <pre>
@@ -1094,11 +1085,9 @@ public class StringUtils {
      * StringUtils.containsAny("aba", "z")            = false
      * </pre>
      *
-     * @param cs
-     *            the CharSequence to check, may be null
-     * @param searchChars
-     *            the chars to search for, may be null
-     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
+     * @param cs          the CharSequence to check, may be null.
+     * @param searchChars the chars to search for, may be null.
+     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input.
      * @since 2.4
      * @since 3.0 Changed signature from containsAny(String, String) to containsAny(CharSequence, CharSequence)
      */
@@ -1110,7 +1099,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     * Tests if the CharSequence contains any of the CharSequences in the given array.
      *
      * <p>
      * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
@@ -1127,45 +1116,20 @@ public class StringUtils {
      * StringUtils.containsAny("abc", "d", "abc")  = true
      * </pre>
      *
-     * @param cs The CharSequence to check, may be null
+     * @param cs The CharSequence to check, may be null.
      * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
      *        null as well.
-     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise.
      * @since 3.4
+     * @deprecated Use {@link Strings#containsAny(CharSequence, CharSequence...) Strings.CS.containsAny(CharSequence, CharSequence...)}.
      */
+    @Deprecated
     public static boolean containsAny(final CharSequence cs, final CharSequence... searchCharSequences) {
-        return containsAny(StringUtils::contains, cs, searchCharSequences);
+        return Strings.CS.containsAny(cs, searchCharSequences);
     }
 
     /**
-     * Checks if the CharSequence contains any of the CharSequences in the given array.
-     *
-     * <p>
-     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
-     * return {@code false}.
-     * </p>
-     *
-     * @param cs The CharSequence to check, may be null
-     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
-     *        null as well.
-     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
-     * @since 3.12.0
-     */
-    private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test,
-        final CharSequence cs, final CharSequence... searchCharSequences) {
-        if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
-            return false;
-        }
-        for (final CharSequence searchCharSequence : searchCharSequences) {
-            if (test.applyAsBoolean(cs, searchCharSequence)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.
+     * Tests if the CharSequence contains any of the CharSequences in the given array, ignoring case.
      *
      * <p>
      * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
@@ -1184,22 +1148,24 @@ public class StringUtils {
      * StringUtils.containsAny("ABC", "d", "abc")  = true
      * </pre>
      *
-     * @param cs The CharSequence to check, may be null
+     * @param cs The CharSequence to check, may be null.
      * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
      *        null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      * @since 3.12.0
+     * @deprecated Use {@link Strings#containsAny(CharSequence, CharSequence...) Strings.CI.containsAny(CharSequence, CharSequence...)}.
      */
+    @Deprecated
     public static boolean containsAnyIgnoreCase(final CharSequence cs, final CharSequence... searchCharSequences) {
-        return containsAny(StringUtils::containsIgnoreCase, cs, searchCharSequences);
+        return Strings.CI.containsAny(cs, searchCharSequences);
     }
 
     /**
-     * Checks if CharSequence contains a search CharSequence irrespective of case,
-     * handling {@code null}. Case-insensitivity is defined as by
+     * Tests if CharSequence contains a search CharSequence irrespective of case, handling {@code null}. Case-insensitivity is defined as by
      * {@link String#equalsIgnoreCase(String)}.
      *
-     * <p>A {@code null} CharSequence will return {@code false}.
+     * <p>
+     * A {@code null} CharSequence will return {@code false}.
      *
      * <pre>
      * StringUtils.containsIgnoreCase(null, *)    = false
@@ -1212,32 +1178,24 @@ public class StringUtils {
      * StringUtils.containsIgnoreCase("abc", "Z") = false
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStr  the CharSequence to find, may be null
-     * @return true if the CharSequence contains the search CharSequence irrespective of
-     * case or false if not or {@code null} string input
-     * @since 3.0 Changed signature from containsIgnoreCase(String, String) to containsIgnoreCase(CharSequence, CharSequence)
+     * @param str       the CharSequence to check, may be null.
+     * @param searchStr the CharSequence to find, may be null.
+     * @return true if the CharSequence contains the search CharSequence irrespective of case or false if not or {@code null} string input.
+     * @since 3.0 Changed signature from containsIgnoreCase(String, String) to containsIgnoreCase(CharSequence, CharSequence).
+     * @deprecated Use {@link Strings#contains(CharSequence, CharSequence) Strings.CI.contains(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static boolean containsIgnoreCase(final CharSequence str, final CharSequence searchStr) {
-        if (str == null || searchStr == null) {
-            return false;
-        }
-        final int len = searchStr.length();
-        final int max = str.length() - len;
-        for (int i = 0; i <= max; i++) {
-            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, len)) {
-                return true;
-            }
-        }
-        return false;
+        return Strings.CI.contains(str, searchStr);
     }
 
     /**
-     * Checks that the CharSequence does not contain certain characters.
+     * Tests that the CharSequence does not contain certain characters.
      *
-     * <p>A {@code null} CharSequence will return {@code true}.
-     * A {@code null} invalid character array will return {@code true}.
-     * An empty CharSequence (length()=0) always returns true.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code true}. A {@code null} invalid character array will return {@code true}. An empty CharSequence (length()=0)
+     * always returns true.
+     * </p>
      *
      * <pre>
      * StringUtils.containsNone(null, *)       = true
@@ -1249,9 +1207,9 @@ public class StringUtils {
      * StringUtils.containsNone("abz", 'xyz')  = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @param searchChars  an array of invalid chars, may be null
-     * @return true if it contains none of the invalid chars, or is null
+     * @param cs          the CharSequence to check, may be null.
+     * @param searchChars an array of invalid chars, may be null.
+     * @return true if it contains none of the invalid chars, or is null.
      * @since 2.0
      * @since 3.0 Changed signature from containsNone(String, char[]) to containsNone(CharSequence, char...)
      */
@@ -1267,15 +1225,7 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if (!Character.isHighSurrogate(ch)) {
-                        // ch is in the Basic Multilingual Plane
-                        return false;
-                    }
-                    if (j == searchLast) {
-                        // missing low surrogate, fine, like String.indexOf(String)
-                        return false;
-                    }
-                    if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
+                    if (!Character.isHighSurrogate(ch) || j == searchLast || i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
                         return false;
                     }
                 }
@@ -1285,11 +1235,12 @@ public class StringUtils {
     }
 
     /**
-     * Checks that the CharSequence does not contain certain characters.
+     * Tests that the CharSequence does not contain certain characters.
      *
-     * <p>A {@code null} CharSequence will return {@code true}.
-     * A {@code null} invalid character array will return {@code true}.
-     * An empty String ("") always returns true.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code true}. A {@code null} invalid character array will return {@code true}. An empty String ("") always
+     * returns true.
+     * </p>
      *
      * <pre>
      * StringUtils.containsNone(null, *)       = true
@@ -1301,9 +1252,9 @@ public class StringUtils {
      * StringUtils.containsNone("abz", "xyz")  = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @param invalidChars  a String of invalid chars, may be null
-     * @return true if it contains none of the invalid chars, or is null
+     * @param cs           the CharSequence to check, may be null.
+     * @param invalidChars a String of invalid chars, may be null.
+     * @return true if it contains none of the invalid chars, or is null.
      * @since 2.0
      * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
      */
@@ -1315,11 +1266,12 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only certain characters.
+     * Tests if the CharSequence contains only certain characters.
      *
-     * <p>A {@code null} CharSequence will return {@code false}.
-     * A {@code null} valid character array will return {@code false}.
-     * An empty CharSequence (length()=0) always returns {@code true}.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code false}. A {@code null} valid character array will return {@code false}. An empty CharSequence (length()=0)
+     * always returns {@code true}.
+     * </p>
      *
      * <pre>
      * StringUtils.containsOnly(null, *)       = false
@@ -1331,9 +1283,9 @@ public class StringUtils {
      * StringUtils.containsOnly("abz", 'abc')  = false
      * </pre>
      *
-     * @param cs  the String to check, may be null
-     * @param valid  an array of valid chars, may be null
-     * @return true if it only contains valid chars and is non-null
+     * @param cs    the String to check, may be null.
+     * @param valid an array of valid chars, may be null.
+     * @return true if it only contains valid chars and is non-null.
      * @since 3.0 Changed signature from containsOnly(String, char[]) to containsOnly(CharSequence, char...)
      */
     public static boolean containsOnly(final CharSequence cs, final char... valid) {
@@ -1351,11 +1303,12 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only certain characters.
+     * Tests if the CharSequence contains only certain characters.
      *
-     * <p>A {@code null} CharSequence will return {@code false}.
-     * A {@code null} valid character String will return {@code false}.
-     * An empty String (length()=0) always returns {@code true}.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code false}. A {@code null} valid character String will return {@code false}. An empty String (length()=0)
+     * always returns {@code true}.
+     * </p>
      *
      * <pre>
      * StringUtils.containsOnly(null, *)       = false
@@ -1367,9 +1320,9 @@ public class StringUtils {
      * StringUtils.containsOnly("abz", "abc")  = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @param validChars  a String of valid chars, may be null
-     * @return true if it only contains valid chars and is non-null
+     * @param cs         the CharSequence to check, may be null.
+     * @param validChars a String of valid chars, may be null.
+     * @return true if it only contains valid chars and is non-null.
      * @since 2.0
      * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, String)
      */
@@ -1381,16 +1334,25 @@ public class StringUtils {
     }
 
     /**
-     * Check whether the given CharSequence contains any whitespace characters.
+     * Tests whether the given CharSequence contains any whitespace characters.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
-     * @param seq the CharSequence to check (may be {@code null})
-     * @return {@code true} if the CharSequence is not empty and
-     * contains at least 1 (breaking) whitespace character
+     * <pre>
+     * StringUtils.containsWhitespace(null)       = false
+     * StringUtils.containsWhitespace("")         = false
+     * StringUtils.containsWhitespace("ab")       = false
+     * StringUtils.containsWhitespace(" ab")      = true
+     * StringUtils.containsWhitespace("a b")      = true
+     * StringUtils.containsWhitespace("ab ")      = true
+     * </pre>
+     *
+     * @param seq the CharSequence to check (may be {@code null}).
+     * @return {@code true} if the CharSequence is not empty and contains at least 1 (breaking) whitespace character.
      * @since 3.0
      */
-    // From org.springframework.util.StringUtils, under Apache License 2.0
     public static boolean containsWhitespace(final CharSequence seq) {
         if (isEmpty(seq)) {
             return false;
@@ -1474,7 +1436,9 @@ public class StringUtils {
     /**
      * Counts how many times the char appears in the given string.
      *
-     * <p>A {@code null} or empty ("") String input returns {@code 0}.</p>
+     * <p>
+     * A {@code null} or empty ("") String input returns {@code 0}.
+     * </p>
      *
      * <pre>
      * StringUtils.countMatches(null, *)     = 0
@@ -1485,9 +1449,9 @@ public class StringUtils {
      * StringUtils.countMatches("abba", 'x') = 0
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param ch  the char to count
-     * @return the number of occurrences, 0 if the CharSequence is {@code null}
+     * @param str the CharSequence to check, may be null.
+     * @param ch  the char to count.
+     * @return the number of occurrences, 0 if the CharSequence is {@code null}.
      * @since 3.4
      */
     public static int countMatches(final CharSequence str, final char ch) {
@@ -1505,10 +1469,11 @@ public class StringUtils {
     }
 
     /**
-     * Counts how many times the substring appears in the larger string.
-     * Note that the code only counts non-overlapping matches.
+     * Counts how many times the substring appears in the larger string. Note that the code only counts non-overlapping matches.
      *
-     * <p>A {@code null} or empty ("") String input returns {@code 0}.</p>
+     * <p>
+     * A {@code null} or empty ("") String input returns {@code 0}.
+     * </p>
      *
      * <pre>
      * StringUtils.countMatches(null, *)        = 0
@@ -1521,9 +1486,9 @@ public class StringUtils {
      * StringUtils.countMatches("ababa", "aba") = 1
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param sub  the substring to count, may be null
-     * @return the number of occurrences, 0 if either CharSequence is {@code null}
+     * @param str the CharSequence to check, may be null.
+     * @param sub the substring to count, may be null.
+     * @return the number of occurrences, 0 if either CharSequence is {@code null}.
      * @since 3.0 Changed signature from countMatches(String, String) to countMatches(CharSequence, CharSequence)
      */
     public static int countMatches(final CharSequence str, final CharSequence sub) {
@@ -1540,10 +1505,12 @@ public class StringUtils {
     }
 
     /**
-     * Returns either the passed in CharSequence, or if the CharSequence is
-     * whitespace, empty ("") or {@code null}, the value of {@code defaultStr}.
+     * Returns either the passed in CharSequence, or if the CharSequence is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or
+     * {@code null}), the value of {@code defaultStr}.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.defaultIfBlank(null, "NULL")  = "NULL"
@@ -1552,20 +1519,21 @@ public class StringUtils {
      * StringUtils.defaultIfBlank("bat", "NULL") = "bat"
      * StringUtils.defaultIfBlank("", null)      = null
      * </pre>
-     * @param <T> the specific kind of CharSequence
-     * @param str the CharSequence to check, may be null
-     * @param defaultStr  the default CharSequence to return
-     *  if the input is whitespace, empty ("") or {@code null}, may be null
-     * @return the passed in CharSequence, or the default
+     *
+     * @param <T>        the specific kind of CharSequence.
+     * @param str        the CharSequence to check, may be null.
+     * @param defaultStr the default CharSequence to return if {@code str} is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or
+     *                   {@code null}); may be null.
+     * @return the passed in CharSequence, or the default.
      * @see StringUtils#defaultString(String, String)
+     * @see #isBlank(CharSequence)
      */
     public static <T extends CharSequence> T defaultIfBlank(final T str, final T defaultStr) {
         return isBlank(str) ? defaultStr : str;
     }
 
     /**
-     * Returns either the passed in CharSequence, or if the CharSequence is
-     * empty or {@code null}, the value of {@code defaultStr}.
+     * Returns either the passed in CharSequence, or if the CharSequence is empty or {@code null}, the value of {@code defaultStr}.
      *
      * <pre>
      * StringUtils.defaultIfEmpty(null, "NULL")  = "NULL"
@@ -1574,11 +1542,11 @@ public class StringUtils {
      * StringUtils.defaultIfEmpty("bat", "NULL") = "bat"
      * StringUtils.defaultIfEmpty("", null)      = null
      * </pre>
-     * @param <T> the specific kind of CharSequence
-     * @param str  the CharSequence to check, may be null
-     * @param defaultStr  the default CharSequence to return
-     *  if the input is empty ("") or {@code null}, may be null
-     * @return the passed in CharSequence, or the default
+     *
+     * @param <T>        the specific kind of CharSequence.
+     * @param str        the CharSequence to check, may be null.
+     * @param defaultStr the default CharSequence to return if the input is empty ("") or {@code null}, may be null.
+     * @return the passed in CharSequence, or the default.
      * @see StringUtils#defaultString(String, String)
      */
     public static <T extends CharSequence> T defaultIfEmpty(final T str, final T defaultStr) {
@@ -1586,8 +1554,7 @@ public class StringUtils {
     }
 
     /**
-     * Returns either the passed in String,
-     * or if the String is {@code null}, an empty String ("").
+     * Returns either the passed in String, or if the String is {@code null}, an empty String ("").
      *
      * <pre>
      * StringUtils.defaultString(null)  = ""
@@ -1595,19 +1562,17 @@ public class StringUtils {
      * StringUtils.defaultString("bat") = "bat"
      * </pre>
      *
+     * @param str the String to check, may be null.
+     * @return the passed in String, or the empty String if it was {@code null}.
      * @see Objects#toString(Object, String)
      * @see String#valueOf(Object)
-     * @param str  the String to check, may be null
-     * @return the passed in String, or the empty String if it
-     *  was {@code null}
      */
     public static String defaultString(final String str) {
         return Objects.toString(str, EMPTY);
     }
 
     /**
-     * Returns either the given String, or if the String is
-     * {@code null}, {@code nullDefault}.
+     * Returns either the given String, or if the String is {@code null}, {@code nullDefault}.
      *
      * <pre>
      * StringUtils.defaultString(null, "NULL")  = "NULL"
@@ -1617,19 +1582,19 @@ public class StringUtils {
      * <p>
      * Since this is now provided by Java, instead call {@link Objects#toString(Object, String)}:
      * </p>
+     *
      * <pre>
      * Objects.toString(null, "NULL")  = "NULL"
      * Objects.toString("", "NULL")    = ""
      * Objects.toString("bat", "NULL") = "bat"
      * </pre>
      *
+     * @param str         the String to check, may be null.
+     * @param nullDefault the default String to return if the input is {@code null}, may be null.
+     * @return the passed in String, or the default if it was {@code null}.
      * @see Objects#toString(Object, String)
      * @see String#valueOf(Object)
-     * @param str  the String to check, may be null
-     * @param nullDefault  the default String to return
-     *  if the input is {@code null}, may be null
-     * @return the passed in String, or the default if it was {@code null}
-     * @deprecated Use {@link Objects#toString(Object, String)}
+     * @deprecated Use {@link Objects#toString(Object, String)}.
      */
     @Deprecated
     public static String defaultString(final String str, final String nullDefault) {
@@ -1637,8 +1602,7 @@ public class StringUtils {
     }
 
     /**
-     * Deletes all whitespaces from a String as defined by
-     * {@link Character#isWhitespace(char)}.
+     * Deletes all whitespaces from a String as defined by {@link Character#isWhitespace(char)}.
      *
      * <pre>
      * StringUtils.deleteWhitespace(null)         = null
@@ -1647,8 +1611,8 @@ public class StringUtils {
      * StringUtils.deleteWhitespace("   ab  c  ") = "abc"
      * </pre>
      *
-     * @param str  the String to delete whitespace from, may be null
-     * @return the String without whitespaces, {@code null} if null String input
+     * @param str the String to delete whitespace from, may be null.
+     * @return the String without whitespaces, {@code null} if null String input.
      */
     public static String deleteWhitespace(final String str) {
         if (isEmpty(str)) {
@@ -1672,13 +1636,12 @@ public class StringUtils {
     }
 
     /**
-     * Compares two Strings, and returns the portion where they differ.
-     * More precisely, return the remainder of the second String,
-     * starting from where it's different from the first. This means that
-     * the difference between "abc" and "ab" is the empty String and not "c".
+     * Compares two Strings, and returns the portion where they differ. More precisely, return the remainder of the second String, starting from where it's
+     * different from the first. This means that the difference between "abc" and "ab" is the empty String and not "c".
      *
-     * <p>For example,
-     * {@code difference("i am a machine", "i am a robot") -> "robot"}.</p>
+     * <p>
+     * For example, {@code difference("i am a machine", "i am a robot") -> "robot"}.
+     * </p>
      *
      * <pre>
      * StringUtils.difference(null, null)       = null
@@ -1692,10 +1655,9 @@ public class StringUtils {
      * StringUtils.difference("abcde", "xyz")   = "xyz"
      * </pre>
      *
-     * @param str1  the first String, may be null
-     * @param str2  the second String, may be null
-     * @return the portion of str2 where it differs from str1; returns the
-     * empty String if they are equal
+     * @param str1 the first String, may be null.
+     * @param str2 the second String, may be null.
+     * @return the portion of str2 where it differs from str1; returns the empty String if they are equal.
      * @see #indexOfDifference(CharSequence,CharSequence)
      * @since 2.0
      */
@@ -1714,10 +1676,11 @@ public class StringUtils {
     }
 
     /**
-     * Check if a CharSequence ends with a specified suffix.
+     * Tests if a CharSequence ends with a specified suffix.
      *
-     * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered to be equal. The comparison is case-sensitive.</p>
+     * <p>
+     * {@code null}s are handled without exceptions. Two {@code null} references are considered to be equal. The comparison is case-sensitive.
+     * </p>
      *
      * <pre>
      * StringUtils.endsWith(null, null)      = true
@@ -1729,42 +1692,21 @@ public class StringUtils {
      * StringUtils.endsWith("ABCDEF", "")    = true
      * </pre>
      *
+     * @param str    the CharSequence to check, may be null.
+     * @param suffix the suffix to find, may be null.
+     * @return {@code true} if the CharSequence ends with the suffix, case-sensitive, or both {@code null}.
      * @see String#endsWith(String)
-     * @param str  the CharSequence to check, may be null
-     * @param suffix the suffix to find, may be null
-     * @return {@code true} if the CharSequence ends with the suffix, case-sensitive, or
-     *  both {@code null}
      * @since 2.4
      * @since 3.0 Changed signature from endsWith(String, String) to endsWith(CharSequence, CharSequence)
+     * @deprecated Use {@link Strings#endsWith(CharSequence, CharSequence) Strings.CS.endsWith(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static boolean endsWith(final CharSequence str, final CharSequence suffix) {
-        return endsWith(str, suffix, false);
+        return Strings.CS.endsWith(str, suffix);
     }
 
     /**
-     * Check if a CharSequence ends with a specified suffix (optionally case-insensitive).
-     *
-     * @see String#endsWith(String)
-     * @param str  the CharSequence to check, may be null
-     * @param suffix the suffix to find, may be null
-     * @param ignoreCase indicates whether the compare should ignore case
-     *  (case-insensitive) or not.
-     * @return {@code true} if the CharSequence starts with the prefix or
-     *  both {@code null}
-     */
-    private static boolean endsWith(final CharSequence str, final CharSequence suffix, final boolean ignoreCase) {
-        if (str == null || suffix == null) {
-            return str == suffix;
-        }
-        if (suffix.length() > str.length()) {
-            return false;
-        }
-        final int strOffset = str.length() - suffix.length();
-        return CharSequenceUtils.regionMatches(str, ignoreCase, strOffset, suffix, 0, suffix.length());
-    }
-
-    /**
-     * Check if a CharSequence ends with any of the provided case-sensitive suffixes.
+     * Tests if a CharSequence ends with any of the provided case-sensitive suffixes.
      *
      * <pre>
      * StringUtils.endsWithAny(null, null)                  = false
@@ -1777,30 +1719,25 @@ public class StringUtils {
      * StringUtils.endsWithAny("abcXYZ", "def", "xyz")      = false
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @param searchStrings the case-sensitive CharSequences to find, may be empty or contain {@code null}
+     * @param sequence      the CharSequence to check, may be null.
+     * @param searchStrings the case-sensitive CharSequences to find, may be empty or contain {@code null}.
+     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} ends in any
+     *         of the provided case-sensitive {@code searchStrings}.
      * @see StringUtils#endsWith(CharSequence, CharSequence)
-     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or
-     *   the input {@code sequence} ends in any of the provided case-sensitive {@code searchStrings}.
      * @since 3.0
+     * @deprecated Use {@link Strings#endsWithAny(CharSequence, CharSequence...) Strings.CS.endsWithAny(CharSequence, CharSequence...)}.
      */
+    @Deprecated
     public static boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
-        if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
-            return false;
-        }
-        for (final CharSequence searchString : searchStrings) {
-            if (endsWith(sequence, searchString)) {
-                return true;
-            }
-        }
-        return false;
+        return Strings.CS.endsWithAny(sequence, searchStrings);
     }
 
     /**
      * Case-insensitive check if a CharSequence ends with a specified suffix.
      *
-     * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered to be equal. The comparison is case insensitive.</p>
+     * <p>
+     * {@code null}s are handled without exceptions. Two {@code null} references are considered to be equal. The comparison is case insensitive.
+     * </p>
      *
      * <pre>
      * StringUtils.endsWithIgnoreCase(null, null)      = true
@@ -1811,24 +1748,25 @@ public class StringUtils {
      * StringUtils.endsWithIgnoreCase("ABCDEF", "cde") = false
      * </pre>
      *
-     * @see String#endsWith(String)
-     * @param str  the CharSequence to check, may be null
+     * @param str    the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
-     * @return {@code true} if the CharSequence ends with the suffix, case-insensitive, or
-     *  both {@code null}
+     * @return {@code true} if the CharSequence ends with the suffix, case-insensitive, or both {@code null}
+     * @see String#endsWith(String)
      * @since 2.4
      * @since 3.0 Changed signature from endsWithIgnoreCase(String, String) to endsWithIgnoreCase(CharSequence, CharSequence)
+     * @deprecated Use {@link Strings#endsWith(CharSequence, CharSequence) Strings.CI.endsWith(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static boolean endsWithIgnoreCase(final CharSequence str, final CharSequence suffix) {
-        return endsWith(str, suffix, true);
+        return Strings.CI.endsWith(str, suffix);
     }
 
     /**
-     * Compares two CharSequences, returning {@code true} if they represent
-     * equal sequences of characters.
+     * Compares two CharSequences, returning {@code true} if they represent equal sequences of characters.
      *
-     * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered to be equal. The comparison is <strong>case-sensitive</strong>.</p>
+     * <p>
+     * {@code null}s are handled without exceptions. Two {@code null} references are considered to be equal. The comparison is <strong>case-sensitive</strong>.
+     * </p>
      *
      * <pre>
      * StringUtils.equals(null, null)   = true
@@ -1838,39 +1776,22 @@ public class StringUtils {
      * StringUtils.equals("abc", "ABC") = false
      * </pre>
      *
-     * @param cs1  the first CharSequence, may be {@code null}
-     * @param cs2  the second CharSequence, may be {@code null}
-     * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
+     * @param cs1 the first CharSequence, may be {@code null}.
+     * @param cs2 the second CharSequence, may be {@code null}.
+     * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}.
      * @since 3.0 Changed signature from equals(String, String) to equals(CharSequence, CharSequence)
      * @see Object#equals(Object)
      * @see #equalsIgnoreCase(CharSequence, CharSequence)
+     * @deprecated Use {@link Strings#equals(CharSequence, CharSequence) Strings.CS.equals(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static boolean equals(final CharSequence cs1, final CharSequence cs2) {
-        if (cs1 == cs2) {
-            return true;
-        }
-        if (cs1 == null || cs2 == null) {
-            return false;
-        }
-        if (cs1.length() != cs2.length()) {
-            return false;
-        }
-        if (cs1 instanceof String && cs2 instanceof String) {
-            return cs1.equals(cs2);
-        }
-        // Step-wise comparison
-        final int length = cs1.length();
-        for (int i = 0; i < length; i++) {
-            if (cs1.charAt(i) != cs2.charAt(i)) {
-                return false;
-            }
-        }
-        return true;
+        return Strings.CS.equals(cs1, cs2);
     }
 
     /**
-     * Compares given {@code string} to a CharSequences vararg of {@code searchStrings},
-     * returning {@code true} if the {@code string} is equal to any of the {@code searchStrings}.
+     * Compares given {@code string} to a CharSequences vararg of {@code searchStrings}, returning {@code true} if the {@code string} is equal to any of the
+     * {@code searchStrings}.
      *
      * <pre>
      * StringUtils.equalsAny(null, (CharSequence[]) null) = false
@@ -1881,21 +1802,16 @@ public class StringUtils {
      * StringUtils.equalsAny("abc", "ABC", "DEF") = false
      * </pre>
      *
-     * @param string to compare, may be {@code null}.
+     * @param string        to compare, may be {@code null}.
      * @param searchStrings a vararg of strings, may be {@code null}.
-     * @return {@code true} if the string is equal (case-sensitive) to any other element of {@code searchStrings};
-     * {@code false} if {@code searchStrings} is null or contains no matches.
+     * @return {@code true} if the string is equal (case-sensitive) to any other element of {@code searchStrings}; {@code false} if {@code searchStrings} is
+     *         null or contains no matches.
      * @since 3.5
+     * @deprecated Use {@link Strings#equalsAny(CharSequence, CharSequence...) Strings.CS.equalsAny(CharSequence, CharSequence...)}.
      */
+    @Deprecated
     public static boolean equalsAny(final CharSequence string, final CharSequence... searchStrings) {
-        if (ArrayUtils.isNotEmpty(searchStrings)) {
-            for (final CharSequence next : searchStrings) {
-                if (equals(string, next)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return Strings.CS.equalsAny(string, searchStrings);
     }
 
     /**
@@ -1916,24 +1832,19 @@ public class StringUtils {
      * @return {@code true} if the string is equal (case-insensitive) to any other element of {@code searchStrings};
      * {@code false} if {@code searchStrings} is null or contains no matches.
      * @since 3.5
+     * @deprecated Use {@link Strings#equalsAny(CharSequence, CharSequence...) Strings.CI.equalsAny(CharSequence, CharSequence...)}.
      */
+    @Deprecated
     public static boolean equalsAnyIgnoreCase(final CharSequence string, final CharSequence... searchStrings) {
-        if (ArrayUtils.isNotEmpty(searchStrings)) {
-            for (final CharSequence next : searchStrings) {
-                if (equalsIgnoreCase(string, next)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return Strings.CI.equalsAny(string, searchStrings);
     }
 
     /**
-     * Compares two CharSequences, returning {@code true} if they represent
-     * equal sequences of characters, ignoring case.
+     * Compares two CharSequences, returning {@code true} if they represent equal sequences of characters, ignoring case.
      *
-     * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered equal. The comparison is <strong>case insensitive</strong>.</p>
+     * <p>
+     * {@code null}s are handled without exceptions. Two {@code null} references are considered equal. The comparison is <strong>case insensitive</strong>.
+     * </p>
      *
      * <pre>
      * StringUtils.equalsIgnoreCase(null, null)   = true
@@ -1943,33 +1854,28 @@ public class StringUtils {
      * StringUtils.equalsIgnoreCase("abc", "ABC") = true
      * </pre>
      *
-     * @param cs1  the first CharSequence, may be {@code null}
-     * @param cs2  the second CharSequence, may be {@code null}
-     * @return {@code true} if the CharSequences are equal (case-insensitive), or both {@code null}
+     * @param cs1 the first CharSequence, may be {@code null}.
+     * @param cs2 the second CharSequence, may be {@code null}.
+     * @return {@code true} if the CharSequences are equal (case-insensitive), or both {@code null}.
      * @since 3.0 Changed signature from equalsIgnoreCase(String, String) to equalsIgnoreCase(CharSequence, CharSequence)
      * @see #equals(CharSequence, CharSequence)
+     * @deprecated Use {@link Strings#equals(CharSequence, CharSequence) Strings.CI.equals(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static boolean equalsIgnoreCase(final CharSequence cs1, final CharSequence cs2) {
-        if (cs1 == cs2) {
-            return true;
-        }
-        if (cs1 == null || cs2 == null) {
-            return false;
-        }
-        if (cs1.length() != cs2.length()) {
-            return false;
-        }
-        return CharSequenceUtils.regionMatches(cs1, true, 0, cs2, 0, cs1.length());
+        return Strings.CI.equals(cs1, cs2);
     }
 
     /**
-     * Returns the first value in the array which is not empty (""),
-     * {@code null} or whitespace only.
+     * Returns the first value in the array which is not empty (""), {@code null} or whitespace only.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
-     * <p>If all values are blank or the array is {@code null}
-     * or empty then {@code null} is returned.</p>
+     * <p>
+     * If all values are blank or the array is {@code null} or empty then {@code null} is returned.
+     * </p>
      *
      * <pre>
      * StringUtils.firstNonBlank(null, null, null)     = null
@@ -1981,10 +1887,9 @@ public class StringUtils {
      * StringUtils.firstNonBlank()                     = null
      * </pre>
      *
-     * @param <T> the specific kind of CharSequence
-     * @param values  the values to test, may be {@code null} or empty
-     * @return the first value from {@code values} which is not blank,
-     *  or {@code null} if there are no non-blank values
+     * @param <T>    the specific kind of CharSequence.
+     * @param values the values to test, may be {@code null} or empty.
+     * @return the first value from {@code values} which is not blank, or {@code null} if there are no non-blank values.
      * @since 3.8
      */
     @SafeVarargs
@@ -2002,8 +1907,9 @@ public class StringUtils {
     /**
      * Returns the first value in the array which is not empty.
      *
-     * <p>If all values are empty or the array is {@code null}
-     * or empty then {@code null} is returned.</p>
+     * <p>
+     * If all values are empty or the array is {@code null} or empty then {@code null} is returned.
+     * </p>
      *
      * <pre>
      * StringUtils.firstNonEmpty(null, null, null)   = null
@@ -2016,10 +1922,9 @@ public class StringUtils {
      * StringUtils.firstNonEmpty()                   = null
      * </pre>
      *
-     * @param <T> the specific kind of CharSequence
-     * @param values  the values to test, may be {@code null} or empty
-     * @return the first value from {@code values} which is not empty,
-     *  or {@code null} if there are no non-empty values
+     * @param <T>    the specific kind of CharSequence.
+     * @param values the values to test, may be {@code null} or empty.
+     * @return the first value from {@code values} which is not empty, or {@code null} if there are no non-empty values.
      * @since 3.8
      */
     @SafeVarargs
@@ -2037,7 +1942,7 @@ public class StringUtils {
     /**
      * Calls {@link String#getBytes(Charset)} in a null-safe manner.
      *
-     * @param string input string
+     * @param string input string.
      * @param charset The {@link Charset} to encode the {@link String}. If null, then use the default Charset.
      * @return The empty byte[] if {@code string} is null, the result of {@link String#getBytes(Charset)} otherwise.
      * @see String#getBytes(Charset)
@@ -2050,7 +1955,7 @@ public class StringUtils {
     /**
      * Calls {@link String#getBytes(String)} in a null-safe manner.
      *
-     * @param string input string
+     * @param string input string.
      * @param charset The {@link Charset} name to encode the {@link String}. If null, then use the default Charset.
      * @return The empty byte[] if {@code string} is null, the result of {@link String#getBytes(String)} otherwise.
      * @throws UnsupportedEncodingException Thrown when the named charset is not supported.
@@ -2062,11 +1967,11 @@ public class StringUtils {
     }
 
     /**
-     * Compares all Strings in an array and returns the initial sequence of
-     * characters that is common to all of them.
+     * Compares all Strings in an array and returns the initial sequence of characters that is common to all of them.
      *
-     * <p>For example,
-     * {@code getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) -&gt; "i am a "}</p>
+     * <p>
+     * For example, {@code getCommonPrefix("i am a machine", "i am a robot") -&gt; "i am a "}
+     * </p>
      *
      * <pre>
      * StringUtils.getCommonPrefix(null)                             = ""
@@ -2088,10 +1993,9 @@ public class StringUtils {
      * StringUtils.getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) = "i am a "
      * </pre>
      *
-     * @param strs  array of String objects, entries may be null
-     * @return the initial sequence of characters that are common to all Strings
-     * in the array; empty String if the array is null, the elements are all null
-     * or if there is no common prefix.
+     * @param strs array of String objects, entries may be null.
+     * @return the initial sequence of characters that are common to all Strings in the array; empty String if the array is null, the elements are all null or
+     *         if there is no common prefix.
      * @since 2.4
      */
     public static String getCommonPrefix(final String... strs) {
@@ -2115,10 +2019,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if a String {@code str} contains Unicode digits,
-     * if yes then concatenate all the digits in {@code str} and return it as a String.
+     * Checks if a String {@code str} contains Unicode digits, if yes then concatenate all the digits in {@code str} and return it as a String.
      *
-     * <p>An empty ("") String will be returned if no digits found in {@code str}.</p>
+     * <p>
+     * An empty ("") String will be returned if no digits found in {@code str}.
+     * </p>
      *
      * <pre>
      * StringUtils.getDigits(null)                 = null
@@ -2130,10 +2035,8 @@ public class StringUtils {
      * StringUtils.getDigits("\u0967\u0968\u0969") = "\u0967\u0968\u0969"
      * </pre>
      *
-     * @param str the String to extract digits from, may be null
-     * @return String with only digits,
-     *           or an empty ("") String if no digits found,
-     *           or {@code null} String if {@code str} is null
+     * @param str the String to extract digits from, may be null.
+     * @return String with only digits, or an empty ("") String if no digits found, or {@code null} String if {@code str} is null.
      * @since 3.6
      */
     public static String getDigits(final String str) {
@@ -2152,11 +2055,12 @@ public class StringUtils {
     }
 
     /**
-     * Find the Fuzzy Distance which indicates the similarity score between two Strings.
+     * Gets the Fuzzy Distance which indicates the similarity score between two Strings.
      *
-     * <p>This string matching algorithm is similar to the algorithms of editors such as Sublime Text,
-     * TextMate, Atom and others. One point is given for every matched character. Subsequent
-     * matches yield two bonus points. A higher score indicates a higher similarity.</p>
+     * <p>
+     * This string matching algorithm is similar to the algorithms of editors such as Sublime Text, TextMate, Atom and others. One point is given for every
+     * matched character. Subsequent matches yield two bonus points. A higher score indicates a higher similarity.
+     * </p>
      *
      * <pre>
      * StringUtils.getFuzzyDistance(null, null, null)                                    = IllegalArgumentException
@@ -2169,16 +2073,15 @@ public class StringUtils {
      * StringUtils.getFuzzyDistance("Apache Software Foundation", "asf", Locale.ENGLISH) = 3
      * </pre>
      *
-     * @param term a full term that should be matched against, must not be null
-     * @param query the query that will be matched against a term, must not be null
-     * @param locale This string matching logic is case-insensitive. A locale is necessary to normalize
-     *  both Strings to lower case.
-     * @return result score
-     * @throws IllegalArgumentException if either String input {@code null} or Locale input {@code null}
+     * @param term   a full term that should be matched against, must not be null.
+     * @param query  the query that will be matched against a term, must not be null.
+     * @param locale This string matching logic is case-insensitive. A locale is necessary to normalize both Strings to lower case.
+     * @return result score.
+     * @throws IllegalArgumentException if either String input {@code null} or Locale input {@code null}.
      * @since 3.4
      * @deprecated As of 3.6, use Apache Commons Text
-     * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/FuzzyScore.html">
-     * FuzzyScore</a> instead
+     *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/FuzzyScore.html">
+     *             FuzzyScore</a> instead.
      */
     @Deprecated
     public static int getFuzzyDistance(final CharSequence term, final CharSequence query, final Locale locale) {
@@ -2188,60 +2091,53 @@ public class StringUtils {
         if (locale == null) {
             throw new IllegalArgumentException("Locale must not be null");
         }
-
         // fuzzy logic is case-insensitive. We normalize the Strings to lower
         // case right from the start. Turning characters to lower case
         // via Character.toLowerCase(char) is unfortunately insufficient
         // as it does not accept a locale.
         final String termLowerCase = term.toString().toLowerCase(locale);
         final String queryLowerCase = query.toString().toLowerCase(locale);
-
         // the resulting score
         int score = 0;
-
         // the position in the term which will be scanned next for potential
         // query character matches
         int termIndex = 0;
-
         // index of the previously matched character in the term
         int previousMatchingCharacterIndex = Integer.MIN_VALUE;
-
         for (int queryIndex = 0; queryIndex < queryLowerCase.length(); queryIndex++) {
             final char queryChar = queryLowerCase.charAt(queryIndex);
-
             boolean termCharacterMatchFound = false;
             for (; termIndex < termLowerCase.length() && !termCharacterMatchFound; termIndex++) {
                 final char termChar = termLowerCase.charAt(termIndex);
-
                 if (queryChar == termChar) {
                     // simple character matches result in one point
                     score++;
-
                     // subsequent character matches further improve
                     // the score.
                     if (previousMatchingCharacterIndex + 1 == termIndex) {
                         score += 2;
                     }
-
                     previousMatchingCharacterIndex = termIndex;
-
                     // we can leave the nested loop. Every character in the
                     // query can match at most one character in the term.
                     termCharacterMatchFound = true;
                 }
             }
         }
-
         return score;
     }
 
     /**
-     * Returns either the passed in CharSequence, or if the CharSequence is
-     * whitespace, empty ("") or {@code null}, the value supplied by {@code defaultStrSupplier}.
+     * Returns either the passed in CharSequence, or if the CharSequence is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or
+     * {@code null}), the value supplied by {@code defaultStrSupplier}.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
-     * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
+     * <p>
+     * Caller responsible for thread-safety and exception handling of default value supplier
+     * </p>
      *
      * <pre>
      * {@code
@@ -2252,12 +2148,14 @@ public class StringUtils {
      * StringUtils.getIfBlank("", () -> null)       = null
      * StringUtils.getIfBlank("", null)             = null
      * }</pre>
-     * @param <T> the specific kind of CharSequence
-     * @param str the CharSequence to check, may be null
-     * @param defaultSupplier the supplier of default CharSequence to return
-     *  if the input is whitespace, empty ("") or {@code null}, may be null
+     *
+     * @param <T>             the specific kind of CharSequence.
+     * @param str             the CharSequence to check, may be null.
+     * @param defaultSupplier the supplier of default CharSequence to return if the input is {@link #isBlank(CharSequence) blank} (whitespaces, empty
+     *                        ({@code ""}) or {@code null}); may be null.
      * @return the passed in CharSequence, or the default
      * @see StringUtils#defaultString(String, String)
+     * @see #isBlank(CharSequence)
      * @since 3.10
      */
     public static <T extends CharSequence> T getIfBlank(final T str, final Supplier<T> defaultSupplier) {
@@ -2265,10 +2163,11 @@ public class StringUtils {
     }
 
     /**
-     * Returns either the passed in CharSequence, or if the CharSequence is
-     * empty or {@code null}, the value supplied by {@code defaultStrSupplier}.
+     * Returns either the passed in CharSequence, or if the CharSequence is empty or {@code null}, the value supplied by {@code defaultStrSupplier}.
      *
-     * <p>Caller responsible for thread-safety and exception handling of default value supplier</p>
+     * <p>
+     * Caller responsible for thread-safety and exception handling of default value supplier
+     * </p>
      *
      * <pre>
      * {@code
@@ -2280,11 +2179,11 @@ public class StringUtils {
      * StringUtils.getIfEmpty("", null)              = null
      * }
      * </pre>
-     * @param <T> the specific kind of CharSequence
-     * @param str  the CharSequence to check, may be null
-     * @param defaultSupplier  the supplier of default CharSequence to return
-     *  if the input is empty ("") or {@code null}, may be null
-     * @return the passed in CharSequence, or the default
+     *
+     * @param <T>             the specific kind of CharSequence.
+     * @param str             the CharSequence to check, may be null.
+     * @param defaultSupplier the supplier of default CharSequence to return if the input is empty ("") or {@code null}, may be null.
+     * @return the passed in CharSequence, or the default.
      * @see StringUtils#defaultString(String, String)
      * @since 3.10
      */
@@ -2293,13 +2192,17 @@ public class StringUtils {
     }
 
     /**
-     * Find the Jaro Winkler Distance which indicates the similarity score between two Strings.
+     * Gets the Jaro Winkler Distance which indicates the similarity score between two Strings.
      *
-     * <p>The Jaro measure is the weighted sum of percentage of matched characters from each file and transposed characters.
-     * Winkler increased this measure for matching initial characters.</p>
+     * <p>
+     * The Jaro measure is the weighted sum of percentage of matched characters from each file and transposed characters. Winkler increased this measure for
+     * matching initial characters.
+     * </p>
      *
-     * <p>This implementation is based on the Jaro Winkler similarity algorithm
-     * from <a href="https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance">https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance</a>.</p>
+     * <p>
+     * This implementation is based on the Jaro Winkler similarity algorithm from
+     * <a href="https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance">https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance</a>.
+     * </p>
      *
      * <pre>
      * StringUtils.getJaroWinklerDistance(null, null)          = IllegalArgumentException
@@ -2318,14 +2221,14 @@ public class StringUtils {
      * StringUtils.getJaroWinklerDistance("PENNSYLVANIA", "PENNCISYLVNIA") = 0.88
      * </pre>
      *
-     * @param first the first String, must not be null
-     * @param second the second String, must not be null
-     * @return result distance
-     * @throws IllegalArgumentException if either String input {@code null}
+     * @param first  the first String, must not be null.
+     * @param second the second String, must not be null.
+     * @return result distance.
+     * @throws IllegalArgumentException if either String input {@code null}.
      * @since 3.3
      * @deprecated As of 3.6, use Apache Commons Text
-     * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/JaroWinklerDistance.html">
-     * JaroWinklerDistance</a> instead
+     *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/JaroWinklerDistance.html">
+     *             JaroWinklerDistance</a> instead.
      */
     @Deprecated
     public static double getJaroWinklerDistance(final CharSequence first, final CharSequence second) {
@@ -2346,15 +2249,18 @@ public class StringUtils {
     }
 
     /**
-     * Find the Levenshtein distance between two Strings.
+     * Gets the Levenshtein distance between two Strings.
      *
-     * <p>This is the number of changes needed to change one String into
-     * another, where each change is a single character modification (deletion,
-     * insertion or substitution).</p>
+     * <p>
+     * This is the number of changes needed to change one String into another, where each change is a single character modification (deletion, insertion or
+     * substitution).
+     * </p>
      *
-     * <p>The implementation uses a single-dimensional array of length s.length() + 1. See
+     * <p>
+     * The implementation uses a single-dimensional array of length s.length() + 1. See
      * <a href="https://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html">
-     * https://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html</a> for details.</p>
+     * https://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html</a> for details.
+     * </p>
      *
      * <pre>
      * StringUtils.getLevenshteinDistance(null, *)             = IllegalArgumentException
@@ -2370,15 +2276,14 @@ public class StringUtils {
      * StringUtils.getLevenshteinDistance("hello", "hallo")    = 1
      * </pre>
      *
-     * @param s  the first String, must not be null
-     * @param t  the second String, must not be null
-     * @return result distance
-     * @throws IllegalArgumentException if either String input {@code null}
-     * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to
-     * getLevenshteinDistance(CharSequence, CharSequence)
+     * @param s the first String, must not be null.
+     * @param t the second String, must not be null.
+     * @return result distance.
+     * @throws IllegalArgumentException if either String input {@code null}.
+     * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to getLevenshteinDistance(CharSequence, CharSequence)
      * @deprecated As of 3.6, use Apache Commons Text
-     * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
-     * LevenshteinDistance</a> instead
+     *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
+     *             LevenshteinDistance</a> instead.
      */
     @Deprecated
     public static int getLevenshteinDistance(CharSequence s, CharSequence t) {
@@ -2437,16 +2342,17 @@ public class StringUtils {
     }
 
     /**
-     * Find the Levenshtein distance between two Strings if it's less than or equal to a given
-     * threshold.
+     * Gets the Levenshtein distance between two Strings if it's less than or equal to a given threshold.
      *
-     * <p>This is the number of changes needed to change one String into
-     * another, where each change is a single character modification (deletion,
-     * insertion or substitution).</p>
+     * <p>
+     * This is the number of changes needed to change one String into another, where each change is a single character modification (deletion, insertion or
+     * substitution).
+     * </p>
      *
-     * <p>This implementation follows from Algorithms on Strings, Trees and Sequences by Dan Gusfield
-     * and Chas Emerick's implementation of the Levenshtein distance algorithm from
-     * <a href="https://web.archive.org/web/20120212021906/http%3A//www.merriampark.com/ld.htm">http://www.merriampark.com/ld.htm</a></p>
+     * <p>
+     * This implementation follows from Algorithms on Strings, Trees and Sequences by Dan Gusfield and Chas Emerick's implementation of the Levenshtein distance
+     * algorithm from <a href="https://web.archive.org/web/20120212021906/http%3A//www.merriampark.com/ld.htm">http://www.merriampark.com/ld.htm</a>
+     * </p>
      *
      * <pre>
      * StringUtils.getLevenshteinDistance(null, *, *)             = IllegalArgumentException
@@ -2462,14 +2368,14 @@ public class StringUtils {
      * StringUtils.getLevenshteinDistance("hippo", "elephant", 6) = -1
      * </pre>
      *
-     * @param s  the first String, must not be null
-     * @param t  the second String, must not be null
-     * @param threshold the target threshold, must not be negative
-     * @return result distance, or {@code -1} if the distance would be greater than the threshold
-     * @throws IllegalArgumentException if either String input {@code null} or negative threshold
+     * @param s         the first String, must not be null.
+     * @param t         the second String, must not be null.
+     * @param threshold the target threshold, must not be negative.
+     * @return result distance, or {@code -1} if the distance would be greater than the threshold.
+     * @throws IllegalArgumentException if either String input {@code null} or negative threshold.
      * @deprecated As of 3.6, use Apache Commons Text
-     * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
-     * LevenshteinDistance</a> instead
+     *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/LevenshteinDistance.html">
+     *             LevenshteinDistance</a> instead.
      */
     @Deprecated
     public static int getLevenshteinDistance(CharSequence s, CharSequence t, final int threshold) {
@@ -2490,7 +2396,7 @@ public class StringUtils {
         d is the distance.
 
         One subtlety comes from needing to ignore entries on the border of our stripe
-        eg.
+        for example,
         p[] = |#|#|#|*
         d[] =  *|#|#|#|
         We must ignore the entry to the left of the leftmost member
@@ -2607,10 +2513,11 @@ public class StringUtils {
     }
 
     /**
-     * Finds the first index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#indexOf(String, int)} if possible.
+     * Finds the first index within a CharSequence, handling {@code null}. This method uses {@link String#indexOf(String, int)} if possible.
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}.
+     * </p>
      *
      * <pre>
      * StringUtils.indexOf(null, *)          = -1
@@ -2623,29 +2530,25 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", "")   = 0
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchSeq  the CharSequence to find, may be null
-     * @return the first index of the search CharSequence,
-     *  -1 if no match or {@code null} string input
+     * @param seq       the CharSequence to check, may be null.
+     * @param searchSeq the CharSequence to find, may be null.
+     * @return the first index of the search CharSequence, -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, String) to indexOf(CharSequence, CharSequence)
+     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence) Strings.CS.indexOf(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq) {
-        if (seq == null || searchSeq == null) {
-            return INDEX_NOT_FOUND;
-        }
-        return CharSequenceUtils.indexOf(seq, searchSeq, 0);
+        return Strings.CS.indexOf(seq, searchSeq);
     }
 
     /**
-     * Finds the first index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#indexOf(String, int)} if possible.
+     * Finds the first index within a CharSequence, handling {@code null}. This method uses {@link String#indexOf(String, int)} if possible.
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
-     * A negative start position is treated as zero.
-     * An empty ("") search CharSequence always matches.
-     * A start position greater than the string length only matches
-     * an empty search CharSequence.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A negative start position is treated as zero. An empty ("") search CharSequence always matches. A
+     * start position greater than the string length only matches an empty search CharSequence.
+     * </p>
      *
      * <pre>
      * StringUtils.indexOf(null, *, *)          = -1
@@ -2662,54 +2565,55 @@ public class StringUtils {
      * StringUtils.indexOf("abc", "", 9)        = 3
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchSeq  the CharSequence to find, may be null
-     * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search CharSequence (always &ge; startPos),
-     *  -1 if no match or {@code null} string input
+     * @param seq       the CharSequence to check, may be null.
+     * @param searchSeq the CharSequence to find, may be null.
+     * @param startPos  the start position, negative treated as zero.
+     * @return the first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, String, int) to indexOf(CharSequence, CharSequence, int)
+     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence, int) Strings.CS.indexOf(CharSequence, CharSequence, int)}.
      */
+    @Deprecated
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
-        if (seq == null || searchSeq == null) {
-            return INDEX_NOT_FOUND;
-        }
-        return CharSequenceUtils.indexOf(seq, searchSeq, startPos);
+        return Strings.CS.indexOf(seq, searchSeq, startPos);
     }
 
     /**
-     * Returns the index within {@code seq} of the first occurrence of
-     * the specified character. If a character with value
-     * {@code searchChar} occurs in the character sequence represented by
-     * {@code seq} {@link CharSequence} object, then the index (in Unicode
-     * code units) of the first such occurrence is returned. For
-     * values of {@code searchChar} in the range from 0 to 0xFFFF
-     * (inclusive), this is the smallest value <i>k</i> such that:
-     * <blockquote><pre>
-     * this.charAt(<i>k</i>) == searchChar
-     * </pre></blockquote>
-     * is true. For other values of {@code searchChar}, it is the
-     * smallest value <i>k</i> such that:
-     * <blockquote><pre>
-     * this.codePointAt(<i>k</i>) == searchChar
-     * </pre></blockquote>
-     * is true. In either case, if no such character occurs in {@code seq},
-     * then {@code INDEX_NOT_FOUND (-1)} is returned.
+     * Returns the index within {@code seq} of the first occurrence of the specified character. If a character with value {@code searchChar} occurs in the
+     * character sequence represented by {@code seq} {@link CharSequence} object, then the index (in Unicode code units) of the first such occurrence is
+     * returned. For values of {@code searchChar} in the range from 0 to 0xFFFF (inclusive), this is the smallest value <em>k</em> such that:
      *
-     * <p>Furthermore, a {@code null} or empty ("") CharSequence will
-     * return {@code INDEX_NOT_FOUND (-1)}.</p>
+     * <pre>
+     * this.charAt(<em>k</em>) == searchChar
+     * </pre>
+     *
+     * <p>
+     * is true. For other values of {@code searchChar}, it is the smallest value <em>k</em> such that:
+     * </p>
+     *
+     * <pre>
+     * this.codePointAt(<em>k</em>) == searchChar
+     * </pre>
+     *
+     * <p>
+     * is true. In either case, if no such character occurs in {@code seq}, then {@code INDEX_NOT_FOUND (-1)} is returned.
+     * </p>
+     *
+     * <p>
+     * Furthermore, a {@code null} or empty ("") CharSequence will return {@code INDEX_NOT_FOUND (-1)}.
+     * </p>
      *
      * <pre>
      * StringUtils.indexOf(null, *)         = -1
      * StringUtils.indexOf("", *)           = -1
      * StringUtils.indexOf("aabaabaa", 'a') = 0
      * StringUtils.indexOf("aabaabaa", 'b') = 2
+     * StringUtils.indexOf("aaaaaaaa", 'Z') = -1
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchChar  the character to find
-     * @return the first index of the search character,
-     *  -1 if no match or {@code null} string input
+     * @param seq        the CharSequence to check, may be null.
+     * @param searchChar the character to find.
+     * @return the first index of the search character, -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int) to indexOf(CharSequence, int)
      * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@link String}
@@ -2722,38 +2626,36 @@ public class StringUtils {
     }
 
     /**
-     * Returns the index within {@code seq} of the first occurrence of the
-     * specified character, starting the search at the specified index.
+     * Returns the index within {@code seq} of the first occurrence of the specified character, starting the search at the specified index.
      * <p>
-     * If a character with value {@code searchChar} occurs in the
-     * character sequence represented by the {@code seq} {@link CharSequence}
-     * object at an index no smaller than {@code startPos}, then
-     * the index of the first such occurrence is returned. For values
-     * of {@code searchChar} in the range from 0 to 0xFFFF (inclusive),
-     * this is the smallest value <i>k</i> such that:
-     * <blockquote><pre>
-     * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
-     * </pre></blockquote>
-     * is true. For other values of {@code searchChar}, it is the
-     * smallest value <i>k</i> such that:
-     * <blockquote><pre>
-     * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
-     * </pre></blockquote>
-     * is true. In either case, if no such character occurs in {@code seq}
-     * at or after position {@code startPos}, then
-     * {@code -1} is returned.
+     * If a character with value {@code searchChar} occurs in the character sequence represented by the {@code seq} {@link CharSequence} object at an index no
+     * smaller than {@code startPos}, then the index of the first such occurrence is returned. For values of {@code searchChar} in the range from 0 to 0xFFFF
+     * (inclusive), this is the smallest value <em>k</em> such that:
+     * </p>
+     *
+     * <pre>
+     * (this.charAt(<em>k</em>) == searchChar) &amp;&amp; (<em>k</em> &gt;= startPos)
+     * </pre>
      *
      * <p>
-     * There is no restriction on the value of {@code startPos}. If it
-     * is negative, it has the same effect as if it were zero: this entire
-     * string may be searched. If it is greater than the length of this
-     * string, it has the same effect as if it were equal to the length of
-     * this string: {@code (INDEX_NOT_FOUND) -1} is returned. Furthermore, a
-     * {@code null} or empty ("") CharSequence will
-     * return {@code (INDEX_NOT_FOUND) -1}.
+     * is true. For other values of {@code searchChar}, it is the smallest value <em>k</em> such that:
+     * </p>
      *
-     * <p>All indices are specified in {@code char} values
-     * (Unicode code units).
+     * <pre>
+     * (this.codePointAt(<em>k</em>) == searchChar) &amp;&amp; (<em>k</em> &gt;= startPos)
+     * </pre>
+     *
+     * <p>
+     * is true. In either case, if no such character occurs in {@code seq} at or after position {@code startPos}, then {@code -1} is returned.
+     * </p>
+     *
+     * <p>
+     * There is no restriction on the value of {@code startPos}. If it is negative, it has the same effect as if it were zero: this entire string may be
+     * searched. If it is greater than the length of this string, it has the same effect as if it were equal to the length of this string:
+     * {@code (INDEX_NOT_FOUND) -1} is returned. Furthermore, a {@code null} or empty ("") CharSequence will return {@code (INDEX_NOT_FOUND) -1}.
+     * </p>
+     * <p>
+     * All indices are specified in {@code char} values (Unicode code units).
      *
      * <pre>
      * StringUtils.indexOf(null, *, *)          = -1
@@ -2764,11 +2666,10 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", 'b', -1) = 2
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchChar  the character to find
-     * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search character (always &ge; startPos),
-     *  -1 if no match or {@code null} string input
+     * @param seq        the CharSequence to check, may be null.
+     * @param searchChar the character to find.
+     * @param startPos   the start position, negative treated as zero.
+     * @return the first index of the search character (always &ge; startPos), -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int, int) to indexOf(CharSequence, int, int)
      * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@link String}
@@ -2781,11 +2682,11 @@ public class StringUtils {
     }
 
     /**
-     * Search a CharSequence to find the first index of any
-     * character in the given set of characters.
+     * Search a CharSequence to find the first index of any character in the given set of characters.
      *
-     * <p>A {@code null} String will return {@code -1}.
-     * A {@code null} or zero length search array will return {@code -1}.</p>
+     * <p>
+     * A {@code null} String will return {@code -1}. A {@code null} or zero length search array will return {@code -1}.
+     * </p>
      *
      * <pre>
      * StringUtils.indexOfAny(null, *)                  = -1
@@ -2797,45 +2698,24 @@ public class StringUtils {
      * StringUtils.indexOfAny("aba", ['z'])             = -1
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
-     * @return the index of any of the chars, -1 if no match or null input
+     * @param cs          the CharSequence to check, may be null.
+     * @param searchChars the chars to search for, may be null.
+     * @return the index of any of the chars, -1 if no match or null input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAny(String, char[]) to indexOfAny(CharSequence, char...)
      */
     public static int indexOfAny(final CharSequence cs, final char... searchChars) {
-        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
-            return INDEX_NOT_FOUND;
-        }
-        final int csLen = cs.length();
-        final int csLast = csLen - 1;
-        final int searchLen = searchChars.length;
-        final int searchLast = searchLen - 1;
-        for (int i = 0; i < csLen; i++) {
-            final char ch = cs.charAt(i);
-            for (int j = 0; j < searchLen; j++) {
-                if (searchChars[j] == ch) {
-                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch)) {
-                        return i;
-                    }
-                    // ch is a supplementary character
-                    if (searchChars[j + 1] == cs.charAt(i + 1)) {
-                        return i;
-                    }
-                }
-            }
-        }
-        return INDEX_NOT_FOUND;
+        return indexOfAny(cs, 0, searchChars);
     }
 
     /**
      * Find the first index of any of a set of potential substrings.
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
-     * A {@code null} or zero length search array will return {@code -1}.
-     * A {@code null} search array entry will be ignored, but a search
-     * array containing "" will return {@code 0} if {@code str} is not
-     * null. This method uses {@link String#indexOf(String)} if possible.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A {@code null} or zero length search array will return {@code -1}. A {@code null} search array entry
+     * will be ignored, but a search array containing "" will return {@code 0} if {@code str} is not null. This method uses {@link String#indexOf(String)} if
+     * possible.
+     * </p>
      *
      * <pre>
      * StringUtils.indexOfAny(null, *)                      = -1
@@ -2850,19 +2730,17 @@ public class StringUtils {
      * StringUtils.indexOfAny("", ["a"])                    = -1
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStrs  the CharSequences to search for, may be null
-     * @return the first index of any of the searchStrs in str, -1 if no match
+     * @param str        the CharSequence to check, may be null.
+     * @param searchStrs the CharSequences to search for, may be null.
+     * @return the first index of any of the searchStrs in str, -1 if no match.
      * @since 3.0 Changed signature from indexOfAny(String, String[]) to indexOfAny(CharSequence, CharSequence...)
      */
     public static int indexOfAny(final CharSequence str, final CharSequence... searchStrs) {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
-
         // String's can't have a MAX_VALUEth index.
         int ret = Integer.MAX_VALUE;
-
         int tmp;
         for (final CharSequence search : searchStrs) {
             if (search == null) {
@@ -2872,21 +2750,67 @@ public class StringUtils {
             if (tmp == INDEX_NOT_FOUND) {
                 continue;
             }
-
             if (tmp < ret) {
                 ret = tmp;
             }
         }
-
         return ret == Integer.MAX_VALUE ? INDEX_NOT_FOUND : ret;
     }
 
     /**
-     * Search a CharSequence to find the first index of any
-     * character in the given set of characters.
+     * Search a CharSequence to find the first index of any character in the given set of characters.
      *
-     * <p>A {@code null} String will return {@code -1}.
-     * A {@code null} search string will return {@code -1}.</p>
+     * <p>
+     * A {@code null} String will return {@code -1}. A {@code null} or zero length search array will return {@code -1}.
+     * </p>
+     * <p>
+     * The following is the same as {@code indexOfAny(cs, 0, searchChars)}.
+     * </p>
+     * <pre>
+     * StringUtils.indexOfAny(null, 0, *)                  = -1
+     * StringUtils.indexOfAny("", 0, *)                    = -1
+     * StringUtils.indexOfAny(*, 0, null)                  = -1
+     * StringUtils.indexOfAny(*, 0, [])                    = -1
+     * StringUtils.indexOfAny("zzabyycdxx", 0, ['z', 'a']) = 0
+     * StringUtils.indexOfAny("zzabyycdxx", 0, ['b', 'y']) = 3
+     * StringUtils.indexOfAny("aba", 0, ['z'])             = -1
+     * </pre>
+     *
+     * @param cs          the CharSequence to check, may be null.
+     * @param csStart Start searching the input {@code cs} at this index.
+     * @param searchChars the chars to search for, may be null.
+     * @return the index of any of the chars, -1 if no match or null input.
+     * @since 2.0
+     * @since 3.0 Changed signature from indexOfAny(String, char[]) to indexOfAny(CharSequence, char...)
+     */
+    public static int indexOfAny(final CharSequence cs, final int csStart, final char... searchChars) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
+            return INDEX_NOT_FOUND;
+        }
+        final int csLen = cs.length();
+        final int csLast = csLen - 1;
+        final int searchLen = searchChars.length;
+        final int searchLast = searchLen - 1;
+        for (int i = csStart; i < csLen; i++) {
+            final char ch = cs.charAt(i);
+            for (int j = 0; j < searchLen; j++) {
+                if (searchChars[j] == ch) {
+                    // ch is a supplementary character
+                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch) || searchChars[j + 1] == cs.charAt(i + 1)) {
+                        return i;
+                    }
+                }
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Search a CharSequence to find the first index of any character in the given set of characters.
+     *
+     * <p>
+     * A {@code null} String will return {@code -1}. A {@code null} search string will return {@code -1}.
+     * </p>
      *
      * <pre>
      * StringUtils.indexOfAny(null, *)            = -1
@@ -2898,9 +2822,9 @@ public class StringUtils {
      * StringUtils.indexOfAny("aba", "z")         = -1
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
-     * @return the index of any of the chars, -1 if no match or null input
+     * @param cs          the CharSequence to check, may be null.
+     * @param searchChars the chars to search for, may be null.
+     * @return the index of any of the chars, -1 if no match or null input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAny(String, String) to indexOfAny(CharSequence, String)
      */
@@ -2912,11 +2836,12 @@ public class StringUtils {
     }
 
     /**
-     * Searches a CharSequence to find the first index of any
-     * character not in the given set of characters.
+     * Searches a CharSequence to find the first index of any character not in the given set of characters, i.e., find index i of first char in cs such that
+     * (cs.codePointAt(i) ∉ { x ∈ codepoints(searchChars) })
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
-     * A {@code null} or zero length search array will return {@code -1}.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A {@code null} or zero length search array will return {@code -1}.
+     * </p>
      *
      * <pre>
      * StringUtils.indexOfAnyBut(null, *)                              = -1
@@ -2926,12 +2851,11 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut("zzabyycdxx", new char[] {'z', 'a'} ) = 3
      * StringUtils.indexOfAnyBut("aba", new char[] {'z'} )             = 0
      * StringUtils.indexOfAnyBut("aba", new char[] {'a', 'b'} )        = -1
-
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
-     * @return the index of any of the chars, -1 if no match or null input
+     * @param cs          the CharSequence to check, may be null.
+     * @param searchChars the chars to search for, may be null.
+     * @return the index of any of the chars, -1 if no match or null input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAnyBut(String, char[]) to indexOfAnyBut(CharSequence, char...)
      */
@@ -2939,34 +2863,16 @@ public class StringUtils {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        final int csLen = cs.length();
-        final int csLast = csLen - 1;
-        final int searchLen = searchChars.length;
-        final int searchLast = searchLen - 1;
-        outer:
-        for (int i = 0; i < csLen; i++) {
-            final char ch = cs.charAt(i);
-            for (int j = 0; j < searchLen; j++) {
-                if (searchChars[j] == ch) {
-                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch)) {
-                        continue outer;
-                    }
-                    if (searchChars[j + 1] == cs.charAt(i + 1)) {
-                        continue outer;
-                    }
-                }
-            }
-            return i;
-        }
-        return INDEX_NOT_FOUND;
+        return indexOfAnyBut(cs, CharBuffer.wrap(searchChars));
     }
 
     /**
-     * Search a CharSequence to find the first index of any
-     * character not in the given set of characters.
+     * Search a CharSequence to find the first index of any character not in the given set of characters, i.e., find index i of first char in seq such that
+     * (seq.codePointAt(i) ∉ { x ∈ codepoints(searchChars) })
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
-     * A {@code null} or empty search string will return {@code -1}.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A {@code null} or empty search string will return {@code -1}.
+     * </p>
      *
      * <pre>
      * StringUtils.indexOfAnyBut(null, *)            = -1
@@ -2978,9 +2884,9 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut("aba", "ab")        = -1
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
-     * @return the index of any of the chars, -1 if no match or null input
+     * @param seq         the CharSequence to check, may be null.
+     * @param searchChars the chars to search for, may be null.
+     * @return the index of any of the chars, -1 if no match or null input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAnyBut(String, String) to indexOfAnyBut(CharSequence, CharSequence)
      */
@@ -2988,28 +2894,25 @@ public class StringUtils {
         if (isEmpty(seq) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        final int strLen = seq.length();
-        for (int i = 0; i < strLen; i++) {
-            final char ch = seq.charAt(i);
-            final boolean chFound = CharSequenceUtils.indexOf(searchChars, ch, 0) >= 0;
-            if (i + 1 < strLen && Character.isHighSurrogate(ch)) {
-                final char ch2 = seq.charAt(i + 1);
-                if (chFound && CharSequenceUtils.indexOf(searchChars, ch2, 0) < 0) {
-                    return i;
-                }
-            } else if (!chFound) {
-                return i;
+        final Set<Integer> searchSetCodePoints = searchChars.codePoints()
+                .boxed().collect(Collectors.toSet());
+        // advance character index from one interpreted codepoint to the next
+        for (int curSeqCharIdx = 0; curSeqCharIdx < seq.length();) {
+            final int curSeqCodePoint = Character.codePointAt(seq, curSeqCharIdx);
+            if (!searchSetCodePoints.contains(curSeqCodePoint)) {
+                return curSeqCharIdx;
             }
+            curSeqCharIdx += Character.charCount(curSeqCodePoint); // skip indices to paired low-surrogates
         }
         return INDEX_NOT_FOUND;
     }
 
     /**
-     * Compares all CharSequences in an array and returns the index at which the
-     * CharSequences begin to differ.
+     * Compares all CharSequences in an array and returns the index at which the CharSequences begin to differ.
      *
-     * <p>For example,
-     * {@code indexOfDifference(new String[] {"i am a machine", "i am a robot"}) -> 7}</p>
+     * <p>
+     * For example, {@code indexOfDifference(new String[] {"i am a machine", "i am a robot"}) -> 7}
+     * </p>
      *
      * <pre>
      * StringUtils.indexOfDifference(null)                             = -1
@@ -3031,8 +2934,8 @@ public class StringUtils {
      * StringUtils.indexOfDifference(new String[] {"i am a machine", "i am a robot"}) = 7
      * </pre>
      *
-     * @param css  array of CharSequences, entries may be null
-     * @return the index where the strings begin to differ; -1 if they are all equal
+     * @param css array of CharSequences, entries may be null.
+     * @return the index where the strings begin to differ; -1 if they are all equal.
      * @since 2.4
      * @since 3.0 Changed signature from indexOfDifference(String...) to indexOfDifference(CharSequence...)
      */
@@ -3045,7 +2948,6 @@ public class StringUtils {
         final int arrayLen = css.length;
         int shortestStrLen = Integer.MAX_VALUE;
         int longestStrLen = 0;
-
         // find the min and max string lengths; this avoids checking to make
         // sure we are not exceeding the length of the string each time through
         // the bottom loop.
@@ -3059,17 +2961,14 @@ public class StringUtils {
                 longestStrLen = Math.max(cs.length(), longestStrLen);
             }
         }
-
         // handle lists containing all nulls or all empty strings
         if (allStringsNull || longestStrLen == 0 && !anyStringNull) {
             return INDEX_NOT_FOUND;
         }
-
         // handle lists containing some nulls or some empty strings
         if (shortestStrLen == 0) {
             return 0;
         }
-
         // find the position with the first difference across all strings
         int firstDiff = -1;
         for (int stringPos = 0; stringPos < shortestStrLen; stringPos++) {
@@ -3084,7 +2983,6 @@ public class StringUtils {
                 break;
             }
         }
-
         if (firstDiff == -1 && shortestStrLen != longestStrLen) {
             // we compared all of the characters up to the length of the
             // shortest string and didn't find a match, but the string lengths
@@ -3095,11 +2993,11 @@ public class StringUtils {
     }
 
     /**
-     * Compares two CharSequences, and returns the index at which the
-     * CharSequences begin to differ.
+     * Compares two CharSequences, and returns the index at which the CharSequences begin to differ.
      *
-     * <p>For example,
-     * {@code indexOfDifference("i am a machine", "i am a robot") -> 7}</p>
+     * <p>
+     * For example, {@code indexOfDifference("i am a machine", "i am a robot") -> 7}
+     * </p>
      *
      * <pre>
      * StringUtils.indexOfDifference(null, null)       = -1
@@ -3112,12 +3010,11 @@ public class StringUtils {
      * StringUtils.indexOfDifference("abcde", "xyz")   = 0
      * </pre>
      *
-     * @param cs1  the first CharSequence, may be null
-     * @param cs2  the second CharSequence, may be null
-     * @return the index where cs1 and cs2 begin to differ; -1 if they are equal
+     * @param cs1 the first CharSequence, may be null.
+     * @param cs2 the second CharSequence, may be null.
+     * @return the index where cs1 and cs2 begin to differ; -1 if they are equal.
      * @since 2.0
-     * @since 3.0 Changed signature from indexOfDifference(String, String) to
-     * indexOfDifference(CharSequence, CharSequence)
+     * @since 3.0 Changed signature from indexOfDifference(String, String) to indexOfDifference(CharSequence, CharSequence)
      */
     public static int indexOfDifference(final CharSequence cs1, final CharSequence cs2) {
         if (cs1 == cs2) {
@@ -3141,11 +3038,10 @@ public class StringUtils {
     /**
      * Case in-sensitive find of the first index within a CharSequence.
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
-     * A negative start position is treated as zero.
-     * An empty ("") search CharSequence always matches.
-     * A start position greater than the string length only matches
-     * an empty search CharSequence.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A negative start position is treated as zero. An empty ("") search CharSequence always matches. A
+     * start position greater than the string length only matches an empty search CharSequence.
+     * </p>
      *
      * <pre>
      * StringUtils.indexOfIgnoreCase(null, *)          = -1
@@ -3157,26 +3053,25 @@ public class StringUtils {
      * StringUtils.indexOfIgnoreCase("aabaabaa", "ab") = 1
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStr  the CharSequence to find, may be null
-     * @return the first index of the search CharSequence,
-     *  -1 if no match or {@code null} string input
+     * @param str       the CharSequence to check, may be null.
+     * @param searchStr the CharSequence to find, may be null.
+     * @return the first index of the search CharSequence, -1 if no match or {@code null} string input.
      * @since 2.5
      * @since 3.0 Changed signature from indexOfIgnoreCase(String, String) to indexOfIgnoreCase(CharSequence, CharSequence)
+     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence) Strings.CI.indexOf(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
-        return indexOfIgnoreCase(str, searchStr, 0);
+        return Strings.CI.indexOf(str, searchStr);
     }
 
     /**
-     * Case in-sensitive find of the first index within a CharSequence
-     * from the specified position.
+     * Case in-sensitive find of the first index within a CharSequence from the specified position.
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
-     * A negative start position is treated as zero.
-     * An empty ("") search CharSequence always matches.
-     * A start position greater than the string length only matches
-     * an empty search CharSequence.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A negative start position is treated as zero. An empty ("") search CharSequence always matches. A
+     * start position greater than the string length only matches an empty search CharSequence.
+     * </p>
      *
      * <pre>
      * StringUtils.indexOfIgnoreCase(null, *, *)          = -1
@@ -3192,40 +3087,25 @@ public class StringUtils {
      * StringUtils.indexOfIgnoreCase("abc", "", 9)        = -1
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStr  the CharSequence to find, may be null
-     * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search CharSequence (always &ge; startPos),
-     *  -1 if no match or {@code null} string input
+     * @param str       the CharSequence to check, may be null.
+     * @param searchStr the CharSequence to find, may be null.
+     * @param startPos  the start position, negative treated as zero.
+     * @return the first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input.
      * @since 2.5
      * @since 3.0 Changed signature from indexOfIgnoreCase(String, String, int) to indexOfIgnoreCase(CharSequence, CharSequence, int)
+     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence, int) Strings.CI.indexOf(CharSequence, CharSequence, int)}.
      */
-    public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, int startPos) {
-        if (str == null || searchStr == null) {
-            return INDEX_NOT_FOUND;
-        }
-        if (startPos < 0) {
-            startPos = 0;
-        }
-        final int endLimit = str.length() - searchStr.length() + 1;
-        if (startPos > endLimit) {
-            return INDEX_NOT_FOUND;
-        }
-        if (searchStr.length() == 0) {
-            return startPos;
-        }
-        for (int i = startPos; i < endLimit; i++) {
-            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStr.length())) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND;
+    @Deprecated
+    public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, final int startPos) {
+        return Strings.CI.indexOf(str, searchStr, startPos);
     }
 
     /**
-     * Checks if all of the CharSequences are empty (""), null or whitespace only.
+     * Tests if all of the CharSequences are empty (""), null or whitespace only.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.isAllBlank(null)             = true
@@ -3239,8 +3119,8 @@ public class StringUtils {
      * StringUtils.isAllBlank(new String[] {})  = true
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if all of the CharSequences are empty or null or whitespace only
+     * @param css the CharSequences to check, may be null or empty.
+     * @return {@code true} if all of the CharSequences are empty or null or whitespace only.
      * @since 3.6
      */
     public static boolean isAllBlank(final CharSequence... css) {
@@ -3249,14 +3129,14 @@ public class StringUtils {
         }
         for (final CharSequence cs : css) {
             if (isNotBlank(cs)) {
-               return false;
+                return false;
             }
         }
         return true;
     }
 
     /**
-     * Checks if all of the CharSequences are empty ("") or null.
+     * Tests if all of the CharSequences are empty ("") or null.
      *
      * <pre>
      * StringUtils.isAllEmpty(null)             = true
@@ -3270,8 +3150,8 @@ public class StringUtils {
      * StringUtils.isAllEmpty("foo", "bar")     = false
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if all of the CharSequences are empty or null
+     * @param css the CharSequences to check, may be null or empty.
+     * @return {@code true} if all of the CharSequences are empty or null.
      * @since 3.6
      */
     public static boolean isAllEmpty(final CharSequence... css) {
@@ -3287,10 +3167,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only lowercase characters.
+     * Tests if the CharSequence contains only lowercase characters.
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code false}.</p>
+     * <p>
+     * {@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.
+     * </p>
      *
      * <pre>
      * StringUtils.isAllLowerCase(null)   = false
@@ -3303,8 +3184,8 @@ public class StringUtils {
      * StringUtils.isAllLowerCase("ab/c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if only contains lowercase characters, and is non-null
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if only contains lowercase characters, and is non-null.
      * @since 2.5
      * @since 3.0 Changed signature from isAllLowerCase(String) to isAllLowerCase(CharSequence)
      */
@@ -3322,7 +3203,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only uppercase characters.
+     * Tests if the CharSequence contains only uppercase characters.
      *
      * <p>{@code null} will return {@code false}.
      * An empty String (length()=0) will return {@code false}.</p>
@@ -3338,8 +3219,8 @@ public class StringUtils {
      * StringUtils.isAllUpperCase("A/C")  = false
      * </pre>
      *
-     * @param cs the CharSequence to check, may be null
-     * @return {@code true} if only contains uppercase characters, and is non-null
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if only contains uppercase characters, and is non-null.
      * @since 2.5
      * @since 3.0 Changed signature from isAllUpperCase(String) to isAllUpperCase(CharSequence)
      */
@@ -3357,10 +3238,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode letters.
+     * Tests if the CharSequence contains only Unicode letters.
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code false}.</p>
+     * <p>
+     * {@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.
+     * </p>
      *
      * <pre>
      * StringUtils.isAlpha(null)   = false
@@ -3371,8 +3253,8 @@ public class StringUtils {
      * StringUtils.isAlpha("ab-c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if only contains letters, and is non-null
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if only contains letters, and is non-null.
      * @since 3.0 Changed signature from isAlpha(String) to isAlpha(CharSequence)
      * @since 3.0 Changed "" to return false and not true
      */
@@ -3390,10 +3272,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode letters or digits.
+     * Tests if the CharSequence contains only Unicode letters or digits.
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code false}.</p>
+     * <p>
+     * {@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.
+     * </p>
      *
      * <pre>
      * StringUtils.isAlphanumeric(null)   = false
@@ -3405,9 +3288,8 @@ public class StringUtils {
      * StringUtils.isAlphanumeric("ab-c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if only contains letters or digits,
-     *  and is non-null
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if only contains letters or digits, and is non-null.
      * @since 3.0 Changed signature from isAlphanumeric(String) to isAlphanumeric(CharSequence)
      * @since 3.0 Changed "" to return false and not true
      */
@@ -3425,11 +3307,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode letters, digits
-     * or space ({@code ' '}).
+     * Tests if the CharSequence contains only Unicode letters, digits or space ({@code ' '}).
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code true}.</p>
+     * <p>
+     * {@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.
+     * </p>
      *
      * <pre>
      * StringUtils.isAlphanumericSpace(null)   = false
@@ -3441,9 +3323,8 @@ public class StringUtils {
      * StringUtils.isAlphanumericSpace("ab-c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if only contains letters, digits or space,
-     *  and is non-null
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if only contains letters, digits or space, and is non-null.
      * @since 3.0 Changed signature from isAlphanumericSpace(String) to isAlphanumericSpace(CharSequence)
      */
     public static boolean isAlphanumericSpace(final CharSequence cs) {
@@ -3453,7 +3334,7 @@ public class StringUtils {
         final int sz = cs.length();
         for (int i = 0; i < sz; i++) {
             final char nowChar = cs.charAt(i);
-            if (nowChar != ' ' && !Character.isLetterOrDigit(nowChar) ) {
+            if (nowChar != ' ' && !Character.isLetterOrDigit(nowChar)) {
                 return false;
             }
         }
@@ -3461,11 +3342,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode letters and
-     * space (' ').
+     * Tests if the CharSequence contains only Unicode letters and space (' ').
      *
-     * <p>{@code null} will return {@code false}
-     * An empty CharSequence (length()=0) will return {@code true}.</p>
+     * <p>
+     * {@code null} will return {@code false} An empty CharSequence (length()=0) will return {@code true}.
+     * </p>
      *
      * <pre>
      * StringUtils.isAlphaSpace(null)   = false
@@ -3477,9 +3358,8 @@ public class StringUtils {
      * StringUtils.isAlphaSpace("ab-c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if only contains letters and space,
-     *  and is non-null
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if only contains letters and space, and is non-null.
      * @since 3.0 Changed signature from isAlphaSpace(String) to isAlphaSpace(CharSequence)
      */
     public static boolean isAlphaSpace(final CharSequence cs) {
@@ -3497,9 +3377,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if any of the CharSequences are empty ("") or null or whitespace only.
+     * Tests if any of the CharSequences are {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null}).
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.isAnyBlank((String) null)    = true
@@ -3515,8 +3397,9 @@ public class StringUtils {
      * StringUtils.isAnyBlank("foo", "bar")     = false
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if any of the CharSequences are empty or null or whitespace only
+     * @param css the CharSequences to check, may be null or empty.
+     * @return {@code true} if any of the CharSequences are {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null}).
+     * @see #isBlank(CharSequence)
      * @since 3.2
      */
     public static boolean isAnyBlank(final CharSequence... css) {
@@ -3532,7 +3415,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if any of the CharSequences are empty ("") or null.
+     * Tests if any of the CharSequences are empty ("") or null.
      *
      * <pre>
      * StringUtils.isAnyEmpty((String) null)    = true
@@ -3547,8 +3430,8 @@ public class StringUtils {
      * StringUtils.isAnyEmpty(new String[]{""}) = true
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if any of the CharSequences are empty or null
+     * @param css  the CharSequences to check, may be null or empty.
+     * @return {@code true} if any of the CharSequences are empty or null.
      * @since 3.2
      */
     public static boolean isAnyEmpty(final CharSequence... css) {
@@ -3564,10 +3447,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only ASCII printable characters.
+     * Tests if the CharSequence contains only ASCII printable characters.
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code true}.</p>
+     * <p>
+     * {@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.
+     * </p>
      *
      * <pre>
      * StringUtils.isAsciiPrintable(null)     = false
@@ -3583,9 +3467,8 @@ public class StringUtils {
      * StringUtils.isAsciiPrintable("Ceki G\u00fclc\u00fc") = false
      * </pre>
      *
-     * @param cs the CharSequence to check, may be null
-     * @return {@code true} if every character is in the range
-     *  32 through 126
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if every character is in the range 32 through 126.
      * @since 2.1
      * @since 3.0 Changed signature from isAsciiPrintable(String) to isAsciiPrintable(CharSequence)
      */
@@ -3603,9 +3486,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if a CharSequence is empty (""), null or whitespace only.
-     *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * Tests if a CharSequence is empty ({@code "")}, null, or contains only whitespace as defined by {@link Character#isWhitespace(char)}.
      *
      * <pre>
      * StringUtils.isBlank(null)      = true
@@ -3615,8 +3496,8 @@ public class StringUtils {
      * StringUtils.isBlank("  bob  ") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if the CharSequence is null, empty or whitespace only
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if the CharSequence is null, empty or whitespace only.
      * @since 2.0
      * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
      */
@@ -3634,7 +3515,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if a CharSequence is empty ("") or null.
+     * Tests if a CharSequence is empty ("") or null.
      *
      * <pre>
      * StringUtils.isEmpty(null)      = true
@@ -3644,12 +3525,12 @@ public class StringUtils {
      * StringUtils.isEmpty("  bob  ") = false
      * </pre>
      *
-     * <p>NOTE: This method changed in Lang version 2.0.
-     * It no longer trims the CharSequence.
-     * That functionality is available in isBlank().</p>
+     * <p>
+     * NOTE: This method changed in Lang version 2.0. It no longer trims the CharSequence. That functionality is available in isBlank().
+     * </p>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if the CharSequence is empty or null
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if the CharSequence is empty or null.
      * @since 3.0 Changed signature from isEmpty(String) to isEmpty(CharSequence)
      */
     public static boolean isEmpty(final CharSequence cs) {
@@ -3657,10 +3538,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains mixed casing of both uppercase and lowercase characters.
+     * Tests if the CharSequence contains mixed casing of both uppercase and lowercase characters.
      *
-     * <p>{@code null} will return {@code false}. An empty CharSequence ({@code length()=0}) will return
-     * {@code false}.</p>
+     * <p>
+     * {@code null} will return {@code false}. An empty CharSequence ({@code length()=0}) will return {@code false}.
+     * </p>
      *
      * <pre>
      * StringUtils.isMixedCase(null)    = false
@@ -3675,8 +3557,8 @@ public class StringUtils {
      * StringUtils.isMixedCase("aC\t")  = true
      * </pre>
      *
-     * @param cs the CharSequence to check, may be null
-     * @return {@code true} if the CharSequence contains both uppercase and lowercase characters
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if the CharSequence contains both uppercase and lowercase characters.
      * @since 3.5
      */
     public static boolean isMixedCase(final CharSequence cs) {
@@ -3701,9 +3583,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if none of the CharSequences are empty (""), null or whitespace only.
+     * Tests if none of the CharSequences are empty (""), null or whitespace only.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.isNoneBlank((String) null)    = false
@@ -3719,16 +3603,16 @@ public class StringUtils {
      * StringUtils.isNoneBlank("foo", "bar")     = true
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if none of the CharSequences are empty or null or whitespace only
+     * @param css the CharSequences to check, may be null or empty.
+     * @return {@code true} if none of the CharSequences are empty or null or whitespace only.
      * @since 3.2
      */
     public static boolean isNoneBlank(final CharSequence... css) {
-      return !isAnyBlank(css);
+        return !isAnyBlank(css);
     }
 
     /**
-     * Checks if none of the CharSequences are empty ("") or null.
+     * Tests if none of the CharSequences are empty ("") or null.
      *
      * <pre>
      * StringUtils.isNoneEmpty((String) null)    = false
@@ -3743,18 +3627,20 @@ public class StringUtils {
      * StringUtils.isNoneEmpty("foo", "bar")     = true
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
-     * @return {@code true} if none of the CharSequences are empty or null
+     * @param css  the CharSequences to check, may be null or empty.
+     * @return {@code true} if none of the CharSequences are empty or null.
      * @since 3.2
      */
     public static boolean isNoneEmpty(final CharSequence... css) {
-      return !isAnyEmpty(css);
+        return !isAnyEmpty(css);
     }
 
     /**
-     * Checks if a CharSequence is not empty (""), not null and not whitespace only.
+     * Tests if a CharSequence is not {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null}).
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.isNotBlank(null)      = false
@@ -3764,9 +3650,9 @@ public class StringUtils {
      * StringUtils.isNotBlank("  bob  ") = true
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if the CharSequence is
-     *  not empty and not null and not whitespace only
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if the CharSequence is not {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null}).
+     * @see #isBlank(CharSequence)
      * @since 2.0
      * @since 3.0 Changed signature from isNotBlank(String) to isNotBlank(CharSequence)
      */
@@ -3775,7 +3661,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks if a CharSequence is not empty ("") and not null.
+     * Tests if a CharSequence is not empty ("") and not null.
      *
      * <pre>
      * StringUtils.isNotEmpty(null)      = false
@@ -3785,8 +3671,8 @@ public class StringUtils {
      * StringUtils.isNotEmpty("  bob  ") = true
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if the CharSequence is not empty and not null
+     * @param cs  the CharSequence to check, may be null.
+     * @return {@code true} if the CharSequence is not empty and not null.
      * @since 3.0 Changed signature from isNotEmpty(String) to isNotEmpty(CharSequence)
      */
     public static boolean isNotEmpty(final CharSequence cs) {
@@ -3794,16 +3680,16 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode digits.
-     * A decimal point is not a Unicode digit and returns false.
+     * Tests if the CharSequence contains only Unicode digits. A decimal point is not a Unicode digit and returns false.
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code false}.</p>
+     * <p>
+     * {@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.
+     * </p>
      *
-     * <p>Note that the method does not allow for a leading sign, either positive or negative.
-     * Also, if a String passes the numeric test, it may still generate a NumberFormatException
-     * when parsed by Integer.parseInt or Long.parseLong, e.g. if the value is outside the range
-     * for int or long respectively.</p>
+     * <p>
+     * Note that the method does not allow for a leading sign, either positive or negative. Also, if a String passes the numeric test, it may still generate a
+     * NumberFormatException when parsed by Integer.parseInt or Long.parseLong, e.g. if the value is outside the range for int or long respectively.
+     * </p>
      *
      * <pre>
      * StringUtils.isNumeric(null)   = false
@@ -3819,8 +3705,8 @@ public class StringUtils {
      * StringUtils.isNumeric("+123") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if only contains digits, and is non-null
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if only contains digits, and is non-null.
      * @since 3.0 Changed signature from isNumeric(String) to isNumeric(CharSequence)
      * @since 3.0 Changed "" to return false and not true
      */
@@ -3838,12 +3724,11 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode digits or space
-     * ({@code ' '}).
-     * A decimal point is not a Unicode digit and returns false.
+     * Tests if the CharSequence contains only Unicode digits or space ({@code ' '}). A decimal point is not a Unicode digit and returns false.
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code true}.</p>
+     * <p>
+     * {@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.
+     * </p>
      *
      * <pre>
      * StringUtils.isNumericSpace(null)   = false
@@ -3858,9 +3743,8 @@ public class StringUtils {
      * StringUtils.isNumericSpace("12.3") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if only contains digits or space,
-     *  and is non-null
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if only contains digits or space, and is non-null.
      * @since 3.0 Changed signature from isNumericSpace(String) to isNumericSpace(CharSequence)
      */
     public static boolean isNumericSpace(final CharSequence cs) {
@@ -3878,12 +3762,15 @@ public class StringUtils {
     }
 
     /**
-     * Checks if the CharSequence contains only whitespace.
+     * Tests if the CharSequence contains only whitespace.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code true}.</p>
+     * <p>
+     * {@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.
+     * </p>
      *
      * <pre>
      * StringUtils.isWhitespace(null)   = false
@@ -3894,8 +3781,8 @@ public class StringUtils {
      * StringUtils.isWhitespace("ab-c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @return {@code true} if only contains whitespace, and is non-null
+     * @param cs the CharSequence to check, may be null.
+     * @return {@code true} if only contains whitespace, and is non-null.
      * @since 2.0
      * @since 3.0 Changed signature from isWhitespace(String) to isWhitespace(CharSequence)
      */
@@ -3916,8 +3803,7 @@ public class StringUtils {
      * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
      * <p>
-     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented
-     * by empty strings.
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented by empty strings.
      * </p>
      *
      * <pre>
@@ -3927,11 +3813,9 @@ public class StringUtils {
      * StringUtils.join([false, false], ';') = "false;false"
      * </pre>
      *
-     * @param array
-     *            the array of values to join together, may be null
-     * @param delimiter
-     *            the separator character to use
-     * @return the joined String, {@code null} if null array input
+     * @param array     the array of values to join together, may be null.
+     * @param delimiter the separator character to use.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.12.0
      */
     public static String join(final boolean[] array, final char delimiter) {
@@ -3957,16 +3841,16 @@ public class StringUtils {
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
+     *            the separator character to use.
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array
+     *            array.
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array
-     * @return the joined String, {@code null} if null array input
+     *            the array.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.12.0
      */
     public static String join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4002,10 +3886,10 @@ public class StringUtils {
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
-     * @return the joined String, {@code null} if null array input
+     *            the separator character to use.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final byte[] array, final char delimiter) {
@@ -4032,16 +3916,16 @@ public class StringUtils {
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
+     *            the separator character to use.
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array
+     *            array.
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array
-     * @return the joined String, {@code null} if null array input
+     *            the array.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4077,10 +3961,10 @@ public class StringUtils {
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
-     * @return the joined String, {@code null} if null array input
+     *            the separator character to use.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final char[] array, final char delimiter) {
@@ -4107,16 +3991,16 @@ public class StringUtils {
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
+     *            the separator character to use.
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array
+     *            array.
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array
-     * @return the joined String, {@code null} if null array input
+     *            the array.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final char[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4144,18 +4028,18 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join(null, *)          = null
+     * StringUtils.join([], *)            = ""
+     * StringUtils.join([null], *)        = ""
+     * StringUtils.join([1, 2, 3], ';')   = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)  = "123"
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
-     * @return the joined String, {@code null} if null array input
+     *            the separator character to use.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final double[] array, final char delimiter) {
@@ -4174,24 +4058,24 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join(null, *)          = null
+     * StringUtils.join([], *)            = ""
+     * StringUtils.join([null], *)        = ""
+     * StringUtils.join([1, 2, 3], ';')   = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)  = "123"
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
+     *            the separator character to use.
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array
+     *            array.
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array
-     * @return the joined String, {@code null} if null array input
+     *            the array.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final double[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4219,17 +4103,17 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join(null, *)          = null
+     * StringUtils.join([], *)            = ""
+     * StringUtils.join([null], *)        = ""
+     * StringUtils.join([1, 2, 3], ';')   = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)  = "123"
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
+     *            the separator character to use.
      * @return the joined String, {@code null} if null array input
      * @since 3.2
      */
@@ -4249,24 +4133,24 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join(null, *)          = null
+     * StringUtils.join([], *)            = ""
+     * StringUtils.join([null], *)        = ""
+     * StringUtils.join([1, 2, 3], ';')   = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)  = "123"
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
+     *            the separator character to use.
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array
+     *            array.
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array
-     * @return the joined String, {@code null} if null array input
+     *            the array.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final float[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4294,18 +4178,18 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join(null, *)          = null
+     * StringUtils.join([], *)            = ""
+     * StringUtils.join([null], *)        = ""
+     * StringUtils.join([1, 2, 3], ';')   = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)  = "123"
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param separator
-     *            the separator character to use
-     * @return the joined String, {@code null} if null array input
+     *            the separator character to use.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final int[] array, final char separator) {
@@ -4324,24 +4208,24 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join(null, *)          = null
+     * StringUtils.join([], *)            = ""
+     * StringUtils.join([null], *)        = ""
+     * StringUtils.join([1, 2, 3], ';')   = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)  = "123"
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
+     *            the separator character to use.
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array
+     *            array.
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array
-     * @return the joined String, {@code null} if null array input
+     *            the array.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final int[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4361,17 +4245,19 @@ public class StringUtils {
     }
 
     /**
-     * Joins the elements of the provided {@link Iterable} into
-     * a single String containing the provided elements.
+     * Joins the elements of the provided {@link Iterable} into a single String containing the provided elements.
      *
-     * <p>No delimiter is added before or after the list. Null objects or empty
-     * strings within the iteration are represented by empty strings.</p>
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the iteration are represented by empty strings.
+     * </p>
      *
-     * <p>See the examples here: {@link #join(Object[],char)}.</p>
+     * <p>
+     * See the examples here: {@link #join(Object[],char)}.
+     * </p>
      *
-     * @param iterable  the {@link Iterable} providing the values to join together, may be null
-     * @param separator  the separator character to use
-     * @return the joined String, {@code null} if null iterator input
+     * @param iterable  the {@link Iterable} providing the values to join together, may be null.
+     * @param separator the separator character to use.
+     * @return the joined String, {@code null} if null iterator input.
      * @since 2.3
      */
     public static String join(final Iterable<?> iterable, final char separator) {
@@ -4379,17 +4265,19 @@ public class StringUtils {
     }
 
     /**
-     * Joins the elements of the provided {@link Iterable} into
-     * a single String containing the provided elements.
+     * Joins the elements of the provided {@link Iterable} into a single String containing the provided elements.
      *
-     * <p>No delimiter is added before or after the list.
-     * A {@code null} separator is the same as an empty String ("").</p>
+     * <p>
+     * No delimiter is added before or after the list. A {@code null} separator is the same as an empty String ("").
+     * </p>
      *
-     * <p>See the examples here: {@link #join(Object[],String)}.</p>
+     * <p>
+     * See the examples here: {@link #join(Object[],String)}.
+     * </p>
      *
-     * @param iterable  the {@link Iterable} providing the values to join together, may be null
-     * @param separator  the separator character to use, null treated as ""
-     * @return the joined String, {@code null} if null iterator input
+     * @param iterable  the {@link Iterable} providing the values to join together, may be null.
+     * @param separator the separator character to use, null treated as "".
+     * @return the joined String, {@code null} if null iterator input.
      * @since 2.3
      */
     public static String join(final Iterable<?> iterable, final String separator) {
@@ -4397,17 +4285,19 @@ public class StringUtils {
     }
 
     /**
-     * Joins the elements of the provided {@link Iterator} into
-     * a single String containing the provided elements.
+     * Joins the elements of the provided {@link Iterator} into a single String containing the provided elements.
      *
-     * <p>No delimiter is added before or after the list. Null objects or empty
-     * strings within the iteration are represented by empty strings.</p>
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the iteration are represented by empty strings.
+     * </p>
      *
-     * <p>See the examples here: {@link #join(Object[],char)}.</p>
+     * <p>
+     * See the examples here: {@link #join(Object[],char)}.
+     * </p>
      *
-     * @param iterator  the {@link Iterator} of values to join together, may be null
-     * @param separator  the separator character to use
-     * @return the joined String, {@code null} if null iterator input
+     * @param iterator  the {@link Iterator} of values to join together, may be null.
+     * @param separator the separator character to use.
+     * @return the joined String, {@code null} if null iterator input.
      * @since 2.0
      */
     public static String join(final Iterator<?> iterator, final char separator) {
@@ -4418,21 +4308,23 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-        return Streams.of(iterator).collect(LangCollectors.joining(toStringOrEmpty(String.valueOf(separator)), EMPTY, EMPTY, StringUtils::toStringOrEmpty));
+        return Streams.of(iterator).collect(LangCollectors.joining(ObjectUtils.toString(String.valueOf(separator)), EMPTY, EMPTY, ObjectUtils::toString));
     }
 
     /**
-     * Joins the elements of the provided {@link Iterator} into
-     * a single String containing the provided elements.
+     * Joins the elements of the provided {@link Iterator} into a single String containing the provided elements.
      *
-     * <p>No delimiter is added before or after the list.
-     * A {@code null} separator is the same as an empty String ("").</p>
+     * <p>
+     * No delimiter is added before or after the list. A {@code null} separator is the same as an empty String ("").
+     * </p>
      *
-     * <p>See the examples here: {@link #join(Object[],String)}.</p>
+     * <p>
+     * See the examples here: {@link #join(Object[],String)}.
+     * </p>
      *
-     * @param iterator  the {@link Iterator} of values to join together, may be null
-     * @param separator  the separator character to use, null treated as ""
-     * @return the joined String, {@code null} if null iterator input
+     * @param iterator  the {@link Iterator} of values to join together, may be null.
+     * @param separator the separator character to use, null treated as "".
+     * @return the joined String, {@code null} if null iterator input.
      */
     public static String join(final Iterator<?> iterator, final String separator) {
         // handle null, zero and one elements before building a buffer
@@ -4442,16 +4334,15 @@ public class StringUtils {
         if (!iterator.hasNext()) {
             return EMPTY;
         }
-        return Streams.of(iterator).collect(LangCollectors.joining(toStringOrEmpty(separator), EMPTY, EMPTY, StringUtils::toStringOrEmpty));
+        return Streams.of(iterator).collect(LangCollectors.joining(ObjectUtils.toString(separator), EMPTY, EMPTY, ObjectUtils::toString));
     }
 
     /**
-     * Joins the elements of the provided {@link List} into a single String
-     * containing the provided list of elements.
+     * Joins the elements of the provided {@link List} into a single String containing the provided list of elements.
      *
-     * <p>No delimiter is added before or after the list.
-     * Null objects or empty strings within the array are represented by
-     * empty strings.</p>
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented by empty strings.
+     * </p>
      *
      * <pre>
      * StringUtils.join(null, *)               = null
@@ -4462,13 +4353,11 @@ public class StringUtils {
      * StringUtils.join([null, "", "a"], ';')  = ";;a"
      * </pre>
      *
-     * @param list  the {@link List} of values to join together, may be null
-     * @param separator  the separator character to use
-     * @param startIndex the first index to start joining from.  It is
-     * an error to pass in a start index past the end of the list
-     * @param endIndex the index to stop joining from (exclusive). It is
-     * an error to pass in an end index past the end of the list
-     * @return the joined String, {@code null} if null list input
+     * @param list       the {@link List} of values to join together, may be null.
+     * @param separator  the separator character to use.
+     * @param startIndex the first index to start joining from. It is an error to pass in a start index past the end of the list.
+     * @param endIndex   the index to stop joining from (exclusive). It is an error to pass in an end index past the end of the list.
+     * @return the joined String, {@code null} if null list input.
      * @since 3.8
      */
     public static String join(final List<?> list, final char separator, final int startIndex, final int endIndex) {
@@ -4484,12 +4373,11 @@ public class StringUtils {
     }
 
     /**
-     * Joins the elements of the provided {@link List} into a single String
-     * containing the provided list of elements.
+     * Joins the elements of the provided {@link List} into a single String containing the provided list of elements.
      *
-     * <p>No delimiter is added before or after the list.
-     * Null objects or empty strings within the array are represented by
-     * empty strings.</p>
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented by empty strings.
+     * </p>
      *
      * <pre>
      * StringUtils.join(null, *)               = null
@@ -4500,13 +4388,11 @@ public class StringUtils {
      * StringUtils.join([null, "", "a"], ';')  = ";;a"
      * </pre>
      *
-     * @param list  the {@link List} of values to join together, may be null
-     * @param separator  the separator character to use
-     * @param startIndex the first index to start joining from.  It is
-     * an error to pass in a start index past the end of the list
-     * @param endIndex the index to stop joining from (exclusive). It is
-     * an error to pass in an end index past the end of the list
-     * @return the joined String, {@code null} if null list input
+     * @param list       the {@link List} of values to join together, may be null.
+     * @param separator  the separator character to use.
+     * @param startIndex the first index to start joining from. It is an error to pass in a start index past the end of the list.
+     * @param endIndex   the index to stop joining from (exclusive). It is an error to pass in an end index past the end of the list.
+     * @return the joined String, {@code null} if null list input.
      * @since 3.8
      */
     public static String join(final List<?> list, final String separator, final int startIndex, final int endIndex) {
@@ -4538,10 +4424,10 @@ public class StringUtils {
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param separator
-     *            the separator character to use
-     * @return the joined String, {@code null} if null array input
+     *            the separator character to use.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final long[] array, final char separator) {
@@ -4568,16 +4454,16 @@ public class StringUtils {
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
+     *            the separator character to use.
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array
+     *            array.
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array
-     * @return the joined String, {@code null} if null array input
+     *            the array.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final long[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4597,12 +4483,11 @@ public class StringUtils {
     }
 
     /**
-     * Joins the elements of the provided array into a single String
-     * containing the provided list of elements.
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
-     * <p>No delimiter is added before or after the list.
-     * Null objects or empty strings within the array are represented by
-     * empty strings.</p>
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented by empty strings.
+     * </p>
      *
      * <pre>
      * StringUtils.join(null, *)               = null
@@ -4613,9 +4498,9 @@ public class StringUtils {
      * StringUtils.join([null, "", "a"], ';')  = ";;a"
      * </pre>
      *
-     * @param array  the array of values to join together, may be null
-     * @param delimiter  the separator character to use
-     * @return the joined String, {@code null} if null array input
+     * @param array     the array of values to join together, may be null.
+     * @param delimiter the separator character to use.
+     * @return the joined String, {@code null} if null array input.
      * @since 2.0
      */
     public static String join(final Object[] array, final char delimiter) {
@@ -4626,12 +4511,11 @@ public class StringUtils {
     }
 
     /**
-     * Joins the elements of the provided array into a single String
-     * containing the provided list of elements.
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
-     * <p>No delimiter is added before or after the list.
-     * Null objects or empty strings within the array are represented by
-     * empty strings.</p>
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are represented by empty strings.
+     * </p>
      *
      * <pre>
      * StringUtils.join(null, *)               = null
@@ -4642,13 +4526,11 @@ public class StringUtils {
      * StringUtils.join([null, "", "a"], ';')  = ";;a"
      * </pre>
      *
-     * @param array  the array of values to join together, may be null
-     * @param delimiter  the separator character to use
-     * @param startIndex the first index to start joining from.  It is
-     * an error to pass in a start index past the end of the array
-     * @param endIndex the index to stop joining from (exclusive). It is
-     * an error to pass in an end index past the end of the array
-     * @return the joined String, {@code null} if null array input
+     * @param array      the array of values to join together, may be null.
+     * @param delimiter  the separator character to use.
+     * @param startIndex the first index to start joining from. It is an error to pass in a start index past the end of the array.
+     * @param endIndex   the index to stop joining from (exclusive). It is an error to pass in an end index past the end of the array.
+     * @return the joined String, {@code null} if null array input.
      * @since 2.0
      */
     public static String join(final Object[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4656,13 +4538,12 @@ public class StringUtils {
     }
 
     /**
-     * Joins the elements of the provided array into a single String
-     * containing the provided list of elements.
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
-     * <p>No delimiter is added before or after the list.
-     * A {@code null} separator is the same as an empty String ("").
-     * Null objects or empty strings within the array are represented by
-     * empty strings.</p>
+     * <p>
+     * No delimiter is added before or after the list. A {@code null} separator is the same as an empty String (""). Null objects or empty strings within the
+     * array are represented by empty strings.
+     * </p>
      *
      * <pre>
      * StringUtils.join(null, *)                = null
@@ -4674,22 +4555,21 @@ public class StringUtils {
      * StringUtils.join([null, "", "a"], ',')   = ",,a"
      * </pre>
      *
-     * @param array  the array of values to join together, may be null
-     * @param delimiter  the separator character to use, null treated as ""
-     * @return the joined String, {@code null} if null array input
+     * @param array     the array of values to join together, may be null.
+     * @param delimiter the separator character to use, null treated as "".
+     * @return the joined String, {@code null} if null array input.
      */
     public static String join(final Object[] array, final String delimiter) {
-        return array != null ? join(array, toStringOrEmpty(delimiter), 0, array.length) : null;
+        return array != null ? join(array, ObjectUtils.toString(delimiter), 0, array.length) : null;
     }
 
     /**
-     * Joins the elements of the provided array into a single String
-     * containing the provided list of elements.
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
-     * <p>No delimiter is added before or after the list.
-     * A {@code null} separator is the same as an empty String ("").
-     * Null objects or empty strings within the array are represented by
-     * empty strings.</p>
+     * <p>
+     * No delimiter is added before or after the list. A {@code null} separator is the same as an empty String (""). Null objects or empty strings within the
+     * array are represented by empty strings.
+     * </p>
      *
      * <pre>
      * StringUtils.join(null, *, *, *)                = null
@@ -4704,22 +4584,21 @@ public class StringUtils {
      * StringUtils.join([null, "", "a"], ',', 0, 3)   = ",,a"
      * </pre>
      *
-     * @param array  the array of values to join together, may be null
-     * @param delimiter  the separator character to use, null treated as ""
+     * @param array      the array of values to join together, may be null.
+     * @param delimiter  the separator character to use, null treated as "".
      * @param startIndex the first index to start joining from.
-     * @param endIndex the index to stop joining from (exclusive).
-     * @return the joined String, {@code null} if null array input; or the empty string
-     * if {@code endIndex - startIndex <= 0}. The number of joined entries is given by
-     * {@code endIndex - startIndex}
+     * @param endIndex   the index to stop joining from (exclusive).
+     * @return the joined String, {@code null} if null array input; or the empty string if {@code endIndex - startIndex <= 0}. The number of joined entries is
+     *         given by {@code endIndex - startIndex}.
      * @throws ArrayIndexOutOfBoundsException ife<br>
-     * {@code startIndex < 0} or <br>
-     * {@code startIndex >= array.length()} or <br>
-     * {@code endIndex < 0} or <br>
-     * {@code endIndex > array.length()}
+     *                                        {@code startIndex < 0} or <br>
+     *                                        {@code startIndex >= array.length()} or <br>
+     *                                        {@code endIndex < 0} or <br>
+     *                                        {@code endIndex > array.length()}
      */
     public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
         return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0, endIndex - startIndex))
-            .collect(LangCollectors.joining(delimiter, EMPTY, EMPTY, StringUtils::toStringOrEmpty)) : null;
+                .collect(LangCollectors.joining(delimiter, EMPTY, EMPTY, ObjectUtils::toString)) : null;
     }
 
     /**
@@ -4731,18 +4610,18 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join(null, *)          = null
+     * StringUtils.join([], *)            = ""
+     * StringUtils.join([null], *)        = ""
+     * StringUtils.join([1, 2, 3], ';')   = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)  = "123"
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
-     * @return the joined String, {@code null} if null array input
+     *            the separator character to use.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final short[] array, final char delimiter) {
@@ -4761,24 +4640,24 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.join(null, *)               = null
-     * StringUtils.join([], *)                 = ""
-     * StringUtils.join([null], *)             = ""
-     * StringUtils.join([1, 2, 3], ';')  = "1;2;3"
-     * StringUtils.join([1, 2, 3], null) = "123"
+     * StringUtils.join(null, *)          = null
+     * StringUtils.join([], *)            = ""
+     * StringUtils.join([null], *)        = ""
+     * StringUtils.join([1, 2, 3], ';')   = "1;2;3"
+     * StringUtils.join([1, 2, 3], null)  = "123"
      * </pre>
      *
      * @param array
-     *            the array of values to join together, may be null
+     *            the array of values to join together, may be null.
      * @param delimiter
-     *            the separator character to use
+     *            the separator character to use.
      * @param startIndex
      *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array
+     *            array.
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array
-     * @return the joined String, {@code null} if null array input
+     *            the array.
+     * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4798,12 +4677,11 @@ public class StringUtils {
     }
 
     /**
-     * Joins the elements of the provided array into a single String
-     * containing the provided list of elements.
+     * Joins the elements of the provided array into a single String containing the provided list of elements.
      *
-     * <p>No separator is added to the joined String.
-     * Null objects or empty strings within the array are represented by
-     * empty strings.</p>
+     * <p>
+     * No separator is added to the joined String. Null objects or empty strings within the array are represented by empty strings.
+     * </p>
      *
      * <pre>
      * StringUtils.join(null)            = null
@@ -4813,9 +4691,9 @@ public class StringUtils {
      * StringUtils.join([null, "", "a"]) = "a"
      * </pre>
      *
-     * @param <T> the specific type of values to join together
-     * @param elements  the values to join together, may be null
-     * @return the joined String, {@code null} if null array input
+     * @param <T>      the specific type of values to join together.
+     * @param elements the values to join together, may be null.
+     * @return the joined String, {@code null} if null array input.
      * @since 2.0
      * @since 3.0 Changed signature to use varargs
      */
@@ -4825,11 +4703,11 @@ public class StringUtils {
     }
 
     /**
-     * Joins the elements of the provided varargs into a
-     * single String containing the provided elements.
+     * Joins the elements of the provided varargs into a single String containing the provided elements.
      *
-     * <p>No delimiter is added before or after the list.
-     * {@code null} elements and separator are treated as empty Strings ("").</p>
+     * <p>
+     * No delimiter is added before or after the list. {@code null} elements and separator are treated as empty Strings ("").
+     * </p>
      *
      * <pre>
      * StringUtils.joinWith(",", {"a", "b"})        = "a,b"
@@ -4838,10 +4716,10 @@ public class StringUtils {
      * StringUtils.joinWith(null, {"a", "b"})       = "ab"
      * </pre>
      *
-     * @param delimiter the separator character to use, null treated as ""
-     * @param array the varargs providing the values to join together. {@code null} elements are treated as ""
+     * @param delimiter the separator character to use, null treated as "".
+     * @param array     the varargs providing the values to join together. {@code null} elements are treated as "".
      * @return the joined String.
-     * @throws IllegalArgumentException if a null varargs is provided
+     * @throws IllegalArgumentException if a null varargs is provided.
      * @since 3.5
      */
     public static String joinWith(final String delimiter, final Object... array) {
@@ -4852,10 +4730,11 @@ public class StringUtils {
     }
 
     /**
-     * Finds the last index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#lastIndexOf(String)} if possible.
+     * Finds the last index within a CharSequence, handling {@code null}. This method uses {@link String#lastIndexOf(String)} if possible.
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}.
+     * </p>
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *)          = -1
@@ -4867,30 +4746,25 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", "")   = 8
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchSeq  the CharSequence to find, may be null
-     * @return the last index of the search String,
-     *  -1 if no match or {@code null} string input
+     * @param seq       the CharSequence to check, may be null.
+     * @param searchSeq the CharSequence to find, may be null.
+     * @return the last index of the search String, -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, String) to lastIndexOf(CharSequence, CharSequence)
+     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence) Strings.CS.lastIndexOf(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq) {
-        if (seq == null) {
-            return INDEX_NOT_FOUND;
-        }
-        return CharSequenceUtils.lastIndexOf(seq, searchSeq, seq.length());
+        return Strings.CS.lastIndexOf(seq, searchSeq);
     }
 
     /**
-     * Finds the last index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#lastIndexOf(String, int)} if possible.
+     * Finds the last index within a CharSequence, handling {@code null}. This method uses {@link String#lastIndexOf(String, int)} if possible.
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
-     * A negative start position returns {@code -1}.
-     * An empty ("") search CharSequence always matches unless the start position is negative.
-     * A start position greater than the string length searches the whole string.
-     * The search starts at the startPos and works backwards; matches starting after the start
-     * position are ignored.
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A negative start position returns {@code -1}. An empty ("") search CharSequence always matches unless
+     * the start position is negative. A start position greater than the string length searches the whole string. The search starts at the startPos and works
+     * backwards; matches starting after the start position are ignored.
      * </p>
      *
      * <pre>
@@ -4908,36 +4782,39 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", "ba", 2)  = 2
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchSeq  the CharSequence to find, may be null
-     * @param startPos  the start position, negative treated as zero
-     * @return the last index of the search CharSequence (always &le; startPos),
-     *  -1 if no match or {@code null} string input
+     * @param seq       the CharSequence to check, may be null.
+     * @param searchSeq the CharSequence to find, may be null.
+     * @param startPos  the start position, negative treated as zero.
+     * @return the last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, String, int) to lastIndexOf(CharSequence, CharSequence, int)
+     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence, int) Strings.CS.lastIndexOf(CharSequence, CharSequence, int)}.
      */
+    @Deprecated
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
-        return CharSequenceUtils.lastIndexOf(seq, searchSeq, startPos);
+        return Strings.CS.lastIndexOf(seq, searchSeq, startPos);
     }
 
     /**
-     * Returns the index within {@code seq} of the last occurrence of
-     * the specified character. For values of {@code searchChar} in the
-     * range from 0 to 0xFFFF (inclusive), the index (in Unicode code
-     * units) returned is the largest value <i>k</i> such that:
-     * <blockquote><pre>
-     * this.charAt(<i>k</i>) == searchChar
-     * </pre></blockquote>
-     * is true. For other values of {@code searchChar}, it is the
-     * largest value <i>k</i> such that:
-     * <blockquote><pre>
-     * this.codePointAt(<i>k</i>) == searchChar
-     * </pre></blockquote>
-     * is true.  In either case, if no such character occurs in this
-     * string, then {@code -1} is returned. Furthermore, a {@code null} or empty ("")
-     * {@link CharSequence} will return {@code -1}. The
-     * {@code seq} {@link CharSequence} object is searched backwards
-     * starting at the last character.
+     * Returns the index within {@code seq} of the last occurrence of the specified character. For values of {@code searchChar} in the range from 0 to 0xFFFF
+     * (inclusive), the index (in Unicode code units) returned is the largest value <em>k</em> such that:
+     *
+     * <pre>
+     * this.charAt(<em>k</em>) == searchChar
+     * </pre>
+     *
+     * <p>
+     * is true. For other values of {@code searchChar}, it is the largest value <em>k</em> such that:
+     * </p>
+     *
+     * <pre>
+     * this.codePointAt(<em>k</em>) == searchChar
+     * </pre>
+     *
+     * <p>
+     * is true. In either case, if no such character occurs in this string, then {@code -1} is returned. Furthermore, a {@code null} or empty ("")
+     * {@link CharSequence} will return {@code -1}. The {@code seq} {@link CharSequence} object is searched backwards starting at the last character.
+     * </p>
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *)         = -1
@@ -4946,10 +4823,9 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
      *
-     * @param seq  the {@link CharSequence} to check, may be null
-     * @param searchChar  the character to find
-     * @return the last index of the search character,
-     *  -1 if no match or {@code null} string input
+     * @param seq        the {@link CharSequence} to check, may be null.
+     * @param searchChar the character to find.
+     * @return the last index of the search character, -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, int) to lastIndexOf(CharSequence, int)
      * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@link String}
@@ -4962,29 +4838,30 @@ public class StringUtils {
     }
 
     /**
-     * Returns the index within {@code seq} of the last occurrence of
-     * the specified character, searching backward starting at the
-     * specified index. For values of {@code searchChar} in the range
-     * from 0 to 0xFFFF (inclusive), the index returned is the largest
-     * value <i>k</i> such that:
-     * <blockquote><pre>
-     * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= startPos)
-     * </pre></blockquote>
-     * is true. For other values of {@code searchChar}, it is the
-     * largest value <i>k</i> such that:
-     * <blockquote><pre>
-     * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= startPos)
-     * </pre></blockquote>
-     * is true. In either case, if no such character occurs in {@code seq}
-     * at or before position {@code startPos}, then
-     * {@code -1} is returned. Furthermore, a {@code null} or empty ("")
-     * {@link CharSequence} will return {@code -1}. A start position greater
-     * than the string length searches the whole string.
-     * The search starts at the {@code startPos} and works backwards;
-     * matches starting after the start position are ignored.
+     * Returns the index within {@code seq} of the last occurrence of the specified character, searching backward starting at the specified index. For values of
+     * {@code searchChar} in the range from 0 to 0xFFFF (inclusive), the index returned is the largest value <em>k</em> such that:
      *
-     * <p>All indices are specified in {@code char} values
-     * (Unicode code units).
+     * <pre>
+     * (this.charAt(<em>k</em>) == searchChar) &amp;&amp; (<em>k</em> &lt;= startPos)
+     * </pre>
+     *
+     * <p>
+     * is true. For other values of {@code searchChar}, it is the largest value <em>k</em> such that:
+     * </p>
+     *
+     * <pre>
+     * (this.codePointAt(<em>k</em>) == searchChar) &amp;&amp; (<em>k</em> &lt;= startPos)
+     * </pre>
+     *
+     * <p>
+     * is true. In either case, if no such character occurs in {@code seq} at or before position {@code startPos}, then {@code -1} is returned. Furthermore, a
+     * {@code null} or empty ("") {@link CharSequence} will return {@code -1}. A start position greater than the string length searches the whole string. The
+     * search starts at the {@code startPos} and works backwards; matches starting after the start position are ignored.
+     * </p>
+     *
+     * <p>
+     * All indices are specified in {@code char} values (Unicode code units).
+     * </p>
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *, *)          = -1
@@ -4997,11 +4874,10 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'a', 0)  = 0
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchChar  the character to find
-     * @param startPos  the start position
-     * @return the last index of the search character (always &le; startPos),
-     *  -1 if no match or {@code null} string input
+     * @param seq        the CharSequence to check, may be null.
+     * @param searchChar the character to find.
+     * @param startPos   the start position.
+     * @return the last index of the search character (always &le; startPos), -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, int, int) to lastIndexOf(CharSequence, int, int)
      */
@@ -5013,13 +4889,13 @@ public class StringUtils {
     }
 
     /**
-     * Find the latest index of any substring in a set of potential substrings.
+     * Finds the latest index of any substring in a set of potential substrings.
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
-     * A {@code null} search array will return {@code -1}.
-     * A {@code null} or zero length search array entry will be ignored,
-     * but a search array containing "" will return the length of {@code str}
-     * if {@code str} is not null. This method uses {@link String#indexOf(String)} if possible</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A {@code null} search array will return {@code -1}. A {@code null} or zero length search array entry
+     * will be ignored, but a search array containing "" will return the length of {@code str} if {@code str} is not null. This method uses
+     * {@link String#indexOf(String)} if possible
+     * </p>
      *
      * <pre>
      * StringUtils.lastIndexOfAny(null, *)                    = -1
@@ -5033,9 +4909,9 @@ public class StringUtils {
      * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn", ""])   = 10
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStrs  the CharSequences to search for, may be null
-     * @return the last index of any of the CharSequences, -1 if no match
+     * @param str        the CharSequence to check, may be null.
+     * @param searchStrs the CharSequences to search for, may be null.
+     * @return the last index of any of the CharSequences, -1 if no match.
      * @since 3.0 Changed signature from lastIndexOfAny(String, String[]) to lastIndexOfAny(CharSequence, CharSequence)
      */
     public static int lastIndexOfAny(final CharSequence str, final CharSequence... searchStrs) {
@@ -5059,10 +4935,10 @@ public class StringUtils {
     /**
      * Case in-sensitive find of the last index within a CharSequence.
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
-     * A negative start position returns {@code -1}.
-     * An empty ("") search CharSequence always matches unless the start position is negative.
-     * A start position greater than the string length searches the whole string.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A negative start position returns {@code -1}. An empty ("") search CharSequence always matches unless
+     * the start position is negative. A start position greater than the string length searches the whole string.
+     * </p>
      *
      * <pre>
      * StringUtils.lastIndexOfIgnoreCase(null, *)          = -1
@@ -5072,30 +4948,25 @@ public class StringUtils {
      * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "AB") = 4
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStr  the CharSequence to find, may be null
-     * @return the first index of the search CharSequence,
-     *  -1 if no match or {@code null} string input
+     * @param str       the CharSequence to check, may be null.
+     * @param searchStr the CharSequence to find, may be null.
+     * @return the first index of the search CharSequence, -1 if no match or {@code null} string input.
      * @since 2.5
      * @since 3.0 Changed signature from lastIndexOfIgnoreCase(String, String) to lastIndexOfIgnoreCase(CharSequence, CharSequence)
+     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence) Strings.CI.lastIndexOf(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static int lastIndexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
-        if (str == null || searchStr == null) {
-            return INDEX_NOT_FOUND;
-        }
-        return lastIndexOfIgnoreCase(str, searchStr, str.length());
+        return Strings.CI.lastIndexOf(str, searchStr);
     }
 
     /**
-     * Case in-sensitive find of the last index within a CharSequence
-     * from the specified position.
+     * Case in-sensitive find of the last index within a CharSequence from the specified position.
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
-     * A negative start position returns {@code -1}.
-     * An empty ("") search CharSequence always matches unless the start position is negative.
-     * A start position greater than the string length searches the whole string.
-     * The search starts at the startPos and works backwards; matches starting after the start
-     * position are ignored.
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}. A negative start position returns {@code -1}. An empty ("") search CharSequence always matches unless
+     * the start position is negative. A start position greater than the string length searches the whole string. The search starts at the startPos and works
+     * backwards; matches starting after the start position are ignored.
      * </p>
      *
      * <pre>
@@ -5110,43 +4981,25 @@ public class StringUtils {
      * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 0)  = -1
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStr  the CharSequence to find, may be null
-     * @param startPos  the start position
-     * @return the last index of the search CharSequence (always &le; startPos),
-     *  -1 if no match or {@code null} input
+     * @param str       the CharSequence to check, may be null.
+     * @param searchStr the CharSequence to find, may be null.
+     * @param startPos  the start position.
+     * @return the last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} input.
      * @since 2.5
      * @since 3.0 Changed signature from lastIndexOfIgnoreCase(String, String, int) to lastIndexOfIgnoreCase(CharSequence, CharSequence, int)
+     * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence, int) Strings.CI.lastIndexOf(CharSequence, CharSequence, int)}.
      */
-    public static int lastIndexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, int startPos) {
-        if (str == null || searchStr == null) {
-            return INDEX_NOT_FOUND;
-        }
-        final int searchStrLength = searchStr.length();
-        final int strLength = str.length();
-        if (startPos > strLength - searchStrLength) {
-            startPos = strLength - searchStrLength;
-        }
-        if (startPos < 0) {
-            return INDEX_NOT_FOUND;
-        }
-        if (searchStrLength == 0) {
-            return startPos;
-        }
-
-        for (int i = startPos; i >= 0; i--) {
-            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStrLength)) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND;
+    @Deprecated
+    public static int lastIndexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, final int startPos) {
+        return Strings.CI.lastIndexOf(str, searchStr, startPos);
     }
 
     /**
-     * Finds the n-th last index within a String, handling {@code null}.
-     * This method uses {@link String#lastIndexOf(String)}.
+     * Finds the n-th last index within a String, handling {@code null}. This method uses {@link String#lastIndexOf(String)}.
      *
-     * <p>A {@code null} String will return {@code -1}.</p>
+     * <p>
+     * A {@code null} String will return {@code -1}.
+     * </p>
      *
      * <pre>
      * StringUtils.lastOrdinalIndexOf(null, *, *)          = -1
@@ -5162,17 +5015,18 @@ public class StringUtils {
      * StringUtils.lastOrdinalIndexOf("aabaabaa", "", 2)   = 8
      * </pre>
      *
-     * <p>Note that 'tail(CharSequence str, int n)' may be implemented as: </p>
+     * <p>
+     * Note that 'tail(CharSequence str, int n)' may be implemented as:
+     * </p>
      *
      * <pre>
-     *   str.substring(lastOrdinalIndexOf(str, "\n", n) + 1)
+     * str.substring(lastOrdinalIndexOf(str, "\n", n) + 1)
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStr  the CharSequence to find, may be null
-     * @param ordinal  the n-th last {@code searchStr} to find
-     * @return the n-th last index of the search CharSequence,
-     *  {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input
+     * @param str       the CharSequence to check, may be null.
+     * @param searchStr the CharSequence to find, may be null.
+     * @param ordinal   the n-th last {@code searchStr} to find.
+     * @return the n-th last index of the search CharSequence, {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input.
      * @since 2.5
      * @since 3.0 Changed signature from lastOrdinalIndexOf(String, String, int) to lastOrdinalIndexOf(CharSequence, CharSequence, int)
      */
@@ -5183,9 +5037,10 @@ public class StringUtils {
     /**
      * Gets the leftmost {@code len} characters of a String.
      *
-     * <p>If {@code len} characters are not available, or the
-     * String is {@code null}, the String will be returned without
-     * an exception. An empty String is returned if len is negative.</p>
+     * <p>
+     * If {@code len} characters are not available, or the String is {@code null}, the String will be returned without an exception. An empty String is returned
+     * if len is negative.
+     * </p>
      *
      * <pre>
      * StringUtils.left(null, *)    = null
@@ -5196,9 +5051,9 @@ public class StringUtils {
      * StringUtils.left("abc", 4)   = "abc"
      * </pre>
      *
-     * @param str  the String to get the leftmost characters from, may be null
-     * @param len  the length of the required String
-     * @return the leftmost characters, {@code null} if null String input
+     * @param str the String to get the leftmost characters from, may be null.
+     * @param len the length of the required String.
+     * @return the leftmost characters, {@code null} if null String input.
      */
     public static String left(final String str, final int len) {
         if (str == null) {
@@ -5216,7 +5071,9 @@ public class StringUtils {
     /**
      * Left pad a String with spaces (' ').
      *
-     * <p>The String is padded to the size of {@code size}.</p>
+     * <p>
+     * The String is padded to the size of {@code size}.
+     * </p>
      *
      * <pre>
      * StringUtils.leftPad(null, *)   = null
@@ -5227,10 +5084,9 @@ public class StringUtils {
      * StringUtils.leftPad("bat", -1) = "bat"
      * </pre>
      *
-     * @param str  the String to pad out, may be null
-     * @param size  the size to pad to
-     * @return left padded String or original String if no padding is necessary,
-     *  {@code null} if null String input
+     * @param str  the String to pad out, may be null.
+     * @param size the size to pad to.
+     * @return left padded String or original String if no padding is necessary, {@code null} if null String input.
      */
     public static String leftPad(final String str, final int size) {
         return leftPad(str, size, ' ');
@@ -5239,7 +5095,9 @@ public class StringUtils {
     /**
      * Left pad a String with a specified character.
      *
-     * <p>Pad to a size of {@code size}.</p>
+     * <p>
+     * Pad to a size of {@code size}.
+     * </p>
      *
      * <pre>
      * StringUtils.leftPad(null, *, *)     = null
@@ -5250,11 +5108,10 @@ public class StringUtils {
      * StringUtils.leftPad("bat", -1, 'z') = "bat"
      * </pre>
      *
-     * @param str  the String to pad out, may be null
-     * @param size  the size to pad to
-     * @param padChar  the character to pad with
-     * @return left padded String or original String if no padding is necessary,
-     *  {@code null} if null String input
+     * @param str     the String to pad out, may be null.
+     * @param size    the size to pad to.
+     * @param padChar the character to pad with.
+     * @return left padded String or original String if no padding is necessary, {@code null} if null String input.
      * @since 2.0
      */
     public static String leftPad(final String str, final int size, final char padChar) {
@@ -5274,7 +5131,9 @@ public class StringUtils {
     /**
      * Left pad a String with a specified String.
      *
-     * <p>Pad to a size of {@code size}.</p>
+     * <p>
+     * Pad to a size of {@code size}.
+     * </p>
      *
      * <pre>
      * StringUtils.leftPad(null, *, *)      = null
@@ -5288,11 +5147,10 @@ public class StringUtils {
      * StringUtils.leftPad("bat", 5, "")    = "  bat"
      * </pre>
      *
-     * @param str  the String to pad out, may be null
-     * @param size  the size to pad to
-     * @param padStr  the String to pad with, null or empty treated as single space
-     * @return left padded String or original String if no padding is necessary,
-     *  {@code null} if null String input
+     * @param str    the String to pad out, may be null.
+     * @param size   the size to pad to.
+     * @param padStr the String to pad with, null or empty treated as single space.
+     * @return left padded String or original String if no padding is necessary, {@code null} if null String input.
      */
     public static String leftPad(final String str, final int size, String padStr) {
         if (str == null) {
@@ -5310,7 +5168,6 @@ public class StringUtils {
         if (padLen == 1 && pads <= PAD_LIMIT) {
             return leftPad(str, size, padStr.charAt(0));
         }
-
         if (pads == padLen) {
             return padStr.concat(str);
         }
@@ -5326,13 +5183,10 @@ public class StringUtils {
     }
 
     /**
-     * Gets a CharSequence length or {@code 0} if the CharSequence is
-     * {@code null}.
+     * Gets a CharSequence length or {@code 0} if the CharSequence is {@code null}.
      *
-     * @param cs
-     *            a CharSequence or {@code null}
-     * @return CharSequence length or {@code 0} if the CharSequence is
-     *         {@code null}.
+     * @param cs a CharSequence or {@code null}.
+     * @return CharSequence length or {@code 0} if the CharSequence is {@code null}.
      * @since 2.4
      * @since 3.0 Changed signature from length(String) to length(CharSequence)
      */
@@ -5343,7 +5197,9 @@ public class StringUtils {
     /**
      * Converts a String to lower case as per {@link String#toLowerCase()}.
      *
-     * <p>A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.lowerCase(null)  = null
@@ -5351,13 +5207,14 @@ public class StringUtils {
      * StringUtils.lowerCase("aBc") = "abc"
      * </pre>
      *
-     * <p><strong>Note:</strong> As described in the documentation for {@link String#toLowerCase()},
-     * the result of this method is affected by the current locale.
-     * For platform-independent case transformations, the method {@link #lowerCase(String, Locale)}
-     * should be used with a specific locale (e.g. {@link Locale#ENGLISH}).</p>
+     * <p>
+     * <strong>Note:</strong> As described in the documentation for {@link String#toLowerCase()}, the result of this method is affected by the current locale.
+     * For platform-independent case transformations, the method {@link #lowerCase(String, Locale)} should be used with a specific locale (e.g.
+     * {@link Locale#ENGLISH}).
+     * </p>
      *
-     * @param str  the String to lower case, may be null
-     * @return the lower cased String, {@code null} if null String input
+     * @param str the String to lower case, may be null.
+     * @return the lower cased String, {@code null} if null String input.
      */
     public static String lowerCase(final String str) {
         if (str == null) {
@@ -5369,7 +5226,9 @@ public class StringUtils {
     /**
      * Converts a String to lower case as per {@link String#toLowerCase(Locale)}.
      *
-     * <p>A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.lowerCase(null, Locale.ENGLISH)  = null
@@ -5377,9 +5236,9 @@ public class StringUtils {
      * StringUtils.lowerCase("aBc", Locale.ENGLISH) = "abc"
      * </pre>
      *
-     * @param str  the String to lower case, may be null
-     * @param locale  the locale that defines the case transformation rules, must not be null
-     * @return the lower cased String, {@code null} if null String input
+     * @param str    the String to lower case, may be null.
+     * @param locale the locale that defines the case transformation rules, must not be null.
+     * @return the lower cased String, {@code null} if null String input.
      * @since 2.5
      */
     public static String lowerCase(final String str, final Locale locale) {
@@ -5447,11 +5306,10 @@ public class StringUtils {
     /**
      * Gets {@code len} characters from the middle of a String.
      *
-     * <p>If {@code len} characters are not available, the remainder
-     * of the String will be returned without an exception. If the
-     * String is {@code null}, {@code null} will be returned.
-     * An empty String is returned if len is negative or exceeds the
-     * length of {@code str}.</p>
+     * <p>
+     * If {@code len} characters are not available, the remainder of the String will be returned without an exception. If the String is {@code null},
+     * {@code null} will be returned. An empty String is returned if len is negative or exceeds the length of {@code str}.
+     * </p>
      *
      * <pre>
      * StringUtils.mid(null, *, *)    = null
@@ -5464,10 +5322,10 @@ public class StringUtils {
      * StringUtils.mid("abc", -2, 2)  = "ab"
      * </pre>
      *
-     * @param str  the String to get the characters from, may be null
-     * @param pos  the position to start from, negative treated as zero
-     * @param len  the length of the required String
-     * @return the middle characters, {@code null} if null String input
+     * @param str the String to get the characters from, may be null.
+     * @param pos the position to start from, negative treated as zero.
+     * @param len the length of the required String.
+     * @return the middle characters, {@code null} if null String input.
      */
     public static String mid(final String str, int pos, final int len) {
         if (str == null) {
@@ -5486,21 +5344,20 @@ public class StringUtils {
     }
 
     /**
-     * Similar to <a
-     * href="https://www.w3.org/TR/xpath/#function-normalize-space">https://www.w3.org/TR/xpath/#function-normalize
-     * -space</a>
+     * Similar to <a href="https://www.w3.org/TR/xpath/#function-normalize-space">https://www.w3.org/TR/xpath/#function-normalize -space</a>
      *
      * <p>
-     * The function returns the argument string with whitespace normalized by using
-     * {@code {@link #trim(String)}} to remove leading and trailing whitespace
-     * and then replacing sequences of whitespace characters by a single space.
+     * The function returns the argument string with whitespace normalized by using {@code {@link #trim(String)}} to remove leading and trailing whitespace and
+     * then replacing sequences of whitespace characters by a single space.
      * </p>
-     * In XML Whitespace characters are the same as those allowed by the <a
-     * href="https://www.w3.org/TR/REC-xml/#NT-S">S</a> production, which is S ::= (#x20 | #x9 | #xD | #xA)+
+     * In XML Whitespace characters are the same as those allowed by the <a href="https://www.w3.org/TR/REC-xml/#NT-S">S</a> production, which is S ::= (#x20 |
+     * #x9 | #xD | #xA)+
      * <p>
      * Java's regexp pattern \s defines whitespace as [ \t\n\x0B\f\r]
-     *
-     * <p>For reference:</p>
+     * </p>
+     * <p>
+     * For reference:
+     * </p>
      * <ul>
      * <li>\x0B = vertical tab</li>
      * <li>\f = #xC = form feed</li>
@@ -5511,18 +5368,15 @@ public class StringUtils {
      * </ul>
      *
      * <p>
-     * The difference is that Java's whitespace includes vertical tab and form feed, which this functional will also
-     * normalize. Additionally {@code {@link #trim(String)}} removes control characters (char &lt;= 32) from both
-     * ends of this String.
+     * The difference is that Java's whitespace includes vertical tab and form feed, which this functional will also normalize. Additionally {@code {@link
+     * #trim(String)}} removes control characters (char &lt;= 32) from both ends of this String.
      * </p>
      *
+     * @param str the source String to normalize whitespaces from, may be null.
+     * @return the modified string with whitespace normalized, {@code null} if null String input.
      * @see Pattern
      * @see #trim(String)
-     * @see <a
-     *      href="https://www.w3.org/TR/xpath/#function-normalize-space">https://www.w3.org/TR/xpath/#function-normalize-space</a>
-     * @param str the source String to normalize whitespaces from, may be null
-     * @return the modified string with whitespace normalized, {@code null} if null String input
-     *
+     * @see <a href="https://www.w3.org/TR/xpath/#function-normalize-space">https://www.w3.org/TR/xpath/#function-normalize-space</a>
      * @since 3.0
      */
     public static String normalizeSpace(final String str) {
@@ -5557,14 +5411,15 @@ public class StringUtils {
     }
 
     /**
-     * Finds the n-th index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#indexOf(String)} if possible.
-     * <p><b>Note:</b> The code starts looking for a match at the start of the target,
-     * incrementing the starting index by one after each successful match
-     * (unless {@code searchStr} is an empty string in which case the position
-     * is never incremented and {@code 0} is returned immediately).
-     * This means that matches may overlap.</p>
-     * <p>A {@code null} CharSequence will return {@code -1}.</p>
+     * Finds the n-th index within a CharSequence, handling {@code null}. This method uses {@link String#indexOf(String)} if possible.
+     * <p>
+     * <strong>Note:</strong> The code starts looking for a match at the start of the target, incrementing the starting index by one after each successful match
+     * (unless {@code searchStr} is an empty string in which case the position is never incremented and {@code 0} is returned immediately). This means that
+     * matches may overlap.
+     * </p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}.
+     * </p>
      *
      * <pre>
      * StringUtils.ordinalIndexOf(null, *, *)          = -1
@@ -5580,7 +5435,10 @@ public class StringUtils {
      * StringUtils.ordinalIndexOf("aabaabaa", "", 2)   = 0
      * </pre>
      *
-     * <p>Matches may overlap:</p>
+     * <p>
+     * Matches may overlap:
+     * </p>
+     *
      * <pre>
      * StringUtils.ordinalIndexOf("ababab", "aba", 1)   = 0
      * StringUtils.ordinalIndexOf("ababab", "aba", 2)   = 2
@@ -5592,17 +5450,18 @@ public class StringUtils {
      * StringUtils.ordinalIndexOf("abababab", "abab", 4) = -1
      * </pre>
      *
-     * <p>Note that 'head(CharSequence str, int n)' may be implemented as: </p>
+     * <p>
+     * Note that 'head(CharSequence str, int n)' may be implemented as:
+     * </p>
      *
      * <pre>
-     *   str.substring(0, lastOrdinalIndexOf(str, "\n", n))
+     * str.substring(0, lastOrdinalIndexOf(str, "\n", n))
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStr  the CharSequence to find, may be null
-     * @param ordinal  the n-th {@code searchStr} to find
-     * @return the n-th index of the search CharSequence,
-     *  {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input
+     * @param str       the CharSequence to check, may be null.
+     * @param searchStr the CharSequence to find, may be null.
+     * @param ordinal   the n-th {@code searchStr} to find.
+     * @return the n-th index of the search CharSequence, {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input.
      * @since 2.1
      * @since 3.0 Changed signature from ordinalIndexOf(String, String, int) to ordinalIndexOf(CharSequence, CharSequence, int)
      */
@@ -5611,18 +5470,20 @@ public class StringUtils {
     }
 
     /**
-     * Finds the n-th index within a String, handling {@code null}.
-     * This method uses {@link String#indexOf(String)} if possible.
-     * <p>Note that matches may overlap<p>
+     * Finds the n-th index within a String, handling {@code null}. This method uses {@link String#indexOf(String)} if possible.
+     * <p>
+     * Note that matches may overlap
+     * <p>
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code -1}.
+     * </p>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStr  the CharSequence to find, may be null
-     * @param ordinal  the n-th {@code searchStr} to find, overlapping matches are allowed.
-     * @param lastIndex true if lastOrdinalIndexOf() otherwise false if ordinalIndexOf()
-     * @return the n-th index of the search CharSequence,
-     *  {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input
+     * @param str       the CharSequence to check, may be null.
+     * @param searchStr the CharSequence to find, may be null.
+     * @param ordinal   the n-th {@code searchStr} to find, overlapping matches are allowed.
+     * @param lastIndex true if lastOrdinalIndexOf() otherwise false if ordinalIndexOf().
+     * @return the n-th index of the search CharSequence, {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input.
      */
     // Shared code between ordinalIndexOf(String, String, int) and lastOrdinalIndexOf(String, String, int)
     private static int ordinalIndexOf(final CharSequence str, final CharSequence searchStr, final int ordinal, final boolean lastIndex) {
@@ -5653,10 +5514,10 @@ public class StringUtils {
     /**
      * Overlays part of a String with another String.
      *
-     * <p>A {@code null} string input returns {@code null}.
-     * A negative index is treated as zero.
-     * An index greater than the string length is treated as the string length.
-     * The start index is always the smaller of the two indices.</p>
+     * <p>
+     * A {@code null} string input returns {@code null}. A negative index is treated as zero. An index greater than the string length is treated as the string
+     * length. The start index is always the smaller of the two indices.
+     * </p>
      *
      * <pre>
      * StringUtils.overlay(null, *, *, *)            = null
@@ -5672,11 +5533,11 @@ public class StringUtils {
      * StringUtils.overlay("abcdef", "zzzz", 8, 10)  = "abcdefzzzz"
      * </pre>
      *
-     * @param str  the String to do overlaying in, may be null
-     * @param overlay  the String to overlay, may be null
-     * @param start  the position to start overlaying at
-     * @param end  the position to stop overlaying before
-     * @return overlayed String, {@code null} if null String input
+     * @param str     the String to do overlaying in, may be null.
+     * @param overlay the String to overlay, may be null.
+     * @param start   the position to start overlaying at.
+     * @param end     the position to stop overlaying before.
+     * @return overlayed String, {@code null} if null String input.
      * @since 2.0
      */
     public static String overlay(final String str, String overlay, int start, int end) {
@@ -5704,39 +5565,11 @@ public class StringUtils {
             start = end;
             end = temp;
         }
-        return str.substring(0, start) +
-            overlay +
-            str.substring(end);
+        return str.substring(0, start) + overlay + str.substring(end);
     }
 
     /**
-     * Prepends the prefix to the start of the string if the string does not
-     * already start with any of the prefixes.
-     *
-     * @param str The string.
-     * @param prefix The prefix to prepend to the start of the string.
-     * @param ignoreCase Indicates whether the compare should ignore case.
-     * @param prefixes Additional prefixes that are valid (optional).
-     *
-     * @return A new String if prefix was prepended, the same string otherwise.
-     */
-    private static String prependIfMissing(final String str, final CharSequence prefix, final boolean ignoreCase, final CharSequence... prefixes) {
-        if (str == null || isEmpty(prefix) || startsWith(str, prefix, ignoreCase)) {
-            return str;
-        }
-        if (ArrayUtils.isNotEmpty(prefixes)) {
-            for (final CharSequence p : prefixes) {
-                if (startsWith(str, p, ignoreCase)) {
-                    return str;
-                }
-            }
-        }
-        return prefix + str;
-    }
-
-    /**
-     * Prepends the prefix to the start of the string if the string does not
-     * already start with any of the prefixes.
+     * Prepends the prefix to the start of the string if the string does not already start with any of the prefixes.
      *
      * <pre>
      * StringUtils.prependIfMissing(null, null) = null
@@ -5746,7 +5579,10 @@ public class StringUtils {
      * StringUtils.prependIfMissing("xyzabc", "xyz") = "xyzabc"
      * StringUtils.prependIfMissing("XYZabc", "xyz") = "xyzXYZabc"
      * </pre>
-     * <p>With additional prefixes,</p>
+     * <p>
+     * With additional prefixes,
+     * </p>
+     *
      * <pre>
      * StringUtils.prependIfMissing(null, null, null) = null
      * StringUtils.prependIfMissing("abc", null, null) = "abc"
@@ -5760,21 +5596,21 @@ public class StringUtils {
      * StringUtils.prependIfMissing("MNOabc", "xyz", "mno") = "xyzMNOabc"
      * </pre>
      *
-     * @param str The string.
-     * @param prefix The prefix to prepend to the start of the string.
+     * @param str      The string.
+     * @param prefix   The prefix to prepend to the start of the string.
      * @param prefixes Additional prefixes that are valid.
-     *
      * @return A new String if prefix was prepended, the same string otherwise.
-     *
      * @since 3.2
+     * @deprecated Use {@link Strings#prependIfMissing(String, CharSequence, CharSequence...) Strings.CS.prependIfMissing(String, CharSequence,
+     *             CharSequence...)}.
      */
+    @Deprecated
     public static String prependIfMissing(final String str, final CharSequence prefix, final CharSequence... prefixes) {
-        return prependIfMissing(str, prefix, false, prefixes);
+        return Strings.CS.prependIfMissing(str, prefix, prefixes);
     }
 
     /**
-     * Prepends the prefix to the start of the string if the string does not
-     * already start, case-insensitive, with any of the prefixes.
+     * Prepends the prefix to the start of the string if the string does not already start, case-insensitive, with any of the prefixes.
      *
      * <pre>
      * StringUtils.prependIfMissingIgnoreCase(null, null) = null
@@ -5784,7 +5620,10 @@ public class StringUtils {
      * StringUtils.prependIfMissingIgnoreCase("xyzabc", "xyz") = "xyzabc"
      * StringUtils.prependIfMissingIgnoreCase("XYZabc", "xyz") = "XYZabc"
      * </pre>
-     * <p>With additional prefixes,</p>
+     * <p>
+     * With additional prefixes,
+     * </p>
+     *
      * <pre>
      * StringUtils.prependIfMissingIgnoreCase(null, null, null) = null
      * StringUtils.prependIfMissingIgnoreCase("abc", null, null) = "abc"
@@ -5798,23 +5637,25 @@ public class StringUtils {
      * StringUtils.prependIfMissingIgnoreCase("MNOabc", "xyz", "mno") = "MNOabc"
      * </pre>
      *
-     * @param str The string.
-     * @param prefix The prefix to prepend to the start of the string.
+     * @param str      The string.
+     * @param prefix   The prefix to prepend to the start of the string.
      * @param prefixes Additional prefixes that are valid (optional).
-     *
      * @return A new String if prefix was prepended, the same string otherwise.
-     *
      * @since 3.2
+     * @deprecated Use {@link Strings#prependIfMissing(String, CharSequence, CharSequence...) Strings.CI.prependIfMissing(String, CharSequence,
+     *             CharSequence...)}.
      */
+    @Deprecated
     public static String prependIfMissingIgnoreCase(final String str, final CharSequence prefix, final CharSequence... prefixes) {
-        return prependIfMissing(str, prefix, true, prefixes);
+        return Strings.CI.prependIfMissing(str, prefix, prefixes);
     }
 
     /**
      * Removes all occurrences of a character from within the source string.
      *
-     * <p>A {@code null} source string will return {@code null}.
-     * An empty ("") source string will return the empty string.</p>
+     * <p>
+     * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string.
+     * </p>
      *
      * <pre>
      * StringUtils.remove(null, *)       = null
@@ -5823,10 +5664,9 @@ public class StringUtils {
      * StringUtils.remove("queued", 'z') = "queued"
      * </pre>
      *
-     * @param str  the source String to search, may be null
-     * @param remove  the char to search for and remove, may be null
-     * @return the substring with the char removed if found,
-     *  {@code null} if null String input
+     * @param str    the source String to search, may be null.
+     * @param remove the char to search for and remove, may be null.
+     * @return the substring with the char removed if found, {@code null} if null String input.
      * @since 2.1
      */
     public static String remove(final String str, final char remove) {
@@ -5846,10 +5686,10 @@ public class StringUtils {
     /**
      * Removes all occurrences of a substring from within the source string.
      *
-     * <p>A {@code null} source string will return {@code null}.
-     * An empty ("") source string will return the empty string.
-     * A {@code null} remove string will return the source string.
-     * An empty ("") remove string will return the source string.</p>
+     * <p>
+     * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string. A {@code null} remove string will return
+     * the source string. An empty ("") remove string will return the source string.
+     * </p>
      *
      * <pre>
      * StringUtils.remove(null, *)        = null
@@ -5860,17 +5700,15 @@ public class StringUtils {
      * StringUtils.remove("queued", "zz") = "queued"
      * </pre>
      *
-     * @param str  the source String to search, may be null
-     * @param remove  the String to search for and remove, may be null
-     * @return the substring with the string removed if found,
-     *  {@code null} if null String input
+     * @param str    the source String to search, may be null.
+     * @param remove the String to search for and remove, may be null.
+     * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 2.1
+     * @deprecated Use {@link Strings#remove(String, String) Strings.CS.remove(String, String)}.
      */
+    @Deprecated
     public static String remove(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
-        return replace(str, remove, EMPTY, -1);
+        return Strings.CS.remove(str, remove);
     }
 
     /**
@@ -5878,45 +5716,42 @@ public class StringUtils {
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
-     *  <li>{@code text.replaceAll(regex, StringUtils.EMPTY)}</li>
-     *  <li>{@code Pattern.compile(regex).matcher(text).replaceAll(StringUtils.EMPTY)}</li>
+     * <li>{@code text.replaceAll(regex, StringUtils.EMPTY)}</li>
+     * <li>{@code Pattern.compile(regex).matcher(text).replaceAll(StringUtils.EMPTY)}</li>
      * </ul>
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
-     * <p>Unlike in the {@link #removePattern(String, String)} method, the {@link Pattern#DOTALL} option
-     * is NOT automatically added.
-     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
-     * DOTALL is also known as single-line mode in Perl.</p>
+     * <p>
+     * Unlike in the {@link #removePattern(String, String)} method, the {@link Pattern#DOTALL} option is NOT automatically added. To use the DOTALL option
+     * prepend {@code "(?s)"} to the regex. DOTALL is also known as single-line mode in Perl.
+     * </p>
      *
-     * <pre>
+     * <pre>{@code
      * StringUtils.removeAll(null, *)      = null
      * StringUtils.removeAll("any", (String) null)  = "any"
      * StringUtils.removeAll("any", "")    = "any"
      * StringUtils.removeAll("any", ".*")  = ""
      * StringUtils.removeAll("any", ".+")  = ""
      * StringUtils.removeAll("abc", ".?")  = ""
-     * StringUtils.removeAll("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")      = "A\nB"
-     * StringUtils.removeAll("A&lt;__&gt;\n&lt;__&gt;B", "(?s)&lt;.*&gt;")  = "AB"
+     * StringUtils.removeAll("A<__>\n<__>B", "<.*>")      = "A\nB"
+     * StringUtils.removeAll("A<__>\n<__>B", "(?s)<.*>")  = "AB"
      * StringUtils.removeAll("ABCabc123abc", "[a-z]")     = "ABC123"
-     * </pre>
+     * }</pre>
      *
-     * @param text  text to remove from, may be null
-     * @param regex  the regular expression to which this string is to be matched
-     * @return  the text with any removes processed,
-     *              {@code null} if null String input
-     *
-     * @throws  java.util.regex.PatternSyntaxException
-     *              if the regular expression's syntax is invalid
-     *
+     * @param text  text to remove from, may be null.
+     * @param regex the regular expression to which this string is to be matched.
+     * @return the text with any removes processed, {@code null} if null String input.
+     * @throws java.util.regex.PatternSyntaxException if the regular expression's syntax is invalid.
      * @see #replaceAll(String, String, String)
      * @see #removePattern(String, String)
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     *
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#removeAll(String, String)}.
      */
     @Deprecated
     public static String removeAll(final String text, final String regex) {
@@ -5924,12 +5759,12 @@ public class StringUtils {
     }
 
     /**
-     * Removes a substring only if it is at the end of a source string,
-     * otherwise returns the source string.
+     * Removes a substring only if it is at the end of a source string, otherwise returns the source string.
      *
-     * <p>A {@code null} source string will return {@code null}.
-     * An empty ("") source string will return the empty string.
-     * A {@code null} search string will return the source string.</p>
+     * <p>
+     * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string. A {@code null} search string will return
+     * the source string.
+     * </p>
      *
      * <pre>
      * StringUtils.removeEnd(null, *)      = null
@@ -5941,29 +5776,24 @@ public class StringUtils {
      * StringUtils.removeEnd("abc", "")    = "abc"
      * </pre>
      *
-     * @param str  the source String to search, may be null
-     * @param remove  the String to search for and remove, may be null
-     * @return the substring with the string removed if found,
-     *  {@code null} if null String input
+     * @param str    the source String to search, may be null.
+     * @param remove the String to search for and remove, may be null.
+     * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 2.1
+     * @deprecated Use {@link Strings#removeEnd(String, CharSequence) Strings.CS.removeEnd(String, CharSequence)}.
      */
+    @Deprecated
     public static String removeEnd(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
-        if (str.endsWith(remove)) {
-            return str.substring(0, str.length() - remove.length());
-        }
-        return str;
+        return Strings.CS.removeEnd(str, remove);
     }
 
     /**
-     * Case-insensitive removal of a substring if it is at the end of a source string,
-     * otherwise returns the source string.
+     * Case-insensitive removal of a substring if it is at the end of a source string, otherwise returns the source string.
      *
-     * <p>A {@code null} source string will return {@code null}.
-     * An empty ("") source string will return the empty string.
-     * A {@code null} search string will return the source string.</p>
+     * <p>
+     * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string. A {@code null} search string will return
+     * the source string.
+     * </p>
      *
      * <pre>
      * StringUtils.removeEndIgnoreCase(null, *)      = null
@@ -5973,24 +5803,19 @@ public class StringUtils {
      * StringUtils.removeEndIgnoreCase("www.domain.com", ".com")   = "www.domain"
      * StringUtils.removeEndIgnoreCase("www.domain.com", "domain") = "www.domain.com"
      * StringUtils.removeEndIgnoreCase("abc", "")    = "abc"
-     * StringUtils.removeEndIgnoreCase("www.domain.com", ".COM") = "www.domain")
-     * StringUtils.removeEndIgnoreCase("www.domain.COM", ".com") = "www.domain")
+     * StringUtils.removeEndIgnoreCase("www.domain.com", ".COM") = "www.domain"
+     * StringUtils.removeEndIgnoreCase("www.domain.COM", ".com") = "www.domain"
      * </pre>
      *
-     * @param str  the source String to search, may be null
-     * @param remove  the String to search for (case-insensitive) and remove, may be null
-     * @return the substring with the string removed if found,
-     *  {@code null} if null String input
+     * @param str    the source String to search, may be null.
+     * @param remove the String to search for (case-insensitive) and remove, may be null.
+     * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 2.4
+     * @deprecated Use {@link Strings#removeEnd(String, CharSequence) Strings.CI.removeEnd(String, CharSequence)}.
      */
+    @Deprecated
     public static String removeEndIgnoreCase(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
-        if (endsWithIgnoreCase(str, remove)) {
-            return str.substring(0, str.length() - remove.length());
-        }
-        return str;
+        return Strings.CI.removeEnd(str, remove);
     }
 
     /**
@@ -5998,44 +5823,42 @@ public class StringUtils {
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
-     *  <li>{@code text.replaceFirst(regex, StringUtils.EMPTY)}</li>
-     *  <li>{@code Pattern.compile(regex).matcher(text).replaceFirst(StringUtils.EMPTY)}</li>
+     * <li>{@code text.replaceFirst(regex, StringUtils.EMPTY)}</li>
+     * <li>{@code Pattern.compile(regex).matcher(text).replaceFirst(StringUtils.EMPTY)}</li>
      * </ul>
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
-     * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
-     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
-     * DOTALL is also known as single-line mode in Perl.</p>
+     * <p>
+     * The {@link Pattern#DOTALL} option is NOT automatically added. To use the DOTALL option prepend {@code "(?s)"} to the regex. DOTALL is also known as
+     * single-line mode in Perl.
+     * </p>
      *
-     * <pre>
+     * <pre>{@code
      * StringUtils.removeFirst(null, *)      = null
      * StringUtils.removeFirst("any", (String) null)  = "any"
      * StringUtils.removeFirst("any", "")    = "any"
      * StringUtils.removeFirst("any", ".*")  = ""
      * StringUtils.removeFirst("any", ".+")  = ""
      * StringUtils.removeFirst("abc", ".?")  = "bc"
-     * StringUtils.removeFirst("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")      = "A\n&lt;__&gt;B"
-     * StringUtils.removeFirst("A&lt;__&gt;\n&lt;__&gt;B", "(?s)&lt;.*&gt;")  = "AB"
+     * StringUtils.removeFirst("A<__>\n<__>B", "<.*>")      = "A\n<__>B"
+     * StringUtils.removeFirst("A<__>\n<__>B", "(?s)<.*>")  = "AB"
      * StringUtils.removeFirst("ABCabc123", "[a-z]")          = "ABCbc123"
      * StringUtils.removeFirst("ABCabc123abc", "[a-z]+")      = "ABC123abc"
-     * </pre>
+     * }</pre>
      *
-     * @param text  text to remove from, may be null
-     * @param regex  the regular expression to which this string is to be matched
-     * @return  the text with the first replacement processed,
-     *              {@code null} if null String input
-     *
-     * @throws  java.util.regex.PatternSyntaxException
-     *              if the regular expression's syntax is invalid
-     *
+     * @param text  text to remove from, may be null.
+     * @param regex the regular expression to which this string is to be matched.
+     * @return the text with the first replacement processed, {@code null} if null String input.
+     * @throws java.util.regex.PatternSyntaxException if the regular expression's syntax is invalid.
      * @see #replaceFirst(String, String, String)
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     *
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#replaceFirst(String, String, String) RegExUtils.replaceFirst(String, String, EMPTY)}.
      */
     @Deprecated
     public static String removeFirst(final String text, final String regex) {
@@ -6043,14 +5866,11 @@ public class StringUtils {
     }
 
     /**
-     * Case-insensitive removal of all occurrences of a substring from within
-     * the source string.
+     * Case-insensitive removal of all occurrences of a substring from within the source string.
      *
      * <p>
-     * A {@code null} source string will return {@code null}. An empty ("")
-     * source string will return the empty string. A {@code null} remove string
-     * will return the source string. An empty ("") remove string will return
-     * the source string.
+     * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string. A {@code null} remove string will return
+     * the source string. An empty ("") remove string will return the source string.
      * </p>
      *
      * <pre>
@@ -6064,17 +5884,15 @@ public class StringUtils {
      * StringUtils.removeIgnoreCase("queued", "zZ") = "queued"
      * </pre>
      *
-     * @param str
-     *            the source String to search, may be null
-     * @param remove
-     *            the String to search for (case-insensitive) and remove, may be
-     *            null
-     * @return the substring with the string removed if found, {@code null} if
-     *         null String input
+     * @param str    the source String to search, may be null.
+     * @param remove the String to search for (case-insensitive) and remove, may be null.
+     * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 3.5
+     * @deprecated Use {@link Strings#remove(String, String) Strings.CI.remove(String, String)}.
      */
+    @Deprecated
     public static String removeIgnoreCase(final String str, final String remove) {
-        return replaceIgnoreCase(str, remove, EMPTY, -1);
+        return Strings.CI.remove(str, remove);
     }
 
     /**
@@ -6086,27 +5904,26 @@ public class StringUtils {
      * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(source).replaceAll(StringUtils.EMPTY)}</li>
      * </ul>
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
-     * <pre>
+     * <pre>{@code
      * StringUtils.removePattern(null, *)       = null
      * StringUtils.removePattern("any", (String) null)   = "any"
-     * StringUtils.removePattern("A&lt;__&gt;\n&lt;__&gt;B", "&lt;.*&gt;")  = "AB"
+     * StringUtils.removePattern("A<__>\n<__>B", "<.*>")  = "AB"
      * StringUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
-     * </pre>
+     * }</pre>
      *
-     * @param source
-     *            the source string
-     * @param regex
-     *            the regular expression to which this string is to be matched
-     * @return The resulting {@link String}
+     * @param source the source string.
+     * @param regex  the regular expression to which this string is to be matched.
+     * @return The resulting {@link String}.
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     *
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#removePattern(CharSequence, String)}.
      */
     @Deprecated
     public static String removePattern(final String source, final String regex) {
@@ -6114,12 +5931,12 @@ public class StringUtils {
     }
 
     /**
-     * Removes a char only if it is at the beginning of a source string,
-     * otherwise returns the source string.
+     * Removes a char only if it is at the beginning of a source string, otherwise returns the source string.
      *
-     * <p>A {@code null} source string will return {@code null}.
-     * An empty ("") source string will return the empty string.
-     * A {@code null} search char will return the source string.</p>
+     * <p>
+     * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string. A {@code null} search char will return
+     * the source string.
+     * </p>
      *
      * <pre>
      * StringUtils.removeStart(null, *)      = null
@@ -6130,10 +5947,9 @@ public class StringUtils {
      * StringUtils.removeStart("path", 0)    = "path"
      * </pre>
      *
-     * @param str  the source String to search, may be null.
-     * @param remove  the char to search for and remove.
-     * @return the substring with the char removed if found,
-     *  {@code null} if null String input.
+     * @param str    the source String to search, may be null.
+     * @param remove the char to search for and remove.
+     * @return the substring with the char removed if found, {@code null} if null String input.
      * @since 3.13.0
      */
     public static String removeStart(final String str, final char remove) {
@@ -6144,74 +5960,66 @@ public class StringUtils {
     }
 
     /**
-     * Removes a substring only if it is at the beginning of a source string,
-     * otherwise returns the source string.
+     * Removes a substring only if it is at the beginning of a source string, otherwise returns the source string.
      *
-     * <p>A {@code null} source string will return {@code null}.
-     * An empty ("") source string will return the empty string.
-     * A {@code null} search string will return the source string.</p>
+     * <p>
+     * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string. A {@code null} search string will return
+     * the source string.
+     * </p>
      *
      * <pre>
-     * StringUtils.removeStart(null, *)      = null
-     * StringUtils.removeStart("", *)        = ""
-     * StringUtils.removeStart(*, null)      = *
+     * StringUtils.removeStart(null, *)                    = null
+     * StringUtils.removeStart("", *)                      = ""
+     * StringUtils.removeStart(*, null)                    = *
      * StringUtils.removeStart("www.domain.com", "www.")   = "domain.com"
      * StringUtils.removeStart("domain.com", "www.")       = "domain.com"
      * StringUtils.removeStart("www.domain.com", "domain") = "www.domain.com"
-     * StringUtils.removeStart("abc", "")    = "abc"
+     * StringUtils.removeStart("abc", "")                  = "abc"
      * </pre>
      *
-     * @param str  the source String to search, may be null
-     * @param remove  the String to search for and remove, may be null
-     * @return the substring with the string removed if found,
-     *  {@code null} if null String input
+     * @param str    the source String to search, may be null.
+     * @param remove the String to search for and remove, may be null.
+     * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 2.1
+     * @deprecated Use {@link Strings#removeStart(String, CharSequence) Strings.CS.removeStart(String, CharSequence)}.
      */
+    @Deprecated
     public static String removeStart(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
-        if (str.startsWith(remove)) {
-            return str.substring(remove.length());
-        }
-        return str;
+        return Strings.CS.removeStart(str, remove);
     }
 
     /**
-     * Case-insensitive removal of a substring if it is at the beginning of a source string,
-     * otherwise returns the source string.
+     * Case-insensitive removal of a substring if it is at the beginning of a source string, otherwise returns the source string.
      *
-     * <p>A {@code null} source string will return {@code null}.
-     * An empty ("") source string will return the empty string.
-     * A {@code null} search string will return the source string.</p>
+     * <p>
+     * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string. A {@code null} search string will return
+     * the source string.
+     * </p>
      *
      * <pre>
-     * StringUtils.removeStartIgnoreCase(null, *)      = null
-     * StringUtils.removeStartIgnoreCase("", *)        = ""
-     * StringUtils.removeStartIgnoreCase(*, null)      = *
+     * StringUtils.removeStartIgnoreCase(null, *)                    = null
+     * StringUtils.removeStartIgnoreCase("", *)                      = ""
+     * StringUtils.removeStartIgnoreCase(*, null)                    = *
      * StringUtils.removeStartIgnoreCase("www.domain.com", "www.")   = "domain.com"
      * StringUtils.removeStartIgnoreCase("www.domain.com", "WWW.")   = "domain.com"
      * StringUtils.removeStartIgnoreCase("domain.com", "www.")       = "domain.com"
      * StringUtils.removeStartIgnoreCase("www.domain.com", "domain") = "www.domain.com"
-     * StringUtils.removeStartIgnoreCase("abc", "")    = "abc"
+     * StringUtils.removeStartIgnoreCase("abc", "")                  = "abc"
      * </pre>
      *
-     * @param str  the source String to search, may be null
-     * @param remove  the String to search for (case-insensitive) and remove, may be null
-     * @return the substring with the string removed if found,
-     *  {@code null} if null String input
+     * @param str    the source String to search, may be null.
+     * @param remove the String to search for (case-insensitive) and remove, may be null.
+     * @return the substring with the string removed if found, {@code null} if null String input.
      * @since 2.4
+     * @deprecated Use {@link Strings#removeStart(String, CharSequence) Strings.CI.removeStart(String, CharSequence)}.
      */
+    @Deprecated
     public static String removeStartIgnoreCase(final String str, final String remove) {
-        if (str != null && startsWithIgnoreCase(str, remove)) {
-            return str.substring(length(remove));
-        }
-        return str;
+        return Strings.CI.removeStart(str, remove);
     }
 
     /**
-     * Returns padding using the specified delimiter repeated
-     * to a given length.
+     * Returns padding using the specified delimiter repeated to a given length.
      *
      * <pre>
      * StringUtils.repeat('e', 0)  = ""
@@ -6219,28 +6027,26 @@ public class StringUtils {
      * StringUtils.repeat('e', -2) = ""
      * </pre>
      *
-     * <p>Note: this method does not support padding with
-     * <a href="https://www.unicode.org/glossary/#supplementary_character">Unicode Supplementary Characters</a>
-     * as they require a pair of {@code char}s to be represented.
-     * If you are needing to support full I18N of your applications
-     * consider using {@link #repeat(String, int)} instead.
+     * <p>
+     * Note: this method does not support padding with <a href="https://www.unicode.org/glossary/#supplementary_character">Unicode Supplementary Characters</a>
+     * as they require a pair of {@code char}s to be represented. If you are needing to support full I18N of your applications consider using
+     * {@link #repeat(String, int)} instead.
      * </p>
      *
-     * @param ch  character to repeat
-     * @param repeat  number of times to repeat char, negative treated as zero
-     * @return String with repeated character
+     * @param repeat character to repeat.
+     * @param count  number of times to repeat char, negative treated as zero.
+     * @return String with repeated character.
      * @see #repeat(String, int)
      */
-    public static String repeat(final char ch, final int repeat) {
-        if (repeat <= 0) {
+    public static String repeat(final char repeat, final int count) {
+        if (count <= 0) {
             return EMPTY;
         }
-        return new String(ArrayFill.fill(new char[repeat], ch));
+        return new String(ArrayFill.fill(new char[count], repeat));
     }
 
     /**
-     * Repeat a String {@code repeat} times to form a
-     * new String.
+     * Repeats a String {@code repeat} times to form a new String.
      *
      * <pre>
      * StringUtils.repeat(null, 2) = null
@@ -6251,52 +6057,49 @@ public class StringUtils {
      * StringUtils.repeat("a", -2) = ""
      * </pre>
      *
-     * @param str  the String to repeat, may be null
-     * @param repeat  number of times to repeat str, negative treated as zero
-     * @return a new String consisting of the original String repeated,
-     *  {@code null} if null String input
+     * @param repeat the String to repeat, may be null.
+     * @param count  number of times to repeat str, negative treated as zero.
+     * @return a new String consisting of the original String repeated, {@code null} if null String input.
      */
-    public static String repeat(final String str, final int repeat) {
+    public static String repeat(final String repeat, final int count) {
         // Performance tuned for 2.0 (JDK1.4)
-        if (str == null) {
+        if (repeat == null) {
             return null;
         }
-        if (repeat <= 0) {
+        if (count <= 0) {
             return EMPTY;
         }
-        final int inputLength = str.length();
-        if (repeat == 1 || inputLength == 0) {
-            return str;
+        final int inputLength = repeat.length();
+        if (count == 1 || inputLength == 0) {
+            return repeat;
         }
-        if (inputLength == 1 && repeat <= PAD_LIMIT) {
-            return repeat(str.charAt(0), repeat);
+        if (inputLength == 1 && count <= PAD_LIMIT) {
+            return repeat(repeat.charAt(0), count);
         }
-
-        final int outputLength = inputLength * repeat;
+        final int outputLength = inputLength * count;
         switch (inputLength) {
-            case 1 :
-                return repeat(str.charAt(0), repeat);
-            case 2 :
-                final char ch0 = str.charAt(0);
-                final char ch1 = str.charAt(1);
-                final char[] output2 = new char[outputLength];
-                for (int i = repeat * 2 - 2; i >= 0; i--, i--) {
-                    output2[i] = ch0;
-                    output2[i + 1] = ch1;
-                }
-                return new String(output2);
-            default :
-                final StringBuilder buf = new StringBuilder(outputLength);
-                for (int i = 0; i < repeat; i++) {
-                    buf.append(str);
-                }
-                return buf.toString();
+        case 1:
+            return repeat(repeat.charAt(0), count);
+        case 2:
+            final char ch0 = repeat.charAt(0);
+            final char ch1 = repeat.charAt(1);
+            final char[] output2 = new char[outputLength];
+            for (int i = count * 2 - 2; i >= 0; i--, i--) {
+                output2[i] = ch0;
+                output2[i + 1] = ch1;
+            }
+            return new String(output2);
+        default:
+            final StringBuilder buf = new StringBuilder(outputLength);
+            for (int i = 0; i < count; i++) {
+                buf.append(repeat);
+            }
+            return buf.toString();
         }
     }
 
     /**
-     * Repeat a String {@code repeat} times to form a
-     * new String, with a String separator injected each time.
+     * Repeats a String {@code repeat} times to form a new String, with a String separator injected each time.
      *
      * <pre>
      * StringUtils.repeat(null, null, 2) = null
@@ -6307,26 +6110,27 @@ public class StringUtils {
      * StringUtils.repeat("?", ", ", 3)  = "?, ?, ?"
      * </pre>
      *
-     * @param str        the String to repeat, may be null
-     * @param separator  the String to inject, may be null
-     * @param repeat     number of times to repeat str, negative treated as zero
-     * @return a new String consisting of the original String repeated,
-     *  {@code null} if null String input
+     * @param repeat    the String to repeat, may be null.
+     * @param separator the String to inject, may be null.
+     * @param count     number of times to repeat str, negative treated as zero.
+     * @return a new String consisting of the original String repeated, {@code null} if null String input.
      * @since 2.5
      */
-    public static String repeat(final String str, final String separator, final int repeat) {
-        if (str == null || separator == null) {
-            return repeat(str, repeat);
+    public static String repeat(final String repeat, final String separator, final int count) {
+        if (repeat == null || separator == null) {
+            return repeat(repeat, count);
         }
         // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
-        final String result = repeat(str + separator, repeat);
-        return removeEnd(result, separator);
+        final String result = repeat(repeat + separator, count);
+        return Strings.CS.removeEnd(result, separator);
     }
 
     /**
      * Replaces all occurrences of a String within another String.
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
      * <pre>
      * StringUtils.replace(null, *, *)        = null
@@ -6339,22 +6143,24 @@ public class StringUtils {
      * StringUtils.replace("aba", "a", "z")   = "zbz"
      * </pre>
      *
+     * @param text         text to search and replace in, may be null.
+     * @param searchString the String to search for, may be null.
+     * @param replacement  the String to replace it with, may be null.
+     * @return the text with any replacements processed, {@code null} if null String input.
      * @see #replace(String text, String searchString, String replacement, int max)
-     * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for, may be null
-     * @param replacement  the String to replace it with, may be null
-     * @return the text with any replacements processed,
-     *  {@code null} if null String input
+     * @deprecated Use {@link Strings#replace(String, String, String) Strings.CS.replace(String, String, String)}.
      */
+    @Deprecated
     public static String replace(final String text, final String searchString, final String replacement) {
-        return replace(text, searchString, replacement, -1);
+        return Strings.CS.replace(text, searchString, replacement);
     }
 
     /**
-     * Replaces a String with another String inside a larger String,
-     * for the first {@code max} values of the search String.
+     * Replaces a String with another String inside a larger String, for the first {@code max} values of the search String.
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
      * <pre>
      * StringUtils.replace(null, *, *, *)         = null
@@ -6371,125 +6177,63 @@ public class StringUtils {
      * StringUtils.replace("abaa", "a", "z", -1)  = "zbzz"
      * </pre>
      *
-     * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for, may be null
-     * @param replacement  the String to replace it with, may be null
-     * @param max  maximum number of values to replace, or {@code -1} if no maximum
-     * @return the text with any replacements processed,
-     *  {@code null} if null String input
+     * @param text         text to search and replace in, may be null.
+     * @param searchString the String to search for, may be null.
+     * @param replacement  the String to replace it with, may be null.
+     * @param max          maximum number of values to replace, or {@code -1} if no maximum.
+     * @return the text with any replacements processed, {@code null} if null String input.
+     * @deprecated Use {@link Strings#replace(String, String, String, int) Strings.CS.replace(String, String, String, int)}.
      */
+    @Deprecated
     public static String replace(final String text, final String searchString, final String replacement, final int max) {
-        return replace(text, searchString, replacement, max, false);
+        return Strings.CS.replace(text, searchString, replacement, max);
     }
 
     /**
-     * Replaces a String with another String inside a larger String,
-     * for the first {@code max} values of the search String,
-     * case-sensitively/insensitively based on {@code ignoreCase} value.
-     *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
-     *
-     * <pre>
-     * StringUtils.replace(null, *, *, *, false)         = null
-     * StringUtils.replace("", *, *, *, false)           = ""
-     * StringUtils.replace("any", null, *, *, false)     = "any"
-     * StringUtils.replace("any", *, null, *, false)     = "any"
-     * StringUtils.replace("any", "", *, *, false)       = "any"
-     * StringUtils.replace("any", *, *, 0, false)        = "any"
-     * StringUtils.replace("abaa", "a", null, -1, false) = "abaa"
-     * StringUtils.replace("abaa", "a", "", -1, false)   = "b"
-     * StringUtils.replace("abaa", "a", "z", 0, false)   = "abaa"
-     * StringUtils.replace("abaa", "A", "z", 1, false)   = "abaa"
-     * StringUtils.replace("abaa", "A", "z", 1, true)   = "zbaa"
-     * StringUtils.replace("abAa", "a", "z", 2, true)   = "zbza"
-     * StringUtils.replace("abAa", "a", "z", -1, true)  = "zbzz"
-     * </pre>
-     *
-     * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for (case-insensitive), may be null
-     * @param replacement  the String to replace it with, may be null
-     * @param max  maximum number of values to replace, or {@code -1} if no maximum
-     * @param ignoreCase if true replace is case-insensitive, otherwise case-sensitive
-     * @return the text with any replacements processed,
-     *  {@code null} if null String input
-     */
-     private static String replace(final String text, String searchString, final String replacement, int max, final boolean ignoreCase) {
-         if (isEmpty(text) || isEmpty(searchString) || replacement == null || max == 0) {
-             return text;
-         }
-         if (ignoreCase) {
-             searchString = searchString.toLowerCase();
-         }
-         int start = 0;
-         int end = ignoreCase ? indexOfIgnoreCase(text, searchString, start) : indexOf(text, searchString, start);
-         if (end == INDEX_NOT_FOUND) {
-             return text;
-         }
-         final int replLength = searchString.length();
-         int increase = Math.max(replacement.length() - replLength, 0);
-         increase *= max < 0 ? 16 : Math.min(max, 64);
-         final StringBuilder buf = new StringBuilder(text.length() + increase);
-         while (end != INDEX_NOT_FOUND) {
-             buf.append(text, start, end).append(replacement);
-             start = end + replLength;
-             if (--max == 0) {
-                 break;
-             }
-             end = ignoreCase ? indexOfIgnoreCase(text, searchString, start) : indexOf(text, searchString, start);
-         }
-         buf.append(text, start, text.length());
-         return buf.toString();
-     }
-
-    /**
-     * Replaces each substring of the text String that matches the given regular expression
-     * with the given replacement.
+     * Replaces each substring of the text String that matches the given regular expression with the given replacement.
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
-     *  <li>{@code text.replaceAll(regex, replacement)}</li>
-     *  <li>{@code Pattern.compile(regex).matcher(text).replaceAll(replacement)}</li>
+     * <li>{@code text.replaceAll(regex, replacement)}</li>
+     * <li>{@code Pattern.compile(regex).matcher(text).replaceAll(replacement)}</li>
      * </ul>
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
-     * <p>Unlike in the {@link #replacePattern(String, String, String)} method, the {@link Pattern#DOTALL} option
-     * is NOT automatically added.
-     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
-     * DOTALL is also known as single-line mode in Perl.</p>
+     * <p>
+     * Unlike in the {@link #replacePattern(String, String, String)} method, the {@link Pattern#DOTALL} option is NOT automatically added. To use the DOTALL
+     * option prepend {@code "(?s)"} to the regex. DOTALL is also known as single-line mode in Perl.
+     * </p>
      *
-     * <pre>
-     * StringUtils.replaceAll(null, *, *)       = null
-     * StringUtils.replaceAll("any", (String) null, *)   = "any"
-     * StringUtils.replaceAll("any", *, null)   = "any"
-     * StringUtils.replaceAll("", "", "zzz")    = "zzz"
-     * StringUtils.replaceAll("", ".*", "zzz")  = "zzz"
-     * StringUtils.replaceAll("", ".+", "zzz")  = ""
-     * StringUtils.replaceAll("abc", "", "ZZ")  = "ZZaZZbZZcZZ"
-     * StringUtils.replaceAll("&lt;__&gt;\n&lt;__&gt;", "&lt;.*&gt;", "z")      = "z\nz"
-     * StringUtils.replaceAll("&lt;__&gt;\n&lt;__&gt;", "(?s)&lt;.*&gt;", "z")  = "z"
-     * StringUtils.replaceAll("ABCabc123", "[a-z]", "_")       = "ABC___123"
-     * StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
-     * StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
+     * <pre>{@code
+     * StringUtils.replaceAll(null, *, *)                                         = null
+     * StringUtils.replaceAll("any", (String) null, *)                            = "any"
+     * StringUtils.replaceAll("any", *, null)                                     = "any"
+     * StringUtils.replaceAll("", "", "zzz")                                      = "zzz"
+     * StringUtils.replaceAll("", ".*", "zzz")                                    = "zzz"
+     * StringUtils.replaceAll("", ".+", "zzz")                                    = ""
+     * StringUtils.replaceAll("abc", "", "ZZ")                                    = "ZZaZZbZZcZZ"
+     * StringUtils.replaceAll("<__>\n<__>", "<.*>", "z")                          = "z\nz"
+     * StringUtils.replaceAll("<__>\n<__>", "(?s)<.*>", "z")                      = "z"
+     * StringUtils.replaceAll("ABCabc123", "[a-z]", "_")                          = "ABC___123"
+     * StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "_")                     = "ABC_123"
+     * StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "")                      = "ABC123"
      * StringUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
-     * </pre>
+     * }</pre>
      *
-     * @param text  text to search and replace in, may be null
-     * @param regex  the regular expression to which this string is to be matched
-     * @param replacement  the string to be substituted for each match
-     * @return  the text with any replacements processed,
-     *              {@code null} if null String input
-     *
-     * @throws  java.util.regex.PatternSyntaxException
-     *              if the regular expression's syntax is invalid
-     *
+     * @param text        text to search and replace in, may be null.
+     * @param regex       the regular expression to which this string is to be matched.
+     * @param replacement the string to be substituted for each match.
+     * @return the text with any replacements processed, {@code null} if null String input.
+     * @throws java.util.regex.PatternSyntaxException if the regular expression's syntax is invalid.
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     *
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#replaceAll(String, String, String)}.
      */
     @Deprecated
     public static String replaceAll(final String text, final String regex, final String replacement) {
@@ -6497,11 +6241,11 @@ public class StringUtils {
     }
 
     /**
-     * Replaces all occurrences of a character in a String with another.
-     * This is a null-safe version of {@link String#replace(char, char)}.
+     * Replaces all occurrences of a character in a String with another. This is a null-safe version of {@link String#replace(char, char)}.
      *
-     * <p>A {@code null} string input returns {@code null}.
-     * An empty ("") string input returns an empty string.</p>
+     * <p>
+     * A {@code null} string input returns {@code null}. An empty ("") string input returns an empty string.
+     * </p>
      *
      * <pre>
      * StringUtils.replaceChars(null, *, *)        = null
@@ -6510,10 +6254,10 @@ public class StringUtils {
      * StringUtils.replaceChars("abcba", 'z', 'y') = "abcba"
      * </pre>
      *
-     * @param str  String to replace characters in, may be null
-     * @param searchChar  the character to search for, may be null
-     * @param replaceChar  the character to replace, may be null
-     * @return modified String, {@code null} if null string input
+     * @param str         String to replace characters in, may be null.
+     * @param searchChar  the character to search for, may be null.
+     * @param replaceChar the character to replace, may be null.
+     * @return modified String, {@code null} if null string input.
      * @since 2.0
      */
     public static String replaceChars(final String str, final char searchChar, final char replaceChar) {
@@ -6524,22 +6268,22 @@ public class StringUtils {
     }
 
     /**
-     * Replaces multiple characters in a String in one go.
-     * This method can also be used to delete characters.
+     * Replaces multiple characters in a String in one go. This method can also be used to delete characters.
      *
-     * <p>For example:<br>
-     * {@code replaceChars(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;) = jelly}.</p>
+     * <p>
+     * For example:<br>
+     * {@code replaceChars(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;) = jelly}.
+     * </p>
      *
-     * <p>A {@code null} string input returns {@code null}.
-     * An empty ("") string input returns an empty string.
-     * A null or empty set of search characters returns the input string.</p>
+     * <p>
+     * A {@code null} string input returns {@code null}. An empty ("") string input returns an empty string. A null or empty set of search characters returns
+     * the input string.
+     * </p>
      *
-     * <p>The length of the search characters should normally equal the length
-     * of the replace characters.
-     * If the search characters is longer, then the extra search characters
-     * are deleted.
-     * If the search characters is shorter, then the extra replace characters
-     * are ignored.</p>
+     * <p>
+     * The length of the search characters should normally equal the length of the replace characters. If the search characters is longer, then the extra search
+     * characters are deleted. If the search characters is shorter, then the extra replace characters are ignored.
+     * </p>
      *
      * <pre>
      * StringUtils.replaceChars(null, *, *)           = null
@@ -6553,19 +6297,17 @@ public class StringUtils {
      * StringUtils.replaceChars("abcba", "bc", "yzx") = "ayzya"
      * </pre>
      *
-     * @param str  String to replace characters in, may be null
-     * @param searchChars  a set of characters to search for, may be null
-     * @param replaceChars  a set of characters to replace, may be null
-     * @return modified String, {@code null} if null string input
+     * @param str          String to replace characters in, may be null.
+     * @param searchChars  a set of characters to search for, may be null.
+     * @param replaceChars a set of characters to replace, may be null.
+     * @return modified String, {@code null} if null string input.
      * @since 2.0
      */
     public static String replaceChars(final String str, final String searchChars, String replaceChars) {
         if (isEmpty(str) || isEmpty(searchChars)) {
             return str;
         }
-        if (replaceChars == null) {
-            replaceChars = EMPTY;
-        }
+        replaceChars = ObjectUtils.toString(replaceChars);
         boolean modified = false;
         final int replaceCharsLength = replaceChars.length();
         final int strLength = str.length();
@@ -6592,37 +6334,29 @@ public class StringUtils {
      * Replaces all occurrences of Strings within another String.
      *
      * <p>
-     * A {@code null} reference passed to this method is a no-op, or if
-     * any "search string" or "string to replace" is null, that replace will be
-     * ignored. This will not repeat. For repeating replaces, call the
-     * overloaded method.
+     * A {@code null} reference passed to this method is a no-op, or if any "search string" or "string to replace" is null, that replace will be ignored. This
+     * will not repeat. For repeating replaces, call the overloaded method.
      * </p>
      *
      * <pre>
-     *  StringUtils.replaceEach(null, *, *)        = null
-     *  StringUtils.replaceEach("", *, *)          = ""
-     *  StringUtils.replaceEach("aba", null, null) = "aba"
-     *  StringUtils.replaceEach("aba", new String[0], null) = "aba"
-     *  StringUtils.replaceEach("aba", null, new String[0]) = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, null)  = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""})  = "b"
-     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"})  = "aba"
+     *  StringUtils.replaceEach(null, *, *)                                                = null
+     *  StringUtils.replaceEach("", *, *)                                                  = ""
+     *  StringUtils.replaceEach("aba", null, null)                                         = "aba"
+     *  StringUtils.replaceEach("aba", new String[0], null)                                = "aba"
+     *  StringUtils.replaceEach("aba", null, new String[0])                                = "aba"
+     *  StringUtils.replaceEach("aba", new String[]{"a"}, null)                            = "aba"
+     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""})                = "b"
+     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"})              = "aba"
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"})  = "wcte"
      *  (example of how it does not repeat)
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"})  = "dcte"
      * </pre>
      *
-     * @param text
-     *            text to search and replace in, no-op if null
-     * @param searchList
-     *            the Strings to search for, no-op if null
-     * @param replacementList
-     *            the Strings to replace them with, no-op if null
-     * @return the text with any replacements processed, {@code null} if
-     *         null String input
-     * @throws IllegalArgumentException
-     *             if the lengths of the arrays are not the same (null is ok,
-     *             and/or size 0)
+     * @param text            text to search and replace in, no-op if null.
+     * @param searchList      the Strings to search for, no-op if null.
+     * @param replacementList the Strings to replace them with, no-op if null.
+     * @return the text with any replacements processed, {@code null} if null String input.
+     * @throws IllegalArgumentException if the lengths of the arrays are not the same (null is ok, and/or size 0).
      * @since 2.4
      */
     public static String replaceEach(final String text, final String[] searchList, final String[] replacementList) {
@@ -6630,51 +6364,37 @@ public class StringUtils {
     }
 
     /**
-     * Replace all occurrences of Strings within another String.
-     * This is a private recursive helper method for {@link #replaceEachRepeatedly(String, String[], String[])} and
-     * {@link #replaceEach(String, String[], String[])}
+     * Replace all occurrences of Strings within another String. This is a private recursive helper method for
+     * {@link #replaceEachRepeatedly(String, String[], String[])} and {@link #replaceEach(String, String[], String[])}
      *
      * <p>
-     * A {@code null} reference passed to this method is a no-op, or if
-     * any "search string" or "string to replace" is null, that replace will be
-     * ignored.
+     * A {@code null} reference passed to this method is a no-op, or if any "search string" or "string to replace" is null, that replace will be ignored.
      * </p>
      *
      * <pre>
-     *  StringUtils.replaceEach(null, *, *, *, *) = null
-     *  StringUtils.replaceEach("", *, *, *, *) = ""
-     *  StringUtils.replaceEach("aba", null, null, *, *) = "aba"
-     *  StringUtils.replaceEach("aba", new String[0], null, *, *) = "aba"
-     *  StringUtils.replaceEach("aba", null, new String[0], *, *) = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, null, *, *) = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""}, *, >=0) = "b"
-     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"}, *, >=0) = "aba"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}, *, >=0) = "wcte"
+     *  StringUtils.replaceEach(null, *, *, *, *)                                                     = null
+     *  StringUtils.replaceEach("", *, *, *, *)                                                       = ""
+     *  StringUtils.replaceEach("aba", null, null, *, *)                                              = "aba"
+     *  StringUtils.replaceEach("aba", new String[0], null, *, *)                                     = "aba"
+     *  StringUtils.replaceEach("aba", null, new String[0], *, *)                                     = "aba"
+     *  StringUtils.replaceEach("aba", new String[]{"a"}, null, *, *)                                 = "aba"
+     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""}, *, >=0)                   = "b"
+     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"}, *, >=0)                 = "aba"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}, *, >=0)     = "wcte"
      *  (example of how it repeats)
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false, >=0) = "dcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true, >=2) = "tcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *, *) = IllegalStateException
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true, >=2)  = "tcte"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *, *)      = IllegalStateException
      * </pre>
      *
-     * @param text
-     *            text to search and replace in, no-op if null
-     * @param searchList
-     *            the Strings to search for, no-op if null
-     * @param replacementList
-     *            the Strings to replace them with, no-op if null
-     * @param repeat if true, then replace repeatedly
-     *       until there are no more possible replacements or timeToLive < 0
-     * @param timeToLive
-     *            if less than 0 then there is a circular reference and endless
-     *            loop
-     * @return the text with any replacements processed, {@code null} if
-     *         null String input
-     * @throws IllegalStateException
-     *             if the search is repeating and there is an endless loop due
-     *             to outputs of one being inputs to another
-     * @throws IllegalArgumentException
-     *             if the lengths of the arrays are not the same (null is ok,
-     *             and/or size 0)
+     * @param text            text to search and replace in, no-op if null.
+     * @param searchList      the Strings to search for, no-op if null.
+     * @param replacementList the Strings to replace them with, no-op if null.
+     * @param repeat          if true, then replace repeatedly until there are no more possible replacements or timeToLive < 0.
+     * @param timeToLive      if less than 0 then there is a circular reference and endless loop.
+     * @return the text with any replacements processed, {@code null} if null String input.
+     * @throws IllegalStateException    if the search is repeating and there is an endless loop due to outputs of one being inputs to another.
+     * @throws IllegalArgumentException if the lengths of the arrays are not the same (null is ok, and/or size 0).
      * @since 2.4
      */
     private static String replaceEach(
@@ -6682,20 +6402,14 @@ public class StringUtils {
 
         // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
+        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList)) {
+            return text;
+        }
 
         // if recursing, this shouldn't be less than 0
         if (timeToLive < 0) {
-            final Set<String> searchSet = new HashSet<>(Arrays.asList(searchList));
-            final Set<String> replacementSet = new HashSet<>(Arrays.asList(replacementList));
-            searchSet.retainAll(replacementSet);
-            if (!searchSet.isEmpty()) {
-                throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
-                        "output of one loop is the input of another");
-            }
-        }
-
-        if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList) || ArrayUtils.isNotEmpty(searchList) && timeToLive == -1) {
-            return text;
+            throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
+                "output of one loop is the input of another");
         }
 
         final int searchLength = searchList.length;
@@ -6806,63 +6520,56 @@ public class StringUtils {
      * Replaces all occurrences of Strings within another String.
      *
      * <p>
-     * A {@code null} reference passed to this method is a no-op, or if
-     * any "search string" or "string to replace" is null, that replace will be
-     * ignored.
+     * A {@code null} reference passed to this method is a no-op, or if any "search string" or "string to replace" is null, that replace will be ignored.
      * </p>
      *
      * <pre>
-     *  StringUtils.replaceEachRepeatedly(null, *, *) = null
-     *  StringUtils.replaceEachRepeatedly("", *, *) = ""
-     *  StringUtils.replaceEachRepeatedly("aba", null, null) = "aba"
-     *  StringUtils.replaceEachRepeatedly("aba", new String[0], null) = "aba"
-     *  StringUtils.replaceEachRepeatedly("aba", null, new String[0]) = "aba"
-     *  StringUtils.replaceEachRepeatedly("aba", new String[]{"a"}, null) = "aba"
-     *  StringUtils.replaceEachRepeatedly("aba", new String[]{"a"}, new String[]{""}) = "b"
-     *  StringUtils.replaceEachRepeatedly("aba", new String[]{null}, new String[]{"a"}) = "aba"
-     *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}) = "wcte"
+     *  StringUtils.replaceEachRepeatedly(null, *, *)                                                = null
+     *  StringUtils.replaceEachRepeatedly("", *, *)                                                  = ""
+     *  StringUtils.replaceEachRepeatedly("aba", null, null)                                         = "aba"
+     *  StringUtils.replaceEachRepeatedly("aba", new String[0], null)                                = "aba"
+     *  StringUtils.replaceEachRepeatedly("aba", null, new String[0])                                = "aba"
+     *  StringUtils.replaceEachRepeatedly("aba", new String[]{"a"}, null)                            = "aba"
+     *  StringUtils.replaceEachRepeatedly("aba", new String[]{"a"}, new String[]{""})                = "b"
+     *  StringUtils.replaceEachRepeatedly("aba", new String[]{null}, new String[]{"a"})              = "aba"
+     *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"})  = "wcte"
      *  (example of how it repeats)
-     *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}) = "tcte"
+     *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"})  = "tcte"
      *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}) = IllegalStateException
      * </pre>
      *
-     * @param text
-     *            text to search and replace in, no-op if null
-     * @param searchList
-     *            the Strings to search for, no-op if null
-     * @param replacementList
-     *            the Strings to replace them with, no-op if null
-     * @return the text with any replacements processed, {@code null} if
-     *         null String input
-     * @throws IllegalStateException
-     *             if the search is repeating and there is an endless loop due
-     *             to outputs of one being inputs to another
-     * @throws IllegalArgumentException
-     *             if the lengths of the arrays are not the same (null is ok,
-     *             and/or size 0)
+     * @param text            text to search and replace in, no-op if null.
+     * @param searchList      the Strings to search for, no-op if null.
+     * @param replacementList the Strings to replace them with, no-op if null.
+     * @return the text with any replacements processed, {@code null} if null String input.
+     * @throws IllegalStateException    if the search is repeating and there is an endless loop due to outputs of one being inputs to another.
+     * @throws IllegalArgumentException if the lengths of the arrays are not the same (null is ok, and/or size 0).
      * @since 2.4
      */
     public static String replaceEachRepeatedly(final String text, final String[] searchList, final String[] replacementList) {
-        return replaceEach(text, searchList, replacementList, true, ArrayUtils.getLength(searchList));
+        final int timeToLive = Math.max(ArrayUtils.getLength(searchList), DEFAULT_TTL);
+        return replaceEach(text, searchList, replacementList, true, timeToLive);
     }
 
     /**
-     * Replaces the first substring of the text string that matches the given regular expression
-     * with the given replacement.
+     * Replaces the first substring of the text string that matches the given regular expression with the given replacement.
      *
      * This method is a {@code null} safe equivalent to:
      * <ul>
-     *  <li>{@code text.replaceFirst(regex, replacement)}</li>
-     *  <li>{@code Pattern.compile(regex).matcher(text).replaceFirst(replacement)}</li>
+     * <li>{@code text.replaceFirst(regex, replacement)}</li>
+     * <li>{@code Pattern.compile(regex).matcher(text).replaceFirst(replacement)}</li>
      * </ul>
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
-     * <p>The {@link Pattern#DOTALL} option is NOT automatically added.
-     * To use the DOTALL option prepend {@code "(?s)"} to the regex.
-     * DOTALL is also known as single-line mode in Perl.</p>
+     * <p>
+     * The {@link Pattern#DOTALL} option is NOT automatically added. To use the DOTALL option prepend {@code "(?s)"} to the regex. DOTALL is also known as
+     * single-line mode in Perl.
+     * </p>
      *
-     * <pre>
+     * <pre>{@code
      * StringUtils.replaceFirst(null, *, *)       = null
      * StringUtils.replaceFirst("any", (String) null, *)   = "any"
      * StringUtils.replaceFirst("any", *, null)   = "any"
@@ -6870,29 +6577,24 @@ public class StringUtils {
      * StringUtils.replaceFirst("", ".*", "zzz")  = "zzz"
      * StringUtils.replaceFirst("", ".+", "zzz")  = ""
      * StringUtils.replaceFirst("abc", "", "ZZ")  = "ZZabc"
-     * StringUtils.replaceFirst("&lt;__&gt;\n&lt;__&gt;", "&lt;.*&gt;", "z")      = "z\n&lt;__&gt;"
-     * StringUtils.replaceFirst("&lt;__&gt;\n&lt;__&gt;", "(?s)&lt;.*&gt;", "z")  = "z"
+     * StringUtils.replaceFirst("<__>\n<__>", "<.*>", "z")      = "z\n<__>"
+     * StringUtils.replaceFirst("<__>\n<__>", "(?s)<.*>", "z")  = "z"
      * StringUtils.replaceFirst("ABCabc123", "[a-z]", "_")          = "ABC_bc123"
      * StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "_")  = "ABC_123abc"
      * StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "")   = "ABC123abc"
      * StringUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum  dolor   sit"
-     * </pre>
+     * }</pre>
      *
-     * @param text  text to search and replace in, may be null
-     * @param regex  the regular expression to which this string is to be matched
-     * @param replacement  the string to be substituted for the first match
-     * @return  the text with the first replacement processed,
-     *              {@code null} if null String input
-     *
-     * @throws  java.util.regex.PatternSyntaxException
-     *              if the regular expression's syntax is invalid
-     *
+     * @param text        text to search and replace in, may be null.
+     * @param regex       the regular expression to which this string is to be matched.
+     * @param replacement the string to be substituted for the first match.
+     * @return the text with the first replacement processed, {@code null} if null String input.
+     * @throws java.util.regex.PatternSyntaxException if the regular expression's syntax is invalid.
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
      * @since 3.5
-     *
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#replaceFirst(String, String, String)}.
      */
     @Deprecated
     public static String replaceFirst(final String text, final String regex, final String replacement) {
@@ -6902,7 +6604,9 @@ public class StringUtils {
     /**
      * Case insensitively replaces all occurrences of a String within another String.
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
      * <pre>
      * StringUtils.replaceIgnoreCase(null, *, *)        = null
@@ -6915,23 +6619,25 @@ public class StringUtils {
      * StringUtils.replaceIgnoreCase("aba", "A", "z")   = "zbz"
      * </pre>
      *
+     * @param text         text to search and replace in, may be null.
+     * @param searchString the String to search for (case-insensitive), may be null.
+     * @param replacement  the String to replace it with, may be null.
+     * @return the text with any replacements processed, {@code null} if null String input.
      * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
-     * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for (case-insensitive), may be null
-     * @param replacement  the String to replace it with, may be null
-     * @return the text with any replacements processed,
-     *  {@code null} if null String input
      * @since 3.5
+     * @deprecated Use {@link Strings#replace(String, String, String) Strings.CI.replace(String, String, String)}.
      */
-     public static String replaceIgnoreCase(final String text, final String searchString, final String replacement) {
-         return replaceIgnoreCase(text, searchString, replacement, -1);
-     }
+    @Deprecated
+    public static String replaceIgnoreCase(final String text, final String searchString, final String replacement) {
+        return Strings.CI.replace(text, searchString, replacement);
+    }
 
     /**
-     * Case insensitively replaces a String with another String inside a larger String,
-     * for the first {@code max} values of the search String.
+     * Case insensitively replaces a String with another String inside a larger String, for the first {@code max} values of the search String.
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
      * <pre>
      * StringUtils.replaceIgnoreCase(null, *, *, *)         = null
@@ -6948,22 +6654,25 @@ public class StringUtils {
      * StringUtils.replaceIgnoreCase("abAa", "a", "z", -1)  = "zbzz"
      * </pre>
      *
-     * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for (case-insensitive), may be null
-     * @param replacement  the String to replace it with, may be null
-     * @param max  maximum number of values to replace, or {@code -1} if no maximum
-     * @return the text with any replacements processed,
-     *  {@code null} if null String input
+     * @param text         text to search and replace in, may be null.
+     * @param searchString the String to search for (case-insensitive), may be null.
+     * @param replacement  the String to replace it with, may be null.
+     * @param max          maximum number of values to replace, or {@code -1} if no maximum.
+     * @return the text with any replacements processed, {@code null} if null String input.
      * @since 3.5
+     * @deprecated Use {@link Strings#replace(String, String, String, int) Strings.CI.replace(String, String, String, int)}.
      */
+    @Deprecated
     public static String replaceIgnoreCase(final String text, final String searchString, final String replacement, final int max) {
-        return replace(text, searchString, replacement, max, true);
+        return Strings.CI.replace(text, searchString, replacement, max);
     }
 
     /**
      * Replaces a String with another String inside a larger String, once.
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
      * <pre>
      * StringUtils.replaceOnce(null, *, *)        = null
@@ -6976,21 +6685,24 @@ public class StringUtils {
      * StringUtils.replaceOnce("aba", "a", "z")   = "zba"
      * </pre>
      *
+     * @param text         text to search and replace in, may be null.
+     * @param searchString the String to search for, may be null.
+     * @param replacement  the String to replace with, may be null.
+     * @return the text with any replacements processed, {@code null} if null String input.
      * @see #replace(String text, String searchString, String replacement, int max)
-     * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for, may be null
-     * @param replacement  the String to replace with, may be null
-     * @return the text with any replacements processed,
-     *  {@code null} if null String input
+     * @deprecated Use {@link Strings#replaceOnce(String, String, String) Strings.CS.replaceOnce(String, String, String)}.
      */
+    @Deprecated
     public static String replaceOnce(final String text, final String searchString, final String replacement) {
-        return replace(text, searchString, replacement, 1);
+        return Strings.CS.replaceOnce(text, searchString, replacement);
     }
 
     /**
      * Case insensitively replaces a String with another String inside a larger String, once.
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
      * <pre>
      * StringUtils.replaceOnceIgnoreCase(null, *, *)        = null
@@ -7004,21 +6716,22 @@ public class StringUtils {
      * StringUtils.replaceOnceIgnoreCase("FoOFoofoo", "foo", "") = "Foofoo"
      * </pre>
      *
+     * @param text         text to search and replace in, may be null.
+     * @param searchString the String to search for (case-insensitive), may be null.
+     * @param replacement  the String to replace with, may be null.
+     * @return the text with any replacements processed, {@code null} if null String input.
      * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
-     * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for (case-insensitive), may be null
-     * @param replacement  the String to replace with, may be null
-     * @return the text with any replacements processed,
-     *  {@code null} if null String input
      * @since 3.5
+     * @deprecated Use {@link Strings#replaceOnce(String, String, String) Strings.CI.replaceOnce(String, String, String)}.
      */
+    @Deprecated
     public static String replaceOnceIgnoreCase(final String text, final String searchString, final String replacement) {
-        return replaceIgnoreCase(text, searchString, replacement, 1);
+        return Strings.CI.replaceOnce(text, searchString, replacement);
     }
 
     /**
-     * Replaces each substring of the source String that matches the given regular expression with the given
-     * replacement using the {@link Pattern#DOTALL} option. DOTALL is also known as single-line mode in Perl.
+     * Replaces each substring of the source String that matches the given regular expression with the given replacement using the {@link Pattern#DOTALL}
+     * option. DOTALL is also known as single-line mode in Perl.
      *
      * This call is a {@code null} safe equivalent to:
      * <ul>
@@ -7026,36 +6739,34 @@ public class StringUtils {
      * <li>{@code Pattern.compile(regex, Pattern.DOTALL).matcher(source).replaceAll(replacement)}</li>
      * </ul>
      *
-     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     * <p>
+     * A {@code null} reference passed to this method is a no-op.
+     * </p>
      *
-     * <pre>
-     * StringUtils.replacePattern(null, *, *)       = null
-     * StringUtils.replacePattern("any", (String) null, *)   = "any"
-     * StringUtils.replacePattern("any", *, null)   = "any"
-     * StringUtils.replacePattern("", "", "zzz")    = "zzz"
-     * StringUtils.replacePattern("", ".*", "zzz")  = "zzz"
-     * StringUtils.replacePattern("", ".+", "zzz")  = ""
-     * StringUtils.replacePattern("&lt;__&gt;\n&lt;__&gt;", "&lt;.*&gt;", "z")       = "z"
-     * StringUtils.replacePattern("ABCabc123", "[a-z]", "_")       = "ABC___123"
-     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
-     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
+     * <pre>{@code
+     * StringUtils.replacePattern(null, *, *)                                         = null
+     * StringUtils.replacePattern("any", (String) null, *)                            = "any"
+     * StringUtils.replacePattern("any", *, null)                                     = "any"
+     * StringUtils.replacePattern("", "", "zzz")                                      = "zzz"
+     * StringUtils.replacePattern("", ".*", "zzz")                                    = "zzz"
+     * StringUtils.replacePattern("", ".+", "zzz")                                    = ""
+     * StringUtils.replacePattern("<__>\n<__>", "<.*>", "z")                          = "z"
+     * StringUtils.replacePattern("ABCabc123", "[a-z]", "_")                          = "ABC___123"
+     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_")                     = "ABC_123"
+     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "")                      = "ABC123"
      * StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
-     * </pre>
+     * }</pre>
      *
-     * @param source
-     *            the source string
-     * @param regex
-     *            the regular expression to which this string is to be matched
-     * @param replacement
-     *            the string to be substituted for each match
-     * @return The resulting {@link String}
+     * @param source      the source string.
+     * @param regex       the regular expression to which this string is to be matched.
+     * @param replacement the string to be substituted for each match.
+     * @return The resulting {@link String}.
      * @see #replaceAll(String, String, String)
      * @see String#replaceAll(String, String)
      * @see Pattern#DOTALL
      * @since 3.2
      * @since 3.5 Changed {@code null} reference passed to this method is a no-op.
-     *
-     * @deprecated Moved to RegExUtils.
+     * @deprecated Use {@link RegExUtils#replacePattern(CharSequence, String, String)}.
      */
     @Deprecated
     public static String replacePattern(final String source, final String regex, final String replacement) {
@@ -7065,7 +6776,9 @@ public class StringUtils {
     /**
      * Reverses a String as per {@link StringBuilder#reverse()}.
      *
-     * <p>A {@code null} String returns {@code null}.</p>
+     * <p>
+     * A {@code null} String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.reverse(null)  = null
@@ -7073,8 +6786,8 @@ public class StringUtils {
      * StringUtils.reverse("bat") = "tab"
      * </pre>
      *
-     * @param str  the String to reverse, may be null
-     * @return the reversed String, {@code null} if null String input
+     * @param str the String to reverse, may be null.
+     * @return the reversed String, {@code null} if null String input.
      */
     public static String reverse(final String str) {
         if (str == null) {
@@ -7086,9 +6799,9 @@ public class StringUtils {
     /**
      * Reverses a String that is delimited by a specific character.
      *
-     * <p>The Strings between the delimiters are not reversed.
-     * Thus java.lang.String becomes String.lang.java (if the delimiter
-     * is {@code '.'}).</p>
+     * <p>
+     * The Strings between the delimiters are not reversed. Thus java.lang.String becomes String.lang.java (if the delimiter is {@code '.'}).
+     * </p>
      *
      * <pre>
      * StringUtils.reverseDelimited(null, *)      = null
@@ -7097,9 +6810,9 @@ public class StringUtils {
      * StringUtils.reverseDelimited("a.b.c", ".") = "c.b.a"
      * </pre>
      *
-     * @param str  the String to reverse, may be null
-     * @param separatorChar  the separator character to use
-     * @return the reversed String, {@code null} if null String input
+     * @param str           the String to reverse, may be null.
+     * @param separatorChar the separator character to use.
+     * @return the reversed String, {@code null} if null String input.
      * @since 2.0
      */
     public static String reverseDelimited(final String str, final char separatorChar) {
@@ -7111,9 +6824,10 @@ public class StringUtils {
     /**
      * Gets the rightmost {@code len} characters of a String.
      *
-     * <p>If {@code len} characters are not available, or the String
-     * is {@code null}, the String will be returned without an
-     * an exception. An empty String is returned if len is negative.</p>
+     * <p>
+     * If {@code len} characters are not available, or the String is {@code null}, the String will be returned without an exception. An empty String is
+     * returned if len is negative.
+     * </p>
      *
      * <pre>
      * StringUtils.right(null, *)    = null
@@ -7124,9 +6838,9 @@ public class StringUtils {
      * StringUtils.right("abc", 4)   = "abc"
      * </pre>
      *
-     * @param str  the String to get the rightmost characters from, may be null
-     * @param len  the length of the required String
-     * @return the rightmost characters, {@code null} if null String input
+     * @param str the String to get the rightmost characters from, may be null.
+     * @param len the length of the required String.
+     * @return the rightmost characters, {@code null} if null String input.
      */
     public static String right(final String str, final int len) {
         if (str == null) {
@@ -7144,7 +6858,9 @@ public class StringUtils {
     /**
      * Right pad a String with spaces (' ').
      *
-     * <p>The String is padded to the size of {@code size}.</p>
+     * <p>
+     * The String is padded to the size of {@code size}.
+     * </p>
      *
      * <pre>
      * StringUtils.rightPad(null, *)   = null
@@ -7155,10 +6871,9 @@ public class StringUtils {
      * StringUtils.rightPad("bat", -1) = "bat"
      * </pre>
      *
-     * @param str  the String to pad out, may be null
-     * @param size  the size to pad to
-     * @return right padded String or original String if no padding is necessary,
-     *  {@code null} if null String input
+     * @param str  the String to pad out, may be null.
+     * @param size the size to pad to.
+     * @return right padded String or original String if no padding is necessary, {@code null} if null String input.
      */
     public static String rightPad(final String str, final int size) {
         return rightPad(str, size, ' ');
@@ -7167,7 +6882,9 @@ public class StringUtils {
     /**
      * Right pad a String with a specified character.
      *
-     * <p>The String is padded to the size of {@code size}.</p>
+     * <p>
+     * The String is padded to the size of {@code size}.
+     * </p>
      *
      * <pre>
      * StringUtils.rightPad(null, *, *)     = null
@@ -7178,11 +6895,10 @@ public class StringUtils {
      * StringUtils.rightPad("bat", -1, 'z') = "bat"
      * </pre>
      *
-     * @param str  the String to pad out, may be null
-     * @param size  the size to pad to
-     * @param padChar  the character to pad with
-     * @return right padded String or original String if no padding is necessary,
-     *  {@code null} if null String input
+     * @param str     the String to pad out, may be null.
+     * @param size    the size to pad to.
+     * @param padChar the character to pad with.
+     * @return right padded String or original String if no padding is necessary, {@code null} if null String input.
      * @since 2.0
      */
     public static String rightPad(final String str, final int size, final char padChar) {
@@ -7202,7 +6918,9 @@ public class StringUtils {
     /**
      * Right pad a String with a specified String.
      *
-     * <p>The String is padded to the size of {@code size}.</p>
+     * <p>
+     * The String is padded to the size of {@code size}.
+     * </p>
      *
      * <pre>
      * StringUtils.rightPad(null, *, *)      = null
@@ -7216,11 +6934,10 @@ public class StringUtils {
      * StringUtils.rightPad("bat", 5, "")    = "bat  "
      * </pre>
      *
-     * @param str  the String to pad out, may be null
-     * @param size  the size to pad to
-     * @param padStr  the String to pad with, null or empty treated as single space
-     * @return right padded String or original String if no padding is necessary,
-     *  {@code null} if null String input
+     * @param str    the String to pad out, may be null.
+     * @param size   the size to pad to.
+     * @param padStr the String to pad with, null or empty treated as single space.
+     * @return right padded String or original String if no padding is necessary, {@code null} if null String input.
      */
     public static String rightPad(final String str, final int size, String padStr) {
         if (str == null) {
@@ -7238,7 +6955,6 @@ public class StringUtils {
         if (padLen == 1 && pads <= PAD_LIMIT) {
             return rightPad(str, size, padStr.charAt(0));
         }
-
         if (pads == padLen) {
             return str.concat(padStr);
         }
@@ -7256,8 +6972,8 @@ public class StringUtils {
     /**
      * Rotate (circular shift) a String of {@code shift} characters.
      * <ul>
-     *  <li>If {@code shift > 0}, right circular shift (ex : ABCDEF =&gt; FABCDE)</li>
-     *  <li>If {@code shift < 0}, left circular shift (ex : ABCDEF =&gt; BCDEFA)</li>
+     * <li>If {@code shift > 0}, right circular shift (ex : ABCDEF =&gt; FABCDE)</li>
+     * <li>If {@code shift < 0}, left circular shift (ex : ABCDEF =&gt; BCDEFA)</li>
      * </ul>
      *
      * <pre>
@@ -7272,40 +6988,37 @@ public class StringUtils {
      * StringUtils.rotate("abcdefg", -9)  = "cdefgab"
      * </pre>
      *
-     * @param str  the String to rotate, may be null
-     * @param shift  number of time to shift (positive : right shift, negative : left shift)
-     * @return the rotated String,
-     *          or the original String if {@code shift == 0},
-     *          or {@code null} if null String input
+     * @param str   the String to rotate, may be null.
+     * @param shift number of time to shift (positive : right shift, negative : left shift).
+     * @return the rotated String, or the original String if {@code shift == 0}, or {@code null} if null String input.
      * @since 3.5
      */
     public static String rotate(final String str, final int shift) {
         if (str == null) {
             return null;
         }
-
         final int strLen = str.length();
         if (shift == 0 || strLen == 0 || shift % strLen == 0) {
             return str;
         }
-
         final StringBuilder builder = new StringBuilder(strLen);
-        final int offset = - (shift % strLen);
+        final int offset = -(shift % strLen);
         builder.append(substring(str, offset));
         builder.append(substring(str, 0, offset));
         return builder.toString();
     }
 
     /**
-     * Splits the provided text into an array, using whitespace as the
-     * separator.
-     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * Splits the provided text into an array, using whitespace as the separator. Whitespace is defined by {@link Character#isWhitespace(char)}.
      *
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as one separator.
-     * For more control over the split use the StrTokenizer class.</p>
+     * <p>
+     * The separator is not included in the returned String array. Adjacent separators are treated as one separator. For more control over the split use the
+     * StrTokenizer class.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.split(null)       = null
@@ -7315,22 +7028,24 @@ public class StringUtils {
      * StringUtils.split(" abc ")    = ["abc"]
      * </pre>
      *
-     * @param str  the String to parse, may be null
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @param str the String to parse, may be null.
+     * @return an array of parsed Strings, {@code null} if null String input.
      */
     public static String[] split(final String str) {
         return split(str, null, -1);
     }
 
     /**
-     * Splits the provided text into an array, separator specified.
-     * This is an alternative to using StringTokenizer.
+     * Splits the provided text into an array, separator specified. This is an alternative to using StringTokenizer.
      *
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as one separator.
-     * For more control over the split use the StrTokenizer class.</p>
+     * <p>
+     * The separator is not included in the returned String array. Adjacent separators are treated as one separator. For more control over the split use the
+     * StrTokenizer class.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.split(null, *)         = null
@@ -7341,9 +7056,9 @@ public class StringUtils {
      * StringUtils.split("a b c", ' ')    = ["a", "b", "c"]
      * </pre>
      *
-     * @param str  the String to parse, may be null
-     * @param separatorChar  the character used as the delimiter
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @param str           the String to parse, may be null.
+     * @param separatorChar the character used as the delimiter.
+     * @return an array of parsed Strings, {@code null} if null String input.
      * @since 2.0
      */
     public static String[] split(final String str, final char separatorChar) {
@@ -7351,15 +7066,16 @@ public class StringUtils {
     }
 
     /**
-     * Splits the provided text into an array, separators specified.
-     * This is an alternative to using StringTokenizer.
+     * Splits the provided text into an array, separators specified. This is an alternative to using StringTokenizer.
      *
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as one separator.
-     * For more control over the split use the StrTokenizer class.</p>
+     * <p>
+     * The separator is not included in the returned String array. Adjacent separators are treated as one separator. For more control over the split use the
+     * StrTokenizer class.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * A {@code null} separatorChars splits on whitespace.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. A {@code null} separatorChars splits on whitespace.
+     * </p>
      *
      * <pre>
      * StringUtils.split(null, *)         = null
@@ -7370,28 +7086,29 @@ public class StringUtils {
      * StringUtils.split("ab:cd:ef", ":") = ["ab", "cd", "ef"]
      * </pre>
      *
-     * @param str  the String to parse, may be null
-     * @param separatorChars  the characters used as the delimiters,
-     *  {@code null} splits on whitespace
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @param str            the String to parse, may be null.
+     * @param separatorChars the characters used as the delimiters, {@code null} splits on whitespace.
+     * @return an array of parsed Strings, {@code null} if null String input.
      */
     public static String[] split(final String str, final String separatorChars) {
         return splitWorker(str, separatorChars, -1, false);
     }
 
     /**
-     * Splits the provided text into an array with a maximum length,
-     * separators specified.
+     * Splits the provided text into an array with a maximum length, separators specified.
      *
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as one separator.</p>
+     * <p>
+     * The separator is not included in the returned String array. Adjacent separators are treated as one separator.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * A {@code null} separatorChars splits on whitespace.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. A {@code null} separatorChars splits on whitespace.
+     * </p>
      *
-     * <p>If more than {@code max} delimited substrings are found, the last
-     * returned string includes all characters after the first {@code max - 1}
-     * returned strings (including separator characters).</p>
+     * <p>
+     * If more than {@code max} delimited substrings are found, the last returned string includes all characters after the first {@code max - 1} returned
+     * strings (including separator characters).
+     * </p>
      *
      * <pre>
      * StringUtils.split(null, *, *)            = null
@@ -7402,21 +7119,19 @@ public class StringUtils {
      * StringUtils.split("ab:cd:ef", ":", 2)    = ["ab", "cd:ef"]
      * </pre>
      *
-     * @param str  the String to parse, may be null
-     * @param separatorChars  the characters used as the delimiters,
-     *  {@code null} splits on whitespace
-     * @param max  the maximum number of elements to include in the
-     *  array. A zero or negative value implies no limit
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @param str            the String to parse, may be null.
+     * @param separatorChars the characters used as the delimiters, {@code null} splits on whitespace.
+     * @param max            the maximum number of elements to include in the array. A zero or negative value implies no limit.
+     * @return an array of parsed Strings, {@code null} if null String input.
      */
     public static String[] split(final String str, final String separatorChars, final int max) {
         return splitWorker(str, separatorChars, max, false);
     }
 
     /**
-     * Splits a String by Character type as returned by
-     * {@code java.lang.Character.getType(char)}. Groups of contiguous
-     * characters of the same type are returned as complete tokens.
+     * Splits a String by Character type as returned by {@code java.lang.Character.getType(char)}. Groups of contiguous characters of the same type are returned
+     * as complete tokens.
+     *
      * <pre>
      * StringUtils.splitByCharacterType(null)         = null
      * StringUtils.splitByCharacterType("")           = []
@@ -7428,8 +7143,9 @@ public class StringUtils {
      * StringUtils.splitByCharacterType("foo200Bar")  = ["foo", "200", "B", "ar"]
      * StringUtils.splitByCharacterType("ASFRules")   = ["ASFR", "ules"]
      * </pre>
-     * @param str the String to split, may be {@code null}
-     * @return an array of parsed Strings, {@code null} if null String input
+     *
+     * @param str the String to split, may be {@code null}.
+     * @return an array of parsed Strings, {@code null} if null String input.
      * @since 2.4
      */
     public static String[] splitByCharacterType(final String str) {
@@ -7437,17 +7153,14 @@ public class StringUtils {
     }
 
     /**
-     * <p>Splits a String by Character type as returned by
-     * {@code java.lang.Character.getType(char)}. Groups of contiguous
-     * characters of the same type are returned as complete tokens, with the
-     * following exception: if {@code camelCase} is {@code true},
-     * the character of type {@code Character.UPPERCASE_LETTER}, if any,
-     * immediately preceding a token of type {@code Character.LOWERCASE_LETTER}
-     * will belong to the following token rather than to the preceding, if any,
+     * Splits a String by Character type as returned by {@code java.lang.Character.getType(char)}. Groups of contiguous characters of the same type are returned
+     * as complete tokens, with the following exception: if {@code camelCase} is {@code true}, the character of type {@code Character.UPPERCASE_LETTER}, if any,
+     * immediately preceding a token of type {@code Character.LOWERCASE_LETTER} will belong to the following token rather than to the preceding, if any,
      * {@code Character.UPPERCASE_LETTER} token.
-     * @param str the String to split, may be {@code null}
-     * @param camelCase whether to use so-called "camel-case" for letter types
-     * @return an array of parsed Strings, {@code null} if null String input
+     *
+     * @param str       the String to split, may be {@code null}.
+     * @param camelCase whether to use so-called "camel-case" for letter types.
+     * @return an array of parsed Strings, {@code null} if null String input.
      * @since 2.4
      */
     private static String[] splitByCharacterType(final String str, final boolean camelCase) {
@@ -7483,14 +7196,10 @@ public class StringUtils {
     }
 
     /**
-     * <p>Splits a String by Character type as returned by
-     * {@code java.lang.Character.getType(char)}. Groups of contiguous
-     * characters of the same type are returned as complete tokens, with the
-     * following exception: the character of type
-     * {@code Character.UPPERCASE_LETTER}, if any, immediately
-     * preceding a token of type {@code Character.LOWERCASE_LETTER}
-     * will belong to the following token rather than to the preceding, if any,
-     * {@code Character.UPPERCASE_LETTER} token.
+     * Splits a String by Character type as returned by {@code java.lang.Character.getType(char)}. Groups of contiguous characters of the same type are returned
+     * as complete tokens, with the following exception: the character of type {@code Character.UPPERCASE_LETTER}, if any, immediately preceding a token of type
+     * {@code Character.LOWERCASE_LETTER} will belong to the following token rather than to the preceding, if any, {@code Character.UPPERCASE_LETTER} token.
+     *
      * <pre>
      * StringUtils.splitByCharacterTypeCamelCase(null)         = null
      * StringUtils.splitByCharacterTypeCamelCase("")           = []
@@ -7502,8 +7211,9 @@ public class StringUtils {
      * StringUtils.splitByCharacterTypeCamelCase("foo200Bar")  = ["foo", "200", "Bar"]
      * StringUtils.splitByCharacterTypeCamelCase("ASFRules")   = ["ASF", "Rules"]
      * </pre>
-     * @param str the String to split, may be {@code null}
-     * @return an array of parsed Strings, {@code null} if null String input
+     *
+     * @param str the String to split, may be {@code null}.
+     * @return an array of parsed Strings, {@code null} if null String input.
      * @since 2.4
      */
     public static String[] splitByCharacterTypeCamelCase(final String str) {
@@ -7511,13 +7221,15 @@ public class StringUtils {
     }
 
     /**
-     * <p>Splits the provided text into an array, separator string specified.
+     * Splits the provided text into an array, separator string specified.
      *
-     * <p>The separator(s) will not be included in the returned String array.
-     * Adjacent separators are treated as one separator.</p>
+     * <p>
+     * The separator(s) will not be included in the returned String array. Adjacent separators are treated as one separator.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * A {@code null} separator splits on whitespace.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. A {@code null} separator splits on whitespace.
+     * </p>
      *
      * <pre>
      * StringUtils.splitByWholeSeparator(null, *)               = null
@@ -7528,24 +7240,24 @@ public class StringUtils {
      * StringUtils.splitByWholeSeparator("ab-!-cd-!-ef", "-!-") = ["ab", "cd", "ef"]
      * </pre>
      *
-     * @param str  the String to parse, may be null
-     * @param separator  String containing the String to be used as a delimiter,
-     *  {@code null} splits on whitespace
-     * @return an array of parsed Strings, {@code null} if null String was input
+     * @param str       the String to parse, may be null.
+     * @param separator String containing the String to be used as a delimiter, {@code null} splits on whitespace.
+     * @return an array of parsed Strings, {@code null} if null String was input.
      */
     public static String[] splitByWholeSeparator(final String str, final String separator) {
         return splitByWholeSeparatorWorker(str, separator, -1, false);
     }
 
     /**
-     * Splits the provided text into an array, separator string specified.
-     * Returns a maximum of {@code max} substrings.
+     * Splits the provided text into an array, separator string specified. Returns a maximum of {@code max} substrings.
      *
-     * <p>The separator(s) will not be included in the returned String array.
-     * Adjacent separators are treated as one separator.</p>
+     * <p>
+     * The separator(s) will not be included in the returned String array. Adjacent separators are treated as one separator.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * A {@code null} separator splits on whitespace.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. A {@code null} separator splits on whitespace.
+     * </p>
      *
      * <pre>
      * StringUtils.splitByWholeSeparator(null, *, *)               = null
@@ -7557,26 +7269,26 @@ public class StringUtils {
      * StringUtils.splitByWholeSeparator("ab-!-cd-!-ef", "-!-", 2) = ["ab", "cd-!-ef"]
      * </pre>
      *
-     * @param str  the String to parse, may be null
-     * @param separator  String containing the String to be used as a delimiter,
-     *  {@code null} splits on whitespace
-     * @param max  the maximum number of elements to include in the returned
-     *  array. A zero or negative value implies no limit.
-     * @return an array of parsed Strings, {@code null} if null String was input
+     * @param str       the String to parse, may be null.
+     * @param separator String containing the String to be used as a delimiter, {@code null} splits on whitespace.
+     * @param max       the maximum number of elements to include in the returned array. A zero or negative value implies no limit.
+     * @return an array of parsed Strings, {@code null} if null String was input.
      */
-    public static String[] splitByWholeSeparator( final String str, final String separator, final int max) {
+    public static String[] splitByWholeSeparator(final String str, final String separator, final int max) {
         return splitByWholeSeparatorWorker(str, separator, max, false);
     }
 
     /**
      * Splits the provided text into an array, separator string specified.
      *
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as separators for empty tokens.
-     * For more control over the split use the StrTokenizer class.</p>
+     * <p>
+     * The separator is not included in the returned String array. Adjacent separators are treated as separators for empty tokens. For more control over the
+     * split use the StrTokenizer class.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * A {@code null} separator splits on whitespace.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. A {@code null} separator splits on whitespace.
+     * </p>
      *
      * <pre>
      * StringUtils.splitByWholeSeparatorPreserveAllTokens(null, *)               = null
@@ -7587,10 +7299,9 @@ public class StringUtils {
      * StringUtils.splitByWholeSeparatorPreserveAllTokens("ab-!-cd-!-ef", "-!-") = ["ab", "cd", "ef"]
      * </pre>
      *
-     * @param str  the String to parse, may be null
-     * @param separator  String containing the String to be used as a delimiter,
-     *  {@code null} splits on whitespace
-     * @return an array of parsed Strings, {@code null} if null String was input
+     * @param str       the String to parse, may be null.
+     * @param separator String containing the String to be used as a delimiter, {@code null} splits on whitespace.
+     * @return an array of parsed Strings, {@code null} if null String was input.
      * @since 2.4
      */
     public static String[] splitByWholeSeparatorPreserveAllTokens(final String str, final String separator) {
@@ -7598,15 +7309,16 @@ public class StringUtils {
     }
 
     /**
-     * Splits the provided text into an array, separator string specified.
-     * Returns a maximum of {@code max} substrings.
+     * Splits the provided text into an array, separator string specified. Returns a maximum of {@code max} substrings.
      *
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as separators for empty tokens.
-     * For more control over the split use the StrTokenizer class.</p>
+     * <p>
+     * The separator is not included in the returned String array. Adjacent separators are treated as separators for empty tokens. For more control over the
+     * split use the StrTokenizer class.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * A {@code null} separator splits on whitespace.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. A {@code null} separator splits on whitespace.
+     * </p>
      *
      * <pre>
      * StringUtils.splitByWholeSeparatorPreserveAllTokens(null, *, *)               = null
@@ -7618,12 +7330,10 @@ public class StringUtils {
      * StringUtils.splitByWholeSeparatorPreserveAllTokens("ab-!-cd-!-ef", "-!-", 2) = ["ab", "cd-!-ef"]
      * </pre>
      *
-     * @param str  the String to parse, may be null
-     * @param separator  String containing the String to be used as a delimiter,
-     *  {@code null} splits on whitespace
-     * @param max  the maximum number of elements to include in the returned
-     *  array. A zero or negative value implies no limit.
-     * @return an array of parsed Strings, {@code null} if null String was input
+     * @param str       the String to parse, may be null.
+     * @param separator String containing the String to be used as a delimiter, {@code null} splits on whitespace.
+     * @param max       the maximum number of elements to include in the returned array. A zero or negative value implies no limit.
+     * @return an array of parsed Strings, {@code null} if null String was input.
      * @since 2.4
      */
     public static String[] splitByWholeSeparatorPreserveAllTokens(final String str, final String separator, final int max) {
@@ -7633,47 +7343,36 @@ public class StringUtils {
     /**
      * Performs the logic for the {@code splitByWholeSeparatorPreserveAllTokens} methods.
      *
-     * @param str  the String to parse, may be {@code null}
-     * @param separator  String containing the String to be used as a delimiter,
-     *  {@code null} splits on whitespace
-     * @param max  the maximum number of elements to include in the returned
-     *  array. A zero or negative value implies no limit.
-     * @param preserveAllTokens if {@code true}, adjacent separators are
-     * treated as empty token separators; if {@code false}, adjacent
-     * separators are treated as one separator.
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @param str               the String to parse, may be {@code null}.
+     * @param separator         String containing the String to be used as a delimiter, {@code null} splits on whitespace.
+     * @param max               the maximum number of elements to include in the returned array. A zero or negative value implies no limit.
+     * @param preserveAllTokens if {@code true}, adjacent separators are treated as empty token separators; if {@code false}, adjacent separators are treated as
+     *                          one separator.
+     * @return an array of parsed Strings, {@code null} if null String input.
      * @since 2.4
      */
-    private static String[] splitByWholeSeparatorWorker(
-            final String str, final String separator, final int max, final boolean preserveAllTokens) {
+    private static String[] splitByWholeSeparatorWorker(final String str, final String separator, final int max, final boolean preserveAllTokens) {
         if (str == null) {
             return null;
         }
-
         final int len = str.length();
-
         if (len == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-
         if (separator == null || EMPTY.equals(separator)) {
             // Split on whitespace.
             return splitWorker(str, null, max, preserveAllTokens);
         }
-
         final int separatorLength = separator.length();
-
         final ArrayList<String> substrings = new ArrayList<>();
         int numberOfSubstrings = 0;
         int beg = 0;
         int end = 0;
         while (end < len) {
             end = str.indexOf(separator, beg);
-
             if (end > -1) {
                 if (end > beg) {
                     numberOfSubstrings += 1;
-
                     if (numberOfSubstrings == max) {
                         end = len;
                         substrings.add(str.substring(beg));
@@ -7681,7 +7380,6 @@ public class StringUtils {
                         // The following is OK, because String.substring( beg, end ) excludes
                         // the character at the position 'end'.
                         substrings.add(str.substring(beg, end));
-
                         // Set the starting point for the next search.
                         // The following is equivalent to beg = end + (separatorLength - 1) + 1,
                         // which is the right calculation:
@@ -7706,21 +7404,21 @@ public class StringUtils {
                 end = len;
             }
         }
-
         return substrings.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     /**
-     * Splits the provided text into an array, using whitespace as the
-     * separator, preserving all tokens, including empty tokens created by
-     * adjacent separators. This is an alternative to using StringTokenizer.
-     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * Splits the provided text into an array, using whitespace as the separator, preserving all tokens, including empty tokens created by adjacent separators.
+     * This is an alternative to using StringTokenizer. Whitespace is defined by {@link Character#isWhitespace(char)}.
      *
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as separators for empty tokens.
-     * For more control over the split use the StrTokenizer class.</p>
+     * <p>
+     * The separator is not included in the returned String array. Adjacent separators are treated as separators for empty tokens. For more control over the
+     * split use the StrTokenizer class.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.splitPreserveAllTokens(null)       = null
@@ -7730,8 +7428,8 @@ public class StringUtils {
      * StringUtils.splitPreserveAllTokens(" abc ")    = ["", "abc", ""]
      * </pre>
      *
-     * @param str  the String to parse, may be {@code null}
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @param str the String to parse, may be {@code null}.
+     * @return an array of parsed Strings, {@code null} if null String input.
      * @since 2.1
      */
     public static String[] splitPreserveAllTokens(final String str) {
@@ -7739,15 +7437,17 @@ public class StringUtils {
     }
 
     /**
-     * Splits the provided text into an array, separator specified,
-     * preserving all tokens, including empty tokens created by adjacent
-     * separators. This is an alternative to using StringTokenizer.
+     * Splits the provided text into an array, separator specified, preserving all tokens, including empty tokens created by adjacent separators. This is an
+     * alternative to using StringTokenizer.
      *
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as separators for empty tokens.
-     * For more control over the split use the StrTokenizer class.</p>
+     * <p>
+     * The separator is not included in the returned String array. Adjacent separators are treated as separators for empty tokens. For more control over the
+     * split use the StrTokenizer class.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.splitPreserveAllTokens(null, *)         = null
@@ -7758,16 +7458,15 @@ public class StringUtils {
      * StringUtils.splitPreserveAllTokens("a\tb\nc", null) = ["a", "b", "c"]
      * StringUtils.splitPreserveAllTokens("a b c", ' ')    = ["a", "b", "c"]
      * StringUtils.splitPreserveAllTokens("a b c ", ' ')   = ["a", "b", "c", ""]
-     * StringUtils.splitPreserveAllTokens("a b c  ", ' ')   = ["a", "b", "c", "", ""]
-     * StringUtils.splitPreserveAllTokens(" a b c", ' ')   = ["", a", "b", "c"]
-     * StringUtils.splitPreserveAllTokens("  a b c", ' ')  = ["", "", a", "b", "c"]
-     * StringUtils.splitPreserveAllTokens(" a b c ", ' ')  = ["", a", "b", "c", ""]
+     * StringUtils.splitPreserveAllTokens("a b c  ", ' ')  = ["a", "b", "c", "", ""]
+     * StringUtils.splitPreserveAllTokens(" a b c", ' ')   = ["", "a", "b", "c"]
+     * StringUtils.splitPreserveAllTokens("  a b c", ' ')  = ["", "", "a", "b", "c"]
+     * StringUtils.splitPreserveAllTokens(" a b c ", ' ')  = ["", "a", "b", "c", ""]
      * </pre>
      *
-     * @param str  the String to parse, may be {@code null}
-     * @param separatorChar  the character used as the delimiter,
-     *  {@code null} splits on whitespace
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @param str           the String to parse, may be {@code null}.
+     * @param separatorChar the character used as the delimiter, {@code null} splits on whitespace.
+     * @return an array of parsed Strings, {@code null} if null String input.
      * @since 2.1
      */
     public static String[] splitPreserveAllTokens(final String str, final char separatorChar) {
@@ -7775,36 +7474,36 @@ public class StringUtils {
     }
 
     /**
-     * Splits the provided text into an array, separators specified,
-     * preserving all tokens, including empty tokens created by adjacent
-     * separators. This is an alternative to using StringTokenizer.
+     * Splits the provided text into an array, separators specified, preserving all tokens, including empty tokens created by adjacent separators. This is an
+     * alternative to using StringTokenizer.
      *
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as separators for empty tokens.
-     * For more control over the split use the StrTokenizer class.</p>
+     * <p>
+     * The separator is not included in the returned String array. Adjacent separators are treated as separators for empty tokens. For more control over the
+     * split use the StrTokenizer class.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * A {@code null} separatorChars splits on whitespace.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. A {@code null} separatorChars splits on whitespace.
+     * </p>
      *
      * <pre>
      * StringUtils.splitPreserveAllTokens(null, *)           = null
      * StringUtils.splitPreserveAllTokens("", *)             = []
      * StringUtils.splitPreserveAllTokens("abc def", null)   = ["abc", "def"]
      * StringUtils.splitPreserveAllTokens("abc def", " ")    = ["abc", "def"]
-     * StringUtils.splitPreserveAllTokens("abc  def", " ")   = ["abc", "", def"]
+     * StringUtils.splitPreserveAllTokens("abc  def", " ")   = ["abc", "", "def"]
      * StringUtils.splitPreserveAllTokens("ab:cd:ef", ":")   = ["ab", "cd", "ef"]
      * StringUtils.splitPreserveAllTokens("ab:cd:ef:", ":")  = ["ab", "cd", "ef", ""]
      * StringUtils.splitPreserveAllTokens("ab:cd:ef::", ":") = ["ab", "cd", "ef", "", ""]
-     * StringUtils.splitPreserveAllTokens("ab::cd:ef", ":")  = ["ab", "", cd", "ef"]
-     * StringUtils.splitPreserveAllTokens(":cd:ef", ":")     = ["", cd", "ef"]
-     * StringUtils.splitPreserveAllTokens("::cd:ef", ":")    = ["", "", cd", "ef"]
-     * StringUtils.splitPreserveAllTokens(":cd:ef:", ":")    = ["", cd", "ef", ""]
+     * StringUtils.splitPreserveAllTokens("ab::cd:ef", ":")  = ["ab", "", "cd", "ef"]
+     * StringUtils.splitPreserveAllTokens(":cd:ef", ":")     = ["", "cd", "ef"]
+     * StringUtils.splitPreserveAllTokens("::cd:ef", ":")    = ["", "", "cd", "ef"]
+     * StringUtils.splitPreserveAllTokens(":cd:ef:", ":")    = ["", "cd", "ef", ""]
      * </pre>
      *
-     * @param str  the String to parse, may be {@code null}
-     * @param separatorChars  the characters used as the delimiters,
-     *  {@code null} splits on whitespace
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @param str            the String to parse, may be {@code null}.
+     * @param separatorChars the characters used as the delimiters, {@code null} splits on whitespace.
+     * @return an array of parsed Strings, {@code null} if null String input.
      * @since 2.1
      */
     public static String[] splitPreserveAllTokens(final String str, final String separatorChars) {
@@ -7812,20 +7511,22 @@ public class StringUtils {
     }
 
     /**
-     * Splits the provided text into an array with a maximum length,
-     * separators specified, preserving all tokens, including empty tokens
-     * created by adjacent separators.
+     * Splits the provided text into an array with a maximum length, separators specified, preserving all tokens, including empty tokens created by adjacent
+     * separators.
      *
-     * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as separators for empty tokens.
-     * Adjacent separators are treated as one separator.</p>
+     * <p>
+     * The separator is not included in the returned String array. Adjacent separators are treated as separators for empty tokens. Adjacent separators are
+     * treated as one separator.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * A {@code null} separatorChars splits on whitespace.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. A {@code null} separatorChars splits on whitespace.
+     * </p>
      *
-     * <p>If more than {@code max} delimited substrings are found, the last
-     * returned string includes all characters after the first {@code max - 1}
-     * returned strings (including separator characters).</p>
+     * <p>
+     * If more than {@code max} delimited substrings are found, the last returned string includes all characters after the first {@code max - 1} returned
+     * strings (including separator characters).
+     * </p>
      *
      * <pre>
      * StringUtils.splitPreserveAllTokens(null, *, *)            = null
@@ -7839,12 +7540,10 @@ public class StringUtils {
      * StringUtils.splitPreserveAllTokens("ab   de fg", null, 4) = ["ab", "", "", "de fg"]
      * </pre>
      *
-     * @param str  the String to parse, may be {@code null}
-     * @param separatorChars  the characters used as the delimiters,
-     *  {@code null} splits on whitespace
-     * @param max  the maximum number of elements to include in the
-     *  array. A zero or negative value implies no limit
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @param str            the String to parse, may be {@code null}.
+     * @param separatorChars the characters used as the delimiters, {@code null} splits on whitespace.
+     * @param max            the maximum number of elements to include in the array. A zero or negative value implies no limit.
+     * @return an array of parsed Strings, {@code null} if null String input.
      * @since 2.1
      */
     public static String[] splitPreserveAllTokens(final String str, final String separatorChars, final int max) {
@@ -7852,16 +7551,13 @@ public class StringUtils {
     }
 
     /**
-     * Performs the logic for the {@code split} and
-     * {@code splitPreserveAllTokens} methods that do not return a
-     * maximum array length.
+     * Performs the logic for the {@code split} and {@code splitPreserveAllTokens} methods that do not return a maximum array length.
      *
-     * @param str  the String to parse, may be {@code null}
-     * @param separatorChar the separate character
-     * @param preserveAllTokens if {@code true}, adjacent separators are
-     * treated as empty token separators; if {@code false}, adjacent
-     * separators are treated as one separator.
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @param str               the String to parse, may be {@code null}.
+     * @param separatorChar     the separate character.
+     * @param preserveAllTokens if {@code true}, adjacent separators are treated as empty token separators; if {@code false}, adjacent separators are treated as
+     *                          one separator.
+     * @return an array of parsed Strings, {@code null} if null String input.
      */
     private static String[] splitWorker(final String str, final char separatorChar, final boolean preserveAllTokens) {
         // Performance tuned for 2.0 (JDK1.4)
@@ -7898,24 +7594,19 @@ public class StringUtils {
     }
 
     /**
-     * Performs the logic for the {@code split} and
-     * {@code splitPreserveAllTokens} methods that return a maximum array
-     * length.
+     * Performs the logic for the {@code split} and {@code splitPreserveAllTokens} methods that return a maximum array length.
      *
-     * @param str  the String to parse, may be {@code null}
-     * @param separatorChars the separate character
-     * @param max  the maximum number of elements to include in the
-     *  array. A zero or negative value implies no limit.
-     * @param preserveAllTokens if {@code true}, adjacent separators are
-     * treated as empty token separators; if {@code false}, adjacent
-     * separators are treated as one separator.
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @param str               the String to parse, may be {@code null}.
+     * @param separatorChars    the separate character.
+     * @param max               the maximum number of elements to include in the array. A zero or negative value implies no limit.
+     * @param preserveAllTokens if {@code true}, adjacent separators are treated as empty token separators; if {@code false}, adjacent separators are treated as
+     *                          one separator.
+     * @return an array of parsed Strings, {@code null} if null String input.
      */
     private static String[] splitWorker(final String str, final String separatorChars, final int max, final boolean preserveAllTokens) {
         // Performance tuned for 2.0 (JDK1.4)
         // Direct code is quicker than StringTokenizer.
         // Also, StringTokenizer uses isSpace() not isWhitespace()
-
         if (str == null) {
             return null;
         }
@@ -7950,7 +7641,7 @@ public class StringUtils {
                 i++;
             }
         } else if (separatorChars.length() == 1) {
-            // Optimise 1 character case
+            // Optimize 1 character case
             final char sep = separatorChars.charAt(0);
             while (i < len) {
                 if (str.charAt(i) == sep) {
@@ -7998,10 +7689,11 @@ public class StringUtils {
     }
 
     /**
-     * Check if a CharSequence starts with a specified prefix.
+     * Tests if a CharSequence starts with a specified prefix.
      *
-     * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered to be equal. The comparison is case-sensitive.</p>
+     * <p>
+     * {@code null}s are handled without exceptions. Two {@code null} references are considered to be equal. The comparison is case-sensitive.
+     * </p>
      *
      * <pre>
      * StringUtils.startsWith(null, null)      = true
@@ -8011,43 +7703,21 @@ public class StringUtils {
      * StringUtils.startsWith("ABCDEF", "abc") = false
      * </pre>
      *
+     * @param str    the CharSequence to check, may be null.
+     * @param prefix the prefix to find, may be null.
+     * @return {@code true} if the CharSequence starts with the prefix, case-sensitive, or both {@code null}.
      * @see String#startsWith(String)
-     * @param str  the CharSequence to check, may be null
-     * @param prefix the prefix to find, may be null
-     * @return {@code true} if the CharSequence starts with the prefix, case-sensitive, or
-     *  both {@code null}
      * @since 2.4
      * @since 3.0 Changed signature from startsWith(String, String) to startsWith(CharSequence, CharSequence)
+     * @deprecated Use {@link Strings#startsWith(CharSequence, CharSequence) Strings.CS.startsWith(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static boolean startsWith(final CharSequence str, final CharSequence prefix) {
-        return startsWith(str, prefix, false);
+        return Strings.CS.startsWith(str, prefix);
     }
 
     /**
-     * Check if a CharSequence starts with a specified prefix (optionally case-insensitive).
-     *
-     * @see String#startsWith(String)
-     * @param str  the CharSequence to check, may be null
-     * @param prefix the prefix to find, may be null
-     * @param ignoreCase indicates whether the compare should ignore case
-     *  (case-insensitive) or not.
-     * @return {@code true} if the CharSequence starts with the prefix or
-     *  both {@code null}
-     */
-    private static boolean startsWith(final CharSequence str, final CharSequence prefix, final boolean ignoreCase) {
-        if (str == null || prefix == null) {
-            return str == prefix;
-        }
-        // Get length once instead of twice in the unlikely case that it changes.
-        final int preLen = prefix.length();
-        if (preLen > str.length()) {
-            return false;
-        }
-        return CharSequenceUtils.regionMatches(str, ignoreCase, 0, prefix, 0, preLen);
-    }
-
-    /**
-     * Check if a CharSequence starts with any of the provided case-sensitive prefixes.
+     * Tests if a CharSequence starts with any of the provided case-sensitive prefixes.
      *
      * <pre>
      * StringUtils.startsWithAny(null, null)      = false
@@ -8060,31 +7730,26 @@ public class StringUtils {
      * StringUtils.startsWithAny("ABCXYZ", null, "xyz", "abc") = false
      * </pre>
      *
-     * @param sequence the CharSequence to check, may be null
-     * @param searchStrings the case-sensitive CharSequence prefixes, may be empty or contain {@code null}
+     * @param sequence      the CharSequence to check, may be null.
+     * @param searchStrings the case-sensitive CharSequence prefixes, may be empty or contain {@code null}.
+     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} begins with
+     *         any of the provided case-sensitive {@code searchStrings}.
      * @see StringUtils#startsWith(CharSequence, CharSequence)
-     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or
-     *   the input {@code sequence} begins with any of the provided case-sensitive {@code searchStrings}.
      * @since 2.5
      * @since 3.0 Changed signature from startsWithAny(String, String[]) to startsWithAny(CharSequence, CharSequence...)
+     * @deprecated Use {@link Strings#startsWithAny(CharSequence, CharSequence...) Strings.CS.startsWithAny(CharSequence, CharSequence...)}.
      */
+    @Deprecated
     public static boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
-        if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
-            return false;
-        }
-        for (final CharSequence searchString : searchStrings) {
-            if (startsWith(sequence, searchString)) {
-                return true;
-            }
-        }
-        return false;
+        return Strings.CS.startsWithAny(sequence, searchStrings);
     }
 
     /**
      * Case-insensitive check if a CharSequence starts with a specified prefix.
      *
-     * <p>{@code null}s are handled without exceptions. Two {@code null}
-     * references are considered to be equal. The comparison is case insensitive.</p>
+     * <p>
+     * {@code null}s are handled without exceptions. Two {@code null} references are considered to be equal. The comparison is case insensitive.
+     * </p>
      *
      * <pre>
      * StringUtils.startsWithIgnoreCase(null, null)      = true
@@ -8094,25 +7759,29 @@ public class StringUtils {
      * StringUtils.startsWithIgnoreCase("ABCDEF", "abc") = true
      * </pre>
      *
+     * @param str    the CharSequence to check, may be null.
+     * @param prefix the prefix to find, may be null.
+     * @return {@code true} if the CharSequence starts with the prefix, case-insensitive, or both {@code null}.
      * @see String#startsWith(String)
-     * @param str  the CharSequence to check, may be null
-     * @param prefix the prefix to find, may be null
-     * @return {@code true} if the CharSequence starts with the prefix, case-insensitive, or
-     *  both {@code null}
      * @since 2.4
      * @since 3.0 Changed signature from startsWithIgnoreCase(String, String) to startsWithIgnoreCase(CharSequence, CharSequence)
+     * @deprecated Use {@link Strings#startsWith(CharSequence, CharSequence) Strings.CI.startsWith(CharSequence, CharSequence)}.
      */
+    @Deprecated
     public static boolean startsWithIgnoreCase(final CharSequence str, final CharSequence prefix) {
-        return startsWith(str, prefix, true);
+        return Strings.CI.startsWith(str, prefix);
     }
 
     /**
      * Strips whitespace from the start and end of a String.
      *
-     * <p>This is similar to {@link #trim(String)} but removes whitespace.
-     * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * This is similar to {@link #trim(String)} but removes whitespace. Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.strip(null)     = null
@@ -8125,24 +7794,25 @@ public class StringUtils {
      * StringUtils.strip(" ab c ") = "ab c"
      * </pre>
      *
-     * @param str  the String to remove whitespace from, may be null
-     * @return the stripped String, {@code null} if null String input
+     * @param str the String to remove whitespace from, may be null.
+     * @return the stripped String, {@code null} if null String input.
      */
     public static String strip(final String str) {
         return strip(str, null);
     }
 
     /**
-     * Strips any of a set of characters from the start and end of a String.
-     * This is similar to {@link String#trim()} but allows the characters
-     * to be stripped to be controlled.
+     * Strips any of a set of characters from the start and end of a String. This is similar to {@link String#trim()} but allows the characters to be stripped
+     * to be controlled.
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * An empty string ("") input returns the empty string.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. An empty string ("") input returns the empty string.
+     * </p>
      *
-     * <p>If the stripChars String is {@code null}, whitespace is
-     * stripped as defined by {@link Character#isWhitespace(char)}.
-     * Alternatively use {@link #strip(String)}.</p>
+     * <p>
+     * If the stripChars String is {@code null}, whitespace is stripped as defined by {@link Character#isWhitespace(char)}. Alternatively use
+     * {@link #strip(String)}.
+     * </p>
      *
      * <pre>
      * StringUtils.strip(null, *)          = null
@@ -8154,9 +7824,9 @@ public class StringUtils {
      * StringUtils.strip("  abcyx", "xyz") = "  abc"
      * </pre>
      *
-     * @param str  the String to remove characters from, may be null
-     * @param stripChars  the characters to remove, null treated as whitespace
-     * @return the stripped String, {@code null} if null String input
+     * @param str        the String to remove characters from, may be null.
+     * @param stripChars the characters to remove, null treated as whitespace.
+     * @return the stripped String, {@code null} if null String input.
      */
     public static String strip(String str, final String stripChars) {
         str = stripStart(str, stripChars);
@@ -8165,23 +7835,31 @@ public class StringUtils {
 
     /**
      * Removes diacritics (~= accents) from a string. The case will not be altered.
-     * <p>For instance, '&agrave;' will be replaced by 'a'.</p>
-     * <p>Decomposes ligatures and digraphs per the KD column in the
-     * <a href = "https://www.unicode.org/charts/normalization/">Unicode Normalization Chart.</a></p>
+     * <p>
+     * For instance, '&agrave;' will be replaced by 'a'.
+     * </p>
+     * <p>
+     * Decomposes ligatures and digraphs per the KD column in the <a href = "https://www.unicode.org/charts/normalization/">Unicode Normalization Chart.</a>
+     * </p>
      *
      * <pre>
-     * StringUtils.stripAccents(null)                = null
-     * StringUtils.stripAccents("")                  = ""
-     * StringUtils.stripAccents("control")           = "control"
+     * StringUtils.stripAccents(null)         = null
+     * StringUtils.stripAccents("")           = ""
+     * StringUtils.stripAccents("control")    = "control"
      * StringUtils.stripAccents("&eacute;clair")     = "eclair"
+     * StringUtils.stripAccents("\u1d43\u1d47\u1d9c\u00b9\u00b2\u00b3")     = "abc123"
+     * StringUtils.stripAccents("\u00BC \u00BD \u00BE")      = "1⁄4 1⁄2 3⁄4"
      * </pre>
+     * <p>
+     * See also <a href="https://www.unicode.org/unicode/reports/tr15/tr15-23.html">Unicode Standard Annex #15 Unicode Normalization Forms</a>.
+     * </p>
      *
-     * @param input String to be stripped
-     * @return input text with diacritics removed
-     *
+     * @param input String to be stripped.
+     * @return input text with diacritics removed.
      * @since 3.0
      */
-    // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their unaccented equivalent (and uncommitted bug fix: https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
+    // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their unaccented equivalent (and uncommitted bug fix:
+    // https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
     public static String stripAccents(final String input) {
         if (isEmpty(input)) {
             return input;
@@ -8192,13 +7870,12 @@ public class StringUtils {
     }
 
     /**
-     * Strips whitespace from the start and end of every String in an array.
-     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * Strips whitespace from the start and end of every String in an array. Whitespace is defined by {@link Character#isWhitespace(char)}.
      *
-     * <p>A new array is returned each time, except for length zero.
-     * A {@code null} array will return {@code null}.
-     * An empty array will return itself.
-     * A {@code null} array entry will be ignored.</p>
+     * <p>
+     * A new array is returned each time, except for length zero. A {@code null} array will return {@code null}. An empty array will return itself. A
+     * {@code null} array entry will be ignored.
+     * </p>
      *
      * <pre>
      * StringUtils.stripAll(null)             = null
@@ -8207,24 +7884,23 @@ public class StringUtils {
      * StringUtils.stripAll(["abc  ", null])  = ["abc", null]
      * </pre>
      *
-     * @param strs  the array to remove whitespace from, may be null
-     * @return the stripped Strings, {@code null} if null array input
+     * @param strs the array to remove whitespace from, may be null.
+     * @return the stripped Strings, {@code null} if null array input.
      */
     public static String[] stripAll(final String... strs) {
         return stripAll(strs, null);
     }
 
     /**
-     * Strips any of a set of characters from the start and end of every
-     * String in an array.
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * Strips any of a set of characters from the start and end of every String in an array.
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
-     * <p>A new array is returned each time, except for length zero.
-     * A {@code null} array will return {@code null}.
-     * An empty array will return itself.
-     * A {@code null} array entry will be ignored.
-     * A {@code null} stripChars will strip whitespace as defined by
-     * {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * A new array is returned each time, except for length zero. A {@code null} array will return {@code null}. An empty array will return itself. A
+     * {@code null} array entry will be ignored. A {@code null} stripChars will strip whitespace as defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.stripAll(null, *)                = null
@@ -8235,28 +7911,28 @@ public class StringUtils {
      * StringUtils.stripAll(["yabcz", null], "yz")  = ["abc", null]
      * </pre>
      *
-     * @param strs  the array to remove characters from, may be null
-     * @param stripChars  the characters to remove, null treated as whitespace
-     * @return the stripped Strings, {@code null} if null array input
+     * @param strs       the array to remove characters from, may be null.
+     * @param stripChars the characters to remove, null treated as whitespace.
+     * @return the stripped Strings, {@code null} if null array input.
      */
     public static String[] stripAll(final String[] strs, final String stripChars) {
         final int strsLen = ArrayUtils.getLength(strs);
         if (strsLen == 0) {
             return strs;
         }
-        final String[] newArr = new String[strsLen];
-        Arrays.setAll(newArr, i -> strip(strs[i], stripChars));
-        return newArr;
+        return ArrayUtils.setAll(new String[strsLen], i -> strip(strs[i], stripChars));
     }
 
     /**
      * Strips any of a set of characters from the end of a String.
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * An empty string ("") input returns the empty string.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. An empty string ("") input returns the empty string.
+     * </p>
      *
-     * <p>If the stripChars String is {@code null}, whitespace is
-     * stripped as defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * If the stripChars String is {@code null}, whitespace is stripped as defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.stripEnd(null, *)          = null
@@ -8270,16 +7946,15 @@ public class StringUtils {
      * StringUtils.stripEnd("120.00", ".0")   = "12"
      * </pre>
      *
-     * @param str  the String to remove characters from, may be null
-     * @param stripChars  the set of characters to remove, null treated as whitespace
-     * @return the stripped String, {@code null} if null String input
+     * @param str        the String to remove characters from, may be null.
+     * @param stripChars the set of characters to remove, null treated as whitespace.
+     * @return the stripped String, {@code null} if null String input.
      */
     public static String stripEnd(final String str, final String stripChars) {
         int end = length(str);
         if (end == 0) {
             return str;
         }
-
         if (stripChars == null) {
             while (end != 0 && Character.isWhitespace(str.charAt(end - 1))) {
                 end--;
@@ -8297,11 +7972,13 @@ public class StringUtils {
     /**
      * Strips any of a set of characters from the start of a String.
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * An empty string ("") input returns the empty string.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. An empty string ("") input returns the empty string.
+     * </p>
      *
-     * <p>If the stripChars String is {@code null}, whitespace is
-     * stripped as defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * If the stripChars String is {@code null}, whitespace is stripped as defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.stripStart(null, *)          = null
@@ -8314,9 +7991,9 @@ public class StringUtils {
      * StringUtils.stripStart("yxabc  ", "xyz") = "abc  "
      * </pre>
      *
-     * @param str  the String to remove characters from, may be null
-     * @param stripChars  the characters to remove, null treated as whitespace
-     * @return the stripped String, {@code null} if null String input
+     * @param str        the String to remove characters from, may be null.
+     * @param stripChars the characters to remove, null treated as whitespace.
+     * @return the stripped String, {@code null} if null String input.
      */
     public static String stripStart(final String str, final String stripChars) {
         final int strLen = length(str);
@@ -8339,11 +8016,11 @@ public class StringUtils {
     }
 
     /**
-     * Strips whitespace from the start and end of a String  returning
-     * an empty String if {@code null} input.
+     * Strips whitespace from the start and end of a String returning an empty String if {@code null} input.
      *
-     * <p>This is similar to {@link #trimToEmpty(String)} but removes whitespace.
-     * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * This is similar to {@link #trimToEmpty(String)} but removes whitespace. Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.stripToEmpty(null)     = ""
@@ -8356,8 +8033,8 @@ public class StringUtils {
      * StringUtils.stripToEmpty(" ab c ") = "ab c"
      * </pre>
      *
-     * @param str  the String to be stripped, may be null
-     * @return the trimmed String, or an empty String if {@code null} input
+     * @param str the String to be stripped, may be null.
+     * @return the trimmed String, or an empty String if {@code null} input.
      * @since 2.0
      */
     public static String stripToEmpty(final String str) {
@@ -8365,11 +8042,11 @@ public class StringUtils {
     }
 
     /**
-     * Strips whitespace from the start and end of a String  returning
-     * {@code null} if the String is empty ("") after the strip.
+     * Strips whitespace from the start and end of a String returning {@code null} if the String is empty ("") after the strip.
      *
-     * <p>This is similar to {@link #trimToNull(String)} but removes whitespace.
-     * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * This is similar to {@link #trimToNull(String)} but removes whitespace. Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * </p>
      *
      * <pre>
      * StringUtils.stripToNull(null)     = null
@@ -8382,9 +8059,8 @@ public class StringUtils {
      * StringUtils.stripToNull(" ab c ") = "ab c"
      * </pre>
      *
-     * @param str  the String to be stripped, may be null
-     * @return the stripped String,
-     *  {@code null} if whitespace, empty or null String input
+     * @param str the String to be stripped, may be null.
+     * @return the stripped String, {@code null} if whitespace, empty or null String input.
      * @since 2.0
      */
     public static String stripToNull(String str) {
@@ -8398,11 +8074,13 @@ public class StringUtils {
     /**
      * Gets a substring from the specified String avoiding exceptions.
      *
-     * <p>A negative start position can be used to start {@code n}
-     * characters from the end of the String.</p>
+     * <p>
+     * A negative start position can be used to start {@code n} characters from the end of the String.
+     * </p>
      *
-     * <p>A {@code null} String will return {@code null}.
-     * An empty ("") String will return "".</p>
+     * <p>
+     * A {@code null} String will return {@code null}. An empty ("") String will return "".
+     * </p>
      *
      * <pre>
      * StringUtils.substring(null, *)   = null
@@ -8414,45 +8092,43 @@ public class StringUtils {
      * StringUtils.substring("abc", -4) = "abc"
      * </pre>
      *
-     * @param str  the String to get the substring from, may be null
-     * @param start  the position to start from, negative means
-     *  count back from the end of the String by this many characters
-     * @return substring from start position, {@code null} if null String input
+     * @param str   the String to get the substring from, may be null.
+     * @param start the position to start from, negative means count back from the end of the String by this many characters.
+     * @return substring from start position, {@code null} if null String input.
      */
     public static String substring(final String str, int start) {
         if (str == null) {
             return null;
         }
-
         // handle negatives, which means last n characters
         if (start < 0) {
             start = str.length() + start; // remember start is negative
         }
-
         if (start < 0) {
             start = 0;
         }
         if (start > str.length()) {
             return EMPTY;
         }
-
         return str.substring(start);
     }
 
     /**
      * Gets a substring from the specified String avoiding exceptions.
      *
-     * <p>A negative start position can be used to start/end {@code n}
-     * characters from the end of the String.</p>
+     * <p>
+     * A negative start position can be used to start/end {@code n} characters from the end of the String.
+     * </p>
      *
-     * <p>The returned substring starts with the character in the {@code start}
-     * position and ends before the {@code end} position. All position counting is
-     * zero-based -- i.e., to start at the beginning of the string use
-     * {@code start = 0}. Negative start and end positions can be used to
-     * specify offsets relative to the end of the String.</p>
+     * <p>
+     * The returned substring starts with the character in the {@code start} position and ends before the {@code end} position. All position counting is
+     * zero-based -- i.e., to start at the beginning of the string use {@code start = 0}. Negative start and end positions can be used to specify offsets
+     * relative to the end of the String.
+     * </p>
      *
-     * <p>If {@code start} is not strictly to the left of {@code end}, ""
-     * is returned.</p>
+     * <p>
+     * If {@code start} is not strictly to the left of {@code end}, "" is returned.
+     * </p>
      *
      * <pre>
      * StringUtils.substring(null, *, *)    = null
@@ -8466,19 +8142,15 @@ public class StringUtils {
      * StringUtils.substring("abc", -4, 2)  = "ab"
      * </pre>
      *
-     * @param str  the String to get the substring from, may be null
-     * @param start  the position to start from, negative means
-     *  count back from the end of the String by this many characters
-     * @param end  the position to end at (exclusive), negative means
-     *  count back from the end of the String by this many characters
-     * @return substring from start position to end position,
-     *  {@code null} if null String input
+     * @param str   the String to get the substring from, may be null.
+     * @param start the position to start from, negative means count back from the end of the String by this many characters.
+     * @param end   the position to end at (exclusive), negative means count back from the end of the String by this many characters.
+     * @return substring from start position to end position, {@code null} if null String input.
      */
     public static String substring(final String str, int start, int end) {
         if (str == null) {
             return null;
         }
-
         // handle negatives
         if (end < 0) {
             end = str.length() + end; // remember end is negative
@@ -8486,35 +8158,32 @@ public class StringUtils {
         if (start < 0) {
             start = str.length() + start; // remember start is negative
         }
-
         // check length next
         if (end > str.length()) {
             end = str.length();
         }
-
         // if start is greater than end, return ""
         if (start > end) {
             return EMPTY;
         }
-
         if (start < 0) {
             start = 0;
         }
         if (end < 0) {
             end = 0;
         }
-
         return str.substring(start, end);
     }
 
     /**
-     * Gets the substring after the first occurrence of a separator.
-     * The separator is not returned.
+     * Gets the substring after the first occurrence of a separator. The separator is not returned.
      *
-     * <p>A {@code null} string input will return {@code null}.
-     * An empty ("") string input will return the empty string.
+     * <p>
+     * A {@code null} string input will return {@code null}. An empty ("") string input will return the empty string.
      *
-     * <p>If nothing is found, the empty string is returned.</p>
+     * <p>
+     * If nothing is found, the empty string is returned.
+     * </p>
      *
      * <pre>
      * StringUtils.substringAfter(null, *)      = null
@@ -8526,17 +8195,16 @@ public class StringUtils {
      * StringUtils.substringAfter(" abc", 32)   = "abc"
      * </pre>
      *
-     * @param str  the String to get a substring from, may be null
-     * @param separator  the character (Unicode code point) to search.
-     * @return the substring after the first occurrence of the separator,
-     *  {@code null} if null String input
+     * @param str       the String to get a substring from, may be null.
+     * @param find the character (Unicode code point) to find.
+     * @return the substring after the first occurrence of the specified character, {@code null} if null String input.
      * @since 3.11
      */
-    public static String substringAfter(final String str, final int separator) {
+    public static String substringAfter(final String str, final int find) {
         if (isEmpty(str)) {
             return str;
         }
-        final int pos = str.indexOf(separator);
+        final int pos = str.indexOf(find);
         if (pos == INDEX_NOT_FOUND) {
             return EMPTY;
         }
@@ -8544,15 +8212,16 @@ public class StringUtils {
     }
 
     /**
-     * Gets the substring after the first occurrence of a separator.
-     * The separator is not returned.
+     * Gets the substring after the first occurrence of a separator. The separator is not returned.
      *
-     * <p>A {@code null} string input will return {@code null}.
-     * An empty ("") string input will return the empty string.
-     * A {@code null} separator will return the empty string if the
-     * input string is not {@code null}.</p>
+     * <p>
+     * A {@code null} string input will return {@code null}. An empty ("") string input will return the empty string. A {@code null} separator will return the
+     * empty string if the input string is not {@code null}.
+     * </p>
      *
-     * <p>If nothing is found, the empty string is returned.</p>
+     * <p>
+     * If nothing is found, the empty string is returned.
+     * </p>
      *
      * <pre>
      * StringUtils.substringAfter(null, *)      = null
@@ -8565,34 +8234,34 @@ public class StringUtils {
      * StringUtils.substringAfter("abc", "")    = "abc"
      * </pre>
      *
-     * @param str  the String to get a substring from, may be null
-     * @param separator  the String to search for, may be null
-     * @return the substring after the first occurrence of the separator,
-     *  {@code null} if null String input
+     * @param str       the String to get a substring from, may be null.
+     * @param find the String to find, may be null.
+     * @return the substring after the first occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
-    public static String substringAfter(final String str, final String separator) {
+    public static String substringAfter(final String str, final String find) {
         if (isEmpty(str)) {
             return str;
         }
-        if (separator == null) {
+        if (find == null) {
             return EMPTY;
         }
-        final int pos = str.indexOf(separator);
+        final int pos = str.indexOf(find);
         if (pos == INDEX_NOT_FOUND) {
             return EMPTY;
         }
-        return str.substring(pos + separator.length());
+        return str.substring(pos + find.length());
     }
 
     /**
-     * Gets the substring after the last occurrence of a separator.
-     * The separator is not returned.
+     * Gets the substring after the last occurrence of a separator. The separator is not returned.
      *
-     * <p>A {@code null} string input will return {@code null}.
-     * An empty ("") string input will return the empty string.
+     * <p>
+     * A {@code null} string input will return {@code null}. An empty ("") string input will return the empty string.
      *
-     * <p>If nothing is found, the empty string is returned.</p>
+     * <p>
+     * If nothing is found, the empty string is returned.
+     * </p>
      *
      * <pre>
      * StringUtils.substringAfterLast(null, *)      = null
@@ -8605,17 +8274,16 @@ public class StringUtils {
      * StringUtils.substringAfterLast("a", 'z')     = ""
      * </pre>
      *
-     * @param str  the String to get a substring from, may be null
-     * @param separator  the character (Unicode code point) to search.
-     * @return the substring after the last occurrence of the separator,
-     *  {@code null} if null String input
+     * @param str       the String to get a substring from, may be null.
+     * @param find the character (Unicode code point) to find.
+     * @return the substring after the last occurrence of the specified character, {@code null} if null String input.
      * @since 3.11
      */
-    public static String substringAfterLast(final String str, final int separator) {
+    public static String substringAfterLast(final String str, final int find) {
         if (isEmpty(str)) {
             return str;
         }
-        final int pos = str.lastIndexOf(separator);
+        final int pos = str.lastIndexOf(find);
         if (pos == INDEX_NOT_FOUND || pos == str.length() - 1) {
             return EMPTY;
         }
@@ -8623,15 +8291,16 @@ public class StringUtils {
     }
 
     /**
-     * Gets the substring after the last occurrence of a separator.
-     * The separator is not returned.
+     * Gets the substring after the last occurrence of a separator. The separator is not returned.
      *
-     * <p>A {@code null} string input will return {@code null}.
-     * An empty ("") string input will return the empty string.
-     * An empty or {@code null} separator will return the empty string if
-     * the input string is not {@code null}.</p>
+     * <p>
+     * A {@code null} string input will return {@code null}. An empty ("") string input will return the empty string. An empty or {@code null} separator will
+     * return the empty string if the input string is not {@code null}.
+     * </p>
      *
-     * <p>If nothing is found, the empty string is returned.</p>
+     * <p>
+     * If nothing is found, the empty string is returned.
+     * </p>
      *
      * <pre>
      * StringUtils.substringAfterLast(null, *)      = null
@@ -8645,24 +8314,23 @@ public class StringUtils {
      * StringUtils.substringAfterLast("a", "z")     = ""
      * </pre>
      *
-     * @param str  the String to get a substring from, may be null
-     * @param separator  the String to search for, may be null
-     * @return the substring after the last occurrence of the separator,
-     *  {@code null} if null String input
+     * @param str       the String to get a substring from, may be null.
+     * @param find the String to find, may be null.
+     * @return the substring after the last occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
-    public static String substringAfterLast(final String str, final String separator) {
+    public static String substringAfterLast(final String str, final String find) {
         if (isEmpty(str)) {
             return str;
         }
-        if (isEmpty(separator)) {
+        if (isEmpty(find)) {
             return EMPTY;
         }
-        final int pos = str.lastIndexOf(separator);
-        if (pos == INDEX_NOT_FOUND || pos == str.length() - separator.length()) {
+        final int pos = str.lastIndexOf(find);
+        if (pos == INDEX_NOT_FOUND || pos == str.length() - find.length()) {
             return EMPTY;
         }
-        return str.substring(pos + separator.length());
+        return str.substring(pos + find.length());
     }
 
     /**
@@ -8685,16 +8353,16 @@ public class StringUtils {
      * StringUtils.substringBefore("abc", 'd')   = "abc"
      * </pre>
      *
-     * @param str the String to get a substring from, may be null
-     * @param separator the character (Unicode code point) to search.
-     * @return the substring before the first occurrence of the separator, {@code null} if null String input
+     * @param str       the String to get a substring from, may be null.
+     * @param find the character (Unicode code point) to find.
+     * @return the substring before the first occurrence of the specified character, {@code null} if null String input.
      * @since 3.12.0
      */
-    public static String substringBefore(final String str, final int separator) {
+    public static String substringBefore(final String str, final int find) {
         if (isEmpty(str)) {
             return str;
         }
-        final int pos = str.indexOf(separator);
+        final int pos = str.indexOf(find);
         if (pos == INDEX_NOT_FOUND) {
             return str;
         }
@@ -8702,14 +8370,16 @@ public class StringUtils {
     }
 
     /**
-     * Gets the substring before the first occurrence of a separator.
-     * The separator is not returned.
+     * Gets the substring before the first occurrence of a separator. The separator is not returned.
      *
-     * <p>A {@code null} string input will return {@code null}.
-     * An empty ("") string input will return the empty string.
-     * A {@code null} separator will return the input string.</p>
+     * <p>
+     * A {@code null} string input will return {@code null}. An empty ("") string input will return the empty string. A {@code null} separator will return the
+     * input string.
+     * </p>
      *
-     * <p>If nothing is found, the string input is returned.</p>
+     * <p>
+     * If nothing is found, the string input is returned.
+     * </p>
      *
      * <pre>
      * StringUtils.substringBefore(null, *)      = null
@@ -8722,20 +8392,19 @@ public class StringUtils {
      * StringUtils.substringBefore("abc", null)  = "abc"
      * </pre>
      *
-     * @param str  the String to get a substring from, may be null
-     * @param separator  the String to search for, may be null
-     * @return the substring before the first occurrence of the separator,
-     *  {@code null} if null String input
+     * @param str       the String to get a substring from, may be null.
+     * @param find the String to find, may be null.
+     * @return the substring before the first occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
-    public static String substringBefore(final String str, final String separator) {
-        if (isEmpty(str) || separator == null) {
+    public static String substringBefore(final String str, final String find) {
+        if (isEmpty(str) || find == null) {
             return str;
         }
-        if (separator.isEmpty()) {
+        if (find.isEmpty()) {
             return EMPTY;
         }
-        final int pos = str.indexOf(separator);
+        final int pos = str.indexOf(find);
         if (pos == INDEX_NOT_FOUND) {
             return str;
         }
@@ -8743,14 +8412,16 @@ public class StringUtils {
     }
 
     /**
-     * Gets the substring before the last occurrence of a separator.
-     * The separator is not returned.
+     * Gets the substring before the last occurrence of a separator. The separator is not returned.
      *
-     * <p>A {@code null} string input will return {@code null}.
-     * An empty ("") string input will return the empty string.
-     * An empty or {@code null} separator will return the input string.</p>
+     * <p>
+     * A {@code null} string input will return {@code null}. An empty ("") string input will return the empty string. An empty or {@code null} separator will
+     * return the input string.
+     * </p>
      *
-     * <p>If nothing is found, the string input is returned.</p>
+     * <p>
+     * If nothing is found, the string input is returned.
+     * </p>
      *
      * <pre>
      * StringUtils.substringBeforeLast(null, *)      = null
@@ -8763,17 +8434,16 @@ public class StringUtils {
      * StringUtils.substringBeforeLast("a", "")      = "a"
      * </pre>
      *
-     * @param str  the String to get a substring from, may be null
-     * @param separator  the String to search for, may be null
-     * @return the substring before the last occurrence of the separator,
-     *  {@code null} if null String input
+     * @param str       the String to get a substring from, may be null.
+     * @param find the String to find, may be null.
+     * @return the substring before the last occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
-    public static String substringBeforeLast(final String str, final String separator) {
-        if (isEmpty(str) || isEmpty(separator)) {
+    public static String substringBeforeLast(final String str, final String find) {
+        if (isEmpty(str) || isEmpty(find)) {
             return str;
         }
-        final int pos = str.lastIndexOf(separator);
+        final int pos = str.lastIndexOf(find);
         if (pos == INDEX_NOT_FOUND) {
             return str;
         }
@@ -8781,11 +8451,11 @@ public class StringUtils {
     }
 
     /**
-     * Gets the String that is nested in between two instances of the
-     * same String.
+     * Gets the String that is nested in between two instances of the same String.
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * A {@code null} tag returns {@code null}.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. A {@code null} tag returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.substringBetween(null, *)            = null
@@ -8796,9 +8466,9 @@ public class StringUtils {
      * StringUtils.substringBetween("tagabctag", "tag") = "abc"
      * </pre>
      *
-     * @param str  the String containing the substring, may be null
-     * @param tag  the String before and after the substring, may be null
-     * @return the substring, {@code null} if no match
+     * @param str the String containing the substring, may be null.
+     * @param tag the String before and after the substring, may be null.
+     * @return the substring, {@code null} if no match.
      * @since 2.0
      */
     public static String substringBetween(final String str, final String tag) {
@@ -8806,12 +8476,12 @@ public class StringUtils {
     }
 
     /**
-     * Gets the String that is nested in between two Strings.
-     * Only the first match is returned.
+     * Gets the String that is nested in between two Strings. Only the first match is returned.
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * A {@code null} open/close returns {@code null} (no match).
-     * An empty ("") open and close returns an empty string.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. A {@code null} open/close returns {@code null} (no match). An empty ("") open and close returns an
+     * empty string.
+     * </p>
      *
      * <pre>
      * StringUtils.substringBetween("wx[b]yz", "[", "]") = "b"
@@ -8826,10 +8496,10 @@ public class StringUtils {
      * StringUtils.substringBetween("yabczyabcz", "y", "z")   = "abc"
      * </pre>
      *
-     * @param str  the String containing the substring, may be null
-     * @param open  the String before the substring, may be null
-     * @param close  the String after the substring, may be null
-     * @return the substring, {@code null} if no match
+     * @param str   the String containing the substring, may be null.
+     * @param open  the String before the substring, may be null.
+     * @param close the String after the substring, may be null.
+     * @return the substring, {@code null} if no match.
      * @since 2.0
      */
     public static String substringBetween(final String str, final String open, final String close) {
@@ -8847,12 +8517,12 @@ public class StringUtils {
     }
 
     /**
-     * Searches a String for substrings delimited by a start and end tag,
-     * returning all matching substrings in an array.
+     * Searches a String for substrings delimited by a start and end tag, returning all matching substrings in an array.
      *
-     * <p>A {@code null} input String returns {@code null}.
-     * A {@code null} open/close returns {@code null} (no match).
-     * An empty ("") open/close returns {@code null} (no match).</p>
+     * <p>
+     * A {@code null} input String returns {@code null}. A {@code null} open/close returns {@code null} (no match). An empty ("") open/close returns
+     * {@code null} (no match).
+     * </p>
      *
      * <pre>
      * StringUtils.substringsBetween("[a][b][c]", "[", "]") = ["a","b","c"]
@@ -8862,10 +8532,10 @@ public class StringUtils {
      * StringUtils.substringsBetween("", "[", "]")          = []
      * </pre>
      *
-     * @param str  the String containing the substrings, null returns null, empty returns empty
-     * @param open  the String identifying the start of the substring, empty returns null
-     * @param close  the String identifying the end of the substring, empty returns null
-     * @return a String Array of substrings, or {@code null} if no match
+     * @param str   the String containing the substrings, null returns null, empty returns empty.
+     * @param open  the String identifying the start of the substring, empty returns null.
+     * @param close the String identifying the end of the substring, empty returns null.
+     * @return a String Array of substrings, or {@code null} if no match.
      * @since 2.3
      */
     public static String[] substringsBetween(final String str, final String open, final String close) {
@@ -8900,17 +8570,17 @@ public class StringUtils {
     }
 
     /**
-     * Swaps the case of a String changing upper and title case to
-     * lower case, and lower case to upper case.
+     * Swaps the case of a String changing upper and title case to lower case, and lower case to upper case.
      *
      * <ul>
-     *  <li>Upper case character converts to Lower case</li>
-     *  <li>Title case character converts to Lower case</li>
-     *  <li>Lower case character converts to Upper case</li>
+     * <li>Upper case character converts to Lower case</li>
+     * <li>Title case character converts to Lower case</li>
+     * <li>Lower case character converts to Upper case</li>
      * </ul>
      *
-     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#swapCase(String)}.
-     * A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * For a word based algorithm, see {@link org.apache.commons.text.WordUtils#swapCase(String)}. A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.swapCase(null)                 = null
@@ -8918,23 +8588,22 @@ public class StringUtils {
      * StringUtils.swapCase("The dog has a BONE") = "tHE DOG HAS A bone"
      * </pre>
      *
-     * <p>NOTE: This method changed in Lang version 2.0.
-     * It no longer performs a word based algorithm.
-     * If you only use ASCII, you will notice no change.
-     * That functionality is available in org.apache.commons.lang3.text.WordUtils.</p>
+     * <p>
+     * NOTE: This method changed in Lang version 2.0. It no longer performs a word based algorithm. If you only use ASCII, you will notice no change. That
+     * functionality is available in org.apache.commons.lang3.text.WordUtils.
+     * </p>
      *
-     * @param str  the String to swap case, may be null
-     * @return the changed String, {@code null} if null String input
+     * @param str the String to swap case, may be null.
+     * @return the changed String, {@code null} if null String input.
      */
     public static String swapCase(final String str) {
         if (isEmpty(str)) {
             return str;
         }
-
         final int strLen = str.length();
         final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
         int outOffset = 0;
-        for (int i = 0; i < strLen; ) {
+        for (int i = 0; i < strLen;) {
             final int oldCodepoint = str.codePointAt(i);
             final int newCodePoint;
             if (Character.isUpperCase(oldCodepoint) || Character.isTitleCase(oldCodepoint)) {
@@ -8946,24 +8615,25 @@ public class StringUtils {
             }
             newCodePoints[outOffset++] = newCodePoint;
             i += Character.charCount(newCodePoint);
-         }
+        }
         return new String(newCodePoints, 0, outOffset);
     }
 
     /**
      * Converts a {@link CharSequence} into an array of code points.
      *
-     * <p>Valid pairs of surrogate code units will be converted into a single supplementary
-     * code point. Isolated surrogate code units (i.e. a high surrogate not followed by a low surrogate or
-     * a low surrogate not preceded by a high surrogate) will be returned as-is.</p>
+     * <p>
+     * Valid pairs of surrogate code units will be converted into a single supplementary code point. Isolated surrogate code units (i.e. a high surrogate not
+     * followed by a low surrogate or a low surrogate not preceded by a high surrogate) will be returned as-is.
+     * </p>
      *
      * <pre>
      * StringUtils.toCodePoints(null)   =  null
      * StringUtils.toCodePoints("")     =  []  // empty array
      * </pre>
      *
-     * @param cs the character sequence to convert
-     * @return an array of code points
+     * @param cs the character sequence to convert.
+     * @return an array of code points.
      * @since 3.6
      */
     public static int[] toCodePoints(final CharSequence cs) {
@@ -8973,27 +8643,16 @@ public class StringUtils {
         if (cs.length() == 0) {
             return ArrayUtils.EMPTY_INT_ARRAY;
         }
-
-        final String s = cs.toString();
-        final int[] result = new int[s.codePointCount(0, s.length())];
-        int index = 0;
-        for (int i = 0; i < result.length; i++) {
-            result[i] = s.codePointAt(index);
-            index += Character.charCount(result[i]);
-        }
-        return result;
+        return cs.toString().codePoints().toArray();
     }
 
     /**
      * Converts a {@code byte[]} to a String using the specified character encoding.
      *
-     * @param bytes
-     *            the byte array to read from
-     * @param charset
-     *            the encoding to use, if null then use the platform default
-     * @return a new String
-     * @throws NullPointerException
-     *             if {@code bytes} is null
+     * @param bytes   the byte array to read from.
+     * @param charset the encoding to use, if null then use the platform default.
+     * @return a new String.
+     * @throws NullPointerException if {@code bytes} is null
      * @since 3.2
      * @since 3.3 No longer throws {@link UnsupportedEncodingException}.
      */
@@ -9026,38 +8685,28 @@ public class StringUtils {
     /**
      * Converts a {@code byte[]} to a String using the specified character encoding.
      *
-     * @param bytes
-     *            the byte array to read from
-     * @param charsetName
-     *            the encoding to use, if null then use the platform default
-     * @return a new String
-     * @throws UnsupportedEncodingException
-     *             Never thrown
-     * @throws NullPointerException
-     *             if the input is null
-     * @deprecated use {@link StringUtils#toEncodedString(byte[], Charset)} instead of String constants in your code
+     * @param bytes       the byte array to read from.
+     * @param charsetName the encoding to use, if null then use the platform default.
+     * @return a new String.
+     * @throws NullPointerException if the input is null.
+     * @deprecated Use {@link StringUtils#toEncodedString(byte[], Charset)} instead of String constants in your code.
      * @since 3.1
      */
     @Deprecated
-    public static String toString(final byte[] bytes, final String charsetName) throws UnsupportedEncodingException {
+    public static String toString(final byte[] bytes, final String charsetName) {
         return new String(bytes, Charsets.toCharset(charsetName));
     }
 
-    private static String toStringOrEmpty(final Object obj) {
-        return Objects.toString(obj, EMPTY);
-    }
-
     /**
-     * Removes control characters (char &lt;= 32) from both
-     * ends of this String, handling {@code null} by returning
-     * {@code null}.
+     * Removes control characters (char &lt;= 32) from both ends of this String, handling {@code null} by returning {@code null}.
      *
-     * <p>The String is trimmed using {@link String#trim()}.
-     * Trim removes start and end characters &lt;= 32.
-     * To strip whitespace use {@link #strip(String)}.</p>
+     * <p>
+     * The String is trimmed using {@link String#trim()}. Trim removes start and end characters &lt;= 32. To strip whitespace use {@link #strip(String)}.
+     * </p>
      *
-     * <p>To trim your choice of characters, use the
-     * {@link #strip(String, String)} methods.</p>
+     * <p>
+     * To trim your choice of characters, use the {@link #strip(String, String)} methods.
+     * </p>
      *
      * <pre>
      * StringUtils.trim(null)          = null
@@ -9067,21 +8716,19 @@ public class StringUtils {
      * StringUtils.trim("    abc    ") = "abc"
      * </pre>
      *
-     * @param str  the String to be trimmed, may be null
-     * @return the trimmed string, {@code null} if null String input
+     * @param str the String to be trimmed, may be null.
+     * @return the trimmed string, {@code null} if null String input.
      */
     public static String trim(final String str) {
         return str == null ? null : str.trim();
     }
 
     /**
-     * Removes control characters (char &lt;= 32) from both
-     * ends of this String returning an empty String ("") if the String
-     * is empty ("") after the trim or if it is {@code null}.
+     * Removes control characters (char &lt;= 32) from both ends of this String returning an empty String ("") if the String is empty ("") after the trim or if
+     * it is {@code null}.
      *
-     * <p>The String is trimmed using {@link String#trim()}.
-     * Trim removes start and end characters &lt;= 32.
-     * To strip whitespace use {@link #stripToEmpty(String)}.
+     * <p>
+     * The String is trimmed using {@link String#trim()}. Trim removes start and end characters &lt;= 32. To strip whitespace use {@link #stripToEmpty(String)}.
      *
      * <pre>
      * StringUtils.trimToEmpty(null)          = ""
@@ -9091,8 +8738,8 @@ public class StringUtils {
      * StringUtils.trimToEmpty("    abc    ") = "abc"
      * </pre>
      *
-     * @param str  the String to be trimmed, may be null
-     * @return the trimmed String, or an empty String if {@code null} input
+     * @param str the String to be trimmed, may be null.
+     * @return the trimmed String, or an empty String if {@code null} input.
      * @since 2.0
      */
     public static String trimToEmpty(final String str) {
@@ -9100,13 +8747,11 @@ public class StringUtils {
     }
 
     /**
-     * Removes control characters (char &lt;= 32) from both
-     * ends of this String returning {@code null} if the String is
-     * empty ("") after the trim or if it is {@code null}.
+     * Removes control characters (char &lt;= 32) from both ends of this String returning {@code null} if the String is empty ("") after the trim or if it is
+     * {@code null}.
      *
-     * <p>The String is trimmed using {@link String#trim()}.
-     * Trim removes start and end characters &lt;= 32.
-     * To strip whitespace use {@link #stripToNull(String)}.
+     * <p>
+     * The String is trimmed using {@link String#trim()}. Trim removes start and end characters &lt;= 32. To strip whitespace use {@link #stripToNull(String)}.
      *
      * <pre>
      * StringUtils.trimToNull(null)          = null
@@ -9116,9 +8761,8 @@ public class StringUtils {
      * StringUtils.trimToNull("    abc    ") = "abc"
      * </pre>
      *
-     * @param str  the String to be trimmed, may be null
-     * @return the trimmed String,
-     *  {@code null} if only chars &lt;= 32, empty or null String input
+     * @param str the String to be trimmed, may be null.
+     * @return the trimmed String, {@code null} if only chars &lt;= 32, empty or null String input.
      * @since 2.0
      */
     public static String trimToNull(final String str) {
@@ -9127,18 +8771,16 @@ public class StringUtils {
     }
 
     /**
-     * Truncates a String. This will turn
-     * "Now is the time for all good men" into "Now is the time for".
+     * Truncates a String. This will turn "Now is the time for all good men" into "Now is the time for".
      *
-     * <p>Specifically:</p>
+     * <p>
+     * Specifically:
+     * </p>
      * <ul>
-     *   <li>If {@code str} is less than {@code maxWidth} characters
-     *       long, return it.</li>
-     *   <li>Else truncate it to {@code substring(str, 0, maxWidth)}.</li>
-     *   <li>If {@code maxWidth} is less than {@code 0}, throw an
-     *       {@link IllegalArgumentException}.</li>
-     *   <li>In no case will it return a String of length greater than
-     *       {@code maxWidth}.</li>
+     * <li>If {@code str} is less than {@code maxWidth} characters long, return it.</li>
+     * <li>Else truncate it to {@code substring(str, 0, maxWidth)}.</li>
+     * <li>If {@code maxWidth} is less than {@code 0}, throw an {@link IllegalArgumentException}.</li>
+     * <li>In no case will it return a String of length greater than {@code maxWidth}.</li>
      * </ul>
      *
      * <pre>
@@ -9152,10 +8794,10 @@ public class StringUtils {
      * StringUtils.truncate("abcdefg", -1) = throws an IllegalArgumentException
      * </pre>
      *
-     * @param str  the String to truncate, may be null
-     * @param maxWidth  maximum length of result String, must be positive
-     * @return truncated String, {@code null} if null String input
-     * @throws IllegalArgumentException If {@code maxWidth} is less than {@code 0}
+     * @param str      the String to truncate, may be null.
+     * @param maxWidth maximum length of result String, must be positive.
+     * @return truncated String, {@code null} if null String input.
+     * @throws IllegalArgumentException If {@code maxWidth} is less than {@code 0}.
      * @since 3.5
      */
     public static String truncate(final String str, final int maxWidth) {
@@ -9163,23 +8805,20 @@ public class StringUtils {
     }
 
     /**
-     * Truncates a String. This will turn
-     * "Now is the time for all good men" into "is the time for all".
+     * Truncates a String. This will turn "Now is the time for all good men" into "is the time for all".
      *
-     * <p>Works like {@code truncate(String, int)}, but allows you to specify
-     * a "left edge" offset.
+     * <p>
+     * Works like {@code truncate(String, int)}, but allows you to specify a "left edge" offset.
      *
-     * <p>Specifically:</p>
+     * <p>
+     * Specifically:
+     * </p>
      * <ul>
-     *   <li>If {@code str} is less than {@code maxWidth} characters
-     *       long, return it.</li>
-     *   <li>Else truncate it to {@code substring(str, offset, maxWidth)}.</li>
-     *   <li>If {@code maxWidth} is less than {@code 0}, throw an
-     *       {@link IllegalArgumentException}.</li>
-     *   <li>If {@code offset} is less than {@code 0}, throw an
-     *       {@link IllegalArgumentException}.</li>
-     *   <li>In no case will it return a String of length greater than
-     *       {@code maxWidth}.</li>
+     * <li>If {@code str} is less than {@code maxWidth} characters long, return it.</li>
+     * <li>Else truncate it to {@code substring(str, offset, maxWidth)}.</li>
+     * <li>If {@code maxWidth} is less than {@code 0}, throw an {@link IllegalArgumentException}.</li>
+     * <li>If {@code offset} is less than {@code 0}, throw an {@link IllegalArgumentException}.</li>
+     * <li>In no case will it return a String of length greater than {@code maxWidth}.</li>
      * </ul>
      *
      * <pre>
@@ -9215,11 +8854,11 @@ public class StringUtils {
      * StringUtils.truncate("abcdefghij", -2, 4) = throws an IllegalArgumentException
      * </pre>
      *
-     * @param str  the String to truncate, may be null
-     * @param offset  left edge of source String
-     * @param maxWidth  maximum length of result String, must be positive
-     * @return truncated String, {@code null} if null String input
-     * @throws IllegalArgumentException If {@code offset} or {@code maxWidth} is less than {@code 0}
+     * @param str      the String to truncate, may be null.
+     * @param offset   left edge of source String.
+     * @param maxWidth maximum length of result String, must be positive.
+     * @return truncated String, {@code null} if null String input.
+     * @throws IllegalArgumentException If {@code offset} or {@code maxWidth} is less than {@code 0}.
      * @since 3.5
      */
     public static String truncate(final String str, final int offset, final int maxWidth) {
@@ -9227,7 +8866,7 @@ public class StringUtils {
             throw new IllegalArgumentException("offset cannot be negative");
         }
         if (maxWidth < 0) {
-            throw new IllegalArgumentException("maxWith cannot be negative");
+            throw new IllegalArgumentException("maxWidth cannot be negative");
         }
         if (str == null) {
             return null;
@@ -9243,11 +8882,11 @@ public class StringUtils {
     }
 
     /**
-     * Uncapitalizes a String, changing the first character to lower case as
-     * per {@link Character#toLowerCase(int)}. No other characters are changed.
+     * Uncapitalizes a String, changing the first character to lower case as per {@link Character#toLowerCase(int)}. No other characters are changed.
      *
-     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#uncapitalize(String)}.
-     * A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * For a word based algorithm, see {@link org.apache.commons.text.WordUtils#uncapitalize(String)}. A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.uncapitalize(null)  = null
@@ -9257,8 +8896,8 @@ public class StringUtils {
      * StringUtils.uncapitalize("CAT") = "cAT"
      * </pre>
      *
-     * @param str the String to uncapitalize, may be null
-     * @return the uncapitalized String, {@code null} if null String input
+     * @param str the String to uncapitalize, may be null.
+     * @return the uncapitalized String, {@code null} if null String input.
      * @see org.apache.commons.text.WordUtils#uncapitalize(String)
      * @see #capitalize(String)
      * @since 2.0
@@ -9268,23 +8907,15 @@ public class StringUtils {
         if (strLen == 0) {
             return str;
         }
-
         final int firstCodePoint = str.codePointAt(0);
         final int newCodePoint = Character.toLowerCase(firstCodePoint);
         if (firstCodePoint == newCodePoint) {
-            // already capitalized
+            // already uncapitalized
             return str;
         }
-
-        final int[] newCodePoints = new int[strLen]; // cannot be longer than the char array
-        int outOffset = 0;
-        newCodePoints[outOffset++] = newCodePoint; // copy the first code point
-        for (int inOffset = Character.charCount(firstCodePoint); inOffset < strLen; ) {
-            final int codePoint = str.codePointAt(inOffset);
-            newCodePoints[outOffset++] = codePoint; // copy the remaining ones
-            inOffset += Character.charCount(codePoint);
-         }
-        return new String(newCodePoints, 0, outOffset);
+        final int[] newCodePoints = str.codePoints().toArray();
+        newCodePoints[0] = newCodePoint; // copy the first code point
+        return new String(newCodePoints, 0, newCodePoints.length);
     }
 
     /**
@@ -9303,26 +8934,20 @@ public class StringUtils {
      * StringUtils.unwrap("A#", '#')          = "A#"
      * </pre>
      *
-     * @param str
-     *          the String to be unwrapped, can be null
-     * @param wrapChar
-     *          the character used to unwrap
-     * @return unwrapped String or the original string
-     *          if it is not quoted properly with the wrapChar
+     * @param str      the String to be unwrapped, can be null.
+     * @param wrapChar the character used to unwrap.
+     * @return unwrapped String or the original string if it is not quoted properly with the wrapChar.
      * @since 3.6
      */
     public static String unwrap(final String str, final char wrapChar) {
         if (isEmpty(str) || wrapChar == CharUtils.NUL || str.length() == 1) {
             return str;
         }
-
         if (str.charAt(0) == wrapChar && str.charAt(str.length() - 1) == wrapChar) {
             final int startIndex = 0;
             final int endIndex = str.length() - 1;
-
             return str.substring(startIndex + 1, endIndex);
         }
-
         return str;
     }
 
@@ -9343,30 +8968,27 @@ public class StringUtils {
      * StringUtils.unwrap("A#", "#")          = "A#"
      * </pre>
      *
-     * @param str
-     *          the String to be unwrapped, can be null
-     * @param wrapToken
-     *          the String used to unwrap
-     * @return unwrapped String or the original string
-     *          if it is not quoted properly with the wrapToken
+     * @param str       the String to be unwrapped, can be null.
+     * @param wrapToken the String used to unwrap.
+     * @return unwrapped String or the original string if it is not quoted properly with the wrapToken.
      * @since 3.6
      */
     public static String unwrap(final String str, final String wrapToken) {
         if (isEmpty(str) || isEmpty(wrapToken) || str.length() < 2 * wrapToken.length()) {
             return str;
         }
-
-        if (startsWith(str, wrapToken) && endsWith(str, wrapToken)) {
+        if (Strings.CS.startsWith(str, wrapToken) && Strings.CS.endsWith(str, wrapToken)) {
             return str.substring(wrapToken.length(), str.lastIndexOf(wrapToken));
         }
-
         return str;
     }
 
     /**
      * Converts a String to upper case as per {@link String#toUpperCase()}.
      *
-     * <p>A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.upperCase(null)  = null
@@ -9374,13 +8996,14 @@ public class StringUtils {
      * StringUtils.upperCase("aBc") = "ABC"
      * </pre>
      *
-     * <p><strong>Note:</strong> As described in the documentation for {@link String#toUpperCase()},
-     * the result of this method is affected by the current locale.
-     * For platform-independent case transformations, the method {@link #upperCase(String, Locale)}
-     * should be used with a specific locale (e.g. {@link Locale#ENGLISH}).</p>
+     * <p>
+     * <strong>Note:</strong> As described in the documentation for {@link String#toUpperCase()}, the result of this method is affected by the current locale.
+     * For platform-independent case transformations, the method {@link #upperCase(String, Locale)} should be used with a specific locale (e.g.
+     * {@link Locale#ENGLISH}).
+     * </p>
      *
-     * @param str  the String to upper case, may be null
-     * @return the upper-cased String, {@code null} if null String input
+     * @param str the String to upper case, may be null.
+     * @return the upper-cased String, {@code null} if null String input.
      */
     public static String upperCase(final String str) {
         if (str == null) {
@@ -9392,7 +9015,9 @@ public class StringUtils {
     /**
      * Converts a String to upper case as per {@link String#toUpperCase(Locale)}.
      *
-     * <p>A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.upperCase(null, Locale.ENGLISH)  = null
@@ -9400,9 +9025,9 @@ public class StringUtils {
      * StringUtils.upperCase("aBc", Locale.ENGLISH) = "ABC"
      * </pre>
      *
-     * @param str  the String to upper case, may be null
-     * @param locale  the locale that defines the case transformation rules, must not be null
-     * @return the upper-cased String, {@code null} if null String input
+     * @param str    the String to upper case, may be null.
+     * @param locale the locale that defines the case transformation rules, must not be null.
+     * @return the upper-cased String, {@code null} if null String input.
      * @since 2.5
      */
     public static String upperCase(final String str, final Locale locale) {
@@ -9416,7 +9041,7 @@ public class StringUtils {
      * Returns the string representation of the {@code char} array or null.
      *
      * @param value the character array.
-     * @return a String or null
+     * @return a String or null.
      * @see String#valueOf(char[])
      * @since 3.9
      */
@@ -9436,19 +9061,15 @@ public class StringUtils {
      * StringUtils.wrap("\"ab\"", '\"') = "\"\"ab\"\""
      * </pre>
      *
-     * @param str
-     *            the string to be wrapped, may be {@code null}
-     * @param wrapWith
-     *            the char that will wrap {@code str}
-     * @return the wrapped string, or {@code null} if {@code str == null}
+     * @param str      the string to be wrapped, may be {@code null}.
+     * @param wrapWith the char that will wrap {@code str}.
+     * @return the wrapped string, or {@code null} if {@code str == null}.
      * @since 3.4
      */
     public static String wrap(final String str, final char wrapWith) {
-
         if (isEmpty(str) || wrapWith == CharUtils.NUL) {
             return str;
         }
-
         return wrapWith + str + wrapWith;
     }
 
@@ -9472,26 +9093,24 @@ public class StringUtils {
      * StringUtils.wrap("'abcd'", "\"")  = "\"'abcd'\""
      * </pre>
      *
-     * @param str
-     *            the String to be wrapper, may be null
-     * @param wrapWith
-     *            the String that will wrap str
-     * @return wrapped String, {@code null} if null String input
+     * @param str      the String to be wrapper, may be null.
+     * @param wrapWith the String that will wrap str.
+     * @return wrapped String, {@code null} if null String input.
      * @since 3.4
      */
     public static String wrap(final String str, final String wrapWith) {
-
         if (isEmpty(str) || isEmpty(wrapWith)) {
             return str;
         }
-
         return wrapWith.concat(str).concat(wrapWith);
     }
 
     /**
      * Wraps a string with a char if that char is missing from the start or end of the given string.
      *
-     * <p>A new {@link String} will not be created if {@code str} is already wrapped.</p>
+     * <p>
+     * A new {@link String} will not be created if {@code str} is already wrapped.
+     * </p>
      *
      * <pre>
      * StringUtils.wrapIfMissing(null, *)        = null
@@ -9506,11 +9125,9 @@ public class StringUtils {
      * StringUtils.wrapIfMissing("a/b/c/", '/')  = "/a/b/c/"
      * </pre>
      *
-     * @param str
-     *            the string to be wrapped, may be {@code null}
-     * @param wrapWith
-     *            the char that will wrap {@code str}
-     * @return the wrapped string, or {@code null} if {@code str == null}
+     * @param str      the string to be wrapped, may be {@code null}.
+     * @param wrapWith the char that will wrap {@code str}.
+     * @return the wrapped string, or {@code null} if {@code str == null}.
      * @since 3.5
      */
     public static String wrapIfMissing(final String str, final char wrapWith) {
@@ -9522,7 +9139,6 @@ public class StringUtils {
         if (!wrapStart && !wrapEnd) {
             return str;
         }
-
         final StringBuilder builder = new StringBuilder(str.length() + 2);
         if (wrapStart) {
             builder.append(wrapWith);
@@ -9537,7 +9153,9 @@ public class StringUtils {
     /**
      * Wraps a string with a string if that string is missing from the start or end of the given string.
      *
-     * <p>A new {@link String} will not be created if {@code str} is already wrapped.</p>
+     * <p>
+     * A new {@link String} will not be created if {@code str} is already wrapped.
+     * </p>
      *
      * <pre>
      * StringUtils.wrapIfMissing(null, *)         = null
@@ -9556,24 +9174,20 @@ public class StringUtils {
      * StringUtils.wrapIfMissing("a/b/c/", "/")  = "/a/b/c/"
      * </pre>
      *
-     * @param str
-     *            the string to be wrapped, may be {@code null}
-     * @param wrapWith
-     *            the string that will wrap {@code str}
-     * @return the wrapped string, or {@code null} if {@code str == null}
+     * @param str      the string to be wrapped, may be {@code null}.
+     * @param wrapWith the string that will wrap {@code str}.
+     * @return the wrapped string, or {@code null} if {@code str == null}.
      * @since 3.5
      */
     public static String wrapIfMissing(final String str, final String wrapWith) {
         if (isEmpty(str) || isEmpty(wrapWith)) {
             return str;
         }
-
         final boolean wrapStart = !str.startsWith(wrapWith);
         final boolean wrapEnd = !str.endsWith(wrapWith);
         if (!wrapStart && !wrapEnd) {
             return str;
         }
-
         final StringBuilder builder = new StringBuilder(str.length() + wrapWith.length() + wrapWith.length());
         if (wrapStart) {
             builder.append(wrapWith);
@@ -9586,12 +9200,11 @@ public class StringUtils {
     }
 
     /**
-     * {@link StringUtils} instances should NOT be constructed in
-     * standard programming. Instead, the class should be used as
-     * {@code StringUtils.trim(" foo ");}.
+     * {@link StringUtils} instances should NOT be constructed in standard programming. Instead, the class should be used as {@code StringUtils.trim(" foo ");}.
      *
-     * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean instance to operate.
+     * </p>
      *
      * @deprecated TODO Make private in 4.0.
      */

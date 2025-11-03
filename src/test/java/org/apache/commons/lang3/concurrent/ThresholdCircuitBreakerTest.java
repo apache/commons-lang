@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code ThresholdCircuitBreaker}.
  */
-public class ThresholdCircuitBreakerTest extends AbstractLangTest {
+class ThresholdCircuitBreakerTest extends AbstractLangTest {
 
     /**
      * Threshold used in tests.
@@ -39,7 +39,7 @@ public class ThresholdCircuitBreakerTest extends AbstractLangTest {
      * Tests that closing a {@code ThresholdCircuitBreaker} resets the internal counter.
      */
     @Test
-    public void testClosingThresholdCircuitBreaker() {
+    void testClosingThresholdCircuitBreaker() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         circuit.incrementAndCheckState(9L);
         circuit.close();
@@ -51,7 +51,7 @@ public class ThresholdCircuitBreakerTest extends AbstractLangTest {
      * Tests that we can get the threshold value correctly.
      */
     @Test
-    public void testGettingThreshold() {
+    void testGettingThreshold() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         assertEquals(Long.valueOf(threshold), Long.valueOf(circuit.getThreshold()), "Wrong value of threshold");
     }
@@ -60,7 +60,7 @@ public class ThresholdCircuitBreakerTest extends AbstractLangTest {
      * Tests that the threshold is working as expected when incremented and no exception is thrown.
      */
     @Test
-    public void testThreshold() {
+    void testThreshold() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         circuit.incrementAndCheckState(9L);
         assertTrue(circuit.incrementAndCheckState(1L), "Circuit opened before reaching the threshold");
@@ -70,7 +70,7 @@ public class ThresholdCircuitBreakerTest extends AbstractLangTest {
      * Tests that exceeding the threshold raises an exception.
      */
     @Test
-    public void testThresholdCircuitBreakingException() {
+    void testThresholdCircuitBreakingException() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(threshold);
         circuit.incrementAndCheckState(9L);
         assertFalse(circuit.incrementAndCheckState(2L), "The circuit was supposed to be open after increment above the threshold");
@@ -80,7 +80,7 @@ public class ThresholdCircuitBreakerTest extends AbstractLangTest {
      * Test that when threshold is zero, the circuit breaker is always open.
      */
     @Test
-    public void testThresholdEqualsZero() {
+    void testThresholdEqualsZero() {
         final ThresholdCircuitBreaker circuit = new ThresholdCircuitBreaker(zeroThreshold);
         assertFalse(circuit.incrementAndCheckState(0L), "When the threshold is zero, the circuit is supposed to be always open");
     }

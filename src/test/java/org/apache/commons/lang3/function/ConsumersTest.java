@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,13 +29,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link Consumers}.
  */
-public class ConsumersTest extends AbstractLangTest {
+class ConsumersTest extends AbstractLangTest {
 
     /**
      * Tests {@link Consumers#accept(Consumer, Object)}.
      */
     @Test
-    public void testAccept() {
+    void testAccept() {
         final AtomicBoolean bool = new AtomicBoolean();
         Consumers.accept(bool::set, true);
         assertTrue(bool.get());
@@ -47,7 +47,7 @@ public class ConsumersTest extends AbstractLangTest {
      * Tests {@link Consumers#nop()}.
      */
     @Test
-    public void testNop() {
+    void testNop() {
         Stream.of("").forEach(Consumers.nop());
         //
         final Consumer<?> c1 = Consumers.nop();

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,24 +26,24 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link Charsets}.
  */
-public class CharsetsTest extends AbstractLangTest {
+class CharsetsTest extends AbstractLangTest {
 
     @Test
-    public void testToCharset_Charset() {
+    void testToCharset_Charset() {
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset((Charset) null));
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset(Charset.defaultCharset()));
         Assertions.assertEquals(StandardCharsets.UTF_8, Charsets.toCharset(StandardCharsets.UTF_8));
     }
 
     @Test
-    public void testToCharset_String() {
+    void testToCharset_String() {
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset((String) null));
         Assertions.assertEquals(Charset.defaultCharset(), Charsets.toCharset(Charset.defaultCharset().name()));
         Assertions.assertEquals(StandardCharsets.UTF_8, Charsets.toCharset(StandardCharsets.UTF_8.name()));
     }
 
     @Test
-    public void testToCharsetName() {
+    void testToCharsetName() {
         Assertions.assertEquals(Charset.defaultCharset().name(), Charsets.toCharsetName((String) null));
         Assertions.assertEquals("UTF-8", Charsets.toCharsetName(StandardCharsets.UTF_8.name()));
     }

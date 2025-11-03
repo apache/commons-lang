@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -93,9 +93,7 @@ import java.util.concurrent.ExecutorService;
  *
  * @since 3.0
  */
-public class MultiBackgroundInitializer
-        extends
-        BackgroundInitializer<MultiBackgroundInitializer.MultiBackgroundInitializerResults> {
+public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackgroundInitializer.MultiBackgroundInitializerResults> {
 
     /**
      * A data class for storing the results of the background initialization
@@ -118,21 +116,18 @@ public class MultiBackgroundInitializer
         private final Map<String, ConcurrentException> exceptions;
 
         /**
-         * Creates a new instance of {@link MultiBackgroundInitializerResults}
-         * and initializes it with maps for the {@link BackgroundInitializer}
-         * objects, their result objects and the exceptions thrown by them.
+         * Creates a new instance of {@link MultiBackgroundInitializerResults} and initializes it with maps for the {@link BackgroundInitializer} objects, their
+         * result objects and the exceptions thrown by them.
          *
-         * @param inits the {@link BackgroundInitializer} objects
-         * @param results the result objects
-         * @param excepts the exceptions
+         * @param initializers  the {@link BackgroundInitializer} objects.
+         * @param resultObjects the result objects.
+         * @param exceptions    the exceptions.
          */
-        private MultiBackgroundInitializerResults(
-                final Map<String, BackgroundInitializer<?>> inits,
-                final Map<String, Object> results,
-                final Map<String, ConcurrentException> excepts) {
-            initializers = inits;
-            resultObjects = results;
-            exceptions = excepts;
+        private MultiBackgroundInitializerResults(final Map<String, BackgroundInitializer<?>> initializers, final Map<String, Object> resultObjects,
+                final Map<String, ConcurrentException> exceptions) {
+            this.initializers = initializers;
+            this.resultObjects = resultObjects;
+            this.exceptions = exceptions;
         }
 
         /**
@@ -140,29 +135,27 @@ public class MultiBackgroundInitializer
          * throws an exception. If it exists, the associated child initializer
          * is returned.
          *
-         * @param name the name to check
-         * @return the initializer with this name
-         * @throws NoSuchElementException if the name is unknown
+         * @param name the name to check.
+         * @return the initializer with this name.
+         * @throws NoSuchElementException if the name is unknown.
          */
         private BackgroundInitializer<?> checkName(final String name) {
             final BackgroundInitializer<?> init = initializers.get(name);
             if (init == null) {
-                throw new NoSuchElementException(
-                        "No child initializer with name " + name);
+                throw new NoSuchElementException("No child initializer with name " + name);
             }
-
             return init;
         }
 
         /**
-         * Returns the {@link ConcurrentException} object that was thrown by the
+         * Gets the {@link ConcurrentException} object that was thrown by the
          * {@link BackgroundInitializer} with the given name. If this
          * initializer did not throw an exception, the return value is
-         * <b>null</b>. If the name cannot be resolved, an exception is thrown.
+         * <strong>null</strong>. If the name cannot be resolved, an exception is thrown.
          *
-         * @param name the name of the {@link BackgroundInitializer}
-         * @return the exception thrown by this initializer
-         * @throws NoSuchElementException if the name cannot be resolved
+         * @param name the name of the {@link BackgroundInitializer}.
+         * @return the exception thrown by this initializer.
+         * @throws NoSuchElementException if the name cannot be resolved.
          */
         public ConcurrentException getException(final String name) {
             checkName(name);
@@ -170,28 +163,25 @@ public class MultiBackgroundInitializer
         }
 
         /**
-         * Returns the {@link BackgroundInitializer} with the given name. If the
+         * Gets the {@link BackgroundInitializer} with the given name. If the
          * name cannot be resolved, an exception is thrown.
          *
-         * @param name the name of the {@link BackgroundInitializer}
-         * @return the {@link BackgroundInitializer} with this name
-         * @throws NoSuchElementException if the name cannot be resolved
+         * @param name the name of the {@link BackgroundInitializer}.
+         * @return the {@link BackgroundInitializer} with this name.
+         * @throws NoSuchElementException if the name cannot be resolved.
          */
         public BackgroundInitializer<?> getInitializer(final String name) {
             return checkName(name);
         }
 
         /**
-         * Returns the result object produced by the {@code
-         * BackgroundInitializer} with the given name. This is the object
-         * returned by the initializer's {@code initialize()} method. If this
-         * {@link BackgroundInitializer} caused an exception, <b>null</b> is
-         * returned. If the name cannot be resolved, an exception is thrown.
+         * Gets the result object produced by the {@code
+         * BackgroundInitializer} with the given name. This is the object returned by the initializer's {@code initialize()} method. If this
+         * {@link BackgroundInitializer} caused an exception, <strong>null</strong> is returned. If the name cannot be resolved, an exception is thrown.
          *
-         * @param name the name of the {@link BackgroundInitializer}
-         * @return the result object produced by this {@code
-         * BackgroundInitializer}
-         * @throws NoSuchElementException if the name cannot be resolved
+         * @param name the name of the {@link BackgroundInitializer}.
+         * @return the result object produced by this {@code BackgroundInitializer}.
+         * @throws NoSuchElementException if the name cannot be resolved.
          */
         public Object getResultObject(final String name) {
             checkName(name);
@@ -199,23 +189,21 @@ public class MultiBackgroundInitializer
         }
 
         /**
-         * Returns a set with the names of all {@link BackgroundInitializer}
-         * objects managed by the {@link MultiBackgroundInitializer}.
+         * Returns a set with the names of all {@link BackgroundInitializer} objects managed by the {@link MultiBackgroundInitializer}.
          *
-         * @return an (unmodifiable) set with the names of the managed {@code
-         * BackgroundInitializer} objects
+         * @return an (unmodifiable) set with the names of the managed {@code BackgroundInitializer} objects.
          */
         public Set<String> initializerNames() {
             return Collections.unmodifiableSet(initializers.keySet());
         }
 
         /**
-         * Returns a flag whether the {@link BackgroundInitializer} with the
+         * Tests whether the {@link BackgroundInitializer} with the
          * given name caused an exception.
          *
-         * @param name the name of the {@link BackgroundInitializer}
-         * @return a flag whether this initializer caused an exception
-         * @throws NoSuchElementException if the name cannot be resolved
+         * @param name the name of the {@link BackgroundInitializer}.
+         * @return a flag whether this initializer caused an exception.
+         * @throws NoSuchElementException if the name cannot be resolved.
          */
         public boolean isException(final String name) {
             checkName(name);
@@ -223,10 +211,10 @@ public class MultiBackgroundInitializer
         }
 
         /**
-         * Returns a flag whether the whole initialization was successful. This
+         * Tests whether the whole initialization was successful. This
          * is the case if no child initializer has thrown an exception.
          *
-         * @return a flag whether the initialization was successful
+         * @return a flag whether the initialization was successful.
          */
         public boolean isSuccessful() {
             return exceptions.isEmpty();
@@ -237,39 +225,33 @@ public class MultiBackgroundInitializer
     private final Map<String, BackgroundInitializer<?>> childInitializers = new HashMap<>();
 
     /**
-     * Creates a new instance of {@link MultiBackgroundInitializer}.
+     * Constructs a new instance of {@link MultiBackgroundInitializer}.
      */
     public MultiBackgroundInitializer() {
     }
 
     /**
-     * Creates a new instance of {@link MultiBackgroundInitializer} and
+     * Constructs a new instance of {@link MultiBackgroundInitializer} and
      * initializes it with the given external {@link ExecutorService}.
      *
-     * @param exec the {@link ExecutorService} for executing the background
-     * tasks
+     * @param exec the {@link ExecutorService} for executing the background tasks.
      */
     public MultiBackgroundInitializer(final ExecutorService exec) {
         super(exec);
     }
 
     /**
-     * Adds a new {@link BackgroundInitializer} to this object. When this
-     * {@link MultiBackgroundInitializer} is started, the given initializer will
-     * be processed. This method must not be called after {@link #start()} has
-     * been invoked.
+     * Adds a new {@link BackgroundInitializer} to this object. When this {@link MultiBackgroundInitializer} is started, the given initializer will be
+     * processed. This method must not be called after {@link #start()} has been invoked.
      *
-     * @param name the name of the initializer (must not be <b>null</b>)
-     * @param backgroundInitializer the {@link BackgroundInitializer} to add (must not be
-     * <b>null</b>)
-     * @throws NullPointerException if either {@code name} or {@code backgroundInitializer}
-     *         is {@code null}
-     * @throws IllegalStateException if {@code start()} has already been called
+     * @param name                  the name of the initializer (must not be <strong>null</strong>).
+     * @param backgroundInitializer the {@link BackgroundInitializer} to add (must not be <strong>null</strong>).
+     * @throws NullPointerException  if either {@code name} or {@code backgroundInitializer} is {@code null}.
+     * @throws IllegalStateException if {@code start()} has already been called.
      */
     public void addInitializer(final String name, final BackgroundInitializer<?> backgroundInitializer) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(backgroundInitializer, "backgroundInitializer");
-
         synchronized (this) {
             if (isStarted()) {
                 throw new IllegalStateException("addInitializer() must not be called after start()!");
@@ -279,15 +261,15 @@ public class MultiBackgroundInitializer
     }
 
     /**
-     * Calls the closer of all child {@code BackgroundInitializer} objects
+     * Calls the closer of all child {@code BackgroundInitializer} objects.
      *
-     * @throws ConcurrentException throws an ConcurrentException that will have all other exceptions as suppressed exceptions. ConcurrentException thrown by children will be unwrapped.
+     * @throws ConcurrentException throws an ConcurrentException that will have all other exceptions as suppressed exceptions. ConcurrentException thrown by
+     *                             children will be unwrapped.
      * @since 3.14.0
      */
     @Override
     public void close() throws ConcurrentException {
         ConcurrentException exception = null;
-
         for (final BackgroundInitializer<?> child : childInitializers.values()) {
             try {
                 child.close();
@@ -295,7 +277,6 @@ public class MultiBackgroundInitializer
                 if (exception == null) {
                     exception = new ConcurrentException();
                 }
-
                 if (e instanceof ConcurrentException) {
                     // Because ConcurrentException is only created by classes in this package
                     // we can safely unwrap it.
@@ -305,21 +286,20 @@ public class MultiBackgroundInitializer
                 }
             }
         }
-
         if (exception != null) {
             throw exception;
         }
     }
 
     /**
-     * Returns the number of tasks needed for executing all child {@code
+     * Gets the number of tasks needed for executing all child {@code
      * BackgroundInitializer} objects in parallel. This implementation sums up
      * the required tasks for all child initializers (which is necessary if one
      * of the child initializers is itself a {@link MultiBackgroundInitializer}
      * ). Then it adds 1 for the control task that waits for the completion of
      * the children.
      *
-     * @return the number of tasks required for background processing
+     * @return the number of tasks required for background processing.
      */
     @Override
     protected int getTaskCount() {
@@ -333,8 +313,8 @@ public class MultiBackgroundInitializer
      * data. If a child initializer throws a checked exceptions, it is added to
      * the results object. Unchecked exceptions are propagated.
      *
-     * @return the results object
-     * @throws Exception if an error occurs
+     * @return the results object.
+     * @throws Exception if an error occurs.
      */
     @Override
     protected MultiBackgroundInitializerResults initialize() throws Exception {
@@ -343,7 +323,6 @@ public class MultiBackgroundInitializer
             // create a snapshot to operate on
             inits = new HashMap<>(childInitializers);
         }
-
         // start the child initializers
         final ExecutorService exec = getActiveExecutor();
         inits.values().forEach(bi -> {
@@ -353,7 +332,6 @@ public class MultiBackgroundInitializer
             }
             bi.start();
         });
-
         // collect the results
         final Map<String, Object> results = new HashMap<>();
         final Map<String, ConcurrentException> excepts = new HashMap<>();
@@ -364,15 +342,14 @@ public class MultiBackgroundInitializer
                 excepts.put(k, cex);
             }
         });
-
         return new MultiBackgroundInitializerResults(inits, results, excepts);
     }
 
     /**
-     * Tests whether this all child {@code BackgroundInitializer} objects are initialized.
-     * Once initialized, always returns true.
+     * Tests whether this all child {@code BackgroundInitializer} objects are initialized. Once initialized, always returns true.
      *
-     * @return whether all child {@code BackgroundInitializer} objects instance are initialized. Once initialized, always returns true. If there are no child {@code BackgroundInitializer} objects return false.
+     * @return Whether all child {@code BackgroundInitializer} objects instance are initialized. Once initialized, always returns true. If there are no child
+     *         {@code BackgroundInitializer} objects return false.
      * @since 3.14.0
      */
     @Override
@@ -380,7 +357,6 @@ public class MultiBackgroundInitializer
         if (childInitializers.isEmpty()) {
             return false;
         }
-
         return childInitializers.values().stream().allMatch(BackgroundInitializer::isInitialized);
     }
 }

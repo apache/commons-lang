@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test case for ToStringStyle.
  */
-public class ToStringStyleTest extends AbstractLangTest {
+class ToStringStyleTest extends AbstractLangTest {
 
     /**
      * An object used to test {@link ToStringStyle}.
@@ -52,84 +52,84 @@ public class ToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSetArrayEnd() {
+    void testSetArrayEnd() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setArrayEnd(null);
         assertEquals("", style.getArrayEnd());
     }
 
     @Test
-    public void testSetArraySeparator() {
+    void testSetArraySeparator() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setArraySeparator(null);
         assertEquals("", style.getArraySeparator());
     }
 
     @Test
-    public void testSetArrayStart() {
+    void testSetArrayStart() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setArrayStart(null);
         assertEquals("", style.getArrayStart());
     }
 
     @Test
-    public void testSetContentEnd() {
+    void testSetContentEnd() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setContentEnd(null);
         assertEquals("", style.getContentEnd());
     }
 
     @Test
-    public void testSetContentStart() {
+    void testSetContentStart() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setContentStart(null);
         assertEquals("", style.getContentStart());
     }
 
     @Test
-    public void testSetFieldNameValueSeparator() {
+    void testSetFieldNameValueSeparator() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setFieldNameValueSeparator(null);
         assertEquals("", style.getFieldNameValueSeparator());
     }
 
     @Test
-    public void testSetFieldSeparator() {
+    void testSetFieldSeparator() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setFieldSeparator(null);
         assertEquals("", style.getFieldSeparator());
     }
 
     @Test
-    public void testSetNullText() {
+    void testSetNullText() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setNullText(null);
         assertEquals("", style.getNullText());
     }
 
     @Test
-    public void testSetSizeEndText() {
+    void testSetSizeEndText() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setSizeEndText(null);
         assertEquals("", style.getSizeEndText());
     }
 
     @Test
-    public void testSetSizeStartText() {
+    void testSetSizeStartText() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setSizeStartText(null);
         assertEquals("", style.getSizeStartText());
     }
 
     @Test
-    public void testSetSummaryObjectEndText() {
+    void testSetSummaryObjectEndText() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setSummaryObjectEndText(null);
         assertEquals("", style.getSummaryObjectEndText());
     }
 
     @Test
-    public void testSetSummaryObjectStartText() {
+    void testSetSummaryObjectStartText() {
         final ToStringStyle style = new ToStringStyleImpl();
         style.setSummaryObjectStartText(null);
         assertEquals("", style.getSummaryObjectStartText());

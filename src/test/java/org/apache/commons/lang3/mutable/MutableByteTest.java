@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,9 +16,9 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableByte
  */
-public class MutableByteTest extends AbstractLangTest {
+class MutableByteTest extends AbstractLangTest {
 
     @Test
-    public void testAddAndGetValueObject() {
+    void testAddAndGetValueObject() {
         final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.addAndGet(Byte.valueOf((byte) 1));
 
@@ -40,7 +40,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddAndGetValuePrimitive() {
+    void testAddAndGetValuePrimitive() {
         final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.addAndGet((byte) 1);
 
@@ -49,7 +49,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddValueObject() {
+    void testAddValueObject() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.add(Integer.valueOf(1));
 
@@ -57,7 +57,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAddValuePrimitive() {
+    void testAddValuePrimitive() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.add((byte) 1);
 
@@ -65,7 +65,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         final MutableByte mutNum = new MutableByte((byte) 0);
 
         assertEquals((byte) 0, mutNum.compareTo(new MutableByte((byte) 0)));
@@ -74,18 +74,18 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareToNull() {
+    void testCompareToNull() {
         final MutableByte mutNum = new MutableByte((byte) 0);
-        assertThrows(NullPointerException.class, () -> mutNum.compareTo(null));
+        assertNullPointerException(() -> mutNum.compareTo(null));
     }
 
     @Test
-    public void testConstructorNull() {
-        assertThrows(NullPointerException.class, () -> new MutableByte((Number) null));
+    void testConstructorNull() {
+        assertNullPointerException(() -> new MutableByte((Number) null));
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         assertEquals((byte) 0, new MutableByte().byteValue());
 
         assertEquals((byte) 1, new MutableByte((byte) 1).byteValue());
@@ -98,7 +98,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDecrement() {
+    void testDecrement() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.decrement();
 
@@ -107,7 +107,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDecrementAndGet() {
+    void testDecrementAndGet() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         final byte result = mutNum.decrementAndGet();
 
@@ -117,7 +117,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final MutableByte mutNumA = new MutableByte((byte) 0);
         final MutableByte mutNumB = new MutableByte((byte) 0);
         final MutableByte mutNumC = new MutableByte((byte) 1);
@@ -135,7 +135,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndAddValueObject() {
+    void testGetAndAddValueObject() {
         final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.getAndAdd(Byte.valueOf((byte) 1));
 
@@ -144,7 +144,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndAddValuePrimitive() {
+    void testGetAndAddValuePrimitive() {
         final MutableByte mutableByte = new MutableByte((byte) 0);
         final byte result = mutableByte.getAndAdd((byte) 1);
 
@@ -153,7 +153,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndDecrement() {
+    void testGetAndDecrement() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         final byte result = mutNum.getAndDecrement();
 
@@ -163,7 +163,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetAndIncrement() {
+    void testGetAndIncrement() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         final byte result = mutNum.getAndIncrement();
 
@@ -173,26 +173,30 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetSet() {
+    void testGetSet() {
         final MutableByte mutNum = new MutableByte((byte) 0);
         assertEquals((byte) 0, new MutableByte().byteValue());
+        assertEquals(Byte.valueOf((byte) 0), new MutableByte().get());
         assertEquals(Byte.valueOf((byte) 0), new MutableByte().getValue());
 
         mutNum.setValue((byte) 1);
         assertEquals((byte) 1, mutNum.byteValue());
+        assertEquals(Byte.valueOf((byte) 1), mutNum.get());
         assertEquals(Byte.valueOf((byte) 1), mutNum.getValue());
 
         mutNum.setValue(Byte.valueOf((byte) 2));
         assertEquals((byte) 2, mutNum.byteValue());
+        assertEquals(Byte.valueOf((byte) 2), mutNum.get());
         assertEquals(Byte.valueOf((byte) 2), mutNum.getValue());
 
         mutNum.setValue(new MutableByte((byte) 3));
         assertEquals((byte) 3, mutNum.byteValue());
+        assertEquals(Byte.valueOf((byte) 3), mutNum.get());
         assertEquals(Byte.valueOf((byte) 3), mutNum.getValue());
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final MutableByte mutNumA = new MutableByte((byte) 0);
         final MutableByte mutNumB = new MutableByte((byte) 0);
         final MutableByte mutNumC = new MutableByte((byte) 1);
@@ -204,7 +208,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIncrement() {
+    void testIncrement() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.increment();
 
@@ -213,7 +217,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIncrementAndGet() {
+    void testIncrementAndGet() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         final byte result = mutNum.incrementAndGet();
 
@@ -223,24 +227,24 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPrimitiveValues() {
-        final MutableByte mutNum = new MutableByte( (byte) 1 );
+    void testPrimitiveValues() {
+        final MutableByte mutNum = new MutableByte((byte) 1);
         assertEquals(1.0F, mutNum.floatValue());
         assertEquals(1.0, mutNum.doubleValue());
-        assertEquals( (byte) 1, mutNum.byteValue() );
-        assertEquals( (short) 1, mutNum.shortValue() );
-        assertEquals( 1, mutNum.intValue() );
-        assertEquals( 1L, mutNum.longValue() );
+        assertEquals((byte) 1, mutNum.byteValue());
+        assertEquals((short) 1, mutNum.shortValue());
+        assertEquals(1, mutNum.intValue());
+        assertEquals(1L, mutNum.longValue());
     }
 
     @Test
-    public void testSetNull() {
+    void testSetNull() {
         final MutableByte mutNum = new MutableByte((byte) 0);
-        assertThrows(NullPointerException.class, () -> mutNum.setValue(null));
+        assertNullPointerException(() -> mutNum.setValue(null));
     }
 
     @Test
-    public void testSubtractValueObject() {
+    void testSubtractValueObject() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.subtract(Integer.valueOf(1));
 
@@ -248,7 +252,7 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSubtractValuePrimitive() {
+    void testSubtractValuePrimitive() {
         final MutableByte mutNum = new MutableByte((byte) 1);
         mutNum.subtract((byte) 1);
 
@@ -256,13 +260,13 @@ public class MutableByteTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToByte() {
+    void testToByte() {
         assertEquals(Byte.valueOf((byte) 0), new MutableByte((byte) 0).toByte());
         assertEquals(Byte.valueOf((byte) 123), new MutableByte((byte) 123).toByte());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("0", new MutableByte((byte) 0).toString());
         assertEquals("10", new MutableByte((byte) 10).toString());
         assertEquals("-123", new MutableByte((byte) -123).toString());

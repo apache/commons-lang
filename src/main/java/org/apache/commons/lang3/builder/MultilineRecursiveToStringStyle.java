@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,7 +49,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * <p>
  * This will produce a toString of the format:<br>
- * <code>Person@7f54[ <br>
+ * {@code Person@7f54[ <br>
  * &nbsp; name=Stephen, <br>
  * &nbsp; age=29, <br>
  * &nbsp; smokealse, <br>
@@ -57,7 +57,7 @@ import org.apache.commons.lang3.StringUtils;
  * &nbsp; &nbsp; title=Manager <br>
  * &nbsp;  ] <br>
  * ]
- * </code>
+ * }
  * </p>
  *
  * @since 3.4

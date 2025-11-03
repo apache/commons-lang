@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link UncheckedFuture}.
  */
-public class UncheckedFutureTest extends AbstractLangTest {
+class UncheckedFutureTest extends AbstractLangTest {
 
     private static final class TestFuture<V> extends AbstractFutureProxy<V> {
 
@@ -73,51 +73,51 @@ public class UncheckedFutureTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetExecutionException() {
+    void testGetExecutionException() {
         final ExecutionException e = new ExecutionException(new Exception());
         assertThrows(UncheckedExecutionException.class, () -> UncheckedFuture.on(new TestFuture<>(e)).get());
     }
 
     @Test
-    public void testGetInterruptedException() {
+    void testGetInterruptedException() {
         final InterruptedException e = new InterruptedException();
         assertThrows(UncheckedInterruptedException.class, () -> UncheckedFuture.on(new TestFuture<>(e)).get());
     }
 
     @Test
-    public void testGetLongExecutionException() {
+    void testGetLongExecutionException() {
         final ExecutionException e = new ExecutionException(new Exception());
         assertThrows(UncheckedExecutionException.class, () -> UncheckedFuture.on(new TestFuture<>(e)).get(1, TimeUnit.MICROSECONDS));
     }
 
     @Test
-    public void testGetLongInterruptedException() {
+    void testGetLongInterruptedException() {
         final InterruptedException e = new InterruptedException();
         assertThrows(UncheckedInterruptedException.class, () -> UncheckedFuture.on(new TestFuture<>(e)).get(1, TimeUnit.MICROSECONDS));
     }
 
     @Test
-    public void testGetLongTimeoutException() {
+    void testGetLongTimeoutException() {
         final TimeoutException e = new TimeoutException();
         assertThrows(UncheckedTimeoutException.class, () -> UncheckedFuture.on(new TestFuture<>(e)).get(1, TimeUnit.MICROSECONDS));
     }
 
     @Test
-    public void testMap() {
+    void testMap() {
         final List<String> expected = Arrays.asList("Y", "Z");
         final List<Future<String>> input = Arrays.asList(new TestFuture<>("Y"), new TestFuture<>("Z"));
         assertEquals(expected, UncheckedFuture.map(input).map(UncheckedFuture::get).collect(Collectors.toList()));
     }
 
     @Test
-    public void testOnCollection() {
+    void testOnCollection() {
         final List<String> expected = Arrays.asList("Y", "Z");
         final List<Future<String>> input = Arrays.asList(new TestFuture<>("Y"), new TestFuture<>("Z"));
         assertEquals(expected, UncheckedFuture.on(input).stream().map(UncheckedFuture::get).collect(Collectors.toList()));
     }
 
     @Test
-    public void testOnFuture() {
+    void testOnFuture() {
         assertEquals("Z", UncheckedFuture.on(new TestFuture<>("Z")).get());
     }
 

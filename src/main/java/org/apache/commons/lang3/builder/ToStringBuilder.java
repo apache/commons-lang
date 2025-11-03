@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -901,8 +901,8 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * Appends with the same format as the default <code>Object toString()
-     * </code> method. Appends the class name followed by
+     * Appends with the same format as the default {@code Object toString()
+     * } method. Appends the class name followed by
      * {@link System#identityHashCode(Object)}.
      *
      * @param srcObject  the {@link Object} whose class name and id to output
@@ -911,7 +911,7 @@ public class ToStringBuilder implements Builder<String> {
      * @since 2.0
      */
     public ToStringBuilder appendAsObjectToString(final Object srcObject) {
-        ObjectUtils.identityToString(this.getStringBuffer(), srcObject);
+        ObjectUtils.identityToString(getStringBuffer(), srcObject);
         return this;
     }
 
@@ -973,9 +973,7 @@ public class ToStringBuilder implements Builder<String> {
      * default implementation utilizes the {@link #toString()} implementation.
      *
      * @return the String {@code toString}
-     *
      * @see #toString()
-     *
      * @since 3.0
      */
     @Override
@@ -984,7 +982,7 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * Returns the {@link Object} being output.
+     * Gets the {@link Object} being output.
      *
      * @return The object being output.
      * @since 2.0
@@ -1024,11 +1022,11 @@ public class ToStringBuilder implements Builder<String> {
      */
     @Override
     public String toString() {
-        if (this.getObject() == null) {
-            this.getStringBuffer().append(this.getStyle().getNullText());
+        if (getObject() == null) {
+            getStringBuffer().append(getStyle().getNullText());
         } else {
-            style.appendEnd(this.getStringBuffer(), this.getObject());
+            style.appendEnd(getStringBuffer(), getObject());
         }
-        return this.getStringBuffer().toString();
+        return getStringBuffer().toString();
     }
 }

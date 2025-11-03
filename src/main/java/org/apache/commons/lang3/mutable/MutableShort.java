@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,15 +16,19 @@
  */
 package org.apache.commons.lang3.mutable;
 
-import org.apache.commons.lang3.math.NumberUtils;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * A mutable {@code short} wrapper.
+ * <p>
+ * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link AtomicInteger} class.
+ * </p>
  * <p>
  * Note that as MutableShort does not extend Short, it is not treated by String.format as a Short parameter.
  * </p>
  *
  * @see Short
+ * @see AtomicInteger
  * @since 2.1
  */
 public class MutableShort extends Number implements Comparable<MutableShort>, Mutable<Number> {
@@ -48,8 +52,8 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Constructs a new MutableShort with the specified value.
      *
-     * @param value  the initial value to store, not null
-     * @throws NullPointerException if the object is null
+     * @param value  the initial value to store, not null.
+     * @throws NullPointerException if the object is null.
      */
     public MutableShort(final Number value) {
         this.value = value.shortValue();
@@ -58,7 +62,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Constructs a new MutableShort with the specified value.
      *
-     * @param value  the initial value to store
+     * @param value  the initial value to store.
      */
     public MutableShort(final short value) {
         this.value = value;
@@ -67,8 +71,8 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Constructs a new MutableShort parsing the given string.
      *
-     * @param value  the string to parse, not null
-     * @throws NumberFormatException if the string cannot be parsed into a short
+     * @param value  the string to parse, not null.
+     * @throws NumberFormatException if the string cannot be parsed into a short, see {@link Short#parseShort(String)}.
      * @since 2.5
      */
     public MutableShort(final String value) {
@@ -78,8 +82,8 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Adds a value to the value of this instance.
      *
-     * @param operand  the value to add, not null
-     * @throws NullPointerException if the object is null
+     * @param operand  the value to add, not null.
+     * @throws NullPointerException if the object is null.
      * @since 2.2
      */
     public void add(final Number operand) {
@@ -89,7 +93,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Adds a value to the value of this instance.
      *
-     * @param operand  the value to add, not null
+     * @param operand  the value to add, not null.
      * @since 2.2
      */
     public void add(final short operand) {
@@ -100,9 +104,9 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately after the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null
-     * @throws NullPointerException if {@code operand} is null
-     * @return the value associated with this instance after adding the operand
+     * @param operand the quantity to add, not null.
+     * @throws NullPointerException if {@code operand} is null.
+     * @return the value associated with this instance after adding the operand.
      * @since 3.5
      */
     public short addAndGet(final Number operand) {
@@ -114,8 +118,8 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately after the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null
-     * @return the value associated with this instance after adding the operand
+     * @param operand the quantity to add, not null.
+     * @return the value associated with this instance after adding the operand.
      * @since 3.5
      */
     public short addAndGet(final short operand) {
@@ -126,12 +130,12 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Compares this mutable to another in ascending order.
      *
-     * @param other  the other mutable to compare to, not null
-     * @return negative if this is less, zero if equal, positive if greater
+     * @param other  the other mutable to compare to, not null.
+     * @return negative if this is less, zero if equal, positive if greater.
      */
     @Override
     public int compareTo(final MutableShort other) {
-        return NumberUtils.compare(this.value, other.value);
+        return Short.compare(this.value, other.value);
     }
 
     /**
@@ -147,7 +151,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Decrements this instance's value by 1; this method returns the value associated with the instance
      * immediately after the decrement operation. This method is not thread safe.
      *
-     * @return the value associated with the instance after it is decremented
+     * @return the value associated with the instance after it is decremented.
      * @since 3.5
      */
     public short decrementAndGet() {
@@ -170,7 +174,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * is not {@code null} and is a {@link MutableShort} object that contains the same {@code short}
      * value as this object.
      *
-     * @param obj  the object to compare with, null returns false
+     * @param obj  the object to compare with, null returns false.
      * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
@@ -195,9 +199,9 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately prior to the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null
-     * @throws NullPointerException if {@code operand} is null
-     * @return the value associated with this instance immediately before the operand was added
+     * @param operand the quantity to add, not null.
+     * @throws NullPointerException if {@code operand} is null.
+     * @return the value associated with this instance immediately before the operand was added.
      * @since 3.5
      */
     public short getAndAdd(final Number operand) {
@@ -210,8 +214,8 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately prior to the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null
-     * @return the value associated with this instance immediately before the operand was added
+     * @param operand the quantity to add, not null.
+     * @return the value associated with this instance immediately before the operand was added.
      * @since 3.5
      */
     public short getAndAdd(final short operand) {
@@ -224,7 +228,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Decrements this instance's value by 1; this method returns the value associated with the instance
      * immediately prior to the decrement operation. This method is not thread safe.
      *
-     * @return the value associated with the instance before it was decremented
+     * @return the value associated with the instance before it was decremented.
      * @since 3.5
      */
     public short getAndDecrement() {
@@ -237,7 +241,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Increments this instance's value by 1; this method returns the value associated with the instance
      * immediately prior to the increment operation. This method is not thread safe.
      *
-     * @return the value associated with the instance before it was incremented
+     * @return the value associated with the instance before it was incremented.
      * @since 3.5
      */
     public short getAndIncrement() {
@@ -249,8 +253,10 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Gets the value as a Short instance.
      *
-     * @return the value as a Short, never null
+     * @return the value as a Short, never null.
+     * @deprecated Use {@link #get()}.
      */
+    @Deprecated
     @Override
     public Short getValue() {
         return Short.valueOf(this.value);
@@ -259,7 +265,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Returns a suitable hash code for this mutable.
      *
-     * @return a suitable hash code
+     * @return a suitable hash code.
      */
     @Override
     public int hashCode() {
@@ -279,7 +285,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * Increments this instance's value by 1; this method returns the value associated with the instance
      * immediately after the increment operation. This method is not thread safe.
      *
-     * @return the value associated with the instance after it is incremented
+     * @return the value associated with the instance after it is incremented.
      * @since 3.5
      */
     public short incrementAndGet() {
@@ -310,8 +316,8 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Sets the value from any Number instance.
      *
-     * @param value  the value to set, not null
-     * @throws NullPointerException if the object is null
+     * @param value  the value to set, not null.
+     * @throws NullPointerException if the object is null.
      */
     @Override
     public void setValue(final Number value) {
@@ -341,8 +347,8 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Subtracts a value from the value of this instance.
      *
-     * @param operand  the value to subtract, not null
-     * @throws NullPointerException if the object is null
+     * @param operand  the value to subtract, not null.
+     * @throws NullPointerException if the object is null.
      * @since 2.2
      */
     public void subtract(final Number operand) {
@@ -352,7 +358,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Subtracts a value from the value of this instance.
      *
-     * @param operand  the value to subtract, not null
+     * @param operand  the value to subtract, not null.
      * @since 2.2
      */
     public void subtract(final short operand) {
@@ -362,7 +368,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Gets this mutable as an instance of Short.
      *
-     * @return a Short instance containing the value from this mutable, never null
+     * @return a Short instance containing the value from this mutable, never null.
      */
     public Short toShort() {
         return Short.valueOf(shortValue());
@@ -371,7 +377,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Returns the String value of this mutable.
      *
-     * @return the mutable value as a string
+     * @return the mutable value as a string.
      */
     @Override
     public String toString() {

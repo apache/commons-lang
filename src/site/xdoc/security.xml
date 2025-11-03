@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file distributed with this work for additional information regarding 
+  copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may 
+  obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed 
+  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the 
+  License. -->
+<document>
+  <properties>
+    <title>Apache Commons Lang Security Reports</title>
+    <author email="dev@commons.apache.org">Commons Team</author>
+  </properties>
+  <body>
+    <section name="Security Vulnerabilities">
+      <p>
+        For information about reporting or asking questions about security, please see the
+        <a href="https://commons.apache.org/security.html">security page</a>
+        of the Apache Commons project.
+      </p>
+      <p>This page lists all security vulnerabilities fixed in released versions of this component.
+      </p>
+      <p>Please note that binary patches are never provided. If you need to apply a source code patch, use the building instructions for the component version
+        that you are using.
+      </p>
+      <p>
+        If you need help on building this component or other help on following the instructions to mitigate the known vulnerabilities listed here, please send
+        your questions to the
+        public
+        <a href="mail-lists.html">user mailing list</a>
+        .
+      </p>
+      <p>
+        If you have encountered an unlisted security vulnerability or other unexpected behavior that has security impact, or if the descriptions here are
+        incomplete, please report
+        them privately to the
+        <a href="https://commons.apache.org/security.html">Apache Security Team</a>
+        .
+      </p>
+      <section name="CVE-2025-48924 ClassUtils.getClass(...) can throw a StackOverflowError on very long inputs">
+        <p>
+          ClassUtils.getClass(...) can throw a StackOverflowError on very long inputs.
+        </p>
+        <p>
+          Affected versions:
+        </p>
+        <ul>
+          <li>Apache Commons Lang (commons-lang:commons-lang) 2.0 through 2.6</li>
+          <li>Apache Commons Lang (org.apache.commons:commons-lang3) 3.0 before 3.18.0</li>
+        </ul>
+        <p>
+          Uncontrolled Recursion vulnerability in Apache Commons Lang.
+        </p>
+        <p>
+          This issue affects Apache Commons Lang: Starting with commons-lang:commons-lang 2.0 to 2.6, and, from org.apache.commons:commons-lang3 3.0 before 3.18.0.
+        </p>
+        <p>
+          The methods ClassUtils.getClass(...) can throw StackOverflowError on very long inputs. Because an Error is usually not handled by applications and libraries, a
+          StackOverflowError could cause an application to stop.
+        </p>
+        <p>
+          Users are recommended to upgrade to version 3.18.0, which fixes the issue.
+        </p>
+        <p>
+          Credit:
+        </p>
+        <p>
+          OSS-Fuzz Issue 42522972 (finder)
+        </p>
+        <p>
+          References:
+        </p>
+        <p>
+          <ul>
+            <li>
+              <a href="https://lists.apache.org/thread/bgv0lpswokgol11tloxnjfzdl7yrc1g1">Announcement email</a>
+            </li>
+            <li>
+              <a href="https://www.cve.org/CVERecord?id=CVE-2025-48924">cve.org CVE-2025-48924</a>
+            </li>
+          </ul>
+        </p>
+        <p>
+        </p>
+        <p>
+        </p>
+      </section>
+    </section>
+  </body>
+</document>

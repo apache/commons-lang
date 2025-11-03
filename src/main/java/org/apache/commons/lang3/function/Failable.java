@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,6 +22,7 @@ import java.io.UncheckedIOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -39,17 +40,18 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
 /**
  * This class provides utility functions, and classes for working with the {@code java.util.function} package, or more
  * generally, with Java 8 lambdas. More specifically, it attempts to address the fact that lambdas are supposed not to
- * throw Exceptions, at least not checked Exceptions, AKA instances of {@link Exception}. This enforces the use of
+ * throw Exceptions, at least not checked Exceptions, like instances of {@link Exception}. This enforces the use of
  * constructs like:
  *
- * <pre>
- * Consumer&lt;java.lang.reflect.Method&gt; consumer = m -&gt; {
+ * <pre>{@code
+ * Consumer<java.lang.reflect.Method> consumer = m -> {
  *     try {
  *         m.invoke(o, args);
  *     } catch (Throwable t) {
  *         throw Failable.rethrow(t);
  *     }
  * };
+ * }
  * </pre>
  *
  * <p>
@@ -57,9 +59,9 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  * FailableConsumer&lt;O,? extends Throwable&gt;}, this can be written like follows:
  * </p>
  *
- * <pre>
- * Functions.accept((m) -&gt; m.invoke(o, args));
- * </pre>
+ * <pre>{@code
+ * Functions.accept(m -> m.invoke(o, args));
+ * }</pre>
  *
  * <p>
  * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than the second
@@ -73,7 +75,7 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
+     * @param consumer the consumer to accept, may be null for a noop.
      * @param object1 the first object to consume by {@code consumer}
      * @param object2 the second object to consume by {@code consumer}
      * @param <T> the type of the first argument the consumer accepts
@@ -82,52 +84,51 @@ public class Failable {
      */
     public static <T, U, E extends Throwable> void accept(final FailableBiConsumer<T, U, E> consumer, final T object1,
         final U object2) {
-        run(() -> consumer.accept(object1, object2));
+        run(consumer, () -> consumer.accept(object1, object2));
     }
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
+     * @param consumer the consumer to accept, may be null for a noop.
      * @param object the object to consume by {@code consumer}
      * @param <T> the type the consumer accepts
      * @param <E> the type of checked exception the consumer may throw
      */
     public static <T, E extends Throwable> void accept(final FailableConsumer<T, E> consumer, final T object) {
-        run(() -> consumer.accept(object));
+        run(consumer, () -> consumer.accept(object));
     }
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
+     * @param consumer the consumer to accept, may be null for a noop.
      * @param value the value to consume by {@code consumer}
      * @param <E> the type of checked exception the consumer may throw
      */
     public static <E extends Throwable> void accept(final FailableDoubleConsumer<E> consumer, final double value) {
-        run(() -> consumer.accept(value));
+        run(consumer, () -> consumer.accept(value));
     }
-
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
+     * @param consumer the consumer to accept, may be null for a noop.
      * @param value the value to consume by {@code consumer}
      * @param <E> the type of checked exception the consumer may throw
      */
     public static <E extends Throwable> void accept(final FailableIntConsumer<E> consumer, final int value) {
-        run(() -> consumer.accept(value));
+        run(consumer, () -> consumer.accept(value));
     }
 
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
+     * @param consumer the consumer to accept, may be null for a noop.
      * @param value the value to consume by {@code consumer}
      * @param <E> the type of checked exception the consumer may throw
      */
     public static <E extends Throwable> void accept(final FailableLongConsumer<E> consumer, final long value) {
-        run(() -> consumer.accept(value));
+        run(consumer, () -> consumer.accept(value));
     }
 
     /**
@@ -173,6 +174,111 @@ public class Failable {
     public static <E extends Throwable> double applyAsDouble(final FailableDoubleBinaryOperator<E> function,
         final double left, final double right) {
         return getAsDouble(() -> function.applyAsDouble(left, right));
+    }
+
+    /**
+     * Applies a value to a function if the value isn't {@code null}, otherwise the method returns {@code null}. If the value isn't {@code null} then return the
+     * result of the applying function.
+     *
+     * <pre>{@code
+     * Failable.applyNonNull("a", String::toUpperCase)  = "A"
+     * Failable.applyNonNull(null, String::toUpperCase) = null
+     * Failable.applyNonNull("a", s -> null)            = null
+     * }</pre>
+     * <p>
+     * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
+     * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
+     * </p>
+     *
+     * @param <T>    The type of the input of this method and the function.
+     * @param <R>    The type of the result of the function and this method.
+     * @param <E>    The type of thrown exception or error.
+     * @param value  The value to apply the function to, may be {@code null}.
+     * @param mapper The function to apply, must not be {@code null}.
+     * @return The result of the function (which may be {@code null}) or {@code null} if the input value is {@code null}.
+     * @throws E Thrown by the given function.
+     * @see #applyNonNull(Object, FailableFunction, FailableFunction)
+     * @see #applyNonNull(Object, FailableFunction, FailableFunction, FailableFunction)
+     * @since 3.19.0
+     */
+    public static <T, R, E extends Throwable> R applyNonNull(final T value, final FailableFunction<? super T, ? extends R, E> mapper) throws E {
+        return value != null ? Objects.requireNonNull(mapper, "mapper").apply(value) : null;
+    }
+
+    /**
+     * Applies values to a chain of functions, where a {@code null} can short-circuit each step. A function is only applied if the previous value is not
+     * {@code null}, otherwise this method returns {@code null}.
+     *
+     * <pre>{@code
+     * Failable.applyNonNull(" a ", String::toUpperCase, String::trim) = "A"
+     * Failable.applyNonNull(null, String::toUpperCase, String::trim)  = null
+     * Failable.applyNonNull(" a ", s -> null, String::trim)           = null
+     * Failable.applyNonNull(" a ", String::toUpperCase, s -> null)    = null
+     * }</pre>
+     * <p>
+     * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
+     * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
+     * </p>
+     *
+     * @param <T>     The type of the input of this method and the first function.
+     * @param <U>     The type of the result of the first function and the input to the second function.
+     * @param <R>     The type of the result of the second function and this method.
+     * @param <E1>    The type of thrown exception or error by the first function.
+     * @param <E2>    The type of thrown exception or error by the second function.
+     * @param value1  The value to apply the functions to, may be {@code null}.
+     * @param mapper1 The first function to apply, must not be {@code null}.
+     * @param mapper2 The second function to apply, must not be {@code null}.
+     * @return The result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}.
+     * @throws E1 Thrown by the first function.
+     * @throws E2 Thrown by the second function.
+     * @see #applyNonNull(Object, FailableFunction)
+     * @see #applyNonNull(Object, FailableFunction, FailableFunction, FailableFunction)
+     * @since 3.19.0
+     */
+    public static <T, U, R, E1 extends Throwable, E2 extends Throwable> R applyNonNull(final T value1,
+            final FailableFunction<? super T, ? extends U, E1> mapper1, final FailableFunction<? super U, ? extends R, E2> mapper2) throws E1, E2 {
+        return applyNonNull(applyNonNull(value1, mapper1), mapper2);
+    }
+
+    /**
+     * Applies values to a chain of functions, where a {@code null} can short-circuit each step. A function is only applied if the previous value is not
+     * {@code null}, otherwise this method returns {@code null}.
+     *
+     * <pre>{@code
+     * Failable.applyNonNull(" abc ", String::toUpperCase, String::trim, StringUtils::reverse) = "CBA"
+     * Failable.applyNonNull(null, String::toUpperCase, String::trim, StringUtils::reverse)    = null
+     * Failable.applyNonNull(" abc ", s -> null, String::trim, StringUtils::reverse)           = null
+     * Failable.applyNonNull(" abc ", String::toUpperCase, s -> null, StringUtils::reverse)    = null
+     * Failable.applyNonNull(" abc ", String::toUpperCase, String::trim, s -> null)            = null
+     * }</pre>
+     * <p>
+     * Useful when working with expressions that may return {@code null} as it allows a single-line expression without using temporary local variables or
+     * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
+     * </p>
+     *
+     * @param <T>     The type of the input of this method and the first function.
+     * @param <U>     The type of the result of the first function and the input to the second function.
+     * @param <V>     The type of the result of the second function and the input to the third function.
+     * @param <R>     The type of the result of the third function and this method.
+     * @param <E1>    The type of thrown exception or error by the first function.
+     * @param <E2>    The type of thrown exception or error by the second function.
+     * @param <E3>    The type of thrown exception or error by the second function.
+     * @param value1  The value to apply the first function, may be {@code null}.
+     * @param mapper1 The first function to apply, must not be {@code null}.
+     * @param mapper2 The second function to apply, must not be {@code null}.
+     * @param mapper3 The third function to apply, must not be {@code null}.
+     * @return The result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}.
+     * @throws E1 Thrown by the first function.
+     * @throws E2 Thrown by the second function.
+     * @throws E3 Thrown by the third function.
+     * @see #applyNonNull(Object, FailableFunction)
+     * @see #applyNonNull(Object, FailableFunction, FailableFunction)
+     * @since 3.19.0
+     */
+    public static <T, U, V, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable> R applyNonNull(final T value1,
+            final FailableFunction<? super T, ? extends U, E1> mapper1, final FailableFunction<? super U, ? extends V, E2> mapper2,
+            final FailableFunction<? super V, ? extends R, E3> mapper3) throws E1, E2, E3 {
+        return applyNonNull(applyNonNull(applyNonNull(value1, mapper1), mapper2), mapper3);
     }
 
     /**
@@ -418,14 +524,26 @@ public class Failable {
     /**
      * Runs a runnable and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param runnable The runnable to run
-     * @param <E> the type of checked exception the runnable may throw
+     * @param runnable The runnable to run, may be null for a noop.
+     * @param <E> the type of checked exception the runnable may throw.
      */
     public static <E extends Throwable> void run(final FailableRunnable<E> runnable) {
-        try {
-            runnable.run();
-        } catch (final Throwable t) {
-            throw rethrow(t);
+        if (runnable != null) {
+            try {
+                runnable.run();
+            } catch (final Throwable t) {
+                throw rethrow(t);
+            }
+        }
+    }
+
+    private static <E extends Throwable> void run(final Object test, final FailableRunnable<E> runnable) {
+        if (runnable != null && test != null) {
+            try {
+                runnable.run();
+            } catch (final Throwable t) {
+                throw rethrow(t);
+            }
         }
     }
 
@@ -495,10 +613,10 @@ public class Failable {
      * If either the original action, or any of the resource action fails, then the <em>first</em> failure (AKA
      * {@link Throwable}) is rethrown. Example use:
      *
-     * <pre>
+     * <pre>{@code
      * final FileInputStream fis = new FileInputStream("my.file");
-     * Functions.tryWithResources(useInputStream(fis), null, () -&gt; fis.close());
-     * </pre>
+     * Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
+     * }</pre>
      *
      * @param action The action to execute. This object <em>will</em> always be invoked.
      * @param errorHandler An optional error handler, which will be invoked finally, if any error occurred. The error
@@ -551,10 +669,10 @@ public class Failable {
      * If either the original action, or any of the resource action fails, then the <em>first</em> failure (AKA
      * {@link Throwable}) is rethrown. Example use:
      *
-     * <pre>
+     * <pre>{@code
      * final FileInputStream fis = new FileInputStream("my.file");
-     * Functions.tryWithResources(useInputStream(fis), () -&gt; fis.close());
-     * </pre>
+     * Functions.tryWithResources(useInputStream(fis), () -> fis.close());
+     * }</pre>
      *
      * @param action The action to execute. This object <em>will</em> always be invoked.
      * @param resources The resource actions to execute. <em>All</em> resource actions will be invoked, in the given
@@ -562,8 +680,7 @@ public class Failable {
      * @see #tryWithResources(FailableRunnable, FailableConsumer, FailableRunnable...)
      */
     @SafeVarargs
-    public static void tryWithResources(final FailableRunnable<? extends Throwable> action,
-        final FailableRunnable<? extends Throwable>... resources) {
+    public static void tryWithResources(final FailableRunnable<? extends Throwable> action, final FailableRunnable<? extends Throwable>... resources) {
         tryWithResources(action, null, resources);
     }
 

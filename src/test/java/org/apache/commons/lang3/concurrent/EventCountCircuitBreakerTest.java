@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code EventCountCircuitBreaker}.
  */
-public class EventCountCircuitBreakerTest extends AbstractLangTest {
+class EventCountCircuitBreakerTest extends AbstractLangTest {
     /**
      * A test change listener for checking whether correct change events are generated.
      */
@@ -129,7 +129,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * transition to open state.
      */
     @Test
-    public void testAutomaticOpenStartsNewCheckInterval() {
+    void testAutomaticOpenStartsNewCheckInterval() {
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2,
                 TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         long time = 10 * NANO_FACTOR;
@@ -147,7 +147,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * Tests whether events are generated when the state is changed.
      */
     @Test
-    public void testChangeEvents() {
+    void testChangeEvents() {
         final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
                 TimeUnit.SECONDS);
         final ChangeListener listener = new ChangeListener(breaker);
@@ -161,7 +161,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * Tests that automatic state transitions generate change events as well.
      */
     @Test
-    public void testChangeEventsGeneratedByAutomaticTransitions() {
+    void testChangeEventsGeneratedByAutomaticTransitions() {
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2,
                 TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         final ChangeListener listener = new ChangeListener(breaker);
@@ -179,7 +179,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * Tests whether the circuit breaker can be closed explicitly.
      */
     @Test
-    public void testClose() {
+    void testClose() {
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2,
                 TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         long time = 0;
@@ -197,7 +197,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * received goes under the closing threshold.
      */
     @Test
-    public void testClosingWhenThresholdReached() {
+    void testClosingWhenThresholdReached() {
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD,
                 10, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         breaker.open();
@@ -213,7 +213,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * specified.
      */
     @Test
-    public void testDefaultClosingInterval() {
+    void testDefaultClosingInterval() {
         final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
                 TimeUnit.SECONDS, CLOSING_THRESHOLD);
         assertEquals(NANO_FACTOR, breaker.getClosingInterval(), "Wrong closing interval");
@@ -224,7 +224,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * specified otherwise.
      */
     @Test
-    public void testDefaultClosingThreshold() {
+    void testDefaultClosingThreshold() {
         final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
                 TimeUnit.SECONDS);
         assertEquals(NANO_FACTOR, breaker.getClosingInterval(), "Wrong closing interval");
@@ -235,7 +235,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * Tests that a circuit breaker is closed after its creation.
      */
     @Test
-    public void testInitiallyClosed() {
+    void testInitiallyClosed() {
         final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
                 TimeUnit.SECONDS);
         assertFalse(breaker.isOpen(), "Open");
@@ -246,7 +246,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * Tests that time units are correctly taken into account by constructors.
      */
     @Test
-    public void testIntervalCalculation() {
+    void testIntervalCalculation() {
         final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
                 TimeUnit.SECONDS, CLOSING_THRESHOLD, 2, TimeUnit.MILLISECONDS);
         assertEquals(NANO_FACTOR, breaker.getOpeningInterval(), "Wrong opening interval");
@@ -258,7 +258,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * received is over the threshold.
      */
     @Test
-    public void testNotClosingOverThreshold() {
+    void testNotClosingOverThreshold() {
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD,
                 10, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         long startTime = 0;
@@ -276,7 +276,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * events, but not in a single check interval.
      */
     @Test
-    public void testNotOpeningCheckIntervalExceeded() {
+    void testNotOpeningCheckIntervalExceeded() {
         long startTime = 0L;
         final long timeIncrement = 3 * NANO_FACTOR / (2 * OPENING_THRESHOLD);
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
@@ -293,7 +293,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * below the threshold.
      */
     @Test
-    public void testNotOpeningUnderThreshold() {
+    void testNotOpeningUnderThreshold() {
         long startTime = 1000;
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
                 TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
@@ -308,7 +308,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * Tests whether the current time is correctly determined.
      */
     @Test
-    public void testNow() {
+    void testNow() {
         final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
                 TimeUnit.SECONDS);
         final long nowNanos = breaker.nanoTime();
@@ -320,7 +320,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * Tests that the circuit breaker opens if all conditions are met.
      */
     @Test
-    public void testOpeningWhenThresholdReached() {
+    void testOpeningWhenThresholdReached() {
         long startTime = 0;
         final long timeIncrement = NANO_FACTOR / OPENING_THRESHOLD - 1;
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
@@ -339,7 +339,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * {@link EventCountCircuitBreaker#incrementAndCheckState(Integer increment)}.
      */
     @Test
-    public void testOpeningWhenThresholdReachedThroughBatch() {
+    void testOpeningWhenThresholdReachedThroughBatch() {
         final long timeIncrement = NANO_FACTOR / OPENING_THRESHOLD - 1;
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
             TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
@@ -354,7 +354,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * object. Otherwise, the circuit breaker may close itself directly afterwards.
      */
     @Test
-    public void testOpenStartsNewCheckInterval() {
+    void testOpenStartsNewCheckInterval() {
         final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 2,
                 TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
         breaker.at(NANO_FACTOR - 1000).open();
@@ -366,7 +366,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * Tests whether a change listener can be removed.
      */
     @Test
-    public void testRemoveChangeListener() {
+    void testRemoveChangeListener() {
         final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
                 TimeUnit.SECONDS);
         final ChangeListener listener = new ChangeListener(breaker);
@@ -382,7 +382,7 @@ public class EventCountCircuitBreakerTest extends AbstractLangTest {
      * Only the first transition should cause an event to be sent.
      */
     @Test
-    public void testStateTransitionGuarded() throws InterruptedException {
+    void testStateTransitionGuarded() throws InterruptedException {
         final EventCountCircuitBreaker breaker = new EventCountCircuitBreaker(OPENING_THRESHOLD, 1,
                 TimeUnit.SECONDS);
         final ChangeListener listener = new ChangeListener(breaker);

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,14 +28,14 @@ import java.util.function.Supplier;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
-public class ObjectsTest extends AbstractLangTest {
+class ObjectsTest extends AbstractLangTest {
 
     public static class TestableFailableSupplier<O, E extends Exception> implements FailableSupplier<O, E> {
         private final FailableSupplier<O, E> supplier;
         private boolean invoked;
 
-        TestableFailableSupplier(final FailableSupplier<O, E> pSupplier) {
-            this.supplier = pSupplier;
+        TestableFailableSupplier(final FailableSupplier<O, E> supplier) {
+            this.supplier = supplier;
         }
 
         @Override
@@ -53,8 +53,8 @@ public class ObjectsTest extends AbstractLangTest {
         private final Supplier<O> supplier;
         private boolean invoked;
 
-        TestableSupplier(final Supplier<O> pSupplier) {
-            this.supplier = pSupplier;
+        TestableSupplier(final Supplier<O> supplier) {
+            this.supplier = supplier;
         }
 
         @Override

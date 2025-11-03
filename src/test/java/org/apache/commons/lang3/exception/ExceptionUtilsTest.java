@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.exception;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -47,7 +48,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.exception.ExceptionUtils}.
  */
-public class ExceptionUtilsTest extends AbstractLangTest {
+class ExceptionUtilsTest extends AbstractLangTest {
 
     /**
      * Provides a method with a well known chained/nested exception
@@ -179,7 +180,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_getMessage_Throwable() {
+    void test_getMessage_Throwable() {
         Throwable th = null;
         assertEquals("", ExceptionUtils.getMessage(th));
 
@@ -191,7 +192,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void test_getRootCauseMessage_Throwable() {
+    void test_getRootCauseMessage_Throwable() {
         Throwable th = null;
         assertEquals("", ExceptionUtils.getRootCauseMessage(th));
 
@@ -203,7 +204,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAsRuntimeException() {
+    void testAsRuntimeException() {
         final Exception expected = new InterruptedException();
         assertSame(expected, assertThrows(Exception.class, () -> ExceptionUtils.asRuntimeException(expected)));
         assertNotSame(expected, assertThrows(Exception.class, () -> ExceptionUtils.asRuntimeException(new InterruptedException())));
@@ -225,7 +226,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCatchTechniques() {
+    void testCatchTechniques() {
         IOException ioe = assertThrows(IOException.class, ExceptionUtilsTest::throwsCheckedException);
         assertEquals(1, ExceptionUtils.getThrowableCount(ioe));
 
@@ -234,7 +235,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(new ExceptionUtils());
         final Constructor<?>[] cons = ExceptionUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
@@ -244,7 +245,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testForEach_jdkNoCause() {
+    void testForEach_jdkNoCause() {
         final List<Throwable> throwables = new ArrayList<>();
         ExceptionUtils.forEach(jdkNoCause, throwables::add);
         assertEquals(1, throwables.size());
@@ -252,7 +253,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testForEach_nested() {
+    void testForEach_nested() {
         final List<Throwable> throwables = new ArrayList<>();
         ExceptionUtils.forEach(nested, throwables::add);
         assertEquals(2, throwables.size());
@@ -261,14 +262,14 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testForEach_null() {
+    void testForEach_null() {
         final List<Throwable> throwables = new ArrayList<>();
         ExceptionUtils.forEach(null, throwables::add);
         assertEquals(0, throwables.size());
     }
 
     @Test
-    public void testForEach_recursiveCause() {
+    void testForEach_recursiveCause() {
         final List<Throwable> throwables = new ArrayList<>();
         ExceptionUtils.forEach(cyclicCause, throwables::add);
         assertEquals(3, throwables.size());
@@ -278,7 +279,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testForEach_withCause() {
+    void testForEach_withCause() {
         final List<Throwable> throwables = new ArrayList<>();
         ExceptionUtils.forEach(withCause, throwables::add);
         assertEquals(3, throwables.size());
@@ -288,7 +289,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testForEach_withoutCause() {
+    void testForEach_withoutCause() {
         final List<Throwable> throwables = new ArrayList<>();
         ExceptionUtils.forEach(withoutCause, throwables::add);
         assertEquals(1, throwables.size());
@@ -297,7 +298,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
 
     @SuppressWarnings("deprecation") // Specifically tests the deprecated methods
     @Test
-    public void testGetCause_Throwable() {
+    void testGetCause_Throwable() {
         assertSame(null, ExceptionUtils.getCause(null));
         assertSame(null, ExceptionUtils.getCause(withoutCause));
         assertSame(withoutCause, ExceptionUtils.getCause(nested));
@@ -311,7 +312,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
 
     @SuppressWarnings("deprecation") // Specifically tests the deprecated methods
     @Test
-    public void testGetCause_ThrowableArray() {
+    void testGetCause_ThrowableArray() {
         assertSame(null, ExceptionUtils.getCause(null, null));
         assertSame(null, ExceptionUtils.getCause(null, new String[0]));
 
@@ -330,7 +331,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetRootCause_Throwable() {
+    void testGetRootCause_Throwable() {
         assertSame(null, ExceptionUtils.getRootCause(null));
         assertSame(withoutCause, ExceptionUtils.getRootCause(withoutCause));
         assertSame(withoutCause, ExceptionUtils.getRootCause(nested));
@@ -340,7 +341,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetRootCauseStackTrace_Throwable() {
+    void testGetRootCauseStackTrace_Throwable() {
         assertEquals(0, ExceptionUtils.getRootCauseStackTrace(null).length);
 
         final Throwable cause = createExceptionWithCause();
@@ -366,7 +367,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetRootCauseStackTraceList_Throwable() {
+    void testGetRootCauseStackTraceList_Throwable() {
         assertEquals(0, ExceptionUtils.getRootCauseStackTraceList(null).size());
 
         final Throwable cause = createExceptionWithCause();
@@ -393,7 +394,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
 
     @Test
     @DisplayName("getStackFrames returns empty string array when the argument is null")
-    public void testgetStackFramesHappyPath() {
+    void testgetStackFramesHappyPath() {
         final String[] actual = ExceptionUtils.getStackFrames(new Throwable() {
             private static final long serialVersionUID = 1L;
 
@@ -419,13 +420,13 @@ public class ExceptionUtilsTest extends AbstractLangTest {
 
     @Test
     @DisplayName("getStackFrames returns the string array of the stack frames when there is a real exception")
-    public void testgetStackFramesNullArg() {
+    void testgetStackFramesNullArg() {
         final String[] actual = ExceptionUtils.getStackFrames((Throwable) null);
         assertEquals(0, actual.length);
     }
 
     @Test
-    public void testGetThrowableCount_Throwable() {
+    void testGetThrowableCount_Throwable() {
         assertEquals(0, ExceptionUtils.getThrowableCount(null));
         assertEquals(1, ExceptionUtils.getThrowableCount(withoutCause));
         assertEquals(2, ExceptionUtils.getThrowableCount(nested));
@@ -435,14 +436,14 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetThrowableList_Throwable_jdkNoCause() {
+    void testGetThrowableList_Throwable_jdkNoCause() {
         final List<?> throwables = ExceptionUtils.getThrowableList(jdkNoCause);
         assertEquals(1, throwables.size());
         assertSame(jdkNoCause, throwables.get(0));
     }
 
     @Test
-    public void testGetThrowableList_Throwable_nested() {
+    void testGetThrowableList_Throwable_nested() {
         final List<?> throwables = ExceptionUtils.getThrowableList(nested);
         assertEquals(2, throwables.size());
         assertSame(nested, throwables.get(0));
@@ -450,13 +451,13 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetThrowableList_Throwable_null() {
+    void testGetThrowableList_Throwable_null() {
         final List<?> throwables = ExceptionUtils.getThrowableList(null);
         assertEquals(0, throwables.size());
     }
 
     @Test
-    public void testGetThrowableList_Throwable_recursiveCause() {
+    void testGetThrowableList_Throwable_recursiveCause() {
         final List<?> throwables = ExceptionUtils.getThrowableList(cyclicCause);
         assertEquals(3, throwables.size());
         assertSame(cyclicCause, throwables.get(0));
@@ -465,7 +466,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetThrowableList_Throwable_withCause() {
+    void testGetThrowableList_Throwable_withCause() {
         final List<?> throwables = ExceptionUtils.getThrowableList(withCause);
         assertEquals(3, throwables.size());
         assertSame(withCause, throwables.get(0));
@@ -474,21 +475,21 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetThrowableList_Throwable_withoutCause() {
+    void testGetThrowableList_Throwable_withoutCause() {
         final List<?> throwables = ExceptionUtils.getThrowableList(withoutCause);
         assertEquals(1, throwables.size());
         assertSame(withoutCause, throwables.get(0));
     }
 
     @Test
-    public void testGetThrowables_Throwable_jdkNoCause() {
+    void testGetThrowables_Throwable_jdkNoCause() {
         final Throwable[] throwables = ExceptionUtils.getThrowables(jdkNoCause);
         assertEquals(1, throwables.length);
         assertSame(jdkNoCause, throwables[0]);
     }
 
     @Test
-    public void testGetThrowables_Throwable_nested() {
+    void testGetThrowables_Throwable_nested() {
         final Throwable[] throwables = ExceptionUtils.getThrowables(nested);
         assertEquals(2, throwables.length);
         assertSame(nested, throwables[0]);
@@ -496,12 +497,12 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetThrowables_Throwable_null() {
+    void testGetThrowables_Throwable_null() {
         assertEquals(0, ExceptionUtils.getThrowables(null).length);
     }
 
     @Test
-    public void testGetThrowables_Throwable_recursiveCause() {
+    void testGetThrowables_Throwable_recursiveCause() {
         final Throwable[] throwables = ExceptionUtils.getThrowables(cyclicCause);
         assertEquals(3, throwables.length);
         assertSame(cyclicCause, throwables[0]);
@@ -510,7 +511,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetThrowables_Throwable_withCause() {
+    void testGetThrowables_Throwable_withCause() {
         final Throwable[] throwables = ExceptionUtils.getThrowables(withCause);
         assertEquals(3, throwables.length);
         assertSame(withCause, throwables[0]);
@@ -519,14 +520,14 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetThrowables_Throwable_withoutCause() {
+    void testGetThrowables_Throwable_withoutCause() {
         final Throwable[] throwables = ExceptionUtils.getThrowables(withoutCause);
         assertEquals(1, throwables.length);
         assertSame(withoutCause, throwables[0]);
     }
 
     @Test
-    public void testIndexOf_ThrowableClass() {
+    void testIndexOf_ThrowableClass() {
         assertEquals(-1, ExceptionUtils.indexOfThrowable(null, null));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(null, NestableException.class));
 
@@ -550,7 +551,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIndexOf_ThrowableClassInt() {
+    void testIndexOf_ThrowableClassInt() {
         assertEquals(-1, ExceptionUtils.indexOfThrowable(null, null, 0));
         assertEquals(-1, ExceptionUtils.indexOfThrowable(null, NestableException.class, 0));
 
@@ -579,7 +580,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIndexOfType_ThrowableClass() {
+    void testIndexOfType_ThrowableClass() {
         assertEquals(-1, ExceptionUtils.indexOfType(null, null));
         assertEquals(-1, ExceptionUtils.indexOfType(null, NestableException.class));
 
@@ -603,7 +604,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIndexOfType_ThrowableClassInt() {
+    void testIndexOfType_ThrowableClassInt() {
         assertEquals(-1, ExceptionUtils.indexOfType(null, null, 0));
         assertEquals(-1, ExceptionUtils.indexOfType(null, NestableException.class, 0));
 
@@ -632,79 +633,74 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testIsChecked_checked() {
+    void testIsChecked_checked() {
         assertTrue(ExceptionUtils.isChecked(new IOException()));
     }
 
     @Test
-    public void testIsChecked_error() {
+    void testIsChecked_error() {
         assertFalse(ExceptionUtils.isChecked(new StackOverflowError()));
     }
 
     @Test
-    public void testIsChecked_null() {
+    void testIsChecked_null() {
         assertFalse(ExceptionUtils.isChecked(null));
     }
 
     @Test
-    public void testIsChecked_unchecked() {
+    void testIsChecked_unchecked() {
         assertFalse(ExceptionUtils.isChecked(new IllegalArgumentException()));
     }
 
     @Test
-    public void testIsCheckedCustomThrowable() {
+    void testIsCheckedCustomThrowable() {
         assertTrue(ExceptionUtils.isChecked(new TestThrowable()));
     }
 
     @Test
-    public void testIsUnchecked_checked() {
+    void testIsUnchecked_checked() {
         assertFalse(ExceptionUtils.isUnchecked(new IOException()));
     }
 
     @Test
-    public void testIsUnchecked_error() {
+    void testIsUnchecked_error() {
         assertTrue(ExceptionUtils.isUnchecked(new StackOverflowError()));
     }
 
     @Test
-    public void testIsUnchecked_null() {
+    void testIsUnchecked_null() {
         assertFalse(ExceptionUtils.isUnchecked(null));
     }
 
     @Test
-    public void testIsUnchecked_unchecked() {
+    void testIsUnchecked_unchecked() {
         assertTrue(ExceptionUtils.isUnchecked(new IllegalArgumentException()));
     }
 
     @Test
-    public void testIsUnCheckedCustomThrowable() {
+    void testIsUnCheckedCustomThrowable() {
         assertFalse(ExceptionUtils.isUnchecked(new TestThrowable()));
     }
 
     @Test
-    public void testPrintRootCauseStackTrace_Throwable() {
+    void testPrintRootCauseStackTrace_Throwable() {
         ExceptionUtils.printRootCauseStackTrace(null);
         // could pipe system.err to a known stream, but not much point as
         // internally this method calls stream method anyway
     }
 
     @Test
-    public void testPrintRootCauseStackTrace_ThrowableStream() {
+    void testPrintRootCauseStackTrace_ThrowableStream() {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
         ExceptionUtils.printRootCauseStackTrace(null, (PrintStream) null);
         ExceptionUtils.printRootCauseStackTrace(null, new PrintStream(out));
         assertEquals(0, out.toString().length());
-
-        assertThrows(
-                NullPointerException.class,
-                () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintStream) null));
-
+        assertNullPointerException(() -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintStream) null));
         out = new ByteArrayOutputStream(1024);
         final Throwable cause = createExceptionWithCause();
         ExceptionUtils.printRootCauseStackTrace(cause, new PrintStream(out));
         String stackTrace = out.toString();
         assertTrue(stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
-
         out = new ByteArrayOutputStream(1024);
         ExceptionUtils.printRootCauseStackTrace(withoutCause, new PrintStream(out));
         stackTrace = out.toString();
@@ -712,22 +708,17 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPrintRootCauseStackTrace_ThrowableWriter() {
+    void testPrintRootCauseStackTrace_ThrowableWriter() {
         StringWriter writer = new StringWriter(1024);
         ExceptionUtils.printRootCauseStackTrace(null, (PrintWriter) null);
         ExceptionUtils.printRootCauseStackTrace(null, new PrintWriter(writer));
         assertEquals(0, writer.getBuffer().length());
-
-        assertThrows(
-                NullPointerException.class,
-                () -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintWriter) null));
-
+        assertNullPointerException(() -> ExceptionUtils.printRootCauseStackTrace(withCause, (PrintWriter) null));
         writer = new StringWriter(1024);
         final Throwable cause = createExceptionWithCause();
         ExceptionUtils.printRootCauseStackTrace(cause, new PrintWriter(writer));
         String stackTrace = writer.toString();
         assertTrue(stackTrace.contains(ExceptionUtils.WRAPPED_MARKER));
-
         writer = new StringWriter(1024);
         ExceptionUtils.printRootCauseStackTrace(withoutCause, new PrintWriter(writer));
         stackTrace = writer.toString();
@@ -735,12 +726,12 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testRemoveCommonFrames_ListList() {
-        assertThrows(NullPointerException.class, () -> ExceptionUtils.removeCommonFrames(null, null));
+    void testRemoveCommonFrames_ListList() {
+        assertNullPointerException(() -> ExceptionUtils.removeCommonFrames(null, null));
     }
 
     @Test
-    public void testRethrow() {
+    void testRethrow() {
         final Exception expected = new InterruptedException();
         // API return typed to compile to Object
         assertThrows(expected.getClass(), () -> {
@@ -763,13 +754,13 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStream_jdkNoCause() {
+    void testStream_jdkNoCause() {
         assertEquals(1, ExceptionUtils.stream(jdkNoCause).count());
         assertSame(jdkNoCause, ExceptionUtils.stream(jdkNoCause).toArray()[0]);
     }
 
     @Test
-    public void testStream_nested() {
+    void testStream_nested() {
         assertEquals(2, ExceptionUtils.stream(nested).count());
         final Object[] array = ExceptionUtils.stream(nested).toArray();
         assertSame(nested, array[0]);
@@ -777,12 +768,12 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStream_null() {
+    void testStream_null() {
         assertEquals(0, ExceptionUtils.stream(null).count());
     }
 
     @Test
-    public void testStream_recursiveCause() {
+    void testStream_recursiveCause() {
         final List<?> throwables = ExceptionUtils.stream(cyclicCause).collect(Collectors.toList());
         assertEquals(3, throwables.size());
         assertSame(cyclicCause, throwables.get(0));
@@ -791,7 +782,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStream_withCause() {
+    void testStream_withCause() {
         final List<?> throwables = ExceptionUtils.stream(withCause).collect(Collectors.toList());
         assertEquals(3, throwables.size());
         assertSame(withCause, throwables.get(0));
@@ -800,14 +791,14 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testStream_withoutCause() {
+    void testStream_withoutCause() {
         final List<?> throwables = ExceptionUtils.stream(withoutCause).collect(Collectors.toList());
         assertEquals(1, throwables.size());
         assertSame(withoutCause, throwables.get(0));
     }
 
     @Test
-    public void testThrowableOf_ThrowableClass() {
+    void testThrowableOf_ThrowableClass() {
         assertNull(ExceptionUtils.throwableOfThrowable(null, null));
         assertNull(ExceptionUtils.throwableOfThrowable(null, NestableException.class));
 
@@ -831,7 +822,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testThrowableOf_ThrowableClassInt() {
+    void testThrowableOf_ThrowableClassInt() {
         assertNull(ExceptionUtils.throwableOfThrowable(null, null, 0));
         assertNull(ExceptionUtils.throwableOfThrowable(null, NestableException.class, 0));
 
@@ -860,7 +851,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testThrowableOfType_ThrowableClass() {
+    void testThrowableOfType_ThrowableClass() {
         assertNull(ExceptionUtils.throwableOfType(null, null));
         assertNull(ExceptionUtils.throwableOfType(null, NestableException.class));
 
@@ -884,7 +875,7 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testThrowableOfType_ThrowableClassInt() {
+    void testThrowableOfType_ThrowableClassInt() {
         assertNull(ExceptionUtils.throwableOfType(null, null, 0));
         assertNull(ExceptionUtils.throwableOfType(null, NestableException.class, 0));
 
@@ -913,25 +904,25 @@ public class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testWrapAndUnwrapCheckedException() {
+    void testWrapAndUnwrapCheckedException() {
         final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new IOException()));
         assertTrue(ExceptionUtils.hasCause(t, IOException.class));
     }
 
     @Test
-    public void testWrapAndUnwrapError() {
+    void testWrapAndUnwrapError() {
         final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new OutOfMemoryError()));
         assertTrue(ExceptionUtils.hasCause(t, Error.class));
     }
 
     @Test
-    public void testWrapAndUnwrapRuntimeException() {
+    void testWrapAndUnwrapRuntimeException() {
         final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new IllegalArgumentException()));
         assertTrue(ExceptionUtils.hasCause(t, RuntimeException.class));
     }
 
     @Test
-    public void testWrapAndUnwrapThrowable() {
+    void testWrapAndUnwrapThrowable() {
         final Throwable t = assertThrows(Throwable.class, () -> ExceptionUtils.wrapAndThrow(new TestThrowable()));
         assertTrue(ExceptionUtils.hasCause(t, TestThrowable.class));
     }

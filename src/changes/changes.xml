@@ -7,7 +7,7 @@
      (the "License"); you may not use this file except in compliance with
      the License.  You may obtain a copy of the License at
 
-          http://www.apache.org/licenses/LICENSE-2.0
+          https://www.apache.org/licenses/LICENSE-2.0
 
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,25 +37,281 @@ and commit
 
 The <action> type attribute can be add,update,fix,remove.
 -->
-
-<document xmlns="http://maven.apache.org/changes/1.0.0"
+<document xmlns="http://maven.apache.org/changes/2.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+          xsi:schemaLocation="http://maven.apache.org/changes/2.0.0 https://maven.apache.org/xsd/changes-2.0.0.xsd">
   <properties>
     <title>Apache Commons Lang Release Notes</title>
   </properties>
   <body>
-  <release version="3.16.0" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
+  <release version="3.20.0" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
+    <!-- FIX -->
+    <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Optimize ObjectToStringComparator.compare() method #1449.</action>
+    <action                   type="fix" dev="ggregory" due-to="Marcono1234, Gary Gregory">[javadoc] Improve StringUtils Javadoc #1450.</action>
+    <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Fix internal inverted logic in private isEnum() method and correct its usage in getFirstEnum() #1454.</action>
+    <action                   type="fix" dev="ggregory" due-to="William Degrange, Gary Gregory, Rob Spoor">Use accessors in ToStringStyle so subclasses can effectively override them.</action>
+    <action                   type="fix" dev="ggregory" due-to="jack5505, Gary Gregory">`LocaleUtils.toLocale(String)` for a 2 letter country code now returns a value instead of throwing an `IllegalArgumentException`.</action>
+    <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Fix typo in StringUtils.trunctate() IllegalArgumentException message and test assertion messages.</action>
+    <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Fix test fixture in ReflectionDiffBuilderTest.testTransientFieldDifference() #1464.</action>
+    <action issue="LANG-1789" type="fix" dev="ggregory" due-to="Hylke van der Schaaf, Gary Gregory">NullPointerException when generating NoSuchMethodException in MethodUtils.</action>
+    <!-- ADD -->
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getPath(String, Supplier&lt;Path&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_25.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_26.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_25.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_26.</action>
+    <action                   type="add" dev="ggregory" due-to="jack5505, Gary Gregory">Add MutablePair.ofNonNull(Map.Entry).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TimedSemaphore.builder(), Builder, and deprecate constructors.</action>
+    <!-- UPDATE -->
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 88 to 90 #1472.</action>
+  </release>
+  <release version="3.19.0" date="2025-09-19" description="This is a feature and maintenance release. Java 8 or later is required.">
+    <!-- FIX -->
+    <action issue="LANG-1778" type="fix" dev="ggregory" due-to="wuwu2000">MethodUtils.getMatchingMethod() doesn't respect the hierarchy of methods #1414.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">MethodUtils.getMethodObject(Class&lt;?&gt;, String, Class&lt;?&gt;...) now returns null instead of throwing a NullPointerException, as it does for other exception types.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Reduce spurious failures in ArrayUtilsTest methods that test ArrayUtils.shuffle() methods.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">MethodUtils cannot find or invoke a public method on a public class implemented in its package-private superclass.</action>
+    <action                   type="fix" dev="ggregory" due-to="Stanislav Fort, Gary Gregory">AtomicSafeInitializer.get() can spin internally if the FailableSupplier given to AbstractConcurrentInitializer.AbstractBuilder.setInitializer(FailableSupplier) throws a RuntimeException.</action>
+    <action issue="LANG-1783" type="fix" dev="ggregory" due-to="Arnout Engelen, Stanislav Fort, Gary Gregory">WordUtils.containsAllWords​() may throw PatternSyntaxException.</action>
+    <action issue="LANG-1782" type="fix" dev="ggregory" due-to="Joe Ferner, Gary Gregory">MethodUtils cannot find or invoke vararg methods without providing vararg types or values #1427.</action>
+    <action                   type="fix" dev="ggregory" due-to="Joe Ferner, Gary Gregory">MethodUtils cannot find or invoke vararg methods of interface types.</action>
+    <action                   type="fix" dev="ggregory" due-to="Joe Ferner, Gary Gregory">MethodUtils cannot find or invoke vararg methods when widening primitive types following the JLS 5.1.2. Widening Primitive Conversion.</action>
+    <action issue="LANG-1597" type="fix" dev="ggregory" due-to="Richard Eckart de Castilho, Gary Gregory">Invocation fails because matching varargs method found but then discarded.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Don't check accessibility twice in MemberUtils.setAccessibleWorkaround(T).</action>
+    <action issue="LANG-1774" type="fix" dev="ggregory" due-to="Zhongxin Yan, Madhur Lathi, Yudan Liu, Gary Gregory">Improve handling of ClassUtils.getShortCanonicalName() for invalid input #1437.</action>
+    <action issue="LANG-1720" type="fix" dev="ggregory" due-to="Sheung Chi Chan, Arthur Chan, Gary Gregory, Elliotte Rusty Harold">Improve Javadocs for Conversion.</action>
+    <action                   type="fix" dev="ggregory" due-to="mayuming">Fix CalendarUtils.toLocalDate() Javadoc return type description #1440.</action>
+    <action                   type="fix" dev="ggregory" due-to="mayuming">Fix the method name in Javadoc examples for CharUtils.isHex() #1444.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumberUtils.compare(byte, byte) in favor of Byte.compare(byte, byte).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumberUtils.compare(int, int) in favor of Integer.compare(int, int).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumberUtils.compare(long, long) in favor of Long.compare(long, long).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumberUtils.compare(short, short) in favor of Short.compare(short, short).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.AWT_TOOLKIT.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_AWT_FONTS.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_AWT_GRAPHICSENV.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_AWT_HEADLESS.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_AWT_PRINTERJOB.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_COMPILER.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_ENDORSED_DIRS.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate obsolete system property constant SystemProperties.JAVA_EXT_DIRS.</action>    <!-- FIX Javadoc -->
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getAwtToolkit()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaAwtFonts()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaAwtGraphicsenv()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaAwtHeadless()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaAwtPrinterjob()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaCompiler()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaEndorsedDirs()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemProperties.getJavaExtDirs()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate method for obsolete system property constant SystemUtils.isJavaAwtHeadless()</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_FONTS.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_GRAPHICSENV.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_HEADLESS.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate constants for obsolete system property SystemUtils.JAVA_AWT_PRINTERJOB.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate constants for obsolete system property SystemUtils.JAVA_COMPILER.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate constants for obsolete system property SystemUtils.JAVA_ENDORSED_DIRS.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate constants for obsolete system property SystemUtils.JAVA_EXT_DIRS.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">[javadoc] General improvements.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">[javadoc] Fix thrown exception documentation for MethodUtils.getMethodObject(Class&lt;?&gt;, String, Class&lt;?&gt;...).</action>
+    <action                   type="fix" dev="ggregory" due-to="Scott Parish">[javadoc] Strings::equalsAny: CI doc string should show it's insensitive #1416.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">[javadoc] General Javadoc improvements.</action>
+    <action issue="LANG-1780" type="fix" dev="ggregory" due-to="tza">[javadoc] Fix Strings Javadoc #1419.</action>
+    <action                   type="fix" dev="ppkarwasz" due-to="Sebastian Steiner">[javadoc] Fix typo in Javadoc of Strings instances #1406.</action>
+    <action                   type="fix" dev="ggregory" due-to="Hassan A Hashim">[javadoc] Fix Javadocs in ClassUtils #1410.</action>
+    <action                   type="fix" dev="ggregory" due-to="mfg92">[javadoc] Fix @deprecated link for StringUtils#startsWithAny #1424.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Replace old feather logotype with new oak logotype.</action>
+    <!-- ADD -->
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayUtils.SOFT_MAX_ARRAY_LENGTH.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_OS_NETWARE.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add MethodUtils.getAccessibleMethod(Class, Method).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add documentation to site for CVE-2025-48924 ClassUtils.getClass(...) can throw a StackOverflowError on very long inputs.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.indexOfAny(CharSequence, int, char...).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ConcurrentException.ConcurrentException(String).</action>
+    <action                   type="add" dev="ggregory" due-to="Finger, Gary Gregory, Piotr P. Karwasz">Add DateUtils.toLocalDateTime(Date[, TimeZone]) #1385.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DateUtils.toOffsetDateTime(Date[, TimeZone]).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DateUtils.toZonedDateTime(Date[, TimeZone]).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ByteConsumer.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ByteSupplier.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableByteConsumer.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableByteSupplier.</action>
+    <action issue="LANG-1784" type="add" dev="ggregory" due-to="Rich Dougherty, Gary Gregory">Add Functions methods for null-safe mapping and chaining #1435.</action>
+    <action issue="LANG-1784" type="add" dev="ggregory" due-to="Rich Dougherty, Gary Gregory">Add Failable methods for null-safe mapping and chaining #1435.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DoubleRange.fit(double).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add IntegerRange.fit(int).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LongRange.fit(long).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.get(String, TemporalUnit, long).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.getMillis(String, long).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.getSeconds(String, long).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getBoolean(Class, String, boolean).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getInt(Class, String, int).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getLong(Class, String, long).</action>
+    <!-- UPDATE -->
+    <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.13.1 to 1.14.0.</action>
+    <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 85 to 88.</action>
+  </release>
+  <release version="3.18.0" date="2025-07-06" description="This is a feature and maintenance release. Java 8 or later is required.">
+    <!-- FIX -->
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix flaky FileUtilsWaitForTest.testWaitForNegativeDuration().</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Pick up exec-maven-plugin version from parent POM.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Speed up and sanitize StopWatchTest.</action>
+    <action                   type="fix" dev="ggregory" due-to="Fabrice Benhamouda">Fix handling of non-ASCII letters and numbers in RandomStringUtils #1273.</action>
+    <action                   type="fix" dev="ggregory" due-to="OSS-Fuzz, Gary Gregory">Rewrite ClassUtils.getClass(...) without recursion to avoid StackOverflowError on very long inputs.
+                              OSS-Fuzz Issue 42522972: apache-commons-text:StringSubstitutorInterpolatorFuzzer: Security exception in ClassUtils.getClass.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Remove trailing whitespace in StopWatch exception messages.</action>
+    <action issue="LANG-1754" type="fix" dev="ggregory" due-to="vhbcm">Use getAllSuperclassesAndInterfaces() in getMatchingMethod() #1289.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add details to the ArrayFill Javadoc.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add details to the ArraySorter Javadoc.</action>
+    <action                   type="fix" dev="ggregory" due-to="Capt. Cutlass">Fix broken URL to project location in Maven Central #1296.</action>
+    <action issue="LANG-1753" type="fix" dev="ggregory" due-to="Capt. Cutlass">StringUtils.replaceEachRepeatedly regression in 3.11+ #1297.</action>
+    <action                   type="fix" dev="ggregory" due-to="Capt. Cutlass">Use simplified JUnit assertion methods #1298.</action>
+    <action issue="LANG-1682" type="fix" dev="ggregory" due-to="Capt. Cutlass">Javadoc and test: Use Strings.CI.startsWithAny method instead #1299.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in FastDateParser.TimeZoneStrategy.setCalendar(FastDateParser, Calendar, String) on Java 23.</action>
+    <action issue="LANG-1757" type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in MethodUtils.getMatchingAccessibleMethod((Class, String, Class...)).</action>
+    <action issue="LANG-1698" type="fix" dev="ggregory" due-to="Jan Arne Sparka, Gary Gregory">Fix StackOverflowError in TypeUtils.typeVariableToString(TypeVariable), TypeUtils.toString(Type) on Java 17 and up.</action>
+    <action issue="LANG-1511" type="fix" dev="ggregory" due-to="david cogen, Gary Gregory, Bruno P. Kinoshita">SystemUtils is missing important documentation.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make Failable.run(FailableRunnable) null-safe.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make Failable.accept(*) null-safe.</action>
+    <action                   type="fix" dev="ggregory" due-to="maxxedev, Piotr P. Karwasz, Gary Gregory">Improve container detection by mimicking systemd #1323.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make LangCollectors.collect(...) null-safe.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make LangCollectors.collect(...) null-safe.</action>
+    <action                   type="fix" dev="ggregory" due-to="IBue, Gary Gregory">Fix names of UTF-16 surrogate character test fixture constants, see also #1326.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Moditect plugin generates split package warnings.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">LocaleUtils.availableLocaleSet() uses predictable iteration order.</action>
+    <action issue="LANG-1759" type="fix" dev="ggregory" due-to="Maxim Butov, Gary Gregory">SerializationUtils.clone(Object) throws ClassCastException when called with a Serializable lambda.</action>
+    <action issue="LANG-1759" type="fix" dev="ggregory" due-to="IBue, Gary Gregory, Piotr P. Karwasz">[StringUtils::indexOfAnyBut] redesign due to inconsistent/faulty behavior regarding UTF-16 surrogates #1327.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Undeprecate ObjectUtils.toString(Object).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix Spotbugs [ERROR] Medium: The field DiffBuilder$SDiff.leftSupplier is transient but isn't set by deserialization [DiffBuilder$SDiff] In DiffBuilder.java SE_TRANSIENT_FIELD_NOT_RESTORED.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix Spotbugs [ERROR] Medium: The field DiffBuilder$SDiff.rightSupplier is transient but isn't set by deserialization [DiffBuilder$SDiff] In DiffBuilder.java SE_TRANSIENT_FIELD_NOT_RESTORED.</action>
+    <action issue="LANG-1762" type="fix" dev="ggregory" due-to="Alonso Gonzalez, Gary Gregory">StopWatch methods should not delegate to deprecated methods.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Don't call TypeUtils.toString(Type) on every array item in TypeUtils.parameterize[WithOwner](Type, Class, Map, Type>) unless required.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Remove -nouses directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Instead of throwing a NullPointerException, ArrayUtils.toStringArray(Object[]) should return "null" for null elements like ArrayUtils.toStringArray(Object[], String) returns its valueForNullElements.</action>
+    <action issue="LANG-1764" type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NumericEntityUnescaper.OPTION in favor of Apache Commons Text.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Several hash collisions in Fraction class.</action>
+    <action issue="LANG-1768" type="fix" dev="ggregory" due-to="Wang Hailong, Gary Gregory">MutableLong and friends should provide better parsing exceptions Javadocs.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Reimplement StringUtils.toCodePoints(CharSequence) to use java.lang.CharSequence.codePoints().</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Reimplement StringUtils.capitalize(String) to use java.lang.CharSequence.codePoints().</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Reimplement StringUtils.uncapitalize(String) to use java.lang.CharSequence.codePoints().</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">ClassUtils.getCanonicalName(String) now throws an IllegalArgumentException for array dimensions greater than 255.</action>
+    <action                   type="fix" dev="ggregory" due-to="Sridhar Balijepalli, Piotr P. Karwasz">Fix Javadoc typo and improve clarity in defaultIfBlank method #1376.</action>
+    <action issue="LANG-1773" type="fix" dev="ggregory" due-to="Éamonn McManus, Gary Gregory">Apache Commons Lang no longer builds on Android #1381.</action>
+    <action issue="LANG-1772" type="fix" dev="ggregory" due-to="James Winters, Piotr P. Karwasz, Gary Gregory">Restrict size of cache to prevent overflow errors #1379.</action>
+    <action issue="LANG-1772" type="fix" dev="ggregory" due-to="Gary Gregory">Reimplement ClassUtils.hierarchy(Class, Interfaces) using an AtomicReference.</action>
+    <action                   type="fix" dev="ggregory" due-to="Ken Dombeck">Fix Javadoc code examples in DiffBuilder and ReflectionDiffBuilder #1400.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix generics in Streams.toArray(Class) signature.</action>
+    <action issue="LANG-1727" type="fix" dev="ggregory" due-to="Elliotte Rusty Harold, Gary Gregory">EventListenerSupport doesn't document ordering of events.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix edge-case NullPointerException in SystemUtils.IS_OS_ANDROID.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix edge-case NullPointerException in SystemUtils.isJavaVersionAtLeast(JavaVersion).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix edge-case NullPointerException in SystemUtils.isJavaVersionAtMost(JavaVersion).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Return the default enum if a SecurityException is caught in getEnumSystemProperty().</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix edge-case NullPointerException in EnumUtils.getEnum(Class, String, E).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">EnumUtils.getFirstEnumIgnoreCase(Class, String, Function, E) now returns the given default enum on null enumClass input.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">EnumUtils.getEnumIgnoreCase(Class, String, E) now returns the given default enum on null enumClass input.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">EnumUtils.getEnumIgnoreCase(Class, String) now returns the given default enum on null enumClass input.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in ComparableUtils.ComparableCheckBuilder.equalTo(A).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in ComparableUtils.ComparableCheckBuilder.greaterThan(A).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in ComparableUtils.ComparableCheckBuilder.greaterThanOrEqualTo(A).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in ComparableUtils.ComparableCheckBuilder.lessThan(A).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in ComparableUtils.ComparableCheckBuilder.lessThanOrEqualTo(A).</action>
+    <action issue="LANG-1776" type="fix" dev="pkarwasz">Use GitHub URL in POM for improved automation support.</action>
+    <!-- ADD -->
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Strings and refactor StringUtils.</action>
+    <action issue="LANG-1747" type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add StopWatch.run([Failable]Runnable) and get([Failable]Supplier).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_23.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_24.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_23.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_24.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add IntegerRange.toIntStream().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LongRange.toLongStream().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add IntStrams.of(int...).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayUtils.containsAny(int[], int...).</action>
+    <action                   type="add" dev="ggregory" due-to="asgh, Gary Gregory">Add CalendarUtils.toLocalDate() #725.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_OS_MAC_OSX_SEQUOIA.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BasicThreadFactory.builder() and deprecate BasicThreadFactory.Builder().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add BasicThreadFactory.daemon().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayUtils.startsWith.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Predicates.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RegExUtils methods typed to CharSequence input and deprecate old versions typed to String.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add IterableStringTokenizer.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableIntToFloatFunction.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Validate.isTrue(boolean, Supplier&lt;String&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getFirstEnum(Class&lt;E&gt;, int, ToIntFunction&lt;E&gt;, E).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableToBooleanFunction.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add the @FunctionalInterface annotation to Computable.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.getJavaIoTmpDirPath().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.getJavaHomePath().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.getUserDirPath().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.getUserHomePath().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayFill.fill(T[], FailableIntFunction)).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.JAVA_SECURITY_DEBUG.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.JAVA_SECURITY_KERBEROS_CONF.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.JAVA_SECURITY_KERBEROS_KDC.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.JAVA_SECURITY_KERBEROS_REAL.</action>
+    <action                   type="add" dev="ggregory" due-to="kommalapatiraviteja">Add ArrayFill.fill(boolean[], boolean) #1386.</action>
+    <action                   type="add" dev="ggregory" due-to="Pankraz76, Gary Gregory">Add ObjectUtils.getIfNull(Object, Object) and deprecate defaultIfNull(Object, Object).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Mutable now extends Supplier.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add CharUtils.isHex(char).</action>    
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add CharUtils.isOctal(char).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LockingVisitors.reentrantLockVisitor(Object).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LockingVisitors.create(Object, ReentrantLock).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LockingVisitors.ReentrantLockVisitor.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add builders for LockingVisitors implementations.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumSet.stream(Class).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.isPropertySet(String).</action>
+    <!-- UPDATE -->
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 73 to 85 #1267, #1277, #1283, #1288, #1302, #1377.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[site] Bump org.codehaus.mojo:taglist-maven-plugin from 3.1.0 to 3.2.1 #1300.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[test] Bump org.easymock:easymock from 5.4.0 to 5.6.0 #1317, #1387.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[test] Bump org.apache.commons:commons-text from 1.12.0 to 1.13.1 #1336.</action>
+  </release>
+  <release version="3.17.0" date="2024-08-24" description="This is a feature and maintenance release. Java 8 or later is required.">
+    <!-- FIX -->
+    <action issue="LANG-1760" type="fix" dev="ggregory" due-to="Marco Hoek, Gary Gregory">Using RandomStringUtils.insecure() still leads to using the secure() random.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate static RandomUtils.next*() methods in favor or .secure() and .insecure() versions.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate static RandomStringUtils.random*() methods in favor or .secure() and .insecure() versions.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">RandomUtils.secure() now uses SecureRandom() instead of SecureRandom.getInstanceStrong().</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">RandomStringUtils.secure() now uses SecureRandom() instead of SecureRandom.getInstanceStrong().</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Remove unused exception from deprecated StringUtils.toString(byte[], String).</action>
+    <!-- ADD -->
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Make RandomUtils.insecure() public.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RandomUtils.secureStrong().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RandomStringUtils.secureStrong().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add CalendarUtils.toLocalDateTime(Calendar).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add CalendarUtils.toLocalDateTime().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add CalendarUtils.toZonedDateTime(Calendar).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add CalendarUtils.toZonedDateTime().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add CalendarUtils.toOffsetDateTime(Calendar).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add CalendarUtils.toOffsetDateTime().</action>
+    <!-- UPDATE -->
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.hamcrest:hamcrest from 2.2 to 3.0 #1255.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.easymock:easymock from 5.3.0 to 5.4.0 #1256.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.codehaus.mojo:exec-maven-plugin from 3.3.0 to 3.4.1 #1262, #1264.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 72 to 73 #1265.</action>
+  </release>
+  <release version="3.16.0" date="2024-08-01" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Reimplement StopWatch internals to use java.time.</action>
     <action issue="LANG-1745" type="fix" dev="ggregory" due-to="Wang Hailong, Gary Gregory">RandomStringUtils.random() with a negative character index should throw IllegalArgumentException.</action>
     <action issue="LANG-1741" type="fix" dev="ggregory" due-to="Wang Hailong, Gary Gregory">LocaleUtils.toLocale(String) cannot parse four segments.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Use fewer intermediary strings in DefaultExceptionContext.getFormattedExceptionMessage(String).</action>
+    <action                   type="fix" dev="ggregory" due-to="Václav Haisman">Fix Javadoc in StringUtils.splitPreserveAllTokens() #1251.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ArraySort constructor for removal.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate CharEncoding constructor for removal.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate Conversion constructor for removal.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate Conversion constructor for removal.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate EntityArrays constructor for removal.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ObjectToStringComparator constructor for removal.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate RuntimeEnvironment constructor for removal.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getSplitDuration() and deprecate getSplitTime().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getStartInstant() and deprecate getStartTime().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getStopInstant() and deprecate getStopTime().</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch.getDuration() and deprecate getTime().</action>
+    <action                   type="add" dev="ggregory" due-to="Oliver B. Fischer, Gary Gregory">Add Javadoc links from StopWatch to DurationUtils #1249.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add LangCollectors.collect(Collector, T...).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RandomStringUtils.secure().</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add RandomStringUtils.insecure().</action>
     <!-- UPDATE -->
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 71 to 72 #1253.</action>
   </release>
   <release version="3.15.0" date="2024-07-13" description="New features and bug fixes (Java 8 or above).">
     <!-- ADD -->
@@ -526,9 +782,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1567" type="update" dev="ggregory" due-to="Miguel Muñoz, Bruno P. Kinoshita, Gary Gregory">Fixed Javadocs for setTestRecursive() #556.</action>
     <action issue="LANG-1542" type="update" dev="ggregory" due-to=" Trần Ngọc Khoa, Gary Gregory">ToStringBuilder.reflectionToString - Wrong JSON format when object has a List of Enum.</action>
     <action issue="LANG-1543" type="fix" dev="ggregory" due-to="Swaraj Pal, Wander Costa, Gary Gregory">[JSON string for maps] ToStringBuilder.reflectionToString doesn't render nested maps correctly.</action>
-    <action                   type="update" dev="ggregory">Make org.apache.commons.lang3.CharSequenceUtils.toCharArray(CharSequence) public.</action>
-    <action                   type="add" dev="ggregory">Add org.apache.commons.lang3.StringUtils.substringAfter(String, int).</action>
-    <action                   type="add" dev="ggregory">Add org.apache.commons.lang3.StringUtils.substringAfterLast(String, int).</action>
+    <action                   type="update" dev="ggregory">Make CharSequenceUtils.toCharArray(CharSequence) public.</action>
+    <action                   type="add" dev="ggregory">Add StringUtils.substringAfter(String, int).</action>
+    <action                   type="add" dev="ggregory">Add StringUtils.substringAfterLast(String, int).</action>
     <action                   type="fix" dev="ggregory" due-to="Isira Seneviratne">Correct Javadocs of methods that use Validate.notNull() and replace some uses of Validate.isTrue() with Validate.notNull(). #525.</action>
     <action issue="LANG-1539" type="fix" dev="ggregory" due-to="Isira Seneviratne">Add allNull() and anyNull() methods to ObjectUtils. #522.</action>
     <action                   type="update" dev="ggregory">org.apache.commons:commons-parent 50 -> 51.</action>
@@ -545,7 +801,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1457" type="add" dev="ggregory">Add ExceptionUtils.throwableOfType(Throwable, Class) and friends.</action>
     <action issue="LANG-1458" type="add" dev="ggregory">Add EMPTY_ARRAY constants to classes in org.apache.commons.lang3.tuple.</action>
     <action issue="LANG-1461" type="add" dev="ggregory">Add null-safe StringUtils APIs to wrap String#getBytes([Charset|String]).</action>
-    <action issue="LANG-1467" type="add" dev="ggregory">Add zero arg constructor for org.apache.commons.lang3.NotImplementedException.</action>
+    <action issue="LANG-1467" type="add" dev="ggregory">Add zero arg constructor for NotImplementedException.</action>
     <action issue="LANG-1470" type="add" dev="ggregory">Add ArrayUtils.addFirst() methods.</action>
     <action issue="LANG-1437" type="update" dev="ggregory" due-to="Andrei Troie">Remove redundant if statements in join methods #411.</action>
     <action issue="LANG-1460" type="fix" dev="kinow" due-to="Larry West">Trivial: year of release for 3.9 says 2018, should be 2019</action>
@@ -565,7 +821,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1426" type="fix" dev="ggregory" due-to="Brower, Mikko Maunu, Suraj Gautam">Corrected usage examples in Javadocs #458.</action>
     <action                   type="update" dev="ggregory" due-to="Jonathan Leitschuh, Bruno P. Kinoshita, Rob Tompkins, Gary Gregory">Improve Javadoc based on the discussion of the GitHub PR #459.</action>
     <action                   type="update" dev="ggregory">maven-checkstyle-plugin 3.0.0 -> 3.1.0.</action>
-    <action issue="LANG-696"  type="update" dev="ggregory" due-to="Peter Verhas">Update documentation related to the issue LANG-696 #449.</action>
+    <action issue="LANG-696"  type="update" dev="ggregory" due-to="Peter Verhas">Update documentation and tests related to the issue LANG-696 #449.</action>
     <action                   type="update" dev="ggregory" due-to="Peter Verhas">AnnotationUtils little cleanup #467.</action>
     <action issue="LANG-1494" type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.time.Calendars.</action>
     <action issue="LANG-1495" type="add" dev="ggregory" due-to="Cheong Voon Leong">Add EnumUtils getEnum() methods with default values #475.</action>
@@ -585,10 +841,11 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1505" type="add" dev="ggregory" due-to="Gary Gregory">Add StopWatch convenience APIs to format times and create a simple instance.</action>
     <action issue="LANG-1506" type="add" dev="ggregory" due-to="Gary Gregory">Allow a StopWatch to carry an optional message.</action>
     <action issue="LANG-1507" type="add" dev="ggregory" due-to="Sam Kruglov, Mark Dacek, Marc Magon, Pascal Schumacher, Rob Tompkins, Bruno P. Kinoshita, Amey Jadiye, Gary Gregory">Add ComparableUtils #398.</action>
-    <action issue="LANG-1508" type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemUtils.getUserName().</action>
+    <action issue="LANG-1508" type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.getUserName().</action>
     <action issue="LANG-1509" type="add" dev="ggregory" due-to="Gary Gregory">Add ObjectToStringComparator. #483.</action>
-    <action issue="LANG-1510" type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.arch.Processor.Arch.getLabel().</action>
-    <action issue="LANG-1512" type="add" dev="ggregory" due-to="Gary Gregory">Add IS_JAVA_14 and IS_JAVA_15 to org.apache.commons.lang3.SystemUtils.</action>
+    <action issue="LANG-1510" type="add" dev="ggregory" due-to="Gary Gregory">Add Processor.Arch.getLabel().</action>
+    <action issue="LANG-1512" type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_14.</action>
+    <action issue="LANG-1512" type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_15.</action>
     <action issue="LANG-1513" type="add" dev="ggregory" due-to="Bernhard Bonigl, Gary Gregory">ObjectUtils: Get first non-null supplier value.</action>
     <action                   type="add" dev="jochen">Added the Streams class, and Functions.stream() as an accessor thereof.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">org.easymock:easymock 4.1 -> 4.2.</action>
@@ -603,7 +860,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1525" type="update" dev="ggregory" due-to="Edgar Asatryan, Bruno P. Kinoshita, Gary Gregory">Internally use Validate.notNull(foo, ...) instead of Validate.isTrue(foo != null, ...).</action>
     <action issue="LANG-1526" type="update" dev="ggregory" due-to="Dominik Schramm">Add 1 and 0 in toBooleanObject(final String str) #502.</action>
     <action issue="LANG-1527" type="update" dev="ggregory" due-to="Pengyu Nie">Remove a redundant argument check in NumberUtils #504.</action>
-    <action issue="LANG-1529" type="update" dev="ggregory" due-to="Gary Gregory, BillCindy, Bruno P. Kinoshita">Deprecate org.apache.commons.lang3.ArrayUtils.removeAllOccurences(*) for org.apache.commons.lang3.ArrayUtils.removeAllOccurrences(*).</action>
+    <action issue="LANG-1529" type="update" dev="ggregory" due-to="Gary Gregory, BillCindy, Bruno P. Kinoshita">Deprecate ArrayUtils.removeAllOccurences(*) for ArrayUtils.removeAllOccurrences(*).</action>
   </release>
 
   <release version="3.9" date="2019-04-09" description="New features and bug fixes. Requires Java 8 or above, supports Java 9, 10, 11.">
@@ -618,7 +875,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1415" type="update" dev="britter">Update Java Language requirement to 1.8</action>
     <action issue="LANG-1411" type="add" dev="britter" due-to="Alexander Tsvetkov">Add isEmpty method to ObjectUtils</action>
     <action issue="LANG-1422" type="add" dev="ggregory">Add null-safe StringUtils.valueOf(char[]) to delegate to String.valueOf(char[])</action>
-    <action issue="LANG-1427" type="add" dev="ggregory">Add API org.apache.commons.lang3.SystemUtils.isJavaVersionAtMost(JavaVersion)</action>
+    <action issue="LANG-1427" type="add" dev="ggregory">Add API SystemUtils.isJavaVersionAtMost(JavaVersion)</action>
     <action issue="LANG-1436" type="update" dev="aherbert">Consolidate the StringUtils equals and equalsIgnoreCase Javadoc and implementation</action>
     <action                   type="update" dev="ggregory" due-to="Andrei Troie aft90">(doc) Fix javadoc for 'startIndex' parameter of StringUtils.join() methods. GitHub PR #412.</action>
   </release>
@@ -647,7 +904,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1356" type="add" dev="pschumacher" due-to="Yathos UG">Add bypass option for classes to recursive and reflective EqualsBuilder</action>
     <action issue="LANG-1391" type="add" dev="ggregory" due-to="Sauro Matulli, Oleg Chubaryov">Improve Javadoc for StringUtils.isAnyEmpty(null)</action>
     <action issue="LANG-1393" type="add" dev="ggregory" due-to="Gary Gregory">Add API SystemUtils.String getEnvironmentVariable(final String name, final String defaultValue)</action>
-    <action issue="LANG-1394" type="add" dev="ggregory" due-to="Sebb, Gary Gregory">org.apache.commons.lang3.SystemUtils should not write to System.err.</action>
+    <action issue="LANG-1394" type="add" dev="ggregory" due-to="Sebb, Gary Gregory">SystemUtils should not write to System.err.</action>
     <action issue="LANG-1238" type="add" dev="ggregory" due-to="Christopher Cordeiro, Gary Gregory, Bruno P. Kinoshita, Oleg Chubaryov">Add RegexUtils class instead of overloading methods in StringUtils that take a regex to take precompiled Pattern.</action>
     <action issue="LANG-1390" type="add" dev="ggregory" due-to="Jochen Schalanda">StringUtils.join() with support for List&lt;?> with configurable start/end indices.</action>
     <action issue="LANG-1392" type="add" dev="pschumacher" due-to="Jeff Nelson">Methods for getting first non-empty or non-blank value</action>
@@ -662,7 +919,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1348" type="fix" dev="pschumacher" due-to="mbusso">StackOverflowError on TypeUtils.toString(...) for a generic return type of Enum.valueOf</action>
     <action issue="LANG-1350" type="fix" dev="ggregory" due-to="Brett Kail">ConstructorUtils.invokeConstructor(Class, Object...) regression</action>
     <action issue="LANG-1349" type="fix" dev="pschumacher" due-to="Naman Nigam">EqualsBuilder#isRegistered: swappedPair construction bug</action>
-    <action issue="LANG-1357" type="fix" dev="ggregory" due-to="BruceKuiLiu">org.apache.commons.lang3.time.FastDateParser should use toUpperCase(Locale)</action>
+    <action issue="LANG-1357" type="fix" dev="ggregory" due-to="BruceKuiLiu">FastDateParser should use toUpperCase(Locale)</action>
     <action issue="LANG-1358" type="update" dev="pschumacher" due-to="Stephane Landelle">Improve StringUtils#replace throughput</action>
     <action issue="LANG-1346" type="update" dev="pschumacher">Remove deprecation from RandomStringUtils</action>
     <action issue="LANG-1361" type="update" dev="ggregory" due-to="Ana">ExceptionUtils.getThrowableList() is using deprecated ExceptionUtils.getCause()</action>
@@ -692,7 +949,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1285" type="fix" dev="pschumacher" due-to="Francesco Chicchiriccò">NullPointerException in FastDateParser$TimeZoneStrategy</action>
     <action issue="LANG-1281" type="fix" dev="pschumacher" due-to="Andreas Lundblad">Javadoc of StringUtils.ordinalIndexOf is contradictory.</action>
     <action issue="LANG-1188" type="fix" dev="pschumacher">StringUtils#join(T...): warning: [unchecked] Possible heap pollution from parameterized vararg type T</action>
-    <action issue="LANG-1144" type="fix" dev="ggregory" due-to="Waldemar Maier, Gary Gregory">Multiple calls of org.apache.commons.lang3.concurrent.LazyInitializer.initialize() are possible.</action>
+    <action issue="LANG-1144" type="fix" dev="ggregory" due-to="Waldemar Maier, Gary Gregory">Multiple calls of LazyInitializer.initialize() are possible.</action>
     <action issue="LANG-1276" type="fix" dev="pschumacher" due-to="Andy Klimczak">StrBuilder#replaceAll ArrayIndexOutOfBoundsException</action>
     <action issue="LANG-1278" type="fix" dev="pschumacher" due-to="Duke Yin">BooleanUtils javadoc issues</action>
     <action issue="LANG-1070" type="fix" dev="pschumacher" due-to="Paul Pogonyshev">ArrayUtils#add confusing example in javadoc</action>
@@ -704,7 +961,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1258" type="add" dev="pschumacher" due-to="IG, Grzegorz Rożniecki">Add ArrayUtils#toStringArray method</action>
     <action issue="LANG-1160" type="add" dev="kinow">StringUtils#abbreviate should support 'custom ellipses' parameter</action>
     <action issue="LANG-1293" type="add" dev="pschumacher" due-to="Pierre Templier, Martin Tarjanyi">Add StringUtils#isAllEmpty and #isAllBlank methods</action>
-    <action issue="LANG-1290" type="update" dev="pschumacher" due-to="Andrii Abramov">Increase test coverage of org.apache.commons.lang3.ArrayUtils</action>
+    <action issue="LANG-1290" type="update" dev="pschumacher" due-to="Andrii Abramov">Increase test coverage of ArrayUtils</action>
     <action issue="LANG-1274" type="update" dev="pschumacher">StrSubstitutor should state its thread safety</action>
     <action issue="LANG-1277" type="update" dev="pschumacher" due-to="yufcuy">StringUtils#getLevenshteinDistance reduce memory consumption</action>
     <action issue="LANG-1279" type="update" dev="ggregory">Update Java requirement from Java 6 to 7.</action>
@@ -744,7 +1001,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1226" type="fix" dev="pschumacher" due-to="pschumacher">StringUtils#normalizeSpace does not trim the string anymore</action>
     <action issue="LANG-1251" type="fix" dev="pschumacher" due-to="Takuya Ueshin">SerializationUtils.ClassLoaderAwareObjectInputStream should use static initializer to initialize primitiveTypes map</action>
     <action issue="LANG-1253" type="add" dev="ggregory" due-to="adilek">[GitHub issue #170] Add RandomUtils#nextBoolean() method</action>
-    <action issue="LANG-1248" type="fix" dev="chas" due-to="Benoit Wiart">FastDatePrinter Memory allocation regression</action>
+    <action issue="LANG-1248" type="fix" dev="chas" due-to="Benoit Wiart">FastDatePrinter memory allocation regression</action>
     <action issue="LANG-1247" type="update" dev="chas" due-to="Benoit Wiart">FastDatePrinter generates extra Date objects</action>
     <action issue="LANG-1018" type="fix" dev="pschumacher" due-to="Nick Manley">Fix precision loss on NumberUtils.createNumber(String)</action>
     <action issue="LANG-1229" type="update" dev="pschumacher" due-to="Ruslan Cheremin">HashCodeBuilder.append(Object,Object) is too big to be inlined, which prevents whole builder to be scalarized</action>
@@ -883,7 +1140,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1035" type="fix" dev="djones">Javadoc for EqualsBuilder.reflectionEquals() is unclear</action>
     <action issue="LANG-1020" type="update" dev="britter" due-to="Libor Ondrusek">Improve performance of normalize space</action>
     <action issue="LANG-1033" type="add" dev="ggregory">Add StringUtils.countMatches(CharSequence, char)</action>
-    <action issue="LANG-1027" type="update" dev="rmannibucau">org.apache.commons.lang3.SystemUtils#isJavaVersionAtLeast should return true by default</action>
+    <action issue="LANG-1027" type="update" dev="rmannibucau">SystemUtils#isJavaVersionAtLeast should return true by default</action>
     <action issue="LANG-1021" type="add" dev="britter" due-to="Alexander Müller">Provide methods to retrieve all fields/methods annotated with a specific type</action>
     <action issue="LANG-1026" type="update" dev="britter" due-to="Alex Yursha">Bring static method references in StringUtils to consistent style</action>
     <action issue="LANG-1016" type="add" dev="britter" due-to="Juan Pablo Santos Rodríguez">NumberUtils#isParsable method(s)</action>
@@ -902,13 +1159,13 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-998" type="update" dev="chas">Javadoc is not clear on preferred pattern to instantiate FastDateParser / FastDatePrinter</action>
     <action issue="LANG-1088" type="fix" dev="chas">FastDateParser should be case insensitive</action>
     <action issue="LANG-995" type="fix" dev="britter" due-to="Andrey Khobnya">Fix bug with stripping spaces on last line in WordUtils.wrap()</action>
-    <action issue="LANG-1044" type="add" dev="ggregory">Add method org.apache.commons.lang3.reflect.MethodUtils.invokeExactMethod(Object, String)</action>
-    <action issue="LANG-1045" type="add" dev="ggregory">Add method org.apache.commons.lang3.reflect.MethodUtils.invokeMethod(Object, String)</action>
+    <action issue="LANG-1044" type="add" dev="ggregory">Add MethodUtils.invokeExactMethod(Object, String)</action>
+    <action issue="LANG-1045" type="add" dev="ggregory">Add MethodUtils.invokeMethod(Object, String)</action>
   </release>
 
   <release version="3.3.2" date="2014-04-09" description="Bugfix for a bug in NumberUtils introduced in 3.3.1">
     <action issue="LANG-992" type="fix" dev="niallp">NumberUtils#isNumber() returns false for "0.0", "0.4790", et al</action>
-    <action issue="LANG-989" type="add" dev="ggregory">Add org.apache.commons.lang3.SystemUtils.IS_JAVA_1_8</action>
+    <action issue="LANG-989" type="add" dev="ggregory">Add SystemUtils.IS_JAVA_1_8</action>
   </release>
 
   <release version="3.3.1" date="2014-03-18" description="Bugfix release for 3.3">
@@ -931,7 +1188,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-970" type="add" dev="ggregory">Add APIs MutableBoolean setTrue() and setFalse()</action>
     <action issue="LANG-946" type="fix" dev="britter">ConstantInitializerTest fails when building with IBM JDK 7</action>
     <action issue="LANG-962" type="add" dev="ggregory">Add SerializationUtils.roundtrip(T extends Serializable) to serialize then deserialize</action>
-    <action issue="LANG-961" type="update" dev="ggregory">org.apache.commons.lang3.reflect.FieldUtils.removeFinalModifier(Field) does not clean up after itself</action>
+    <action issue="LANG-961" type="update" dev="ggregory">FieldUtils.removeFinalModifier(Field) does not clean up after itself</action>
     <action issue="LANG-958" type="update" dev="chas">FastDateParser javadoc incorrectly states that SimpleDateFormat is used internally</action>
     <action issue="LANG-637" type="add" dev="djones">There should be a DifferenceBuilder with a ReflectionDifferenceBuilder implementation</action>
     <action issue="LANG-954" type="fix" due-to="Michael Keppler" dev="sebb">uncaught PatternSyntaxException in FastDateFormat on Android</action>
@@ -1019,7 +1276,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-825" type="add">Create StrBuilder APIs similar to String.format(String, Object...)</action>
     <action issue="LANG-822" type="fix">NumberUtils#createNumber - bad behavior for leading "--"</action>
     <action issue="LANG-818" type="fix">FastDateFormat's "z" pattern does not respect timezone of Calendar instances passed to format()</action>
-    <action issue="LANG-817" type="fix">Add org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS_8</action>
+    <action issue="LANG-817" type="fix">Add SystemUtils.IS_OS_WINDOWS_8</action>
     <action issue="LANG-813" type="fix">StringUtils.equalsIgnoreCase doesn't check string reference equality</action>
     <action issue="LANG-810" type="fix">StringUtils.join() endIndex, bugged for loop</action>
     <action issue="LANG-807" type="fix">RandomStringUtils throws confusing IAE when end &lt;= start</action>
@@ -1105,8 +1362,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="remove" issue="LANG-673">WordUtils.abbreviate() removed.</action>
     <action type="fix" issue="LANG-672">Doc bug in DateUtils#ceiling.</action>
     <action type="fix" issue="LANG-646">StringEscapeUtils.unescapeJava doesn't handle octal escapes and Unicode with extra u.</action>
-    <action type="fix" issue="LANG-662">org.apache.commons.lang3.math.Fraction does not reduce (Integer.MIN_VALUE, 2^k).</action>
-    <action type="fix" issue="LANG-663">org.apache.commons.lang3.math.Fraction does not always succeed in multiplyBy and divideBy.</action>
+    <action type="fix" issue="LANG-662">Fraction does not reduce (Integer.MIN_VALUE, 2^k).</action>
+    <action type="fix" issue="LANG-663">Fraction does not always succeed in multiplyBy and divideBy.</action>
     <action type="update" issue="LANG-668">Change ObjectUtils min() &amp; max() functions to use varargs rather than just two parameters.</action>
     <action type="add" issue="LANG-667">Add a Null-safe compare() method to ObjectUtils.</action>
     <action type="fix" issue="LANG-664">NumberUtils.isNumber(String) is not right when the String is "1.1L".</action>
@@ -1129,7 +1386,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="add" issue="LANG-640">Add normalizeSpace to StringUtils.</action>
     <action type="fix" issue="LANG-638">NumberUtils createNumber throws a StringIndexOutOfBoundsException when argument containing "e" and "E" is passed in.</action>
     <!-- 3.0 beta below here -->
-    <action>NOTE: The below were included in the Commons Lang 3.0-beta release.</action>
+    <action type="add">NOTE: The below were included in the Commons Lang 3.0-beta release.</action>
     <action type="update" issue="LANG-510">Convert StringUtils API to take CharSequence.</action>
     <action type="update">Push down WordUtils to "text" sub-package.</action>
     <action type="add" issue="LANG-610">Extend exception handling in ConcurrentUtils to runtime exceptions.</action>

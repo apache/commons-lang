@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,15 +39,19 @@ import org.junit.jupiter.api.Test;
  * A month with 29 or 30 days will be rounded up from the 16th
  * A month with 31 days will be rounded up from the 17th
  */
-public class DateUtilsRoundingTest extends AbstractLangTest {
+class DateUtilsRoundingTest extends AbstractLangTest {
 
     DateFormat dateTimeParser;
 
     Date januaryOneDate;
     Date targetYearDate;
     //No targetMonths, these must be tested for every type of month(28-31 days)
-    Date targetDateDate, targetDayOfMonthDate, targetAmDate, targetPmDate;
-    Date targetHourOfDayDate, targetHourDate;
+    Date targetDateDate;
+    Date targetDayOfMonthDate;
+    Date targetAmDate;
+    Date targetPmDate;
+    Date targetHourOfDayDate;
+    Date targetHourDate;
     Date targetMinuteDate;
     Date targetSecondDate;
     Date targetMilliSecondDate;
@@ -227,16 +231,12 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testRoundAmPm() throws Exception {
+    void testRoundAmPm() throws Exception {
         final int calendarField = Calendar.AM_PM;
-        Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
-        final Date minDate;
-        final Date maxDate;
-
         // AM
-        roundedUpDate = dateTimeParser.parse("June 1, 2008 12:00:00.000");
-        roundedDownDate = targetAmDate;
-        lastRoundedDownDate = dateTimeParser.parse("June 1, 2008 5:59:59.999");
+        Date roundedUpDate = dateTimeParser.parse("June 1, 2008 12:00:00.000");
+        Date roundedDownDate = targetAmDate;
+        Date lastRoundedDownDate = dateTimeParser.parse("June 1, 2008 5:59:59.999");
         baseRoundTest(roundedUpDate, roundedDownDate, lastRoundedDownDate, calendarField);
 
         // PM
@@ -246,8 +246,8 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
         baseRoundTest(roundedUpDate, roundedDownDate, lastRoundedDownDate, calendarField);
 
         // round to January 1
-        minDate = dateTimeParser.parse("December 31, 2007 18:00:00.000");
-        maxDate = dateTimeParser.parse("January 1, 2008 5:59:59.999");
+        final Date minDate = dateTimeParser.parse("December 31, 2007 18:00:00.000");
+        final Date maxDate = dateTimeParser.parse("January 1, 2008 5:59:59.999");
         roundToJanuaryFirst(minDate, maxDate, calendarField);
     }
 
@@ -259,7 +259,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testRoundDate() throws Exception {
+    void testRoundDate() throws Exception {
         final int calendarField = Calendar.DATE;
         final Date roundedUpDate;
         final Date roundedDownDate;
@@ -286,7 +286,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testRoundDayOfMonth() throws Exception {
+    void testRoundDayOfMonth() throws Exception {
         final int calendarField = Calendar.DAY_OF_MONTH;
         final Date roundedUpDate;
         final Date roundedDownDate;
@@ -313,7 +313,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testRoundHour() throws Exception {
+    void testRoundHour() throws Exception {
         final int calendarField = Calendar.HOUR;
         final Date roundedUpDate;
         final Date roundedDownDate;
@@ -340,7 +340,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testRoundHourOfDay() throws Exception {
+    void testRoundHourOfDay() throws Exception {
         final int calendarField = Calendar.HOUR_OF_DAY;
         final Date roundedUpDate;
         final Date roundedDownDate;
@@ -367,7 +367,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testRoundMilliSecond() throws Exception {
+    void testRoundMilliSecond() throws Exception {
         final int calendarField = Calendar.MILLISECOND;
         final Date roundedUpDate;
         final Date roundedDownDate;
@@ -392,7 +392,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testRoundMinute() throws Exception {
+    void testRoundMinute() throws Exception {
         final int calendarField = Calendar.MINUTE;
         final Date roundedUpDate;
         final Date roundedDownDate;
@@ -419,16 +419,13 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testRoundMonth() throws Exception {
+    void testRoundMonth() throws Exception {
         final int calendarField = Calendar.MONTH;
-        Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
-        final Date minDate;
-        final Date maxDate;
 
         // month with 28 days
-        roundedUpDate = dateTimeParser.parse("March 1, 2007 0:00:00.000");
-        roundedDownDate = dateTimeParser.parse("February 1, 2007 0:00:00.000");
-        lastRoundedDownDate = dateTimeParser.parse("February 14, 2007 23:59:59.999");
+        Date roundedUpDate = dateTimeParser.parse("March 1, 2007 0:00:00.000");
+        Date roundedDownDate = dateTimeParser.parse("February 1, 2007 0:00:00.000");
+        Date lastRoundedDownDate = dateTimeParser.parse("February 14, 2007 23:59:59.999");
         baseRoundTest(roundedUpDate, roundedDownDate, lastRoundedDownDate, calendarField);
 
         // month with 29 days
@@ -450,8 +447,8 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
         baseRoundTest(roundedUpDate, roundedDownDate, lastRoundedDownDate, calendarField);
 
         // round to January 1
-        minDate = dateTimeParser.parse("December 17, 2007 00:00:00.000");
-        maxDate = dateTimeParser.parse("January 16, 2008 23:59:59.999");
+        final Date minDate = dateTimeParser.parse("December 17, 2007 00:00:00.000");
+        final Date maxDate = dateTimeParser.parse("January 16, 2008 23:59:59.999");
         roundToJanuaryFirst(minDate, maxDate, calendarField);
     }
 
@@ -463,7 +460,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testRoundSecond() throws Exception {
+    void testRoundSecond() throws Exception {
         final int calendarField = Calendar.SECOND;
         final Date roundedUpDate;
         final Date roundedDownDate;
@@ -490,16 +487,12 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testRoundSemiMonth() throws Exception {
+    void testRoundSemiMonth() throws Exception {
         final int calendarField = DateUtils.SEMI_MONTH;
-        Date roundedUpDate, roundedDownDate, lastRoundedDownDate;
-        final Date minDate;
-        final Date maxDate;
-
         // month with 28 days (1)
-        roundedUpDate = dateTimeParser.parse("February 16, 2007 0:00:00.000");
-        roundedDownDate = dateTimeParser.parse("February 1, 2007 0:00:00.000");
-        lastRoundedDownDate = dateTimeParser.parse("February 8, 2007 23:59:59.999");
+        Date roundedUpDate = dateTimeParser.parse("February 16, 2007 0:00:00.000");
+        Date roundedDownDate = dateTimeParser.parse("February 1, 2007 0:00:00.000");
+        Date lastRoundedDownDate = dateTimeParser.parse("February 8, 2007 23:59:59.999");
         baseRoundTest(roundedUpDate, roundedDownDate, lastRoundedDownDate, calendarField);
 
         // month with 28 days (2)
@@ -545,8 +538,8 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
         baseRoundTest(roundedUpDate, roundedDownDate, lastRoundedDownDate, calendarField);
 
         // round to January 1
-        minDate = dateTimeParser.parse("December 24, 2007 00:00:00.000");
-        maxDate = dateTimeParser.parse("January 8, 2008 23:59:59.999");
+        final Date minDate = dateTimeParser.parse("December 24, 2007 00:00:00.000");
+        final Date maxDate = dateTimeParser.parse("January 8, 2008 23:59:59.999");
         roundToJanuaryFirst(minDate, maxDate, calendarField);
     }
 
@@ -556,7 +549,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testRoundYear() throws Exception {
+    void testRoundYear() throws Exception {
         final int calendarField = Calendar.YEAR;
         final Date roundedUpDate = dateTimeParser.parse("January 1, 2008 0:00:00.000");
         final Date roundedDownDate = targetYearDate;
@@ -571,7 +564,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testTruncateAmPm() throws Exception {
+    void testTruncateAmPm() throws Exception {
         final int calendarField = Calendar.AM_PM;
         // AM
         Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 11:59:59.999");
@@ -587,7 +580,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testTruncateDate() throws Exception {
+    void testTruncateDate() throws Exception {
         final int calendarField = Calendar.DATE;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 23:59:59.999");
         baseTruncateTest(targetDateDate, lastTruncateDate, calendarField);
@@ -599,7 +592,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testTruncateDayOfMonth() throws Exception {
+    void testTruncateDayOfMonth() throws Exception {
         final int calendarField = Calendar.DAY_OF_MONTH;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 23:59:59.999");
         baseTruncateTest(targetDayOfMonthDate, lastTruncateDate, calendarField);
@@ -611,7 +604,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testTruncateHour() throws Exception {
+    void testTruncateHour() throws Exception {
         final int calendarField = Calendar.HOUR;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:59:59.999");
         baseTruncateTest(targetHourDate, lastTruncateDate, calendarField);
@@ -623,7 +616,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testTruncateHourOfDay() throws Exception {
+    void testTruncateHourOfDay() throws Exception {
         final int calendarField = Calendar.HOUR_OF_DAY;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:59:59.999");
         baseTruncateTest(targetHourOfDayDate, lastTruncateDate, calendarField);
@@ -633,7 +626,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * Test DateUtils.truncate()-method with Calendar.SECOND
      */
     @Test
-    public void testTruncateMilliSecond() {
+    void testTruncateMilliSecond() {
         final int calendarField = Calendar.MILLISECOND;
         baseTruncateTest(targetMilliSecondDate, targetMilliSecondDate, calendarField);
     }
@@ -644,7 +637,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testTruncateMinute() throws Exception {
+    void testTruncateMinute() throws Exception {
         final int calendarField = Calendar.MINUTE;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:15:59.999");
         baseTruncateTest(targetMinuteDate, lastTruncateDate, calendarField);
@@ -656,7 +649,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testTruncateMonth() throws Exception {
+    void testTruncateMonth() throws Exception {
         final int calendarField = Calendar.MONTH;
         final Date truncatedDate = dateTimeParser.parse("March 1, 2008 0:00:00.000");
         final Date lastTruncateDate = dateTimeParser.parse("March 31, 2008 23:59:59.999");
@@ -669,7 +662,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testTruncateSecond() throws Exception {
+    void testTruncateSecond() throws Exception {
         final int calendarField = Calendar.SECOND;
         final Date lastTruncateDate = dateTimeParser.parse("June 1, 2008 8:15:14.999");
         baseTruncateTest(targetSecondDate, lastTruncateDate, calendarField);
@@ -682,13 +675,11 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testTruncateSemiMonth() throws Exception {
+    void testTruncateSemiMonth() throws Exception {
         final int calendarField = DateUtils.SEMI_MONTH;
-        Date truncatedDate, lastTruncateDate;
-
         // month with 28 days (1)
-        truncatedDate = dateTimeParser.parse("February 1, 2007 0:00:00.000");
-        lastTruncateDate = dateTimeParser.parse("February 15, 2007 23:59:59.999");
+        Date truncatedDate = dateTimeParser.parse("February 1, 2007 0:00:00.000");
+        Date lastTruncateDate = dateTimeParser.parse("February 15, 2007 23:59:59.999");
         baseTruncateTest(truncatedDate, lastTruncateDate, calendarField);
 
         // month with 28 days (2)
@@ -734,7 +725,7 @@ public class DateUtilsRoundingTest extends AbstractLangTest {
      * @throws Exception so we don't have to catch it
      */
     @Test
-    public void testTruncateYear() throws Exception {
+    void testTruncateYear() throws Exception {
         final int calendarField = Calendar.YEAR;
         final Date lastTruncateDate = dateTimeParser.parse("December 31, 2007 23:59:59.999");
         baseTruncateTest(targetYearDate, lastTruncateDate, calendarField);

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,13 +16,21 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.util.concurrent.atomic.DoubleAccumulator;
+import java.util.concurrent.atomic.DoubleAdder;
+
 /**
  * A mutable {@code float} wrapper.
+ * <p>
+ * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link DoubleAccumulator} class.
+ * </p>
  * <p>
  * Note that as MutableFloat does not extend Float, it is not treated by String.format as a Float parameter.
  * </p>
  *
  * @see Float
+ * @see DoubleAccumulator
+ * @see DoubleAdder
  * @since 2.1
  */
 public class MutableFloat extends Number implements Comparable<MutableFloat>, Mutable<Number> {
@@ -46,7 +54,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Constructs a new MutableFloat with the specified value.
      *
-     * @param value  the initial value to store
+     * @param value  the initial value to store.
      */
     public MutableFloat(final float value) {
         this.value = value;
@@ -55,8 +63,8 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Constructs a new MutableFloat with the specified value.
      *
-     * @param value  the initial value to store, not null
-     * @throws NullPointerException if the object is null
+     * @param value  the initial value to store, not null.
+     * @throws NullPointerException if the object is null.
      */
     public MutableFloat(final Number value) {
         this.value = value.floatValue();
@@ -65,8 +73,8 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Constructs a new MutableFloat parsing the given string.
      *
-     * @param value  the string to parse, not null
-     * @throws NumberFormatException if the string cannot be parsed into a float
+     * @param value  the string to parse, not null.
+     * @throws NumberFormatException if the string cannot be parsed into a float, see {@link Float#parseFloat(String)}.
      * @since 2.5
      */
     public MutableFloat(final String value) {
@@ -76,7 +84,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Adds a value to the value of this instance.
      *
-     * @param operand  the value to add, not null
+     * @param operand  the value to add, not null.
      * @since 2.2
      */
     public void add(final float operand) {
@@ -86,8 +94,8 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Adds a value to the value of this instance.
      *
-     * @param operand  the value to add, not null
-     * @throws NullPointerException if the object is null
+     * @param operand  the value to add, not null.
+     * @throws NullPointerException if the object is null.
      * @since 2.2
      */
     public void add(final Number operand) {
@@ -98,8 +106,8 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately after the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null
-     * @return the value associated with this instance after adding the operand
+     * @param operand the quantity to add, not null.
+     * @return the value associated with this instance after adding the operand.
      * @since 3.5
      */
     public float addAndGet(final float operand) {
@@ -111,9 +119,9 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately after the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null
-     * @throws NullPointerException if {@code operand} is null
-     * @return the value associated with this instance after adding the operand
+     * @param operand the quantity to add, not null.
+     * @throws NullPointerException if {@code operand} is null.
+     * @return the value associated with this instance after adding the operand.
      * @since 3.5
      */
     public float addAndGet(final Number operand) {
@@ -124,8 +132,8 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Compares this mutable to another in ascending order.
      *
-     * @param other  the other mutable to compare to, not null
-     * @return negative if this is less, zero if equal, positive if greater
+     * @param other  the other mutable to compare to, not null.
+     * @return negative if this is less, zero if equal, positive if greater.
      */
     @Override
     public int compareTo(final MutableFloat other) {
@@ -145,7 +153,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Decrements this instance's value by 1; this method returns the value associated with the instance
      * immediately after the decrement operation. This method is not thread safe.
      *
-     * @return the value associated with the instance after it is decremented
+     * @return the value associated with the instance after it is decremented.
      * @since 3.5
      */
     public float decrementAndGet() {
@@ -164,33 +172,31 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     }
 
     /**
-     * Compares this object against some other object. The result is {@code true} if and only if the argument is
-     * not {@code null} and is a {@link Float} object that represents a {@code float} that has the
-     * identical bit pattern to the bit pattern of the {@code float} represented by this object. For this
-     * purpose, two float values are considered to be the same if and only if the method
-     * {@link Float#floatToIntBits(float)}returns the same int value when applied to each.
+     * Compares this object against some other object. The result is {@code true} if and only if the argument is not {@code null} and is a {@link Float} object
+     * that represents a {@code float} that has the identical bit pattern to the bit pattern of the {@code float} represented by this object. For this purpose,
+     * two float values are considered to be the same if and only if the method {@link Float#floatToIntBits(float)}returns the same int value when applied to
+     * each.
      * <p>
-     * Note that in most cases, for two instances of class {@link Float},{@code f1} and {@code f2},
-     * the value of {@code f1.equals(f2)} is {@code true} if and only if <blockquote>
-     *
+     * Note that in most cases, for two instances of class {@link Float},{@code f1} and {@code f2}, the value of {@code f1.equals(f2)} is {@code true} if and
+     * only if:
+     * </p>
      * <pre>
-     *   f1.floatValue() == f2.floatValue()
+     * f1.floatValue() == f2.floatValue()
      * </pre>
-     *
-     * </blockquote>
      * <p>
      * also has the value {@code true}. However, there are two exceptions:
+     * </p>
      * <ul>
-     * <li>If {@code f1} and {@code f2} both represent {@code Float.NaN}, then the
-     * {@code equals} method returns {@code true}, even though {@code Float.NaN == Float.NaN} has
-     * the value {@code false}.
-     * <li>If {@code f1} represents {@code +0.0f} while {@code f2} represents {@code -0.0f},
-     * or vice versa, the {@code equal} test has the value {@code false}, even though
-     * {@code 0.0f == -0.0f} has the value {@code true}.
+     * <li>If {@code f1} and {@code f2} both represent {@code Float.NaN}, then the {@code equals} method returns {@code true}, even though
+     * {@code Float.NaN == Float.NaN} has the value {@code false}.
+     * <li>If {@code f1} represents {@code +0.0f} while {@code f2} represents {@code -0.0f}, or vice versa, the {@code equal} test has the value {@code false},
+     * even though {@code 0.0f == -0.0f} has the value {@code true}.
      * </ul>
+     * <p>
      * This definition allows hashtables to operate properly.
+     * </p>
      *
-     * @param obj  the object to compare with, null returns false
+     * @param obj the object to compare with, null returns false.
      * @return {@code true} if the objects are the same; {@code false} otherwise.
      * @see Float#floatToIntBits(float)
      */
@@ -214,8 +220,8 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately prior to the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null
-     * @return the value associated with this instance immediately before the operand was added
+     * @param operand the quantity to add, not null.
+     * @return the value associated with this instance immediately before the operand was added.
      * @since 3.5
      */
     public float getAndAdd(final float operand) {
@@ -228,9 +234,9 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately prior to the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null
-     * @throws NullPointerException if {@code operand} is null
-     * @return the value associated with this instance immediately before the operand was added
+     * @param operand the quantity to add, not null.
+     * @throws NullPointerException if {@code operand} is null.
+     * @return the value associated with this instance immediately before the operand was added.
      * @since 3.5
      */
     public float getAndAdd(final Number operand) {
@@ -243,7 +249,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Decrements this instance's value by 1; this method returns the value associated with the instance
      * immediately prior to the decrement operation. This method is not thread safe.
      *
-     * @return the value associated with the instance before it was decremented
+     * @return the value associated with the instance before it was decremented.
      * @since 3.5
      */
     public float getAndDecrement() {
@@ -256,7 +262,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Increments this instance's value by 1; this method returns the value associated with the instance
      * immediately prior to the increment operation. This method is not thread safe.
      *
-     * @return the value associated with the instance before it was incremented
+     * @return the value associated with the instance before it was incremented.
      * @since 3.5
      */
     public float getAndIncrement() {
@@ -268,8 +274,10 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Gets the value as a Float instance.
      *
-     * @return the value as a Float, never null
+     * @return the value as a Float, never null.
+     * @deprecated Use {@link #get()}.
      */
+    @Deprecated
     @Override
     public Float getValue() {
         return Float.valueOf(this.value);
@@ -278,7 +286,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Returns a suitable hash code for this mutable.
      *
-     * @return a suitable hash code
+     * @return a suitable hash code.
      */
     @Override
     public int hashCode() {
@@ -298,7 +306,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Increments this instance's value by 1; this method returns the value associated with the instance
      * immediately after the increment operation. This method is not thread safe.
      *
-     * @return the value associated with the instance after it is incremented
+     * @return the value associated with the instance after it is incremented.
      * @since 3.5
      */
     public float incrementAndGet() {
@@ -329,7 +337,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Checks whether the float value is the special NaN value.
      *
-     * @return true if NaN
+     * @return true if NaN.
      */
     public boolean isNaN() {
         return Float.isNaN(value);
@@ -348,7 +356,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Sets the value.
      *
-     * @param value  the value to set
+     * @param value  the value to set.
      */
     public void setValue(final float value) {
         this.value = value;
@@ -357,8 +365,8 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Sets the value from any Number instance.
      *
-     * @param value  the value to set, not null
-     * @throws NullPointerException if the object is null
+     * @param value  the value to set, not null.
+     * @throws NullPointerException if the object is null.
      */
     @Override
     public void setValue(final Number value) {
@@ -368,7 +376,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Subtracts a value from the value of this instance.
      *
-     * @param operand  the value to subtract
+     * @param operand  the value to subtract.
      * @since 2.2
      */
     public void subtract(final float operand) {
@@ -378,8 +386,8 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Subtracts a value from the value of this instance.
      *
-     * @param operand  the value to subtract, not null
-     * @throws NullPointerException if the object is null
+     * @param operand  the value to subtract, not null.
+     * @throws NullPointerException if the object is null.
      * @since 2.2
      */
     public void subtract(final Number operand) {
@@ -389,7 +397,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Gets this mutable as an instance of Float.
      *
-     * @return a Float instance containing the value from this mutable, never null
+     * @return a Float instance containing the value from this mutable, never null.
      */
     public Float toFloat() {
         return Float.valueOf(floatValue());
@@ -398,7 +406,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Returns the String value of this mutable.
      *
-     * @return the mutable value as a string
+     * @return the mutable value as a string.
      */
     @Override
     public String toString() {

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -100,8 +100,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * BasicThreadFactory} for a usage example.
      * </p>
      */
-    public static class Builder
-        implements org.apache.commons.lang3.builder.Builder<BasicThreadFactory> {
+    public static class Builder implements org.apache.commons.lang3.builder.Builder<BasicThreadFactory> {
 
         /** The wrapped factory. */
         private ThreadFactory factory;
@@ -119,6 +118,16 @@ public class BasicThreadFactory implements ThreadFactory {
         private Boolean daemon;
 
         /**
+         * Constructs a new instance.
+         *
+         * @deprecated Use {@link BasicThreadFactory#builder()}.
+         */
+        @Deprecated
+        public Builder() {
+            // empty
+        }
+
+        /**
          * Creates a new {@link BasicThreadFactory} with all configuration
          * options that have been specified by calling methods on this builder.
          * After creating the factory {@link #reset()} is called.
@@ -133,8 +142,18 @@ public class BasicThreadFactory implements ThreadFactory {
         }
 
         /**
+         * Sets the daemon flag for the new {@link BasicThreadFactory} to {@code true} causing a new thread factory to create daemon threads.
+         *
+         * @return a reference to this {@link Builder}
+         * @since 3.18.0
+         */
+        public Builder daemon() {
+            return daemon(true);
+        }
+
+        /**
          * Sets the daemon flag for the new {@link BasicThreadFactory}. If this
-         * flag is set to <b>true</b> the new thread factory will create daemon
+         * flag is set to <strong>true</strong> the new thread factory will create daemon
          * threads.
          *
          * @param daemon the value of the daemon flag
@@ -149,9 +168,9 @@ public class BasicThreadFactory implements ThreadFactory {
          * Sets the naming pattern to be used by the new {@code
          * BasicThreadFactory}.
          *
-         * @param namingPattern the naming pattern (must not be <b>null</b>)
+         * @param namingPattern the naming pattern (must not be <strong>null</strong>)
          * @return a reference to this {@link Builder}
-         * @throws NullPointerException if the naming pattern is <b>null</b>
+         * @throws NullPointerException if the naming pattern is <strong>null</strong>
          */
         public Builder namingPattern(final String namingPattern) {
             this.namingPattern = Objects.requireNonNull(namingPattern, "pattern");
@@ -189,9 +208,9 @@ public class BasicThreadFactory implements ThreadFactory {
          * new {@link BasicThreadFactory}.
          *
          * @param exceptionHandler the {@link UncaughtExceptionHandler} (must not be
-         * <b>null</b>)
+         * <strong>null</strong>)
          * @return a reference to this {@link Builder}
-         * @throws NullPointerException if the exception handler is <b>null</b>
+         * @throws NullPointerException if the exception handler is <strong>null</strong>
          */
         public Builder uncaughtExceptionHandler(
                 final Thread.UncaughtExceptionHandler exceptionHandler) {
@@ -204,15 +223,25 @@ public class BasicThreadFactory implements ThreadFactory {
          * BasicThreadFactory}.
          *
          * @param factory the wrapped {@link ThreadFactory} (must not be
-         * <b>null</b>)
+         * <strong>null</strong>)
          * @return a reference to this {@link Builder}
          * @throws NullPointerException if the passed in {@link ThreadFactory}
-         * is <b>null</b>
+         * is <strong>null</strong>
          */
         public Builder wrappedFactory(final ThreadFactory factory) {
             this.factory = Objects.requireNonNull(factory, "factory");
             return this;
         }
+    }
+
+    /**
+     * Creates a new builder.
+     *
+     * @return a new builder.
+     * @since 3.18.0
+     */
+    public static Builder builder() {
+        return new Builder();
     }
 
     /** A counter for the threads created by this factory. */
@@ -250,9 +279,9 @@ public class BasicThreadFactory implements ThreadFactory {
 
     /**
      * Gets the daemon flag. This flag determines whether newly created
-     * threads should be daemon threads. If <b>true</b>, this factory object
+     * threads should be daemon threads. If <strong>true</strong>, this factory object
      * calls {@code setDaemon(true)} on the newly created threads. Result can be
-     * <b>null</b> if no daemon flag was provided at creation time.
+     * <strong>null</strong> if no daemon flag was provided at creation time.
      *
      * @return the daemon flag
      */
@@ -262,7 +291,7 @@ public class BasicThreadFactory implements ThreadFactory {
 
     /**
      * Gets the naming pattern for naming newly created threads. Result can
-     * be <b>null</b> if no naming pattern was provided.
+     * be <strong>null</strong> if no naming pattern was provided.
      *
      * @return the naming pattern
      */
@@ -272,7 +301,7 @@ public class BasicThreadFactory implements ThreadFactory {
 
     /**
      * Gets the priority of the threads created by this factory. Result can
-     * be <b>null</b> if no priority was specified.
+     * be <strong>null</strong> if no priority was specified.
      *
      * @return the priority for newly created threads
      */
@@ -293,7 +322,7 @@ public class BasicThreadFactory implements ThreadFactory {
 
     /**
      * Gets the {@link UncaughtExceptionHandler} for the threads created by
-     * this factory. Result can be <b>null</b> if no handler was provided.
+     * this factory. Result can be <strong>null</strong> if no handler was provided.
      *
      * @return the {@link UncaughtExceptionHandler}
      */
@@ -303,7 +332,7 @@ public class BasicThreadFactory implements ThreadFactory {
 
     /**
      * Gets the wrapped {@link ThreadFactory}. This factory is used for
-     * actually creating threads. This method never returns <b>null</b>. If no
+     * actually creating threads. This method never returns <strong>null</strong>. If no
      * {@link ThreadFactory} was passed when this object was created, a default
      * thread factory is returned.
      *

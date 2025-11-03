@@ -7,7 +7,7 @@
  (the "License"); you may not use this file except in compliance with
  the License.  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+      https://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,17 +18,16 @@
 <project
   xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>71</version>
+    <version>90</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
-  <version>3.16.0-SNAPSHOT</version>
+  <version>3.20.0-SNAPSHOT</version>
   <name>Apache Commons Lang</name>
-
   <inceptionYear>2001</inceptionYear>
   <description>
   Apache Commons Lang, a package of Java utility classes for the
@@ -41,21 +40,21 @@
   
   Please ensure your build environment is up-to-date and kindly report any build issues.
   </description>
-
   <url>https://commons.apache.org/proper/commons-lang/</url>
-
+  <ciManagement>
+    <system>github</system>
+    <url>https://github.com/apache/commons-lang/actions</url>
+  </ciManagement>
   <issueManagement>
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/LANG</url>
   </issueManagement>
-
   <scm>
-    <connection>scm:git:http://gitbox.apache.org/repos/asf/commons-lang.git</connection>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-lang.git</developerConnection>
-    <url>https://gitbox.apache.org/repos/asf?p=commons-lang.git</url>
-    <tag>rel/commons-lang-3.15.0</tag>
+    <url>https://gitbox.apache.org/repos/asf/commons-lang.git</url>
+    <tag>rel/commons-lang-3.18.0</tag>
   </scm>
-
   <!-- Lang should depend on very little -->
   <dependencies>
     <!-- testing -->
@@ -67,41 +66,31 @@
     <dependency>
       <groupId>org.junit-pioneer</groupId>
       <artifactId>junit-pioneer</artifactId>
-      <version>1.9.1</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest</artifactId>
-      <version>2.2</version>
-      <scope>test</scope>
-    </dependency>
-
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>5.3.0</version>
+      <version>5.6.0</version>
       <scope>test</scope>
     </dependency>
-
     <!-- For Javadoc links -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-text</artifactId>
-      <version>1.12.0</version>
-      <scope>provided</scope>
+      <version>${commons.text.version}</version>
+      <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-core</artifactId>
-      <version>${jmh.version}</version>
+      <version>${commons.jmh.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-generator-annprocess</artifactId>
-      <version>${jmh.version}</version>
+      <version>${commons.jmh.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -111,7 +100,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <distributionManagement>
     <site>
       <id>apache.website</id>
@@ -119,12 +107,20 @@
       <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-lang/</url>
     </site>
   </distributionManagement>
-
   <properties>
-    <argLine>-Xmx512m</argLine>
+    <!-- TEMP HACK START -->
+    <!-- Something is broken in 3.11.3, see Maven user mailing list. -->
+    <commons.javadoc.version>3.11.2</commons.javadoc.version>
+    <!-- TEMP HACK END -->
+
+    <heapSize>-Xmx512m</heapSize>
+    <extraArgs/>
+    <systemProperties/>
+    <argLine>${heapSize} ${extraArgs} ${systemProperties}</argLine>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <project.build.outputTimestamp>2024-07-17T21:10:33Z</project.build.outputTimestamp>
+    <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
+    <project.build.outputTimestamp>2025-09-24T13:50:21Z</project.build.outputTimestamp>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <!--
@@ -136,14 +132,14 @@
        The above seems to change the download page name but not any other
        properties that depend on the componentid.
 
-       N.B. The componentid is also used by the parent pom as part of the OSGI symbolic name.
+       The componentid is also used by the parent pom as part of the OSGI symbolic name.
     -->
     <commons.componentid>lang</commons.componentid>
     <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.16.0</commons.release.version>
-    <commons.release.next>3.16.1</commons.release.next>
+    <commons.release.version>3.20.0</commons.release.version>
+    <commons.release.next>3.20.1</commons.release.next>
     <commons.release.desc>(Java 8+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
@@ -152,37 +148,33 @@
     <commons.release.2.name>commons-lang-${commons.release.2.version}</commons.release.2.name>
     <commons.jira.id>LANG</commons.jira.id>
     <commons.jira.pid>12310481</commons.jira.pid>
-
     <commons.site.path>lang</commons.site.path>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-lang</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
-    <commons.encoding>utf-8</commons.encoding>
-
+    <commons.encoding>UTF-8</commons.encoding>
     <checkstyle.configdir>src/site/resources/checkstyle</checkstyle.configdir>
-
     <japicmp.skip>false</japicmp.skip>
-    <!-- JMH Benchmark related properties, version, target compiler and name of the benchmarking uber jar. -->
-    <jmh.version>1.37</jmh.version>
     <uberjar.name>benchmarks</uberjar.name>
-
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.15.0</commons.bc.version>
+    <commons.bc.version>3.19.0</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
     <!-- JaCoCo: Don't make code coverage worse than: -->
     <commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
-    <commons.jacoco.classRatio>0.98</commons.jacoco.classRatio>
-    <commons.jacoco.instructionRatio>0.95</commons.jacoco.instructionRatio>
-    <commons.jacoco.methodRatio>0.95</commons.jacoco.methodRatio>
+    <commons.jacoco.classRatio>0.99</commons.jacoco.classRatio>
+    <commons.jacoco.instructionRatio>0.96</commons.jacoco.instructionRatio>
+    <commons.jacoco.methodRatio>0.96</commons.jacoco.methodRatio>
     <commons.jacoco.branchRatio>0.92</commons.jacoco.branchRatio>
-    <commons.jacoco.lineRatio>0.95</commons.jacoco.lineRatio>
-    <commons.jacoco.complexityRatio>0.90</commons.jacoco.complexityRatio>
+    <commons.jacoco.lineRatio>0.96</commons.jacoco.lineRatio>
+    <!-- GH CI Java 17 Ubuntu says 0.91 -->
+    <!-- Local macOS Java 21 says 0.92 -->
+    <commons.jacoco.complexityRatio>0.91</commons.jacoco.complexityRatio>
+    <commons.text.version>1.14.0</commons.text.version>
   </properties>
-
   <build>
-   <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
-   <pluginManagement>
+    <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
+    <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -206,6 +198,8 @@
               <exclude>src/site/resources/download_lang.cgi</exclude>
               <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
               <exclude>src/test/resources/lang-708-input.txt</exclude>
+              <exclude>**/*.svg</exclude>
+              <exclude>**/*.xcf</exclude>
             </excludes>
           </configuration>
         </plugin>
@@ -218,10 +212,6 @@
             <source>${maven.compiler.source}</source>
             <quiet>true</quiet>
             <notimestamp>true</notimestamp>
-            <links>
-              <link>https://commons.apache.org/proper/commons-text/apidocs</link>
-              <link>https://docs.oracle.com/javaee/6/api</link>
-            </links>
             <validateLinks>true</validateLinks>
             <archive>
               <manifest>
@@ -230,6 +220,15 @@
               </manifest>
             </archive>
             <doclint>all</doclint>
+            <!-- Java 8 on GH says: "[WARNING] javadoc: warning - Error fetching URL: https://commons.apache.org/proper/commons-text/apidocs/" -->
+            <!-- <failOnWarnings>true</failOnWarnings> -->
+            <additionalDependencies>
+              <additionalDependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>${commons.text.version}</version>
+              </additionalDependency>
+            </additionalDependencies>
           </configuration>
           <executions>
             <execution>
@@ -325,7 +324,7 @@
           <notimestamp>true</notimestamp>
           <links>
             <link>https://commons.apache.org/proper/commons-text/apidocs</link>
-            <link>https://docs.oracle.com/javaee/6/api</link>
+            <link>${commons.javadoc.javaee.link}</link>
           </links>
           <validateLinks>true</validateLinks>
           <archive>
@@ -367,7 +366,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
-        <version>3.1.0</version>
         <configuration>
           <tagListOptions>
             <tagClasses>
@@ -411,7 +409,6 @@
       </plugin>
     </plugins>
   </reporting>
-
   <profiles>
     <profile>
       <id>setup-checkout</id>
@@ -437,11 +434,9 @@
                     <exec executable="svn">
                       <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}" />
                     </exec>
-
                     <exec executable="svn">
                       <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs" />
                     </exec>
-
                     <pathconvert pathsep=" " property="dirs">
                       <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*" />
                     </pathconvert>
@@ -456,7 +451,6 @@
         </plugins>
       </build>
     </profile>
-
     <profile>
       <id>java9+</id>
       <activation>
@@ -465,7 +459,7 @@
       <properties>
         <!-- LANG-1265: allow tests to access private fields/methods of java.base classes via reflection -->
         <!-- LANG-1667: allow tests to access private fields/methods of java.base/java.util such as ArrayList via reflection -->
-        <argLine>-Xmx512m --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</argLine>
+        <extraArgs>--add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.time=ALL-UNNAMED --add-opens java.base/java.time.chrono=ALL-UNNAMED</extraArgs>
       </properties>
     </profile>
     <profile>
@@ -481,14 +475,13 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <excludes>
-                <exclude>org/apache/commons/lang3/time/Java15BugFastDateParserTest.java</exclude>               
+                <exclude>org/apache/commons/lang3/time/Java15BugFastDateParserTest.java</exclude>
               </excludes>
             </configuration>
-          </plugin>        
+          </plugin>
         </plugins>
       </build>
     </profile>
-
     <profile>
       <id>benchmark</id>
       <properties>
@@ -500,7 +493,6 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
-            <version>3.3.0</version>
             <executions>
               <execution>
                 <id>benchmark</id>
@@ -527,6 +519,13 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    <profile>
+      <id>largeheap</id>
+      <properties>
+        <heapSize>-Xmx1024m</heapSize>
+        <systemProperties>-Dtest.large.heap=true</systemProperties>
+      </properties>
     </profile>
   </profiles>
   <developers>
@@ -583,7 +582,7 @@
       <email>ggregory at apache.org</email>
       <url>https://www.garygregory.com</url>
       <organization>The Apache Software Foundation</organization>
-      <organizationUrl>https://www.apache.org/</organizationUrl>      
+      <organizationUrl>https://www.apache.org/</organizationUrl>
       <roles>
         <role>PMC Member</role>
       </roles>

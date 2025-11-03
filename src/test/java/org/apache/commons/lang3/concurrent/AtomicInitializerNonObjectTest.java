@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@code AtomicInitializer}.
  */
-public class AtomicInitializerNonObjectTest extends AbstractConcurrentInitializerTest<Integer> {
+class AtomicInitializerNonObjectTest extends AbstractConcurrentInitializerTest<Integer> {
 
     /**
      * Returns the initializer to be tested.
@@ -37,13 +37,13 @@ public class AtomicInitializerNonObjectTest extends AbstractConcurrentInitialize
         return new AtomicInitializer<Integer>() {
             @Override
             protected Integer initialize() {
-                return new Integer(0);
+                return Integer.valueOf(0);
             }
         };
     }
 
     @Test
-    public void testGetThatReturnsNullFirstTime() throws ConcurrentException {
+    void testGetThatReturnsNullFirstTime() throws ConcurrentException {
         final AtomicInitializer<Integer> initializer = new AtomicInitializer<Integer>() {
             final AtomicInteger firstRun = new AtomicInteger(1);
 
@@ -52,10 +52,9 @@ public class AtomicInitializerNonObjectTest extends AbstractConcurrentInitialize
                 if (firstRun.getAndSet(0) == 1) {
                     return null;
                 }
-                return new Integer(0);
+                return Integer.valueOf(0);
             }
         };
-
         assertNull(initializer.get());
         assertNull(initializer.get());
     }

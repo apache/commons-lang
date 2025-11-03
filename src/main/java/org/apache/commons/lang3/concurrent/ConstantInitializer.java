@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,8 +33,8 @@ import java.util.Objects;
  * {@link ConcurrentInitializer}.
  * </p>
  *
- * @since 3.0
  * @param <T> the type of the object managed by this initializer
+ * @since 3.0
  */
 public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
 
@@ -48,8 +48,8 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * Creates a new instance of {@link ConstantInitializer} and initializes it
      * with the object to be managed. The {@code get()} method will always
      * return the object passed here. This class does not place any restrictions
-     * on the object. It may be <b>null</b>, then {@code get()} will return
-     * <b>null</b>, too.
+     * on the object. It may be <strong>null</strong>, then {@code get()} will return
+     * <strong>null</strong>, too.
      *
      * @param obj the object to be managed by this initializer
      */
@@ -59,7 +59,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
 
     /**
      * Compares this object with another one. This implementation returns
-     * <b>true</b> if and only if the passed in object is an instance of
+     * <strong>true</strong> if and only if the passed in object is an instance of
      * {@link ConstantInitializer} which refers to an object equals to the
      * object managed by this instance.
      *
@@ -80,7 +80,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
     }
 
     /**
-     * Returns the object managed by this initializer. This implementation just
+     * Gets the object managed by this initializer. This implementation just
      * returns the object passed to the constructor.
      *
      * @return the object managed by this initializer

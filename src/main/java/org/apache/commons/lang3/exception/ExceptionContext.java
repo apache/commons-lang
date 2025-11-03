@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,21 +49,21 @@ public interface ExceptionContext {
     ExceptionContext addContextValue(String label, Object value);
 
     /**
-     * Retrieves the full list of label-value pairs defined in the contextual data.
+     * Gets the full list of label-value pairs defined in the contextual data.
      *
      * @return the list of pairs, not {@code null}
      */
     List<Pair<String, Object>> getContextEntries();
 
     /**
-     * Retrieves the full set of labels defined in the contextual data.
+     * Gets the full set of labels defined in the contextual data.
      *
      * @return the set of labels, not {@code null}
      */
     Set<String> getContextLabels();
 
     /**
-     * Retrieves all the contextual data values associated with the label.
+     * Gets all the contextual data values associated with the label.
      *
      * @param label  the label to get the contextual values for, may be {@code null}
      * @return the contextual values associated with the label, never {@code null}
@@ -71,7 +71,7 @@ public interface ExceptionContext {
     List<Object> getContextValues(String label);
 
     /**
-     * Retrieves the first available contextual data value associated with the label.
+     * Gets the first available contextual data value associated with the label.
      *
      * @param label  the label to get the contextual value for, may be {@code null}
      * @return the first contextual value associated with the label, may be {@code null}
@@ -82,8 +82,8 @@ public interface ExceptionContext {
      * Gets the contextualized error message based on a base message.
      * This will add the context label-value pairs to the message.
      *
-     * @param baseMessage  the base exception message <b>without</b> context information appended
-     * @return the exception message <b>with</b> context information appended, not {@code null}
+     * @param baseMessage  the base exception message <strong>without</strong> context information appended
+     * @return the exception message <strong>with</strong> context information appended, not {@code null}
      */
     String getFormattedExceptionMessage(String baseMessage);
 

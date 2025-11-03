@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,6 +18,7 @@ package org.apache.commons.lang3.concurrent;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableSupplier;
 
@@ -51,19 +52,26 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * case.
  * </p>
  *
- * @since 3.0
  * @param <T> the type of the object managed by this initializer class
+ * @since 3.0
  */
 public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, ConcurrentException> {
 
     /**
      * Builds a new instance.
      *
-     * @param <T> the type of the object managed by the initializer.
-     * @param <I> the type of the initializer managed by this builder.
+     * @param <T> The type of results supplied by this builder.
+     * @param <I> The type of the initializer managed by this builder.
      * @since 3.14.0
      */
     public static class Builder<I extends AtomicSafeInitializer<T>, T> extends AbstractBuilder<I, T, Builder<I, T>, ConcurrentException> {
+
+        /**
+         * Constructs a new instance.
+         */
+        public Builder() {
+            // empty
+        }
 
         @SuppressWarnings("unchecked")
         @Override
@@ -110,22 +118,27 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
     }
 
     /**
-     * Gets (and initialize, if not initialized yet) the required object
+     * Gets (and initialize, if not initialized yet) the required object.
      *
-     * @return lazily initialized object
-     * @throws ConcurrentException if the initialization of the object causes an
-     * exception
+     * @return lazily initialized object.
+     * @throws ConcurrentException if the initialization of the object causes an exception.
      */
     @Override
     public final T get() throws ConcurrentException {
         T result;
-
         while ((result = reference.get()) == getNoInit()) {
             if (factory.compareAndSet(null, this)) {
-                reference.set(initialize());
+                try {
+                    reference.set(initialize());
+                } catch (final Throwable t) {
+                    // Allow retry on failure; otherwise callers spin forever.
+                    factory.set(null);
+                    // Rethrow preserving original semantics: unchecked as-is, checked wrapped.
+                    final Throwable checked = ExceptionUtils.throwUnchecked(t);
+                    throw checked instanceof ConcurrentException ? (ConcurrentException) checked : new ConcurrentException(checked);
+                }
             }
         }
-
         return result;
     }
 

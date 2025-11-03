@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,7 +16,7 @@
  */
 
 /**
- * Provides highly reusable static utility methods, chiefly concerned with adding value to the {@link java.lang} classes.
+ * Provides highly reusable utility methods, chiefly concerned with adding value to the {@link java.lang} classes.
  * Most of these classes are immutable and thus thread-safe.
  * However {@link org.apache.commons.lang3.CharSet} is not currently guaranteed thread-safe under all circumstances.
  *
@@ -27,7 +27,7 @@
  * They may, however, contain more global-like functions.</p>
  *
  * <p>Lang 3.0 requires JDK 1.5+, since Lang 3.2 it requires JDK 6+; The legacy release 2.6 requires JDK 1.2+.
- * In both cases you can find features of later JDKs being maintained by us and likely to be removed or modified in favour of the JDK in the next major version.
+ * In both cases you can find features of later JDKs being maintained by us and likely to be removed or modified in favor of the JDK in the next major version.
  * Note that Lang 3.0 uses a different package than its predecessors, allowing it to be used at the same time as an earlier version.</p>
  *
  * <p>You will find deprecated methods as you stroll through the Lang documentation. These are removed in the next major version.</p>

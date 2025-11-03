@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,32 +26,32 @@ import org.apache.commons.lang3.reflect.testbed.Grandchild;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests InheritanceUtils
+ * Tests InheritanceUtils
  */
-public class InheritanceUtilsTest extends AbstractLangTest {
+class InheritanceUtilsTest extends AbstractLangTest {
 
     @Test
-    public void testConstructor() throws Exception {
+    void testConstructor() throws Exception {
         assertNotNull(InheritanceUtils.class.getConstructor().newInstance());
     }
 
     @Test
-    public void testDistanceDisjoint() {
+    void testDistanceDisjoint() {
         assertEquals(-1, InheritanceUtils.distance(Boolean.class, String.class));
     }
 
     @Test
-    public void testDistanceEqual() {
+    void testDistanceEqual() {
         assertEquals(0, InheritanceUtils.distance(AnotherChild.class, AnotherChild.class));
     }
 
     @Test
-    public void testDistanceEqualObject() {
+    void testDistanceEqualObject() {
         assertEquals(0, InheritanceUtils.distance(Object.class, Object.class));
     }
 
     @Test
-    public void testDistanceGreaterThanZero() {
+    void testDistanceGreaterThanZero() {
         assertEquals(1, InheritanceUtils.distance(AnotherChild.class, AnotherParent.class));
         assertEquals(1, InheritanceUtils.distance(Grandchild.class, AnotherChild.class));
         assertEquals(2, InheritanceUtils.distance(Grandchild.class, AnotherParent.class));
@@ -59,22 +59,22 @@ public class InheritanceUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDistanceNullChild() {
+    void testDistanceNullChild() {
         assertEquals(-1, InheritanceUtils.distance(null, Object.class));
     }
 
     @Test
-    public void testDistanceNullParent() {
+    void testDistanceNullParent() {
         assertEquals(-1, InheritanceUtils.distance(Object.class, null));
     }
 
     @Test
-    public void testDistanceNullParentNullChild() {
+    void testDistanceNullParentNullChild() {
         assertEquals(-1, InheritanceUtils.distance(null, null));
     }
 
     @Test
-    public void testDistanceReverseParentChild() {
+    void testDistanceReverseParentChild() {
         assertEquals(-1, InheritanceUtils.distance(Object.class, Grandchild.class));
     }
 }

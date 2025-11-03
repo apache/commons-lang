@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,12 +25,11 @@
  * which provides just a single method:
  * </p>
  *
- * <pre>
- * <code>
- * public interface ConcurrentInitializer&lt;T&gt; {
+ * <pre>{@code
+ * public interface ConcurrentInitializer<T> {
  *    T get() throws ConcurrentException;
  * }
- * </code>
+ * }
  * </pre>
  *
  * <p>
@@ -70,16 +69,15 @@
  * implement to create the messaging service object:
  * </p>
  *
- * <pre>
- * <code>
- * public class MessagingServiceInitializer extends LazyInitializer&lt;MessagingService&gt; {
+ * <pre>{@code
+ * public class MessagingServiceInitializer extends LazyInitializer<MessagingService> {
  *   protected MessagingService initialize() throws ConcurrentException {
  *     // Do all necessary steps to create and initialize the service object
  *     MessagingService service = ...
  *     return service;
  *   }
  * }
- * </code>
+ * }
  * </pre>
  *
  * <p>
@@ -88,13 +86,12 @@
  * obtained from the initializer, and the administrator is notified:
  * </p>
  *
- * <pre>
- * <code>
+ * <pre>{@code
  * public class ServerThread implements Runnable {
  *  // The initializer for obtaining the messaging service.
- *  private final ConcurrentInitializer&lt;MessagingService&gt; initializer;
+ *  private final ConcurrentInitializer<MessagingService> initializer;
  *
- *  public ServerThread(ConcurrentInitializer&lt;MessagingService&gt; init) {
+ *  public ServerThread(ConcurrentInitializer<MessagingService> init) {
  *    initializer = init;
  *  }
  *
@@ -115,7 +112,7 @@
  *    }
  *  }
  * }
- * </code>
+ * }
  * </pre>
  *
  * <p>
@@ -125,7 +122,7 @@
  * {@link org.apache.commons.lang3.concurrent.AtomicInitializer#initialize() initialize()} method which has to be
  * implemented by concrete subclasses in order to create and initialize the managed object. Actually, in our example
  * above we can turn the {@code MessagingServiceInitializer} into an atomic initializer by simply changing the
- * <strong>extends</strong> declaration to refer to {@code AtomicInitializer&lt;MessagingService&gt;} as super class.
+ * <strong>extends</strong> declaration to refer to {@code AtomicInitializer<MessagingService>} as super class.
  * </p>
  *
  * <p>
@@ -178,9 +175,8 @@
  * this purpose:
  * </p>
  *
- * <pre>
- * <code>
- * public class URLLoader extends BackgroundInitializer&lt;String&gt; {
+ * <pre>{@code
+ * public class URLLoader extends BackgroundInitializer<String> {
  *   // The URL to be loaded.
  *   private final URL url;
  *
@@ -199,7 +195,7 @@
  *     }
  *   }
  * }
- * </code>
+ * }
  * </pre>
  *
  * <p>
@@ -252,7 +248,7 @@
  * </p>
  *
  * <pre>
- * <code>
+ * {@code
  * MultiBackgroundInitializer initializer = new MultiBackgroundInitializer();
  * initializer.addInitializer("url", new URLLoader(url));
  * initializer.addInitializer("jpa", new JPAEMFInitializer());
@@ -268,7 +264,7 @@
  * EntityManagerFactory emf =
  * (EntityManagerFactory) results.getResultObject("jpa");
  * ...
- * </code>
+ * }
  * </pre>
  *
  * <p>
@@ -327,16 +323,15 @@
  * {@link org.apache.commons.lang3.concurrent.ConcurrentException} ignoring unchecked exceptions:
  * </p>
  *
- * <pre>
- * <code>
- * Future&lt;Object&gt; future = ...;
+ * <pre>{@code
+ * Future<Object> future = ...;
  * try {
  *   Object result = future.get();
  *   ...
  * } catch (ExecutionException eex) {
  *   ConcurrentUtils.handleCause(eex);
  * }
- * </code>
+ * }
  * </pre>
  *
  * <p>
@@ -350,16 +345,15 @@
  * looks as follows:
  * </p>
  *
- * <pre>
- * <code>
- * ConcurrentInitializer&lt;MyClass&gt; initializer = ...;
+ * <pre>{@code
+ * ConcurrentInitializer<MyClass> initializer = ...;
  * try {
  *   MyClass obj = initializer.get();
  *   // do something with obj
  * } catch (ConcurrentException cex) {
  *   // exception handling
  * }
- * </code>
+ * }
  * </pre>
  *
  * <p>
@@ -368,11 +362,11 @@
  * </p>
  *
  * <pre>
- * <code>
- * ConcurrentInitializer&lt;MyClass&gt; initializer = ...;
+ * {@code
+ * ConcurrentInitializer<MyClass> initializer = ...;
  * MyClass obj = ConcurrentUtils.initializeUnchecked(initializer);
  * // do something with obj
- * </code>
+ * }
  * </pre>
  *
  * <p>
@@ -394,14 +388,14 @@
  * </p>
  *
  * <pre>
- * <code>
+ * {@code
  * BasicThreadFactory factory = new BasicThreadFactory.Builder()
  *   .namingPattern("worker-thread-%d")
  *   .daemon(true)
  *   .uncaughtExceptionHandler(myHandler)
  *   .build();
  * ExecutorService exec = Executors.newSingleThreadExecutor(factory);
- * </code>
+ * }
  * </pre>
  *
  * <p>

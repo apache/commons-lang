@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -199,7 +199,6 @@ public class Processor {
      * Tests if {@link Processor} is type of Aarch64.
      *
      * @return {@code true}, if {@link Processor} is {@link Type#AARCH_64}, else {@code false}.
-     *
      * @since 3.13.0
      */
     public boolean isAarch64() {

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -138,6 +138,48 @@ import java.util.concurrent.atomic.AtomicReference;
 public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
 
     /**
+     * Internally used class for executing check logic based on the current state of the
+     * circuit breaker. Having this logic extracted into special classes avoids complex
+     * if-then-else cascades.
+     */
+    private abstract static class AbstractStateStrategy {
+        /**
+         * Obtains the check interval to applied for the represented state from the given
+         * {@link CircuitBreaker}.
+         *
+         * @param breaker the {@link CircuitBreaker}
+         * @return the check interval to be applied
+         */
+        protected abstract long fetchCheckInterval(EventCountCircuitBreaker breaker);
+
+        /**
+         * Tests whether the end of the current check interval is reached.
+         *
+         * @param breaker the {@link CircuitBreaker}
+         * @param currentData the current state object
+         * @param now the current time
+         * @return a flag whether the end of the current check interval is reached
+         */
+        public boolean isCheckIntervalFinished(final EventCountCircuitBreaker breaker,
+                final CheckIntervalData currentData, final long now) {
+            return now - currentData.getCheckIntervalStart() > fetchCheckInterval(breaker);
+        }
+
+        /**
+         * Tests whether the specified {@link CheckIntervalData} objects indicate that a
+         * state transition should occur. Here the logic which checks for thresholds
+         * depending on the current state is implemented.
+         *
+         * @param breaker the {@link CircuitBreaker}
+         * @param currentData the current {@link CheckIntervalData} object
+         * @param nextData the updated {@link CheckIntervalData} object
+         * @return a flag whether a state transition should be performed
+         */
+        public abstract boolean isStateTransition(EventCountCircuitBreaker breaker,
+                CheckIntervalData currentData, CheckIntervalData nextData);
+    }
+
+    /**
      * An internally used data class holding information about the checks performed by
      * this class. Basically, the number of received events and the start time of the
      * current check interval are stored.
@@ -161,7 +203,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         }
 
         /**
-         * Returns the start time of the current check interval.
+         * Gets the start time of the current check interval.
          *
          * @return the check interval start time
          */
@@ -170,7 +212,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         }
 
         /**
-         * Returns the event counter.
+         * Gets the event counter.
          *
          * @return the number of received events
          */
@@ -192,51 +234,9 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Internally used class for executing check logic based on the current state of the
-     * circuit breaker. Having this logic extracted into special classes avoids complex
-     * if-then-else cascades.
+     * A specialized {@link AbstractStateStrategy} implementation for the state closed.
      */
-    private abstract static class StateStrategy {
-        /**
-         * Obtains the check interval to applied for the represented state from the given
-         * {@link CircuitBreaker}.
-         *
-         * @param breaker the {@link CircuitBreaker}
-         * @return the check interval to be applied
-         */
-        protected abstract long fetchCheckInterval(EventCountCircuitBreaker breaker);
-
-        /**
-         * Returns a flag whether the end of the current check interval is reached.
-         *
-         * @param breaker the {@link CircuitBreaker}
-         * @param currentData the current state object
-         * @param now the current time
-         * @return a flag whether the end of the current check interval is reached
-         */
-        public boolean isCheckIntervalFinished(final EventCountCircuitBreaker breaker,
-                final CheckIntervalData currentData, final long now) {
-            return now - currentData.getCheckIntervalStart() > fetchCheckInterval(breaker);
-        }
-
-        /**
-         * Checks whether the specified {@link CheckIntervalData} objects indicate that a
-         * state transition should occur. Here the logic which checks for thresholds
-         * depending on the current state is implemented.
-         *
-         * @param breaker the {@link CircuitBreaker}
-         * @param currentData the current {@link CheckIntervalData} object
-         * @param nextData the updated {@link CheckIntervalData} object
-         * @return a flag whether a state transition should be performed
-         */
-        public abstract boolean isStateTransition(EventCountCircuitBreaker breaker,
-                CheckIntervalData currentData, CheckIntervalData nextData);
-    }
-
-    /**
-     * A specialized {@link StateStrategy} implementation for the state closed.
-     */
-    private static final class StateStrategyClosed extends StateStrategy {
+    private static final class StateStrategyClosed extends AbstractStateStrategy {
 
         /**
          * {@inheritDoc}
@@ -257,9 +257,9 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * A specialized {@link StateStrategy} implementation for the state open.
+     * A specialized {@link AbstractStateStrategy} implementation for the state open.
      */
-    private static final class StateStrategyOpen extends StateStrategy {
+    private static final class StateStrategyOpen extends AbstractStateStrategy {
         /**
          * {@inheritDoc}
          */
@@ -281,7 +281,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /** A map for accessing the strategy objects for the different states. */
-    private static final Map<State, StateStrategy> STRATEGY_MAP = createStrategyMap();
+    private static final Map<State, AbstractStateStrategy> STRATEGY_MAP = createStrategyMap();
 
     /**
      * Creates the map with strategy objects. It allows access for a strategy for a given
@@ -289,21 +289,21 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      *
      * @return the strategy map
      */
-    private static Map<State, StateStrategy> createStrategyMap() {
-        final Map<State, StateStrategy> map = new EnumMap<>(State.class);
+    private static Map<State, AbstractStateStrategy> createStrategyMap() {
+        final Map<State, AbstractStateStrategy> map = new EnumMap<>(State.class);
         map.put(State.CLOSED, new StateStrategyClosed());
         map.put(State.OPEN, new StateStrategyOpen());
         return map;
     }
 
     /**
-     * Returns the {@link StateStrategy} object responsible for the given state.
+     * Returns the {@link AbstractStateStrategy} object responsible for the given state.
      *
      * @param state the state
-     * @return the corresponding {@link StateStrategy}
+     * @return the corresponding {@link AbstractStateStrategy}
      * @throws CircuitBreakingException if the strategy cannot be resolved
      */
-    private static StateStrategy stateStrategy(final State state) {
+    private static AbstractStateStrategy stateStrategy(final State state) {
         return STRATEGY_MAP.get(state);
     }
 
@@ -421,7 +421,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Returns the interval (in nanoseconds) for checking for the closing threshold.
+     * Gets the interval (in nanoseconds) for checking for the closing threshold.
      *
      * @return the opening check interval
      */
@@ -430,7 +430,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Returns the threshold value for closing the circuit breaker. If the number of
+     * Gets the threshold value for closing the circuit breaker. If the number of
      * events received in the time span determined by the closing interval goes below this
      * threshold, the circuit breaker is closed again.
      *
@@ -441,7 +441,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Returns the interval (in nanoseconds) for checking for the opening threshold.
+     * Gets the interval (in nanoseconds) for checking for the opening threshold.
      *
      * @return the opening check interval
      */
@@ -450,7 +450,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     }
 
     /**
-     * Returns the threshold value for opening the circuit breaker. If this number of
+     * Gets the threshold value for opening the circuit breaker. If this number of
      * events is received in the time span determined by the opening interval, the circuit
      * breaker is opened.
      *

@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -228,7 +228,7 @@ public class CharSet implements Serializable {
      * Compares two {@link CharSet} objects, returning true if they represent
      * exactly the same set of characters defined in the same way.
      *
-     * <p>The two sets {@code abc} and {@code a-c} are <i>not</i>
+     * <p>The two sets {@code abc} and {@code a-c} are <em>not</em>
      * equal according to this method.</p>
      *
      * @param obj  the object to compare to

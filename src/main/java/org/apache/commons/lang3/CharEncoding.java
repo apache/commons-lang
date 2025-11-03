@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -85,7 +85,7 @@ public class CharEncoding {
     public static final String UTF_8 = StandardCharsets.UTF_8.name();
 
     /**
-     * Returns whether the named charset is supported.
+     * Tests whether the named charset is supported.
      *
      * <p>This is similar to <a
      * href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html#isSupported%28java.lang.String%29">
@@ -108,4 +108,13 @@ public class CharEncoding {
         }
     }
 
+    /**
+     * Constructs a new instance.
+     *
+     * @deprecated Will be removed in 4.0.0.
+     */
+    @Deprecated
+    public CharEncoding() {
+        // empty
+    }
 }

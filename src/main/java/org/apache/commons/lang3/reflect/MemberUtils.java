@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,98 +27,97 @@ import org.apache.commons.lang3.ClassUtils;
 /**
  * Contains common code for working with {@link java.lang.reflect.Method Methods}/{@link java.lang.reflect.Constructor Constructors},
  * extracted and refactored from {@link MethodUtils} when it was imported from Commons BeanUtils.
- *
- * @since 2.5
  */
 final class MemberUtils {
     // TODO extract an interface to implement compareParameterSets(...)?
 
     /**
-     *  A class providing a subset of the API of java.lang.reflect.Executable in Java 1.8,
+     * A class providing a subset of the API of java.lang.reflect.Executable in Java 1.8,
      * providing a common representation for function signatures for Constructors and Methods.
      */
     private static final class Executable {
-      private static Executable of(final Constructor<?> constructor) {
-          return new Executable(constructor);
-      }
-      private static Executable of(final Method method) {
-          return new Executable(method);
-      }
 
-      private final Class<?>[] parameterTypes;
+        private static Executable of(final Constructor<?> constructor) {
+            return new Executable(constructor);
+        }
 
-      private final boolean  isVarArgs;
+        private static Executable of(final Method method) {
+            return new Executable(method);
+        }
 
-      private Executable(final Constructor<?> constructor) {
-        parameterTypes = constructor.getParameterTypes();
-        isVarArgs = constructor.isVarArgs();
-      }
+        private final Class<?>[] parameterTypes;
+        private final boolean isVarArgs;
 
-      private Executable(final Method method) {
-        parameterTypes = method.getParameterTypes();
-        isVarArgs = method.isVarArgs();
-      }
+        private Executable(final Constructor<?> constructor) {
+            parameterTypes = constructor.getParameterTypes();
+            isVarArgs = constructor.isVarArgs();
+        }
 
-      public Class<?>[] getParameterTypes() {
-          return parameterTypes;
-      }
+        private Executable(final Method method) {
+            parameterTypes = method.getParameterTypes();
+            isVarArgs = method.isVarArgs();
+        }
 
-      public boolean isVarArgs() {
-          return isVarArgs;
-      }
+        public Class<?>[] getParameterTypes() {
+            return parameterTypes;
+        }
+
+        public boolean isVarArgs() {
+            return isVarArgs;
+        }
     }
 
     private static final int ACCESS_TEST = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
 
-    /** Array of primitive number types ordered by "promotability" */
-    private static final Class<?>[] ORDERED_PRIMITIVE_TYPES = { Byte.TYPE, Short.TYPE,
-            Character.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
+    /**
+     * Array of primitive number types ordered by "promotability" from narrow to wide.
+     */
+    private static final Class<?>[] WIDENING_PRIMITIVE_TYPES = {
+            // @formatter:off
+            Byte.TYPE,      // byte
+            Short.TYPE,     // short
+            Character.TYPE, // char
+            Integer.TYPE,   // int
+            Long.TYPE,      // long
+            Float.TYPE,     // float
+            Double.TYPE     // double
+            // @formatter:on
+    };
 
     /**
-     * Compares the relative fitness of two Constructors in terms of how well they
-     * match a set of runtime parameter types, such that a list ordered
-     * by the results of the comparison would return the best match first
-     * (least).
+     * Compares the relative fitness of two Constructors in terms of how well they match a set of runtime parameter types, such that a list ordered by the
+     * results of the comparison would return the best match first (least).
      *
-     * @param left the "left" Constructor
-     * @param right the "right" Constructor
-     * @param actual the runtime parameter types to match against
-     * {@code left}/{@code right}
-     * @return int consistent with {@code compare} semantics
-     * @since 3.5
+     * @param left   the "left" Constructor.
+     * @param right  the "right" Constructor.
+     * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
+     * @return int consistent with {@code compare} semantics.
      */
     static int compareConstructorFit(final Constructor<?> left, final Constructor<?> right, final Class<?>[] actual) {
       return compareParameterTypes(Executable.of(left), Executable.of(right), actual);
     }
 
     /**
-     * Compares the relative fitness of two Methods in terms of how well they
-     * match a set of runtime parameter types, such that a list ordered
-     * by the results of the comparison would return the best match first
-     * (least).
+     * Compares the relative fitness of two Methods in terms of how well they match a set of runtime parameter types, such that a list ordered by the results of
+     * the comparison would return the best match first (least).
      *
-     * @param left the "left" Method
-     * @param right the "right" Method
-     * @param actual the runtime parameter types to match against
-     * {@code left}/{@code right}
-     * @return int consistent with {@code compare} semantics
-     * @since 3.5
+     * @param left   the "left" Method.
+     * @param right  the "right" Method.
+     * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
+     * @return int consistent with {@code compare} semantics.
      */
     static int compareMethodFit(final Method left, final Method right, final Class<?>[] actual) {
       return compareParameterTypes(Executable.of(left), Executable.of(right), actual);
     }
 
     /**
-     * Compares the relative fitness of two Executables in terms of how well they
-     * match a set of runtime parameter types, such that a list ordered
-     * by the results of the comparison would return the best match first
-     * (least).
+     * Compares the relative fitness of two Executables in terms of how well they match a set of runtime parameter types, such that a list ordered by the
+     * results of the comparison would return the best match first (least).
      *
-     * @param left the "left" Executable
-     * @param right the "right" Executable
-     * @param actual the runtime parameter types to match against
-     * {@code left}/{@code right}
-     * @return int consistent with {@code compare} semantics
+     * @param left   the "left" Executable.
+     * @param right  the "right" Executable.
+     * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
+     * @return int consistent with {@code compare} semantics.
      */
     private static int compareParameterTypes(final Executable left, final Executable right, final Class<?>[] actual) {
         final float leftCost = getTotalTransformationCost(actual, left);
@@ -127,12 +126,11 @@ final class MemberUtils {
     }
 
     /**
-     * Gets the number of steps needed to turn the source class into
-     * the destination class. This represents the number of steps in the object
-     * hierarchy graph.
-     * @param srcClass The source class
-     * @param destClass The destination class
-     * @return The cost of transforming an object
+     * Gets the number of steps needed to turn the source class into the destination class. This represents the number of steps in the object hierarchy graph.
+     *
+     * @param srcClass  The source class.
+     * @param destClass The destination class.
+     * @return The cost of transforming an object.
      */
     private static float getObjectTransformationCost(Class<?> srcClass, final Class<?> destClass) {
         if (destClass.isPrimitive()) {
@@ -153,8 +151,7 @@ final class MemberUtils {
             srcClass = srcClass.getSuperclass();
         }
         /*
-         * If the destination class is null, we've traveled all the way up to
-         * an Object match. We'll penalize this by adding 1.5 to the cost.
+         * If the destination class is null, we've traveled all the way up to an Object match. We'll penalize this by adding 1.5 to the cost.
          */
         if (srcClass == null) {
             cost += 1.5f;
@@ -163,11 +160,11 @@ final class MemberUtils {
     }
 
     /**
-     * Gets the number of steps required to promote a primitive number to another
-     * type.
-     * @param srcClass the (primitive) source class
-     * @param destClass the (primitive) destination class
-     * @return The cost of promoting the primitive
+     * Gets the number of steps required to promote a primitive to another type.
+     *
+     * @param srcClass  the (primitive) source class.
+     * @param destClass the (primitive) destination class.
+     * @return The cost of promoting the primitive.
      */
     private static float getPrimitivePromotionCost(final Class<?> srcClass, final Class<?> destClass) {
         if (srcClass == null) {
@@ -180,11 +177,12 @@ final class MemberUtils {
             cost += 0.1f;
             cls = ClassUtils.wrapperToPrimitive(cls);
         }
-        for (int i = 0; cls != destClass && i < ORDERED_PRIMITIVE_TYPES.length; i++) {
-            if (cls == ORDERED_PRIMITIVE_TYPES[i]) {
+        // Increase the cost as the loop widens the type.
+        for (int i = 0; cls != destClass && i < WIDENING_PRIMITIVE_TYPES.length; i++) {
+            if (cls == WIDENING_PRIMITIVE_TYPES[i]) {
                 cost += 0.1f;
-                if (i < ORDERED_PRIMITIVE_TYPES.length - 1) {
-                    cls = ORDERED_PRIMITIVE_TYPES[i + 1];
+                if (i < WIDENING_PRIMITIVE_TYPES.length - 1) {
+                    cls = WIDENING_PRIMITIVE_TYPES[i + 1];
                 }
             }
         }
@@ -192,16 +190,15 @@ final class MemberUtils {
     }
 
     /**
-     * Returns the sum of the object transformation cost for each class in the
-     * source argument list.
-     * @param srcArgs The source arguments
-     * @param executable The executable to calculate transformation costs for
-     * @return The total transformation cost
+     * Gets the sum of the object transformation cost for each class in the source argument list.
+     *
+     * @param srcArgs    The source arguments.
+     * @param executable The executable to calculate transformation costs for.
+     * @return The total transformation cost.
      */
     private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Executable executable) {
         final Class<?>[] destArgs = executable.getParameterTypes();
         final boolean isVarArgs = executable.isVarArgs();
-
         // "source" and "destination" are the actual and declared args respectively.
         float totalCost = 0.0f;
         final long normalArgsLen = isVarArgs ? destArgs.length - 1 : destArgs.length;
@@ -216,8 +213,7 @@ final class MemberUtils {
             // There are two special cases to consider:
             final boolean noVarArgsPassed = srcArgs.length < destArgs.length;
             final boolean explicitArrayForVarargs = srcArgs.length == destArgs.length && srcArgs[srcArgs.length - 1] != null
-                && srcArgs[srcArgs.length - 1].isArray();
-
+                    && srcArgs[srcArgs.length - 1].isArray();
             final float varArgsCost = 0.001f;
             final Class<?> destClass = destArgs[destArgs.length - 1].getComponentType();
             if (noVarArgsPassed) {
@@ -241,7 +237,7 @@ final class MemberUtils {
      * Tests whether a {@link Member} is accessible.
      *
      * @param member Member to test, may be null.
-     * @return {@code true} if {@code m} is accessible
+     * @return {@code true} if {@code m} is accessible.
      */
     static boolean isAccessible(final Member member) {
         return isPublic(member) && !member.isSynthetic();
@@ -281,10 +277,10 @@ final class MemberUtils {
     /**
      * Tests whether a given set of modifiers implies package access.
      *
-     * @param modifiers to test
+     * @param modifiers to test.
      * @return {@code true} unless {@code package}/{@code protected}/{@code private} modifier detected
      */
-    static boolean isPackageAccess(final int modifiers) {
+    static boolean isPackage(final int modifiers) {
         return (modifiers & ACCESS_TEST) == 0;
     }
 
@@ -292,7 +288,7 @@ final class MemberUtils {
      * Tests whether a {@link Member} is public.
      *
      * @param member Member to test, may be null.
-     * @return {@code true} if {@code m} is public
+     * @return {@code true} if {@code m} is public.
      */
     static boolean isPublic(final Member member) {
         return member != null && Modifier.isPublic(member.getModifiers());
@@ -302,7 +298,7 @@ final class MemberUtils {
      * Tests whether a {@link Member} is static.
      *
      * @param member Member to test, may be null.
-     * @return {@code true} if {@code m} is static
+     * @return {@code true} if {@code m} is static.
      */
     static boolean isStatic(final Member member) {
         return member != null && Modifier.isStatic(member.getModifiers());
@@ -324,16 +320,16 @@ final class MemberUtils {
      * @return a boolean indicating whether the accessibility of the object was set to true.
      */
     static <T extends AccessibleObject> T setAccessibleWorkaround(final T obj) {
-        if (obj == null || obj.isAccessible()) {
+        if (AccessibleObjects.isAccessible(obj)) {
             return obj;
         }
         final Member m = (Member) obj;
-        if (!obj.isAccessible() && isPublic(m) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
+        if (isPublic(m) && isPackage(m.getDeclaringClass().getModifiers())) {
             try {
                 obj.setAccessible(true);
                 return obj;
             } catch (final SecurityException ignored) {
-                // ignore in favor of subsequent IllegalAccessException
+                // Ignore in favor of subsequent IllegalAccessException
             }
         }
         return obj;

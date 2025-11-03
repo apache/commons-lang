@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,12 +41,15 @@ public class CharSequenceUtils {
     /**
      * Used by the indexOf(CharSequence methods) as a green implementation of indexOf.
      *
-     * @param cs the {@link CharSequence} to be processed
+     * @param cs         the {@link CharSequence} to be processed
      * @param searchChar the {@link CharSequence} to be searched for
-     * @param start the start index
-     * @return the index where the search sequence was found
+     * @param start      the start index
+     * @return the index where the search sequence was found, or {@code -1} if there is no such occurrence.
      */
     static int indexOf(final CharSequence cs, final CharSequence searchChar, final int start) {
+        if (cs == null || searchChar == null) {
+            return StringUtils.INDEX_NOT_FOUND;
+        }
         if (cs instanceof String) {
             return ((String) cs).indexOf(searchChar.toString(), start);
         }
@@ -69,43 +72,38 @@ public class CharSequenceUtils {
     }
 
     /**
-     * Returns the index within {@code cs} of the first occurrence of the
-     * specified character, starting the search at the specified index.
+     * Returns the index within {@code cs} of the first occurrence of the specified character, starting the search at the specified index.
      * <p>
-     * If a character with value {@code searchChar} occurs in the
-     * character sequence represented by the {@code cs}
-     * object at an index no smaller than {@code start}, then
-     * the index of the first such occurrence is returned. For values
-     * of {@code searchChar} in the range from 0 to 0xFFFF (inclusive),
-     * this is the smallest value <i>k</i> such that:
-     * </p>
-     * <blockquote><pre>
-     * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= start)
-     * </pre></blockquote>
-     * is true. For other values of {@code searchChar}, it is the
-     * smallest value <i>k</i> such that:
-     * <blockquote><pre>
-     * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= start)
-     * </pre></blockquote>
-     * <p>
-     * is true. In either case, if no such character occurs inm {@code cs}
-     * at or after position {@code start}, then
-     * {@code -1} is returned.
-     * </p>
-     * <p>
-     * There is no restriction on the value of {@code start}. If it
-     * is negative, it has the same effect as if it were zero: the entire
-     * {@link CharSequence} may be searched. If it is greater than
-     * the length of {@code cs}, it has the same effect as if it were
-     * equal to the length of {@code cs}: {@code -1} is returned.
-     * </p>
-     * <p>All indices are specified in {@code char} values
-     * (Unicode code units).
+     * If a character with value {@code searchChar} occurs in the character sequence represented by the {@code cs} object at an index no smaller than
+     * {@code start}, then the index of the first such occurrence is returned. For values of {@code searchChar} in the range from 0 to 0xFFFF (inclusive), this
+     * is the smallest value <em>k</em> such that:
      * </p>
      *
-     * @param cs  the {@link CharSequence} to be processed, not null
-     * @param searchChar  the char to be searched for
-     * @param start  the start index, negative starts at the string start
+     * <pre>
+     * (this.charAt(<em>k</em>) == searchChar) &amp;&amp; (<em>k</em> &gt;= start)
+     * </pre>
+     * <p>
+     * is true. For other values of {@code searchChar}, it is the smallest value <em>k</em> such that:
+     * </p>
+     *
+     * <pre>
+     * (this.codePointAt(<em>k</em>) == searchChar) &amp;&amp; (<em>k</em> &gt;= start)
+     * </pre>
+     * <p>
+     * is true. In either case, if no such character occurs inm {@code cs} at or after position {@code start}, then {@code -1} is returned.
+     * </p>
+     * <p>
+     * There is no restriction on the value of {@code start}. If it is negative, it has the same effect as if it were zero: the entire {@link CharSequence} may
+     * be searched. If it is greater than the length of {@code cs}, it has the same effect as if it were equal to the length of {@code cs}: {@code -1} is
+     * returned.
+     * </p>
+     * <p>
+     * All indices are specified in {@code char} values (Unicode code units).
+     * </p>
+     *
+     * @param cs         the {@link CharSequence} to be processed, not null
+     * @param searchChar the char to be searched for
+     * @param start      the start index, negative starts at the string start
      * @return the index where the search char was found, -1 if not found
      * @since 3.6 updated to behave more like {@link String}
      */
@@ -215,31 +213,33 @@ public class CharSequenceUtils {
     }
 
     /**
-     * Returns the index within {@code cs} of the last occurrence of
-     * the specified character, searching backward starting at the
-     * specified index. For values of {@code searchChar} in the range
-     * from 0 to 0xFFFF (inclusive), the index returned is the largest
-     * value <i>k</i> such that:
-     * <blockquote><pre>
-     * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= start)
-     * </pre></blockquote>
-     * is true. For other values of {@code searchChar}, it is the
-     * largest value <i>k</i> such that:
-     * <blockquote><pre>
-     * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &lt;= start)
-     * </pre></blockquote>
-     * is true. In either case, if no such character occurs in {@code cs}
-     * at or before position {@code start}, then {@code -1} is returned.
-     *
-     * <p>
-     * All indices are specified in {@code char} values
-     * (Unicode code units).
+     * Returns the index within {@code cs} of the last occurrence of the specified character, searching backward starting at the specified index. For values of
+     * {@code searchChar} in the range from 0 to 0xFFFF (inclusive), the index returned is the largest value <em>k</em> such that:
      * </p>
      *
-     * @param cs  the {@link CharSequence} to be processed
-     * @param searchChar  the char to be searched for
-     * @param start  the start index, negative returns -1, beyond length starts at end
-     * @return the index where the search char was found, -1 if not found
+     * <pre>
+     * (this.charAt(<em>k</em>) == searchChar) &amp;&amp; (<em>k</em> &lt;= start)
+     * </pre>
+     *
+     * <p>
+     * is true. For other values of {@code searchChar}, it is the largest value <em>k</em> such that:
+     * <p>
+     *
+     * <pre>
+     * (this.codePointAt(<em>k</em>) == searchChar) &amp;&amp; (<em>k</em> &lt;= start)
+     * </pre>
+     *
+     * <p>
+     * is true. In either case, if no such character occurs in {@code cs} at or before position {@code start}, then {@code -1} is returned.
+     * </p>
+     * <p>
+     * All indices are specified in {@code char} values (Unicode code units).
+     * </p>
+     *
+     * @param cs         the {@link CharSequence} to be processed.
+     * @param searchChar the char to be searched for.
+     * @param start      the start index, negative returns -1, beyond length starts at end.
+     * @return the index where the search char was found, -1 if not found.
      * @since 3.6 updated to behave more like {@link String}
      */
     static int lastIndexOf(final CharSequence cs, final int searchChar, int start) {
@@ -290,6 +290,7 @@ public class CharSequenceUtils {
      * @param start the index to start on the {@code substring} CharSequence
      * @param length character length of the region
      * @return whether the region matched
+     * @see String#regionMatches(boolean, int, String, int, int)
      */
     static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
             final CharSequence substring, final int start, final int length)    {
@@ -326,7 +327,7 @@ public class CharSequenceUtils {
                 return false;
             }
 
-            // The real same check as in String.regionMatches():
+            // The real same check as in String#regionMatches(boolean, int, String, int, int):
             final char u1 = Character.toUpperCase(c1);
             final char u2 = Character.toUpperCase(c2);
             if (u1 != u2 && Character.toLowerCase(u1) != Character.toLowerCase(u2)) {

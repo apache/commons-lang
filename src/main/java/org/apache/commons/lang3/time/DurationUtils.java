@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,11 +21,13 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
+import java.time.temporal.TemporalUnit;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.LongRange;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
@@ -50,6 +52,7 @@ public class DurationUtils {
      * @param consumer Accepting function.
      * @param duration The duration to pick apart.
      * @throws T See the function signature.
+     * @see StopWatch
      */
     @SuppressWarnings("boxing") // boxing unavoidable
     public static <T extends Throwable> void accept(final FailableBiConsumer<Long, Integer, T> consumer, final Duration duration)
@@ -57,6 +60,35 @@ public class DurationUtils {
         if (consumer != null && duration != null) {
             consumer.accept(duration.toMillis(), getNanosOfMilli(duration));
         }
+    }
+
+    /**
+     * Gets a Duration of unit stored in the system property at the given key.
+     *
+     * @param key  The property name.
+     * @param unit The unit that the duration is measured in, not null.
+     * @param def  The default value in the given unit.
+     * @return a Duration of seconds.
+     * @since 3.19.0
+     */
+    public static Duration get(final String key, final TemporalUnit unit, final long def) {
+        return Duration.of(getLong(key, def), unit);
+    }
+
+    private static long getLong(final String key, final long def) {
+        return StringUtils.isEmpty(key) ? def : Long.getLong(key, def);
+    }
+
+    /**
+     * Gets a Duration of milliseconds stored in the system property at the given key.
+     *
+     * @param key The property name.
+     * @param def The default value in milliseconds.
+     * @return a Duration of milliseconds.
+     * @since 3.19.0
+     */
+    public static Duration getMillis(final String key, final long def) {
+        return Duration.ofMillis(getLong(key, def));
     }
 
     /**
@@ -97,10 +129,22 @@ public class DurationUtils {
     }
 
     /**
-     * Tests whether the given Duration is positive (&gt;0).
+     * Gets a Duration of seconds stored in the system property at the given key.
+     *
+     * @param key The property name.
+     * @param def The default value in seconds.
+     * @return a Duration of seconds.
+     * @since 3.19.0
+     */
+    public static Duration getSeconds(final String key, final long def) {
+        return Duration.ofSeconds(getLong(key, def));
+    }
+
+    /**
+     * Tests whether the given Duration is positive (duration &gt; 0).
      *
      * @param duration the value to test
-     * @return whether the given Duration is positive (&gt;0).
+     * @return whether the given Duration is positive (duration &gt; 0).
      */
     public static boolean isPositive(final Duration duration) {
         return !duration.isNegative() && !duration.isZero();
@@ -119,6 +163,7 @@ public class DurationUtils {
      * @param consumer What to execute.
      * @return The Duration of execution.
      * @throws E thrown by the lambda.
+     * @see StopWatch
      * @since 3.13.0
      */
     public static <E extends Throwable> Duration of(final FailableConsumer<Instant, E> consumer) throws E {
@@ -132,6 +177,7 @@ public class DurationUtils {
      * @param runnable What to execute.
      * @return The Duration of execution.
      * @throws E thrown by the lambda.
+     * @see StopWatch
      * @since 3.13.0
      */
     public static <E extends Throwable> Duration of(final FailableRunnable<E> runnable) throws E {
@@ -216,7 +262,7 @@ public class DurationUtils {
      * @return The given duration or {@link Duration#ZERO}.
      */
     public static Duration zeroIfNull(final Duration duration) {
-        return ObjectUtils.defaultIfNull(duration, Duration.ZERO);
+        return ObjectUtils.getIfNull(duration, Duration.ZERO);
     }
 
     /**

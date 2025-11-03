@@ -7,7 +7,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -18,6 +18,7 @@
  */
 package org.apache.commons.lang3.math;
 
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -26,16 +27,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 /**
  * Test cases for the {@link Fraction} class
  */
-public class FractionTest extends AbstractLangTest {
+class FractionTest extends AbstractLangTest {
 
     private static final int SKIP = 500; // 53
 
     @Test
-    public void testAbs() {
+    void testAbs() {
         Fraction f;
 
         f = Fraction.getFraction(50, 75);
@@ -62,7 +65,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testAdd() {
+    void testAdd() {
         Fraction f;
         Fraction f1;
         Fraction f2;
@@ -122,7 +125,7 @@ public class FractionTest extends AbstractLangTest {
         assertEquals(13 * 13 * 17 * 2 * 2, fr.getDenominator());
         assertEquals(-17 - 2 * 13 * 2, fr.getNumerator());
 
-        assertThrows(NullPointerException.class, () -> fr.add(null));
+        assertNullPointerException(() -> fr.add(null));
 
         // if this fraction is added naively, it will overflow.
         // check that it doesn't.
@@ -162,7 +165,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testCompareTo() {
+    void testCompareTo() {
         final Fraction f1;
         Fraction f2;
 
@@ -170,7 +173,7 @@ public class FractionTest extends AbstractLangTest {
         assertEquals(0, f1.compareTo(f1));
 
         final Fraction fr = f1;
-        assertThrows(NullPointerException.class, () -> fr.compareTo(null));
+        assertNullPointerException(() -> fr.compareTo(null));
 
         f2 = Fraction.getFraction(2, 5);
         assertTrue(f1.compareTo(f2) > 0);
@@ -195,7 +198,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConstants() {
+    void testConstants() {
         assertEquals(0, Fraction.ZERO.getNumerator());
         assertEquals(1, Fraction.ZERO.getDenominator());
 
@@ -234,7 +237,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testConversions() {
+    void testConversions() {
         final Fraction f;
 
         f = Fraction.getFraction(3, 7, 8);
@@ -245,7 +248,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testDivide() {
+    void testDivide() {
         Fraction f;
         Fraction f1;
         Fraction f2;
@@ -280,7 +283,7 @@ public class FractionTest extends AbstractLangTest {
         assertEquals(Integer.MIN_VALUE, fr.getNumerator());
         assertEquals(1, fr.getDenominator());
 
-        assertThrows(NullPointerException.class, () -> fr.divideBy(null));
+        assertNullPointerException(() -> fr.divideBy(null));
 
         final Fraction smallest = Fraction.getFraction(1, Integer.MAX_VALUE);
         assertThrows(ArithmeticException.class, () -> smallest.divideBy(smallest.invert())); // Should overflow
@@ -290,7 +293,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         Fraction f1;
         Fraction f2;
 
@@ -313,7 +316,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_double() {
+    void testFactory_double() {
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Double.NaN));
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Double.POSITIVE_INFINITY));
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Double.NEGATIVE_INFINITY));
@@ -377,7 +380,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_int_int() {
+    void testFactory_int_int() {
         Fraction f;
 
         // zero
@@ -431,7 +434,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_int_int_int() {
+    void testFactory_int_int_int() {
         Fraction f;
 
         // zero
@@ -485,12 +488,12 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_String() {
-        assertThrows(NullPointerException.class, () -> Fraction.getFraction(null));
+    void testFactory_String() {
+        assertNullPointerException(() -> Fraction.getFraction(null));
     }
 
     @Test
-    public void testFactory_String_double() {
+    void testFactory_String_double() {
         Fraction f;
 
         f = Fraction.getFraction("0.0");
@@ -515,7 +518,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_String_improper() {
+    void testFactory_String_improper() {
         Fraction f;
 
         f = Fraction.getFraction("0/1");
@@ -549,7 +552,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testFactory_String_proper() {
+    void testFactory_String_proper() {
         Fraction f;
 
         f = Fraction.getFraction("0 0/1");
@@ -585,7 +588,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGets() {
+    void testGets() {
         Fraction f;
 
         f = Fraction.getFraction(3, 5, 6);
@@ -608,21 +611,41 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final Fraction f1 = Fraction.getFraction(3, 5);
         Fraction f2 = Fraction.getFraction(3, 5);
-
         assertEquals(f1.hashCode(), f2.hashCode());
-
         f2 = Fraction.getFraction(2, 5);
         assertTrue(f1.hashCode() != f2.hashCode());
-
         f2 = Fraction.getFraction(6, 10);
         assertTrue(f1.hashCode() != f2.hashCode());
     }
 
+    /**
+     * Tests https://issues.apache.org/jira/browse/LANG-1764
+     */
+    @ParameterizedTest
+    // @formatter:off
+    @CsvSource({
+        "0,          37,         -464320789,  46",
+        "0,          37,         -464320788,  9",
+        "0,          37,         1857283155,  38",
+        "0,          25185704,   1161454280,  1050304",
+        "0,          38817068,   1509581512,  18875972",
+        "0,          38817068,   -2146369536, 2145078572",
+        "1400217380, 128,        2092630052,  150535040",
+        "1400217380, 128,        -580400986,  268435638",
+        "1400217380, 2147483592, -2147483648, 268435452",
+        "1756395909, 4194598,    1174949894,  42860673"
+    })
+    // @formatter:on
+    void testHashCodeNotEquals(final int f1n, final int f1d, final int f2n, final int f2d) {
+        assertNotEquals(Fraction.getFraction(f1n, f1d), Fraction.getFraction(f2n, f2d));
+        assertNotEquals(Fraction.getFraction(f1n, f1d).hashCode(), Fraction.getFraction(f2n, f2d).hashCode());
+    }
+
     @Test
-    public void testInvert() {
+    void testInvert() {
         Fraction f;
 
         f = Fraction.getFraction(50, 75);
@@ -650,7 +673,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMultiply() {
+    void testMultiply() {
         Fraction f;
         Fraction f1;
         Fraction f2;
@@ -700,7 +723,7 @@ public class FractionTest extends AbstractLangTest {
         assertEquals(1, f.getDenominator());
 
         final Fraction fr = f;
-        assertThrows(NullPointerException.class, () -> fr.multiplyBy(null));
+        assertNullPointerException(() -> fr.multiplyBy(null));
 
         final Fraction fr1 = Fraction.getFraction(1, Integer.MAX_VALUE);
         assertThrows(ArithmeticException.class, () -> fr1.multiplyBy(fr1));
@@ -710,7 +733,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testNegate() {
+    void testNegate() {
         Fraction f;
 
         f = Fraction.getFraction(50, 75);
@@ -733,7 +756,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testPow() {
+    void testPow() {
         Fraction f;
 
         f = Fraction.getFraction(3, 5);
@@ -829,7 +852,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReduce() {
+    void testReduce() {
         Fraction f;
 
         f = Fraction.getFraction(50, 75);
@@ -878,7 +901,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testReducedFactory_int_int() {
+    void testReducedFactory_int_int() {
         Fraction f;
 
         // zero
@@ -955,7 +978,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testSubtract() {
+    void testSubtract() {
         Fraction f;
         Fraction f1;
         Fraction f2;
@@ -1008,7 +1031,7 @@ public class FractionTest extends AbstractLangTest {
         assertSame(f2, f);
 
         final Fraction fr = f;
-        assertThrows(NullPointerException.class, () -> fr.subtract(null));
+        assertNullPointerException(() -> fr.subtract(null));
 
         // if this fraction is subtracted naively, it will overflow.
         // check that it doesn't.
@@ -1045,7 +1068,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToProperString() {
+    void testToProperString() {
         Fraction f;
 
         f = Fraction.getFraction(3, 5);
@@ -1081,7 +1104,7 @@ public class FractionTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         Fraction f;
 
         f = Fraction.getFraction(3, 5);

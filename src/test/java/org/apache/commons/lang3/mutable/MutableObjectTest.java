@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.mutable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -29,26 +30,26 @@ import org.junit.jupiter.api.Test;
  *
  * @see MutableShort
  */
-public class MutableObjectTest extends AbstractLangTest {
+class MutableObjectTest extends AbstractLangTest {
 
     @Test
-    public void testConstructors() {
-        assertNull(new MutableObject<String>().getValue());
+    void testConstructors() {
+        assertNull(new MutableObject<String>().get());
 
         final Integer i = Integer.valueOf(6);
-        assertSame(i, new MutableObject<>(i).getValue());
-        assertSame("HI", new MutableObject<>("HI").getValue());
-        assertSame(null, new MutableObject<>(null).getValue());
+        assertSame(i, new MutableObject<>(i).get());
+        assertSame("HI", new MutableObject<>("HI").get());
+        assertSame(null, new MutableObject<>(null).get());
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final MutableObject<String> mutNumA = new MutableObject<>("ALPHA");
         final MutableObject<String> mutNumB = new MutableObject<>("ALPHA");
         final MutableObject<String> mutNumC = new MutableObject<>("BETA");
         final MutableObject<String> mutNumNull1 = new MutableObject<>(null);
         final MutableObject<String> mutNumNull2 = new MutableObject<>(null);
-
+        assertFalse(mutNumA.equals(null));
         assertEquals(mutNumA, mutNumA);
         assertEquals(mutNumA, mutNumB);
         assertEquals(mutNumB, mutNumA);
@@ -67,19 +68,22 @@ public class MutableObjectTest extends AbstractLangTest {
     }
 
     @Test
-    public void testGetSet() {
+    void testGetSet() {
         final MutableObject<String> mutNum = new MutableObject<>();
+        assertNull(new MutableObject<>().get());
         assertNull(new MutableObject<>().getValue());
 
         mutNum.setValue("HELLO");
+        assertSame("HELLO", mutNum.get());
         assertSame("HELLO", mutNum.getValue());
 
         mutNum.setValue(null);
+        assertSame(null, mutNum.get());
         assertSame(null, mutNum.getValue());
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final MutableObject<String> mutNumA = new MutableObject<>("ALPHA");
         final MutableObject<String> mutNumB = new MutableObject<>("ALPHA");
         final MutableObject<String> mutNumC = new MutableObject<>("BETA");
@@ -94,7 +98,7 @@ public class MutableObjectTest extends AbstractLangTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("HI", new MutableObject<>("HI").toString());
         assertEquals("10.0", new MutableObject<>(Double.valueOf(10)).toString());
         assertEquals("null", new MutableObject<>(null).toString());

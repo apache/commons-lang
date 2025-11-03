@@ -7,7 +7,7 @@ The ASF licenses this file to You under the Apache License, Version 2.0
 (the "License"); you may not use this file except in compliance with
 the License.  You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+     https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,15 +15,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
  <properties>
   <title>What's new in Commons Lang 3.0?</title>
-  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+  <author email="dev@commons.apache.org">Apache Commons Team</author>
  </properties>
 <body>
 
 <section name="What's new in Commons Lang 3.0?">
 <p>Commons Lang 3.0 is out, and the obvious question is: <em>"So what? What's changed?"</em>.</p>
+</section>
 <section name="The big story">
 <p>Lang is now Java 5 based. We've generified the API, moved certain APIs to support <code>varargs</code> and thrown out any features 
 that are now supported by Java itself. We've removed the deprecated parts of the API and have also removed some features that 
@@ -84,11 +87,11 @@ some additional classes in this area which are intended to further simplify the
 development of concurrent applications.</p>
 <p>The classes located in the <code>concurrent</code> package can be roughly
 divided into the following categories:
+</p>
 <ul>
 <li>Utility classes</li>
 <li>Initializer classes</li>
 </ul>
-</p>
 <p>Classes of the former category provide some basic functionality a developer
 typically has to implement manually again and again. Examples are a configurable
 <code>ThreadFactory</code> implementation or utility methods for the handling of
@@ -177,7 +180,7 @@ available in the <a href="userguide.html#lang.concurrent.">user guide</a>.</p>
 </section>
 
 <section name="Bugfixes?">
-<p>See the <a href="changes-report.html#3.0">3.0 changes report</a> for the list of fixed bugs and other enhancements. </p>
+<p>See the <a href="changes.html#a3.0">3.0 changes report</a> for the list of fixed bugs and other enhancements. </p>
 </section>
 
 <section name="Other Notable Changes">
@@ -201,8 +204,6 @@ general-purpose mechanism to raise an <code>IllegalArgumentException</code>.</li
 <p>Hopefully that was all of interest. Don't forget to download <a href="https://commons.apache.org/lang/download_lang.cgi">Lang 3.0</a>, or, for the Maven repository users, upgrade your &lt;version&gt; tag to 3.0 and your groupId to org.apache.commons. Please feel free to raise any questions you might have on the <a href="mail-lists.html">mailing lists</a>, and report bugs or enhancements in the <a href="issue-tracking.html">issue tracker</a>.</p>
 </section>
 -->
-
-</section>
 
 </body>
 </document>
