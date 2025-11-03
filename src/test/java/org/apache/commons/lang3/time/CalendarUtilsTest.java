@@ -98,7 +98,7 @@ class CalendarUtilsTest extends AbstractLangTest {
      */
     @Test
     void testToLocalDate() {
-        final Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone(TimeZones.GMT_ID));
+        final Calendar calendar = new GregorianCalendar(TimeZones.getTimeZone(TimeZones.GMT_ID));
         calendar.setTimeInMillis(-27078001200000L);
         assertEquals("1111-12-08T05:00:00Z", calendar.toInstant().toString());
         assertEquals(LocalDate.of(1111, Month.DECEMBER, 8), new CalendarUtils(calendar).toLocalDate());
@@ -109,7 +109,7 @@ class CalendarUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
     void testToLocalDateTime(final String timeZoneId) {
-        final TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
+        final TimeZone timeZone = TimeZones.getTimeZone(timeZoneId);
         final ZoneId zoneId = timeZone.toZoneId();
         final Calendar calendar = new GregorianCalendar(timeZone);
         calendar.setTimeInMillis(0);
@@ -122,7 +122,7 @@ class CalendarUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
     void testToOffsetDateTime(final String timeZoneId) {
-        final TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
+        final TimeZone timeZone = TimeZones.getTimeZone(timeZoneId);
         final ZoneId zoneId = timeZone.toZoneId();
         final Calendar calendar = new GregorianCalendar(timeZone);
         calendar.setTimeInMillis(0);
@@ -135,7 +135,7 @@ class CalendarUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource(TimeZonesTest.TIME_ZONE_GET_AVAILABLE_IDS)
     void testToZonedDateTime(final String timeZoneId) {
-        final TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
+        final TimeZone timeZone = TimeZones.getTimeZone(timeZoneId);
         final ZoneId zoneId = timeZone.toZoneId();
         final Calendar calendar = new GregorianCalendar(timeZone);
         calendar.setTimeInMillis(0);

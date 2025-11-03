@@ -77,7 +77,7 @@ public class FastTimeZone {
         if (tz != null) {
             return tz;
         }
-        return TimeZone.getTimeZone(id);
+        return TimeZones.getTimeZone(id);
     }
 
     private static int parseInt(final String group) {

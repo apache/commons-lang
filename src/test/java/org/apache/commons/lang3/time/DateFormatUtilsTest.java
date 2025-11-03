@@ -141,7 +141,7 @@ class DateFormatUtilsTest extends AbstractLangTest {
     }
 
     private void testGmtMinus3(final String expectedValue, final String pattern) {
-        final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+        final TimeZone timeZone = TimeZones.getTimeZone("GMT-3");
         assertFormats(expectedValue, pattern, timeZone, createFebruaryTestDate(timeZone));
     }
 
@@ -153,10 +153,10 @@ class DateFormatUtilsTest extends AbstractLangTest {
 
     @Test
     void testLANG1462() {
-        final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+        final TimeZone timeZone = TimeZones.getTimeZone("GMT-3");
         final Calendar calendar = createJuneTestDate(timeZone);
         assertEquals("20030608101112", DateFormatUtils.format(calendar, "yyyyMMddHHmmss"));
-        calendar.setTimeZone(TimeZone.getTimeZone("JST"));
+        calendar.setTimeZone(TimeZones.getTimeZone("JST"));
         assertEquals("20030608221112", DateFormatUtils.format(calendar, "yyyyMMddHHmmss"));
     }
 
@@ -179,35 +179,35 @@ class DateFormatUtilsTest extends AbstractLangTest {
     @Test
     void testLang916() {
 
-        final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        final Calendar cal = Calendar.getInstance(TimeZones.getTimeZone("Europe/Paris"));
         cal.clear();
         cal.set(2009, 9, 16, 8, 42, 16);
 
         // Long.
         {
-            final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/Paris"));
+            final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZones.getTimeZone("Europe/Paris"));
             assertEquals("2009-10-16T08:42:16+02:00", value, "long");
         }
         {
-            final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Asia/Kolkata"));
+            final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZones.getTimeZone("Asia/Kolkata"));
             assertEquals("2009-10-16T12:12:16+05:30", value, "long");
         }
         {
-            final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/London"));
+            final String value = DateFormatUtils.format(cal.getTimeInMillis(), DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZones.getTimeZone("Europe/London"));
             assertEquals("2009-10-16T07:42:16+01:00", value, "long");
         }
 
         // Calendar.
         {
-            final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/Paris"));
+            final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZones.getTimeZone("Europe/Paris"));
             assertEquals("2009-10-16T08:42:16+02:00", value, "calendar");
         }
         {
-            final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Asia/Kolkata"));
+            final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZones.getTimeZone("Asia/Kolkata"));
             assertEquals("2009-10-16T12:12:16+05:30", value, "calendar");
         }
         {
-            final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZone.getTimeZone("Europe/London"));
+            final String value = DateFormatUtils.format(cal, DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), TimeZones.getTimeZone("Europe/London"));
             assertEquals("2009-10-16T07:42:16+01:00", value, "calendar");
         }
     }
@@ -215,7 +215,7 @@ class DateFormatUtilsTest extends AbstractLangTest {
     @DefaultLocale(language = "en")
     @Test
     void testSMTP() {
-        TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+        TimeZone timeZone = TimeZones.getTimeZone("GMT-3");
         Calendar june = createJuneTestDate(timeZone);
 
         assertFormats("Sun, 08 Jun 2003 10:11:12 -0300", DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),

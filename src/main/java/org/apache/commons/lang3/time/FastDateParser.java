@@ -535,7 +535,7 @@ public class FastDateParser implements DateParser, Serializable {
                 if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
                     continue;
                 }
-                final TimeZone tz = TimeZone.getTimeZone(tzId);
+                final TimeZone tz = TimeZones.getTimeZone(tzId);
                 // offset 1 is long standard name
                 // offset 2 is short standard name
                 final TzInfo standard = new TzInfo(tz, false);
@@ -564,7 +564,7 @@ public class FastDateParser implements DateParser, Serializable {
                 if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
                     continue;
                 }
-                final TimeZone tz = TimeZone.getTimeZone(tzId);
+                final TimeZone tz = TimeZones.getTimeZone(tzId);
                 final String zoneName = tz.getDisplayName(locale);
                 if (sorted.add(zoneName)) {
                     tzNames.put(zoneName, new TzInfo(tz, tz.observesDaylightTime()));

@@ -17,9 +17,17 @@
 
 package org.apache.commons.lang3.time;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.time.ZoneId;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Helps dealing with {@link java.util.TimeZone}s.
@@ -27,6 +35,8 @@ import org.apache.commons.lang3.ObjectUtils;
  * @since 3.7
  */
 public class TimeZones {
+
+    private static PrintStream NOOP = SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25) ? createNoop() : null;
 
     /**
      * A public version of {@link java.util.TimeZone}'s package private {@code GMT_ID} field.
@@ -38,7 +48,54 @@ public class TimeZones {
      *
      * @since 3.13.0
      */
-    public static final TimeZone GMT = TimeZone.getTimeZone(GMT_ID);
+    public static final TimeZone GMT = TimeZones.getTimeZone(GMT_ID);
+
+    private static PrintStream createNoop() {
+        try {
+            return new PrintStream(new OutputStream() {
+
+                @Override
+                public void write(final int b) throws IOException {
+                    // noop
+                }
+            }, false, StandardCharsets.UTF_8.name());
+        } catch (final UnsupportedEncodingException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /**
+     * Delegates to {@link TimeZone#getTimeZone(String)} with special behavior on Java 25.
+     * <p>
+     * On Java 25, this methods temporarily disables writing warnings to the system error stream. On Java before 25, this method delegates to
+     * {@link TimeZone#getTimeZone(String)}.
+     * </p>
+     * <p>
+     * On Java 25, this message is of the form:
+     * </p>
+     *
+     * <pre>
+     * WARNING: Use of the three-letter time zone ID "the-given-id" is deprecated and it will be removed in a future release
+     * </pre>
+     *
+     * @param id Same as {@link TimeZone#getTimeZone(String)}.
+     * @return Same as {@link TimeZone#getTimeZone(String)}.
+     * @since 3.20.0
+     */
+    public static synchronized TimeZone getTimeZone(final String id) {
+        if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25) && NOOP != null && ZoneId.SHORT_IDS.containsKey(id)) {
+            final PrintStream ps = System.err;
+            if (ps != null) {
+                try {
+                    System.setErr(NOOP);
+                    return TimeZone.getTimeZone(id);
+                } finally {
+                    System.setErr(ps);
+                }
+            }
+        }
+        return TimeZone.getTimeZone(id);
+    }
 
     /**
      * Returns the given TimeZone if non-{@code null}, otherwise {@link TimeZone#getDefault()}.
@@ -54,5 +111,4 @@ public class TimeZones {
     /** Do not instantiate. */
     private TimeZones() {
     }
-
 }
