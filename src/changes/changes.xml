@@ -62,6 +62,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_26.</action>
     <action                   type="add" dev="ggregory" due-to="jack5505, Gary Gregory">Add MutablePair.ofNonNull(Map.Entry).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TimedSemaphore.builder(), Builder, and deprecate constructors.</action>
+    <action issue="LANG-1504" type="add" dev="ggregory" due-to="Edwin Delgado H, Gary Gregory">Adding labels and history to split StopWatch #1473.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 88 to 90 #1472.</action>
   </release>
