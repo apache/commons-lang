@@ -19,6 +19,9 @@ package org.apache.commons.lang3.time;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -27,6 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
 import org.apache.commons.lang3.function.FailableSupplier;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 /**
  * {@link StopWatch} provides a convenient API for timings.
@@ -249,6 +253,11 @@ public class StopWatch {
     private long stopTimeNanos;
 
     /**
+     * The split list.
+     */
+    private final List<Split> splits = new ArrayList<>();
+
+    /**
      * Constructs a new instance.
      */
     public StopWatch() {
@@ -327,6 +336,16 @@ public class StopWatch {
     }
 
     /**
+     * Gets the split list.
+     *
+     * @return the list of splits.
+     * @since 3.20.0
+     */
+    public List<Split> getSplits() {
+        return Collections.unmodifiableList(splits);
+    }
+
+    /**
      * Gets the <em>elapsed</em> time in nanoseconds.
      *
      * <p>
@@ -382,7 +401,7 @@ public class StopWatch {
         if (splitState != SplitState.SPLIT) {
             throw new IllegalStateException("Stopwatch must be split to get the split time.");
         }
-        return stopTimeNanos - startTimeNanos;
+        return splits.get(splits.size() - 1).getRight().toNanos();
     }
 
     /**
@@ -557,6 +576,7 @@ public class StopWatch {
     public void reset() {
         runningState = State.UNSTARTED;
         splitState = SplitState.UNSPLIT;
+        splits.clear();
     }
 
     /**
@@ -624,6 +644,28 @@ public class StopWatch {
         }
         stopTimeNanos = System.nanoTime();
         splitState = SplitState.SPLIT;
+        splits.add(new Split(String.valueOf(splits.size()), Duration.ofNanos(stopTimeNanos - startTimeNanos)));
+    }
+
+    /**
+     * Splits the time with a label.
+     *
+     * <p>
+     * This method sets the stop time of the watch to allow a time to be extracted. The start time is unaffected, enabling {@link #unsplit()} to continue the
+     * timing from the original start point.
+     * </p>
+     *
+     * @param label A message for string presentation.
+     * @throws IllegalStateException if the StopWatch is not running.
+     * @since 3.20.0
+     */
+    public void split(final String label) {
+        if (runningState != State.RUNNING) {
+            throw new IllegalStateException("Stopwatch is not running.");
+        }
+        stopTimeNanos = System.nanoTime();
+        splitState = SplitState.SPLIT;
+        splits.add(new Split(label, Duration.ofNanos(stopTimeNanos - startTimeNanos)));
     }
 
     /**
@@ -645,6 +687,7 @@ public class StopWatch {
         startTimeNanos = System.nanoTime();
         startInstant = Instant.now();
         runningState = State.RUNNING;
+        splits.clear();
     }
 
     /**
@@ -697,7 +740,7 @@ public class StopWatch {
     }
 
     /**
-     * Gets a summary of the split time that this StopWatch recorded as a string.
+     * Gets a summary of the last split time that this StopWatch recorded as a string.
      *
      * <p>
      * The format used is ISO 8601-like, [<em>message</em> ]<em>hours</em>:<em>minutes</em>:<em>seconds</em>.<em>milliseconds</em>.
@@ -744,6 +787,53 @@ public class StopWatch {
             throw new IllegalStateException("Stopwatch has not been split.");
         }
         splitState = SplitState.UNSPLIT;
+        splits.remove(splits.size() - 1);
+    }
+
+    /**
+     * Stores a split as a label and duration.
+     *
+     * @since 3.20.0
+     */
+    public static final class Split extends ImmutablePair<String, Duration> {
+
+        /**
+         * Constructs a Split object with label and duration.
+         *
+         * @param label Label for this split.
+         * @param duration Duration for this split.
+         */
+        public Split(String label, Duration duration) {
+            super(label, duration);
+        }
+
+        /**
+         * Gets the label of this split.
+         *
+         * @return The label of this split.
+         */
+        public String getLabel() {
+            return getLeft();
+        }
+
+        /**
+         * Gets the duration of this split.
+         *
+         * @return The duration of this split..
+         */
+        public Duration getDuration() {
+            return getRight();
+        }
+
+        /**
+         * Converts this instance to a string.
+         *
+         * @return this instance to a string.
+         */
+        @Override
+        public String toString() {
+            return String.format("Split [%s, %s])", getLabel(), getDuration());
+        }
     }
 
 }
