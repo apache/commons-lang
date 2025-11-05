@@ -162,7 +162,7 @@
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
     <!-- JaCoCo: Don't make code coverage worse than: -->
     <commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
-    <commons.jacoco.classRatio>0.99</commons.jacoco.classRatio>
+    <commons.jacoco.classRatio>0.98</commons.jacoco.classRatio>
     <commons.jacoco.instructionRatio>0.96</commons.jacoco.instructionRatio>
     <commons.jacoco.methodRatio>0.96</commons.jacoco.methodRatio>
     <commons.jacoco.branchRatio>0.92</commons.jacoco.branchRatio>
@@ -481,6 +481,17 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    <profile>
+	  <!-- Java 25 and up -->
+      <id>java-25-up</id>
+      <activation>
+		<jdk>[25,)</jdk>
+	  </activation>
+      <properties>
+        <!-- JaCoCo: Don't make code coverage worse than: -->
+        <commons.jacoco.classRatio>0.99</commons.jacoco.classRatio>
+      </properties>
     </profile>
     <profile>
       <id>benchmark</id>

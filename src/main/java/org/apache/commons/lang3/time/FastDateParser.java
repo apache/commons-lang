@@ -23,6 +23,7 @@ import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -46,7 +47,10 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.CharUtils;
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.LocaleUtils;
+import org.apache.commons.lang3.SystemProperties;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * FastDateParser is a fast and thread-safe version of {@link java.text.SimpleDateFormat}.
@@ -482,6 +486,7 @@ public class FastDateParser implements DateParser, Serializable {
      * A strategy that handles a time zone field in the parsing pattern
      */
     static class TimeZoneStrategy extends PatternStrategy {
+
         private static final class TzInfo {
             final TimeZone zone;
             final int dstOffset;
@@ -496,6 +501,9 @@ public class FastDateParser implements DateParser, Serializable {
                 return "TzInfo [zone=" + zone + ", dstOffset=" + dstOffset + "]";
             }
         }
+
+        private static final boolean AT_LEAST_JAVA_25 = SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25);
+
         private static final String RFC_822_TIME_ZONE = "[+-]\\d{4}";
 
         private static final String GMT_OPTION = TimeZones.GMT_ID + "[+-]\\d{1,2}:\\d{2}";
@@ -504,6 +512,22 @@ public class FastDateParser implements DateParser, Serializable {
          * Index of zone id from {@link DateFormatSymbols#getZoneStrings()}.
          */
         private static final int ID = 0;
+
+        /**
+         * Tests whether to skip the given time zone, true if TimeZone.getTimeZone().
+         * <p>
+         * On Java 25 and up, skips short IDs if {@code ignoreTimeZoneShortIDs} is true.
+         * </p>
+         * <p>
+         * This method is package private only for testing.
+         * </p>
+         *
+         * @param tzId the ID to test.
+         * @return Whether to skip the given time zone ID.
+         */
+        static boolean skipTimeZone(final String tzId, final boolean ignoreTimeZoneShortIDs) {
+            return tzId.equalsIgnoreCase(TimeZones.GMT_ID) || AT_LEAST_JAVA_25 && ignoreTimeZoneShortIDs && ZoneId.SHORT_IDS.containsKey(tzId);
+        }
 
         private final Locale locale;
 
@@ -515,6 +539,9 @@ public class FastDateParser implements DateParser, Serializable {
 
         /**
          * Constructs a Strategy that parses a TimeZone
+         * <p>
+         * On Java 25 and up, skips short IDs if the property {@code "FastDateParser.ignoreTimeZoneShortIDs"} is true.
+         * </p>
          *
          * @param locale The Locale
          */
@@ -529,13 +556,14 @@ public class FastDateParser implements DateParser, Serializable {
             // Order is undefined.
             // TODO Use of getZoneStrings() is discouraged per its Javadoc.
             final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
+            final boolean ignoreTimeZoneShortIDs = SystemProperties.getBoolean(FastDateParser.class, "ignoreTimeZoneShortIDs", () -> false);
             for (final String[] zoneNames : zones) {
                 // offset 0 is the time zone ID and is not localized
                 final String tzId = zoneNames[ID];
-                if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
+                if (skipTimeZone(tzId, ignoreTimeZoneShortIDs)) {
                     continue;
                 }
-                final TimeZone tz = TimeZone.getTimeZone(tzId);
+                final TimeZone tz = TimeZones.getTimeZone(tzId);
                 // offset 1 is long standard name
                 // offset 2 is short standard name
                 final TzInfo standard = new TzInfo(tz, false);
@@ -561,10 +589,10 @@ public class FastDateParser implements DateParser, Serializable {
             }
             // Order is undefined.
             for (final String tzId : ArraySorter.sort(TimeZone.getAvailableIDs())) {
-                if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
+                if (skipTimeZone(tzId, ignoreTimeZoneShortIDs)) {
                     continue;
                 }
-                final TimeZone tz = TimeZone.getTimeZone(tzId);
+                final TimeZone tz = TimeZones.getTimeZone(tzId);
                 final String zoneName = tz.getDisplayName(locale);
                 if (sorted.add(zoneName)) {
                     tzNames.put(zoneName, new TzInfo(tz, tz.observesDaylightTime()));

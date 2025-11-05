@@ -66,9 +66,9 @@ import org.junitpioneer.jupiter.WritesDefaultLocale;
 @WritesDefaultLocale
 class DateUtilsTest extends AbstractLangTest {
 
-    private static final TimeZone TIME_ZONE_NY = TimeZone.getTimeZone("America/New_York");
+    private static final TimeZone TIME_ZONE_NY = TimeZones.getTimeZone("America/New_York");
     private static final TimeZone TIME_ZONE_DEFAULT = TimeZone.getDefault();
-    private static final TimeZone TIME_ZONE_MET = TimeZone.getTimeZone("MET");
+    private static final TimeZone TIME_ZONE_MET = TimeZones.getTimeZone("MET");
     private static Date BASE_DATE;
 
     /**
@@ -209,7 +209,7 @@ class DateUtilsTest extends AbstractLangTest {
                 Arguments.of(
                         LocalDateTime.of(2023, 1, 1, 14, 0),
                         Date.from(LocalDateTime.of(2023, 1, 1, 0, 0).atOffset(ZoneOffset.UTC).toInstant()),
-                        TimeZone.getTimeZone("Pacific/Kiritimati")
+                        TimeZones.getTimeZone("Pacific/Kiritimati")
                 )
         );
         // @formatter:on
@@ -763,8 +763,8 @@ class DateUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsSameInstant_Cal() {
-        final GregorianCalendar cala = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
-        final GregorianCalendar calb = new GregorianCalendar(TimeZone.getTimeZone("GMT-1"));
+        final GregorianCalendar cala = new GregorianCalendar(TimeZones.getTimeZone("GMT+1"));
+        final GregorianCalendar calb = new GregorianCalendar(TimeZones.getTimeZone("GMT-1"));
         cala.set(2004, Calendar.JULY, 9, 13, 45, 0);
         cala.set(Calendar.MILLISECOND, 0);
         calb.set(2004, Calendar.JULY, 9, 13, 45, 0);
@@ -820,8 +820,8 @@ class DateUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsSameLocalTime_Cal() {
-        final GregorianCalendar cala = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
-        final GregorianCalendar calb = new GregorianCalendar(TimeZone.getTimeZone("GMT-1"));
+        final GregorianCalendar cala = new GregorianCalendar(TimeZones.getTimeZone("GMT+1"));
+        final GregorianCalendar calb = new GregorianCalendar(TimeZones.getTimeZone("GMT-1"));
         cala.set(2004, Calendar.JULY, 9, 13, 45, 0);
         cala.set(Calendar.MILLISECOND, 0);
         calb.set(2004, Calendar.JULY, 9, 13, 45, 0);
@@ -1577,7 +1577,7 @@ class DateUtilsTest extends AbstractLangTest {
     @Test
     void testTruncateLang59() {
         // Set TimeZone to Mountain Time
-        final TimeZone denverZone = TimeZone.getTimeZone("America/Denver");
+        final TimeZone denverZone = TimeZones.getTimeZone("America/Denver");
         TimeZone.setDefault(denverZone);
         final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS XXX");
         format.setTimeZone(denverZone);
