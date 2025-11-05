@@ -16,9 +16,13 @@
  */
 package org.apache.commons.lang3.time;
 
+import static java.time.ZoneId.SHORT_IDS;
+import static org.apache.commons.lang3.time.FastDateParser.TimeZoneStrategy.isInvalidTimeZoneId;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -78,7 +82,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     }
 
     static Set<Entry<String, String>> getZoneIdStream() {
-        return ZoneId.SHORT_IDS.entrySet();
+        return SHORT_IDS.entrySet();
     }
 
     private String[][] getZoneStringsSorted(final Locale locale) {
@@ -137,6 +141,30 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     @MethodSource("org.apache.commons.lang3.LocaleUtils#availableLocaleList()")
     void testTimeZoneStrategy_TimeZone(final Locale locale) {
         testTimeZoneStrategyPattern_TimeZone_getAvailableIDs(locale);
+    }
+
+    @Test
+    void invalidTimezoneId_whenInJDK25plus() {
+        assumeTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25));
+        assertTrue(isInvalidTimeZoneId(SHORT_IDS.keySet().stream().findFirst().get(), false));
+    }
+
+    @Test
+    void invalidTimezoneId_compatible_whenInJDK25plus() {
+        assumeTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25));
+        assertFalse(isInvalidTimeZoneId(SHORT_IDS.keySet().stream().findFirst().get(), true));
+    }
+
+    @Test
+    void invalidTimezoneId_whenInJDK24minus() {
+        assumeTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
+        assertFalse(isInvalidTimeZoneId(SHORT_IDS.keySet().stream().findFirst().get(), false));
+    }
+
+    @Test
+    void invalidTimezoneId_compatible_whenInJDK24minus() {
+        assumeTrue(SystemUtils.isJavaVersionAtMost(JavaVersion.JAVA_24));
+        assertFalse(isInvalidTimeZoneId(SHORT_IDS.keySet().stream().findFirst().get(), true));
     }
 
     private void testTimeZoneStrategyPattern(final String languageTag, final String source) throws ParseException {

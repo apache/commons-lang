@@ -23,6 +23,7 @@ import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -40,13 +41,16 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.CharUtils;
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.LocaleUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * FastDateParser is a fast and thread-safe version of {@link java.text.SimpleDateFormat}.
@@ -532,7 +536,7 @@ public class FastDateParser implements DateParser, Serializable {
             for (final String[] zoneNames : zones) {
                 // offset 0 is the time zone ID and is not localized
                 final String tzId = zoneNames[ID];
-                if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
+                if (isInvalidTimeZoneId(tzId, deprecatedTimeZoneCompatibilityEnabled.get())) {
                     continue;
                 }
                 final TimeZone tz = TimeZone.getTimeZone(tzId);
@@ -561,7 +565,7 @@ public class FastDateParser implements DateParser, Serializable {
             }
             // Order is undefined.
             for (final String tzId : ArraySorter.sort(TimeZone.getAvailableIDs())) {
-                if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
+                if (isInvalidTimeZoneId(tzId, deprecatedTimeZoneCompatibilityEnabled.get())) {
                     continue;
                 }
                 final TimeZone tz = TimeZone.getTimeZone(tzId);
@@ -612,6 +616,12 @@ public class FastDateParser implements DateParser, Serializable {
             return "TimeZoneStrategy [locale=" + locale + ", tzNames=" + tzNames + ", pattern=" + pattern + "]";
         }
 
+        static boolean isInvalidTimeZoneId(String tzId, boolean deprecatedTimeZoneCompatibilityEnabled) {
+            return tzId.equalsIgnoreCase(TimeZones.GMT_ID)
+                    || !deprecatedTimeZoneCompatibilityEnabled
+                    && SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25)
+                    && ZoneId.SHORT_IDS.containsKey(tzId);
+        }
     }
 
     /**
@@ -693,6 +703,10 @@ public class FastDateParser implements DateParser, Serializable {
     private static final Strategy SECOND_STRATEGY = new NumberStrategy(Calendar.SECOND);
 
     private static final Strategy MILLISECOND_STRATEGY = new NumberStrategy(Calendar.MILLISECOND);
+
+    private static final AtomicBoolean deprecatedTimeZoneCompatibilityEnabled =
+            new AtomicBoolean(Boolean.parseBoolean(
+                    System.getProperty("org.apache.commons.lang3.deprecated-tz-enabled", "true")));
 
     /**
      * Gets the short and long values displayed for a field
@@ -974,6 +988,44 @@ public class FastDateParser implements DateParser, Serializable {
     @Override
     public int hashCode() {
         return pattern.hashCode() + 13 * (timeZone.hashCode() + 13 * locale.hashCode());
+    }
+
+    /**
+     * Checks whether deprecated three-letter time zone compatibility is enabled.
+     * Since JDK 25, three-letter time zone IDs are deprecated.
+     * This flag exists to maintain compatibility with older commons-lang versions.
+     * <p>
+     * Also controlled by system property {@code org.apache.commons.lang3.deprecated-tz-enabled}
+     * <p>
+     * Default is true
+     * <p>
+     * See also:
+     * {@link java.time.ZoneId#SHORT_IDS}
+     *
+     * @return true if deprecated time zone compatibility is enabled, false otherwise
+     * @since 3.20.0
+     */
+    public static boolean isDeprecatedTimeZoneCompatibilityEnabled() {
+        return deprecatedTimeZoneCompatibilityEnabled.get();
+    }
+
+    /**
+     * Sets whether deprecated three-letter time zone compatibility is enabled.
+     * Since JDK 25, three-letter time zone IDs are deprecated.
+     * This flag exists to maintain compatibility with older commons-lang versions.
+     * <p>
+     * Also controlled by system property {@code org.apache.commons.lang3.deprecated-tz-enabled}
+     * <p>
+     * Default is true
+     * <p>
+     * See also:
+     * {@link java.time.ZoneId#SHORT_IDS}
+     *
+     * @param enabled true to enable deprecated time zone compatibility, false otherwise
+     * @since 3.20.0
+     */
+    public static void setDeprecatedTimeZoneCompatibilityEnabled(boolean enabled) {
+        deprecatedTimeZoneCompatibilityEnabled.set(enabled);
     }
 
     /**
