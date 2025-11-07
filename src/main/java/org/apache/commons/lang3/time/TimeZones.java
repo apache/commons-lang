@@ -20,8 +20,10 @@ package org.apache.commons.lang3.time;
 import java.time.ZoneId;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.SystemProperties;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Helps dealing with {@link java.util.TimeZone}s.
@@ -42,6 +44,8 @@ public class TimeZones {
      */
     public static final TimeZone GMT = TimeZones.getTimeZone(GMT_ID);
 
+    private static final boolean JAVA_25 = SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25);
+
     /**
      * Delegates to {@link TimeZone#getTimeZone(String)} after mapping an ID if it's in {@link ZoneId#SHORT_IDS}.
      * <p>
@@ -60,7 +64,7 @@ public class TimeZones {
      * @since 3.20.0
      */
     public static TimeZone getTimeZone(final String id) {
-        return TimeZone.getTimeZone(mapShortIDs() ? ZoneId.SHORT_IDS.getOrDefault(id, id) : id);
+        return TimeZone.getTimeZone(JAVA_25 && mapShortIDs() ? ZoneId.SHORT_IDS.getOrDefault(id, id) : id);
     }
 
     private static boolean mapShortIDs() {
