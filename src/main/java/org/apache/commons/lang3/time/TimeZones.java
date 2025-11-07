@@ -47,7 +47,7 @@ public class TimeZones {
     private static final boolean JAVA_25 = SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25);
 
     /**
-     * Delegates to {@link TimeZone#getTimeZone(String)} after mapping an ID if it's in {@link ZoneId#SHORT_IDS}.
+     * Delegates to {@link TimeZone#getTimeZone(String)}, on Java 25 and up, maps an ID if it's a key in {@link ZoneId#SHORT_IDS}.
      * <p>
      * On Java 25, calling {@link TimeZone#getTimeZone(String)} with an ID in {@link ZoneId#SHORT_IDS} writes a message to {@link System#err} in the form:
      * </p>
