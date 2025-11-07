@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @param <T> the type of the value monitored by this circuit breaker
  * @since 3.5
+ * @deprecated use new {@link BaseCircuitBreaker}
  */
 public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
 
