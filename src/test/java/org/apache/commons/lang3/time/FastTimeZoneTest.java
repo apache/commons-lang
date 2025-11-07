@@ -18,8 +18,6 @@ package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.TimeZone;
-
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
@@ -71,7 +69,7 @@ class FastTimeZoneTest extends AbstractLangTest {
 
     @Test
     void testOlson() {
-        assertEquals(TimeZone.getTimeZone("America/New_York"), FastTimeZone.getTimeZone("America/New_York"));
+        assertEquals(TimeZones.getTimeZone("America/New_York"), FastTimeZone.getTimeZone("America/New_York"));
     }
 
     @Test

@@ -103,9 +103,9 @@ class FastDateParserTest extends AbstractLangTest {
     private static final String MDY_DASH = "MM-DD-yyyy";
     private static final String MDY_SLASH = "MM/DD/yyyy";
 
-    private static final TimeZone REYKJAVIK = TimeZone.getTimeZone("Atlantic/Reykjavik");
-    private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
-    private static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
+    private static final TimeZone REYKJAVIK = TimeZones.getTimeZone("Atlantic/Reykjavik");
+    private static final TimeZone NEW_YORK = TimeZones.getTimeZone("America/New_York");
+    private static final TimeZone INDIA = TimeZones.getTimeZone("Asia/Calcutta");
 
     private static final Locale SWEDEN = new Locale("sv", "SE");
 
@@ -383,7 +383,7 @@ class FastDateParserTest extends AbstractLangTest {
     @ParameterizedTest
     @MethodSource(DATE_PARSER_PARAMETERS)
     void testLang1121(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) throws ParseException {
-        final TimeZone kst = TimeZone.getTimeZone("KST");
+        final TimeZone kst = TimeZones.getTimeZone("KST");
         final DateParser fdp = getInstance(dpProvider, "yyyyMMdd", kst, Locale.KOREA);
 
         assertThrows(ParseException.class, () -> fdp.parse("2015"));
@@ -434,7 +434,7 @@ class FastDateParserTest extends AbstractLangTest {
     void testLang538() throws ParseException {
         final DateParser parser = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZones.GMT);
 
-        final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT-8"));
+        final Calendar cal = Calendar.getInstance(TimeZones.getTimeZone("GMT-8"));
         cal.clear();
         cal.set(2009, Calendar.OCTOBER, 16, 8, 42, 16);
 
@@ -591,12 +591,12 @@ class FastDateParserTest extends AbstractLangTest {
         assertEquals(cal.getTime(), fdf.parse("2003-07-10T16:33:20.000 Eastern Daylight Time"));
         assertEquals(cal.getTime(), fdf.parse("2003-07-10T16:33:20.000 EDT"));
 
-        cal.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+        cal.setTimeZone(TimeZones.getTimeZone("GMT-3"));
         cal.set(2003, Calendar.FEBRUARY, 10, 9, 0, 0);
 
         assertEquals(cal.getTime(), fdf.parse("2003-02-10T09:00:00.000 -0300"));
 
-        cal.setTimeZone(TimeZone.getTimeZone("GMT+5"));
+        cal.setTimeZone(TimeZones.getTimeZone("GMT+5"));
         cal.set(2003, Calendar.FEBRUARY, 10, 15, 5, 6);
 
         assertEquals(cal.getTime(), fdf.parse("2003-02-10T15:05:06.000 +0500"));
