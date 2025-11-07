@@ -54,6 +54,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Fix typo in StringUtils.trunctate() IllegalArgumentException message and test assertion messages.</action>
     <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Fix test fixture in ReflectionDiffBuilderTest.testTransientFieldDifference() #1464.</action>
     <action issue="LANG-1789" type="fix" dev="ggregory" due-to="Hylke van der Schaaf, Gary Gregory">NullPointerException when generating NoSuchMethodException in MethodUtils.</action>
+    <action issue="LANG-1786" type="fix" dev="ggregory" due-to="Daniel Migowski, Gary Gregory, Lenny Primak">Map deprecated TimeZone short IDs and avoid JRE WARNINGs to the console #1483.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getPath(String, Supplier&lt;Path&gt;).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_25.</action>
