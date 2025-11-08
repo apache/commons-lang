@@ -65,7 +65,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add TimedSemaphore.builder(), Builder, and deprecate constructors.</action>
     <action issue="LANG-1504" type="add" dev="ggregory" due-to="Edwin Delgado H, Gary Gregory">Adding labels and history to split StopWatch #1473.</action>
     <!-- UPDATE -->
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 88 to 90 #1472.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 88 to 91 #1472.</action>
   </release>
   <release version="3.19.0" date="2025-09-19" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
