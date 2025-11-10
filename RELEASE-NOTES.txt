@@ -14,6 +14,72 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+Apache Commons Lang 3.20.0 Release Notes
+----------------------------------------
+
+The Apache Commons Lang team is pleased to announce the release of Apache Commons Lang 3.20.0.
+
+Commons Lang is a set of utility functions and reusable components that should be useful in any Java environment.
+
+Starting with Commons Lang 3.9, we target Java 8, using those features.
+
+For advice on upgrading from 2.x to 3.x, see:
+
+    https://commons.apache.org/lang/article3_0.html
+
+Apache Commons Lang, a package of Java utility classes for the
+classes that are in java.lang's hierarchy, or are considered to be so
+standard as to justify existence in java.lang.
+
+The code is tested using the latest revision of the JDK for supported
+LTS releases: 8, 11, 17 and 21 currently.
+See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
+
+Please ensure your build environment is up-to-date and kindly report any build issues.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+Changes in this version include:
+
+New features:
+o            Add SystemProperties.getPath(String, Supplier<Path>). Thanks to Gary Gregory.
+o            Add JavaVersion.JAVA_25. Thanks to Gary Gregory.
+o            Add JavaVersion.JAVA_26. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_JAVA_25. Thanks to Gary Gregory.
+o            Add SystemUtils.IS_JAVA_26. Thanks to Gary Gregory.
+o            Add MutablePair.ofNonNull(Map.Entry). Thanks to jack5505, Gary Gregory.
+o            Add TimedSemaphore.builder(), Builder, and deprecate constructors. Thanks to Gary Gregory.
+o LANG-1504: Adding labels and history to split StopWatch #1473. Thanks to Edwin Delgado H, Gary Gregory.
+
+Fixed Bugs:
+o            Optimize ObjectToStringComparator.compare() method #1449. Thanks to mayuming, Gary Gregory.
+o            [javadoc] Improve StringUtils Javadoc #1450. Thanks to Marcono1234, Gary Gregory.
+o            Fix internal inverted logic in private isEnum() method and correct its usage in getFirstEnum() #1454. Thanks to mayuming, Gary Gregory.
+o            Use accessors in ToStringStyle so subclasses can effectively override them. Thanks to William Degrange, Gary Gregory, Rob Spoor.
+o            `LocaleUtils.toLocale(String)` for a 2 letter country code now returns a value instead of throwing an `IllegalArgumentException`. Thanks to jack5505, Gary Gregory.
+o            Fix typo in StringUtils.trunctate() IllegalArgumentException message and test assertion messages. Thanks to mayuming, Gary Gregory.
+o            Fix test fixture in ReflectionDiffBuilderTest.testTransientFieldDifference() #1464. Thanks to mayuming, Gary Gregory.
+o LANG-1789: NullPointerException when generating NoSuchMethodException in MethodUtils. Thanks to Hylke van der Schaaf, Gary Gregory.
+o LANG-1786: Map deprecated TimeZone short IDs and avoid JRE WARNINGs to the console #1483. Thanks to Daniel Migowski, Gary Gregory, Lenny Primak.
+
+Changes:
+o            Bump org.apache.commons:commons-parent from 88 to 91 #1472. Thanks to Gary Gregory, Dependabot.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+Apache Commons Team
+
+-----------------------------------------------------------------------------
+
 Apache Commons Lang 3.19.0 Release Notes
 ----------------------------------------
 
@@ -139,21 +205,6 @@ Have fun!
 Apache Commons Team
 
 -----------------------------------------------------------------------------
-
-Licensed to the Apache Software Foundation (ASF) under one or more
-contributor license agreements.  See the NOTICE file distributed with
-this work for additional information regarding copyright ownership.
-The ASF licenses this file to You under the Apache License, Version 2.0
-(the "License"); you may not use this file except in compliance with
-the License.  You may obtain a copy of the License at
-
-https://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
 Apache Commons Lang 3.18.0 Release Notes
 ----------------------------------------
