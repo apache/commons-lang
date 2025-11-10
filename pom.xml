@@ -109,7 +109,7 @@
   </distributionManagement>
   <properties>
     <!-- TEMP HACK START -->
-    <!-- Something is broken in 3.11.3, see Maven user mailing list. -->
+    <!-- Something is broken in 3.11.3 and 3.12.0 on Windows, see Maven user mailing list. -->
     <commons.javadoc.version>3.11.2</commons.javadoc.version>
     <!-- TEMP HACK END -->
 
