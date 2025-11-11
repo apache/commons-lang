@@ -63,7 +63,7 @@ o LANG-1789: NullPointerException when generating NoSuchMethodException in Metho
 o LANG-1786: Map deprecated TimeZone short IDs and avoid JRE WARNINGs to the console #1483. Thanks to Daniel Migowski, Gary Gregory, Lenny Primak.
 
 Changes:
-o            Bump org.apache.commons:commons-parent from 88 to 91 #1472. Thanks to Gary Gregory, Dependabot.
+o            Bump org.apache.commons:commons-parent from 88 to 92 #1472, #1484. Thanks to Gary Gregory, Dependabot.
 
 
 Historical list of changes: https://commons.apache.org/proper/commons-lang/changes.html
