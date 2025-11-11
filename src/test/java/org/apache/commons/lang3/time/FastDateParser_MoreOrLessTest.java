@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 class FastDateParser_MoreOrLessTest extends AbstractLangTest {
 
-    private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
+    private static final TimeZone NEW_YORK = TimeZones.getTimeZone("America/New_York");
 
     @Test
     void testInputHasLessCharacters() {

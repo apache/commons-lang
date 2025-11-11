@@ -482,6 +482,7 @@ public class FastDateParser implements DateParser, Serializable {
      * A strategy that handles a time zone field in the parsing pattern
      */
     static class TimeZoneStrategy extends PatternStrategy {
+
         private static final class TzInfo {
             final TimeZone zone;
             final int dstOffset;
@@ -496,6 +497,7 @@ public class FastDateParser implements DateParser, Serializable {
                 return "TzInfo [zone=" + zone + ", dstOffset=" + dstOffset + "]";
             }
         }
+
         private static final String RFC_822_TIME_ZONE = "[+-]\\d{4}";
 
         private static final String GMT_OPTION = TimeZones.GMT_ID + "[+-]\\d{1,2}:\\d{2}";
@@ -504,6 +506,22 @@ public class FastDateParser implements DateParser, Serializable {
          * Index of zone id from {@link DateFormatSymbols#getZoneStrings()}.
          */
         private static final int ID = 0;
+
+        /**
+         * Tests whether to skip the given time zone, true if TimeZone.getTimeZone().
+         * <p>
+         * On Java 25 and up, skips short IDs if {@code ignoreTimeZoneShortIDs} is true.
+         * </p>
+         * <p>
+         * This method is package private only for testing.
+         * </p>
+         *
+         * @param tzId the ID to test.
+         * @return Whether to skip the given time zone ID.
+         */
+        static boolean skipTimeZone(final String tzId) {
+            return tzId.equalsIgnoreCase(TimeZones.GMT_ID);
+        }
 
         private final Locale locale;
 
@@ -514,9 +532,9 @@ public class FastDateParser implements DateParser, Serializable {
         private final Map<String, TzInfo> tzNames = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
         /**
-         * Constructs a Strategy that parses a TimeZone
+         * Constructs a Strategy that parses a TimeZone.
          *
-         * @param locale The Locale
+         * @param locale The Locale.
          */
         TimeZoneStrategy(final Locale locale) {
             this.locale = LocaleUtils.toLocale(locale);
@@ -532,10 +550,10 @@ public class FastDateParser implements DateParser, Serializable {
             for (final String[] zoneNames : zones) {
                 // offset 0 is the time zone ID and is not localized
                 final String tzId = zoneNames[ID];
-                if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
+                if (skipTimeZone(tzId)) {
                     continue;
                 }
-                final TimeZone tz = TimeZone.getTimeZone(tzId);
+                final TimeZone tz = TimeZones.getTimeZone(tzId);
                 // offset 1 is long standard name
                 // offset 2 is short standard name
                 final TzInfo standard = new TzInfo(tz, false);
@@ -561,10 +579,10 @@ public class FastDateParser implements DateParser, Serializable {
             }
             // Order is undefined.
             for (final String tzId : ArraySorter.sort(TimeZone.getAvailableIDs())) {
-                if (tzId.equalsIgnoreCase(TimeZones.GMT_ID)) {
+                if (skipTimeZone(tzId)) {
                     continue;
                 }
-                final TimeZone tz = TimeZone.getTimeZone(tzId);
+                final TimeZone tz = TimeZones.getTimeZone(tzId);
                 final String zoneName = tz.getDisplayName(locale);
                 if (sorted.add(zoneName)) {
                     tzNames.put(zoneName, new TzInfo(tz, tz.observesDaylightTime()));

@@ -141,7 +141,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     private void testTimeZoneStrategyPattern(final String languageTag, final String source) throws ParseException {
         final Locale locale = Locale.forLanguageTag(languageTag);
-        final TimeZone timeZone = TimeZone.getTimeZone("Etc/UTC");
+        final TimeZone timeZone = TimeZones.getTimeZone("Etc/UTC");
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, languageTag, timeZone));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, languageTag, timeZone));
         final FastDateParser parser = new FastDateParser("z", timeZone, locale);
@@ -217,7 +217,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null, null));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null, null));
         for (final String id : ArraySorter.sort(TimeZone.getAvailableIDs())) {
-            final TimeZone timeZone = TimeZone.getTimeZone(id);
+            final TimeZone timeZone = TimeZones.getTimeZone(id);
             final String displayName = timeZone.getDisplayName(locale);
             final FastDateParser parser = new FastDateParser("z", timeZone, locale);
             try {

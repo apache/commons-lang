@@ -59,8 +59,8 @@ class FastDatePrinterTest extends AbstractLangTest {
     }
 
     private static final String YYYY_MM_DD = "yyyy/MM/dd";
-    private static final TimeZone NEW_YORK = TimeZone.getTimeZone("America/New_York");
-    private static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
+    private static final TimeZone NEW_YORK = TimeZones.getTimeZone("America/New_York");
+    private static final TimeZone INDIA = TimeZones.getTimeZone("Asia/Calcutta");
 
     private static final Locale SWEDEN = new Locale("sv", "SE");
 
@@ -259,7 +259,7 @@ class FastDatePrinterTest extends AbstractLangTest {
     void testLang538() {
         // more commonly constructed with: cal = new GregorianCalendar(2009, 9, 16, 8, 42, 16)
         // for the unit test to work in any time zone, constructing with GMT-8 rather than default locale time zone
-        final GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT-8"));
+        final GregorianCalendar cal = new GregorianCalendar(TimeZones.getTimeZone("GMT-8"));
         cal.clear();
         cal.set(2009, Calendar.OCTOBER, 16, 8, 42, 16);
 
@@ -289,21 +289,21 @@ class FastDatePrinterTest extends AbstractLangTest {
     @Test
     void testLang916() {
 
-        final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        final Calendar cal = Calendar.getInstance(TimeZones.getTimeZone("Europe/Paris"));
         cal.clear();
         cal.set(2009, 9, 16, 8, 42, 16);
 
         // calendar fast.
         {
-            final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Europe/Paris")).format(cal);
+            final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZones.getTimeZone("Europe/Paris")).format(cal);
             assertEquals("2009-10-16T08:42:16 +0200", value, "calendar");
         }
         {
-            final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Asia/Kolkata")).format(cal);
+            final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZones.getTimeZone("Asia/Kolkata")).format(cal);
             assertEquals("2009-10-16T12:12:16 +0530", value, "calendar");
         }
         {
-            final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZone.getTimeZone("Europe/London")).format(cal);
+            final String value = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss Z", TimeZones.getTimeZone("Europe/London")).format(cal);
             assertEquals("2009-10-16T07:42:16 +0100", value, "calendar");
         }
     }

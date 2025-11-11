@@ -1104,6 +1104,7 @@ class MethodUtilsTest extends AbstractLangTest {
         TestBean.verify(new ImmutablePair<>("Number...", new Number[] { 17, 23, 42 }), MethodUtils.invokeMethod(testBean, "varOverloadEcho", 17, 23, 42));
         assertNullPointerException(() -> MethodUtils.invokeMethod(null, "foo", 1, 2));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, null, 1, 2));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(new Object(), "nonExistent", new Object[] { "val" }, new Class<?>[] { null }));
     }
 
     @Test

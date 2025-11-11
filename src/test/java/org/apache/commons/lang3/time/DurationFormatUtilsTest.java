@@ -481,7 +481,7 @@ class DurationFormatUtilsTest extends AbstractLangTest {
     @SuppressWarnings("deprecation")
     @Test
     void testFormatPeriodISO() {
-        final TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+        final TimeZone timeZone = TimeZones.getTimeZone("GMT-3");
         final Calendar base = Calendar.getInstance(timeZone);
         base.set(1970, Calendar.JANUARY, 1, 0, 0, 0);
         base.set(Calendar.MILLISECOND, 0);
