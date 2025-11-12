@@ -56,6 +56,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1789" type="fix" dev="ggregory" due-to="Hylke van der Schaaf, Gary Gregory">NullPointerException when generating NoSuchMethodException in MethodUtils.</action>
     <action issue="LANG-1786" type="fix" dev="ggregory" due-to="Daniel Migowski, Gary Gregory, Lenny Primak">Map deprecated TimeZone short IDs and avoid JRE WARNINGs to the console #1483.</action>
     <action issue="LANG-1792" type="fix" dev="ggregory" due-to="Mykhailo Hryb, Gary Gregory">TypeUtils.toString() skips angle brackets for Class type.</action>
+    <action                   type="fix" dev="ggregory" due-to="Sebastian Peters, Gary Gregory">Mention JDK 25 LTS as a tested version in the release notes #1485.</action>       
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getPath(String, Supplier&lt;Path&gt;).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_25.</action>
