@@ -54,7 +54,7 @@ Apache Commons Lang, a package of Java utility classes for the
   standard as to justify existence in java.lang.
 
   The code is tested using the latest revision of the JDK for supported
-  LTS releases: 8, 11, 17 and 21 currently.
+  LTS releases: 8, 11, 17, 21 and 25 currently.
   See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
   
   Please ensure your build environment is up-to-date and kindly report any build issues.
