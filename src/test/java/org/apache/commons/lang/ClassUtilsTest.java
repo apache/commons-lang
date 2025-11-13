@@ -500,6 +500,21 @@ public class ClassUtilsTest extends TestCase {
             ClassUtils.primitiveToWrapper(null));
     }
 
+    public void testGetClassSOE() {
+        int numLevels = 9000;
+        StringBuffer sb = new StringBuffer(numLevels * 2 + 1);
+        sb.append("a");
+        for (int i = 0; i < numLevels; i++) {
+            sb.append(".a");
+        }
+        try {
+            ClassUtils.getClass(sb.toString());
+            fail("Expected ClassNotFoundException");
+        } catch (ClassNotFoundException ignore) {
+            // ignore
+        }
+    }
+
     public void testPrimitivesToWrappers() {
         // test null
         assertNull("null -> null",
