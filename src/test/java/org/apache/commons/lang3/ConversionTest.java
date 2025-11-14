@@ -510,6 +510,7 @@ class ConversionTest extends AbstractLangTest {
         assertEquals("000e0", Conversion.byteToHex((byte) 0xEF, 4, "00000", 3, 1));
         assertEquals("fe", Conversion.byteToHex((byte) 0xEF, 0, "", 0, 2));
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.byteToHex((byte) 0xEF, 0, "", 1, 2));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.byteToHex((byte) 0xEF, 0, "", 1, Byte.SIZE));
     }
 
     /**
@@ -708,6 +709,7 @@ class ConversionTest extends AbstractLangTest {
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToInt(src, src.length(), 0, 0, 1));
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToInt(src, Integer.MIN_VALUE, 0, 0, 1));
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToInt(src, Integer.MAX_VALUE, 0, 0, 1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToInt(src, Integer.MAX_VALUE, 0, 0, Integer.SIZE));
     }
 
     /**
@@ -725,6 +727,7 @@ class ConversionTest extends AbstractLangTest {
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToLong(src, src.length(), 0, 0, 1));
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToLong(src, Integer.MIN_VALUE, 0, 0, 1));
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToLong(src, Integer.MAX_VALUE, 0, 0, 1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToLong(src, Integer.MAX_VALUE, 0, 0, Long.SIZE));
     }
 
     /**
@@ -742,6 +745,7 @@ class ConversionTest extends AbstractLangTest {
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToShort(src, src.length(), (short) 0, 0, 1));
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToShort(src, Integer.MIN_VALUE, (short) 0, 0, 1));
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToShort(src, Integer.MAX_VALUE, (short) 0, 0, 1));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.hexToShort(src, Integer.MAX_VALUE, (short) 0, 0, Short.SIZE));
     }
 
     /**
@@ -760,6 +764,7 @@ class ConversionTest extends AbstractLangTest {
         assertEquals(
             0x1234567878000000L, Conversion.intArrayToLong(src, 2, 0x123456789ABCDEF0L, 0, 1));
         // assertEquals(0x0F12345678000000L, Conversion.intsToLong(src, 1, 0x123456789ABCDEF0L, 32, 2));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.intArrayToLong(src, 2, 0x123456789ABCDEF0L, 0, Long.SIZE));
     }
 
     /**
@@ -837,6 +842,7 @@ class ConversionTest extends AbstractLangTest {
                 true, false, false, true, true, true, true, false, true, false, true, false,
                 true, false, false, false, false, true, false, false, true, false, false,
                 false, false}, Conversion.intToBinary(0x90ABCDEF, 2, new boolean[37], 3, 30));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.intToBinary(0x90ABCDEF, 2, new boolean[0], 3, Integer.SIZE));
     }
 
     /**
@@ -919,6 +925,7 @@ class ConversionTest extends AbstractLangTest {
                 (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
             Conversion.intToByteArray(0x90ABCDEF, 13, new byte[]{
                 -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1}, 3, 3));
+        assertThrows(IllegalArgumentException.class, () -> Conversion.intToByteArray(0x90ABCDEF, 13, new byte[]{}, 3, Integer.SIZE));
     }
 
     /**
