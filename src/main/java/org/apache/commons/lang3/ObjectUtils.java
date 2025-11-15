@@ -232,7 +232,7 @@ public class ObjectUtils {
     public static <T> T clone(final T obj) {
         if (obj instanceof Cloneable) {
             final Object result;
-            final Class<? extends Object> objClass = obj.getClass();
+            final Class<?> objClass = obj.getClass();
             if (isArray(obj)) {
                 final Class<?> componentType = objClass.getComponentType();
                 if (componentType.isPrimitive()) {

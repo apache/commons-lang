@@ -48,6 +48,7 @@ The <action> type attribute can be add,update,fix,remove.
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="ThrawnCA">Fix spelling and grammar in StringUtils #1486.</action>
     <action                   type="fix" dev="ggregory" due-to="Michael Hausegger, Gary Gregory">Add ConversionTest assertions to increase coverage #1489.</action>
+    <action                   type="fix" dev="ggregory" due-to="Boda65665, Gary Gregory">Use Class&lt;?&gt; instead of Class&lt;? extends Object&gt; in MethodUtils #1491.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
