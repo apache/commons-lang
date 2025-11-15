@@ -287,7 +287,7 @@ public class MethodUtils {
         return annotation;
     }
 
-    private static Method getInvokeMethod(final boolean forceAccess, final String methodName, final Class<?>[] parameterTypes, final Class<? extends Object> cls) {
+    private static Method getInvokeMethod(final boolean forceAccess, final String methodName, final Class<?>[] parameterTypes, final Class<?> cls) {
         final Method method;
         if (forceAccess) {
             method = getMatchingMethod(cls, methodName, parameterTypes);
@@ -810,7 +810,7 @@ public class MethodUtils {
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        final Class<? extends Object> cls = Objects.requireNonNull(object, "object").getClass();
+        final Class<?> cls = Objects.requireNonNull(object, "object").getClass();
         final Class<?>[] paramTypes = ArrayUtils.nullToEmpty(parameterTypes);
         final Method method = getInvokeMethod(forceAccess, methodName, paramTypes, cls);
         requireNonNull(method, cls, methodName, paramTypes);
