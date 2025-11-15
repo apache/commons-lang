@@ -44,6 +44,12 @@ The <action> type attribute can be add,update,fix,remove.
     <title>Apache Commons Lang Release Notes</title>
   </properties>
   <body>
+  <release version="3.20.1" date="YYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
+    <!-- FIX -->
+    <action                   type="fix" dev="ggregory" due-to="ThrawnCA">Fix spelling and grammar in StringUtils #1486.</action>
+    <!-- ADD -->
+    <!-- UPDATE -->
+  </release>
   <release version="3.20.0" date="2025-11-12" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="mayuming, Gary Gregory">Optimize ObjectToStringComparator.compare() method #1449.</action>
