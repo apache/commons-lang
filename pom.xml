@@ -138,8 +138,8 @@
     <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.20.0</commons.release.version>
-    <commons.release.next>3.20.1</commons.release.next>
+    <commons.release.version>3.20.1</commons.release.version>
+    <commons.release.next>3.20.2</commons.release.next>
     <commons.release.desc>(Java 8+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
@@ -156,8 +156,8 @@
     <japicmp.skip>false</japicmp.skip>
     <uberjar.name>benchmarks</uberjar.name>
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.19.0</commons.bc.version>
-    <commons.rc.version>RC2</commons.rc.version>
+    <commons.bc.version>3.20.0</commons.bc.version>
+    <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
     <!-- JaCoCo: Don't make code coverage worse than: -->
