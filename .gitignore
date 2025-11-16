@@ -1,0 +1,27 @@
+# Maven build files
+target
+*.log
+maven-eclipse.xml
+build.properties
+site-content
+*~
+
+# IntelliJ IDEA files
+.idea
+.iws
+*.iml
+*.ipr
+
+# Eclipse files
+.settings
+.classpath
+.project
+.externalToolBuilders
+.checkstyle
+
+# VS Code
+.vscode/
+
+# jenv's version file
+.java-version
+/.DS_Store
