@@ -30,15 +30,18 @@
   <name>Apache Commons Lang</name>
   <inceptionYear>2001</inceptionYear>
   <description>
-  Apache Commons Lang, a package of Java utility classes for the
-  classes that are in java.lang's hierarchy, or are considered to be so
-  standard as to justify existence in java.lang.
+  Apache Commons Lang is a package of Java utility classes for the Java lang packages,
+  classes that could be considered standard to justify their existence in java.lang.
 
-  The code is tested using the latest revision of the JDK for supported
-  LTS releases: 8, 11, 17, 21 and 25 currently.
+  The code is tested using the latest revision of the JDK for supported LTS releases: 8, 11, 17, 21, and 25.
   See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
-  
+
   Please ensure your build environment is up-to-date and kindly report any build issues.
+
+  Starting with Commons Lang 3.9, we target Java 8 and use those features.
+
+  For advice on upgrading from 2.x to 3.x, see https://commons.apache.org/lang/article3_0.html
+
   </description>
   <url>https://commons.apache.org/proper/commons-lang/</url>
   <ciManagement>
