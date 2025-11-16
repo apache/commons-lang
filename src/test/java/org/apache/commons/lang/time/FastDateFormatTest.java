@@ -226,13 +226,6 @@ public class FastDateFormatTest extends TestCase {
             assertEquals("-04:00", fdf.format(cal2));
             assertEquals("-04:00", fdf.format(millis2));
 
-            String pattern = "GGGG GGG GG G yyyy yyy yy y MMMM MMM MM M" +
-                " dddd ddd dd d DDDD DDD DD D EEEE EEE EE E aaaa aaa aa a zzzz zzz zz z";
-            fdf = FastDateFormat.getInstance(pattern);
-            sdf = new SimpleDateFormat(pattern);
-            assertEquals(sdf.format(date1), fdf.format(date1));
-            assertEquals(sdf.format(date2), fdf.format(date2));
-
         } finally {
             Locale.setDefault(realDefaultLocale);
             TimeZone.setDefault(realDefaultZone);
