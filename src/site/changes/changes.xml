@@ -21,6 +21,10 @@
   </properties>
   <body>
   <release version="2.7" date="TBA" description="TBA (requires minimum of Java 1.3)">
+    <action type="fix" dev="psteitz" due-to="OSS-Fuzz, Gary Gregory, Vladimir Sitnikov">
+     Rewrite ClassUtils.getClass(...) without recursion to avoid StackOverflowError on very long inputs.
+     OSS-Fuzz Issue 42522972: apache-commons-text:StringSubstitutorInterpolatorFuzzer: Security exception in org.apache.commons.lang3.ClassUtils.getClass.
+    </action>
     <action issue="LANG-807" type="fix">RandomStringUtils throws confusing IAE when end &lt;= start</action>
     <action issue="LANG-805" type="fix">RandomStringUtils.random(count, 0, 0, false, false, universe, random) always throws java.lang.ArrayIndexOutOfBoundsException</action>
     <action issue="LANG-803" type="fix">LocaleUtils - DCL idiom is not thread-safe.</action>
