@@ -36,14 +36,6 @@ ${project.name} ${version} Release Notes
 
 The ${developmentTeam} is pleased to announce the release of ${project.name} ${version}.
 
-Commons Lang is a set of utility functions and reusable components that should be useful in any Java environment.
-
-Starting with Commons Lang 3.9, we target Java 8, using those features.
-
-For advice on upgrading from 2.x to 3.x, see:
-
-    https://commons.apache.org/lang/article3_0.html
-
 $introduction.replaceAll("(?<!\015)\012", "
 ").replaceAll("(?m)^ +","")
 

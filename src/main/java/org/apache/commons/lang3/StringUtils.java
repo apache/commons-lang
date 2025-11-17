@@ -5347,10 +5347,10 @@ public class StringUtils {
      * Similar to <a href="https://www.w3.org/TR/xpath/#function-normalize-space">https://www.w3.org/TR/xpath/#function-normalize -space</a>
      *
      * <p>
-     * The function returns the argument string with whitespace normalized by using {@code {@link #trim(String)}} to remove leading and trailing whitespace and
+     * This function returns the argument string with whitespace normalized by using {@code {@link #trim(String)}} to remove leading and trailing whitespace and
      * then replacing sequences of whitespace characters by a single space.
      * </p>
-     * In XML Whitespace characters are the same as those allowed by the <a href="https://www.w3.org/TR/REC-xml/#NT-S">S</a> production, which is S ::= (#x20 |
+     * In XML, whitespace characters are the same as those allowed by the <a href="https://www.w3.org/TR/REC-xml/#NT-S">S</a> production, which is S ::= (#x20 |
      * #x9 | #xD | #xA)+
      * <p>
      * Java's regexp pattern \s defines whitespace as [ \t\n\x0B\f\r]
@@ -5368,7 +5368,7 @@ public class StringUtils {
      * </ul>
      *
      * <p>
-     * The difference is that Java's whitespace includes vertical tab and form feed, which this functional will also normalize. Additionally {@code {@link
+     * The difference is that Java's whitespace includes vertical tab and form feed, which this function will also normalize. Additionally {@code {@link
      * #trim(String)}} removes control characters (char &lt;= 32) from both ends of this String.
      * </p>
      *
@@ -5414,7 +5414,7 @@ public class StringUtils {
      * Finds the n-th index within a CharSequence, handling {@code null}. This method uses {@link String#indexOf(String)} if possible.
      * <p>
      * <strong>Note:</strong> The code starts looking for a match at the start of the target, incrementing the starting index by one after each successful match
-     * (unless {@code searchStr} is an empty string in which case the position is never incremented and {@code 0} is returned immediately). This means that
+     * (unless {@code searchStr} is an empty string, in which case the position is never incremented and {@code 0} is returned immediately). This means that
      * matches may overlap.
      * </p>
      * <p>
@@ -5472,7 +5472,7 @@ public class StringUtils {
     /**
      * Finds the n-th index within a String, handling {@code null}. This method uses {@link String#indexOf(String)} if possible.
      * <p>
-     * Note that matches may overlap
+     * Note that matches may overlap.
      * <p>
      *
      * <p>

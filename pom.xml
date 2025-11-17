@@ -26,19 +26,22 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
-  <version>3.20.0-SNAPSHOT</version>
+  <version>3.20.1-SNAPSHOT</version>
   <name>Apache Commons Lang</name>
   <inceptionYear>2001</inceptionYear>
   <description>
-  Apache Commons Lang, a package of Java utility classes for the
-  classes that are in java.lang's hierarchy, or are considered to be so
-  standard as to justify existence in java.lang.
+  Apache Commons Lang is a package of Java utility classes for the Java lang packages,
+  classes that could be considered standard to justify their existence in java.lang.
 
-  The code is tested using the latest revision of the JDK for supported
-  LTS releases: 8, 11, 17, 21 and 25 currently.
+  The code is tested using the latest revision of the JDK for supported LTS releases: 8, 11, 17, 21, and 25.
   See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
-  
+
   Please ensure your build environment is up-to-date and kindly report any build issues.
+
+  Starting with Commons Lang 3.9, we target Java 8 and use those features.
+
+  For advice on upgrading from 2.x to 3.x, see https://commons.apache.org/lang/article3_0.html
+
   </description>
   <url>https://commons.apache.org/proper/commons-lang/</url>
   <ciManagement>
@@ -120,7 +123,7 @@
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
-    <project.build.outputTimestamp>2025-09-24T13:50:21Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2025-11-16T12:58:18Z</project.build.outputTimestamp>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <!--
@@ -138,8 +141,8 @@
     <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.20.0</commons.release.version>
-    <commons.release.next>3.20.1</commons.release.next>
+    <commons.release.version>3.20.1</commons.release.version>
+    <commons.release.next>3.20.2</commons.release.next>
     <commons.release.desc>(Java 8+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
@@ -156,7 +159,7 @@
     <japicmp.skip>false</japicmp.skip>
     <uberjar.name>benchmarks</uberjar.name>
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.19.0</commons.bc.version>
+    <commons.bc.version>3.20.0</commons.bc.version>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
@@ -313,7 +316,6 @@
       </plugin>
     </plugins>
   </build>
-
   <reporting>
     <plugins>
       <plugin>
