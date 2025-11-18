@@ -201,7 +201,7 @@ public class TypeUtils {
         /**
          * Specify lower bounds of the wildcard type to build.
          *
-         * @param bounds to set
+         * @param bounds to set.
          * @return {@code this} instance.
          */
         public WildcardTypeBuilder withLowerBounds(final Type... bounds) {
@@ -342,7 +342,7 @@ public class TypeUtils {
      * Formats a {@link Class} as a {@link String}.
      *
      * @param cls {@link Class} to format.
-     * @return String.
+     * @return The class as a String.
      */
     private static <T> String classToString(final Class<T> cls) {
         if (cls.isArray()) {
@@ -366,8 +366,8 @@ public class TypeUtils {
     /**
      * Tests, recursively, whether any of the type parameters associated with {@code type} are bound to variables.
      *
-     * @param type the type to check for type variables.
-     * @return boolean.
+     * @param type The type to check for type variables.
+     * @return Whether any of the type parameters associated with {@code type} are bound to variables.
      * @since 3.2
      */
     public static boolean containsTypeVariables(final Type type) {
@@ -476,11 +476,11 @@ public class TypeUtils {
     }
 
     /**
-     * Tests equality of types.
+     * Tests whether the given types are equal.
      *
-     * @param type1 the first type.
-     * @param type2 the second type.
-     * @return boolean.
+     * @param type1 The first type.
+     * @param type2 The second type.
+     * @return Whether the given types are equal.
      * @since 3.2
      */
     public static boolean equals(final Type type1, final Type type2) {
@@ -500,11 +500,11 @@ public class TypeUtils {
     }
 
     /**
-     * Tests whether {@code t1} equals {@code t2}.
+     * Tests whether the given type arrays are equal.
      *
      * @param type1 LHS.
      * @param type2 RHS.
-     * @return boolean.
+     * @return Whether the given type arrays are equal.
      */
     private static boolean equals(final Type[] type1, final Type[] type2) {
         if (type1.length == type2.length) {
@@ -519,11 +519,11 @@ public class TypeUtils {
     }
 
     /**
-     * Tests whether {@code t} equals {@code w}.
+     * Tests whether {@code wildcardType} equals {@code type}.
      *
      * @param wildcardType LHS.
      * @param type         RHS.
-     * @return boolean.
+     * @return Whether {@code wildcardType} equals {@code type}.
      */
     private static boolean equals(final WildcardType wildcardType, final Type type) {
         if (type instanceof WildcardType) {
