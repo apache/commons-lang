@@ -51,7 +51,7 @@ public class ClassUtils {
     /**
      * The JVM {@code CONSTANT_Class_info} structure defines an array type descriptor is valid only if it represents 255 or fewer dimensions.
      *
-     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.4.1:>JVM Specification CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
      */
     private static final int MAX_JVM_ARRAY_DIMENSION = 255;
 
@@ -533,6 +533,10 @@ public class ClassUtils {
      * @throws NullPointerException if the className is null.
      * @throws ClassNotFoundException if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @see Class#forName(String, boolean, ClassLoader)
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
      */
     public static Class<?> getClass(final ClassLoader classLoader, final String className) throws ClassNotFoundException {
         return getClass(classLoader, className, true);
@@ -550,6 +554,10 @@ public class ClassUtils {
      * @throws NullPointerException if the className is null.
      * @throws ClassNotFoundException if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @see Class#forName(String, boolean, ClassLoader)
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
      */
     public static Class<?> getClass(final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
         // This method was re-written to avoid recursion and stack overflows found by fuzz testing.
@@ -579,6 +587,10 @@ public class ClassUtils {
      * @throws NullPointerException if the className is null
      * @throws ClassNotFoundException if the class is not found
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @see Class#forName(String, boolean, ClassLoader)
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
      */
     public static Class<?> getClass(final String className) throws ClassNotFoundException {
         return getClass(className, true);
@@ -595,6 +607,10 @@ public class ClassUtils {
      * @throws NullPointerException if the className is null.
      * @throws ClassNotFoundException if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @see Class#forName(String, boolean, ClassLoader)
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
      */
     public static Class<?> getClass(final String className, final boolean initialize) throws ClassNotFoundException {
         final ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
