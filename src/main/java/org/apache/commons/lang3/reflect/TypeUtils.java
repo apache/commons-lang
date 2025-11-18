@@ -358,7 +358,7 @@ public class TypeUtils {
             buf.append(cls.getName());
         }
         if (cls.getTypeParameters().length > 0) {
-            GT_JOINER.join(buf, (TypeVariable[]) cls.getTypeParameters());
+            GT_JOINER.join(buf, (Object[]) cls.getTypeParameters());
         }
         return buf.toString();
     }
