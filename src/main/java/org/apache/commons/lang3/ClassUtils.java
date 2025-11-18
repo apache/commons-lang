@@ -49,6 +49,13 @@ import java.util.stream.Collectors;
 public class ClassUtils {
 
     /**
+     * The JVM {@code CONSTANT_Class_info} structure defines an array type descriptor is valid only if it represents 255 or fewer dimensions.
+     *
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
+     */
+    private static final int MAX_JVM_ARRAY_DIMENSION = 255;
+
+    /**
      * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
      *
      * @since 3.2
@@ -520,11 +527,16 @@ public class ClassUtils {
      * supports the syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
      * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
      *
-     * @param classLoader the class loader to use to load the class
-     * @param className the class name
-     * @return the class represented by {@code className} using the {@code classLoader}
-     * @throws NullPointerException if the className is null
-     * @throws ClassNotFoundException if the class is not found
+     * @param classLoader the class loader to use to load the class.
+     * @param className the class name.
+     * @return the class represented by {@code className} using the {@code classLoader}.
+     * @throws NullPointerException if the className is null.
+     * @throws ClassNotFoundException if the class is not found.
+     * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @see Class#forName(String, boolean, ClassLoader)
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
      */
     public static Class<?> getClass(final ClassLoader classLoader, final String className) throws ClassNotFoundException {
         return getClass(classLoader, className, true);
@@ -535,12 +547,17 @@ public class ClassUtils {
      * syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}", "{@code [Ljava.util.Map.Entry;}", and
      * "{@code [Ljava.util.Map$Entry;}".
      *
-     * @param classLoader the class loader to use to load the class
-     * @param className the class name
-     * @param initialize whether the class must be initialized
-     * @return the class represented by {@code className} using the {@code classLoader}
-     * @throws NullPointerException if the className is null
-     * @throws ClassNotFoundException if the class is not found
+     * @param classLoader the class loader to use to load the class.
+     * @param className the class name.
+     * @param initialize whether the class must be initialized.
+     * @return the class represented by {@code className} using the {@code classLoader}.
+     * @throws NullPointerException if the className is null.
+     * @throws ClassNotFoundException if the class is not found.
+     * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @see Class#forName(String, boolean, ClassLoader)
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
      */
     public static Class<?> getClass(final ClassLoader classLoader, final String className, final boolean initialize) throws ClassNotFoundException {
         // This method was re-written to avoid recursion and stack overflows found by fuzz testing.
@@ -569,6 +586,11 @@ public class ClassUtils {
      * @return the class represented by {@code className} using the current thread's context class loader
      * @throws NullPointerException if the className is null
      * @throws ClassNotFoundException if the class is not found
+     * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @see Class#forName(String, boolean, ClassLoader)
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
      */
     public static Class<?> getClass(final String className) throws ClassNotFoundException {
         return getClass(className, true);
@@ -579,11 +601,16 @@ public class ClassUtils {
      * implementation supports the syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
      * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
      *
-     * @param className the class name
-     * @param initialize whether the class must be initialized
-     * @return the class represented by {@code className} using the current thread's context class loader
-     * @throws NullPointerException if the className is null
-     * @throws ClassNotFoundException if the class is not found
+     * @param className the class name.
+     * @param initialize whether the class must be initialized.
+     * @return the class represented by {@code className} using the current thread's context class loader.
+     * @throws NullPointerException if the className is null.
+     * @throws ClassNotFoundException if the class is not found.
+     * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @see Class#forName(String, boolean, ClassLoader)
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
      */
     public static Class<?> getClass(final String className, final boolean initialize) throws ClassNotFoundException {
         final ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
@@ -1494,17 +1521,22 @@ public class ClassUtils {
     /**
      * Converts a class name to a JLS style class name.
      *
-     * @param className the class name
-     * @return the converted name
-     * @throws NullPointerException if the className is null
+     * @param className the class name.
+     * @return the converted name.
+     * @throws NullPointerException if the className is null.
+     * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
      */
     private static String toCanonicalName(final String className) {
         String canonicalName = StringUtils.deleteWhitespace(className);
         Objects.requireNonNull(canonicalName, "className");
         final String arrayMarker = "[]";
+        int arrayDim = 0;
         if (canonicalName.endsWith(arrayMarker)) {
             final StringBuilder classNameBuffer = new StringBuilder();
             while (canonicalName.endsWith(arrayMarker)) {
+                if (++arrayDim > MAX_JVM_ARRAY_DIMENSION) {
+                    throw new IllegalArgumentException("Array dimension greater than JVM specification maximum of 255.");
+                }
                 canonicalName = canonicalName.substring(0, canonicalName.length() - 2);
                 classNameBuffer.append("[");
             }
