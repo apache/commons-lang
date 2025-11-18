@@ -48,6 +48,11 @@ import java.util.stream.Collectors;
  */
 public class ClassUtils {
 
+    /**
+     * The JVM {@code CONSTANT_Class_info} structure defines an array type descriptor is valid only if it represents 255 or fewer dimensions.
+     *
+     * @see https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.4.1
+     */
     private static final int MAX_JVM_ARRAY_DIMENSION = 255;
 
     /**
