@@ -49,6 +49,12 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="ThrawnCA">Fix spelling and grammar in StringUtils #1486.</action>
     <action                   type="fix" dev="ggregory" due-to="Michael Hausegger, Gary Gregory">Add ConversionTest assertions to increase coverage #1489.</action>
     <action                   type="fix" dev="ggregory" due-to="Boda65665, Gary Gregory">Use Class&lt;?&gt; instead of Class&lt;? extends Object&gt; in MethodUtils #1491.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Arnout Engelen, Piotr P. Karwasz, Vladimir Sitnikov, Gilles Sadowski">ClassUtils now throws IllegalArgumentException if a class name represents an array with more dimensions than the JVM supports, 255:
+      getClass(ClassLoader, String, boolean),
+      ClassUtils.getClass(ClassLoader, String),
+      ClassUtils.getClass(String, boolean),
+      ClassUtils.getClass(String).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix console compiler warning: TypeUtils.java:[361,33] non-varargs call of varargs method with inexact argument type for last parameter.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
