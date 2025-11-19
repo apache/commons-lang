@@ -49,6 +49,20 @@ import java.util.stream.Collectors;
 public class ClassUtils {
 
     /**
+     * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
+     *
+     * @since 3.2
+     */
+    public enum Interfaces {
+
+        /** Includes interfaces. */
+        INCLUDE,
+
+        /** Excludes interfaces. */
+        EXCLUDE
+    }
+
+    /**
      * The JLS-specified maximum class name length {@value}.
      *
      * @see Class#forName(String, boolean, ClassLoader)
@@ -67,20 +81,6 @@ public class ClassUtils {
      * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
      */
     private static final int MAX_JVM_ARRAY_DIMENSION = 255;
-
-    /**
-     * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
-     *
-     * @since 3.2
-     */
-    public enum Interfaces {
-
-        /** Includes interfaces. */
-        INCLUDE,
-
-        /** Excludes interfaces. */
-        EXCLUDE
-    }
 
     /**
      * The maximum number of array dimensions.
@@ -1536,6 +1536,28 @@ public class ClassUtils {
     }
 
     /**
+     * Converts an array of {@link Object} in to an array of {@link Class} objects. If any of these objects is null, a null element will be inserted into the
+     * array.
+     *
+     * <p>
+     * This method returns {@code null} for a {@code null} input array.
+     * </p>
+     *
+     * @param array an {@link Object} array.
+     * @return a {@link Class} array, {@code null} if null array input.
+     * @since 2.4
+     */
+    public static Class<?>[] toClass(final Object... array) {
+        if (array == null) {
+            return null;
+        }
+        if (array.length == 0) {
+            return ArrayUtils.EMPTY_CLASS_ARRAY;
+        }
+        return ArrayUtils.setAll(new Class[array.length], i -> array[i] == null ? null : array[i].getClass());
+    }
+
+    /**
      * Converts and cleans up a class name to a JLS style class name.
      *
      * @param className the class name.
@@ -1594,28 +1616,6 @@ public class ClassUtils {
             canonicalName = classNameBuffer.toString();
         }
         return canonicalName;
-    }
-
-    /**
-     * Converts an array of {@link Object} in to an array of {@link Class} objects. If any of these objects is null, a null element will be inserted into the
-     * array.
-     *
-     * <p>
-     * This method returns {@code null} for a {@code null} input array.
-     * </p>
-     *
-     * @param array an {@link Object} array.
-     * @return a {@link Class} array, {@code null} if null array input.
-     * @since 2.4
-     */
-    public static Class<?>[] toClass(final Object... array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-            return ArrayUtils.EMPTY_CLASS_ARRAY;
-        }
-        return ArrayUtils.setAll(new Class[array.length], i -> array[i] == null ? null : array[i].getClass());
     }
 
     /**

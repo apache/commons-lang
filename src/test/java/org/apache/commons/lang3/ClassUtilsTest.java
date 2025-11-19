@@ -59,8 +59,6 @@ import org.junitpioneer.jupiter.params.IntRangeSource;
 @SuppressWarnings("boxing") // JUnit4 does not support primitive equality testing apart from long
 class ClassUtilsTest extends AbstractLangTest {
 
-    private static final int MAX_ARRAY_DIMENSIONS = 255;
-
     private static class CX implements IB, IA, IE {
         // empty
     }
@@ -99,6 +97,8 @@ class ClassUtilsTest extends AbstractLangTest {
             // empty
         }
     }
+
+    private static final int MAX_ARRAY_DIMENSIONS = 255;
 
     private static final String OBJECT_CANONICAL_NAME = "java.lang.Object";
 
