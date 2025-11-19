@@ -539,6 +539,10 @@ public class ClassUtils {
      * Gets the (initialized) class represented by {@code className} using the {@code classLoader}. This implementation
      * supports the syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
      * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
+     * <p>
+     * The provided class name is normalized by removing all whitespace. This is especially helpful when handling XML element values in which whitespace has not
+     * been collapsed.
+     * </p>
      *
      * @param classLoader the class loader to use to load the class.
      * @param className the class name.
@@ -560,6 +564,10 @@ public class ClassUtils {
      * Gets the class represented by {@code className} using the {@code classLoader}. This implementation supports the
      * syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}", "{@code [Ljava.util.Map.Entry;}", and
      * "{@code [Ljava.util.Map$Entry;}".
+     * <p>
+     * The provided class name is normalized by removing all whitespace. This is especially helpful when handling XML element values in which whitespace has not
+     * been collapsed.
+     * </p>
      *
      * @param classLoader the class loader to use to load the class.
      * @param className the class name.
@@ -596,6 +604,10 @@ public class ClassUtils {
      * Gets the (initialized) class represented by {@code className} using the current thread's context class loader.
      * This implementation supports the syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
      * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
+     * <p>
+     * The provided class name is normalized by removing all whitespace. This is especially helpful when handling XML element values in which whitespace has not
+     * been collapsed.
+     * </p>
      *
      * @param className the class name
      * @return the class represented by {@code className} using the current thread's context class loader
@@ -616,6 +628,10 @@ public class ClassUtils {
      * Gets the class represented by {@code className} using the current thread's context class loader. This
      * implementation supports the syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
      * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
+     * <p>
+     * The provided class name is normalized by removing all whitespace. This is especially helpful when handling XML element values in which whitespace has not
+     * been collapsed.
+     * </p>
      *
      * @param className the class name.
      * @param initialize whether the class must be initialized.
@@ -1559,6 +1575,10 @@ public class ClassUtils {
 
     /**
      * Converts and cleans up a class name to a JLS style class name.
+     * <p>
+     * The provided class name is normalized by removing all whitespace. This is especially helpful when handling XML element values in which whitespace has not
+     * been collapsed.
+     * </p>
      *
      * @param className the class name.
      * @return the converted name.
