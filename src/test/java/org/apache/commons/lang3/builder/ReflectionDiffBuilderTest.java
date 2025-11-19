@@ -169,7 +169,7 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder =
                 new ReflectionDiffBuilder<>(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
         // @formatter:on
-        reflectionDiffBuilder.setExcludeFieldNames(null);
+        reflectionDiffBuilder.setExcludeFieldNames((String[]) null);
         final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
         assertNotNull(excludeFieldNames);
         assertEquals(0, excludeFieldNames.length);
