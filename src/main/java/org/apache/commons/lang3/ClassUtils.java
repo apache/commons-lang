@@ -1583,8 +1583,7 @@ public class ClassUtils {
             if (dims > MAX_JVM_ARRAY_DIMENSION) {
                 throw new IllegalArgumentException("Array dimension greater than JVM specification maximum of 255.");
             }
-            final StringBuilder classNameBuffer = new StringBuilder();
-            classNameBuffer.append(StringUtils.repeat(encodedArrayOpen, dims));
+            final StringBuilder classNameBuffer = new StringBuilder(StringUtils.repeat(encodedArrayOpen, dims));
             canonicalName = canonicalName.substring(0, arrIdx);
             final String abbreviation = ABBREVIATION_MAP.get(canonicalName);
             if (abbreviation != null) {
