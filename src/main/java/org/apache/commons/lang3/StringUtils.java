@@ -6774,27 +6774,23 @@ public class StringUtils {
     }
 
     /**
-     * Reverses a String as per {@link StringBuilder#reverse()}.
-     *
-     * <p>
-     * A {@code null} String returns {@code null}.
-     * </p>
-     *
-     * <pre>
-     * StringUtils.reverse(null)  = null
-     * StringUtils.reverse("")    = ""
-     * StringUtils.reverse("bat") = "tab"
-     * </pre>
-     *
-     * @param str the String to reverse, may be null.
-     * @return the reversed String, {@code null} if null String input.
-     */
-    public static String reverse(final String str) {
-        if (str == null) {
-            return null;
-        }
-        return new StringBuilder(str).reverse().toString();
-    }
+ * Reverses the characters in a String.
+ * <p>
+ * This method behaves the same as {@link StringBuilder#reverse()}, returning
+ * {@code null} if the input is {@code null}.
+ * </p>
+ *
+ * <p>Examples:</p>
+ * <pre>
+ *   StringUtils.reverse(null)    = null
+ *   StringUtils.reverse("")      = ""
+ *   StringUtils.reverse("bat")   = "tab"
+ *   StringUtils.reverse("Hello") = "olleH"
+ * </pre>
+ *
+ * @param str the String to reverse, may be null
+ * @return the reversed String, or {@code null} if the input was null
+ */
 
     /**
      * Reverses a String that is delimited by a specific character.
