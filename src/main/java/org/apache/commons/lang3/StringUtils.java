@@ -6773,22 +6773,12 @@ public class StringUtils {
         return RegExUtils.replacePattern(source, regex, replacement);
     }
 
-    /**
- * Reverses the characters in a String.
- * <p>
- * This method behaves the same as {@link StringBuilder#reverse()}, returning
- * {@code null} if the input is {@code null}.
- * </p>
+   /**
+ * Reverses a String.
  *
- * <p>Examples:</p>
- * <pre>
- *   StringUtils.reverse(null)    = null
- *   StringUtils.reverse("")      = ""
- *   StringUtils.reverse("bat")   = "tab"
- *   StringUtils.reverse("Hello") = "olleH"
- * </pre>
+ * <p>Returns {@code null} if the input is {@code null}.</p>
  *
- * @param str the String to reverse, may be null
+ * @param str  the String to reverse, may be null
  * @return the reversed String, or {@code null} if the input was null
  */
 
