@@ -569,6 +569,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Avoid NPE in MutableObject#equals() for null content.</action>
     <action                   type="fix" dev="ggregory" due-to="Ali Khaleqi Yekta, Gary Gregory">SystemUtils fix and updates related to macOS #1085.</action>
     <action issue="LANG-1254" type="fix" dev="ggregory" due-to="John Mark, Gary Gregory">ThreadLocalRandom should be used in utility classes.</action>
+    <action issue="LANG-1648" type="fix" dev="ggregory" due-to="Michele Preti, Eric Ballet Baz, Gary Gregory">MethodUtils.getAnnotation fails with "Found multiple candidates for method ...".</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>
