@@ -29,12 +29,15 @@ import org.junit.jupiter.api.Test;
  * Tests {@link StringUtils#abbreviate(String, int)} and friends.
  */
 class StringUtilsAbbreviateTest {
+    private static final int DEFAULT_MAX_WIDTH = 10;
+    private static final int SHORT_MAX_WIDTH = 14;
+    private static final int MEDIUM_MAX_WIDTH = 15;
+    private static final String TEST_STRING = "abcdefghijklmno";
 
     private void assertAbbreviateWithAbbrevMarkerAndOffset(final String expected, final String abbrevMarker, final int offset, final int maxWidth) {
-        final String abcdefghijklmno = "abcdefghijklmno";
-        final String message = "abbreviate(String,String,int,int) failed";
-        final String actual = StringUtils.abbreviate(abcdefghijklmno, abbrevMarker, offset, maxWidth);
-        if (offset >= 0 && offset < abcdefghijklmno.length()) {
+        final String message = createAbbreviateMessage("String,String,int,int");
+        final String actual = StringUtils.abbreviate(TEST_STRING, abbrevMarker, offset, maxWidth);
+        if (isValidOffsetInRange(offset, TEST_STRING)) {
             assertTrue(actual.indexOf((char) ('a' + offset)) != -1, message + " -- should contain offset character");
         }
         assertTrue(actual.length() <= maxWidth, () -> message + " -- should not be greater than maxWidth");
@@ -42,10 +45,9 @@ class StringUtilsAbbreviateTest {
     }
 
     private void assertAbbreviateWithOffset(final String expected, final int offset, final int maxWidth) {
-        final String abcdefghijklmno = "abcdefghijklmno";
-        final String message = "abbreviate(String,int,int) failed";
-        final String actual = StringUtils.abbreviate(abcdefghijklmno, offset, maxWidth);
-        if (offset >= 0 && offset < abcdefghijklmno.length()) {
+        final String message = createAbbreviateMessage("String,int,int");
+        final String actual = StringUtils.abbreviate(TEST_STRING, offset, maxWidth);
+        if (isValidOffsetInRange(offset, TEST_STRING)) {
             assertTrue(actual.indexOf((char) ('a' + offset)) != -1, message + " -- should contain offset character");
         }
         assertTrue(actual.length() <= maxWidth, () -> message + " -- should not be greater than maxWidth");
@@ -54,12 +56,7 @@ class StringUtilsAbbreviateTest {
 
     @Test
     void testAbbreviate_StringInt() {
-        assertNull(StringUtils.abbreviate(null, 10));
-        assertEquals("", StringUtils.abbreviate("", 10));
-        assertEquals("short", StringUtils.abbreviate("short", 10));
-        assertEquals("Now is ...", StringUtils.abbreviate("Now is the time for all good men to come to the aid of their party.", 10));
-        final String raspberry = "raspberry peach";
-        assertEquals("raspberry p...", StringUtils.abbreviate(raspberry, 14));
+        testAbbreviateBasicCases();
         assertEquals("raspberry peach", StringUtils.abbreviate("raspberry peach", 15));
         assertEquals("raspberry peach", StringUtils.abbreviate("raspberry peach", 16));
         assertEquals("abc...", StringUtils.abbreviate("abcdefg", 6));
@@ -68,6 +65,15 @@ class StringUtilsAbbreviateTest {
         assertEquals("a...", StringUtils.abbreviate("abcdefg", 4));
         assertEquals("", StringUtils.abbreviate("", 4));
         assertIllegalArgumentException(() -> StringUtils.abbreviate("abc", 3), "StringUtils.abbreviate expecting IllegalArgumentException");
+    }
+
+    private static void testAbbreviateBasicCases() {
+        assertNull(StringUtils.abbreviate(null, 10));
+        assertEquals("", StringUtils.abbreviate("", DEFAULT_MAX_WIDTH));
+        assertEquals("short", StringUtils.abbreviate("short", DEFAULT_MAX_WIDTH));
+        assertEquals("Now is ...", StringUtils.abbreviate("Now is the time for all good men to come to the aid of their party.", 10));
+        final String raspberry = "raspberry peach";
+        assertEquals("raspberry p...", StringUtils.abbreviate(raspberry, 14));
     }
 
     @Test
@@ -202,31 +208,31 @@ class StringUtilsAbbreviateTest {
     void testEmoji() {
         // @formatter:off
         final String[] expectedResultsFox = {
-            "🦊...", // 4
-            "🦊🦊...",
-            "🦊🦊🦊...",
-            "🦊🦊🦊🦊...",
-            "🦊🦊🦊🦊🦊...",
-            "🦊🦊🦊🦊🦊🦊...",
-            "🦊🦊🦊🦊🦊🦊🦊...", // 10
+                "🦊...", // 4
+                "🦊🦊...",
+                "🦊🦊🦊...",
+                "🦊🦊🦊🦊...",
+                "🦊🦊🦊🦊🦊...",
+                "🦊🦊🦊🦊🦊🦊...",
+                "🦊🦊🦊🦊🦊🦊🦊...", // 10
         };
         final String[] expectedResultsFamilyWithCodepoints = {
-            "👩...",
-            "👩🏻...",
-            "👩🏻‍...", // zero width joiner
-            "👩🏻‍👨...",
-            "👩🏻‍👨🏻...",
-            "👩🏻‍👨🏻‍...",
-            "👩🏻‍👨🏻‍👦..."
+                "👩...",
+                "👩🏻...",
+                "👩🏻‍...", // zero width joiner
+                "👩🏻‍👨...",
+                "👩🏻‍👨🏻...",
+                "👩🏻‍👨🏻‍...",
+                "👩🏻‍👨🏻‍👦..."
         };
         final String[] expectedResultsFamilyWithGrapheme = {
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻...", // 4
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼...",
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽...",
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾...",
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿...",
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻...",
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼..." // 10
+                "👩🏻‍👨🏻‍👦🏻‍👦🏻...", // 4
+                "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼...",
+                "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽...",
+                "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾...",
+                "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿...",
+                "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻...",
+                "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼..." // 10
         };
         // @formatter:on
         for (int i = 4; i <= 10; i++) {
@@ -241,5 +247,22 @@ class StringUtilsAbbreviateTest {
             assertNotNull(abbreviateResult);
             // assertEquals(expectedResultsFamilyWithCodepoints[i - 4], abbreviateResult);
         }
+    }
+
+    /**
+     * Helper method to check if offset is valid within string range.
+     * Decomposed conditional for improved readability.
+     * Refactoring 3: Decompose Conditional
+     */
+    private boolean isValidOffsetInRange(final int offset, final String str) {
+        return offset >= 0 && offset < str.length();
+    }
+
+    /**
+     * Helper method to create consistent abbreviate failure messages.
+     * Refactoring 6: Move Method (consolidates message creation)
+     */
+    private String createAbbreviateMessage(final String signature) {
+        return "abbreviate(" + signature + ") failed";
     }
 }
