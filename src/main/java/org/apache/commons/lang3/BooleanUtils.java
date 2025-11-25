@@ -80,6 +80,19 @@ public class BooleanUtils {
     public static final String YES = "yes";
 
     /**
+     * Checks if a character matches either of two characters (case-insensitive comparison).
+     * This is a helper method to simplify case-insensitive character matching.
+     *
+     * @param ch the character to check
+     * @param lower the lowercase character to match
+     * @param upper the uppercase character to match
+     * @return {@code true} if ch equals either lower or upper
+     */
+    private static boolean charMatches(final char ch, final char lower, final char upper) {
+        return ch == lower || ch == upper;
+    }
+
+    /**
      * Performs an 'and' operation on a set of booleans.
      *
      * <pre>
@@ -747,13 +760,13 @@ public class BooleanUtils {
         switch (str.length()) {
             case 1: {
                 final char ch0 = str.charAt(0);
-                if (ch0 == 'y' || ch0 == 'Y' ||
-                    ch0 == 't' || ch0 == 'T' ||
+                if (charMatches(ch0, 'y', 'Y') ||
+                    charMatches(ch0, 't', 'T') ||
                     ch0 == '1') {
                     return Boolean.TRUE;
                 }
-                if (ch0 == 'n' || ch0 == 'N' ||
-                    ch0 == 'f' || ch0 == 'F' ||
+                if (charMatches(ch0, 'n', 'N') ||
+                    charMatches(ch0, 'f', 'F') ||
                     ch0 == '0') {
                     return Boolean.FALSE;
                 }
@@ -762,12 +775,12 @@ public class BooleanUtils {
             case 2: {
                 final char ch0 = str.charAt(0);
                 final char ch1 = str.charAt(1);
-                if ((ch0 == 'o' || ch0 == 'O') &&
-                    (ch1 == 'n' || ch1 == 'N')) {
+                if (charMatches(ch0, 'o', 'O') &&
+                    charMatches(ch1, 'n', 'N')) {
                     return Boolean.TRUE;
                 }
-                if ((ch0 == 'n' || ch0 == 'N') &&
-                    (ch1 == 'o' || ch1 == 'O')) {
+                if (charMatches(ch0, 'n', 'N') &&
+                    charMatches(ch1, 'o', 'O')) {
                     return Boolean.FALSE;
                 }
                 break;
@@ -776,14 +789,14 @@ public class BooleanUtils {
                 final char ch0 = str.charAt(0);
                 final char ch1 = str.charAt(1);
                 final char ch2 = str.charAt(2);
-                if ((ch0 == 'y' || ch0 == 'Y') &&
-                    (ch1 == 'e' || ch1 == 'E') &&
-                    (ch2 == 's' || ch2 == 'S')) {
+                if (charMatches(ch0, 'y', 'Y') &&
+                    charMatches(ch1, 'e', 'E') &&
+                    charMatches(ch2, 's', 'S')) {
                     return Boolean.TRUE;
                 }
-                if ((ch0 == 'o' || ch0 == 'O') &&
-                    (ch1 == 'f' || ch1 == 'F') &&
-                    (ch2 == 'f' || ch2 == 'F')) {
+                if (charMatches(ch0, 'o', 'O') &&
+                    charMatches(ch1, 'f', 'F') &&
+                    charMatches(ch2, 'f', 'F')) {
                     return Boolean.FALSE;
                 }
                 break;
@@ -793,10 +806,10 @@ public class BooleanUtils {
                 final char ch1 = str.charAt(1);
                 final char ch2 = str.charAt(2);
                 final char ch3 = str.charAt(3);
-                if ((ch0 == 't' || ch0 == 'T') &&
-                    (ch1 == 'r' || ch1 == 'R') &&
-                    (ch2 == 'u' || ch2 == 'U') &&
-                    (ch3 == 'e' || ch3 == 'E')) {
+                if (charMatches(ch0, 't', 'T') &&
+                    charMatches(ch1, 'r', 'R') &&
+                    charMatches(ch2, 'u', 'U') &&
+                    charMatches(ch3, 'e', 'E')) {
                     return Boolean.TRUE;
                 }
                 break;
@@ -807,11 +820,11 @@ public class BooleanUtils {
                 final char ch2 = str.charAt(2);
                 final char ch3 = str.charAt(3);
                 final char ch4 = str.charAt(4);
-                if ((ch0 == 'f' || ch0 == 'F') &&
-                    (ch1 == 'a' || ch1 == 'A') &&
-                    (ch2 == 'l' || ch2 == 'L') &&
-                    (ch3 == 's' || ch3 == 'S') &&
-                    (ch4 == 'e' || ch4 == 'E')) {
+                if (charMatches(ch0, 'f', 'F') &&
+                    charMatches(ch1, 'a', 'A') &&
+                    charMatches(ch2, 'l', 'L') &&
+                    charMatches(ch3, 's', 'S') &&
+                    charMatches(ch4, 'e', 'E')) {
                     return Boolean.FALSE;
                 }
                 break;

@@ -2112,7 +2112,6 @@ public class SystemUtils {
             return value == null ? defaultValue : value;
         } catch (final SecurityException ex) {
             // we are not allowed to look at this property
-            // System.err.println("Caught a SecurityException reading the environment variable '" + name + "'.");
             return defaultValue;
         }
     }

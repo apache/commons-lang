@@ -6429,25 +6429,11 @@ public class StringUtils {
         // index on index that the match was found
         int textIndex = -1;
         int replaceIndex = -1;
-        int tempIndex;
 
         // index of replace array that will replace the search string found
-        // NOTE: logic duplicated below START
-        for (int i = 0; i < searchLength; i++) {
-            if (noMoreMatchesForReplIndex[i] || isEmpty(searchList[i]) || replacementList[i] == null) {
-                continue;
-            }
-            tempIndex = text.indexOf(searchList[i]);
-
-            // see if we need to keep searching for this
-            if (tempIndex == -1) {
-                noMoreMatchesForReplIndex[i] = true;
-            } else if (textIndex == -1 || tempIndex < textIndex) {
-                textIndex = tempIndex;
-                replaceIndex = i;
-            }
-        }
-        // NOTE: logic mostly below END
+        final int[] searchResult = findEarliestMatch(text, searchList, replacementList, noMoreMatchesForReplIndex, 0);
+        textIndex = searchResult[0];
+        replaceIndex = searchResult[1];
 
         // no search strings found, we are done
         if (textIndex == -1) {
@@ -6483,25 +6469,10 @@ public class StringUtils {
 
             start = textIndex + searchList[replaceIndex].length();
 
-            textIndex = -1;
-            replaceIndex = -1;
             // find the next earliest match
-            // NOTE: logic mostly duplicated above START
-            for (int i = 0; i < searchLength; i++) {
-                if (noMoreMatchesForReplIndex[i] || isEmpty(searchList[i]) || replacementList[i] == null) {
-                    continue;
-                }
-                tempIndex = text.indexOf(searchList[i], start);
-
-                // see if we need to keep searching for this
-                if (tempIndex == -1) {
-                    noMoreMatchesForReplIndex[i] = true;
-                } else if (textIndex == -1 || tempIndex < textIndex) {
-                    textIndex = tempIndex;
-                    replaceIndex = i;
-                }
-            }
-            // NOTE: logic duplicated above END
+            final int[] nextMatch = findEarliestMatch(text, searchList, replacementList, noMoreMatchesForReplIndex, start);
+            textIndex = nextMatch[0];
+            replaceIndex = nextMatch[1];
 
         }
         final int textLength = text.length();
@@ -6514,6 +6485,40 @@ public class StringUtils {
         }
 
         return replaceEach(result, searchList, replacementList, repeat, timeToLive - 1);
+    }
+
+    /**
+     * Finds the earliest match in the text from the search list.
+     * This is a helper method to eliminate duplicated code in replaceEach.
+     *
+     * @param text the text to search in
+     * @param searchList the strings to search for
+     * @param replacementList the replacement strings
+     * @param noMoreMatchesForReplIndex tracking array for exhausted search terms
+     * @param startPos the position to start searching from
+     * @return an int array where [0] is the text index and [1] is the replace index, or {-1, -1} if no match
+     */
+    private static int[] findEarliestMatch(final String text, final String[] searchList, final String[] replacementList,
+            final boolean[] noMoreMatchesForReplIndex, final int startPos) {
+        int textIndex = -1;
+        int replaceIndex = -1;
+        final int searchLength = searchList.length;
+
+        for (int i = 0; i < searchLength; i++) {
+            if (noMoreMatchesForReplIndex[i] || isEmpty(searchList[i]) || replacementList[i] == null) {
+                continue;
+            }
+            final int tempIndex = text.indexOf(searchList[i], startPos);
+
+            // see if we need to keep searching for this
+            if (tempIndex == -1) {
+                noMoreMatchesForReplIndex[i] = true;
+            } else if (textIndex == -1 || tempIndex < textIndex) {
+                textIndex = tempIndex;
+                replaceIndex = i;
+            }
+        }
+        return new int[] {textIndex, replaceIndex};
     }
 
     /**
