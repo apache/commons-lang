@@ -30,7 +30,13 @@ import java.util.Objects;
  */
 public class CharUtils {
 
-    private static final String[] CHAR_STRING_ARRAY = ArrayUtils.setAll(new String[128], i -> String.valueOf((char) i));
+    /**
+     * The number of characters in the ASCII character set (0-127).
+     * Used as the boundary for ASCII character validation.
+     */
+    private static final int ASCII_CHARACTER_COUNT = 128;
+
+    private static final String[] CHAR_STRING_ARRAY = ArrayUtils.setAll(new String[ASCII_CHARACTER_COUNT], i -> String.valueOf((char) i));
 
     private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
@@ -89,7 +95,7 @@ public class CharUtils {
      * @return true if less than 128
      */
     public static boolean isAscii(final char ch) {
-        return ch < 128;
+        return ch < ASCII_CHARACTER_COUNT;
     }
 
     /**

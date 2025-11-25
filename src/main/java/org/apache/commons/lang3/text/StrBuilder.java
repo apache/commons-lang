@@ -265,6 +265,16 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     static final int CAPACITY = 32;
 
     /**
+     * Length of the string "true" for boolean append optimization.
+     */
+    private static final int TRUE_STRING_LENGTH = 4;
+
+    /**
+     * Length of the string "false" for boolean append optimization.
+     */
+    private static final int FALSE_STRING_LENGTH = 5;
+
+    /**
      * Required for serialization support.
      *
      * @see java.io.Serializable
@@ -327,12 +337,12 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder append(final boolean value) {
         if (value) {
-            ensureCapacity(size + 4);
+            ensureCapacity(size + TRUE_STRING_LENGTH);
             buffer[size++] = 't';
             buffer[size++] = 'r';
             buffer[size++] = 'u';
         } else {
-            ensureCapacity(size + 5);
+            ensureCapacity(size + FALSE_STRING_LENGTH);
             buffer[size++] = 'f';
             buffer[size++] = 'a';
             buffer[size++] = 'l';
