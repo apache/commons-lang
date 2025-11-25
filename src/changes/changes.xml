@@ -62,6 +62,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix console compiler warning: TypeUtils.java:[361,33] non-varargs call of varargs method with inexact argument type for last parameter.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix console compiler warning: ReflectionDiffBuilderTest.java:[172,52] non-varargs call of varargs method with inexact argument type for last parameter.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix Apache RAT plugin console warnings.</action>
+    <action issue="LANG-1793" type="fix" dev="ggregory" due-to="IcoreE">Fix Javadoc description in CharUtils.isAsciiAlphanumeric() #1501.</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 93 #1498.</action>
