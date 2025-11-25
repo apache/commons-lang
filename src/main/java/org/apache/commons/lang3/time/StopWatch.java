@@ -74,6 +74,52 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 public class StopWatch {
 
     /**
+     * Stores a split as a label and duration.
+     *
+     * @since 3.20.0
+     */
+    public static final class Split extends ImmutablePair<String, Duration> {
+
+        /**
+         * Constructs a Split object with label and duration.
+         *
+         * @param label Label for this split.
+         * @param duration Duration for this split.
+         */
+        public Split(String label, Duration duration) {
+            super(label, duration);
+        }
+
+        /**
+         * Gets the duration of this split.
+         *
+         * @return The duration of this split..
+         */
+        public Duration getDuration() {
+            return getRight();
+        }
+
+        /**
+         * Gets the label of this split.
+         *
+         * @return The label of this split.
+         */
+        public String getLabel() {
+            return getLeft();
+        }
+
+        /**
+         * Converts this instance to a string.
+         *
+         * @return this instance to a string.
+         */
+        @Override
+        public String toString() {
+            return String.format("Split [%s, %s])", getLabel(), getDuration());
+        }
+    }
+
+    /**
      * Enumeration type which indicates the split status of a StopWatch.
      */
     private enum SplitState {
@@ -336,16 +382,6 @@ public class StopWatch {
     }
 
     /**
-     * Gets the split list.
-     *
-     * @return the list of splits.
-     * @since 3.20.0
-     */
-    public List<Split> getSplits() {
-        return Collections.unmodifiableList(splits);
-    }
-
-    /**
      * Gets the <em>elapsed</em> time in nanoseconds.
      *
      * <p>
@@ -402,6 +438,16 @@ public class StopWatch {
             throw new IllegalStateException("Stopwatch must be split to get the split time.");
         }
         return splits.get(splits.size() - 1).getRight().toNanos();
+    }
+
+    /**
+     * Gets the split list.
+     *
+     * @return the list of splits.
+     * @since 3.20.0
+     */
+    public List<Split> getSplits() {
+        return Collections.unmodifiableList(splits);
     }
 
     /**
@@ -788,52 +834,6 @@ public class StopWatch {
         }
         splitState = SplitState.UNSPLIT;
         splits.remove(splits.size() - 1);
-    }
-
-    /**
-     * Stores a split as a label and duration.
-     *
-     * @since 3.20.0
-     */
-    public static final class Split extends ImmutablePair<String, Duration> {
-
-        /**
-         * Constructs a Split object with label and duration.
-         *
-         * @param label Label for this split.
-         * @param duration Duration for this split.
-         */
-        public Split(String label, Duration duration) {
-            super(label, duration);
-        }
-
-        /**
-         * Gets the label of this split.
-         *
-         * @return The label of this split.
-         */
-        public String getLabel() {
-            return getLeft();
-        }
-
-        /**
-         * Gets the duration of this split.
-         *
-         * @return The duration of this split..
-         */
-        public Duration getDuration() {
-            return getRight();
-        }
-
-        /**
-         * Converts this instance to a string.
-         *
-         * @return this instance to a string.
-         */
-        @Override
-        public String toString() {
-            return String.format("Split [%s, %s])", getLabel(), getDuration());
-        }
     }
 
 }

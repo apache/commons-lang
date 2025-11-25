@@ -54,9 +54,18 @@ The <action> type attribute can be add,update,fix,remove.
       ClassUtils.getClass(ClassLoader, String),
       ClassUtils.getClass(String, boolean),
       ClassUtils.getClass(String).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Arnout Engelen, Piotr P. Karwasz, Vladimir Sitnikov, Gilles Sadowski">ClassUtils now throws IllegalArgumentException if a class name length is greater than 65,535:
+      getClass(ClassLoader, String, boolean),
+      ClassUtils.getClass(ClassLoader, String),
+      ClassUtils.getClass(String, boolean),
+      ClassUtils.getClass(String).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix console compiler warning: TypeUtils.java:[361,33] non-varargs call of varargs method with inexact argument type for last parameter.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix console compiler warning: ReflectionDiffBuilderTest.java:[172,52] non-varargs call of varargs method with inexact argument type for last parameter.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix Apache RAT plugin console warnings.</action>
+    <action issue="LANG-1793" type="fix" dev="ggregory" due-to="IcoreE">Fix Javadoc description in CharUtils.isAsciiAlphanumeric() #1501.</action>
     <!-- ADD -->
     <!-- UPDATE -->
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 93 #1498.</action>
   </release>
   <release version="3.20.0" date="2025-11-12" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
@@ -563,6 +572,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Avoid NPE in MutableObject#equals() for null content.</action>
     <action                   type="fix" dev="ggregory" due-to="Ali Khaleqi Yekta, Gary Gregory">SystemUtils fix and updates related to macOS #1085.</action>
     <action issue="LANG-1254" type="fix" dev="ggregory" due-to="John Mark, Gary Gregory">ThreadLocalRandom should be used in utility classes.</action>
+    <action issue="LANG-1648" type="fix" dev="ggregory" due-to="Michele Preti, Eric Ballet Baz, Gary Gregory">MethodUtils.getAnnotation fails with "Found multiple candidates for method ...".</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add GitHub coverage.yml.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add EnumUtils.getEnumSystemProperty(...).</action>

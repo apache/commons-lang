@@ -131,7 +131,7 @@ public class CharUtils {
     }
 
     /**
-     * Tests whether the character is ASCII 7 bit numeric.
+     * Tests whether the character is ASCII 7 bit alphanumeric character.
      *
      * <pre>
      *   CharUtils.isAsciiAlphanumeric('a')  = true

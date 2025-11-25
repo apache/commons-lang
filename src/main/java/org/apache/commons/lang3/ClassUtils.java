@@ -49,13 +49,6 @@ import java.util.stream.Collectors;
 public class ClassUtils {
 
     /**
-     * The JVM {@code CONSTANT_Class_info} structure defines an array type descriptor is valid only if it represents 255 or fewer dimensions.
-     *
-     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
-     */
-    private static final int MAX_JVM_ARRAY_DIMENSION = 255;
-
-    /**
      * Inclusivity literals for {@link #hierarchy(Class, Interfaces)}.
      *
      * @since 3.2
@@ -68,6 +61,26 @@ public class ClassUtils {
         /** Excludes interfaces. */
         EXCLUDE
     }
+
+    /**
+     * The JLS-specified maximum class name length {@value}.
+     *
+     * @see Class#forName(String, boolean, ClassLoader)
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
+     */
+    private static final int MAX_CLASS_NAME_LENGTH = 65535;
+
+    /**
+     * The JVM-specified {@code CONSTANT_Class_info} structure defines an array type descriptor is valid only if it represents {@value} or fewer dimensions.
+     *
+     * @see Class#forName(String, boolean, ClassLoader)
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
+     */
+    private static final int MAX_JVM_ARRAY_DIMENSION = 255;
 
     /**
      * The maximum number of array dimensions.
@@ -526,6 +539,10 @@ public class ClassUtils {
      * Gets the (initialized) class represented by {@code className} using the {@code classLoader}. This implementation
      * supports the syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
      * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
+     * <p>
+     * The provided class name is normalized by removing all whitespace. This is especially helpful when handling XML element values in which whitespace has not
+     * been collapsed.
+     * </p>
      *
      * @param classLoader the class loader to use to load the class.
      * @param className the class name.
@@ -533,6 +550,7 @@ public class ClassUtils {
      * @throws NullPointerException if the className is null.
      * @throws ClassNotFoundException if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      * @see Class#forName(String, boolean, ClassLoader)
      * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
      * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
@@ -546,6 +564,10 @@ public class ClassUtils {
      * Gets the class represented by {@code className} using the {@code classLoader}. This implementation supports the
      * syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}", "{@code [Ljava.util.Map.Entry;}", and
      * "{@code [Ljava.util.Map$Entry;}".
+     * <p>
+     * The provided class name is normalized by removing all whitespace. This is especially helpful when handling XML element values in which whitespace has not
+     * been collapsed.
+     * </p>
      *
      * @param classLoader the class loader to use to load the class.
      * @param className the class name.
@@ -554,6 +576,7 @@ public class ClassUtils {
      * @throws NullPointerException if the className is null.
      * @throws ClassNotFoundException if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      * @see Class#forName(String, boolean, ClassLoader)
      * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
      * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
@@ -566,7 +589,7 @@ public class ClassUtils {
         do {
             try {
                 final Class<?> clazz = getPrimitiveClass(next);
-                return clazz != null ? clazz : Class.forName(toCanonicalName(next), initialize, classLoader);
+                return clazz != null ? clazz : Class.forName(toCleanName(next), initialize, classLoader);
             } catch (final ClassNotFoundException ex) {
                 lastDotIndex = next.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
                 if (lastDotIndex != -1) {
@@ -581,12 +604,17 @@ public class ClassUtils {
      * Gets the (initialized) class represented by {@code className} using the current thread's context class loader.
      * This implementation supports the syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
      * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
+     * <p>
+     * The provided class name is normalized by removing all whitespace. This is especially helpful when handling XML element values in which whitespace has not
+     * been collapsed.
+     * </p>
      *
      * @param className the class name
      * @return the class represented by {@code className} using the current thread's context class loader
      * @throws NullPointerException if the className is null
      * @throws ClassNotFoundException if the class is not found
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      * @see Class#forName(String, boolean, ClassLoader)
      * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
      * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
@@ -600,6 +628,10 @@ public class ClassUtils {
      * Gets the class represented by {@code className} using the current thread's context class loader. This
      * implementation supports the syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
      * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
+     * <p>
+     * The provided class name is normalized by removing all whitespace. This is especially helpful when handling XML element values in which whitespace has not
+     * been collapsed.
+     * </p>
      *
      * @param className the class name.
      * @param initialize whether the class must be initialized.
@@ -607,6 +639,7 @@ public class ClassUtils {
      * @throws NullPointerException if the className is null.
      * @throws ClassNotFoundException if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      * @see Class#forName(String, boolean, ClassLoader)
      * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification CONSTANT_Class_info</a>
      * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
@@ -1519,39 +1552,6 @@ public class ClassUtils {
     }
 
     /**
-     * Converts a class name to a JLS style class name.
-     *
-     * @param className the class name.
-     * @return the converted name.
-     * @throws NullPointerException if the className is null.
-     * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
-     */
-    private static String toCanonicalName(final String className) {
-        String canonicalName = StringUtils.deleteWhitespace(className);
-        Objects.requireNonNull(canonicalName, "className");
-        final String arrayMarker = "[]";
-        int arrayDim = 0;
-        if (canonicalName.endsWith(arrayMarker)) {
-            final StringBuilder classNameBuffer = new StringBuilder();
-            while (canonicalName.endsWith(arrayMarker)) {
-                if (++arrayDim > MAX_JVM_ARRAY_DIMENSION) {
-                    throw new IllegalArgumentException("Array dimension greater than JVM specification maximum of 255.");
-                }
-                canonicalName = canonicalName.substring(0, canonicalName.length() - 2);
-                classNameBuffer.append("[");
-            }
-            final String abbreviation = ABBREVIATION_MAP.get(canonicalName);
-            if (abbreviation != null) {
-                classNameBuffer.append(abbreviation);
-            } else {
-                classNameBuffer.append("L").append(canonicalName).append(";");
-            }
-            canonicalName = classNameBuffer.toString();
-        }
-        return canonicalName;
-    }
-
-    /**
      * Converts an array of {@link Object} in to an array of {@link Class} objects. If any of these objects is null, a null element will be inserted into the
      * array.
      *
@@ -1571,6 +1571,71 @@ public class ClassUtils {
             return ArrayUtils.EMPTY_CLASS_ARRAY;
         }
         return ArrayUtils.setAll(new Class[array.length], i -> array[i] == null ? null : array[i].getClass());
+    }
+
+    /**
+     * Converts and cleans up a class name to a JLS style class name.
+     * <p>
+     * The provided class name is normalized by removing all whitespace. This is especially helpful when handling XML element values in which whitespace has not
+     * been collapsed.
+     * </p>
+     *
+     * @param className the class name.
+     * @return the converted name.
+     * @throws NullPointerException     if the className is null.
+     * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
+     * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification
+     *      CONSTANT_Class_info</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-6.html#jls-6.7">JLS: Fully Qualified Names and Canonical Names</a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-13.html#jls-13.1">JLS: The Form of a Binary</a>
+     */
+    private static String toCleanName(final String className) {
+        String canonicalName = StringUtils.deleteWhitespace(className);
+        Objects.requireNonNull(canonicalName, "className");
+        if (canonicalName.isEmpty()) {
+            throw new IllegalArgumentException("Class name is empty");
+        }
+        final String encodedArrayOpen = "[";
+        final String encodedClassNameStart = "L";
+        final String encodedClassNameEnd = ";";
+        final boolean encodedName = canonicalName.startsWith(encodedArrayOpen) && canonicalName.endsWith(encodedClassNameEnd);
+        if (encodedName) {
+            final int arrIdx = canonicalName.indexOf(encodedClassNameStart);
+            if (arrIdx > MAX_JVM_ARRAY_DIMENSION) {
+                throw new IllegalArgumentException("Array dimension greater than JVM specification maximum of 255.");
+            }
+            if (arrIdx < 0) {
+                throw new IllegalArgumentException("Expected 'L' after '[' for an array style string.");
+            }
+            final int cnLen = canonicalName.length() - (arrIdx + 2); // account for the ending ';'
+            if (cnLen > MAX_CLASS_NAME_LENGTH) {
+                throw new IllegalArgumentException(String.format("Class name greater than maxium length %,d", MAX_CLASS_NAME_LENGTH));
+            }
+        }
+        final String arrayMarker = "[]";
+        final int arrIdx = canonicalName.indexOf(arrayMarker);
+        // The class name length without array markers.
+        final int cnLen = arrIdx > 0 ? arrIdx : canonicalName.length();
+        if (cnLen > MAX_CLASS_NAME_LENGTH && !encodedName) {
+            throw new IllegalArgumentException(String.format("Class name greater than maxium length %,d", MAX_CLASS_NAME_LENGTH));
+        }
+        if (canonicalName.endsWith(arrayMarker)) {
+            final int dims =  (canonicalName.length() - arrIdx) / 2;
+            if (dims > MAX_JVM_ARRAY_DIMENSION) {
+                throw new IllegalArgumentException("Array dimension greater than JVM specification maximum of 255.");
+            }
+            final StringBuilder classNameBuffer = new StringBuilder(StringUtils.repeat(encodedArrayOpen, dims));
+            canonicalName = canonicalName.substring(0, arrIdx);
+            final String abbreviation = ABBREVIATION_MAP.get(canonicalName);
+            if (abbreviation != null) {
+                classNameBuffer.append(abbreviation);
+            } else {
+                classNameBuffer.append(encodedClassNameStart).append(canonicalName).append(encodedClassNameEnd);
+            }
+            canonicalName = classNameBuffer.toString();
+        }
+        return canonicalName;
     }
 
     /**

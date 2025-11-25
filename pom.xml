@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>92</version>
+    <version>93</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
@@ -195,15 +195,15 @@
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
           <configuration>
-            <excludes>
-              <exclude>site-content/**</exclude>
-              <exclude>src/site/resources/.htaccess</exclude>
-              <exclude>src/site/resources/download_lang.cgi</exclude>
-              <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
-              <exclude>src/test/resources/lang-708-input.txt</exclude>
-              <exclude>**/*.svg</exclude>
-              <exclude>**/*.xcf</exclude>
-            </excludes>
+            <inputExcludes>
+              <inputExclude>site-content/**</inputExclude>
+              <inputExclude>src/site/resources/.htaccess</inputExclude>
+              <inputExclude>src/site/resources/download_lang.cgi</inputExclude>
+              <inputExclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</inputExclude>
+              <inputExclude>src/test/resources/lang-708-input.txt</inputExclude>
+              <inputExclude>**/*.svg</inputExclude>
+              <inputExclude>**/*.xcf</inputExclude>
+            </inputExcludes>
           </configuration>
         </plugin>
       </plugins>

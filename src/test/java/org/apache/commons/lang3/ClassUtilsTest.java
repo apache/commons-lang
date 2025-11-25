@@ -98,6 +98,8 @@ class ClassUtilsTest extends AbstractLangTest {
         }
     }
 
+    private static final int MAX_ARRAY_DIMENSIONS = 255;
+
     private static final String OBJECT_CANONICAL_NAME = "java.lang.Object";
 
     private void assertGetClassReturnsClass(final Class<?> c) throws Exception {
@@ -1229,6 +1231,7 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals(java.util.Map.Entry[].class, ClassUtils.getClass("java.util.Map$Entry[]"));
         assertEquals(java.util.Map.Entry[].class, ClassUtils.getClass("[Ljava.util.Map.Entry;"));
         assertEquals(java.util.Map.Entry[].class, ClassUtils.getClass("[Ljava.util.Map$Entry;"));
+        assertEquals(java.util.Map.Entry[][].class, ClassUtils.getClass("[[Ljava.util.Map$Entry;"));
     }
 
     @Test
@@ -1280,6 +1283,26 @@ class ClassUtilsTest extends AbstractLangTest {
         assertGetClassThrowsClassNotFound("java.lang.String][");
         assertGetClassThrowsClassNotFound(".hello.world");
         assertGetClassThrowsClassNotFound("hello..world");
+    }
+
+    @ParameterizedTest
+    @IntRangeSource(from = 65536, to = 65555)
+    void testGetClassLengthIllegal(final int classNameLength) throws ClassNotFoundException {
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getClass(StringUtils.repeat("a", classNameLength)));
+        assertThrows(IllegalArgumentException.class, () -> assertEquals(classNameLength, ClassUtils.getClass(StringUtils.repeat("a.", classNameLength / 2))));
+    }
+
+    @Test
+    void testGetClassLongestCheck() throws ClassNotFoundException {
+        final String maxClassName = StringUtils.repeat("a", 65535);
+        final String maxDimensions = StringUtils.repeat("[]", MAX_ARRAY_DIMENSIONS);
+        final String maxOpens = StringUtils.repeat("[", MAX_ARRAY_DIMENSIONS);
+        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClass(maxClassName));
+        assertNotNull(ClassUtils.getClass("java.lang.String" + maxDimensions));
+        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClass(maxClassName + maxDimensions));
+        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClass(maxOpens + "L" + maxClassName + ";"));
+        // maxOpens + 1
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getClass(maxOpens + "[L" + maxClassName + ";"));
     }
 
     @Test
