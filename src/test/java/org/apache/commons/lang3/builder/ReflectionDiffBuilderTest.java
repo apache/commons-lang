@@ -18,6 +18,7 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -215,6 +216,11 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         assertEquals(1, excludeFieldNames.length);
         assertEquals("charField", excludeFieldNames[0]);
         assertNotNull(reflectionDiffBuilder.build());
+    }
+
+    @Test
+    void testNoDiffBuilderSet() {
+        assertThrows(NullPointerException.class, () -> ReflectionDiffBuilder.<TypeTestClass>builder().build());
     }
 
     @Test

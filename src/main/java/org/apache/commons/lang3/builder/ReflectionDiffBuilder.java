@@ -154,9 +154,16 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      */
     private String[] excludeFieldNames;
 
+    /**
+     * Constructs a new instance.
+     *
+     * @param diffBuilder a non-null DiffBuilder.
+     * @param excludeFieldNames a non-null String array.
+     * @throw NullPointerException Thrown on null input.
+     */
     private ReflectionDiffBuilder(final DiffBuilder<T> diffBuilder, final String[] excludeFieldNames) {
-        this.diffBuilder = diffBuilder;
-        this.excludeFieldNames = Objects.requireNonNull(excludeFieldNames);
+        this.diffBuilder = Objects.requireNonNull(diffBuilder, "diffBuilder");
+        this.excludeFieldNames = Objects.requireNonNull(excludeFieldNames, "excludeFieldNames");
     }
 
     /**
@@ -179,17 +186,9 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     }
 
     private boolean accept(final Field field) {
-        if (field.getName().indexOf(ClassUtils.INNER_CLASS_SEPARATOR_CHAR) != -1) {
-            return false;
-        }
-        if (Modifier.isTransient(field.getModifiers())) {
-            return false;
-        }
-        if (Modifier.isStatic(field.getModifiers())) {
-            return false;
-        }
-        if (excludeFieldNames != null && Arrays.binarySearch(excludeFieldNames, field.getName()) >= 0) {
-            // Reject fields from the getExcludeFieldNames list.
+        if (field.getName().indexOf(ClassUtils.INNER_CLASS_SEPARATOR_CHAR) != -1 || Modifier.isTransient(field.getModifiers())
+                || Modifier.isStatic(field.getModifiers()) || Arrays.binarySearch(excludeFieldNames, field.getName()) >= 0) {
+            // Rejected.
             return false;
         }
         return !field.isAnnotationPresent(DiffExclude.class);
