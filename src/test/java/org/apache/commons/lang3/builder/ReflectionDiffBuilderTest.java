@@ -274,10 +274,10 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
     void testGetDiffAtomicInteger() {
         final AtomicInteger a = new AtomicInteger(1);
         final AtomicInteger b = new AtomicInteger(1);
-        assertEquals(0, new ReflectionDiffBuilder(a, b, ToStringStyle.JSON_STYLE).build().getDiffs().size());
-        assertEquals(0, new ReflectionDiffBuilder(a, a, ToStringStyle.JSON_STYLE).build().getDiffs().size());
+        assertEquals(0, new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs().size());
+        assertEquals(0, new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs().size());
         assertEquals(1,
-                ((List<Diff<?>>) new ReflectionDiffBuilder(new AtomicInteger(1), new AtomicInteger(2), ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new AtomicInteger(1), new AtomicInteger(2), ToStringStyle.JSON_STYLE).build().getDiffs()).size());
     }
 
     /*
@@ -287,13 +287,13 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
     void testGetDiffAtomicIntegerWrapper() {
         final AtomicIntegerWrapper a = new AtomicIntegerWrapper(1);
         final AtomicIntegerWrapper b = new AtomicIntegerWrapper(1);
-        final List<Diff<?>> diffList = new ReflectionDiffBuilder(a, b, ToStringStyle.JSON_STYLE).build().getDiffs();
+        final List<Diff<?>> diffList = new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs();
         assertEquals(1, diffList.size());
         final Diff<?> diff = diffList.get(0);
         assertFalse(diffList.isEmpty(), diff.toString());
         assertSame(a.value, diff.getKey());
         assertSame(b.value, diff.getValue());
-        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
     }
 
     /*
@@ -303,10 +303,10 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
     void testGetDiffFloatWrapper() {
         final FloatWrapper a = new FloatWrapper(1f);
         final FloatWrapper b = new FloatWrapper(1f);
-        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder(a, b, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
-        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
         assertEquals(1,
-                ((List<Diff<?>>) new ReflectionDiffBuilder(new FloatWrapper(1f), new FloatWrapper(2f), ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapper(1f), new FloatWrapper(2f), ToStringStyle.JSON_STYLE).build().getDiffs()).size());
     }
 
     /*
@@ -316,15 +316,15 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
     void testGetDiffFloatWrapperDeepEquals() {
         final FloatWrapperWrapperDeepEquals a = new FloatWrapperWrapperDeepEquals(1f);
         final FloatWrapperWrapperDeepEquals b = new FloatWrapperWrapperDeepEquals(1f);
-        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder(a, b, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
-        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
-        assertEquals(1, ((List<Diff<?>>) new ReflectionDiffBuilder(new FloatWrapperWrapperDeepEquals(1f), new FloatWrapperWrapperDeepEquals(2f),
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(1, ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapperDeepEquals(1f), new FloatWrapperWrapperDeepEquals(2f),
                 ToStringStyle.JSON_STYLE).build().getDiffs()).size());
         final FloatWrapperEquals fw1 = new FloatWrapperEquals(1f);
-        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder(new FloatWrapperWrapperDeepEquals(fw1), new FloatWrapperWrapperDeepEquals(fw1),
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapperDeepEquals(fw1), new FloatWrapperWrapperDeepEquals(fw1),
                 ToStringStyle.JSON_STYLE).build().getDiffs()).size());
         final FloatWrapperEquals fw2 = new FloatWrapperEquals(2f);
-        assertEquals(1, ((List<Diff<?>>) new ReflectionDiffBuilder(new FloatWrapperWrapperDeepEquals(fw1), new FloatWrapperWrapperDeepEquals(fw2),
+        assertEquals(1, ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapperDeepEquals(fw1), new FloatWrapperWrapperDeepEquals(fw2),
                 ToStringStyle.JSON_STYLE).build().getDiffs()).size());
     }
 
@@ -335,10 +335,10 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
     void testGetDiffFloatWrapperEquals() {
         final FloatWrapperEquals a = new FloatWrapperEquals(1f);
         final FloatWrapperEquals b = new FloatWrapperEquals(1f);
-        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder(a, b, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
-        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
         assertEquals(1,
-                ((List<Diff<?>>) new ReflectionDiffBuilder(new FloatWrapperEquals(1f), new FloatWrapperEquals(2f), ToStringStyle.JSON_STYLE).build().getDiffs())
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperEquals(1f), new FloatWrapperEquals(2f), ToStringStyle.JSON_STYLE).build().getDiffs())
                         .size());
     }
 
@@ -349,15 +349,15 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
     void testGetDiffFloatWrapperWrapper() {
         final FloatWrapperWrapper a = new FloatWrapperWrapper(1f);
         final FloatWrapperWrapper b = new FloatWrapperWrapper(1f);
-        final List<Diff<?>> diffList = new ReflectionDiffBuilder(a, b, ToStringStyle.JSON_STYLE).build().getDiffs();
+        final List<Diff<?>> diffList = new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs();
         assertEquals(1, diffList.size());
         final Diff<?> diff = diffList.get(0);
         assertFalse(diffList.isEmpty(), diff.toString());
         assertSame(a.value, diff.getKey());
         assertSame(b.value, diff.getValue());
-        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
         assertEquals(1,
-                ((List<Diff<?>>) new ReflectionDiffBuilder(new FloatWrapperWrapper(1f), new FloatWrapperWrapper(2f), ToStringStyle.JSON_STYLE)
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapper(1f), new FloatWrapperWrapper(2f), ToStringStyle.JSON_STYLE)
                         .build().getDiffs()).size());
     }
 
@@ -368,25 +368,25 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
     void testGetDiffFloatWrapperWrapperEquals() {
         final FloatWrapperWrapperEquals a = new FloatWrapperWrapperEquals(1f);
         final FloatWrapperWrapperEquals b = new FloatWrapperWrapperEquals(1f);
-        final List<Diff<?>> diffList = new ReflectionDiffBuilder(a, b, ToStringStyle.JSON_STYLE).build().getDiffs();
+        final List<Diff<?>> diffList = new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs();
         assertEquals(1, diffList.size());
         final Diff<?> diff = diffList.get(0);
         assertFalse(diffList.isEmpty(), diff.toString());
         assertSame(a.value, diff.getKey());
         assertSame(b.value, diff.getValue());
-        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
         assertEquals(1,
-                ((List<Diff<?>>) new ReflectionDiffBuilder(new FloatWrapperWrapperEquals(1f), new FloatWrapperWrapperEquals(2f), ToStringStyle.JSON_STYLE)
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapperEquals(1f), new FloatWrapperWrapperEquals(2f), ToStringStyle.JSON_STYLE)
                         .build().getDiffs()).size());
         final FloatWrapper fw1 = new FloatWrapper(1f);
         assertEquals(0,
-                ((List<Diff<?>>) new ReflectionDiffBuilder(new FloatWrapperWrapperEquals(fw1), new FloatWrapperWrapperEquals(fw1), ToStringStyle.JSON_STYLE)
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapperEquals(fw1), new FloatWrapperWrapperEquals(fw1), ToStringStyle.JSON_STYLE)
                         .build().getDiffs()).size());
     }
 
     @Test
     void testGetExcludeFieldNamesEmpty() {
-        final ReflectionDiffBuilder reflectionDiffBuilder = new ReflectionDiffBuilder(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
+        final ReflectionDiffBuilder<?> reflectionDiffBuilder = new ReflectionDiffBuilder<>(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
         final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
         assertNotNull(excludeFieldNames);
         assertEquals(0, excludeFieldNames.length);
