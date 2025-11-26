@@ -19,6 +19,7 @@ package org.apache.commons.lang3.builder;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
@@ -155,7 +156,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
 
     private ReflectionDiffBuilder(final DiffBuilder<T> diffBuilder, final String[] excludeFieldNames) {
         this.diffBuilder = diffBuilder;
-        this.excludeFieldNames = excludeFieldNames;
+        this.excludeFieldNames = Objects.requireNonNull(excludeFieldNames);
     }
 
     /**
@@ -174,7 +175,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      */
     @Deprecated
     public ReflectionDiffBuilder(final T left, final T right, final ToStringStyle style) {
-        this(DiffBuilder.<T>builder().setLeft(left).setRight(right).setStyle(style).build(), null);
+        this(DiffBuilder.<T>builder().setLeft(left).setRight(right).setStyle(style).build(), ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     private boolean accept(final Field field) {
@@ -187,7 +188,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         if (Modifier.isStatic(field.getModifiers())) {
             return false;
         }
-        if (this.excludeFieldNames != null && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
+        if (excludeFieldNames != null && Arrays.binarySearch(excludeFieldNames, field.getName()) >= 0) {
             // Reject fields from the getExcludeFieldNames list.
             return false;
         }
@@ -236,7 +237,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      * @since 3.13.0
      */
     public String[] getExcludeFieldNames() {
-        return this.excludeFieldNames.clone();
+        return excludeFieldNames.clone();
     }
 
     private T getLeft() {
