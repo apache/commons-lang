@@ -237,8 +237,8 @@ public class RandomUtils {
     }
 
     /**
-     * Gets the singleton instance based on {@link SecureRandom#SecureRandom()} which uses an algorithms/providers
-     * specified in the {@code securerandom.strongAlgorithms} {@link Security} property.
+     * Gets the singleton instance based on {@link SecureRandom#SecureRandom()} which uses the default algorithm
+     * and provider of {@link SecureRandom}.
      * <p>
      * The method {@link SecureRandom#SecureRandom()} is called on-demand.
      * </p>
