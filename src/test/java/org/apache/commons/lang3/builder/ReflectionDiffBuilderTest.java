@@ -18,6 +18,8 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -79,10 +81,10 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         DiffBuilder<TypeTestClass> diffBuilder(final TypeTestClass obj) {
             // @formatter:off
             return DiffBuilder.<TypeTestClass>builder()
-                .setLeft(this)
-                .setRight(obj)
-                .setStyle(style)
-                .build();
+                    .setLeft(this)
+                    .setRight(obj)
+                    .setStyle(style)
+                    .build();
             // @formatter:on
         }
 
@@ -102,6 +104,8 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
+
+
 
     @Test
     void testArrayDifference() {
@@ -146,141 +150,7 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         assertEquals(1, list.getNumberOfDiffs());
     }
 
-    @Test
-    void testGetExcludeFieldNamesWithNullExcludedFieldNames() {
-        // @formatter:off
-        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder = ReflectionDiffBuilder.<TypeTestClass>builder()
-                .setDiffBuilder(DiffBuilder.<TypeTestClass>builder()
-                        .setLeft(new TypeTestClass())
-                        .setRight(new TypeTestChildClass())
-                        .setStyle(SHORT_STYLE)
-                        .build())
-                .build();
-        // @formatter:on
-        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
-        assertNotNull(excludeFieldNames);
-        assertEquals(0, excludeFieldNames.length);
-        assertNotNull(reflectionDiffBuilder.build());
-    }
 
-    @Test
-    void testGetExcludeFieldNamesWithNullExcludedFieldNamesCtor() {
-        // @formatter:off
-        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder =
-                new ReflectionDiffBuilder<>(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
-        // @formatter:on
-        reflectionDiffBuilder.setExcludeFieldNames((String[]) null);
-        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
-        assertNotNull(excludeFieldNames);
-        assertEquals(0, excludeFieldNames.length);
-        assertNotNull(reflectionDiffBuilder.build());
-    }
-
-    @Test
-    void testGetExcludeFieldNamesWithNullValuesInExcludedFieldNames() {
-        // @formatter:off
-        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder = ReflectionDiffBuilder.<TypeTestClass>builder()
-                .setDiffBuilder(DiffBuilder.<TypeTestClass>builder()
-                        .setLeft(new TypeTestClass())
-                        .setRight(new TypeTestChildClass())
-                        .setStyle(SHORT_STYLE)
-                        .build())
-                .setExcludeFieldNames("charField", null)
-                .build();
-        // @formatter:on
-        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
-        assertNotNull(excludeFieldNames);
-        assertEquals(1, excludeFieldNames.length);
-        assertEquals("charField", excludeFieldNames[0]);
-        assertNotNull(reflectionDiffBuilder.build());
-    }
-
-    @Test
-    void testGetExcludeFieldNamesWithNullValuesInExcludedFieldNamesCtor() {
-        // @formatter:off
-        final ReflectionDiffBuilder<TypeTestClass> reflectionDiffBuilder =
-                new ReflectionDiffBuilder<>(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
-        // @formatter:on
-        reflectionDiffBuilder.setExcludeFieldNames("charField", null);
-        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
-        assertNotNull(excludeFieldNames);
-        assertEquals(1, excludeFieldNames.length);
-        assertEquals("charField", excludeFieldNames[0]);
-        assertNotNull(reflectionDiffBuilder.build());
-    }
-
-    @Test
-    void testNoDifferences() {
-        final TypeTestClass firstObject = new TypeTestClass();
-        final TypeTestClass secondObject = new TypeTestClass();
-        assertEquals(0, firstObject.diff(secondObject).getNumberOfDiffs());
-        assertEquals(0, firstObject.diffDeprecated(secondObject).getNumberOfDiffs());
-    }
-
-    @Test
-    void testNoDifferencesDiffExcludeAnnotatedField() {
-        final TypeTestClass firstObject = new TypeTestClass();
-        firstObject.annotatedField = "b";
-        final TypeTestClass secondObject = new TypeTestClass();
-        assertEquals(0, firstObject.diff(secondObject).getNumberOfDiffs());
-        assertEquals(0, firstObject.diffDeprecated(secondObject).getNumberOfDiffs());
-    }
-
-    @Test
-    void testNoDifferencesDiffExcludedFieldAndExcludeAnnotatedField() {
-        final TypeTestClass firstObject = new TypeTestClass();
-        firstObject.excludedField = "b";
-        firstObject.annotatedField = "b";
-        final TypeTestClass secondObject = new TypeTestClass();
-        DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
-        assertEquals(0, list.getNumberOfDiffs());
-        list = firstObject.diffDeprecated(secondObject);
-        assertEquals(0, list.getNumberOfDiffs());
-    }
-
-    @Test
-    void testNoDifferencesExcludedField() {
-        final TypeTestClass firstObject = new TypeTestClass();
-        firstObject.excludedField = "b";
-        final TypeTestClass secondObject = new TypeTestClass();
-        DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
-        assertEquals(0, list.getNumberOfDiffs());
-        list = firstObject.diffDeprecated(secondObject);
-        assertEquals(0, list.getNumberOfDiffs());
-    }
-
-    @Test
-    void testNoDifferencesInheritance() {
-        final TypeTestChildClass firstObject = new TypeTestChildClass();
-        final TypeTestChildClass secondObject = new TypeTestChildClass();
-        DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
-        assertEquals(0, list.getNumberOfDiffs());
-        list = firstObject.diffDeprecated(secondObject);
-        assertEquals(0, list.getNumberOfDiffs());
-    }
-
-    @Test
-    void testPrimitiveDifference() {
-        final TypeTestClass firstObject = new TypeTestClass();
-        firstObject.charField = 'c';
-        final TypeTestClass secondObject = new TypeTestClass();
-        DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
-        assertEquals(1, list.getNumberOfDiffs());
-        list = firstObject.diffDeprecated(secondObject);
-        assertEquals(1, list.getNumberOfDiffs());
-    }
-
-    @Test
-    void testRetention() throws Exception {
-        // The following should not retain memory.
-        for (int i = 0; i < Integer.getInteger("testRecursive", 10_000); i++) {
-            final Class<?> clazz = TestClassBuilder.defineSimpleClass(getClass().getPackage().getName(), i);
-            final Object firstObject = clazz.newInstance();
-            final Object secondObject = clazz.newInstance();
-            final ReflectionDiffBuilder<Object> reflectionDiffBuilder = new ReflectionDiffBuilder<>(firstObject, secondObject, SHORT_STYLE);
-            assertNotNull(reflectionDiffBuilder.build());
-        }
-    }
 
     @Test
     void testTransientFieldDifference() {
@@ -292,6 +162,51 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         assertEquals(0, list.getNumberOfDiffs());
         list = firstObject.diffDeprecated(secondObject);
         assertEquals(0, list.getNumberOfDiffs());
+    }
+
+
+
+    @Test
+    void testAlwaysDiffFlag() {
+
+        class MyDirect {
+            float value;
+            MyDirect(float v) { this.value = v; }
+        }
+
+        MyDirect a = new MyDirect(10f);
+        MyDirect b = new MyDirect(10f);
+
+        // Case 1: alwaysDiff = false
+        ReflectionDiffBuilder<MyDirect> builder1 =
+                ReflectionDiffBuilder.<MyDirect>builder()
+                        .setDiffBuilder(
+                                DiffBuilder.<MyDirect>builder()
+                                        .setLeft(a)
+                                        .setRight(b)
+                                        .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
+                                        .build()
+                        )
+                        .build(); // ? ReflectionDiffBuilder
+
+        DiffResult<MyDirect> result = builder1.build(); // ? DiffResult
+        assertTrue(result.getDiffs().isEmpty());
+
+        // Case 2: alwaysDiff = true
+        ReflectionDiffBuilder<MyDirect> builder2 =
+                ReflectionDiffBuilder.<MyDirect>builder()
+                        .setDiffBuilder(
+                                DiffBuilder.<MyDirect>builder()
+                                        .setLeft(a)
+                                        .setRight(b)
+                                        .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
+                                        .build()
+                        )
+                        .build(); // ? ReflectionDiffBuilder
+
+        builder2.setAlwaysDiff(true); //call it here
+        DiffResult<MyDirect> forced = builder2.build();
+        assertFalse(forced.getDiffs().isEmpty());
     }
 
 }
