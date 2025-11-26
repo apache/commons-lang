@@ -168,8 +168,9 @@ public class Processor {
 
     /**
      * Gets the processor type as {@link Type} enum.
-     * The processor type defines, if the processor is for example
-     * an x86 or PPA.
+     * The processor type defines whether the processor is, for example,
+     * an x86 or PPC.
+
      *
      * @return A {@link Type} enum.
      */
@@ -217,7 +218,8 @@ public class Processor {
     /**
      * Tests if {@link Processor} is type of Power PC.
      *
-     * @return {@code true}. if {@link Processor} is {@link Type#PPC}, else {@code false}.
+     * @return {@code true} if the {@link Processor} is {@link Type#IA_64}, otherwise {@code false}.
+
      */
     public boolean isPPC() {
         return Type.PPC == type;
@@ -226,7 +228,8 @@ public class Processor {
     /**
      * Tests if {@link Processor} is type of RISC-V.
      *
-     * @return {@code true}. if {@link Processor} is {@link Type#RISC_V}, else {@code false}.
+     * @return {@code true} if the {@link Processor} is {@link Type#PPC}, otherwise {@code false}.
+
      * @since 3.14.0
      */
     public boolean isRISCV() {
@@ -236,7 +239,8 @@ public class Processor {
     /**
      * Tests if {@link Processor} is type of x86.
      *
-     * @return {@code true}, if {@link Processor} is {@link Type#X86}, else {@code false}.
+     * @return {@code true} if the {@link Processor} is {@link Type#RISC_V}, otherwise {@code false}.
+
      */
     public boolean isX86() {
         return Type.X86 == type;
