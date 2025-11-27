@@ -302,7 +302,7 @@ public class EnumUtils {
      * @since 3.13.0
      */
     public static <E extends Enum<E>, K> Map<K, E> getEnumMap(final Class<E> enumClass, final Function<E, K> keyFunction) {
-        return stream(enumClass).collect(Collectors.toMap(keyFunction::apply, Function.identity()));
+        return stream(enumClass).collect(Collectors.toMap(keyFunction::apply, Function.identity(), (existing, replacement) -> existing));
     }
 
     /**
