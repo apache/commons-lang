@@ -17,10 +17,16 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -29,6 +35,121 @@ import org.junit.jupiter.api.Test;
  * Tests {@link ReflectionDiffBuilder}.
  */
 class ReflectionDiffBuilderTest extends AbstractLangTest {
+
+    private static class AtomicIntegerWrapper {
+
+        private /* not final might not matter for the test. */ AtomicInteger value;
+
+        AtomicIntegerWrapper(final int a) {
+            value = new AtomicInteger(a);
+        }
+    }
+
+    private static class FloatWrapper {
+
+        private /* not final might not matter for the test. */ float value;
+
+        FloatWrapper(final float a) {
+            value = a;
+        }
+    }
+
+    private static class FloatWrapperEquals {
+
+        private /* not final might not matter for the test. */ float value;
+
+        FloatWrapperEquals(final float a) {
+            value = a;
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+            final FloatWrapperEquals other = (FloatWrapperEquals) obj;
+            return Float.floatToIntBits(value) == Float.floatToIntBits(other.value);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(value);
+        }
+    }
+
+    private static class FloatWrapperWrapper {
+
+        private /* not final might not matter for the test. */ FloatWrapper value;
+
+        FloatWrapperWrapper(final float a) {
+            value = new FloatWrapper(a);
+        }
+    }
+
+    private static class FloatWrapperWrapperDeepEquals {
+
+        private /* not final might not matter for the test. */ FloatWrapperEquals value;
+
+        FloatWrapperWrapperDeepEquals(final float a) {
+            value = new FloatWrapperEquals(a);
+        }
+
+        FloatWrapperWrapperDeepEquals(final FloatWrapperEquals a) {
+            value = a;
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+            final FloatWrapperWrapperDeepEquals other = (FloatWrapperWrapperDeepEquals) obj;
+            return Objects.equals(value, other.value);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(value);
+        }
+
+    }
+
+    private static class FloatWrapperWrapperEquals {
+
+        private /* not final might not matter for the test. */ FloatWrapper value;
+
+        FloatWrapperWrapperEquals(final float a) {
+            value = new FloatWrapper(a);
+        }
+
+        FloatWrapperWrapperEquals(final FloatWrapper a) {
+            value = a;
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+            final FloatWrapperWrapperEquals other = (FloatWrapperWrapperEquals) obj;
+            return Objects.equals(value, other.value);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(value);
+        }
+
+    }
 
     @SuppressWarnings("unused")
     private static final class TypeTestChildClass extends TypeTestClass {
@@ -146,6 +267,131 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         assertEquals(1, list.getNumberOfDiffs());
     }
 
+    /*
+     * See https://issues.apache.org/jira/browse/LANG-1708
+     */
+    @Test
+    void testGetDiffAtomicInteger() {
+        final AtomicInteger a = new AtomicInteger(1);
+        final AtomicInteger b = new AtomicInteger(1);
+        assertEquals(0, new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs().size());
+        assertEquals(0, new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs().size());
+        assertEquals(1,
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new AtomicInteger(1), new AtomicInteger(2), ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+    }
+
+    /*
+     * See https://issues.apache.org/jira/browse/LANG-1708
+     */
+    @Test
+    void testGetDiffAtomicIntegerWrapper() {
+        final AtomicIntegerWrapper a = new AtomicIntegerWrapper(1);
+        final AtomicIntegerWrapper b = new AtomicIntegerWrapper(1);
+        final List<Diff<?>> diffList = new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs();
+        assertEquals(1, diffList.size());
+        final Diff<?> diff = diffList.get(0);
+        assertFalse(diffList.isEmpty(), diff.toString());
+        assertSame(a.value, diff.getKey());
+        assertSame(b.value, diff.getValue());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+    }
+
+    /*
+     * See https://issues.apache.org/jira/browse/LANG-1708
+     */
+    @Test
+    void testGetDiffFloatWrapper() {
+        final FloatWrapper a = new FloatWrapper(1f);
+        final FloatWrapper b = new FloatWrapper(1f);
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(1,
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapper(1f), new FloatWrapper(2f), ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+    }
+
+    /*
+     * See https://issues.apache.org/jira/browse/LANG-1708
+     */
+    @Test
+    void testGetDiffFloatWrapperDeepEquals() {
+        final FloatWrapperWrapperDeepEquals a = new FloatWrapperWrapperDeepEquals(1f);
+        final FloatWrapperWrapperDeepEquals b = new FloatWrapperWrapperDeepEquals(1f);
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(1, ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapperDeepEquals(1f), new FloatWrapperWrapperDeepEquals(2f),
+                ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        final FloatWrapperEquals fw1 = new FloatWrapperEquals(1f);
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapperDeepEquals(fw1), new FloatWrapperWrapperDeepEquals(fw1),
+                ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        final FloatWrapperEquals fw2 = new FloatWrapperEquals(2f);
+        assertEquals(1, ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapperDeepEquals(fw1), new FloatWrapperWrapperDeepEquals(fw2),
+                ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+    }
+
+    /*
+     * See https://issues.apache.org/jira/browse/LANG-1708
+     */
+    @Test
+    void testGetDiffFloatWrapperEquals() {
+        final FloatWrapperEquals a = new FloatWrapperEquals(1f);
+        final FloatWrapperEquals b = new FloatWrapperEquals(1f);
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(1,
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperEquals(1f), new FloatWrapperEquals(2f), ToStringStyle.JSON_STYLE).build().getDiffs())
+                        .size());
+    }
+
+    /*
+     * See https://issues.apache.org/jira/browse/LANG-1708
+     */
+    @Test
+    void testGetDiffFloatWrapperWrapper() {
+        final FloatWrapperWrapper a = new FloatWrapperWrapper(1f);
+        final FloatWrapperWrapper b = new FloatWrapperWrapper(1f);
+        final List<Diff<?>> diffList = new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs();
+        assertEquals(1, diffList.size());
+        final Diff<?> diff = diffList.get(0);
+        assertFalse(diffList.isEmpty(), diff.toString());
+        assertSame(a.value, diff.getKey());
+        assertSame(b.value, diff.getValue());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(1,
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapper(1f), new FloatWrapperWrapper(2f), ToStringStyle.JSON_STYLE)
+                        .build().getDiffs()).size());
+    }
+
+    /*
+     * See https://issues.apache.org/jira/browse/LANG-1708
+     */
+    @Test
+    void testGetDiffFloatWrapperWrapperEquals() {
+        final FloatWrapperWrapperEquals a = new FloatWrapperWrapperEquals(1f);
+        final FloatWrapperWrapperEquals b = new FloatWrapperWrapperEquals(1f);
+        final List<Diff<?>> diffList = new ReflectionDiffBuilder<>(a, b, ToStringStyle.JSON_STYLE).build().getDiffs();
+        assertEquals(1, diffList.size());
+        final Diff<?> diff = diffList.get(0);
+        assertFalse(diffList.isEmpty(), diff.toString());
+        assertSame(a.value, diff.getKey());
+        assertSame(b.value, diff.getValue());
+        assertEquals(0, ((List<Diff<?>>) new ReflectionDiffBuilder<>(a, a, ToStringStyle.JSON_STYLE).build().getDiffs()).size());
+        assertEquals(1,
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapperEquals(1f), new FloatWrapperWrapperEquals(2f), ToStringStyle.JSON_STYLE)
+                        .build().getDiffs()).size());
+        final FloatWrapper fw1 = new FloatWrapper(1f);
+        assertEquals(0,
+                ((List<Diff<?>>) new ReflectionDiffBuilder<>(new FloatWrapperWrapperEquals(fw1), new FloatWrapperWrapperEquals(fw1), ToStringStyle.JSON_STYLE)
+                        .build().getDiffs()).size());
+    }
+
+    @Test
+    void testGetExcludeFieldNamesEmpty() {
+        final ReflectionDiffBuilder<?> reflectionDiffBuilder = new ReflectionDiffBuilder<>(new TypeTestClass(), new TypeTestChildClass(), SHORT_STYLE);
+        final String[] excludeFieldNames = reflectionDiffBuilder.getExcludeFieldNames();
+        assertNotNull(excludeFieldNames);
+        assertEquals(0, excludeFieldNames.length);
+    }
+
     @Test
     void testGetExcludeFieldNamesWithNullExcludedFieldNames() {
         // @formatter:off
@@ -207,6 +453,11 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         assertEquals(1, excludeFieldNames.length);
         assertEquals("charField", excludeFieldNames[0]);
         assertNotNull(reflectionDiffBuilder.build());
+    }
+
+    @Test
+    void testNoDiffBuilderSet() {
+        assertThrows(NullPointerException.class, () -> ReflectionDiffBuilder.<TypeTestClass>builder().build());
     }
 
     @Test

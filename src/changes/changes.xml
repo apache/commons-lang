@@ -63,6 +63,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix console compiler warning: ReflectionDiffBuilderTest.java:[172,52] non-varargs call of varargs method with inexact argument type for last parameter.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix Apache RAT plugin console warnings.</action>
     <action issue="LANG-1793" type="fix" dev="ggregory" due-to="IcoreE">Fix Javadoc description in CharUtils.isAsciiAlphanumeric() #1501.</action>
+    <action issue="LANG-1794" type="fix" dev="ggregory" due-to="IcoreE">Fix Javadoc for RandomUtils.secure(), it incorrectly mentions securerandom.strongAlgorithms #1503.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in ReflectionDiffBuilder.getExcludeFieldNames() when instance created with ReflectionDiffBuilder.ReflectionDiffBuilder(T, T, ToStringStyle).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fail-fast for a null DiffBuilder in ReflectionDiffBuilder.ReflectionDiffBuilder(DiffBuilder, String[]) instead of getting a NullPointerException in ReflectionDiffBuilder instance methods.</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 93 #1498.</action>
