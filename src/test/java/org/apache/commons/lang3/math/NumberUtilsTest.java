@@ -1220,7 +1220,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxDouble_nullArray() {
-        assertNullPointerException(() -> NumberUtils.max((double[]) null), "No exception was thrown for null input.");
+        assertNullPointerException(() -> NumberUtils.max((double[]) null));
     }
 
     @Test
