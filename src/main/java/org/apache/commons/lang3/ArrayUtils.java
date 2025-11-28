@@ -213,9 +213,9 @@ public class ArrayUtils {
      * ArrayUtils.add([true, false], true) = [true, false, true]
      * </pre>
      *
-     * @param array  the array to copy and add the element to, may be {@code null}
-     * @param element  the object to add at the last index of the new array
-     * @return A new array containing the existing elements plus the new element
+     * @param array  the array to copy and add the element to, may be {@code null}.
+     * @param element  the object to add at the last index of the new array.
+     * @return A new array containing the existing elements plus the new element.
      * @since 2.1
      */
     public static boolean[] add(final boolean[] array, final boolean element) {
@@ -245,10 +245,10 @@ public class ArrayUtils {
      * ArrayUtils.add([true, false], 1, true) = [true, true, false]
      * </pre>
      *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
+     * @param array  the array to add the element to, may be {@code null}.
+     * @param index  the position of the new object.
+     * @param element  the object to add.
+     * @return A new array containing the existing elements and the new element.
      * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt; array.length).
      * @deprecated this method has been superseded by {@link #insert(int, boolean[], boolean...)} and
      * may be removed in a future release. Please note the handling of {@code null} input arrays differs
@@ -276,9 +276,9 @@ public class ArrayUtils {
      * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
      * </pre>
      *
-     * @param array  the array to copy and add the element to, may be {@code null}
-     * @param element  the object to add at the last index of the new array
-     * @return A new array containing the existing elements plus the new element
+     * @param array  the array to copy and add the element to, may be {@code null}.
+     * @param element  the object to add at the last index of the new array.
+     * @return A new array containing the existing elements plus the new element.
      * @since 2.1
      */
     public static byte[] add(final byte[] array, final byte element) {
@@ -308,11 +308,11 @@ public class ArrayUtils {
      * ArrayUtils.add([2, 6, 3], 2, 1)   = [2, 6, 1, 3]
      * </pre>
      *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range
+     * @param array  the array to add the element to, may be {@code null}.
+     * @param index  the position of the new object.
+     * @param element  the object to add.
+     * @return A new array containing the existing elements and the new element.
+     * @throws IndexOutOfBoundsException if the index is out of range.
      * (index &lt; 0 || index &gt; array.length).
      * @deprecated this method has been superseded by {@link #insert(int, byte[], byte...)} and
      * may be removed in a future release. Please note the handling of {@code null} input arrays differs
@@ -340,9 +340,9 @@ public class ArrayUtils {
      * ArrayUtils.add(['1', '0'], '1') = ['1', '0', '1']
      * </pre>
      *
-     * @param array  the array to copy and add the element to, may be {@code null}
-     * @param element  the object to add at the last index of the new array
-     * @return A new array containing the existing elements plus the new element
+     * @param array  the array to copy and add the element to, may be {@code null}.
+     * @param element  the object to add at the last index of the new array.
+     * @return A new array containing the existing elements plus the new element.
      * @since 2.1
      */
     public static char[] add(final char[] array, final char element) {
@@ -373,11 +373,11 @@ public class ArrayUtils {
      * ArrayUtils.add(['a', 'b', 'c'], 1, 't') = ['a', 't', 'b', 'c']
      * </pre>
      *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range
+     * @param array  the array to add the element to, may be {@code null}.
+     * @param index  the position of the new object.
+     * @param element  the object to add.
+     * @return A new array containing the existing elements and the new element.
+     * @throws IndexOutOfBoundsException if the index is out of range.
      * (index &lt; 0 || index &gt; array.length).
      * @deprecated this method has been superseded by {@link #insert(int, char[], char...)} and
      * may be removed in a future release. Please note the handling of {@code null} input arrays differs
@@ -406,9 +406,9 @@ public class ArrayUtils {
      * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
      * </pre>
      *
-     * @param array  the array to copy and add the element to, may be {@code null}
-     * @param element  the object to add at the last index of the new array
-     * @return A new array containing the existing elements plus the new element
+     * @param array  the array to copy and add the element to, may be {@code null}.
+     * @param element  the object to add at the last index of the new array.
+     * @return A new array containing the existing elements plus the new element.
      * @since 2.1
      */
     public static double[] add(final double[] array, final double element) {
@@ -438,10 +438,10 @@ public class ArrayUtils {
      * ArrayUtils.add([2.9, 6.0, 0.3], 2, 1.0)    = [2.9, 6.0, 1.0, 0.3]
      * </pre>
      *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
+     * @param array  the array to add the element to, may be {@code null}.
+     * @param index  the position of the new object.
+     * @param element  the object to add.
+     * @return A new array containing the existing elements and the new element.
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
      * @deprecated this method has been superseded by {@link #insert(int, double[], double...)} and
@@ -470,9 +470,9 @@ public class ArrayUtils {
      * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
      * </pre>
      *
-     * @param array  the array to copy and add the element to, may be {@code null}
-     * @param element  the object to add at the last index of the new array
-     * @return A new array containing the existing elements plus the new element
+     * @param array  the array to copy and add the element to, may be {@code null}.
+     * @param element  the object to add at the last index of the new array.
+     * @return A new array containing the existing elements plus the new element.
      * @since 2.1
      */
     public static float[] add(final float[] array, final float element) {
@@ -502,10 +502,10 @@ public class ArrayUtils {
      * ArrayUtils.add([2.9f, 6.0f, 0.3f], 2, 1.0f)   = [2.9f, 6.0f, 1.0f, 0.3f]
      * </pre>
      *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
+     * @param array  the array to add the element to, may be {@code null}.
+     * @param index  the position of the new object.
+     * @param element  the object to add.
+     * @return A new array containing the existing elements and the new element.
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
      * @deprecated this method has been superseded by {@link #insert(int, float[], float...)} and
@@ -534,9 +534,9 @@ public class ArrayUtils {
      * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
      * </pre>
      *
-     * @param array  the array to copy and add the element to, may be {@code null}
-     * @param element  the object to add at the last index of the new array
-     * @return A new array containing the existing elements plus the new element
+     * @param array  the array to copy and add the element to, may be {@code null}.
+     * @param element  the object to add at the last index of the new array.
+     * @return A new array containing the existing elements plus the new element.
      * @since 2.1
      */
     public static int[] add(final int[] array, final int element) {
@@ -566,10 +566,10 @@ public class ArrayUtils {
      * ArrayUtils.add([2, 6, 3], 2, 1)   = [2, 6, 1, 3]
      * </pre>
      *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
+     * @param array  the array to add the element to, may be {@code null}.
+     * @param index  the position of the new object.
+     * @param element  the object to add.
+     * @return A new array containing the existing elements and the new element.
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
      * @deprecated this method has been superseded by {@link #insert(int, int[], int...)} and
@@ -602,10 +602,10 @@ public class ArrayUtils {
      * ArrayUtils.add([2L, 6L, 3L], 2, 1L)   = [2L, 6L, 1L, 3L]
      * </pre>
      *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
+     * @param array  the array to add the element to, may be {@code null}.
+     * @param index  the position of the new object.
+     * @param element  the object to add.
+     * @return A new array containing the existing elements and the new element.
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
      * @deprecated this method has been superseded by {@link #insert(int, long[], long...)} and
@@ -634,9 +634,9 @@ public class ArrayUtils {
      * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
      * </pre>
      *
-     * @param array  the array to copy and add the element to, may be {@code null}
-     * @param element  the object to add at the last index of the new array
-     * @return A new array containing the existing elements plus the new element
+     * @param array  the array to copy and add the element to, may be {@code null}.
+     * @param element  the object to add at the last index of the new array.
+     * @return A new array containing the existing elements plus the new element.
      * @since 2.1
      */
     public static long[] add(final long[] array, final long element) {
@@ -650,11 +650,11 @@ public class ArrayUtils {
      * The last parameter is the class, which may not equal element.getClass
      * for primitives.
      *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @param clazz the type of the element being added
-     * @return A new array containing the existing elements and the new element
+     * @param array  the array to add the element to, may be {@code null}.
+     * @param index  the position of the new object.
+     * @param element  the object to add.
+     * @param clazz the type of the element being added.
+     * @return A new array containing the existing elements and the new element.
      */
     private static Object add(final Object array, final int index, final Object element, final Class<?> clazz) {
         if (array == null) {
@@ -698,10 +698,10 @@ public class ArrayUtils {
      * ArrayUtils.add([2, 6, 3], 2, 1)   = [2, 6, 1, 3]
      * </pre>
      *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
+     * @param array  the array to add the element to, may be {@code null}.
+     * @param index  the position of the new object.
+     * @param element  the object to add.
+     * @return A new array containing the existing elements and the new element.
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index &lt; 0 || index &gt; array.length).
      * @deprecated this method has been superseded by {@link #insert(int, short[], short...)} and
@@ -730,9 +730,9 @@ public class ArrayUtils {
      * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
      * </pre>
      *
-     * @param array  the array to copy and add the element to, may be {@code null}
-     * @param element  the object to add at the last index of the new array
-     * @return A new array containing the existing elements plus the new element
+     * @param array  the array to copy and add the element to, may be {@code null}.
+     * @param element  the object to add at the last index of the new array.
+     * @return A new array containing the existing elements plus the new element.
      * @since 2.1
      */
     public static short[] add(final short[] array, final short element) {
@@ -763,13 +763,13 @@ public class ArrayUtils {
      * ArrayUtils.add(["a", "b"], 3, "c") = ["a", "b", "c"]
      * </pre>
      *
-     * @param <T> the component type of the array
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
+     * @param <T> the component type of the array.
+     * @param array  the array to add the element to, may be {@code null}.
+     * @param index  the position of the new object.
+     * @param element  the object to add.
+     * @return A new array containing the existing elements and the new element.
      * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt; array.length).
-     * @throws IllegalArgumentException if both array and element are null
+     * @throws IllegalArgumentException if both array and element are null.
      * @deprecated this method has been superseded by {@link #insert(int, Object[], Object...) insert(int, T[], T...)} and
      * may be removed in a future release. Please note the handling of {@code null} input arrays differs
      * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
@@ -807,14 +807,14 @@ public class ArrayUtils {
      * ArrayUtils.add(["a", "b"], "c") = ["a", "b", "c"]
      * </pre>
      *
-     * @param <T> the component type of the array
-     * @param array  the array to "add" the element to, may be {@code null}
-     * @param element  the object to add, may be {@code null}
+     * @param <T> the component type of the array.
+     * @param array  the array to "add" the element to, may be {@code null}.
+     * @param element  the object to add, may be {@code null}.
      * @return A new array containing the existing elements plus the new element
      * The returned array type will be that of the input array (unless null),
      * in which case it will have the same type as the element.
-     * If both are null, an IllegalArgumentException is thrown
-     * @throws IllegalArgumentException if both arguments are null
+     * If both are null, an IllegalArgumentException is thrown.
+     * @throws IllegalArgumentException if both arguments are null.
      * @since 2.1
      */
     public static <T> T[] add(final T[] array, final T element) {
@@ -1106,13 +1106,13 @@ public class ArrayUtils {
      * ArrayUtils.addAll(["a", "b", "c"], ["1", "2", "3"]) = ["a", "b", "c", "1", "2", "3"]
      * </pre>
      *
-     * @param <T> the component type of the array
-     * @param array1  the first array whose elements are added to the new array, may be {@code null}
-     * @param array2  the second array whose elements are added to the new array, may be {@code null}
+     * @param <T> the component type of the array.
+     * @param array1  the first array whose elements are added to the new array, may be {@code null}.
+     * @param array2  the second array whose elements are added to the new array, may be {@code null}.
      * @return The new array, {@code null} if both arrays are {@code null}.
      *      The type of the new array is the type of the first array,
      *      unless the first array is null, in which case the type is the same as the second array.
-     * @throws IllegalArgumentException if the array types are incompatible
+     * @throws IllegalArgumentException if the array types are incompatible.
      * @since 2.1
      */
     public static <T> T[] addAll(final T[] array1, @SuppressWarnings("unchecked") final T... array2) {
@@ -1367,13 +1367,13 @@ public class ArrayUtils {
      * ArrayUtils.addFirst(["a", "b"], "c") = ["c", "a", "b"]
      * </pre>
      *
-     * @param <T> the component type of the array
-     * @param array the array to "add" the element to, may be {@code null}
-     * @param element the object to add, may be {@code null}
+     * @param <T> the component type of the array.
+     * @param array the array to "add" the element to, may be {@code null}.
+     * @param element the object to add, may be {@code null}.
      * @return A new array containing the existing elements plus the new element The returned array type will be that of
      *         the input array (unless null), in which case it will have the same type as the element. If both are null,
-     *         an IllegalArgumentException is thrown
-     * @throws IllegalArgumentException if both arguments are null
+     *         an IllegalArgumentException is thrown.
+     * @throws IllegalArgumentException if both arguments are null.
      * @since 3.10
      */
     public static <T> T[] addFirst(final T[] array, final T element) {
@@ -1423,7 +1423,7 @@ public class ArrayUtils {
     /**
      * A fluent version of {@link System#arraycopy(Object, int, Object, int, int)} that returns the destination array.
      *
-     * @param <T>       the type
+     * @param <T>       the type.
      * @param source    the source array.
      * @param sourcePos starting position in the source array.
      * @param dest      the destination array.
@@ -1447,8 +1447,8 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array the array to clone, may be {@code null}
-     * @return the cloned array, {@code null} if {@code null} input
+     * @param array the array to clone, may be {@code null}.
+     * @return the cloned array, {@code null} if {@code null} input.
      */
     public static boolean[] clone(final boolean[] array) {
         return array != null ? array.clone() : null;
@@ -1460,8 +1460,8 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array the array to clone, may be {@code null}
-     * @return the cloned array, {@code null} if {@code null} input
+     * @param array the array to clone, may be {@code null}.
+     * @return the cloned array, {@code null} if {@code null} input.
      */
     public static byte[] clone(final byte[] array) {
         return array != null ? array.clone() : null;
@@ -1473,8 +1473,8 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array the array to clone, may be {@code null}
-     * @return the cloned array, {@code null} if {@code null} input
+     * @param array the array to clone, may be {@code null}.
+     * @return the cloned array, {@code null} if {@code null} input.
      */
     public static char[] clone(final char[] array) {
         return array != null ? array.clone() : null;
@@ -1486,8 +1486,8 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array the array to clone, may be {@code null}
-     * @return the cloned array, {@code null} if {@code null} input
+     * @param array the array to clone, may be {@code null}.
+     * @return the cloned array, {@code null} if {@code null} input.
      */
     public static double[] clone(final double[] array) {
         return array != null ? array.clone() : null;
@@ -1499,8 +1499,8 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array the array to clone, may be {@code null}
-     * @return the cloned array, {@code null} if {@code null} input
+     * @param array the array to clone, may be {@code null}.
+     * @return the cloned array, {@code null} if {@code null} input.
      */
     public static float[] clone(final float[] array) {
         return array != null ? array.clone() : null;
@@ -1512,8 +1512,8 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array the array to clone, may be {@code null}
-     * @return the cloned array, {@code null} if {@code null} input
+     * @param array the array to clone, may be {@code null}.
+     * @return the cloned array, {@code null} if {@code null} input.
      */
     public static int[] clone(final int[] array) {
         return array != null ? array.clone() : null;
@@ -1525,8 +1525,8 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array the array to clone, may be {@code null}
-     * @return the cloned array, {@code null} if {@code null} input
+     * @param array the array to clone, may be {@code null}.
+     * @return the cloned array, {@code null} if {@code null} input.
      */
     public static long[] clone(final long[] array) {
         return array != null ? array.clone() : null;
@@ -1538,8 +1538,8 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array the array to clone, may be {@code null}
-     * @return the cloned array, {@code null} if {@code null} input
+     * @param array the array to clone, may be {@code null}.
+     * @return the cloned array, {@code null} if {@code null} input.
      */
     public static short[] clone(final short[] array) {
         return array != null ? array.clone() : null;
@@ -1554,9 +1554,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param <T>   the component type of the array
-     * @param array the array to shallow clone, may be {@code null}
-     * @return the cloned array, {@code null} if {@code null} input
+     * @param <T>   the component type of the array.
+     * @param array the array to shallow clone, may be {@code null}.
+     * @return the cloned array, {@code null} if {@code null} input.
      */
     public static <T> T[] clone(final T[] array) {
         return array != null ? array.clone() : null;
@@ -1568,9 +1568,9 @@ public class ArrayUtils {
      * The method returns {@code false} if a {@code null} array is passed in.
      * </p>
      *
-     * @param array  the array to search
-     * @param valueToFind  the value to find
-     * @return {@code true} if the array contains the object
+     * @param array  the array to search.
+     * @param valueToFind  the value to find.
+     * @return {@code true} if the array contains the object.
      */
     public static boolean contains(final boolean[] array, final boolean valueToFind) {
         return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
@@ -1586,9 +1586,9 @@ public class ArrayUtils {
      * {@link Arrays#sort(byte[])} and {@link Arrays#binarySearch(byte[], byte)}.
      * </p>
      *
-     * @param array  the array to search
-     * @param valueToFind  the value to find
-     * @return {@code true} if the array contains the object
+     * @param array  the array to search.
+     * @param valueToFind  the value to find.
+     * @return {@code true} if the array contains the object.
      */
     public static boolean contains(final byte[] array, final byte valueToFind) {
         return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
@@ -1604,9 +1604,9 @@ public class ArrayUtils {
      * {@link Arrays#sort(char[])} and {@link Arrays#binarySearch(char[], char)}.
      * </p>
      *
-     * @param array  the array to search
-     * @param valueToFind  the value to find
-     * @return {@code true} if the array contains the object
+     * @param array  the array to search.
+     * @param valueToFind  the value to find.
+     * @return {@code true} if the array contains the object.
      * @since 2.1
      */
     public static boolean contains(final char[] array, final char valueToFind) {
@@ -1623,9 +1623,9 @@ public class ArrayUtils {
      * {@link Arrays#sort(double[])} and {@link Arrays#binarySearch(double[], double)}.
      * </p>
      *
-     * @param array  the array to search
-     * @param valueToFind  the value to find
-     * @return {@code true} if the array contains the object
+     * @param array  the array to search.
+     * @param valueToFind  the value to find.
+     * @return {@code true} if the array contains the object.
      */
     public static boolean contains(final double[] array, final double valueToFind) {
         return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
@@ -1644,10 +1644,10 @@ public class ArrayUtils {
      * {@link Arrays#sort(double[])} and {@link Arrays#binarySearch(double[], double)}.
      * </p>
      *
-     * @param array  the array to search
-     * @param valueToFind  the value to find
-     * @param tolerance  the array contains the tolerance of the search
-     * @return true if value falling within tolerance is in array
+     * @param array  the array to search.
+     * @param valueToFind  the value to find.
+     * @param tolerance  the array contains the tolerance of the search.
+     * @return true if value falling within tolerance is in array.
      */
     public static boolean contains(final double[] array, final double valueToFind, final double tolerance) {
         return indexOf(array, valueToFind, 0, tolerance) != INDEX_NOT_FOUND;
@@ -1663,9 +1663,9 @@ public class ArrayUtils {
      * {@link Arrays#sort(float[])} and {@link Arrays#binarySearch(float[], float)}.
      * </p>
      *
-     * @param array  the array to search
-     * @param valueToFind  the value to find
-     * @return {@code true} if the array contains the object
+     * @param array  the array to search.
+     * @param valueToFind  the value to find.
+     * @return {@code true} if the array contains the object.
      */
     public static boolean contains(final float[] array, final float valueToFind) {
         return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
@@ -1681,9 +1681,9 @@ public class ArrayUtils {
      * {@link Arrays#sort(int[])} and {@link Arrays#binarySearch(int[], int)}.
      * </p>
      *
-     * @param array  the array to search
-     * @param valueToFind  the value to find
-     * @return {@code true} if the array contains the object
+     * @param array  the array to search.
+     * @param valueToFind  the value to find.
+     * @return {@code true} if the array contains the object.
      */
     public static boolean contains(final int[] array, final int valueToFind) {
         return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
@@ -1699,9 +1699,9 @@ public class ArrayUtils {
      * {@link Arrays#sort(long[])} and {@link Arrays#binarySearch(long[], long)}.
      * </p>
      *
-     * @param array  the array to search
-     * @param valueToFind  the value to find
-     * @return {@code true} if the array contains the object
+     * @param array  the array to search.
+     * @param valueToFind  the value to find.
+     * @return {@code true} if the array contains the object.
      */
     public static boolean contains(final long[] array, final long valueToFind) {
         return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
@@ -1719,7 +1719,7 @@ public class ArrayUtils {
      *
      * @param array  the array to search, may be {@code null}.
      * @param objectToFind  the object to find, may be {@code null}.
-     * @return {@code true} if the array contains the object
+     * @return {@code true} if the array contains the object.
      */
     public static boolean contains(final Object[] array, final Object objectToFind) {
         return indexOf(array, objectToFind) != INDEX_NOT_FOUND;
@@ -1735,9 +1735,9 @@ public class ArrayUtils {
      * {@link Arrays#sort(short[])} and {@link Arrays#binarySearch(short[], short)}.
      * </p>
      *
-     * @param array  the array to search
-     * @param valueToFind  the value to find
-     * @return {@code true} if the array contains the object
+     * @param array  the array to search.
+     * @param valueToFind  the value to find.
+     * @return {@code true} if the array contains the object.
      */
     public static boolean contains(final short[] array, final short valueToFind) {
         return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
@@ -1753,9 +1753,9 @@ public class ArrayUtils {
      * {@link Arrays#sort(int[])} and {@link Arrays#binarySearch(int[], int)}.
      * </p>
      *
-     * @param array         the array to search
-     * @param objectsToFind any of the ints to find
-     * @return {@code true} if the array contains any of the ints
+     * @param array         the array to search.
+     * @param objectsToFind any of the ints to find.
+     * @return {@code true} if the array contains any of the ints.
      * @since 3.18.0
      */
     public static boolean containsAny(final int[] array, final int... objectsToFind) {
@@ -1774,7 +1774,7 @@ public class ArrayUtils {
      *
      * @param array         the array to search, may be {@code null}.
      * @param objectsToFind any of the objects to find, may be {@code null}.
-     * @return {@code true} if the array contains any of the objects
+     * @return {@code true} if the array contains any of the objects.
      * @since 3.13.0
      */
     public static boolean containsAny(final Object[] array, final Object... objectsToFind) {
@@ -1805,7 +1805,7 @@ public class ArrayUtils {
      *
      * @param <T> The type of array elements.
      * @param array The array to index.
-     * @param index The index
+     * @param index The index.
      * @return the nTh element of an array or null if the index is out of bounds or the array is null.
      * @since 3.11
      */
@@ -1818,7 +1818,7 @@ public class ArrayUtils {
      *
      * @param <T> The type of array elements.
      * @param array The array to index.
-     * @param index The index
+     * @param index The index.
      * @param defaultValue The return value of the given index is out of bounds.
      * @return the nTh element of an array or a default value if the index is out of bounds.
      * @since 3.11
@@ -1855,7 +1855,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array  the array to retrieve the length from, may be {@code null}.
-     * @return The length of the array, or {@code 0} if the array is {@code null}
+     * @return The length of the array, or {@code 0} if the array is {@code null}.
      * @throws IllegalArgumentException if the object argument is not an array.
      * @since 2.1
      */
@@ -1869,8 +1869,8 @@ public class ArrayUtils {
      * Multi-dimensional primitive arrays are also handled correctly by this method.
      * </p>
      *
-     * @param array  the array to get a hash code for, {@code null} returns zero
-     * @return a hash code for the array
+     * @param array  the array to get a hash code for, {@code null} returns zero.
+     * @return a hash code for the array.
      */
     public static int hashCode(final Object array) {
         return new HashCodeBuilder().append(array).toHashCode();
@@ -1886,10 +1886,10 @@ public class ArrayUtils {
      * This method returns an empty BitSet for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final boolean[] array, final boolean valueToFind) {
@@ -1902,16 +1902,13 @@ public class ArrayUtils {
      * This method returns an empty BitSet for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return an empty BitSet ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
-     * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null}
-     *  array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the index to start searching.
+     * @return a BitSet of all the indices of the value within the array, an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final boolean[] array, final boolean valueToFind, int startIndex) {
@@ -1933,12 +1930,13 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @return a BitSet of all the indices of the value within the array, an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final byte[] array, final byte valueToFind) {
@@ -1953,11 +1951,11 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
+     * @param startIndex  the index to start searching.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final byte[] array, final byte valueToFind, int startIndex) {
@@ -1982,10 +1980,10 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final char[] array, final char valueToFind) {
@@ -2000,11 +1998,11 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
+     * @param startIndex  the index to start searching.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final char[] array, final char valueToFind, int startIndex) {
@@ -2028,10 +2026,10 @@ public class ArrayUtils {
      *
      * <p>This method returns empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind) {
@@ -2048,11 +2046,11 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param tolerance tolerance of the search
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
+     * @param tolerance tolerance of the search.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, final double tolerance) {
@@ -2067,11 +2065,11 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
+     * @param startIndex  the index to start searching.
      * @return a BitSet of the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex) {
@@ -2103,12 +2101,12 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
-     * @param tolerance tolerance of the search
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
+     * @param startIndex  the index to start searching.
+     * @param tolerance tolerance of the search.
      * @return a BitSet of the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
@@ -2132,10 +2130,10 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final float[] array, final float valueToFind) {
@@ -2150,11 +2148,11 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return empty BitSet.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
+     * @param startIndex  the index to start searching.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final float[] array, final float valueToFind, int startIndex) {
@@ -2178,10 +2176,10 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final int[] array, final int valueToFind) {
@@ -2196,11 +2194,11 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
+     * @param startIndex  the index to start searching.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final int[] array, final int valueToFind, int startIndex) {
@@ -2225,10 +2223,10 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final long[] array, final long valueToFind) {
@@ -2243,11 +2241,11 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
+     * @param startIndex  the index to start searching.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final long[] array, final long valueToFind, int startIndex) {
@@ -2274,7 +2272,7 @@ public class ArrayUtils {
      * @param array  the array to search for the object, may be {@code null}.
      * @param objectToFind  the object to find, may be {@code null}.
      * @return a BitSet of all the indices of the object within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final Object[] array, final Object objectToFind) {
@@ -2291,9 +2289,9 @@ public class ArrayUtils {
      *
      * @param array  the array to search for the object, may be {@code null}.
      * @param objectToFind  the object to find, may be {@code null}.
-     * @param startIndex  the index to start searching at
+     * @param startIndex  the index to start searching.
      * @return a BitSet of all the indices of the object within the array starting at the index,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final Object[] array, final Object objectToFind, int startIndex) {
@@ -2317,10 +2315,10 @@ public class ArrayUtils {
      *
      * <p>This method returns an empty BitSet for a {@code null} input array.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final short[] array, final short valueToFind) {
@@ -2335,11 +2333,11 @@ public class ArrayUtils {
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
      * length will return an empty BitSet.</p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
+     * @param array  the array to search for the object, may be {@code null}.
+     * @param valueToFind  the value to find.
+     * @param startIndex  the index to start searching.
      * @return a BitSet of all the indices of the value within the array,
-     *  an empty BitSet if not found or {@code null} array input
+     *  an empty BitSet if not found or {@code null} array input.
      * @since 3.10
      */
     public static BitSet indexesOf(final short[] array, final short valueToFind, int startIndex) {
@@ -2364,10 +2362,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final boolean[] array, final boolean valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2379,16 +2376,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null}
-     *  array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the index to start searching.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final boolean[] array, final boolean valueToFind, final int startIndex) {
         if (isEmpty(array)) {
@@ -2408,10 +2402,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final byte[] array, final byte valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2423,15 +2416,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the index to start searching.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final byte[] array, final byte valueToFind, final int startIndex) {
         if (array == null) {
@@ -2451,10 +2442,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      * @since 2.1
      */
     public static int indexOf(final char[] array, final char valueToFind) {
@@ -2467,15 +2457,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the index to start searching.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      * @since 2.1
      */
     public static int indexOf(final char[] array, final char valueToFind, final int startIndex) {
@@ -2496,28 +2484,25 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final double[] array, final double valueToFind) {
         return indexOf(array, valueToFind, 0);
     }
 
     /**
-     * Finds the index of the given value within a given tolerance in the array.
-     * This method will return the index of the first value which falls between the region
-     * defined by valueToFind - tolerance and valueToFind + tolerance.
+     * Finds the index of the given value within a given tolerance in the array. This method will return the index of the first value which falls between the
+     * region defined by valueToFind - tolerance and valueToFind + tolerance.
      * <p>
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param tolerance tolerance of the search
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param tolerance   tolerance of the search.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final double[] array, final double valueToFind, final double tolerance) {
         return indexOf(array, valueToFind, 0, tolerance);
@@ -2529,15 +2514,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the index to start searching.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final double[] array, final double valueToFind, final int startIndex) {
         if (isEmpty(array)) {
@@ -2554,23 +2537,20 @@ public class ArrayUtils {
     }
 
     /**
-     * Finds the index of the given value in the array starting at the given index.
-     * This method will return the index of the first value which falls between the region
-     * defined by valueToFind - tolerance and valueToFind + tolerance.
+     * Finds the index of the given value in the array starting at the given index. This method will return the index of the first value which falls between the
+     * region defined by valueToFind - tolerance and valueToFind + tolerance.
      * <p>
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
-     * @param tolerance tolerance of the search
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the index to start searching.
+     * @param tolerance   tolerance of the search.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final double[] array, final double valueToFind, final int startIndex, final double tolerance) {
         if (isEmpty(array)) {
@@ -2592,10 +2572,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final float[] array, final float valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2607,15 +2586,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the index to start searching.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final float[] array, final float valueToFind, final int startIndex) {
         if (isEmpty(array)) {
@@ -2637,10 +2614,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final int[] array, final int valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2652,15 +2628,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the index to start searching.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final int[] array, final int valueToFind, final int startIndex) {
         if (array == null) {
@@ -2680,10 +2654,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array the array to search for the object, may be {@code null}
-     * @param valueToFind the value to find
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null}
-     *         array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final long[] array, final long valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2695,15 +2668,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the index to start searching.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final long[] array, final long valueToFind, final int startIndex) {
         if (array == null) {
@@ -2723,10 +2694,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}.
-     * @param objectToFind  the object to find, may be {@code null}.
-     * @return the index of the object within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array        the array to search for the object, may be {@code null}.
+     * @param objectToFind the object to find, may be {@code null}.
+     * @return the index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final Object[] array, final Object objectToFind) {
         return indexOf(array, objectToFind, 0);
@@ -2738,15 +2708,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}.
-     * @param objectToFind  the object to find, may be {@code null}.
-     * @param startIndex  the index to start searching at
-     * @return the index of the object within the array starting at the index,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array        the array to search for the object, may be {@code null}.
+     * @param objectToFind the object to find, may be {@code null}.
+     * @param startIndex   the index to start searching.
+     * @return the index of the object within the array starting at the index, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final Object[] array, final Object objectToFind, int startIndex) {
         if (array == null) {
@@ -2775,10 +2743,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}
+     * @param valueToFind the value to find.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final short[] array, final short valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2790,15 +2757,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the index to start searching at
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the index to start searching.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final short[] array, final short valueToFind, final int startIndex) {
         if (array == null) {
@@ -2815,7 +2780,9 @@ public class ArrayUtils {
     /**
      * Inserts elements into an array at the given index (starting from zero).
      *
-     * <p>When an array is returned, it is always a new array.</p>
+     * <p>
+     * When an array is returned, it is always a new array.
+     * </p>
      *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
@@ -2823,12 +2790,11 @@ public class ArrayUtils {
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
      *
-     * @param index the position within {@code array} to insert the new values
-     * @param array the array to insert the values into, may be {@code null}
-     * @param values the new values to insert, may be {@code null}
+     * @param index  the position within {@code array} to insert the new values.
+     * @param array  the array to insert the values into, may be {@code null}.
+     * @param values the new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException if {@code array} is provided
-     * and either {@code index < 0} or {@code index > array.length}
+     * @throws IndexOutOfBoundsException if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
      * @since 3.6
      */
     public static boolean[] insert(final int index, final boolean[] array, final boolean... values) {
@@ -2855,7 +2821,9 @@ public class ArrayUtils {
     /**
      * Inserts elements into an array at the given index (starting from zero).
      *
-     * <p>When an array is returned, it is always a new array.</p>
+     * <p>
+     * When an array is returned, it is always a new array.
+     * </p>
      *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
@@ -2863,12 +2831,11 @@ public class ArrayUtils {
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
      *
-     * @param index the position within {@code array} to insert the new values
-     * @param array the array to insert the values into, may be {@code null}
-     * @param values the new values to insert, may be {@code null}
+     * @param index  the position within {@code array} to insert the new values.
+     * @param array  the array to insert the values into, may be {@code null}.
+     * @param values the new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException if {@code array} is provided
-     * and either {@code index < 0} or {@code index > array.length}
+     * @throws IndexOutOfBoundsException if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
      * @since 3.6
      */
     public static byte[] insert(final int index, final byte[] array, final byte... values) {
@@ -2895,7 +2862,9 @@ public class ArrayUtils {
     /**
      * Inserts elements into an array at the given index (starting from zero).
      *
-     * <p>When an array is returned, it is always a new array.</p>
+     * <p>
+     * When an array is returned, it is always a new array.
+     * </p>
      *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
@@ -2903,12 +2872,11 @@ public class ArrayUtils {
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
      *
-     * @param index the position within {@code array} to insert the new values
-     * @param array the array to insert the values into, may be {@code null}
-     * @param values the new values to insert, may be {@code null}
+     * @param index  the position within {@code array} to insert the new values.
+     * @param array  the array to insert the values into, may be {@code null}.
+     * @param values the new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException if {@code array} is provided
-     * and either {@code index < 0} or {@code index > array.length}
+     * @throws IndexOutOfBoundsException if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
      * @since 3.6
      */
     public static char[] insert(final int index, final char[] array, final char... values) {
@@ -2935,7 +2903,9 @@ public class ArrayUtils {
     /**
      * Inserts elements into an array at the given index (starting from zero).
      *
-     * <p>When an array is returned, it is always a new array.</p>
+     * <p>
+     * When an array is returned, it is always a new array.
+     * </p>
      *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
@@ -2943,12 +2913,11 @@ public class ArrayUtils {
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
      *
-     * @param index the position within {@code array} to insert the new values
-     * @param array the array to insert the values into, may be {@code null}
-     * @param values the new values to insert, may be {@code null}
+     * @param index  the position within {@code array} to insert the new values.
+     * @param array  the array to insert the values into, may be {@code null}.
+     * @param values the new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException if {@code array} is provided
-     * and either {@code index < 0} or {@code index > array.length}
+     * @throws IndexOutOfBoundsException if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
      * @since 3.6
      */
     public static double[] insert(final int index, final double[] array, final double... values) {
@@ -2975,7 +2944,9 @@ public class ArrayUtils {
     /**
      * Inserts elements into an array at the given index (starting from zero).
      *
-     * <p>When an array is returned, it is always a new array.</p>
+     * <p>
+     * When an array is returned, it is always a new array.
+     * </p>
      *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
@@ -2983,12 +2954,11 @@ public class ArrayUtils {
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
      *
-     * @param index the position within {@code array} to insert the new values
-     * @param array the array to insert the values into, may be {@code null}
-     * @param values the new values to insert, may be {@code null}
+     * @param index  the position within {@code array} to insert the new values.
+     * @param array  the array to insert the values into, may be {@code null}.
+     * @param values the new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException if {@code array} is provided
-     * and either {@code index < 0} or {@code index > array.length}
+     * @throws IndexOutOfBoundsException if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
      * @since 3.6
      */
     public static float[] insert(final int index, final float[] array, final float... values) {
@@ -3015,7 +2985,9 @@ public class ArrayUtils {
     /**
      * Inserts elements into an array at the given index (starting from zero).
      *
-     * <p>When an array is returned, it is always a new array.</p>
+     * <p>
+     * When an array is returned, it is always a new array.
+     * </p>
      *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
@@ -3023,12 +2995,11 @@ public class ArrayUtils {
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
      *
-     * @param index the position within {@code array} to insert the new values
-     * @param array the array to insert the values into, may be {@code null}
-     * @param values the new values to insert, may be {@code null}
+     * @param index  the position within {@code array} to insert the new values.
+     * @param array  the array to insert the values into, may be {@code null}.
+     * @param values the new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException if {@code array} is provided
-     * and either {@code index < 0} or {@code index > array.length}
+     * @throws IndexOutOfBoundsException if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
      * @since 3.6
      */
     public static int[] insert(final int index, final int[] array, final int... values) {
@@ -3055,7 +3026,9 @@ public class ArrayUtils {
     /**
      * Inserts elements into an array at the given index (starting from zero).
      *
-     * <p>When an array is returned, it is always a new array.</p>
+     * <p>
+     * When an array is returned, it is always a new array.
+     * </p>
      *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
@@ -3063,12 +3036,11 @@ public class ArrayUtils {
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
      *
-     * @param index the position within {@code array} to insert the new values
-     * @param array the array to insert the values into, may be {@code null}
-     * @param values the new values to insert, may be {@code null}
+     * @param index  the position within {@code array} to insert the new values.
+     * @param array  the array to insert the values into, may be {@code null}.
+     * @param values the new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException if {@code array} is provided
-     * and either {@code index < 0} or {@code index > array.length}
+     * @throws IndexOutOfBoundsException if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
      * @since 3.6
      */
     public static long[] insert(final int index, final long[] array, final long... values) {
@@ -3095,7 +3067,9 @@ public class ArrayUtils {
     /**
      * Inserts elements into an array at the given index (starting from zero).
      *
-     * <p>When an array is returned, it is always a new array.</p>
+     * <p>
+     * When an array is returned, it is always a new array.
+     * </p>
      *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
@@ -3103,12 +3077,11 @@ public class ArrayUtils {
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
      *
-     * @param index the position within {@code array} to insert the new values
-     * @param array the array to insert the values into, may be {@code null}
-     * @param values the new values to insert, may be {@code null}
+     * @param index  the position within {@code array} to insert the new values.
+     * @param array  the array to insert the values into, may be {@code null}.
+     * @param values the new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException if {@code array} is provided
-     * and either {@code index < 0} or {@code index > array.length}
+     * @throws IndexOutOfBoundsException if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
      * @since 3.6
      */
     public static short[] insert(final int index, final short[] array, final short... values) {
@@ -3135,7 +3108,9 @@ public class ArrayUtils {
     /**
      * Inserts elements into an array at the given index (starting from zero).
      *
-     * <p>When an array is returned, it is always a new array.</p>
+     * <p>
+     * When an array is returned, it is always a new array.
+     * </p>
      *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
@@ -3143,13 +3118,12 @@ public class ArrayUtils {
      * ArrayUtils.insert(index, null, values)    = null
      * </pre>
      *
-     * @param <T> The type of elements in {@code array} and {@code values}
-     * @param index the position within {@code array} to insert the new values
-     * @param array the array to insert the values into, may be {@code null}
-     * @param values the new values to insert, may be {@code null}
+     * @param <T>    The type of elements in {@code array} and {@code values}.
+     * @param index  the position within {@code array} to insert the new values.
+     * @param array  the array to insert the values into, may be {@code null}.
+     * @param values the new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException if {@code array} is provided
-     * and either {@code index < 0} or {@code index > array.length}
+     * @throws IndexOutOfBoundsException if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
      * @since 3.6
      */
     @SafeVarargs
@@ -3186,8 +3160,8 @@ public class ArrayUtils {
     /**
      * Checks if an array is empty or {@code null}.
      *
-     * @param array the array to test
-     * @return {@code true} if the array is empty or {@code null}
+     * @param array the array to test.
+     * @return {@code true} if the array is empty or {@code null}.
      */
     private static boolean isArrayEmpty(final Object array) {
         return getLength(array) == 0;
@@ -3202,10 +3176,10 @@ public class ArrayUtils {
      * ArrayUtils.isArrayIndexValid(["a"], 0)      = true
      * </pre>
      *
-     * @param <T> the component type of the array
+     * @param <T> the component type of the array.
      * @param array the array to inspect, may be {@code null}.
-     * @param index the index of the array to be inspected
-     * @return Whether the given index is safely-accessible in the given array
+     * @param index the index of the array to be inspected.
+     * @return Whether the given index is safely-accessible in the given array.
      * @since 3.8
      */
     public static <T> boolean isArrayIndexValid(final T[] array, final int index) {
@@ -3215,8 +3189,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive booleans is empty or {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is empty or {@code null}.
      * @since 2.1
      */
     public static boolean isEmpty(final boolean[] array) {
@@ -3226,8 +3200,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive bytes is empty or {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is empty or {@code null}.
      * @since 2.1
      */
     public static boolean isEmpty(final byte[] array) {
@@ -3237,8 +3211,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive chars is empty or {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is empty or {@code null}.
      * @since 2.1
      */
     public static boolean isEmpty(final char[] array) {
@@ -3248,8 +3222,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive doubles is empty or {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is empty or {@code null}.
      * @since 2.1
      */
     public static boolean isEmpty(final double[] array) {
@@ -3259,8 +3233,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive floats is empty or {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is empty or {@code null}.
      * @since 2.1
      */
     public static boolean isEmpty(final float[] array) {
@@ -3270,8 +3244,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive ints is empty or {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is empty or {@code null}.
      * @since 2.1
      */
     public static boolean isEmpty(final int[] array) {
@@ -3281,8 +3255,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive longs is empty or {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is empty or {@code null}.
      * @since 2.1
      */
     public static boolean isEmpty(final long[] array) {
@@ -3292,8 +3266,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of Objects is empty or {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is empty or {@code null}.
      * @since 2.1
      */
     public static boolean isEmpty(final Object[] array) {
@@ -3303,8 +3277,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive shorts is empty or {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is empty or {@code null}.
      * @since 2.1
      */
     public static boolean isEmpty(final short[] array) {
@@ -3318,9 +3292,9 @@ public class ArrayUtils {
      * Multi-dimensional primitive arrays are also handled correctly by this method.
      * </p>
      *
-     * @param array1  the left-hand side array to compare, may be {@code null}
-     * @param array2  the right-hand side array to compare, may be {@code null}
-     * @return {@code true} if the arrays are equal
+     * @param array1  the left-hand side array to compare, may be {@code null}.
+     * @param array2  the right-hand side array to compare, may be {@code null}.
+     * @return {@code true} if the arrays are equal.
      * @deprecated this method has been replaced by {@code java.util.Objects.deepEquals(Object, Object)} and will be
      * removed from future releases.
      */
@@ -3332,8 +3306,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive booleans is not empty and not {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is not empty and not {@code null}.
      * @since 2.5
      */
     public static boolean isNotEmpty(final boolean[] array) {
@@ -3343,8 +3317,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive bytes is not empty and not {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is not empty and not {@code null}.
      * @since 2.5
      */
     public static boolean isNotEmpty(final byte[] array) {
@@ -3354,8 +3328,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive chars is not empty and not {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is not empty and not {@code null}.
      * @since 2.5
      */
     public static boolean isNotEmpty(final char[] array) {
@@ -3365,8 +3339,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive doubles is not empty and not {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is not empty and not {@code null}.
      * @since 2.5
      */
     public static boolean isNotEmpty(final double[] array) {
@@ -3376,8 +3350,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive floats is not empty and not {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is not empty and not {@code null}.
      * @since 2.5
      */
     public static boolean isNotEmpty(final float[] array) {
@@ -3387,8 +3361,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive ints is not empty and not {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is not empty and not {@code null}.
      * @since 2.5
      */
     public static boolean isNotEmpty(final int[] array) {
@@ -3398,8 +3372,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive longs is not empty and not {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is not empty and not {@code null}.
      * @since 2.5
      */
     public static boolean isNotEmpty(final long[] array) {
@@ -3409,8 +3383,8 @@ public class ArrayUtils {
     /**
      * Tests whether an array of primitive shorts is not empty and not {@code null}.
      *
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is not empty and not {@code null}.
      * @since 2.5
      */
     public static boolean isNotEmpty(final short[] array) {
@@ -3421,116 +3395,100 @@ public class ArrayUtils {
      * Tests whether an array of Objects is not empty and not {@code null}.
      *
      * @param <T> the component type of the array
-     * @param array  the array to test
-     * @return {@code true} if the array is not empty and not {@code null}
+     * @param array  the array to test.
+     * @return {@code true} if the array is not empty and not {@code null}.
      * @since 2.5
      */
      public static <T> boolean isNotEmpty(final T[] array) {
          return !isEmpty(array);
      }
 
-    /**
-     * Tests whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
-     *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
-     */
-    public static boolean isSameLength(final boolean[] array1, final boolean[] array2) {
+     /**
+      * Tests whether two arrays are the same length, treating {@code null} arrays as length {@code 0}.
+      *
+      * @param array1 the first array, may be {@code null}.
+      * @param array2 the second array, may be {@code null}.
+      * @return {@code true} if length of arrays matches, treating {@code null} as an empty array.
+      */
+     public static boolean isSameLength(final boolean[] array1, final boolean[] array2) {
         return getLength(array1) == getLength(array2);
     }
 
     /**
-     * Tests whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
+     * Tests whether two arrays are the same length, treating {@code null} arrays as length {@code 0}.
      *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
+     * @param array1 the first array, may be {@code null}.
+     * @param array2 the second array, may be {@code null}.
+     * @return {@code true} if length of arrays matches, treating {@code null} as an empty array.
      */
     public static boolean isSameLength(final byte[] array1, final byte[] array2) {
         return getLength(array1) == getLength(array2);
     }
 
     /**
-     * Tests whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
+     * Tests whether two arrays are the same length, treating {@code null} arrays as length {@code 0}.
      *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
+     * @param array1 the first array, may be {@code null}.
+     * @param array2 the second array, may be {@code null}.
+     * @return {@code true} if length of arrays matches, treating {@code null} as an empty array.
      */
     public static boolean isSameLength(final char[] array1, final char[] array2) {
         return getLength(array1) == getLength(array2);
     }
 
     /**
-     * Tests whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
+     * Tests whether two arrays are the same length, treating {@code null} arrays as length {@code 0}.
      *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
+     * @param array1 the first array, may be {@code null}.
+     * @param array2 the second array, may be {@code null}.
+     * @return {@code true} if length of arrays matches, treating {@code null} as an empty array.
      */
     public static boolean isSameLength(final double[] array1, final double[] array2) {
         return getLength(array1) == getLength(array2);
     }
 
     /**
-     * Tests whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
+     * Tests whether two arrays are the same length, treating {@code null} arrays as length {@code 0}.
      *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
+     * @param array1 the first array, may be {@code null}.
+     * @param array2 the second array, may be {@code null}.
+     * @return {@code true} if length of arrays matches, treating {@code null} as an empty array.
      */
     public static boolean isSameLength(final float[] array1, final float[] array2) {
         return getLength(array1) == getLength(array2);
     }
 
     /**
-     * Tests whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
+     * Tests whether two arrays are the same length, treating {@code null} arrays as length {@code 0}.
      *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
+     * @param array1 the first array, may be {@code null}.
+     * @param array2 the second array, may be {@code null}.
+     * @return {@code true} if length of arrays matches, treating {@code null} as an empty array.
      */
     public static boolean isSameLength(final int[] array1, final int[] array2) {
         return getLength(array1) == getLength(array2);
     }
 
     /**
-     * Tests whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
+     * Tests whether two arrays are the same length, treating {@code null} arrays as length {@code 0}.
      *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
+     * @param array1 the first array, may be {@code null}.
+     * @param array2 the second array, may be {@code null}.
+     * @return {@code true} if length of arrays matches, treating {@code null} as an empty array.
      */
     public static boolean isSameLength(final long[] array1, final long[] array2) {
         return getLength(array1) == getLength(array2);
     }
 
     /**
-     * Tests whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
+     * Tests whether two arrays are the same length, treating {@code null} arrays as length {@code 0}.
      * <p>
      * Any multi-dimensional aspects of the arrays are ignored.
      * </p>
      *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
+     * @param array1 the first array, may be {@code null}.
+     * @param array2 the second array, may be {@code null}.
+     * @return {@code true} if length of arrays matches, treating {@code null} as an empty array.
      * @since 3.11
      */
     public static boolean isSameLength(final Object array1, final Object array2) {
@@ -3538,42 +3496,37 @@ public class ArrayUtils {
     }
 
     /**
-     * Tests whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
+     * Tests whether two arrays are the same length, treating {@code null} arrays as length {@code 0}.
      * <p>
      * Any multi-dimensional aspects of the arrays are ignored.
      * </p>
      *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
+     * @param array1 the first array, may be {@code null}.
+     * @param array2 the second array, may be {@code null}.
+     * @return {@code true} if length of arrays matches, treating {@code null} as an empty array.
      */
     public static boolean isSameLength(final Object[] array1, final Object[] array2) {
         return getLength(array1) == getLength(array2);
     }
 
     /**
-     * Tests whether two arrays are the same length, treating
-     * {@code null} arrays as length {@code 0}.
+     * Tests whether two arrays are the same length, treating {@code null} arrays as length {@code 0}.
      *
-     * @param array1 the first array, may be {@code null}
-     * @param array2 the second array, may be {@code null}
-     * @return {@code true} if length of arrays matches, treating
-     *  {@code null} as an empty array
+     * @param array1 the first array, may be {@code null}.
+     * @param array2 the second array, may be {@code null}.
+     * @return {@code true} if length of arrays matches, treating {@code null} as an empty array.
      */
     public static boolean isSameLength(final short[] array1, final short[] array2) {
         return getLength(array1) == getLength(array2);
     }
 
     /**
-     * Tests whether two arrays are the same type taking into account
-     * multidimensional arrays.
+     * Tests whether two arrays are the same type taking into account multidimensional arrays.
      *
-     * @param array1 the first array, must not be {@code null}
-     * @param array2 the second array, must not be {@code null}
-     * @return {@code true} if type of arrays matches
-     * @throws IllegalArgumentException if either array is {@code null}
+     * @param array1 the first array, must not be {@code null}.
+     * @param array2 the second array, must not be {@code null}.
+     * @return {@code true} if type of arrays matches.
+     * @throws IllegalArgumentException if either array is {@code null}.
      */
     public static boolean isSameType(final Object array1, final Object array2) {
         if (array1 == null || array2 == null) {
@@ -3583,11 +3536,10 @@ public class ArrayUtils {
     }
 
     /**
-     * Tests whether whether the provided array is sorted according to natural ordering
-     * ({@code false} before {@code true}).
+     * Tests whether whether the provided array is sorted according to natural ordering ({@code false} before {@code true}).
      *
-     * @param array the array to check
-     * @return whether the array is sorted according to natural ordering
+     * @param array the array to check.
+     * @return whether the array is sorted according to natural ordering.
      * @since 3.4
      */
     public static boolean isSorted(final boolean[] array) {
@@ -3609,8 +3561,8 @@ public class ArrayUtils {
     /**
      * Tests whether the provided array is sorted according to natural ordering.
      *
-     * @param array the array to check
-     * @return whether the array is sorted according to natural ordering
+     * @param array the array to check.
+     * @return whether the array is sorted according to natural ordering.
      * @since 3.4
      */
     public static boolean isSorted(final byte[] array) {
@@ -3632,8 +3584,8 @@ public class ArrayUtils {
     /**
      * Tests whether the provided array is sorted according to natural ordering.
      *
-     * @param array the array to check
-     * @return whether the array is sorted according to natural ordering
+     * @param array the array to check.
+     * @return whether the array is sorted according to natural ordering.
      * @since 3.4
      */
     public static boolean isSorted(final char[] array) {
@@ -3655,8 +3607,8 @@ public class ArrayUtils {
     /**
      * Tests whether the provided array is sorted according to natural ordering.
      *
-     * @param array the array to check
-     * @return whether the array is sorted according to natural ordering
+     * @param array the array to check.
+     * @return whether the array is sorted according to natural ordering.
      * @since 3.4
      */
     public static boolean isSorted(final double[] array) {
@@ -3678,8 +3630,8 @@ public class ArrayUtils {
     /**
      * Tests whether the provided array is sorted according to natural ordering.
      *
-     * @param array the array to check
-     * @return whether the array is sorted according to natural ordering
+     * @param array the array to check.
+     * @return whether the array is sorted according to natural ordering.
      * @since 3.4
      */
     public static boolean isSorted(final float[] array) {
@@ -3701,8 +3653,8 @@ public class ArrayUtils {
     /**
      * Tests whether the provided array is sorted according to natural ordering.
      *
-     * @param array the array to check
-     * @return whether the array is sorted according to natural ordering
+     * @param array the array to check.
+     * @return whether the array is sorted according to natural ordering.
      * @since 3.4
      */
     public static boolean isSorted(final int[] array) {
@@ -3724,8 +3676,8 @@ public class ArrayUtils {
     /**
      * Tests whether the provided array is sorted according to natural ordering.
      *
-     * @param array the array to check
-     * @return whether the array is sorted according to natural ordering
+     * @param array the array to check.
+     * @return whether the array is sorted according to natural ordering.
      * @since 3.4
      */
     public static boolean isSorted(final long[] array) {
@@ -3747,8 +3699,8 @@ public class ArrayUtils {
     /**
      * Tests whether the provided array is sorted according to natural ordering.
      *
-     * @param array the array to check
-     * @return whether the array is sorted according to natural ordering
+     * @param array the array to check.
+     * @return whether the array is sorted according to natural ordering.
      * @since 3.4
      */
     public static boolean isSorted(final short[] array) {
@@ -3771,9 +3723,9 @@ public class ArrayUtils {
      * Tests whether the provided array is sorted according to the class's
      * {@code compareTo} method.
      *
-     * @param array the array to check
-     * @param <T> the datatype of the array to check, it must implement {@link Comparable}
-     * @return whether the array is sorted
+     * @param array the array to check.
+     * @param <T> the datatype of the array to check, it must implement {@link Comparable}.
+     * @return whether the array is sorted.
      * @since 3.4
      */
     public static <T extends Comparable<? super T>> boolean isSorted(final T[] array) {
@@ -3783,11 +3735,11 @@ public class ArrayUtils {
     /**
      * Tests whether the provided array is sorted according to the provided {@link Comparator}.
      *
-     * @param array the array to check
-     * @param comparator the {@link Comparator} to compare over
-     * @param <T> the datatype of the array
-     * @return whether the array is sorted
-     * @throws NullPointerException if {@code comparator} is {@code null}
+     * @param array the array to check.
+     * @param comparator the {@link Comparator} to compare over.
+     * @param <T> the datatype of the array.
+     * @return whether the array is sorted.
+     * @throws NullPointerException if {@code comparator} is {@code null}.
      * @since 3.4
      */
     public static <T> boolean isSorted(final T[] array, final Comparator<T> comparator) {
@@ -3810,14 +3762,12 @@ public class ArrayUtils {
     /**
      * Finds the last index of the given value within the array.
      * <p>
-     * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) if
-     * {@code null} array input.
+     * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) if {@code null} array input.
      * </p>
      *
-     * @param array  the array to traverse backwards looking for the object, may be {@code null}
-     * @param valueToFind  the object to find
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse backwards looking for the object, may be {@code null}.
+     * @param valueToFind the object to find.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -3829,15 +3779,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than
-     * the array length will search from the end of the array.
+     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the array length will search from the end of the array.
      * </p>
      *
-     * @param array  the array to traverse for looking for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the start index to traverse backwards from
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse for looking for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the start index to traverse backwards from.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
         if (isEmpty(array) || startIndex < 0) {
@@ -3860,10 +3808,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to traverse backwards looking for the object, may be {@code null}
-     * @param valueToFind  the object to find
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse backwards looking for the object, may be {@code null}.
+     * @param valueToFind the object to find.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final byte[] array, final byte valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -3875,15 +3822,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the
-     * array length will search from the end of the array.
+     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the array length will search from the end of the array.
      * </p>
      *
-     * @param array  the array to traverse for looking for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the start index to traverse backwards from
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse for looking for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the start index to traverse backwards from.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final byte[] array, final byte valueToFind, int startIndex) {
         if (array == null || startIndex < 0) {
@@ -3906,10 +3851,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to traverse backwards looking for the object, may be {@code null}
-     * @param valueToFind  the object to find
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse backwards looking for the object, may be {@code null}.
+     * @param valueToFind the object to find.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      * @since 2.1
      */
     public static int lastIndexOf(final char[] array, final char valueToFind) {
@@ -3922,15 +3866,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the
-     * array length will search from the end of the array.
+     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the array length will search from the end of the array.
      * </p>
      *
-     * @param array  the array to traverse for looking for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the start index to traverse backwards from
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse for looking for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the start index to traverse backwards from.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      * @since 2.1
      */
     public static int lastIndexOf(final char[] array, final char valueToFind, int startIndex) {
@@ -3954,28 +3896,25 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to traverse backwards looking for the object, may be {@code null}
-     * @param valueToFind  the object to find
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse backwards looking for the object, may be {@code null}.
+     * @param valueToFind the object to find.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final double[] array, final double valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
     }
 
     /**
-     * Finds the last index of the given value within a given tolerance in the array.
-     * This method will return the index of the last value which falls between the region
-     * defined by valueToFind - tolerance and valueToFind + tolerance.
+     * Finds the last index of the given value within a given tolerance in the array. This method will return the index of the last value which falls between
+     * the region defined by valueToFind - tolerance and valueToFind + tolerance.
      * <p>
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to search for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param tolerance tolerance of the search
-     * @return the index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to search for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param tolerance   tolerance of the search.
+     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, final double tolerance) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE, tolerance);
@@ -3987,15 +3926,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the
-     * array length will search from the end of the array.
+     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the array length will search from the end of the array.
      * </p>
      *
-     * @param array  the array to traverse for looking for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the start index to traverse backwards from
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse for looking for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the start index to traverse backwards from.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex) {
         if (isEmpty(array) || startIndex < 0) {
@@ -4013,23 +3950,20 @@ public class ArrayUtils {
     }
 
     /**
-     * Finds the last index of the given value in the array starting at the given index.
-     * This method will return the index of the last value which falls between the region
-     * defined by valueToFind - tolerance and valueToFind + tolerance.
+     * Finds the last index of the given value in the array starting at the given index. This method will return the index of the last value which falls between
+     * the region defined by valueToFind - tolerance and valueToFind + tolerance.
      * <p>
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the
-     * array length will search from the end of the array.
+     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the array length will search from the end of the array.
      * </p>
      *
-     * @param array  the array to traverse for looking for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the start index to traverse backwards from
-     * @param tolerance  search for value within plus/minus this amount
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse for looking for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the start index to traverse backwards from.
+     * @param tolerance   search for value within plus/minus this amount.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
         if (isEmpty(array) || startIndex < 0) {
@@ -4054,10 +3988,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to traverse backwards looking for the object, may be {@code null}
-     * @param valueToFind  the object to find
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse backwards looking for the object, may be {@code null}.
+     * @param valueToFind the object to find.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final float[] array, final float valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -4069,15 +4002,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the
-     * array length will search from the end of the array.
+     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the array length will search from the end of the array.
      * </p>
      *
-     * @param array  the array to traverse for looking for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the start index to traverse backwards from
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse for looking for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the start index to traverse backwards from.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final float[] array, final float valueToFind, int startIndex) {
         if (isEmpty(array) || startIndex < 0) {
@@ -4100,10 +4031,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to traverse backwards looking for the object, may be {@code null}
-     * @param valueToFind  the object to find
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse backwards looking for the object, may be {@code null}.
+     * @param valueToFind the object to find.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final int[] array, final int valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -4115,15 +4045,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the
-     * array length will search from the end of the array.
+     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the array length will search from the end of the array.
      * </p>
      *
-     * @param array  the array to traverse for looking for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the start index to traverse backwards from
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse for looking for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the start index to traverse backwards from.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final int[] array, final int valueToFind, int startIndex) {
         if (array == null || startIndex < 0) {
@@ -4146,10 +4074,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to traverse backwards looking for the object, may be {@code null}
-     * @param valueToFind  the object to find
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse backwards looking for the object, may be {@code null}.
+     * @param valueToFind the object to find.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final long[] array, final long valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -4161,15 +4088,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the
-     * array length will search from the end of the array.
+     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the array length will search from the end of the array.
      * </p>
      *
-     * @param array  the array to traverse for looking for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the start index to traverse backwards from
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse for looking for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the start index to traverse backwards from.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final long[] array, final long valueToFind, int startIndex) {
         if (array == null || startIndex < 0) {
@@ -4192,10 +4117,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to traverse backwards looking for the object, may be {@code null}
-     * @param objectToFind  the object to find, may be {@code null}
-     * @return the last index of the object within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array        the array to traverse backwards looking for the object, may be {@code null}.
+     * @param objectToFind the object to find, may be {@code null}.
+     * @return the last index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final Object[] array, final Object objectToFind) {
         return lastIndexOf(array, objectToFind, Integer.MAX_VALUE);
@@ -4207,15 +4131,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than
-     * the array length will search from the end of the array.
+     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the array length will search from the end of the array.
      * </p>
      *
-     * @param array  the array to traverse for looking for the object, may be {@code null}
-     * @param objectToFind  the object to find, may be {@code null}
-     * @param startIndex  the start index to traverse backwards from
-     * @return the last index of the object within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array        the array to traverse for looking for the object, may be {@code null}.
+     * @param objectToFind the object to find, may be {@code null}.
+     * @param startIndex   the start index to traverse backwards from.
+     * @return the last index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final Object[] array, final Object objectToFind, int startIndex) {
         if (array == null || startIndex < 0) {
@@ -4246,10 +4168,9 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to traverse backwards looking for the object, may be {@code null}
-     * @param valueToFind  the object to find
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse backwards looking for the object, may be {@code null}.
+     * @param valueToFind the object to find.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final short[] array, final short valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -4261,15 +4182,13 @@ public class ArrayUtils {
      * This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the
-     * array length will search from the end of the array.
+     * A negative startIndex will return {@link #INDEX_NOT_FOUND} ({@code -1}). A startIndex larger than the array length will search from the end of the array.
      * </p>
      *
-     * @param array  the array to traverse for looking for the object, may be {@code null}
-     * @param valueToFind  the value to find
-     * @param startIndex  the start index to traverse backwards from
-     * @return the last index of the value within the array,
-     *  {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
+     * @param array       the array to traverse for looking for the object, may be {@code null}.
+     * @param valueToFind the value to find.
+     * @param startIndex  the start index to traverse backwards from.
+     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final short[] array, final short valueToFind, int startIndex) {
         if (array == null || startIndex < 0) {
@@ -4294,8 +4213,8 @@ public class ArrayUtils {
      * @param <E>           The type of exceptions thrown when the mapper function fails.
      * @param array         The input array.
      * @param componentType the component type of the result array.
-     * @param mapper        a non-interfering, stateless function to apply to each element
-     * @return a new array
+     * @param mapper        a non-interfering, stateless function to apply to each element.
+     * @return a new array.
      * @throws E Thrown when the mapper function fails.
      */
     private static <T, R, E extends Throwable> R[] map(final T[] array, final Class<R> componentType, final FailableFunction<? super T, ? extends R, E> mapper)
@@ -4354,8 +4273,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static boolean[] nullToEmpty(final boolean[] array) {
@@ -4373,8 +4292,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Boolean[] nullToEmpty(final Boolean[] array) {
@@ -4392,8 +4311,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static byte[] nullToEmpty(final byte[] array) {
@@ -4411,8 +4330,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Byte[] nullToEmpty(final Byte[] array) {
@@ -4430,8 +4349,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static char[] nullToEmpty(final char[] array) {
@@ -4449,8 +4368,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Character[] nullToEmpty(final Character[] array) {
@@ -4468,8 +4387,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 3.2
      */
     public static Class<?>[] nullToEmpty(final Class<?>[] array) {
@@ -4487,8 +4406,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static double[] nullToEmpty(final double[] array) {
@@ -4506,8 +4425,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Double[] nullToEmpty(final Double[] array) {
@@ -4525,8 +4444,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static float[] nullToEmpty(final float[] array) {
@@ -4544,8 +4463,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Float[] nullToEmpty(final Float[] array) {
@@ -4563,8 +4482,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static int[] nullToEmpty(final int[] array) {
@@ -4582,8 +4501,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Integer[] nullToEmpty(final Integer[] array) {
@@ -4601,8 +4520,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static long[] nullToEmpty(final long[] array) {
@@ -4620,8 +4539,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Long[] nullToEmpty(final Long[] array) {
@@ -4639,8 +4558,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Object[] nullToEmpty(final Object[] array) {
@@ -4658,8 +4577,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static short[] nullToEmpty(final short[] array) {
@@ -4677,8 +4596,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Short[] nullToEmpty(final Short[] array) {
@@ -4696,8 +4615,8 @@ public class ArrayUtils {
      * the empty {@code public static} references in this class.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
+     * @param array  the array to check for {@code null} or empty.
+     * @return the same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static String[] nullToEmpty(final String[] array) {
@@ -4711,11 +4630,11 @@ public class ArrayUtils {
      * This method returns an empty array for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to check for {@code null} or empty
-     * @param type   the class representation of the desired array
-     * @param <T>  the class type
-     * @return the same array, {@code public static} empty array if {@code null}
-     * @throws IllegalArgumentException if the type argument is null
+     * @param array  the array to check for {@code null} or empty.
+     * @param type   the class representation of the desired array.
+     * @param <T>  the class type.
+     * @return the same array, {@code public static} empty array if {@code null}.
+     * @throws IllegalArgumentException if the type argument is null.
      * @since 3.5
      */
     public static <T> T[] nullToEmpty(final T[] array, final Class<T[]> type) {
@@ -4738,19 +4657,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the element at the specified position from the specified array.
-     * All subsequent elements are shifted to the left (subtracts one from
-     * their indices).
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to the left (subtracts one from their
+     * indices).
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except the element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except the element on the specified position. The component type of the
+     * returned array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.remove([true], 0)              = []
      * ArrayUtils.remove([true, false], 0)       = [false]
@@ -4758,12 +4674,10 @@ public class ArrayUtils {
      * ArrayUtils.remove([true, true, false], 1) = [true, false]
      * </pre>
      *
-     * @param array  the array to remove the element from, may not be {@code null}
-     * @param index  the position of the element to be removed
-     * @return A new array containing the existing elements except the element
-     *         at the specified position.
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array the array to remove the element from, may not be {@code null}.
+     * @param index the position of the element to be removed.
+     * @return A new array containing the existing elements except the element at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static boolean[] remove(final boolean[] array, final int index) {
@@ -4771,19 +4685,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the element at the specified position from the specified array.
-     * All subsequent elements are shifted to the left (subtracts one from
-     * their indices).
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to the left (subtracts one from their
+     * indices).
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except the element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except the element on the specified position. The component type of the
+     * returned array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.remove([1], 0)          = []
      * ArrayUtils.remove([1, 0], 0)       = [0]
@@ -4791,12 +4702,10 @@ public class ArrayUtils {
      * ArrayUtils.remove([1, 0, 1], 1)    = [1, 1]
      * </pre>
      *
-     * @param array  the array to remove the element from, may not be {@code null}
-     * @param index  the position of the element to be removed
-     * @return A new array containing the existing elements except the element
-     *         at the specified position.
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array the array to remove the element from, may not be {@code null}.
+     * @param index the position of the element to be removed.
+     * @return A new array containing the existing elements except the element at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static byte[] remove(final byte[] array, final int index) {
@@ -4804,19 +4713,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the element at the specified position from the specified array.
-     * All subsequent elements are shifted to the left (subtracts one from
-     * their indices).
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to the left (subtracts one from their
+     * indices).
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except the element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except the element on the specified position. The component type of the
+     * returned array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.remove(['a'], 0)           = []
      * ArrayUtils.remove(['a', 'b'], 0)      = ['b']
@@ -4824,12 +4730,10 @@ public class ArrayUtils {
      * ArrayUtils.remove(['a', 'b', 'c'], 1) = ['a', 'c']
      * </pre>
      *
-     * @param array  the array to remove the element from, may not be {@code null}
-     * @param index  the position of the element to be removed
-     * @return A new array containing the existing elements except the element
-     *         at the specified position.
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array the array to remove the element from, may not be {@code null}.
+     * @param index the position of the element to be removed.
+     * @return A new array containing the existing elements except the element at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static char[] remove(final char[] array, final int index) {
@@ -4837,19 +4741,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the element at the specified position from the specified array.
-     * All subsequent elements are shifted to the left (subtracts one from
-     * their indices).
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to the left (subtracts one from their
+     * indices).
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except the element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except the element on the specified position. The component type of the
+     * returned array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.remove([1.1], 0)           = []
      * ArrayUtils.remove([2.5, 6.0], 0)      = [6.0]
@@ -4857,12 +4758,10 @@ public class ArrayUtils {
      * ArrayUtils.remove([2.5, 6.0, 3.8], 1) = [2.5, 3.8]
      * </pre>
      *
-     * @param array  the array to remove the element from, may not be {@code null}
-     * @param index  the position of the element to be removed
-     * @return A new array containing the existing elements except the element
-     *         at the specified position.
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array the array to remove the element from, may not be {@code null}.
+     * @param index the position of the element to be removed.
+     * @return A new array containing the existing elements except the element at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static double[] remove(final double[] array, final int index) {
@@ -4870,19 +4769,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the element at the specified position from the specified array.
-     * All subsequent elements are shifted to the left (subtracts one from
-     * their indices).
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to the left (subtracts one from their
+     * indices).
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except the element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except the element on the specified position. The component type of the
+     * returned array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.remove([1.1], 0)           = []
      * ArrayUtils.remove([2.5, 6.0], 0)      = [6.0]
@@ -4890,12 +4786,10 @@ public class ArrayUtils {
      * ArrayUtils.remove([2.5, 6.0, 3.8], 1) = [2.5, 3.8]
      * </pre>
      *
-     * @param array  the array to remove the element from, may not be {@code null}
-     * @param index  the position of the element to be removed
-     * @return A new array containing the existing elements except the element
-     *         at the specified position.
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array the array to remove the element from, may not be {@code null}.
+     * @param index the position of the element to be removed.
+     * @return A new array containing the existing elements except the element at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static float[] remove(final float[] array, final int index) {
@@ -4903,19 +4797,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the element at the specified position from the specified array.
-     * All subsequent elements are shifted to the left (subtracts one from
-     * their indices).
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to the left (subtracts one from their
+     * indices).
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except the element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except the element on the specified position. The component type of the
+     * returned array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.remove([1], 0)         = []
      * ArrayUtils.remove([2, 6], 0)      = [6]
@@ -4923,12 +4814,10 @@ public class ArrayUtils {
      * ArrayUtils.remove([2, 6, 3], 1)   = [2, 3]
      * </pre>
      *
-     * @param array  the array to remove the element from, may not be {@code null}
-     * @param index  the position of the element to be removed
-     * @return A new array containing the existing elements except the element
-     *         at the specified position.
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array the array to remove the element from, may not be {@code null}.
+     * @param index the position of the element to be removed.
+     * @return A new array containing the existing elements except the element at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static int[] remove(final int[] array, final int index) {
@@ -4936,19 +4825,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the element at the specified position from the specified array.
-     * All subsequent elements are shifted to the left (subtracts one from
-     * their indices).
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to the left (subtracts one from their
+     * indices).
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except the element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except the element on the specified position. The component type of the
+     * returned array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.remove([1], 0)         = []
      * ArrayUtils.remove([2, 6], 0)      = [6]
@@ -4956,12 +4842,10 @@ public class ArrayUtils {
      * ArrayUtils.remove([2, 6, 3], 1)   = [2, 3]
      * </pre>
      *
-     * @param array  the array to remove the element from, may not be {@code null}
-     * @param index  the position of the element to be removed
-     * @return A new array containing the existing elements except the element
-     *         at the specified position.
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array the array to remove the element from, may not be {@code null}.
+     * @param index the position of the element to be removed.
+     * @return A new array containing the existing elements except the element at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static long[] remove(final long[] array, final int index) {
@@ -4969,26 +4853,20 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the element at the specified position from the specified array.
-     * All subsequent elements are shifted to the left (subtracts one from
-     * their indices).
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to the left (subtracts one from their
+     * indices).
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except the element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except the element on the specified position. The component type of the
+     * returned array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
      *
-     * @param array  the array to remove the element from, may not be {@code null}
-     * @param index  the position of the element to be removed
-     * @return A new array containing the existing elements except the element
-     *         at the specified position.
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array the array to remove the element from, may not be {@code null}.
+     * @param index the position of the element to be removed.
+     * @return A new array containing the existing elements except the element at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     private static Object remove(final Object array, final int index) {
@@ -5005,19 +4883,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the element at the specified position from the specified array.
-     * All subsequent elements are shifted to the left (subtracts one from
-     * their indices).
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to the left (subtracts one from their
+     * indices).
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except the element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except the element on the specified position. The component type of the
+     * returned array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.remove([1], 0)         = []
      * ArrayUtils.remove([2, 6], 0)      = [6]
@@ -5025,12 +4900,10 @@ public class ArrayUtils {
      * ArrayUtils.remove([2, 6, 3], 1)   = [2, 3]
      * </pre>
      *
-     * @param array  the array to remove the element from, may not be {@code null}
-     * @param index  the position of the element to be removed
-     * @return A new array containing the existing elements except the element
-     *         at the specified position.
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array the array to remove the element from, may not be {@code null}.
+     * @param index the position of the element to be removed.
+     * @return A new array containing the existing elements except the element at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     public static short[] remove(final short[] array, final int index) {
@@ -5038,19 +4911,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the element at the specified position from the specified array.
-     * All subsequent elements are shifted to the left (subtracts one from
-     * their indices).
+     * Removes the element at the specified position from the specified array. All subsequent elements are shifted to the left (subtracts one from their
+     * indices).
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except the element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except the element on the specified position. The component type of the
+     * returned array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.remove(["a"], 0)           = []
      * ArrayUtils.remove(["a", "b"], 0)      = ["b"]
@@ -5058,13 +4928,11 @@ public class ArrayUtils {
      * ArrayUtils.remove(["a", "b", "c"], 1) = ["a", "c"]
      * </pre>
      *
-     * @param <T> the component type of the array
-     * @param array  the array to remove the element from, may not be {@code null}
-     * @param index  the position of the element to be removed
-     * @return A new array containing the existing elements except the element
-     *         at the specified position.
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param <T>   the component type of the array.
+     * @param array the array to remove the element from, may not be {@code null}.
+     * @param index the position of the element to be removed.
+     * @return A new array containing the existing elements except the element at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 2.1
      */
     @SuppressWarnings("unchecked") // remove() always creates an array of the same type as its input
@@ -5073,29 +4941,24 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the elements at the specified positions from the specified array.
-     * All remaining elements are shifted to the left.
+     * Removes the elements at the specified positions from the specified array. All remaining elements are shifted to the left.
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except those at the specified positions. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except those at the specified positions. The component type of the returned
+     * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.removeAll([true, false, true], 0, 2) = [false]
      * ArrayUtils.removeAll([true, false, true], 1, 2) = [true]
      * </pre>
      *
-     * @param array   the array to remove the element from, may not be {@code null}
-     * @param indices the positions of the elements to be removed
-     * @return A new array containing the existing elements except those
-     *         at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array   the array to remove the element from, may not be {@code null}.
+     * @param indices the positions of the elements to be removed.
+     * @return A new array containing the existing elements except those at the specified positions.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static boolean[] removeAll(final boolean[] array, final int... indices) {
@@ -5103,18 +4966,15 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the elements at the specified positions from the specified array.
-     * All remaining elements are shifted to the left.
+     * Removes the elements at the specified positions from the specified array. All remaining elements are shifted to the left.
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except those at the specified positions. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except those at the specified positions. The component type of the returned
+     * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.removeAll([1], 0)             = []
      * ArrayUtils.removeAll([2, 6], 0)          = [6]
@@ -5124,12 +4984,10 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   the array to remove the element from, may not be {@code null}
-     * @param indices the positions of the elements to be removed
-     * @return A new array containing the existing elements except those
-     *         at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array   the array to remove the element from, may not be {@code null}.
+     * @param indices the positions of the elements to be removed.
+     * @return A new array containing the existing elements except those at the specified positions.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static byte[] removeAll(final byte[] array, final int... indices) {
@@ -5137,18 +4995,15 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the elements at the specified positions from the specified array.
-     * All remaining elements are shifted to the left.
+     * Removes the elements at the specified positions from the specified array. All remaining elements are shifted to the left.
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except those at the specified positions. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except those at the specified positions. The component type of the returned
+     * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.removeAll([1], 0)             = []
      * ArrayUtils.removeAll([2, 6], 0)          = [6]
@@ -5158,12 +5013,10 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   the array to remove the element from, may not be {@code null}
-     * @param indices the positions of the elements to be removed
-     * @return A new array containing the existing elements except those
-     *         at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array   the array to remove the element from, may not be {@code null}.
+     * @param indices the positions of the elements to be removed.
+     * @return A new array containing the existing elements except those at the specified positions.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static char[] removeAll(final char[] array, final int... indices) {
@@ -5171,18 +5024,15 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the elements at the specified positions from the specified array.
-     * All remaining elements are shifted to the left.
+     * Removes the elements at the specified positions from the specified array. All remaining elements are shifted to the left.
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except those at the specified positions. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except those at the specified positions. The component type of the returned
+     * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.removeAll([1], 0)             = []
      * ArrayUtils.removeAll([2, 6], 0)          = [6]
@@ -5192,12 +5042,10 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   the array to remove the element from, may not be {@code null}
-     * @param indices the positions of the elements to be removed
-     * @return A new array containing the existing elements except those
-     *         at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array   the array to remove the element from, may not be {@code null}.
+     * @param indices the positions of the elements to be removed.
+     * @return A new array containing the existing elements except those at the specified positions.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static double[] removeAll(final double[] array, final int... indices) {
@@ -5205,18 +5053,15 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the elements at the specified positions from the specified array.
-     * All remaining elements are shifted to the left.
+     * Removes the elements at the specified positions from the specified array. All remaining elements are shifted to the left.
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except those at the specified positions. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except those at the specified positions. The component type of the returned
+     * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.removeAll([1], 0)             = []
      * ArrayUtils.removeAll([2, 6], 0)          = [6]
@@ -5226,12 +5071,10 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   the array to remove the element from, may not be {@code null}
-     * @param indices the positions of the elements to be removed
-     * @return A new array containing the existing elements except those
-     *         at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array   the array to remove the element from, may not be {@code null}.
+     * @param indices the positions of the elements to be removed.
+     * @return A new array containing the existing elements except those at the specified positions.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static float[] removeAll(final float[] array, final int... indices) {
@@ -5239,18 +5082,15 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the elements at the specified positions from the specified array.
-     * All remaining elements are shifted to the left.
+     * Removes the elements at the specified positions from the specified array. All remaining elements are shifted to the left.
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except those at the specified positions. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except those at the specified positions. The component type of the returned
+     * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.removeAll([1], 0)             = []
      * ArrayUtils.removeAll([2, 6], 0)          = [6]
@@ -5260,12 +5100,10 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   the array to remove the element from, may not be {@code null}
-     * @param indices the positions of the elements to be removed
-     * @return A new array containing the existing elements except those
-     *         at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array   the array to remove the element from, may not be {@code null}.
+     * @param indices the positions of the elements to be removed.
+     * @return A new array containing the existing elements except those at the specified positions.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static int[] removeAll(final int[] array, final int... indices) {
@@ -5273,18 +5111,15 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the elements at the specified positions from the specified array.
-     * All remaining elements are shifted to the left.
+     * Removes the elements at the specified positions from the specified array. All remaining elements are shifted to the left.
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except those at the specified positions. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except those at the specified positions. The component type of the returned
+     * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.removeAll([1], 0)             = []
      * ArrayUtils.removeAll([2, 6], 0)          = [6]
@@ -5294,12 +5129,10 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   the array to remove the element from, may not be {@code null}
-     * @param indices the positions of the elements to be removed
-     * @return A new array containing the existing elements except those
-     *         at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array   the array to remove the element from, may not be {@code null}.
+     * @param indices the positions of the elements to be removed.
+     * @return A new array containing the existing elements except those at the specified positions.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static long[] removeAll(final long[] array, final int... indices) {
@@ -5309,7 +5142,7 @@ public class ArrayUtils {
     /**
      * Removes multiple array elements specified by index.
      *
-     * @param array source
+     * @param array   source
      * @param indices to remove
      * @return new array of same type minus elements specified by unique values of {@code indices}
      */
@@ -5360,18 +5193,15 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the elements at the specified positions from the specified array.
-     * All remaining elements are shifted to the left.
+     * Removes the elements at the specified positions from the specified array. All remaining elements are shifted to the left.
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except those at the specified positions. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except those at the specified positions. The component type of the returned
+     * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.removeAll([1], 0)             = []
      * ArrayUtils.removeAll([2, 6], 0)          = [6]
@@ -5381,12 +5211,10 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   the array to remove the element from, may not be {@code null}
-     * @param indices the positions of the elements to be removed
-     * @return A new array containing the existing elements except those
-     *         at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param array   the array to remove the element from, may not be {@code null}.
+     * @param indices the positions of the elements to be removed.
+     * @return A new array containing the existing elements except those at the specified positions.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     public static short[] removeAll(final short[] array, final int... indices) {
@@ -5394,30 +5222,25 @@ public class ArrayUtils {
     }
 
     /**
-     * Removes the elements at the specified positions from the specified array.
-     * All remaining elements are shifted to the left.
+     * Removes the elements at the specified positions from the specified array. All remaining elements are shifted to the left.
      * <p>
-     * This method returns a new array with the same elements of the input
-     * array except those at the specified positions. The component
-     * type of the returned array is always the same as that of the input
-     * array.
+     * This method returns a new array with the same elements of the input array except those at the specified positions. The component type of the returned
+     * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException
-     * will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
      * </p>
+     *
      * <pre>
      * ArrayUtils.removeAll(["a", "b", "c"], 0, 2) = ["b"]
      * ArrayUtils.removeAll(["a", "b", "c"], 1, 2) = ["a"]
      * </pre>
      *
-     * @param <T> the component type of the array
-     * @param array   the array to remove the element from, may not be {@code null}
-     * @param indices the positions of the elements to be removed
-     * @return A new array containing the existing elements except those
-     *         at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range
-     * (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @param <T>     the component type of the array.
+     * @param array   the array to remove the element from, may not be {@code null}.
+     * @param indices the positions of the elements to be removed.
+     * @return A new array containing the existing elements except those at the specified positions.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
      * @since 3.0.1
      */
     @SuppressWarnings("unchecked") // removeAll() always creates an array of the same type as its input
@@ -6560,7 +6383,7 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to reverse, may be {@code null}
+     * @param array  the array to reverse, may be {@code null}.
      */
     public static void reverse(final byte[] array) {
         if (array != null) {
@@ -6574,14 +6397,10 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array
-     *            the array to reverse, may be {@code null}
-     * @param startIndexInclusive
-     *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
-     *            change.
-     * @param endIndexExclusive
-     *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
-     *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @param array               the array to reverse, may be {@code null}.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no change.
+     * @param endIndexExclusive   elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no change. Overvalue
+     *                            (&gt;array.length) is demoted to array length.
      * @since 3.2
      */
     public static void reverse(final byte[] array, final int startIndexInclusive, final int endIndexExclusive) {
@@ -6606,7 +6425,7 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array  the array to reverse, may be {@code null}
+     * @param array  the array to reverse, may be {@code null}.
      */
     public static void reverse(final char[] array) {
         if (array != null) {
@@ -6620,14 +6439,10 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array
-     *            the array to reverse, may be {@code null}
-     * @param startIndexInclusive
-     *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
-     *            change.
-     * @param endIndexExclusive
-     *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
-     *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @param array               the array to reverse, may be {@code null}.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no change.
+     * @param endIndexExclusive   elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no change. Overvalue
+     *                            (&gt;array.length) is demoted to array length.
      * @since 3.2
      */
     public static void reverse(final char[] array, final int startIndexInclusive, final int endIndexExclusive) {
@@ -6666,14 +6481,10 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array
-     *            the array to reverse, may be {@code null}
-     * @param startIndexInclusive
-     *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
-     *            change.
-     * @param endIndexExclusive
-     *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
-     *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @param array               the array to reverse, may be {@code null}.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no change.
+     * @param endIndexExclusive   elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no change. Overvalue
+     *                            (&gt;array.length) is demoted to array length.
      * @since 3.2
      */
     public static void reverse(final double[] array, final int startIndexInclusive, final int endIndexExclusive) {
@@ -6712,14 +6523,10 @@ public class ArrayUtils {
      * This method does nothing for a {@code null} input array.
      * </p>
      *
-     * @param array
-     *            the array to reverse, may be {@code null}.
-     * @param startIndexInclusive
-     *            the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no
-     *            change.
-     * @param endIndexExclusive
-     *            elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no
-     *            change. Overvalue (&gt;array.length) is demoted to array length.
+     * @param array               the array to reverse, may be {@code null}.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in no change.
+     * @param endIndexExclusive   elements up to endIndex-1 are reversed in the array. Undervalue (&lt; start index) results in no change. Overvalue
+     *                            (&gt;array.length) is demoted to array length.
      * @since 3.2
      */
     public static void reverse(final float[] array, final int startIndexInclusive, final int endIndexExclusive) {
@@ -7620,8 +7427,8 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle
-     * @param random the source of randomness used to permute the elements
+     * @param array  the array to shuffle.
+     * @param random the source of randomness used to permute the elements.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7654,8 +7461,8 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle
-     * @param random the source of randomness used to permute the elements
+     * @param array  the array to shuffle.
+     * @param random the source of randomness used to permute the elements.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7688,8 +7495,8 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle
-     * @param random the source of randomness used to permute the elements
+     * @param array  the array to shuffle.
+     * @param random the source of randomness used to permute the elements.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7722,8 +7529,8 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle
-     * @param random the source of randomness used to permute the elements
+     * @param array  the array to shuffle.
+     * @param random the source of randomness used to permute the elements.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7756,8 +7563,8 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle
-     * @param random the source of randomness used to permute the elements
+     * @param array  the array to shuffle.
+     * @param random the source of randomness used to permute the elements.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7790,8 +7597,8 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle
-     * @param random the source of randomness used to permute the elements
+     * @param array  the array to shuffle.
+     * @param random the source of randomness used to permute the elements.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7824,8 +7631,8 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle
-     * @param random the source of randomness used to permute the elements
+     * @param array  the array to shuffle.
+     * @param random the source of randomness used to permute the elements.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7858,8 +7665,8 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle
-     * @param random the source of randomness used to permute the elements
+     * @param array  the array to shuffle.
+     * @param random the source of randomness used to permute the elements.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7892,8 +7699,8 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle
-     * @param random the source of randomness used to permute the elements
+     * @param array  the array to shuffle.
+     * @param random the source of randomness used to permute the elements.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
@@ -7939,23 +7746,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Produces a new {@code boolean} array containing the elements
-     * between the start and end indices.
+     * Produces a new {@code boolean} array containing the elements between the start and end indices.
      * <p>
-     * The start index is inclusive, the end index exclusive.
-     * Null array input produces null output.
+     * The start index is inclusive, the end index exclusive. Null array input produces null output.
      * </p>
      *
-     * @param array  the array
-     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
-     *      is promoted to 0, overvalue (&gt;array.length) results
-     *      in an empty array.
-     * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
-     *      empty array, overvalue (&gt;array.length) is demoted to
-     *      array length.
-     * @return a new array containing the elements between
-     *      the start and end indices.
+     * @param array               the input array.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in an empty array.
+     * @param endIndexExclusive   elements up to endIndex-1 are present in the returned subarray. Undervalue (&lt; startIndex) produces empty array, overvalue
+     *                            (&gt;array.length) is demoted to array length.
+     * @return a new array containing the elements between the start and end indices.
      * @since 2.1
      * @see Arrays#copyOfRange(boolean[], int, int)
      */
@@ -7973,23 +7773,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Produces a new {@code byte} array containing the elements
-     * between the start and end indices.
+     * Produces a new {@code byte} array containing the elements between the start and end indices.
      * <p>
-     * The start index is inclusive, the end index exclusive.
-     * Null array input produces null output.
+     * The start index is inclusive, the end index exclusive. Null array input produces null output.
      * </p>
      *
-     * @param array  the array
-     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
-     *      is promoted to 0, overvalue (&gt;array.length) results
-     *      in an empty array.
-     * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
-     *      empty array, overvalue (&gt;array.length) is demoted to
-     *      array length.
-     * @return a new array containing the elements between
-     *      the start and end indices.
+     * @param array               the input array..
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in an empty array.
+     * @param endIndexExclusive   elements up to endIndex-1 are present in the returned subarray. Undervalue (&lt; startIndex) produces empty array, overvalue
+     *                            (&gt;array.length) is demoted to array length.
+     * @return a new array containing the elements between the start and end indices.
      * @since 2.1
      * @see Arrays#copyOfRange(byte[], int, int)
      */
@@ -8007,23 +7800,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Produces a new {@code char} array containing the elements
-     * between the start and end indices.
+     * Produces a new {@code char} array containing the elements between the start and end indices.
      * <p>
-     * The start index is inclusive, the end index exclusive.
-     * Null array input produces null output.
+     * The start index is inclusive, the end index exclusive. Null array input produces null output.
      * </p>
      *
-     * @param array  the array
-     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
-     *      is promoted to 0, overvalue (&gt;array.length) results
-     *      in an empty array.
-     * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
-     *      empty array, overvalue (&gt;array.length) is demoted to
-     *      array length.
-     * @return a new array containing the elements between
-     *      the start and end indices.
+     * @param array               the input array.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in an empty array.
+     * @param endIndexExclusive   elements up to endIndex-1 are present in the returned subarray. Undervalue (&lt; startIndex) produces empty array, overvalue
+     *                            (&gt;array.length) is demoted to array length.
+     * @return a new array containing the elements between the start and end indices.
      * @since 2.1
      * @see Arrays#copyOfRange(char[], int, int)
      */
@@ -8041,23 +7827,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Produces a new {@code double} array containing the elements
-     * between the start and end indices.
+     * Produces a new {@code double} array containing the elements between the start and end indices.
      * <p>
-     * The start index is inclusive, the end index exclusive.
-     * Null array input produces null output.
+     * The start index is inclusive, the end index exclusive. Null array input produces null output.
      * </p>
      *
-     * @param array  the array
-     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
-     *      is promoted to 0, overvalue (&gt;array.length) results
-     *      in an empty array.
-     * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
-     *      empty array, overvalue (&gt;array.length) is demoted to
-     *      array length.
-     * @return a new array containing the elements between
-     *      the start and end indices.
+     * @param array               the input array.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in an empty array.
+     * @param endIndexExclusive   elements up to endIndex-1 are present in the returned subarray. Undervalue (&lt; startIndex) produces empty array, overvalue
+     *                            (&gt;array.length) is demoted to array length.
+     * @return a new array containing the elements between the start and end indices.
      * @since 2.1
      * @see Arrays#copyOfRange(double[], int, int)
      */
@@ -8075,23 +7854,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Produces a new {@code float} array containing the elements
-     * between the start and end indices.
+     * Produces a new {@code float} array containing the elements between the start and end indices.
      * <p>
-     * The start index is inclusive, the end index exclusive.
-     * Null array input produces null output.
+     * The start index is inclusive, the end index exclusive. Null array input produces null output.
      * </p>
      *
-     * @param array  the array
-     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
-     *      is promoted to 0, overvalue (&gt;array.length) results
-     *      in an empty array.
-     * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
-     *      empty array, overvalue (&gt;array.length) is demoted to
-     *      array length.
-     * @return a new array containing the elements between
-     *      the start and end indices.
+     * @param array               the input array.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in an empty array.
+     * @param endIndexExclusive   elements up to endIndex-1 are present in the returned subarray. Undervalue (&lt; startIndex) produces empty array, overvalue
+     *                            (&gt;array.length) is demoted to array length.
+     * @return a new array containing the elements between the start and end indices.
      * @since 2.1
      * @see Arrays#copyOfRange(float[], int, int)
      */
@@ -8109,23 +7881,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Produces a new {@code int} array containing the elements
-     * between the start and end indices.
+     * Produces a new {@code int} array containing the elements between the start and end indices.
      * <p>
-     * The start index is inclusive, the end index exclusive.
-     * Null array input produces null output.
+     * The start index is inclusive, the end index exclusive. Null array input produces null output.
      * </p>
      *
-     * @param array  the array
-     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
-     *      is promoted to 0, overvalue (&gt;array.length) results
-     *      in an empty array.
-     * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
-     *      empty array, overvalue (&gt;array.length) is demoted to
-     *      array length.
-     * @return a new array containing the elements between
-     *      the start and end indices.
+     * @param array               the input array.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in an empty array.
+     * @param endIndexExclusive   elements up to endIndex-1 are present in the returned subarray. Undervalue (&lt; startIndex) produces empty array, overvalue
+     *                            (&gt;array.length) is demoted to array length.
+     * @return a new array containing the elements between the start and end indices.
      * @since 2.1
      * @see Arrays#copyOfRange(int[], int, int)
      */
@@ -8143,23 +7908,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Produces a new {@code long} array containing the elements
-     * between the start and end indices.
+     * Produces a new {@code long} array containing the elements between the start and end indices.
      * <p>
-     * The start index is inclusive, the end index exclusive.
-     * Null array input produces null output.
+     * The start index is inclusive, the end index exclusive. Null array input produces null output.
      * </p>
      *
-     * @param array  the array
-     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
-     *      is promoted to 0, overvalue (&gt;array.length) results
-     *      in an empty array.
-     * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
-     *      empty array, overvalue (&gt;array.length) is demoted to
-     *      array length.
-     * @return a new array containing the elements between
-     *      the start and end indices.
+     * @param array               the input array.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in an empty array.
+     * @param endIndexExclusive   elements up to endIndex-1 are present in the returned subarray. Undervalue (&lt; startIndex) produces empty array, overvalue
+     *                            (&gt;array.length) is demoted to array length.
+     * @return a new array containing the elements between the start and end indices.
      * @since 2.1
      * @see Arrays#copyOfRange(long[], int, int)
      */
@@ -8177,23 +7935,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Produces a new {@code short} array containing the elements
-     * between the start and end indices.
+     * Produces a new {@code short} array containing the elements between the start and end indices.
      * <p>
-     * The start index is inclusive, the end index exclusive.
-     * Null array input produces null output.
+     * The start index is inclusive, the end index exclusive. Null array input produces null output.
      * </p>
      *
-     * @param array  the array
-     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
-     *      is promoted to 0, overvalue (&gt;array.length) results
-     *      in an empty array.
-     * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
-     *      empty array, overvalue (&gt;array.length) is demoted to
-     *      array length.
-     * @return a new array containing the elements between
-     *      the start and end indices.
+     * @param array               the input array.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in an empty array.
+     * @param endIndexExclusive   elements up to endIndex-1 are present in the returned subarray. Undervalue (&lt; startIndex) produces empty array, overvalue
+     *                            (&gt;array.length) is demoted to array length.
+     * @return a new array containing the elements between the start and end indices.
      * @since 2.1
      * @see Arrays#copyOfRange(short[], int, int)
      */
@@ -8211,32 +7962,26 @@ public class ArrayUtils {
     }
 
     /**
-     * Produces a new array containing the elements between
-     * the start and end indices.
+     * Produces a new array containing the elements between the start and end indices.
      * <p>
-     * The start index is inclusive, the end index exclusive.
-     * Null array input produces null output.
+     * The start index is inclusive, the end index exclusive. Null array input produces null output.
      * </p>
      * <p>
-     * The component type of the subarray is always the same as
-     * that of the input array. Thus, if the input is an array of type
-     * {@link Date}, the following usage is envisaged:
+     * The component type of the subarray is always the same as that of the input array. Thus, if the input is an array of type {@link Date}, the following
+     * usage is envisaged:
      * </p>
+     *
      * <pre>
+     *
      * Date[] someDates = (Date[]) ArrayUtils.subarray(allDates, 2, 5);
      * </pre>
      *
-     * @param <T> the component type of the array
-     * @param array  the array
-     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
-     *      is promoted to 0, overvalue (&gt;array.length) results
-     *      in an empty array.
-     * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
-     *      empty array, overvalue (&gt;array.length) is demoted to
-     *      array length.
-     * @return a new array containing the elements between
-     *      the start and end indices.
+     * @param <T>                 the component type of the array.
+     * @param array               the input array.
+     * @param startIndexInclusive the starting index. Undervalue (&lt;0) is promoted to 0, overvalue (&gt;array.length) results in an empty array.
+     * @param endIndexExclusive   elements up to endIndex-1 are present in the returned subarray. Undervalue (&lt; startIndex) produces empty array, overvalue
+     *                            (&gt;array.length) is demoted to array length.
+     * @return a new array containing the elements between the start and end indices.
      * @since 2.1
      * @see Arrays#copyOfRange(Object[], int, int)
      */
@@ -8271,8 +8016,8 @@ public class ArrayUtils {
      * </ul>
      *
      * @param array  the array to swap, may be {@code null}.
-     * @param offset1 the index of the first element to swap
-     * @param offset2 the index of the second element to swap
+     * @param offset1 the index of the first element to swap.
+     * @param offset2 the index of the second element to swap.
      * @since 3.5
      */
     public static void swap(final boolean[] array, final int offset1, final int offset2) {
@@ -8298,9 +8043,9 @@ public class ArrayUtils {
      * </ul>
      *
      * @param array the array to swap, may be {@code null}.
-     * @param offset1 the index of the first element in the series to swap
-     * @param offset2 the index of the second element in the series to swap
-     * @param len the number of elements to swap starting with the given indices
+     * @param offset1 the index of the first element in the series to swap.
+     * @param offset2 the index of the second element in the series to swap.
+     * @param len the number of elements to swap starting with the given indices.
      * @since 3.5
      */
     public static void swap(final boolean[] array, int offset1, int offset2, int len) {
@@ -8334,8 +8079,8 @@ public class ArrayUtils {
      * </ul>
      *
      * @param array  the array to swap, may be {@code null}.
-     * @param offset1 the index of the first element to swap
-     * @param offset2 the index of the second element to swap
+     * @param offset1 the index of the first element to swap.
+     * @param offset2 the index of the second element to swap.
      * @since 3.5
      */
     public static void swap(final byte[] array, final int offset1, final int offset2) {
@@ -8361,9 +8106,9 @@ public class ArrayUtils {
      * </ul>
      *
      * @param array the array to swap, may be {@code null}.
-     * @param offset1 the index of the first element in the series to swap
-     * @param offset2 the index of the second element in the series to swap
-     * @param len the number of elements to swap starting with the given indices
+     * @param offset1 the index of the first element in the series to swap.
+     * @param offset2 the index of the second element in the series to swap.
+     * @param len the number of elements to swap starting with the given indices.
      * @since 3.5
      */
     public static void swap(final byte[] array, int offset1, int offset2, int len) {
@@ -8397,8 +8142,8 @@ public class ArrayUtils {
      * </ul>
      *
      * @param array  the array to swap, may be {@code null}.
-     * @param offset1 the index of the first element to swap
-     * @param offset2 the index of the second element to swap
+     * @param offset1 the index of the first element to swap.
+     * @param offset2 the index of the second element to swap.
      * @since 3.5
      */
     public static void swap(final char[] array, final int offset1, final int offset2) {
@@ -8424,9 +8169,9 @@ public class ArrayUtils {
      * </ul>
      *
      * @param array the array to swap, may be {@code null}.
-     * @param offset1 the index of the first element in the series to swap
-     * @param offset2 the index of the second element in the series to swap
-     * @param len the number of elements to swap starting with the given indices
+     * @param offset1 the index of the first element in the series to swap.
+     * @param offset2 the index of the second element in the series to swap.
+     * @param len the number of elements to swap starting with the given indices.
      * @since 3.5
      */
     public static void swap(final char[] array, int offset1, int offset2, int len) {
@@ -8460,8 +8205,8 @@ public class ArrayUtils {
      * </ul>
      *
      * @param array  the array to swap, may be {@code null}.
-     * @param offset1 the index of the first element to swap
-     * @param offset2 the index of the second element to swap
+     * @param offset1 the index of the first element to swap.
+     * @param offset2 the index of the second element to swap.
      * @since 3.5
      */
     public static void swap(final double[] array, final int offset1, final int offset2) {
@@ -8487,9 +8232,9 @@ public class ArrayUtils {
      * </ul>
      *
      * @param array the array to swap, may be {@code null}.
-     * @param offset1 the index of the first element in the series to swap
-     * @param offset2 the index of the second element in the series to swap
-     * @param len the number of elements to swap starting with the given indices
+     * @param offset1 the index of the first element in the series to swap.
+     * @param offset2 the index of the second element in the series to swap.
+     * @param len the number of elements to swap starting with the given indices.
      * @since 3.5
      */
     public static void swap(final double[] array,  int offset1, int offset2, int len) {
@@ -8523,8 +8268,8 @@ public class ArrayUtils {
      * </ul>
      *
      * @param array  the array to swap, may be {@code null}.
-     * @param offset1 the index of the first element to swap
-     * @param offset2 the index of the second element to swap
+     * @param offset1 the index of the first element to swap.
+     * @param offset2 the index of the second element to swap.
      * @since 3.5
      */
     public static void swap(final float[] array, final int offset1, final int offset2) {
@@ -8550,9 +8295,9 @@ public class ArrayUtils {
      * </ul>
      *
      * @param array the array to swap, may be {@code null}.
-     * @param offset1 the index of the first element in the series to swap
-     * @param offset2 the index of the second element in the series to swap
-     * @param len the number of elements to swap starting with the given indices
+     * @param offset1 the index of the first element in the series to swap.
+     * @param offset2 the index of the second element in the series to swap.
+     * @param len the number of elements to swap starting with the given indices.
      * @since 3.5
      */
     public static void swap(final float[] array, int offset1, int offset2, int len) {
@@ -8586,9 +8331,9 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      * </ul>
      *
-     * @param array  the array to swap, may be {@code null}
-     * @param offset1 the index of the first element to swap
-     * @param offset2 the index of the second element to swap
+     * @param array  the array to swap, may be {@code null}.
+     * @param offset1 the index of the first element to swap.
+     * @param offset2 the index of the second element to swap.
      * @since 3.5
      */
     public static void swap(final int[] array, final int offset1, final int offset2) {
@@ -8613,10 +8358,10 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      * </ul>
      *
-     * @param array the array to swap, may be {@code null}
-     * @param offset1 the index of the first element in the series to swap
-     * @param offset2 the index of the second element in the series to swap
-     * @param len the number of elements to swap starting with the given indices
+     * @param array the array to swap, may be {@code null}.
+     * @param offset1 the index of the first element in the series to swap.
+     * @param offset2 the index of the second element in the series to swap.
+     * @param len the number of elements to swap starting with the given indices.
      * @since 3.5
      */
     public static void swap(final int[] array,  int offset1, int offset2, int len) {
@@ -8649,9 +8394,9 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([true, false, true], -1, 1) -&gt; [false, true, true]</li>
      * </ul>
      *
-     * @param array  the array to swap, may be {@code null}
-     * @param offset1 the index of the first element to swap
-     * @param offset2 the index of the second element to swap
+     * @param array  the array to swap, may be {@code null}.
+     * @param offset1 the index of the first element to swap.
+     * @param offset2 the index of the second element to swap.
      * @since 3.5
      */
     public static void swap(final long[] array, final int offset1, final int offset2) {
@@ -8676,10 +8421,10 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      * </ul>
      *
-     * @param array the array to swap, may be {@code null}
-     * @param offset1 the index of the first element in the series to swap
-     * @param offset2 the index of the second element in the series to swap
-     * @param len the number of elements to swap starting with the given indices
+     * @param array the array to swap, may be {@code null}.
+     * @param offset1 the index of the first element in the series to swap.
+     * @param offset2 the index of the second element in the series to swap.
+     * @param len the number of elements to swap starting with the given indices.
      * @since 3.5
      */
     public static void swap(final long[] array,  int offset1, int offset2, int len) {
@@ -8712,9 +8457,9 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap(["1", "2", "3"], -1, 1) -&gt; ["2", "1", "3"]</li>
      * </ul>
      *
-     * @param array the array to swap, may be {@code null}
-     * @param offset1 the index of the first element to swap
-     * @param offset2 the index of the second element to swap
+     * @param array the array to swap, may be {@code null}.
+     * @param offset1 the index of the first element to swap.
+     * @param offset2 the index of the second element to swap.
      * @since 3.5
      */
     public static void swap(final Object[] array, final int offset1, final int offset2) {
@@ -8739,10 +8484,10 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 3, 3) -&gt; ["4", "2", "3", "1"]</li>
      * </ul>
      *
-     * @param array the array to swap, may be {@code null}
-     * @param offset1 the index of the first element in the series to swap
-     * @param offset2 the index of the second element in the series to swap
-     * @param len the number of elements to swap starting with the given indices
+     * @param array the array to swap, may be {@code null}.
+     * @param offset1 the index of the first element in the series to swap.
+     * @param offset2 the index of the second element in the series to swap.
+     * @param len the number of elements to swap starting with the given indices.
      * @since 3.5
      */
     public static void swap(final Object[] array,  int offset1, int offset2, int len) {
@@ -8775,9 +8520,9 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3], -1, 1) -&gt; [2, 1, 3]</li>
      * </ul>
      *
-     * @param array  the array to swap, may be {@code null}
-     * @param offset1 the index of the first element to swap
-     * @param offset2 the index of the second element to swap
+     * @param array  the array to swap, may be {@code null}.
+     * @param offset1 the index of the first element to swap.
+     * @param offset2 the index of the second element to swap.
      * @since 3.5
      */
     public static void swap(final short[] array, final int offset1, final int offset2) {
@@ -8802,10 +8547,10 @@ public class ArrayUtils {
      *     <li>ArrayUtils.swap([1, 2, 3, 4], 0, 3, 3) -&gt; [4, 2, 3, 1]</li>
      * </ul>
      *
-     * @param array the array to swap, may be {@code null}
-     * @param offset1 the index of the first element in the series to swap
-     * @param offset2 the index of the second element in the series to swap
-     * @param len the number of elements to swap starting with the given indices
+     * @param array the array to swap, may be {@code null}.
+     * @param offset1 the index of the first element in the series to swap.
+     * @param offset2 the index of the second element in the series to swap.
+     * @param len the number of elements to swap starting with the given indices.
      * @since 3.5
      */
     public static void swap(final short[] array, int offset1, int offset2, int len) {
@@ -8859,9 +8604,9 @@ public class ArrayUtils {
      * {@code new Number[] {Integer.valueOf(42), Double.valueOf(Math.PI)}}.
      * </p>
      *
-     * @param  <T>   the array's element type
-     * @param  items  the varargs array items, null allowed
-     * @return the array, not null unless a null array is passed in
+     * @param  <T>   the array's element type.
+     * @param  items  the varargs array items, null allowed.
+     * @return the array, not null unless a null array is passed in.
      * @since 3.0
      */
     public static <T> T[] toArray(@SuppressWarnings("unchecked") final T... items) {
@@ -8869,31 +8614,25 @@ public class ArrayUtils {
     }
 
     /**
-     * Converts the given array into a {@link java.util.Map}. Each element of the array
-     * must be either a {@link java.util.Map.Entry} or an Array, containing at least two
-     * elements, where the first element is used as key and the second as
-     * value.
+     * Converts the given array into a {@link java.util.Map}. Each element of the array must be either a {@link java.util.Map.Entry} or an Array, containing at
+     * least two elements, where the first element is used as key and the second as value.
      * <p>
      * This method can be used to initialize:
      * </p>
+     *
      * <pre>
+     *
      * // Create a Map mapping colors.
-     * Map colorMap = ArrayUtils.toMap(new String[][] {
-     *     {"RED", "#FF0000"},
-     *     {"GREEN", "#00FF00"},
-     *     {"BLUE", "#0000FF"}});
+     * Map colorMap = ArrayUtils.toMap(new String[][] { { "RED", "#FF0000" }, { "GREEN", "#00FF00" }, { "BLUE", "#0000FF" } });
      * </pre>
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  an array whose elements are either a {@link java.util.Map.Entry} or
-     *  an Array containing at least two elements, may be {@code null}
-     * @return a {@link Map} that was created from the array
-     * @throws IllegalArgumentException  if one element of this Array is
-     *  itself an Array containing less than two elements
-     * @throws IllegalArgumentException  if the array contains elements other
-     *  than {@link java.util.Map.Entry} and an Array
+     * @param array an array whose elements are either a {@link java.util.Map.Entry} or an Array containing at least two elements, may be {@code null}.
+     * @return a {@link Map} that was created from the array.
+     * @throws IllegalArgumentException if one element of this Array is itself an Array containing less than two elements.
+     * @throws IllegalArgumentException if the array contains elements other than {@link java.util.Map.Entry} and an Array.
      */
     public static Map<Object, Object> toMap(final Object[] array) {
         if (array == null) {
@@ -8927,8 +8666,8 @@ public class ArrayUtils {
      *
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
-     * @param array  a {@code boolean} array
-     * @return a {@link Boolean} array, {@code null} if null array input
+     * @param array  a {@code boolean} array.
+     * @return a {@link Boolean} array, {@code null} if null array input.
      */
     public static Boolean[] toObject(final boolean[] array) {
         if (array == null) {
@@ -8945,8 +8684,8 @@ public class ArrayUtils {
      *
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
-     * @param array  a {@code byte} array
-     * @return a {@link Byte} array, {@code null} if null array input
+     * @param array  a {@code byte} array.
+     * @return a {@link Byte} array, {@code null} if null array input.
      */
     public static Byte[] toObject(final byte[] array) {
         if (array == null) {
@@ -8963,8 +8702,8 @@ public class ArrayUtils {
      *
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
-     * @param array a {@code char} array
-     * @return a {@link Character} array, {@code null} if null array input
+     * @param array a {@code char} array.
+     * @return a {@link Character} array, {@code null} if null array input.
      */
     public static Character[] toObject(final char[] array) {
         if (array == null) {
@@ -8981,8 +8720,8 @@ public class ArrayUtils {
      *
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
-     * @param array  a {@code double} array
-     * @return a {@link Double} array, {@code null} if null array input
+     * @param array  a {@code double} array.
+     * @return a {@link Double} array, {@code null} if null array input.
      */
     public static Double[] toObject(final double[] array) {
         if (array == null) {
@@ -8999,8 +8738,8 @@ public class ArrayUtils {
      *
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
-     * @param array  a {@code float} array
-     * @return a {@link Float} array, {@code null} if null array input
+     * @param array  a {@code float} array.
+     * @return a {@link Float} array, {@code null} if null array input.
      */
     public static Float[] toObject(final float[] array) {
         if (array == null) {
@@ -9017,8 +8756,8 @@ public class ArrayUtils {
      *
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
-     * @param array  an {@code int} array
-     * @return an {@link Integer} array, {@code null} if null array input
+     * @param array  an {@code int} array.
+     * @return an {@link Integer} array, {@code null} if null array input.
      */
     public static Integer[] toObject(final int[] array) {
         if (array == null) {
@@ -9035,8 +8774,8 @@ public class ArrayUtils {
      *
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
-     * @param array  a {@code long} array
-     * @return a {@link Long} array, {@code null} if null array input
+     * @param array  a {@code long} array.
+     * @return a {@link Long} array, {@code null} if null array input.
      */
     public static Long[] toObject(final long[] array) {
         if (array == null) {
@@ -9053,8 +8792,8 @@ public class ArrayUtils {
      *
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
-     * @param array  a {@code short} array
-     * @return a {@link Short} array, {@code null} if null array input
+     * @param array  a {@code short} array.
+     * @return a {@link Short} array, {@code null} if null array input.
      */
     public static Short[] toObject(final short[] array) {
         if (array == null) {
@@ -9075,8 +8814,8 @@ public class ArrayUtils {
      * Null array elements map to false, like {@code Boolean.parseBoolean(null)} and its callers return false.
      * </p>
      *
-     * @param array a {@link Boolean} array, may be {@code null}
-     * @return a {@code boolean} array, {@code null} if null array input
+     * @param array a {@link Boolean} array, may be {@code null}.
+     * @return a {@code boolean} array, {@code null} if null array input.
      */
     public static boolean[] toPrimitive(final Boolean[] array) {
         return toPrimitive(array, false);
@@ -9088,9 +8827,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Boolean} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code boolean} array, {@code null} if null array input
+     * @param array  a {@link Boolean} array, may be {@code null}.
+     * @param valueForNull  the value to insert if {@code null} found.
+     * @return a {@code boolean} array, {@code null} if null array input.
      */
     public static boolean[] toPrimitive(final Boolean[] array, final boolean valueForNull) {
         if (array == null) {
@@ -9113,9 +8852,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Byte} array, may be {@code null}
-     * @return a {@code byte} array, {@code null} if null array input
-     * @throws NullPointerException if an array element is {@code null}
+     * @param array  a {@link Byte} array, may be {@code null}.
+     * @return a {@code byte} array, {@code null} if null array input.
+     * @throws NullPointerException if an array element is {@code null}.
      */
     public static byte[] toPrimitive(final Byte[] array) {
         if (array == null) {
@@ -9137,9 +8876,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Byte} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code byte} array, {@code null} if null array input
+     * @param array  a {@link Byte} array, may be {@code null}.
+     * @param valueForNull  the value to insert if {@code null} found.
+     * @return a {@code byte} array, {@code null} if null array input.
      */
     public static byte[] toPrimitive(final Byte[] array, final byte valueForNull) {
         if (array == null) {
@@ -9162,9 +8901,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Character} array, may be {@code null}
-     * @return a {@code char} array, {@code null} if null array input
-     * @throws NullPointerException if an array element is {@code null}
+     * @param array  a {@link Character} array, may be {@code null}.
+     * @return a {@code char} array, {@code null} if null array input.
+     * @throws NullPointerException if an array element is {@code null}.
      */
     public static char[] toPrimitive(final Character[] array) {
         if (array == null) {
@@ -9186,9 +8925,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Character} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code char} array, {@code null} if null array input
+     * @param array  a {@link Character} array, may be {@code null}.
+     * @param valueForNull  the value to insert if {@code null} found.
+     * @return a {@code char} array, {@code null} if null array input.
      */
     public static char[] toPrimitive(final Character[] array, final char valueForNull) {
         if (array == null) {
@@ -9211,9 +8950,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Double} array, may be {@code null}
-     * @return a {@code double} array, {@code null} if null array input
-     * @throws NullPointerException if an array element is {@code null}
+     * @param array  a {@link Double} array, may be {@code null}.
+     * @return a {@code double} array, {@code null} if null array input.
+     * @throws NullPointerException if an array element is {@code null}.
      */
     public static double[] toPrimitive(final Double[] array) {
         if (array == null) {
@@ -9235,9 +8974,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Double} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code double} array, {@code null} if null array input
+     * @param array  a {@link Double} array, may be {@code null}.
+     * @param valueForNull  the value to insert if {@code null} found.
+     * @return a {@code double} array, {@code null} if null array input.
      */
     public static double[] toPrimitive(final Double[] array, final double valueForNull) {
         if (array == null) {
@@ -9260,9 +8999,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Float} array, may be {@code null}
-     * @return a {@code float} array, {@code null} if null array input
-     * @throws NullPointerException if an array element is {@code null}
+     * @param array  a {@link Float} array, may be {@code null}.
+     * @return a {@code float} array, {@code null} if null array input.
+     * @throws NullPointerException if an array element is {@code null}.
      */
     public static float[] toPrimitive(final Float[] array) {
         if (array == null) {
@@ -9284,9 +9023,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Float} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code float} array, {@code null} if null array input
+     * @param array  a {@link Float} array, may be {@code null}.
+     * @param valueForNull  the value to insert if {@code null} found.
+     * @return a {@code float} array, {@code null} if null array input.
      */
     public static float[] toPrimitive(final Float[] array, final float valueForNull) {
         if (array == null) {
@@ -9309,9 +9048,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Integer} array, may be {@code null}
-     * @return an {@code int} array, {@code null} if null array input
-     * @throws NullPointerException if an array element is {@code null}
+     * @param array  a {@link Integer} array, may be {@code null}.
+     * @return an {@code int} array, {@code null} if null array input.
+     * @throws NullPointerException if an array element is {@code null}.
      */
     public static int[] toPrimitive(final Integer[] array) {
         if (array == null) {
@@ -9333,9 +9072,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Integer} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return an {@code int} array, {@code null} if null array input
+     * @param array  a {@link Integer} array, may be {@code null}.
+     * @param valueForNull  the value to insert if {@code null} found.
+     * @return an {@code int} array, {@code null} if null array input.
      */
     public static int[] toPrimitive(final Integer[] array, final int valueForNull) {
         if (array == null) {
@@ -9358,9 +9097,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Long} array, may be {@code null}
-     * @return a {@code long} array, {@code null} if null array input
-     * @throws NullPointerException if an array element is {@code null}
+     * @param array  a {@link Long} array, may be {@code null}.
+     * @return a {@code long} array, {@code null} if null array input.
+     * @throws NullPointerException if an array element is {@code null}.
      */
     public static long[] toPrimitive(final Long[] array) {
         if (array == null) {
@@ -9382,9 +9121,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Long} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code long} array, {@code null} if null array input
+     * @param array  a {@link Long} array, may be {@code null}.
+     * @param valueForNull  the value to insert if {@code null} found.
+     * @return a {@code long} array, {@code null} if null array input.
      */
     public static long[] toPrimitive(final Long[] array, final long valueForNull) {
         if (array == null) {
@@ -9407,8 +9146,8 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  an array of wrapper object
-     * @return an array of the corresponding primitive type, or the original array
+     * @param array  an array of wrapper object.
+     * @return an array of the corresponding primitive type, or the original array.
      * @since 3.5
      */
     public static Object toPrimitive(final Object array) {
@@ -9450,9 +9189,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Short} array, may be {@code null}
-     * @return a {@code byte} array, {@code null} if null array input
-     * @throws NullPointerException if an array element is {@code null}
+     * @param array  a {@link Short} array, may be {@code null}.
+     * @return a {@code byte} array, {@code null} if null array input.
+     * @throws NullPointerException if an array element is {@code null}.
      */
     public static short[] toPrimitive(final Short[] array) {
         if (array == null) {
@@ -9474,9 +9213,9 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array  a {@link Short} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code byte} array, {@code null} if null array input
+     * @param array  a {@link Short} array, may be {@code null}.
+     * @param valueForNull  the value to insert if {@code null} found.
+     * @return a {@code byte} array, {@code null} if null array input.
      */
     public static short[] toPrimitive(final Short[] array, final short valueForNull) {
         if (array == null) {
@@ -9503,8 +9242,8 @@ public class ArrayUtils {
      * The format is that of Java source code, for example {@code {a,b}}.
      * </p>
      *
-     * @param array  the array to get a toString for, may be {@code null}
-     * @return a String representation of the array, '{}' if null array input
+     * @param array  the array to get a toString for, may be {@code null}.
+     * @return a String representation of the array, '{}' if null array input.
      */
     public static String toString(final Object array) {
         return toString(array, "{}");
@@ -9520,9 +9259,9 @@ public class ArrayUtils {
      * The format is that of Java source code, for example {@code {a,b}}.
      * </p>
      *
-     * @param array  the array to get a toString for, may be {@code null}
-     * @param stringIfNull  the String to return if the array is {@code null}
-     * @return a String representation of the array
+     * @param array  the array to get a toString for, may be {@code null}.
+     * @param stringIfNull  the String to return if the array is {@code null}.
+     * @return a String representation of the array.
      */
     public static String toString(final Object array, final String stringIfNull) {
         if (array == null) {
@@ -9538,8 +9277,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array the {@code Object[]} to be processed, may be {@code null}.
-     * @return {@code String[]} of the same size as the source with its element's string representation,
-     * {@code null} if null array input
+     * @return {@code String[]} of the same size as the source with its element's string representation, {@code null} if null array input.
      * @since 3.6
      */
     public static String[] toStringArray(final Object[] array) {
@@ -9547,15 +9285,14 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns an array containing the string representation of each element in the argument
-     * array handling {@code null} elements.
+     * Returns an array containing the string representation of each element in the argument array handling {@code null} elements.
      * <p>
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array the Object[] to be processed, may be {@code null}.
-     * @param valueForNullElements the value to insert if {@code null} is found
-     * @return a {@link String} array, {@code null} if null array input
+     * @param array                the Object[] to be processed, may be {@code null}.
+     * @param valueForNullElements the value to insert if {@code null} is found.
+     * @return a {@link String} array, {@code null} if null array input.
      * @since 3.6
      */
     public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
@@ -9569,11 +9306,9 @@ public class ArrayUtils {
     }
 
     /**
-     * ArrayUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code ArrayUtils.clone(new int[] {2})}.
+     * ArrayUtils instances should NOT be constructed in standard programming. Instead, the class should be used as {@code ArrayUtils.clone(new int[] {2})}.
      * <p>
-     * This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
+     * This constructor is public to permit tools that require a JavaBean instance to operate.
      * </p>
      *
      * @deprecated TODO Make private in 4.0.
