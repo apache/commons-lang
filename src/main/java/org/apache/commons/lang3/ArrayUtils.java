@@ -756,7 +756,7 @@ public class ArrayUtils {
      * whose component type is the same as the element.
      * </p>
      * <pre>
-     * ArrayUtils.add(null, 0, null)      = IllegalArgumentException
+     * ArrayUtils.add(null, 0, null)      = Throws {@link IllegalArgumentException}
      * ArrayUtils.add(null, 0, "a")       = ["a"]
      * ArrayUtils.add(["a"], 1, null)     = ["a", null]
      * ArrayUtils.add(["a"], 1, "b")      = ["a", "b"]
@@ -800,7 +800,7 @@ public class ArrayUtils {
      * in which case the return type is Object[]
      * </p>
      * <pre>
-     * ArrayUtils.add(null, null)      = IllegalArgumentException
+     * ArrayUtils.add(null, null)      = Throws {@link IllegalArgumentException}
      * ArrayUtils.add(null, "a")       = ["a"]
      * ArrayUtils.add(["a"], null)     = ["a", null]
      * ArrayUtils.add(["a"], "b")      = ["a", "b"]
@@ -1360,7 +1360,7 @@ public class ArrayUtils {
      * element, unless the element itself is null, in which case the return type is Object[]
      * </p>
      * <pre>
-     * ArrayUtils.addFirst(null, null)      = IllegalArgumentException
+     * ArrayUtils.addFirst(null, null)      = Throws {@link IllegalArgumentException}
      * ArrayUtils.addFirst(null, "a")       = ["a"]
      * ArrayUtils.addFirst(["a"], null)     = [null, "a"]
      * ArrayUtils.addFirst(["a"], "b")      = ["b", "a"]

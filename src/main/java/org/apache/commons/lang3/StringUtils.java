@@ -2063,7 +2063,7 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.getFuzzyDistance(null, null, null)                                    = IllegalArgumentException
+     * StringUtils.getFuzzyDistance(null, null, null)                                    = Throws {@link IllegalArgumentException}
      * StringUtils.getFuzzyDistance("", "", Locale.ENGLISH)                              = 0
      * StringUtils.getFuzzyDistance("Workshop", "b", Locale.ENGLISH)                     = 0
      * StringUtils.getFuzzyDistance("Room", "o", Locale.ENGLISH)                         = 1
@@ -2205,7 +2205,7 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.getJaroWinklerDistance(null, null)          = IllegalArgumentException
+     * StringUtils.getJaroWinklerDistance(null, null)          = Throws {@link IllegalArgumentException}
      * StringUtils.getJaroWinklerDistance("", "")              = 0.0
      * StringUtils.getJaroWinklerDistance("", "a")             = 0.0
      * StringUtils.getJaroWinklerDistance("aaapppp", "")       = 0.0
@@ -2263,8 +2263,8 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.getLevenshteinDistance(null, *)             = IllegalArgumentException
-     * StringUtils.getLevenshteinDistance(*, null)             = IllegalArgumentException
+     * StringUtils.getLevenshteinDistance(null, *)             = Throws {@link IllegalArgumentException}
+     * StringUtils.getLevenshteinDistance(*, null)             = Throws {@link IllegalArgumentException}
      * StringUtils.getLevenshteinDistance("", "")              = 0
      * StringUtils.getLevenshteinDistance("", "a")             = 1
      * StringUtils.getLevenshteinDistance("aaapppp", "")       = 7
@@ -2355,9 +2355,9 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.getLevenshteinDistance(null, *, *)             = IllegalArgumentException
-     * StringUtils.getLevenshteinDistance(*, null, *)             = IllegalArgumentException
-     * StringUtils.getLevenshteinDistance(*, *, -1)               = IllegalArgumentException
+     * StringUtils.getLevenshteinDistance(null, *, *)             = Throws {@link IllegalArgumentException}
+     * StringUtils.getLevenshteinDistance(*, null, *)             = Throws {@link IllegalArgumentException}
+     * StringUtils.getLevenshteinDistance(*, *, -1)               = Throws {@link IllegalArgumentException}
      * StringUtils.getLevenshteinDistance("", "", 0)              = 0
      * StringUtils.getLevenshteinDistance("aaapppp", "", 8)       = 7
      * StringUtils.getLevenshteinDistance("aaapppp", "", 7)       = 7
@@ -6385,7 +6385,7 @@ public class StringUtils {
      *  (example of how it repeats)
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false, >=0) = "dcte"
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true, >=2)  = "tcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *, *)      = IllegalStateException
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *, *)      = Throws {@link IllegalStateException}
      * </pre>
      *
      * @param text            text to search and replace in, no-op if null.
@@ -6536,7 +6536,7 @@ public class StringUtils {
      *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"})  = "wcte"
      *  (example of how it repeats)
      *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"})  = "tcte"
-     *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}) = IllegalStateException
+     *  StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}) = Throws {@link IllegalStateException}
      * </pre>
      *
      * @param text            text to search and replace in, no-op if null.
