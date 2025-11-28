@@ -1214,8 +1214,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxDouble_emptyArray() {
-        final double[] d = new double[0];
-        assertIllegalArgumentException(() -> NumberUtils.max(d), "No exception was thrown for empty input.");
+        assertIllegalArgumentException(NumberUtils::max);
     }
 
     @Test
