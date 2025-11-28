@@ -243,7 +243,7 @@ public class StringUtils {
      * <p>
      * Works like {@code abbreviate(String, int)}, but allows you to specify a "left edge" offset. Note that this left edge is not necessarily going to be the
      * leftmost character in the result, or the first character following the ellipses, but it will appear somewhere in the result.
-     *
+     * </p>
      * <p>
      * In no case will it return a String of length greater than {@code maxWidth}.
      * </p>
@@ -320,7 +320,7 @@ public class StringUtils {
      * <p>
      * Works like {@code abbreviate(String, String, int)}, but allows you to specify a "left edge" offset. Note that this left edge is not necessarily going to
      * be the leftmost character in the result, or the first character following the replacement marker, but it will appear somewhere in the result.
-     *
+     * </p>
      * <p>
      * In no case will it return a String of length greater than {@code maxWidth}.
      * </p>
@@ -1166,6 +1166,7 @@ public class StringUtils {
      *
      * <p>
      * A {@code null} CharSequence will return {@code false}.
+     * </p>
      *
      * <pre>
      * StringUtils.containsIgnoreCase(null, *)    = false
@@ -2656,6 +2657,7 @@ public class StringUtils {
      * </p>
      * <p>
      * All indices are specified in {@code char} values (Unicode code units).
+     * </p>
      *
      * <pre>
      * StringUtils.indexOf(null, *, *)          = -1
@@ -6400,7 +6402,7 @@ public class StringUtils {
     private static String replaceEach(
             final String text, final String[] searchList, final String[] replacementList, final boolean repeat, final int timeToLive) {
 
-        // mchyzer Performance note: This creates very few new objects (one major goal)
+        // Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
         if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList)) {
             return text;
@@ -8180,6 +8182,7 @@ public class StringUtils {
      *
      * <p>
      * A {@code null} string input will return {@code null}. An empty ("") string input will return the empty string.
+     * </p>
      *
      * <p>
      * If nothing is found, the empty string is returned.
@@ -8258,6 +8261,7 @@ public class StringUtils {
      *
      * <p>
      * A {@code null} string input will return {@code null}. An empty ("") string input will return the empty string.
+     * </p>
      *
      * <p>
      * If nothing is found, the empty string is returned.
@@ -8729,6 +8733,7 @@ public class StringUtils {
      *
      * <p>
      * The String is trimmed using {@link String#trim()}. Trim removes start and end characters &lt;= 32. To strip whitespace use {@link #stripToEmpty(String)}.
+     * </p>
      *
      * <pre>
      * StringUtils.trimToEmpty(null)          = ""
@@ -8752,6 +8757,7 @@ public class StringUtils {
      *
      * <p>
      * The String is trimmed using {@link String#trim()}. Trim removes start and end characters &lt;= 32. To strip whitespace use {@link #stripToNull(String)}.
+     * </p>
      *
      * <pre>
      * StringUtils.trimToNull(null)          = null
@@ -8809,6 +8815,7 @@ public class StringUtils {
      *
      * <p>
      * Works like {@code truncate(String, int)}, but allows you to specify a "left edge" offset.
+     * </p>
      *
      * <p>
      * Specifically:
