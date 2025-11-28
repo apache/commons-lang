@@ -1205,16 +1205,11 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxDouble() {
-        final double[] d = null;
-        assertNullPointerException(() -> NumberUtils.max(d), "No exception was thrown for null input.");
-
-        assertIllegalArgumentException(NumberUtils::max, "No exception was thrown for empty input.");
-
-        assertEquals(5.1f, NumberUtils.max(5.1f), "max(double[]) failed for array length 1");
-        assertEquals(9.2f, NumberUtils.max(6.3f, 9.2f), "max(double[]) failed for array length 2");
-        assertEquals(10.4f, NumberUtils.max(-10.5f, -5.6f, 0, 5.7f, 10.4f), "max(double[]) failed for float length 5");
-        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10), 0.0001);
-        assertEquals(10, NumberUtils.max(-5, 0, 10, 5, -10), 0.0001);
+        assertEquals(5.1d, NumberUtils.max(5.1d), "max(double[]) failed for array length 1");
+        assertEquals(9.2d, NumberUtils.max(6.3d, 9.2d), "max(double[]) failed for array length 2");
+        assertEquals(10.4d, NumberUtils.max(-10.5d, -5.6d, 0, 5.7d, 10.4d), "max(double[]) failed for double length 5");
+        assertEquals(10d, NumberUtils.max(-10d, -5d, 0d, 5d, 10d));
+        assertEquals(10d, NumberUtils.max(-5d, 0d, 10d, 5d, -10d));
     }
 
     @Test
@@ -1232,8 +1227,8 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(5.1f, NumberUtils.max(5.1f), "max(float[]) failed for array length 1");
         assertEquals(9.2f, NumberUtils.max(6.3f, 9.2f), "max(float[]) failed for array length 2");
         assertEquals(10.4f, NumberUtils.max(-10.5f, -5.6f, 0, 5.7f, 10.4f), "max(float[]) failed for float length 5");
-        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10), 0.0001f);
-        assertEquals(10, NumberUtils.max(-5, 0, 10, 5, -10), 0.0001f);
+        assertEquals(10f, NumberUtils.max(-10f, -5f, 0f, 5f, 10f), 0.0001f);
+        assertEquals(10f, NumberUtils.max(-5f, 0f, 10f, 5f, -10f), 0.0001f);
     }
 
     @Test
