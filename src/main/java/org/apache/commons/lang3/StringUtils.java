@@ -141,7 +141,7 @@ public class StringUtils {
     // (not sure who tested this)
 
     /**
-     * This is a 3 character version of an ellipsis. There is a Unicode character for a HORIZONTAL ELLIPSIS, U+2026 … this isn't it.
+     * This is a 3 character version of an ellipsis. There is a Unicode character for a HORIZONTAL ELLIPSIS, U+2026 '…', this isn't it.
      */
     private static final String ELLIPSIS3 = "...";
 
@@ -203,18 +203,16 @@ public class StringUtils {
     private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
 
     /**
-     * Abbreviates a String using ellipses. This will turn
-     * "Now is the time for all good men" into "Now is the time for..."
+     * Abbreviates a String using ellipses. This will convert "Now is the time for all good men" into "Now is the time for..."
      *
-     * <p>Specifically:</p>
+     * <p>
+     * Specifically:
+     * </p>
      * <ul>
-     *   <li>If the number of characters in {@code str} is less than or equal to
-     *       {@code maxWidth}, return {@code str}.</li>
-     *   <li>Else abbreviate it to {@code (substring(str, 0, max-3) + "...")}.</li>
-     *   <li>If {@code maxWidth} is less than {@code 4}, throw an
-     *       {@link IllegalArgumentException}.</li>
-     *   <li>In no case will it return a String of length greater than
-     *       {@code maxWidth}.</li>
+     * <li>If the number of characters in {@code str} is less than or equal to {@code maxWidth}, return {@code str}.</li>
+     * <li>Else abbreviate it to {@code (substring(str, 0, max - 3) + "...")}.</li>
+     * <li>If {@code maxWidth} is less than {@code 4}, throw an {@link IllegalArgumentException}.</li>
+     * <li>In no case will it return a String of length greater than {@code maxWidth}.</li>
      * </ul>
      *
      * <pre>
@@ -224,11 +222,11 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefg", 7) = "abcdefg"
      * StringUtils.abbreviate("abcdefg", 8) = "abcdefg"
      * StringUtils.abbreviate("abcdefg", 4) = "a..."
-     * StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
+     * StringUtils.abbreviate("abcdefg", 3) = Throws {@link IllegalArgumentException}.
      * </pre>
      *
-     * @param str  the String to check, may be null.
-     * @param maxWidth  maximum length of result String, must be at least 4.
+     * @param str      the String to check, may be null.
+     * @param maxWidth maximum length of result String, must be at least 4.
      * @return abbreviated String, {@code null} if null String input.
      * @throws IllegalArgumentException if the width is too small.
      * @since 2.0
@@ -238,7 +236,7 @@ public class StringUtils {
     }
 
     /**
-     * Abbreviates a String using ellipses. This will turn "Now is the time for all good men" into "...is the time for..."
+     * Abbreviates a String using ellipses. This will convert "Now is the time for all good men" into "...is the time for...".
      *
      * <p>
      * Works like {@code abbreviate(String, int)}, but allows you to specify a "left edge" offset. Note that this left edge is not necessarily going to be the
@@ -260,8 +258,8 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefghijklmno", 8, 10)  = "...ijklmno"
      * StringUtils.abbreviate("abcdefghijklmno", 10, 10) = "...ijklmno"
      * StringUtils.abbreviate("abcdefghijklmno", 12, 10) = "...ijklmno"
-     * StringUtils.abbreviate("abcdefghij", 0, 3)        = IllegalArgumentException
-     * StringUtils.abbreviate("abcdefghij", 5, 6)        = IllegalArgumentException
+     * StringUtils.abbreviate("abcdefghij", 0, 3)        = Throws {@link IllegalArgumentException}.
+     * StringUtils.abbreviate("abcdefghij", 5, 6)        = Throws {@link IllegalArgumentException}.
      * </pre>
      *
      * @param str      the String to check, may be null.
@@ -276,15 +274,15 @@ public class StringUtils {
     }
 
     /**
-     * Abbreviates a String using another given String as replacement marker. This will turn "Now is the time for all good men" into "Now is the time for..." if
-     * "..." was defined as the replacement marker.
+     * Abbreviates a String using another given String as replacement marker. This will convert "Now is the time for all good men" into "Now is the time for..."
+     * if "..." was defined as the replacement marker.
      *
      * <p>
      * Specifically:
      * </p>
      * <ul>
      * <li>If the number of characters in {@code str} is less than or equal to {@code maxWidth}, return {@code str}.</li>
-     * <li>Else abbreviate it to {@code (substring(str, 0, max-abbrevMarker.length) + abbrevMarker)}.</li>
+     * <li>Else abbreviate it to {@code (substring(str, 0, max - abbrevMarker.length) + abbrevMarker)}.</li>
      * <li>If {@code maxWidth} is less than {@code abbrevMarker.length + 1}, throw an {@link IllegalArgumentException}.</li>
      * <li>In no case will it return a String of length greater than {@code maxWidth}.</li>
      * </ul>
@@ -298,8 +296,8 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefg", ".", 8)   = "abcdefg"
      * StringUtils.abbreviate("abcdefg", "..", 4)  = "ab.."
      * StringUtils.abbreviate("abcdefg", "..", 3)  = "a.."
-     * StringUtils.abbreviate("abcdefg", "..", 2)  = IllegalArgumentException
-     * StringUtils.abbreviate("abcdefg", "...", 3) = IllegalArgumentException
+     * StringUtils.abbreviate("abcdefg", "..", 2)  = Throws {@link IllegalArgumentException}.
+     * StringUtils.abbreviate("abcdefg", "...", 3) = Throws {@link IllegalArgumentException}.
      * </pre>
      *
      * @param str          the String to check, may be null.
@@ -314,7 +312,7 @@ public class StringUtils {
     }
 
     /**
-     * Abbreviates a String using a given replacement marker. This will turn "Now is the time for all good men" into "...is the time for..." if "..." was
+     * Abbreviates a String using a given replacement marker. This will convert "Now is the time for all good men" into "...is the time for..." if "..." was
      * defined as the replacement marker.
      *
      * <p>
@@ -335,15 +333,16 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefghijklmno", ",", 2, 10)    = "abcdefghi,"
      * StringUtils.abbreviate("abcdefghijklmno", "::", 4, 10)   = "::efghij::"
      * StringUtils.abbreviate("abcdefghijklmno", "...", 6, 10)  = "...ghij..."
+     * StringUtils.abbreviate("abcdefghijklmno", "…", 6, 10)    = "…ghij…"
      * StringUtils.abbreviate("abcdefghijklmno", "*", 9, 10)    = "*ghijklmno"
      * StringUtils.abbreviate("abcdefghijklmno", "'", 10, 10)   = "'ghijklmno"
      * StringUtils.abbreviate("abcdefghijklmno", "!", 12, 10)   = "!ghijklmno"
-     * StringUtils.abbreviate("abcdefghij", "abra", 0, 4)       = IllegalArgumentException
-     * StringUtils.abbreviate("abcdefghij", "...", 5, 6)        = IllegalArgumentException
+     * StringUtils.abbreviate("abcdefghij", "abra", 0, 4)       = Throws {@link IllegalArgumentException}.
+     * StringUtils.abbreviate("abcdefghij", "...", 5, 6)        = Throws {@link IllegalArgumentException}.
      * </pre>
      *
      * @param str          the String to check, may be null.
-     * @param abbrevMarker the String used as replacement marker.
+     * @param abbrevMarker the String used as replacement marker, for example "...", or Unicode HORIZONTAL ELLIPSIS, U+2026 '…'.
      * @param offset       left edge of source String.
      * @param maxWidth     maximum length of result String, must be at least 4.
      * @return abbreviated String, {@code null} if null String input.
