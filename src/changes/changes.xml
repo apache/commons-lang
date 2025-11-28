@@ -66,6 +66,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1794" type="fix" dev="ggregory" due-to="IcoreE">Fix Javadoc for RandomUtils.secure(), it incorrectly mentions securerandom.strongAlgorithms #1503.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in ReflectionDiffBuilder.getExcludeFieldNames() when instance created with ReflectionDiffBuilder.ReflectionDiffBuilder(T, T, ToStringStyle).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fail-fast for a null DiffBuilder in ReflectionDiffBuilder.ReflectionDiffBuilder(DiffBuilder, String[]) instead of getting a NullPointerException in ReflectionDiffBuilder instance methods.</action>
+    <action                   type="fix" dev="ggregory" due-to="Michael Hausegger, Gary Gregory">Fix NumberUtilsTest#testMaxDouble() and testMaxFloat() #4959.</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 93 #1498.</action>
