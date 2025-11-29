@@ -420,9 +420,9 @@ public class StringUtils {
         if (isAnyEmpty(str, middle) || length >= str.length() || length < middle.length() + 2) {
             return str;
         }
-        final int targetSting = length - middle.length();
-        final int startOffset = targetSting / 2 + targetSting % 2;
-        final int endOffset = str.length() - targetSting / 2;
+        final int targetString = length - middle.length();
+        final int startOffset = targetString / 2 + targetString % 2;
+        final int endOffset = str.length() - targetString / 2;
         return str.substring(0, startOffset) + middle + str.substring(endOffset);
     }
 
