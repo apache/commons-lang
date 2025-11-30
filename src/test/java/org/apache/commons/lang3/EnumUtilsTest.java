@@ -621,6 +621,10 @@ class EnumUtilsTest extends AbstractLangTest {
         assertEquals(0, EnumUtils.stream(null).count());
     }
 
+    @Test
+    void testGetEnumMapOnDuplicateKey() {
+        assertEquals(1,EnumUtils.getEnumMap(DuplicateKeyEnum.class, e -> e.key).size());
+    }
 }
 
 enum Month {
@@ -666,4 +670,12 @@ enum Traffic2 {
     public int getValue() {
         return value;
     }
+}
+
+enum DuplicateKeyEnum {
+    A("x"), B("x");
+
+    final String key;
+
+    DuplicateKeyEnum(String key) { this.key = key; }
 }
