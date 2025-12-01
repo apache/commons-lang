@@ -1208,6 +1208,39 @@ public class BooleanUtils {
     }
 
     /**
+     * Converts a long to a boolean using the convention that {@code zero}
+     * is {@code false}, everything else is {@code true}.
+     *
+     * <pre>
+     *   BooleanUtils.toBoolean(0L) = false
+     *   BooleanUtils.toBoolean(1L) = true
+     *   BooleanUtils.toBoolean(2L) = true
+     * </pre>
+     *
+     * @param value  the long to convert
+     * @return {@code true} if non-zero, {@code false} if zero
+     */
+    public static boolean toBoolean(final long value) {
+        return value != 0;
+    }
+
+    /**
+     * Converts a boolean to a long using the convention that
+     * {@code true} is {@code 1L} and {@code false} is {@code 0L}.
+     *
+     * <pre>
+     *   BooleanUtils.toLong(true)  = 1L
+     *   BooleanUtils.toLong(false) = 0L
+     * </pre>
+     *
+     * @param bool  the boolean to convert
+     * @return one if {@code true}, zero if {@code false}
+     */
+    public static long toLong(final boolean bool) {
+        return bool ? 1L : 0L;
+    }
+
+    /**
      * {@link BooleanUtils} instances should NOT be constructed in standard programming.
      * Instead, the class should be used as {@code BooleanUtils.negate(true);}.
      *

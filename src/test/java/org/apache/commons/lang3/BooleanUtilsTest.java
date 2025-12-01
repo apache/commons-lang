@@ -1171,4 +1171,20 @@ class BooleanUtilsTest extends AbstractLangTest {
                 BooleanUtils.xor(new boolean[] { true, true, true }),
                 "true ^ true ^ true");
     }
+
+    @Test
+    public void test_toBoolean_long() {
+        assertTrue(BooleanUtils.toBoolean(1L));
+        assertTrue(BooleanUtils.toBoolean(-1L));
+        assertFalse(BooleanUtils.toBoolean(0L));
+        // Test edge cases
+        assertTrue(BooleanUtils.toBoolean(Long.MAX_VALUE));
+        assertTrue(BooleanUtils.toBoolean(Long.MIN_VALUE));
+    }
+
+    @Test
+    public void test_toLong_boolean() {
+        assertEquals(1L, BooleanUtils.toLong(true));
+        assertEquals(0L, BooleanUtils.toLong(false));
+    }
 }
