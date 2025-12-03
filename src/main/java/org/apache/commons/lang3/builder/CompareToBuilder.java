@@ -225,30 +225,45 @@ public class CompareToBuilder implements Builder<Integer> {
      * @since 2.2 (2.0 as {@code reflectionCompare(Object, Object, boolean, Class)})
      */
     public static int reflectionCompare(
-        final Object lhs,
-        final Object rhs,
-        final boolean compareTransients,
-        final Class<?> reflectUpToClass,
-        final String... excludeFields) {
+    final Object lhs,
+    final Object rhs,
+    final boolean compareTransients,
+    final Class<?> reflectUpToClass,
+    final String... excludeFields) {
 
-        if (lhs == rhs) {
-            return 0;
-        }
-        Objects.requireNonNull(lhs, "lhs");
-        Objects.requireNonNull(rhs, "rhs");
-
-        Class<?> lhsClazz = lhs.getClass();
-        if (!lhsClazz.isInstance(rhs)) {
-            throw new ClassCastException();
-        }
-        final CompareToBuilder compareToBuilder = new CompareToBuilder();
-        reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients, excludeFields);
-        while (lhsClazz.getSuperclass() != null && lhsClazz != reflectUpToClass) {
-            lhsClazz = lhsClazz.getSuperclass();
-            reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients, excludeFields);
-        }
-        return compareToBuilder.toComparison();
+    if (lhs == rhs) {
+        return 0;
     }
+    
+    return internalReflectionCompare(lhs, rhs, compareTransients, reflectUpToClass, excludeFields);
+}
+
+// Extracted helper to keep reflectionCompare short and readable
+private static int internalReflectionCompare(
+    final Object lhs,
+    final Object rhs,
+    final boolean compareTransients,
+    final Class<?> reflectUpToClass,
+    final String... excludeFields) {
+
+    Objects.requireNonNull(lhs, "lhs");
+    Objects.requireNonNull(rhs, "rhs");
+
+    Class<?> lhsClazz = lhs.getClass();
+    if (!lhsClazz.isInstance(rhs)) {
+        throw new ClassCastException();
+    }
+
+    final CompareToBuilder compareToBuilder = new CompareToBuilder();
+    reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients, excludeFields);
+
+    while (lhsClazz.getSuperclass() != null && lhsClazz != reflectUpToClass) {
+        lhsClazz = lhsClazz.getSuperclass();
+        reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients, excludeFields);
+    }
+
+    return compareToBuilder.toComparison();
+}
 
     /**
      * Compares two {@link Object}s via reflection.
