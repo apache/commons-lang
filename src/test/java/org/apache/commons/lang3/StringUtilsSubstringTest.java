@@ -37,7 +37,7 @@ class StringUtilsSubstringTest extends AbstractLangTest {
         assertEquals(0, StringUtils.countMatches(null, 'D'));
         assertEquals(5, StringUtils.countMatches("one long someone sentence of one", ' '));
         assertEquals(6, StringUtils.countMatches("one long someone sentence of one", 'o'));
-        assertEquals(4, StringUtils.countMatches("oooooooooooo", "ooo"));
+        assertEquals(12, StringUtils.countMatches("oooooooooooo", "o"));
     }
 
     @Test
