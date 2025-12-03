@@ -914,7 +914,7 @@ public class StrSubstitutor {
      * </p>
      *
      * @param valueDelimiter  the variable default value delimiter character to use.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      * @since 3.2
      */
     public StrSubstitutor setValueDelimiter(final char valueDelimiter) {
@@ -934,7 +934,7 @@ public class StrSubstitutor {
      * </p>
      *
      * @param valueDelimiter  the variable default value delimiter string to use, may be null or empty.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      * @since 3.2
      */
     public StrSubstitutor setValueDelimiter(final String valueDelimiter) {
@@ -958,7 +958,7 @@ public class StrSubstitutor {
      * </p>
      *
      * @param valueDelimiterMatcher  variable default value delimiter matcher to use, may be null.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      * @since 3.2
      */
     public StrSubstitutor setValueDelimiterMatcher(final StrMatcher valueDelimiterMatcher) {
@@ -975,7 +975,7 @@ public class StrSubstitutor {
      * </p>
      *
      * @param prefix  the prefix character to use.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrSubstitutor setVariablePrefix(final char prefix) {
         return setVariablePrefixMatcher(StrMatcher.charMatcher(prefix));
@@ -989,7 +989,7 @@ public class StrSubstitutor {
      * </p>
      *
      * @param prefix  the prefix for variables, not null.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      * @throws NullPointerException if the prefix is null.
      */
     public StrSubstitutor setVariablePrefix(final String prefix) {
@@ -1005,7 +1005,7 @@ public class StrSubstitutor {
      * </p>
      *
      * @param prefixMatcher  the prefix matcher to use, null ignored.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      * @throws NullPointerException if the prefix matcher is null.
      */
     public StrSubstitutor setVariablePrefixMatcher(final StrMatcher prefixMatcher) {
@@ -1031,7 +1031,7 @@ public class StrSubstitutor {
      * </p>
      *
      * @param suffix  the suffix character to use.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrSubstitutor setVariableSuffix(final char suffix) {
         return setVariableSuffixMatcher(StrMatcher.charMatcher(suffix));
@@ -1045,7 +1045,7 @@ public class StrSubstitutor {
      * </p>
      *
      * @param suffix  the suffix for variables, not null.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      * @throws NullPointerException if the suffix is null.
      */
     public StrSubstitutor setVariableSuffix(final String suffix) {
@@ -1061,7 +1061,7 @@ public class StrSubstitutor {
      * </p>
      *
      * @param suffixMatcher  the suffix matcher to use, null ignored.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      * @throws NullPointerException if the suffix matcher is null.
      */
     public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher) {

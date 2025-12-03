@@ -906,7 +906,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * Sets the field delimiter character.
      *
      * @param delim  the delimiter character to use.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrTokenizer setDelimiterChar(final char delim) {
         return setDelimiterMatcher(StrMatcher.charMatcher(delim));
@@ -919,7 +919,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * </p>
      *
      * @param delim  the delimiter matcher to use.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrTokenizer setDelimiterMatcher(final StrMatcher delim) {
         if (delim == null) {
@@ -934,7 +934,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * Sets the field delimiter string.
      *
      * @param delim  the delimiter string to use.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrTokenizer setDelimiterString(final String delim) {
         return setDelimiterMatcher(StrMatcher.stringMatcher(delim));
@@ -945,7 +945,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * The default for this property is false.
      *
      * @param emptyAsNull  whether empty tokens are returned as null.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrTokenizer setEmptyTokenAsNull(final boolean emptyAsNull) {
         this.emptyAsNull = emptyAsNull;
@@ -959,7 +959,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * within a quoted region.
      *
      * @param ignored  the ignored character to use.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrTokenizer setIgnoredChar(final char ignored) {
         return setIgnoredMatcher(StrMatcher.charMatcher(ignored));
