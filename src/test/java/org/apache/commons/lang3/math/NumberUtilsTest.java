@@ -1545,7 +1545,7 @@ class NumberUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Test for {(@link NumberUtils#createNumber(String)}
+     * Test for {@link NumberUtils#createNumber(String)}
      */
     @Test
     void testStringCreateNumberEnsureNoPrecisionLoss() {
