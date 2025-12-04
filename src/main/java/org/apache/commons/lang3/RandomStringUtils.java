@@ -82,11 +82,11 @@ public class RandomStringUtils {
 
     private static final Supplier<RandomUtils> SECURE_SUPPLIER = RandomUtils::secure;
 
-    private static RandomStringUtils INSECURE = new RandomStringUtils(RandomUtils::insecure);
+    private static final RandomStringUtils INSECURE = new RandomStringUtils(RandomUtils::insecure);
 
-    private static RandomStringUtils SECURE = new RandomStringUtils(SECURE_SUPPLIER);
+    private static final RandomStringUtils SECURE = new RandomStringUtils(SECURE_SUPPLIER);
 
-    private static RandomStringUtils SECURE_STRONG = new RandomStringUtils(RandomUtils::secureStrong);
+    private static final RandomStringUtils SECURE_STRONG = new RandomStringUtils(RandomUtils::secureStrong);
 
     private static final char[] ALPHANUMERICAL_CHARS = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
