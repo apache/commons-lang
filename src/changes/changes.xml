@@ -69,6 +69,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Michael Hausegger, Gary Gregory">Fix NumberUtilsTest#testMaxDouble() and testMaxFloat() #4959.</action>
     <action issue="LANG-1797" type="fix" dev="ggregory" due-to="IcoreE">Fix Javadoc for IEEE754rUtils.max(float...) and IEEE754rUtils.max(double...).</action>
     <action issue="LANG-1798" type="fix" dev="ggregory" due-to="IcoreE, Gary Gregory">Fix StringUtilsSubstringTest.testCountMatches_char() to call the correct method.</action>
+    <action issue="LANG-1799" type="fix" dev="ggregory" due-to="IcoreE, Gary Gregory">Make private static variables final in RandomStringUtils #1513.</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 93 #1498.</action>
