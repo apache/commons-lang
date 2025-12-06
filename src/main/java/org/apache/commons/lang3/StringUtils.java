@@ -2028,6 +2028,11 @@ public class StringUtils {
      * <pre>
      * StringUtils.getDigits(null)                 = null
      * StringUtils.getDigits("")                   = ""
+     * StringUtils.getDigits(" ")                  = ""
+     * StringUtils.getDigits("1000")               = "1000"
+     * StringUtils.getDigits("0")                  = "0"
+     * StringUtils.getDigits(" 123 ")              = "123"
+     * StringUtils.getDigits("\t123\n")            = "123"
      * StringUtils.getDigits("abc")                = ""
      * StringUtils.getDigits("1000$")              = "1000"
      * StringUtils.getDigits("1123~45")            = "112345"

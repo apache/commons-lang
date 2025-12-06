@@ -685,6 +685,11 @@ class StringUtilsTest extends AbstractLangTest {
     void testGetDigits() {
         assertNull(StringUtils.getDigits(null));
         assertEquals("", StringUtils.getDigits(""));
+        assertEquals("", StringUtils.getDigits(" "));
+        assertEquals("1000", StringUtils.getDigits("1000"));
+        assertEquals("0", StringUtils.getDigits("0"));
+        assertEquals("123", StringUtils.getDigits(" 123 "));
+        assertEquals("123", StringUtils.getDigits("\t123\n"));
         assertEquals("", StringUtils.getDigits("abc"));
         assertEquals("1000", StringUtils.getDigits("1000$"));
         assertEquals("12345", StringUtils.getDigits("123password45"));
