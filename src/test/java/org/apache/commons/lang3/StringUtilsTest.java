@@ -693,6 +693,11 @@ class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testGetDigitsKeycaps() {
+        assertEquals("0123456789", StringUtils.getDigits("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣#️⃣"));
+    }
+
+    @Test
     void testGetFuzzyDistance() {
         assertEquals(0, StringUtils.getFuzzyDistance("", "", Locale.ENGLISH));
         assertEquals(0, StringUtils.getFuzzyDistance("Workshop", "b", Locale.ENGLISH));
