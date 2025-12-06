@@ -33,7 +33,7 @@ import org.openjdk.jmh.annotations.State;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Thread)
-class HashSetvBitSetTest extends AbstractLangTest {
+public class HashSetvBitSetTest extends AbstractLangTest {
 
     private static final int numberOfElementsToCompute = 10;
 
