@@ -2043,15 +2043,17 @@ public class StringUtils {
         if (isEmpty(str)) {
             return str;
         }
-        final int sz = str.length();
-        final StringBuilder strDigits = new StringBuilder(sz);
-        for (int i = 0; i < sz; i++) {
+        final int len = str.length();
+        final char[] buffer = new char[len];
+        int count = 0;
+
+        for (int i = 0; i < len; i++) {
             final char tempChar = str.charAt(i);
             if (Character.isDigit(tempChar)) {
-                strDigits.append(tempChar);
+                buffer[count++] = tempChar;
             }
         }
-        return strDigits.toString();
+        return new String(buffer, 0, count);
     }
 
     /**
