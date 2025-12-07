@@ -3196,8 +3196,7 @@ public class StringUtils {
         if (isEmpty(cs)) {
             return false;
         }
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < cs.length(); i++) {
             if (!Character.isLowerCase(cs.charAt(i))) {
                 return false;
             }
@@ -3231,8 +3230,7 @@ public class StringUtils {
         if (isEmpty(cs)) {
             return false;
         }
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < cs.length(); i++) {
             if (!Character.isUpperCase(cs.charAt(i))) {
                 return false;
             }
@@ -3265,8 +3263,7 @@ public class StringUtils {
         if (isEmpty(cs)) {
             return false;
         }
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < cs.length(); i++) {
             if (!Character.isLetter(cs.charAt(i))) {
                 return false;
             }
@@ -3300,8 +3297,7 @@ public class StringUtils {
         if (isEmpty(cs)) {
             return false;
         }
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < cs.length(); i++) {
             if (!Character.isLetterOrDigit(cs.charAt(i))) {
                 return false;
             }
@@ -3334,8 +3330,7 @@ public class StringUtils {
         if (cs == null) {
             return false;
         }
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < cs.length(); i++) {
             final char nowChar = cs.charAt(i);
             if (nowChar != ' ' && !Character.isLetterOrDigit(nowChar)) {
                 return false;
@@ -3369,8 +3364,7 @@ public class StringUtils {
         if (cs == null) {
             return false;
         }
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < cs.length(); i++) {
             final char nowChar = cs.charAt(i);
             if (nowChar != ' ' && !Character.isLetter(nowChar)) {
                 return false;
@@ -3479,8 +3473,7 @@ public class StringUtils {
         if (cs == null) {
             return false;
         }
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < cs.length(); i++) {
             if (!CharUtils.isAsciiPrintable(cs.charAt(i))) {
                 return false;
             }
@@ -3570,8 +3563,7 @@ public class StringUtils {
         }
         boolean containsUppercase = false;
         boolean containsLowercase = false;
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < cs.length(); i++) {
             final char nowChar = cs.charAt(i);
             if (Character.isUpperCase(nowChar)) {
                 containsUppercase = true;
@@ -3717,8 +3709,7 @@ public class StringUtils {
         if (isEmpty(cs)) {
             return false;
         }
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < cs.length(); i++) {
             if (!Character.isDigit(cs.charAt(i))) {
                 return false;
             }
@@ -3754,8 +3745,7 @@ public class StringUtils {
         if (cs == null) {
             return false;
         }
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < cs.length(); i++) {
             final char nowChar = cs.charAt(i);
             if (nowChar != ' ' && !Character.isDigit(nowChar)) {
                 return false;
@@ -3793,8 +3783,7 @@ public class StringUtils {
         if (cs == null) {
             return false;
         }
-        final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < cs.length(); i++) {
             if (!Character.isWhitespace(cs.charAt(i))) {
                 return false;
             }
