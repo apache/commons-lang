@@ -173,7 +173,7 @@
     <!-- GH CI Java 17 Ubuntu says 0.91 -->
     <!-- Local macOS Java 21 says 0.92 -->
     <commons.jacoco.complexityRatio>0.91</commons.jacoco.complexityRatio>
-    <commons.text.version>1.14.0</commons.text.version>
+    <commons.text.version>1.15.0</commons.text.version>
   </properties>
   <build>
     <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
