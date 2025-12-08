@@ -9333,6 +9333,275 @@ public class ArrayUtils {
     }
 
     /**
+     * Concatenates multiple boolean arrays into a single array.
+     * <p>
+     * This method combines all input arrays in the order they are provided,
+     * creating a new array that contains all elements from the input arrays.
+     * The resulting array length is the sum of lengths of all non-null input arrays.
+     * </p>
+     *
+     * @param arrays the arrays to concatenate. Can be empty, contain nulls,
+     *               or be null itself (treated as empty varargs).
+     * @return a new boolean array containing all elements from the input arrays
+     *         in the order they appear, or an empty array if no elements are present.
+     * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
+     * @since 3.21.0
+     */
+    public static boolean[] concat(boolean[]... arrays) {
+        int totalLength = 0;
+        for (boolean[] array : arrays) {
+            totalLength = addExact(totalLength, array);
+        }
+        final boolean[] result = new boolean[totalLength];
+        int currentPos = 0;
+        for (boolean[] array : arrays) {
+            if (array != null && array.length > 0) {
+                System.arraycopy(array, 0, result, currentPos, array.length);
+                currentPos += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Concatenates multiple byte arrays into a single array.
+     * <p>
+     * This method combines all input arrays in the order they are provided,
+     * creating a new array that contains all elements from the input arrays.
+     * The resulting array length is the sum of lengths of all non-null input arrays.
+     * </p>
+     *
+     * @param arrays the arrays to concatenate. Can be empty, contain nulls,
+     *               or be null itself (treated as empty varargs).
+     * @return a new byte array containing all elements from the input arrays
+     *         in the order they appear, or an empty array if no elements are present.
+     * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
+     * @since 3.21.0
+     */
+    public static byte[] concat(byte[]... arrays) {
+        int totalLength = 0;
+        for (byte[] array : arrays) {
+            totalLength = addExact(totalLength, array);
+        }
+        final byte[] result = new byte[totalLength];
+        int currentPos = 0;
+        for (byte[] array : arrays) {
+            if (array != null && array.length > 0) {
+                System.arraycopy(array, 0, result, currentPos, array.length);
+                currentPos += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Concatenates multiple char arrays into a single array.
+     * <p>
+     * This method combines all input arrays in the order they are provided,
+     * creating a new array that contains all elements from the input arrays.
+     * The resulting array length is the sum of lengths of all non-null input arrays.
+     * </p>
+     *
+     * @param arrays the arrays to concatenate. Can be empty, contain nulls,
+     *               or be null itself (treated as empty varargs).
+     * @return a new char array containing all elements from the input arrays
+     *         in the order they appear, or an empty array if no elements are present.
+     * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
+     * @since 3.21.0
+     */
+    public static char[] concat(char[]... arrays) {
+        int totalLength = 0;
+        for (char[] array : arrays) {
+            totalLength = addExact(totalLength, array);
+        }
+        final char[] result = new char[totalLength];
+        int currentPos = 0;
+        for (char[] array : arrays) {
+            if (array != null && array.length > 0) {
+                System.arraycopy(array, 0, result, currentPos, array.length);
+                currentPos += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Concatenates multiple double arrays into a single array.
+     * <p>
+     * This method combines all input arrays in the order they are provided,
+     * creating a new array that contains all elements from the input arrays.
+     * The resulting array length is the sum of lengths of all non-null input arrays.
+     * </p>
+     *
+     * @param arrays the arrays to concatenate. Can be empty, contain nulls,
+     *               or be null itself (treated as empty varargs).
+     * @return a new double array containing all elements from the input arrays
+     *         in the order they appear, or an empty array if no elements are present.
+     * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
+     * @since 3.21.0
+     */
+    public static double[] concat(double[]... arrays) {
+        int totalLength = 0;
+        for (double[] array : arrays) {
+            totalLength = addExact(totalLength, array);
+        }
+        final double[] result = new double[totalLength];
+        int currentPos = 0;
+        for (double[] array : arrays) {
+            if (array != null && array.length > 0) {
+                System.arraycopy(array, 0, result, currentPos, array.length);
+                currentPos += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Concatenates multiple float arrays into a single array.
+     * <p>
+     * This method combines all input arrays in the order they are provided,
+     * creating a new array that contains all elements from the input arrays.
+     * The resulting array length is the sum of lengths of all non-null input arrays.
+     * </p>
+     *
+     * @param arrays the arrays to concatenate. Can be empty, contain nulls,
+     *               or be null itself (treated as empty varargs).
+     * @return a new float array containing all elements from the input arrays
+     *         in the order they appear, or an empty array if no elements are present.
+     * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
+     * @since 3.21.0
+     */
+    public static float[] concat(float[]... arrays) {
+        int totalLength = 0;
+        for (float[] array : arrays) {
+            totalLength = addExact(totalLength, array);
+        }
+        final float[] result = new float[totalLength];
+        int currentPos = 0;
+        for (float[] array : arrays) {
+            if (array != null && array.length > 0) {
+                System.arraycopy(array, 0, result, currentPos, array.length);
+                currentPos += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Concatenates multiple int arrays into a single array.
+     * <p>
+     * This method combines all input arrays in the order they are provided,
+     * creating a new array that contains all elements from the input arrays.
+     * The resulting array length is the sum of lengths of all non-null input arrays.
+     * </p>
+     *
+     * @param arrays the arrays to concatenate. Can be empty, contain nulls,
+     *               or be null itself (treated as empty varargs).
+     * @return a new int array containing all elements from the input arrays
+     *         in the order they appear, or an empty array if no elements are present.
+     * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
+     * @since 3.21.0
+     */
+    public static int[] concat(int[]... arrays) {
+        int totalLength = 0;
+        for (int[] array : arrays) {
+            totalLength = addExact(totalLength, array);
+        }
+        final int[] result = new int[totalLength];
+        int currentPos = 0;
+        for (int[] array : arrays) {
+            if (array != null && array.length > 0) {
+                System.arraycopy(array, 0, result, currentPos, array.length);
+                currentPos += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Concatenates multiple long arrays into a single array.
+     * <p>
+     * This method combines all input arrays in the order they are provided,
+     * creating a new array that contains all elements from the input arrays.
+     * The resulting array length is the sum of lengths of all non-null input arrays.
+     * </p>
+     *
+     * @param arrays the arrays to concatenate. Can be empty, contain nulls,
+     *               or be null itself (treated as empty varargs).
+     * @return a new long array containing all elements from the input arrays
+     *         in the order they appear, or an empty array if no elements are present.
+     * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
+     * @since 3.21.0
+     */
+    public static long[] concat(long[]... arrays) {
+        int totalLength = 0;
+        for (long[] array : arrays) {
+            totalLength = addExact(totalLength, array);
+        }
+        final long[] result = new long[totalLength];
+        int currentPos = 0;
+        for (long[] array : arrays) {
+            if (array != null && array.length > 0) {
+                System.arraycopy(array, 0, result, currentPos, array.length);
+                currentPos += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Concatenates multiple short arrays into a single array.
+     * <p>
+     * This method combines all input arrays in the order they are provided,
+     * creating a new array that contains all elements from the input arrays.
+     * The resulting array length is the sum of lengths of all non-null input arrays.
+     * </p>
+     *
+     * @param arrays the arrays to concatenate. Can be empty, contain nulls,
+     *               or be null itself (treated as empty varargs).
+     * @return a new short array containing all elements from the input arrays
+     *         in the order they appear, or an empty array if no elements are present.
+     * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
+     * @since 3.21.0
+     */
+    public static short[] concat(short[]... arrays) {
+        int totalLength = 0;
+        for (short[] array : arrays) {
+            totalLength = addExact(totalLength, array);
+        }
+        final short[] result = new short[totalLength];
+        int currentPos = 0;
+        for (short[] array : arrays) {
+            if (array != null && array.length > 0) {
+                System.arraycopy(array, 0, result, currentPos, array.length);
+                currentPos += array.length;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Safely adds the length of an array to a running total, checking for overflow.
+     *
+     * @param totalLength the current accumulated length
+     * @param array the array whose length should be added (can be {@code null},
+     *              in which case its length is considered 0)
+     * @return the new total length after adding the array's length
+     * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
+     */
+    private static int addExact(final int totalLength, final Object array) {
+        try {
+            final int length = MathBridge.addExact(totalLength, getLength(array));
+            if (length > SAFE_MAX_ARRAY_LENGTH) {
+                throw new IllegalArgumentException("Total arrays length exceed " + SAFE_MAX_ARRAY_LENGTH);
+            }
+            return length;
+        } catch (final ArithmeticException exception) {
+            throw new IllegalArgumentException("Total arrays length exceed " + SAFE_MAX_ARRAY_LENGTH);
+        }
+    }
+
+    /**
      * ArrayUtils instances should NOT be constructed in standard programming. Instead, the class should be used as {@code ArrayUtils.clone(new int[] {2})}.
      * <p>
      * This constructor is public to permit tools that require a JavaBean instance to operate.
@@ -9343,5 +9612,14 @@ public class ArrayUtils {
     @Deprecated
     public ArrayUtils() {
         // empty
+    }
+
+    /**
+     * Bridge class to {@link Math} methods for testing purposes.
+     */
+    static class MathBridge {
+        static int addExact(final int a, final int b) {
+            return Math.addExact(a, b);
+        }
     }
 }
