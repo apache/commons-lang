@@ -72,6 +72,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1799" type="fix" dev="ggregory" due-to="IcoreE, Gary Gregory">Make private static variables final in RandomStringUtils #1513.</action>
     <action                   type="fix" dev="ggregory" due-to="David Du, Gary Gregory">Speed up StringUtils.getDigits(String) #1515.</action>
     <action                   type="fix" dev="ggregory" due-to="David Du, Gary Gregory">Remove redundant length check in StringUtils.isBlank(CharSequence) #1516.</action>
+    <action issue="LANG-1800" type="fix" dev="ggregory" due-to="IcoreE">Incorrect grammar and unclear wording in RandomStringUtils#random method #1520.</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 93 #1498.</action>
