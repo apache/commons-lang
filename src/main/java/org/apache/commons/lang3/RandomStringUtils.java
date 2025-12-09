@@ -278,6 +278,19 @@ public class RandomStringUtils {
                     "Parameter end (" + end + ") must be greater than start (" + start + ")");
         } else if (start < 0 || end < 0) {
             throw new IllegalArgumentException("Character positions MUST be >= 0");
+        }else if (chars != null && (start >= chars.length || end > chars.length)){
+            StringBuilder errorMsg = new StringBuilder();
+            int charsLength = chars.length;
+            if (start >= charsLength) {
+                errorMsg.append("Parameter start (").append(start).append(") must be less than chars array length ").append(charsLength);
+            }
+            if (end > charsLength) {
+                if (errorMsg.length() > 0) {
+                    errorMsg.append("; ");
+                }
+                errorMsg.append("Parameter end (").append(end).append(") must be less than or equal to chars array length ").append(charsLength);
+            }
+            throw new IllegalArgumentException(errorMsg.toString());
         }
 
         if (end > Character.MAX_CODE_POINT) {
