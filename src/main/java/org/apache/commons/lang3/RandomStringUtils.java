@@ -299,8 +299,8 @@ public class RandomStringUtils {
 
             if (numbers && end <= ASCII_0 || letters && end <= ASCII_A) {
                 throw new IllegalArgumentException(
-                        "Parameter end (" + end + ") must be greater then (" + ASCII_0 + ") for generating digits "
-                                + "or greater then (" + ASCII_A + ") for generating letters.");
+                        "Parameter end (" + end + ") must be greater than (" + ASCII_0 + ") for generating digits "
+                                + "or greater than (" + ASCII_A + ") for generating letters.");
             }
 
             // Optimize start and end when filtering by letters and/or numbers:
