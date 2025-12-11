@@ -89,6 +89,7 @@ public class RecursiveToStringStyle extends ToStringStyle {
     public void appendDetail(final StringBuffer buffer, final String fieldName, final Object value) {
         if (!ClassUtils.isPrimitiveWrapper(value.getClass()) &&
             !String.class.equals(value.getClass()) &&
+            !value.getClass().isEnum() &&
             accept(value.getClass())) {
             buffer.append(ReflectionToStringBuilder.toString(value, this));
         } else {
