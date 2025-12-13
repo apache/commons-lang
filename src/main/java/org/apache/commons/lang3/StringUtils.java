@@ -51,7 +51,7 @@ import org.apache.commons.lang3.stream.Streams;
  *  <li><strong>endsWith</strong>
  *      - check if a String ends with a suffix in a null-safe manner</li>
  *  <li><strong>IndexOf/LastIndexOf/Contains</strong>
- *      - null-safe index-of checks
+ *      - null-safe index-of checks</li>
  *  <li><strong>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</strong>
  *      - index-of any of a set of Strings</li>
  *  <li><strong>ContainsOnly/ContainsNone/ContainsAny</strong>

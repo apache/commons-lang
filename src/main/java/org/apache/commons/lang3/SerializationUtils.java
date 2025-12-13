@@ -32,9 +32,9 @@ import java.util.Objects;
  * on serialization.
  *
  * <ul>
- * <li>Deep clone using serialization
- * <li>Serialize managing finally and IOException
- * <li>Deserialize managing finally and IOException
+ * <li>Deep clone using serialization</li>
+ * <li>Serialize managing finally and IOException</li>
+ * <li>Deserialize managing finally and IOException</li>
  * </ul>
  *
  * <p>This class throws exceptions for invalid {@code null} inputs.

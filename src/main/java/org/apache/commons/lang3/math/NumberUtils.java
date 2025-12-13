@@ -763,10 +763,10 @@ public class NumberUtils {
      * Given {@code s = mant + "." + dec}:
      * </p>
      * <ul>
-     * <li>{@code true} if s is {@code "0.0"}
-     * <li>{@code true} if s is {@code "0."}
-     * <li>{@code true} if s is {@code ".0"}
-     * <li>{@code false} otherwise (this assumes {@code "."} is not possible)
+     * <li>{@code true} if s is {@code "0.0"}</li>
+     * <li>{@code true} if s is {@code "0."}</li>
+     * <li>{@code true} if s is {@code ".0"}</li>
+     * <li>{@code false} otherwise (this assumes {@code "."} is not possible)</li>
      * </ul>
      *
      * @param mant the mantissa decimal digits before the decimal point (sign must be removed; never null).

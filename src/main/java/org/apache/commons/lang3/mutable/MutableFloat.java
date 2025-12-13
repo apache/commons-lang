@@ -188,9 +188,9 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * </p>
      * <ul>
      * <li>If {@code f1} and {@code f2} both represent {@code Float.NaN}, then the {@code equals} method returns {@code true}, even though
-     * {@code Float.NaN == Float.NaN} has the value {@code false}.
+     * {@code Float.NaN == Float.NaN} has the value {@code false}.</li>
      * <li>If {@code f1} represents {@code +0.0f} while {@code f2} represents {@code -0.0f}, or vice versa, the {@code equal} test has the value {@code false},
-     * even though {@code 0.0f == -0.0f} has the value {@code true}.
+     * even though {@code 0.0f == -0.0f} has the value {@code true}.</li>
      * </ul>
      * <p>
      * This definition allows hashtables to operate properly.

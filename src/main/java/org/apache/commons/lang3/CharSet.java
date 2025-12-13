@@ -106,10 +106,10 @@ public class CharSet implements Serializable {
      *
      * <p>The matching order is:</p>
      * <ol>
-     *  <li>Negated multi character range, such as "^a-e"
-     *  <li>Ordinary multi character range, such as "a-e"
-     *  <li>Negated single character, such as "^a"
-     *  <li>Ordinary single character, such as "a"
+     *  <li>Negated multi character range, such as "^a-e"</li>
+     *  <li>Ordinary multi character range, such as "a-e"</li>
+     *  <li>Negated single character, such as "^a"</li>
+     *  <li>Ordinary single character, such as "a"</li>
      * </ol>
      *
      * <p>Matching works left to right. Once a match is found the
