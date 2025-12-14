@@ -356,17 +356,21 @@ public class StringUtils {
         if (isAnyEmpty(str, abbrevMarker)) {
             return str;
         }
-        final int abbrevMarkerLength = abbrevMarker.length();
-        final int minAbbrevWidth = abbrevMarkerLength + 1;
-        final int minAbbrevWidthOffset = abbrevMarkerLength + abbrevMarkerLength + 1;
-
-        if (maxWidth < minAbbrevWidth) {
-            throw new IllegalArgumentException(String.format("Minimum abbreviation width is %d", minAbbrevWidth));
-        }
+    
         final int strLen = str.length();
         if (strLen <= maxWidth) {
             return str;
         }
+    
+        final int abbrevMarkerLength = abbrevMarker.length();
+        final int minAbbrevWidth = abbrevMarkerLength + 1;
+        final int minAbbrevWidthOffset = abbrevMarkerLength + abbrevMarkerLength + 1;
+    
+        if (maxWidth < minAbbrevWidth) {
+            throw new IllegalArgumentException(
+                String.format("Minimum abbreviation width is %d", minAbbrevWidth));
+        }
+    
         if (offset > strLen) {
             offset = strLen;
         }
@@ -377,13 +381,18 @@ public class StringUtils {
             return str.substring(0, maxWidth - abbrevMarkerLength) + abbrevMarker;
         }
         if (maxWidth < minAbbrevWidthOffset) {
-            throw new IllegalArgumentException(String.format("Minimum abbreviation width with offset is %d", minAbbrevWidthOffset));
+            throw new IllegalArgumentException(
+                String.format("Minimum abbreviation width with offset is %d", minAbbrevWidthOffset));
         }
         if (offset + maxWidth - abbrevMarkerLength < strLen) {
-            return abbrevMarker + abbreviate(str.substring(offset), abbrevMarker, maxWidth - abbrevMarkerLength);
+            return abbrevMarker + abbreviate(
+                str.substring(offset),
+                abbrevMarker,
+                maxWidth - abbrevMarkerLength);
         }
         return abbrevMarker + str.substring(strLen - (maxWidth - abbrevMarkerLength));
     }
+
 
     /**
      * Abbreviates a String to the length passed, replacing the middle characters with the supplied replacement String.
