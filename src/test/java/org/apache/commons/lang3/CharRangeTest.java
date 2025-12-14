@@ -311,6 +311,21 @@ class CharRangeTest extends AbstractLangTest {
         assertNotEquals(rangenotbf.hashCode(), rangeae.hashCode());
     }
 
+    /**
+     * Tests https://issues.apache.org/jira/browse/LANG-1802
+     */
+    @Test
+    void testHashCodeLang1802() {
+        // case A：hash=99
+        final CharRange a1 = CharRange.isNotIn((char) 1, (char) 2); // 1,2,true → 83+1+14+1=99
+        final CharRange a2 = CharRange.isIn((char) 2, (char) 2); // 2,2,false → 83+2+14+0=99
+        assertNotEquals(a1.hashCode(), a2.hashCode()); // Collision
+        // case B：hash=123
+        final CharRange b1 = CharRange.isIn((char) 5, (char) 5); // 5,5,false →83+5+35+0=123
+        final CharRange b2 = CharRange.isNotIn((char) 4, (char) 5); // 4,5,true →83+4+35+1=123
+        assertNotEquals(b1.hashCode(), b2.hashCode()); // Collision
+    }
+
     @Test
     void testIterator() {
         final CharRange a = CharRange.is('a');
