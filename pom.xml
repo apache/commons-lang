@@ -174,6 +174,7 @@
     <!-- Local macOS Java 21 says 0.92 -->
     <commons.jacoco.complexityRatio>0.91</commons.jacoco.complexityRatio>
     <commons.text.version>1.15.0</commons.text.version>
+    <commons.io.version>2.21.0</commons.io.version>
   </properties>
   <build>
     <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
@@ -231,7 +232,17 @@
                 <artifactId>commons-text</artifactId>
                 <version>${commons.text.version}</version>
               </additionalDependency>
+              <additionalDependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+              </additionalDependency>
             </additionalDependencies>
+            <links>
+              <link>https://commons.apache.org/proper/commons-io/apidocs</link>
+              <link>https://commons.apache.org/proper/commons-text/apidocs</link>
+              <link>${commons.javadoc.javaee.link}</link>
+            </links>
           </configuration>
           <executions>
             <execution>
@@ -324,7 +335,20 @@
           <source>${maven.compiler.source}</source>
           <quiet>true</quiet>
           <notimestamp>true</notimestamp>
+          <additionalDependencies>
+            <additionalDependency>
+              <groupId>org.apache.commons</groupId>
+              <artifactId>commons-text</artifactId>
+              <version>${commons.text.version}</version>
+            </additionalDependency>
+            <additionalDependency>
+              <groupId>commons-io</groupId>
+              <artifactId>commons-io</artifactId>
+              <version>${commons.io.version}</version>
+            </additionalDependency>
+          </additionalDependencies>
           <links>
+            <link>https://commons.apache.org/proper/commons-io/apidocs</link>
             <link>https://commons.apache.org/proper/commons-text/apidocs</link>
             <link>${commons.javadoc.javaee.link}</link>
           </links>
