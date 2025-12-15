@@ -45,11 +45,8 @@ jobs:
         run: mvn jacoco:report
 
       # Step 3: SonarCloud analysis (Java 21 only)
-      - name: SonarCloud Analysis (Java 21)
+      - name: Build and analyze with SonarCloud (Java 21)
         if: matrix.java == '21'
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn sonar:sonar \
-          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
-          -Dsonar.host.url=https://sonarcloud.io
+        run: mvn sonar:sonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} -Dsonar.host.url=https://sonarcloud.io
