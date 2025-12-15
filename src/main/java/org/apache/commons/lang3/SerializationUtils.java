@@ -147,7 +147,9 @@ public class SerializationUtils {
      * @return the deserialized object.
      * @throws NullPointerException if {@code objectData} is {@code null}.
      * @throws SerializationException (runtime) if the serialization fails.
+     * @deprecated This method is dangerous if used with untrusted data.
      */
+    @Deprecated
     public static <T> T deserialize(final byte[] objectData) {
         Objects.requireNonNull(objectData, "objectData");
         return deserialize(new ByteArrayInputStream(objectData));
@@ -180,6 +182,7 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails.
      */
     @SuppressWarnings("resource") // inputStream is managed by the caller
+    @Deprecated
     public static <T> T deserialize(final InputStream inputStream) {
         Objects.requireNonNull(inputStream, "inputStream");
         try (ObjectInputStream in = new ObjectInputStream(inputStream)) {
