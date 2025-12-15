@@ -64,13 +64,4 @@ jobs:
         if: matrix.java == '21'
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          mvn --errors \
-              --show-version \
-              --batch-mode \
-              --no-transfer-progress \
-              -Ddoclint=all \
-              verify sonar:sonar \
-              -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-              -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
-              -Dsonar.host.url=https://sonarcloud.io
+        run: mvn --errors --show-version --batch-mode --no-transfer-progress -Ddoclint=all verify sonar:sonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} -Dsonar.host.url=https://sonarcloud.io
