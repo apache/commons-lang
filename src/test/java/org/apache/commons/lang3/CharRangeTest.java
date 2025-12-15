@@ -27,9 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Modifier;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -154,6 +153,100 @@ class CharRangeTest extends AbstractLangTest {
         // ---------- Core assertion: Bitwise implementation must be faster ----------
         assertTrue(costTimeBitwise < costTimeObjectsHash,
                 "Bitwise-optimized hashCode should outperform Objects.hash-based implementation!");
+    }
+
+    /**
+     * Tests collision rate of two hashCode implementations for CharRange:
+     * 1. Objects.hash-based implementation (baseline reference)
+     * 2. Bitwise operation-based implementation (optimized variant)
+     *
+     * Collision Definition: Two distinct CharRange instances (!equals()) with identical hashCode values
+     */
+    @Test
+    void testHashCodeCollisionRate() {
+        // 1. Test configuration
+        final int TOTAL_INSTANCES = 1_000_000; // Generate 1 million unique CharRange instances (higher = more accurate stats)
+        final Random random = new Random(42); // Fixed random seed for reproducible test results
+
+        // 2. Generate a large set of distinct CharRange instances (ensure no duplicates/equality)
+        Set<CharRange> uniqueCharRanges = new HashSet<>();
+        while (uniqueCharRanges.size() < TOTAL_INSTANCES) {
+            uniqueCharRanges.add(generateRandomCharRange(random));
+        }
+        List<CharRange> testInstances = new ArrayList<>(uniqueCharRanges);
+        System.out.println("Generated " + testInstances.size() + " unique CharRange instances");
+
+        // 3. Stat collision metrics for Objects.hash-based implementation
+        Map<Integer, List<CharRange>> objectsHashToRanges = new HashMap<>();
+        for (CharRange range : testInstances) {
+            int hashCode = hashCodeWithObjectsHash(range);
+            objectsHashToRanges.computeIfAbsent(hashCode, k -> new ArrayList<>()).add(range);
+        }
+        long objectsHashTotalCollisions = calculateTotalCollisionCount(objectsHashToRanges);
+        double objectsHashCollisionRate = (double) (testInstances.size() - objectsHashToRanges.size()) / testInstances.size();
+
+        // 4. Stat collision metrics for bitwise operation-based implementation
+        Map<Integer, List<CharRange>> bitwiseHashToRanges = new HashMap<>();
+        for (CharRange range : testInstances) {
+            int hashCode = hashCodeWithBitwise(range);
+            bitwiseHashToRanges.computeIfAbsent(hashCode, k -> new ArrayList<>()).add(range);
+        }
+        long bitwiseTotalCollisions = calculateTotalCollisionCount(bitwiseHashToRanges);
+        double bitwiseCollisionRate = (double) (testInstances.size() - bitwiseHashToRanges.size()) / testInstances.size();
+
+        // 5. Print comparison results
+        System.out.println("===== HashCode Collision Rate Comparison =====");
+        System.out.println("Objects.hash implementation:");
+        System.out.println("  Number of unique hash codes: " + objectsHashToRanges.size());
+        System.out.println("  Total colliding instances: " + objectsHashTotalCollisions);
+        System.out.println("  Collision rate: " + String.format("%.6f%%", objectsHashCollisionRate * 100));
+        System.out.println("Bitwise implementation:");
+        System.out.println("  Number of unique hash codes: " + bitwiseHashToRanges.size());
+        System.out.println("  Total colliding instances: " + bitwiseTotalCollisions);
+        System.out.println("  Collision rate: " + String.format("%.6f%%", bitwiseCollisionRate * 100));
+    }
+
+    /**
+     * Generates a random, unique CharRange instance covering all core scenarios:
+     * - Normal/negated ranges
+     * - Single character ranges
+     * - Extreme value ranges (near Character.MAX_VALUE)
+     *
+     * @param random Random instance with fixed seed for reproducibility
+     * @return Unique CharRange instance (no equality with other generated instances)
+     */
+    private CharRange generateRandomCharRange(Random random) {
+        // Randomly generate start/end (range: 0 ~ Character.MAX_VALUE)
+        char start = (char) random.nextInt(Character.MAX_VALUE + 1);
+        char end = (char) random.nextInt(Character.MAX_VALUE + 1);
+        // Randomly determine if the range is negated
+        boolean negated = random.nextBoolean();
+        // Ensure start <= end (avoid auto-swapping by CharRange which causes equal instances)
+        if (start > end) {
+            char temp = start;
+            start = end;
+            end = temp;
+        }
+        // Create CharRange instance (negated or non-negated)
+        return negated ? CharRange.isNotIn(start, end) : CharRange.isIn(start, end);
+    }
+
+    /**
+     * Calculates total collision count:
+     * Sum of (list size - 1) for all hash code lists with size > 1
+     * (list size - 1 = number of collisions for that specific hash code)
+     *
+     * @param hashCodeMap Map of hashCode values to associated CharRange instances
+     * @return Total number of colliding instances across all hash codes
+     */
+    private long calculateTotalCollisionCount(Map<Integer, List<CharRange>> hashCodeMap) {
+        AtomicLong collisionCount = new AtomicLong(0);
+        hashCodeMap.values().forEach(list -> {
+            if (list.size() > 1) {
+                collisionCount.addAndGet(list.size() - 1);
+            }
+        });
+        return collisionCount.get();
     }
     // ========== End of hashCode implementation comparison code ==========
 
