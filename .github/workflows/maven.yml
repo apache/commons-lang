@@ -25,6 +25,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
+
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -36,19 +37,40 @@ jobs:
             os: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-      with:
-        persist-credentials: false
-    - uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
-    - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
-      with:
-        distribution: ${{ runner.os == 'macOS' && matrix.java == '8' && 'zulu' || 'temurin' }}
-        java-version: ${{ matrix.java }}
-    - name: Build with Maven
-      run: mvn --errors --show-version --batch-mode --no-transfer-progress -Ddoclint=all
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
+        with:
+          distribution: ${{ runner.os == 'macOS' && matrix.java == '8' && 'zulu' || 'temurin' }}
+          java-version: ${{ matrix.java }}
+
+      # Standard build for all Java versions except 21
+      - name: Build with Maven
+        if: matrix.java != '21'
+        run: mvn --errors --show-version --batch-mode --no-transfer-progress -Ddoclint=all verify
+
+      # SonarCloud analysis ONLY on Java 21
+      - name: Build and analyze with SonarCloud (Java 21)
+        if: matrix.java == '21'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn --errors \
+              --show-version \
+              --batch-mode \
+              --no-transfer-progress \
+              -Ddoclint=all \
+              verify sonar:sonar \
+              -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+              -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
+              -Dsonar.host.url=https://sonarcloud.io
