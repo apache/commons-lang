@@ -479,7 +479,7 @@
       </activation>
       <build>
         <!-- Don't run javadoc:javadoc on Java 8 due to Java's incompatible expectation of package-list vs element-list on remote links. -->
-        <defaultGoal>clean test apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check</defaultGoal>
+        <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check</defaultGoal>
       </build>
     </profile>
     <profile>
