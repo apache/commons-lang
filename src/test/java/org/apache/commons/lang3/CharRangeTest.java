@@ -29,13 +29,133 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 /**
  * Tests {@link CharRange}.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS) // Enable @BeforeAll on non-static methods
 class CharRangeTest extends AbstractLangTest {
+
+    // ========== Added for comparing CharRange hashCode implementations (Objects.hash vs bitwise) ==========
+    // Number of test iterations (larger values improve accuracy; recommended ? 100 million)
+    private static final long TEST_COUNT = 100_000_000L;
+    // CharRange test instances covering typical scenarios
+    private CharRange normalRange;    // Standard range: a-z (non-negated)
+    private CharRange negatedRange;   // Negated range: 0-9
+    private CharRange singleCharRange;// Single character range: x-x
+    private CharRange extremeRange;   // Extreme value range: near Character.MAX_VALUE
+
+    /**
+     * Initialize test data for hashCode implementation comparison (executed once before all tests)
+     */
+    @BeforeAll
+    void initHashCodeTestData() {
+        // Create test instances using official CharRange static factory methods
+        normalRange = CharRange.isIn('a', 'z');
+        negatedRange = CharRange.isNotIn('0', '9');
+        singleCharRange = CharRange.isIn('x', 'x');
+        extremeRange = CharRange.isIn(Character.MAX_VALUE, (char) (Character.MAX_VALUE - 100));
+        // JVM warm-up: Eliminate JIT compilation bias for first-time execution
+        warmUpJvmForHashCodeTests();
+    }
+
+    /**
+     * JVM warm-up to eliminate performance bias from first-time JIT compilation
+     * (executes both hashCode implementations to ensure fair performance comparison)
+     */
+    private void warmUpJvmForHashCodeTests() {
+        for (long i = 0; i < 1_000_000; i++) {
+            hashCodeWithObjectsHash(normalRange);
+            hashCodeWithBitwise(normalRange);
+            hashCodeWithObjectsHash(negatedRange);
+            hashCodeWithBitwise(negatedRange);
+            hashCodeWithObjectsHash(singleCharRange);
+            hashCodeWithBitwise(singleCharRange);
+            hashCodeWithObjectsHash(extremeRange);
+            hashCodeWithBitwise(extremeRange);
+        }
+    }
+
+    private int hashCodeWithObjectsHash(CharRange range) {
+        return Objects.hash(range.getEnd(), range.isNegated(), range.getStart());
+    }
+
+    private int hashCodeWithBitwise(CharRange range) {
+        final int charCombined = (range.getStart() << 16) | (range.getEnd() & 0xFFFF);
+        return charCombined ^ (range.isNegated() ? 0x00010000 : 0);
+    }
+
+    // ========== HashCode implementation comparison tests ==========
+    @Test
+    void testHashCode_ContractCompliance() {
+        // Scenario 1: Equal CharRange instances must have equal hash codes (for both implementations)
+        CharRange range1 = CharRange.isIn('a', 'z');
+        CharRange range2 = CharRange.isIn('a', 'z');
+        assertTrue(range1.equals(range2));
+        assertEquals(hashCodeWithObjectsHash(range1), hashCodeWithObjectsHash(range2));
+        assertEquals(hashCodeWithBitwise(range1), hashCodeWithBitwise(range2));
+
+        // Scenario 2: Unequal instances should (probabilistically) have different hash codes
+        CharRange range3 = CharRange.isNotIn('a', 'z');
+        assertFalse(range1.equals(range3));
+        // Verify hash code dispersion (ignore rare probabilistic collisions)
+        assertNotEquals(hashCodeWithObjectsHash(range1), hashCodeWithObjectsHash(range3),
+                "Hash collision occurred in Objects.hash implementation (probabilistic)");
+        assertNotEquals(hashCodeWithBitwise(range1), hashCodeWithBitwise(range3),
+                "Hash collision occurred in bitwise implementation (extreme scenario)");
+
+        // Scenario 3: Verify hash consistency for ranges with reversed start/end (auto-swapped by CharRange)
+        CharRange range4 = CharRange.isIn('z', 'a'); // Auto-swapped to a-z internally
+        assertTrue(range1.equals(range4));
+        assertEquals(hashCodeWithObjectsHash(range1), hashCodeWithObjectsHash(range4));
+        assertEquals(hashCodeWithBitwise(range1), hashCodeWithBitwise(range4));
+    }
+
+    @Test
+    void testHashCode_PerformanceComparison() {
+        // ---------- Benchmark: Objects.hash-based implementation ----------
+        long startTimeObjectsHash = System.nanoTime();
+        long sumObjectsHash = 0; // Accumulate results to prevent JIT dead-code elimination
+        for (long i = 0; i < TEST_COUNT; i++) {
+            sumObjectsHash += hashCodeWithObjectsHash(normalRange);
+            sumObjectsHash += hashCodeWithObjectsHash(negatedRange);
+            sumObjectsHash += hashCodeWithObjectsHash(singleCharRange);
+            sumObjectsHash += hashCodeWithObjectsHash(extremeRange);
+        }
+        long endTimeObjectsHash = System.nanoTime();
+        long costTimeObjectsHash = (endTimeObjectsHash - startTimeObjectsHash) / 1_000_000; // Convert to milliseconds
+
+        // ---------- Benchmark: Bitwise-optimized implementation ----------
+        long startTimeBitwise = System.nanoTime();
+        long sumBitwise = 0; // Accumulate results to prevent JIT dead-code elimination
+        for (long i = 0; i < TEST_COUNT; i++) {
+            sumBitwise += hashCodeWithBitwise(normalRange);
+            sumBitwise += hashCodeWithBitwise(negatedRange);
+            sumBitwise += hashCodeWithBitwise(singleCharRange);
+            sumBitwise += hashCodeWithBitwise(extremeRange);
+        }
+        long endTimeBitwise = System.nanoTime();
+        long costTimeBitwise = (endTimeBitwise - startTimeBitwise) / 1_000_000;
+
+        // ---------- Output performance comparison results ----------
+        System.out.println("===== CharRange HashCode Performance Comparison (" + TEST_COUNT + " iterations/scenario) =====");
+        System.out.println("Objects.hash implementation total time: " + costTimeObjectsHash + " ms (sum: " + sumObjectsHash + ")");
+        System.out.println("Bitwise-optimized implementation total time: " + costTimeBitwise + " ms (sum: " + sumBitwise + ")");
+        // Calculate performance improvement ratio (avoid division by zero)
+        double performanceImprovement = costTimeObjectsHash == 0 ? 0 :
+                (double) (costTimeObjectsHash - costTimeBitwise) / costTimeObjectsHash * 100;
+        System.out.println("Bitwise implementation performance improvement: " + String.format("%.2f%%", performanceImprovement));
+
+        // ---------- Core assertion: Bitwise implementation must be faster ----------
+        assertTrue(costTimeBitwise < costTimeObjectsHash,
+                "Bitwise-optimized hashCode should outperform Objects.hash-based implementation!");
+    }
+    // ========== End of hashCode implementation comparison code ==========
 
     @Test
     void testClass() {
