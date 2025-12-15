@@ -60,14 +60,9 @@ jobs:
         run: mvn --errors --show-version --batch-mode --no-transfer-progress -Ddoclint=all verify
 
       # SonarCloud analysis ONLY on Java 21
-      - name: SonarCloud Scan
+      - name: Build and analyze with SonarCloud (Java 21)
         if: matrix.java == '21'
-        uses: SonarSource/sonarcloud-github-action@v2.1.1
-        with:
-          args: >
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.java.binaries=target/classes
+        shell: bash
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn --errors --show-version --batch-mode --no-transfer-progress -Ddoclint=all verify sonar:sonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} -Dsonar.host.url=https://sonarcloud.io
