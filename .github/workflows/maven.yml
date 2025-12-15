@@ -15,10 +15,6 @@ jobs:
         os: [ubuntu-latest]
         java: [8, 11, 17, 21, 25]
         experimental: [false]
-        include:
-          - java: 26-ea
-            experimental: true
-            os: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
