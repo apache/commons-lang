@@ -1031,7 +1031,7 @@ class NumberUtilsTest extends AbstractLangTest {
      * Tests https://issues.apache.org/jira/browse/LANG-1729
      *
      * See https://bugs.openjdk.org/browse/JDK-8326627
-     * 
+     *
      * <blockquote>From https://docs.oracle.com/javase%2F9%2Fdocs%2Fapi%2F%2F/java/lang/Float.html#valueOf-java.lang.String-,
      * https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.2, and https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-Digits,
      * fullwidth Unicode digits are not applicable. Moved to JDK as an enhancement.</blockquote>
@@ -1039,8 +1039,9 @@ class NumberUtilsTest extends AbstractLangTest {
     @Test
     void testIsParsableFullWidthUnicodeJDK8326627() {
         // 123 in fullwidth Unicode digits
-        assertThrows(NumberFormatException.class, () -> Double.parseDouble("\uFF10\uFF11\uFF12"));
-        assertThrows(NumberFormatException.class, () -> Float.parseFloat("１２３"));
+        final String fullWidth123 = "\uFF10\uFF11\uFF12";
+        assertThrows(NumberFormatException.class, () -> Double.parseDouble(fullWidth123));
+        assertThrows(NumberFormatException.class, () -> Float.parseFloat(fullWidth123));
     }
 
     @Test
