@@ -724,19 +724,52 @@ public class NumberUtils {
      * @since 3.4
      */
     public static boolean isParsable(final String str) {
-        if (StringUtils.isEmpty(str)) {
-            return false;
-        }
-        if (str.charAt(str.length() - 1) == '.') {
+        if (StringUtils.isEmpty(str) || str.charAt(str.length() - 1) == '.') {
             return false;
         }
         if (str.charAt(0) == '-') {
             if (str.length() == 1) {
                 return false;
             }
-            return withDecimalsParsing(str, 1);
+            return isParsableDecimal(str, 1);
         }
-        return withDecimalsParsing(str, 0);
+        return isParsableDecimal(str, 0);
+    }
+
+    /**
+     * Tests whether a number string is parsable as a decimal number or integer.
+     *
+     * <ul>
+     * <li>At most one decimal point is allowed.</li>
+     * <li>No signs, exponents or type qualifiers are allowed.</li>
+     * <li>Only ASCII digits are allowed if a decimal point is present.</li>
+     * </ul>
+     *
+     * @param str      the String to test.
+     * @param beginIdx the index to start checking from.
+     * @return {@code true} if the string is a parsable number.
+     */
+    private static boolean isParsableDecimal(final String str, final int beginIdx) {
+        // See https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-NonZeroDigit
+        int decimalPoints = 0;
+        boolean asciiNumeric = true;
+        for (int i = beginIdx; i < str.length(); i++) {
+            final char ch = str.charAt(i);
+            final boolean isDecimalPoint = ch == '.';
+            if (isDecimalPoint) {
+                decimalPoints++;
+            }
+            if (decimalPoints > 1 || !isDecimalPoint && !Character.isDigit(ch)) {
+                return false;
+            }
+            if (!isDecimalPoint) {
+                asciiNumeric &= CharUtils.isAsciiNumeric(ch);
+            }
+            if (decimalPoints > 0 && !asciiNumeric) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static boolean isSign(final char ch) {
@@ -1770,24 +1803,6 @@ public class NumberUtils {
     private static void validateArray(final Object array) {
         Objects.requireNonNull(array, "array");
         Validate.isTrue(Array.getLength(array) != 0, "Array cannot be empty.");
-    }
-
-    private static boolean withDecimalsParsing(final String str, final int beginIdx) {
-        int decimalPoints = 0;
-        for (int i = beginIdx; i < str.length(); i++) {
-            final char ch = str.charAt(i);
-            final boolean isDecimalPoint = ch == '.';
-            if (isDecimalPoint) {
-                decimalPoints++;
-            }
-            if (decimalPoints > 1) {
-                return false;
-            }
-            if (!isDecimalPoint && !Character.isDigit(ch)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

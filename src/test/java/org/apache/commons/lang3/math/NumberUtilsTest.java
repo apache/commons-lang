@@ -1042,6 +1042,9 @@ class NumberUtilsTest extends AbstractLangTest {
         final String fullWidth123 = "\uFF10\uFF11\uFF12";
         assertThrows(NumberFormatException.class, () -> Double.parseDouble(fullWidth123));
         assertThrows(NumberFormatException.class, () -> Float.parseFloat(fullWidth123));
+        assertTrue(NumberUtils.isParsable(fullWidth123));
+        assertFalse(NumberUtils.isParsable(fullWidth123 + ".0"));
+        assertFalse(NumberUtils.isParsable("0." + fullWidth123));
     }
 
     @Test
@@ -1075,8 +1078,6 @@ class NumberUtilsTest extends AbstractLangTest {
     void testLang1729IsParsableDouble() {
         assertTrue(isParsableDouble("1"));
         assertFalse(isParsableDouble("1 2 3"));
-        // TODO Expected to be fixed in Java 23
-        // assertTrue(isParsableDouble("１２３"));
         assertFalse(isParsableDouble("１ ２ ３"));
     }
 
@@ -1084,8 +1085,6 @@ class NumberUtilsTest extends AbstractLangTest {
     void testLang1729IsParsableFloat() {
         assertTrue(isParsableFloat("1"));
         assertFalse(isParsableFloat("1 2 3"));
-        // TODO Expected to be fixed in Java 23
-        // assertTrue(isParsableFloat("１２３"));
         assertFalse(isParsableFloat("１ ２ ３"));
     }
 
