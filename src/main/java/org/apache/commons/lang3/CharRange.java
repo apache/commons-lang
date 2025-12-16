@@ -28,6 +28,7 @@ import java.util.Objects;
  *
  * <p>#ThreadSafe#</p>
  * @since 1.0
+ * @since 3.20.1 {@code serialVersionUID} changed from {@code 8270183163158333422L} to {@code 2L}.
  */
 // TODO: This is no longer public and will be removed later as CharSet is moved
 // to depend on Range.
@@ -47,7 +48,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         /**
          * Constructs a new iterator for the character range.
          *
-         * @param r The character range
+         * @param r The character range.
          */
         private CharacterIterator(final CharRange r) {
             range = r;
@@ -70,9 +71,9 @@ final class CharRange implements Iterable<Character>, Serializable {
         }
 
         /**
-         * Has the iterator not reached the end character yet?
+         * Tests whether this iterator reached the end character.
          *
-         * @return {@code true} if the iterator has yet to reach the character date
+         * @return {@code true} if the iterator has yet to reach the character date.
          */
         @Override
         public boolean hasNext() {
@@ -80,9 +81,9 @@ final class CharRange implements Iterable<Character>, Serializable {
         }
 
         /**
-         * Returns the next character in the iteration
+         * Returns the next character in the iteration.
          *
-         * @return {@link Character} for the next character
+         * @return {@link Character} for the next character.
          */
         @Override
         public Character next() {
@@ -133,8 +134,9 @@ final class CharRange implements Iterable<Character>, Serializable {
      * Required for serialization support. Lang version 2.0.
      *
      * @see java.io.Serializable
+     * @since 3.20.1 {@code serialVersionUID} changed from {@code 8270183163158333422L} to {@value}.
      */
-    private static final long serialVersionUID = 8270183163158333422L;
+    private static final long serialVersionUID = 2L;
 
     /** Empty array. */
     static final CharRange[] EMPTY_ARRAY = {};
@@ -142,8 +144,8 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Constructs a {@link CharRange} over a single character.
      *
-     * @param ch  only character in this range
-     * @return the new CharRange object
+     * @param ch  only character in this range.
+     * @return the new CharRange object.
      * @since 2.5
      */
     public static CharRange is(final char ch) {
@@ -156,9 +158,9 @@ final class CharRange implements Iterable<Character>, Serializable {
      * <p>If start and end are in the wrong order, they are reversed.
      * Thus {@code a-e} is the same as {@code e-a}.</p>
      *
-     * @param start  first character, inclusive, in this range
-     * @param end  last character, inclusive, in this range
-     * @return the new CharRange object
+     * @param start  first character, inclusive, in this range.
+     * @param end  last character, inclusive, in this range.
+     * @return the new CharRange object.
      * @since 2.5
      */
     public static CharRange isIn(final char start, final char end) {
@@ -171,8 +173,8 @@ final class CharRange implements Iterable<Character>, Serializable {
      * <p>A negated range includes everything except that defined by the
      * single character.</p>
      *
-     * @param ch  only character in this range
-     * @return the new CharRange object
+     * @param ch  only character in this range.
+     * @return the new CharRange object.
      * @since 2.5
      */
     public static CharRange isNot(final char ch) {
@@ -188,9 +190,9 @@ final class CharRange implements Iterable<Character>, Serializable {
      * <p>If start and end are in the wrong order, they are reversed.
      * Thus {@code a-e} is the same as {@code e-a}.</p>
      *
-     * @param start  first character, inclusive, in this range
-     * @param end  last character, inclusive, in this range
-     * @return the new CharRange object
+     * @param start  first character, inclusive, in this range.
+     * @param end  last character, inclusive, in this range.
+     * @return the new CharRange object.
      * @since 2.5
      */
     public static CharRange isNotIn(final char start, final char end) {
@@ -219,9 +221,9 @@ final class CharRange implements Iterable<Character>, Serializable {
      * <p>If start and end are in the wrong order, they are reversed.
      * Thus {@code a-e} is the same as {@code e-a}.</p>
      *
-     * @param start  first character, inclusive, in this range
-     * @param end  last character, inclusive, in this range
-     * @param negated  true to express everything except the range
+     * @param start  first character, inclusive, in this range.
+     * @param end  last character, inclusive, in this range.
+     * @param negated  true to express everything except the range.
      */
     private CharRange(char start, char end, final boolean negated) {
         if (start > end) {
@@ -239,8 +241,8 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Is the character specified contained in this range.
      *
-     * @param ch  the character to check
-     * @return {@code true} if this range contains the input character
+     * @param ch  the character to check.
+     * @return {@code true} if this range contains the input character.
      */
     public boolean contains(final char ch) {
         return (ch >= start && ch <= end) != negated;
@@ -250,9 +252,9 @@ final class CharRange implements Iterable<Character>, Serializable {
      * Are all the characters of the passed in range contained in
      * this range.
      *
-     * @param range  the range to check against
-     * @return {@code true} if this range entirely contains the input range
-     * @throws NullPointerException if {@code null} input
+     * @param range  the range to check against.
+     * @return {@code true} if this range entirely contains the input range.
+     * @throws NullPointerException if {@code null} input.
      */
     public boolean contains(final CharRange range) {
         Objects.requireNonNull(range, "range");
@@ -273,8 +275,8 @@ final class CharRange implements Iterable<Character>, Serializable {
      * Compares two CharRange objects, returning true if they represent
      * exactly the same range of characters defined in the same way.
      *
-     * @param obj  the object to compare to
-     * @return true if equal
+     * @param obj  the object to compare to.
+     * @return true if equal.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -291,7 +293,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Gets the end character for this character range.
      *
-     * @return the end char (inclusive)
+     * @return the end char (inclusive).
      */
     public char getEnd() {
         return this.end;
@@ -301,7 +303,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Gets the start character for this character range.
      *
-     * @return the start char (inclusive)
+     * @return the start char (inclusive).
      */
     public char getStart() {
         return this.start;
@@ -310,11 +312,11 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Gets a hashCode compatible with the equals method.
      *
-     * @return a suitable hashCode
+     * @return a suitable hashCode.
      */
     @Override
     public int hashCode() {
-        return 83 + start + 7 * end + (negated ? 1 : 0);
+        return Objects.hash(end, negated, start);
     }
 
     /**
@@ -323,7 +325,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * <p>A negated range includes everything except that defined by the
      * start and end characters.</p>
      *
-     * @return {@code true} if negated
+     * @return {@code true} if negated.
      */
     public boolean isNegated() {
         return negated;
@@ -344,7 +346,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Gets a string representation of the character range.
      *
-     * @return string representation of this range
+     * @return string representation of this range.
      */
     @Override
     public String toString() {

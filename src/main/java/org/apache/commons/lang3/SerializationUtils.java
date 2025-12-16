@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,8 +28,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Assists with the serialization process and performs additional functionality based
- * on serialization.
+ * Performs additional functionality for serialization.
  *
  * <ul>
  * <li>Deep clone using serialization</li>
@@ -37,10 +36,18 @@ import java.util.Objects;
  * <li>Deserialize managing finally and IOException</li>
  * </ul>
  *
- * <p>This class throws exceptions for invalid {@code null} inputs.
- * Each method documents its behavior in more detail.</p>
+ * <p>
+ * This class throws exceptions for invalid {@code null} inputs. Each method documents its behavior in more detail.
+ * </p>
+ * <p>
+ * If you want to secure deserialization with a whitelist or blacklist, please use Apache Commons IO's
+ * {@link org.apache.commons.io.serialization.ValidatingObjectInputStream ValidatingObjectInputStream}.
+ * </p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
- * <p>#ThreadSafe#</p>
+ * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
  * @since 1.0
  */
 public class SerializationUtils {
@@ -140,16 +147,19 @@ public class SerializationUtils {
      * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
      * Note that in both cases, the ClassCastException is in the call site, not in this method.
      * </p>
+     * <p>
+     * If you want to secure deserialization with a whitelist or blacklist, please use Apache Commons IO's
+     * {@link org.apache.commons.io.serialization.ValidatingObjectInputStream ValidatingObjectInputStream}.
+     * </p>
      *
      * @param <T>  the object type to be deserialized.
      * @param objectData
-     *            the serialized object, must not be null.
+     * the serialized object, must not be null.
      * @return the deserialized object.
      * @throws NullPointerException if {@code objectData} is {@code null}.
      * @throws SerializationException (runtime) if the serialization fails.
-     * @deprecated This method is dangerous if used with untrusted data.
+     * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
      */
-    @Deprecated
     public static <T> T deserialize(final byte[] objectData) {
         Objects.requireNonNull(objectData, "objectData");
         return deserialize(new ByteArrayInputStream(objectData));
@@ -174,12 +184,17 @@ public class SerializationUtils {
      * Note that in both cases, the ClassCastException is in the call site, not in this method.
      * </p>
      *
+     * <p>
+     * If you want to secure deserialization with a whitelist or blacklist, please use Apache Commons IO's
+     * {@link org.apache.commons.io.serialization.ValidatingObjectInputStream ValidatingObjectInputStream}.
+     * </p>
+     *
      * @param <T>  the object type to be deserialized.
-     * @param inputStream
-     *            the serialized object input stream, must not be null.
+     * @param inputStream the serialized object input stream, must not be null.
      * @return the deserialized object.
      * @throws NullPointerException if {@code inputStream} is {@code null}.
      * @throws SerializationException (runtime) if the serialization fails.
+     * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
      */
     @SuppressWarnings("resource") // inputStream is managed by the caller
     @Deprecated
@@ -199,9 +214,9 @@ public class SerializationUtils {
      * implement {@link Serializable}.
      *
      * @param <T>
-     *           the type of the object involved.
+     * the type of the object involved.
      * @param obj
-     *            the object to roundtrip.
+     * the object to roundtrip.
      * @return the serialized and deserialized object.
      * @since 3.3
      */
