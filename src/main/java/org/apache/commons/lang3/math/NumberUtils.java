@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -398,48 +398,48 @@ public class NumberUtils {
             // Requesting a specific type.
             final String numeric = str.substring(0, length - 1);
             switch (lastChar) {
-            case 'l':
-            case 'L':
-                if (dec == null && exp == null && (!numeric.isEmpty() && numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
+                case 'l':
+                case 'L':
+                    if (dec == null && exp == null && (!numeric.isEmpty() && numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
+                        try {
+                            return createLong(numeric);
+                        } catch (final NumberFormatException ignored) {
+                            // Too big for a long
+                        }
+                        return createBigInteger(numeric);
+                    }
+                    throw new NumberFormatException(str + " is not a valid number.");
+                case 'f':
+                case 'F':
                     try {
-                        return createLong(numeric);
+                        final Float f = createFloat(str);
+                        if (!(f.isInfinite() || f.floatValue() == 0.0F && !isZero(mant, dec))) {
+                            // If it's too big for a float or the float value = 0 and the string
+                            // has non-zeros in it, then float does not have the precision we want
+                            return f;
+                        }
                     } catch (final NumberFormatException ignored) {
-                        // Too big for a long
+                        // ignore the bad number
                     }
-                    return createBigInteger(numeric);
-                }
-                throw new NumberFormatException(str + " is not a valid number.");
-            case 'f':
-            case 'F':
-                try {
-                    final Float f = createFloat(str);
-                    if (!(f.isInfinite() || f.floatValue() == 0.0F && !isZero(mant, dec))) {
-                        // If it's too big for a float or the float value = 0 and the string
-                        // has non-zeros in it, then float does not have the precision we want
-                        return f;
+                    // falls-through
+                case 'd':
+                case 'D':
+                    try {
+                        final Double d = createDouble(str);
+                        if (!(d.isInfinite() || d.doubleValue() == 0.0D && !isZero(mant, dec))) {
+                            return d;
+                        }
+                    } catch (final NumberFormatException ignored) {
+                        // ignore the bad number
                     }
-                } catch (final NumberFormatException ignored) {
-                    // ignore the bad number
-                }
-                // falls-through
-            case 'd':
-            case 'D':
-                try {
-                    final Double d = createDouble(str);
-                    if (!(d.isInfinite() || d.doubleValue() == 0.0D && !isZero(mant, dec))) {
-                        return d;
+                    try {
+                        return createBigDecimal(numeric);
+                    } catch (final NumberFormatException ignored) {
+                        // ignore the bad number
                     }
-                } catch (final NumberFormatException ignored) {
-                    // ignore the bad number
-                }
-                try {
-                    return createBigDecimal(numeric);
-                } catch (final NumberFormatException ignored) {
-                    // ignore the bad number
-                }
-                // falls-through
-            default:
-                throw new NumberFormatException(str + " is not a valid number.");
+                    // falls-through
+                default:
+                    throw new NumberFormatException(str + " is not a valid number.");
             }
         }
         // User doesn't have a preference on the return type, so let's start
@@ -590,7 +590,7 @@ public class NumberUtils {
             }
         }
         sz--; // don't want to loop to the last char, check it afterwards
-              // for type qualifiers
+        // for type qualifiers
         int i = start;
         // loop to the next to last char or to the last char if we need another digit to
         // make a valid number (e.g. chars[0..5] = "1234E")
@@ -669,7 +669,13 @@ public class NumberUtils {
      * @return {@code true} if str contains only Unicode numeric
      */
     public static boolean isDigits(final String str) {
-        return StringUtils.isNumeric(str);
+        if (StringUtils.isEmpty(str)) {
+            return false;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) < '0' || str.charAt(i) > '9') return false;
+        }
+        return true;
     }
 
     /**
@@ -1313,9 +1319,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toByte(null) = 0
-     *   NumberUtils.toByte("")   = 0
-     *   NumberUtils.toByte("1")  = 1
+     * NumberUtils.toByte(null) = 0
+     * NumberUtils.toByte("")   = 0
+     * NumberUtils.toByte("1")  = 1
      * </pre>
      *
      * @param str the string to convert, may be null.
@@ -1334,9 +1340,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toByte(null, 1) = 1
-     *   NumberUtils.toByte("", 1)   = 1
-     *   NumberUtils.toByte("1", 0)  = 1
+     * NumberUtils.toByte(null, 1) = 1
+     * NumberUtils.toByte("", 1)   = 1
+     * NumberUtils.toByte("1", 0)  = 1
      * </pre>
      *
      * @param str          the string to convert, may be null.
@@ -1360,8 +1366,8 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toDouble(null)                     = 0.0d
-     *   NumberUtils.toDouble(BigDecimal.valueOf(8.5d)) = 8.5d
+     * NumberUtils.toDouble(null)                     = 0.0d
+     * NumberUtils.toDouble(BigDecimal.valueOf(8.5d)) = 8.5d
      * </pre>
      *
      * @param value the {@link BigDecimal} to convert, may be {@code null}.
@@ -1380,8 +1386,8 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toDouble(null, 1.1d)                     = 1.1d
-     *   NumberUtils.toDouble(BigDecimal.valueOf(8.5d), 1.1d) = 8.5d
+     * NumberUtils.toDouble(null, 1.1d)                     = 1.1d
+     * NumberUtils.toDouble(BigDecimal.valueOf(8.5d), 1.1d) = 8.5d
      * </pre>
      *
      * @param value        the {@link BigDecimal} to convert, may be {@code null}.
@@ -1401,9 +1407,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toDouble(null)   = 0.0d
-     *   NumberUtils.toDouble("")     = 0.0d
-     *   NumberUtils.toDouble("1.5")  = 1.5d
+     * NumberUtils.toDouble(null)   = 0.0d
+     * NumberUtils.toDouble("")     = 0.0d
+     * NumberUtils.toDouble("1.5")  = 1.5d
      * </pre>
      *
      * @param str the string to convert, may be {@code null}.
@@ -1422,9 +1428,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toDouble(null, 1.1d)   = 1.1d
-     *   NumberUtils.toDouble("", 1.1d)     = 1.1d
-     *   NumberUtils.toDouble("1.5", 0.0d)  = 1.5d
+     * NumberUtils.toDouble(null, 1.1d)   = 1.1d
+     * NumberUtils.toDouble("", 1.1d)     = 1.1d
+     * NumberUtils.toDouble("1.5", 0.0d)  = 1.5d
      * </pre>
      *
      * @param str          the string to convert, may be {@code null}
@@ -1448,9 +1454,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toFloat(null)   = 0.0f
-     *   NumberUtils.toFloat("")     = 0.0f
-     *   NumberUtils.toFloat("1.5")  = 1.5f
+     * NumberUtils.toFloat(null)   = 0.0f
+     * NumberUtils.toFloat("")     = 0.0f
+     * NumberUtils.toFloat("1.5")  = 1.5f
      * </pre>
      *
      * @param str the string to convert, may be {@code null}.
@@ -1469,9 +1475,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toFloat(null, 1.1f)   = 1.1f
-     *   NumberUtils.toFloat("", 1.1f)     = 1.1f
-     *   NumberUtils.toFloat("1.5", 0.0f)  = 1.5f
+     * NumberUtils.toFloat(null, 1.1f)   = 1.1f
+     * NumberUtils.toFloat("", 1.1f)     = 1.1f
+     * NumberUtils.toFloat("1.5", 0.0f)  = 1.5f
      * </pre>
      *
      * @param str          the string to convert, may be {@code null}.
@@ -1495,9 +1501,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toInt(null) = 0
-     *   NumberUtils.toInt("")   = 0
-     *   NumberUtils.toInt("1")  = 1
+     * NumberUtils.toInt(null) = 0
+     * NumberUtils.toInt("")   = 0
+     * NumberUtils.toInt("1")  = 1
      * </pre>
      *
      * @param str the string to convert, may be null.
@@ -1516,9 +1522,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toInt(null, 1) = 1
-     *   NumberUtils.toInt("", 1)   = 1
-     *   NumberUtils.toInt("1", 0)  = 1
+     * NumberUtils.toInt(null, 1) = 1
+     * NumberUtils.toInt("", 1)   = 1
+     * NumberUtils.toInt("1", 0)  = 1
      * </pre>
      *
      * @param str          the string to convert, may be null.
@@ -1542,9 +1548,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toLong(null) = 0L
-     *   NumberUtils.toLong("")   = 0L
-     *   NumberUtils.toLong("1")  = 1L
+     * NumberUtils.toLong(null) = 0L
+     * NumberUtils.toLong("")   = 0L
+     * NumberUtils.toLong("1")  = 1L
      * </pre>
      *
      * @param str the string to convert, may be null.
@@ -1563,9 +1569,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toLong(null, 1L) = 1L
-     *   NumberUtils.toLong("", 1L)   = 1L
-     *   NumberUtils.toLong("1", 0L)  = 1L
+     * NumberUtils.toLong(null, 1L) = 1L
+     * NumberUtils.toLong("", 1L)   = 1L
+     * NumberUtils.toLong("1", 0L)  = 1L
      * </pre>
      *
      * @param str          the string to convert, may be null.
@@ -1721,9 +1727,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toShort(null) = 0
-     *   NumberUtils.toShort("")   = 0
-     *   NumberUtils.toShort("1")  = 1
+     * NumberUtils.toShort(null) = 0
+     * NumberUtils.toShort("")   = 0
+     * NumberUtils.toShort("1")  = 1
      * </pre>
      *
      * @param str the string to convert, may be null.
@@ -1742,9 +1748,9 @@ public class NumberUtils {
      * </p>
      *
      * <pre>
-     *   NumberUtils.toShort(null, 1) = 1
-     *   NumberUtils.toShort("", 1)   = 1
-     *   NumberUtils.toShort("1", 0)  = 1
+     * NumberUtils.toShort(null, 1) = 1
+     * NumberUtils.toShort("", 1)   = 1
+     * NumberUtils.toShort("1", 0)  = 1
      * </pre>
      *
      * @param str          the string to convert, may be null.
@@ -1775,15 +1781,16 @@ public class NumberUtils {
     private static boolean withDecimalsParsing(final String str, final int beginIdx) {
         int decimalPoints = 0;
         for (int i = beginIdx; i < str.length(); i++) {
-            final char ch = str.charAt(i);
-            final boolean isDecimalPoint = ch == '.';
+            final boolean isDecimalPoint = str.charAt(i) == '.';
             if (isDecimalPoint) {
                 decimalPoints++;
             }
             if (decimalPoints > 1) {
                 return false;
             }
-            if (!isDecimalPoint && !Character.isDigit(ch)) {
+            // FIX for LANG-1729: Do not use Character.isDigit(ch) because it accepts
+            // Fullwidth Unicode digits (like \uFF11). Only accept ASCII '0'-'9'.
+            if (!isDecimalPoint && !(str.charAt(i) >= '0' && str.charAt(i) <= '9')) {
                 return false;
             }
         }
