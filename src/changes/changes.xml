@@ -77,6 +77,8 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix race condition in Fraction.hashCode().</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix race condition in Range.hashCode().</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Akshat_Agg">Document safer deserialization option in Javadoc for SerializationUtils.</action>
+    <action issue="LANG-1729" type="fix" dev="ggregory" due-to="Gary Gregory, Andrei Anischevici, Akshat_Agg">NumberUtils.isParsable() returns true for full width Unicode digits for inputs with a decimal point.</action>
+    <action issue="LANG-1803" type="fix" dev="ggregory" due-to="IcoreE">Fix incorrect method invocation in ObjectUtilsTest and Javadoc reference in RandomStringUtils.</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 93 #1498.</action>
