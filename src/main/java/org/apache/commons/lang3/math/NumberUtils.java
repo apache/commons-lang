@@ -724,7 +724,7 @@ public class NumberUtils {
      * @since 3.4
      */
     public static boolean isParsable(final String str) {
-        if (StringUtils.isEmpty(str) || str.charAt(str.length() - 1) == '.') {
+        if (StringUtils.isEmpty(str)) {
             return false;
         }
         if (str.charAt(0) == '-') {
