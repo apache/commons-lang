@@ -1026,7 +1026,6 @@ class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.isParsable("-018.2"));
         assertTrue(NumberUtils.isParsable("-.236"));
         assertTrue(NumberUtils.isParsable("2."));
-
     }
 
     /**
