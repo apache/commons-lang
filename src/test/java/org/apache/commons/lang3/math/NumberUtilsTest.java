@@ -1013,7 +1013,7 @@ class NumberUtilsTest extends AbstractLangTest {
         assertFalse(NumberUtils.isParsable("pendro"));
         assertFalse(NumberUtils.isParsable("64, 2"));
         assertFalse(NumberUtils.isParsable("64.2.2"));
-        assertFalse(NumberUtils.isParsable("64."));
+        assertTrue(NumberUtils.isParsable("64."));
         assertFalse(NumberUtils.isParsable("64L"));
         assertFalse(NumberUtils.isParsable("-"));
         assertFalse(NumberUtils.isParsable("--2"));
@@ -1025,6 +1025,8 @@ class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.isParsable("-018"));
         assertTrue(NumberUtils.isParsable("-018.2"));
         assertTrue(NumberUtils.isParsable("-.236"));
+        assertTrue(NumberUtils.isParsable("2."));
+
     }
 
     /**
