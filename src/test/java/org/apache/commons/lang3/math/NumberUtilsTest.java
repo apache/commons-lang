@@ -1077,6 +1077,8 @@ class NumberUtilsTest extends AbstractLangTest {
     @Test
     void testLang1729IsParsableDouble() {
         assertTrue(isParsableDouble("1"));
+        assertTrue(isParsableDouble("1.0"));
+        assertFalse(isParsableDouble("1.0."));
         assertFalse(isParsableDouble("1 2 3"));
         assertFalse(isParsableDouble("１ ２ ３"));
     }
@@ -1084,6 +1086,8 @@ class NumberUtilsTest extends AbstractLangTest {
     @Test
     void testLang1729IsParsableFloat() {
         assertTrue(isParsableFloat("1"));
+        assertTrue(isParsableFloat("1.0"));
+        assertFalse(isParsableFloat("1.0."));
         assertFalse(isParsableFloat("1 2 3"));
         assertFalse(isParsableFloat("１ ２ ３"));
     }
