@@ -106,6 +106,44 @@ class RandomStringUtilsTest extends AbstractLangTest {
         assertIllegalArgumentException(() -> RandomStringUtils.random(1, Integer.MIN_VALUE, -10, false, false, null));
     }
 
+    @Test
+    void testRandomWithCharsInvalidStartEndThrowsIllegalArgumentException() {
+        final char[] chars = {'a', 'b', 'c'};
+
+        assertIllegalArgumentException(() ->
+                RandomStringUtils.random(
+                        5,
+                        5,
+                        10,
+                        false,
+                        false,
+                        chars,
+                        new Random()
+                )
+        );
+    }
+
+
+
+    @Test
+    void testRandomWithCharsStartGreaterThanEndThrowsIllegalArgumentException() {
+        final char[] chars = {'a', 'b', 'c'};
+
+        assertIllegalArgumentException(() ->
+                RandomStringUtils.random(
+                        5,
+                        3,
+                        2,
+                        false,
+                        false,
+                        chars,
+                        new Random()
+                )
+        );
+    }
+
+
+
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testExceptionsRandom(final RandomStringUtils rsu) {
