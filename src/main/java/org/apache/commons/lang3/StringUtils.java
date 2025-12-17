@@ -3862,12 +3862,13 @@ public class StringUtils {
             return EMPTY;
         }
         final StringBuilder stringBuilder = new StringBuilder(noOfItems * 5 + noOfItems - 1);
-        for (int i = startIndex; i < endIndex; i++) {
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+                    .append(delimiter)
+                    .append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -3933,16 +3934,18 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
+        final StringBuilder stringBuilder = new StringBuilder(noOfItems * 4);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+                    .append(delimiter)
+                    .append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4013,12 +4016,13 @@ public class StringUtils {
             return EMPTY;
         }
         final StringBuilder stringBuilder = new StringBuilder(noOfItems * 2 - 1);
-        for (int i = startIndex; i < endIndex; i++) {
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+                    .append(delimiter)
+                    .append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4084,16 +4088,18 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
+        final StringBuilder stringBuilder = new StringBuilder(noOfItems * 10);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+                    .append(delimiter)
+                    .append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4159,16 +4165,18 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
+        final StringBuilder stringBuilder = new StringBuilder(noOfItems * 8);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+                    .append(delimiter)
+                    .append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4234,16 +4242,18 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
+        final StringBuilder stringBuilder = new StringBuilder(noOfItems * 4);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+                    .append(delimiter)
+                    .append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4472,16 +4482,18 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
+        final StringBuilder stringBuilder = new StringBuilder(noOfItems * 10);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+                    .append(delimiter)
+                    .append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4666,16 +4678,18 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
+        final StringBuilder stringBuilder = new StringBuilder(noOfItems * 6);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+                    .append(delimiter)
+                    .append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
