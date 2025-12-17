@@ -1013,7 +1013,9 @@ class NumberUtilsTest extends AbstractLangTest {
         assertFalse(NumberUtils.isParsable("pendro"));
         assertFalse(NumberUtils.isParsable("64, 2"));
         assertFalse(NumberUtils.isParsable("64.2.2"));
+        assertFalse(NumberUtils.isParsable("64.."));
         assertTrue(NumberUtils.isParsable("64."));
+        assertTrue(NumberUtils.isParsable("-64."));
         assertFalse(NumberUtils.isParsable("64L"));
         assertFalse(NumberUtils.isParsable("-"));
         assertFalse(NumberUtils.isParsable("--2"));
@@ -1026,6 +1028,8 @@ class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.isParsable("-018.2"));
         assertTrue(NumberUtils.isParsable("-.236"));
         assertTrue(NumberUtils.isParsable("2."));
+        // TODO assertTrue(NumberUtils.isParsable("2.f"));
+        // TODO assertTrue(NumberUtils.isParsable("2.d"));
     }
 
     /**
@@ -1078,6 +1082,9 @@ class NumberUtilsTest extends AbstractLangTest {
     @Test
     void testLang1729IsParsableDouble() {
         assertTrue(isParsableDouble("1"));
+        assertTrue(isParsableDouble("1."));
+        // TODO assertTrue(isParsableDouble("1.f"));
+        // TODO assertTrue(isParsableDouble("1.d"));
         assertTrue(isParsableDouble("1.0"));
         assertFalse(isParsableDouble("1.0."));
         assertFalse(isParsableDouble("1 2 3"));
@@ -1087,6 +1094,9 @@ class NumberUtilsTest extends AbstractLangTest {
     @Test
     void testLang1729IsParsableFloat() {
         assertTrue(isParsableFloat("1"));
+        assertTrue(isParsableFloat("1."));
+        // TODO assertTrue(isParsableFloat("1.f"));
+        // TODO assertTrue(isParsableFloat("1.d"));
         assertTrue(isParsableFloat("1.0"));
         assertFalse(isParsableFloat("1.0."));
         assertFalse(isParsableFloat("1 2 3"));
