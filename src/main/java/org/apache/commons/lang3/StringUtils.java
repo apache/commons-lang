@@ -4008,10 +4008,11 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder(array.length * 2 - 1);
+        final StringBuilder stringBuilder = new StringBuilder(noOfItems * 2 - 1);
         for (int i = startIndex; i < endIndex; i++) {
             stringBuilder
                     .append(array[i])
