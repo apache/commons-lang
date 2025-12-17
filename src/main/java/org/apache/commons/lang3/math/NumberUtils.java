@@ -669,13 +669,7 @@ public class NumberUtils {
      * @return {@code true} if str contains only Unicode numeric
      */
     public static boolean isDigits(final String str) {
-        if (StringUtils.isEmpty(str)) {
-            return false;
-        }
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) < '0' || str.charAt(i) > '9') return false;
-        }
-        return true;
+        return StringUtils.isNumeric(str);
     }
 
     /**
@@ -755,24 +749,25 @@ public class NumberUtils {
      * @param beginIdx the index to start checking from.
      * @return {@code true} if the string is a parsable number.
      */
-    private static boolean isParsableDecimal(final String str, final int beginIdx) {
-        // See https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-NonZeroDigit
+    private static boolean isParsableDecimal(javax.annotation.Nonnull final String str, final int start) {
+        // STRICT ASCII CHECK: Only accepts '.' and '0'-'9'.
+        // Everything else (Space, Full-width, Letters) is rejected immediately.
+
         int decimalPoints = 0;
-        boolean asciiNumeric = true;
-        for (int i = beginIdx; i < str.length(); i++) {
-            final char ch = str.charAt(i);
-            final boolean isDecimalPoint = ch == '.';
-            if (isDecimalPoint) {
+        for (int i = start; i < str.length(); i++) {
+            final char c = str.charAt(i);
+
+            if (c == '.') {
                 decimalPoints++;
-            }
-            if (decimalPoints > 1 || !isDecimalPoint && !Character.isDigit(ch)) {
-                return false;
-            }
-            if (!isDecimalPoint) {
-                asciiNumeric &= CharUtils.isAsciiNumeric(ch);
-            }
-            if (decimalPoints > 0 && !asciiNumeric) {
-                return false;
+                if (decimalPoints > 1) {
+                    return false;
+                }
+            } else {
+                // If it's not a dot, it MUST be a digit '0' to '9'.
+                // ' ' (space) is 32. '0' is 48. So space is rejected here.
+                if (c < '0' || c > '9') {
+                    return false;
+                }
             }
         }
         return true;

@@ -264,6 +264,15 @@ public class RandomStringUtils {
             throw new IllegalArgumentException("The chars array must not be empty");
         }
 
+        if (chars != null) {
+            if (start < 0 || end < 0 || start > end || end > chars.length) {
+                throw new IllegalArgumentException(
+                        "Invalid start/end range: start=" + start + ", end=" + end
+                );
+            }
+        }
+
+
         if (start == 0 && end == 0) {
             if (chars != null) {
                 end = chars.length;
