@@ -81,6 +81,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1803" type="fix" dev="ggregory" due-to="IcoreE">Fix incorrect method invocation in ObjectUtilsTest and Javadoc reference in RandomStringUtils.</action>
     <action issue="LANG-1695" type="fix" dev="ggregory" due-to="Guillaume Nodet, Harshit Goel, Gary Gregory">Allow trailing decimal point in NumberUtils.isParsable #1531.</action>
     <action issue="LANG-1804" type="fix" dev="ggregory" due-to="IcoreE, Gary Gregory">Fix CharSet#getInstance returns null instead of EMPTY when input setStrs is null #1530.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Speedup CharSequenceUtils.toCharArray(CharSequence) for StringBuilder input: 160-205% improvement (2-3x faster), see CharSequenceUtilsBenchmark.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Speedup CharSequenceUtils.toCharArray(CharSequence) for StringBuffer input: 300-4,250% improvement (4-44x faster), see CharSequenceUtilsBenchmark.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Speedup CharSequenceUtils.toCharArray(CharSequence) for String input: ~1-2% improvement (essentially identical).</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 93 #1498.</action>

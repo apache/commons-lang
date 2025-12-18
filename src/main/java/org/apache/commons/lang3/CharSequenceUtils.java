@@ -70,7 +70,7 @@ public class CharSequenceUtils {
 //            return cs.toString().indexOf(searchChar.toString(), start);
 //        }
     }
-
+    
     /**
      * Returns the index within {@code cs} of the first occurrence of the specified character, starting the search at the specified index.
      * <p>
@@ -370,6 +370,16 @@ public class CharSequenceUtils {
         }
         if (source instanceof String) {
             return ((String) source).toCharArray();
+        }
+        if (source instanceof StringBuilder) {
+            final char[] array = new char[len];
+            ((StringBuilder) source).getChars(0, len, array, 0);
+            return array;
+        }
+        if (source instanceof StringBuffer) {
+            final char[] array = new char[len];
+            ((StringBuffer) source).getChars(0, len, array, 0);
+            return array;
         }
         final char[] array = new char[len];
         for (int i = 0; i < len; i++) {
