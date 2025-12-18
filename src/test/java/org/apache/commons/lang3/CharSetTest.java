@@ -400,7 +400,7 @@ class CharSetTest extends AbstractLangTest {
 
     @Test
     void testGetInstance_Stringarray() {
-        assertNull(CharSet.getInstance((String[]) null));
+        assertSame(CharSet.EMPTY, CharSet.getInstance((String[]) null));
         assertEquals("[]", CharSet.getInstance().toString());
         assertEquals("[]", CharSet.getInstance(new String[] {null}).toString());
         assertEquals("[a-e]", CharSet.getInstance("a-e").toString());
