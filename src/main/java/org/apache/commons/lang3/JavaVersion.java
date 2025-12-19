@@ -280,6 +280,10 @@ public enum JavaVersion {
             return JAVA_24;
         case "25":
             return JAVA_25;
+        case "26":
+            return JAVA_26;
+        case "27":
+            return JAVA_27;
         default:
             final float v = toFloatVersion(versionStr);
             if (v - 1. < 1.) { // then we need to check decimals > .9
