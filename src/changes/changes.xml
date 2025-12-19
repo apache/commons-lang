@@ -84,6 +84,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Speedup CharSequenceUtils.toCharArray(CharSequence) for StringBuilder input: 160-205% improvement (2-3x faster), see CharSequenceUtilsBenchmark.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Speedup CharSequenceUtils.toCharArray(CharSequence) for StringBuffer input: 300-4,250% improvement (4-44x faster), see CharSequenceUtilsBenchmark.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Speedup CharSequenceUtils.toCharArray(CharSequence) for String input: ~1-2% improvement (essentially identical).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Streamline StringUtils.truncate(String, int, int).</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 93 #1498.</action>

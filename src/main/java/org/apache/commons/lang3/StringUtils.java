@@ -8876,14 +8876,10 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        if (offset > str.length()) {
-            return EMPTY;
-        }
-        if (str.length() > maxWidth) {
-            final int ix = Math.min(offset + maxWidth, str.length());
-            return str.substring(offset, ix);
-        }
-        return str.substring(offset);
+        final int len = str.length();
+        final int start = Math.min(offset, len);
+        final int end = offset > len - maxWidth ? len : offset + maxWidth;
+        return str.substring(start, Math.min(end, len));
     }
 
     /**
