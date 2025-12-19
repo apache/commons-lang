@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.function.TriFunction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,7 +47,7 @@ class Java15BugFastDateParserTest extends AbstractLangTest {
     void testJava15BuggyLocaleTest() throws ParseException {
         final String buggyLocaleName = "ff_LR_#Adlm";
         Locale buggyLocale = null;
-        for (final Locale locale : Locale.getAvailableLocales()) {
+        for (final Locale locale : LocaleUtils.availableLocaleList()) {
             if (buggyLocaleName.equals(locale.toString())) {
                 buggyLocale = locale;
                 break;
@@ -72,7 +73,7 @@ class Java15BugFastDateParserTest extends AbstractLangTest {
         if (eraBC) {
             cal.set(Calendar.ERA, GregorianCalendar.BC);
         }
-        for (final Locale locale : Locale.getAvailableLocales()) {
+        for (final Locale locale : LocaleUtils.availableLocaleList()) {
             // ja_JP_JP cannot handle dates before 1868 properly
             if (eraBC && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
                 continue;
