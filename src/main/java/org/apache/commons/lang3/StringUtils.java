@@ -8820,7 +8820,8 @@ public class StringUtils {
      * </p>
      * <ul>
      * <li>If {@code str} is less than {@code maxWidth} characters long, return it.</li>
-     * <li>Else truncate it to {@code substring(str, offset, maxWidth)}.</li>
+     * <li>Else truncate it to a substring starting at {@code offset} with a maximum length of {@code maxWidth}.</li>
+
      * <li>If {@code maxWidth} is less than {@code 0}, throw an {@link IllegalArgumentException}.</li>
      * <li>If {@code offset} is less than {@code 0}, throw an {@link IllegalArgumentException}.</li>
      * <li>In no case will it return a String of length greater than {@code maxWidth}.</li>
