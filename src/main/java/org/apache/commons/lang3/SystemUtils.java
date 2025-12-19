@@ -381,7 +381,7 @@ public class SystemUtils {
     public static final String JAVA_SPECIFICATION_VERSION = SystemProperties.getJavaSpecificationVersion();
 
     /**
-     * A constant for the Java version, may be null
+     * A constant for the Java version, may be null.
      */
     private static final JavaVersion JAVA_SPECIFICATION_VERSION_ENUM = JavaVersion.get(JAVA_SPECIFICATION_VERSION);
 
