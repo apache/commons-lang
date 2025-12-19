@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.LocaleProblems;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.function.TriFunction;
 import org.junit.jupiter.api.Test;
@@ -65,6 +66,19 @@ class Java15BugFastDateParserTest extends AbstractLangTest {
         testSingleLocale(locale);
     }
 
+    private void testLocale(final TriFunction<String, TimeZone, Locale, DateParser> dbProvider, final String format, final boolean eraBC, final Calendar cal,
+            final Locale locale) {
+        LocaleProblems.assumeLocaleSupportedA(locale);
+        // ja_JP_JP cannot handle dates before 1868 properly
+        if (eraBC && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
+            return;
+        }
+        final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
+        final DateParser fdf = dbProvider.apply(format, TimeZone.getDefault(), locale);
+        // If parsing fails, a ParseException will be thrown and the test will fail
+        FastDateParserTest.checkParse(locale, cal, sdf, fdf);
+    }
+
     private void testLocales(final TriFunction<String, TimeZone, Locale, DateParser> dbProvider, final String format,
             final boolean eraBC) throws Exception {
         final Calendar cal = Calendar.getInstance(TimeZones.GMT);
@@ -74,14 +88,7 @@ class Java15BugFastDateParserTest extends AbstractLangTest {
             cal.set(Calendar.ERA, GregorianCalendar.BC);
         }
         for (final Locale locale : LocaleUtils.availableLocaleList()) {
-            // ja_JP_JP cannot handle dates before 1868 properly
-            if (eraBC && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
-                continue;
-            }
-            final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
-            final DateParser fdf = dbProvider.apply(format, TimeZone.getDefault(), locale);
-            // If parsing fails, a ParseException will be thrown and the test will fail
-            FastDateParserTest.checkParse(locale, cal, sdf, fdf);
+            testLocale(dbProvider, format, eraBC, cal, locale);
         }
     }
 

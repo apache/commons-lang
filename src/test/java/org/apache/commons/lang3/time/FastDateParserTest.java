@@ -39,6 +39,7 @@ import java.util.TimeZone;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.LocaleProblems;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -55,6 +56,7 @@ import org.junitpioneer.jupiter.ReadsDefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 import org.junitpioneer.jupiter.cartesian.ArgumentSets;
 import org.junitpioneer.jupiter.cartesian.CartesianTest;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * Tests {@link org.apache.commons.lang3.time.FastDateParser}.
@@ -724,7 +726,7 @@ class FastDateParserTest extends AbstractLangTest {
     }
 
     private void validateSdfFormatFdpParseEquality(final String formatStr, final Locale locale, final TimeZone timeZone,
-        final FastDateParser dateParser, final Date inDate, final int year, final Date csDate) throws ParseException {
+        final FastDateParser fastDateParser, final Date inDate, final int year, final Date csDate) throws ParseException {
         final SimpleDateFormat sdf = new SimpleDateFormat(formatStr, locale);
         sdf.setTimeZone(timeZone);
         if (formatStr.equals(SHORT_FORMAT)) {
@@ -734,13 +736,14 @@ class FastDateParserTest extends AbstractLangTest {
 //        System.out.printf("[Java %s] Date: '%s' formatted with '%s' -> '%s'%n", SystemUtils.JAVA_RUNTIME_VERSION, inDate,
 //            formatStr, fmt);
         try {
-            final Date out = dateParser.parse(fmt);
+            final Date out = fastDateParser.parse(fmt);
             assertEquals(inDate, out, "format: '" + formatStr + "', locale: '" + locale + "', time zone: '"
                 + timeZone.getID() + "', year: " + year + ", parse: '" + fmt);
-        } catch (final ParseException pe) {
+        } catch (final ParseException e) {
+            LocaleProblems.assumeLocaleSupportedB(locale, e);
             if (year >= 1868 || !locale.getCountry().equals("JP")) {
                 // LANG-978
-                throw pe;
+                throw new AssertionFailedError("locale " + locale, e);
             }
         }
     }

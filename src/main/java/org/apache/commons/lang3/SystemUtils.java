@@ -383,7 +383,7 @@ public class SystemUtils {
     /**
      * A constant for the Java version, may be null.
      */
-    private static final JavaVersion JAVA_SPECIFICATION_VERSION_ENUM = JavaVersion.get(JAVA_SPECIFICATION_VERSION);
+    static final JavaVersion JAVA_SPECIFICATION_VERSION_ENUM = JavaVersion.get(JAVA_SPECIFICATION_VERSION);
 
     /**
      * A constant for the System Property {@code java.util.prefs.PreferencesFactory}. A class name.
