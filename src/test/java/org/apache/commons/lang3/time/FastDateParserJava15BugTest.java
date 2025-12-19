@@ -39,7 +39,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  * <li>https://bugs.openjdk.java.net/browse/JDK-8248655</li>
  * </ul>
  */
-class Java15BugFastDateParserTest extends AbstractLangTest {
+class FastDateParserJava15BugTest extends AbstractLangTest {
 
     /** @see org.apache.commons.lang3.time.FastDateParserTest#dateParserParameters() */
     private static final String DATE_PARSER_PARAMETERS = "org.apache.commons.lang3.time.FastDateParserTest#dateParserParameters()";
