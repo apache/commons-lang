@@ -206,6 +206,13 @@ public enum JavaVersion {
     JAVA_26(26, "26"),
 
     /**
+     * Java 27.
+     *
+     * @since 3.21.0
+     */
+    JAVA_27(27, "27"),
+
+    /**
      * The most recent Java version. Mainly introduced to avoid to break when a new version of Java is used.
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
