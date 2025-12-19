@@ -3929,20 +3929,25 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
-        }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+    if (array == null) {
+        return null;
     }
+    if (endIndex - startIndex <= 0) {
+        return EMPTY;
+    }
+    final int size = (endIndex - startIndex) * 4 + (endIndex - startIndex - 1);
+    final StringBuilder sb = new StringBuilder(size);
+    boolean first = true;
+    for (int i = startIndex; i < endIndex; i++) {
+        if (!first) {
+            sb.append(delimiter);
+        }
+        sb.append(array[i]);
+        first = false;
+    }
+    return sb.toString();
+}
+
 
     /**
      * Joins the elements of the provided array into a single String containing the provided list of elements.
@@ -4003,21 +4008,29 @@ public class StringUtils {
      * @return the joined String, {@code null} if null array input.
      * @since 3.2
      */
+    
     public static String join(final char[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-        final StringBuilder stringBuilder = new StringBuilder(array.length * 2 - 1);
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
-        }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+    if (array == null) {
+        return null;
     }
+    if (endIndex - startIndex <= 0) {
+        return EMPTY;
+    }
+    final int count = endIndex - startIndex;
+    final int size = count * 2 - 1;
+    final StringBuilder sb = new StringBuilder(size);
+
+    boolean first = true;
+    for (int i = startIndex; i < endIndex; i++) {
+        if (!first) {
+            sb.append(delimiter);
+        }
+        sb.append(array[i]);
+        first = false;
+    }
+    return sb.toString();
+}
+
 
     /**
      * Joins the elements of the provided array into a single String containing the provided list of elements.
@@ -4079,20 +4092,28 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final double[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
-        }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+    if (array == null) {
+        return null;
     }
+    if (endIndex - startIndex <= 0) {
+        return EMPTY;
+    }
+
+    final int count = endIndex - startIndex;
+    final int size = count * 26 - 1;
+    final StringBuilder sb = new StringBuilder(size);
+
+    boolean first = true;
+    for (int i = startIndex; i < endIndex; i++) {
+        if (!first) {
+            sb.append(delimiter);
+        }
+        sb.append(array[i]);
+        first = false;
+    }
+    return sb.toString();
+}
+
 
     /**
      * Joins the elements of the provided array into a single String containing the provided list of elements.
@@ -4154,20 +4175,30 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final float[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
-        }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+    if (array == null) {
+        return null;
     }
+    if (endIndex - startIndex <= 0) {
+        return EMPTY;
+    }
+
+    final int count = endIndex - startIndex;
+    // Rough estimate: ~12 chars per float + delimiters
+    final int size = count * 13 - 1;
+    final StringBuilder sb = new StringBuilder(size);
+
+    boolean first = true;
+    for (int i = startIndex; i < endIndex; i++) {
+        if (!first) {
+            sb.append(delimiter);
+        }
+        sb.append(array[i]);
+        first = false;
+    }
+
+    return sb.toString();
+}
+
 
     /**
      * Joins the elements of the provided array into a single String containing the provided list of elements.
@@ -4229,20 +4260,30 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final int[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
-        }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+    if (array == null) {
+        return null;
     }
+    if (endIndex - startIndex <= 0) {
+        return EMPTY;
+    }
+
+    final int count = endIndex - startIndex;
+    // Rough estimate: up to 11 chars per int + delimiter
+    final int size = count * 12 - 1;
+    final StringBuilder sb = new StringBuilder(size);
+
+    boolean first = true;
+    for (int i = startIndex; i < endIndex; i++) {
+        if (!first) {
+            sb.append(delimiter);
+        }
+        sb.append(array[i]);
+        first = false;
+    }
+
+    return sb.toString();
+}
+
 
     /**
      * Joins the elements of the provided {@link Iterable} into a single String containing the provided elements.
@@ -4467,20 +4508,30 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final long[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
-        }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+    if (array == null) {
+        return null;
     }
+    if (endIndex - startIndex <= 0) {
+        return EMPTY;
+    }
+
+    final int count = endIndex - startIndex;
+    // Rough estimate: up to ~21 per long + delimiter
+    final int size = count * 22 - 1;
+    final StringBuilder sb = new StringBuilder(size);
+
+    boolean first = true;
+    for (int i = startIndex; i < endIndex; i++) {
+        if (!first) {
+            sb.append(delimiter);
+        }
+        sb.append(array[i]);
+        first = false;
+    }
+
+    return sb.toString();
+}
+
 
     /**
      * Joins the elements of the provided array into a single String containing the provided list of elements.
@@ -4661,20 +4712,30 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-            return EMPTY;
-        }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
-        }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+    if (array == null) {
+        return null;
     }
+    if (endIndex - startIndex <= 0) {
+        return EMPTY;
+    }
+
+    final int count = endIndex - startIndex;
+    // Rough estimate: 6 chars max per short + delimiter
+    final int size = count * 7 - 1;
+    final StringBuilder sb = new StringBuilder(size);
+
+    boolean first = true;
+    for (int i = startIndex; i < endIndex; i++) {
+        if (!first) {
+            sb.append(delimiter);
+        }
+        sb.append(array[i]);
+        first = false;
+    }
+
+    return sb.toString();
+}
+
 
     /**
      * Joins the elements of the provided array into a single String containing the provided list of elements.
