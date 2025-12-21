@@ -278,9 +278,9 @@ public class RandomStringUtils {
                     "Parameter end (" + end + ") must be greater than start (" + start + ")");
         } else if (start < 0 || end < 0) {
             throw new IllegalArgumentException("Character positions MUST be >= 0");
-        }else if (chars != null && (start >= chars.length || end > chars.length)){
-            StringBuilder errorMsg = new StringBuilder();
-            int charsLength = chars.length;
+        } else if (chars != null && (start >= chars.length || end > chars.length)) {
+            final StringBuilder errorMsg = new StringBuilder();
+            final int charsLength = chars.length;
             if (start >= charsLength) {
                 errorMsg.append("Parameter start (").append(start).append(") must be less than chars array length ").append(charsLength);
             }
