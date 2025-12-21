@@ -85,6 +85,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Speedup CharSequenceUtils.toCharArray(CharSequence) for StringBuffer input: 300-4,250% improvement (4-44x faster), see CharSequenceUtilsBenchmark.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Speedup CharSequenceUtils.toCharArray(CharSequence) for String input: ~1-2% improvement (essentially identical).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Streamline StringUtils.truncate(String, int, int).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, sekharchowdary774">Fix Javadoc comma spacing #1538.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
