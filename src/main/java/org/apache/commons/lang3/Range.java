@@ -65,7 +65,7 @@ public class Range<T> implements Serializable {
      * <p>The range uses the natural ordering of the elements to determine where
      * values lie in the range.</p>
      *
-     * <p>The arguments may be passed in the order (min,max) or (max,min).
+     * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> the type of the elements in this range.
@@ -88,7 +88,7 @@ public class Range<T> implements Serializable {
      * <p>The range uses the specified {@link Comparator} to determine where
      * values lie in the range.</p>
      *
-     * <p>The arguments may be passed in the order (min,max) or (max,min).
+     * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> the type of the elements in this range.
@@ -147,7 +147,7 @@ public class Range<T> implements Serializable {
      * <p>The range uses the natural ordering of the elements to determine where
      * values lie in the range.</p>
      *
-     * <p>The arguments may be passed in the order (min,max) or (max,min).
+     * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> the type of the elements in this range.
@@ -168,7 +168,7 @@ public class Range<T> implements Serializable {
      * <p>The range uses the specified {@link Comparator} to determine where
      * values lie in the range.</p>
      *
-     * <p>The arguments may be passed in the order (min,max) or (max,min).
+     * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> the type of the elements in this range.
