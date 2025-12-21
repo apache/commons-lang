@@ -740,8 +740,8 @@ public class ObjectUtils {
      * ObjectUtils.hashCodeMulti()                 = 1
      * ObjectUtils.hashCodeMulti((Object[]) null)  = 1
      * ObjectUtils.hashCodeMulti(a)                = 31 + a.hashCode()
-     * ObjectUtils.hashCodeMulti(a,b)              = (31 + a.hashCode()) * 31 + b.hashCode()
-     * ObjectUtils.hashCodeMulti(a,b,c)            = ((31 + a.hashCode()) * 31 + b.hashCode()) * 31 + c.hashCode()
+     * ObjectUtils.hashCodeMulti(a, b)             = (31 + a.hashCode()) * 31 + b.hashCode()
+     * ObjectUtils.hashCodeMulti(a, b, c)          = ((31 + a.hashCode()) * 31 + b.hashCode()) * 31 + c.hashCode()
      * </pre>
      *
      * @param objects the objects to obtain the hash code of, may be {@code null}.

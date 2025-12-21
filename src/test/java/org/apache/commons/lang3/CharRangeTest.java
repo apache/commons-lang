@@ -342,12 +342,12 @@ class CharRangeTest extends AbstractLangTest {
         assertNotEquals(normal.hashCode(), negated.hashCode(), "Negated and normal ranges should have different hash codes");
         // Test that ranges with different start/end produce different hash codes
         assertNotEquals(range1.hashCode(), range2.hashCode(), "is('a') vs is('b')");
-        assertNotEquals(range1.hashCode(), range3.hashCode(), "is('a') vs isIn('a','z')");
-        assertNotEquals(range3.hashCode(), range4.hashCode(), "isIn('a','z') vs isIn('b','z')");
+        assertNotEquals(range1.hashCode(), range3.hashCode(), "is('a') vs isIn('a', 'z')");
+        assertNotEquals(range3.hashCode(), range4.hashCode(), "isIn('a', 'z') vs isIn('b', 'z')");
         assertNotEquals(range1.hashCode(), range5.hashCode(), "is('a') vs isNot('a')");
-        assertNotEquals(range3.hashCode(), range6.hashCode(), "isIn('a','z') vs isNotIn('a','z')");
-        assertNotEquals(range6.hashCode(), range7.hashCode(), "isNotIn('a','z') vs isNotIn('b','z')");
-        assertNotEquals(range8.hashCode(), range9.hashCode(), "isIn(1,2) vs isNotIn(1,2)");
+        assertNotEquals(range3.hashCode(), range6.hashCode(), "isIn('a', 'z') vs isNotIn('a', 'z')");
+        assertNotEquals(range6.hashCode(), range7.hashCode(), "isNotIn('a', 'z') vs isNotIn('b', 'z')");
+        assertNotEquals(range8.hashCode(), range9.hashCode(), "isIn(1, 2) vs isNotIn(1, 2)");
         // Test that equal ranges have equal hash codes
         final CharRange sameAsRange1 = CharRange.is('a');
         assertEquals(range1, sameAsRange1, "Equal ranges should be equal");
