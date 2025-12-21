@@ -188,9 +188,9 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * </p>
      * <ul>
      * <li>If {@code d1} and {@code d2} both represent {@code Double.NaN}, then the {@code equals} method returns {@code true}, even though
-     * {@code Double.NaN == Double.NaN} has the value {@code false}.
+     * {@code Double.NaN == Double.NaN} has the value {@code false}.</li>
      * <li>If {@code d1} represents {@code +0.0} while {@code d2} represents {@code -0.0}, or vice versa, the {@code equal} test has the value {@code false},
-     * even though {@code +0.0 == -0.0} has the value {@code true}. This allows hashtables to operate properly.
+     * even though {@code +0.0 == -0.0} has the value {@code true}. This allows hashtables to operate properly.</li>
      * </ul>
      *
      * @param obj the object to compare with, null returns false.

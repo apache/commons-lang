@@ -1022,10 +1022,10 @@ public class ObjectUtils {
      * @param values the set of comparable values, may be null.
      * @return
      *         <ul>
-     *         <li>If any objects are non-null and unequal, the greater object.
-     *         <li>If all objects are non-null and equal, the first.
-     *         <li>If any of the comparables are null, the greater of the non-null objects.
-     *         <li>If all the comparables are null, null is returned.
+     *         <li>If any objects are non-null and unequal, the greater object.</li>
+     *         <li>If all objects are non-null and equal, the first.</li>
+     *         <li>If any of the comparables are null, the greater of the non-null objects.</li>
+     *         <li>If all the comparables are null, null is returned.</li>
      *         </ul>
      */
     @SafeVarargs
@@ -1092,10 +1092,10 @@ public class ObjectUtils {
      * @param values the set of comparable values, may be null
      * @return
      *         <ul>
-     *         <li>If any objects are non-null and unequal, the lesser object.
-     *         <li>If all objects are non-null and equal, the first.
-     *         <li>If any of the comparables are null, the lesser of the non-null objects.
-     *         <li>If all the comparables are null, null is returned.
+     *         <li>If any objects are non-null and unequal, the lesser object.</li>
+     *         <li>If all objects are non-null and equal, the first.</li>
+     *         <li>If any of the comparables are null, the lesser of the non-null objects.</li>
+     *         <li>If all the comparables are null, null is returned.</li>
      *         </ul>
      */
     @SafeVarargs

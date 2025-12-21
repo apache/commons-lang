@@ -613,7 +613,7 @@ public class RandomStringUtils {
      * @return the random string.
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      * @since 3.5
-     * @deprecated Use {@link #randomPrint(int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
+     * @deprecated Use {@link #nextPrint(int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static String randomPrint(final int count) {
@@ -631,7 +631,7 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate.
      * @return the random string.
      * @since 3.5
-     * @deprecated Use {@link #randomPrint(int, int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
+     * @deprecated Use {@link #nextPrint(int, int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {

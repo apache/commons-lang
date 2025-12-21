@@ -42,7 +42,6 @@ import org.apache.commons.lang3.Functions.FailableCallable;
 import org.apache.commons.lang3.Functions.FailableConsumer;
 import org.apache.commons.lang3.Functions.FailableFunction;
 import org.apache.commons.lang3.Functions.FailableSupplier;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -666,7 +665,7 @@ class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    @DisplayName("Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate ")
+    /** Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate  */
     void testBiPredicate() {
         FailureOnOddInvocations.invocations = 0;
         final Functions.FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1,
@@ -768,7 +767,7 @@ class FunctionsTest extends AbstractLangTest {
     }
 
     @Test
-    @DisplayName("Test that asPredicate(FailablePredicate) is converted to -> Predicate ")
+    /** Test that asPredicate(FailablePredicate) is converted to -> Predicate  */
     void testPredicate() {
         FailureOnOddInvocations.invocations = 0;
         final Functions.FailablePredicate<Object, Throwable> failablePredicate = t -> FailureOnOddInvocations

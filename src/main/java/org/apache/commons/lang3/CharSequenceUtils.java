@@ -41,9 +41,9 @@ public class CharSequenceUtils {
     /**
      * Used by the indexOf(CharSequence methods) as a green implementation of indexOf.
      *
-     * @param cs         the {@link CharSequence} to be processed
-     * @param searchChar the {@link CharSequence} to be searched for
-     * @param start      the start index
+     * @param cs         the {@link CharSequence} to be processed.
+     * @param searchChar the {@link CharSequence} to be searched for.
+     * @param start      the start index.
      * @return the index where the search sequence was found, or {@code -1} if there is no such occurrence.
      */
     static int indexOf(final CharSequence cs, final CharSequence searchChar, final int start) {
@@ -101,11 +101,11 @@ public class CharSequenceUtils {
      * All indices are specified in {@code char} values (Unicode code units).
      * </p>
      *
-     * @param cs         the {@link CharSequence} to be processed, not null
-     * @param searchChar the char to be searched for
-     * @param start      the start index, negative starts at the string start
-     * @return the index where the search char was found, -1 if not found
-     * @since 3.6 updated to behave more like {@link String}
+     * @param cs         the {@link CharSequence} to be processed, not null.
+     * @param searchChar the char to be searched for.
+     * @param start      the start index, negative starts at the string start.
+     * @return the index where the search char was found, -1 if not found.
+     * @since 3.6 updated to behave more like {@link String}.
      */
     static int indexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {
@@ -140,10 +140,10 @@ public class CharSequenceUtils {
     /**
      * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
      *
-     * @param cs the {@link CharSequence} to be processed
-     * @param searchChar the {@link CharSequence} to find
-     * @param start the start index
-     * @return the index where the search sequence was found
+     * @param cs the {@link CharSequence} to be processed.
+     * @param searchChar the {@link CharSequence} to find.
+     * @param start the start index.
+     * @return the index where the search sequence was found.
      */
     static int lastIndexOf(final CharSequence cs, final CharSequence searchChar, int start) {
         if (searchChar == null || cs == null) {
@@ -240,7 +240,7 @@ public class CharSequenceUtils {
      * @param searchChar the char to be searched for.
      * @param start      the start index, negative returns -1, beyond length starts at end.
      * @return the index where the search char was found, -1 if not found.
-     * @since 3.6 updated to behave more like {@link String}
+     * @since 3.6 updated to behave more like {@link String}.
      */
     static int lastIndexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {
@@ -283,13 +283,13 @@ public class CharSequenceUtils {
     /**
      * Green implementation of regionMatches.
      *
-     * @param cs the {@link CharSequence} to be processed
-     * @param ignoreCase whether or not to be case-insensitive
-     * @param thisStart the index to start on the {@code cs} CharSequence
-     * @param substring the {@link CharSequence} to be looked for
-     * @param start the index to start on the {@code substring} CharSequence
-     * @param length character length of the region
-     * @return whether the region matched
+     * @param cs the {@link CharSequence} to be processed.
+     * @param ignoreCase whether or not to be case-insensitive.
+     * @param thisStart the index to start on the {@code cs} CharSequence.
+     * @param substring the {@link CharSequence} to be looked for.
+     * @param start the index to start on the {@code substring} CharSequence.
+     * @param length character length of the region.
+     * @return whether the region matched.
      * @see String#regionMatches(boolean, int, String, int, int)
      */
     static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
@@ -346,11 +346,11 @@ public class CharSequenceUtils {
      * The length (in {@code char}) of the returned sequence is {@code length() - start},
      * so if {@code start == end} then an empty sequence is returned.</p>
      *
-     * @param cs  the specified subsequence, null returns null
-     * @param start  the start index, inclusive, valid
-     * @return a new subsequence, may be null
+     * @param cs  the specified subsequence, null returns null.
+     * @param start  the start index, inclusive, valid.
+     * @return a new subsequence, may be null.
      * @throws IndexOutOfBoundsException if {@code start} is negative or if
-     *  {@code start} is greater than {@code length()}
+     *  {@code start} is greater than {@code length()}.
      */
     public static CharSequence subSequence(final CharSequence cs, final int start) {
         return cs == null ? null : cs.subSequence(start, cs.length());
@@ -370,6 +370,16 @@ public class CharSequenceUtils {
         }
         if (source instanceof String) {
             return ((String) source).toCharArray();
+        }
+        if (source instanceof StringBuilder) {
+            final char[] array = new char[len];
+            ((StringBuilder) source).getChars(0, len, array, 0);
+            return array;
+        }
+        if (source instanceof StringBuffer) {
+            final char[] array = new char[len];
+            ((StringBuffer) source).getChars(0, len, array, 0);
+            return array;
         }
         final char[] array = new char[len];
         for (int i = 0; i < len; i++) {
