@@ -41,7 +41,6 @@ import java.util.function.Supplier;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -853,7 +852,7 @@ class FailableTest extends AbstractLangTest {
     }
 
     @Test
-    @DisplayName("Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate ")
+    /** Test that asPredicate(FailableBiPredicate) is converted to -> BiPredicate  */
     void testBiPredicate() {
         FailureOnOddInvocations.invocations = 0;
         final FailableBiPredicate<Object, Object, Throwable> failableBiPredicate = (t1, t2) -> FailureOnOddInvocations
@@ -1607,7 +1606,7 @@ class FailableTest extends AbstractLangTest {
     }
 
     @Test
-    @DisplayName("Test that asPredicate(FailablePredicate) is converted to -> Predicate ")
+    /** Test that asPredicate(FailablePredicate) is converted to -> Predicate  */
     void testPredicate() {
         FailureOnOddInvocations.invocations = 0;
         final FailablePredicate<Object, Throwable> failablePredicate = t -> FailureOnOddInvocations.testGetBool();

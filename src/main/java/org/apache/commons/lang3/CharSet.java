@@ -151,7 +151,7 @@ public class CharSet implements Serializable {
      */
     public static CharSet getInstance(final String... setStrs) {
         if (setStrs == null) {
-            return null;
+            return EMPTY;
         }
         if (setStrs.length == 1) {
             final CharSet common = COMMON.get(setStrs[0]);

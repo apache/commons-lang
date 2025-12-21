@@ -1013,7 +1013,9 @@ class NumberUtilsTest extends AbstractLangTest {
         assertFalse(NumberUtils.isParsable("pendro"));
         assertFalse(NumberUtils.isParsable("64, 2"));
         assertFalse(NumberUtils.isParsable("64.2.2"));
-        assertFalse(NumberUtils.isParsable("64."));
+        assertFalse(NumberUtils.isParsable("64.."));
+        assertTrue(NumberUtils.isParsable("64."));
+        assertTrue(NumberUtils.isParsable("-64."));
         assertFalse(NumberUtils.isParsable("64L"));
         assertFalse(NumberUtils.isParsable("-"));
         assertFalse(NumberUtils.isParsable("--2"));
@@ -1025,6 +1027,29 @@ class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.isParsable("-018"));
         assertTrue(NumberUtils.isParsable("-018.2"));
         assertTrue(NumberUtils.isParsable("-.236"));
+        assertTrue(NumberUtils.isParsable("2."));
+        // TODO assertTrue(NumberUtils.isParsable("2.f"));
+        // TODO assertTrue(NumberUtils.isParsable("2.d"));
+    }
+
+    /**
+     * Tests https://issues.apache.org/jira/browse/LANG-1729
+     *
+     * See https://bugs.openjdk.org/browse/JDK-8326627
+     *
+     * <blockquote>From https://docs.oracle.com/javase%2F9%2Fdocs%2Fapi%2F%2F/java/lang/Float.html#valueOf-java.lang.String-,
+     * https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.2, and https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-Digits,
+     * fullwidth Unicode digits are not applicable. Moved to JDK as an enhancement.</blockquote>
+     */
+    @Test
+    void testIsParsableFullWidthUnicodeJDK8326627() {
+        // 123 in fullwidth Unicode digits
+        final String fullWidth123 = "\uFF10\uFF11\uFF12";
+        assertThrows(NumberFormatException.class, () -> Double.parseDouble(fullWidth123));
+        assertThrows(NumberFormatException.class, () -> Float.parseFloat(fullWidth123));
+        assertTrue(NumberUtils.isParsable(fullWidth123));
+        assertFalse(NumberUtils.isParsable(fullWidth123 + ".0"));
+        assertFalse(NumberUtils.isParsable("0." + fullWidth123));
     }
 
     @Test
@@ -1057,18 +1082,24 @@ class NumberUtilsTest extends AbstractLangTest {
     @Test
     void testLang1729IsParsableDouble() {
         assertTrue(isParsableDouble("1"));
+        assertTrue(isParsableDouble("1."));
+        // TODO assertTrue(isParsableDouble("1.f"));
+        // TODO assertTrue(isParsableDouble("1.d"));
+        assertTrue(isParsableDouble("1.0"));
+        assertFalse(isParsableDouble("1.0."));
         assertFalse(isParsableDouble("1 2 3"));
-        // TODO Expected to be fixed in Java 23
-        // assertTrue(isParsableDouble("１２３"));
         assertFalse(isParsableDouble("１ ２ ３"));
     }
 
     @Test
     void testLang1729IsParsableFloat() {
         assertTrue(isParsableFloat("1"));
+        assertTrue(isParsableFloat("1."));
+        // TODO assertTrue(isParsableFloat("1.f"));
+        // TODO assertTrue(isParsableFloat("1.d"));
+        assertTrue(isParsableFloat("1.0"));
+        assertFalse(isParsableFloat("1.0."));
         assertFalse(isParsableFloat("1 2 3"));
-        // TODO Expected to be fixed in Java 23
-        // assertTrue(isParsableFloat("１２３"));
         assertFalse(isParsableFloat("１ ２ ３"));
     }
 

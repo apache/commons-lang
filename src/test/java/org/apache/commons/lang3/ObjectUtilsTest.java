@@ -397,7 +397,7 @@ class ObjectUtilsTest extends AbstractLangTest {
         assertIllegalArgumentException(() -> ObjectUtils.CONST_BYTE(128), "CONST_BYTE(128): IllegalArgumentException should have been thrown.");
         assertIllegalArgumentException(() -> ObjectUtils.CONST_SHORT(-32769),
                 "CONST_SHORT(-32769): IllegalArgumentException should have been thrown.");
-        assertIllegalArgumentException(() -> ObjectUtils.CONST_BYTE(32768),
+        assertIllegalArgumentException(() -> ObjectUtils.CONST_SHORT(32768),
                 "CONST_SHORT(32768): IllegalArgumentException should have been thrown.");
     }
 
