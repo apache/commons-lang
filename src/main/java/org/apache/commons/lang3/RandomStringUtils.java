@@ -260,6 +260,21 @@ public class RandomStringUtils {
         if (count < 0) {
             throw new IllegalArgumentException("Requested random string length " + count + " is less than 0.");
         }
+        if (chars != null && !(start == 0 && end == 0)) {
+            if (start < 0 || end < 0) {
+                throw new IllegalArgumentException("Character positions MUST be >= 0");
+            }
+            if (end <= start) {
+                throw new IllegalArgumentException(
+                        "Parameter end (" + end + ") must be greater than start (" + start + ")"
+                );
+            }
+            if (end > chars.length) {
+                throw new IllegalArgumentException(
+                        "Parameter end (" + end + ") must be <= chars.length (" + chars.length + ")"
+                );
+            }
+        }
         if (chars != null && chars.length == 0) {
             throw new IllegalArgumentException("The chars array must not be empty");
         }
