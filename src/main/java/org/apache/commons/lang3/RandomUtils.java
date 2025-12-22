@@ -174,7 +174,7 @@ public class RandomUtils {
      * @param startInclusive the smallest value that can be returned, must be non-negative.
      * @param endExclusive   the upper bound (not included).
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
-     * @return the random float
+     * @return the random float.
      * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -309,7 +309,7 @@ public class RandomUtils {
      *
      * @param count the size of the returned array.
      * @return the random byte array.
-     * @throws IllegalArgumentException if {@code count} is negative
+     * @throws IllegalArgumentException if {@code count} is negative.
      * @since 3.16.0
      */
     public byte[] randomBytes(final int count) {
@@ -336,7 +336,7 @@ public class RandomUtils {
      * @param startInclusive the smallest value that can be returned, must be non-negative.
      * @param endExclusive   the upper bound (not included).
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
-     * @return the random double
+     * @return the random double.
      * @since 3.16.0
      */
     public double randomDouble(final double startInclusive, final double endExclusive) {
@@ -366,6 +366,7 @@ public class RandomUtils {
      * @param endExclusive   the upper bound (not included).
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
      * @return the random float.
+     * @since 3.16.0
      */
     public float randomFloat(final float startInclusive, final float endExclusive) {
         Validate.isTrue(endExclusive >= startInclusive, "Start value must be smaller or equal to end value.");
