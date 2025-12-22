@@ -104,14 +104,16 @@ public class RandomStringUtils {
 
     /**
      * Gets the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not cryptographically
-     * secure</b>; use {@link #secure()} to use an algorithms/providers specified in the
-     * {@code securerandom.strongAlgorithms} {@link Security} property.
+     * secure</b>; use {@link #secureStrong()} to use the algorithms/providers specified in the
+     * {@code securerandom.strongAlgorithms} {@link Security} property, or {@link #secure()} for the default
+     * {@link SecureRandom} algorithm.
      * <p>
      * The method {@link ThreadLocalRandom#current()} is called on-demand.
      * </p>
      *
      * @return the singleton instance based on {@link ThreadLocalRandom#current()}.
      * @see ThreadLocalRandom#current()
+     * @see #secureStrong()
      * @see #secure()
      * @since 3.16.0
      */
