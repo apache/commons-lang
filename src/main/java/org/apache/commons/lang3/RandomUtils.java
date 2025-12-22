@@ -70,13 +70,13 @@ import org.apache.commons.lang3.exception.UncheckedException;
  */
 public class RandomUtils {
 
-    private static RandomUtils INSECURE = new RandomUtils(ThreadLocalRandom::current);
+    private static final RandomUtils INSECURE = new RandomUtils(ThreadLocalRandom::current);
 
-    private static RandomUtils SECURE = new RandomUtils(SecureRandom::new);
+    private static final RandomUtils SECURE = new RandomUtils(SecureRandom::new);
 
     private static final Supplier<Random> SECURE_STRONG_SUPPLIER = () -> RandomUtils.SECURE_RANDOM_STRONG.get();
 
-    private static RandomUtils SECURE_STRONG = new RandomUtils(SECURE_STRONG_SUPPLIER);
+    private static final RandomUtils SECURE_STRONG = new RandomUtils(SECURE_STRONG_SUPPLIER);
 
     private static final ThreadLocal<SecureRandom> SECURE_RANDOM_STRONG = ThreadLocal.withInitial(() -> {
         try {
