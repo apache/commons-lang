@@ -87,6 +87,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Streamline StringUtils.truncate(String, int, int).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, sekharchowdary774">Fix Javadoc comma spacing #1538.</action>
     <action issue="LANG-1807" type="fix" dev="ggregory" due-to="Zhongxin Yan, Gary Gregory">Make private static variables final in RandomUtils.</action>
+    <action issue="LANG-1448" type="fix" dev="ggregory" due-to="David W. Burhans, Gary Gregory, kamGP92">Javadoc: Normalize some varargs examples.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
