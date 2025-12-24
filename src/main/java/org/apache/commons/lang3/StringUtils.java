@@ -1274,13 +1274,13 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.containsOnly(null, *)               = false
-     * StringUtils.containsOnly(*, null)               = false
-     * StringUtils.containsOnly("", *)                 = true
-     * StringUtils.containsOnly("ab", '')              = false
-     * StringUtils.containsOnly("abab", 'a', 'b', 'c') = true
-     * StringUtils.containsOnly("ab1", 'a', 'b', 'c')  = false
-     * StringUtils.containsOnly("abz", 'a', 'b', 'c')  = false
+     * StringUtils.containsOnly(null, *)                 = false
+     * StringUtils.containsOnly(*, null)                 = false
+     * StringUtils.containsOnly("", *)                   = true
+     * StringUtils.containsOnly("ab", '')                = false
+     * StringUtils.containsOnly("abab", ['a', 'b', 'c']) = true
+     * StringUtils.containsOnly("ab1", ['a', 'b', 'c'])  = false
+     * StringUtils.containsOnly("abz", ['a', 'b', 'c'])  = false
      * </pre>
      *
      * @param cs    the String to check, may be null.
@@ -1311,13 +1311,13 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.containsOnly(null, *)               = false
-     * StringUtils.containsOnly(*, null)               = false
-     * StringUtils.containsOnly("", *)                 = true
-     * StringUtils.containsOnly("ab", "")              = false
-     * StringUtils.containsOnly("abab", 'a', 'b', 'c') = true
-     * StringUtils.containsOnly("ab1", 'a', 'b', 'c')  = false
-     * StringUtils.containsOnly("abz", 'a', 'b', 'c')  = false
+     * StringUtils.containsOnly(null, *)                 = false
+     * StringUtils.containsOnly(*, null)                 = false
+     * StringUtils.containsOnly("", *)                   = true
+     * StringUtils.containsOnly("ab", "")                = false
+     * StringUtils.containsOnly("abab", ['a', 'b', 'c']) = true
+     * StringUtils.containsOnly("ab1", ['a', 'b', 'c'])  = false
+     * StringUtils.containsOnly("abz", ['a', 'b', 'c'])  = false
      * </pre>
      *
      * @param cs         the CharSequence to check, may be null.
