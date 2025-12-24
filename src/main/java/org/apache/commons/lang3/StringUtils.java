@@ -1031,10 +1031,10 @@ public class StringUtils {
      * StringUtils.containsAny("", *)                    = false
      * StringUtils.containsAny(*, null)                  = false
      * StringUtils.containsAny(*, [])                    = false
-     * StringUtils.containsAny("zzabyycdxx", ['z', 'a']) = true
-     * StringUtils.containsAny("zzabyycdxx", ['b', 'y']) = true
-     * StringUtils.containsAny("zzabyycdxx", ['z', 'y']) = true
-     * StringUtils.containsAny("aba", ['z'])             = false
+     * StringUtils.containsAny("zzabyycdxx", 'z', 'a')   = true
+     * StringUtils.containsAny("zzabyycdxx", 'b', 'y')   = true
+     * StringUtils.containsAny("zzabyycdxx", 'z', 'y')   = true
+     * StringUtils.containsAny("aba", 'z])               = false
      * </pre>
      *
      * @param cs          the CharSequence to check, may be null.
@@ -1198,13 +1198,13 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.containsNone(null, *)       = true
-     * StringUtils.containsNone(*, null)       = true
-     * StringUtils.containsNone("", *)         = true
-     * StringUtils.containsNone("ab", '')      = true
-     * StringUtils.containsNone("abab", 'xyz') = true
-     * StringUtils.containsNone("ab1", 'xyz')  = true
-     * StringUtils.containsNone("abz", 'xyz')  = false
+     * StringUtils.containsNone(null, *)               = true
+     * StringUtils.containsNone(*, null)               = true
+     * StringUtils.containsNone("", *)                 = true
+     * StringUtils.containsNone("ab", '')              = true
+     * StringUtils.containsNone("abab", 'x', 'y', 'z') = true
+     * StringUtils.containsNone("ab1", 'x', 'y', 'z')  = true
+     * StringUtils.containsNone("abz", 'x', 'y', 'z')  = false
      * </pre>
      *
      * @param cs          the CharSequence to check, may be null.
@@ -1274,13 +1274,13 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.containsOnly(null, *)       = false
-     * StringUtils.containsOnly(*, null)       = false
-     * StringUtils.containsOnly("", *)         = true
-     * StringUtils.containsOnly("ab", '')      = false
-     * StringUtils.containsOnly("abab", 'abc') = true
-     * StringUtils.containsOnly("ab1", 'abc')  = false
-     * StringUtils.containsOnly("abz", 'abc')  = false
+     * StringUtils.containsOnly(null, *)               = false
+     * StringUtils.containsOnly(*, null)               = false
+     * StringUtils.containsOnly("", *)                 = true
+     * StringUtils.containsOnly("ab", '')              = false
+     * StringUtils.containsOnly("abab", 'a', 'b', 'c') = true
+     * StringUtils.containsOnly("ab1", 'a', 'b', 'c')  = false
+     * StringUtils.containsOnly("abz", 'a', 'b', 'c')  = false
      * </pre>
      *
      * @param cs    the String to check, may be null.
@@ -2696,9 +2696,9 @@ public class StringUtils {
      * StringUtils.indexOfAny("", *)                    = -1
      * StringUtils.indexOfAny(*, null)                  = -1
      * StringUtils.indexOfAny(*, [])                    = -1
-     * StringUtils.indexOfAny("zzabyycdxx", ['z', 'a']) = 0
-     * StringUtils.indexOfAny("zzabyycdxx", ['b', 'y']) = 3
-     * StringUtils.indexOfAny("aba", ['z'])             = -1
+     * StringUtils.indexOfAny("zzabyycdxx", 'z', 'a')   = 0
+     * StringUtils.indexOfAny("zzabyycdxx", 'b', 'y')   = 3
+     * StringUtils.indexOfAny("aba", 'z')               = -1
      * </pre>
      *
      * @param cs          the CharSequence to check, may be null.
@@ -2721,16 +2721,16 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.indexOfAny(null, *)                      = -1
-     * StringUtils.indexOfAny(*, null)                      = -1
-     * StringUtils.indexOfAny(*, [])                        = -1
-     * StringUtils.indexOfAny("zzabyycdxx", ["ab", "cd"])   = 2
-     * StringUtils.indexOfAny("zzabyycdxx", ["cd", "ab"])   = 2
-     * StringUtils.indexOfAny("zzabyycdxx", ["mn", "op"])   = -1
-     * StringUtils.indexOfAny("zzabyycdxx", ["zab", "aby"]) = 1
-     * StringUtils.indexOfAny("zzabyycdxx", [""])           = 0
-     * StringUtils.indexOfAny("", [""])                     = 0
-     * StringUtils.indexOfAny("", ["a"])                    = -1
+     * StringUtils.indexOfAny(null, *)                    = -1
+     * StringUtils.indexOfAny(*, null)                    = -1
+     * StringUtils.indexOfAny(*, [])                      = -1
+     * StringUtils.indexOfAny("zzabyycdxx", "ab", "cd")   = 2
+     * StringUtils.indexOfAny("zzabyycdxx", "cd", "ab")   = 2
+     * StringUtils.indexOfAny("zzabyycdxx", "mn", "op")   = -1
+     * StringUtils.indexOfAny("zzabyycdxx", "zab", "aby") = 1
+     * StringUtils.indexOfAny("zzabyycdxx", "")           = 0
+     * StringUtils.indexOfAny("", "")                     = 0
+     * StringUtils.indexOfAny("", "a")                    = -1
      * </pre>
      *
      * @param str        the CharSequence to check, may be null.
@@ -4687,8 +4687,8 @@ public class StringUtils {
      * StringUtils.join(null)            = null
      * StringUtils.join([])              = ""
      * StringUtils.join([null])          = ""
-     * StringUtils.join(["a", "b", "c"]) = "abc"
-     * StringUtils.join([null, "", "a"]) = "a"
+     * StringUtils.join("a", "b", "c")   = "abc"
+     * StringUtils.join(null, "", "a")   = "a"
      * </pre>
      *
      * @param <T>      the specific type of values to join together.
@@ -4710,10 +4710,10 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.joinWith(",", {"a", "b"})        = "a,b"
-     * StringUtils.joinWith(",", {"a", "b",""})     = "a,b,"
-     * StringUtils.joinWith(",", {"a", null, "b"})  = "a,,b"
-     * StringUtils.joinWith(null, {"a", "b"})       = "ab"
+     * StringUtils.joinWith(",", "a", "b")        = "a,b"
+     * StringUtils.joinWith(",", "a", "b","")     = "a,b,"
+     * StringUtils.joinWith(",", "a", null, "b")  = "a,,b"
+     * StringUtils.joinWith(null, "a", "b")       = "ab"
      * </pre>
      *
      * @param delimiter the separator character to use, null treated as "".
