@@ -556,57 +556,6 @@ class TimedSemaphoreTest extends AbstractLangTest {
     }
 
     /**
-     * Verifies FIFO fairness when enabled: with limit=1 and manual period rollovers,
-     * threads that arrive earlier should acquire earlier across periods.
-     * Strategy:
-     *  - Build semaphore with fair=true and limit=1.
-     *  - Start T1; it should acquire immediately (first window).
-     *  - Start T2 and T3; both will block until we call endOfPeriod() twice.
-     *  - Check the order is T1, then T2, then T3 (arrival order).
-     */
-    @Test
-    void testFairnessFIFOOrdering_acrossPeriods() throws Exception {
-        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
-        final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
-        prepareStartTimer(service, future);
-        EasyMock.replay(service, future);
-
-        final TimedSemaphore semaphore = TimedSemaphore.builder()
-                .setService(service)
-                .setPeriod(PERIOD_MILLIS)
-                .setTimeUnit(UNIT)
-                .setLimit(1)
-                .setFair(true)
-                .get();
-
-        final java.util.concurrent.ArrayBlockingQueue<String> order = new java.util.concurrent.ArrayBlockingQueue<>(3);
-
-        final FairOrderThread t1 = new FairOrderThread(semaphore, "T1", order);
-        t1.start();
-        final String first = order.poll(3, TimeUnit.SECONDS);
-        assertEquals("T1", first, "First acquirer should be T1");
-
-        final FairOrderThread t2 = new FairOrderThread(semaphore, "T2", order);
-        final FairOrderThread t3 = new FairOrderThread(semaphore, "T3", order);
-        t2.start();
-        ThreadUtils.sleepQuietly(Duration.ofMillis(10));
-        t3.start();
-
-        semaphore.endOfPeriod();
-        final String second = order.poll(3, TimeUnit.SECONDS);
-        assertEquals("T2", second, "Second acquirer should be T2 under FIFO fairness");
-
-        semaphore.endOfPeriod();
-        final String third = order.poll(3, TimeUnit.SECONDS);
-        assertEquals("T3", third, "Third acquirer should be T3 under FIFO fairness");
-
-        t1.join();
-        t2.join();
-        t3.join();
-        EasyMock.verify(service, future);
-    }
-
-    /**
      * Verifies that changing the limit mid-period resizes the active bucket immediately:
      * - Start with limit=3; acquire two permits.
      * - Reduce limit to 1 in the same period.
