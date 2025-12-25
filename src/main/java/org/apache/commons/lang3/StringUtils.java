@@ -505,6 +505,18 @@ public class StringUtils {
     }
 
     /**
+     * Computes the capacity required for a StringBuilder to hold {@code items} of {@code maxElementChars} characters plus the separators between them. The
+     * separator is assumed to be 1 character.
+     *
+     * @param count           The number of items.
+     * @param maxElementChars The maximum number of characters per item.
+     * @return A StringBuilder with the appropriate capacity.
+     */
+    private static StringBuilder capacity(final int count, final byte maxElementChars) {
+        return new StringBuilder(count * maxElementChars + count - 1);
+    }
+
+    /**
      * Capitalizes a String changing the first character to title case as per {@link Character#toTitleCase(int)}. No other characters are changed.
      *
      * <p>
@@ -3854,19 +3866,21 @@ public class StringUtils {
      * @since 3.12.0
      */
     public static String join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex) {
+        // See StringUtilsJoinBenchmark
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int count = endIndex - startIndex;
+        if (count <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder(array.length * 5 + array.length - 1);
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+        final byte maxElementChars = 5; // "false"
+        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            stringBuilder.append(delimiter).append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -3929,19 +3943,21 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
+        // See StringUtilsJoinBenchmark
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int count = endIndex - startIndex;
+        if (count <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+        final byte maxElementChars = 4; // "-128"
+        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            stringBuilder.append(delimiter).append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4004,19 +4020,21 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final char[] array, final char delimiter, final int startIndex, final int endIndex) {
+        // See StringUtilsJoinBenchmark
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int count = endIndex - startIndex;
+        if (count <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder(array.length * 2 - 1);
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+        final byte maxElementChars = 1;
+        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            stringBuilder.append(delimiter).append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4079,19 +4097,21 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final double[] array, final char delimiter, final int startIndex, final int endIndex) {
+        // See StringUtilsJoinBenchmark
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int count = endIndex - startIndex;
+        if (count <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+        final byte maxElementChars = 22; // "1.7976931348623157E308"
+        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            stringBuilder.append(delimiter).append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4154,19 +4174,21 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final float[] array, final char delimiter, final int startIndex, final int endIndex) {
+        // See StringUtilsJoinBenchmark
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int count = endIndex - startIndex;
+        if (count <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+        final byte maxElementChars = 12; // "3.4028235E38"
+        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            stringBuilder.append(delimiter).append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4229,19 +4251,21 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final int[] array, final char delimiter, final int startIndex, final int endIndex) {
+        // See StringUtilsJoinBenchmark
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int count = endIndex - startIndex;
+        if (count <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+        final byte maxElementChars = 11; // "-2147483648"
+        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            stringBuilder.append(delimiter).append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4467,19 +4491,21 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final long[] array, final char delimiter, final int startIndex, final int endIndex) {
+        // See StringUtilsJoinBenchmark
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int count = endIndex - startIndex;
+        if (count <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+        final byte maxElementChars = 20; // "-9223372036854775808"
+        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            stringBuilder.append(delimiter).append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
@@ -4661,19 +4687,21 @@ public class StringUtils {
      * @since 3.2
      */
     public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
+        // See StringUtilsJoinBenchmark
         if (array == null) {
             return null;
         }
-        if (endIndex - startIndex <= 0) {
+        final int count = endIndex - startIndex;
+        if (count <= 0) {
             return EMPTY;
         }
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = startIndex; i < endIndex; i++) {
-            stringBuilder
-                    .append(array[i])
-                    .append(delimiter);
+        final byte maxElementChars = 6; // "-32768"
+        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        stringBuilder.append(array[startIndex]);
+        for (int i = startIndex + 1; i < endIndex; i++) {
+            stringBuilder.append(delimiter).append(array[i]);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 
     /**
