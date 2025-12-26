@@ -281,7 +281,7 @@ public class CharSequenceUtils {
     }
 
     /**
-     * Green implementation of regionMatches.
+     * Tests if two string regions are equal.
      *
      * @param cs the {@link CharSequence} to be processed.
      * @param ignoreCase whether or not to be case-insensitive.
@@ -294,6 +294,7 @@ public class CharSequenceUtils {
      */
     static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
             final CharSequence substring, final int start, final int length)    {
+        // Green implementation of regionMatches.
         if (cs instanceof String && substring instanceof String) {
             return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
         }
