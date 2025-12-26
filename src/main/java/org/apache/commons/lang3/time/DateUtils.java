@@ -1644,7 +1644,7 @@ public class DateUtils {
      * Converts a {@link Date} to a {@link LocalDateTime}.
      *
      * @param date     the Date to convert to a LocalDateTime, not null.
-     * @param timeZone the time zone, null maps to to the default time zone.
+     * @param timeZone the time zone, null maps to the default time zone.
      * @return a new LocalDateTime.
      * @since 3.19.0
      */
@@ -1667,7 +1667,7 @@ public class DateUtils {
      * Converts a {@link Date} to a {@link OffsetDateTime}.
      *
      * @param date     the Date to convert to a OffsetDateTime, not null.
-     * @param timeZone the time zone, null maps to to the default time zone.
+     * @param timeZone the time zone, null maps to the default time zone.
      * @return a new OffsetDateTime.
      * @since 3.19.0
      */
@@ -1690,7 +1690,7 @@ public class DateUtils {
      * Converts a {@link Date} to a {@link ZonedDateTime}.
      *
      * @param date     the Date to convert to a ZonedDateTime, not null.
-     * @param timeZone the time zone, null maps to to the default time zone.
+     * @param timeZone the time zone, null maps to the default time zone.
      * @return a new ZonedDateTime.
      * @since 3.19.0
      */
