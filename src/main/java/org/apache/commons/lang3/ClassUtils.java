@@ -385,8 +385,7 @@ public class ClassUtils {
      */
     private static void getAllInterfaces(Class<?> cls, final HashSet<Class<?>> interfacesFound) {
         while (cls != null) {
-            final Class<?>[] interfaces = cls.getInterfaces();
-            for (final Class<?> i : interfaces) {
+            for (final Class<?> i : cls.getInterfaces()) {
                 if (interfacesFound.add(i)) {
                     getAllInterfaces(i, interfacesFound);
                 }
