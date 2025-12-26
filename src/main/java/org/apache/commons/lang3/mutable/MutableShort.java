@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * A mutable {@code short} wrapper.
  * <p>
- * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link AtomicInteger} class.
+ * This class was created before the introduction of the {@link java.util.concurrent.atomic} package and the {@link AtomicInteger} class.
  * </p>
  * <p>
  * Note that as MutableShort does not extend Short, it is not treated by String.format as a Short parameter.

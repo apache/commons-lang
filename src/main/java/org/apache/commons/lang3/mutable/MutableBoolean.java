@@ -25,7 +25,7 @@ import org.apache.commons.lang3.BooleanUtils;
 /**
  * A mutable {@code boolean} wrapper.
  * <p>
- * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link AtomicBoolean} class.
+ * This class was created before the introduction of the {@link java.util.concurrent.atomic} package and the {@link AtomicBoolean} class.
  * </p>
  * <p>
  * Note that as MutableBoolean does not extend {@link Boolean}, it is not treated by {@link String#format(String, Object...)} as a Boolean parameter.
