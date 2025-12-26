@@ -78,7 +78,7 @@ public class ConcurrentUtils {
 
         /**
          * {@inheritDoc} This implementation always returns <strong>false</strong>; there
-         * is no background process which could be cancelled.
+         * is no background process which could be canceled.
          */
         @Override
         public boolean isCancelled() {
