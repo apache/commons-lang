@@ -9240,6 +9240,7 @@ public class ArrayUtils {
      * @param array  the array to search, may be {@code null}
      * @param value  the value to count.
      * @return the number of matches, may be {@code 0} if array is {@code null}
+     * @since 3.21.0
      */
     public static int countMatches(final boolean[] array, final boolean value)
     {   
@@ -9302,7 +9303,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Counts how many times the specified number or value occures in the given array.
+     * Counts how many times the specified number or value occurs in the given array.
      * <p>
      * A {@code null} array returns {@code 0}.
      * </p>
@@ -9356,12 +9357,12 @@ public class ArrayUtils {
      * @param value  the value to count.
      * @return the number of matches, may be {@code 0} if array is {@code null}
      */
-    public static long countMatches(final long[] array, final long value)
+    public static int countMatches(final long[] array, final long value)
     {   
         if(array == null){
             return 0;
         }
-        long count = 0;
+        int count = 0;
         for(long i : array){
             if(i == value){
                 count++;
@@ -9379,14 +9380,14 @@ public class ArrayUtils {
      * @param value  the value to count.
      * @return the number of matches, may be {@code 0} if array is {@code null}
      */
-    public static long countMatches(final float[] array, final float value)
+    public static int countMatches(final float[] array, final float value)
     {   
         if(array == null){
             return 0;
         }
-        long count = 0;
+        int count = 0;
         for(float i : array){
-            if(i == value){
+            if(Float.compare(i, value) == 0){
                 count++;
             }
         }
@@ -9394,7 +9395,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Counts how many times the specified number or value occures in the given array.
+     * Counts how many times the specified number or value occurs in the given array.
      * <p>
      * A {@code null} array returns {@code 0}.
      * </p>
@@ -9402,14 +9403,15 @@ public class ArrayUtils {
      * @param value  the value to count.
      * @return the number of matches, may be {@code 0} if array is {@code null}
      */
-    public static long countMatches(final double[] array, final double value)
+    public static int countMatches(final double[] array, final double value)
     {   
         if(array == null){
             return 0;
         }
-        long count = 0;
+        int count = 0;
         for(double i : array){
-            if(i == value){
+            if(Double.compare(i, value) == 0)
+            {
                 count++;
             }
         }
@@ -9417,53 +9419,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Counts how many times the specified number or value occures in the given array.
-     * <p>
-     * A {@code null} array returns {@code 0}.
-     * </p>
-     * @param array  the array to search, may be {@code null}
-     * @param value  the value to count.
-     * @return the number of matches, may be {@code 0} if array is {@code null}
-     */
-    public static int countMatches(final byte[] array, final byte value)
-    {   
-        if(array == null){
-            return 0;
-        }
-        int count = 0;
-        for(byte i : array){
-            if(i == value){
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * Counts how many times the specified number or value occures in the given array.
-     * <p>
-     * A {@code null} array returns {@code 0}.
-     * </p>
-     * @param array  the array to search, may be {@code null}
-     * @param value  the value to count.
-     * @return the number of matches, may be {@code 0} if array is {@code null}
-     */
-    public static int countMatches(final char[] array, final char value)
-    {   
-        if(array == null){
-            return 0;
-        }
-        int count = 0;
-        for(char i : array){
-            if(i == value){
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * Counts how many times the specified number or value occures in the given array.
+     * Counts how many times the specified number or value occurs in the given array.
      * <p>
      * A {@code null} array returns {@code 0}.
      * </p>
