@@ -397,6 +397,11 @@ public class ClassUtils {
     /**
      * Gets a {@link List} of superclasses for the given class.
      *
+     * <ol>
+     * <li>The first entry is the superclass of the given class.</li>
+     * <li>The last entry is {@link Object}'s class.</li>
+     * </ol>
+     *
      * @param cls the class to look up, may be {@code null}.
      * @return the {@link List} of superclasses in order going up from this one {@code null} if null input.
      */
