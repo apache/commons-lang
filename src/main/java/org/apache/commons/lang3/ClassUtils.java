@@ -383,7 +383,7 @@ public class ClassUtils {
      * @param cls the class to look up, may be {@code null}.
      * @param interfacesFound the {@link Set} of interfaces for the class.
      */
-    private static void getAllInterfaces(Class<?> cls, final HashSet<Class<?>> interfacesFound) {
+    private static void getAllInterfaces(Class<?> cls, final Set<Class<?>> interfacesFound) {
         while (cls != null) {
             for (final Class<?> i : cls.getInterfaces()) {
                 if (interfacesFound.add(i)) {
