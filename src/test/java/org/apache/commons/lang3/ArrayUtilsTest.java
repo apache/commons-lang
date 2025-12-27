@@ -6831,6 +6831,87 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void countMatchesBooleanArray()
+    {   
+        /* boolean array tests */
+        assertEquals(0, ArrayUtils.countMatches((boolean[])null, true));
+        assertEquals(2, ArrayUtils.countMatches(new boolean[]{true, false, true}, true));
+        assertEquals(0, ArrayUtils.countMatches(new boolean[]{true,true,true}, false)); 
+    }
+
+    @Test
+    void countMatchesByteArray()
+    {   
+        /* byte array tests */
+        assertEquals(0, ArrayUtils.countMatches((byte[])null, (byte)1));
+        assertEquals(2, ArrayUtils.countMatches(new byte[]{1,2,2,4,5}, (byte)2));
+        assertEquals(0, ArrayUtils.countMatches(new byte[]{1,3,2,4,6,5}, (byte)7)); 
+    }
+
+    @Test
+    void countMatchesCharArray()
+    {   
+        /* char array tests */
+        assertEquals(0, ArrayUtils.countMatches((char[])null, 'a'));
+        assertEquals(3, ArrayUtils.countMatches(new char[]{'a','e','e','u','e'}, 'e'));
+        assertEquals(0, ArrayUtils.countMatches(new char[]{'a','e','e','u','e'}, 'i')); 
+    }
+
+    @Test
+    void countMatchesShortArray()
+    {   
+        /* short array tests */
+        assertEquals(0, ArrayUtils.countMatches((short[])null, (short)5));
+        assertEquals(3, ArrayUtils.countMatches(new short[]{1,5,5,2,5,7}, (short)5));
+        assertEquals(0, ArrayUtils.countMatches(new short[]{1,2,2,2,3,7}, (short)5)); 
+    }
+
+    @Test
+    void countMatchesIntArray()
+    {   
+        /* int array tests */
+        assertEquals(0, ArrayUtils.countMatches((int[])null, 5));
+        assertEquals(3, ArrayUtils.countMatches(new int[]{1,5,5,2,5,7}, 5));
+        assertEquals(0, ArrayUtils.countMatches(new int[]{1,2,2,2,3,7}, 5)); 
+    }
+
+    @Test
+    void countMatchesLongArray()
+    {   
+        /* long array tests */
+        assertEquals(0, ArrayUtils.countMatches((long[])null, 5L));
+        assertEquals(3, ArrayUtils.countMatches(new long[]{1L,5L,5L,2L,5L,7L}, 5L));
+        assertEquals(0, ArrayUtils.countMatches(new long[]{1L,2L,3L,7L}, 5L)); 
+    }
+
+    @Test
+    void countMatchesFloatArray()
+    {   
+        /* float array tests */
+        assertEquals(0, ArrayUtils.countMatches((float[])null, 5f));
+        assertEquals(3, ArrayUtils.countMatches(new float[]{1f,5f,5f,2f,5f,7f}, 5f));
+        assertEquals(0, ArrayUtils.countMatches(new float[]{1f,2f,2f,2f,3f,7f}, 5f)); 
+    }
+
+    @Test
+    void countMatchesDoubleArray()
+    {   
+        /* double array tests */
+        assertEquals(0, ArrayUtils.countMatches((double[])null, 5d));
+        assertEquals(2, ArrayUtils.countMatches(new double[]{1d,5.7d,5d,2d,5d,7d}, 5d));
+        assertEquals(0, ArrayUtils.countMatches(new double[]{1d,2d,2d,3d,7d}, 5)); 
+    }
+
+    @Test
+    void countMatchesObjectArray()
+    {   
+        /* object array tests */
+        assertEquals(0, ArrayUtils.countMatches((String[])null, "a"));
+        assertEquals(2, ArrayUtils.countMatches(new String[]{"a","e","i","e"}, "e"));
+        assertEquals(0, ArrayUtils.countMatches(new String[]{"a","e","i","e","u"}, "x")); 
+    }
+
+    @Test
     void testToString() {
         assertEquals("{}", ArrayUtils.toString(null));
         assertEquals("{}", ArrayUtils.toString(new Object[0]));
