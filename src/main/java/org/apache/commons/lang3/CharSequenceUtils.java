@@ -357,6 +357,7 @@ public class CharSequenceUtils {
      * @since 3.11
      */
     public static char[] toCharArray(final CharSequence source) {
+        // See CharSequenceUtilsBenchmark
         final int len = StringUtils.length(source);
         if (len == 0) {
             return ArrayUtils.EMPTY_CHAR_ARRAY;
