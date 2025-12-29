@@ -102,7 +102,7 @@ public class Conversion {
      * @return a hexadecimal digit representing the selected bits.
      * @throws IllegalArgumentException  if {@code src} is empty.
      * @throws NullPointerException      if {@code src} is {@code null}.
-     * @throws IndexOutOfBoundsException if {@code srcPos} is outside the array.
+     * @throws IllegalArgumentException  if {@code srcPos} is outside the array.
      */
     public static char binaryBeMsb0ToHexDigit(final boolean[] src, final int srcPos) {
         // JDK 9: Objects.checkIndex(int index, int length)
@@ -111,7 +111,7 @@ public class Conversion {
             if (src.length == 0) {
                 throw new IllegalArgumentException("Cannot convert an empty array.");
             }
-            throw new IndexOutOfBoundsException(srcPos + " is not within array length " + src.length);
+            throw new IllegalArgumentException(srcPos + " is not within array length " + src.length, new IndexOutOfBoundsException(Integer.toString(srcPos)));
         }
         // Little-endian bit 0 position
         final int pos = src.length - 1 - srcPos;

@@ -51,7 +51,7 @@ class ConversionTest extends AbstractLangTest {
     @ParameterizedTest
     @ValueSource(ints = { Integer.MIN_VALUE, -1, 8, 9, Integer.MAX_VALUE })
     public void binaryBeMsb0ToHexDigitPosOutsideArray(final int index) {
-        assertIndexOutOfBoundsException(() -> Conversion.binaryBeMsb0ToHexDigit(new boolean[8], index));
+        assertIllegalArgumentException(() -> Conversion.binaryBeMsb0ToHexDigit(new boolean[8], index));
     }
 
     /**
