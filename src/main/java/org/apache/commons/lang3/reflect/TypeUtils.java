@@ -841,7 +841,19 @@ public class TypeUtils {
             return typeVarAssigns;
         }
         // walk the inheritance hierarchy until the target class is reached
-        return getTypeArguments(getClosestParentType(cls, toClass), toClass, typeVarAssigns);
+        final Type parentType = getClosestParentType(cls, toClass);
+        if (parentType instanceof ParameterizedType) {
+            final ParameterizedType parameterizedParentType = (ParameterizedType) parentType;
+            final Type[] parentTypeArgs = parameterizedParentType.getActualTypeArguments().clone();
+            for (int i = 0; i < parentTypeArgs.length; i++) {
+                final Type unrolled = unrollVariables(typeVarAssigns, parentTypeArgs[i]);
+                if (unrolled != null) {
+                    parentTypeArgs[i] = unrolled;
+                }
+            }
+            return getTypeArguments(parameterizeWithOwner(parameterizedParentType.getOwnerType(), (Class<?>) parameterizedParentType.getRawType(), parentTypeArgs), toClass, typeVarAssigns);
+        }
+        return getTypeArguments(parentType, toClass, typeVarAssigns);
     }
 
     /**
@@ -1672,9 +1684,17 @@ public class TypeUtils {
         if (typeArguments == null) {
             typeArguments = Collections.emptyMap();
         }
+        return unrollVariables(typeArguments, type, new HashSet<>());
+    }
+
+    private static Type unrollVariables(final Map<TypeVariable<?>, Type> typeArguments, final Type type, final Set<TypeVariable<?>> visited) {
         if (containsTypeVariables(type)) {
             if (type instanceof TypeVariable<?>) {
-                return unrollVariables(typeArguments, typeArguments.get(type));
+                final TypeVariable<?> var = (TypeVariable<?>) type;
+                if (!visited.add(var)) {
+                    return var;
+                }
+                return unrollVariables(typeArguments, typeArguments.get(type), visited);
             }
             if (type instanceof ParameterizedType) {
                 final ParameterizedType p = (ParameterizedType) type;
@@ -1685,9 +1705,9 @@ public class TypeUtils {
                     parameterizedTypeArguments = new HashMap<>(typeArguments);
                     parameterizedTypeArguments.putAll(getTypeArguments(p));
                 }
-                final Type[] args = p.getActualTypeArguments();
+                final Type[] args = p.getActualTypeArguments().clone();
                 for (int i = 0; i < args.length; i++) {
-                    final Type unrolled = unrollVariables(parameterizedTypeArguments, args[i]);
+                    final Type unrolled = unrollVariables(parameterizedTypeArguments, args[i], visited);
                     if (unrolled != null) {
                         args[i] = unrolled;
                     }
