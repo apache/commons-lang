@@ -1078,8 +1078,23 @@ public class TypeUtils {
         if (fromTypeVarAssigns.isEmpty()) {
             return true;
         }
+
         // get the target type's type arguments including owner type arguments
         final Map<TypeVariable<?>, Type> toTypeVarAssigns = getTypeArguments(toParameterizedType, toClass, typeVarAssigns);
+
+        // Class<T> is not assignable to Class<S> if T is not S (even if T extends S)
+        if (toClass.equals(Class.class)) {
+            final TypeVariable<?>[] typeParams = toClass.getTypeParameters();
+            if (typeParams.length > 0) {
+                final Type toTypeArg = unrollVariableAssignments(typeParams[0], toTypeVarAssigns);
+                final Type fromTypeArg = unrollVariableAssignments(typeParams[0], fromTypeVarAssigns);
+
+                if (toTypeArg != null && (fromTypeArg == null || !toTypeArg.equals(fromTypeArg))) {
+                    return false;
+                }
+            }
+        }
+
         // now to check each type argument
         for (final TypeVariable<?> var : toTypeVarAssigns.keySet()) {
             final Type toTypeArg = unrollVariableAssignments(var, toTypeVarAssigns);
