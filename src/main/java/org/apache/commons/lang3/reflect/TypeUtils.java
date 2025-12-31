@@ -328,9 +328,9 @@ public class TypeUtils {
     }
 
     private static void appendRecursiveTypes(final StringBuilder builder, final int[] recursiveTypeIndexes, final Type[] argumentTypes) {
-        for (int i = 0; i < recursiveTypeIndexes.length; i++) {
-            // toString() or SO
-            GT_JOINER.join(builder, argumentTypes[i].toString());
+        for (final Type type : argumentTypes) {
+            // toString() or you get a SO
+            GT_JOINER.join(builder, Objects.toString(type));
         }
         final Type[] argumentsFiltered = ArrayUtils.removeAll(argumentTypes, recursiveTypeIndexes);
         if (argumentsFiltered.length > 0) {
