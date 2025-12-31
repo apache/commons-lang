@@ -55,7 +55,7 @@ public class TypeUtils {
         private final Type componentType;
 
         /**
-         * Constructor
+         * Constructs a new instance.
          *
          * @param componentType of this array type.
          */
@@ -107,7 +107,7 @@ public class TypeUtils {
         private final Type[] typeArguments;
 
         /**
-         * Constructor
+         * Constructs a new instance.
          *
          * @param rawClass      type.
          * @param useOwner      owner type to use, if any.
@@ -229,7 +229,7 @@ public class TypeUtils {
         private final Type[] lowerBounds;
 
         /**
-         * Constructor
+         * Constructs a new instance.
          *
          * @param upperBounds of this type.
          * @param lowerBounds of this type.
