@@ -43,6 +43,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -366,6 +367,49 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
         // this fails with a stack overflow
         final Type unrolledType = TypeUtils.unrollVariables(typeArguments, type);
+    }
+
+    static class MyException extends Exception implements Iterable<Throwable> {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Iterator<Throwable> iterator() {
+            return null;
+        }
+    }
+
+    static class MyNonTransientException extends MyException {
+        private static final long serialVersionUID = 1L;
+    }
+
+    interface MyComparator<T> {
+    }
+
+    static class MyOrdering<T> implements MyComparator<T> {
+    }
+
+    static class LexOrdering<T> extends MyOrdering<Iterable<T>> implements Serializable {
+        private static final long serialVersionUID = 1L;
+    }
+
+    /**
+     * Tests that a parameterized type with a nested generic argument is correctly
+     * evaluated for assignability to a wildcard lower-bounded type.
+     *
+     * @see <a href="https://issues.apache.org/jira/browse/LANG-1700">LANG-1700</a>
+     */
+    @Test
+    public void test_LANG_1700() {
+        final ParameterizedType from = TypeUtils.parameterize(LexOrdering.class, MyNonTransientException.class);
+        // MyComparator<? super MyNonTransientException>
+        final ParameterizedType to = TypeUtils.parameterize(MyComparator.class,
+                TypeUtils.wildcardType().withLowerBounds(MyNonTransientException.class).build());
+        // This is MyComparator<Iterable<MyNonTransientException>>
+        // It should NOT be assignable to MyComparator<? super MyNonTransientException>
+        // because Iterable<MyNonTransientException> is NOT a supertype of MyNonTransientException
+        assertFalse(TypeUtils.isAssignable(from, to),
+                () -> String.format("Type %s should not be assignable to %s", TypeUtils.toString(from), TypeUtils.toString(to)));
     }
 
     @Test
