@@ -192,12 +192,36 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         }
     }
 
+    static class LexOrdering<T> extends MyOrdering<Iterable<T>> implements Serializable {
+        private static final long serialVersionUID = 1L;
+    }
+
+    interface MyComparator<T> {
+    }
+
+    static class MyException extends Exception implements Iterable<Throwable> {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Iterator<Throwable> iterator() {
+            return null;
+        }
+    }
+
     /** This non-static inner class is parameterized. */
     private class MyInnerClass<T> {
 
         class MyInnerClass2<X> {
             // empty
         }
+    }
+
+    static class MyNonTransientException extends MyException {
+        private static final long serialVersionUID = 1L;
+    }
+
+    static class MyOrdering<T> implements MyComparator<T> {
     }
 
     public class Other<T> implements This<String, T> {
@@ -358,41 +382,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertEquals("java.util.function.Function<? super T, ? extends U>", typeName);
     }
 
-    @Test
-    void test_LANG_1702() throws NoSuchMethodException, SecurityException {
-        final Type type = TypeUtilsTest.class.getDeclaredMethod("aMethod").getGenericReturnType();
-
-        // any map will do
-        final Map<TypeVariable<?>, Type> typeArguments = Collections.emptyMap();
-
-        // this fails with a stack overflow
-        final Type unrolledType = TypeUtils.unrollVariables(typeArguments, type);
-    }
-
-    static class MyException extends Exception implements Iterable<Throwable> {
-
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public Iterator<Throwable> iterator() {
-            return null;
-        }
-    }
-
-    static class MyNonTransientException extends MyException {
-        private static final long serialVersionUID = 1L;
-    }
-
-    interface MyComparator<T> {
-    }
-
-    static class MyOrdering<T> implements MyComparator<T> {
-    }
-
-    static class LexOrdering<T> extends MyOrdering<Iterable<T>> implements Serializable {
-        private static final long serialVersionUID = 1L;
-    }
-
     /**
      * Tests that a parameterized type with a nested generic argument is correctly
      * evaluated for assignability to a wildcard lower-bounded type.
@@ -410,6 +399,17 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         // because Iterable<MyNonTransientException> is NOT a supertype of MyNonTransientException
         assertFalse(TypeUtils.isAssignable(from, to),
                 () -> String.format("Type %s should not be assignable to %s", TypeUtils.toString(from), TypeUtils.toString(to)));
+    }
+
+    @Test
+    void test_LANG_1702() throws NoSuchMethodException, SecurityException {
+        final Type type = TypeUtilsTest.class.getDeclaredMethod("aMethod").getGenericReturnType();
+
+        // any map will do
+        final Map<TypeVariable<?>, Type> typeArguments = Collections.emptyMap();
+
+        // this fails with a stack overflow
+        final Type unrolledType = TypeUtils.unrollVariables(typeArguments, type);
     }
 
     @Test
