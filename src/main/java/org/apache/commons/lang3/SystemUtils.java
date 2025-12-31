@@ -84,8 +84,8 @@ public class SystemUtils {
      * </p>
      *
      * @see SystemProperties#getFileSeparator()
-     * @deprecated Use {@link File#separator}, since it is guaranteed to be a string containing a single character and it does not require a privilege check.
      * @since Java 1.1
+     * @deprecated Use {@link File#separator}, since it is guaranteed to be a string containing a single character and it does not require a privilege check.
      */
     @Deprecated
     public static final String FILE_SEPARATOR = SystemProperties.getFileSeparator();

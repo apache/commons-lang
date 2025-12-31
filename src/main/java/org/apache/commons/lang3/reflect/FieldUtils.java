@@ -576,10 +576,10 @@ public class FieldUtils {
      *             if the field is {@code null}.
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
+     * @since 3.3
      * @deprecated As of Java 12, we can no longer drop the {@code final} modifier, thus
      *             rendering this method obsolete. The JDK discussion about this change can be found
      *             here: https://mail.openjdk.java.net/pipermail/core-libs-dev/2018-November/056486.html
-     * @since 3.3
      */
     @Deprecated
     public static void removeFinalModifier(final Field field, final boolean forceAccess) {

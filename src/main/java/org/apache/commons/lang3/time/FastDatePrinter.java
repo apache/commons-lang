@@ -1232,11 +1232,11 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Formats a {@link Date}, {@link Calendar} or
      * {@link Long} (milliseconds) object.
      *
-     * @deprecated Use {{@link #format(Date)}, {{@link #format(Calendar)}, {{@link #format(long)}.
      * @param obj  the object to format.
      * @param toAppendTo  the buffer to append to.
      * @param pos  the position; ignored.
      * @return the buffer passed in.
+     * @deprecated Use {{@link #format(Date)}, {{@link #format(Calendar)}, {{@link #format(long)}.
      */
     @Deprecated
     @Override
