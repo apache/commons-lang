@@ -132,6 +132,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * <p>
      * You must call a "reset" method to set the string which you want to parse.
      * </p>
+     *
      * @return a new tokenizer instance which parses Comma Separated Value strings.
      */
     public static StrTokenizer getCSVInstance() {
@@ -182,6 +183,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * <p>
      * You must call a "reset" method to set the string which you want to parse.
      * </p>
+     *
      * @return a new tokenizer instance which parses Tab Separated Value strings.
      */
     public static StrTokenizer getTSVInstance() {

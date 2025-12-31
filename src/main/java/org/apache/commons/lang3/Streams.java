@@ -40,7 +40,8 @@ import org.apache.commons.lang3.Functions.FailablePredicate;
  * {@code java.util.stream} package, or more generally, with Java 8 lambdas. More
  * specifically, it attempts to address the fact that lambdas are supposed
  * not to throw Exceptions, at least not checked Exceptions, AKA instances
- * of {@link Exception}. This enforces the use of constructs like
+ * of {@link Exception}. This enforces the use of constructs like:
+ *
  * <pre>{@code
  *     Consumer<java.lang.reflect.Method> consumer = m -> {
  *         try {
@@ -51,12 +52,16 @@ import org.apache.commons.lang3.Functions.FailablePredicate;
  *    };
  *    stream.forEach(consumer);
  * }</pre>
+ * <p>
  * Using a {@link FailableStream}, this can be rewritten as follows:
+ * </p>
  * <pre>{@code
  *     Streams.failable(stream).forEach(m -> m.invoke(o, args));
  * }</pre>
+ * <p>
  * Obviously, the second version is much more concise and the spirit of
  * Lambda expressions is met better than in the first version.
+ * </p>
  *
  * @see Stream
  * @see Functions
@@ -118,6 +123,7 @@ public class Streams {
     /**
      * A reduced, and simplified version of a {@link Stream} with
      * failable method signatures.
+     *
      * @param <O> The streams element type.
      * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.FailableStream}.
      */
@@ -129,6 +135,7 @@ public class Streams {
 
         /**
          * Constructs a new instance with the given {@code stream}.
+         *
          * @param stream The stream.
          */
         public FailableStream(final Stream<O> stream) {
@@ -445,6 +452,7 @@ public class Streams {
 
         /**
          * Converts the FailableStream into an equivalent stream.
+         *
          * @return A stream, which will return the same elements, which this FailableStream would return.
          */
         public Stream<O> stream() {
@@ -473,18 +481,23 @@ public class Streams {
      *     final List<String> strList = list.stream()
      *         .map(mapper).collect(Collectors.toList());
      *  }</pre>
-     *  as follows:
+     * <p>
+     * as follows:
+     * </p>
      *  <pre>{@code
      *     final List<O> list;
      *     final Method m;
      *     final List<String> strList = Functions.stream(list.stream())
      *         .map((o) -> (String) m.invoke(o)).collect(Collectors.toList());
      *  }</pre>
-     *  While the second version may not be <em>quite</em> as
-     *  efficient (because it depends on the creation of additional,
-     *  intermediate objects, of type FailableStream), it is much more
-     *  concise, and readable, and meets the spirit of Lambdas better
-     *  than the first version.
+     * <p>
+     * While the second version may not be <em>quite</em> as
+     * efficient (because it depends on the creation of additional,
+     * intermediate objects, of type FailableStream), it is much more
+     * concise, and readable, and meets the spirit of Lambdas better
+     * than the first version.
+     * </p>
+     *
      * @param <O> The streams element type.
      * @param stream The stream, which is being converted.
      * @return The {@link FailableStream}, which has been created by
@@ -515,18 +528,23 @@ public class Streams {
      *     final List<String> strList = list.stream()
      *         .map(mapper).collect(Collectors.toList());
      *  }</pre>
-     *  as follows:
+     * <p>
+     * as follows:
+     * </p>
      *  <pre>{@code
      *     final List<O> list;
      *     final Method m;
      *     final List<String> strList = Functions.stream(list.stream())
      *         .map((o) -> (String) m.invoke(o)).collect(Collectors.toList());
      *  }</pre>
-     *  While the second version may not be <em>quite</em> as
-     *  efficient (because it depends on the creation of additional,
-     *  intermediate objects, of type FailableStream), it is much more
-     *  concise, and readable, and meets the spirit of Lambdas better
-     *  than the first version.
+     * <p>
+     * While the second version may not be <em>quite</em> as
+     * efficient (because it depends on the creation of additional,
+     * intermediate objects, of type FailableStream), it is much more
+     * concise, and readable, and meets the spirit of Lambdas better
+     * than the first version.
+     * </p>
+     *
      * @param <O> The streams element type.
      * @param stream The stream, which is being converted.
      * @return The {@link FailableStream}, which has been created by

@@ -42,6 +42,7 @@ import java.util.regex.Pattern;
  * </pre>
  *
  * <p>#ThreadSafe#</p>
+ *
  * @see String#format(String, Object...)
  * @since 2.0
  */

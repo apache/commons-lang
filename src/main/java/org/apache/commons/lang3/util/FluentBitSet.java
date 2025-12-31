@@ -26,6 +26,7 @@ import java.util.stream.IntStream;
  * <p>
  * Originally from Apache Commons VFS with more added to act as a fluent replacement for {@link java.util.BitSet}.
  * </p>
+ *
  * @since 3.13.0
  */
 public final class FluentBitSet implements Cloneable, Serializable {

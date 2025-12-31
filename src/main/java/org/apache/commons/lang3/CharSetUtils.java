@@ -26,6 +26,7 @@ import org.apache.commons.lang3.stream.Streams;
  * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
+ *
  * @see CharSet
  * @since 1.0
  */

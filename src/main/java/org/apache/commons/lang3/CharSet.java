@@ -30,6 +30,7 @@ import java.util.stream.Stream;
  * <p>Instances are immutable, but instances of subclasses may not be.</p>
  *
  * <p>#ThreadSafe#</p>
+ *
  * @since 1.0
  */
 public class CharSet implements Serializable {
@@ -43,30 +44,35 @@ public class CharSet implements Serializable {
 
     /**
      * A CharSet defining no characters.
+     *
      * @since 2.0
      */
     public static final CharSet EMPTY = new CharSet((String) null);
 
     /**
      * A CharSet defining ASCII alphabetic characters "a-zA-Z".
+     *
      * @since 2.0
      */
     public static final CharSet ASCII_ALPHA = new CharSet("a-zA-Z");
 
     /**
      * A CharSet defining ASCII alphabetic characters "a-z".
+     *
      * @since 2.0
      */
     public static final CharSet ASCII_ALPHA_LOWER = new CharSet("a-z");
 
     /**
      * A CharSet defining ASCII alphabetic characters "A-Z".
+     *
      * @since 2.0
      */
     public static final CharSet ASCII_ALPHA_UPPER = new CharSet("A-Z");
 
     /**
      * A CharSet defining ASCII alphabetic characters "0-9".
+     *
      * @since 2.0
      */
     public static final CharSet ASCII_NUMERIC = new CharSet("0-9");
@@ -74,6 +80,7 @@ public class CharSet implements Serializable {
     /**
      * A Map of the common cases used in the factory.
      * Subclasses can add more common patterns if desired
+     *
      * @since 2.0
      */
     protected static final Map<String, CharSet> COMMON = Collections.synchronizedMap(new HashMap<>());

@@ -26,6 +26,7 @@ import java.util.Objects;
  * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
+ *
  * @since 2.1
  */
 public class CharUtils {

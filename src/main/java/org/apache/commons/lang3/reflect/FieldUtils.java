@@ -40,6 +40,7 @@ import org.apache.commons.lang3.Validate;
  * The ability is provided to break the scoping restrictions coded by the programmer. This can allow fields to be
  * changed that shouldn't be. This facility should be used with care.
  * </p>
+ *
  * @since 2.5
  */
 public class FieldUtils {
@@ -228,6 +229,7 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
+     *
      * @param cls
      *            the {@link Class} to query.
      * @param annotationCls
@@ -244,6 +246,7 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
+     *
      * @param cls
      *            the {@link Class} to query.
      * @param annotationCls

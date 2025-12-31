@@ -177,6 +177,7 @@ public abstract class StrLookup<V> {
      * map.put("number", Integer.valueOf(2));
      * assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
      * }</pre>
+     *
      * @param key  the key to be looked up, may be null.
      * @return the matching value, null if no match.
      */

@@ -290,6 +290,7 @@ public class EventListenerSupport<L> implements Serializable {
      * Gets an array containing the currently registered listeners.
      * Modification to this array's elements will have no effect on the
      * {@link EventListenerSupport} instance.
+     *
      * @return L[]
      */
     public L[] getListeners() {

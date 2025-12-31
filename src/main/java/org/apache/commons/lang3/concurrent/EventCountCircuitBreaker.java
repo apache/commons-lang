@@ -133,6 +133,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * guarantee that the circuit breaker is triggered at a specific point in time; there may
  * be some delay (less than a check interval).</li>
  * </ul>
+ *
  * @since 3.5
  */
 public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {

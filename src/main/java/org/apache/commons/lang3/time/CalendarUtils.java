@@ -154,6 +154,7 @@ public class CalendarUtils {
 
     /**
      * Gets month names in the requested style.
+     *
      * @param style Must be a valid {@link Calendar#getDisplayNames(int, int, Locale)} month style.
      * @return Styled names of months
      */
@@ -171,6 +172,7 @@ public class CalendarUtils {
 
     /**
      * Gets full standalone month names as used in "LLLL" date formatting.
+     *
      * @return Long names of months
      */
     String[] getStandaloneLongMonthNames() {
@@ -179,6 +181,7 @@ public class CalendarUtils {
 
     /**
      * Gets short standalone month names as used in "LLLL" date formatting.
+     *
      * @return Short names of months
      */
     String[] getStandaloneShortMonthNames() {

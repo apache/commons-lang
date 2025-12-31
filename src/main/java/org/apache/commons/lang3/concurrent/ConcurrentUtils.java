@@ -34,6 +34,7 @@ public class ConcurrentUtils {
 
     /**
      * A specialized {@link Future} implementation which wraps a constant value.
+     *
      * @param <T> the type of the value wrapped by this class
      */
     static final class ConstantFuture<T> implements Future<T> {

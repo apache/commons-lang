@@ -244,6 +244,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Learn whether the specified Collection contains non-null elements.
+     *
      * @param coll to check
      * @return {@code true} if some Object was found, {@code false} otherwise.
      */

@@ -27,6 +27,7 @@ import java.util.Objects;
  * <p>Instances are immutable.</p>
  *
  * <p>#ThreadSafe#</p>
+ *
  * @since 1.0
  * @since 3.20.1 {@code serialVersionUID} changed from {@code 8270183163158333422L} to {@code 2L}.
  */
@@ -335,6 +336,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * Returns an iterator which can be used to walk through the characters described by this range.
      *
      * <p>#NotThreadSafe# the iterator is not thread-safe</p>
+     *
      * @return an iterator to the chars represented by this range
      * @since 2.5
      */

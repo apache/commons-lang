@@ -1090,6 +1090,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     /**
      * Creates a String representation of the given Calendar by applying the rules of this printer to it.
+     *
      * @param c the Calendar to apply the rules to.
      * @return a String representation of the given Calendar.
      */
@@ -1209,6 +1210,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Formats a {@link Date}, {@link Calendar} or
      * {@link Long} (milliseconds) object.
+     *
      * @param obj  the object to format.
      * @return The formatted value.
      * @since 3.5
@@ -1229,6 +1231,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Formats a {@link Date}, {@link Calendar} or
      * {@link Long} (milliseconds) object.
+     *
      * @deprecated Use {{@link #format(Date)}, {{@link #format(Calendar)}, {{@link #format(long)}.
      * @param obj  the object to format.
      * @param toAppendTo  the buffer to append to.
@@ -1314,6 +1317,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     /**
      * Creates a new Calendar instance.
+     *
      * @return a new Calendar instance.
      */
     private Calendar newCalendar() {

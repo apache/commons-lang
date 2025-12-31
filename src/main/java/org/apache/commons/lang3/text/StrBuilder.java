@@ -1209,8 +1209,10 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *   append(it.next());
      * }
      * </pre>
+     * <p>
      * Note that for this simple example, you should use
      * {@link #appendWithSeparators(Iterable, String)}.
+     * </p>
      *
      * @param separator  the separator to use
      * @return {@code this} instance.
@@ -1229,6 +1231,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Otherwise it will append the standard-separator
      *
      * The separator is appended using {@link #append(char)}.
+     *
      * @param standard the separator if builder is not empty
      * @param defaultIfEmpty the separator if builder is empty
      * @return {@code this} instance.
@@ -1257,8 +1260,10 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * }
      * }
      * </pre>
+     * <p>
      * Note that for this simple example, you should use
      * {@link #appendWithSeparators(Iterable, String)}.
+     * </p>
      *
      * @param separator  the separator to use
      * @param loopIndex  the loop index
@@ -1313,8 +1318,10 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *   append(list.get(i));
      * }
      * }</pre>
+     * <p>
      * Note that for this simple example, you should use
      * {@link #appendWithSeparators(Iterable, String)}.
+     * </p>
      *
      * @param separator  the separator to use, null means no separator
      * @param loopIndex  the loop index
@@ -1332,9 +1339,10 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Appends one of both separators to the StrBuilder.
      * If the builder is currently empty it will append the defaultIfEmpty-separator
      * Otherwise it will append the standard-separator
-     *
+     * <p>
      * Appending a null separator will have no effect.
      * The separator is appended using {@link #append(String)}.
+     * </p>
      * <p>
      * This method is for example useful for constructing queries
      * </p>
@@ -1557,6 +1565,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 
     /**
      * Implement the {@link Builder} interface.
+     *
      * @return the builder as a String
      * @since 3.2
      * @see #toString()
@@ -2882,6 +2891,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 
     /**
      * {@inheritDoc}
+     *
      * @since 3.0
      */
     @Override
