@@ -43,6 +43,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -369,9 +370,11 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     static class MyException extends Exception implements Iterable<Throwable> {
+
         private static final long serialVersionUID = 1L;
+
         @Override
-        public java.util.Iterator<Throwable> iterator() {
+        public Iterator<Throwable> iterator() {
             return null;
         }
     }
@@ -402,11 +405,9 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         // MyComparator<? super MyNonTransientException>
         final ParameterizedType to = TypeUtils.parameterize(MyComparator.class,
                 TypeUtils.wildcardType().withLowerBounds(MyNonTransientException.class).build());
-
         // This is MyComparator<Iterable<MyNonTransientException>>
         // It should NOT be assignable to MyComparator<? super MyNonTransientException>
         // because Iterable<MyNonTransientException> is NOT a supertype of MyNonTransientException
-
         assertFalse(TypeUtils.isAssignable(from, to),
                 () -> String.format("Type %s should not be assignable to %s", TypeUtils.toString(from), TypeUtils.toString(to)));
     }
