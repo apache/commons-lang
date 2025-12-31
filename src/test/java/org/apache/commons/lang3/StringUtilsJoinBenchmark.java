@@ -117,11 +117,6 @@ import org.openjdk.jmh.annotations.Warmup;
  */
 public class StringUtilsJoinBenchmark {
 
-    private static final int WARMUP_ITERATIONS = 3;
-    private static final int WARMUP_TIME = 1;
-    private static final int MEASUREMENT_ITERATIONS = 5;
-    private static final int MEASUREMENT_TIME = 1;
-
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @State(Scope.Thread)
@@ -152,7 +147,6 @@ public class StringUtilsJoinBenchmark {
             return StringUtils_3_21_0.join(array, ',', 0, 10);
         }
     }
-
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @State(Scope.Thread)
@@ -184,7 +178,6 @@ public class StringUtilsJoinBenchmark {
             return StringUtils_3_21_0.join(array, ',', 0, array.length);
         }
     }
-
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @State(Scope.Thread)
@@ -216,7 +209,6 @@ public class StringUtilsJoinBenchmark {
             return StringUtils_3_21_0.join(array, ',', 0, array.length);
         }
     }
-
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @State(Scope.Thread)
@@ -271,13 +263,13 @@ public class StringUtilsJoinBenchmark {
         }
 
         @Benchmark
-        public String testJoinFloat3_20_0() {
-            return StringUtils_3_20_0.join(array, ',', 0, array.length);
+        public String testJoinFloat_3_21_0() {
+            return StringUtils_3_21_0.join(array, ',', 0, array.length);
         }
 
         @Benchmark
-        public String testJoinFloat_3_21_0() {
-            return StringUtils_3_21_0.join(array, ',', 0, array.length);
+        public String testJoinFloat3_20_0() {
+            return StringUtils_3_20_0.join(array, ',', 0, array.length);
         }
     }
 
@@ -638,6 +630,14 @@ public class StringUtilsJoinBenchmark {
             return stringBuilder.toString();
         }
     }
+
+    private static final int WARMUP_ITERATIONS = 3;
+
+    private static final int WARMUP_TIME = 1;
+
+    private static final int MEASUREMENT_ITERATIONS = 5;
+
+    private static final int MEASUREMENT_TIME = 1;
 
     private static Random newRandom() {
         return new Random(235);

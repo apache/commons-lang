@@ -207,6 +207,15 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         // empty
     }
 
+    private interface TestIF<T> {
+    }
+
+    private static class TestImpl<T> implements TestIF<T> {
+    }
+
+    private static class TestImpl2<R> implements TestIF<Number> {
+    }
+
     public class That<K, V> implements This<K, V> {
         // empty
     }
@@ -665,6 +674,24 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testIsAssignable_ClassWithParameterizedType() {
+        final ParameterizedType topre1 = TypeUtils.parameterize(TestIF.class, TypeUtils.wildcardType().build());
+        final Type to1 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(topre1).build());
+        final Type from1 = TypeUtils.parameterize(Class.class, TestIF.class);
+        assertFalse(TypeUtils.isAssignable(from1, to1), "Class<TestIF> should not be assignable to Class<? extends TestIF<?>>");
+
+        final ParameterizedType topre2 = TypeUtils.parameterize(TestIF.class, TypeUtils.wildcardType().build());
+        final Type to2 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(topre2).build());
+        final Type from2 = TypeUtils.parameterize(Class.class, TestImpl.class);
+        assertFalse(TypeUtils.isAssignable(from2, to2), "Class<TestImpl> should not be assignable to Class<? extends TestIF<?>>");
+
+        final ParameterizedType topre3 = TypeUtils.parameterize(TestIF.class, Number.class);
+        final Type to3 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(topre3).build());
+        final Type from3 = TypeUtils.parameterize(Class.class, TestImpl2.class);
+        assertFalse(TypeUtils.isAssignable(from3, to3), "Class<TestImpl2> should not be assignable to Class<? extends TestIF<Number>>");
+    }
+
+    @Test
     void testIsAssignableClasses() {
         assertTrue(TypeUtils.isAssignable(char.class, double.class));
         assertTrue(TypeUtils.isAssignable(byte.class, double.class));
@@ -771,33 +798,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
                 () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
         assertFalse(TypeUtils.isAssignable(testType, paramType),
                 () -> String.format("TypeUtils.isAssignable(%s, %s)", testType, paramType));
-    }
-
-    @Test
-    void testIsAssignable_ClassWithParameterizedType() {
-        final ParameterizedType topre1 = TypeUtils.parameterize(TestIF.class, TypeUtils.wildcardType().build());
-        final Type to1 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(topre1).build());
-        final Type from1 = TypeUtils.parameterize(Class.class, TestIF.class);
-        assertFalse(TypeUtils.isAssignable(from1, to1), "Class<TestIF> should not be assignable to Class<? extends TestIF<?>>");
-
-        final ParameterizedType topre2 = TypeUtils.parameterize(TestIF.class, TypeUtils.wildcardType().build());
-        final Type to2 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(topre2).build());
-        final Type from2 = TypeUtils.parameterize(Class.class, TestImpl.class);
-        assertFalse(TypeUtils.isAssignable(from2, to2), "Class<TestImpl> should not be assignable to Class<? extends TestIF<?>>");
-
-        final ParameterizedType topre3 = TypeUtils.parameterize(TestIF.class, Number.class);
-        final Type to3 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(topre3).build());
-        final Type from3 = TypeUtils.parameterize(Class.class, TestImpl2.class);
-        assertFalse(TypeUtils.isAssignable(from3, to3), "Class<TestImpl2> should not be assignable to Class<? extends TestIF<Number>>");
-    }
-
-    private interface TestIF<T> {
-    }
-
-    private static class TestImpl<T> implements TestIF<T> {
-    }
-
-    private static class TestImpl2<R> implements TestIF<Number> {
     }
 
     @Test

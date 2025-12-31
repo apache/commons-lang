@@ -118,10 +118,6 @@ class MethodFixtures extends AbstractLangTest {
 
     private String[] valueArray;
 
-    public String getStringVarStringArgs(final String... strings) {
-        return "XYZ";
-    }
-
     @AnnotationTestFixture
     public String getString() {
         return "ABC";
@@ -167,6 +163,10 @@ class MethodFixtures extends AbstractLangTest {
 
     public String getStringThrowsUnchecked() {
         throw new CustomUncheckedException("getStringThrowsUnchecked");
+    }
+
+    public String getStringVarStringArgs(final String... strings) {
+        return "XYZ";
     }
 
     String getValue1() {
