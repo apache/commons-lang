@@ -992,32 +992,18 @@ public class StringUtils {
         return Strings.CS.contains(seq, searchSeq);
     }
 
-    /**
-     * Tests if CharSequence contains a search character, handling {@code null}. This method uses {@link String#indexOf(int)} if possible.
-     *
-     * <p>
-     * A {@code null} or empty ("") CharSequence will return {@code false}.
-     * </p>
-     *
-     * <pre>
-     * StringUtils.contains(null, *)    = false
-     * StringUtils.contains("", *)      = false
-     * StringUtils.contains("abc", 'a') = true
-     * StringUtils.contains("abc", 'z') = false
-     * </pre>
-     *
-     * @param seq        the CharSequence to check, may be null
-     * @param searchChar the character to find
-     * @return true if the CharSequence contains the search character, false if not or {@code null} string input
-     * @since 2.0
-     * @since 3.0 Changed signature from contains(String, int) to contains(CharSequence, int)
-     */
-    public static boolean contains(final CharSequence seq, final int searchChar) {
-        if (isEmpty(seq)) {
-            return false;
+   /*@ 
+	 requires seq != null;
+	 ensures \result ==> (\exists int i; 0 <= i && i < seq.length(); seq.charAt(i) == searchChar);
+    @*/
+public static boolean contains(final CharSequence seq, final int searchChar) {
+    for (int i = 0; i < seq.length(); i++) {
+        if (seq.charAt(i) == searchChar) {
+            return true;
         }
-        return CharSequenceUtils.indexOf(seq, searchChar, 0) >= 0;
     }
+    return false;
+}
 
     /**
      * Tests if the CharSequence contains any character in the given set of characters.
@@ -2018,42 +2004,25 @@ public class StringUtils {
         return strs[0].substring(0, smallestIndexOfDiff);
     }
 
-    /**
-     * Checks if a String {@code str} contains Unicode digits, if yes then concatenate all the digits in {@code str} and return it as a String.
-     *
-     * <p>
-     * An empty ("") String will be returned if no digits found in {@code str}.
-     * </p>
-     *
-     * <pre>
-     * StringUtils.getDigits(null)                 = null
-     * StringUtils.getDigits("")                   = ""
-     * StringUtils.getDigits("abc")                = ""
-     * StringUtils.getDigits("1000$")              = "1000"
-     * StringUtils.getDigits("1123~45")            = "112345"
-     * StringUtils.getDigits("(541) 754-3010")     = "5417543010"
-     * StringUtils.getDigits("\u0967\u0968\u0969") = "\u0967\u0968\u0969"
-     * </pre>
-     *
-     * @param str the String to extract digits from, may be null.
-     * @return String with only digits, or an empty ("") String if no digits found, or {@code null} String if {@code str} is null.
-     * @since 3.6
-     */
+     /*@ 
+      ensures str == null ==> \result == null;
+      ensures str != null ==> (\forall int i; 0 <= i && i < \result.length(); Character.isDigit(\result.charAt(i)));
+      ensures str != null ==> \result.length() <= str.length();
+    @*/
     public static String getDigits(final String str) {
-        if (isEmpty(str)) {
-            return str;
-        }
+        if (str == null) return null;
+
         final int len = str.length();
-        final char[] buffer = new char[len];
-        int count = 0;
+        StringBuilder sb = new StringBuilder(len);
 
         for (int i = 0; i < len; i++) {
-            final char tempChar = str.charAt(i);
-            if (Character.isDigit(tempChar)) {
-                buffer[count++] = tempChar;
+            char c = str.charAt(i);
+            if (Character.isDigit(c)) {
+                sb.append(c);
             }
         }
-        return new String(buffer, 0, count);
+
+        return sb.toString();
     }
 
     /**
@@ -3514,28 +3483,13 @@ public class StringUtils {
         return true;
     }
 
-    /**
-     * Tests if a CharSequence is empty ("") or null.
-     *
-     * <pre>
-     * StringUtils.isEmpty(null)      = true
-     * StringUtils.isEmpty("")        = true
-     * StringUtils.isEmpty(" ")       = false
-     * StringUtils.isEmpty("bob")     = false
-     * StringUtils.isEmpty("  bob  ") = false
-     * </pre>
-     *
-     * <p>
-     * NOTE: This method changed in Lang version 2.0. It no longer trims the CharSequence. That functionality is available in isBlank().
-     * </p>
-     *
-     * @param cs the CharSequence to check, may be null.
-     * @return {@code true} if the CharSequence is empty or null.
-     * @since 3.0 Changed signature from isEmpty(String) to isEmpty(CharSequence)
-     */
+    /*@ 
+      ensures \result == (cs == null || cs.length() == 0); 
+    @*/
     public static boolean isEmpty(final CharSequence cs) {
         return cs == null || cs.length() == 0;
     }
+
 
     /**
      * Tests if the CharSequence contains mixed casing of both uppercase and lowercase characters.
