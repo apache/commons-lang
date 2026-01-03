@@ -754,14 +754,11 @@ public class NumberUtils {
         int decimalPoints = 0;
         boolean asciiNumeric = true;
         final int lastIndex = str.length() - 1;
-
         for (int i = beginIdx; i < str.length(); i++) {
             final char ch = str.charAt(i);
-
             if(i == lastIndex && (ch == 'f' || ch == 'F' || ch == 'd' || ch == 'D')){
                 return true;
             }
-
             final boolean isDecimalPoint = ch == '.';
             if (isDecimalPoint) {
                 decimalPoints++;
