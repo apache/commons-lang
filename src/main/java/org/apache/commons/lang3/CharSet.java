@@ -230,7 +230,6 @@ public class CharSet implements Serializable {
         }
     }
 
-    // Basics
     /**
      * Compares two {@link CharSet} objects, returning true if they represent
      * exactly the same set of characters defined in the same way.
