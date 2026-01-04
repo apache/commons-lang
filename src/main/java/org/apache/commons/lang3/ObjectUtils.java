@@ -539,7 +539,6 @@ public class ObjectUtils {
         return getIfNull(object, defaultValue);
     }
 
-    // Null-safe equals/hashCode
     /**
      * Compares two objects for equality, where either one or both
      * objects may be {@code null}.
