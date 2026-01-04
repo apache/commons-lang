@@ -152,14 +152,17 @@ public class StrSubstitutor {
      * Constant for the default escape character.
      */
     public static final char DEFAULT_ESCAPE = '$';
+
     /**
      * Constant for the default variable prefix.
      */
     public static final StrMatcher DEFAULT_PREFIX = StrMatcher.stringMatcher("${");
+
     /**
      * Constant for the default variable suffix.
      */
     public static final StrMatcher DEFAULT_SUFFIX = StrMatcher.stringMatcher("}");
+
     /**
      * Constant for the default value delimiter of a variable.
      *
@@ -179,6 +182,7 @@ public class StrSubstitutor {
     public static <V> String replace(final Object source, final Map<String, V> valueMap) {
         return new StrSubstitutor(valueMap).replace(source);
     }
+
     /**
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the map. This method allows to specify a
@@ -195,6 +199,7 @@ public class StrSubstitutor {
     public static <V> String replace(final Object source, final Map<String, V> valueMap, final String prefix, final String suffix) {
         return new StrSubstitutor(valueMap, prefix, suffix).replace(source);
     }
+
     /**
      * Replaces all the occurrences of variables in the given source object with their matching
      * values from the properties.
@@ -216,6 +221,7 @@ public class StrSubstitutor {
         }
         return replace(source, valueMap);
     }
+
     /**
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the system properties.
@@ -226,14 +232,17 @@ public class StrSubstitutor {
     public static String replaceSystemProperties(final Object source) {
         return new StrSubstitutor(StrLookup.systemPropertiesLookup()).replace(source);
     }
+
     /**
      * Stores the escape character.
      */
     private char escapeChar;
+
     /**
      * Stores the variable prefix.
      */
     private StrMatcher prefixMatcher;
+
     /**
      * Stores the variable suffix.
      */

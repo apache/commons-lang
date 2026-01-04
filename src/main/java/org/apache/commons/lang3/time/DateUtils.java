@@ -117,6 +117,7 @@ public class DateUtils {
      * Calendar modification types.
      */
     private enum ModifyType {
+
         /**
          * Truncation.
          */
@@ -177,6 +178,7 @@ public class DateUtils {
             {Calendar.MONTH, SEMI_MONTH},
             {Calendar.YEAR},
             {Calendar.ERA}};
+
     /**
      * A week range, starting on Sunday.
      */
@@ -1587,6 +1589,7 @@ public class DateUtils {
     public static Date setSeconds(final Date date, final int amount) {
         return set(date, Calendar.SECOND, amount);
     }
+
     /**
      * Sets the years field to a date returning a new object.
      * The original {@link Date} is unchanged.

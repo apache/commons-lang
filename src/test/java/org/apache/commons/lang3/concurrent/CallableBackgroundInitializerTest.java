@@ -31,11 +31,13 @@ import org.junit.jupiter.api.Test;
  * Test class for {@code CallableBackgroundInitializer}
  */
 class CallableBackgroundInitializerTest extends AbstractLangTest {
+
     /**
      * A test Callable implementation for checking the initializer's
      * implementation of the initialize() method.
      */
     private static final class TestCallable implements Callable<Integer> {
+
         /** A counter for the number of call() invocations. */
         int callCount;
 

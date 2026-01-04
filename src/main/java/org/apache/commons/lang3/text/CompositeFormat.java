@@ -42,6 +42,7 @@ public class CompositeFormat extends Format {
 
     /** The parser to use. */
     private final Format parser;
+
     /** The formatter to use. */
     private final Format formatter;
 

@@ -496,6 +496,7 @@ public abstract class ToStringStyle implements Serializable {
      * Serialization version ID.
      */
     private static final long serialVersionUID = -2587890625525655916L;
+
     /**
      * The default toString style. Using the {@code Person} example from {@link ToStringBuilder}, the output would look like this:
      *
@@ -504,6 +505,7 @@ public abstract class ToStringStyle implements Serializable {
      * </pre>
      */
     public static final ToStringStyle DEFAULT_STYLE = new DefaultToStringStyle();
+
     /**
      * The multi line toString style. Using the {@code Person} example from {@link ToStringBuilder}, the output would look like this:
      *
@@ -516,6 +518,7 @@ public abstract class ToStringStyle implements Serializable {
      * </pre>
      */
     public static final ToStringStyle MULTI_LINE_STYLE = new MultiLineToStringStyle();
+
     /**
      * The no field names toString style. Using the {@code Person} example from {@link ToStringBuilder}, the output would look like this:
      *
@@ -524,6 +527,7 @@ public abstract class ToStringStyle implements Serializable {
      * </pre>
      */
     public static final ToStringStyle NO_FIELD_NAMES_STYLE = new NoFieldNameToStringStyle();
+
     /**
      * The short prefix toString style. Using the {@code Person} example from {@link ToStringBuilder}, the output would look like this:
      *
@@ -534,6 +538,7 @@ public abstract class ToStringStyle implements Serializable {
      * @since 2.1
      */
     public static final ToStringStyle SHORT_PREFIX_STYLE = new ShortPrefixToStringStyle();
+
     /**
      * The simple toString style. Using the {@code Person} example from {@link ToStringBuilder}, the output would look like this:
      *
@@ -542,6 +547,7 @@ public abstract class ToStringStyle implements Serializable {
      * </pre>
      */
     public static final ToStringStyle SIMPLE_STYLE = new SimpleToStringStyle();
+
     /**
      * The no class name toString style. Using the {@code Person} example from {@link ToStringBuilder}, the output would look like this:
      *
@@ -552,6 +558,7 @@ public abstract class ToStringStyle implements Serializable {
      * @since 3.4
      */
     public static final ToStringStyle NO_CLASS_NAME_STYLE = new NoClassNameToStringStyle();
+
     /**
      * The JSON toString style. Using the {@code Person} example from {@link ToStringBuilder}, the output would look like this:
      *
@@ -567,6 +574,7 @@ public abstract class ToStringStyle implements Serializable {
      * @see <a href="https://www.json.org/">json.org</a>
      */
     public static final ToStringStyle JSON_STYLE = new JsonToStringStyle();
+
     /**
      * A registry of objects used by {@code reflectionToString} methods to detect cyclical object references and avoid infinite loops.
      */
@@ -632,78 +640,97 @@ public abstract class ToStringStyle implements Serializable {
      * Whether to use the field names, the default is {@code true}.
      */
     private boolean useFieldNames = true;
+
     /**
      * Whether to use the class name, the default is {@code true}.
      */
     private boolean useClassName = true;
+
     /**
      * Whether to use short class names, the default is {@code false}.
      */
     private boolean useShortClassName;
+
     /**
      * Whether to use the identity hash code, the default is {@code true}.
      */
     private boolean useIdentityHashCode = true;
+
     /**
      * The content start {@code '['}.
      */
     private String contentStart = "[";
+
     /**
      * The content end {@code ']'}.
      */
     private String contentEnd = "]";
+
     /**
      * The field name value separator {@code '='}.
      */
     private String fieldNameValueSeparator = "=";
+
     /**
      * Whether the field separator should be added before any other fields.
      */
     private boolean fieldSeparatorAtStart;
+
     /**
      * Whether the field separator should be added after any other fields.
      */
     private boolean fieldSeparatorAtEnd;
+
     /**
      * The field separator {@code ','}.
      */
     private String fieldSeparator = ",";
+
     /**
      * The array start <code>'{'</code>.
      */
     private String arrayStart = "{";
+
     /**
      * The array separator {@code ','}.
      */
     private String arraySeparator = ",";
+
     /**
      * The detail for array content.
      */
     private boolean arrayContentDetail = true;
+
     /**
      * The array end {@code '}'}.
      */
     private String arrayEnd = "}";
+
     /**
      * The value to use when fullDetail is {@code null}, the default value is {@code true}.
      */
     private boolean defaultFullDetail = true;
+
     /**
      * The {@code null} text {@code "<null>"}.
      */
     private String nullText = "<null>";
+
     /**
      * The summary size text start {@code "<size="}.
      */
     private String sizeStartText = "<size=";
+
     /**
      * The summary size text start {@code ">"}.
      */
     private String sizeEndText = ">";
+
     /**
      * The summary object text start {@code "<"}.
      */
     private String summaryObjectStartText = "<";
+
     /**
      * The summary object text start {@code ">"}.
      */

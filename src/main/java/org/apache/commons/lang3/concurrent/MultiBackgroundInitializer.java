@@ -106,6 +106,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
      * caused an exception.
      */
     public static class MultiBackgroundInitializerResults {
+
         /** A map with the child initializers. */
         private final Map<String, BackgroundInitializer<?>> initializers;
 

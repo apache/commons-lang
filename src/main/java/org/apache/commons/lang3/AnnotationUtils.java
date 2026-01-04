@@ -48,6 +48,7 @@ public class AnnotationUtils {
      * A style that prints annotations as recommended.
      */
     private static final ToStringStyle TO_STRING_STYLE = new ToStringStyle() {
+
         /** Serialization version */
         private static final long serialVersionUID = 1L;
 

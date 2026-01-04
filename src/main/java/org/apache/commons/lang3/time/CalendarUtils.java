@@ -113,6 +113,7 @@ public class CalendarUtils {
     public CalendarUtils(final Calendar calendar) {
         this(calendar, Locale.getDefault());
     }
+
     /**
      * Creates an instance for the given Calendar.
      *

@@ -109,6 +109,7 @@ public class Failable {
     public static <E extends Throwable> void accept(final FailableDoubleConsumer<E> consumer, final double value) {
         run(consumer, () -> consumer.accept(value));
     }
+
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *

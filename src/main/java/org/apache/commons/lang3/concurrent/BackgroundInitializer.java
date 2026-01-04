@@ -129,6 +129,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     }
 
     private final class InitializationTask implements Callable<T> {
+
         /** Stores the executor service to be destroyed at the end. */
         private final ExecutorService execFinally;
 

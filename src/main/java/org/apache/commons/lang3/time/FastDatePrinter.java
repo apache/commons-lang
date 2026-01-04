@@ -244,6 +244,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Inner class defining a numeric rule.
      */
     private interface NumberRule extends Rule {
+
         /**
          * Appends the specified value to the output buffer based on the rule implementation.
          *
@@ -307,6 +308,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Inner class defining a rule.
      */
     private interface Rule {
+
         /**
          * Appends the value of the specified calendar to the output buffer based on the rule implementation.
          *
@@ -356,6 +358,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return value.length();
         }
     }
+
     /**
      * Inner class to output one of a set of values.
      */
@@ -398,6 +401,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return max;
         }
     }
+
     /**
      * Inner class that acts as a compound key for time zone names.
      */
@@ -451,6 +455,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return (style * 31 + locale.hashCode()) * 31 + timeZone.hashCode();
         }
     }
+
     /**
      * Inner class to output a time zone name.
      */
@@ -495,6 +500,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return Math.max(standard.length(), daylight.length());
         }
     }
+
     /**
      * Inner class to output a time zone as a number {@code +/-HHMM}
      * or {@code +/-HH:MM}.

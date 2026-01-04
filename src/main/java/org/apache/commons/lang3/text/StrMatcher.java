@@ -42,6 +42,7 @@ public abstract class StrMatcher {
      * Class used to define a character for matching purposes.
      */
     static final class CharMatcher extends StrMatcher {
+
         /** The character to match. */
         private final char ch;
 
@@ -68,10 +69,12 @@ public abstract class StrMatcher {
             return ch == buffer[pos] ? 1 : 0;
         }
     }
+
     /**
      * Class used to define a set of characters for matching purposes.
      */
     static final class CharSetMatcher extends StrMatcher {
+
         /** The set of characters to match. */
         private final char[] chars;
 
@@ -98,6 +101,7 @@ public abstract class StrMatcher {
             return Arrays.binarySearch(chars, buffer[pos]) >= 0 ? 1 : 0;
         }
     }
+
     /**
      * Class used to match no characters.
      */
@@ -123,10 +127,12 @@ public abstract class StrMatcher {
             return 0;
         }
     }
+
     /**
      * Class used to define a set of characters for matching purposes.
      */
     static final class StringMatcher extends StrMatcher {
+
         /** The string to match, as a character array. */
         private final char[] chars;
 
@@ -168,6 +174,7 @@ public abstract class StrMatcher {
         }
 
     }
+
     /**
      * Class used to match whitespace as per trim().
      */
@@ -193,18 +200,22 @@ public abstract class StrMatcher {
             return buffer[pos] <= 32 ? 1 : 0;
         }
     }
+
     /**
      * Matches the comma character.
      */
     private static final StrMatcher COMMA_MATCHER = new CharMatcher(',');
+
     /**
      * Matches the tab character.
      */
     private static final StrMatcher TAB_MATCHER = new CharMatcher('\t');
+
     /**
      * Matches the space character.
      */
     private static final StrMatcher SPACE_MATCHER = new CharMatcher(' ');
+
     /**
      * Matches the same characters as StringTokenizer,
      * namely space, tab, newline, formfeed.

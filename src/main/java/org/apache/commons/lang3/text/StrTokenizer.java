@@ -124,6 +124,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     private static StrTokenizer getCSVClone() {
         return (StrTokenizer) CSV_TOKENIZER_PROTOTYPE.clone();
     }
+
     /**
      * Gets a new tokenizer instance which parses Comma Separated Value strings
      * initializing it with the given input.  The default for CSV processing
@@ -138,6 +139,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     public static StrTokenizer getCSVInstance() {
         return getCSVClone();
     }
+
     /**
      * Gets a new tokenizer instance which parses Comma Separated Value strings
      * initializing it with the given input.  The default for CSV processing
@@ -167,6 +169,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         tok.reset(input);
         return tok;
     }
+
     /**
      * Gets a clone of {@code TSV_TOKENIZER_PROTOTYPE}.
      *
@@ -217,6 +220,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         tok.reset(input);
         return tok;
     }
+
     /** The text to work on. */
     private char[] chars;
 

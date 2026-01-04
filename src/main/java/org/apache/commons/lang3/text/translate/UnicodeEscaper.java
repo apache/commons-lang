@@ -39,6 +39,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     public static UnicodeEscaper above(final int codePoint) {
         return outsideOf(0, codePoint);
     }
+
     /**
      * Constructs a {@link UnicodeEscaper} below the specified value (exclusive).
      *
@@ -48,6 +49,7 @@ public class UnicodeEscaper extends CodePointTranslator {
     public static UnicodeEscaper below(final int codePoint) {
         return outsideOf(codePoint, Integer.MAX_VALUE);
     }
+
     /**
      * Constructs a {@link UnicodeEscaper} between the specified values (inclusive).
      *

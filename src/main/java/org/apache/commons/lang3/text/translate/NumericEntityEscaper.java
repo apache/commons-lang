@@ -39,6 +39,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
     public static NumericEntityEscaper above(final int codePoint) {
         return outsideOf(0, codePoint);
     }
+
     /**
      * Constructs a {@link NumericEntityEscaper} below the specified value (exclusive).
      *
@@ -48,6 +49,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
     public static NumericEntityEscaper below(final int codePoint) {
         return outsideOf(codePoint, Integer.MAX_VALUE);
     }
+
     /**
      * Constructs a {@link NumericEntityEscaper} between the specified values (inclusive).
      *

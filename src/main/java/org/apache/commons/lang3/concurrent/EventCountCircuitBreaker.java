@@ -144,6 +144,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * if-then-else cascades.
      */
     private abstract static class AbstractStateStrategy {
+
         /**
          * Obtains the check interval to applied for the represented state from the given
          * {@link CircuitBreaker}.
@@ -186,6 +187,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * current check interval are stored.
      */
     private static final class CheckIntervalData {
+
         /** The counter for events. */
         private final int eventCount;
 
@@ -261,6 +263,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * A specialized {@link AbstractStateStrategy} implementation for the state open.
      */
     private static final class StateStrategyOpen extends AbstractStateStrategy {
+
         /**
          * {@inheritDoc}
          */

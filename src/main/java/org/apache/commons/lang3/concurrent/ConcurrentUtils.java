@@ -38,6 +38,7 @@ public class ConcurrentUtils {
      * @param <T> the type of the value wrapped by this class
      */
     static final class ConstantFuture<T> implements Future<T> {
+
         /** The constant value. */
         private final T value;
 

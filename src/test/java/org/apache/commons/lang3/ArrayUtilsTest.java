@@ -97,6 +97,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertNullPointerException(() -> ArrayUtils.arraycopy(arr, 0, 0, 1, Suppliers.nul()));
         assertNullPointerException(() -> ArrayUtils.arraycopy(arr, 0, 0, 1, (Supplier<String[]>) null));
     }
+
     /**
      * Tests generic array creation with parameters of same type.
      */

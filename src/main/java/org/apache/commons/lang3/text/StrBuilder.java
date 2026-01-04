@@ -89,8 +89,10 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Inner class to allow StrBuilder to operate as a reader.
      */
     final class StrBuilderReader extends Reader {
+
         /** The current stream position. */
         private int pos;
+
         /** The last mark position. */
         private int mark;
 
@@ -1660,6 +1662,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     public boolean contains(final StrMatcher matcher) {
         return indexOf(matcher, 0) >= 0;
     }
+
     /**
      * Deletes the characters between the two specified indices.
      *

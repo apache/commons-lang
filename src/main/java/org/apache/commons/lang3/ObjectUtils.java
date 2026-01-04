@@ -75,6 +75,7 @@ public class ObjectUtils {
      * </p>
      */
     public static class Null implements Serializable {
+
         /**
          * Required for serialization support. Declare serialization compatibility with Commons Lang 1.0
          *

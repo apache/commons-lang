@@ -23,6 +23,7 @@ package org.apache.commons.lang3.concurrent;
  * @since 3.5
  */
 public class CircuitBreakingException extends RuntimeException {
+
     /**
      * The serial version UID.
      */

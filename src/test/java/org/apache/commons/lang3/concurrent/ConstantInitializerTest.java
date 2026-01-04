@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
  * Test class for {@code ConstantInitializer}.
  */
 class ConstantInitializerTest extends AbstractLangTest {
+
     /** Constant for the object managed by the initializer. */
     private static final Integer VALUE = 42;
 

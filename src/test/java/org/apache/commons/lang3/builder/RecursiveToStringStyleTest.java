@@ -32,12 +32,14 @@ import org.junit.jupiter.api.Test;
 class RecursiveToStringStyleTest extends AbstractLangTest {
 
     static class Job {
+
         /**
          * Test String field.
          */
         String title;
     }
     static class Person {
+
         /**
          * Test String field.
          */
