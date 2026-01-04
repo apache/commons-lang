@@ -339,7 +339,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /** Our fast parser. */
     private final FastDateParser parser;
 
-    // Constructor
     /**
      * Constructs a new FastDateFormat.
      *
@@ -380,7 +379,6 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
         return printer.format(calendar, buf);
     }
 
-    // Basics
     /**
      * Compares two objects for equality.
      *
