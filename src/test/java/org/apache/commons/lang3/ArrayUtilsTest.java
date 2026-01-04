@@ -19,7 +19,6 @@ package org.apache.commons.lang3;
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -5536,7 +5535,24 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testShuffleNull() {
-        assertDoesNotThrow(() -> ArrayUtils.shuffle((byte[]) null));
+        ArrayUtils.shuffle((byte[]) null);
+        ArrayUtils.shuffle((byte[]) null, seededRandom());
+        ArrayUtils.shuffle((short[]) null);
+        ArrayUtils.shuffle((short[]) null, seededRandom());
+        ArrayUtils.shuffle((int[]) null);
+        ArrayUtils.shuffle((int[]) null, seededRandom());
+        ArrayUtils.shuffle((long[]) null);
+        ArrayUtils.shuffle((long[]) null, seededRandom());
+        ArrayUtils.shuffle((float[]) null);
+        ArrayUtils.shuffle((float[]) null, seededRandom());
+        ArrayUtils.shuffle((double[]) null);
+        ArrayUtils.shuffle((double[]) null, seededRandom());
+        ArrayUtils.shuffle((char[]) null);
+        ArrayUtils.shuffle((char[]) null, seededRandom());
+        ArrayUtils.shuffle((boolean[]) null);
+        ArrayUtils.shuffle((boolean[]) null, seededRandom());
+        ArrayUtils.shuffle((Object[]) null);
+        ArrayUtils.shuffle((Object[]) null, seededRandom());
     }
 
     @Test
