@@ -496,7 +496,6 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         return this.delimMatcher;
     }
 
-    // Ignored
     /**
      * Gets the ignored character matcher.
      * <p>
@@ -1044,7 +1043,6 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         return this;
     }
 
-    // API
     /**
      * Gets the number of tokens found in the String.
      *
