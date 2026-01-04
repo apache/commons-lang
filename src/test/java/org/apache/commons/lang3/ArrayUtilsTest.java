@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -5531,6 +5532,11 @@ class ArrayUtilsTest extends AbstractLangTest {
         for (final String element : array2) {
             assertTrue(ArrayUtils.contains(array1, element), () -> "Element " + element + " not found");
         }
+    }
+
+    @Test
+    void testShuffleNull() {
+        assertDoesNotThrow(() -> ArrayUtils.shuffle((byte[]) null));
     }
 
     @Test
