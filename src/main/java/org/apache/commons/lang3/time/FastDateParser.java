@@ -1092,7 +1092,6 @@ public class FastDateParser implements DateParser, Serializable {
         return parse(source, pos);
     }
 
-    // Serializing
     /**
      * Creates the object after serialization. This implementation reinitializes the transient properties.
      *
