@@ -238,7 +238,6 @@ final class CharRange implements Iterable<Character>, Serializable {
         this.negated = negated;
     }
 
-    // Contains
     /**
      * Is the character specified contained in this range.
      *
@@ -271,7 +270,6 @@ final class CharRange implements Iterable<Character>, Serializable {
         return start <= range.start && end >= range.end;
     }
 
-    // Basics
     /**
      * Compares two CharRange objects, returning true if they represent
      * exactly the same range of characters defined in the same way.
@@ -300,7 +298,6 @@ final class CharRange implements Iterable<Character>, Serializable {
         return this.end;
     }
 
-    // Accessors
     /**
      * Gets the start character for this character range.
      *
