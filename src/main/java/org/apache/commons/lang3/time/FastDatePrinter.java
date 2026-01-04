@@ -1098,7 +1098,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         return applyRules(c, new StringBuilder(maxLengthEstimate)).toString();
     }
 
-    // Basics
     /**
      * Compares two objects for equality.
      *
@@ -1324,7 +1323,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         return Calendar.getInstance(timeZone, locale);
     }
 
-    // Parse the pattern
     /**
      * Returns a list of Rules given a pattern.
      *
