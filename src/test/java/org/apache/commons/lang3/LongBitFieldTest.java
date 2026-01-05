@@ -14,44 +14,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
-public class LongBitFieldTest {
-
+class LongBitFieldTest {
+    /**
+     * test the getRawValue() and getValue() methods
+     */
     @Test
-    public void testGetValueAndRawValue() {
+    void testGetValueAndRawValue() {
         LongBitField field = new LongBitField(0xFF00L); // bits 8-15
         long holder = 0x1234L;
-
         // raw value: bits & mask
         assertEquals(0x1200L, field.getRawValue(holder));
         // shifted value: shifted right to LSB
         assertEquals(0x12L, field.getValue(holder));
     }
 
+    /**
+     * test the setValue() method
+     */
     @Test
-    public void testSetValue() {
+    void testSetValue() {
         LongBitField field = new LongBitField(0xFF00L); // bits 8-15
         long holder = 0x1200L;
         long result = field.setValue(holder, 0x34L); // replace bits 8-15 with 0x34
         assertEquals(0x3400L, result);
     }
 
+    /**
+     * test the set() method
+     */
     @Test
-    public void testSet() {
+    void testSet() {
         LongBitField field = new LongBitField(0x1000L); // bit 12
         long holder = 0x0000L;
         long result = field.set(holder);
         assertEquals(0x1000L, result);
     }
 
+    /**
+     * test the setBoolean() method
+     */
     @Test
-    public void testSetBoolean() {
+    void testSetBoolean() {
         LongBitField field = new LongBitField(0x1000L); // bit 12
         long holder = 0x0000L;
 
@@ -62,8 +70,11 @@ public class LongBitFieldTest {
         assertEquals(0x0000L, setFalse);
     }
 
+    /**
+     * test the isSet() and isAllSet() methods
+     */
     @Test
-    public void testIsSetAndIsAllSet() {
+    void testIsSetAndIsAllSet() {
         LongBitField field1 = new LongBitField(0x3000L); // bits 12-13
         long holder = 0x3000L;
         assertTrue(field1.isSet(holder));
@@ -73,25 +84,21 @@ public class LongBitFieldTest {
         assertTrue(field1.isSet(holderPartial));
         assertFalse(field1.isAllSet(holderPartial));
     }
-
     @Test
-    public void testEdgeCases() {
+    void testEdgeCases() {
         LongBitField field = new LongBitField(0x1L); // bit 0
         assertEquals(1L, field.set(0L));
         assertEquals(0L, field.clear(1L));
-
         LongBitField highField = new LongBitField(0x8000000000000000L); // highest bit
         assertEquals(0x8000000000000000L, highField.set(0L));
         assertEquals(0L, highField.clear(0x8000000000000000L));
     }
-
     @Test
-    public void testMultipleBits() {
+    void testMultipleBits() {
         LongBitField field = new LongBitField(0xF0F0L); // multiple bits
         long holder = 0xAAAA;
         long newValue = 0x55;
         long result = field.setValue(holder, newValue);
         assertEquals((holder & ~0xF0F0L) | (newValue << 4 & 0xF0F0L), result);
     }
-
 }

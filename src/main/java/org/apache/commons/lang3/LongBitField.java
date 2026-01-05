@@ -25,24 +25,29 @@ package org.apache.commons.lang3;
  * For instance, the mask {@code 0xFFL} indicates the least-significant byte
  * should be used to store the data.</p>
  *
- * <p>Using these {@link LongBitField} instances, a long value can encode multiple fields:</p>
+ * <p>As an example, consider a system that encodes multiple flags and values
+ * into a single {@code long}. Bit fields can be used to encode this:</p>
  *
  * <pre>
- *     LongBitField low8  = new LongBitField(0xFFL);
- *     LongBitField mid8  = new LongBitField(0xFF00L);
- *     LongBitField high8 = new LongBitField(0xFF0000L);
+ *     LongBitField low  = new LongBitField(0xFFL);
+ *     LongBitField mid  = new LongBitField(0xFF00L);
+ *     LongBitField high = new LongBitField(0xFF0000L);
  *
  *     long value = 0L;
- *     value = low8.setValue(value, 0x12);
- *     value = mid8.setValue(value, 0x34);
- *     value = high8.setValue(value, 0x56);
- *
- *     System.out.println(low8.getValue(value));  // 0x12
- *     System.out.println(mid8.getValue(value));  // 0x34
- *     System.out.println(high8.getValue(value)); // 0x56
+ *     value = low.setValue(value, 18);
+ *     value = mid.setValue(value, 52);
+ *     value = high.setValue(value, 86);
  * </pre>
  *
- * @since 3.13 (example)
+ * <p>Flags and data can be retrieved from the {@code long} value:</p>
+ *
+ * <pre>
+ *     low.getValue(value);   // 18
+ *     mid.getValue(value);   // 52
+ *     high.getValue(value);  // 86
+ * </pre>
+ *
+ * @since 3.14.0
  */
 public class LongBitField {
 
@@ -54,7 +59,7 @@ public class LongBitField {
      *
      * @param mask the mask specifying which bits apply to this
      *  LongBitField. Bits that are set in this mask are the bits
-     *  that this LongBitField operates on
+     *  that this LongBitField operates on.
      */
     public LongBitField(final long mask) {
         this.mask = mask;
@@ -64,28 +69,28 @@ public class LongBitField {
     /**
      * Clears the bits.
      *
-     * @param holder the long data containing the bits we're interested in
-     * @return the value of holder with the specified bits cleared (set to {@code 0})
+     * @param holder the long data containing the bits we're interested in.
+     * @return the value of holder with the specified bits cleared (set to {@code 0}).
      */
     public long clear(final long holder) {
         return holder & ~mask;
     }
 
     /**
-     * Obtains the value for the specified LongBitField, unshifted.
+     * Gets the raw value for this bit field from the given holder.
      *
-     * @param holder the long data containing the bits
-     * @return the selected bits
+     * @param holder the long data containing the bits.
+     * @return the selected bits.
      */
     public long getRawValue(final long holder) {
         return holder & mask;
     }
 
     /**
-     * Obtains the value for the specified LongBitField, appropriately shifted right.
+     * Gets the value for this bit field from the given holder.
      *
-     * @param holder the long data containing the bits
-     * @return the selected bits, shifted right appropriately
+     * @param holder the long data containing the bits.
+     * @return the selected bits, shifted right appropriately.
      */
     public long getValue(final long holder) {
         return getRawValue(holder) >> shiftCount;
@@ -94,8 +99,8 @@ public class LongBitField {
     /**
      * Tests whether all of the bits are set or not.
      *
-     * @param holder the long data containing the bits
-     * @return {@code true} if all bits in the mask are set
+     * @param holder the long data containing the bits.
+     * @return {@code true} if all bits in the mask are set.
      */
     public boolean isAllSet(final long holder) {
         return (holder & mask) == mask;
@@ -104,18 +109,18 @@ public class LongBitField {
     /**
      * Tests whether any bit in the field is set.
      *
-     * @param holder the long data containing the bits
-     * @return {@code true} if any bit in the mask is set
+     * @param holder the long data containing the bits.
+     * @return {@code true} if any bit in the mask is set.
      */
     public boolean isSet(final long holder) {
         return (holder & mask) != 0;
     }
 
     /**
-     * Sets the bits.
+     * Sets the bits defined by this bit field.
      *
-     * @param holder the long data containing the bits
-     * @return the value of holder with the specified bits set to {@code 1}
+     * @param holder the long data containing the bits.
+     * @return the value of holder with the specified bits set to {@code 1}.
      */
     public long set(final long holder) {
         return holder | mask;
@@ -124,20 +129,20 @@ public class LongBitField {
     /**
      * Sets a boolean LongBitField.
      *
-     * @param holder the long data containing the bits
-     * @param flag whether to set or clear the bits
-     * @return the value of holder with the specified bits set or cleared
+     * @param holder the long data containing the bits.
+     * @param flag whether to set or clear the bits.
+     * @return the value of holder with the specified bits set or cleared.
      */
     public long setBoolean(final long holder, final boolean flag) {
         return flag ? set(holder) : clear(holder);
     }
 
     /**
-     * Replaces the bits with new values.
+     * Sets the value of this bit field in the given holder.
      *
-     * @param holder the long data containing the bits
-     * @param value the new value for the specified bits
-     * @return the value of holder with the bits from the value parameter replacing the old bits
+     * @param holder the long data containing the bits.
+     * @param value the new value for the specified bits.
+     * @return the value of holder with the bits from the value parameter replacing the old bits.
      */
     public long setValue(final long holder, final long value) {
         return holder & ~mask | (value << shiftCount) & mask;
