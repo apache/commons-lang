@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- * https://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -169,7 +169,6 @@ class PairTest extends AbstractLangTest {
 
             @Override
             public int hashCode() {
-                // FIXED FOR LANG-1760: Use Objects.hash to match Pair distribution
                 return Objects.hash(getKey(), getValue());
             }
 
@@ -201,7 +200,6 @@ class PairTest extends AbstractLangTest {
             }
             @Override
             public int hashCode() {
-                // FIXED FOR LANG-1760: Use Objects.hash to match Pair distribution
                 return Objects.hash(getKey(), getValue());
             }
 
@@ -254,6 +252,7 @@ class PairTest extends AbstractLangTest {
         assertEquals(pair, entry);
         // REMOVED FOR LANG-1760: Pair hash now diverges from standard JDK Map.Entry XOR hash
         // assertEquals(pair.hashCode(), entry.hashCode());
+
         // LANG-1736:
         map.clear();
         map.put(0, "value1");
@@ -283,10 +282,10 @@ class PairTest extends AbstractLangTest {
         assertEquals(entry.getKey(), pair.getLeft());
         assertEquals(entry.getValue(), pair.getRight());
         assertEquals(entry, pair);
-        // REMOVED FOR LANG-1760: Pair hash now diverges from SimpleEntry XOR hash
+        // REMOVED FOR LANG-1760: Diverges from SimpleEntry XOR hash
         // assertEquals(entry.hashCode(), pair.hashCode());
         assertEquals(pair, entry);
-        // REMOVED FOR LANG-1760: Pair hash now diverges from SimpleEntry XOR hash
+        // REMOVED FOR LANG-1760: Diverges from SimpleEntry XOR hash
         // assertEquals(pair.hashCode(), entry.hashCode());
     }
 
@@ -328,5 +327,4 @@ class PairTest extends AbstractLangTest {
         final Pair<String, Calendar> pair = Pair.of("DOB", date);
         assertEquals("Test created on 04-25-2011", pair.toString("Test created on %2$tm-%2$td-%2$tY"));
     }
-
 }
