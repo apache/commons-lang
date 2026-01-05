@@ -747,5 +747,20 @@ class FastDateParserTest extends AbstractLangTest {
             }
         }
     }
+
+    // Test case for # PR1543
+    @Test
+    public void testISO8601TimezoneWithAndWithoutColon() throws Exception {
+        final FastDateParser parser =
+            new FastDateParser(
+                "yyyy-MM-dd'T'HH:mm:ssXXX",
+                TimeZone.getTimeZone("UTC"),
+                Locale.US
+            );
+
+        // Both ISO-8601 timezone formats are supported
+        parser.parse("2025-01-01T10:00:00+05:30");
+        parser.parse("2025-01-01T10:00:00+0530");
+    }
 }
 
