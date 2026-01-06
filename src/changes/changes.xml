@@ -91,6 +91,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1805" type="fix" dev="ggregory" due-to="Gary Gregory, jher235">Speedup StringUtils.join(AllPrimitiveTypes[], char, int, int), see StringUtilsJoinBenchmark, based on #1532. Also better StringBuilder allocation</action>
     <action issue="LANG-1749" type="fix" dev="ggregory" due-to="jinwoo choi, Gary Gregory, YuMing Ma, Ivan Šarić">TypeUtils.isAssignable returns a wrong result for ParameterizedType when raw class is "Class" #1548.</action>
     <action issue="LANG-1700" type="fix" dev="ggregory" due-to="seokhyeon moon, Gary Gregory, Ivan Šarić">Improve handling of parameterized types and variable unrolling.</action>
+    <action issue="LANG-1811" type="fix" dev="ggregory" due-to="Raju Gupta, Gary Gregory">ArrayUtils.shuffle() throws NullPointerException for null array input.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>

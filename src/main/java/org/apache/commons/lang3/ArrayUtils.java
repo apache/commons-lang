@@ -7428,14 +7428,16 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle.
-     * @param random the source of randomness used to permute the elements.
+     * @param array  the array to shuffle, no-op if {@code null}.
+     * @param random the source of randomness used to permute the elements, no-op if {@code null}.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
     public static void shuffle(final boolean[] array, final Random random) {
-        for (int i = array.length; i > 1; i--) {
-            swap(array, i - 1, random.nextInt(i), 1);
+        if (array != null && random != null) {
+            for (int i = array.length; i > 1; i--) {
+                swap(array, i - 1, random.nextInt(i), 1);
+            }
         }
     }
 
@@ -7462,14 +7464,16 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle.
-     * @param random the source of randomness used to permute the elements.
+     * @param array  the array to shuffle, no-op if {@code null}.
+     * @param random the source of randomness used to permute the elements, no-op if {@code null}.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
     public static void shuffle(final byte[] array, final Random random) {
-        for (int i = array.length; i > 1; i--) {
-            swap(array, i - 1, random.nextInt(i), 1);
+        if (array != null && random != null) {
+            for (int i = array.length; i > 1; i--) {
+                swap(array, i - 1, random.nextInt(i), 1);
+            }
         }
     }
 
@@ -7496,14 +7500,16 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle.
-     * @param random the source of randomness used to permute the elements.
+     * @param array  the array to shuffle, no-op if {@code null}.
+     * @param random the source of randomness used to permute the elements, no-op if {@code null}.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
     public static void shuffle(final char[] array, final Random random) {
-        for (int i = array.length; i > 1; i--) {
-            swap(array, i - 1, random.nextInt(i), 1);
+        if (array != null && random != null) {
+            for (int i = array.length; i > 1; i--) {
+                swap(array, i - 1, random.nextInt(i), 1);
+            }
         }
     }
 
@@ -7530,14 +7536,16 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle.
-     * @param random the source of randomness used to permute the elements.
+     * @param array  the array to shuffle, no-op if {@code null}.
+     * @param random the source of randomness used to permute the elements, no-op if {@code null}.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
     public static void shuffle(final double[] array, final Random random) {
-        for (int i = array.length; i > 1; i--) {
-            swap(array, i - 1, random.nextInt(i), 1);
+        if (array != null && random != null) {
+            for (int i = array.length; i > 1; i--) {
+                swap(array, i - 1, random.nextInt(i), 1);
+            }
         }
     }
 
@@ -7564,14 +7572,16 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle.
-     * @param random the source of randomness used to permute the elements.
+     * @param array  the array to shuffle, no-op if {@code null}.
+     * @param random the source of randomness used to permute the elements, no-op if {@code null}.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
     public static void shuffle(final float[] array, final Random random) {
-        for (int i = array.length; i > 1; i--) {
-            swap(array, i - 1, random.nextInt(i), 1);
+        if (array != null && random != null) {
+            for (int i = array.length; i > 1; i--) {
+                swap(array, i - 1, random.nextInt(i), 1);
+            }
         }
     }
 
@@ -7598,14 +7608,16 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle.
-     * @param random the source of randomness used to permute the elements.
+     * @param array  the array to shuffle, no-op if {@code null}.
+     * @param random the source of randomness used to permute the elements, no-op if {@code null}.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
     public static void shuffle(final int[] array, final Random random) {
-        for (int i = array.length; i > 1; i--) {
-            swap(array, i - 1, random.nextInt(i), 1);
+        if (array != null && random != null) {
+            for (int i = array.length; i > 1; i--) {
+                swap(array, i - 1, random.nextInt(i), 1);
+            }
         }
     }
 
@@ -7632,14 +7644,16 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle.
-     * @param random the source of randomness used to permute the elements.
+     * @param array  the array to shuffle, no-op if {@code null}.
+     * @param random the source of randomness used to permute the elements, no-op if {@code null}.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
     public static void shuffle(final long[] array, final Random random) {
-        for (int i = array.length; i > 1; i--) {
-            swap(array, i - 1, random.nextInt(i), 1);
+        if (array != null && random != null) {
+            for (int i = array.length; i > 1; i--) {
+                swap(array, i - 1, random.nextInt(i), 1);
+            }
         }
     }
 
@@ -7666,14 +7680,16 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle.
-     * @param random the source of randomness used to permute the elements.
+     * @param array  the array to shuffle, no-op if {@code null}.
+     * @param random the source of randomness used to permute the elements, no-op if {@code null}.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
     public static void shuffle(final Object[] array, final Random random) {
-        for (int i = array.length; i > 1; i--) {
-            swap(array, i - 1, random.nextInt(i), 1);
+        if (array != null && random != null) {
+            for (int i = array.length; i > 1; i--) {
+                swap(array, i - 1, random.nextInt(i), 1);
+            }
         }
     }
 
@@ -7700,14 +7716,16 @@ public class ArrayUtils {
      * Shuffles randomly the elements of the specified array using the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle
      * algorithm</a>.
      *
-     * @param array  the array to shuffle.
-     * @param random the source of randomness used to permute the elements.
+     * @param array  the array to shuffle, no-op if {@code null}.
+     * @param random the source of randomness used to permute the elements, no-op if {@code null}.
      * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a>
      * @since 3.6
      */
     public static void shuffle(final short[] array, final Random random) {
-        for (int i = array.length; i > 1; i--) {
-            swap(array, i - 1, random.nextInt(i), 1);
+        if (array != null && random != null) {
+            for (int i = array.length; i > 1; i--) {
+                swap(array, i - 1, random.nextInt(i), 1);
+            }
         }
     }
 
