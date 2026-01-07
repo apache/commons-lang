@@ -101,6 +101,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
          * @return a new configured {@link ReflectionDiffBuilder}.
          */
         public ReflectionDiffBuilder<T> build() {
+
             return new ReflectionDiffBuilder<>(diffBuilder, excludeFieldNames);
         }
 
@@ -275,5 +276,4 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         this.excludeFieldNames = toExcludeFieldNames(excludeFieldNames);
         return this;
     }
-
 }
