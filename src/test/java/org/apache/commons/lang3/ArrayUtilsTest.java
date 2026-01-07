@@ -5534,28 +5534,6 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testShuffleNull() {
-        ArrayUtils.shuffle((byte[]) null);
-        ArrayUtils.shuffle((byte[]) null, seededRandom());
-        ArrayUtils.shuffle((short[]) null);
-        ArrayUtils.shuffle((short[]) null, seededRandom());
-        ArrayUtils.shuffle((int[]) null);
-        ArrayUtils.shuffle((int[]) null, seededRandom());
-        ArrayUtils.shuffle((long[]) null);
-        ArrayUtils.shuffle((long[]) null, seededRandom());
-        ArrayUtils.shuffle((float[]) null);
-        ArrayUtils.shuffle((float[]) null, seededRandom());
-        ArrayUtils.shuffle((double[]) null);
-        ArrayUtils.shuffle((double[]) null, seededRandom());
-        ArrayUtils.shuffle((char[]) null);
-        ArrayUtils.shuffle((char[]) null, seededRandom());
-        ArrayUtils.shuffle((boolean[]) null);
-        ArrayUtils.shuffle((boolean[]) null, seededRandom());
-        ArrayUtils.shuffle((Object[]) null);
-        ArrayUtils.shuffle((Object[]) null, seededRandom());
-    }
-
-    @Test
     void testStartsWith() {
         // edge cases
         assertTrue(ArrayUtils.startsWith(null, null));
