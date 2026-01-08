@@ -61,9 +61,28 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
         Job job;
     }
 
+    static enum Status {
+        QUEUED,
+        FINISHED;
+    };
+
+    static class Event {
+        Status status;
+        String message;
+    };
+
+    /**
+     * Making class that has an enum in a recursive position.
+     * i.e. the enum is a part of the Event object.
+     */
+    static class Thing {
+        String desc;
+        Event event;
+    };
+
     private final Integer base = Integer.valueOf(5);
 
-    private final String baseStr = base.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(base));
+    private final String baseStr = buildClassId(base);
 
     @BeforeEach
     public void setUp() {
@@ -73,6 +92,10 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
     @AfterEach
     public void tearDown() {
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
+    }
+
+    private static String buildClassId(Object obj) {
+        return obj.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(obj));
     }
 
     @Test
@@ -156,10 +179,21 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
         p.smoker = false;
         p.job = new Job();
         p.job.title = "Manager";
-        final String baseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
-        final String jobStr  = p.job.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p.job));
-        assertEquals(baseStr + "[age=33,job=" + jobStr + "[title=Manager],name=John Doe,smoker=false]",
+        assertEquals(buildClassId(p) + "[age=33,job=" + buildClassId(p.job) + "[title=Manager],name=John Doe,smoker=false]",
                      new ReflectionToStringBuilder(p, new RecursiveToStringStyle()).toString());
     }
 
+    @Test
+    void testEnum() {
+        Thing thing = new Thing();
+        thing.desc = "my thing";
+        Event event = new Event();
+        event.message = "cool";
+        event.status = Status.FINISHED;
+        thing.event = event;
+    
+        String expected = buildClassId(thing) + "[desc=my thing,event=" + buildClassId(event) + "[message=cool,status=FINISHED]]";
+        String result = new ReflectionToStringBuilder(thing, new RecursiveToStringStyle()).toString();
+        assertEquals(expected, result);
+    }
 }
