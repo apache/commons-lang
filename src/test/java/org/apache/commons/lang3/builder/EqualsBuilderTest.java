@@ -29,14 +29,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link org.apache.commons.lang3.builder.EqualsBuilder}.
  */
-class EqualsBuilderTest extends AbstractLangTest {
+class EqualsBuilderTest extends AbstractBuilderTest {
 
     public static class TestACanEqualB {
         private final int a;
@@ -579,7 +578,7 @@ class EqualsBuilderTest extends AbstractLangTest {
         x3.setObjectReference(refX3);
         refX3.setObjectReference(x3);
 
-        assertEquals(x1, x2);
+        assertTrueIfAccessible(x1.equals(x2));
         assertNotEquals(x1, x3);
         assertNotEquals(x2, x3);
     }
@@ -1069,7 +1068,7 @@ class EqualsBuilderTest extends AbstractLangTest {
         final TestRecursiveObject oNull = new TestRecursiveObject(null, null, 2);
 
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1A, o1A).isEquals());
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1A, o1B).isEquals());
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(o1A, o1B).isEquals());
 
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1A, o2).isEquals());
 
@@ -1092,10 +1091,10 @@ class EqualsBuilderTest extends AbstractLangTest {
         o2.setCycle(i2);
 
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1A, o1A).isEquals());
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1A, o1B).isEquals());
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(o1A, o1B).isEquals());
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1A, o2).isEquals());
 
-        assertTrue(EqualsBuilder.reflectionEquals(o1A, o1B, false, null, true));
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(o1A, o1B, false, null, true));
         assertFalse(EqualsBuilder.reflectionEquals(o1A, o2, false, null, true));
     }
 
@@ -1106,7 +1105,7 @@ class EqualsBuilderTest extends AbstractLangTest {
         final TestRecursiveCycleObject o2 = new TestRecursiveCycleObject(2);
 
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1A, o1A).isEquals());
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1A, o1B).isEquals());
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(o1A, o1B).isEquals());
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1A, o2).isEquals());
     }
 
@@ -1116,8 +1115,8 @@ class EqualsBuilderTest extends AbstractLangTest {
         final TestRecursiveGenericObject<Integer> o1B = new TestRecursiveGenericObject<>(1);
         final TestRecursiveGenericObject<Integer> o2 = new TestRecursiveGenericObject<>(2);
 
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1A, o1B).isEquals());
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1B, o1A).isEquals());
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(o1A, o1B).isEquals());
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(o1B, o1A).isEquals());
 
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1B, o2).isEquals());
     }
@@ -1133,8 +1132,8 @@ class EqualsBuilderTest extends AbstractLangTest {
         // To trigger bug reported in LANG-1356, call hashCode only on string in instance o1_a
         s1A.hashCode();
 
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1A, o1B).isEquals());
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1B, o1A).isEquals());
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(o1A, o1B).isEquals());
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(o1B, o1A).isEquals());
 
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1B, o2).isEquals());
     }
@@ -1176,7 +1175,7 @@ class EqualsBuilderTest extends AbstractLangTest {
         assertFalse(new EqualsBuilder().reflectionAppend(o1, o2).reflectionAppend(o1, o1).build());
 
         o2.setA(4);
-        assertTrue(new EqualsBuilder().reflectionAppend(o1, o2).build());
+        assertTrueIfAccessible(new EqualsBuilder().reflectionAppend(o1, o2).build());
 
         assertFalse(new EqualsBuilder().reflectionAppend(o1, this).build());
 
@@ -1214,7 +1213,7 @@ class EqualsBuilderTest extends AbstractLangTest {
         assertTrue(EqualsBuilder.reflectionEquals(o1, o1));
         assertFalse(EqualsBuilder.reflectionEquals(o1, o2));
         o2.setA(4);
-        assertTrue(EqualsBuilder.reflectionEquals(o1, o2));
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(o1, o2));
 
         assertFalse(EqualsBuilder.reflectionEquals(o1, this));
 
@@ -1251,12 +1250,10 @@ class EqualsBuilderTest extends AbstractLangTest {
         // reflection test
         assertTrue(EqualsBuilder.reflectionEquals(to, to, testTransients));
         assertTrue(EqualsBuilder.reflectionEquals(to2, to2, testTransients));
-
         // symmetry test
-        assertTrue(EqualsBuilder.reflectionEquals(to, toBis, testTransients) && EqualsBuilder.reflectionEquals(toBis, to, testTransients));
-
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(to, toBis, testTransients) && EqualsBuilder.reflectionEquals(toBis, to, testTransients));
         // transitive test
-        assertTrue(
+        assertEquals(accessibleFlag(),
                 EqualsBuilder.reflectionEquals(to, toBis, testTransients)
                         && EqualsBuilder.reflectionEquals(toBis, toTer, testTransients)
                         && EqualsBuilder.reflectionEquals(to, toTer, testTransients));
@@ -1266,8 +1263,8 @@ class EqualsBuilderTest extends AbstractLangTest {
         if (oToChange instanceof TestSubObject) {
             ((TestSubObject) oToChange).setB(((TestSubObject) to).getB());
         }
-        assertTrue(EqualsBuilder.reflectionEquals(oToChange, to, testTransients));
-        assertTrue(EqualsBuilder.reflectionEquals(oToChange, to, testTransients));
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(oToChange, to, testTransients));
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(oToChange, to, testTransients));
         oToChange.setA(to.getA() + 1);
         if (oToChange instanceof TestSubObject) {
             ((TestSubObject) oToChange).setB(((TestSubObject) to).getB() + 1);
@@ -1301,7 +1298,7 @@ class EqualsBuilderTest extends AbstractLangTest {
         assertFalse(EqualsBuilder.reflectionEquals(x1, x2, "three"));
 
         // equal if both differing fields excluded
-        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, "two", "three"));
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(x1, x2, "two", "three"));
 
         // still equal as long as both differing fields are among excluded
         assertTrue(EqualsBuilder.reflectionEquals(x1, x2, "one", "two", "three"));
@@ -1318,8 +1315,8 @@ class EqualsBuilderTest extends AbstractLangTest {
         testReflectionHierarchyEquals(false);
         testReflectionHierarchyEquals(true);
         // Transients
-        assertTrue(EqualsBuilder.reflectionEquals(new TestTTLeafObject(1, 2, 3, 4), new TestTTLeafObject(1, 2, 3, 4), true));
-        assertTrue(EqualsBuilder.reflectionEquals(new TestTTLeafObject(1, 2, 3, 4), new TestTTLeafObject(1, 2, 3, 4), false));
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(new TestTTLeafObject(1, 2, 3, 4), new TestTTLeafObject(1, 2, 3, 4), true));
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(new TestTTLeafObject(1, 2, 3, 4), new TestTTLeafObject(1, 2, 3, 4), false));
         assertFalse(EqualsBuilder.reflectionEquals(new TestTTLeafObject(1, 0, 0, 4), new TestTTLeafObject(1, 2, 3, 4), true));
         assertFalse(EqualsBuilder.reflectionEquals(new TestTTLeafObject(1, 2, 3, 4), new TestTTLeafObject(1, 2, 3, 0), true));
         assertFalse(EqualsBuilder.reflectionEquals(new TestTTLeafObject(0, 2, 3, 4), new TestTTLeafObject(1, 2, 3, 4), true));
@@ -1346,7 +1343,7 @@ class EqualsBuilderTest extends AbstractLangTest {
 
         // same values
         assertTrue(EqualsBuilder.reflectionEquals(ttlo, ttlo, testTransients));
-        assertTrue(EqualsBuilder.reflectionEquals(new TestSubObject(1, 10), new TestSubObject(1, 10), testTransients));
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(new TestSubObject(1, 10), new TestSubObject(1, 10), testTransients));
         // same super values, diff sub values
         assertFalse(EqualsBuilder.reflectionEquals(new TestSubObject(1, 10), new TestSubObject(1, 11), testTransients));
         assertFalse(EqualsBuilder.reflectionEquals(new TestSubObject(1, 11), new TestSubObject(1, 10), testTransients));
@@ -1355,17 +1352,17 @@ class EqualsBuilderTest extends AbstractLangTest {
         assertFalse(EqualsBuilder.reflectionEquals(new TestSubObject(1, 10), new TestSubObject(0, 10), testTransients));
 
         // mix super and sub types: equals
-        assertTrue(EqualsBuilder.reflectionEquals(to1, teso, testTransients));
-        assertTrue(EqualsBuilder.reflectionEquals(teso, to1, testTransients));
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(to1, teso, testTransients));
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(teso, to1, testTransients));
 
-        assertTrue(EqualsBuilder.reflectionEquals(to1, ttso, false)); // Force testTransients = false for this assert
-        assertTrue(EqualsBuilder.reflectionEquals(ttso, to1, false)); // Force testTransients = false for this assert
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(to1, ttso, false)); // Force testTransients = false for this assert
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(ttso, to1, false)); // Force testTransients = false for this assert
 
-        assertTrue(EqualsBuilder.reflectionEquals(to1, tttso, false)); // Force testTransients = false for this assert
-        assertTrue(EqualsBuilder.reflectionEquals(tttso, to1, false)); // Force testTransients = false for this assert
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(to1, tttso, false)); // Force testTransients = false for this assert
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(tttso, to1, false)); // Force testTransients = false for this assert
 
-        assertTrue(EqualsBuilder.reflectionEquals(ttso, tttso, false)); // Force testTransients = false for this assert
-        assertTrue(EqualsBuilder.reflectionEquals(tttso, ttso, false)); // Force testTransients = false for this assert
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(ttso, tttso, false)); // Force testTransients = false for this assert
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(tttso, ttso, false)); // Force testTransients = false for this assert
 
         // mix super and sub types: NOT equals
         assertFalse(EqualsBuilder.reflectionEquals(new TestObject(0), new TestEmptySubObject(1), testTransients));
@@ -1462,7 +1459,7 @@ class EqualsBuilderTest extends AbstractLangTest {
         one = new TestObjectEqualsExclude(1, 2);
         two = new TestObjectEqualsExclude(2, 2);
 
-        assertTrue(EqualsBuilder.reflectionEquals(one, two));
+        assertTrueIfAccessible(EqualsBuilder.reflectionEquals(one, two));
     }
 
     /**

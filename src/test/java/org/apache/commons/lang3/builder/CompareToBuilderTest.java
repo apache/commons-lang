@@ -24,13 +24,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.math.BigInteger;
 import java.util.Objects;
 
-import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link CompareToBuilder}.
  */
-class CompareToBuilderTest extends AbstractLangTest {
+class CompareToBuilderTest extends AbstractBuilderTest {
 
     static class TestObject implements Comparable<TestObject> {
         private int a;
@@ -114,9 +113,10 @@ class CompareToBuilderTest extends AbstractLangTest {
      * @param z an object to compare
      * @param testTransients Whether to include transients in the comparison
      * @param excludeFields fields to exclude
+     * @param expectAccessibleFactor Whether accessibility is expected.
      */
-    private void assertReflectionCompareContract(final Object x, final Object y, final Object z, final boolean testTransients, final String[] excludeFields) {
-
+    private void assertReflectionCompareContract(final Object x, final Object y, final Object z, final boolean testTransients, final String[] excludeFields,
+            final boolean expectAccessibleFactor) {
         // signum
         assertEquals(reflectionCompareSignum(x, y, testTransients, excludeFields), -reflectionCompareSignum(y, x, testTransients, excludeFields));
 
@@ -132,7 +132,14 @@ class CompareToBuilderTest extends AbstractLangTest {
         }
 
         // strongly recommended but not strictly required
-        assertTrue(CompareToBuilder.reflectionCompare(x, y, testTransients) == 0 == EqualsBuilder.reflectionEquals(x, y, testTransients));
+        // assertTrue(CompareToBuilder.reflectionCompare(x, y, testTransients) == 0 == EqualsBuilder.reflectionEquals(x, y, testTransients));
+        //assertTrueIfAccessible(CompareToBuilder.reflectionCompare(x, y, testTransients) == 0 == EqualsBuilder.reflectionEquals(x, y, testTransients));
+        final boolean actual = CompareToBuilder.reflectionCompare(x, y, testTransients) == 0 == EqualsBuilder.reflectionEquals(x, y, testTransients);
+        if (accessibleFlag()) {
+            assertEqualsIfAccessible(expectAccessibleFactor, actual);
+        } else {
+            assertEqualsIfAccessible(accessibleFlag() || expectAccessibleFactor, actual);
+        }
     }
 
     private void assertXYZCompareOrder(final Object x, final Object y, final Object z, final boolean testTransients, final String[] excludeFields) {
@@ -140,13 +147,13 @@ class CompareToBuilderTest extends AbstractLangTest {
         assertEquals(0, CompareToBuilder.reflectionCompare(y, y, testTransients, null, excludeFields));
         assertEquals(0, CompareToBuilder.reflectionCompare(z, z, testTransients, null, excludeFields));
 
-        assertTrue(0 > CompareToBuilder.reflectionCompare(x, y, testTransients, null, excludeFields));
-        assertTrue(0 > CompareToBuilder.reflectionCompare(x, z, testTransients, null, excludeFields));
-        assertTrue(0 > CompareToBuilder.reflectionCompare(y, z, testTransients, null, excludeFields));
+        assertTrueIfAccessible(0 > CompareToBuilder.reflectionCompare(x, y, testTransients, null, excludeFields));
+        assertTrueIfAccessible(0 > CompareToBuilder.reflectionCompare(x, z, testTransients, null, excludeFields));
+        assertTrueIfAccessible(0 > CompareToBuilder.reflectionCompare(y, z, testTransients, null, excludeFields));
 
-        assertTrue(0 < CompareToBuilder.reflectionCompare(y, x, testTransients, null, excludeFields));
-        assertTrue(0 < CompareToBuilder.reflectionCompare(z, x, testTransients, null, excludeFields));
-        assertTrue(0 < CompareToBuilder.reflectionCompare(z, y, testTransients, null, excludeFields));
+        assertTrueIfAccessible(0 < CompareToBuilder.reflectionCompare(y, x, testTransients, null, excludeFields));
+        assertTrueIfAccessible(0 < CompareToBuilder.reflectionCompare(z, x, testTransients, null, excludeFields));
+        assertTrueIfAccessible(0 < CompareToBuilder.reflectionCompare(z, y, testTransients, null, excludeFields));
     }
 
     /**
@@ -1022,8 +1029,8 @@ class CompareToBuilderTest extends AbstractLangTest {
         assertEquals(0, CompareToBuilder.reflectionCompare(o1, o1));
         assertEquals(0, CompareToBuilder.reflectionCompare(o1, o2));
         o2.setA(5);
-        assertTrue(CompareToBuilder.reflectionCompare(o1, o2) < 0);
-        assertTrue(CompareToBuilder.reflectionCompare(o2, o1) > 0);
+        assertTrueIfAccessible(CompareToBuilder.reflectionCompare(o1, o2) < 0);
+        assertTrueIfAccessible(CompareToBuilder.reflectionCompare(o2, o1) > 0);
     }
 
     @Test
@@ -1052,14 +1059,14 @@ class CompareToBuilderTest extends AbstractLangTest {
         final TestSubObject tso2 = new TestSubObject(2, 2);
         final TestSubObject tso3 = new TestSubObject(3, 3);
 
-        assertReflectionCompareContract(to1, to1, to1, false, excludeFields);
-        assertReflectionCompareContract(to1, to2, to3, false, excludeFields);
-        assertReflectionCompareContract(tso1, tso1, tso1, false, excludeFields);
-        assertReflectionCompareContract(tso1, tso2, tso3, false, excludeFields);
-        assertReflectionCompareContract("1", "2", "3", false, excludeFields);
+        assertReflectionCompareContract(to1, to1, to1, false, excludeFields, accessibleFlag());
+        assertReflectionCompareContract(to1, to2, to3, false, excludeFields, true);
+        assertReflectionCompareContract(tso1, tso1, tso1, false, excludeFields, accessibleFlag());
+        assertReflectionCompareContract(tso1, tso2, tso3, false, excludeFields, true);
+        assertReflectionCompareContract("1", "2", "3", false, excludeFields, true);
 
-        assertTrue(0 != CompareToBuilder.reflectionCompare(tso1, new TestSubObject(1, 0), testTransients));
-        assertTrue(0 != CompareToBuilder.reflectionCompare(tso1, new TestSubObject(0, 1), testTransients));
+        assertTrueIfAccessible(0 != CompareToBuilder.reflectionCompare(tso1, new TestSubObject(1, 0), testTransients));
+        assertTrueIfAccessible(0 != CompareToBuilder.reflectionCompare(tso1, new TestSubObject(0, 1), testTransients));
 
         // root class
         assertXYZCompareOrder(to1, to2, to3, true, null);
