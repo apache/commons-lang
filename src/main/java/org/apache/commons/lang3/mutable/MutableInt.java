@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * A mutable {@code int} wrapper.
  * <p>
- * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link AtomicInteger} class.
+ * This class was created before the introduction of the {@link java.util.concurrent.atomic} package and the {@link AtomicInteger} class.
  * </p>
  * <p>
  * Note that as MutableInt does not extend {@link Integer}, it is not treated by {@link String#format(String, Object...)} as an Integer parameter.

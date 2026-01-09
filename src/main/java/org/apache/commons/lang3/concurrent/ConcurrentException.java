@@ -30,6 +30,7 @@ import java.util.concurrent.ExecutionException;
  * @since 3.0
  */
 public class ConcurrentException extends Exception {
+
     /**
      * The serial version UID.
      */

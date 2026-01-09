@@ -55,7 +55,7 @@ public class TypeUtils {
         private final Type componentType;
 
         /**
-         * Constructor
+         * Constructs a new instance.
          *
          * @param componentType of this array type.
          */
@@ -107,7 +107,7 @@ public class TypeUtils {
         private final Type[] typeArguments;
 
         /**
-         * Constructor
+         * Constructs a new instance.
          *
          * @param rawClass      type.
          * @param useOwner      owner type to use, if any.
@@ -229,7 +229,7 @@ public class TypeUtils {
         private final Type[] lowerBounds;
 
         /**
-         * Constructor
+         * Constructs a new instance.
          *
          * @param upperBounds of this type.
          * @param lowerBounds of this type.
@@ -328,9 +328,9 @@ public class TypeUtils {
     }
 
     private static void appendRecursiveTypes(final StringBuilder builder, final int[] recursiveTypeIndexes, final Type[] argumentTypes) {
-        for (int i = 0; i < recursiveTypeIndexes.length; i++) {
-            // toString() or SO
-            GT_JOINER.join(builder, argumentTypes[i].toString());
+        for (final Type type : argumentTypes) {
+            // toString() or you get a SO
+            GT_JOINER.join(builder, Objects.toString(type));
         }
         final Type[] argumentsFiltered = ArrayUtils.removeAll(argumentTypes, recursiveTypeIndexes);
         if (argumentsFiltered.length > 0) {
@@ -841,7 +841,19 @@ public class TypeUtils {
             return typeVarAssigns;
         }
         // walk the inheritance hierarchy until the target class is reached
-        return getTypeArguments(getClosestParentType(cls, toClass), toClass, typeVarAssigns);
+        final Type parentType = getClosestParentType(cls, toClass);
+        if (parentType instanceof ParameterizedType) {
+            final ParameterizedType parameterizedParentType = (ParameterizedType) parentType;
+            final Type[] parentTypeArgs = parameterizedParentType.getActualTypeArguments().clone();
+            for (int i = 0; i < parentTypeArgs.length; i++) {
+                final Type unrolled = unrollVariables(typeVarAssigns, parentTypeArgs[i]);
+                if (unrolled != null) {
+                    parentTypeArgs[i] = unrolled;
+                }
+            }
+            return getTypeArguments(parameterizeWithOwner(parameterizedParentType.getOwnerType(), (Class<?>) parameterizedParentType.getRawType(), parentTypeArgs), toClass, typeVarAssigns);
+        }
+        return getTypeArguments(parentType, toClass, typeVarAssigns);
     }
 
     /**
@@ -1080,6 +1092,17 @@ public class TypeUtils {
         }
         // get the target type's type arguments including owner type arguments
         final Map<TypeVariable<?>, Type> toTypeVarAssigns = getTypeArguments(toParameterizedType, toClass, typeVarAssigns);
+        // Class<T> is not assignable to Class<S> if T is not S (even if T extends S)
+        if (toClass.equals(Class.class)) {
+            final TypeVariable<?>[] typeParams = toClass.getTypeParameters();
+            if (typeParams.length > 0) {
+                final Type toTypeArg = unrollVariableAssignments(typeParams[0], toTypeVarAssigns);
+                final Type fromTypeArg = unrollVariableAssignments(typeParams[0], fromTypeVarAssigns);
+                if (toTypeArg != null && (fromTypeArg == null || !toTypeArg.equals(fromTypeArg))) {
+                    return false;
+                }
+            }
+        }
         // now to check each type argument
         for (final TypeVariable<?> var : toTypeVarAssigns.keySet()) {
             final Type toTypeArg = unrollVariableAssignments(var, toTypeVarAssigns);
@@ -1661,9 +1684,17 @@ public class TypeUtils {
         if (typeArguments == null) {
             typeArguments = Collections.emptyMap();
         }
+        return unrollVariables(typeArguments, type, new HashSet<>());
+    }
+
+    private static Type unrollVariables(final Map<TypeVariable<?>, Type> typeArguments, final Type type, final Set<TypeVariable<?>> visited) {
         if (containsTypeVariables(type)) {
             if (type instanceof TypeVariable<?>) {
-                return unrollVariables(typeArguments, typeArguments.get(type));
+                final TypeVariable<?> var = (TypeVariable<?>) type;
+                if (!visited.add(var)) {
+                    return var;
+                }
+                return unrollVariables(typeArguments, typeArguments.get(type), visited);
             }
             if (type instanceof ParameterizedType) {
                 final ParameterizedType p = (ParameterizedType) type;
@@ -1674,9 +1705,9 @@ public class TypeUtils {
                     parameterizedTypeArguments = new HashMap<>(typeArguments);
                     parameterizedTypeArguments.putAll(getTypeArguments(p));
                 }
-                final Type[] args = p.getActualTypeArguments();
+                final Type[] args = p.getActualTypeArguments().clone();
                 for (int i = 0; i < args.length; i++) {
-                    final Type unrolled = unrollVariables(parameterizedTypeArguments, args[i]);
+                    final Type unrolled = unrollVariables(parameterizedTypeArguments, args[i], visited);
                     if (unrolled != null) {
                         args[i] = unrolled;
                     }

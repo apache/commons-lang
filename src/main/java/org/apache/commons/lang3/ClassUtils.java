@@ -383,10 +383,9 @@ public class ClassUtils {
      * @param cls the class to look up, may be {@code null}.
      * @param interfacesFound the {@link Set} of interfaces for the class.
      */
-    private static void getAllInterfaces(Class<?> cls, final HashSet<Class<?>> interfacesFound) {
+    private static void getAllInterfaces(Class<?> cls, final Set<Class<?>> interfacesFound) {
         while (cls != null) {
-            final Class<?>[] interfaces = cls.getInterfaces();
-            for (final Class<?> i : interfaces) {
+            for (final Class<?> i : cls.getInterfaces()) {
                 if (interfacesFound.add(i)) {
                     getAllInterfaces(i, interfacesFound);
                 }
@@ -397,6 +396,11 @@ public class ClassUtils {
 
     /**
      * Gets a {@link List} of superclasses for the given class.
+     *
+     * <ol>
+     * <li>The first entry is the superclass of the given class.</li>
+     * <li>The last entry is {@link Object}'s class.</li>
+     * </ol>
      *
      * @param cls the class to look up, may be {@code null}.
      * @return the {@link List} of superclasses in order going up from this one {@code null} if null input.

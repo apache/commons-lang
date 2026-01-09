@@ -23,7 +23,7 @@ Before you push a pull request, review this list:
 
 - [ ] Read the [contribution guidelines](CONTRIBUTING.md) for this project.
 - [ ] Read the [ASF Generative Tooling Guidance](https://www.apache.org/legal/generative-tooling.html) if you use Artificial Intelligence (AI).
-- [ ] I used AI to create any part of, or all of, this pull request.
+- [ ] I used AI to create any part of, or all of, this pull request. Which AI tool was used to create this pull request, and to what extent did it contribute?
 - [ ] Run a successful build using the default [Maven](https://maven.apache.org/) goal with `mvn`; that's `mvn` on the command line by itself.
 - [ ] Write unit tests that match behavioral changes, where the tests fail if the changes to the runtime are not applied. This may not always be possible, but it is a best practice.
 - [ ] Write a pull request description that is detailed enough to understand what the pull request does, how, and why.

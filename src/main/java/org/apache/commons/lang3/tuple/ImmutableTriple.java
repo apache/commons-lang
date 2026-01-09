@@ -117,6 +117,7 @@ public class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     /** Left object. */
 
     public final L left;
+
     /** Middle object. */
     public final M middle;
 

@@ -1700,7 +1700,7 @@ class StrBuilderTest extends AbstractLangTest {
         // End index greater than length()
         assertIndexOutOfBoundsException(() -> sb.subSequence(2, sb.length() + 1));
 
-        // Start index greater then end index
+        // Start index greater than end index
         assertIndexOutOfBoundsException(() -> sb.subSequence(3, 2));
 
         // Normal cases

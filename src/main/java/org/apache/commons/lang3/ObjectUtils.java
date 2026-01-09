@@ -75,6 +75,7 @@ public class ObjectUtils {
      * </p>
      */
     public static class Null implements Serializable {
+
         /**
          * Required for serialization support. Declare serialization compatibility with Commons Lang 1.0
          *
@@ -539,7 +540,6 @@ public class ObjectUtils {
         return getIfNull(object, defaultValue);
     }
 
-    // Null-safe equals/hashCode
     /**
      * Compares two objects for equality, where either one or both
      * objects may be {@code null}.
@@ -740,8 +740,8 @@ public class ObjectUtils {
      * ObjectUtils.hashCodeMulti()                 = 1
      * ObjectUtils.hashCodeMulti((Object[]) null)  = 1
      * ObjectUtils.hashCodeMulti(a)                = 31 + a.hashCode()
-     * ObjectUtils.hashCodeMulti(a,b)              = (31 + a.hashCode()) * 31 + b.hashCode()
-     * ObjectUtils.hashCodeMulti(a,b,c)            = ((31 + a.hashCode()) * 31 + b.hashCode()) * 31 + c.hashCode()
+     * ObjectUtils.hashCodeMulti(a, b)             = (31 + a.hashCode()) * 31 + b.hashCode()
+     * ObjectUtils.hashCodeMulti(a, b, c)          = ((31 + a.hashCode()) * 31 + b.hashCode()) * 31 + c.hashCode()
      * </pre>
      *
      * @param objects the objects to obtain the hash code of, may be {@code null}.
@@ -1022,10 +1022,10 @@ public class ObjectUtils {
      * @param values the set of comparable values, may be null.
      * @return
      *         <ul>
-     *         <li>If any objects are non-null and unequal, the greater object.
-     *         <li>If all objects are non-null and equal, the first.
-     *         <li>If any of the comparables are null, the greater of the non-null objects.
-     *         <li>If all the comparables are null, null is returned.
+     *         <li>If any objects are non-null and unequal, the greater object.</li>
+     *         <li>If all objects are non-null and equal, the first.</li>
+     *         <li>If any of the comparables are null, the greater of the non-null objects.</li>
+     *         <li>If all the comparables are null, null is returned.</li>
      *         </ul>
      */
     @SafeVarargs
@@ -1092,10 +1092,10 @@ public class ObjectUtils {
      * @param values the set of comparable values, may be null
      * @return
      *         <ul>
-     *         <li>If any objects are non-null and unequal, the lesser object.
-     *         <li>If all objects are non-null and equal, the first.
-     *         <li>If any of the comparables are null, the lesser of the non-null objects.
-     *         <li>If all the comparables are null, null is returned.
+     *         <li>If any objects are non-null and unequal, the lesser object.</li>
+     *         <li>If all objects are non-null and equal, the first.</li>
+     *         <li>If any of the comparables are null, the lesser of the non-null objects.</li>
+     *         <li>If all the comparables are null, null is returned.</li>
      *         </ul>
      */
     @SafeVarargs

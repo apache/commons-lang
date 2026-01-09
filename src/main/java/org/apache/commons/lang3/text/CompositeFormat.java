@@ -25,6 +25,7 @@ import java.text.ParsePosition;
  * Formats using one formatter and parses using a different formatter. An
  * example of use for this would be a webapp where data is taken in one way and
  * stored in a database another way.
+ *
  * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/CompositeFormat.html">
  * CompositeFormat</a>.
@@ -41,6 +42,7 @@ public class CompositeFormat extends Format {
 
     /** The parser to use. */
     private final Format parser;
+
     /** The formatter to use. */
     private final Format formatter;
 

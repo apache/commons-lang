@@ -39,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * Test class for {@link ConcurrentUtils}.
  */
 class ConcurrentUtilsTest extends AbstractLangTest {
+
     /**
      * Tests constant future.
      *

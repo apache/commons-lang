@@ -206,6 +206,13 @@ public enum JavaVersion {
     JAVA_26(26, "26"),
 
     /**
+     * Java 27.
+     *
+     * @since 3.21.0
+     */
+    JAVA_27(27, "27"),
+
+    /**
      * The most recent Java version. Mainly introduced to avoid to break when a new version of Java is used.
      */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
@@ -213,8 +220,8 @@ public enum JavaVersion {
     /**
      * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
      *
-     * @param versionStr the Java version as string
-     * @return the corresponding enumeration constant or <strong>null</strong> if the version is unknown
+     * @param versionStr the Java version as string.
+     * @return the corresponding enumeration constant or <strong>null</strong> if the version is unknown.
      */
     static JavaVersion get(final String versionStr) {
         if (versionStr == null) {
@@ -273,6 +280,10 @@ public enum JavaVersion {
             return JAVA_24;
         case "25":
             return JAVA_25;
+        case "26":
+            return JAVA_26;
+        case "27":
+            return JAVA_27;
         default:
             final float v = toFloatVersion(versionStr);
             if (v - 1. < 1.) { // then we need to check decimals > .9
@@ -291,8 +302,8 @@ public enum JavaVersion {
     /**
      * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
      *
-     * @param versionStr the Java version as string
-     * @return the corresponding enumeration constant or <strong>null</strong> if the version is unknown
+     * @param versionStr the Java version as string.
+     * @return the corresponding enumeration constant or <strong>null</strong> if the version is unknown.
      */
     static JavaVersion getJavaVersion(final String versionStr) {
         return get(versionStr);
@@ -343,8 +354,8 @@ public enum JavaVersion {
     /**
      * Constructs a new instance.
      *
-     * @param value the float value
-     * @param name  the standard name, not null
+     * @param value the float value.
+     * @param name  the standard name, not null.
      */
     JavaVersion(final float value, final String name) {
         this.value = value;
@@ -363,8 +374,8 @@ public enum JavaVersion {
      * myVersion.atLeast(JavaVersion.JAVA_1_8)
      * }</pre>
      *
-     * @param requiredVersion the version to check against, not null
-     * @return true if this version is equal to or greater than the specified version
+     * @param requiredVersion the version to check against, not null.
+     * @return true if this version is equal to or greater than the specified version.
      */
     public boolean atLeast(final JavaVersion requiredVersion) {
         return this.value >= requiredVersion.value;
@@ -382,8 +393,8 @@ public enum JavaVersion {
      * myVersion.atMost(JavaVersion.JAVA_1_4)
      * }</pre>
      *
-     * @param requiredVersion the version to check against, not null
-     * @return true if this version is equal to or greater than the specified version
+     * @param requiredVersion the version to check against, not null.
+     * @return true if this version is equal to or greater than the specified version.
      * @since 3.9
      */
     public boolean atMost(final JavaVersion requiredVersion) {
@@ -397,7 +408,7 @@ public enum JavaVersion {
      * For example, {@code "1.5"}.
      * </p>
      *
-     * @return the name, not null
+     * @return the name, not null.
      */
     @Override
     public String toString() {

@@ -34,9 +34,11 @@ public class ConcurrentUtils {
 
     /**
      * A specialized {@link Future} implementation which wraps a constant value.
+     *
      * @param <T> the type of the value wrapped by this class
      */
     static final class ConstantFuture<T> implements Future<T> {
+
         /** The constant value. */
         private final T value;
 
@@ -78,7 +80,7 @@ public class ConcurrentUtils {
 
         /**
          * {@inheritDoc} This implementation always returns <strong>false</strong>; there
-         * is no background process which could be cancelled.
+         * is no background process which could be canceled.
          */
         @Override
         public boolean isCancelled() {

@@ -38,7 +38,7 @@ public final class DoubleRange extends NumberRange<Double> {
      * </p>
      *
      * <p>
-     * The arguments may be passed in the order (min,max) or (max,min). The getMinimum and getMaximum methods will return the correct values.
+     * The arguments may be passed in the order (min, max) or (max,min). The getMinimum and getMaximum methods will return the correct values.
      * </p>
      *
      * @param fromInclusive the first value that defines the edge of the range, inclusive.
@@ -57,7 +57,7 @@ public final class DoubleRange extends NumberRange<Double> {
      * </p>
      *
      * <p>
-     * The arguments may be passed in the order (min,max) or (max,min). The getMinimum and getMaximum methods will return the correct values.
+     * The arguments may be passed in the order (min, max) or (max,min). The getMinimum and getMaximum methods will return the correct values.
      * </p>
      *
      * @param fromInclusive the first value that defines the edge of the range, inclusive.

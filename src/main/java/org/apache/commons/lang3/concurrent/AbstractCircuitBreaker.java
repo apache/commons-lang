@@ -38,6 +38,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
 
         /** The closed state. */
         CLOSED {
+
             /**
              * {@inheritDoc}
              */
@@ -49,6 +50,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
 
         /** The open state. */
         OPEN {
+
             /**
              * {@inheritDoc}
              */

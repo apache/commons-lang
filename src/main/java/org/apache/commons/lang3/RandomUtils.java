@@ -70,13 +70,13 @@ import org.apache.commons.lang3.exception.UncheckedException;
  */
 public class RandomUtils {
 
-    private static RandomUtils INSECURE = new RandomUtils(ThreadLocalRandom::current);
+    private static final RandomUtils INSECURE = new RandomUtils(ThreadLocalRandom::current);
 
-    private static RandomUtils SECURE = new RandomUtils(SecureRandom::new);
+    private static final RandomUtils SECURE = new RandomUtils(SecureRandom::new);
 
     private static final Supplier<Random> SECURE_STRONG_SUPPLIER = () -> RandomUtils.SECURE_RANDOM_STRONG.get();
 
-    private static RandomUtils SECURE_STRONG = new RandomUtils(SECURE_STRONG_SUPPLIER);
+    private static final RandomUtils SECURE_STRONG = new RandomUtils(SECURE_STRONG_SUPPLIER);
 
     private static final ThreadLocal<SecureRandom> SECURE_RANDOM_STRONG = ThreadLocal.withInitial(() -> {
         try {
@@ -88,8 +88,7 @@ public class RandomUtils {
 
     /**
      * Gets the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not cryptographically
-     * secure</b>; use {@link #secure()} to use an algorithms/providers specified in the
-     * {@code securerandom.strongAlgorithms} {@link Security} property.
+     * secure</b>; for more secure processing use {@link #secure()} or {@link #secureStrong()}.
      * <p>
      * The method {@link ThreadLocalRandom#current()} is called on-demand.
      * </p>
@@ -97,6 +96,7 @@ public class RandomUtils {
      * @return the singleton instance based on {@link ThreadLocalRandom#current()}.
      * @see ThreadLocalRandom#current()
      * @see #secure()
+     * @see #secureStrong()
      * @since 3.17.0
      */
     public static RandomUtils insecure() {
@@ -174,7 +174,7 @@ public class RandomUtils {
      * @param startInclusive the smallest value that can be returned, must be non-negative.
      * @param endExclusive   the upper bound (not included).
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
-     * @return the random float
+     * @return the random float.
      * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -309,7 +309,7 @@ public class RandomUtils {
      *
      * @param count the size of the returned array.
      * @return the random byte array.
-     * @throws IllegalArgumentException if {@code count} is negative
+     * @throws IllegalArgumentException if {@code count} is negative.
      * @since 3.16.0
      */
     public byte[] randomBytes(final int count) {
@@ -336,7 +336,7 @@ public class RandomUtils {
      * @param startInclusive the smallest value that can be returned, must be non-negative.
      * @param endExclusive   the upper bound (not included).
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
-     * @return the random double
+     * @return the random double.
      * @since 3.16.0
      */
     public double randomDouble(final double startInclusive, final double endExclusive) {
@@ -366,6 +366,7 @@ public class RandomUtils {
      * @param endExclusive   the upper bound (not included).
      * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
      * @return the random float.
+     * @since 3.16.0
      */
     public float randomFloat(final float startInclusive, final float endExclusive) {
         Validate.isTrue(endExclusive >= startInclusive, "Start value must be smaller or equal to end value.");

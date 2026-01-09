@@ -32,6 +32,7 @@ package org.apache.commons.lang3.concurrent;
  * @since 3.0
  */
 public class ConcurrentRuntimeException extends RuntimeException {
+
     /**
      * The serial version UID.
      */

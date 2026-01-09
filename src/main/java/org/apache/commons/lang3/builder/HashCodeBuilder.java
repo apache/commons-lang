@@ -103,6 +103,7 @@ import org.apache.commons.lang3.Validate;
  * @since 1.0
  */
 public class HashCodeBuilder implements Builder<Integer> {
+
     /**
      * The default initial value to use in reflection hash code building.
      */

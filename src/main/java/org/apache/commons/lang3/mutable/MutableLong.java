@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * A mutable {@code long} wrapper.
  * <p>
- * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link AtomicLong} class.
+ * This class was created before the introduction of the {@link java.util.concurrent.atomic} package and the {@link AtomicLong} class.
  * </p>
  * <p>
  * Note that as MutableLong does not extend {@link Long}, it is not treated by {@link String#format(String, Object...)} as a Long parameter.

@@ -25,7 +25,6 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 import org.apache.commons.lang3.AbstractLangTest;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -34,11 +33,11 @@ class ComparableUtilsTest extends AbstractLangTest {
     @Nested
     final class A_is_1 {
 
-        @DisplayName("B is 0 (B < A)")
+        /** B is 0 (B < A) */
         @Nested
         final class B_is_0 {
 
-            @DisplayName("C is 0 ([B=C] < A)")
+            /** C is 0 ([B=C] < A) */
             @Nested
             final class C_is_0 {
 
@@ -66,7 +65,7 @@ class ComparableUtilsTest extends AbstractLangTest {
 
             }
 
-            @DisplayName("C is 1 (B < A = C)")
+            /** C is 1 (B < A = C) */
             @Nested
             final class C_is_1 {
 
@@ -93,7 +92,7 @@ class ComparableUtilsTest extends AbstractLangTest {
                 }
             }
 
-            @DisplayName("C is 10 (B < A < C)")
+            /** C is 10 (B < A < C) */
             @Nested
             final class C_is_10 {
 
@@ -168,11 +167,11 @@ class ComparableUtilsTest extends AbstractLangTest {
             }
         }
 
-        @DisplayName("B is 1 (B = A)")
+        /** B is 1 (B = A) */
         @Nested
         final class B_is_1 {
 
-            @DisplayName("C is 0 (B = A > C)")
+            /** C is 0 (B = A > C) */
             @Nested
             final class C_is_0 {
 
@@ -199,7 +198,7 @@ class ComparableUtilsTest extends AbstractLangTest {
                 }
             }
 
-            @DisplayName("C is 1 (B = A = C)")
+            /** C is 1 (B = A = C) */
             @Nested
             final class C_is_1 {
 
@@ -226,7 +225,7 @@ class ComparableUtilsTest extends AbstractLangTest {
                 }
             }
 
-            @DisplayName("C is 10 (B = A < C)")
+            /** C is 10 (B = A < C) */
             @Nested
             final class C_is_10 {
 
@@ -301,11 +300,11 @@ class ComparableUtilsTest extends AbstractLangTest {
             }
         }
 
-        @DisplayName("B is 10 (B > A)")
+        /** B is 10 (B > A) */
         @Nested
         final class B_is_10 {
 
-            @DisplayName("C is 0 (B > A > C)")
+            /** C is 0 (B > A > C) */
             @Nested
             final class C_is_0 {
 
@@ -332,7 +331,7 @@ class ComparableUtilsTest extends AbstractLangTest {
                 }
             }
 
-            @DisplayName("C is 1 (B > A = C)")
+            /** C is 1 (B > A = C) */
             @Nested
             final class C_is_1 {
 
@@ -359,7 +358,7 @@ class ComparableUtilsTest extends AbstractLangTest {
                 }
             }
 
-            @DisplayName("C is 10 ([B,C] > A)")
+            /** C is 10 ([B,C] > A) */
             @Nested
             final class C_is_10 {
 

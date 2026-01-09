@@ -47,9 +47,11 @@ import java.util.concurrent.atomic.AtomicLong;
  * </pre>
  *
  * <p>#Thread safe#</p>
+ *
  * @since 3.5
  */
 public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
+
     /**
      * The initial value of the internal counter.
      */

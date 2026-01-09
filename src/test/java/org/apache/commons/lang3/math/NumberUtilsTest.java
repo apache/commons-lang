@@ -1013,7 +1013,9 @@ class NumberUtilsTest extends AbstractLangTest {
         assertFalse(NumberUtils.isParsable("pendro"));
         assertFalse(NumberUtils.isParsable("64, 2"));
         assertFalse(NumberUtils.isParsable("64.2.2"));
-        assertFalse(NumberUtils.isParsable("64."));
+        assertFalse(NumberUtils.isParsable("64.."));
+        assertTrue(NumberUtils.isParsable("64."));
+        assertTrue(NumberUtils.isParsable("-64."));
         assertFalse(NumberUtils.isParsable("64L"));
         assertFalse(NumberUtils.isParsable("-"));
         assertFalse(NumberUtils.isParsable("--2"));
@@ -1025,6 +1027,33 @@ class NumberUtilsTest extends AbstractLangTest {
         assertTrue(NumberUtils.isParsable("-018"));
         assertTrue(NumberUtils.isParsable("-018.2"));
         assertTrue(NumberUtils.isParsable("-.236"));
+        assertTrue(NumberUtils.isParsable("2."));
+        // TODO assertTrue(NumberUtils.isParsable("2.f"));
+        // TODO assertTrue(NumberUtils.isParsable("2.d"));
+        // Float.parseFloat("1.2e-5f")
+        // TODO assertTrue(NumberUtils.isParsable("1.2e-5f"));
+        // Double.parseDouble("1.2e-5d")
+        // TODO assertTrue(NumberUtils.isParsable("1.2e-5d"));
+    }
+
+    /**
+     * Tests https://issues.apache.org/jira/browse/LANG-1729
+     *
+     * See https://bugs.openjdk.org/browse/JDK-8326627
+     *
+     * <blockquote>From https://docs.oracle.com/javase%2F9%2Fdocs%2Fapi%2F%2F/java/lang/Float.html#valueOf-java.lang.String-,
+     * https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.2, and https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-Digits,
+     * fullwidth Unicode digits are not applicable. Moved to JDK as an enhancement.</blockquote>
+     */
+    @Test
+    void testIsParsableFullWidthUnicodeJDK8326627() {
+        // 123 in fullwidth Unicode digits
+        final String fullWidth123 = "\uFF10\uFF11\uFF12";
+        assertThrows(NumberFormatException.class, () -> Double.parseDouble(fullWidth123));
+        assertThrows(NumberFormatException.class, () -> Float.parseFloat(fullWidth123));
+        assertTrue(NumberUtils.isParsable(fullWidth123));
+        assertFalse(NumberUtils.isParsable(fullWidth123 + ".0"));
+        assertFalse(NumberUtils.isParsable("0." + fullWidth123));
     }
 
     @Test
@@ -1057,18 +1086,24 @@ class NumberUtilsTest extends AbstractLangTest {
     @Test
     void testLang1729IsParsableDouble() {
         assertTrue(isParsableDouble("1"));
+        assertTrue(isParsableDouble("1."));
+        // TODO assertTrue(isParsableDouble("1.f"));
+        // TODO assertTrue(isParsableDouble("1.d"));
+        assertTrue(isParsableDouble("1.0"));
+        assertFalse(isParsableDouble("1.0."));
         assertFalse(isParsableDouble("1 2 3"));
-        // TODO Expected to be fixed in Java 23
-        // assertTrue(isParsableDouble("１２３"));
         assertFalse(isParsableDouble("１ ２ ３"));
     }
 
     @Test
     void testLang1729IsParsableFloat() {
         assertTrue(isParsableFloat("1"));
+        assertTrue(isParsableFloat("1."));
+        // TODO assertTrue(isParsableFloat("1.f"));
+        // TODO assertTrue(isParsableFloat("1.d"));
+        assertTrue(isParsableFloat("1.0"));
+        assertFalse(isParsableFloat("1.0."));
         assertFalse(isParsableFloat("1 2 3"));
-        // TODO Expected to be fixed in Java 23
-        // assertTrue(isParsableFloat("１２３"));
         assertFalse(isParsableFloat("１ ２ ３"));
     }
 
@@ -1205,16 +1240,11 @@ class NumberUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxDouble() {
-        final double[] d = null;
-        assertNullPointerException(() -> NumberUtils.max(d), "No exception was thrown for null input.");
-
-        assertIllegalArgumentException(NumberUtils::max, "No exception was thrown for empty input.");
-
-        assertEquals(5.1f, NumberUtils.max(5.1f), "max(double[]) failed for array length 1");
-        assertEquals(9.2f, NumberUtils.max(6.3f, 9.2f), "max(double[]) failed for array length 2");
-        assertEquals(10.4f, NumberUtils.max(-10.5f, -5.6f, 0, 5.7f, 10.4f), "max(double[]) failed for float length 5");
-        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10), 0.0001);
-        assertEquals(10, NumberUtils.max(-5, 0, 10, 5, -10), 0.0001);
+        assertEquals(5.1d, NumberUtils.max(5.1d), "max(double[]) failed for array length 1");
+        assertEquals(9.2d, NumberUtils.max(6.3d, 9.2d), "max(double[]) failed for array length 2");
+        assertEquals(10.4d, NumberUtils.max(-10.5d, -5.6d, 0, 5.7d, 10.4d), "max(double[]) failed for double length 5");
+        assertEquals(10d, NumberUtils.max(-10d, -5d, 0d, 5d, 10d));
+        assertEquals(10d, NumberUtils.max(-5d, 0d, 10d, 5d, -10d));
     }
 
     @Test
@@ -1232,8 +1262,8 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(5.1f, NumberUtils.max(5.1f), "max(float[]) failed for array length 1");
         assertEquals(9.2f, NumberUtils.max(6.3f, 9.2f), "max(float[]) failed for array length 2");
         assertEquals(10.4f, NumberUtils.max(-10.5f, -5.6f, 0, 5.7f, 10.4f), "max(float[]) failed for float length 5");
-        assertEquals(10, NumberUtils.max(-10, -5, 0, 5, 10), 0.0001f);
-        assertEquals(10, NumberUtils.max(-5, 0, 10, 5, -10), 0.0001f);
+        assertEquals(10f, NumberUtils.max(-10f, -5f, 0f, 5f, 10f), 0.0001f);
+        assertEquals(10f, NumberUtils.max(-5f, 0f, 10f, 5f, -10f), 0.0001f);
     }
 
     @Test
@@ -1550,7 +1580,7 @@ class NumberUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Test for {(@link NumberUtils#createNumber(String)}
+     * Test for {@link NumberUtils#createNumber(String)}
      */
     @Test
     void testStringCreateNumberEnsureNoPrecisionLoss() {

@@ -91,6 +91,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
 
     /** Left object. */
     public L left;
+
     /** Middle object. */
     public M middle;
 

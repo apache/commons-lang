@@ -42,7 +42,6 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.test.NotVisibleExceptionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -393,7 +392,7 @@ class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    @DisplayName("getStackFrames returns empty string array when the argument is null")
+    /** getStackFrames returns empty string array when the argument is null */
     void testgetStackFramesHappyPath() {
         final String[] actual = ExceptionUtils.getStackFrames(new Throwable() {
             private static final long serialVersionUID = 1L;
@@ -419,7 +418,7 @@ class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    @DisplayName("getStackFrames returns the string array of the stack frames when there is a real exception")
+    /** getStackFrames returns the string array of the stack frames when there is a real exception */
     void testgetStackFramesNullArg() {
         final String[] actual = ExceptionUtils.getStackFrames((Throwable) null);
         assertEquals(0, actual.length);

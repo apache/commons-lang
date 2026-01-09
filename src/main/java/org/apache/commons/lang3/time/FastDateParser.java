@@ -202,6 +202,7 @@ public class FastDateParser implements DateParser, Serializable {
         private static final Strategy ISO_8601_2_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}\\d{2}))");
 
         private static final Strategy ISO_8601_3_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}(?::)\\d{2}))");
+
         /**
          * Factory method for ISO8601TimeZoneStrategies.
          *
@@ -221,6 +222,7 @@ public class FastDateParser implements DateParser, Serializable {
                 throw new IllegalArgumentException("invalid number of X");
             }
         }
+
         /**
          * Constructs a Strategy that parses a TimeZone
          *
@@ -653,6 +655,7 @@ public class FastDateParser implements DateParser, Serializable {
     private static final ConcurrentMap<Locale, Strategy>[] CACHES = new ConcurrentMap[Calendar.FIELD_COUNT];
 
     private static final Strategy ABBREVIATED_YEAR_STRATEGY = new NumberStrategy(Calendar.YEAR) {
+
         /**
          * {@inheritDoc}
          */
@@ -912,6 +915,7 @@ public class FastDateParser implements DateParser, Serializable {
     public String getPattern() {
         return pattern;
     }
+
     /**
      * Gets a Strategy given a field from a SimpleDateFormat pattern
      *
@@ -1031,6 +1035,7 @@ public class FastDateParser implements DateParser, Serializable {
         }
         return date;
     }
+
     /**
      * This implementation updates the ParsePosition if the parse succeeds. However, it sets the error index to the position before the failed field unlike the
      * method {@link java.text.SimpleDateFormat#parse(String, ParsePosition)} which sets the error index to after the failed field.
@@ -1048,6 +1053,7 @@ public class FastDateParser implements DateParser, Serializable {
         cal.clear();
         return parse(source, pos, cal) ? cal.getTime() : null;
     }
+
     /**
      * Parses a formatted date string according to the format. Updates the Calendar with parsed fields. Upon success, the ParsePosition index is updated to
      * indicate how much of the source text was consumed. Not all source text needs to be consumed. Upon parse failure, ParsePosition error index is updated to
@@ -1092,7 +1098,6 @@ public class FastDateParser implements DateParser, Serializable {
         return parse(source, pos);
     }
 
-    // Serializing
     /**
      * Creates the object after serialization. This implementation reinitializes the transient properties.
      *

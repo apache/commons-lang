@@ -22,3 +22,7 @@ site-content
 # jenv's version file
 .java-version
 /.DS_Store
+
+# NetBeans files
+nb-configuration.xml
+nbactions.xml

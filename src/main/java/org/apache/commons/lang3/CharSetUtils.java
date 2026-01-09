@@ -26,6 +26,7 @@ import org.apache.commons.lang3.stream.Streams;
  * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
+ *
  * @see CharSet
  * @since 1.0
  */
@@ -51,7 +52,7 @@ public class CharSetUtils {
      * @since 3.2
      */
     public static boolean containsAny(final String str, final String... set) {
-        if (StringUtils.isEmpty(str) || deepEmpty(set)) {
+        if (isEmpty(str, set)) {
             return false;
         }
         final CharSet chars = CharSet.getInstance(set);
@@ -82,7 +83,7 @@ public class CharSetUtils {
      * @return the character count, zero if null string input
      */
     public static int count(final String str, final String... set) {
-        if (StringUtils.isEmpty(str) || deepEmpty(set)) {
+        if (isEmpty(str, set)) {
             return 0;
         }
         final CharSet chars = CharSet.getInstance(set);
@@ -125,10 +126,14 @@ public class CharSetUtils {
      * @return the modified String, {@code null} if null string input
      */
     public static String delete(final String str, final String... set) {
-        if (StringUtils.isEmpty(str) || deepEmpty(set)) {
+        if (isEmpty(str, set)) {
             return str;
         }
         return modify(str, set, false);
+    }
+
+    private static boolean isEmpty(final String str, final String... set) {
+        return StringUtils.isEmpty(str) || deepEmpty(set);
     }
 
     /**
@@ -199,7 +204,7 @@ public class CharSetUtils {
      * @return the modified String, {@code null} if null string input
      */
     public static String squeeze(final String str, final String... set) {
-        if (StringUtils.isEmpty(str) || deepEmpty(set)) {
+        if (isEmpty(str, set)) {
             return str;
         }
         final CharSet chars = CharSet.getInstance(set);

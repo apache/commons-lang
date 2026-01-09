@@ -37,10 +37,12 @@ import org.junit.jupiter.api.Test;
  * Test class for {@code EventCountCircuitBreaker}.
  */
 class EventCountCircuitBreakerTest extends AbstractLangTest {
+
     /**
      * A test change listener for checking whether correct change events are generated.
      */
     private static final class ChangeListener implements PropertyChangeListener {
+
         /** The expected event source. */
         private final Object expectedSource;
 
@@ -84,6 +86,7 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
      * breaker's state.
      */
     private static final class EventCountCircuitBreakerTestImpl extends EventCountCircuitBreaker {
+
         /** The current time in nanoseconds. */
         private long currentTime;
 

@@ -43,6 +43,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -191,6 +192,23 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         }
     }
 
+    static class LexOrdering<T> extends MyOrdering<Iterable<T>> implements Serializable {
+        private static final long serialVersionUID = 1L;
+    }
+
+    interface MyComparator<T> {
+    }
+
+    static class MyException extends Exception implements Iterable<Throwable> {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Iterator<Throwable> iterator() {
+            return null;
+        }
+    }
+
     /** This non-static inner class is parameterized. */
     private class MyInnerClass<T> {
 
@@ -199,12 +217,28 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         }
     }
 
+    static class MyNonTransientException extends MyException {
+        private static final long serialVersionUID = 1L;
+    }
+
+    static class MyOrdering<T> implements MyComparator<T> {
+    }
+
     public class Other<T> implements This<String, T> {
         // empty
     }
 
     public class Tester implements This<String, B> {
         // empty
+    }
+
+    private interface TestIF<T> {
+    }
+
+    private static class TestImpl<T> implements TestIF<T> {
+    }
+
+    private static class TestImpl2<R> implements TestIF<Number> {
     }
 
     public class That<K, V> implements This<K, V> {
@@ -346,6 +380,25 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         final String typeName = TypeUtils
                 .parameterize((Class<?>) comparing.getRawType(), comparing.getActualTypeArguments()).getTypeName();
         assertEquals("java.util.function.Function<? super T, ? extends U>", typeName);
+    }
+
+    /**
+     * Tests that a parameterized type with a nested generic argument is correctly
+     * evaluated for assignability to a wildcard lower-bounded type.
+     *
+     * @see <a href="https://issues.apache.org/jira/browse/LANG-1700">LANG-1700</a>
+     */
+    @Test
+    public void test_LANG_1700() {
+        final ParameterizedType from = TypeUtils.parameterize(LexOrdering.class, MyNonTransientException.class);
+        // MyComparator<? super MyNonTransientException>
+        final ParameterizedType to = TypeUtils.parameterize(MyComparator.class,
+                TypeUtils.wildcardType().withLowerBounds(MyNonTransientException.class).build());
+        // This is MyComparator<Iterable<MyNonTransientException>>
+        // It should NOT be assignable to MyComparator<? super MyNonTransientException>
+        // because Iterable<MyNonTransientException> is NOT a supertype of MyNonTransientException
+        assertFalse(TypeUtils.isAssignable(from, to),
+                () -> String.format("Type %s should not be assignable to %s", TypeUtils.toString(from), TypeUtils.toString(to)));
     }
 
     @Test
@@ -662,6 +715,30 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertFalse(TypeUtils.isArrayType(double.class));
         assertFalse(TypeUtils.isArrayType(Object.class));
         assertFalse(TypeUtils.isArrayType(String.class));
+    }
+
+    @Test
+    void testIsAssignable_ClassWithParameterizedType1() {
+        final ParameterizedType topre1 = TypeUtils.parameterize(TestIF.class, TypeUtils.wildcardType().build());
+        final Type to1 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(topre1).build());
+        final Type from1 = TypeUtils.parameterize(Class.class, TestIF.class);
+        assertFalse(TypeUtils.isAssignable(from1, to1), "Class<TestIF> should not be assignable to Class<? extends TestIF<?>>");
+    }
+
+    @Test
+    void testIsAssignable_ClassWithParameterizedType2() {
+        final ParameterizedType topre2 = TypeUtils.parameterize(TestIF.class, TypeUtils.wildcardType().build());
+        final Type to2 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(topre2).build());
+        final Type from2 = TypeUtils.parameterize(Class.class, TestImpl.class);
+        assertFalse(TypeUtils.isAssignable(from2, to2), "Class<TestImpl> should not be assignable to Class<? extends TestIF<?>>");
+    }
+
+    @Test
+    void testIsAssignable_ClassWithParameterizedType3() {
+        final ParameterizedType topre3 = TypeUtils.parameterize(TestIF.class, Number.class);
+        final Type to3 = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(topre3).build());
+        final Type from3 = TypeUtils.parameterize(Class.class, TestImpl2.class);
+        assertFalse(TypeUtils.isAssignable(from3, to3), "Class<TestImpl2> should not be assignable to Class<? extends TestIF<Number>>");
     }
 
     @Test

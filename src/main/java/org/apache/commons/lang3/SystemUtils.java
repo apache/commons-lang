@@ -84,8 +84,8 @@ public class SystemUtils {
      * </p>
      *
      * @see SystemProperties#getFileSeparator()
-     * @deprecated Use {@link File#separator}, since it is guaranteed to be a string containing a single character and it does not require a privilege check.
      * @since Java 1.1
+     * @deprecated Use {@link File#separator}, since it is guaranteed to be a string containing a single character and it does not require a privilege check.
      */
     @Deprecated
     public static final String FILE_SEPARATOR = SystemProperties.getFileSeparator();
@@ -380,7 +380,10 @@ public class SystemUtils {
      */
     public static final String JAVA_SPECIFICATION_VERSION = SystemProperties.getJavaSpecificationVersion();
 
-    private static final JavaVersion JAVA_SPECIFICATION_VERSION_AS_ENUM = JavaVersion.get(JAVA_SPECIFICATION_VERSION);
+    /**
+     * A constant for the Java version, may be null.
+     */
+    static final JavaVersion JAVA_SPECIFICATION_VERSION_ENUM = JavaVersion.get(JAVA_SPECIFICATION_VERSION);
 
     /**
      * A constant for the System Property {@code java.util.prefs.PreferencesFactory}. A class name.
@@ -1170,6 +1173,22 @@ public class SystemUtils {
      * @since 3.20.0
      */
     public static final boolean IS_JAVA_26 = getJavaVersionMatches("26");
+
+    /**
+     * The constant {@code true} if this is Java version 27 (also 27.x versions).
+     * <p>
+     * The result depends on the value of the {@link #JAVA_SPECIFICATION_VERSION} constant.
+     * </p>
+     * <p>
+     * The field will return {@code false} if {@link #JAVA_SPECIFICATION_VERSION} is {@code null}.
+     * </p>
+     * <p>
+     * This value is initialized when the class is loaded.
+     * </p>
+     *
+     * @since 3.21.0
+     */
+    public static final boolean IS_JAVA_27 = getJavaVersionMatches("27");
 
     // Operating system checks
     // -----------------------------------------------------------------------
@@ -2347,7 +2366,7 @@ public class SystemUtils {
      * @return {@code true} if the actual version is equal or greater than the required version.
      */
     public static boolean isJavaVersionAtLeast(final JavaVersion requiredVersion) {
-        return JAVA_SPECIFICATION_VERSION_AS_ENUM != null && JAVA_SPECIFICATION_VERSION_AS_ENUM.atLeast(requiredVersion);
+        return JAVA_SPECIFICATION_VERSION_ENUM != null && JAVA_SPECIFICATION_VERSION_ENUM.atLeast(requiredVersion);
     }
 
     /**
@@ -2361,7 +2380,7 @@ public class SystemUtils {
      * @since 3.9
      */
     public static boolean isJavaVersionAtMost(final JavaVersion requiredVersion) {
-        return JAVA_SPECIFICATION_VERSION_AS_ENUM != null && JAVA_SPECIFICATION_VERSION_AS_ENUM.atMost(requiredVersion);
+        return JAVA_SPECIFICATION_VERSION_ENUM != null && JAVA_SPECIFICATION_VERSION_ENUM.atMost(requiredVersion);
     }
 
     /**
