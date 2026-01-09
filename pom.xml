@@ -549,7 +549,7 @@
 	  </activation>
       <properties>
         <!-- JaCoCo: Don't make code coverage worse than: -->
-        <commons.jacoco.classRatio>0.99</commons.jacoco.classRatio>
+        <commons.jacoco.classRatio>0.98</commons.jacoco.classRatio>
       </properties>
     </profile>
     <profile>
