@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -103,6 +104,24 @@ public class NumberUtils {
      * @since 3.12.0
      */
     public static final Long LONG_INT_MIN_VALUE = Long.valueOf(Integer.MIN_VALUE);
+
+    /**
+     * Pattern for ASCII digits only with decimal point, scientific notation, and type suffixes.
+     *
+     * <pre>
+     * -?              : optional minus sign
+     * (?:             : non-capturing group for number formats
+     *   [0-9]+        : one or more ASCII digits (integer)
+     *   |             : OR
+     *   [0-9]*\.[0-9]+: optional digits, dot, one or more digits (e.g., .5 or 1.5)
+     *   |             : OR
+     *   [0-9]+\.      : one or more digits, dot (e.g., 1.)
+     * )
+     * (?:[eE][+-]?[0-9]+)? : optional exponent (e or E, optional sign, ASCII digits)
+     * [fFdD]?         : optional type suffix (f, F, d, D)
+     * </pre>
+     */
+    private static final Pattern NUM_PATTERN = Pattern.compile("^-?(?:[0-9]+|[0-9]*\\.[0-9]+|[0-9]+\\.)(?:[eE][+-]?[0-9]+)?[fFdD]?$");
 
     /**
      * Compares two {@code byte} values numerically. This is the same functionality as provided in Java 7.
@@ -730,7 +749,12 @@ public class NumberUtils {
      * </p>
      *
      * <p>
-     * Hexadecimal and scientific notations are <strong>not</strong> considered parsable. See {@link #isCreatable(String)} on those cases.
+     * Hexadecimal notations are <strong>not</strong> considered parsable. See {@link #isCreatable(String)} for those cases.
+     * </p>
+     *
+     * <p>
+     * Scientific notation (e.g., {@code "1.2e-5"}) and type suffixes (e.g., {@code "2.0f"}, {@code "2.0d"}) are supported
+     * as they are valid for {@link Float#parseFloat(String)} and {@link Double#parseDouble(String)}.
      * </p>
      *
      * <p>
@@ -745,45 +769,19 @@ public class NumberUtils {
         if (StringUtils.isEmpty(str)) {
             return false;
         }
-        if (str.charAt(0) == '-') {
-            if (str.length() == 1) {
-                return false;
-            }
-            return isParsableDecimal(str, 1);
+        final char lastChar = str.charAt(str.length() - 1);
+        // Use regex for decimal, exponent, or type suffix; otherwise check for integer digits
+        if (str.indexOf('.') >= 0 || str.indexOf('e') >= 0 || str.indexOf('E') >= 0 ||
+                lastChar == 'f' || lastChar == 'F' || lastChar == 'd' || lastChar == 'D') {
+            return NUM_PATTERN.matcher(str).matches();
         }
-        return isParsableDecimal(str, 0);
-    }
-
-    /**
-     * Tests whether a number string is parsable as a decimal number or integer.
-     *
-     * <ul>
-     * <li>At most one decimal point is allowed.</li>
-     * <li>No signs, exponents or type qualifiers are allowed.</li>
-     * <li>Only ASCII digits are allowed if a decimal point is present.</li>
-     * </ul>
-     *
-     * @param str      the String to test.
-     * @param beginIdx the index to start checking from.
-     * @return {@code true} if the string is a parsable number.
-     */
-    private static boolean isParsableDecimal(final String str, final int beginIdx) {
-        // See https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-NonZeroDigit
-        int decimalPoints = 0;
-        boolean asciiNumeric = true;
-        for (int i = beginIdx; i < str.length(); i++) {
-            final char ch = str.charAt(i);
-            final boolean isDecimalPoint = ch == '.';
-            if (isDecimalPoint) {
-                decimalPoints++;
-            }
-            if (decimalPoints > 1 || !isDecimalPoint && !Character.isDigit(ch)) {
-                return false;
-            }
-            if (!isDecimalPoint) {
-                asciiNumeric &= CharUtils.isAsciiNumeric(ch);
-            }
-            if (decimalPoints > 0 && !asciiNumeric) {
+        // Simple integer: optional minus followed by Unicode digits (for Integer.parseInt compatibility)
+        final int start = str.charAt(0) == '-' ? 1 : 0;
+        if (start == str.length()) {
+            return false; // just "-"
+        }
+        for (int i = start; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))) {
                 return false;
             }
         }
