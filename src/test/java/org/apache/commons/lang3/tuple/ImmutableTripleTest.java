@@ -83,6 +83,17 @@ class ImmutableTripleTest extends AbstractLangTest {
     @Test
     void testHashCode() {
         assertEquals(ImmutableTriple.of(null, "foo", Boolean.TRUE).hashCode(), ImmutableTriple.of(null, "foo", Boolean.TRUE).hashCode());
+
+        // Proof for LANG-1760:
+        final Triple<String, String, String> t1 = ImmutableTriple.of("A", "B", "C");
+        final Triple<String, String, String> t2 = ImmutableTriple.of("C", "B", "A");
+        final Triple<String, String, String> t3 = ImmutableTriple.of("A", "A", "A");
+
+        // 1. Verify order sensitivity
+        assertNotEquals(t1.hashCode(), t2.hashCode(), "Triple permutations must have different hashes");
+
+        // 2. Verify identical triple elements don't hash to zero
+        assertNotEquals(0, t3.hashCode(), "Identical triple elements must not hash to zero");
     }
 
     @Test
