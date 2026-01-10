@@ -753,28 +753,50 @@ public class NumberUtils {
         // See https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-NonZeroDigit
         int decimalPoints = 0;
         boolean asciiNumeric = true;
+        boolean hasExponent = false;
+        boolean expectExponentDigit = false;
         final int lastIndex = str.length() - 1;
-        for (int i = beginIdx; i < str.length(); i++) {
-            final char ch = str.charAt(i);
-            if(i == lastIndex && (ch == 'f' || ch == 'F' || ch == 'd' || ch == 'D')){
-                return true;
-            }
-            final boolean isDecimalPoint = ch == '.';
-            if (isDecimalPoint) {
-                decimalPoints++;
-            }
-            if (decimalPoints > 1 || !isDecimalPoint && !Character.isDigit(ch)) {
-                return false;
-            }
-            if (!isDecimalPoint) {
-                asciiNumeric &= CharUtils.isAsciiNumeric(ch);
-            }
-            if (decimalPoints > 0 && !asciiNumeric) {
-                return false;
-            }
+        char lastChar = str.charAt(lastIndex);
+        boolean hasSuffix = false;
+        if (lastChar == 'f' || lastChar == 'F' || lastChar == 'd' || lastChar == 'D') {
+            hasSuffix = true;
         }
-        return true;
+        int endIndex;
+        if (hasSuffix) {
+            endIndex = lastIndex;
+        } else {
+            endIndex = str.length();
+        }
+        for (int i = beginIdx; i < endIndex; i++) {
+            final char ch = str.charAt(i);
+            if (Character.isDigit(ch)) {
+                expectExponentDigit = false;
+                asciiNumeric &= CharUtils.isAsciiNumeric(ch);
+                continue;
+            }
+            if (ch == '.' && decimalPoints == 0 && !hasExponent) {
+                decimalPoints++;
+                continue;
+            }
+            if ((ch == 'e' || ch == 'E') && !hasExponent) {
+                hasExponent = true;
+                expectExponentDigit = true;
+                continue;
+            }
+            if ((ch == '+' || ch == '-') && expectExponentDigit) {
+            continue;
+            }
+            return false;
+        }
+        if (expectExponentDigit) {
+            return false;
+        }
+        if (decimalPoints == 0) {
+            return true;
+        }
+        return asciiNumeric;
     }
+
 
     private static boolean isSign(final char ch) {
         return ch == '-' || ch == '+';
