@@ -6961,6 +6961,6 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testMaxArrayLength() {
-        assertEquals(Integer.MAX_VALUE - 8, ArrayUtils.MAX_ARRAY_LENGTH);
+        assertEquals(Integer.MAX_VALUE - 8, ArrayUtils.SAFE_MAX_ARRAY_LENGTH);
     }
 }

@@ -194,7 +194,7 @@ public class ArrayUtils {
      * The {@code SOFT_MAX_ARRAY_LENGTH} constant from Java's internal ArraySupport class.
      *
      * @since 3.19.0
-     * @deprecated Use {@link #MAX_ARRAY_LENGTH}.
+     * @deprecated This variable will be final in 4.0; to guarantee immutability now, use {@link #SAFE_MAX_ARRAY_LENGTH}.
      */
     @Deprecated
     public static int SOFT_MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
@@ -204,7 +204,7 @@ public class ArrayUtils {
      *
      * @since 3.21.0
      */
-    public static final int MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
+    public static final int SAFE_MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
 
     /**
      * Copies the given array and adds the given element at the end of the new array.
