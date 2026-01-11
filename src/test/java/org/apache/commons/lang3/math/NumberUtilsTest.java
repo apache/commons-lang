@@ -1007,6 +1007,46 @@ class NumberUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
+    // @formatter:off
+    @ValueSource(strings = {
+            // Decimal floating-point literals (no suffix or 'd'/'D' suffix)
+            "3.14",
+            "3.14d",
+            "3.14D",
+            ".5",
+            ".5d",
+            "5.",
+            "5.d",
+            "5d",
+            "0.0",
+            "0.0d",
+            // Exponential (scientific) notation
+            "1.23e10",
+            "1.23e10d",
+            "1.23E10",
+            "1.23e-10",
+            "1.23e-10d",
+            "1e5",
+            "1e5d",
+            ".5e3",
+            ".5e3d",
+            // Hexadecimal floating-point literals
+            "0x1.8p3",
+            "0x1.8p3d",
+            "0x.8p0",
+            "0x1p-3",
+            "0x1.fffffffffffffp1023",
+            "0x1.fffffffffffffp1023d",
+            // With leading zeros
+            "01.5",
+            "01.5d" })
+    // @formatter:on
+    void testIsParsableDoubleTrue(final String input) {
+        Double.parseDouble(input);
+        assertTrue(NumberUtils.isParsable(input));
+    }
+
+    @ParameterizedTest
     @ValueSource(strings = { "", "0xC1AB", "65CBA2", "pendro", "64, 2", "64.2.2", "64..", "64L", "-", "--2",
             // Invalid scientific notation.
             "e5", "1e", "1e+", "1e-", "1ee5", "1e5e5",
@@ -1014,6 +1054,35 @@ class NumberUtilsTest extends AbstractLangTest {
             "f", "d", "-f", "-d", })
     void testIsParsableFalse(final String input) {
         assertFalse(NumberUtils.isParsable(input));
+    }
+
+    @ParameterizedTest
+    // @formatter:off
+    @ValueSource(strings = {
+            // Decimal floating-point literals
+            "3.14f",
+            "3.14F",
+            ".5f",
+            "5.f",
+            "5f",
+            "0.0f",
+            // Exponential (scientific) notation
+            "1.23e10f",
+            "1.23E10f",
+            "1.23e-10f",
+            "1e5f",
+            ".5e3f",
+            // Hexadecimal floating-point literals
+            "0x1.8p3f",
+            "0x.8p0f",
+            "0x1p-3f",
+            "0x1.fffffep127f",
+            // With leading zeros
+            "01.5f"})
+    // @formatter:on
+    void testIsParsableFloatTrue(final String input) {
+        Float.parseFloat(input);
+        assertTrue(NumberUtils.isParsable(input));
     }
 
     /**
@@ -1043,11 +1112,28 @@ class NumberUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "64.", "-64.", "64.2", "64", "018", ".18", "-65", "-018", "-018.2", "-.236", "2.", "2.f", "2.d", "1.2e-5f", "1.2e-5d",
+    // @formatter:off
+    @ValueSource(strings = {
+            "64.",
+            "-64.",
+            "64.2",
+            "64",
+            "018",
+            ".18",
+            "-65",
+            "-018",
+            "-018.2",
+            "-.236",
+            "2.",
+            "2.f",
+            "2.d",
+            "1.2e-5f",
+            "1.2e-5d",
             // Additional tests for scientific notation.
             "1e5", "1E5", "1.2e5", "1.2E5", "1.2e+5", "1.2e-5", "-1.2e-5", "1e5f", "1e5F", "1e5d", "1e5D",
             // Additional tests for type suffixes.
-            "2f", "2F", "2d", "2D", "2.0f", "2.0F", "2.0d", "2.0D", "-2.0f", "-2.0d", })
+            "2f", "2F", "2d", "2D", "2.0f", "2.0F", "2.0d", "2.0D", "-2.0f", "-2.0d" })
+    // @formatter:on
     void testIsParsableTrue(final String input) {
         assertTrue(NumberUtils.isParsable(input));
     }
