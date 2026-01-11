@@ -93,6 +93,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1700" type="fix" dev="ggregory" due-to="seokhyeon moon, Gary Gregory, Ivan Šarić">Improve handling of parameterized types and variable unrolling.</action>
     <action issue="LANG-1811" type="fix" dev="ggregory" due-to="Raju Gupta, Gary Gregory">ArrayUtils.shuffle() throws NullPointerException for null array input.</action>
     <action                   type="fix" dev="ggregory" due-to="Dennis Ginter, Gary Gregory">[javadoc] Fix incorrect exception type in CharUtils Javadoc examples #1563.</action>
+    <action                   type="fix" dev="ggregory" due-to="Dennis Ginter, Gary Gregory">[javadoc] Fix incorrect class names in RegExUtils Javadoc examples #1564.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
