@@ -24,13 +24,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 /**
  */
-class ReflectionToStringBuilderExcludeTest extends AbstractLangTest {
+class ReflectionToStringBuilderExcludeTest extends AbstractBuilderTest {
 
     final class TestFixture {
         @SuppressWarnings("unused")
@@ -123,7 +122,7 @@ class ReflectionToStringBuilderExcludeTest extends AbstractLangTest {
 
     private void validateNonSecretField(final String toString) {
         assertTrue(toString.contains(NOT_SECRET_FIELD));
-        assertTrue(toString.contains(NOT_SECRET_VALUE));
+        assertTrueIfAccessible(toString.contains(NOT_SECRET_VALUE));
     }
 
     private void validateSecretFieldAbsent(final String toString) {
@@ -132,7 +131,7 @@ class ReflectionToStringBuilderExcludeTest extends AbstractLangTest {
     }
 
     private void validateSecretFieldPresent(final String toString) {
-        assertTrue(toString.indexOf(SECRET_VALUE) > 0);
+        assertTrueIfAccessible(toString.indexOf(SECRET_VALUE) > 0);
         validateNonSecretField(toString);
     }
 }

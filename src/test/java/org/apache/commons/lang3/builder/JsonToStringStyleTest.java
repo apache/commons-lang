@@ -28,7 +28,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +36,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.JsonToStringStyleTest}.
  */
-class JsonToStringStyleTest extends AbstractLangTest {
+class JsonToStringStyleTest extends AbstractBuilderTest {
 
     static class AcademyClass {
         Teacher teacher;
@@ -214,9 +213,9 @@ class JsonToStringStyleTest extends AbstractLangTest {
 
         teacher.setHobbies(hobbies);
 
-        assertEquals(teacher.toString(), "{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}");
+        assertEqualsIfAccessible(teacher.toString(), "{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}");
         teacher.setHobbies(new Hobby[0]);
-        assertEquals(teacher.toString(), "{\"hobbies\":[]}");
+        assertEqualsIfAccessible(teacher.toString(), "{\"hobbies\":[]}");
         teacher.setHobbies(null);
         assertEquals(teacher.toString(), "{\"hobbies\":null}");
     }
@@ -295,7 +294,8 @@ class JsonToStringStyleTest extends AbstractLangTest {
         academyClass.setStudents(students);
         academyClass.setTeacher(teacher);
 
-        assertEquals(academyClass.toString(), "{\"students\":[{\"hobbies\":[\"BOOK\",\"MUSIC\"]},{\"hobbies\":[]},{\"hobbies\":[\"BOOK\"]}],\"teacher\":{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}}");
+        assertEqualsIfAccessible(academyClass.toString(),
+                "{\"students\":[{\"hobbies\":[\"BOOK\",\"MUSIC\"]},{\"hobbies\":[]},{\"hobbies\":[\"BOOK\"]}],\"teacher\":{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}}");
     }
 
     @Test
@@ -368,9 +368,9 @@ class JsonToStringStyleTest extends AbstractLangTest {
 
         student.setHobbies(objects);
 
-        assertEquals(student.toString(), "{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}");
+        assertEqualsIfAccessible(student.toString(), "{\"hobbies\":[\"BOOK\",\"SPORT\",\"MUSIC\"]}");
         student.setHobbies(new ArrayList<>());
-        assertEquals(student.toString(), "{\"hobbies\":[]}");
+        assertEqualsIfAccessible(student.toString(), "{\"hobbies\":[]}");
         student.setHobbies(null);
         assertEquals(student.toString(), "{\"hobbies\":null}");
     }

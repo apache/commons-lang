@@ -14,21 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3.builder;
 
-import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetSystemProperty;
 
-class ReflectionToStringBuilderSummaryTest extends AbstractBuilderTest {
-
-    @SuppressWarnings("unused")
-    private final String stringField = "string";
-
-    @ToStringSummary
-    private final String summaryString = "summary";
-
-    @Test
-    void testSummary() {
-        assertEqualsIfAccessible("[stringField=string,summaryString=<String>]", new ReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
-    }
-
+/**
+ * Like {@link ReflectionToStringBuilderExcludeNullValuesTest} with force accessible disabled.
+ */
+@SetSystemProperty(key = AbstractReflectionTest.FORCE_ACCESSIBLE, value = "false")
+public class ReflectionToStringBuilderExcludeNullValuesNoForceTest extends ReflectionToStringBuilderExcludeNullValuesTest {
+    // TODO Override failing methods with new assertions
 }
