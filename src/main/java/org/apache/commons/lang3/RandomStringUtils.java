@@ -264,6 +264,19 @@ public class RandomStringUtils {
             throw new IllegalArgumentException("The chars array must not be empty");
         }
 
+        if (chars!=null) {
+            if (start>=chars.length) {
+                throw new IllegalArgumentException(
+                        "Parameter start (" +start+ ") must be less than chars.length ("+chars.length+")"
+                );
+            }
+            if (end>chars.length) {
+                throw new IllegalArgumentException(
+                        "Parameter end ("+end+") must be less than or equal to chars.length ("+chars.length+")"
+                );
+            }
+        }
+
         if (start == 0 && end == 0) {
             if (chars != null) {
                 end = chars.length;
