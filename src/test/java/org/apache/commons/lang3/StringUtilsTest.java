@@ -3177,4 +3177,10 @@ class StringUtilsTest extends AbstractLangTest {
         assertSame("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
         assertSame("//x//", StringUtils.wrapIfMissing("//x//", "//"));
     }
+
+    @Test
+    public void testIsBlankWithTabs() {
+        assertTrue(StringUtils.isBlank("\t"));
+    }
+
 }
