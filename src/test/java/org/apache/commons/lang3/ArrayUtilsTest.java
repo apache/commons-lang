@@ -6958,4 +6958,9 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertEquals("{<null>}", ArrayUtils.toString(new String[]{null}, "<empty>"));
         assertEquals("{pink,blue}", ArrayUtils.toString(new String[]{"pink", "blue"}, "<empty>"));
     }
+
+    @Test
+    void testMaxArrayLength() {
+        assertEquals(Integer.MAX_VALUE - 8, ArrayUtils.SAFE_MAX_ARRAY_LENGTH);
+    }
 }
