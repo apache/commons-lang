@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Objects;
-import java.util.regex.Pattern;
+import java.util.function.Consumer;
 
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -105,23 +105,14 @@ public class NumberUtils {
      */
     public static final Long LONG_INT_MIN_VALUE = Long.valueOf(Integer.MIN_VALUE);
 
-    /**
-     * Pattern for ASCII digits only with decimal point, scientific notation, and type suffixes.
-     *
-     * <pre>
-     * -?              : optional minus sign
-     * (?:             : non-capturing group for number formats
-     *   [0-9]+        : one or more ASCII digits (integer)
-     *   |             : OR
-     *   [0-9]*\.[0-9]+: optional digits, dot, one or more digits (e.g., .5 or 1.5)
-     *   |             : OR
-     *   [0-9]+\.      : one or more digits, dot (e.g., 1.)
-     * )
-     * (?:[eE][+-]?[0-9]+)? : optional exponent (e or E, optional sign, ASCII digits)
-     * [fFdD]?         : optional type suffix (f, F, d, D)
-     * </pre>
-     */
-    private static final Pattern NUM_PATTERN = Pattern.compile("^-?(?:[0-9]+|[0-9]*\\.[0-9]+|[0-9]+\\.)(?:[eE][+-]?[0-9]+)?[fFdD]?$");
+    private static <T> boolean accept(final Consumer<T> consumer, final T obj) {
+        try {
+            consumer.accept(obj);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     /**
      * Compares two {@code byte} values numerically. This is the same functionality as provided in Java 7.
@@ -186,7 +177,7 @@ public class NumberUtils {
      * Returns {@code null} if the string is {@code null}.
      * </p>
      *
-     * @param str a {@link String} to convert, may be null.
+     * @param str a {@link String} to convert, may be null.Return
      * @return converted {@link BigDecimal} (or null if the input is null).
      * @throws NumberFormatException if the value cannot be converted.
      */
@@ -749,11 +740,7 @@ public class NumberUtils {
      * </p>
      *
      * <p>
-     * Hexadecimal notations are <strong>not</strong> considered parsable. See {@link #isCreatable(String)} for those cases.
-     * </p>
-     *
-     * <p>
-     * Scientific notation (e.g., {@code "1.2e-5"}) and type suffixes (e.g., {@code "2.0f"}, {@code "2.0d"}) are supported
+     * Scientific notation (for example, {@code "1.2e-5"}) and type suffixes (e.g., {@code "2.0f"}, {@code "2.0d"}) are supported
      * as they are valid for {@link Float#parseFloat(String)} and {@link Double#parseDouble(String)}.
      * </p>
      *
@@ -763,29 +750,14 @@ public class NumberUtils {
      *
      * @param str the String to check.
      * @return {@code true} if the string is a parsable number.
+     * @see Integer#parseInt(String)
+     * @see Long#parseLong(String)
+     * @see Double#parseDouble(String)
+     * @see Float#parseFloat(String)
      * @since 3.4
      */
     public static boolean isParsable(final String str) {
-        if (StringUtils.isEmpty(str)) {
-            return false;
-        }
-        final char lastChar = str.charAt(str.length() - 1);
-        // Use regex for decimal, exponent, or type suffix; otherwise check for integer digits
-        if (str.indexOf('.') >= 0 || str.indexOf('e') >= 0 || str.indexOf('E') >= 0 ||
-                lastChar == 'f' || lastChar == 'F' || lastChar == 'd' || lastChar == 'D') {
-            return NUM_PATTERN.matcher(str).matches();
-        }
-        // Simple integer: optional minus followed by Unicode digits (for Integer.parseInt compatibility)
-        final int start = str.charAt(0) == '-' ? 1 : 0;
-        if (start == str.length()) {
-            return false; // just "-"
-        }
-        for (int i = start; i < str.length(); i++) {
-            if (!Character.isDigit(str.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return accept(Double::parseDouble, str) || accept(Long::parseLong, str) || accept(Float::parseFloat, str) || accept(Long::parseLong, str);
     }
 
     private static boolean isSign(final char ch) {
