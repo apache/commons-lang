@@ -83,16 +83,16 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.removeAll(null, *)      = null
-     * StringUtils.removeAll("any", (Pattern) null)  = "any"
-     * StringUtils.removeAll("any", Pattern.compile(""))    = "any"
-     * StringUtils.removeAll("any", Pattern.compile(".*"))  = ""
-     * StringUtils.removeAll("any", Pattern.compile(".+"))  = ""
-     * StringUtils.removeAll("abc", Pattern.compile(".?"))  = ""
-     * StringUtils.removeAll("A<__>\n<__>B", Pattern.compile("<.*>"))      = "A\nB"
-     * StringUtils.removeAll("A<__>\n<__>B", Pattern.compile("(?s)<.*>"))  = "AB"
-     * StringUtils.removeAll("A<__>\n<__>B", Pattern.compile("<.*>", Pattern.DOTALL))  = "AB"
-     * StringUtils.removeAll("ABCabc123abc", Pattern.compile("[a-z]"))     = "ABC123"
+     * RegExUtils.removeAll(null, *)      = null
+     * RegExUtils.removeAll("any", (Pattern) null)  = "any"
+     * RegExUtils.removeAll("any", Pattern.compile(""))    = "any"
+     * RegExUtils.removeAll("any", Pattern.compile(".*"))  = ""
+     * RegExUtils.removeAll("any", Pattern.compile(".+"))  = ""
+     * RegExUtils.removeAll("abc", Pattern.compile(".?"))  = ""
+     * RegExUtils.removeAll("A<__>\n<__>B", Pattern.compile("<.*>"))      = "A\nB"
+     * RegExUtils.removeAll("A<__>\n<__>B", Pattern.compile("(?s)<.*>"))  = "AB"
+     * RegExUtils.removeAll("A<__>\n<__>B", Pattern.compile("<.*>", Pattern.DOTALL))  = "AB"
+     * RegExUtils.removeAll("ABCabc123abc", Pattern.compile("[a-z]"))     = "ABC123"
      * }</pre>
      *
      * @param text  text to remove from, may be null.
@@ -120,16 +120,16 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.removeAll(null, *)      = null
-     * StringUtils.removeAll("any", (Pattern) null)  = "any"
-     * StringUtils.removeAll("any", Pattern.compile(""))    = "any"
-     * StringUtils.removeAll("any", Pattern.compile(".*"))  = ""
-     * StringUtils.removeAll("any", Pattern.compile(".+"))  = ""
-     * StringUtils.removeAll("abc", Pattern.compile(".?"))  = ""
-     * StringUtils.removeAll("A<__>\n<__>B", Pattern.compile("<.*>"))      = "A\nB"
-     * StringUtils.removeAll("A<__>\n<__>B", Pattern.compile("(?s)<.*>"))  = "AB"
-     * StringUtils.removeAll("A<__>\n<__>B", Pattern.compile("<.*>", Pattern.DOTALL))  = "AB"
-     * StringUtils.removeAll("ABCabc123abc", Pattern.compile("[a-z]"))     = "ABC123"
+     * RegExUtils.removeAll(null, *)      = null
+     * RegExUtils.removeAll("any", (Pattern) null)  = "any"
+     * RegExUtils.removeAll("any", Pattern.compile(""))    = "any"
+     * RegExUtils.removeAll("any", Pattern.compile(".*"))  = ""
+     * RegExUtils.removeAll("any", Pattern.compile(".+"))  = ""
+     * RegExUtils.removeAll("abc", Pattern.compile(".?"))  = ""
+     * RegExUtils.removeAll("A<__>\n<__>B", Pattern.compile("<.*>"))      = "A\nB"
+     * RegExUtils.removeAll("A<__>\n<__>B", Pattern.compile("(?s)<.*>"))  = "AB"
+     * RegExUtils.removeAll("A<__>\n<__>B", Pattern.compile("<.*>", Pattern.DOTALL))  = "AB"
+     * RegExUtils.removeAll("ABCabc123abc", Pattern.compile("[a-z]"))     = "ABC123"
      * }</pre>
      *
      * @param text  text to remove from, may be null.
@@ -164,15 +164,15 @@ public class RegExUtils {
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>{@code
-     * StringUtils.removeAll(null, *)      = null
-     * StringUtils.removeAll("any", (String) null)  = "any"
-     * StringUtils.removeAll("any", "")    = "any"
-     * StringUtils.removeAll("any", ".*")  = ""
-     * StringUtils.removeAll("any", ".+")  = ""
-     * StringUtils.removeAll("abc", ".?")  = ""
-     * StringUtils.removeAll("A<__>\n<__>B", "<.*>")      = "A\nB"
-     * StringUtils.removeAll("A<__>\n<__>B", "(?s)<.*>")  = "AB"
-     * StringUtils.removeAll("ABCabc123abc", "[a-z]")     = "ABC123"
+     * RegExUtils.removeAll(null, *)      = null
+     * RegExUtils.removeAll("any", (String) null)  = "any"
+     * RegExUtils.removeAll("any", "")    = "any"
+     * RegExUtils.removeAll("any", ".*")  = ""
+     * RegExUtils.removeAll("any", ".+")  = ""
+     * RegExUtils.removeAll("abc", ".?")  = ""
+     * RegExUtils.removeAll("A<__>\n<__>B", "<.*>")      = "A\nB"
+     * RegExUtils.removeAll("A<__>\n<__>B", "(?s)<.*>")  = "AB"
+     * RegExUtils.removeAll("ABCabc123abc", "[a-z]")     = "ABC123"
      * }</pre>
      *
      * @param text  text to remove from, may be null
@@ -204,16 +204,16 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.removeFirst(null, *)      = null
-     * StringUtils.removeFirst("any", (Pattern) null)  = "any"
-     * StringUtils.removeFirst("any", Pattern.compile(""))    = "any"
-     * StringUtils.removeFirst("any", Pattern.compile(".*"))  = ""
-     * StringUtils.removeFirst("any", Pattern.compile(".+"))  = ""
-     * StringUtils.removeFirst("abc", Pattern.compile(".?"))  = "bc"
-     * StringUtils.removeFirst("A<__>\n<__>B", Pattern.compile("<.*>"))      = "A\n<__>B"
-     * StringUtils.removeFirst("A<__>\n<__>B", Pattern.compile("(?s)<.*>"))  = "AB"
-     * StringUtils.removeFirst("ABCabc123", Pattern.compile("[a-z]"))          = "ABCbc123"
-     * StringUtils.removeFirst("ABCabc123abc", Pattern.compile("[a-z]+"))      = "ABC123abc"
+     * RegExUtils.removeFirst(null, *)      = null
+     * RegExUtils.removeFirst("any", (Pattern) null)  = "any"
+     * RegExUtils.removeFirst("any", Pattern.compile(""))    = "any"
+     * RegExUtils.removeFirst("any", Pattern.compile(".*"))  = ""
+     * RegExUtils.removeFirst("any", Pattern.compile(".+"))  = ""
+     * RegExUtils.removeFirst("abc", Pattern.compile(".?"))  = "bc"
+     * RegExUtils.removeFirst("A<__>\n<__>B", Pattern.compile("<.*>"))      = "A\n<__>B"
+     * RegExUtils.removeFirst("A<__>\n<__>B", Pattern.compile("(?s)<.*>"))  = "AB"
+     * RegExUtils.removeFirst("ABCabc123", Pattern.compile("[a-z]"))          = "ABCbc123"
+     * RegExUtils.removeFirst("ABCabc123abc", Pattern.compile("[a-z]+"))      = "ABC123abc"
      * }</pre>
      *
      * @param text  text to remove from, may be null.
@@ -241,16 +241,16 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.removeFirst(null, *)      = null
-     * StringUtils.removeFirst("any", (Pattern) null)  = "any"
-     * StringUtils.removeFirst("any", Pattern.compile(""))    = "any"
-     * StringUtils.removeFirst("any", Pattern.compile(".*"))  = ""
-     * StringUtils.removeFirst("any", Pattern.compile(".+"))  = ""
-     * StringUtils.removeFirst("abc", Pattern.compile(".?"))  = "bc"
-     * StringUtils.removeFirst("A<__>\n<__>B", Pattern.compile("<.*>"))      = "A\n<__>B"
-     * StringUtils.removeFirst("A<__>\n<__>B", Pattern.compile("(?s)<.*>"))  = "AB"
-     * StringUtils.removeFirst("ABCabc123", Pattern.compile("[a-z]"))          = "ABCbc123"
-     * StringUtils.removeFirst("ABCabc123abc", Pattern.compile("[a-z]+"))      = "ABC123abc"
+     * RegExUtils.removeFirst(null, *)      = null
+     * RegExUtils.removeFirst("any", (Pattern) null)  = "any"
+     * RegExUtils.removeFirst("any", Pattern.compile(""))    = "any"
+     * RegExUtils.removeFirst("any", Pattern.compile(".*"))  = ""
+     * RegExUtils.removeFirst("any", Pattern.compile(".+"))  = ""
+     * RegExUtils.removeFirst("abc", Pattern.compile(".?"))  = "bc"
+     * RegExUtils.removeFirst("A<__>\n<__>B", Pattern.compile("<.*>"))      = "A\n<__>B"
+     * RegExUtils.removeFirst("A<__>\n<__>B", Pattern.compile("(?s)<.*>"))  = "AB"
+     * RegExUtils.removeFirst("ABCabc123", Pattern.compile("[a-z]"))          = "ABCbc123"
+     * RegExUtils.removeFirst("ABCabc123abc", Pattern.compile("[a-z]+"))      = "ABC123abc"
      * }</pre>
      *
      * @param text  text to remove from, may be null.
@@ -284,16 +284,16 @@ public class RegExUtils {
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>{@code
-     * StringUtils.removeFirst(null, *)      = null
-     * StringUtils.removeFirst("any", (String) null)  = "any"
-     * StringUtils.removeFirst("any", "")    = "any"
-     * StringUtils.removeFirst("any", ".*")  = ""
-     * StringUtils.removeFirst("any", ".+")  = ""
-     * StringUtils.removeFirst("abc", ".?")  = "bc"
-     * StringUtils.removeFirst("A<__>\n<__>B", "<.*>")      = "A\n<__>B"
-     * StringUtils.removeFirst("A<__>\n<__>B", "(?s)<.*>")  = "AB"
-     * StringUtils.removeFirst("ABCabc123", "[a-z]")          = "ABCbc123"
-     * StringUtils.removeFirst("ABCabc123abc", "[a-z]+")      = "ABC123abc"
+     * RegExUtils.removeFirst(null, *)      = null
+     * RegExUtils.removeFirst("any", (String) null)  = "any"
+     * RegExUtils.removeFirst("any", "")    = "any"
+     * RegExUtils.removeFirst("any", ".*")  = ""
+     * RegExUtils.removeFirst("any", ".+")  = ""
+     * RegExUtils.removeFirst("abc", ".?")  = "bc"
+     * RegExUtils.removeFirst("A<__>\n<__>B", "<.*>")      = "A\n<__>B"
+     * RegExUtils.removeFirst("A<__>\n<__>B", "(?s)<.*>")  = "AB"
+     * RegExUtils.removeFirst("ABCabc123", "[a-z]")          = "ABCbc123"
+     * RegExUtils.removeFirst("ABCabc123abc", "[a-z]+")      = "ABC123abc"
      * }</pre>
      *
      * @param text  text to remove from, may be null.
@@ -325,10 +325,10 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.removePattern(null, *)       = null
-     * StringUtils.removePattern("any", (String) null)   = "any"
-     * StringUtils.removePattern("A<__>\n<__>B", "<.*>")  = "AB"
-     * StringUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
+     * RegExUtils.removePattern(null, *)       = null
+     * RegExUtils.removePattern("any", (String) null)   = "any"
+     * RegExUtils.removePattern("A<__>\n<__>B", "<.*>")  = "AB"
+     * RegExUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
      * }</pre>
      *
      * @param text
@@ -357,10 +357,10 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.removePattern(null, *)       = null
-     * StringUtils.removePattern("any", (String) null)   = "any"
-     * StringUtils.removePattern("A<__>\n<__>B", "<.*>")  = "AB"
-     * StringUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
+     * RegExUtils.removePattern(null, *)       = null
+     * RegExUtils.removePattern("any", (String) null)   = "any"
+     * RegExUtils.removePattern("A<__>\n<__>B", "<.*>")  = "AB"
+     * RegExUtils.removePattern("ABCabc123", "[a-z]")    = "ABC123"
      * }</pre>
      *
      * @param text
@@ -389,20 +389,20 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.replaceAll(null, *, *)       = null
-     * StringUtils.replaceAll("any", (Pattern) null, *)   = "any"
-     * StringUtils.replaceAll("any", *, null)   = "any"
-     * StringUtils.replaceAll("", Pattern.compile(""), "zzz")    = "zzz"
-     * StringUtils.replaceAll("", Pattern.compile(".*"), "zzz")  = "zzz"
-     * StringUtils.replaceAll("", Pattern.compile(".+"), "zzz")  = ""
-     * StringUtils.replaceAll("abc", Pattern.compile(""), "ZZ")  = "ZZaZZbZZcZZ"
-     * StringUtils.replaceAll("<__>\n<__>", Pattern.compile("<.*>"), "z")                 = "z\nz"
-     * StringUtils.replaceAll("<__>\n<__>", Pattern.compile("<.*>", Pattern.DOTALL), "z") = "z"
-     * StringUtils.replaceAll("<__>\n<__>", Pattern.compile("(?s)<.*>"), "z")             = "z"
-     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[a-z]"), "_")       = "ABC___123"
-     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123"
-     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123"
-     * StringUtils.replaceAll("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum_dolor_sit"
+     * RegExUtils.replaceAll(null, *, *)       = null
+     * RegExUtils.replaceAll("any", (Pattern) null, *)   = "any"
+     * RegExUtils.replaceAll("any", *, null)   = "any"
+     * RegExUtils.replaceAll("", Pattern.compile(""), "zzz")    = "zzz"
+     * RegExUtils.replaceAll("", Pattern.compile(".*"), "zzz")  = "zzz"
+     * RegExUtils.replaceAll("", Pattern.compile(".+"), "zzz")  = ""
+     * RegExUtils.replaceAll("abc", Pattern.compile(""), "ZZ")  = "ZZaZZbZZcZZ"
+     * RegExUtils.replaceAll("<__>\n<__>", Pattern.compile("<.*>"), "z")                 = "z\nz"
+     * RegExUtils.replaceAll("<__>\n<__>", Pattern.compile("<.*>", Pattern.DOTALL), "z") = "z"
+     * RegExUtils.replaceAll("<__>\n<__>", Pattern.compile("(?s)<.*>"), "z")             = "z"
+     * RegExUtils.replaceAll("ABCabc123", Pattern.compile("[a-z]"), "_")       = "ABC___123"
+     * RegExUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123"
+     * RegExUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123"
+     * RegExUtils.replaceAll("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum_dolor_sit"
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
@@ -431,20 +431,20 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.replaceAll(null, *, *)       = null
-     * StringUtils.replaceAll("any", (Pattern) null, *)   = "any"
-     * StringUtils.replaceAll("any", *, null)   = "any"
-     * StringUtils.replaceAll("", Pattern.compile(""), "zzz")    = "zzz"
-     * StringUtils.replaceAll("", Pattern.compile(".*"), "zzz")  = "zzz"
-     * StringUtils.replaceAll("", Pattern.compile(".+"), "zzz")  = ""
-     * StringUtils.replaceAll("abc", Pattern.compile(""), "ZZ")  = "ZZaZZbZZcZZ"
-     * StringUtils.replaceAll("<__>\n<__>", Pattern.compile("<.*>"), "z")                 = "z\nz"
-     * StringUtils.replaceAll("<__>\n<__>", Pattern.compile("<.*>", Pattern.DOTALL), "z") = "z"
-     * StringUtils.replaceAll("<__>\n<__>", Pattern.compile("(?s)<.*>"), "z")             = "z"
-     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[a-z]"), "_")       = "ABC___123"
-     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123"
-     * StringUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123"
-     * StringUtils.replaceAll("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum_dolor_sit"
+     * RegExUtils.replaceAll(null, *, *)       = null
+     * RegExUtils.replaceAll("any", (Pattern) null, *)   = "any"
+     * RegExUtils.replaceAll("any", *, null)   = "any"
+     * RegExUtils.replaceAll("", Pattern.compile(""), "zzz")    = "zzz"
+     * RegExUtils.replaceAll("", Pattern.compile(".*"), "zzz")  = "zzz"
+     * RegExUtils.replaceAll("", Pattern.compile(".+"), "zzz")  = ""
+     * RegExUtils.replaceAll("abc", Pattern.compile(""), "ZZ")  = "ZZaZZbZZcZZ"
+     * RegExUtils.replaceAll("<__>\n<__>", Pattern.compile("<.*>"), "z")                 = "z\nz"
+     * RegExUtils.replaceAll("<__>\n<__>", Pattern.compile("<.*>", Pattern.DOTALL), "z") = "z"
+     * RegExUtils.replaceAll("<__>\n<__>", Pattern.compile("(?s)<.*>"), "z")             = "z"
+     * RegExUtils.replaceAll("ABCabc123", Pattern.compile("[a-z]"), "_")       = "ABC___123"
+     * RegExUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123"
+     * RegExUtils.replaceAll("ABCabc123", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123"
+     * RegExUtils.replaceAll("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum_dolor_sit"
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
@@ -479,19 +479,19 @@ public class RegExUtils {
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>{@code
-     * StringUtils.replaceAll(null, *, *)       = null
-     * StringUtils.replaceAll("any", (String) null, *)   = "any"
-     * StringUtils.replaceAll("any", *, null)   = "any"
-     * StringUtils.replaceAll("", "", "zzz")    = "zzz"
-     * StringUtils.replaceAll("", ".*", "zzz")  = "zzz"
-     * StringUtils.replaceAll("", ".+", "zzz")  = ""
-     * StringUtils.replaceAll("abc", "", "ZZ")  = "ZZaZZbZZcZZ"
-     * StringUtils.replaceAll("<__>\n<__>", "<.*>", "z")      = "z\nz"
-     * StringUtils.replaceAll("<__>\n<__>", "(?s)<.*>", "z")  = "z"
-     * StringUtils.replaceAll("ABCabc123", "[a-z]", "_")       = "ABC___123"
-     * StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
-     * StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
-     * StringUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
+     * RegExUtils.replaceAll(null, *, *)       = null
+     * RegExUtils.replaceAll("any", (String) null, *)   = "any"
+     * RegExUtils.replaceAll("any", *, null)   = "any"
+     * RegExUtils.replaceAll("", "", "zzz")    = "zzz"
+     * RegExUtils.replaceAll("", ".*", "zzz")  = "zzz"
+     * RegExUtils.replaceAll("", ".+", "zzz")  = ""
+     * RegExUtils.replaceAll("abc", "", "ZZ")  = "ZZaZZbZZcZZ"
+     * RegExUtils.replaceAll("<__>\n<__>", "<.*>", "z")      = "z\nz"
+     * RegExUtils.replaceAll("<__>\n<__>", "(?s)<.*>", "z")  = "z"
+     * RegExUtils.replaceAll("ABCabc123", "[a-z]", "_")       = "ABC___123"
+     * RegExUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
+     * RegExUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
+     * RegExUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
@@ -525,19 +525,19 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.replaceFirst(null, *, *)       = null
-     * StringUtils.replaceFirst("any", (Pattern) null, *)   = "any"
-     * StringUtils.replaceFirst("any", *, null)   = "any"
-     * StringUtils.replaceFirst("", Pattern.compile(""), "zzz")    = "zzz"
-     * StringUtils.replaceFirst("", Pattern.compile(".*"), "zzz")  = "zzz"
-     * StringUtils.replaceFirst("", Pattern.compile(".+"), "zzz")  = ""
-     * StringUtils.replaceFirst("abc", Pattern.compile(""), "ZZ")  = "ZZabc"
-     * StringUtils.replaceFirst("<__>\n<__>", Pattern.compile("<.*>"), "z")      = "z\n<__>"
-     * StringUtils.replaceFirst("<__>\n<__>", Pattern.compile("(?s)<.*>"), "z")  = "z"
-     * StringUtils.replaceFirst("ABCabc123", Pattern.compile("[a-z]"), "_")          = "ABC_bc123"
-     * StringUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123abc"
-     * StringUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123abc"
-     * StringUtils.replaceFirst("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum  dolor   sit"
+     * RegExUtils.replaceFirst(null, *, *)       = null
+     * RegExUtils.replaceFirst("any", (Pattern) null, *)   = "any"
+     * RegExUtils.replaceFirst("any", *, null)   = "any"
+     * RegExUtils.replaceFirst("", Pattern.compile(""), "zzz")    = "zzz"
+     * RegExUtils.replaceFirst("", Pattern.compile(".*"), "zzz")  = "zzz"
+     * RegExUtils.replaceFirst("", Pattern.compile(".+"), "zzz")  = ""
+     * RegExUtils.replaceFirst("abc", Pattern.compile(""), "ZZ")  = "ZZabc"
+     * RegExUtils.replaceFirst("<__>\n<__>", Pattern.compile("<.*>"), "z")      = "z\n<__>"
+     * RegExUtils.replaceFirst("<__>\n<__>", Pattern.compile("(?s)<.*>"), "z")  = "z"
+     * RegExUtils.replaceFirst("ABCabc123", Pattern.compile("[a-z]"), "_")          = "ABC_bc123"
+     * RegExUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123abc"
+     * RegExUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123abc"
+     * RegExUtils.replaceFirst("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum  dolor   sit"
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
@@ -568,19 +568,19 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.replaceFirst(null, *, *)       = null
-     * StringUtils.replaceFirst("any", (Pattern) null, *)   = "any"
-     * StringUtils.replaceFirst("any", *, null)   = "any"
-     * StringUtils.replaceFirst("", Pattern.compile(""), "zzz")    = "zzz"
-     * StringUtils.replaceFirst("", Pattern.compile(".*"), "zzz")  = "zzz"
-     * StringUtils.replaceFirst("", Pattern.compile(".+"), "zzz")  = ""
-     * StringUtils.replaceFirst("abc", Pattern.compile(""), "ZZ")  = "ZZabc"
-     * StringUtils.replaceFirst("<__>\n<__>", Pattern.compile("<.*>"), "z")      = "z\n<__>"
-     * StringUtils.replaceFirst("<__>\n<__>", Pattern.compile("(?s)<.*>"), "z")  = "z"
-     * StringUtils.replaceFirst("ABCabc123", Pattern.compile("[a-z]"), "_")          = "ABC_bc123"
-     * StringUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123abc"
-     * StringUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123abc"
-     * StringUtils.replaceFirst("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum  dolor   sit"
+     * RegExUtils.replaceFirst(null, *, *)       = null
+     * RegExUtils.replaceFirst("any", (Pattern) null, *)   = "any"
+     * RegExUtils.replaceFirst("any", *, null)   = "any"
+     * RegExUtils.replaceFirst("", Pattern.compile(""), "zzz")    = "zzz"
+     * RegExUtils.replaceFirst("", Pattern.compile(".*"), "zzz")  = "zzz"
+     * RegExUtils.replaceFirst("", Pattern.compile(".+"), "zzz")  = ""
+     * RegExUtils.replaceFirst("abc", Pattern.compile(""), "ZZ")  = "ZZabc"
+     * RegExUtils.replaceFirst("<__>\n<__>", Pattern.compile("<.*>"), "z")      = "z\n<__>"
+     * RegExUtils.replaceFirst("<__>\n<__>", Pattern.compile("(?s)<.*>"), "z")  = "z"
+     * RegExUtils.replaceFirst("ABCabc123", Pattern.compile("[a-z]"), "_")          = "ABC_bc123"
+     * RegExUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "_")  = "ABC_123abc"
+     * RegExUtils.replaceFirst("ABCabc123abc", Pattern.compile("[^A-Z0-9]+"), "")   = "ABC123abc"
+     * RegExUtils.replaceFirst("Lorem ipsum  dolor   sit", Pattern.compile("( +)([a-z]+)"), "_$2")  = "Lorem_ipsum  dolor   sit"
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
@@ -614,19 +614,19 @@ public class RegExUtils {
      * DOTALL is also known as single-line mode in Perl.</p>
      *
      * <pre>{@code
-     * StringUtils.replaceFirst(null, *, *)       = null
-     * StringUtils.replaceFirst("any", (String) null, *)   = "any"
-     * StringUtils.replaceFirst("any", *, null)   = "any"
-     * StringUtils.replaceFirst("", "", "zzz")    = "zzz"
-     * StringUtils.replaceFirst("", ".*", "zzz")  = "zzz"
-     * StringUtils.replaceFirst("", ".+", "zzz")  = ""
-     * StringUtils.replaceFirst("abc", "", "ZZ")  = "ZZabc"
-     * StringUtils.replaceFirst("<__>\n<__>", "<.*>", "z")      = "z\n<__>"
-     * StringUtils.replaceFirst("<__>\n<__>", "(?s)<.*>", "z")  = "z"
-     * StringUtils.replaceFirst("ABCabc123", "[a-z]", "_")          = "ABC_bc123"
-     * StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "_")  = "ABC_123abc"
-     * StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "")   = "ABC123abc"
-     * StringUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum  dolor   sit"
+     * RegExUtils.replaceFirst(null, *, *)       = null
+     * RegExUtils.replaceFirst("any", (String) null, *)   = "any"
+     * RegExUtils.replaceFirst("any", *, null)   = "any"
+     * RegExUtils.replaceFirst("", "", "zzz")    = "zzz"
+     * RegExUtils.replaceFirst("", ".*", "zzz")  = "zzz"
+     * RegExUtils.replaceFirst("", ".+", "zzz")  = ""
+     * RegExUtils.replaceFirst("abc", "", "ZZ")  = "ZZabc"
+     * RegExUtils.replaceFirst("<__>\n<__>", "<.*>", "z")      = "z\n<__>"
+     * RegExUtils.replaceFirst("<__>\n<__>", "(?s)<.*>", "z")  = "z"
+     * RegExUtils.replaceFirst("ABCabc123", "[a-z]", "_")          = "ABC_bc123"
+     * RegExUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "_")  = "ABC_123abc"
+     * RegExUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "")   = "ABC123abc"
+     * RegExUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum  dolor   sit"
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
@@ -660,17 +660,17 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.replacePattern(null, *, *)       = null
-     * StringUtils.replacePattern("any", (String) null, *)   = "any"
-     * StringUtils.replacePattern("any", *, null)   = "any"
-     * StringUtils.replacePattern("", "", "zzz")    = "zzz"
-     * StringUtils.replacePattern("", ".*", "zzz")  = "zzz"
-     * StringUtils.replacePattern("", ".+", "zzz")  = ""
-     * StringUtils.replacePattern("<__>\n<__>", "<.*>", "z")       = "z"
-     * StringUtils.replacePattern("ABCabc123", "[a-z]", "_")       = "ABC___123"
-     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
-     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
-     * StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
+     * RegExUtils.replacePattern(null, *, *)       = null
+     * RegExUtils.replacePattern("any", (String) null, *)   = "any"
+     * RegExUtils.replacePattern("any", *, null)   = "any"
+     * RegExUtils.replacePattern("", "", "zzz")    = "zzz"
+     * RegExUtils.replacePattern("", ".*", "zzz")  = "zzz"
+     * RegExUtils.replacePattern("", ".+", "zzz")  = ""
+     * RegExUtils.replacePattern("<__>\n<__>", "<.*>", "z")       = "z"
+     * RegExUtils.replacePattern("ABCabc123", "[a-z]", "_")       = "ABC___123"
+     * RegExUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
+     * RegExUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
+     * RegExUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
      * }</pre>
      *
      * @param text
@@ -705,17 +705,17 @@ public class RegExUtils {
      * <p>A {@code null} reference passed to this method is a no-op.</p>
      *
      * <pre>{@code
-     * StringUtils.replacePattern(null, *, *)       = null
-     * StringUtils.replacePattern("any", (String) null, *)   = "any"
-     * StringUtils.replacePattern("any", *, null)   = "any"
-     * StringUtils.replacePattern("", "", "zzz")    = "zzz"
-     * StringUtils.replacePattern("", ".*", "zzz")  = "zzz"
-     * StringUtils.replacePattern("", ".+", "zzz")  = ""
-     * StringUtils.replacePattern("<__>\n<__>", "<.*>", "z")       = "z"
-     * StringUtils.replacePattern("ABCabc123", "[a-z]", "_")       = "ABC___123"
-     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
-     * StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
-     * StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
+     * RegExUtils.replacePattern(null, *, *)       = null
+     * RegExUtils.replacePattern("any", (String) null, *)   = "any"
+     * RegExUtils.replacePattern("any", *, null)   = "any"
+     * RegExUtils.replacePattern("", "", "zzz")    = "zzz"
+     * RegExUtils.replacePattern("", ".*", "zzz")  = "zzz"
+     * RegExUtils.replacePattern("", ".+", "zzz")  = ""
+     * RegExUtils.replacePattern("<__>\n<__>", "<.*>", "z")       = "z"
+     * RegExUtils.replacePattern("ABCabc123", "[a-z]", "_")       = "ABC___123"
+     * RegExUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_")  = "ABC_123"
+     * RegExUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "")   = "ABC123"
+     * RegExUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2")  = "Lorem_ipsum_dolor_sit"
      * }</pre>
      *
      * @param text
