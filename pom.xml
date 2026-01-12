@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>94</version>
+    <version>95</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
@@ -507,19 +507,6 @@
         </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <!-- TEMP until commons-parent 95 -->
-      <!-- Java 11-16 -->
-      <id>java-11-16</id>
-      <activation>
-	    <jdk>[11,16]</jdk>
-      </activation>
-      <properties>
-        <commons.checkstyle.version>10.26.1</commons.checkstyle.version>
-        <!-- spdx can require Java 17 depending on undocumented behavior which kicks in for us here on macOS (but not on Java 8 somehow). -->
-        <commons.spdx.version>0.5.5</commons.spdx.version>
-      </properties>
     </profile>
     <profile>
       <id>java15</id>
