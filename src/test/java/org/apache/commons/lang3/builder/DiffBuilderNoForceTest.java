@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,21 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3.builder;
 
-import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetSystemProperty;
 
-class ReflectionToStringBuilderSummaryTest extends AbstractBuilderTest {
-
-    @SuppressWarnings("unused")
-    private final String stringField = "string";
-
-    @ToStringSummary
-    private final String summaryString = "summary";
-
-    @Test
-    void testSummary() {
-        assertEqualsIfAccessible("[stringField=string,summaryString=<String>]", new ReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
-    }
-
+/**
+ * Like {@link DiffBuilderTest} with force accessible disabled.
+ */
+@SetSystemProperty(key = AbstractReflectionTest.FORCE_ACCESSIBLE, value = "false")
+public class DiffBuilderNoForceTest extends DiffBuilderTest {
+    // TODO Override failing methods with new assertions
 }

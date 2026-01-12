@@ -22,12 +22,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  */
-class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
+class MultilineRecursiveToStringStyleTest extends AbstractBuilderTest {
 
     static class Account {
         Customer owner;
@@ -110,7 +109,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                 + "    false," + LS
                 + "    true" + LS
                 + "  }");
-        assertEquals(exp, toString(wa));
+        assertEqualsIfAccessible(exp, toString(wa));
     }
 
     @Test
@@ -123,7 +122,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                 + "    1," + LS
                 + "    2" + LS
                 + "  }");
-        assertEquals(exp, toString(wa));
+        assertEqualsIfAccessible(exp, toString(wa));
     }
 
     @Test
@@ -136,7 +135,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                 + "    a," + LS
                 + "    A" + LS
                 + "  }");
-        assertEquals(exp, toString(wa));
+        assertEqualsIfAccessible(exp, toString(wa));
     }
 
     @Test
@@ -149,7 +148,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                 + "    1.0," + LS
                 + "    2.0" + LS
                 + "  }");
-        assertEquals(exp, toString(wa));
+        assertEqualsIfAccessible(exp, toString(wa));
     }
 
     @Test
@@ -162,7 +161,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                 + "    1.0," + LS
                 + "    2.0" + LS
                 + "  }");
-        assertEquals(exp, toString(wa));
+        assertEqualsIfAccessible(exp, toString(wa));
     }
 
     private String getClassPrefix(final Object object) {
@@ -193,7 +192,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                 + "    1," + LS
                 + "    2" + LS
                 + "  }");
-        assertEquals(exp, toString(wa));
+        assertEqualsIfAccessible(exp, toString(wa));
     }
 
     @Test
@@ -206,7 +205,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                 + "    1," + LS
                 + "    2" + LS
                 + "  }");
-        assertEquals(exp, toString(wa));
+        assertEqualsIfAccessible(exp, toString(wa));
     }
 
     @Test
@@ -229,7 +228,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                         + "    ]" + LS
                         + "  }" + LS
                         + "]";
-        assertEquals(expected, toString(acc));
+        assertEqualsIfAccessible(expected, toString(acc));
     }
 
     @Test
@@ -244,7 +243,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                    + "  ]," + LS
                    + "  name=Douglas Adams" + LS
                 + "]";
-        assertEquals(exp, toString(customer));
+        assertEqualsIfAccessible(exp, toString(customer));
     }
 
     @Test
@@ -264,7 +263,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                 + "    1," + LS
                 + "    2" + LS
                 + "  }");
-        assertEquals(exp, toString(wa));
+        assertEqualsIfAccessible(exp, toString(wa));
     }
 
     @Test
@@ -274,7 +273,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                         + "  amount=100.0," + LS
                         + "  date=2014.10.15" + LS
                         + "]";
-        assertEquals(expected, toString(tx));
+        assertEqualsIfAccessible(expected, toString(tx));
     }
 
     @Test
@@ -287,7 +286,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                 + "    a," + LS
                 + "    A" + LS
                 + "  }");
-        assertEquals(exp, toString(wa));
+        assertEqualsIfAccessible(exp, toString(wa));
     }
 
     @Test
