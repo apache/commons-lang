@@ -200,7 +200,7 @@ class ArrayFillTest extends AbstractLangTest {
     @Test
     void testFillShortArray() {
         final short[] array = new short[3];
-        final short val = (byte) 1;
+        final short val = 1;
         final short[] actual = ArrayFill.fill(array, val);
         assertSame(array, actual);
         for (final short v : actual) {
