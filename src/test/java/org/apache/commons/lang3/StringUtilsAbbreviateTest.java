@@ -135,8 +135,10 @@ class StringUtilsAbbreviateTest {
         assertEquals("", StringUtils.abbreviate("", "...", 2, 10));
         assertEquals("abcdefg", StringUtils.abbreviate("abcdefg", null, 2, 10));
         assertEquals("abcdefg", StringUtils.abbreviate("abcdefg", "", 2, 10));
-        assertEquals("abc", StringUtils.abbreviate("abcdefg", null, 2, 3));
-        assertEquals("abc", StringUtils.abbreviate("abcdefg", "", 2, 3));
+        assertEquals("abc", StringUtils.abbreviate("abcdefg", null, 0, 3));
+        assertEquals("cde", StringUtils.abbreviate("abcdefg", null, 2, 3));
+        assertEquals("abc", StringUtils.abbreviate("abcdefg", "", 0, 3));
+        assertEquals("cde", StringUtils.abbreviate("abcdefg", "", 2, 3));
         assertIllegalArgumentException(() -> StringUtils.abbreviate("abcdefghij", "::", 0, 2),
                 "StringUtils.abbreviate expecting IllegalArgumentException");
         assertIllegalArgumentException(() -> StringUtils.abbreviate("abcdefghij", "!!!", 5, 6),
