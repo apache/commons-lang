@@ -757,7 +757,7 @@ public class NumberUtils {
      * @since 3.4
      */
     public static boolean isParsable(final String str) {
-        return accept(Double::parseDouble, str) || accept(Long::parseLong, str) || accept(Float::parseFloat, str) || accept(Long::parseLong, str);
+        return accept(Double::parseDouble, str) || accept(Long::parseLong, str);
     }
 
     private static boolean isSign(final char ch) {
