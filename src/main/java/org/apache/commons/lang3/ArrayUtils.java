@@ -2435,7 +2435,7 @@ public class ArrayUtils {
      * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final byte[] array, final byte valueToFind, final int startIndex) {
-        if (array == null) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         for (int i = max0(startIndex); i < array.length; i++) {
@@ -2477,7 +2477,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static int indexOf(final char[] array, final char valueToFind, final int startIndex) {
-        if (array == null) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         for (int i = max0(startIndex); i < array.length; i++) {
@@ -2647,7 +2647,7 @@ public class ArrayUtils {
      * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final int[] array, final int valueToFind, final int startIndex) {
-        if (array == null) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         for (int i = max0(startIndex); i < array.length; i++) {
@@ -2687,7 +2687,7 @@ public class ArrayUtils {
      * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final long[] array, final long valueToFind, final int startIndex) {
-        if (array == null) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         for (int i = max0(startIndex); i < array.length; i++) {
@@ -2727,7 +2727,7 @@ public class ArrayUtils {
      * @return the index of the object within the array starting at the index, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final Object[] array, final Object objectToFind, int startIndex) {
-        if (array == null) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         startIndex = max0(startIndex);
@@ -2776,7 +2776,7 @@ public class ArrayUtils {
      * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final short[] array, final short valueToFind, final int startIndex) {
-        if (array == null) {
+        if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         for (int i = max0(startIndex); i < array.length; i++) {
@@ -6349,10 +6349,9 @@ public class ArrayUtils {
      * @param array  the array to reverse, may be {@code null}.
      */
     public static void reverse(final boolean[] array) {
-        if (array == null) {
-            return;
+        if (array != null) {
+            reverse(array, 0, array.length);
         }
-        reverse(array, 0, array.length);
     }
 
     /**
