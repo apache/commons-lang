@@ -108,9 +108,6 @@ class NumberUtilsTest extends AbstractLangTest {
             assertNotNull(function.apply(s));
             return true;
         } catch (final Exception e) {
-            if (!s.matches(".*\\s.*")) {
-                e.printStackTrace();
-            }
             return false;
         }
     }
@@ -1161,8 +1158,8 @@ class NumberUtilsTest extends AbstractLangTest {
     void testLang1729IsParsableByte() {
         assertTrue(isParsableByte("1"));
         assertFalse(isParsableByte("1 2 3"));
-        assertTrue(isParsableByte("１２３"));
-        assertFalse(isParsableByte("１ ２ ３"));
+        assertTrue(isParsableByte("\uFF11\uFF12\uFF13"));
+        assertFalse(isParsableByte("\uFF11 \uFF12 \uFF13"));
     }
 
     @Test
@@ -1174,7 +1171,7 @@ class NumberUtilsTest extends AbstractLangTest {
         assertTrue(isParsableDouble("1.0"));
         assertFalse(isParsableDouble("1.0."));
         assertFalse(isParsableDouble("1 2 3"));
-        assertFalse(isParsableDouble("１ ２ ３"));
+        assertFalse(isParsableDouble("\uFF11 \uFF12 \uFF13"));
     }
 
     @Test
