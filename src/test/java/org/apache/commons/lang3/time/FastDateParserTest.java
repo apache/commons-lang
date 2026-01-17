@@ -29,6 +29,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -349,6 +350,14 @@ class FastDateParserTest extends AbstractLangTest {
         assertEquals(parser1.hashCode(), parser2.hashCode());
 
         assertNotEquals(parser1, new Object());
+    }
+
+    @Test
+    void testISO8601TimeZoneVariants() throws Exception {
+        final Date date = Date.from(Instant.parse("2026-01-17T04:30:00Z"));
+        final TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        assertEquals(date, new FastDateParser("yyyy-MM-dd'T'HH:mm:ssXXX", timeZone, Locale.US).parse("2026-01-17T10:00:00+05:30"));
+        assertEquals(date, new FastDateParser("yyyy-MM-dd'T'HH:mm:ssXX", timeZone, Locale.US).parse("2026-01-17T10:00:00+0530"));
     }
 
     @Test
