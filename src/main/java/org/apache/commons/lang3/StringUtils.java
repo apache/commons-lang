@@ -352,12 +352,12 @@ public class StringUtils {
      * @throws IllegalArgumentException if the width is too small.
      * @since 3.6
      */
-    public static String abbreviate(final String str, final String abbrevMarker, int offset, final int maxWidth) {
-        if (isNotEmpty(str) && EMPTY.equals(abbrevMarker) && maxWidth > 0) {
-            return substring(str, 0, maxWidth);
-        }
-        if (isAnyEmpty(str, abbrevMarker)) {
+    public static String abbreviate(final String str, String abbrevMarker, int offset, final int maxWidth) {
+        if (isEmpty(str)) {
             return str;
+        }
+        if (abbrevMarker == null) {
+            abbrevMarker = EMPTY;
         }
         final int abbrevMarkerLength = abbrevMarker.length();
         final int minAbbrevWidth = abbrevMarkerLength + 1;
