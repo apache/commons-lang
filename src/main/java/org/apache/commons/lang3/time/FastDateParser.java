@@ -47,6 +47,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.LocaleUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * FastDateParser is a fast and thread-safe version of {@link java.text.SimpleDateFormat}.
@@ -323,7 +324,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         public String toString() {
-            return "NumberStrategy [field=" + field + "]";
+            return getClass().getSimpleName() + " [field=" + field + "]";
         }
     }
 
@@ -1027,11 +1028,12 @@ public class FastDateParser implements DateParser, Serializable {
         final Date date = parse(source, pp);
         if (date == null) {
             // Add a note regarding supported date range
+            final int errorIndex = pp.getErrorIndex();
+            final String msg = String.format("Unparseable date: '%s', parse position = %s", source, pp);
             if (locale.equals(JAPANESE_IMPERIAL)) {
-                throw new ParseException("(The " + locale + " locale does not support dates before 1868 AD)\nUnparseable date: \"" + source,
-                        pp.getErrorIndex());
+                throw new ParseException(String.format("; the %s locale does not support dates before 1868-01-01.", locale, msg), errorIndex);
             }
-            throw new ParseException("Unparseable date: " + source, pp.getErrorIndex());
+            throw new ParseException(msg, errorIndex);
         }
         return date;
     }
@@ -1129,6 +1131,6 @@ public class FastDateParser implements DateParser, Serializable {
      */
     public String toStringAll() {
         return "FastDateParser [pattern=" + pattern + ", timeZone=" + timeZone + ", locale=" + locale + ", century=" + century + ", startYear=" + startYear
-                + ", patterns=" + patterns + "]";
+                + ", patterns=" + StringUtils.join(patterns, ", " + System.lineSeparator() + "\t") + "]";
     }
 }
