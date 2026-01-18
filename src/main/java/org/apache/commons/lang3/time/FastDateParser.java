@@ -44,7 +44,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -581,7 +580,7 @@ public class FastDateParser implements DateParser, Serializable {
                 }
             }
             // Order is undefined.
-            for (final String tzId : ArraySorter.sort(TimeZone.getAvailableIDs())) {
+            for (final String tzId : TimeZones.SORTED_AVAILABLE_IDS) {
                 if (skipTimeZone(tzId)) {
                     continue;
                 }

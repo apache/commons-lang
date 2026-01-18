@@ -216,7 +216,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         Objects.requireNonNull(locale, "locale");
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null, null));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null, null));
-        for (final String id : ArraySorter.sort(TimeZone.getAvailableIDs())) {
+        for (final String id : TimeZones.SORTED_AVAILABLE_IDS) {
             final TimeZone timeZone = TimeZones.getTimeZone(id);
             final String displayName = timeZone.getDisplayName(locale);
             final FastDateParser parser = new FastDateParser("z", timeZone, locale);
