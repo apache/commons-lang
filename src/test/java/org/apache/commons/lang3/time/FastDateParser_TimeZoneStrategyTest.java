@@ -237,7 +237,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     }
 
     /**
-     * Breaks randomly on GitHub for Locale "pt_PT", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
+     * Breaks randomly on GitHub CI for Locale "pt_PT", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
      *
      * <pre>{@code
      * java.text.ParseException: Unparseable date: Horário do Meridiano de Greenwich: with tzDefault =
@@ -248,8 +248,28 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      * @throws ParseException Test failure
      */
     @Test
-    void testTimeZoneStrategyPatternPortugal() throws ParseException {
+    void testTimeZoneStrategyPatternPortugal_PT() throws ParseException {
         testTimeZoneStrategyPattern("pt_PT", "Horário do Meridiano de Greenwich");
+    }
+
+    /**
+     * Breaks randomly on GitHub CI for Java 25 and Locale "pt_ST", TimeZone "Hora padrão de Damasco".
+     *
+     * @throws ParseException Test failure
+     */
+    @Test
+    void testTimeZoneStrategyPatternPortugal_ST() throws ParseException {
+        testTimeZoneStrategyPattern("pt_ST", "Hora padrão de Damasco");
+    }
+
+    /**
+     * Breaks randomly on GitHub CI for Java 25 and Locale "pt_TL", TimeZone "Hora padrão de Damasco".
+     *
+     * @throws ParseException Test failure
+     */
+    @Test
+    void testTimeZoneStrategyPatternPortugal_TL() throws ParseException {
+        testTimeZoneStrategyPattern("pt_TL", "Hora padrão de Damasco");
     }
 
     /**
