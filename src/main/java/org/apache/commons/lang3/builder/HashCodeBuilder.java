@@ -17,7 +17,6 @@
 
 package org.apache.commons.lang3.builder;
 
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
@@ -102,7 +101,53 @@ import org.apache.commons.lang3.Validate;
  *
  * @since 1.0
  */
-public class HashCodeBuilder implements Builder<Integer> {
+public class HashCodeBuilder extends AbstractReflection implements org.apache.commons.lang3.builder.Builder<Integer> {
+
+    /**
+     * Builds instances of CompareToBuilder.
+     */
+    public static class Builder extends AbstractBuilder<Builder> {
+
+        private int initialOddNumber;
+
+        private int multiplierOddNumber;
+
+        /**
+         * Constructs a new Builder instance.
+         */
+        private Builder() {
+            // empty
+        }
+
+        @Override
+        public HashCodeBuilder get() {
+            return new HashCodeBuilder(this);
+        }
+
+
+        /**
+         * Sets an odd number used as the initial value.
+         *
+         * @param initialOddNumber an odd number used as the initial value.
+         * @return {@code this} instance.
+         */
+        public Builder setInitialOddNumber(final int initialOddNumber) {
+            this.initialOddNumber = initialOddNumber;
+            return asThis();
+        }
+
+        /**
+         * Sets an odd number used as the multiplier.
+         *
+         * @param multiplierOddNumber an odd number used as the multiplier.
+         * @return {@code this} instance.
+         */
+        public Builder setMultiplierOddNumber(final int multiplierOddNumber) {
+            this.multiplierOddNumber = multiplierOddNumber;
+            return asThis();
+        }
+
+    }
 
     /**
      * The default initial value to use in reflection hash code building.
@@ -120,6 +165,15 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @since 2.3
      */
     private static final ThreadLocal<Set<IDKey>> REGISTRY = ThreadLocal.withInitial(HashSet::new);
+
+    /**
+     * Constructs a new Builder.
+     *
+     * @return a new Builder.
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
 
     /*
      * NOTE: we cannot store the actual objects in a HashSet, as that would use the very hashCode()
@@ -175,9 +229,10 @@ public class HashCodeBuilder implements Builder<Integer> {
      *            whether to use transient fields
      * @param excludeFields
      *            Collection of String field names to exclude from use in calculation of hash code
+     * @param setAccessible Whether to set fields' accessible flags
      */
     private static void reflectionAppend(final Object object, final Class<?> clazz, final HashCodeBuilder builder, final boolean useTransients,
-            final String[] excludeFields) {
+            final String[] excludeFields, final boolean setAccessible) {
         if (isRegistered(object)) {
             return;
         }
@@ -185,7 +240,7 @@ public class HashCodeBuilder implements Builder<Integer> {
             register(object);
             // The elements in the returned array are not sorted and are not in any particular order.
             final Field[] fields = ArraySorter.sort(clazz.getDeclaredFields(), Comparator.comparing(Field::getName));
-            AccessibleObject.setAccessible(fields, true);
+            setAccessible(setAccessible, fields);
             for (final Field field : fields) {
                 if (!ArrayUtils.contains(excludeFields, field.getName())
                     && !field.getName().contains("$")
@@ -340,10 +395,10 @@ public class HashCodeBuilder implements Builder<Integer> {
         Objects.requireNonNull(object, "object");
         final HashCodeBuilder builder = new HashCodeBuilder(initialNonZeroOddNumber, multiplierNonZeroOddNumber);
         Class<?> clazz = object.getClass();
-        reflectionAppend(object, clazz, builder, testTransients, excludeFields);
+        reflectionAppend(object, clazz, builder, testTransients, excludeFields, true);
         while (clazz.getSuperclass() != null && clazz != reflectUpToClass) {
             clazz = clazz.getSuperclass();
-            reflectionAppend(object, clazz, builder, testTransients, excludeFields);
+            reflectionAppend(object, clazz, builder, testTransients, excludeFields, true);
         }
         return builder.toHashCode();
     }
@@ -504,8 +559,15 @@ public class HashCodeBuilder implements Builder<Integer> {
      * Uses two hard coded choices for the constants needed to build a {@code hashCode}.
      */
     public HashCodeBuilder() {
-        iConstant = 37;
-        iTotal = 17;
+        this(builder().setInitialOddNumber(17).setMultiplierOddNumber(37));
+    }
+
+    private HashCodeBuilder(final Builder builder) {
+        super(builder);
+        Validate.isTrue(builder.initialOddNumber % 2 != 0, "HashCodeBuilder requires an odd initial value");
+        Validate.isTrue(builder.multiplierOddNumber % 2 != 0, "HashCodeBuilder requires an odd multiplier");
+        iConstant = builder.multiplierOddNumber;
+        iTotal = builder.initialOddNumber;
     }
 
     /**
@@ -524,10 +586,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the number is even
      */
     public HashCodeBuilder(final int initialOddNumber, final int multiplierOddNumber) {
-        Validate.isTrue(initialOddNumber % 2 != 0, "HashCodeBuilder requires an odd initial value");
-        Validate.isTrue(multiplierOddNumber % 2 != 0, "HashCodeBuilder requires an odd multiplier");
-        iConstant = multiplierOddNumber;
-        iTotal = initialOddNumber;
+        this(builder().setInitialOddNumber(initialOddNumber).setMultiplierOddNumber(multiplierOddNumber));
     }
 
     /**
