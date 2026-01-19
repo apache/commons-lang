@@ -53,13 +53,14 @@ The <action> type attribute can be add,update,fix,remove.
       getClass(ClassLoader, String, boolean),
       ClassUtils.getClass(ClassLoader, String),
       ClassUtils.getClass(String, boolean),
-      ClassUtils.getClass(String)
+      ClassUtils.getClass(String),
       #1494.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Arnout Engelen, Piotr P. Karwasz, Vladimir Sitnikov, Gilles Sadowski">ClassUtils now throws IllegalArgumentException if a class name length is greater than 65,535:
       getClass(ClassLoader, String, boolean),
       ClassUtils.getClass(ClassLoader, String),
       ClassUtils.getClass(String, boolean),
-      ClassUtils.getClass(String).</action>
+      ClassUtils.getClass(String),
+      #1495.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix console compiler warning: TypeUtils.java:[361,33] non-varargs call of varargs method with inexact argument type for last parameter.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix console compiler warning: ReflectionDiffBuilderTest.java:[172,52] non-varargs call of varargs method with inexact argument type for last parameter.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix Apache RAT plugin console warnings.</action>
