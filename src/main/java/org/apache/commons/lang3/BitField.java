@@ -92,7 +92,7 @@ public class BitField {
      * @param mask the mask specifying which bits apply to this BitField. Bits that are set in this mask are the bits that this BitField operates on.
      * @since 3.21.0
      */
-    public BitField(long mask) {
+    public BitField(final long mask) {
         this.mask = mask;
         this.shiftCount = mask == 0 ? 0 : Long.numberOfTrailingZeros(mask);
     }
@@ -155,7 +155,7 @@ public class BitField {
      * @return the selected bits.
      * @since 3.21.0
      */
-    public long getRawValue(long holder) {
+    public long getRawValue(final long holder) {
         return holder & mask;
     }
 
