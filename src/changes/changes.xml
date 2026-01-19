@@ -102,6 +102,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="ThrawnCA, Gary Gregory">Fix handling of null marker in StringUtils.abbreviate(String, String, int, int) #1571.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Better exception messages from FastDateParser.parse(String).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, David Du">Simplify NumberUtils.isParsable(String) #1570.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">RandomStringUtils.random() methods may not return when asked to generate only letters or only numbers while provided with a range that contains neither.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>

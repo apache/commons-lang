@@ -243,7 +243,7 @@ public class RandomStringUtils {
      * @param start   the position in set of chars to start at (inclusive).
      * @param end     the position in set of chars to end before (exclusive).
      * @param letters if {@code true}, generated string may include alphabetic characters.
-     * @param numbers if {@code true}, generated string may include numeric characters.
+     * @param digits if {@code true}, generated string may include digit characters.
      * @param chars   the set of chars to choose randoms from, must not be empty. If {@code null}, then it will use the
      *                set of all chars.
      * @param random  a source of randomness.
@@ -252,7 +252,7 @@ public class RandomStringUtils {
      * @throws IllegalArgumentException       if {@code count} &lt; 0 or the provided chars array is empty.
      * @since 2.0
      */
-    public static String random(int count, int start, int end, final boolean letters, final boolean numbers,
+    public static String random(int count, int start, int end, final boolean letters, final boolean digits,
             final char[] chars, final Random random) {
         if (count == 0) {
             return StringUtils.EMPTY;
@@ -263,29 +263,25 @@ public class RandomStringUtils {
         if (chars != null && chars.length == 0) {
             throw new IllegalArgumentException("The chars array must not be empty");
         }
-
         if (start == 0 && end == 0) {
             if (chars != null) {
                 end = chars.length;
-            } else if (!letters && !numbers) {
+            } else if (!letters && !digits) {
                 end = Character.MAX_CODE_POINT;
             } else {
                 end = 'z' + 1;
                 start = ' ';
             }
         } else if (end <= start) {
-            throw new IllegalArgumentException(
-                    "Parameter end (" + end + ") must be greater than start (" + start + ")");
+            throw new IllegalArgumentException("Parameter end (" + end + ") must be greater than start (" + start + ")");
         } else if (start < 0 || end < 0) {
             throw new IllegalArgumentException("Character positions MUST be >= 0");
         }
-
         if (end > Character.MAX_CODE_POINT) {
             // Technically, it should be `Character.MAX_CODE_POINT+1` as `end` is excluded
             // But the character `Character.MAX_CODE_POINT` is private use, so it would anyway be excluded
             end = Character.MAX_CODE_POINT;
         }
-
         // Optimizations and tests when chars == null and using ASCII characters (end <= 0x7f)
         if (chars == null && end <= 0x7f) {
             // Optimize generation of full alphanumerical characters
@@ -293,16 +289,13 @@ public class RandomStringUtils {
             // In turn, this would make us reject the sampling with probability 1 - 62 / 2^7 > 1 / 2
             // Instead we can pick directly from the right set of 62 characters, which requires
             // picking a 6-bit integer and only rejecting with probability 2 / 64 = 1 / 32
-            if (letters && numbers && start <= ASCII_0 && end >= ASCII_z + 1) {
+            if (letters && digits && start <= ASCII_0 && end >= ASCII_z + 1) {
                 return random(count, 0, 0, false, false, ALPHANUMERICAL_CHARS, random);
             }
-
-            if (numbers && end <= ASCII_0 || letters && end <= ASCII_A) {
-                throw new IllegalArgumentException(
-                        "Parameter end (" + end + ") must be greater than (" + ASCII_0 + ") for generating digits "
-                                + "or greater than (" + ASCII_A + ") for generating letters.");
+            if (digits && end <= ASCII_0 || letters && end <= ASCII_A) {
+                throw new IllegalArgumentException("Parameter end (" + end + ") must be greater than (" + ASCII_0 + ") for generating digits "
+                        + "or greater than (" + ASCII_A + ") for generating letters.");
             }
-
             // Optimize start and end when filtering by letters and/or numbers:
             // The range provided may be too large since we filter anyway afterward.
             // Note the use of Math.min/max (as opposed to setting start to '0' for example),
@@ -311,10 +304,10 @@ public class RandomStringUtils {
             // needs to stay equal to '1' in that case.
             // Note that because of the above test, we will always have start < end
             // even after this optimization.
-            if (letters && numbers) {
+            if (letters && digits) {
                 start = Math.max(ASCII_0, start);
                 end = Math.min(ASCII_z + 1, end);
-            } else if (numbers) {
+            } else if (digits) {
                 // just numbers, no letters
                 start = Math.max(ASCII_0, start);
                 end = Math.min(ASCII_9 + 1, end);
@@ -324,7 +317,26 @@ public class RandomStringUtils {
                 end = Math.min(ASCII_z + 1, end);
             }
         }
-
+        if (letters && !digits) {
+            for (int i = start; i < end; i++) {
+                if (Character.isLetter(i)) {
+                    break;
+                }
+                if (i == end - 1) {
+                    throw new IllegalArgumentException(String.format("No letters exist between start %,d and end %,d.", start, end));
+                }
+            }
+        }
+        if (!letters && digits) {
+            for (int i = start; i < end; i++) {
+                if (Character.isDigit(i)) {
+                    break;
+                }
+                if (i == end - 1) {
+                    throw new IllegalArgumentException(String.format("No digits exist between start %,d and end %,d.", start, end));
+                }
+            }
+        }
         final StringBuilder builder = new StringBuilder(count);
         final int gap = end - start;
         final int gapBits = Integer.SIZE - Integer.numberOfLeadingZeros(gap);
@@ -343,7 +355,6 @@ public class RandomStringUtils {
         final long desiredCacheSize = ((long) count * gapBits + CACHE_PADDING_BITS) / BITS_TO_BYTES_DIVISOR + BASE_CACHE_SIZE_PADDING;
         final int cacheSize = (int) Math.min(desiredCacheSize, Integer.MAX_VALUE / BITS_TO_BYTES_DIVISOR + BASE_CACHE_SIZE_PADDING);
         final CachedRandomBits arb = new CachedRandomBits(cacheSize, random);
-
         while (count-- != 0) {
             // Generate a random value between start (included) and end (excluded)
             final int randomValue = arb.nextBits(gapBits) + start;
@@ -352,11 +363,9 @@ public class RandomStringUtils {
                 count++;
                 continue;
             }
-
             final int codePoint;
             if (chars == null) {
                 codePoint = randomValue;
-
                 switch (Character.getType(codePoint)) {
                 case Character.UNASSIGNED:
                 case Character.PRIVATE_USE:
@@ -364,25 +373,19 @@ public class RandomStringUtils {
                     count++;
                     continue;
                 }
-
             } else {
                 codePoint = chars[randomValue];
             }
-
             final int numberOfChars = Character.charCount(codePoint);
             if (count == 0 && numberOfChars > 1) {
                 count++;
                 continue;
             }
-
-            if (letters && Character.isLetter(codePoint) || numbers && Character.isDigit(codePoint)
-                    || !letters && !numbers) {
+            if (letters && Character.isLetter(codePoint) || digits && Character.isDigit(codePoint) || !letters && !digits) {
                 builder.appendCodePoint(codePoint);
-
                 if (numberOfChars == 2) {
                     count--;
                 }
-
             } else {
                 count++;
             }
