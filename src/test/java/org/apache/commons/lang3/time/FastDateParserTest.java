@@ -29,6 +29,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -39,6 +40,7 @@ import java.util.TimeZone;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.LocaleProblems;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -55,6 +57,7 @@ import org.junitpioneer.jupiter.ReadsDefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 import org.junitpioneer.jupiter.cartesian.ArgumentSets;
 import org.junitpioneer.jupiter.cartesian.CartesianTest;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * Tests {@link org.apache.commons.lang3.time.FastDateParser}.
@@ -347,6 +350,14 @@ class FastDateParserTest extends AbstractLangTest {
         assertEquals(parser1.hashCode(), parser2.hashCode());
 
         assertNotEquals(parser1, new Object());
+    }
+
+    @Test
+    void testISO8601TimeZoneVariants() throws Exception {
+        final Date date = Date.from(Instant.parse("2026-01-17T04:30:00Z"));
+        final TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        assertEquals(date, new FastDateParser("yyyy-MM-dd'T'HH:mm:ssXXX", timeZone, Locale.US).parse("2026-01-17T10:00:00+05:30"));
+        assertEquals(date, new FastDateParser("yyyy-MM-dd'T'HH:mm:ssXX", timeZone, Locale.US).parse("2026-01-17T10:00:00+0530"));
     }
 
     @Test
@@ -724,7 +735,7 @@ class FastDateParserTest extends AbstractLangTest {
     }
 
     private void validateSdfFormatFdpParseEquality(final String formatStr, final Locale locale, final TimeZone timeZone,
-        final FastDateParser dateParser, final Date inDate, final int year, final Date csDate) throws ParseException {
+        final FastDateParser fastDateParser, final Date inDate, final int year, final Date csDate) throws ParseException {
         final SimpleDateFormat sdf = new SimpleDateFormat(formatStr, locale);
         sdf.setTimeZone(timeZone);
         if (formatStr.equals(SHORT_FORMAT)) {
@@ -734,13 +745,14 @@ class FastDateParserTest extends AbstractLangTest {
 //        System.out.printf("[Java %s] Date: '%s' formatted with '%s' -> '%s'%n", SystemUtils.JAVA_RUNTIME_VERSION, inDate,
 //            formatStr, fmt);
         try {
-            final Date out = dateParser.parse(fmt);
+            final Date out = fastDateParser.parse(fmt);
             assertEquals(inDate, out, "format: '" + formatStr + "', locale: '" + locale + "', time zone: '"
                 + timeZone.getID() + "', year: " + year + ", parse: '" + fmt);
-        } catch (final ParseException pe) {
+        } catch (final ParseException e) {
+            LocaleProblems.assumeLocaleSupportedB(locale, e);
             if (year >= 1868 || !locale.getCountry().equals("JP")) {
                 // LANG-978
-                throw pe;
+                throw new AssertionFailedError("locale " + locale, e);
             }
         }
     }

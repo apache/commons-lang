@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -35,40 +36,58 @@ public class NumberUtils {
 
     /** Reusable Long constant for zero. */
     public static final Long LONG_ZERO = Long.valueOf(0L);
+
     /** Reusable Long constant for one. */
     public static final Long LONG_ONE = Long.valueOf(1L);
+
     /** Reusable Long constant for minus one. */
     public static final Long LONG_MINUS_ONE = Long.valueOf(-1L);
+
     /** Reusable Integer constant for zero. */
     public static final Integer INTEGER_ZERO = Integer.valueOf(0);
+
     /** Reusable Integer constant for one. */
     public static final Integer INTEGER_ONE = Integer.valueOf(1);
+
     /** Reusable Integer constant for two */
     public static final Integer INTEGER_TWO = Integer.valueOf(2);
+
     /** Reusable Integer constant for minus one. */
     public static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
+
     /** Reusable Short constant for zero. */
     public static final Short SHORT_ZERO = Short.valueOf((short) 0);
+
     /** Reusable Short constant for one. */
     public static final Short SHORT_ONE = Short.valueOf((short) 1);
+
     /** Reusable Short constant for minus one. */
     public static final Short SHORT_MINUS_ONE = Short.valueOf((short) -1);
+
     /** Reusable Byte constant for zero. */
     public static final Byte BYTE_ZERO = Byte.valueOf((byte) 0);
+
     /** Reusable Byte constant for one. */
     public static final Byte BYTE_ONE = Byte.valueOf((byte) 1);
+
     /** Reusable Byte constant for minus one. */
     public static final Byte BYTE_MINUS_ONE = Byte.valueOf((byte) -1);
+
     /** Reusable Double constant for zero. */
     public static final Double DOUBLE_ZERO = Double.valueOf(0.0d);
+
     /** Reusable Double constant for one. */
     public static final Double DOUBLE_ONE = Double.valueOf(1.0d);
+
     /** Reusable Double constant for minus one. */
     public static final Double DOUBLE_MINUS_ONE = Double.valueOf(-1.0d);
+
     /** Reusable Float constant for zero. */
     public static final Float FLOAT_ZERO = Float.valueOf(0.0f);
+
     /** Reusable Float constant for one. */
     public static final Float FLOAT_ONE = Float.valueOf(1.0f);
+
     /** Reusable Float constant for minus one. */
     public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
 
@@ -85,6 +104,15 @@ public class NumberUtils {
      * @since 3.12.0
      */
     public static final Long LONG_INT_MIN_VALUE = Long.valueOf(Integer.MIN_VALUE);
+
+    private static <T> boolean accept(final Consumer<T> consumer, final T obj) {
+        try {
+            consumer.accept(obj);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     /**
      * Compares two {@code byte} values numerically. This is the same functionality as provided in Java 7.
@@ -149,7 +177,7 @@ public class NumberUtils {
      * Returns {@code null} if the string is {@code null}.
      * </p>
      *
-     * @param str a {@link String} to convert, may be null.
+     * @param str a {@link String} to convert, may be null.Return
      * @return converted {@link BigDecimal} (or null if the input is null).
      * @throws NumberFormatException if the value cannot be converted.
      */
@@ -712,7 +740,8 @@ public class NumberUtils {
      * </p>
      *
      * <p>
-     * Hexadecimal and scientific notations are <strong>not</strong> considered parsable. See {@link #isCreatable(String)} on those cases.
+     * Scientific notation (for example, {@code "1.2e-5"}) and type suffixes (e.g., {@code "2.0f"}, {@code "2.0d"}) are supported
+     * as they are valid for {@link Float#parseFloat(String)} and {@link Double#parseDouble(String)}.
      * </p>
      *
      * <p>
@@ -721,22 +750,14 @@ public class NumberUtils {
      *
      * @param str the String to check.
      * @return {@code true} if the string is a parsable number.
+     * @see Integer#parseInt(String)
+     * @see Long#parseLong(String)
+     * @see Double#parseDouble(String)
+     * @see Float#parseFloat(String)
      * @since 3.4
      */
     public static boolean isParsable(final String str) {
-        if (StringUtils.isEmpty(str)) {
-            return false;
-        }
-        if (str.charAt(str.length() - 1) == '.') {
-            return false;
-        }
-        if (str.charAt(0) == '-') {
-            if (str.length() == 1) {
-                return false;
-            }
-            return withDecimalsParsing(str, 1);
-        }
-        return withDecimalsParsing(str, 0);
+        return accept(Double::parseDouble, str) || accept(Long::parseLong, str);
     }
 
     private static boolean isSign(final char ch) {
@@ -763,10 +784,10 @@ public class NumberUtils {
      * Given {@code s = mant + "." + dec}:
      * </p>
      * <ul>
-     * <li>{@code true} if s is {@code "0.0"}
-     * <li>{@code true} if s is {@code "0."}
-     * <li>{@code true} if s is {@code ".0"}
-     * <li>{@code false} otherwise (this assumes {@code "."} is not possible)
+     * <li>{@code true} if s is {@code "0.0"}</li>
+     * <li>{@code true} if s is {@code "0."}</li>
+     * <li>{@code true} if s is {@code ".0"}</li>
+     * <li>{@code false} otherwise (this assumes {@code "."} is not possible)</li>
      * </ul>
      *
      * @param mant the mantissa decimal digits before the decimal point (sign must be removed; never null).
@@ -1770,24 +1791,6 @@ public class NumberUtils {
     private static void validateArray(final Object array) {
         Objects.requireNonNull(array, "array");
         Validate.isTrue(Array.getLength(array) != 0, "Array cannot be empty.");
-    }
-
-    private static boolean withDecimalsParsing(final String str, final int beginIdx) {
-        int decimalPoints = 0;
-        for (int i = beginIdx; i < str.length(); i++) {
-            final char ch = str.charAt(i);
-            final boolean isDecimalPoint = ch == '.';
-            if (isDecimalPoint) {
-                decimalPoints++;
-            }
-            if (decimalPoints > 1) {
-                return false;
-            }
-            if (!isDecimalPoint && !Character.isDigit(ch)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

@@ -25,6 +25,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.LocaleProblems;
+import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.function.TriFunction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -37,7 +39,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  * <li>https://bugs.openjdk.java.net/browse/JDK-8248655</li>
  * </ul>
  */
-class Java15BugFastDateParserTest extends AbstractLangTest {
+class FastDateParserJava15BugTest extends AbstractLangTest {
 
     /** @see org.apache.commons.lang3.time.FastDateParserTest#dateParserParameters() */
     private static final String DATE_PARSER_PARAMETERS = "org.apache.commons.lang3.time.FastDateParserTest#dateParserParameters()";
@@ -46,7 +48,7 @@ class Java15BugFastDateParserTest extends AbstractLangTest {
     void testJava15BuggyLocaleTest() throws ParseException {
         final String buggyLocaleName = "ff_LR_#Adlm";
         Locale buggyLocale = null;
-        for (final Locale locale : Locale.getAvailableLocales()) {
+        for (final Locale locale : LocaleUtils.availableLocaleList()) {
             if (buggyLocaleName.equals(locale.toString())) {
                 buggyLocale = locale;
                 break;
@@ -64,6 +66,19 @@ class Java15BugFastDateParserTest extends AbstractLangTest {
         testSingleLocale(locale);
     }
 
+    private void testLocale(final TriFunction<String, TimeZone, Locale, DateParser> dbProvider, final String format, final boolean eraBC, final Calendar cal,
+            final Locale locale) {
+        LocaleProblems.assumeLocaleSupportedA(locale);
+        // ja_JP_JP cannot handle dates before 1868 properly
+        if (eraBC && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
+            return;
+        }
+        final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
+        final DateParser fdf = dbProvider.apply(format, TimeZone.getDefault(), locale);
+        // If parsing fails, a ParseException will be thrown and the test will fail
+        FastDateParserTest.checkParse(locale, cal, sdf, fdf);
+    }
+
     private void testLocales(final TriFunction<String, TimeZone, Locale, DateParser> dbProvider, final String format,
             final boolean eraBC) throws Exception {
         final Calendar cal = Calendar.getInstance(TimeZones.GMT);
@@ -72,15 +87,8 @@ class Java15BugFastDateParserTest extends AbstractLangTest {
         if (eraBC) {
             cal.set(Calendar.ERA, GregorianCalendar.BC);
         }
-        for (final Locale locale : Locale.getAvailableLocales()) {
-            // ja_JP_JP cannot handle dates before 1868 properly
-            if (eraBC && locale.equals(FastDateParser.JAPANESE_IMPERIAL)) {
-                continue;
-            }
-            final SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
-            final DateParser fdf = dbProvider.apply(format, TimeZone.getDefault(), locale);
-            // If parsing fails, a ParseException will be thrown and the test will fail
-            FastDateParserTest.checkParse(locale, cal, sdf, fdf);
+        for (final Locale locale : LocaleUtils.availableLocaleList()) {
+            testLocale(dbProvider, format, eraBC, cal, locale);
         }
     }
 

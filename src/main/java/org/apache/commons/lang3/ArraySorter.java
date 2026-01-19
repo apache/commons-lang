@@ -23,6 +23,7 @@ import java.util.Comparator;
  * Sorts and returns arrays in the fluent style.
  *
  * TODO For 4.0, rename to ArraySort, since we cover the sort() method here, see also ArrayFill.
+ *
  * @since 3.12.0
  */
 public class ArraySorter {

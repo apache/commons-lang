@@ -467,7 +467,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     /**
      * Cached output hashCode (class is immutable).
      */
-    private transient int hashCode;
+    private final int hashCode;
 
     /**
      * Cached output toString (class is immutable).
@@ -489,6 +489,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     private Fraction(final int numerator, final int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
+        this.hashCode = Objects.hash(denominator, numerator);
     }
 
     /**
@@ -720,10 +721,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     @Override
     public int hashCode() {
-        if (hashCode == 0) {
-            // hash code update should be atomic.
-            hashCode = Objects.hash(denominator, numerator);
-        }
         return hashCode;
     }
 

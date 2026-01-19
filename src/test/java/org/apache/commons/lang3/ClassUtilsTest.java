@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
@@ -37,6 +38,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
@@ -46,8 +48,9 @@ import org.apache.commons.lang3.reflect.testbed.GenericConsumer;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junitpioneer.jupiter.params.IntRangeSource;
 
 /**
  * Tests {@link ClassUtils}.
@@ -94,6 +97,8 @@ class ClassUtilsTest extends AbstractLangTest {
         }
     }
 
+    private static final int MAX_ARRAY_DIMENSIONS = 255;
+
     private static final String OBJECT_CANONICAL_NAME = "java.lang.Object";
 
     private void assertGetClassReturnsClass(final Class<?> c) throws Exception {
@@ -111,6 +116,22 @@ class ClassUtilsTest extends AbstractLangTest {
 
     private void assertGetClassThrowsNullPointerException(final String className) {
         assertGetClassThrowsException(className, NullPointerException.class);
+    }
+
+    private int getDimension(final Class<?> clazz) {
+        Objects.requireNonNull(clazz);
+        if (!clazz.isArray()) {
+            fail("Not an array: " + clazz);
+        }
+        final String className = clazz.getName();
+        int dimension = 0;
+        for (final char c : className.toCharArray()) {
+            if (c != '[') {
+                break;
+            }
+            dimension++;
+        }
+        return dimension;
     }
 
     @Test
@@ -169,13 +190,13 @@ class ClassUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    @DisplayName("When the desired length is negative then exception is thrown")
+    /** When the desired length is negative then exception is thrown */
     void test_getAbbreviatedName_Class_NegativeLen() {
         assertIllegalArgumentException(() -> ClassUtils.getAbbreviatedName(String.class, -10));
     }
 
     @Test
-    @DisplayName("When the desired length is zero then exception is thrown")
+    /** When the desired length is zero then exception is thrown */
     void test_getAbbreviatedName_Class_ZeroLen() {
         assertIllegalArgumentException(() -> ClassUtils.getAbbreviatedName(String.class, 0));
     }
@@ -209,7 +230,7 @@ class ClassUtilsTest extends AbstractLangTest {
      * implementation detail, but it is not a guaranteed feature of the implementation.
      */
     @Test
-    @DisplayName("When the length hint is longer than the actual length then the same String object is returned")
+    /** When the length hint is longer than the actual length then the same String object is returned */
     void test_getAbbreviatedName_TooLongHint() {
         final String className = "java.lang.String";
         Assertions.assertSame(className, ClassUtils.getAbbreviatedName(className, className.length() + 1));
@@ -1177,6 +1198,23 @@ class ClassUtilsTest extends AbstractLangTest {
         assertFalse(Modifier.isFinal(ClassUtils.class.getModifiers()));
     }
 
+    @ParameterizedTest
+    @IntRangeSource(from = 1, to = 255)
+    void testGetClassArray(final int dimensions) throws ClassNotFoundException {
+        assertEquals(dimensions,
+                getDimension(ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest$Inner.DeeplyNested" + StringUtils.repeat("[]", dimensions))));
+        assertEquals(dimensions, getDimension(ClassUtils.getClass("java.lang.String" + StringUtils.repeat("[]", dimensions))));
+    }
+
+    @ParameterizedTest
+    @IntRangeSource(from = 256, to = 300)
+    void testGetClassArrayIllegal(final int dimensions) throws ClassNotFoundException {
+        assertThrows(IllegalArgumentException.class, () -> assertEquals(dimensions,
+                getDimension(ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest$Inner.DeeplyNested" + StringUtils.repeat("[]", dimensions)))));
+        assertThrows(IllegalArgumentException.class,
+                () -> assertEquals(dimensions, getDimension(ClassUtils.getClass("java.lang.String" + StringUtils.repeat("[]", dimensions)))));
+    }
+
     @Test
     void testGetClassByNormalNameArrays() throws ClassNotFoundException {
         assertEquals(int[].class, ClassUtils.getClass("int[]"));
@@ -1192,6 +1230,7 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals(java.util.Map.Entry[].class, ClassUtils.getClass("java.util.Map$Entry[]"));
         assertEquals(java.util.Map.Entry[].class, ClassUtils.getClass("[Ljava.util.Map.Entry;"));
         assertEquals(java.util.Map.Entry[].class, ClassUtils.getClass("[Ljava.util.Map$Entry;"));
+        assertEquals(java.util.Map.Entry[][].class, ClassUtils.getClass("[[Ljava.util.Map$Entry;"));
     }
 
     @Test
@@ -1215,6 +1254,26 @@ class ClassUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testGetClassInner() throws ClassNotFoundException {
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest.Inner.DeeplyNested"));
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest.Inner$DeeplyNested"));
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest$Inner$DeeplyNested"));
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest$Inner.DeeplyNested"));
+        assertEquals(Inner.DeeplyNested[].class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest$Inner.DeeplyNested[]"));
+        //
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest.Inner.DeeplyNested", true));
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest.Inner$DeeplyNested", true));
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest$Inner$DeeplyNested", true));
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest$Inner.DeeplyNested", true));
+        //
+        final ClassLoader classLoader = Inner.DeeplyNested.class.getClassLoader();
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass(classLoader, "org.apache.commons.lang3.ClassUtilsTest.Inner.DeeplyNested"));
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass(classLoader, "org.apache.commons.lang3.ClassUtilsTest.Inner$DeeplyNested"));
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass(classLoader, "org.apache.commons.lang3.ClassUtilsTest$Inner$DeeplyNested"));
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass(classLoader, "org.apache.commons.lang3.ClassUtilsTest$Inner.DeeplyNested"));
+    }
+
+    @Test
     void testGetClassInvalidArguments() throws Exception {
         assertGetClassThrowsNullPointerException(null);
         assertGetClassThrowsClassNotFound("[][][]");
@@ -1223,6 +1282,26 @@ class ClassUtilsTest extends AbstractLangTest {
         assertGetClassThrowsClassNotFound("java.lang.String][");
         assertGetClassThrowsClassNotFound(".hello.world");
         assertGetClassThrowsClassNotFound("hello..world");
+    }
+
+    @ParameterizedTest
+    @IntRangeSource(from = 65536, to = 65555)
+    void testGetClassLengthIllegal(final int classNameLength) throws ClassNotFoundException {
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getClass(StringUtils.repeat("a", classNameLength)));
+        assertThrows(IllegalArgumentException.class, () -> assertEquals(classNameLength, ClassUtils.getClass(StringUtils.repeat("a.", classNameLength / 2))));
+    }
+
+    @Test
+    void testGetClassLongestCheck() throws ClassNotFoundException {
+        final String maxClassName = StringUtils.repeat("a", 65535);
+        final String maxDimensions = StringUtils.repeat("[]", MAX_ARRAY_DIMENSIONS);
+        final String maxOpens = StringUtils.repeat("[", MAX_ARRAY_DIMENSIONS);
+        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClass(maxClassName));
+        assertNotNull(ClassUtils.getClass("java.lang.String" + maxDimensions));
+        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClass(maxClassName + maxDimensions));
+        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClass(maxOpens + "L" + maxClassName + ";"));
+        // maxOpens + 1
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getClass(maxOpens + "[L" + maxClassName + ";"));
     }
 
     @Test
@@ -1273,26 +1352,6 @@ class ClassUtilsTest extends AbstractLangTest {
         final Class<CX> componentType = ClassUtils.getComponentType(classCxArray);
         assertEquals(CX.class, componentType);
         assertNull(ClassUtils.getComponentType(null));
-    }
-
-    @Test
-    void testGetInnerClass() throws ClassNotFoundException {
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest.Inner.DeeplyNested"));
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest.Inner$DeeplyNested"));
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest$Inner$DeeplyNested"));
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest$Inner.DeeplyNested"));
-        //
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest.Inner.DeeplyNested", true));
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest.Inner$DeeplyNested", true));
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest$Inner$DeeplyNested", true));
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass("org.apache.commons.lang3.ClassUtilsTest$Inner.DeeplyNested", true));
-        //
-        final ClassLoader classLoader = Inner.DeeplyNested.class.getClassLoader();
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass(classLoader, "org.apache.commons.lang3.ClassUtilsTest.Inner.DeeplyNested"));
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass(classLoader, "org.apache.commons.lang3.ClassUtilsTest.Inner$DeeplyNested"));
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass(classLoader, "org.apache.commons.lang3.ClassUtilsTest$Inner$DeeplyNested"));
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClass(classLoader, "org.apache.commons.lang3.ClassUtilsTest$Inner.DeeplyNested"));
-        //
     }
 
     @Test

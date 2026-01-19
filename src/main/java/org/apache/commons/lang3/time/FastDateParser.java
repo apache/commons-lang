@@ -44,9 +44,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.LocaleUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * FastDateParser is a fast and thread-safe version of {@link java.text.SimpleDateFormat}.
@@ -202,6 +202,7 @@ public class FastDateParser implements DateParser, Serializable {
         private static final Strategy ISO_8601_2_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}\\d{2}))");
 
         private static final Strategy ISO_8601_3_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}(?::)\\d{2}))");
+
         /**
          * Factory method for ISO8601TimeZoneStrategies.
          *
@@ -221,6 +222,7 @@ public class FastDateParser implements DateParser, Serializable {
                 throw new IllegalArgumentException("invalid number of X");
             }
         }
+
         /**
          * Constructs a Strategy that parses a TimeZone
          *
@@ -321,7 +323,7 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         public String toString() {
-            return "NumberStrategy [field=" + field + "]";
+            return getClass().getSimpleName() + " [field=" + field + "]";
         }
     }
 
@@ -578,7 +580,7 @@ public class FastDateParser implements DateParser, Serializable {
                 }
             }
             // Order is undefined.
-            for (final String tzId : ArraySorter.sort(TimeZone.getAvailableIDs())) {
+            for (final String tzId : TimeZones.SORTED_AVAILABLE_IDS) {
                 if (skipTimeZone(tzId)) {
                     continue;
                 }
@@ -653,6 +655,7 @@ public class FastDateParser implements DateParser, Serializable {
     private static final ConcurrentMap<Locale, Strategy>[] CACHES = new ConcurrentMap[Calendar.FIELD_COUNT];
 
     private static final Strategy ABBREVIATED_YEAR_STRATEGY = new NumberStrategy(Calendar.YEAR) {
+
         /**
          * {@inheritDoc}
          */
@@ -898,8 +901,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @return a TextStrategy for the field and Locale
      */
     private Strategy getLocaleSpecificStrategy(final int field, final Calendar definingCalendar) {
-        final ConcurrentMap<Locale, Strategy> cache = getCache(field);
-        return cache.computeIfAbsent(locale,
+        return getCache(field).computeIfAbsent(locale,
                 k -> field == Calendar.ZONE_OFFSET ? new TimeZoneStrategy(locale) : new CaseInsensitiveTextStrategy(field, definingCalendar, locale));
     }
 
@@ -912,6 +914,7 @@ public class FastDateParser implements DateParser, Serializable {
     public String getPattern() {
         return pattern;
     }
+
     /**
      * Gets a Strategy given a field from a SimpleDateFormat pattern
      *
@@ -1023,14 +1026,16 @@ public class FastDateParser implements DateParser, Serializable {
         final Date date = parse(source, pp);
         if (date == null) {
             // Add a note regarding supported date range
+            final int errorIndex = pp.getErrorIndex();
+            final String msg = String.format("Unparseable date: '%s', parse position = %s", source, pp);
             if (locale.equals(JAPANESE_IMPERIAL)) {
-                throw new ParseException("(The " + locale + " locale does not support dates before 1868 AD)\nUnparseable date: \"" + source,
-                        pp.getErrorIndex());
+                throw new ParseException(String.format("; the %s locale does not support dates before 1868-01-01.", locale, msg), errorIndex);
             }
-            throw new ParseException("Unparseable date: " + source, pp.getErrorIndex());
+            throw new ParseException(msg, errorIndex);
         }
         return date;
     }
+
     /**
      * This implementation updates the ParsePosition if the parse succeeds. However, it sets the error index to the position before the failed field unlike the
      * method {@link java.text.SimpleDateFormat#parse(String, ParsePosition)} which sets the error index to after the failed field.
@@ -1048,6 +1053,7 @@ public class FastDateParser implements DateParser, Serializable {
         cal.clear();
         return parse(source, pos, cal) ? cal.getTime() : null;
     }
+
     /**
      * Parses a formatted date string according to the format. Updates the Calendar with parsed fields. Upon success, the ParsePosition index is updated to
      * indicate how much of the source text was consumed. Not all source text needs to be consumed. Upon parse failure, ParsePosition error index is updated to
@@ -1092,7 +1098,6 @@ public class FastDateParser implements DateParser, Serializable {
         return parse(source, pos);
     }
 
-    // Serializing
     /**
      * Creates the object after serialization. This implementation reinitializes the transient properties.
      *
@@ -1124,6 +1129,6 @@ public class FastDateParser implements DateParser, Serializable {
      */
     public String toStringAll() {
         return "FastDateParser [pattern=" + pattern + ", timeZone=" + timeZone + ", locale=" + locale + ", century=" + century + ", startYear=" + startYear
-                + ", patterns=" + patterns + "]";
+                + ", patterns=" + StringUtils.join(patterns, ", " + System.lineSeparator() + "\t") + "]";
     }
 }

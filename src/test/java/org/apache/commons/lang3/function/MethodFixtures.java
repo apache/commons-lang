@@ -73,7 +73,7 @@ class MethodFixtures extends AbstractLangTest {
     }
 
     static Method getMethodForGetStringVarStringArgs() throws NoSuchMethodException, SecurityException {
-        return getDeclaredMethod("geStringtVarStringArgs", String[].class);
+        return getDeclaredMethod("getStringVarStringArgs", String[].class);
     }
 
     static Method getMethodForSetString1Arg() throws NoSuchMethodException, SecurityException {
@@ -117,10 +117,6 @@ class MethodFixtures extends AbstractLangTest {
     private String value2;
 
     private String[] valueArray;
-
-    public String geStringtVarStringArgs(final String... strings) {
-        return "XYZ";
-    }
 
     @AnnotationTestFixture
     public String getString() {
@@ -167,6 +163,10 @@ class MethodFixtures extends AbstractLangTest {
 
     public String getStringThrowsUnchecked() {
         throw new CustomUncheckedException("getStringThrowsUnchecked");
+    }
+
+    public String getStringVarStringArgs(final String... strings) {
+        return "XYZ";
     }
 
     String getValue1() {

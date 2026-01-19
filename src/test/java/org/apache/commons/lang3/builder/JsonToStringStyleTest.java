@@ -78,6 +78,7 @@ class JsonToStringStyleTest extends AbstractLangTest {
      * An object with a Map field used to test {@code ToStringStyle.JsonToStringStyle}.
      */
     static class InnerMapObject {
+
         /**
          * Test String field.
          */
@@ -93,6 +94,7 @@ class JsonToStringStyleTest extends AbstractLangTest {
      * An object with nested object structures used to test {@code ToStringStyle.JsonToStringStyle}.
      */
     static class NestingPerson {
+
         /**
          * Test String field.
          */

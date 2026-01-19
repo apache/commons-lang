@@ -30,6 +30,7 @@ import java.util.Objects;
  *
  * @param <T> The type of range values.
  * @since 3.0
+ * @since 3.20.1 {@code serialVersionUID} changed from {@code 1L} to {@code 2L}.
  */
 public class Range<T> implements Serializable {
 
@@ -54,8 +55,9 @@ public class Range<T> implements Serializable {
      * Serialization version.
      *
      * @see java.io.Serializable
+     * @since 3.20.1 {@code serialVersionUID} changed from {@code 1L} to {@value}.
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     /**
      * Creates a range with the specified minimum and maximum values (both inclusive).
@@ -63,7 +65,7 @@ public class Range<T> implements Serializable {
      * <p>The range uses the natural ordering of the elements to determine where
      * values lie in the range.</p>
      *
-     * <p>The arguments may be passed in the order (min,max) or (max,min).
+     * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> the type of the elements in this range.
@@ -86,7 +88,7 @@ public class Range<T> implements Serializable {
      * <p>The range uses the specified {@link Comparator} to determine where
      * values lie in the range.</p>
      *
-     * <p>The arguments may be passed in the order (min,max) or (max,min).
+     * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> the type of the elements in this range.
@@ -145,7 +147,7 @@ public class Range<T> implements Serializable {
      * <p>The range uses the natural ordering of the elements to determine where
      * values lie in the range.</p>
      *
-     * <p>The arguments may be passed in the order (min,max) or (max,min).
+     * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> the type of the elements in this range.
@@ -166,7 +168,7 @@ public class Range<T> implements Serializable {
      * <p>The range uses the specified {@link Comparator} to determine where
      * values lie in the range.</p>
      *
-     * <p>The arguments may be passed in the order (min,max) or (max,min).
+     * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> the type of the elements in this range.
@@ -191,7 +193,7 @@ public class Range<T> implements Serializable {
     /**
      * Cached output hashCode (class is immutable).
      */
-    private transient int hashCode;
+    private final int hashCode;
 
     /**
      * The maximum value in this range (inclusive).
@@ -233,6 +235,7 @@ public class Range<T> implements Serializable {
             this.minimum = element2;
             this.maximum = element1;
         }
+        this.hashCode = Objects.hash(minimum, maximum);
     }
 
     /**
@@ -383,15 +386,7 @@ public class Range<T> implements Serializable {
      */
     @Override
     public int hashCode() {
-        int result = hashCode;
-        if (hashCode == 0) {
-            result = 17;
-            result = 37 * result + getClass().hashCode();
-            result = 37 * result + minimum.hashCode();
-            result = 37 * result + maximum.hashCode();
-            hashCode = result;
-        }
-        return result;
+        return hashCode;
     }
 
     /**

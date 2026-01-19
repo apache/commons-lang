@@ -33,6 +33,7 @@ public class FastTimeZone {
 
     /**
      * Gets the GMT TimeZone.
+     *
      * @return A TimeZone with a raw offset of zero.
      */
     public static TimeZone getGmtTimeZone() {

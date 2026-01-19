@@ -367,6 +367,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * Constructor for EqualsBuilder.
      *
      * <p>Starts off assuming that equals is {@code true}.</p>
+     *
      * @see Object#equals(Object)
      */
     public EqualsBuilder() {

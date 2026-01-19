@@ -31,6 +31,7 @@ import org.apache.commons.lang3.math.NumberUtils;
  * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
+ *
  * @since 2.0
  */
 public class BooleanUtils {
@@ -242,6 +243,7 @@ public class BooleanUtils {
     public static boolean isTrue(final Boolean bool) {
         return Boolean.TRUE.equals(bool);
     }
+
     /**
      * Negates the specified boolean.
      *
@@ -274,6 +276,7 @@ public class BooleanUtils {
      * <p>
      * See also <a href="https://en.wikipedia.org/wiki/One-hot">One-hot</a>.
      * </p>
+     *
      * @param array  an array of {@code boolean}s
      * @return the result of the one-hot operations
      * @throws NullPointerException if {@code array} is {@code null}
@@ -372,6 +375,7 @@ public class BooleanUtils {
 
     /**
      * Returns a new array of possible values (like an enum would).
+     *
      * @return a new array of possible values (like an enum would).
      * @since 3.12.0
      */

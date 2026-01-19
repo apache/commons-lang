@@ -166,7 +166,7 @@ public class ConstructorUtils {
      *                                     <li>the number of actual and formal parameters differ; or</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type by a
-     *                                     method invocation conversion; if this constructor pertains to an enum type.
+     *                                     method invocation conversion; if this constructor pertains to an enum type.</li>
      *                                     </ul>
      * @throws InstantiationException      Thrown if the class that declares the underlying constructor represents an abstract class.
      * @throws InvocationTargetException   Thrown if the underlying constructor throws an exception.
@@ -203,7 +203,7 @@ public class ConstructorUtils {
      *                                     <li>the number of actual and formal parameters differ; or</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type by a
-     *                                     method invocation conversion; if this constructor pertains to an enum type.
+     *                                     method invocation conversion; if this constructor pertains to an enum type.</li>
      *                                     </ul>
      * @throws InstantiationException      Thrown if the class that declares the underlying constructor represents an abstract class.
      * @throws InvocationTargetException   Thrown if the underlying constructor throws an exception.
@@ -244,7 +244,7 @@ public class ConstructorUtils {
      *                                     <li>the number of actual and formal parameters differ; or</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type by a
-     *                                     method invocation conversion; if this constructor pertains to an enum type.
+     *                                     method invocation conversion; if this constructor pertains to an enum type.</li>
      *                                     </ul>
      * @throws InstantiationException      Thrown if the class that declares the underlying constructor represents an abstract class.
      * @throws InvocationTargetException   Thrown if the underlying constructor throws an exception.
@@ -282,7 +282,7 @@ public class ConstructorUtils {
      *                                     <li>the number of actual and formal parameters differ; or</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type by a
-     *                                     method invocation conversion; if this constructor pertains to an enum type.
+     *                                     method invocation conversion; if this constructor pertains to an enum type.</li>
      *                                     </ul>
      * @throws InstantiationException      Thrown if the class that declares the underlying constructor represents an abstract class.
      * @throws InvocationTargetException   Thrown if the underlying constructor throws an exception.

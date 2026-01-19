@@ -48,6 +48,7 @@ public class AnnotationUtils {
      * A style that prints annotations as recommended.
      */
     private static final ToStringStyle TO_STRING_STYLE = new ToStringStyle() {
+
         /** Serialization version */
         private static final long serialVersionUID = 1L;
 
@@ -349,6 +350,7 @@ public class AnnotationUtils {
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
+     *
      * @deprecated TODO Make private in 4.0.
      */
     @Deprecated

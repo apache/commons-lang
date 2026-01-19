@@ -28,19 +28,26 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Assists with the serialization process and performs additional functionality based
- * on serialization.
+ * Performs additional functionality for serialization.
  *
  * <ul>
- * <li>Deep clone using serialization
- * <li>Serialize managing finally and IOException
- * <li>Deserialize managing finally and IOException
+ * <li>Deep clone using serialization</li>
+ * <li>Serialize managing finally and IOException</li>
+ * <li>Deserialize managing finally and IOException</li>
  * </ul>
  *
- * <p>This class throws exceptions for invalid {@code null} inputs.
- * Each method documents its behavior in more detail.</p>
+ * <p>
+ * This class throws exceptions for invalid {@code null} inputs. Each method documents its behavior in more detail.
+ * </p>
+ * <p>
+ * If you want to secure deserialization with a whitelist or blacklist, please use Apache Commons IO's
+ * {@link org.apache.commons.io.serialization.ValidatingObjectInputStream ValidatingObjectInputStream}.
+ * </p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
- * <p>#ThreadSafe#</p>
+ * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
  * @since 1.0
  */
 public class SerializationUtils {
@@ -64,6 +71,7 @@ public class SerializationUtils {
 
         /**
          * Constructs a new instance.
+         *
          * @param in The {@link InputStream}.
          * @param classLoader classloader to use
          * @throws IOException if an I/O error occurs while reading stream header.
@@ -77,6 +85,7 @@ public class SerializationUtils {
         /**
          * Overridden version that uses the parameterized {@link ClassLoader} or the {@link ClassLoader}
          * of the current {@link Thread} to resolve the class.
+         *
          * @param desc An instance of class {@link ObjectStreamClass}.
          * @return A {@link Class} object corresponding to {@code desc}.
          * @throws IOException Any of the usual Input/Output exceptions.
@@ -140,6 +149,10 @@ public class SerializationUtils {
      * Without Generics in this declaration, the call site must type cast and can cause the same ClassCastException.
      * Note that in both cases, the ClassCastException is in the call site, not in this method.
      * </p>
+     * <p>
+     * If you want to secure deserialization with a whitelist or blacklist, please use Apache Commons IO's
+     * {@link org.apache.commons.io.serialization.ValidatingObjectInputStream ValidatingObjectInputStream}.
+     * </p>
      *
      * @param <T>  the object type to be deserialized.
      * @param objectData
@@ -147,6 +160,7 @@ public class SerializationUtils {
      * @return the deserialized object.
      * @throws NullPointerException if {@code objectData} is {@code null}.
      * @throws SerializationException (runtime) if the serialization fails.
+     * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
      */
     public static <T> T deserialize(final byte[] objectData) {
         Objects.requireNonNull(objectData, "objectData");
@@ -172,12 +186,17 @@ public class SerializationUtils {
      * Note that in both cases, the ClassCastException is in the call site, not in this method.
      * </p>
      *
+     * <p>
+     * If you want to secure deserialization with a whitelist or blacklist, please use Apache Commons IO's
+     * {@link org.apache.commons.io.serialization.ValidatingObjectInputStream ValidatingObjectInputStream}.
+     * </p>
+     *
      * @param <T>  the object type to be deserialized.
-     * @param inputStream
-     *            the serialized object input stream, must not be null.
+     * @param inputStream the serialized object input stream, must not be null.
      * @return the deserialized object.
      * @throws NullPointerException if {@code inputStream} is {@code null}.
      * @throws SerializationException (runtime) if the serialization fails.
+     * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
      */
     @SuppressWarnings("resource") // inputStream is managed by the caller
     public static <T> T deserialize(final InputStream inputStream) {
@@ -252,6 +271,7 @@ public class SerializationUtils {
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
+     *
      * @since 2.0
      * @deprecated TODO Make private in 4.0.
      */

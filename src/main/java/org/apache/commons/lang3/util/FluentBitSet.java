@@ -26,6 +26,7 @@ import java.util.stream.IntStream;
  * <p>
  * Originally from Apache Commons VFS with more added to act as a fluent replacement for {@link java.util.BitSet}.
  * </p>
+ *
  * @since 3.13.0
  */
 public final class FluentBitSet implements Cloneable, Serializable {
@@ -575,9 +576,9 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * has the value {@code true} if and only if one of the following statements holds:
      * <ul>
      * <li>The bit initially has the value {@code true}, and the corresponding bit in the argument has the value
-     * {@code false}.
+     * {@code false}.</li>
      * <li>The bit initially has the value {@code false}, and the corresponding bit in the argument has the value
-     * {@code true}.
+     * {@code true}.</li>
      * </ul>
      *
      * @param set a bit set
@@ -593,9 +594,9 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * has the value {@code true} if and only if one of the following statements holds:
      * <ul>
      * <li>The bit initially has the value {@code true}, and the corresponding bit in the argument has the value
-     * {@code false}.
+     * {@code false}.</li>
      * <li>The bit initially has the value {@code false}, and the corresponding bit in the argument has the value
-     * {@code true}.
+     * {@code true}.</li>
      * </ul>
      *
      * @param set a bit set

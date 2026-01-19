@@ -88,6 +88,7 @@ public abstract class StrLookup<V> {
      * Lookup implementation based on system properties.
      */
     private static final class SystemPropertiesStrLookup extends StrLookup<String> {
+
         /**
          * {@inheritDoc} This implementation directly accesses system properties.
          */
@@ -177,6 +178,7 @@ public abstract class StrLookup<V> {
      * map.put("number", Integer.valueOf(2));
      * assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
      * }</pre>
+     *
      * @param key  the key to be looked up, may be null.
      * @return the matching value, null if no match.
      */

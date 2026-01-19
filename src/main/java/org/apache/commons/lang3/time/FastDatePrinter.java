@@ -244,6 +244,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Inner class defining a numeric rule.
      */
     private interface NumberRule extends Rule {
+
         /**
          * Appends the specified value to the output buffer based on the rule implementation.
          *
@@ -307,6 +308,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Inner class defining a rule.
      */
     private interface Rule {
+
         /**
          * Appends the value of the specified calendar to the output buffer based on the rule implementation.
          *
@@ -356,6 +358,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return value.length();
         }
     }
+
     /**
      * Inner class to output one of a set of values.
      */
@@ -398,6 +401,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return max;
         }
     }
+
     /**
      * Inner class that acts as a compound key for time zone names.
      */
@@ -451,6 +455,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return (style * 31 + locale.hashCode()) * 31 + timeZone.hashCode();
         }
     }
+
     /**
      * Inner class to output a time zone name.
      */
@@ -495,6 +500,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             return Math.max(standard.length(), daylight.length());
         }
     }
+
     /**
      * Inner class to output a time zone as a number {@code +/-HHMM}
      * or {@code +/-HH:MM}.
@@ -1090,6 +1096,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     /**
      * Creates a String representation of the given Calendar by applying the rules of this printer to it.
+     *
      * @param c the Calendar to apply the rules to.
      * @return a String representation of the given Calendar.
      */
@@ -1097,7 +1104,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         return applyRules(c, new StringBuilder(maxLengthEstimate)).toString();
     }
 
-    // Basics
     /**
      * Compares two objects for equality.
      *
@@ -1209,6 +1215,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Formats a {@link Date}, {@link Calendar} or
      * {@link Long} (milliseconds) object.
+     *
      * @param obj  the object to format.
      * @return The formatted value.
      * @since 3.5
@@ -1229,11 +1236,12 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Formats a {@link Date}, {@link Calendar} or
      * {@link Long} (milliseconds) object.
-     * @deprecated Use {{@link #format(Date)}, {{@link #format(Calendar)}, {{@link #format(long)}.
+     *
      * @param obj  the object to format.
      * @param toAppendTo  the buffer to append to.
      * @param pos  the position; ignored.
      * @return the buffer passed in.
+     * @deprecated Use {{@link #format(Date)}, {{@link #format(Calendar)}, {{@link #format(long)}.
      */
     @Deprecated
     @Override
@@ -1314,13 +1322,13 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     /**
      * Creates a new Calendar instance.
+     *
      * @return a new Calendar instance.
      */
     private Calendar newCalendar() {
         return Calendar.getInstance(timeZone, locale);
     }
 
-    // Parse the pattern
     /**
      * Returns a list of Rules given a pattern.
      *

@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * A mutable {@link Object} wrapper.
  * <p>
- * This class was created before the introduction of the the {@link java.util.concurrent.atomic} package and the {@link AtomicReference} class.
+ * This class was created before the introduction of the {@link java.util.concurrent.atomic} package and the {@link AtomicReference} class.
  * </p>
  *
  * @param <T> the type to set and get.

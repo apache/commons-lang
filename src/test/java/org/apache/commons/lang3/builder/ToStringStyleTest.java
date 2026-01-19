@@ -30,6 +30,7 @@ class ToStringStyleTest extends AbstractLangTest {
      * An object used to test {@link ToStringStyle}.
      */
     static class Person {
+
         /**
          * Test String field.
          */

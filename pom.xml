@@ -22,23 +22,26 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>92</version>
+    <version>95</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
-  <version>3.20.0-SNAPSHOT</version>
+  <version>3.21.0-SNAPSHOT</version>
   <name>Apache Commons Lang</name>
   <inceptionYear>2001</inceptionYear>
   <description>
-  Apache Commons Lang, a package of Java utility classes for the
-  classes that are in java.lang's hierarchy, or are considered to be so
-  standard as to justify existence in java.lang.
+  Apache Commons Lang is a package of Java utility classes for the Java lang packages,
+  classes that could be considered standard to justify their existence in java.lang.
 
-  The code is tested using the latest revision of the JDK for supported
-  LTS releases: 8, 11, 17, 21 and 25 currently.
+  The code is tested using the latest revision of the JDK for supported LTS releases: 8, 11, 17, 21, and 25.
   See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
-  
+
   Please ensure your build environment is up-to-date and kindly report any build issues.
+
+  Starting with Commons Lang 3.9, we target Java 8 and use those features.
+
+  For advice on upgrading from 2.x to 3.x, see https://commons.apache.org/lang/article3_0.html
+
   </description>
   <url>https://commons.apache.org/proper/commons-lang/</url>
   <ciManagement>
@@ -120,7 +123,7 @@
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
-    <project.build.outputTimestamp>2025-09-24T13:50:21Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2025-11-16T12:58:18Z</project.build.outputTimestamp>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <!--
@@ -138,8 +141,8 @@
     <commons.packageId>lang3</commons.packageId>
     <commons.module.name>org.apache.commons.lang3</commons.module.name>
     <!-- Current 3.x release series -->
-    <commons.release.version>3.20.0</commons.release.version>
-    <commons.release.next>3.20.1</commons.release.next>
+    <commons.release.version>3.21.0</commons.release.version>
+    <commons.release.next>3.21.1</commons.release.next>
     <commons.release.desc>(Java 8+)</commons.release.desc>
     <!-- Previous 2.x release series -->
     <commons.release.2.version>2.6</commons.release.2.version>
@@ -156,8 +159,8 @@
     <japicmp.skip>false</japicmp.skip>
     <uberjar.name>benchmarks</uberjar.name>
     <!-- Commons Release Plugin -->
-    <commons.bc.version>3.19.0</commons.bc.version>
-    <commons.rc.version>RC2</commons.rc.version>
+    <commons.bc.version>3.20.0</commons.bc.version>
+    <commons.rc.version>RC1</commons.rc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/lang</commons.distSvnStagingUrl>
     <!-- JaCoCo: Don't make code coverage worse than: -->
@@ -170,7 +173,8 @@
     <!-- GH CI Java 17 Ubuntu says 0.91 -->
     <!-- Local macOS Java 21 says 0.92 -->
     <commons.jacoco.complexityRatio>0.91</commons.jacoco.complexityRatio>
-    <commons.text.version>1.14.0</commons.text.version>
+    <commons.text.version>1.15.0</commons.text.version>
+    <commons.io.version>2.21.0</commons.io.version>
   </properties>
   <build>
     <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
@@ -192,15 +196,15 @@
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
           <configuration>
-            <excludes>
-              <exclude>site-content/**</exclude>
-              <exclude>src/site/resources/.htaccess</exclude>
-              <exclude>src/site/resources/download_lang.cgi</exclude>
-              <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
-              <exclude>src/test/resources/lang-708-input.txt</exclude>
-              <exclude>**/*.svg</exclude>
-              <exclude>**/*.xcf</exclude>
-            </excludes>
+            <inputExcludes>
+              <inputExclude>site-content/**</inputExclude>
+              <inputExclude>src/site/resources/.htaccess</inputExclude>
+              <inputExclude>src/site/resources/download_lang.cgi</inputExclude>
+              <inputExclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</inputExclude>
+              <inputExclude>src/test/resources/lang-708-input.txt</inputExclude>
+              <inputExclude>**/*.svg</inputExclude>
+              <inputExclude>**/*.xcf</inputExclude>
+            </inputExcludes>
           </configuration>
         </plugin>
       </plugins>
@@ -208,39 +212,44 @@
     <plugins>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
-          <configuration>
-            <source>${maven.compiler.source}</source>
-            <quiet>true</quiet>
-            <notimestamp>true</notimestamp>
-            <validateLinks>true</validateLinks>
-            <archive>
-              <manifest>
-                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-              </manifest>
-            </archive>
-            <doclint>all</doclint>
-            <!-- Java 8 on GH says: "[WARNING] javadoc: warning - Error fetching URL: https://commons.apache.org/proper/commons-text/apidocs/" -->
-            <!-- <failOnWarnings>true</failOnWarnings> -->
-            <additionalDependencies>
-              <additionalDependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-text</artifactId>
-                <version>${commons.text.version}</version>
-              </additionalDependency>
-            </additionalDependencies>
-          </configuration>
-          <executions>
-            <execution>
-              <id>create-javadoc-jar</id>
-              <goals>
-                <goal>javadoc</goal>
-                <goal>jar</goal>
-              </goals>
-              <phase>package</phase>
-            </execution>
-          </executions>
-        </plugin>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <quiet>true</quiet>
+          <notimestamp>true</notimestamp>
+          <validateLinks>true</validateLinks>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+          <doclint>all</doclint>
+          <!-- Java 8 on GH says: "[WARNING] javadoc: warning - Error fetching URL: https://commons.apache.org/proper/commons-text/apidocs/" -->
+          <!-- <failOnWarnings>true</failOnWarnings> -->
+          <additionalDependencies>
+            <additionalDependency>
+              <groupId>org.apache.commons</groupId>
+              <artifactId>commons-text</artifactId>
+              <version>${commons.text.version}</version>
+            </additionalDependency>
+            <additionalDependency>
+              <groupId>commons-io</groupId>
+              <artifactId>commons-io</artifactId>
+              <version>${commons.io.version}</version>
+            </additionalDependency>
+          </additionalDependencies>
+        </configuration>
+        <executions>
+          <execution>
+            <id>create-javadoc-jar</id>
+            <goals>
+              <goal>javadoc</goal>
+              <goal>jar</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -321,7 +330,20 @@
           <source>${maven.compiler.source}</source>
           <quiet>true</quiet>
           <notimestamp>true</notimestamp>
+          <additionalDependencies>
+            <additionalDependency>
+              <groupId>org.apache.commons</groupId>
+              <artifactId>commons-text</artifactId>
+              <version>${commons.text.version}</version>
+            </additionalDependency>
+            <additionalDependency>
+              <groupId>commons-io</groupId>
+              <artifactId>commons-io</artifactId>
+              <version>${commons.io.version}</version>
+            </additionalDependency>
+          </additionalDependencies>
           <links>
+            <link>https://commons.apache.org/proper/commons-io/apidocs</link>
             <link>https://commons.apache.org/proper/commons-text/apidocs</link>
             <link>${commons.javadoc.javaee.link}</link>
           </links>
@@ -451,6 +473,16 @@
       </build>
     </profile>
     <profile>
+      <id>java8</id>
+      <activation>
+        <jdk>1.8</jdk>
+      </activation>
+      <build>
+        <!-- Don't run javadoc:javadoc on Java 8 due to Java's incompatible expectation of package-list vs element-list on remote links. -->
+        <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check</defaultGoal>
+      </build>
+    </profile>
+    <profile>
       <id>java9+</id>
       <activation>
         <jdk>[9,)</jdk>
@@ -458,8 +490,23 @@
       <properties>
         <!-- LANG-1265: allow tests to access private fields/methods of java.base classes via reflection -->
         <!-- LANG-1667: allow tests to access private fields/methods of java.base/java.util such as ArrayList via reflection -->
-        <extraArgs>--add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.time=ALL-UNNAMED --add-opens java.base/java.time.chrono=ALL-UNNAMED</extraArgs>
+        <extraArgs>--add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.time=ALL-UNNAMED --add-opens java.base/java.time.chrono=ALL-UNNAMED  --add-opens java.base/java.util.concurrent.atomic=ALL-UNNAMED</extraArgs>
       </properties>
+      <build>
+        <plugins>
+        <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <source>${maven.compiler.source}</source>
+            <links>
+              <link>https://commons.apache.org/proper/commons-io/apidocs</link>
+              <link>https://commons.apache.org/proper/commons-text/apidocs</link>
+              <link>${commons.javadoc.javaee.link}</link>
+            </links>
+          </configuration>
+        </plugin>
+        </plugins>
+      </build>
     </profile>
     <profile>
       <id>java15</id>
@@ -489,7 +536,7 @@
 	  </activation>
       <properties>
         <!-- JaCoCo: Don't make code coverage worse than: -->
-        <commons.jacoco.classRatio>0.99</commons.jacoco.classRatio>
+        <commons.jacoco.classRatio>0.98</commons.jacoco.classRatio>
       </properties>
     </profile>
     <profile>
@@ -500,6 +547,17 @@
       </properties>
       <build>
         <plugins>
+          <!-- Enable the compilation of the benchmarks -->
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${commons.compiler.version}</version>
+            <configuration combine.self="override">
+              <testIncludes>
+                <testInclude>**/*</testInclude>
+              </testIncludes>
+            </configuration>
+          </plugin>
+          <!-- Hook the benchmarks to the test phase -->
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>

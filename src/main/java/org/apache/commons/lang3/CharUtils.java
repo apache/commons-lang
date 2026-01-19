@@ -26,6 +26,7 @@ import java.util.Objects;
  * Each method documents its behavior in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
+ *
  * @since 2.1
  */
 public class CharUtils {
@@ -131,7 +132,7 @@ public class CharUtils {
     }
 
     /**
-     * Tests whether the character is ASCII 7 bit numeric.
+     * Tests whether the character is ASCII 7 bit alphanumeric character.
      *
      * <pre>
      *   CharUtils.isAsciiAlphanumeric('a')  = true
@@ -269,7 +270,7 @@ public class CharUtils {
      * <pre>
      *   CharUtils.toChar(' ')  = ' '
      *   CharUtils.toChar('A')  = 'A'
-     *   CharUtils.toChar(null) throws IllegalArgumentException
+     *   CharUtils.toChar(null) throws NullPointerException
      * </pre>
      *
      * @param ch  the character to convert
@@ -304,7 +305,7 @@ public class CharUtils {
      * <pre>
      *   CharUtils.toChar("A")  = 'A'
      *   CharUtils.toChar("BA") = 'B'
-     *   CharUtils.toChar(null) throws IllegalArgumentException
+     *   CharUtils.toChar(null) throws NullPointerException
      *   CharUtils.toChar("")   throws IllegalArgumentException
      * </pre>
      *
@@ -419,7 +420,7 @@ public class CharUtils {
      *
      * <pre>
      *   CharUtils.toIntValue('3')  = 3
-     *   CharUtils.toIntValue(null) throws IllegalArgumentException
+     *   CharUtils.toIntValue(null) throws NullPointerException
      *   CharUtils.toIntValue('A')  throws IllegalArgumentException
      * </pre>
      *

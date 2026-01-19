@@ -38,12 +38,14 @@ import org.apache.commons.lang3.ThreadUtils;
 import org.junit.jupiter.api.Test;
 
 class BackgroundInitializerTest extends AbstractLangTest {
+
     /**
      * A concrete implementation of BackgroundInitializer. It also overloads
      * some methods that simplify testing.
      */
     protected static class AbstractBackgroundInitializerTestImpl extends
             BackgroundInitializer<CloseableCounter> {
+
         /** An exception to be thrown by initialize(). */
         Exception ex;
 
@@ -97,6 +99,7 @@ class BackgroundInitializerTest extends AbstractLangTest {
     }
 
     protected static class CloseableCounter {
+
         /** The number of invocations of initialize(). */
         AtomicInteger initializeCalls = new AtomicInteger();
 

@@ -40,6 +40,7 @@ import org.apache.commons.lang3.Validate;
  * The ability is provided to break the scoping restrictions coded by the programmer. This can allow fields to be
  * changed that shouldn't be. This facility should be used with care.
  * </p>
+ *
  * @since 2.5
  */
 public class FieldUtils {
@@ -228,6 +229,7 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
+     *
      * @param cls
      *            the {@link Class} to query.
      * @param annotationCls
@@ -244,6 +246,7 @@ public class FieldUtils {
 
     /**
      * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
+     *
      * @param cls
      *            the {@link Class} to query.
      * @param annotationCls
@@ -573,10 +576,10 @@ public class FieldUtils {
      *             if the field is {@code null}.
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
+     * @since 3.3
      * @deprecated As of Java 12, we can no longer drop the {@code final} modifier, thus
      *             rendering this method obsolete. The JDK discussion about this change can be found
      *             here: https://mail.openjdk.java.net/pipermail/core-libs-dev/2018-November/056486.html
-     * @since 3.3
      */
     @Deprecated
     public static void removeFinalModifier(final Field field, final boolean forceAccess) {

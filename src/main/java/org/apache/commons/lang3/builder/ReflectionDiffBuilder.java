@@ -19,6 +19,7 @@ package org.apache.commons.lang3.builder;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
@@ -153,9 +154,16 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      */
     private String[] excludeFieldNames;
 
+    /**
+     * Constructs a new instance.
+     *
+     * @param diffBuilder a non-null DiffBuilder.
+     * @param excludeFieldNames a non-null String array.
+     * @throw NullPointerException Thrown on null input.
+     */
     private ReflectionDiffBuilder(final DiffBuilder<T> diffBuilder, final String[] excludeFieldNames) {
-        this.diffBuilder = diffBuilder;
-        this.excludeFieldNames = excludeFieldNames;
+        this.diffBuilder = Objects.requireNonNull(diffBuilder, "diffBuilder");
+        this.excludeFieldNames = Objects.requireNonNull(excludeFieldNames, "excludeFieldNames");
     }
 
     /**
@@ -174,21 +182,13 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      */
     @Deprecated
     public ReflectionDiffBuilder(final T left, final T right, final ToStringStyle style) {
-        this(DiffBuilder.<T>builder().setLeft(left).setRight(right).setStyle(style).build(), null);
+        this(DiffBuilder.<T>builder().setLeft(left).setRight(right).setStyle(style).build(), ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     private boolean accept(final Field field) {
-        if (field.getName().indexOf(ClassUtils.INNER_CLASS_SEPARATOR_CHAR) != -1) {
-            return false;
-        }
-        if (Modifier.isTransient(field.getModifiers())) {
-            return false;
-        }
-        if (Modifier.isStatic(field.getModifiers())) {
-            return false;
-        }
-        if (this.excludeFieldNames != null && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
-            // Reject fields from the getExcludeFieldNames list.
+        if (field.getName().indexOf(ClassUtils.INNER_CLASS_SEPARATOR_CHAR) != -1 || Modifier.isTransient(field.getModifiers())
+                || Modifier.isStatic(field.getModifiers()) || Arrays.binarySearch(excludeFieldNames, field.getName()) >= 0) {
+            // Rejected.
             return false;
         }
         return !field.isAnnotationPresent(DiffExclude.class);
@@ -236,7 +236,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      * @since 3.13.0
      */
     public String[] getExcludeFieldNames() {
-        return this.excludeFieldNames.clone();
+        return excludeFieldNames.clone();
     }
 
     private T getLeft() {

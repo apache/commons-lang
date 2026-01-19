@@ -39,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * Test class for {@link MultiBackgroundInitializer}.
  */
 class MultiBackgroundInitializerTest extends AbstractLangTest {
+
     /**
      * A mostly complete implementation of {@code BackgroundInitializer} used for
      * defining background tasks for {@code MultiBackgroundInitializer}.
@@ -47,6 +48,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * or by using a supplier.
      */
     protected static class AbstractChildBackgroundInitializer extends BackgroundInitializer<CloseableCounter> {
+
         /** Stores the current executor service. */
         volatile ExecutorService currentExecutor;
 

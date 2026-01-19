@@ -124,6 +124,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     private static StrTokenizer getCSVClone() {
         return (StrTokenizer) CSV_TOKENIZER_PROTOTYPE.clone();
     }
+
     /**
      * Gets a new tokenizer instance which parses Comma Separated Value strings
      * initializing it with the given input.  The default for CSV processing
@@ -132,11 +133,13 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * <p>
      * You must call a "reset" method to set the string which you want to parse.
      * </p>
+     *
      * @return a new tokenizer instance which parses Comma Separated Value strings.
      */
     public static StrTokenizer getCSVInstance() {
         return getCSVClone();
     }
+
     /**
      * Gets a new tokenizer instance which parses Comma Separated Value strings
      * initializing it with the given input.  The default for CSV processing
@@ -166,6 +169,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         tok.reset(input);
         return tok;
     }
+
     /**
      * Gets a clone of {@code TSV_TOKENIZER_PROTOTYPE}.
      *
@@ -182,6 +186,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * <p>
      * You must call a "reset" method to set the string which you want to parse.
      * </p>
+     *
      * @return a new tokenizer instance which parses Tab Separated Value strings.
      */
     public static StrTokenizer getTSVInstance() {
@@ -215,6 +220,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         tok.reset(input);
         return tok;
     }
+
     /** The text to work on. */
     private char[] chars;
 
@@ -494,7 +500,6 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         return this.delimMatcher;
     }
 
-    // Ignored
     /**
      * Gets the ignored character matcher.
      * <p>
@@ -906,7 +911,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * Sets the field delimiter character.
      *
      * @param delim  the delimiter character to use.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrTokenizer setDelimiterChar(final char delim) {
         return setDelimiterMatcher(StrMatcher.charMatcher(delim));
@@ -919,7 +924,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * </p>
      *
      * @param delim  the delimiter matcher to use.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrTokenizer setDelimiterMatcher(final StrMatcher delim) {
         if (delim == null) {
@@ -934,7 +939,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * Sets the field delimiter string.
      *
      * @param delim  the delimiter string to use.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrTokenizer setDelimiterString(final String delim) {
         return setDelimiterMatcher(StrMatcher.stringMatcher(delim));
@@ -945,7 +950,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * The default for this property is false.
      *
      * @param emptyAsNull  whether empty tokens are returned as null.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrTokenizer setEmptyTokenAsNull(final boolean emptyAsNull) {
         this.emptyAsNull = emptyAsNull;
@@ -959,7 +964,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * within a quoted region.
      *
      * @param ignored  the ignored character to use.
-     * @return this, to enable chaining.
+     * @return {@code this} instance.
      */
     public StrTokenizer setIgnoredChar(final char ignored) {
         return setIgnoredMatcher(StrMatcher.charMatcher(ignored));
@@ -1042,7 +1047,6 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         return this;
     }
 
-    // API
     /**
      * Gets the number of tokens found in the String.
      *

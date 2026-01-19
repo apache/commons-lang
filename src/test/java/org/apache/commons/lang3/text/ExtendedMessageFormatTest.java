@@ -58,6 +58,7 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
             throw new UnsupportedOperationException();
         }
     }
+
     /**
      * {@link FormatFactory} implementation for lower case format.
      */
@@ -390,6 +391,7 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
         final ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
         assertEquals("it's a dummy test!", emf.format(new Object[] {"DUMMY"}));
     }
+
     /**
      * Test extended and built-in formats with available locales.
      */
@@ -424,6 +426,7 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
             assertEquals(expected.toString(), emf.format(args), String.valueOf(locale));
         }
     }
+
     /**
      * Test extended and built-in formats with the default locale.
      */
@@ -452,6 +455,7 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
         expected.append(nf.format(args[2]));
         assertEquals(expected.toString(), emf.format(args));
     }
+
     /**
      * Test extended formats.
      */

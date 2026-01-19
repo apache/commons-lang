@@ -245,6 +245,7 @@ public class StandardToStringStyle extends ToStringStyle {
 
     /**
      * Gets whether to use the identity hash code.
+     *
      * @return the current useIdentityHashCode flag
      */
     @Override

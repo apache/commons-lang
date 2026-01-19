@@ -22,6 +22,7 @@ package org.apache.commons.lang3;
  * <p>The original error is wrapped within this one.</p>
  *
  * <p>#NotThreadSafe# because Throwable is not thread-safe</p>
+ *
  * @since 1.0
  */
 public class SerializationException extends RuntimeException {

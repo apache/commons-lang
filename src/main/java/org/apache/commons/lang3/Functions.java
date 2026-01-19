@@ -68,6 +68,7 @@ import org.apache.commons.lang3.function.FailableBooleanSupplier;
  * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than the second
  * version.
  * </p>
+ *
  * @since 3.9
  * @deprecated Use {@link org.apache.commons.lang3.function.Failable}.
  */

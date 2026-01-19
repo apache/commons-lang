@@ -170,6 +170,7 @@ public class ExceptionUtils {
      * This method handles recursive cause structures that might otherwise cause infinite loops. The cause chain is
      * processed until the end is reached, or until the next item in the chain is already in the result set.
      * </p>
+     *
      * @param throwable The Throwable to traverse.
      * @param consumer a non-interfering action to perform on the elements.
      * @since 3.13.0

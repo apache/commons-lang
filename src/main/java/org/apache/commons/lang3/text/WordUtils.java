@@ -618,6 +618,7 @@ public class WordUtils {
      *   <td>"flammable\ninflammable"</td>
      *  </tr>
      * </table>
+     *
      * @param str  the String to be word wrapped, may be null.
      * @param wrapLength  the column to wrap the words at, less than 1 is treated as 1.
      * @param newLineStr  the string to insert for a new line,

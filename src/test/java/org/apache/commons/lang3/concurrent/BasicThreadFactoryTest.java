@@ -36,6 +36,7 @@ import org.junit.jupiter.api.Test;
  * Test class for {@code BasicThreadFactory}.
  */
 class BasicThreadFactoryTest extends AbstractLangTest {
+
     /** Constant for the test naming pattern. */
     private static final String PATTERN = "testThread-%d";
 

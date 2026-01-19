@@ -156,7 +156,6 @@ class CharSetUtilsTest extends AbstractLangTest {
         assertEquals("ho", CharSetUtils.delete("hello", "el"));
         assertEquals("", CharSetUtils.delete("hello", "elho"));
         assertEquals("hello", CharSetUtils.delete("hello", ""));
-        assertEquals("hello", CharSetUtils.delete("hello", ""));
         assertEquals("", CharSetUtils.delete("hello", "a-z"));
         assertEquals("", CharSetUtils.delete("----", "-"));
         assertEquals("heo", CharSetUtils.delete("hello", "l"));

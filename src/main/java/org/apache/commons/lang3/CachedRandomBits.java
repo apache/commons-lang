@@ -56,6 +56,7 @@ final class CachedRandomBits {
     private static final int BITS_PER_BYTE = 8;
     private final Random random;
     private final byte[] cache;
+
     /**
      * Index of the next bit in the cache to be used.
      *
@@ -66,6 +67,7 @@ final class CachedRandomBits {
      * </ul>
      */
     private int bitIndex;
+
     /**
      * Creates a new instance.
      *

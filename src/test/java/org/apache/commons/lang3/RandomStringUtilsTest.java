@@ -40,6 +40,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 class RandomStringUtilsTest extends AbstractLangTest {
 
     private static final int LOOP_COUNT = 1_000;
+
     /** Maximum safe value for count to avoid overflow: (21x + 3) / 5 + 10 < 0x0FFF_FFFF */
     private static final int MAX_SAFE_COUNT = 63_913_201;
 

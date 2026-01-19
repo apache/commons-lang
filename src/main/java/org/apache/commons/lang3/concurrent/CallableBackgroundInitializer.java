@@ -65,6 +65,7 @@ import java.util.concurrent.ExecutorService;
  * @since 3.0
  */
 public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
+
     /** The Callable to be executed. */
     private final Callable<T> callable;
 

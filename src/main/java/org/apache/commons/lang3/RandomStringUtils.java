@@ -82,11 +82,11 @@ public class RandomStringUtils {
 
     private static final Supplier<RandomUtils> SECURE_SUPPLIER = RandomUtils::secure;
 
-    private static RandomStringUtils INSECURE = new RandomStringUtils(RandomUtils::insecure);
+    private static final RandomStringUtils INSECURE = new RandomStringUtils(RandomUtils::insecure);
 
-    private static RandomStringUtils SECURE = new RandomStringUtils(SECURE_SUPPLIER);
+    private static final RandomStringUtils SECURE = new RandomStringUtils(SECURE_SUPPLIER);
 
-    private static RandomStringUtils SECURE_STRONG = new RandomStringUtils(RandomUtils::secureStrong);
+    private static final RandomStringUtils SECURE_STRONG = new RandomStringUtils(RandomUtils::secureStrong);
 
     private static final char[] ALPHANUMERICAL_CHARS = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
@@ -104,8 +104,7 @@ public class RandomStringUtils {
 
     /**
      * Gets the singleton instance based on {@link ThreadLocalRandom#current()}; <b>which is not cryptographically
-     * secure</b>; use {@link #secure()} to use an algorithms/providers specified in the
-     * {@code securerandom.strongAlgorithms} {@link Security} property.
+     * secure</b>; for more secure processing use {@link #secure()} or {@link #secureStrong()}.
      * <p>
      * The method {@link ThreadLocalRandom#current()} is called on-demand.
      * </p>
@@ -113,6 +112,7 @@ public class RandomStringUtils {
      * @return the singleton instance based on {@link ThreadLocalRandom#current()}.
      * @see ThreadLocalRandom#current()
      * @see #secure()
+     * @see #secureStrong()
      * @since 3.16.0
      */
     public static RandomStringUtils insecure() {
@@ -299,8 +299,8 @@ public class RandomStringUtils {
 
             if (numbers && end <= ASCII_0 || letters && end <= ASCII_A) {
                 throw new IllegalArgumentException(
-                        "Parameter end (" + end + ") must be greater then (" + ASCII_0 + ") for generating digits "
-                                + "or greater then (" + ASCII_A + ") for generating letters.");
+                        "Parameter end (" + end + ") must be greater than (" + ASCII_0 + ") for generating digits "
+                                + "or greater than (" + ASCII_A + ") for generating letters.");
             }
 
             // Optimize start and end when filtering by letters and/or numbers:
@@ -600,7 +600,7 @@ public class RandomStringUtils {
      * @return the random string.
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      * @since 3.5
-     * @deprecated Use {@link #randomPrint(int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
+     * @deprecated Use {@link #nextPrint(int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static String randomPrint(final int count) {
@@ -618,7 +618,7 @@ public class RandomStringUtils {
      * @param maxLengthExclusive the exclusive maximum length of the string to generate.
      * @return the random string.
      * @since 3.5
-     * @deprecated Use {@link #randomPrint(int, int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
+     * @deprecated Use {@link #nextPrint(int, int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
     public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {

@@ -199,10 +199,12 @@ public class ToStringBuilder implements Builder<String> {
      * Current toString buffer, not null.
      */
     private final StringBuffer buffer;
+
     /**
      * The object being output, may be null.
      */
     private final Object object;
+
     /**
      * The style of output to use, not null.
      */

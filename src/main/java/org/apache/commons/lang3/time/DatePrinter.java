@@ -158,7 +158,6 @@ public interface DatePrinter {
      */
     Locale getLocale();
 
-    // Accessors
     /**
      * Gets the pattern used by this printer.
      *
