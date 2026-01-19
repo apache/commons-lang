@@ -8829,7 +8829,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str      the String to truncate, may be null.
-     * @param maxWidth maximum length of result String, must be positive.
+     * @param maxWidth maximum length of result String, must be non-negative.
      * @return truncated String, {@code null} if null String input.
      * @throws IllegalArgumentException If {@code maxWidth} is less than {@code 0}.
      * @since 3.5
@@ -8891,7 +8891,7 @@ public class StringUtils {
      *
      * @param str      the String to truncate, may be null.
      * @param offset   left edge of source String.
-     * @param maxWidth maximum length of result String, must be positive.
+     * @param maxWidth maximum length of result String, must be non-negative.
      * @return truncated String, {@code null} if null String input.
      * @throws IllegalArgumentException If {@code offset} or {@code maxWidth} is less than {@code 0}.
      * @since 3.5
