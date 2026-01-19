@@ -155,7 +155,7 @@ public class BitField {
      * @return the selected bits.
      * @since 3.21.0
      */
-    public Long getRawValue(long holder) {
+    public long getRawValue(long holder) {
         return holder & mask;
     }
 
