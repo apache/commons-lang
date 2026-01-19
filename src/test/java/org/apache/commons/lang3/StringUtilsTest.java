@@ -925,6 +925,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertFalse(StringUtils.isAllLowerCase("ab c"));
         assertFalse(StringUtils.isAllLowerCase("ab1c"));
         assertFalse(StringUtils.isAllLowerCase("ab/c"));
+        assertFalse(StringUtils.isAllLowerCase(" abc"));
     }
 
     /**
@@ -942,6 +943,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertFalse(StringUtils.isAllUpperCase("A C"));
         assertFalse(StringUtils.isAllUpperCase("A1C"));
         assertFalse(StringUtils.isAllUpperCase("A/C"));
+        assertFalse(StringUtils.isAllUpperCase(" ABC"));
     }
 
     /**
