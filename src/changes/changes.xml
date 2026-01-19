@@ -53,7 +53,8 @@ The <action> type attribute can be add,update,fix,remove.
       getClass(ClassLoader, String, boolean),
       ClassUtils.getClass(ClassLoader, String),
       ClassUtils.getClass(String, boolean),
-      ClassUtils.getClass(String).</action>
+      ClassUtils.getClass(String)
+      #1494.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Arnout Engelen, Piotr P. Karwasz, Vladimir Sitnikov, Gilles Sadowski">ClassUtils now throws IllegalArgumentException if a class name length is greater than 65,535:
       getClass(ClassLoader, String, boolean),
       ClassUtils.getClass(ClassLoader, String),
