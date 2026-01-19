@@ -31,7 +31,6 @@ class BitFieldTest extends AbstractLangTest {
     private static final BitField bf_single = new BitField(0x4000);
     private static final BitField bf_zero = new BitField(0);
 
-
     @Test
     void testByte() {
         assertEquals(0, new BitField(0).setByteBoolean((byte) 0, true));
