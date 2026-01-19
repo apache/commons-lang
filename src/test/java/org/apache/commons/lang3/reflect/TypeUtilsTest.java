@@ -1226,4 +1226,16 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
         assertEquals(String.class, TypeUtils.wrap(String.class).getType());
     }
+    @Test
+    public void testIsAssignable_Type_TypeVariable_Map() {
+        class Stub<T> { }
+        final java.lang.reflect.TypeVariable<?> typeVariableT = Stub.class.getTypeParameters()[0];
+
+        final java.util.Map<java.lang.reflect.TypeVariable<?>, java.lang.reflect.Type> typeMap = new java.util.HashMap<>();
+        typeMap.put(typeVariableT, String.class);
+
+        org.junit.jupiter.api.Assertions.assertFalse(
+                org.apache.commons.lang3.reflect.TypeUtils.isAssignable(Integer.class, typeVariableT, typeMap)
+        );
+    }
 }
