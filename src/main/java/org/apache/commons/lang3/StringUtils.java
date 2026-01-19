@@ -278,7 +278,7 @@ public class StringUtils {
 
     /**
      * Abbreviates a String using another given String as replacement marker. This will convert "Now is the time for all good men" into "Now is the time for..."
-     * if "..." was defined as the replacement marker.
+     * when "..." is the replacement marker.
      *
      * <p>
      * Specifically:
@@ -315,9 +315,8 @@ public class StringUtils {
     }
 
     /**
-     * Abbreviates a String using a given replacement marker. This will convert "Now is the time for all good men" into "...is the time for..." if "..." was
-     * defined as the replacement marker.
-     *
+     * Abbreviates a String using a given replacement marker. This will convert "Now is the time for all good men" into "...is the time for..." when "..." is
+     * the replacement marker.
      * <p>
      * Works like {@code abbreviate(String, String, int)}, but allows you to specify a "left edge" offset. Note that this left edge is not necessarily going to
      * be the leftmost character in the result, or the first character following the replacement marker, but it will appear somewhere in the result.
