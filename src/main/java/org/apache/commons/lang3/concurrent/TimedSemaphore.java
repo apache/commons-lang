@@ -139,6 +139,18 @@ public class TimedSemaphore {
         }
 
         /**
+         * Sets the fairness mode.
+         *
+         * @param fair whether to enable fairness.
+         * @return {@code this} instance.
+         * @since 3.21.0
+         */
+        public Builder setFair(final boolean fair) {
+            this.fair = fair;
+            return this;
+        }
+
+        /**
          * Sets the limit.
          *
          * @param limit The limit.
@@ -182,16 +194,6 @@ public class TimedSemaphore {
             return this;
         }
 
-        /**
-         * Sets the fairness mode.
-         *
-         * @param fair whether to enable fairness.
-         * @return {@code this} instance.
-         */
-        public Builder setFair(final boolean fair) {
-            this.fair = fair;
-            return this;
-        }
     }
 
     /**
