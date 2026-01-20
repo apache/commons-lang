@@ -35,75 +35,75 @@ import org.apache.commons.lang3.Validate;
 public class NumberUtils {
 
     /** Reusable Long constant for zero. */
-    public static final Long LONG_ZERO = Long.valueOf(0L);
+    public static final Long LONG_ZERO = 0L;
 
     /** Reusable Long constant for one. */
-    public static final Long LONG_ONE = Long.valueOf(1L);
+    public static final Long LONG_ONE = 1L;
 
     /** Reusable Long constant for minus one. */
-    public static final Long LONG_MINUS_ONE = Long.valueOf(-1L);
+    public static final Long LONG_MINUS_ONE = -1L;
 
     /** Reusable Integer constant for zero. */
-    public static final Integer INTEGER_ZERO = Integer.valueOf(0);
+    public static final Integer INTEGER_ZERO = 0;
 
     /** Reusable Integer constant for one. */
-    public static final Integer INTEGER_ONE = Integer.valueOf(1);
+    public static final Integer INTEGER_ONE = 1;
 
     /** Reusable Integer constant for two */
-    public static final Integer INTEGER_TWO = Integer.valueOf(2);
+    public static final Integer INTEGER_TWO = 2;
 
     /** Reusable Integer constant for minus one. */
-    public static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
+    public static final Integer INTEGER_MINUS_ONE = -1;
 
     /** Reusable Short constant for zero. */
-    public static final Short SHORT_ZERO = Short.valueOf((short) 0);
+    public static final Short SHORT_ZERO = (short) 0;
 
     /** Reusable Short constant for one. */
-    public static final Short SHORT_ONE = Short.valueOf((short) 1);
+    public static final Short SHORT_ONE = (short) 1;
 
     /** Reusable Short constant for minus one. */
-    public static final Short SHORT_MINUS_ONE = Short.valueOf((short) -1);
+    public static final Short SHORT_MINUS_ONE = (short) -1;
 
     /** Reusable Byte constant for zero. */
-    public static final Byte BYTE_ZERO = Byte.valueOf((byte) 0);
+    public static final Byte BYTE_ZERO = (byte) 0;
 
     /** Reusable Byte constant for one. */
-    public static final Byte BYTE_ONE = Byte.valueOf((byte) 1);
+    public static final Byte BYTE_ONE = (byte) 1;
 
     /** Reusable Byte constant for minus one. */
-    public static final Byte BYTE_MINUS_ONE = Byte.valueOf((byte) -1);
+    public static final Byte BYTE_MINUS_ONE = (byte) -1;
 
     /** Reusable Double constant for zero. */
-    public static final Double DOUBLE_ZERO = Double.valueOf(0.0d);
+    public static final Double DOUBLE_ZERO = 0.0d;
 
     /** Reusable Double constant for one. */
-    public static final Double DOUBLE_ONE = Double.valueOf(1.0d);
+    public static final Double DOUBLE_ONE = 1.0d;
 
     /** Reusable Double constant for minus one. */
-    public static final Double DOUBLE_MINUS_ONE = Double.valueOf(-1.0d);
+    public static final Double DOUBLE_MINUS_ONE = -1.0d;
 
     /** Reusable Float constant for zero. */
-    public static final Float FLOAT_ZERO = Float.valueOf(0.0f);
+    public static final Float FLOAT_ZERO = 0.0f;
 
     /** Reusable Float constant for one. */
-    public static final Float FLOAT_ONE = Float.valueOf(1.0f);
+    public static final Float FLOAT_ONE = 1.0f;
 
     /** Reusable Float constant for minus one. */
-    public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
+    public static final Float FLOAT_MINUS_ONE = -1.0f;
 
     /**
      * {@link Integer#MAX_VALUE} as a {@link Long}.
      *
      * @since 3.12.0
      */
-    public static final Long LONG_INT_MAX_VALUE = Long.valueOf(Integer.MAX_VALUE);
+    public static final Long LONG_INT_MAX_VALUE = (long) Integer.MAX_VALUE;
 
     /**
      * {@link Integer#MIN_VALUE} as a {@link Long}.
      *
      * @since 3.12.0
      */
-    public static final Long LONG_INT_MIN_VALUE = Long.valueOf(Integer.MIN_VALUE);
+    public static final Long LONG_INT_MIN_VALUE = (long) Integer.MIN_VALUE;
 
     private static <T> boolean accept(final Consumer<T> consumer, final T obj) {
         try {
@@ -441,7 +441,7 @@ public class NumberUtils {
             case 'F':
                 try {
                     final Float f = createFloat(str);
-                    if (!(f.isInfinite() || f.floatValue() == 0.0F && !isZero(mant, dec))) {
+                    if (!(f.isInfinite() || f == 0.0F && !isZero(mant, dec))) {
                         // If it's too big for a float or the float value = 0 and the string
                         // has non-zeros in it, then float does not have the precision we want
                         return f;
@@ -454,7 +454,7 @@ public class NumberUtils {
             case 'D':
                 try {
                     final Double d = createDouble(str);
-                    if (!(d.isInfinite() || d.doubleValue() == 0.0D && !isZero(mant, dec))) {
+                    if (!(d.isInfinite() || d == 0.0D && !isZero(mant, dec))) {
                         return d;
                     }
                 } catch (final NumberFormatException ignored) {
@@ -495,12 +495,12 @@ public class NumberUtils {
         try {
             final Float f = createFloat(str);
             final Double d = createDouble(str);
-            if (!f.isInfinite() && !(f.floatValue() == 0.0F && !isZero(mant, dec)) && f.toString().equals(d.toString())) {
+            if (!f.isInfinite() && !(f == 0.0F && !isZero(mant, dec)) && f.toString().equals(d.toString())) {
                 return f;
             }
-            if (!d.isInfinite() && !(d.doubleValue() == 0.0D && !isZero(mant, dec))) {
+            if (!d.isInfinite() && !(d == 0.0D && !isZero(mant, dec))) {
                 final BigDecimal b = createBigDecimal(str);
-                if (b.compareTo(BigDecimal.valueOf(d.doubleValue())) == 0) {
+                if (b.compareTo(BigDecimal.valueOf(d)) == 0) {
                     return d;
                 }
                 return b;
