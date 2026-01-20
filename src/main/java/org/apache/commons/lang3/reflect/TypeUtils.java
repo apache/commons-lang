@@ -1168,7 +1168,7 @@ public class TypeUtils {
      * @param typeVarAssigns a map with type variables.
      * @return {@code true} if {@code type} is assignable to {@code toTypeVariable}.
      */
-    static boolean isAssignable(final Type type, final TypeVariable<?> toTypeVariable, final Map<TypeVariable<?>, Type> typeVarAssigns) {
+    private static boolean isAssignable(final Type type, final TypeVariable<?> toTypeVariable, final Map<TypeVariable<?>, Type> typeVarAssigns) {
         if (type == null) {
             return true;
         }
