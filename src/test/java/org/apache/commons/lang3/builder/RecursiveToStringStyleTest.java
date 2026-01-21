@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link org.apache.commons.lang3.builder.RecursiveToStringStyleTest}.
  */
-class RecursiveToStringStyleTest extends AbstractLangTest {
+class RecursiveToStringStyleTest extends AbstractBuilderTest {
 
     static class Job {
 
@@ -158,8 +157,13 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
         p.job.title = "Manager";
         final String baseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
         final String jobStr  = p.job.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p.job));
-        assertEquals(baseStr + "[age=33,job=" + jobStr + "[title=Manager],name=John Doe,smoker=false]",
-                     new ReflectionToStringBuilder(p, new RecursiveToStringStyle()).toString());
+        testPersonAssert(p, baseStr, jobStr);
+    }
+
+    protected void testPersonAssert(final Person p, final String baseStr, final String jobStr) {
+        assertEquals(baseStr + "[age=" + accessibleString("33") + ",job=" + accessibleString(jobStr + "[title=Manager]") + ",name="
+                + accessibleString("John Doe") + ",smoker=" + accessibleString("false") + "]",
+                new ReflectionToStringBuilder(p, new RecursiveToStringStyle()).toString());
     }
 
 }

@@ -26,13 +26,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests for {@link org.apache.commons.lang3.builder.ToStringBuilder}.
  */
-class ToStringBuilderTest extends AbstractLangTest {
+class ToStringBuilderTest extends AbstractBuilderTest {
 
     /**
      * Test fixture for ReflectionToStringBuilder.toString() for statics.
@@ -655,20 +654,20 @@ class ToStringBuilderTest extends AbstractLangTest {
     @Test
     void testInheritedReflectionStatics() {
         final InheritedReflectionStaticFieldsFixture instance1 = new InheritedReflectionStaticFieldsFixture();
-        assertEquals(toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2]",
+        assertEqualsIfAccessible(toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2]",
                 ReflectionToStringBuilder.toString(instance1, null, false, true, InheritedReflectionStaticFieldsFixture.class));
-        assertEquals(toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
+        assertEqualsIfAccessible(toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
                 ReflectionToStringBuilder.toString(instance1, null, false, true, SimpleReflectionStaticFieldsFixture.class));
-        assertEquals(toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
+        assertEqualsIfAccessible(toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
                 this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
-        assertEquals(toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
+        assertEqualsIfAccessible(toBaseString(instance1) + "[staticInt2=67890,staticString2=staticString2,staticInt=12345,staticString=staticString]",
                 this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
     }
 
     @Test
     void testInnerClassReflection() {
         final Outer outer = new Outer();
-        assertEquals(toBaseString(outer) + "[inner=" + toBaseString(outer.inner) + "[]]", outer.toString());
+        assertEqualsIfAccessible(toBaseString(outer) + "[inner=" + toBaseString(outer.inner) + "[]]", outer.toString());
     }
 
     @Test
@@ -790,9 +789,9 @@ class ToStringBuilderTest extends AbstractLangTest {
         final Object[] objects = new Object[1];
         final SimpleReflectionTestFixture simple = new SimpleReflectionTestFixture(objects);
         objects[0] = simple;
-        assertEquals(toBaseString(objects) + "[{" + toBaseString(simple) + "[o=" + toBaseString(objects) + "]}]",
+        assertEqualsIfAccessible(toBaseString(objects) + "[{" + toBaseString(simple) + "[o=" + toBaseString(objects) + "]}]",
                 ToStringBuilder.reflectionToString(objects));
-        assertEquals(toBaseString(simple) + "[o={" + toBaseString(simple) + "}]", ToStringBuilder.reflectionToString(simple));
+        assertEqualsIfAccessible(toBaseString(simple) + "[o={" + toBaseString(simple) + "}]", ToStringBuilder.reflectionToString(simple));
     }
 
     @Test
@@ -837,9 +836,9 @@ class ToStringBuilderTest extends AbstractLangTest {
     void testReflectionBoolean() {
         Boolean b;
         b = Boolean.TRUE;
-        assertEquals(toBaseString(b) + "[value=true]", ToStringBuilder.reflectionToString(b));
+        assertEqualsIfAccessible(toBaseString(b) + "[value=true]", ToStringBuilder.reflectionToString(b));
         b = Boolean.FALSE;
-        assertEquals(toBaseString(b) + "[value=false]", ToStringBuilder.reflectionToString(b));
+        assertEqualsIfAccessible(toBaseString(b) + "[value=false]", ToStringBuilder.reflectionToString(b));
     }
 
     @Test
@@ -885,7 +884,7 @@ class ToStringBuilderTest extends AbstractLangTest {
     @Test
     void testReflectionCharacter() {
         final Character c = 'A';
-        assertEquals(toBaseString(c) + "[value=A]", ToStringBuilder.reflectionToString(c));
+        assertEqualsIfAccessible(toBaseString(c) + "[value=A]", ToStringBuilder.reflectionToString(c));
     }
 
     @Test
@@ -946,25 +945,24 @@ class ToStringBuilderTest extends AbstractLangTest {
     void testReflectionHierarchy() {
         final ReflectionTestFixtureA baseA = new ReflectionTestFixtureA();
         String baseString = toBaseString(baseA);
-        assertEquals(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA));
-        assertEquals(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA, null));
-        assertEquals(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false));
-        assertEquals(baseString + "[a=a,transientA=t]", ToStringBuilder.reflectionToString(baseA, null, true));
-        assertEquals(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, null));
-        assertEquals(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, Object.class));
-        assertEquals(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, ReflectionTestFixtureA.class));
-
+        assertEqualsIfAccessible(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA));
+        assertEqualsIfAccessible(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA, null));
+        assertEqualsIfAccessible(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false));
+        assertEqualsIfAccessible(baseString + "[a=a,transientA=t]", ToStringBuilder.reflectionToString(baseA, null, true));
+        assertEqualsIfAccessible(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, null));
+        assertEqualsIfAccessible(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, Object.class));
+        assertEqualsIfAccessible(baseString + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, ReflectionTestFixtureA.class));
         final ReflectionTestFixtureB baseB = new ReflectionTestFixtureB();
         baseString = toBaseString(baseB);
-        assertEquals(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB));
-        assertEquals(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB));
-        assertEquals(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null));
-        assertEquals(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false));
-        assertEquals(baseString + "[b=b,transientB=t,a=a,transientA=t]", ToStringBuilder.reflectionToString(baseB, null, true));
-        assertEquals(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, null));
-        assertEquals(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, Object.class));
-        assertEquals(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, ReflectionTestFixtureA.class));
-        assertEquals(baseString + "[b=b]", ToStringBuilder.reflectionToString(baseB, null, false, ReflectionTestFixtureB.class));
+        assertEqualsIfAccessible(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB));
+        assertEqualsIfAccessible(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB));
+        assertEqualsIfAccessible(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null));
+        assertEqualsIfAccessible(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false));
+        assertEqualsIfAccessible(baseString + "[b=b,transientB=t,a=a,transientA=t]", ToStringBuilder.reflectionToString(baseB, null, true));
+        assertEqualsIfAccessible(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, null));
+        assertEqualsIfAccessible(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, Object.class));
+        assertEqualsIfAccessible(baseString + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, ReflectionTestFixtureA.class));
+        assertEqualsIfAccessible(baseString + "[b=b]", ToStringBuilder.reflectionToString(baseB, null, false, ReflectionTestFixtureB.class));
     }
 
     // Reflection hierarchy tests
@@ -973,13 +971,14 @@ class ToStringBuilderTest extends AbstractLangTest {
         // LANG-1337 without this, the generated string can differ depending on the JVM version/vendor
         final List<Object> list = new ArrayList<>(ARRAYLIST_INITIAL_CAPACITY);
         final String baseString = toBaseString(list);
-        final String expectedWithTransients = baseString
-                + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]";
+        final String expectedWithTransients = baseString + "[elementData="
+                + accessibleString("{<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>}") + ",size=" + accessibleString("0") + ",modCount="
+                + accessibleString("0") + "]";
         final String toStringWithTransients = ToStringBuilder.reflectionToString(list, null, true);
         if (!expectedWithTransients.equals(toStringWithTransients)) {
             assertEquals(expectedWithTransients, toStringWithTransients);
         }
-        final String expectedWithoutTransients = baseString + "[size=0]";
+        final String expectedWithoutTransients = baseString + "[size=" + accessibleString("0") + "]";
         final String toStringWithoutTransients = ToStringBuilder.reflectionToString(list, null, false);
         if (!expectedWithoutTransients.equals(toStringWithoutTransients)) {
             assertEquals(expectedWithoutTransients, toStringWithoutTransients);
@@ -1009,7 +1008,7 @@ class ToStringBuilderTest extends AbstractLangTest {
      */
     @Test
     void testReflectionInteger() {
-        assertEquals(baseStr + "[value=5]", ToStringBuilder.reflectionToString(base));
+        assertEqualsIfAccessible(baseStr + "[value=5]", ToStringBuilder.reflectionToString(base));
     }
 
     @Test
@@ -1053,7 +1052,7 @@ class ToStringBuilderTest extends AbstractLangTest {
         final ReflectionTestCycleB b = new ReflectionTestCycleB();
         a.b = b;
         b.a = a;
-        assertEquals(toBaseString(a) + "[b=" + toBaseString(b) + "[a=" + toBaseString(a) + "]]", a.toString());
+        assertEqualsIfAccessible(toBaseString(a) + "[b=" + toBaseString(b) + "[a=" + toBaseString(a) + "]]", a.toString());
     }
 
     @Test
@@ -1080,14 +1079,14 @@ class ToStringBuilderTest extends AbstractLangTest {
     @Test
     void testReflectionStatics() {
         final ReflectionStaticFieldsFixture instance1 = new ReflectionStaticFieldsFixture();
-        assertEquals(toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
+        assertEqualsIfAccessible(toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
                 ReflectionToStringBuilder.toString(instance1, null, false, true, ReflectionStaticFieldsFixture.class));
-        assertEquals(toBaseString(instance1)
+        assertEqualsIfAccessible(toBaseString(instance1)
                 + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString,staticTransientInt=54321,staticTransientString=staticTransientString,transientInt=98765,transientString=transientString]",
                 ReflectionToStringBuilder.toString(instance1, null, true, true, ReflectionStaticFieldsFixture.class));
-        assertEquals(toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
+        assertEqualsIfAccessible(toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
                 this.toStringWithStatics(instance1, null, ReflectionStaticFieldsFixture.class));
-        assertEquals(toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
+        assertEqualsIfAccessible(toBaseString(instance1) + "[instanceInt=67890,instanceString=instanceString,staticInt=12345,staticString=staticString]",
                 this.toStringWithStatics(instance1, null, ReflectionStaticFieldsFixture.class));
     }
 
@@ -1098,7 +1097,7 @@ class ToStringBuilderTest extends AbstractLangTest {
     @Test
     void testSelfInstanceTwoVarsReflectionObjectCycle() {
         final SelfInstanceTwoVarsReflectionTestFixture test = new SelfInstanceTwoVarsReflectionTestFixture();
-        assertEquals(toBaseString(test) + "[otherType=" + test.getOtherType().toString() + ",typeIsSelf=" + toBaseString(test) + "]",
+        assertEqualsIfAccessible(toBaseString(test) + "[otherType=" + test.getOtherType().toString() + ",typeIsSelf=" + toBaseString(test) + "]",
                 test.toString());
     }
 
@@ -1108,7 +1107,7 @@ class ToStringBuilderTest extends AbstractLangTest {
     @Test
     void testSelfInstanceVarReflectionObjectCycle() {
         final SelfInstanceVarReflectionTestFixture test = new SelfInstanceVarReflectionTestFixture();
-        assertEquals(toBaseString(test) + "[typeIsSelf=" + toBaseString(test) + "]", test.toString());
+        assertEqualsIfAccessible(toBaseString(test) + "[typeIsSelf=" + toBaseString(test) + "]", test.toString());
     }
 
     @Test
@@ -1150,19 +1149,19 @@ class ToStringBuilderTest extends AbstractLangTest {
     void testSimpleReflectionObjectCycle() {
         final SimpleReflectionTestFixture simple = new SimpleReflectionTestFixture();
         simple.o = simple;
-        assertEquals(toBaseString(simple) + "[o=" + toBaseString(simple) + "]", simple.toString());
+        assertEqualsIfAccessible(toBaseString(simple) + "[o=" + toBaseString(simple) + "]", simple.toString());
     }
 
     @Test
     void testSimpleReflectionStatics() {
         final SimpleReflectionStaticFieldsFixture instance1 = new SimpleReflectionStaticFieldsFixture();
-        assertEquals(toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
+        assertEqualsIfAccessible(toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
                 ReflectionToStringBuilder.toString(instance1, null, false, true, SimpleReflectionStaticFieldsFixture.class));
-        assertEquals(toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
+        assertEqualsIfAccessible(toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
                 ReflectionToStringBuilder.toString(instance1, null, true, true, SimpleReflectionStaticFieldsFixture.class));
-        assertEquals(toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
+        assertEqualsIfAccessible(toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
                 this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
-        assertEquals(toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
+        assertEqualsIfAccessible(toBaseString(instance1) + "[staticInt=12345,staticString=staticString]",
                 this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
     }
 
