@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.builder;
 
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
@@ -94,7 +93,35 @@ import org.apache.commons.lang3.ObjectUtils;
  * @see HashCodeBuilder
  * @since 1.0
  */
-public class CompareToBuilder implements Builder<Integer> {
+public class CompareToBuilder extends AbstractReflection implements Builder<Integer> {
+
+    /**
+     * Builds instances of CompareToBuilder.
+     */
+    public static class Builder extends AbstractBuilder<Builder> {
+
+        /**
+         * Constructs a new Builder instance.
+         */
+        private Builder() {
+            // empty
+        }
+
+        @Override
+        public CompareToBuilder get() {
+            return new CompareToBuilder(this);
+        }
+
+    }
+
+    /**
+     * Constructs a new Builder.
+     *
+     * @return a new Builder.
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
 
     /**
      * Appends to {@code builder} the comparison of {@code lhs}
@@ -106,6 +133,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param builder  {@link CompareToBuilder} to append to
      * @param useTransients  whether to compare transient fields
      * @param excludeFields  fields to exclude
+     * @param forceAccessible Whether to set fields' accessible flags
      */
     private static void reflectionAppend(
         final Object lhs,
@@ -113,16 +141,19 @@ public class CompareToBuilder implements Builder<Integer> {
         final Class<?> clazz,
         final CompareToBuilder builder,
         final boolean useTransients,
-        final String[] excludeFields) {
+        final String[] excludeFields,
+        final boolean forceAccessible) {
 
         final Field[] fields = clazz.getDeclaredFields();
-        AccessibleObject.setAccessible(fields, true);
+        setAccessible(forceAccessible, fields);
         for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
             final Field field = fields[i];
-            if (!ArrayUtils.contains(excludeFields, field.getName())
-                && !field.getName().contains("$")
+            final String name = field.getName();
+            if (!ArrayUtils.contains(excludeFields, name)
+                && !name.contains("$")
                 && (useTransients || !Modifier.isTransient(field.getModifiers()))
-                && !Modifier.isStatic(field.getModifiers())) {
+                && !Modifier.isStatic(field.getModifiers())
+                && field.isAccessible()) {
                 // IllegalAccessException can't happen. Would get a Security exception instead.
                 // Throw a runtime exception in case the impossible happens.
                 builder.append(Reflection.getUnchecked(field, lhs), Reflection.getUnchecked(field, rhs));
@@ -230,22 +261,20 @@ public class CompareToBuilder implements Builder<Integer> {
         final boolean compareTransients,
         final Class<?> reflectUpToClass,
         final String... excludeFields) {
-
         if (lhs == rhs) {
             return 0;
         }
         Objects.requireNonNull(lhs, "lhs");
         Objects.requireNonNull(rhs, "rhs");
-
         Class<?> lhsClazz = lhs.getClass();
         if (!lhsClazz.isInstance(rhs)) {
             throw new ClassCastException();
         }
         final CompareToBuilder compareToBuilder = new CompareToBuilder();
-        reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients, excludeFields);
+        reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients, excludeFields, AbstractReflection.accessibleFlag());
         while (lhsClazz.getSuperclass() != null && lhsClazz != reflectUpToClass) {
             lhsClazz = lhsClazz.getSuperclass();
-            reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients, excludeFields);
+            reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients, excludeFields, AbstractReflection.accessibleFlag());
         }
         return compareToBuilder.toComparison();
     }
@@ -329,7 +358,12 @@ public class CompareToBuilder implements Builder<Integer> {
      * {@link #toComparison} to get the result.</p>
      */
     public CompareToBuilder() {
+        super(builder());
         comparison = 0;
+    }
+
+    private CompareToBuilder(final Builder builder) {
+        super(builder);
     }
 
     /**

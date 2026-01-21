@@ -47,14 +47,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.stream.IntStreams;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests that {@link EqualsBuilder} works using reflection when types that implement JRE interfaces like TemporalAccessor, TemporalAmout, and CharSequence work.
  */
-class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest {
+class EqualsBuilderReflectJreImplementationTest extends AbstractBuilderTest {
 
     static class MyCharSequence implements CharSequence {
 
@@ -268,16 +267,16 @@ class EqualsBuilderReflectJreImplementationTest extends AbstractLangTest {
         final MyClass o2 = new MyClass(new MyCharSequence("5"), new MyTemporal("6"), new MyTemporalAccessor("7"), new MyTemporalAmount("8"));
         final MyClass o2Bis = new MyClass(new MyCharSequence("5"), new MyTemporal("6"), new MyTemporalAccessor("7"), new MyTemporalAmount("8"));
         // MyTemporal
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(new MyTemporal("1"), new MyTemporal("1")).isEquals());
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(new MyTemporal("1"), new MyTemporal("1")).isEquals());
         // MyTemporalAccessor
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(new MyTemporalAccessor("1"), new MyTemporalAccessor("1")).isEquals());
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(new MyTemporalAccessor("1"), new MyTemporalAccessor("1")).isEquals());
         // MyCharSequence
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(new MyCharSequence("1"), new MyCharSequence("1")).isEquals());
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(new MyCharSequence("1"), new MyCharSequence("1")).isEquals());
         // MyClass
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1, o1).isEquals(), o1::toString);
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1, o1Bis).isEquals(), o1::toString);
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(o1, o1Bis).isEquals(), o1::toString);
         assertTrue(new EqualsBuilder().setTestRecursive(true).append(o2, o2).isEquals(), o2::toString);
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o2, o2Bis).isEquals(), o2::toString);
+        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(o2, o2Bis).isEquals(), o2::toString);
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1, o2).isEquals());
         assertFalse(new EqualsBuilder().setTestRecursive(true).append(o2, o1).isEquals());
     }

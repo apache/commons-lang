@@ -20,13 +20,12 @@ package org.apache.commons.lang3.builder;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test class for ToStringExclude annotation
  */
-class ReflectionToStringBuilderExcludeWithAnnotationTest extends AbstractLangTest {
+class ReflectionToStringBuilderExcludeWithAnnotationTest extends AbstractBuilderTest {
 
     final class TestFixture {
         @ToStringExclude
@@ -50,7 +49,7 @@ class ReflectionToStringBuilderExcludeWithAnnotationTest extends AbstractLangTes
         assertFalse(toString.contains(EXCLUDED_FIELD_NAME));
         assertFalse(toString.contains(EXCLUDED_FIELD_VALUE));
         assertTrue(toString.contains(INCLUDED_FIELD_NAME));
-        assertTrue(toString.contains(INCLUDED_FIELD_VALUE));
+        assertTrueIfAccessible(toString.contains(INCLUDED_FIELD_VALUE));
     }
 
 }
