@@ -601,7 +601,7 @@ public class ClassUtils {
                 }
             }
         } while (lastDotIndex != -1);
-        throw new ClassNotFoundException(next);
+        throw new ClassNotFoundException(className);
     }
 
     /**
