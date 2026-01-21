@@ -7859,8 +7859,29 @@ public class StringUtils {
      * @return the stripped String, {@code null} if null String input.
      */
     public static String strip(String str, final String stripChars) {
-        str = stripStart(str, stripChars);
-        return stripEnd(str, stripChars);
+        int end = length(str);
+        if (end == 0) {
+            return str;
+        }
+        int start = 0;
+        if (stripChars == null) {
+            while (start != end && Character.isWhitespace(str.charAt(start))) {
+                start++;
+            }
+            while (end != start && Character.isWhitespace(str.charAt(end - 1))) {
+                end--;
+            }
+        } else if (stripChars.isEmpty()) {
+            return str;
+        } else {
+            while (start != end && stripChars.indexOf(str.charAt(start)) != INDEX_NOT_FOUND) {
+                start++;
+            }
+            while (end != start && stripChars.indexOf(str.charAt(end - 1)) != INDEX_NOT_FOUND) {
+                end--;
+            }
+        }
+        return str.substring(start, end);
     }
 
     /**
@@ -7996,6 +8017,9 @@ public class StringUtils {
                 end--;
             }
         }
+        if (0 == end) {
+            return EMPTY;
+        }
         return str.substring(0, end);
     }
 
@@ -8041,6 +8065,9 @@ public class StringUtils {
             while (start != strLen && stripChars.indexOf(str.charAt(start)) != INDEX_NOT_FOUND) {
                 start++;
             }
+        }
+        if (strLen == start) {
+            return EMPTY;
         }
         return str.substring(start);
     }
