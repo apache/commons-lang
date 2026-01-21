@@ -1226,4 +1226,24 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
         assertEquals(String.class, TypeUtils.wrap(String.class).getType());
     }
+
+    @Test
+    public void testIsAssignable_Type_TypeVariable_Map_Public() throws Exception {
+        class Container<T> {
+        }
+        final TypeVariable<?> typeVarT = Container.class.getTypeParameters()[0];
+        final boolean result = TypeUtils.isAssignable(Integer.class, typeVarT);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testIsAssignable_HiddenMapLogic() {
+        class Container<T> {
+        }
+        class StringContainer extends Container<String> {
+        }
+        final Type stringContainerType = StringContainer.class.getGenericSuperclass();
+        assertTrue(TypeUtils.isAssignable(StringContainer.class, Container.class));
+    }
+
 }
