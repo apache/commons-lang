@@ -1229,19 +1229,21 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
     @Test
     public void testIsAssignable_Type_TypeVariable_Map_Public() throws Exception {
-        class Container<T> { }
-        final java.lang.reflect.TypeVariable<?> typeVarT = Container.class.getTypeParameters()[0];
-        final boolean result = org.apache.commons.lang3.reflect.TypeUtils.isAssignable(Integer.class, typeVarT);
-        org.junit.jupiter.api.Assertions.assertFalse(result);
+        class Container<T> {
+        }
+        final TypeVariable<?> typeVarT = Container.class.getTypeParameters()[0];
+        final boolean result = TypeUtils.isAssignable(Integer.class, typeVarT);
+        assertFalse(result);
     }
 
     @Test
     public void testIsAssignable_HiddenMapLogic() {
-        class Container<T> { }
-        class StringContainer extends Container<String> { }
-        final java.lang.reflect.Type stringContainerType = StringContainer.class.getGenericSuperclass();
-        org.junit.jupiter.api.Assertions.assertTrue(
-                org.apache.commons.lang3.reflect.TypeUtils.isAssignable(StringContainer.class, Container.class)
-        );
+        class Container<T> {
+        }
+        class StringContainer extends Container<String> {
+        }
+        final Type stringContainerType = StringContainer.class.getGenericSuperclass();
+        assertTrue(TypeUtils.isAssignable(StringContainer.class, Container.class));
     }
+
 }
