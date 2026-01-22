@@ -1923,16 +1923,15 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final boolean[] array, final boolean valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-        if (array == null) {
-            return bitSet;
-        }
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-            if (startIndex == INDEX_NOT_FOUND) {
-                break;
+        if (array != null) {
+            while (startIndex < array.length) {
+                startIndex = indexOf(array, valueToFind, startIndex);
+                if (startIndex == INDEX_NOT_FOUND) {
+                    break;
+                }
+                bitSet.set(startIndex);
+                ++startIndex;
             }
-            bitSet.set(startIndex);
-            ++startIndex;
         }
         return bitSet;
     }
@@ -1970,18 +1969,16 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final byte[] array, final byte valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-        if (array == null) {
-            return bitSet;
-        }
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-            if (startIndex == INDEX_NOT_FOUND) {
-                break;
+        if (array != null) {
+            while (startIndex < array.length) {
+                startIndex = indexOf(array, valueToFind, startIndex);
+                if (startIndex == INDEX_NOT_FOUND) {
+                    break;
+                }
+                bitSet.set(startIndex);
+                ++startIndex;
             }
-            bitSet.set(startIndex);
-            ++startIndex;
         }
-
         return bitSet;
     }
 
@@ -2017,16 +2014,15 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final char[] array, final char valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-        if (array == null) {
-            return bitSet;
-        }
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-            if (startIndex == INDEX_NOT_FOUND) {
-                break;
+        if (array != null) {
+            while (startIndex < array.length) {
+                startIndex = indexOf(array, valueToFind, startIndex);
+                if (startIndex == INDEX_NOT_FOUND) {
+                    break;
+                }
+                bitSet.set(startIndex);
+                ++startIndex;
             }
-            bitSet.set(startIndex);
-            ++startIndex;
         }
         return bitSet;
     }
@@ -2084,16 +2080,15 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-        if (array == null) {
-            return bitSet;
-        }
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-            if (startIndex == INDEX_NOT_FOUND) {
-                break;
+        if (array != null) {
+            while (startIndex < array.length) {
+                startIndex = indexOf(array, valueToFind, startIndex);
+                if (startIndex == INDEX_NOT_FOUND) {
+                    break;
+                }
+                bitSet.set(startIndex);
+                ++startIndex;
             }
-            bitSet.set(startIndex);
-            ++startIndex;
         }
         return bitSet;
     }
@@ -2121,16 +2116,15 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
         final BitSet bitSet = new BitSet();
-        if (array == null) {
-            return bitSet;
-        }
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex, tolerance);
-            if (startIndex == INDEX_NOT_FOUND) {
-                break;
+        if (array != null) {
+            while (startIndex < array.length) {
+                startIndex = indexOf(array, valueToFind, startIndex, tolerance);
+                if (startIndex == INDEX_NOT_FOUND) {
+                    break;
+                }
+                bitSet.set(startIndex);
+                ++startIndex;
             }
-            bitSet.set(startIndex);
-            ++startIndex;
         }
         return bitSet;
     }
@@ -2167,16 +2161,15 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final float[] array, final float valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-        if (array == null) {
-            return bitSet;
-        }
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-            if (startIndex == INDEX_NOT_FOUND) {
-                break;
+        if (array != null) {
+            while (startIndex < array.length) {
+                startIndex = indexOf(array, valueToFind, startIndex);
+                if (startIndex == INDEX_NOT_FOUND) {
+                    break;
+                }
+                bitSet.set(startIndex);
+                ++startIndex;
             }
-            bitSet.set(startIndex);
-            ++startIndex;
         }
         return bitSet;
     }
@@ -2213,17 +2206,15 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final int[] array, final int valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-        if (array == null) {
-            return bitSet;
-        }
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-
-            if (startIndex == INDEX_NOT_FOUND) {
-                break;
+        if (array != null) {
+            while (startIndex < array.length) {
+                startIndex = indexOf(array, valueToFind, startIndex);
+                if (startIndex == INDEX_NOT_FOUND) {
+                    break;
+                }
+                bitSet.set(startIndex);
+                ++startIndex;
             }
-            bitSet.set(startIndex);
-            ++startIndex;
         }
         return bitSet;
     }
@@ -2260,16 +2251,15 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final long[] array, final long valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-        if (array == null) {
-            return bitSet;
-        }
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-            if (startIndex == INDEX_NOT_FOUND) {
-                break;
+        if (array != null) {
+            while (startIndex < array.length) {
+                startIndex = indexOf(array, valueToFind, startIndex);
+                if (startIndex == INDEX_NOT_FOUND) {
+                    break;
+                }
+                bitSet.set(startIndex);
+                ++startIndex;
             }
-            bitSet.set(startIndex);
-            ++startIndex;
         }
         return bitSet;
     }
@@ -2306,16 +2296,15 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final Object[] array, final Object objectToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-        if (array == null) {
-            return bitSet;
-        }
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, objectToFind, startIndex);
-            if (startIndex == INDEX_NOT_FOUND) {
-                break;
+        if (array != null) {
+            while (startIndex < array.length) {
+                startIndex = indexOf(array, objectToFind, startIndex);
+                if (startIndex == INDEX_NOT_FOUND) {
+                    break;
+                }
+                bitSet.set(startIndex);
+                ++startIndex;
             }
-            bitSet.set(startIndex);
-            ++startIndex;
         }
         return bitSet;
     }
@@ -2352,16 +2341,15 @@ public class ArrayUtils {
      */
     public static BitSet indexesOf(final short[] array, final short valueToFind, int startIndex) {
         final BitSet bitSet = new BitSet();
-        if (array == null) {
-            return bitSet;
-        }
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-            if (startIndex == INDEX_NOT_FOUND) {
-                break;
+        if (array != null) {
+            while (startIndex < array.length) {
+                startIndex = indexOf(array, valueToFind, startIndex);
+                if (startIndex == INDEX_NOT_FOUND) {
+                    break;
+                }
+                bitSet.set(startIndex);
+                ++startIndex;
             }
-            bitSet.set(startIndex);
-            ++startIndex;
         }
         return bitSet;
     }
