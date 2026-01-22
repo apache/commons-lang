@@ -26,12 +26,48 @@ import org.junit.jupiter.api.Test;
 public class ProcessorTest {
 
     @Test
+    public void testIs32Bit() {
+        Processor processor = new Processor(Arch.BIT_32, Type.X86);
+        assertTrue(processor.is32Bit());
+
+        processor = new Processor(Arch.BIT_64, Type.X86);
+        assertFalse(processor.is32Bit());
+    }
+
+    @Test
+    public void testIs64Bit() {
+        Processor processor = new Processor(Arch.BIT_64, Type.X86);
+        assertTrue(processor.is64Bit());
+
+        processor = new Processor(Arch.BIT_32, Type.X86);
+        assertFalse(processor.is64Bit());
+    }
+
+    @Test
     public void testIsAarch64() {
         Processor processor = new Processor(Arch.BIT_64, Type.AARCH_64);
         assertTrue(processor.isAarch64());
 
-        processor = new Processor(Arch.BIT_32, Type.X86);
+        processor = new Processor(Arch.BIT_64, Type.X86);
         assertFalse(processor.isAarch64());
+    }
+
+    @Test
+    public void testIsIA64() {
+        Processor processor = new Processor(Arch.BIT_64, Type.IA_64);
+        assertTrue(processor.isIA64());
+
+        processor = new Processor(Arch.BIT_64, Type.X86);
+        assertFalse(processor.isIA64());
+    }
+
+    @Test
+    public void testIsPPC() {
+        Processor processor = new Processor(Arch.BIT_64, Type.PPC);
+        assertTrue(processor.isPPC());
+
+        processor = new Processor(Arch.BIT_64, Type.X86);
+        assertFalse(processor.isPPC());
     }
 
     @Test
@@ -39,7 +75,16 @@ public class ProcessorTest {
         Processor processor = new Processor(Arch.BIT_64, Type.RISC_V);
         assertTrue(processor.isRISCV());
 
-        processor = new Processor(Arch.BIT_32, Type.X86);
+        processor = new Processor(Arch.BIT_64, Type.X86);
         assertFalse(processor.isRISCV());
+    }
+
+    @Test
+    public void testIsX86() {
+        Processor processor = new Processor(Arch.BIT_32, Type.X86);
+        assertTrue(processor.isX86());
+
+        processor = new Processor(Arch.BIT_64, Type.AARCH_64);
+        assertFalse(processor.isX86());
     }
 }
