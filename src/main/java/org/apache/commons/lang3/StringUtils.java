@@ -3394,11 +3394,11 @@ public class StringUtils {
     }
 
     /**
-     * Tests if any of the CharSequences are {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null}).
+     * Tests if any of the given CharSequences are {@link #isBlank(CharSequence) blank}
+     * (whitespaces, empty ({@code ""}) or {@code null}). A {@code null} CharSequence
+     * is considered blank, while a {@code null} array of CharSequences returns {@code false}.
      *
      * <p>
-     * Whitespace is defined by {@link Character#isWhitespace(char)}.
-     * </p>
      *
      * <pre>
      * StringUtils.isAnyBlank((String) null)    = true
