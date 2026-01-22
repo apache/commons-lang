@@ -9291,10 +9291,7 @@ public class ArrayUtils {
      * @return a String representation of the array.
      */
     public static String toString(final Object array, final String stringIfNull) {
-        if (array == null) {
-            return stringIfNull;
-        }
-        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
+        return array != null ? new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString() : stringIfNull;
     }
 
     /**
