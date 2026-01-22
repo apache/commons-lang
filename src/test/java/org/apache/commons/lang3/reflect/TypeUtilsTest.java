@@ -742,6 +742,25 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    public void testIsAssignable_HiddenMapLogic() {
+        class Container<T> {
+        }
+        class StringContainer extends Container<String> {
+        }
+        final Type stringContainerType = StringContainer.class.getGenericSuperclass();
+        assertTrue(TypeUtils.isAssignable(StringContainer.class, Container.class));
+    }
+
+    @Test
+    public void testIsAssignable_Type_TypeVariable_Map_Public() throws Exception {
+        class Container<T> {
+        }
+        final TypeVariable<?> typeVarT = Container.class.getTypeParameters()[0];
+        final boolean result = TypeUtils.isAssignable(Integer.class, typeVarT);
+        assertFalse(result);
+    }
+
+    @Test
     void testIsAssignableClasses() {
         assertTrue(TypeUtils.isAssignable(char.class, double.class));
         assertTrue(TypeUtils.isAssignable(byte.class, double.class));
@@ -1225,25 +1244,6 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
         final Type t = getClass().getTypeParameters()[0];
         assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
         assertEquals(String.class, TypeUtils.wrap(String.class).getType());
-    }
-
-    @Test
-    public void testIsAssignable_Type_TypeVariable_Map_Public() throws Exception {
-        class Container<T> {
-        }
-        final TypeVariable<?> typeVarT = Container.class.getTypeParameters()[0];
-        final boolean result = TypeUtils.isAssignable(Integer.class, typeVarT);
-        assertFalse(result);
-    }
-
-    @Test
-    public void testIsAssignable_HiddenMapLogic() {
-        class Container<T> {
-        }
-        class StringContainer extends Container<String> {
-        }
-        final Type stringContainerType = StringContainer.class.getGenericSuperclass();
-        assertTrue(TypeUtils.isAssignable(StringContainer.class, Container.class));
     }
 
 }

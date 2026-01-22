@@ -48,6 +48,15 @@ public class TimeZones {
     private static final boolean JAVA_25 = SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25);
 
     /**
+     * The sorted available IDs.
+     * <p>
+     * Make a defensive copy, just in case.
+     * </p>
+     * @see TimeZone#getAvailableIDs()
+     */
+    static final String[] SORTED_AVAILABLE_IDS = ArraySorter.sort(TimeZone.getAvailableIDs().clone());
+
+    /**
      * Delegates to {@link TimeZone#getTimeZone(String)}, on Java 25 and up, maps an ID if it's a key in {@link ZoneId#SHORT_IDS}.
      * <p>
      * On Java 25, calling {@link TimeZone#getTimeZone(String)} with an ID in {@link ZoneId#SHORT_IDS} writes a message to {@link System#err} in the form:
@@ -82,15 +91,6 @@ public class TimeZones {
     public static TimeZone toTimeZone(final TimeZone timeZone) {
         return ObjectUtils.getIfNull(timeZone, TimeZone::getDefault);
     }
-
-    /**
-     * The sorted available IDs.
-     * <p>
-     * Make a defensive copy, just in case.
-     * </p>
-     * @see TimeZone#getAvailableIDs()
-     */
-    static final String[] SORTED_AVAILABLE_IDS = ArraySorter.sort(TimeZone.getAvailableIDs().clone());
 
     /** Do not instantiate. */
     private TimeZones() {

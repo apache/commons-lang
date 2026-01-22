@@ -1971,6 +1971,12 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testMaxArrayLength() {
+        assertEquals(Integer.MAX_VALUE - 8, ArrayUtils.SAFE_MAX_ARRAY_LENGTH);
+        assertEquals(Integer.MAX_VALUE - 8, ArrayUtils.SOFT_MAX_ARRAY_LENGTH);
+    }
+
+    @Test
     void testNullToEmptyBoolean() {
         final boolean[] original = {true, false};
         assertEquals(original, ArrayUtils.nullToEmpty(original));
@@ -6957,11 +6963,5 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertEquals("{}", ArrayUtils.toString(new String[0], "<empty>"));
         assertEquals("{<null>}", ArrayUtils.toString(new String[]{null}, "<empty>"));
         assertEquals("{pink,blue}", ArrayUtils.toString(new String[]{"pink", "blue"}, "<empty>"));
-    }
-
-    @Test
-    void testMaxArrayLength() {
-        assertEquals(Integer.MAX_VALUE - 8, ArrayUtils.SAFE_MAX_ARRAY_LENGTH);
-        assertEquals(Integer.MAX_VALUE - 8, ArrayUtils.SOFT_MAX_ARRAY_LENGTH);
     }
 }
