@@ -1519,7 +1519,7 @@ public class StringUtils {
     }
 
     /**
-     * Returns either the passed in CharSequence, or if the CharSequence is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or
+     * Returns either the passed in CharSequence, or if the CharSequence is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}), or
      * {@code null}), the value of {@code defaultStr}.
      *
      * <p>
@@ -1536,7 +1536,7 @@ public class StringUtils {
      *
      * @param <T>        the specific kind of CharSequence.
      * @param str        the CharSequence to check, may be null.
-     * @param defaultStr the default CharSequence to return if {@code str} is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or
+     * @param defaultStr the default CharSequence to return if {@code str} is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}), or
      *                   {@code null}); may be null.
      * @return the passed in CharSequence, or the default.
      * @see StringUtils#defaultString(String, String)
@@ -2144,7 +2144,7 @@ public class StringUtils {
     }
 
     /**
-     * Returns either the passed in CharSequence, or if the CharSequence is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or
+     * Returns either the passed in CharSequence, or if the CharSequence is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}), or
      * {@code null}), the value supplied by {@code defaultStrSupplier}.
      *
      * <p>
@@ -2168,7 +2168,7 @@ public class StringUtils {
      * @param <T>             the specific kind of CharSequence.
      * @param str             the CharSequence to check, may be null.
      * @param defaultSupplier the supplier of default CharSequence to return if the input is {@link #isBlank(CharSequence) blank} (whitespaces, empty
-     *                        ({@code ""}) or {@code null}); may be null.
+     *                        ({@code ""}), or {@code null}); may be null.
      * @return the passed in CharSequence, or the default
      * @see StringUtils#defaultString(String, String)
      * @see #isBlank(CharSequence)
@@ -3394,7 +3394,7 @@ public class StringUtils {
     }
 
     /**
-     * Tests if any of the CharSequences are {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null}).
+     * Tests if any of the CharSequences are {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}), or {@code null}).
      *
      * <p>
      * Whitespace is defined by {@link Character#isWhitespace(char)}.
@@ -3415,7 +3415,7 @@ public class StringUtils {
      * </pre>
      *
      * @param css the CharSequences to check, may be null or empty.
-     * @return {@code true} if any of the CharSequences are {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null}).
+     * @return {@code true} if any of the CharSequences are {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}), or {@code null}).
      * @see #isBlank(CharSequence)
      * @since 3.2
      */
@@ -3650,7 +3650,7 @@ public class StringUtils {
     }
 
     /**
-     * Tests if a CharSequence is not {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null}).
+     * Tests if a CharSequence is not {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}), or {@code null}).
      *
      * <p>
      * Whitespace is defined by {@link Character#isWhitespace(char)}.
@@ -3665,7 +3665,7 @@ public class StringUtils {
      * </pre>
      *
      * @param cs the CharSequence to check, may be null.
-     * @return {@code true} if the CharSequence is not {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}) or {@code null}).
+     * @return {@code true} if the CharSequence is not {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}), or {@code null}).
      * @see #isBlank(CharSequence)
      * @since 2.0
      * @since 3.0 Changed signature from isNotBlank(String) to isNotBlank(CharSequence)
