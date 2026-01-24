@@ -1874,7 +1874,7 @@ public class ArrayUtils {
 
     /**
      * Gets the length of the specified array.
-     * This method can deal with {@link Object} arrays and with primitive arrays.
+     * This method handles {@link Object} arrays and primitive arrays.
      * <p>
      * If the input array is {@code null}, {@code 0} is returned.
      * </p>
