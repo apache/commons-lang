@@ -766,7 +766,6 @@ public class HashCodeBuilder implements Builder<Integer> {
     public HashCodeBuilder append(final Object object) {
         if (object == null) {
             iTotal = iTotal * iConstant;
-
         } else if (ObjectUtils.isArray(object)) {
             // factor out array case in order to keep method small enough
             // to be inlined
