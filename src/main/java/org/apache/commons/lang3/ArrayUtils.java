@@ -3293,7 +3293,7 @@ public class ArrayUtils {
      * @param array1  the left-hand side array to compare, may be {@code null}.
      * @param array2  the right-hand side array to compare, may be {@code null}.
      * @return {@code true} if the arrays are equal.
-     * @deprecated this method has been replaced by {@code java.util.Objects.deepEquals(Object, Object)} and will be
+     * @deprecated Replaced by {@code java.util.Objects.deepEquals(Object, Object)} and will be
      * removed from future releases.
      */
     @Deprecated
