@@ -72,8 +72,8 @@ public final class DoubleRange extends NumberRange<Double> {
     /**
      * Creates an instance.
      *
-     * @param number1 the first element, not null
-     * @param number2 the second element, not null
+     * @param number1 the first element, not null.
+     * @param number2 the second element, not null.
      * @throws NullPointerException when element1 is null.
      * @throws NullPointerException when element2 is null.
      */
