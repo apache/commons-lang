@@ -546,16 +546,26 @@ class ArrayUtilsTest extends AbstractLangTest {
 
     @Test
     void testHashCode() {
+        // JRE edge cases:
+        assertEquals(0, Arrays.hashCode((Object[]) null));
+        assertEquals(0, Arrays.hashCode((long[]) null));
+        assertEquals(1, Arrays.hashCode(ArrayUtils.EMPTY_OBJECT_ARRAY));
+        assertEquals(1, Arrays.hashCode(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY));
+        // Our edge cases:
+        // assertEquals(0, ArrayUtils.hashCode(null));
+        // assertEquals(1, ArrayUtils.hashCode(ArrayUtils.EMPTY_OBJECT_ARRAY));
+        // assertEquals(1, ArrayUtils.hashCode(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY));
+        // General cases:
         final long[][] array1 = {{2, 5}, {4, 5}};
         final long[][] array2 = {{2, 5}, {4, 6}};
         assertEquals(ArrayUtils.hashCode(array1), ArrayUtils.hashCode(array1));
         assertNotEquals(ArrayUtils.hashCode(array1), ArrayUtils.hashCode(array2));
-
+        // Objects
         final Object[] array3 = {new String(new char[]{'A', 'B'})};
         final Object[] array4 = {"AB"};
         assertEquals(ArrayUtils.hashCode(array3), ArrayUtils.hashCode(array3));
         assertEquals(ArrayUtils.hashCode(array3), ArrayUtils.hashCode(array4));
-
+        // Primitives to Objects
         final Object[] arrayA = {new boolean[]{true, false}, new int[]{6, 7}};
         final Object[] arrayB = {new boolean[]{true, false}, new int[]{6, 7}};
         assertEquals(ArrayUtils.hashCode(arrayB), ArrayUtils.hashCode(arrayA));
