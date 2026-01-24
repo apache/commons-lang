@@ -42,13 +42,15 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.regex.PatternSyntaxException;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
@@ -431,90 +433,78 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("abc", StringUtils.defaultString("abc", "NULL"));
     }
 
-    @Test
-    void testDefaultIfBlank_CharBuffers() {
-        assertEquals("NULL", StringUtils.defaultIfBlank(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
-        assertEquals("NULL", StringUtils.defaultIfBlank(CharBuffer.wrap(" "), CharBuffer.wrap("NULL")).toString());
-        assertEquals("abc", StringUtils.defaultIfBlank(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")).toString());
-        assertNull(StringUtils.defaultIfBlank(CharBuffer.wrap(""), (CharBuffer) null));
-        // Tests compatibility for the API return type
-        final CharBuffer s = StringUtils.defaultIfBlank(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL"));
-        assertEquals("abc", s.toString());
+    @Nested
+    class GetOrDefaultScenarios{
+        @Nested
+        @DisplayName("Default if Blank scenarios")
+        class DefaultIfBlankScenarios{
+            @MethodSource("org.apache.commons.lang3.StringUtilsTest#getDefaultIfBlankCases")
+            @ParameterizedTest
+            <T extends CharSequence> void shouldGetDefaultIfProvidedParamIsBlank(String expected, T str, T defaultStr) {
+                Assertions.assertEquals(expected, StringUtils.defaultIfBlank(str, defaultStr).toString());
+                Assertions.assertEquals(expected.getClass(), StringUtils.defaultIfBlank(str, defaultStr).toString().getClass());
+            }
+
+            @MethodSource("org.apache.commons.lang3.StringUtilsTest#nullCasesForGetOrDefault")
+            @ParameterizedTest
+            <T extends CharSequence> void shouldGetDefaultIfProvidedParamIsBlank_NullCases(T str, T defaultStr) {
+                Assertions.assertNull(StringUtils.defaultIfBlank(str, defaultStr));
+            }
+        }
+
+        @DisplayName("Default if Empty scenarios")
+        @Nested
+        class DefaultIfEmptyScenarios{
+            @MethodSource("org.apache.commons.lang3.StringUtilsTest#getDefaultIfEmptyCases")
+            @ParameterizedTest
+            <T extends CharSequence> void shouldGetDefaultIfProvidedParamIsEmpty(String expected, T str, T defaultStr) {
+                Assertions.assertEquals(expected, StringUtils.defaultIfEmpty(str, defaultStr).toString());
+                Assertions.assertEquals(expected.getClass(), StringUtils.defaultIfEmpty(str, defaultStr).toString().getClass());
+            }
+
+            @MethodSource("org.apache.commons.lang3.StringUtilsTest#nullCasesForGetOrDefault")
+            @ParameterizedTest
+            <T extends CharSequence> void shouldGetDefaultIfProvidedParamIsBlank_NullCases(T str, T defaultStr) {
+                Assertions.assertNull(StringUtils.defaultIfEmpty(str, defaultStr));
+            }
+        }
+    }
+    private static Stream<Arguments> getDefaultIfBlankCases() {
+        return Stream.concat(
+                Stream.of(
+                        Arguments.of("NULL", CharBuffer.wrap(" "), CharBuffer.wrap("NULL")),
+                        Arguments.of("NULL", new StringBuffer(" "), new StringBuffer("NULL")),
+                        Arguments.of("NULL", new StringBuilder(" "), new StringBuilder("NULL")),
+                        Arguments.of("NULL", " ", "NULL")
+                ),
+                getDefaultIfEmptyCases()
+        );
     }
 
-    @Test
-    void testDefaultIfBlank_StringBuffers() {
-        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuffer(""), new StringBuffer("NULL")).toString());
-        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuffer(" "), new StringBuffer("NULL")).toString());
-        assertEquals("abc", StringUtils.defaultIfBlank(new StringBuffer("abc"), new StringBuffer("NULL")).toString());
-        assertNull(StringUtils.defaultIfBlank(new StringBuffer(""), (StringBuffer) null));
-        // Tests compatibility for the API return type
-        final StringBuffer s = StringUtils.defaultIfBlank(new StringBuffer("abc"), new StringBuffer("NULL"));
-        assertEquals("abc", s.toString());
+    private static Stream<Arguments> getDefaultIfEmptyCases() {
+        return Stream.of(
+                Arguments.of("NULL", CharBuffer.wrap(""), CharBuffer.wrap("NULL")),
+                Arguments.of("abc", CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")),
+
+                Arguments.of("NULL", new StringBuffer(), new StringBuffer("NULL")),
+                Arguments.of("abc", new StringBuffer("abc"), new StringBuffer("NULL")),
+
+                Arguments.of("NULL", new StringBuilder(), new StringBuilder("NULL")),
+                Arguments.of("abc", new StringBuilder("abc"), new StringBuilder("NULL")),
+
+                Arguments.of("NULL", null, "NULL"),
+                Arguments.of("NULL", "", "NULL"),
+                Arguments.of("abc", "abc", "NULL")
+        );
     }
 
-    @Test
-    void testDefaultIfBlank_StringBuilders() {
-        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuilder(""), new StringBuilder("NULL")).toString());
-        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuilder(" "), new StringBuilder("NULL")).toString());
-        assertEquals("abc", StringUtils.defaultIfBlank(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
-        assertNull(StringUtils.defaultIfBlank(new StringBuilder(""), (StringBuilder) null));
-        // Tests compatibility for the API return type
-        final StringBuilder s = StringUtils.defaultIfBlank(new StringBuilder("abc"), new StringBuilder("NULL"));
-        assertEquals("abc", s.toString());
-    }
-
-    @Test
-    void testDefaultIfBlank_StringString() {
-        assertEquals("NULL", StringUtils.defaultIfBlank(null, "NULL"));
-        assertEquals("NULL", StringUtils.defaultIfBlank("", "NULL"));
-        assertEquals("NULL", StringUtils.defaultIfBlank(" ", "NULL"));
-        assertEquals("abc", StringUtils.defaultIfBlank("abc", "NULL"));
-        assertNull(StringUtils.defaultIfBlank("", (String) null));
-        // Tests compatibility for the API return type
-        final String s = StringUtils.defaultIfBlank("abc", "NULL");
-        assertEquals("abc", s);
-    }
-
-    @Test
-    void testDefaultIfEmpty_CharBuffers() {
-        assertEquals("NULL", StringUtils.defaultIfEmpty(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
-        assertEquals("abc", StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")).toString());
-        assertNull(StringUtils.defaultIfEmpty(CharBuffer.wrap(""), (CharBuffer) null));
-        // Tests compatibility for the API return type
-        final CharBuffer s = StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL"));
-        assertEquals("abc", s.toString());
-    }
-
-    @Test
-    void testDefaultIfEmpty_StringBuffers() {
-        assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuffer(""), new StringBuffer("NULL")).toString());
-        assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL")).toString());
-        assertNull(StringUtils.defaultIfEmpty(new StringBuffer(""), (StringBuffer) null));
-        // Tests compatibility for the API return type
-        final StringBuffer s = StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL"));
-        assertEquals("abc", s.toString());
-    }
-
-    @Test
-    void testDefaultIfEmpty_StringBuilders() {
-        assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuilder(""), new StringBuilder("NULL")).toString());
-        assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
-        assertNull(StringUtils.defaultIfEmpty(new StringBuilder(""), (StringBuilder) null));
-        // Tests compatibility for the API return type
-        final StringBuilder s = StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL"));
-        assertEquals("abc", s.toString());
-    }
-
-    @Test
-    void testDefaultIfEmpty_StringString() {
-        assertEquals("NULL", StringUtils.defaultIfEmpty(null, "NULL"));
-        assertEquals("NULL", StringUtils.defaultIfEmpty("", "NULL"));
-        assertEquals("abc", StringUtils.defaultIfEmpty("abc", "NULL"));
-        assertNull(StringUtils.getIfEmpty("", null));
-        // Tests compatibility for the API return type
-        final String s = StringUtils.defaultIfEmpty("abc", "NULL");
-        assertEquals("abc", s);
+    private static Stream<Arguments> nullCasesForGetOrDefault(){
+        return Stream.of(
+                Arguments.of(CharBuffer.wrap(""), null),
+                Arguments.of(new StringBuffer(), null),
+                Arguments.of(new StringBuilder(), null),
+                Arguments.of("", null)
+        );
     }
 
     @Test
