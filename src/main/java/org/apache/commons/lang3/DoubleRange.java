@@ -63,7 +63,7 @@ public final class DoubleRange extends NumberRange<Double> {
      * @param fromInclusive the first value that defines the edge of the range, inclusive.
      * @param toInclusive the second value that defines the edge of the range, inclusive.
      * @return the range object, not null.
-     * @throws IllegalArgumentException if either element is null.
+     * @throws NullPointerException if either element is null.
      */
     public static DoubleRange of(final Double fromInclusive, final Double toInclusive) {
         return new DoubleRange(fromInclusive, toInclusive);
