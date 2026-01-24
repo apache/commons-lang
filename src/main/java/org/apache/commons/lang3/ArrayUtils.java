@@ -1879,7 +1879,7 @@ public class ArrayUtils {
      * Multi-dimensional primitive arrays are also handled correctly by this method.
      * </p>
      *
-     * @param array  the array to get a hash code for, {@code null} returns zero.
+     * @param array  the array to get a hash code for, may be {@code null}.
      * @return a hash code for the array.
      */
     public static int hashCode(final Object array) {
