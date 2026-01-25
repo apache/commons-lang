@@ -87,9 +87,10 @@ public class RecursiveToStringStyle extends ToStringStyle {
 
     @Override
     public void appendDetail(final StringBuffer buffer, final String fieldName, final Object value) {
-        if (!ClassUtils.isPrimitiveWrapper(value.getClass()) &&
-            !String.class.equals(value.getClass()) &&
-            accept(value.getClass())) {
+        final Class<? extends Object> clazz = value.getClass();
+        if (!ClassUtils.isPrimitiveWrapper(clazz) &&
+            !String.class.equals(clazz) &&
+            accept(clazz)) {
             buffer.append(ReflectionToStringBuilder.toString(value, this));
         } else {
             super.appendDetail(buffer, fieldName, value);
