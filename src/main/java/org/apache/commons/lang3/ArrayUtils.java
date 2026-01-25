@@ -9344,6 +9344,7 @@ public class ArrayUtils {
      *               or be null itself (treated as empty varargs).
      * @return a new boolean array containing all elements from the input arrays
      *         in the order they appear, or an empty array if no elements are present.
+     * @throws NullPointerException if the input array of arrays is null.
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
@@ -9375,6 +9376,7 @@ public class ArrayUtils {
      *               or be null itself (treated as empty varargs).
      * @return a new byte array containing all elements from the input arrays
      *         in the order they appear, or an empty array if no elements are present.
+     * @throws NullPointerException if the input array of arrays is null.
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
@@ -9406,6 +9408,7 @@ public class ArrayUtils {
      *               or be null itself (treated as empty varargs).
      * @return a new char array containing all elements from the input arrays
      *         in the order they appear, or an empty array if no elements are present.
+     * @throws NullPointerException if the input array of arrays is null.
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
@@ -9437,6 +9440,7 @@ public class ArrayUtils {
      *               or be null itself (treated as empty varargs).
      * @return a new double array containing all elements from the input arrays
      *         in the order they appear, or an empty array if no elements are present.
+     * @throws NullPointerException if the input array of arrays is null.
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
@@ -9468,6 +9472,7 @@ public class ArrayUtils {
      *               or be null itself (treated as empty varargs).
      * @return a new float array containing all elements from the input arrays
      *         in the order they appear, or an empty array if no elements are present.
+     * @throws NullPointerException if the input array of arrays is null.
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
@@ -9499,6 +9504,7 @@ public class ArrayUtils {
      *               or be null itself (treated as empty varargs).
      * @return a new int array containing all elements from the input arrays
      *         in the order they appear, or an empty array if no elements are present.
+     * @throws NullPointerException if the input array of arrays is null.
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
@@ -9530,6 +9536,7 @@ public class ArrayUtils {
      *               or be null itself (treated as empty varargs).
      * @return a new long array containing all elements from the input arrays
      *         in the order they appear, or an empty array if no elements are present.
+     * @throws NullPointerException if the input array of arrays is null.
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
@@ -9561,6 +9568,7 @@ public class ArrayUtils {
      *               or be null itself (treated as empty varargs).
      * @return a new short array containing all elements from the input arrays
      *         in the order they appear, or an empty array if no elements are present.
+     * @throws NullPointerException if the input array of arrays is null.
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
