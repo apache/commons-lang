@@ -20,6 +20,7 @@ package org.apache.commons.lang3.time;
 import java.time.ZoneId;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.SystemProperties;
@@ -45,6 +46,15 @@ public class TimeZones {
     public static final TimeZone GMT = TimeZones.getTimeZone(GMT_ID);
 
     private static final boolean JAVA_25 = SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25);
+
+    /**
+     * The sorted available IDs.
+     * <p>
+     * Make a defensive copy, just in case.
+     * </p>
+     * @see TimeZone#getAvailableIDs()
+     */
+    static final String[] SORTED_AVAILABLE_IDS = ArraySorter.sort(TimeZone.getAvailableIDs().clone());
 
     /**
      * Delegates to {@link TimeZone#getTimeZone(String)}, on Java 25 and up, maps an ID if it's a key in {@link ZoneId#SHORT_IDS}.

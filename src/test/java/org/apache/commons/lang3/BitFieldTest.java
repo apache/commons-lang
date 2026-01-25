@@ -23,16 +23,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 /**
- * Class to test BitField functionality
+ * Tests {@link BitField} constructed with int masks.
  */
 class BitFieldTest extends AbstractLangTest {
 
-    private static final BitField bf_multi  = new BitField(0x3F80);
-    private static final BitField bf_single = new BitField(0x4000);
-    private static final BitField bf_zero = new BitField(0);
+    private static final BitField BF_MULTI  = new BitField(0x3F80);
+    private static final BitField BF_SINGLE = new BitField(0x4000);
+    private static final BitField BF_ZERO = new BitField(0);
 
     @Test
-    void testByte() {
+    void testByteBoolean() {
         assertEquals(0, new BitField(0).setByteBoolean((byte) 0, true));
         assertEquals(1, new BitField(1).setByteBoolean((byte) 0, true));
         assertEquals(2, new BitField(2).setByteBoolean((byte) 0, true));
@@ -53,144 +53,153 @@ class BitFieldTest extends AbstractLangTest {
         assertEquals(0, new BitField(128).setByteBoolean((byte) 128, false));
         assertEquals(-2, new BitField(1).setByteBoolean((byte) 255, false));
         final byte clearedBit = new BitField(0x40).setByteBoolean((byte) - 63, false);
-
         assertFalse(new BitField(0x40).isSet(clearedBit));
     }
 
     /**
-     * test the clear() method
+     * Tests the {@link BitField#clear()} method.
      */
     @Test
-    void testClear() {
-        assertEquals(bf_multi.clear(-1), 0xFFFFC07F);
-        assertEquals(bf_single.clear(-1), 0xFFFFBFFF);
-        assertEquals(bf_zero.clear(-1), 0xFFFFFFFF);
+    void testClearInt() {
+        assertEquals(BF_MULTI.clear(-1), 0xFFFFC07F);
+        assertEquals(BF_SINGLE.clear(-1), 0xFFFFBFFF);
+        assertEquals(BF_ZERO.clear(-1), 0xFFFFFFFF);
     }
 
     /**
-     * test the clearShort() method
+     * Tests the {@link BitField#clear()} method.
+     */
+    @Test
+    void testClearLong() {
+        assertEquals(BF_MULTI.clear(-1L), 0xFFFFC07F);
+        assertEquals(BF_SINGLE.clear(-1L), 0xFFFFBFFF);
+        assertEquals(BF_ZERO.clear(-1L), 0xFFFFFFFF);
+    }
+
+    /**
+     * Tests the {@link BitField#clearShort()} method.
      */
     @Test
     void testClearShort() {
-        assertEquals(bf_multi.clearShort((short) - 1), (short) 0xC07F);
-        assertEquals(bf_single.clearShort((short) - 1), (short) 0xBFFF);
-        assertEquals(bf_zero.clearShort((short) -1), (short) 0xFFFF);
+        assertEquals(BF_MULTI.clearShort((short) - 1), (short) 0xC07F);
+        assertEquals(BF_SINGLE.clearShort((short) - 1), (short) 0xBFFF);
+        assertEquals(BF_ZERO.clearShort((short) -1), (short) 0xFFFF);
     }
 
     /**
-     * test the getRawValue() method
+     * Tests the {@link BitField#getRawValue()} method.
      */
     @Test
     void testGetRawValue() {
-        assertEquals(bf_multi.getRawValue(-1), 0x3F80);
-        assertEquals(bf_multi.getRawValue(0), 0);
-        assertEquals(bf_single.getRawValue(-1), 0x4000);
-        assertEquals(bf_single.getRawValue(0), 0);
-        assertEquals(bf_zero.getRawValue(-1), 0);
-        assertEquals(bf_zero.getRawValue(0), 0);
+        assertEquals(BF_MULTI.getRawValue(-1), 0x3F80);
+        assertEquals(BF_MULTI.getRawValue(0), 0);
+        assertEquals(BF_SINGLE.getRawValue(-1), 0x4000);
+        assertEquals(BF_SINGLE.getRawValue(0), 0);
+        assertEquals(BF_ZERO.getRawValue(-1), 0);
+        assertEquals(BF_ZERO.getRawValue(0), 0);
     }
 
     /**
-     * test the getShortRawValue() method
+     * Tests the {@link BitField#getShortRawValue()} method.
      */
     @Test
     void testGetShortRawValue() {
-        assertEquals(bf_multi.getShortRawValue((short) - 1), (short) 0x3F80);
-        assertEquals(bf_multi.getShortRawValue((short) 0), (short) 0);
-        assertEquals(bf_single.getShortRawValue((short) - 1), (short) 0x4000);
-        assertEquals(bf_single.getShortRawValue((short) 0), (short) 0);
-        assertEquals(bf_zero.getShortRawValue((short) -1), (short) 0);
-        assertEquals(bf_zero.getShortRawValue((short) 0), (short) 0);
+        assertEquals(BF_MULTI.getShortRawValue((short) - 1), (short) 0x3F80);
+        assertEquals(BF_MULTI.getShortRawValue((short) 0), (short) 0);
+        assertEquals(BF_SINGLE.getShortRawValue((short) - 1), (short) 0x4000);
+        assertEquals(BF_SINGLE.getShortRawValue((short) 0), (short) 0);
+        assertEquals(BF_ZERO.getShortRawValue((short) -1), (short) 0);
+        assertEquals(BF_ZERO.getShortRawValue((short) 0), (short) 0);
     }
 
     /**
-     * test the getShortValue() method
+     * Tests the {@link BitField#getShortValue()} method.
      */
     @Test
     void testGetShortValue() {
-        assertEquals(bf_multi.getShortValue((short) - 1), (short) 127);
-        assertEquals(bf_multi.getShortValue((short) 0), (short) 0);
-        assertEquals(bf_single.getShortValue((short) - 1), (short) 1);
-        assertEquals(bf_single.getShortValue((short) 0), (short) 0);
-        assertEquals(bf_zero.getShortValue((short) -1), (short) 0);
-        assertEquals(bf_zero.getShortValue((short) 0), (short) 0);
+        assertEquals(BF_MULTI.getShortValue((short) - 1), (short) 127);
+        assertEquals(BF_MULTI.getShortValue((short) 0), (short) 0);
+        assertEquals(BF_SINGLE.getShortValue((short) - 1), (short) 1);
+        assertEquals(BF_SINGLE.getShortValue((short) 0), (short) 0);
+        assertEquals(BF_ZERO.getShortValue((short) -1), (short) 0);
+        assertEquals(BF_ZERO.getShortValue((short) 0), (short) 0);
     }
 
     /**
-     * test the getValue() method
+     * Tests the {@link BitField#getValue()} method.
      */
     @Test
     void testGetValue() {
-        assertEquals(bf_multi.getValue(-1), 127);
-        assertEquals(bf_multi.getValue(0), 0);
-        assertEquals(bf_single.getValue(-1), 1);
-        assertEquals(bf_single.getValue(0), 0);
-        assertEquals(bf_zero.getValue(-1), 0);
-        assertEquals(bf_zero.getValue(0), 0);
+        assertEquals(BF_MULTI.getValue(-1), 127);
+        assertEquals(BF_MULTI.getValue(0), 0);
+        assertEquals(BF_SINGLE.getValue(-1), 1);
+        assertEquals(BF_SINGLE.getValue(0), 0);
+        assertEquals(BF_ZERO.getValue(-1), 0);
+        assertEquals(BF_ZERO.getValue(0), 0);
     }
 
     /**
-     * test the isAllSet() method
+     * Tests the {@link BitField#isAllSet()} method.
      */
     @Test
     void testIsAllSet() {
         for (int j = 0; j < 0x3F80; j += 0x80) {
-            assertFalse(bf_multi.isAllSet(j));
-            assertTrue(bf_zero.isAllSet(j));
+            assertFalse(BF_MULTI.isAllSet(j));
+            assertTrue(BF_ZERO.isAllSet(j));
         }
-        assertTrue(bf_multi.isAllSet(0x3F80));
-        assertFalse(bf_single.isAllSet(0));
-        assertTrue(bf_single.isAllSet(0x4000));
+        assertTrue(BF_MULTI.isAllSet(0x3F80));
+        assertFalse(BF_SINGLE.isAllSet(0));
+        assertTrue(BF_SINGLE.isAllSet(0x4000));
     }
 
     /**
-     * test the isSet() method
+     * test the isSet() method.
      */
     @Test
     void testIsSet() {
-        assertFalse(bf_multi.isSet(0));
-        assertFalse(bf_zero.isSet(0));
+        assertFalse(BF_MULTI.isSet(0));
+        assertFalse(BF_ZERO.isSet(0));
         for (int j = 0x80; j <= 0x3F80; j += 0x80) {
-            assertTrue(bf_multi.isSet(j));
+            assertTrue(BF_MULTI.isSet(j));
         }
         for (int j = 0x80; j <= 0x3F80; j += 0x80) {
-            assertFalse(bf_zero.isSet(j));
+            assertFalse(BF_ZERO.isSet(j));
         }
-        assertFalse(bf_single.isSet(0));
-        assertTrue(bf_single.isSet(0x4000));
+        assertFalse(BF_SINGLE.isSet(0));
+        assertTrue(BF_SINGLE.isSet(0x4000));
     }
 
     /**
-     * test the set() method
+     * Tests the {@link BitField#set()} method.
      */
     @Test
     void testSet() {
-        assertEquals(bf_multi.set(0), 0x3F80);
-        assertEquals(bf_single.set(0), 0x4000);
-        assertEquals(bf_zero.set(0), 0);
+        assertEquals(BF_MULTI.set(0), 0x3F80);
+        assertEquals(BF_SINGLE.set(0), 0x4000);
+        assertEquals(BF_ZERO.set(0), 0);
     }
 
     /**
-     * test the setBoolean() method
+     * Tests the {@link BitField#setBoolean()} method.
      */
     @Test
     void testSetBoolean() {
-        assertEquals(bf_multi.set(0), bf_multi.setBoolean(0, true));
-        assertEquals(bf_single.set(0), bf_single.setBoolean(0, true));
-        assertEquals(bf_zero.set(0), bf_zero.setBoolean(0, true));
-        assertEquals(bf_multi.clear(-1), bf_multi.setBoolean(-1, false));
-        assertEquals(bf_single.clear(-1), bf_single.setBoolean(-1, false));
-        assertEquals(bf_zero.clear(-1), bf_zero.setBoolean(-1, false));
+        assertEquals(BF_MULTI.set(0), BF_MULTI.setBoolean(0, true));
+        assertEquals(BF_SINGLE.set(0), BF_SINGLE.setBoolean(0, true));
+        assertEquals(BF_ZERO.set(0), BF_ZERO.setBoolean(0, true));
+        assertEquals(BF_MULTI.clear(-1), BF_MULTI.setBoolean(-1, false));
+        assertEquals(BF_SINGLE.clear(-1), BF_SINGLE.setBoolean(-1, false));
+        assertEquals(BF_ZERO.clear(-1), BF_ZERO.setBoolean(-1, false));
     }
 
     /**
-     * test the setShort() method
+     * Tests the {@link BitField#setShort()} method.
      */
     @Test
     void testSetShort() {
-        assertEquals(bf_multi.setShort((short) 0), (short) 0x3F80);
-        assertEquals(bf_single.setShort((short) 0), (short) 0x4000);
-        assertEquals(bf_zero.setShort((short) 0), (short) 0);
+        assertEquals(BF_MULTI.setShort((short) 0), (short) 0x3F80);
+        assertEquals(BF_SINGLE.setShort((short) 0), (short) 0x4000);
+        assertEquals(BF_ZERO.setShort((short) 0), (short) 0);
     }
 
     /**
@@ -198,12 +207,12 @@ class BitFieldTest extends AbstractLangTest {
      */
     @Test
     void testSetShortBoolean() {
-        assertEquals(bf_multi.setShort((short) 0), bf_multi.setShortBoolean((short) 0, true));
-        assertEquals(bf_single.setShort((short) 0), bf_single.setShortBoolean((short) 0, true));
-        assertEquals(bf_zero.setShort((short) 0), bf_zero.setShortBoolean((short) 0, true));
-        assertEquals(bf_multi.clearShort((short) - 1), bf_multi.setShortBoolean((short) - 1, false));
-        assertEquals(bf_single.clearShort((short) - 1), bf_single.setShortBoolean((short) - 1, false));
-        assertEquals(bf_zero.clearShort((short) -1), bf_zero.setShortBoolean((short) -1, false));
+        assertEquals(BF_MULTI.setShort((short) 0), BF_MULTI.setShortBoolean((short) 0, true));
+        assertEquals(BF_SINGLE.setShort((short) 0), BF_SINGLE.setShortBoolean((short) 0, true));
+        assertEquals(BF_ZERO.setShort((short) 0), BF_ZERO.setShortBoolean((short) 0, true));
+        assertEquals(BF_MULTI.clearShort((short) - 1), BF_MULTI.setShortBoolean((short) - 1, false));
+        assertEquals(BF_SINGLE.clearShort((short) - 1), BF_SINGLE.setShortBoolean((short) - 1, false));
+        assertEquals(BF_ZERO.clearShort((short) -1), BF_ZERO.setShortBoolean((short) -1, false));
     }
 
     /**
@@ -212,23 +221,23 @@ class BitFieldTest extends AbstractLangTest {
     @Test
     void testSetShortValue() {
         for (int j = 0; j < 128; j++) {
-            assertEquals(bf_multi.getShortValue(bf_multi.setShortValue((short) 0, (short) j)), (short) j);
-            assertEquals(bf_multi.setShortValue((short) 0, (short) j), (short) (j << 7));
+            assertEquals(BF_MULTI.getShortValue(BF_MULTI.setShortValue((short) 0, (short) j)), (short) j);
+            assertEquals(BF_MULTI.setShortValue((short) 0, (short) j), (short) (j << 7));
         }
         for (int j = 0; j < 128; j++) {
-            assertEquals(bf_zero.getShortValue(bf_zero.setShortValue((short) 0, (short) j)), (short) 0);
-            assertEquals(bf_zero.setShortValue((short) 0, (short) j), (short) 0);
+            assertEquals(BF_ZERO.getShortValue(BF_ZERO.setShortValue((short) 0, (short) j)), (short) 0);
+            assertEquals(BF_ZERO.setShortValue((short) 0, (short) j), (short) 0);
         }
 
         // verify that excess bits are stripped off
-        assertEquals(bf_multi.setShortValue((short) 0x3f80, (short) 128), (short) 0);
+        assertEquals(BF_MULTI.setShortValue((short) 0x3f80, (short) 128), (short) 0);
         for (int j = 0; j < 2; j++) {
-            assertEquals(bf_single.getShortValue(bf_single.setShortValue((short) 0, (short) j)), (short) j);
-            assertEquals(bf_single.setShortValue((short) 0, (short) j), (short) (j << 14));
+            assertEquals(BF_SINGLE.getShortValue(BF_SINGLE.setShortValue((short) 0, (short) j)), (short) j);
+            assertEquals(BF_SINGLE.setShortValue((short) 0, (short) j), (short) (j << 14));
         }
 
         // verify that excess bits are stripped off
-        assertEquals(bf_single.setShortValue((short) 0x4000, (short) 2), (short) 0);
+        assertEquals(BF_SINGLE.setShortValue((short) 0x4000, (short) 2), (short) 0);
     }
 
     /**
@@ -237,23 +246,23 @@ class BitFieldTest extends AbstractLangTest {
     @Test
     void testSetValue() {
         for (int j = 0; j < 128; j++) {
-            assertEquals(bf_multi.getValue(bf_multi.setValue(0, j)), j);
-            assertEquals(bf_multi.setValue(0, j), j << 7);
+            assertEquals(BF_MULTI.getValue(BF_MULTI.setValue(0, j)), j);
+            assertEquals(BF_MULTI.setValue(0, j), j << 7);
         }
         for (int j = 0; j < 128; j++) {
-          assertEquals(bf_zero.getValue(bf_zero.setValue(0, j)), 0);
-          assertEquals(bf_zero.setValue(0, j), 0);
+          assertEquals(BF_ZERO.getValue(BF_ZERO.setValue(0, j)), 0);
+          assertEquals(BF_ZERO.setValue(0, j), 0);
       }
 
         // verify that excess bits are stripped off
-        assertEquals(bf_multi.setValue(0x3f80, 128), 0);
+        assertEquals(BF_MULTI.setValue(0x3f80, 128), 0);
         for (int j = 0; j < 2; j++) {
-            assertEquals(bf_single.getValue(bf_single.setValue(0, j)), j);
-            assertEquals(bf_single.setValue(0, j), j << 14);
+            assertEquals(BF_SINGLE.getValue(BF_SINGLE.setValue(0, j)), j);
+            assertEquals(BF_SINGLE.setValue(0, j), j << 14);
         }
 
         // verify that excess bits are stripped off
-        assertEquals(bf_single.setValue(0x4000, 2), 0);
+        assertEquals(BF_SINGLE.setValue(0x4000, 2), 0);
     }
 
 }

@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>94</version>
+    <version>96</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
@@ -94,12 +94,6 @@
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-generator-annprocess</artifactId>
       <version>${commons.jmh.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-      <version>3.0.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -507,19 +501,6 @@
         </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <!-- TEMP until commons-parent 95 -->
-      <!-- Java 11-16 -->
-      <id>java-11-16</id>
-      <activation>
-	    <jdk>[11,16]</jdk>
-      </activation>
-      <properties>
-        <commons.checkstyle.version>10.26.1</commons.checkstyle.version>
-        <!-- spdx can require Java 17 depending on undocumented behavior which kicks in for us here on macOS (but not on Java 8 somehow). -->
-        <commons.spdx.version>0.5.5</commons.spdx.version>
-      </properties>
     </profile>
     <profile>
       <id>java15</id>

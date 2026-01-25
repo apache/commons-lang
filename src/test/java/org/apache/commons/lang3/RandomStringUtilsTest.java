@@ -20,6 +20,7 @@ import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentExcep
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -29,6 +30,7 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -176,6 +178,18 @@ class RandomStringUtilsTest extends AbstractLangTest {
     @MethodSource("randomProvider")
     void testExceptionsRandomPrint(final RandomStringUtils rsu) {
         assertIllegalArgumentException(() -> rsu.nextPrint(-1));
+    }
+
+    @Test
+    @Timeout(value = 2, threadMode = Timeout.ThreadMode.SAME_THREAD)
+    void testFilterLetters() {
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(5, 0x80, 0xA0, true, false, null, new Random()));
+    }
+
+    @Test
+    @Timeout(value = 2, threadMode = Timeout.ThreadMode.SAME_THREAD)
+    void testFilterNumbers() {
+        assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(5, 0x80, 0xA0, false, true, null, new Random()));
     }
 
     /**

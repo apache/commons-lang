@@ -270,7 +270,7 @@ public class CharUtils {
      * <pre>
      *   CharUtils.toChar(' ')  = ' '
      *   CharUtils.toChar('A')  = 'A'
-     *   CharUtils.toChar(null) throws IllegalArgumentException
+     *   CharUtils.toChar(null) throws NullPointerException
      * </pre>
      *
      * @param ch  the character to convert
@@ -305,7 +305,7 @@ public class CharUtils {
      * <pre>
      *   CharUtils.toChar("A")  = 'A'
      *   CharUtils.toChar("BA") = 'B'
-     *   CharUtils.toChar(null) throws IllegalArgumentException
+     *   CharUtils.toChar(null) throws NullPointerException
      *   CharUtils.toChar("")   throws IllegalArgumentException
      * </pre>
      *
@@ -420,7 +420,7 @@ public class CharUtils {
      *
      * <pre>
      *   CharUtils.toIntValue('3')  = 3
-     *   CharUtils.toIntValue(null) throws IllegalArgumentException
+     *   CharUtils.toIntValue(null) throws NullPointerException
      *   CharUtils.toIntValue('A')  throws IllegalArgumentException
      * </pre>
      *

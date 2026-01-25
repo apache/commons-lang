@@ -110,8 +110,11 @@ class ClassUtilsTest extends AbstractLangTest {
     }
 
     private void assertGetClassThrowsException(final String className, final Class<? extends Exception> exceptionType) {
-        assertThrows(exceptionType, () -> ClassUtils.getClass(className),
+        final Exception exception = assertThrows(exceptionType, () -> ClassUtils.getClass(className),
             "ClassUtils.getClass() should fail with an exception of type " + exceptionType.getName() + " when given class name \"" + className + "\".");
+        if (className != null) {
+            assertEquals(className, exception.getMessage());
+        }
     }
 
     private void assertGetClassThrowsNullPointerException(final String className) {
@@ -1251,6 +1254,7 @@ class ClassUtilsTest extends AbstractLangTest {
         assertGetClassThrowsClassNotFound("bool");
         assertGetClassThrowsClassNotFound("bool[]");
         assertGetClassThrowsClassNotFound("integer[]");
+        assertGetClassThrowsClassNotFound("org.apache.commons.lang3.ClassUtilsTest.AClassThatCannotBeFound");
     }
 
     @Test

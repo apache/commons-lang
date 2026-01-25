@@ -21,6 +21,10 @@ limitations under the License.
 <!-- Apache Commons Lang customization of default Checkstyle behavior -->
 <module name="Checker">
   <property name="localeLanguage" value="en"/>
+  <module name="NewlineAtEndOfFile">
+    <!-- Files are saved in the repository with LF line endings; on Windows, use git config core.autocrlf input -->
+    <!-- <property name="lineSeparator" value="lf" /> -->
+  </module>
   <module name="FileTabCharacter">
     <property name="fileExtensions" value="java,xml"/>
   </module>

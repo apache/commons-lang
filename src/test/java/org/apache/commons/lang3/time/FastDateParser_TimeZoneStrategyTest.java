@@ -216,7 +216,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
         Objects.requireNonNull(locale, "locale");
         assumeFalse(LocaleUtils.isLanguageUndetermined(locale), () -> toFailureMessage(locale, null, null));
         assumeTrue(LocaleUtils.isAvailableLocale(locale), () -> toFailureMessage(locale, null, null));
-        for (final String id : ArraySorter.sort(TimeZone.getAvailableIDs())) {
+        for (final String id : TimeZones.SORTED_AVAILABLE_IDS) {
             final TimeZone timeZone = TimeZones.getTimeZone(id);
             final String displayName = timeZone.getDisplayName(locale);
             final FastDateParser parser = new FastDateParser("z", timeZone, locale);
@@ -237,7 +237,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     }
 
     /**
-     * Breaks randomly on GitHub for Locale "pt_PT", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
+     * Breaks randomly on GitHub CI for Locale "pt_PT", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
      *
      * <pre>{@code
      * java.text.ParseException: Unparseable date: Horário do Meridiano de Greenwich: with tzDefault =
@@ -248,8 +248,28 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      * @throws ParseException Test failure
      */
     @Test
-    void testTimeZoneStrategyPatternPortugal() throws ParseException {
+    void testTimeZoneStrategyPatternPortugal_PT() throws ParseException {
         testTimeZoneStrategyPattern("pt_PT", "Horário do Meridiano de Greenwich");
+    }
+
+    /**
+     * Breaks randomly on GitHub CI for Java 25 and Locale "pt_ST", TimeZone "Hora padrão de Damasco".
+     *
+     * @throws ParseException Test failure
+     */
+    @Test
+    void testTimeZoneStrategyPatternPortugal_ST() throws ParseException {
+        testTimeZoneStrategyPattern("pt_ST", "Hora padrão de Damasco");
+    }
+
+    /**
+     * Breaks randomly on GitHub CI for Java 25 and Locale "pt_TL", TimeZone "Hora padrão de Damasco".
+     *
+     * @throws ParseException Test failure
+     */
+    @Test
+    void testTimeZoneStrategyPatternPortugal_TL() throws ParseException {
+        testTimeZoneStrategyPattern("pt_TL", "Hora padrão de Damasco");
     }
 
     /**

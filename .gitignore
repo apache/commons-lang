@@ -5,6 +5,7 @@ maven-eclipse.xml
 build.properties
 site-content
 *~
+.mvn/
 
 # IntelliJ IDEA files
 .idea

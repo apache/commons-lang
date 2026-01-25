@@ -162,4 +162,17 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
                      new ReflectionToStringBuilder(p, new RecursiveToStringStyle()).toString());
     }
 
+    @Test
+    void testPrimitiveWrapperArray() {
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Character[] { '3', '6' } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Long[] { 3L, 6L } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Integer[] { 3, 6 } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Short[] { 3, 6 } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Byte[] { 3, 6 } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3.0,6.0}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Float[] { 3f, 6f } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3.0,6.0}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Double[] { 3d, 6d } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{true,false}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new Boolean[] { true, false } }).toString());
+    }
+
 }

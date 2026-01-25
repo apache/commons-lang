@@ -52,7 +52,7 @@ class ArrayFillTest extends AbstractLangTest {
     @Test
     void testFillByteArray() {
         final byte[] array = new byte[3];
-        final byte val = (byte) 1;
+        final byte val = 1;
         final byte[] actual = ArrayFill.fill(array, val);
         assertSame(array, actual);
         for (final byte v : actual) {
@@ -63,7 +63,7 @@ class ArrayFillTest extends AbstractLangTest {
     @Test
     void testFillByteArrayNull() {
         final byte[] array = null;
-        final byte val = (byte) 1;
+        final byte val = 1;
         final byte[] actual = ArrayFill.fill(array, val);
         assertSame(array, actual);
     }
@@ -200,7 +200,7 @@ class ArrayFillTest extends AbstractLangTest {
     @Test
     void testFillShortArray() {
         final short[] array = new short[3];
-        final short val = (byte) 1;
+        final short val = 1;
         final short[] actual = ArrayFill.fill(array, val);
         assertSame(array, actual);
         for (final short v : actual) {

@@ -558,7 +558,7 @@ public class ObjectUtils {
      * @param object1  the first object, may be {@code null}.
      * @param object2  the second object, may be {@code null}.
      * @return {@code true} if the values of both objects are the same.
-     * @deprecated this method has been replaced by {@code java.util.Objects.equals(Object, Object)} in Java 7 and will
+     * @deprecated Replaced by {@code java.util.Objects.equals(Object, Object)} in Java 7 and will
      * be removed from future releases.
      */
     @Deprecated
@@ -706,7 +706,7 @@ public class ObjectUtils {
      * @param obj the object to obtain the hash code of, may be {@code null}.
      * @return the hash code of the object, or zero if null.
      * @since 2.1
-     * @deprecated this method has been replaced by {@code java.util.Objects.hashCode(Object)} in Java 7 and will be removed in future releases.
+     * @deprecated Replaced by {@code java.util.Objects.hashCode(Object)} in Java 7 and will be removed in future releases.
      */
     @Deprecated
     public static int hashCode(final Object obj) {
@@ -747,7 +747,7 @@ public class ObjectUtils {
      * @param objects the objects to obtain the hash code of, may be {@code null}.
      * @return the hash code of the objects, or zero if null.
      * @since 3.0
-     * @deprecated this method has been replaced by {@code java.util.Objects.hash(Object...)} in Java 7 and will be removed in future releases.
+     * @deprecated Replaced by {@code java.util.Objects.hash(Object...)} in Java 7 and will be removed in future releases.
      */
     @Deprecated
     public static int hashCodeMulti(final Object... objects) {
@@ -1257,7 +1257,7 @@ public class ObjectUtils {
      * @see StringUtils#defaultString(String,String)
      * @see String#valueOf(Object)
      * @since 2.0
-     * @deprecated this method has been replaced by {@code java.util.Objects.toString(Object, String)} in Java 7 and
+     * @deprecated Replaced by {@code java.util.Objects.toString(Object, String)} in Java 7 and
      * will be removed in future releases.
      */
     @Deprecated

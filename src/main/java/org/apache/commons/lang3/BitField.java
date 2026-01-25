@@ -72,7 +72,7 @@ package org.apache.commons.lang3;
  */
 public class BitField {
 
-    private final int mask;
+    private final long mask;
 
     private final int shiftCount;
 
@@ -87,12 +87,34 @@ public class BitField {
     }
 
     /**
+     * Creates a BitField instance.
+     *
+     * @param mask the mask specifying which bits apply to this BitField. Bits that are set in this mask are the bits that this BitField operates on.
+     * @since 3.21.0
+     */
+    public BitField(final long mask) {
+        this.mask = mask;
+        this.shiftCount = mask == 0 ? 0 : Long.numberOfTrailingZeros(mask);
+    }
+
+    /**
      * Clears the bits.
      *
      * @param holder the int data containing the bits we're interested in.
      * @return the value of holder with the specified bits cleared (set to {@code 0}).
      */
     public int clear(final int holder) {
+        return (int) (holder & ~mask);
+    }
+
+    /**
+     * Clears the bits.
+     *
+     * @param holder the long data containing the bits we're interested in.
+     * @return the value of holder with the specified bits cleared (set to {@code 0}).
+     * @since 3.21.0
+     */
+    public long clear(final long holder) {
         return holder & ~mask;
     }
 
@@ -123,6 +145,17 @@ public class BitField {
      * @return the selected bits.
      */
     public int getRawValue(final int holder) {
+        return (int) (holder & mask);
+    }
+
+    /**
+     * Gets the value for the specified BitField, unshifted.
+     *
+     * @param holder the long data containing the bits we're interested in.
+     * @return the selected bits.
+     * @since 3.21.0
+     */
+    public long getRawValue(final long holder) {
         return holder & mask;
     }
 
@@ -167,6 +200,22 @@ public class BitField {
     }
 
     /**
+     * Gets the value for the specified BitField, appropriately shifted right.
+     * <p>
+     * Many users of a BitField will want to treat the specified bits as an long value, and will not want to be aware that the value is stored as a BitField (and
+     * so shifted left so many bits).
+     * </p>
+     *
+     * @param holder the long data containing the bits we're interested in.
+     * @return the selected bits, shifted right appropriately.
+     * @see #setValue(long,long)
+     * @since 3.21.0
+     */
+    public long getValue(final long holder) {
+        return getRawValue(holder) >> shiftCount;
+    }
+
+    /**
      * Tests whether all of the bits are set or not.
      * <p>
      * This is a stricter test than {@link #isSet(int)}, in that all of the bits in a multi-bit set must be set for this method to return {@code true}.
@@ -180,10 +229,24 @@ public class BitField {
     }
 
     /**
+     * Tests whether all of the bits are set or not.
+     * <p>
+     * This is a stricter test than {@link #isSet(long)}, in that all of the bits in a multi-bit set must be set for this method to return {@code true}.
+     * </p>
+     *
+     * @param holder the long data containing the bits we're interested in.
+     * @return {@code true} if all of the bits are set, else {@code false}.
+     * @since 3.21.0
+     */
+    public boolean isAllSet(final long holder) {
+        return (holder & mask) == mask;
+    }
+
+    /**
      * Tests whether the field is set or not.
      * <p>
      * This is most commonly used for a single-bit field, which is often used to represent a boolean value; the results of using it for a multi-bit field is to
-     * determine whether *any* of its bits are set.
+     * determine whether <em>any</em> of its bits are set.
      * </p>
      *
      * @param holder the int data containing the bits we're interested in
@@ -194,12 +257,38 @@ public class BitField {
     }
 
     /**
+     * Tests whether the field is set or not.
+     * <p>
+     * This is most commonly used for a single-bit field, which is often used to represent a boolean value; the results of using it for a multi-bit field is to
+     * determine whether <em>any</em> of its bits are set.
+     * </p>
+     *
+     * @param holder the long data containing the bits we're interested in
+     * @return {@code true} if any of the bits are set, else {@code false}
+     * @since 3.21.0
+     */
+    public boolean isSet(final long holder) {
+        return (holder & mask) != 0;
+    }
+
+    /**
      * Sets the bits.
      *
      * @param holder the int data containing the bits we're interested in.
      * @return the value of holder with the specified bits set to {@code 1}.
      */
     public int set(final int holder) {
+        return (int) (holder | mask);
+    }
+
+    /**
+     * Sets the bits.
+     *
+     * @param holder the long data containing the bits we're interested in.
+     * @return the value of holder with the specified bits set to {@code 1}.
+     * @since 3.21.0
+     */
+    public long set(final long holder) {
         return holder | mask;
     }
 
@@ -211,6 +300,18 @@ public class BitField {
      * @return the value of holder with the specified bits set or cleared.
      */
     public int setBoolean(final int holder, final boolean flag) {
+        return flag ? set(holder) : clear(holder);
+    }
+
+    /**
+     * Sets a boolean BitField.
+     *
+     * @param holder the long data containing the bits we're interested in.
+     * @param flag   indicating whether to set or clear the bits.
+     * @return the value of holder with the specified bits set or cleared.
+     * @since 3.21.0
+     */
+    public long setBoolean(final long holder, final boolean flag) {
         return flag ? set(holder) : clear(holder);
     }
 
@@ -277,6 +378,19 @@ public class BitField {
      * @see #getValue(int)
      */
     public int setValue(final int holder, final int value) {
+        return (int) (holder & ~mask | value << shiftCount & mask);
+    }
+
+    /**
+     * Sets the bits with new values.
+     *
+     * @param holder the long data containing the bits we're interested in.
+     * @param value  the new value for the specified bits.
+     * @return the value of holder with the bits from the value parameter replacing the old bits.
+     * @see #getValue(long)
+     * @since 3.21.0
+     */
+    public long setValue(final long holder, final long value) {
         return holder & ~mask | value << shiftCount & mask;
     }
 }

@@ -32,7 +32,7 @@ class FastDatePrinterTimeZonesTest extends AbstractLangTest {
     private static final String PATTERN = "h:mma z";
 
     public static Stream<TimeZone> data() {
-        return Stream.of(TimeZone.getAvailableIDs()).map(TimeZones::getTimeZone);
+        return Stream.of(TimeZones.SORTED_AVAILABLE_IDS).map(TimeZones::getTimeZone);
     }
 
     @ParameterizedTest
