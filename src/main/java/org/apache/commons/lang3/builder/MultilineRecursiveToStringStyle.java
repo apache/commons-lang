@@ -17,6 +17,9 @@
 
 package org.apache.commons.lang3.builder;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -186,6 +189,23 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
         super.reflectionAppendArrayDetail(buffer, fieldName, array);
         spaces -= INDENT;
         resetIndent();
+    }
+
+    /**
+     * Returns whether or not to recursively format the given {@link Class}.
+     * This implementation excludes {@link BigDecimal} and {@link BigInteger} from recursive formatting
+     * to prevent exposing internal fields like {@code intVal}, {@code scale}, and {@code mag}.
+     *
+     * @param clazz
+     *            The class to test.
+     * @return Whether or not to recursively format the given {@link Class}.
+     */
+    @Override
+    protected boolean accept(final Class<?> clazz) {
+        if (BigDecimal.class.equals(clazz) || BigInteger.class.equals(clazz)) {
+            return false;
+        }
+        return super.accept(clazz);
     }
 
     /**

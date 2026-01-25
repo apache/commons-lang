@@ -18,7 +18,11 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +83,16 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
         long[] longArray;
         short[] shortArray;
         String[] stringArray;
+    }
+
+    static class BDToString {
+        BigDecimal biddecimal123 = new BigDecimal("123");
+        BigDecimal biddecimal456 = new BigDecimal("456");
+    }
+
+    static class BIToString {
+        BigInteger biginteger123 = new BigInteger("123");
+        BigInteger biginteger456 = new BigInteger("456");
     }
 
     private enum WithArraysTestType {
@@ -301,6 +315,28 @@ class MultilineRecursiveToStringStyleTest extends AbstractLangTest {
                 + "  }" + LS
                 + "]";
         assertEquals(exp, toString(stringArray));
+    }
+
+    @Test
+    void testBigDecimalField() {
+        final BDToString obj = new BDToString();
+        final String result = toString(obj);
+
+        assertTrue(result.contains("123"), "Output should contain BigDecimal value 123");
+        assertTrue(result.contains("456"), "Output should contain BigDecimal value 456");
+        assertFalse(result.contains("intVal"), "Output should not contain internal field intVal");
+        assertFalse(result.contains("scale"), "Output should not contain internal field scale");
+    }
+
+    @Test
+    void testBigIntegerField() {
+        final BIToString obj = new BIToString();
+        final String result = toString(obj);
+
+        assertTrue(result.contains("123"), "Output should contain BigInteger value 123");
+        assertTrue(result.contains("456"), "Output should contain BigInteger value 456");
+        assertFalse(result.contains("mag"), "Output should not contain internal field mag");
+        assertFalse(result.contains("signum"), "Output should not contain internal field signum");
     }
 
     private String toString(final Object object) {
