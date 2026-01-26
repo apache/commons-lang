@@ -493,19 +493,19 @@ public class HashCodeBuilder implements Builder<Integer> {
     /**
      * Constant to use in building the hashCode.
      */
-    private final int iConstant;
+    private final int constant;
 
     /**
      * Running total of the hashCode.
      */
-    private int iTotal;
+    private int total;
 
     /**
      * Uses two hard coded choices for the constants needed to build a {@code hashCode}.
      */
     public HashCodeBuilder() {
-        iConstant = 37;
-        iTotal = 17;
+        constant = 37;
+        total = 17;
     }
 
     /**
@@ -526,8 +526,8 @@ public class HashCodeBuilder implements Builder<Integer> {
     public HashCodeBuilder(final int initialOddNumber, final int multiplierOddNumber) {
         Validate.isTrue(initialOddNumber % 2 != 0, "HashCodeBuilder requires an odd initial value");
         Validate.isTrue(multiplierOddNumber % 2 != 0, "HashCodeBuilder requires an odd multiplier");
-        iConstant = multiplierOddNumber;
-        iTotal = initialOddNumber;
+        constant = multiplierOddNumber;
+        total = initialOddNumber;
     }
 
     /**
@@ -551,7 +551,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @return {@code this} instance.
      */
     public HashCodeBuilder append(final boolean value) {
-        iTotal = iTotal * iConstant + (value ? 0 : 1);
+        total = total * constant + (value ? 0 : 1);
         return this;
     }
 
@@ -564,7 +564,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public HashCodeBuilder append(final boolean[] array) {
         if (array == null) {
-            iTotal = iTotal * iConstant;
+            total = total * constant;
         } else {
             for (final boolean element : array) {
                 append(element);
@@ -581,7 +581,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @return {@code this} instance.
      */
     public HashCodeBuilder append(final byte value) {
-        iTotal = iTotal * iConstant + value;
+        total = total * constant + value;
         return this;
     }
 
@@ -594,7 +594,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public HashCodeBuilder append(final byte[] array) {
         if (array == null) {
-            iTotal = iTotal * iConstant;
+            total = total * constant;
         } else {
             for (final byte element : array) {
                 append(element);
@@ -611,7 +611,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @return {@code this} instance.
      */
     public HashCodeBuilder append(final char value) {
-        iTotal = iTotal * iConstant + value;
+        total = total * constant + value;
         return this;
     }
 
@@ -624,7 +624,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public HashCodeBuilder append(final char[] array) {
         if (array == null) {
-            iTotal = iTotal * iConstant;
+            total = total * constant;
         } else {
             for (final char element : array) {
                 append(element);
@@ -653,7 +653,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public HashCodeBuilder append(final double[] array) {
         if (array == null) {
-            iTotal = iTotal * iConstant;
+            total = total * constant;
         } else {
             for (final double element : array) {
                 append(element);
@@ -670,7 +670,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @return {@code this} instance.
      */
     public HashCodeBuilder append(final float value) {
-        iTotal = iTotal * iConstant + Float.floatToIntBits(value);
+        total = total * constant + Float.floatToIntBits(value);
         return this;
     }
 
@@ -683,7 +683,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public HashCodeBuilder append(final float[] array) {
         if (array == null) {
-            iTotal = iTotal * iConstant;
+            total = total * constant;
         } else {
             for (final float element : array) {
                 append(element);
@@ -700,7 +700,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @return {@code this} instance.
      */
     public HashCodeBuilder append(final int value) {
-        iTotal = iTotal * iConstant + value;
+        total = total * constant + value;
         return this;
     }
 
@@ -713,7 +713,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public HashCodeBuilder append(final int[] array) {
         if (array == null) {
-            iTotal = iTotal * iConstant;
+            total = total * constant;
         } else {
             for (final int element : array) {
                 append(element);
@@ -734,7 +734,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     //       some stage. There are backwards compat issues, so
     //       that will have to wait for the time being. See LANG-342.
     public HashCodeBuilder append(final long value) {
-        iTotal = iTotal * iConstant + (int) (value ^ value >> 32);
+        total = total * constant + (int) (value ^ value >> 32);
         return this;
     }
 
@@ -747,7 +747,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public HashCodeBuilder append(final long[] array) {
         if (array == null) {
-            iTotal = iTotal * iConstant;
+            total = total * constant;
         } else {
             for (final long element : array) {
                 append(element);
@@ -765,13 +765,13 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public HashCodeBuilder append(final Object object) {
         if (object == null) {
-            iTotal = iTotal * iConstant;
+            total = total * constant;
         } else if (ObjectUtils.isArray(object)) {
             // factor out array case in order to keep method small enough
             // to be inlined
             appendArray(object);
         } else {
-            iTotal = iTotal * iConstant + object.hashCode();
+            total = total * constant + object.hashCode();
         }
         return this;
     }
@@ -785,7 +785,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public HashCodeBuilder append(final Object[] array) {
         if (array == null) {
-            iTotal = iTotal * iConstant;
+            total = total * constant;
         } else {
             for (final Object element : array) {
                 append(element);
@@ -802,7 +802,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @return {@code this} instance.
      */
     public HashCodeBuilder append(final short value) {
-        iTotal = iTotal * iConstant + value;
+        total = total * constant + value;
         return this;
     }
 
@@ -815,7 +815,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public HashCodeBuilder append(final short[] array) {
         if (array == null) {
-            iTotal = iTotal * iConstant;
+            total = total * constant;
         } else {
             for (final short element : array) {
                 append(element);
@@ -864,7 +864,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @since 2.0
      */
     public HashCodeBuilder appendSuper(final int superHashCode) {
-        iTotal = iTotal * iConstant + superHashCode;
+        total = total * constant + superHashCode;
         return this;
     }
 
@@ -893,7 +893,7 @@ public class HashCodeBuilder implements Builder<Integer> {
             return false;
         }
         final HashCodeBuilder other = (HashCodeBuilder) obj;
-        return iTotal == other.iTotal;
+        return total == other.total;
     }
 
     /**
@@ -915,7 +915,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @return {@code hashCode} based on the fields appended
      */
     public int toHashCode() {
-        return iTotal;
+        return total;
     }
 
 }
