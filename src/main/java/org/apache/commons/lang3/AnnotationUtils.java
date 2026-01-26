@@ -212,6 +212,7 @@ public class AnnotationUtils {
             for (final Method m : type1.getDeclaredMethods()) {
                 if (m.getParameterTypes().length == 0
                         && isValidAnnotationMemberType(m.getReturnType())) {
+                    m.setAccessible(true);
                     final Object v1 = m.invoke(a1);
                     final Object v2 = m.invoke(a2);
                     if (!memberEquals(m.getReturnType(), v1, v2)) {
@@ -220,7 +221,7 @@ public class AnnotationUtils {
                 }
             }
         } catch (final ReflectiveOperationException ex) {
-            return false;
+            throw new IllegalStateException(ex);
         }
         return true;
     }
