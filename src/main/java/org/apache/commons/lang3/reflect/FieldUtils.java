@@ -956,10 +956,10 @@ public class FieldUtils {
      *         and final modifiers; {@code false} otherwise
      */
 
-    public static boolean isPublicStaticFinal(Field field)
-    {
-        if (field == null)
+    public static boolean isPublicStaticFinal(final Field field) {
+        if (field == null) {
             return false;
+        }
 
         final int modifiers = field.getModifiers();
 

@@ -921,30 +921,30 @@ class FieldUtilsTest extends AbstractLangTest {
         public static final int A = 1;
         public static int B = 2;
         public final int C = 3;
-        private static final int D= 5;
+        private static final int D = 5;
     }
 
     @Test
     void testPublicStaticFinal() throws Exception {
-        Field field = TestFields.class.getField("A");
+        final  Field field = TestFields.class.getField("A");
         assertTrue(FieldUtils.isPublicStaticFinal(field));
     }
 
     @Test
     void testPublicStaticNotFinal() throws Exception {
-        Field field = TestFields.class.getField("B");
+        final Field field = TestFields.class.getField("B");
         assertFalse(FieldUtils.isPublicStaticFinal(field));
     }
 
     @Test
     void testFinalNotStatic() throws Exception {
-        Field field = TestFields.class.getField("C");
+        final Field field = TestFields.class.getField("C");
         assertFalse(FieldUtils.isPublicStaticFinal(field));
     }
 
     @Test
     void testStaticFinalNotPublic() throws Exception {
-        Field field = TestFields.class.getDeclaredField("D");
+        final Field field = TestFields.class.getDeclaredField("D");
         assertFalse(FieldUtils.isPublicStaticFinal(field));
     }
 
