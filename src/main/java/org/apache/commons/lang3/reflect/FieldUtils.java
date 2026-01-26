@@ -940,4 +940,31 @@ public class FieldUtils {
     public FieldUtils() {
         // empty
     }
+
+
+    /**
+     * Checks whether the given {@link Field} has {@code public}, {@code static},
+     * and {@code final} modifiers.
+     * <p>
+     * This method performs a modifier-based check only and does not attempt to
+     * determine whether the field represents a constant value in a deeper semantic
+     * sense (for example, object immutability).
+     * </p>
+     *
+     * @param field the field to check, may be {@code null}
+     * @return {@code true} if the field is non-null and has public, static,
+     *         and final modifiers; {@code false} otherwise
+     */
+
+    public static boolean isPublicStaticFinal(Field field)
+    {
+        if (field == null)
+            return false;
+
+        final int modifiers = field.getModifiers();
+
+        return     Modifier.isPublic(modifiers)
+                && Modifier.isStatic(modifiers)
+                && Modifier.isFinal(modifiers);
+    }
 }

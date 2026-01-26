@@ -916,4 +916,40 @@ class FieldUtilsTest extends AbstractLangTest {
         assertThrows(IllegalAccessException.class, () -> FieldUtils.writeStaticField(StaticContainer.class.getDeclaredField("IMMUTABLE_PRIVATE"), "new", true));
         assertNullPointerException(() -> FieldUtils.writeStaticField(null, "new", true));
     }
+
+    static class TestFields {
+        public static final int A = 1;
+        public static int B = 2;
+        public final int C = 3;
+        private static final int D= 5;
+    }
+
+    @Test
+    void testPublicStaticFinal() throws Exception {
+        Field field = TestFields.class.getField("A");
+        assertTrue(FieldUtils.isPublicStaticFinal(field));
+    }
+
+    @Test
+    void testPublicStaticNotFinal() throws Exception {
+        Field field = TestFields.class.getField("B");
+        assertFalse(FieldUtils.isPublicStaticFinal(field));
+    }
+
+    @Test
+    void testFinalNotStatic() throws Exception {
+        Field field = TestFields.class.getField("C");
+        assertFalse(FieldUtils.isPublicStaticFinal(field));
+    }
+
+    @Test
+    void testStaticFinalNotPublic() throws Exception {
+        Field field = TestFields.class.getDeclaredField("D");
+        assertFalse(FieldUtils.isPublicStaticFinal(field));
+    }
+
+    @Test
+    void testNullField() {
+        assertFalse(FieldUtils.isPublicStaticFinal(null));
+    }
 }
