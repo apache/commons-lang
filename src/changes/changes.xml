@@ -109,6 +109,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, 烂泥扶上墙">Fix ClassNotFoundException message in ClassUtils.getClass(String) #1577.</action>
     <action                   type="fix" dev="ggregory" due-to="Ivan Ponomarev">Fix Javadoc in DoubleRange.of(Double, Double) to reflect actual exception type thrown #1581.</action>
     <action issue="LANG-1452" type="fix" dev="ggregory" due-to="Gary Gregory, Aleksey Novozhilov, Sara">RecursiveToStringStyle and MultilineRecursiveToStringStyle shouldn't recurse into a java.math.BigDecimal #1584.</action>
+    <action issue="LANG-1814" type="fix" dev="ggregory" due-to="Ivan Ponomarev">ArrayUtils.subarray(..) may overflow index arithmetic and violate contract for extreme index values.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
