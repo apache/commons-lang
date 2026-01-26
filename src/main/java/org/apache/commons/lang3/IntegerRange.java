@@ -65,7 +65,7 @@ public final class IntegerRange extends NumberRange<Integer> {
      * @param fromInclusive the first value that defines the edge of the range, inclusive.
      * @param toInclusive the second value that defines the edge of the range, inclusive.
      * @return the range object, not null.
-     * @throws IllegalArgumentException if either element is null.
+     * @throws NullPointerException if either element is null.
      */
     public static IntegerRange of(final Integer fromInclusive, final Integer toInclusive) {
         return new IntegerRange(fromInclusive, toInclusive);
@@ -74,8 +74,8 @@ public final class IntegerRange extends NumberRange<Integer> {
     /**
      * Creates a new instance.
      *
-     * @param number1 the first element, not null
-     * @param number2 the second element, not null
+     * @param number1 the first element, not null.
+     * @param number2 the second element, not null.
      * @throws NullPointerException when element1 is null.
      * @throws NullPointerException when element2 is null.
      */
@@ -112,7 +112,7 @@ public final class IntegerRange extends NumberRange<Integer> {
      * Returns a sequential ordered {@code IntStream} from {@link #getMinimum()} (inclusive) to {@link #getMaximum()} (inclusive) by an incremental step of
      * {@code 1}.
      *
-     * @return a sequential {@code IntStream} for the range of {@code int} elements
+     * @return a sequential {@code IntStream} for the range of {@code int} elements.
      * @since 3.18.0
      */
     public IntStream toIntStream() {

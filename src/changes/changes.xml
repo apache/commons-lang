@@ -107,12 +107,16 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Dhaneesh.M">Improve test coverage for TypeUtils.isAssignable() #1574.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Dhaneesh.M">Improve branch coverage for Processor (isAarch64, isRISCV); add ProcessorTest #1578.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, 烂泥扶上墙">Fix ClassNotFoundException message in ClassUtils.getClass(String) #1577.</action>
+    <action                   type="fix" dev="ggregory" due-to="Ivan Ponomarev">Fix Javadoc in DoubleRange.of(Double, Double) to reflect actual exception type thrown #1581.</action>
+    <action issue="LANG-1452" type="fix" dev="ggregory" due-to="Gary Gregory, Aleksey Novozhilov, Sara">RecursiveToStringStyle and MultilineRecursiveToStringStyle shouldn't recurse into a java.math.BigDecimal #1584.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">JavaVersion.get(String) now support Java 26 and 27.</action>
     <action issue="LANG-1810" type="add" dev="ggregory" due-to="Yelim Koo, Gary Gregory">Deprecate ArrayUtils.SOFT_MAX_ARRAY_LENGTH in favor of SAFE_MAX_ARRAY_LENGTH #1559.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory, Theodora Anastasia Lazaridou">Add long support to BitField #1561.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayUtils.getDimensions(Object).</action>
+    <action issue="LANG-1707" type="add" dev="ggregory" due-to="Ivan Malutin, Gilles Sadowski, Gary Gregory">Add ArrayUtils.concat() methods for concatenating multiple arrays #1519.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 96 #1498.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.14.0 to 1.15.0.</action>

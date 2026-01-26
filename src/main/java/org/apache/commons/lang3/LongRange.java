@@ -65,7 +65,7 @@ public final class LongRange extends NumberRange<Long> {
      * @param fromInclusive the first value that defines the edge of the range, inclusive.
      * @param toInclusive the second value that defines the edge of the range, inclusive.
      * @return the range object, not null.
-     * @throws IllegalArgumentException if either element is null.
+     * @throws NullPointerException if either element is null.
      */
     public static LongRange of(final Long fromInclusive, final Long toInclusive) {
         return new LongRange(fromInclusive, toInclusive);
@@ -74,8 +74,8 @@ public final class LongRange extends NumberRange<Long> {
     /**
      * Creates a new instance.
      *
-     * @param number1 the first element, not null
-     * @param number2 the second element, not null
+     * @param number1 the first element, not null.
+     * @param number2 the second element, not null.
      * @throws NullPointerException when element1 is null.
      * @throws NullPointerException when element2 is null.
      */

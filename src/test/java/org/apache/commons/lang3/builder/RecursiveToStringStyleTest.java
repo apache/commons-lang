@@ -18,10 +18,22 @@ package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.mutable.MutableBoolean;
+import org.apache.commons.lang3.mutable.MutableByte;
+import org.apache.commons.lang3.mutable.MutableDouble;
+import org.apache.commons.lang3.mutable.MutableFloat;
+import org.apache.commons.lang3.mutable.MutableInt;
+import org.apache.commons.lang3.mutable.MutableLong;
+import org.apache.commons.lang3.mutable.MutableShort;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,6 +98,30 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
     }
 
     @Test
+    void testAtomicsArray() {
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new AtomicLong[] { new AtomicLong(3), new AtomicLong(6) } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new AtomicInteger[] { new AtomicInteger(3), new AtomicInteger(6) } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{true,false}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new AtomicBoolean[] { new AtomicBoolean(true), new AtomicBoolean(false) } }).toString());
+    }
+
+    @Test
+    void testBigDecimal() {
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new BigDecimal[] { BigDecimal.valueOf(3), BigDecimal.valueOf(6) } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3.0,6.0}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new BigDecimal[] { BigDecimal.valueOf(3.0), BigDecimal.valueOf(6.0) } }).toString());
+    }
+
+    @Test
+    void testBigInteger() {
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new BigInteger[] { BigInteger.valueOf(3), BigInteger.valueOf(6) } }).toString());
+    }
+
+    @Test
     void testBlank() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
     }
@@ -115,6 +151,24 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
         array = null;
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
+    }
+
+    @Test
+    void testMutableWrapperArray() {
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new MutableLong[] { new MutableLong(3), new MutableLong(6) } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new MutableInt[] { new MutableInt(3), new MutableInt(6) } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new MutableShort[] { new MutableShort(3), new MutableShort(6) } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new MutableByte[] { new MutableByte((byte) 3), new MutableByte((byte) 6) } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3.0,6.0}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new MutableFloat[] { new MutableFloat(3f), new MutableFloat(6f) } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3.0,6.0}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new MutableDouble[] { new MutableDouble(3d), new MutableDouble(6d) } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{true,false}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new MutableBoolean[] { new MutableBoolean(true), new MutableBoolean(false) } }).toString());
     }
 
     @Test
@@ -162,4 +216,16 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
                      new ReflectionToStringBuilder(p, new RecursiveToStringStyle()).toString());
     }
 
+    @Test
+    void testPrimitiveWrapperArray() {
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Character[] { '3', '6' } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Long[] { 3L, 6L } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Integer[] { 3, 6 } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Short[] { 3, 6 } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Byte[] { 3, 6 } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3.0,6.0}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Float[] { 3f, 6f } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{3.0,6.0}}]", new ToStringBuilder(base).append(new Object[] { null, base, new Double[] { 3d, 6d } }).toString());
+        assertEquals(baseStr + "[{<null>,5,{true,false}}]",
+                new ToStringBuilder(base).append(new Object[] { null, base, new Boolean[] { true, false } }).toString());
+    }
 }

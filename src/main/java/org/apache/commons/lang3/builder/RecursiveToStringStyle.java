@@ -17,8 +17,10 @@
 package org.apache.commons.lang3.builder;
 
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.mutable.MutableBoolean;
 
 /**
  * Works with {@link ToStringBuilder} to create a "deep" {@code toString}.
@@ -66,16 +68,29 @@ public class RecursiveToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Returns whether or not to recursively format the given {@link Class}.
-     * By default, this method always returns {@code true}, but may be overwritten by
-     * subclasses to filter specific classes.
+     * Tests whether or not to recursively format the given {@link Class}.
+     * <p>
+     * By default, this method always filters out the following:
+     * </p>
+     * <ul>
+     * <li><a href="https://docs.oracle.com/javase/specs/jls/se25/html/jls-5.html#jls-5.1.7">Boxed primitives</a>, see {@link ClassUtils#isPrimitiveWrapper(Class)}
+     * <li>{@link String}</li>
+     * <li>{@link Number} subclasses</li>
+     * <li>{@link AtomicBoolean}</li>
+     * <li>{@link MutableBoolean}</li>
+     * </ul>
      *
-     * @param clazz
-     *            The class to test.
-     * @return Whether or not to recursively format the given {@link Class}.
+     * @param clazz The class to test.
+     * @return Whether or not to recursively format instances of the given {@link Class}.
      */
     protected boolean accept(final Class<?> clazz) {
-        return true;
+        // @formatter:off
+        return !ClassUtils.isPrimitiveWrapper(clazz) &&
+               !String.class.equals(clazz) &&
+               !Number.class.isAssignableFrom(clazz) &&
+               !AtomicBoolean.class.equals(clazz) &&
+               !MutableBoolean.class.equals(clazz);
+        // @formatter:on
     }
 
     @Override
@@ -87,9 +102,7 @@ public class RecursiveToStringStyle extends ToStringStyle {
 
     @Override
     public void appendDetail(final StringBuffer buffer, final String fieldName, final Object value) {
-        if (!ClassUtils.isPrimitiveWrapper(value.getClass()) &&
-            !String.class.equals(value.getClass()) &&
-            accept(value.getClass())) {
+        if (value != null && accept(value.getClass())) {
             buffer.append(ReflectionToStringBuilder.toString(value, this));
         } else {
             super.appendDetail(buffer, fieldName, value);
