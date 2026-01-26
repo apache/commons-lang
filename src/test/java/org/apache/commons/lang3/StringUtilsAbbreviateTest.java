@@ -101,6 +101,8 @@ class StringUtilsAbbreviateTest {
         assertAbbreviateWithOffset("...ijklmno", 15, 10);
         assertAbbreviateWithOffset("...ijklmno", 16, 10);
         assertAbbreviateWithOffset("...ijklmno", Integer.MAX_VALUE, 10);
+        // abbreviating a shorter string allows maxWidth < 7
+        assertEquals("...efg", StringUtils.abbreviate("abcdefg", 5, 6));
     }
 
     @Test
@@ -163,6 +165,9 @@ class StringUtilsAbbreviateTest {
         assertAbbreviateWithAbbrevMarkerAndOffset("999ijklmno", "999", 15, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("_ghijklmno", "_", 16, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("+ghijklmno", "+", Integer.MAX_VALUE, 10);
+        // abbreviating a shorter string allows maxWidth < abbrevMarker.length * 2 + 1
+        assertEquals("..de", StringUtils.abbreviate("abcde", "..", 4, 4));
+        assertEquals("....fg", StringUtils.abbreviate("abcdefg", "....", 5, 6));
     }
 
     // Fixed LANG-1463
