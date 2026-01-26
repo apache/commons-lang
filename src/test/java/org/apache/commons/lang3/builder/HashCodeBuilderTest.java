@@ -27,9 +27,12 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@link org.apache.commons.lang3.builder.HashCodeBuilder}.
+ * Tests {@link HashCodeBuilder}.
  */
 class HashCodeBuilderTest extends AbstractLangTest {
+
+    private static final int INITIAL = 17;
+    private static final int CONSTANT = 37;
 
     /**
      * A reflection test fixture.
@@ -186,106 +189,106 @@ class HashCodeBuilderTest extends AbstractLangTest {
 
         @Override
         public int hashCode() {
-            return b * 17 + super.hashCode();
+            return b * INITIAL + super.hashCode();
         }
 
     }
 
     @Test
     void testBoolean() {
-        assertEquals(17 * 37 + 0, new HashCodeBuilder(17, 37).append(true).toHashCode());
-        assertEquals(17 * 37 + 1, new HashCodeBuilder(17, 37).append(false).toHashCode());
+        assertEquals(INITIAL * CONSTANT + 0, new HashCodeBuilder(INITIAL, CONSTANT).append(true).toHashCode());
+        assertEquals(INITIAL * CONSTANT + 1, new HashCodeBuilder(INITIAL, CONSTANT).append(false).toHashCode());
     }
 
     @Test
     void testBooleanArray() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((boolean[]) null).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((boolean[]) null).toHashCode());
         final boolean[] obj = new boolean[2];
-        assertEquals((17 * 37 + 1) * 37 + 1, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 1) * CONSTANT + 1, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = true;
-        assertEquals((17 * 37 + 0) * 37 + 1, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 0) * CONSTANT + 1, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[1] = false;
-        assertEquals((17 * 37 + 0) * 37 + 1, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 0) * CONSTANT + 1, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
     }
 
     @Test
     void testBooleanArrayAsObject() {
         final boolean[] obj = new boolean[2];
-        assertEquals((17 * 37 + 1) * 37 + 1, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 1) * CONSTANT + 1, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[0] = true;
-        assertEquals((17 * 37 + 0) * 37 + 1, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 0) * CONSTANT + 1, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[1] = false;
-        assertEquals((17 * 37 + 0) * 37 + 1, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 0) * CONSTANT + 1, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
     }
 
     @Test
     void testBooleanMultiArray() {
         final boolean[][] obj = new boolean[2][];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = new boolean[0];
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = new boolean[1];
-        assertEquals((17 * 37 + 1) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 1) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = new boolean[2];
-        assertEquals(((17 * 37 + 1) * 37 + 1) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(((INITIAL * CONSTANT + 1) * CONSTANT + 1) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0][0] = true;
-        assertEquals(((17 * 37 + 0) * 37 + 1) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(((INITIAL * CONSTANT + 0) * CONSTANT + 1) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[1] = new boolean[1];
-        assertEquals(((17 * 37 + 0) * 37 + 1) * 37 + 1, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(((INITIAL * CONSTANT + 0) * CONSTANT + 1) * CONSTANT + 1, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
     }
 
     @Test
     void testByte() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((byte) 0).toHashCode());
-        assertEquals(17 * 37 + 123, new HashCodeBuilder(17, 37).append((byte) 123).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((byte) 0).toHashCode());
+        assertEquals(INITIAL * CONSTANT + 123, new HashCodeBuilder(INITIAL, CONSTANT).append((byte) 123).toHashCode());
     }
 
     @Test
     void testByteArray() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((byte[]) null).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((byte[]) null).toHashCode());
         final byte[] obj = new byte[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = (byte) 5;
-        assertEquals((17 * 37 + 5) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[1] = (byte) 6;
-        assertEquals((17 * 37 + 5) * 37 + 6, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT + 6, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
     }
 
     @Test
     void testByteArrayAsObject() {
         final byte[] obj = new byte[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[0] = (byte) 5;
-        assertEquals((17 * 37 + 5) * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[1] = (byte) 6;
-        assertEquals((17 * 37 + 5) * 37 + 6, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT + 6, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
     }
 
     @Test
     void testChar() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((char) 0).toHashCode());
-        assertEquals(17 * 37 + 1234, new HashCodeBuilder(17, 37).append((char) 1234).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((char) 0).toHashCode());
+        assertEquals(INITIAL * CONSTANT + 1234, new HashCodeBuilder(INITIAL, CONSTANT).append((char) 1234).toHashCode());
     }
 
     @Test
     void testCharArray() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((char[]) null).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((char[]) null).toHashCode());
         final char[] obj = new char[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = (char) 5;
-        assertEquals((17 * 37 + 5) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[1] = (char) 6;
-        assertEquals((17 * 37 + 5) * 37 + 6, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT + 6, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
     }
 
     @Test
     void testCharArrayAsObject() {
         final char[] obj = new char[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[0] = (char) 5;
-        assertEquals((17 * 37 + 5) * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[1] = (char) 6;
-        assertEquals((17 * 37 + 5) * 37 + 6, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT + 6, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
     }
 
     @Test
@@ -310,46 +313,46 @@ class HashCodeBuilderTest extends AbstractLangTest {
 
     @Test
     void testDouble() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0d).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(0d).toHashCode());
         final double d = 1234567.89;
         final long l = Double.doubleToLongBits(d);
-        assertEquals(17 * 37 + (int) (l ^ l >> 32), new HashCodeBuilder(17, 37).append(d).toHashCode());
+        assertEquals(INITIAL * CONSTANT + (int) (l ^ l >> 32), new HashCodeBuilder(INITIAL, CONSTANT).append(d).toHashCode());
     }
 
     @Test
     void testDoubleArray() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((double[]) null).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((double[]) null).toHashCode());
         final double[] obj = new double[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = 5.4d;
         final long l1 = Double.doubleToLongBits(5.4d);
         final int h1 = (int) (l1 ^ l1 >> 32);
-        assertEquals((17 * 37 + h1) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[1] = 6.3d;
         final long l2 = Double.doubleToLongBits(6.3d);
         final int h2 = (int) (l2 ^ l2 >> 32);
-        assertEquals((17 * 37 + h1) * 37 + h2, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT + h2, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
     }
 
     @Test
     void testDoubleArrayAsObject() {
         final double[] obj = new double[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[0] = 5.4d;
         final long l1 = Double.doubleToLongBits(5.4d);
         final int h1 = (int) (l1 ^ l1 >> 32);
-        assertEquals((17 * 37 + h1) * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[1] = 6.3d;
         final long l2 = Double.doubleToLongBits(6.3d);
         final int h2 = (int) (l2 ^ l2 >> 32);
-        assertEquals((17 * 37 + h1) * 37 + h2, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT + h2, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
     }
 
     @Test
     void testEquals() {
-        final HashCodeBuilder hcb1 = new HashCodeBuilder(17, 37).append(1).append('a');
-        final HashCodeBuilder hcb2 = new HashCodeBuilder(17, 37).append(1).append('a');
-        final HashCodeBuilder hcb3 = new HashCodeBuilder(17, 37).append(2).append('c');
+        final HashCodeBuilder hcb1 = new HashCodeBuilder(INITIAL, CONSTANT).append(1).append('a');
+        final HashCodeBuilder hcb2 = new HashCodeBuilder(INITIAL, CONSTANT).append(1).append('a');
+        final HashCodeBuilder hcb3 = new HashCodeBuilder(INITIAL, CONSTANT).append(2).append('c');
         assertEquals(hcb1, hcb1);
         assertEquals(hcb1, hcb2);
         assertEquals(hcb2, hcb1);
@@ -359,139 +362,139 @@ class HashCodeBuilderTest extends AbstractLangTest {
 
     @Test
     void testFloat() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0f).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(0f).toHashCode());
         final float f = 1234.89f;
         final int i = Float.floatToIntBits(f);
-        assertEquals(17 * 37 + i, new HashCodeBuilder(17, 37).append(f).toHashCode());
+        assertEquals(INITIAL * CONSTANT + i, new HashCodeBuilder(INITIAL, CONSTANT).append(f).toHashCode());
     }
 
     @Test
     void testFloatArray() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((float[]) null).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((float[]) null).toHashCode());
         final float[] obj = new float[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = 5.4f;
         final int h1 = Float.floatToIntBits(5.4f);
-        assertEquals((17 * 37 + h1) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[1] = 6.3f;
         final int h2 = Float.floatToIntBits(6.3f);
-        assertEquals((17 * 37 + h1) * 37 + h2, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT + h2, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
     }
 
     @Test
     void testFloatArrayAsObject() {
         final float[] obj = new float[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[0] = 5.4f;
         final int h1 = Float.floatToIntBits(5.4f);
-        assertEquals((17 * 37 + h1) * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[1] = 6.3f;
         final int h2 = Float.floatToIntBits(6.3f);
-        assertEquals((17 * 37 + h1) * 37 + h2, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT + h2, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
     }
 
     @Test
     void testInt() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0).toHashCode());
-        assertEquals(17 * 37 + 123456, new HashCodeBuilder(17, 37).append(123456).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(0).toHashCode());
+        assertEquals(INITIAL * CONSTANT + 123456, new HashCodeBuilder(INITIAL, CONSTANT).append(123456).toHashCode());
     }
 
     @Test
     void testIntArray() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((int[]) null).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((int[]) null).toHashCode());
         final int[] obj = new int[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = 5;
-        assertEquals((17 * 37 + 5) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[1] = 6;
-        assertEquals((17 * 37 + 5) * 37 + 6, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT + 6, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
     }
 
     @Test
     void testIntArrayAsObject() {
         final int[] obj = new int[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[0] = 5;
-        assertEquals((17 * 37 + 5) * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[1] = 6;
-        assertEquals((17 * 37 + 5) * 37 + 6, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT + 6, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
     }
 
     @Test
     void testLong() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(0L).toHashCode());
-        assertEquals(17 * 37 + (int) (123456789L ^ 123456789L >> 32), new HashCodeBuilder(17, 37).append(
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(0L).toHashCode());
+        assertEquals(INITIAL * CONSTANT + (int) (123456789L ^ 123456789L >> 32), new HashCodeBuilder(INITIAL, CONSTANT).append(
                 123456789L).toHashCode());
     }
 
     @Test
     void testLongArray() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((long[]) null).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((long[]) null).toHashCode());
         final long[] obj = new long[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = 5L;
         final int h1 = (int) (5L ^ 5L >> 32);
-        assertEquals((17 * 37 + h1) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[1] = 6L;
         final int h2 = (int) (6L ^ 6L >> 32);
-        assertEquals((17 * 37 + h1) * 37 + h2, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT + h2, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
     }
 
     @Test
     void testLongArrayAsObject() {
         final long[] obj = new long[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[0] = 5L;
         final int h1 = (int) (5L ^ 5L >> 32);
-        assertEquals((17 * 37 + h1) * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[1] = 6L;
         final int h2 = (int) (6L ^ 6L >> 32);
-        assertEquals((17 * 37 + h1) * 37 + h2, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + h1) * CONSTANT + h2, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
     }
 
     @Test
     void testObject() {
         Object obj = null;
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj = new Object();
-        assertEquals(17 * 37 + obj.hashCode(), new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT + obj.hashCode(), new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
     }
 
     @Test
     void testObjectArray() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((Object[]) null).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object[]) null).toHashCode());
         final Object[] obj = new Object[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = new Object();
-        assertEquals((17 * 37 + obj[0].hashCode()) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + obj[0].hashCode()) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[1] = new Object();
-        assertEquals((17 * 37 + obj[0].hashCode()) * 37 + obj[1].hashCode(), new HashCodeBuilder(17, 37).append(obj)
+        assertEquals((INITIAL * CONSTANT + obj[0].hashCode()) * CONSTANT + obj[1].hashCode(), new HashCodeBuilder(INITIAL, CONSTANT).append(obj)
                 .toHashCode());
     }
 
     @Test
     void testObjectArrayAsObject() {
         final Object[] obj = new Object[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[0] = new Object();
-        assertEquals((17 * 37 + obj[0].hashCode()) * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + obj[0].hashCode()) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[1] = new Object();
-        assertEquals((17 * 37 + obj[0].hashCode()) * 37 + obj[1].hashCode(), new HashCodeBuilder(17, 37).append(
+        assertEquals((INITIAL * CONSTANT + obj[0].hashCode()) * CONSTANT + obj[1].hashCode(), new HashCodeBuilder(INITIAL, CONSTANT).append(
                 (Object) obj).toHashCode());
     }
 
     @Test
     void testObjectBuild() {
         Object obj = null;
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(obj).build().intValue());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).build().intValue());
         obj = new Object();
-        assertEquals(17 * 37 + obj.hashCode(), new HashCodeBuilder(17, 37).append(obj).build().intValue());
+        assertEquals(INITIAL * CONSTANT + obj.hashCode(), new HashCodeBuilder(INITIAL, CONSTANT).append(obj).build().intValue());
     }
 
     @Test
     void testReflectionHashCode() {
-        assertEquals(17 * 37, HashCodeBuilder.reflectionHashCode(new TestObject(0)));
-        assertEquals(17 * 37 + 123456, HashCodeBuilder.reflectionHashCode(new TestObject(123456)));
+        assertEquals(INITIAL * CONSTANT, HashCodeBuilder.reflectionHashCode(new TestObject(0)));
+        assertEquals(INITIAL * CONSTANT + 123456, HashCodeBuilder.reflectionHashCode(new TestObject(123456)));
     }
 
     @Test
@@ -513,28 +516,28 @@ class HashCodeBuilderTest extends AbstractLangTest {
     void testReflectionHashCodeExcludeFields() {
         final TestObjectWithMultipleFields x = new TestObjectWithMultipleFields(1, 2, 3);
 
-        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x));
+        assertEquals(((INITIAL * CONSTANT + 1) * CONSTANT + 3) * CONSTANT + 2, HashCodeBuilder.reflectionHashCode(x));
 
-        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, (String[]) null));
-        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x));
-        assertEquals(((17 * 37 + 1) * 37 + 3) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, "xxx"));
+        assertEquals(((INITIAL * CONSTANT + 1) * CONSTANT + 3) * CONSTANT + 2, HashCodeBuilder.reflectionHashCode(x, (String[]) null));
+        assertEquals(((INITIAL * CONSTANT + 1) * CONSTANT + 3) * CONSTANT + 2, HashCodeBuilder.reflectionHashCode(x));
+        assertEquals(((INITIAL * CONSTANT + 1) * CONSTANT + 3) * CONSTANT + 2, HashCodeBuilder.reflectionHashCode(x, "xxx"));
 
-        assertEquals((17 * 37 + 1) * 37 + 3, HashCodeBuilder.reflectionHashCode(x, "two"));
-        assertEquals((17 * 37 + 1) * 37 + 2, HashCodeBuilder.reflectionHashCode(x, "three"));
+        assertEquals((INITIAL * CONSTANT + 1) * CONSTANT + 3, HashCodeBuilder.reflectionHashCode(x, "two"));
+        assertEquals((INITIAL * CONSTANT + 1) * CONSTANT + 2, HashCodeBuilder.reflectionHashCode(x, "three"));
 
-        assertEquals(17 * 37 + 1, HashCodeBuilder.reflectionHashCode(x, "two", "three"));
+        assertEquals(INITIAL * CONSTANT + 1, HashCodeBuilder.reflectionHashCode(x, "two", "three"));
 
-        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, "one", "two", "three"));
-        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, "one", "two", "three", "xxx"));
+        assertEquals(INITIAL, HashCodeBuilder.reflectionHashCode(x, "one", "two", "three"));
+        assertEquals(INITIAL, HashCodeBuilder.reflectionHashCode(x, "one", "two", "three", "xxx"));
     }
 
     @Test
     void testReflectionHierarchyHashCode() {
-        assertEquals(17 * 37 * 37, HashCodeBuilder.reflectionHashCode(new TestSubObject(0, 0, 0)));
-        assertEquals(17 * 37 * 37 * 37, HashCodeBuilder.reflectionHashCode(new TestSubObject(0, 0, 0), true));
-        assertEquals((17 * 37 + 7890) * 37 + 123456, HashCodeBuilder.reflectionHashCode(new TestSubObject(123456, 7890,
+        assertEquals(INITIAL * CONSTANT * CONSTANT, HashCodeBuilder.reflectionHashCode(new TestSubObject(0, 0, 0)));
+        assertEquals(INITIAL * CONSTANT * CONSTANT * CONSTANT, HashCodeBuilder.reflectionHashCode(new TestSubObject(0, 0, 0), true));
+        assertEquals((INITIAL * CONSTANT + 7890) * CONSTANT + 123456, HashCodeBuilder.reflectionHashCode(new TestSubObject(123456, 7890,
                 0)));
-        assertEquals(((17 * 37 + 7890) * 37 + 0) * 37 + 123456, HashCodeBuilder.reflectionHashCode(new TestSubObject(
+        assertEquals(((INITIAL * CONSTANT + 7890) * CONSTANT + 0) * CONSTANT + 123456, HashCodeBuilder.reflectionHashCode(new TestSubObject(
                 123456, 7890, 0), true));
     }
 
@@ -583,35 +586,35 @@ class HashCodeBuilderTest extends AbstractLangTest {
 
     @Test
     void testShort() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((short) 0).toHashCode());
-        assertEquals(17 * 37 + 12345, new HashCodeBuilder(17, 37).append((short) 12345).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((short) 0).toHashCode());
+        assertEquals(INITIAL * CONSTANT + 12345, new HashCodeBuilder(INITIAL, CONSTANT).append((short) 12345).toHashCode());
     }
 
     @Test
     void testShortArray() {
-        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((short[]) null).toHashCode());
+        assertEquals(INITIAL * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((short[]) null).toHashCode());
         final short[] obj = new short[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[0] = (short) 5;
-        assertEquals((17 * 37 + 5) * 37, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
         obj[1] = (short) 6;
-        assertEquals((17 * 37 + 5) * 37 + 6, new HashCodeBuilder(17, 37).append(obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT + 6, new HashCodeBuilder(INITIAL, CONSTANT).append(obj).toHashCode());
     }
 
     @Test
     void testShortArrayAsObject() {
         final short[] obj = new short[2];
-        assertEquals(17 * 37 * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals(INITIAL * CONSTANT * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[0] = (short) 5;
-        assertEquals((17 * 37 + 5) * 37, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
         obj[1] = (short) 6;
-        assertEquals((17 * 37 + 5) * 37 + 6, new HashCodeBuilder(17, 37).append((Object) obj).toHashCode());
+        assertEquals((INITIAL * CONSTANT + 5) * CONSTANT + 6, new HashCodeBuilder(INITIAL, CONSTANT).append((Object) obj).toHashCode());
     }
 
     @Test
     void testSuper() {
         final Object obj = new Object();
-        assertEquals(17 * 37 + 19 * 41 + obj.hashCode(), new HashCodeBuilder(17, 37).appendSuper(
+        assertEquals(INITIAL * CONSTANT + 19 * 41 + obj.hashCode(), new HashCodeBuilder(INITIAL, CONSTANT).appendSuper(
                 new HashCodeBuilder(19, 41).append(obj).toHashCode()).toHashCode());
     }
 
@@ -620,7 +623,7 @@ class HashCodeBuilderTest extends AbstractLangTest {
      */
     @Test
     void testToHashCodeEqualsHashCode() {
-        final HashCodeBuilder hcb = new HashCodeBuilder(17, 37).append(new Object()).append('a');
+        final HashCodeBuilder hcb = new HashCodeBuilder(INITIAL, CONSTANT).append(new Object()).append('a');
         assertEquals(hcb.toHashCode(), hcb.hashCode(),
             "hashCode() is no longer returning the same value as toHashCode() - see LANG-520");
     }
@@ -629,8 +632,8 @@ class HashCodeBuilderTest extends AbstractLangTest {
     void testToHashCodeExclude() {
         final TestObjectHashCodeExclude one = new TestObjectHashCodeExclude(1, 2);
         final TestObjectHashCodeExclude2 two = new TestObjectHashCodeExclude2(1, 2);
-        assertEquals(17 * 37 + 2, HashCodeBuilder.reflectionHashCode(one));
-        assertEquals(17, HashCodeBuilder.reflectionHashCode(two));
+        assertEquals(INITIAL * CONSTANT + 2, HashCodeBuilder.reflectionHashCode(one));
+        assertEquals(INITIAL, HashCodeBuilder.reflectionHashCode(two));
     }
 
 }
