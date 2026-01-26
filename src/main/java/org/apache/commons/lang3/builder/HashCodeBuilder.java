@@ -732,7 +732,7 @@ public class HashCodeBuilder implements Builder<Integer> {
     // NOTE: This method uses >> and not >>> as Effective Java and
     //       Long.hashCode do. Ideally we should switch to >>> at
     //       some stage. There are backwards compat issues, so
-    //       that will have to wait for the time being. cf LANG-342.
+    //       that will have to wait for the time being. See LANG-342.
     public HashCodeBuilder append(final long value) {
         iTotal = iTotal * iConstant + (int) (value ^ value >> 32);
         return this;
