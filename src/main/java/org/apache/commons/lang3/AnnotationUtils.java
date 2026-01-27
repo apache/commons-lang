@@ -212,7 +212,9 @@ public class AnnotationUtils {
             for (final Method m : type1.getDeclaredMethods()) {
                 if (m.getParameterTypes().length == 0
                         && isValidAnnotationMemberType(m.getReturnType())) {
-                    m.setAccessible(true);
+                    if (!m.isAccessible()) {
+                        m.setAccessible(true);
+                    }
                     final Object v1 = m.invoke(a1);
                     final Object v2 = m.invoke(a2);
                     if (!memberEquals(m.getReturnType(), v1, v2)) {
