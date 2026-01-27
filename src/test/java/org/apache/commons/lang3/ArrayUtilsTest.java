@@ -362,6 +362,10 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertTrue(ArrayUtils.contains(a, Double.POSITIVE_INFINITY));
         assertTrue(ArrayUtils.contains(a, Double.NEGATIVE_INFINITY));
         assertTrue(ArrayUtils.contains(a, Double.NaN));
+
+        assertTrue(ArrayUtils.contains(a, Double.POSITIVE_INFINITY, 0.1));
+        assertTrue(ArrayUtils.contains(a, Double.NEGATIVE_INFINITY, 0.1));
+        assertTrue(ArrayUtils.contains(a, Double.NaN, 0.1));
     }
 
     @Test
@@ -1135,17 +1139,21 @@ class ArrayUtilsTest extends AbstractLangTest {
     void testIndexOfDoubleNaN() {
         final double[] array = { Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY, Double.NaN };
         assertEquals(0, ArrayUtils.indexOf(array, Double.NEGATIVE_INFINITY));
+        assertEquals(0, ArrayUtils.indexOf(array, Double.NEGATIVE_INFINITY, (double) 0));
         assertEquals(1, ArrayUtils.indexOf(array, Double.NaN));
+        assertEquals(1, ArrayUtils.indexOf(array, Double.NaN, (double) 0));
         assertEquals(2, ArrayUtils.indexOf(array, Double.POSITIVE_INFINITY));
-
+        assertEquals(2, ArrayUtils.indexOf(array, Double.POSITIVE_INFINITY, (double) 0));
     }
 
     @Test
     void testIndexOfDoubleTolerance() {
         double[] array = null;
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, (double) 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, Double.NaN, (double) 0));
         array = new double[0];
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, (double) 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, Double.NaN, (double) 0));
         array = new double[]{0, 1, 2, 3, 0};
         assertEquals(0, ArrayUtils.indexOf(array, 0, 0.3));
         assertEquals(2, ArrayUtils.indexOf(array, 2.2, 0.35));
