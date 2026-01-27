@@ -17,20 +17,18 @@
 
 package org.apache.commons.lang3.concurrent;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import java.util.concurrent.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.exception.UncheckedInterruptedException;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests {@link UncheckedFuture}.
@@ -119,6 +117,46 @@ class UncheckedFutureTest extends AbstractLangTest {
     @Test
     void testOnFuture() {
         assertEquals("Z", UncheckedFuture.on(new TestFuture<>("Z")).get());
+    }
+
+    @RepeatedTest(10)
+    void interruptFlagIsPreservedOnGet() throws Exception {
+        assertInterruptPreserved(future -> future.get());
+    }
+
+    @RepeatedTest(10)
+    void interruptFlagIsPreservedOnGetWithTimeout() throws Exception {
+        assertInterruptPreserved(future -> future.get(2, TimeUnit.SECONDS));
+    }
+
+    private static void assertInterruptPreserved(
+            Consumer<UncheckedFuture<Integer>> futureCall) throws Exception {
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        try {
+            CountDownLatch future2IsAboutToWait = new CountDownLatch(1);
+            Future<Integer> future1 = executor.submit(() -> {
+                Thread.sleep(10_000);
+                return 42;
+            });
+            Future<Integer> future2 = executor.submit(() -> {
+                future2IsAboutToWait.countDown();
+                try {
+                    futureCall.accept(UncheckedFuture.on(future1));
+                    return 1;
+                } catch (RuntimeException e) {
+                    assertTrue(Thread.currentThread().isInterrupted());
+                    return 2;
+                }
+            });
+
+            assertTrue(future2IsAboutToWait.await(2, TimeUnit.SECONDS));
+            executor.shutdownNow();
+            assertEquals(2, future2.get(2, TimeUnit.SECONDS));
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(10, TimeUnit.SECONDS);
+        }
     }
 
 }
