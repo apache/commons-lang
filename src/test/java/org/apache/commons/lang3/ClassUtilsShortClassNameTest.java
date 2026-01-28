@@ -22,25 +22,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 class $trange {
-
-}
-
-class Pa$$word {
-
 }
 
 /**
- * Tests for <a href="https://issues.apache.org/jira/browse/LANG-1818">LANG-1818</a>
+ * Tests {@link ClassUtils#getShortClassName(Class)} for <a href="https://issues.apache.org/jira/browse/LANG-1818">LANG-1818</a>
  */
 public class ClassUtilsShortClassNameTest {
 
     class $Inner {
-
     }
 
     class Inner {
-        class Ne$ted {
 
+        class Ne$ted {
         }
     }
 
@@ -55,20 +49,20 @@ public class ClassUtilsShortClassNameTest {
     }
 
     @Test
-    void testMultipleDollarSigns() {
-        assertEquals(getClass().getSimpleName() + ".$Inner",
-                ClassUtils.getShortClassName($Inner.class));
+    void testInnerClassName() {
+        assertEquals(getClass().getSimpleName() + ".Inner", ClassUtils.getShortClassName(Inner.class));
     }
 
     @Test
-    void testInnerClassName() {
-        assertEquals(getClass().getSimpleName() + ".Inner",
-                ClassUtils.getShortClassName(Inner.class));
+    void testMultipleDollarSigns() {
+        assertEquals(getClass().getSimpleName() + ".$Inner", ClassUtils.getShortClassName($Inner.class));
     }
 
     @Test
     void testNe$tedClassName() {
-        assertEquals(getClass().getSimpleName() + ".Inner.Ne$ted",
-                ClassUtils.getShortClassName(Inner.Ne$ted.class));
+        assertEquals(getClass().getSimpleName() + ".Inner.Ne$ted", ClassUtils.getShortClassName(Inner.Ne$ted.class));
     }
+}
+
+class Pa$$word {
 }
