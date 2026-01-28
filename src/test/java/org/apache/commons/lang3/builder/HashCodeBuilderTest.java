@@ -31,9 +31,6 @@ import org.junit.jupiter.api.Test;
  */
 class HashCodeBuilderTest extends AbstractLangTest {
 
-    private static final int INITIAL = 17;
-    private static final int CONSTANT = 37;
-
     /**
      * A reflection test fixture.
      */
@@ -51,7 +48,6 @@ class HashCodeBuilderTest extends AbstractLangTest {
             return HashCodeBuilder.reflectionHashCode(this);
         }
     }
-
     /**
      * A reflection test fixture.
      */
@@ -193,6 +189,10 @@ class HashCodeBuilderTest extends AbstractLangTest {
         }
 
     }
+
+    private static final int INITIAL = 17;
+
+    private static final int CONSTANT = 37;
 
     @Test
     void testBoolean() {
