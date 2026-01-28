@@ -18,9 +18,11 @@ package org.apache.commons.lang3;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1011,11 +1013,6 @@ public class ClassUtils {
     /**
      * Gets the class name minus the package name from a {@link Class}.
      *
-     * <p>
-     * This method simply gets the name using {@code Class.getName()} and then calls {@link #getShortClassName(String)}. See
-     * relevant notes there.
-     * </p>
-     *
      * @param cls the class to get the short name for.
      * @return the class name without the package name or an empty string. If the class is an inner class then the returned
      *         value will contain the outer class or classes separated with {@code .} (dot) character.
@@ -1024,16 +1021,30 @@ public class ClassUtils {
         if (cls == null) {
             return StringUtils.EMPTY;
         }
-        return getShortClassName(cls.getName());
+        int dim = 0;
+        Class<?> c = cls;
+        while (c.isArray()) {
+            dim++;
+            c = c.getComponentType();
+        }
+        final String base;
+        // Preserve legacy behavior for anonymous/local classes (keeps compiler ordinals: $13, $10Named, etc.)
+        if (c.isAnonymousClass() || c.isLocalClass()) {
+            base = getShortClassName(c.getName());
+        } else {
+            final Deque<String> parts = new ArrayDeque<>();
+            Class<?> x = c;
+            while (x != null) {
+                parts.push(x.getSimpleName());
+                x = x.getDeclaringClass();
+            }
+            base = String.join(".", parts);
+        }
+        return base + StringUtils.repeat("[]", dim);
     }
 
     /**
      * Gets the class name of the {@code object} without the package name or names.
-     *
-     * <p>
-     * The method looks up the class of the object and then converts the name of the class invoking
-     * {@link #getShortClassName(Class)} (see relevant notes there).
-     * </p>
      *
      * @param object the class to get the short name for, may be {@code null}.
      * @param valueIfNull the value to return if the object is {@code null}.
