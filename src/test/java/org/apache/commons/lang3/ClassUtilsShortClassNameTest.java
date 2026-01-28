@@ -30,7 +30,7 @@ class Pa$$word {
 }
 
 /**
- * Tests for https://issues.apache.org/jira/browse/LANG-1818
+ * Tests for <a href="https://issues.apache.org/jira/browse/LANG-1818">LANG-1818</a>
  */
 public class ClassUtilsShortClassNameTest {
 
@@ -46,31 +46,29 @@ public class ClassUtilsShortClassNameTest {
 
     @Test
     void testDollarSignImmediatelyAfterPackage() {
-        String result = ClassUtils.getShortClassName($trange.class);
-        assertEquals("$trange", result);
+        assertEquals("$trange", ClassUtils.getShortClassName($trange.class));
     }
 
     @Test
     void testDollarSignWithinName() {
-        String result = ClassUtils.getShortClassName(Pa$$word.class);
-        assertEquals("Pa$$word", result);
+        assertEquals("Pa$$word", ClassUtils.getShortClassName(Pa$$word.class));
     }
 
     @Test
     void testMultipleDollarSigns() {
-        String result = ClassUtils.getShortClassName($Inner.class);
-        assertEquals(getClass().getSimpleName() + ".$Inner", result);
+        assertEquals(getClass().getSimpleName() + ".$Inner",
+                ClassUtils.getShortClassName($Inner.class));
     }
 
     @Test
     void testInnerClassName() {
-        String result = ClassUtils.getShortClassName(Inner.class);
-        assertEquals(getClass().getSimpleName() + ".Inner", result);
+        assertEquals(getClass().getSimpleName() + ".Inner",
+                ClassUtils.getShortClassName(Inner.class));
     }
 
     @Test
     void testNe$tedClassName() {
-        String result = ClassUtils.getShortClassName(Inner.Ne$ted.class);
-        assertEquals(getClass().getSimpleName() + ".Inner.Ne$ted", result);
+        assertEquals(getClass().getSimpleName() + ".Inner.Ne$ted",
+                ClassUtils.getShortClassName(Inner.Ne$ted.class));
     }
 }

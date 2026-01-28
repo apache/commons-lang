@@ -1027,7 +1027,6 @@ public class ClassUtils {
             dim++;
             c = c.getComponentType();
         }
-
         final String base;
         // Preserve legacy behavior for anonymous/local classes (keeps compiler ordinals: $13, $10Named, etc.)
         if (c.isAnonymousClass() || c.isLocalClass()) {
@@ -1039,14 +1038,9 @@ public class ClassUtils {
                 parts.push(x.getSimpleName());
                 x = x.getDeclaringClass();
             }
-            base = String.join(String.valueOf(PACKAGE_SEPARATOR_CHAR), parts);
+            base = String.join(".", parts);
         }
-
-        final StringBuilder sb = new StringBuilder(base);
-        for (int i = 0; i < dim; i++) {
-            sb.append("[]");
-        }
-        return sb.toString();
+        return base + StringUtils.repeat("[]", dim);
     }
 
     /**
