@@ -2830,13 +2830,14 @@ public class ArrayUtils {
      * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final double[] array, final double valueToFind, final int startIndex) {
+        if (Double.isNaN(valueToFind)) {
+            return indexOfNaN(array, startIndex);
+        }
         if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
-        final boolean searchNaN = Double.isNaN(valueToFind);
         for (int i = max0(startIndex); i < array.length; i++) {
-            final double element = array[i];
-            if (valueToFind == element || searchNaN && Double.isNaN(element)) {
+            if (valueToFind == array[i]) {
                 return i;
             }
         }
@@ -2860,6 +2861,9 @@ public class ArrayUtils {
      * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final double[] array, final double valueToFind, final int startIndex, final double tolerance) {
+        if (Double.isNaN(valueToFind)) {
+            return indexOfNaN(array, startIndex);
+        }
         if (isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
@@ -2867,6 +2871,24 @@ public class ArrayUtils {
         final double max = valueToFind + tolerance;
         for (int i = max0(startIndex); i < array.length; i++) {
             if (array[i] >= min && array[i] <= max) {
+                return i;
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Finds the index of the NaN value in a double array.
+     * @param array the array to search for NaN, may be {@code null}.
+     * @param startIndex the index to start searching.
+     * @return the index of the NaN value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     */
+    private static int indexOfNaN(final double[] array, final int startIndex) {
+        if (isEmpty(array)) {
+            return INDEX_NOT_FOUND;
+        }
+        for (int i = max0(startIndex); i < array.length; i++) {
+            if (Double.isNaN(array[i])) {
                 return i;
             }
         }
