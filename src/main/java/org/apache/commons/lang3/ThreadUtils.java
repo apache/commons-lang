@@ -507,19 +507,21 @@ public class ThreadUtils {
     }
 
     /**
-     * Sleeps for the given duration while ignoring {@link InterruptedException}.
+     * Sleeps for the given duration without throwing {@link InterruptedException}.
      * <p>
-     * The sleep duration may be shorter than duration if we catch a {@link InterruptedException}.
+     * The sleep duration may be shorter than the given duration if we catch a {@link InterruptedException}.
      * </p>
      *
      * @param duration the length of time to sleep.
+     * @see #sleep(Duration)
+     * @see Thread#interrupted()
      * @since 3.13.0
      */
     public static void sleepQuietly(final Duration duration) {
         try {
             sleep(duration);
         } catch (final InterruptedException ignore) {
-            // Ignore & be quiet.
+            Thread.currentThread().interrupt();
         }
     }
 

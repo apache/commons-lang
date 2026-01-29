@@ -113,6 +113,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1816" type="fix" dev="ggregory" due-to="Ivan Ponomarev, Gary Gregory">ArrayUtils contains/indexOf/indexesOf with tolerance fail to match NaN values #1589.</action>
     <action                   type="fix" dev="ggregory" due-to="Ivan Ponomarev, Gary Gregory">Fix StringIndexOutOfBoundsException message in StrBuilder.append(char[], int, int).</action>
     <action issue="LANG-1818" type="fix" dev="ggregory" due-to="Ivan Ponomarev, Gary Gregory">Fix ClassUtils.getShortClassName(Class) to correctly handle $ in valid class names #1591.</action>
+    <action                   type="fix" dev="ggregory" due-to="Ivan Ponomarev, Gary Gregory">ThreadUtils.sleepQuietly(Duration) now restores the current thread's interrupt flag when catching InterruptedException.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
