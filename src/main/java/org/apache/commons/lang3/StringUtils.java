@@ -3415,7 +3415,8 @@ public class StringUtils {
      * </pre>
      *
      * @param css the CharSequences to check, may be null or empty.
-     * @return {@code true} if any of the CharSequences are {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}), or {@code null}).
+     * @return true if any of the CharSequences are blank; {@code false} if the array is {@code null} or empty
+
      * @see #isBlank(CharSequence)
      * @since 3.2
      */
