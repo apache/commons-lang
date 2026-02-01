@@ -32,7 +32,8 @@ import org.apache.commons.lang3.Validate;
 /**
  * Duration formatting utilities and constants. The following table describes the tokens
  * used in the pattern language for formatting.
- * <table border="1">
+ *
+ * <table>
  *  <caption>Pattern Tokens</caption>
  *  <tr><th>character</th><th>duration element</th></tr>
  *  <tr><td>y</td><td>years</td></tr>
@@ -46,24 +47,32 @@ import org.apache.commons.lang3.Validate;
  * </table>
  *
  * <strong>Note: It's not currently possible to include a single-quote in a format.</strong>
- * <br>
+ * <p>
  * Token values are printed using decimal digits.
  * A token character can be repeated to ensure that the field occupies a certain minimum
  * size. Values will be left-padded with 0 unless padding is disabled in the method invocation.
- * <br>
+ * </p>
+ * <p>
  * Tokens can be marked as optional by surrounding them with brackets [ ]. These tokens will
  * only be printed if the token value is non-zero. Literals within optional blocks will only be
  * printed if the preceding non-literal token is non-zero. Leading optional literals will only
  * be printed if the following non-literal is non-zero.
  * Multiple optional blocks can be used to group literals with the desired token.
- * <p>
- * Notes on Optional Tokens:<br>
- * <strong>Multiple optional tokens without literals can result in impossible to understand output.</strong><br>
- * <strong>Patterns where all tokens are optional can produce empty strings.</strong><br>
- * (See examples below)
  * </p>
- * <br>
- * <table border="1">
+ * <p>
+ * Notes on Optional Tokens:
+ * </p>
+ * <p>
+ * <strong>Multiple optional tokens without literals can result in impossible to understand output.</strong>
+ * </p>
+ * <p>
+ * <strong>Patterns where all tokens are optional can produce empty strings.</strong>
+ * </p>
+ * <p>
+ * See the following examples.
+ * </p>
+ *
+ * <table>
  * <caption>Example Output</caption>
  * <tr><th>pattern</th><th>Duration.ofDays(1)</th><th>Duration.ofHours(1)</th><th>Duration.ofMinutes(1)</th><th>Duration.ZERO</th></tr>
  * <tr><td>d'd'H'h'm'm's's'</td><td>1d0h0m0s</td><td>0d1h0m0s</td><td>0d0h1m0s</td><td>0d0h0m0s</td></tr>
@@ -74,7 +83,9 @@ import org.apache.commons.lang3.Validate;
  * <tr><td>['{'dd'}']['&lt;'HH'&gt;']['('mm')']</td><td>{01}</td><td>&lt;01&gt;</td><td>(00)</td><td></td></tr>
  * <tr><td>[dHms]</td><td>1</td><td>1</td><td>1</td><td></td></tr>
  * </table>
+ * <p>
  * <strong>Note: Optional blocks cannot be nested.</strong>
+ * </p>
  *
  * @since 2.1
  */

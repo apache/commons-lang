@@ -31,15 +31,20 @@ import org.apache.commons.lang3.Validate;
 
 /**
  * Extends {@link java.text.MessageFormat} to allow pluggable/additional formatting
- * options for embedded format elements.  Client code should specify a registry
+ * options for embedded format elements.
+ * <p>
+ * Client code should specify a registry
  * of {@link FormatFactory} instances associated with {@link String}
  * format names.  This registry will be consulted when the format elements are
  * parsed from the message pattern.  In this way custom patterns can be specified,
  * and the formats supported by {@link java.text.MessageFormat} can be overridden
  * at the format and/or format style level (see MessageFormat).  A "format element"
- * embedded in the message pattern is specified (<strong>()?</strong> signifies optionality):<br>
+ * embedded in the message pattern is specified (<strong>()?</strong> signifies optionality):
+ * </p>
+ * <p>
  * <code>{</code><em>argument-number</em><strong>(</strong>{@code ,}<em>format-name</em><b>
  * (</b>{@code ,}<em>format-style</em><strong>)?)?</strong><code>}</code>
+ * </p>
  *
  * <p>
  * <em>format-name</em> and <em>format-style</em> values are trimmed of surrounding whitespace

@@ -6301,9 +6301,11 @@ public class StringUtils {
      * Replaces multiple characters in a String in one go. This method can also be used to delete characters.
      *
      * <p>
-     * For example:<br>
-     * {@code replaceChars(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;) = jelly}.
+     * For example:
      * </p>
+     * <pre>
+     * replaceChars(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;) = jelly.
+     * </pre>
      *
      * <p>
      * A {@code null} string input returns {@code null}. An empty ("") string input returns an empty string. A null or empty set of search characters returns
