@@ -37,6 +37,7 @@ jobs:
       security-events: write
 
     strategy:
+      max-parallel: 20
       fail-fast: false
       matrix:
         language: [ 'java', 'javascript' ]

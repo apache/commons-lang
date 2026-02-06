@@ -26,6 +26,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
     strategy:
+      max-parallel: 20
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         java: [ 8, 11, 17, 21, 25 ]
