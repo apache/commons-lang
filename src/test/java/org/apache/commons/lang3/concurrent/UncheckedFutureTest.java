@@ -19,13 +19,18 @@ package org.apache.commons.lang3.concurrent;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.exception.UncheckedInterruptedException;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -119,44 +124,62 @@ class UncheckedFutureTest extends AbstractLangTest {
         assertEquals("Z", UncheckedFuture.on(new TestFuture<>("Z")).get());
     }
 
-    @RepeatedTest(10)
+
+    @Test
     void interruptFlagIsPreservedOnGet() throws Exception {
-        assertInterruptPreserved(future -> future.get());
+        assertInterruptPreserved(UncheckedFuture::get);
     }
 
-    @RepeatedTest(10)
+    @Test
     void interruptFlagIsPreservedOnGetWithTimeout() throws Exception {
-        assertInterruptPreserved(future -> future.get(2, TimeUnit.SECONDS));
+        assertInterruptPreserved(uf -> uf.get(1, TimeUnit.DAYS));
     }
 
-    private static void assertInterruptPreserved(
-            Consumer<UncheckedFuture<Integer>> futureCall) throws Exception {
+    private static void assertInterruptPreserved(Consumer<UncheckedFuture<Integer>> call) throws Exception {
+        final CountDownLatch enteredGet = new CountDownLatch(1);
+        Future<Integer> blockingFuture = new AbstractFutureProxy<Integer>(ConcurrentUtils.constantFuture(42)) {
+            private final CountDownLatch neverRelease = new CountDownLatch(1);
 
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        try {
-            CountDownLatch future2IsAboutToWait = new CountDownLatch(1);
-            Future<Integer> future1 = executor.submit(() -> {
-                Thread.sleep(10_000);
-                return 42;
-            });
-            Future<Integer> future2 = executor.submit(() -> {
-                future2IsAboutToWait.countDown();
-                try {
-                    futureCall.accept(UncheckedFuture.on(future1));
-                    return 1;
-                } catch (RuntimeException e) {
-                    assertTrue(Thread.currentThread().isInterrupted());
-                    return 2;
-                }
-            });
+            @Override
+            public Integer get() throws InterruptedException {
+                enteredGet.countDown();
+                neverRelease.await();
+                throw new AssertionError("We should not get here");
+            }
 
-            assertTrue(future2IsAboutToWait.await(2, TimeUnit.SECONDS));
-            executor.shutdownNow();
-            assertEquals(2, future2.get(2, TimeUnit.SECONDS));
-        } finally {
-            executor.shutdownNow();
-            executor.awaitTermination(10, TimeUnit.SECONDS);
-        }
+            @Override
+            public Integer get(long timeout, TimeUnit unit) throws InterruptedException {
+                enteredGet.countDown();
+                neverRelease.await();
+                throw new AssertionError("We should not get here");
+            }
+
+            @Override
+            public boolean isDone() {
+                return false;
+            }
+
+        };
+        final UncheckedFuture<Integer> uf = UncheckedFuture.on(blockingFuture);
+        final AtomicReference<Throwable> thrown = new AtomicReference<>();
+        final AtomicBoolean interruptObserved = new AtomicBoolean(false);
+        Thread worker = new Thread(() -> {
+            try {
+                call.accept(uf);
+                thrown.set(new AssertionError("We should not get here"));
+            } catch (Throwable e) {
+                interruptObserved.set(Thread.currentThread().isInterrupted());
+                thrown.set(e);
+            }
+        }, "unchecked-future-test-worker");
+        worker.start();
+        assertTrue(enteredGet.await(2, TimeUnit.SECONDS), "Worker did not enter Future.get() in time");
+        worker.interrupt();
+        worker.join();
+        Throwable t = thrown.get();
+        assertInstanceOf(UncheckedInterruptedException.class, t, "Unexpected exception: " + t);
+        assertInstanceOf(InterruptedException.class, t.getCause(), "Cause should be InterruptedException");
+        assertTrue(interruptObserved.get(), "Interrupt flag was not restored by the wrapper");
     }
 
 }
