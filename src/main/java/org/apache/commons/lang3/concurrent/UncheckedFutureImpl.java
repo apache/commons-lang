@@ -42,6 +42,7 @@ final class UncheckedFutureImpl<V> extends AbstractFutureProxy<V> implements Unc
         try {
             return super.get();
         } catch (final InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new UncheckedInterruptedException(e);
         } catch (final ExecutionException e) {
             throw new UncheckedExecutionException(e);
@@ -53,6 +54,7 @@ final class UncheckedFutureImpl<V> extends AbstractFutureProxy<V> implements Unc
         try {
             return super.get(timeout, unit);
         } catch (final InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new UncheckedInterruptedException(e);
         } catch (final ExecutionException e) {
             throw new UncheckedExecutionException(e);

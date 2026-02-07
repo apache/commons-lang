@@ -18,14 +18,20 @@
 package org.apache.commons.lang3.concurrent;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -119,6 +125,64 @@ class UncheckedFutureTest extends AbstractLangTest {
     @Test
     void testOnFuture() {
         assertEquals("Z", UncheckedFuture.on(new TestFuture<>("Z")).get());
+    }
+
+
+    @Test
+    void interruptFlagIsPreservedOnGet() throws Exception {
+        assertInterruptPreserved(UncheckedFuture::get);
+    }
+
+    @Test
+    void interruptFlagIsPreservedOnGetWithTimeout() throws Exception {
+        assertInterruptPreserved(uf -> uf.get(1, TimeUnit.DAYS));
+    }
+
+    private static void assertInterruptPreserved(Consumer<UncheckedFuture<Integer>> call) throws Exception {
+        final CountDownLatch enteredGet = new CountDownLatch(1);
+        final Future<Integer> blockingFuture = new AbstractFutureProxy<Integer>(ConcurrentUtils.constantFuture(42)) {
+            private final CountDownLatch neverRelease = new CountDownLatch(1);
+
+            @Override
+            public Integer get() throws InterruptedException {
+                enteredGet.countDown();
+                neverRelease.await();
+                throw new AssertionError("We should not get here");
+            }
+
+            @Override
+            public Integer get(long timeout, TimeUnit unit) throws InterruptedException {
+                enteredGet.countDown();
+                neverRelease.await();
+                throw new AssertionError("We should not get here");
+            }
+
+            @Override
+            public boolean isDone() {
+                return false;
+            }
+
+        };
+        final UncheckedFuture<Integer> uf = UncheckedFuture.on(blockingFuture);
+        final AtomicReference<Throwable> thrown = new AtomicReference<>();
+        final AtomicBoolean interruptObserved = new AtomicBoolean(false);
+        final Thread worker = new Thread(() -> {
+            try {
+                call.accept(uf);
+                thrown.set(new AssertionError("We should not get here"));
+            } catch (Throwable e) {
+                interruptObserved.set(Thread.currentThread().isInterrupted());
+                thrown.set(e);
+            }
+        }, "unchecked-future-test-worker");
+        worker.start();
+        assertTrue(enteredGet.await(2, TimeUnit.SECONDS), "Worker did not enter Future.get() in time");
+        worker.interrupt();
+        worker.join();
+        final Throwable t = thrown.get();
+        assertInstanceOf(UncheckedInterruptedException.class, t, "Unexpected exception: " + t);
+        assertInstanceOf(InterruptedException.class, t.getCause(), "Cause should be InterruptedException");
+        assertTrue(interruptObserved.get(), "Interrupt flag was not restored by the wrapper");
     }
 
 }
