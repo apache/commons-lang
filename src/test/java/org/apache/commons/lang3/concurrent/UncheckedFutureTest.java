@@ -17,6 +17,11 @@
 
 package org.apache.commons.lang3.concurrent;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -32,8 +37,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.exception.UncheckedInterruptedException;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests {@link UncheckedFuture}.
@@ -137,7 +140,7 @@ class UncheckedFutureTest extends AbstractLangTest {
 
     private static void assertInterruptPreserved(Consumer<UncheckedFuture<Integer>> call) throws Exception {
         final CountDownLatch enteredGet = new CountDownLatch(1);
-        Future<Integer> blockingFuture = new AbstractFutureProxy<Integer>(ConcurrentUtils.constantFuture(42)) {
+        final Future<Integer> blockingFuture = new AbstractFutureProxy<Integer>(ConcurrentUtils.constantFuture(42)) {
             private final CountDownLatch neverRelease = new CountDownLatch(1);
 
             @Override
@@ -163,7 +166,7 @@ class UncheckedFutureTest extends AbstractLangTest {
         final UncheckedFuture<Integer> uf = UncheckedFuture.on(blockingFuture);
         final AtomicReference<Throwable> thrown = new AtomicReference<>();
         final AtomicBoolean interruptObserved = new AtomicBoolean(false);
-        Thread worker = new Thread(() -> {
+        final Thread worker = new Thread(() -> {
             try {
                 call.accept(uf);
                 thrown.set(new AssertionError("We should not get here"));
@@ -176,7 +179,7 @@ class UncheckedFutureTest extends AbstractLangTest {
         assertTrue(enteredGet.await(2, TimeUnit.SECONDS), "Worker did not enter Future.get() in time");
         worker.interrupt();
         worker.join();
-        Throwable t = thrown.get();
+        final Throwable t = thrown.get();
         assertInstanceOf(UncheckedInterruptedException.class, t, "Unexpected exception: " + t);
         assertInstanceOf(InterruptedException.class, t.getCause(), "Cause should be InterruptedException");
         assertTrue(interruptObserved.get(), "Interrupt flag was not restored by the wrapper");
