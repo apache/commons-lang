@@ -63,7 +63,6 @@ class RangeTest extends AbstractLangTest {
         byteRange = Range.of((byte) 0, (byte) 5);
         byteRange2 = Range.of((byte) 0, (byte) 5);
         byteRange3 = Range.of((byte) 0, (byte) 10);
-
         intRange = Range.of(10, 20);
         longRange = Range.of(10L, 20L);
         floatRange = Range.of((float) 10, (float) 20);
@@ -99,7 +98,6 @@ class RangeTest extends AbstractLangTest {
         assertTrue(rbstr.contains("i"), "should contain i");
         assertFalse(rbstr.contains("houses"), "should not contain houses");
         assertFalse(rbstr.contains(""), "should not contain ''");
-
         assertNullPointerException(() -> Range.between(null, null, lengthComp));
     }
 
@@ -117,16 +115,12 @@ class RangeTest extends AbstractLangTest {
     void testConstructorSignatureWithAbstractComparableClasses() {
         final DerivedComparableA derivedComparableA = new DerivedComparableA();
         final DerivedComparableB derivedComparableB = new DerivedComparableB();
-
         final Range<AbstractComparable> mixed = Range.between(derivedComparableA, derivedComparableB, null);
         assertTrue(mixed.contains(derivedComparableA));
-
         final Range<AbstractComparable> same = Range.between(derivedComparableA, derivedComparableA, null);
         assertTrue(same.contains(derivedComparableA));
-
         final Range<DerivedComparableA> rangeA = Range.between(derivedComparableA, derivedComparableA, null);
         assertTrue(rangeA.contains(derivedComparableA));
-
         final Range<DerivedComparableB> rangeB = Range.is(derivedComparableB, null);
         assertTrue(rangeB.contains(derivedComparableB));
     }
@@ -134,7 +128,6 @@ class RangeTest extends AbstractLangTest {
     @Test
     void testContains() {
         assertFalse(intRange.contains(null));
-
         assertFalse(intRange.contains(5));
         assertTrue(intRange.contains(10));
         assertTrue(intRange.contains(15));
@@ -144,32 +137,24 @@ class RangeTest extends AbstractLangTest {
 
     @Test
     void testContainsRange() {
-
         // null handling
         assertFalse(intRange.containsRange(null));
-
         // easy inside range
         assertTrue(intRange.containsRange(Range.between(12, 18)));
-
         // outside range on each side
         assertFalse(intRange.containsRange(Range.between(32, 45)));
         assertFalse(intRange.containsRange(Range.between(2, 8)));
-
         // equals range
         assertTrue(intRange.containsRange(Range.between(10, 20)));
-
         // overlaps
         assertFalse(intRange.containsRange(Range.between(9, 14)));
         assertFalse(intRange.containsRange(Range.between(16, 21)));
-
         // touches lower boundary
         assertTrue(intRange.containsRange(Range.between(10, 19)));
         assertFalse(intRange.containsRange(Range.between(10, 21)));
-
         // touches upper boundary
         assertTrue(intRange.containsRange(Range.between(11, 20)));
         assertFalse(intRange.containsRange(Range.between(9, 20)));
-
         // negative
         assertFalse(intRange.containsRange(Range.between(-11, -18)));
     }
@@ -177,7 +162,6 @@ class RangeTest extends AbstractLangTest {
     @Test
     void testElementCompareTo() {
         assertNullPointerException(() -> intRange.elementCompareTo(null));
-
         assertEquals(-1, intRange.elementCompareTo(5));
         assertEquals(0, intRange.elementCompareTo(10));
         assertEquals(0, intRange.elementCompareTo(15));
@@ -234,7 +218,6 @@ class RangeTest extends AbstractLangTest {
     void testHashCode() {
         assertEquals(byteRange.hashCode(), byteRange2.hashCode());
         assertNotEquals(byteRange.hashCode(), byteRange3.hashCode());
-
         assertEquals(intRange.hashCode(), intRange.hashCode());
         assertTrue(intRange.hashCode() != 0);
     }
@@ -246,7 +229,6 @@ class RangeTest extends AbstractLangTest {
         assertSame(longRange, longRange.intersectionWith(longRange));
         assertSame(floatRange, floatRange.intersectionWith(floatRange));
         assertSame(doubleRange, doubleRange.intersectionWith(doubleRange));
-
         assertEquals(Range.between(10, 15), intRange.intersectionWith(Range.between(5, 15)));
     }
 
@@ -263,7 +245,6 @@ class RangeTest extends AbstractLangTest {
     @Test
     void testIsAfter() {
         assertFalse(intRange.isAfter(null));
-
         assertTrue(intRange.isAfter(5));
         assertFalse(intRange.isAfter(10));
         assertFalse(intRange.isAfter(15));
@@ -274,23 +255,18 @@ class RangeTest extends AbstractLangTest {
     @Test
     void testIsAfterRange() {
         assertFalse(intRange.isAfterRange(null));
-
         assertTrue(intRange.isAfterRange(Range.between(5, 9)));
-
         assertFalse(intRange.isAfterRange(Range.between(5, 10)));
         assertFalse(intRange.isAfterRange(Range.between(5, 20)));
         assertFalse(intRange.isAfterRange(Range.between(5, 25)));
         assertFalse(intRange.isAfterRange(Range.between(15, 25)));
-
         assertFalse(intRange.isAfterRange(Range.between(21, 25)));
-
         assertFalse(intRange.isAfterRange(Range.between(10, 20)));
     }
 
     @Test
     void testIsBefore() {
         assertFalse(intRange.isBefore(null));
-
         assertFalse(intRange.isBefore(5));
         assertFalse(intRange.isBefore(10));
         assertFalse(intRange.isBefore(15));
@@ -301,23 +277,18 @@ class RangeTest extends AbstractLangTest {
     @Test
     void testIsBeforeRange() {
         assertFalse(intRange.isBeforeRange(null));
-
         assertFalse(intRange.isBeforeRange(Range.between(5, 9)));
-
         assertFalse(intRange.isBeforeRange(Range.between(5, 10)));
         assertFalse(intRange.isBeforeRange(Range.between(5, 20)));
         assertFalse(intRange.isBeforeRange(Range.between(5, 25)));
         assertFalse(intRange.isBeforeRange(Range.between(15, 25)));
-
         assertTrue(intRange.isBeforeRange(Range.between(21, 25)));
-
         assertFalse(intRange.isBeforeRange(Range.between(10, 20)));
     }
 
     @Test
     void testIsEndedBy() {
         assertFalse(intRange.isEndedBy(null));
-
         assertFalse(intRange.isEndedBy(5));
         assertFalse(intRange.isEndedBy(10));
         assertFalse(intRange.isEndedBy(15));
@@ -327,43 +298,33 @@ class RangeTest extends AbstractLangTest {
 
     @Test
     void testIsOverlappedBy() {
-
         // null handling
         assertFalse(intRange.isOverlappedBy(null));
-
         // easy inside range
         assertTrue(intRange.isOverlappedBy(Range.between(12, 18)));
-
         // outside range on each side
         assertFalse(intRange.isOverlappedBy(Range.between(32, 45)));
         assertFalse(intRange.isOverlappedBy(Range.between(2, 8)));
-
         // equals range
         assertTrue(intRange.isOverlappedBy(Range.between(10, 20)));
-
         // overlaps
         assertTrue(intRange.isOverlappedBy(Range.between(9, 14)));
         assertTrue(intRange.isOverlappedBy(Range.between(16, 21)));
-
         // touches lower boundary
         assertTrue(intRange.isOverlappedBy(Range.between(10, 19)));
         assertTrue(intRange.isOverlappedBy(Range.between(10, 21)));
-
         // touches upper boundary
         assertTrue(intRange.isOverlappedBy(Range.between(11, 20)));
         assertTrue(intRange.isOverlappedBy(Range.between(9, 20)));
-
         // negative
         assertFalse(intRange.isOverlappedBy(Range.between(-11, -18)));
-
         // outside range whole range
         assertTrue(intRange.isOverlappedBy(Range.between(9, 21)));
-}
+    }
 
     @Test
     void testIsStartedBy() {
         assertFalse(intRange.isStartedBy(null));
-
         assertFalse(intRange.isStartedBy(5));
         assertTrue(intRange.isStartedBy(10));
         assertFalse(intRange.isStartedBy(15));
@@ -414,7 +375,6 @@ class RangeTest extends AbstractLangTest {
         assertTrue(rbstr.contains("i"), "should contain i");
         assertFalse(rbstr.contains("houses"), "should not contain houses");
         assertFalse(rbstr.contains(""), "should not contain ''");
-
         assertNullPointerException(() -> Range.of(null, null, lengthComp));
     }
 
