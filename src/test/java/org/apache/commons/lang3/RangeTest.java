@@ -43,9 +43,11 @@ class RangeTest extends AbstractLangTest {
             return 0;
         }
     }
+
     static final class DerivedComparableA extends AbstractComparable {
         // empty
     }
+
     static final class DerivedComparableB extends AbstractComparable {
         // empty
     }
@@ -193,9 +195,7 @@ class RangeTest extends AbstractLangTest {
 
     @Test
     void testFitNull() {
-        assertNullPointerException(() -> {
-            intRange.fit(null);
-        });
+        assertNullPointerException(() -> intRange.fit(null));
     }
 
     @Test
