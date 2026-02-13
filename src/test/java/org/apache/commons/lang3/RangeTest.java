@@ -43,9 +43,11 @@ class RangeTest extends AbstractLangTest {
             return 0;
         }
     }
+
     static final class DerivedComparableA extends AbstractComparable {
         // empty
     }
+
     static final class DerivedComparableB extends AbstractComparable {
         // empty
     }
@@ -103,7 +105,7 @@ class RangeTest extends AbstractLangTest {
         assertNullPointerException(() -> Range.between(null, null, lengthComp));
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
     void testComparableConstructors() {
         final Comparable c = other -> 1;
@@ -358,7 +360,7 @@ class RangeTest extends AbstractLangTest {
 
         // outside range whole range
         assertTrue(intRange.isOverlappedBy(Range.between(9, 21)));
-}
+    }
 
     @Test
     void testIsStartedBy() {
@@ -443,5 +445,41 @@ class RangeTest extends AbstractLangTest {
     void testToStringFormat() {
         final String str = intRange.toString("From %1$s to %2$s");
         assertEquals("From 10 to 20", str);
+    }
+
+    @Test
+    void testReversedMinMaxArguments() {
+        // Integer range
+        final Range<Integer> range = Range.of(20, 10);
+        assertEquals(10, (int) range.getMinimum(), "Minimum should be 10");
+        assertEquals(20, (int) range.getMaximum(), "Maximum should be 20");
+        assertTrue(range.contains(15));
+        assertTrue(range.contains(10));
+        assertTrue(range.contains(20));
+        assertFalse(range.contains(9));
+        assertFalse(range.contains(21));
+
+        // String range
+        final Range<String> strRange = Range.of("zebra", "apple");
+        assertEquals("apple", strRange.getMinimum());
+        assertEquals("zebra", strRange.getMaximum());
+        assertTrue(strRange.contains("banana"));
+        assertTrue(strRange.contains("zebra"));
+        assertTrue(strRange.contains("apple"));
+        assertFalse(strRange.contains("aardvark"));
+        assertFalse(strRange.contains("zzz"));
+    }
+
+    @Test
+    void testCustomComparatorCaseInsensitive() {
+        final Range<String> range = Range.of("a", "z", String.CASE_INSENSITIVE_ORDER);
+
+        assertTrue(range.contains("a"));
+        assertTrue(range.contains("A"));
+        assertTrue(range.contains("m"));
+        assertTrue(range.contains("M"));
+        assertTrue(range.contains("z"));
+        assertTrue(range.contains("Z"));
+        assertFalse(range.contains("!"));
     }
 }
