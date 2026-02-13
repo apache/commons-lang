@@ -474,54 +474,6 @@ class DurationFormatUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testFormatPeriodISOAcrossMonths() {
-        final TimeZone tz = TimeZones.getTimeZone("GMT-3");
-
-        // Verifies period formatting across a month boundary (Jan 31 to Feb 1)
-        final Calendar start = Calendar.getInstance(tz);
-        start.clear();
-        start.set(2020, Calendar.JANUARY, 31);
-
-        final Calendar end = Calendar.getInstance(tz);
-        end.clear();
-        end.set(2020, Calendar.FEBRUARY, 1);
-
-        final String result = DurationFormatUtils.formatPeriod(
-                start.getTimeInMillis(),
-                end.getTimeInMillis(),
-                DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN,
-                false,
-                tz
-        );
-
-        assertEquals("P0Y0M1DT0H0M0.000S", result);
-    }
-
-    @Test
-    void testFormatPeriodISOLeapYearBoundary() {
-        final TimeZone tz = TimeZones.getTimeZone("GMT-3");
-
-        // Verifies period formatting across a leap-year boundary (Feb 29 to Mar 1)
-        final Calendar start = Calendar.getInstance(tz);
-        start.clear();
-        start.set(2020, Calendar.FEBRUARY, 29);
-
-        final Calendar end = Calendar.getInstance(tz);
-        end.clear();
-        end.set(2020, Calendar.MARCH, 1);
-
-        final String result = DurationFormatUtils.formatPeriod(
-                start.getTimeInMillis(),
-                end.getTimeInMillis(),
-                DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN,
-                false,
-                tz
-        );
-
-        assertEquals("P0Y0M1DT0H0M0.000S", result);
-    }
-
-    @Test
     void testFormatPeriodeStartGreaterEnd() {
         assertIllegalArgumentException(() -> DurationFormatUtils.formatPeriod(5000, 2500, "yy/MM"));
     }
@@ -553,6 +505,36 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertEquals("P1Y1M2DT10H30M0.000S", text);
         // want a way to say 'don't print the seconds in format()' or other fields for that matter:
         // assertEquals("P1Y2M3DT10H30M", text);
+    }
+
+    @Test
+    void testFormatPeriodISOAcrossMonths() {
+        final TimeZone tz = TimeZones.getTimeZone("GMT-3");
+        // Verifies period formatting across a month boundary (Jan 31 to Feb 1)
+        final Calendar start = Calendar.getInstance(tz);
+        start.clear();
+        start.set(2020, Calendar.JANUARY, 31);
+        final Calendar end = Calendar.getInstance(tz);
+        end.clear();
+        end.set(2020, Calendar.FEBRUARY, 1);
+        final String result = DurationFormatUtils.formatPeriod(start.getTimeInMillis(), end.getTimeInMillis(), DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN,
+                false, tz);
+        assertEquals("P0Y0M1DT0H0M0.000S", result);
+    }
+
+    @Test
+    void testFormatPeriodISOLeapYearBoundary() {
+        final TimeZone tz = TimeZones.getTimeZone("GMT-3");
+        // Verifies period formatting across a leap-year boundary (Feb 29 to Mar 1)
+        final Calendar start = Calendar.getInstance(tz);
+        start.clear();
+        start.set(2020, Calendar.FEBRUARY, 29);
+        final Calendar end = Calendar.getInstance(tz);
+        end.clear();
+        end.set(2020, Calendar.MARCH, 1);
+        final String result = DurationFormatUtils.formatPeriod(start.getTimeInMillis(), end.getTimeInMillis(), DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN,
+                false, tz);
+        assertEquals("P0Y0M1DT0H0M0.000S", result);
     }
 
     @Test

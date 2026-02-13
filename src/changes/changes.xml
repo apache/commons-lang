@@ -116,6 +116,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Ivan Ponomarev, Gary Gregory">ThreadUtils.sleepQuietly(Duration) now restores the current thread's interrupt flag when catching InterruptedException.</action>
     <action issue="LANG-1817" type="fix" dev="ggregory" due-to="Ivan Ponomarev, Gary Gregory">UncheckedFutureImpl clears thread interrupt status when wrapping InterruptedException #1590.</action>
     <action                   type="fix" dev="ggregory" due-to="ThrawnCA, Gary Gregory">Fix StringUtils.abbreviate(String, String, int) contract violations #1572.</action>
+    <action                   type="fix" dev="ggregory" due-to="TK_ENDO, Arnout Engelen, Gary Gregory">Add test coverage for negative-day adjustment in DurationFormatUtils #1596.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
