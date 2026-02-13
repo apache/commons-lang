@@ -196,6 +196,7 @@
           <artifactId>apache-rat-plugin</artifactId>
           <configuration>
             <inputExcludes>
+              <inputExclude>**/report.md</inputExclude>
               <inputExclude>site-content/**</inputExclude>
               <inputExclude>src/site/resources/.htaccess</inputExclude>
               <inputExclude>src/site/resources/download_lang.cgi</inputExclude>
