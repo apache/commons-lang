@@ -107,7 +107,7 @@ o LANG-1371: Fix TypeUtils#parameterize to work correctly with narrower-typed ar
 o LANG-1370: Fix EventCountCircuitBreaker increment batch Thanks to Andre Dieb.
 o LANG-1385: NumberUtils.createNumber() throws StringIndexOutOfBoundsException instead of NumberFormatException Thanks to Rohan Padhye.
 o LANG-1397: WordUtils.wrap throws StringIndexOutOfBoundsException when wrapLength is Integer.MAX_VALUE. Thanks to Takanobu Asanuma.
-o LANG-1401: Typo in JavaDoc for lastIndexOf Thanks to Roman Golyshev, Alex Mamedov.
+o LANG-1401: Typo in Javadoc for lastIndexOf Thanks to Roman Golyshev, Alex Mamedov.
 
 Changes:
 o LANG-1367: ObjectUtils.identityToString(Object) and friends should allocate builders and buffers with a size Thanks to Gary Gregory.

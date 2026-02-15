@@ -564,7 +564,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1669" type="fix" dev="ggregory" due-to="Andrew Thomas">OpenJDK 16 Day Period Parsing #791.</action>
     <action issue="LANG-1663" type="fix" dev="ggregory" due-to="Andrew Thomas">Update documentation to list correct exception for null array parameters #785.</action>
     <action                   type="fix" dev="ggregory" due-to="Thunderforge">Fixing reversed Javadoc descriptions in StopWatch #781.</action>
-    <action issue="LANG-1670" type="fix" dev="ggregory" due-to="Igor Shuvalov">Fix typos in JavaDoc #795.</action>
+    <action issue="LANG-1670" type="fix" dev="ggregory" due-to="Igor Shuvalov">Fix typos in Javadoc #795.</action>
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Simplify assertions with equivalent but more simple. #792.</action>
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Avoid multiple equivalent occurrences of the same expression. #797.</action>
     <action                   type="fix" dev="ggregory" due-to="Arturo Bernal">Remove redundant initializers #800.</action>
@@ -987,7 +987,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1370" type="fix" dev="kinow" due-to="Andre Dieb">Fix EventCountCircuitBreaker increment batch</action>
     <action issue="LANG-1385" type="fix" dev="ggregory" due-to="Rohan Padhye">NumberUtils.createNumber() throws StringIndexOutOfBoundsException instead of NumberFormatException</action>
     <action issue="LANG-1397" type="fix" dev="ggregory" due-to="Takanobu Asanuma">WordUtils.wrap throws StringIndexOutOfBoundsException when wrapLength is Integer.MAX_VALUE.</action>
-    <action issue="LANG-1401" type="fix" dev="pschumacher" due-to="Roman Golyshev, Alex Mamedov">Typo in JavaDoc for lastIndexOf</action>
+    <action issue="LANG-1401" type="fix" dev="pschumacher" due-to="Roman Golyshev, Alex Mamedov">Typo in Javadoc for lastIndexOf</action>
     <action issue="LANG-1367" type="update" dev="ggregory" due-to="Gary Gregory">ObjectUtils.identityToString(Object) and friends should allocate builders and buffers with a size</action>
     <action issue="LANG-1352" type="add" dev="pschumacher" due-to="Ruslan Sibgatullin">EnumUtils.getEnumIgnoreCase and isValidEnumIgnoreCase methods added</action>
     <action issue="LANG-1372" type="add" dev="pschumacher" due-to="Sérgio Ozaki">Add ToStringSummary annotation</action>
