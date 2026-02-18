@@ -120,6 +120,27 @@ class FastDatePrinterTest extends AbstractLangTest {
         }
     }
 
+
+
+
+
+    /**
+     * Requirement: Values >= 10,000 must support zero padding if width exceeds digit count.
+     * Targets: Red lines 991-992 and Yellow diamond 990.
+     * We are setting the minfieldwidth to 10 through getInstance and testing a value larger than 10 000. 
+     * This forces the code to go into the while loop and append zeros since the digitcount fro 10001 is 5 and smaller than 10
+      */
+    @Test
+    void testLargeValueWithZeroPadding() {
+        final Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 10001);
+        final DatePrinter printer = getInstance("yyyyyyyyyy"); 
+        
+        assertEquals("0000010001", printer.format(cal));
+    }
+
+
+
     @Test
     void test1806Argument() {
         assertIllegalArgumentException(() -> getInstance("XXXX"));
