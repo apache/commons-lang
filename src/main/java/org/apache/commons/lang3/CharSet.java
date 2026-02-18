@@ -221,7 +221,14 @@ public class CharSet implements Serializable {
      * Does the {@link CharSet} contain the specified
      * character {@code ch}.
      *
-     * @param ch  the character to check for
+     * <p>Examples:</p>
+     * <pre>
+     * CharSet.getInstance("a-c").contains('b') = true
+     * CharSet.getInstance("a-c").contains('d') = false
+     * CharSet.getInstance("^a-c").contains('d') = true
+     * </pre>
+     *
+     * @param ch  The character to check for.
      * @return {@code true} if the set contains the characters
      */
     public boolean contains(final char ch) {
