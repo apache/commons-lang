@@ -228,7 +228,7 @@ public class CharSet implements Serializable {
      * CharSet.getInstance("^a-c").contains('d') = true
      * </pre>
      *
-     * @param ch  The character to check for.
+     * @param ch  The character to check for
      * @return {@code true} if the set contains the characters
      */
     public boolean contains(final char ch) {
