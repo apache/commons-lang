@@ -649,7 +649,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, StringUtils.getBytes(null, (Charset) null));
         assertArrayEquals(StringUtils.EMPTY.getBytes(), StringUtils.getBytes(StringUtils.EMPTY, (Charset) null));
         assertArrayEquals(StringUtils.EMPTY.getBytes(StandardCharsets.US_ASCII),
-            StringUtils.getBytes(StringUtils.EMPTY, StandardCharsets.US_ASCII));
+                StringUtils.getBytes(StringUtils.EMPTY, StandardCharsets.US_ASCII));
     }
 
     @Test
@@ -657,7 +657,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, StringUtils.getBytes(null, (String) null));
         assertArrayEquals(StringUtils.EMPTY.getBytes(), StringUtils.getBytes(StringUtils.EMPTY, (String) null));
         assertArrayEquals(StringUtils.EMPTY.getBytes(StandardCharsets.US_ASCII.name()),
-            StringUtils.getBytes(StringUtils.EMPTY, StandardCharsets.US_ASCII.name()));
+                StringUtils.getBytes(StringUtils.EMPTY, StandardCharsets.US_ASCII.name()));
     }
 
     @Test
@@ -904,6 +904,98 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(8, StringUtils.getLevenshteinDistance("zzzzzzzz", "hippo", Integer.MAX_VALUE));
         assertEquals(1, StringUtils.getLevenshteinDistance("hello", "hallo", Integer.MAX_VALUE));
     }
+
+    @Test
+    void testGetLevenshteinDistance_StringStringInt_IsSymmetric() {
+        // Property test: Levenshtein distance is symmetric:
+        // d(left, right) must equal d(right, left).
+        //
+        // This pair also tends to exercise the internal "swap" optimization depending
+        // on argument order (the implementation may swap to ensure the left side is longer).
+        assertEquals(1, StringUtils.getLevenshteinDistance("abcd", "abc", 1));
+        assertEquals(1, StringUtils.getLevenshteinDistance("abc", "abcd", 1));
+    }
+
+    @Test
+    void testGetLevenshteinDistance_CharSequenceThresholdBoundary() {
+        // Type-coverage + threshold boundary test:
+        // Use non-String CharSequence implementations (StringBuilder, CharBuffer) to verify
+        // the method works for *any* CharSequence, not only java.lang.String.
+        //
+        // Also checks behavior at the threshold boundary:
+        // - threshold == distance => returns the distance
+        // - threshold < distance  => returns -1
+        final CharSequence left = new StringBuilder("kitten");
+        final CharSequence right = java.nio.CharBuffer.wrap("sitting");
+
+        assertEquals(3, StringUtils.getLevenshteinDistance(left, right, 3));
+        assertEquals(-1, StringUtils.getLevenshteinDistance(left, right, 2));
+    }
+
+    @Test
+    void testLevenshteinThreshold_n0_mGreaterThanThreshold_returnsMinusOne() {
+        // Branch target: n == 0 case.
+        // When the left string is empty (n=0), the distance is the length of right (m).
+        // If m > threshold, the thresholded version must return -1.
+        // Here: n=0, m=4, threshold=2 => m > threshold => -1.
+        assertEquals(-1, StringUtils.getLevenshteinDistance("", "abcd", 2));
+    }
+
+    @Test
+    void testLevenshteinThreshold_stripeOffTableTrue_returnsMinusOne() {
+        // Branch target: "stripeOffTable_true".
+        //
+        // With a very small threshold and a large length difference,
+        // the dynamic-programming "stripe" can collapse such that for some row
+        // the computed window becomes invalid (jStart > jEnd).
+        //
+        // Using left="a" and right="abcdefghij" with threshold=1 is intended to
+        // push the algorithm into that early-exit condition, returning -1.
+        assertEquals(-1, StringUtils.getLevenshteinDistance("a", "abcdefghij", 1));
+    }
+
+    @Test
+    void testLevenshteinThreshold_stripeOffTableTrue_isHit() {
+        // Defensive / instrumentation-only branch test:
+        //
+        // This test is *not* a realistic CharSequence contract (it violates the expectation
+        // that length() is stable), but it's useful to force the code into a rare defensive
+        // branch that would otherwise be hard to reach in normal usage.
+        //
+        // We create a "weird" CharSequence whose length changes between calls:
+        // - 1st length() -> 2  (passes the early abs(n-m) <= threshold check)
+        // - later length() -> 10 (causes the stripe window computation to become invalid,
+        //   producing jStart > jEnd => hits stripeOffTable_true and returns -1)
+        final CharSequence changingLength = new CharSequence() {
+            private final String data = "abcdefghij";
+            private int lengthCalls;
+
+            @Override
+            public int length() {
+                return lengthCalls++ == 0 ? 2 : 10;
+            }
+
+            @Override
+            public char charAt(final int index) {
+                return data.charAt(index);
+            }
+
+            @Override
+            public CharSequence subSequence(final int start, final int end) {
+                return data.subSequence(start, end);
+            }
+
+            @Override
+            public String toString() {
+                return data;
+            }
+        };
+
+        assertEquals(-1, StringUtils.getLevenshteinDistance(changingLength, "a", 1));
+    }
+
+
+
 
     @Test
     void testGetLevenshteinDistance_StringStringNegativeInt() {
@@ -1816,20 +1908,20 @@ class StringUtilsTest extends AbstractLangTest {
         // Test long infinite cycle: a -> b -> ... -> 9 -> 0 -> a -> b -> ...
         assertThrows(IllegalStateException.class,
                 () -> StringUtils.replaceEachRepeatedly("a",
-                    new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
-                            "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
-                            "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-                            "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"},
-                    new String[]{"b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
-                            "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E",
-                            "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
-                            "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "a"}),
+                        new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+                                "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
+                                "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+                                "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"},
+                        new String[]{"b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
+                                "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E",
+                                "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+                                "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "a"}),
                 "Should be a circular reference");
 
         assertThrows(IllegalStateException.class,
                 () -> StringUtils.replaceEachRepeatedly("%{key1}",
-                    new String[] {"%{key1}", "%{key2}", "%{key3}"},
-                    new String[] {"Key1 %{key2}", "Key2 %{key3}", "Key3 %{key1}"}),
+                        new String[] {"%{key1}", "%{key2}", "%{key3}"},
+                        new String[] {"Key1 %{key2}", "Key2 %{key3}", "Key3 %{key1}"}),
                 "Should be a circular reference");
 
         assertThrows(IllegalStateException.class,
@@ -1906,7 +1998,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("ABC_123", StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "_"));
         assertEquals("ABC123", StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", ""));
         assertEquals("Lorem_ipsum_dolor_sit",
-                     StringUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
+                StringUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
 
         assertThrows(PatternSyntaxException.class, () -> StringUtils.replaceAll("any", "{badRegexSyntax}", ""),
                 "StringUtils.replaceAll expecting PatternSyntaxException");
@@ -1985,7 +2077,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("ABC_123abc", StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "_"));
         assertEquals("ABC123abc", StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", ""));
         assertEquals("Lorem_ipsum  dolor   sit",
-                     StringUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
+                StringUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
 
         assertThrows(PatternSyntaxException.class, () -> StringUtils.replaceFirst("any", "{badRegexSyntax}", ""),
                 "StringUtils.replaceFirst expecting PatternSyntaxException");
@@ -2116,7 +2208,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("ABC_123", StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_"));
         assertEquals("ABC123", StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", ""));
         assertEquals("Lorem_ipsum_dolor_sit",
-                     StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
+                StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
     }
 
     @Test
@@ -2792,12 +2884,12 @@ class StringUtilsTest extends AbstractLangTest {
         final Class<StringUtils> c = StringUtils.class;
         // Methods that are expressly excluded from testStringUtilsCharSequenceContract()
         final String[] excludeMethods = {
-            "public static int org.apache.commons.lang3.StringUtils.compare(java.lang.String,java.lang.String)",
-            "public static int org.apache.commons.lang3.StringUtils.compare(java.lang.String,java.lang.String,boolean)",
-            "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCase(java.lang.String,java.lang.String)",
-            "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCase(java.lang.String,java.lang.String,boolean)",
-            "public static byte[] org.apache.commons.lang3.StringUtils.getBytes(java.lang.String,java.nio.charset.Charset)",
-            "public static byte[] org.apache.commons.lang3.StringUtils.getBytes(java.lang.String,java.lang.String) throws java.io.UnsupportedEncodingException"
+                "public static int org.apache.commons.lang3.StringUtils.compare(java.lang.String,java.lang.String)",
+                "public static int org.apache.commons.lang3.StringUtils.compare(java.lang.String,java.lang.String,boolean)",
+                "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCase(java.lang.String,java.lang.String)",
+                "public static int org.apache.commons.lang3.StringUtils.compareIgnoreCase(java.lang.String,java.lang.String,boolean)",
+                "public static byte[] org.apache.commons.lang3.StringUtils.getBytes(java.lang.String,java.nio.charset.Charset)",
+                "public static byte[] org.apache.commons.lang3.StringUtils.getBytes(java.lang.String,java.lang.String) throws java.io.UnsupportedEncodingException"
         };
         final Method[] methods = c.getMethods();
 
@@ -2861,11 +2953,11 @@ class StringUtilsTest extends AbstractLangTest {
     void testToCodePointsEmoji() {
         assertArrayEquals(ArrayFill.fill(new int[14], 129418), StringUtils.toCodePoints("🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊"));
         assertArrayEquals(new int[] { 128105, 127995, 8205, 128104, 127995, 8205, 128102, 127995, 8205, 128102, 127995, 128105, 127996, 8205, 128104, 127996,
-                8205, 128102, 127996, 8205, 128102, 127996, 128105, 127997, 8205, 128104, 127997, 8205, 128102, 127997, 8205, 128102, 127997, 128105, 127998,
-                8205, 128104, 127998, 8205, 128102, 127998, 8205, 128102, 127998, 128105, 127999, 8205, 128104, 127999, 8205, 128102, 127999, 8205, 128102,
-                127999, 128105, 127995, 8205, 128104, 127995, 8205, 128102, 127995, 8205, 128102, 127995, 128105, 127996, 8205, 128104, 127996, 8205, 128102,
-                127996, 8205, 128102, 127996, 128105, 127997, 8205, 128104, 127997, 8205, 128102, 127997, 8205, 128102, 127997, 128105, 127998, 8205, 128104,
-                127998, 8205, 128102, 127998, 8205, 128102, 127998, 128105, 127999, 8205, 128104, 127999, 8205, 128102, 127999, 8205, 128102, 127999 },
+                        8205, 128102, 127996, 8205, 128102, 127996, 128105, 127997, 8205, 128104, 127997, 8205, 128102, 127997, 8205, 128102, 127997, 128105, 127998,
+                        8205, 128104, 127998, 8205, 128102, 127998, 8205, 128102, 127998, 128105, 127999, 8205, 128104, 127999, 8205, 128102, 127999, 8205, 128102,
+                        127999, 128105, 127995, 8205, 128104, 127995, 8205, 128102, 127995, 8205, 128102, 127995, 128105, 127996, 8205, 128104, 127996, 8205, 128102,
+                        127996, 8205, 128102, 127996, 128105, 127997, 8205, 128104, 127997, 8205, 128102, 127997, 8205, 128102, 127997, 128105, 127998, 8205, 128104,
+                        127998, 8205, 128102, 127998, 8205, 128102, 127998, 128105, 127999, 8205, 128104, 127999, 8205, 128102, 127999, 8205, 128102, 127999 },
                 StringUtils.toCodePoints(
                         "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿"));
     }
