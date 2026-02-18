@@ -2390,78 +2390,104 @@ public class StringUtils {
     @Deprecated
     public static int getLevenshteinDistance(CharSequence s, CharSequence t, final int threshold) {
         if (s == null || t == null) {
+            BranchCoverage.hit("StringUtils.levThr:null_true");
             throw new IllegalArgumentException("Strings must not be null");
         }
+        BranchCoverage.hit("StringUtils.levThr:null_false");
+
         if (threshold < 0) {
+            BranchCoverage.hit("StringUtils.levThr:thresholdNeg_true");
             throw new IllegalArgumentException("Threshold must not be negative");
         }
+        BranchCoverage.hit("StringUtils.levThr:thresholdNeg_false");
 
-        /*
-        This implementation only computes the distance if it's less than or equal to the
-        threshold value, returning -1 if it's greater.  The advantage is performance: unbounded
-        distance is O(nm), but a bound of k allows us to reduce it to O(km) time by only
-        computing a diagonal stripe of width 2k + 1 of the cost table.
-        It is also possible to use this to compute the unbounded Levenshtein distance by starting
-        the threshold at 1 and doubling each time until the distance is found; this is O(dm), where
-        d is the distance.
+    /*
+    This implementation only computes the distance if it's less than or equal to the
+    threshold value, returning -1 if it's greater.  The advantage is performance: unbounded
+    distance is O(nm), but a bound of k allows us to reduce it to O(km) time by only
+    computing a diagonal stripe of width 2k + 1 of the cost table.
+    It is also possible to use this to compute the unbounded Levenshtein distance by starting
+    the threshold at 1 and doubling each time until the distance is found; this is O(dm), where
+    d is the distance.
 
-        One subtlety comes from needing to ignore entries on the border of our stripe
-        for example,
-        p[] = |#|#|#|*
-        d[] =  *|#|#|#|
-        We must ignore the entry to the left of the leftmost member
-        We must ignore the entry above the rightmost member
+    One subtlety comes from needing to ignore entries on the border of our stripe
+    for example,
+    p[] = |#|#|#|*
+    d[] =  *|#|#|#|
+    We must ignore the entry to the left of the leftmost member
+    We must ignore the entry above the rightmost member
 
-        Another subtlety comes from our stripe running off the matrix if the strings aren't
-        of the same size.  Since string s is always swapped to be the shorter of the two,
-        the stripe will always run off to the upper right instead of the lower left of the matrix.
+    Another subtlety comes from our stripe running off the matrix if the strings aren't
+    of the same size.  Since string s is always swapped to be the shorter of the two,
+    the stripe will always run off to the upper right instead of the lower left of the matrix.
 
-        As a concrete example, suppose s is of length 5, t is of length 7, and our threshold is 1.
-        In this case we're going to walk a stripe of length 3.  The matrix would look like so:
+    As a concrete example, suppose s is of length 5, t is of length 7, and our threshold is 1.
+    In this case we're going to walk a stripe of length 3.  The matrix would look like so:
 
-           1 2 3 4 5
-        1 |#|#| | | |
-        2 |#|#|#| | |
-        3 | |#|#|#| |
-        4 | | |#|#|#|
-        5 | | | |#|#|
-        6 | | | | |#|
-        7 | | | | | |
+       1 2 3 4 5
+    1 |#|#| | | |
+    2 |#|#|#| | |
+    3 | |#|#|#| |
+    4 | | |#|#|#|
+    5 | | | |#|#|
+    6 | | | | |#|
+    7 | | | | | |
 
-        Note how the stripe leads off the table as there is no possible way to turn a string of length 5
-        into one of length 7 in edit distance of 1.
+    Note how the stripe leads off the table as there is no possible way to turn a string of length 5
+    into one of length 7 in edit distance of 1.
 
-        Additionally, this implementation decreases memory usage by using two
-        single-dimensional arrays and swapping them back and forth instead of allocating
-        an entire n by m matrix.  This requires a few minor changes, such as immediately returning
-        when it's detected that the stripe has run off the matrix and initially filling the arrays with
-        large values so that entries we don't compute are ignored.
+    Additionally, this implementation decreases memory usage by using two
+    single-dimensional arrays and swapping them back and forth instead of allocating
+    an entire n by m matrix.  This requires a few minor changes, such as immediately returning
+    when it's detected that the stripe has run off the matrix and initially filling the arrays with
+    large values so that entries we don't compute are ignored.
 
-        See Algorithms on Strings, Trees and Sequences by Dan Gusfield for some discussion.
-         */
+    See Algorithms on Strings, Trees and Sequences by Dan Gusfield for some discussion.
+     */
 
         int n = s.length(); // length of s
         int m = t.length(); // length of t
 
         // if one string is empty, the edit distance is necessarily the length of the other
         if (n == 0) {
-            return m <= threshold ? m : -1;
+            BranchCoverage.hit("StringUtils.levThr:n0_true");
+            if (m <= threshold) {
+                BranchCoverage.hit("StringUtils.levThr:n0_mLeThr_true");
+                return m;
+            }
+            BranchCoverage.hit("StringUtils.levThr:n0_mLeThr_false");
+            return -1;
         }
+        BranchCoverage.hit("StringUtils.levThr:n0_false");
+
         if (m == 0) {
-            return n <= threshold ? n : -1;
+            BranchCoverage.hit("StringUtils.levThr:m0_true");
+            if (n <= threshold) {
+                BranchCoverage.hit("StringUtils.levThr:m0_nLeThr_true");
+                return n;
+            }
+            BranchCoverage.hit("StringUtils.levThr:m0_nLeThr_false");
+            return -1;
         }
+        BranchCoverage.hit("StringUtils.levThr:m0_false");
+
         if (Math.abs(n - m) > threshold) {
+            BranchCoverage.hit("StringUtils.levThr:lenDiffGtThr_true");
             // no need to calculate the distance if the length difference is greater than the threshold
             return -1;
         }
+        BranchCoverage.hit("StringUtils.levThr:lenDiffGtThr_false");
 
         if (n > m) {
+            BranchCoverage.hit("StringUtils.levThr:swap_true");
             // swap the two strings to consume less memory
-            final CharSequence tmp = s;
+            final CharSequence tmpCs = s;
             s = t;
-            t = tmp;
+            t = tmpCs;
             n = m;
             m = t.length();
+        } else {
+            BranchCoverage.hit("StringUtils.levThr:swap_false");
         }
 
         int[] p = new int[n + 1]; // 'previous' cost array, horizontally
@@ -2470,15 +2496,20 @@ public class StringUtils {
 
         // fill in starting table values
         final int boundary = Math.min(n, threshold) + 1;
+
+        BranchCoverage.hit("StringUtils.levThr:initLoop_enter");
         for (int i = 0; i < boundary; i++) {
             p[i] = i;
         }
+        BranchCoverage.hit("StringUtils.levThr:initLoop_exit");
+
         // these fills ensure that the value above the rightmost entry of our
         // stripe will be ignored in following loop iterations
         Arrays.fill(p, boundary, p.length, Integer.MAX_VALUE);
         Arrays.fill(d, Integer.MAX_VALUE);
 
         // iterates through t
+        BranchCoverage.hit("StringUtils.levThr:outerLoop_enter");
         for (int j = 1; j <= m; j++) {
             final char jOfT = t.charAt(j - 1); // jth character of t
             d[0] = j;
@@ -2487,40 +2518,58 @@ public class StringUtils {
             final int min = Math.max(1, j - threshold);
             final int max = j > Integer.MAX_VALUE - threshold ? n : Math.min(n, j + threshold);
 
+            if (j > Integer.MAX_VALUE - threshold) {
+                BranchCoverage.hit("StringUtils.levThr:maxOverflow_true");
+            } else {
+                BranchCoverage.hit("StringUtils.levThr:maxOverflow_false");
+            }
+
             // the stripe may lead off of the table if s and t are of different sizes
             if (min > max) {
+                BranchCoverage.hit("StringUtils.levThr:stripeOffTable_true");
                 return -1;
             }
+            BranchCoverage.hit("StringUtils.levThr:stripeOffTable_false");
 
             // ignore entry left of leftmost
             if (min > 1) {
+                BranchCoverage.hit("StringUtils.levThr:minGt1_true");
                 d[min - 1] = Integer.MAX_VALUE;
+            } else {
+                BranchCoverage.hit("StringUtils.levThr:minGt1_false");
             }
 
             // iterates through [min, max] in s
+            BranchCoverage.hit("StringUtils.levThr:innerLoop_enter");
             for (int i = min; i <= max; i++) {
                 if (s.charAt(i - 1) == jOfT) {
+                    BranchCoverage.hit("StringUtils.levThr:charMatch_true");
                     // diagonally left and up
                     d[i] = p[i - 1];
                 } else {
+                    BranchCoverage.hit("StringUtils.levThr:charMatch_false");
                     // 1 + minimum of cell to the left, to the top, diagonally left and up
                     d[i] = 1 + Math.min(Math.min(d[i - 1], p[i]), p[i - 1]);
                 }
             }
-
+            BranchCoverage.hit("StringUtils.levThr:innerLoop_exit");
             // copy current distance counts to 'previous row' distance counts
             tmp = p;
             p = d;
             d = tmp;
         }
+        BranchCoverage.hit("StringUtils.levThr:outerLoop_exit");
 
         // if p[n] is greater than the threshold, there's no guarantee on it being the correct
         // distance
         if (p[n] <= threshold) {
+            BranchCoverage.hit("StringUtils.levThr:withinThreshold_true");
             return p[n];
         }
+        BranchCoverage.hit("StringUtils.levThr:withinThreshold_false");
         return -1;
     }
+
 
     /**
      * Finds the first index within a CharSequence, handling {@code null}. This method uses {@link String#indexOf(String, int)} if possible.
