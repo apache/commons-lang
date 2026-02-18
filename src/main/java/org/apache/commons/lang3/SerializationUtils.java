@@ -72,9 +72,9 @@ public class SerializationUtils {
         /**
          * Constructs a new instance.
          *
-         * @param in The {@link InputStream}.
+         * @param in the {@link InputStream}
          * @param classLoader classloader to use
-         * @throws IOException if an I/O error occurs while reading stream header.
+         * @throws IOException if an I/O error occurs while reading stream header
          * @see java.io.ObjectInputStream
          */
         ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader) throws IOException {
@@ -86,10 +86,10 @@ public class SerializationUtils {
          * Overridden version that uses the parameterized {@link ClassLoader} or the {@link ClassLoader}
          * of the current {@link Thread} to resolve the class.
          *
-         * @param desc An instance of class {@link ObjectStreamClass}.
-         * @return A {@link Class} object corresponding to {@code desc}.
-         * @throws IOException Any of the usual Input/Output exceptions.
-         * @throws ClassNotFoundException If class of a serialized object cannot be found.
+         * @param desc an instance of class {@link ObjectStreamClass}
+         * @return a {@link Class} object corresponding to {@code desc}
+         * @throws ClassNotFoundException if class of a serialized object cannot be found
+         * @throws IOException any of the usual Input/Output exceptions
          */
         @Override
         protected Class<?> resolveClass(final ObjectStreamClass desc) throws IOException, ClassNotFoundException {
@@ -120,10 +120,10 @@ public class SerializationUtils {
      * be a simple alternative implementation. Of course all the objects
      * must be {@link Serializable}.</p>
      *
-     * @param <T> the type of the object involved.
-     * @param object  the {@link Serializable} object to clone.
-     * @return the cloned object.
-     * @throws SerializationException (runtime) if the serialization fails.
+     * @param <T> the type of the object involved
+     * @param object  the {@link Serializable} object to clone
+     * @return the cloned object
+     * @throws SerializationException (runtime) if the serialization fails
      */
     public static <T extends Serializable> T clone(final T object) {
         if (object == null) {
@@ -154,12 +154,12 @@ public class SerializationUtils {
      * {@link org.apache.commons.io.serialization.ValidatingObjectInputStream ValidatingObjectInputStream}.
      * </p>
      *
-     * @param <T>  the object type to be deserialized.
+     * @param <T>  the object type to be deserialized
      * @param objectData
-     *            the serialized object, must not be null.
-     * @return the deserialized object.
-     * @throws NullPointerException if {@code objectData} is {@code null}.
-     * @throws SerializationException (runtime) if the serialization fails.
+     *            the serialized object, must not be null
+     * @return the deserialized object
+     * @throws NullPointerException if {@code objectData} is {@code null}
+     * @throws SerializationException (runtime) if the serialization fails
      * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
      */
     public static <T> T deserialize(final byte[] objectData) {
@@ -191,11 +191,11 @@ public class SerializationUtils {
      * {@link org.apache.commons.io.serialization.ValidatingObjectInputStream ValidatingObjectInputStream}.
      * </p>
      *
-     * @param <T>  the object type to be deserialized.
-     * @param inputStream the serialized object input stream, must not be null.
-     * @return the deserialized object.
-     * @throws NullPointerException if {@code inputStream} is {@code null}.
-     * @throws SerializationException (runtime) if the serialization fails.
+     * @param <T>  the object type to be deserialized
+     * @param inputStream the serialized object input stream, must not be null
+     * @return the deserialized object
+     * @throws NullPointerException if {@code inputStream} is {@code null}
+     * @throws SerializationException (runtime) if the serialization fails
      * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
      */
     @SuppressWarnings("resource") // inputStream is managed by the caller
@@ -215,10 +215,10 @@ public class SerializationUtils {
      * implement {@link Serializable}.
      *
      * @param <T>
-     *           the type of the object involved.
+     *           the type of the object involved
      * @param obj
-     *            the object to roundtrip.
-     * @return the serialized and deserialized object.
+     *            the object to roundtrip
+     * @return the serialized and deserialized object
      * @since 3.3
      */
     @SuppressWarnings("unchecked") // OK, because we serialized a type `T`
@@ -230,9 +230,9 @@ public class SerializationUtils {
      * Serializes an {@link Object} to a byte array for
      * storage/serialization.
      *
-     * @param obj  the object to serialize to bytes.
-     * @return a byte[] with the converted Serializable.
-     * @throws SerializationException (runtime) if the serialization fails.
+     * @param obj  the object to serialize to bytes
+     * @return a byte[] with the converted Serializable
+     * @throws SerializationException (runtime) if the serialization fails
      */
     public static byte[] serialize(final Serializable obj) {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
@@ -250,10 +250,10 @@ public class SerializationUtils {
      * <p>The stream passed in is not buffered internally within this method.
      * This is the responsibility of your application if desired.</p>
      *
-     * @param obj  the object to serialize to bytes, may be null.
-     * @param outputStream  the stream to write to, must not be null.
-     * @throws NullPointerException if {@code outputStream} is {@code null}.
-     * @throws SerializationException (runtime) if the serialization fails.
+     * @param obj  the object to serialize to bytes, may be null
+     * @param outputStream  the stream to write to, must not be null
+     * @throws NullPointerException if {@code outputStream} is {@code null}
+     * @throws SerializationException (runtime) if the serialization fails
      */
     @SuppressWarnings("resource") // outputStream is managed by the caller
     public static void serialize(final Serializable obj, final OutputStream outputStream) {

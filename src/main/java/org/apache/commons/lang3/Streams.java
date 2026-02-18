@@ -74,7 +74,7 @@ public class Streams {
     /**
      * A Collector type for arrays.
      *
-     * @param <O> The array type.
+     * @param <O> the array type
      * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.ArrayCollector}.
      */
     @Deprecated
@@ -85,7 +85,7 @@ public class Streams {
         /**
          * Constructs a new instance for the given element type.
          *
-         * @param elementType The element type.
+         * @param elementType the element type
          */
         public ArrayCollector(final Class<O> elementType) {
             this.elementType = elementType;
@@ -124,7 +124,7 @@ public class Streams {
      * A reduced, and simplified version of a {@link Stream} with
      * failable method signatures.
      *
-     * @param <O> The streams element type.
+     * @param <O> the streams element type
      * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.FailableStream}.
      */
     @Deprecated
@@ -136,7 +136,7 @@ public class Streams {
         /**
          * Constructs a new instance with the given {@code stream}.
          *
-         * @param stream The stream.
+         * @param stream the stream
          */
         public FailableStream(final Stream<O> stream) {
             this.stream = stream;
@@ -160,10 +160,10 @@ public class Streams {
          * satisfied</em> and is always {@code true} (regardless of P(x)).
          * </p>
          *
-         * @param predicate A non-interfering, stateless predicate to apply to
-         * elements of this stream.
+         * @param predicate a non-interfering, stateless predicate to apply to
+         * elements of this stream
          * @return {@code true} If either all elements of the stream match the
-         * provided predicate or the stream is empty, otherwise {@code false}.
+         * provided predicate or the stream is empty, otherwise {@code false}
          */
         public boolean allMatch(final FailablePredicate<O, ?> predicate) {
             assertNotTerminated();
@@ -184,10 +184,10 @@ public class Streams {
          * This method evaluates the <em>existential quantification</em> of the
          * predicate over the elements of the stream (for some x P(x)).
          *
-         * @param predicate A non-interfering, stateless predicate to apply to
-         * elements of this stream.
+         * @param predicate a non-interfering, stateless predicate to apply to
+         * elements of this stream
          * @return {@code true} if any elements of the stream match the provided
-         * predicate, otherwise {@code false}.
+         * predicate, otherwise {@code false}
          */
         public boolean anyMatch(final FailablePredicate<O, ?> predicate) {
             assertNotTerminated();
@@ -197,7 +197,7 @@ public class Streams {
         /**
          * Throws IllegalStateException if this stream is already terminated.
          *
-         * @throws IllegalStateException if this stream is already terminated.
+         * @throws IllegalStateException if this stream is already terminated
          */
         protected void assertNotTerminated() {
             if (terminated) {
@@ -257,10 +257,10 @@ public class Streams {
          *                                                      Collectors.groupingBy(Person::getCity)));
          * }</pre>
          *
-         * @param <R> the type of the result.
-         * @param <A> the intermediate accumulation type of the {@link Collector}.
-         * @param collector the {@link Collector} describing the reduction.
-         * @return the result of the reduction.
+         * @param <R> the type of the result
+         * @param <A> the intermediate accumulation type of the {@link Collector}
+         * @param collector the {@link Collector} describing the reduction
+         * @return the result of the reduction
          * @see #collect(Supplier, BiConsumer, BiConsumer)
          * @see Collectors
          */
@@ -310,17 +310,17 @@ public class Streams {
          *                                 .toString();
          * }</pre>
          *
-         * @param <R> type of the result.
-         * @param <A> Type of the accumulator.
+         * @param <R> type of the result
+         * @param <A> type of the accumulator
          * @param supplier a function that creates a new result container. For a
          *                 parallel execution, this function may be called
          *                 multiple times and must return a fresh value each time.
-         * @param accumulator An associative, non-interfering, stateless function for
-         *   incorporating an additional element into a result.
-         * @param combiner An associative, non-interfering, stateless
+         * @param accumulator an associative, non-interfering, stateless function for
+         *   incorporating an additional element into a result
+         * @param combiner an associative, non-interfering, stateless
          *   function for combining two values, which must be compatible with the
-         *   accumulator function.
-         * @return The result of the reduction.
+         *   accumulator function
+         * @return the result of the reduction
          */
         public <A, R> R collect(final Supplier<R> supplier, final BiConsumer<R, ? super O> accumulator, final BiConsumer<R, R> combiner) {
             makeTerminated();
@@ -336,8 +336,8 @@ public class Streams {
          * </p>
          *
          * @param predicate a non-interfering, stateless predicate to apply to each
-         * element to determine if it should be included.
-         * @return the new stream.
+         * element to determine if it should be included
+         * @return the new stream
          */
         public FailableStream<O> filter(final FailablePredicate<O, ?> predicate) {
             assertNotTerminated();
@@ -362,7 +362,7 @@ public class Streams {
          * responsible for providing the required synchronization.
          * </p>
          *
-         * @param action a non-interfering action to perform on the elements.
+         * @param action a non-interfering action to perform on the elements
          */
         public void forEach(final FailableConsumer<O, ?> action) {
             makeTerminated();
@@ -372,7 +372,7 @@ public class Streams {
         /**
          * Marks this stream as terminated.
          *
-         * @throws IllegalStateException if this stream is already terminated.
+         * @throws IllegalStateException if this stream is already terminated
          */
         protected void makeTerminated() {
             assertNotTerminated();
@@ -387,9 +387,9 @@ public class Streams {
          * This is an intermediate operation.
          * </p>
          *
-         * @param <R> The element type of the new stream.
-         * @param mapper A non-interfering, stateless function to apply to each element.
-         * @return the new stream.
+         * @param <R> the element type of the new stream
+         * @param mapper a non-interfering, stateless function to apply to each element
+         * @return the new stream
          */
         public <R> FailableStream<R> map(final FailableFunction<O, R, ?> mapper) {
             assertNotTerminated();
@@ -440,10 +440,10 @@ public class Streams {
          * synchronization and with greatly reduced risk of data races.
          * </p>
          *
-         * @param identity the identity value for the accumulating function.
+         * @param identity the identity value for the accumulating function
          * @param accumulator an associative, non-interfering, stateless
-         *                    function for combining two values.
-         * @return the result of the reduction.
+         *                    function for combining two values
+         * @return the result of the reduction
          */
         public O reduce(final O identity, final BinaryOperator<O> accumulator) {
             makeTerminated();
@@ -453,7 +453,7 @@ public class Streams {
         /**
          * Converts the FailableStream into an equivalent stream.
          *
-         * @return A stream, which will return the same elements, which this FailableStream would return.
+         * @return a stream, which will return the same elements, which this FailableStream would return
          */
         public Stream<O> stream() {
             return stream;
@@ -498,10 +498,10 @@ public class Streams {
      * than the first version.
      * </p>
      *
-     * @param <O> The streams element type.
-     * @param stream The stream, which is being converted.
-     * @return The {@link FailableStream}, which has been created by
-     *   converting the stream.
+     * @param <O> the streams element type
+     * @param stream the stream, which is being converted
+     * @return the {@link FailableStream}, which has been created by
+     *   converting the stream
      */
     public static <O> FailableStream<O> stream(final Collection<O> stream) {
         return stream(stream.stream());
@@ -545,10 +545,10 @@ public class Streams {
      * than the first version.
      * </p>
      *
-     * @param <O> The streams element type.
-     * @param stream The stream, which is being converted.
-     * @return The {@link FailableStream}, which has been created by
-     *   converting the stream.
+     * @param <O> the streams element type
+     * @param stream the stream, which is being converted
+     * @return the {@link FailableStream}, which has been created by
+     *   converting the stream
      */
     public static <O> FailableStream<O> stream(final Stream<O> stream) {
         return new FailableStream<>(stream);
@@ -558,10 +558,10 @@ public class Streams {
      * Returns a {@link Collector} that accumulates the input elements into a
      * new array.
      *
-     * @param elementType Type of an element in the array.
-     * @param <O> the type of the input elements.
+     * @param elementType type of an element in the array
+     * @param <O> the type of the input elements
      * @return a {@link Collector} which collects all the input elements into an
-     * array, in encounter order.
+     * array, in encounter order
      */
     public static <O> Collector<O, ?, O[]> toArray(final Class<O> elementType) {
         return new ArrayCollector<>(elementType);

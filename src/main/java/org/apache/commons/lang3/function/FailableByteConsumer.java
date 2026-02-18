@@ -23,21 +23,21 @@ import java.util.function.IntConsumer;
 /**
  * A functional interface like {@link ByteConsumer} that declares a {@link Throwable}.
  *
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableByteConsumer<E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableByteConsumer NOP = t -> { /* NOP */ };
 
     /**
      * Gets the NOP singleton.
      *
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <E extends Throwable> FailableByteConsumer<E> nop() {
@@ -48,15 +48,15 @@ public interface FailableByteConsumer<E extends Throwable> {
      * Accepts the given arguments.
      *
      * @param value the parameter for the consumable to accept
-     * @throws E Thrown when the consumer fails.
+     * @throws E thrown when the consumer fails
      */
     void accept(byte value) throws E;
 
     /**
      * Returns a composed {@link FailableByteConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
      *
-     * @param after the operation to perform after this one.
-     * @return a composed {@link FailableByteConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
+     * @param after the operation to perform after this one
+     * @return a composed {@link FailableByteConsumer} like {@link IntConsumer#andThen(IntConsumer)}
      * @throws NullPointerException if {@code after} is null
      */
     default FailableByteConsumer<E> andThen(final FailableByteConsumer<E> after) {

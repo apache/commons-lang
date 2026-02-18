@@ -25,7 +25,7 @@ import java.util.Comparator;
  * We only offer specializations for Integer, Long, and Double (like Java Streams).
  * </p>
  *
- * @param <N> The Number class.
+ * @param <N> the Number class
  * @since 3.13.0
  */
 public class NumberRange<N extends Number> extends Range<N> {
@@ -35,11 +35,11 @@ public class NumberRange<N extends Number> extends Range<N> {
     /**
      * Creates an instance.
      *
-     * @param number1 the first element, not null.
-     * @param number2 the second element, not null.
-     * @param comp the comparator to be used, null for natural ordering.
-     * @throws NullPointerException when element1 is null.
-     * @throws NullPointerException when element2 is null.
+     * @param number1 the first element, not null
+     * @param number2 the second element, not null
+     * @param comp the comparator to be used, null for natural ordering
+     * @throws NullPointerException when element1 is null
+     * @throws NullPointerException when element2 is null
      */
     public NumberRange(final N number1, final N number2, final Comparator<N> comp) {
         super(number1, number2, comp);

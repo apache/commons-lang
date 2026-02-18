@@ -22,8 +22,8 @@ import java.util.function.Supplier;
 /**
  * A functional interface like {@link Supplier} that declares a {@link Throwable}.
  *
- * @param <T> The type of results supplied by this supplier.
- * @param <E> The kind of thrown exception or error.
+ * @param <T> the type of results supplied by this supplier
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
@@ -46,9 +46,9 @@ public interface FailableSupplier<T, E extends Throwable> {
      * This supplier never throws an exception.
      * </p>
      *
-     * @param <T> Supplied type.
-     * @param <E> The kind of thrown exception or error.
-     * @return The NUL singleton.
+     * @param <T> supplied type
+     * @param <E> the kind of thrown exception or error
+     * @return the NUL singleton
      * @since 3.14.0
      */
     @SuppressWarnings("unchecked")
@@ -57,7 +57,7 @@ public interface FailableSupplier<T, E extends Throwable> {
     }
 
     /**
-     * Supplies an object
+     * Supplies an object.
      *
      * @return a result
      * @throws E if the supplier fails

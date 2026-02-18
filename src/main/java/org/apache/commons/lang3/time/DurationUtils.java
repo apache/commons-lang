@@ -48,10 +48,10 @@ public class DurationUtils {
     /**
      * Accepts the function with the duration as a long milliseconds and int nanoseconds.
      *
-     * @param <T> The function exception.
-     * @param consumer Accepting function.
-     * @param duration The duration to pick apart.
-     * @throws T See the function signature.
+     * @param <T> the function exception
+     * @param consumer accepting function
+     * @param duration the duration to pick apart
+     * @throws T see the function signature
      * @see StopWatch
      */
     @SuppressWarnings("boxing") // boxing unavoidable
@@ -65,10 +65,10 @@ public class DurationUtils {
     /**
      * Gets a Duration of unit stored in the system property at the given key.
      *
-     * @param key  The property name.
-     * @param unit The unit that the duration is measured in, not null.
-     * @param def  The default value in the given unit.
-     * @return a Duration of seconds.
+     * @param key  the property name
+     * @param unit the unit that the duration is measured in, not null
+     * @param def  the default value in the given unit
+     * @return a Duration of seconds
      * @since 3.19.0
      */
     public static Duration get(final String key, final TemporalUnit unit, final long def) {
@@ -82,9 +82,9 @@ public class DurationUtils {
     /**
      * Gets a Duration of milliseconds stored in the system property at the given key.
      *
-     * @param key The property name.
-     * @param def The default value in milliseconds.
-     * @return a Duration of milliseconds.
+     * @param key the property name
+     * @param def the default value in milliseconds
+     * @return a Duration of milliseconds
      * @since 3.19.0
      */
     public static Duration getMillis(final String key, final long def) {
@@ -101,8 +101,8 @@ public class DurationUtils {
      * Note that is this different from {@link Duration#getNano()} because a duration are seconds and nanoseconds.
      * </p>
      *
-     * @param duration The duration to query.
-     * @return nanoseconds between 0 and 999,999.
+     * @param duration the duration to query
+     * @return nanoseconds between 0 and 999,999
      * @deprecated Use {@link #getNanosOfMilli(Duration)}.
      */
     @Deprecated
@@ -120,8 +120,8 @@ public class DurationUtils {
      * Note that is this different from {@link Duration#getNano()} because a duration are seconds and nanoseconds.
      * </p>
      *
-     * @param duration The duration to query.
-     * @return nanoseconds between 0 and 999,999.
+     * @param duration the duration to query
+     * @return nanoseconds between 0 and 999,999
      * @since 3.13.0
      */
     public static int getNanosOfMilli(final Duration duration) {
@@ -131,9 +131,9 @@ public class DurationUtils {
     /**
      * Gets a Duration of seconds stored in the system property at the given key.
      *
-     * @param key The property name.
-     * @param def The default value in seconds.
-     * @return a Duration of seconds.
+     * @param key the property name
+     * @param def the default value in seconds
+     * @return a Duration of seconds
      * @since 3.19.0
      */
     public static Duration getSeconds(final String key, final long def) {
@@ -144,7 +144,7 @@ public class DurationUtils {
      * Tests whether the given Duration is positive (duration &gt; 0).
      *
      * @param duration the value to test
-     * @return whether the given Duration is positive (duration &gt; 0).
+     * @return whether the given Duration is positive (duration &gt; 0)
      */
     public static boolean isPositive(final Duration duration) {
         return !duration.isNegative() && !duration.isZero();
@@ -159,10 +159,10 @@ public class DurationUtils {
     /**
      * Runs the lambda and returns the duration of its execution.
      *
-     * @param <E> The type of exception throw by the lambda.
-     * @param consumer What to execute.
-     * @return The Duration of execution.
-     * @throws E thrown by the lambda.
+     * @param <E> the type of exception throw by the lambda
+     * @param consumer what to execute
+     * @return the Duration of execution
+     * @throws E thrown by the lambda
      * @see StopWatch
      * @since 3.13.0
      */
@@ -173,10 +173,10 @@ public class DurationUtils {
     /**
      * Runs the lambda and returns the duration of its execution.
      *
-     * @param <E> The type of exception throw by the lambda.
-     * @param runnable What to execute.
-     * @return The Duration of execution.
-     * @throws E thrown by the lambda.
+     * @param <E> the type of exception throw by the lambda
+     * @param runnable what to execute
+     * @return the Duration of execution
+     * @throws E thrown by the lambda
      * @see StopWatch
      * @since 3.13.0
      */
@@ -187,8 +187,8 @@ public class DurationUtils {
     /**
      * Computes the Duration between a start instant and now.
      *
-     * @param startInclusive the start instant, inclusive, not null.
-     * @return a {@link Duration}, not null.
+     * @param startInclusive the start instant, inclusive, not null
+     * @return a {@link Duration}, not null
      * @since 3.13.0
      */
     public static Duration since(final Temporal startInclusive) {
@@ -198,8 +198,8 @@ public class DurationUtils {
     /**
      * Converts a {@link TimeUnit} to a {@link ChronoUnit}.
      *
-     * @param timeUnit A non-null TimeUnit.
-     * @return The corresponding ChronoUnit.
+     * @param timeUnit a non-null TimeUnit
+     * @return the corresponding ChronoUnit
      */
     static ChronoUnit toChronoUnit(final TimeUnit timeUnit) {
         // TODO when using Java >= 9: Use TimeUnit.toChronoUnit().
@@ -228,7 +228,7 @@ public class DurationUtils {
      *
      * @param amount   the amount of the duration, measured in terms of the unit, positive or negative
      * @param timeUnit the unit that the duration is measured in, must have an exact duration, not null
-     * @return a Duration.
+     * @return a Duration
      */
     public static Duration toDuration(final long amount, final TimeUnit timeUnit) {
         return Duration.of(amount, toChronoUnit(timeUnit));
@@ -246,8 +246,8 @@ public class DurationUtils {
      * {@link Integer#MIN_VALUE}.</li>
      * </ul>
      *
-     * @param duration The duration to convert, not null.
-     * @return int milliseconds.
+     * @param duration the duration to convert, not null
+     * @return int milliseconds
      */
     public static int toMillisInt(final Duration duration) {
         Objects.requireNonNull(duration, "duration");
@@ -258,8 +258,8 @@ public class DurationUtils {
     /**
      * Returns the given non-null value or {@link Duration#ZERO} if null.
      *
-     * @param duration The duration to test.
-     * @return The given duration or {@link Duration#ZERO}.
+     * @param duration the duration to test
+     * @return the given duration or {@link Duration#ZERO}
      */
     public static Duration zeroIfNull(final Duration duration) {
         return ObjectUtils.getIfNull(duration, Duration.ZERO);

@@ -23,27 +23,27 @@ import java.util.function.Predicate;
 /**
  * A functional interface like {@link Predicate} that declares a {@link Throwable}.
  *
- * @param <T> Predicate type.
- * @param <E> The kind of thrown exception or error.
+ * @param <T> predicate type
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailablePredicate<T, E extends Throwable> {
 
-    /** FALSE singleton */
+    /** FALSE singleton. */
     @SuppressWarnings("rawtypes")
     FailablePredicate FALSE = t -> false;
 
-    /** TRUE singleton */
+    /** TRUE singleton. */
     @SuppressWarnings("rawtypes")
     FailablePredicate TRUE = t -> true;
 
     /**
      * Gets the FALSE singleton.
      *
-     * @param <T> Predicate type.
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <T> predicate type
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, E extends Throwable> FailablePredicate<T, E> falsePredicate() {
@@ -53,9 +53,9 @@ public interface FailablePredicate<T, E extends Throwable> {
     /**
      * Gets the TRUE singleton.
      *
-     * @param <T> Predicate type.
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <T> predicate type
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, E extends Throwable> FailablePredicate<T, E> truePredicate() {
@@ -65,8 +65,8 @@ public interface FailablePredicate<T, E extends Throwable> {
     /**
      * Returns a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
      *
-     * @param other a predicate that will be logically-ANDed with this predicate.
-     * @return a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
+     * @param other a predicate that will be logically-ANDed with this predicate
+     * @return a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}
      * @throws NullPointerException if other is null
      */
     default FailablePredicate<T, E> and(final FailablePredicate<? super T, E> other) {
@@ -77,7 +77,7 @@ public interface FailablePredicate<T, E extends Throwable> {
     /**
      * Returns a predicate that negates this predicate.
      *
-     * @return a predicate that negates this predicate.
+     * @return a predicate that negates this predicate
      */
     default FailablePredicate<T, E> negate() {
         return t -> !test(t);
@@ -86,8 +86,8 @@ public interface FailablePredicate<T, E extends Throwable> {
     /**
      * Returns a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
      *
-     * @param other a predicate that will be logically-ORed with this predicate.
-     * @return a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
+     * @param other a predicate that will be logically-ORed with this predicate
+     * @return a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}
      * @throws NullPointerException if other is null
      */
     default FailablePredicate<T, E> or(final FailablePredicate<? super T, E> other) {

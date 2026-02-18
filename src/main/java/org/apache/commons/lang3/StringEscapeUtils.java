@@ -452,8 +452,8 @@ public class StringEscapeUtils {
      * output string: He didn\'t say, \"Stop!\"
      * </pre>
      *
-     * @param input  String to escape values in, may be null
-     * @return String with escaped values, {@code null} if null string input
+     * @param input  string to escape values in, may be null
+     * @return string with escaped values, {@code null} if null string input
      * @since 3.0
      */
     public static final String escapeEcmaScript(final String input) {
@@ -518,8 +518,8 @@ public class StringEscapeUtils {
      * output string: He didn't say, \"Stop!\"
      * </pre>
      *
-     * @param input  String to escape values in, may be null
-     * @return String with escaped values, {@code null} if null string input
+     * @param input  string to escape values in, may be null
+     * @return string with escaped values, {@code null} if null string input
      */
     public static final String escapeJava(final String input) {
         return ESCAPE_JAVA.translate(input);
@@ -544,8 +544,8 @@ public class StringEscapeUtils {
      * output string: He didn't say, \"Stop!\"
      * </pre>
      *
-     * @param input  String to escape values in, may be null
-     * @return String with escaped values, {@code null} if null string input
+     * @param input  string to escape values in, may be null
+     * @return string with escaped values, {@code null} if null string input
      * @since 3.2
      */
     public static final String escapeJson(final String input) {
@@ -689,9 +689,9 @@ public class StringEscapeUtils {
      * into a newline character, unless the {@code '\'} is preceded by another
      * {@code '\'}.</p>
      *
-     * @see #unescapeJava(String)
      * @param input  the {@link String} to unescape, may be null
-     * @return A new unescaped {@link String}, {@code null} if null string input
+     * @return a new unescaped {@link String}, {@code null} if null string input
+     * @see #unescapeJava(String)
      * @since 3.0
      */
     public static final String unescapeEcmaScript(final String input) {
@@ -751,9 +751,9 @@ public class StringEscapeUtils {
      * into a newline character, unless the {@code '\'} is preceded by another
      * {@code '\'}.</p>
      *
-     * @see #unescapeJava(String)
      * @param input  the {@link String} to unescape, may be null
-     * @return A new unescaped {@link String}, {@code null} if null string input
+     * @return a new unescaped {@link String}, {@code null} if null string input
+     * @see #unescapeJava(String)
      * @since 3.2
      */
     public static final String unescapeJson(final String input) {

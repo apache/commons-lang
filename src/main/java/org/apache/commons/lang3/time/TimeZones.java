@@ -52,6 +52,7 @@ public class TimeZones {
      * <p>
      * Make a defensive copy, just in case.
      * </p>
+     *
      * @see TimeZone#getAvailableIDs()
      */
     static final String[] SORTED_AVAILABLE_IDS = ArraySorter.sort(TimeZone.getAvailableIDs().clone());
@@ -69,8 +70,8 @@ public class TimeZones {
      * You can disable mapping from {@link ZoneId#SHORT_IDS} by setting the system property {@code "TimeZones.mapShortIDs=false"}.
      * </p>
      *
-     * @param id Same as {@link TimeZone#getTimeZone(String)}.
-     * @return Same as {@link TimeZone#getTimeZone(String)}.
+     * @param id same as {@link TimeZone#getTimeZone(String)}
+     * @return same as {@link TimeZone#getTimeZone(String)}
      * @since 3.20.0
      */
     public static TimeZone getTimeZone(final String id) {
@@ -84,8 +85,8 @@ public class TimeZones {
     /**
      * Returns the given TimeZone if non-{@code null}, otherwise {@link TimeZone#getDefault()}.
      *
-     * @param timeZone a locale or {@code null}.
-     * @return the given locale if non-{@code null}, otherwise {@link TimeZone#getDefault()}.
+     * @param timeZone a locale or {@code null}
+     * @return the given locale if non-{@code null}, otherwise {@link TimeZone#getDefault()}
      * @since 3.13.0
      */
     public static TimeZone toTimeZone(final TimeZone timeZone) {

@@ -1575,7 +1575,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getAppleAwtEnableTemplateImages() {
@@ -1588,7 +1588,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @see #AWT_TOOLKIT
      * @deprecated Deprecated without replacement.
@@ -1604,10 +1604,10 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param clazz           The Class to use for the SimpleClassName.
-     * @param key             The subkey.
-     * @param defaultIfAbsent The default value.
-     * @return an int or {@code defaultIfAbsent}'s value.
+     * @param clazz           the Class to use for the SimpleClassName
+     * @param key             the subkey
+     * @param defaultIfAbsent the default value
+     * @return an int or {@code defaultIfAbsent}'s value
      * @see Class#getSimpleName()
      * @since 3.19.0
      */
@@ -1621,9 +1621,9 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param key             The key.
-     * @param defaultIfAbsent The default value.
-     * @return a {@code boolean} or {@code defaultIfAbsent}'s value.
+     * @param key             the key
+     * @param defaultIfAbsent the default value
+     * @return a {@code boolean} or {@code defaultIfAbsent}'s value
      */
     public static boolean getBoolean(final String key, final BooleanSupplier defaultIfAbsent) {
         final String str = getProperty(key);
@@ -1636,7 +1636,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getComSunJndiLdapObjectTrustSerialData() {
@@ -1649,7 +1649,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getComSunNetHttpServerHttpServerProvider() {
@@ -1665,7 +1665,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getFileEncoding() {
         return getProperty(FILE_ENCODING);
@@ -1677,7 +1677,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getFileSeparator() {
         return getProperty(FILE_SEPARATOR);
@@ -1689,7 +1689,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getFtpNonProxyHost() {
@@ -1702,7 +1702,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getFtpProxyHost() {
@@ -1715,7 +1715,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getFtpProxyPort() {
@@ -1728,7 +1728,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpAgent() {
@@ -1741,7 +1741,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpAuthDigestCnonceRepeat() {
@@ -1754,7 +1754,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpAuthDigestReenabledAlgorithms() {
@@ -1767,7 +1767,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpAuthDigestValidateProxy() {
@@ -1780,7 +1780,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpAuthDigestValidateServer() {
@@ -1793,7 +1793,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpAuthNtlmDomain() {
@@ -1806,7 +1806,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpKeepAlive() {
@@ -1819,7 +1819,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpKeepAliveTimeProxy() {
@@ -1832,7 +1832,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpKeepAliveTimeServer() {
@@ -1845,7 +1845,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpMaxConnections() {
@@ -1858,7 +1858,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpMaxRedirects() {
@@ -1871,7 +1871,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpNonProxyHosts() {
@@ -1884,7 +1884,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpProxyHost() {
@@ -1897,7 +1897,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpProxyPort() {
@@ -1910,7 +1910,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpsProxyHost() {
@@ -1923,7 +1923,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getHttpsProxyPort() {
@@ -1936,10 +1936,10 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param clazz           The Class to use for the SimpleClassName.
-     * @param key             The subkey.
-     * @param defaultIfAbsent The default value.
-     * @return an int or {@code defaultIfAbsent}'s value.
+     * @param clazz           the Class to use for the SimpleClassName
+     * @param key             the subkey
+     * @param defaultIfAbsent the default value
+     * @return an int or {@code defaultIfAbsent}'s value
      * @see Class#getSimpleName()
      * @since 3.19.0
      */
@@ -1953,9 +1953,9 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param key             The key.
-     * @param defaultIfAbsent The default value.
-     * @return an {@code int} or {@code defaultIfAbsent}'s value.
+     * @param key             the key
+     * @param defaultIfAbsent the default value
+     * @return an {@code int} or {@code defaultIfAbsent}'s value
      */
     public static int getInt(final String key, final IntSupplier defaultIfAbsent) {
         final String str = getProperty(key);
@@ -1968,7 +1968,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @see #JAVA_AWT_FONTS
      * @deprecated Deprecated without replacement.
@@ -1984,7 +1984,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @deprecated Deprecated without replacement.
      */
@@ -1999,7 +1999,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @see #JAVA_AWT_HEADLESS
      * @deprecated Deprecated without replacement.
@@ -2015,7 +2015,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @see #JAVA_AWT_PRINTERJOB
      * @deprecated Deprecated without replacement.
@@ -2031,7 +2031,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">java.class.path</a>
      * @see #JAVA_CLASS_PATH
      */
@@ -2045,7 +2045,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaClassVersion() {
         return getProperty(JAVA_CLASS_VERSION);
@@ -2057,7 +2057,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @see <a href="https://bugs.openjdk.org/browse/JDK-8305998">JDK-8305998</a>
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @deprecated Deprecated without replacement.
@@ -2073,7 +2073,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaContentHandlerPkgs() {
@@ -2086,7 +2086,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @deprecated Deprecated without replacement.
      */
@@ -2101,7 +2101,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">System Properties</a>
      * @see #JAVA_EXT_DIRS
      * @deprecated Deprecated without replacement.
@@ -2117,7 +2117,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaHome() {
         return getProperty(JAVA_HOME);
@@ -2129,7 +2129,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaIoTmpdir() {
         return getProperty(JAVA_IO_TMPDIR);
@@ -2141,7 +2141,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaLibraryPath() {
         return getProperty(JAVA_LIBRARY_PATH);
@@ -2156,7 +2156,7 @@ public final class SystemProperties {
      * Java 9 and above.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaLocaleProviders() {
         return getProperty(JAVA_LOCALE_PROVIDERS);
@@ -2168,7 +2168,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaLocaleUseOldIsoCodes() {
@@ -2181,7 +2181,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaNetPreferIpv4Stack() {
@@ -2194,7 +2194,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaNetPreferIpv6Addresses() {
@@ -2207,7 +2207,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaNetSocksPassword() {
@@ -2220,7 +2220,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaNetSocksUserName() {
@@ -2233,7 +2233,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaNetUseSystemProxies() {
@@ -2246,7 +2246,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaNioChannelsDefaultThreadPoolInitialSize() {
@@ -2259,7 +2259,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaNioChannelsDefaultThreadPoolThreadFactory() {
@@ -2272,7 +2272,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaNioChannelsSpiAsynchronousChannelProvider() {
@@ -2285,7 +2285,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaNioChannelsSpiSelectorProvider() {
@@ -2298,7 +2298,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaNioFileSpiDefaultFileSystemProvider() {
@@ -2311,7 +2311,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaPropertiesDate() {
@@ -2324,7 +2324,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaProtocolHandlerPkgs() {
@@ -2337,7 +2337,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaRmiServerCodebase() {
@@ -2350,7 +2350,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaRmiServerHostName() {
@@ -2363,7 +2363,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaRmiServerRandomIds() {
@@ -2376,7 +2376,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaRmiServerRmiClassLoaderSpi() {
@@ -2389,7 +2389,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaRuntimeName() {
         return getProperty(JAVA_RUNTIME_NAME);
@@ -2401,7 +2401,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaRuntimeVersion() {
         return getProperty(JAVA_RUNTIME_VERSION);
@@ -2413,7 +2413,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaSecurityAuthLoginConfig() {
@@ -2426,7 +2426,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaSecurityManager() {
@@ -2439,7 +2439,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaSpecificationMaintenanceVersion() {
@@ -2452,7 +2452,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaSpecificationName() {
         return getProperty(JAVA_SPECIFICATION_NAME);
@@ -2464,7 +2464,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaSpecificationVendor() {
         return getProperty(JAVA_SPECIFICATION_VENDOR);
@@ -2476,7 +2476,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaSpecificationVersion() {
         return getProperty(JAVA_SPECIFICATION_VERSION);
@@ -2488,8 +2488,8 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @param defaultValue get this Supplier when the property is empty or throws SecurityException.
-     * @return The system property value or {@code defaultValue} if the property is absent or a security problem occurs.
+     * @param defaultValue get this Supplier when the property is empty or throws SecurityException
+     * @return the system property value or {@code defaultValue} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaSpecificationVersion(final String defaultValue) {
@@ -2502,7 +2502,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaSystemClassLoader() {
@@ -2515,7 +2515,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaTimeZoneDefaultZoneRulesProvider() {
@@ -2528,7 +2528,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaUtilConcurrentForkJoinPoolCommonExceptionHandler() {
@@ -2541,7 +2541,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaUtilConcurrentForkJoinPoolCommonMaximumSpares() {
@@ -2554,7 +2554,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaUtilConcurrentForkJoinPoolCommonParallelism() {
@@ -2567,7 +2567,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaUtilConcurrentForkJoinPoolCommonThreadFactory() {
@@ -2580,7 +2580,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaUtilCurrencyData() {
@@ -2593,7 +2593,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaUtilLoggingConfigClass() {
@@ -2606,7 +2606,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaUtilLoggingConfigFile() {
@@ -2619,7 +2619,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaUtilLoggingSimpleFormatterFormat() {
@@ -2632,7 +2632,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaUtilPrefsPreferencesFactory() {
         return getProperty(JAVA_UTIL_PREFS_PREFERENCES_FACTORY);
@@ -2644,7 +2644,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaUtilPropertyResourceBundleEncoding() {
@@ -2657,7 +2657,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaVendor() {
         return getProperty(JAVA_VENDOR);
@@ -2669,7 +2669,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaVendorUrl() {
         return getProperty(JAVA_VENDOR_URL);
@@ -2681,7 +2681,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaVendorVersion() {
@@ -2694,7 +2694,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaVersion() {
         return getProperty(JAVA_VERSION);
@@ -2706,7 +2706,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaVersionDate() {
@@ -2719,7 +2719,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaVmInfo() {
         return getProperty(JAVA_VM_INFO);
@@ -2731,7 +2731,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaVmName() {
         return getProperty(JAVA_VM_NAME);
@@ -2743,7 +2743,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaVmSpecificationName() {
         return getProperty(JAVA_VM_SPECIFICATION_NAME);
@@ -2755,7 +2755,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaVmSpecificationVendor() {
         return getProperty(JAVA_VM_SPECIFICATION_VENDOR);
@@ -2767,7 +2767,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaVmSpecificationVersion() {
         return getProperty(JAVA_VM_SPECIFICATION_VERSION);
@@ -2779,7 +2779,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaVmVendor() {
         return getProperty(JAVA_VM_VENDOR);
@@ -2791,7 +2791,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getJavaVmVersion() {
         return getProperty(JAVA_VM_VERSION);
@@ -2803,7 +2803,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaxAccessibilityAssistiveTechnologies() {
@@ -2816,7 +2816,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaXmlConfigFile() {
@@ -2829,7 +2829,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaxNetSslSessionCacheSize() {
@@ -2842,7 +2842,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaxRmiSslClientEnabledCipherSuites() {
@@ -2855,7 +2855,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaxRmiSslClientEnabledProtocols() {
@@ -2868,7 +2868,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaxSecurityAuthUseSubjectCredsOnly() {
@@ -2881,7 +2881,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJavaxSmartCardIoTerminalFactoryDefaultType() {
@@ -2894,7 +2894,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdbcDrivers() {
@@ -2907,7 +2907,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpAuthProxyingDisabledSchemes() {
@@ -2920,7 +2920,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpAuthTunnelingDisabledSchemes() {
@@ -2933,7 +2933,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientAllowRestrictedHeaders() {
@@ -2946,7 +2946,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientAuthRetryLimit() {
@@ -2959,7 +2959,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientBufSize() {
@@ -2972,7 +2972,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientConnectionPoolSize() {
@@ -2985,7 +2985,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientConnectionWindowSize() {
@@ -2998,7 +2998,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientDisableRetryConnect() {
@@ -3011,7 +3011,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientEnableAllMethodRetry() {
@@ -3024,7 +3024,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientEnablePush() {
@@ -3037,7 +3037,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientHpackMaxHeaderTableSize() {
@@ -3050,7 +3050,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientHttpClientLog() {
@@ -3063,7 +3063,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientKeepAliveTimeout() {
@@ -3076,7 +3076,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientKeepAliveTimeoutH2() {
@@ -3089,7 +3089,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientMaxFrameSize() {
@@ -3102,7 +3102,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientMaxStreams() {
@@ -3115,7 +3115,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientReceiveBufferSize() {
@@ -3128,7 +3128,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientRedirectsRetryLimit() {
@@ -3141,7 +3141,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientSendBufferSize() {
@@ -3154,7 +3154,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientWebSocketWriteBufferSize() {
@@ -3167,7 +3167,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpClientWindowSize() {
@@ -3180,7 +3180,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpServerMaxConnections() {
@@ -3193,7 +3193,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkHttpsNegotiateCbt() {
@@ -3206,7 +3206,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkIncludeInExceptions() {
@@ -3219,7 +3219,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkInternalHttpClientDisableHostNameVerification() {
@@ -3232,7 +3232,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkIoPermissionsUseCanonicalPath() {
@@ -3245,7 +3245,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkJndiLdapObjectFactoriesFilter() {
@@ -3258,7 +3258,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkJndiObjectFactoriesFilter() {
@@ -3271,7 +3271,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkJndiRmiObjectFactoriesFilter() {
@@ -3284,7 +3284,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkModuleMain() {
@@ -3297,7 +3297,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkModuleMainClass() {
@@ -3310,7 +3310,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkModulePath() {
@@ -3323,7 +3323,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkModuleUpgradePath() {
@@ -3336,7 +3336,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkNetUnixDomainTmpDir() {
@@ -3349,7 +3349,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkNetUrlClassPathShowIgnoredClassPathEntries() {
@@ -3362,7 +3362,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkSerialFilter() {
@@ -3375,7 +3375,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkSerialFilterFactory() {
@@ -3388,7 +3388,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkTlsClientSignatureSchemes() {
@@ -3401,7 +3401,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkTlsNamedGroups() {
@@ -3414,7 +3414,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkTlsServerSignatureSchemes() {
@@ -3427,7 +3427,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkVirtualThreadSchedulerMaxPoolSize() {
@@ -3440,7 +3440,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkVirtualThreadSchedulerParallelism() {
@@ -3453,7 +3453,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlCdataChunkSize() {
@@ -3466,7 +3466,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlDtdSupport() {
@@ -3479,7 +3479,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlElementAttributeLimit() {
@@ -3492,7 +3492,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlEnableExtensionFunctions() {
@@ -3505,7 +3505,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlEntityExpansionLimit() {
@@ -3518,7 +3518,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlEntityReplacementLimit() {
@@ -3531,7 +3531,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlIsStandalone() {
@@ -3544,7 +3544,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlJdkCatalogResolve() {
@@ -3557,7 +3557,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlMaxElementDepth() {
@@ -3570,7 +3570,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlMaxGeneralEntitySizeLimit() {
@@ -3583,7 +3583,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlMaxOccurLimit() {
@@ -3596,7 +3596,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlMaxParameterEntitySizeLimit() {
@@ -3609,7 +3609,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlMaxXmlNameLimit() {
@@ -3622,7 +3622,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlOverrideDefaultParser() {
@@ -3635,7 +3635,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlResetSymbolTable() {
@@ -3648,7 +3648,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlTotalEntitySizeLimit() {
@@ -3661,7 +3661,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getJdkXmlXsltcIsStandalone() {
@@ -3674,7 +3674,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getLineSeparator() {
         return getProperty(LINE_SEPARATOR);
@@ -3686,8 +3686,8 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @param defaultIfAbsent get this Supplier when the property is empty or throws SecurityException.
-     * @return the current value from the system properties map.
+     * @param defaultIfAbsent get this Supplier when the property is empty or throws SecurityException
+     * @return the current value from the system properties map
      * @since 3.15.0
      */
     public static String getLineSeparator(final Supplier<String> defaultIfAbsent) {
@@ -3700,10 +3700,10 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param clazz           The Class to use for the SimpleClassName.
-     * @param key             The subkey.
-     * @param defaultIfAbsent The default value.
-     * @return a long or {@code defaultIfAbsent}'s value.
+     * @param clazz           the Class to use for the SimpleClassName
+     * @param key             the subkey
+     * @param defaultIfAbsent the default value
+     * @return a long or {@code defaultIfAbsent}'s value
      * @see Class#getSimpleName()
      * @since 3.19.0
      */
@@ -3717,9 +3717,9 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param key             The key.
-     * @param defaultIfAbsent The default value.
-     * @return a {@code long} or {@code defaultIfAbsent}'s value.
+     * @param key             the key
+     * @param defaultIfAbsent the default value
+     * @return a {@code long} or {@code defaultIfAbsent}'s value
      */
     public static long getLong(final String key, final LongSupplier defaultIfAbsent) {
         final String str = getProperty(key);
@@ -3732,7 +3732,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getNativeEncoding() {
@@ -3745,7 +3745,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getNetworkAddressCacheNegativeTtl() {
@@ -3758,7 +3758,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getNetworkAddressCacheStaleTtl() {
@@ -3771,7 +3771,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getNetworkAddressCacheTtl() {
@@ -3784,7 +3784,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getOrgJcpXmlDsigSecureValidation() {
@@ -3797,7 +3797,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getOrgOpenJdkJavaUtilStreamTripwire() {
@@ -3810,7 +3810,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getOsArch() {
         return getProperty(OS_ARCH);
@@ -3822,7 +3822,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getOsName() {
         return getProperty(OS_NAME);
@@ -3834,7 +3834,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getOsVersion() {
         return getProperty(OS_VERSION);
@@ -3846,9 +3846,9 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param key             The key.
-     * @param defaultIfAbsent The default value.
-     * @return a {@link Path} or {@code defaultIfAbsent}'s value.
+     * @param key             the key
+     * @param defaultIfAbsent the default value
+     * @return a {@link Path} or {@code defaultIfAbsent}'s value
      * @since 3.20.0
      */
     public static Path getPath(final String key, final Supplier<Path> defaultIfAbsent) {
@@ -3862,7 +3862,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getPathSeparator() {
         return getProperty(PATH_SEPARATOR);
@@ -3874,8 +3874,8 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param property The system property name.
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @param property the system property name
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getProperty(final String property) {
         return getProperty(property, Suppliers.nul());
@@ -3887,9 +3887,9 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param property        the system property name.
-     * @param defaultIfAbsent use this value when the property is empty or throws SecurityException.
-     * @return the system property value or {@code null} if a security problem occurs.
+     * @param property        the system property name
+     * @param defaultIfAbsent use this value when the property is empty or throws SecurityException
+     * @return the system property value or {@code null} if a security problem occurs
      */
     static String getProperty(final String property, final String defaultIfAbsent) {
         return getProperty(property, () -> defaultIfAbsent);
@@ -3901,9 +3901,9 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param property        the system property name.
-     * @param defaultIfAbsent get this Supplier when the property is empty or throws SecurityException.
-     * @return the system property value or {@code null} if a security problem occurs.
+     * @param property        the system property name
+     * @param defaultIfAbsent get this Supplier when the property is empty or throws SecurityException
+     * @return the system property value or {@code null} if a security problem occurs
      */
     static String getProperty(final String property, final Supplier<String> defaultIfAbsent) {
         try {
@@ -3926,7 +3926,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getSocksProxyHost() {
@@ -3939,7 +3939,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getSocksProxyPort() {
@@ -3952,7 +3952,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getSocksProxyVersion() {
@@ -3965,7 +3965,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getStdErrEncoding() {
@@ -3978,7 +3978,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getStdOutEncoding() {
@@ -3991,7 +3991,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getSunNetHttpServerDrainAmount() {
@@ -4004,7 +4004,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getSunNetHttpServerIdleInterval() {
@@ -4017,7 +4017,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getSunNetHttpServerMaxIdleConnections() {
@@ -4030,7 +4030,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getSunNetHttpServerMaxReqHeaders() {
@@ -4043,7 +4043,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getSunNetHttpServerMaxReqTime() {
@@ -4056,7 +4056,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getSunNetHttpServerMaxRspTime() {
@@ -4069,7 +4069,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getSunNetHttpServerNoDelay() {
@@ -4082,7 +4082,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getSunSecurityKrb5Principal() {
@@ -4095,7 +4095,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getUserCountry() {
         return getProperty(USER_COUNTRY);
@@ -4107,7 +4107,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getUserDir() {
         return getProperty(USER_DIR);
@@ -4119,7 +4119,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getUserExtensions() {
@@ -4132,7 +4132,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getUserHome() {
         return getProperty(USER_HOME);
@@ -4144,7 +4144,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getUserLanguage() {
         return getProperty(USER_LANGUAGE);
@@ -4156,7 +4156,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getUserName() {
         return getProperty(USER_NAME);
@@ -4168,8 +4168,8 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @param defaultValue get this Supplier when the property is empty or throws SecurityException.
-     * @return The system property value or {@code defaultValue} if the property is absent or a security problem occurs.
+     * @param defaultValue get this Supplier when the property is empty or throws SecurityException
+     * @return the system property value or {@code defaultValue} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getUserName(final String defaultValue) {
@@ -4182,7 +4182,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getUserRegion() {
@@ -4195,7 +4195,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getUserScript() {
@@ -4208,7 +4208,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      */
     public static String getUserTimezone() {
         return getProperty(USER_TIMEZONE);
@@ -4220,7 +4220,7 @@ public final class SystemProperties {
      * Returns {@code null} if the property cannot be read due to a {@link SecurityException}.
      * </p>
      *
-     * @return The system property value or {@code null} if the property is absent or a security problem occurs.
+     * @return the system property value or {@code null} if the property is absent or a security problem occurs
      * @since 3.15.0
      */
     public static String getUserVariant() {
@@ -4236,8 +4236,8 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code false}.
      * </p>
      *
-     * @param property the system property name.
-     * @return whether the given property is set.
+     * @param property the system property name
+     * @return whether the given property is set
      * @since 3.18.0
      */
     public static boolean isPropertySet(final String property) {

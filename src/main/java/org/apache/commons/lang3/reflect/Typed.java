@@ -31,7 +31,7 @@ public interface Typed<T> {
     /**
      * Gets the {@link Type} represented by this entity.
      *
-     * @return Type
+     * @return type
      */
     Type getType();
 }

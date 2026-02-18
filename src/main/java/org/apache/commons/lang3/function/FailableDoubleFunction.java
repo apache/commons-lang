@@ -22,23 +22,23 @@ import java.util.function.DoubleFunction;
 /**
  * A functional interface like {@link DoubleFunction} that declares a {@link Throwable}.
  *
- * @param <R> Return type.
- * @param <E> The kind of thrown exception or error.
+ * @param <R> return type
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableDoubleFunction<R, E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableDoubleFunction NOP = t -> null;
 
     /**
      * Gets the NOP singleton.
      *
-     * @param <R> Return type.
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <R> return type
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <R, E extends Throwable> FailableDoubleFunction<R, E> nop() {
@@ -50,7 +50,7 @@ public interface FailableDoubleFunction<R, E extends Throwable> {
      *
      * @param input the input for the function
      * @return the result of the function
-     * @throws E Thrown when the function fails.
+     * @throws E thrown when the function fails
      */
     R apply(double input) throws E;
 }

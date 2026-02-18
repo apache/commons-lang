@@ -37,7 +37,7 @@ import org.apache.commons.lang3.SystemProperties;
  * key as a primary key, and looked up the value on demand from the database.
  * </p>
  *
- * @param <V> Unused.
+ * @param <V> unused
  * @since 2.2
  * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/lookup/StringLookupFactory.html">
@@ -49,7 +49,7 @@ public abstract class StrLookup<V> {
     /**
      * Lookup implementation that uses a Map.
      *
-     * @param <V> the type of mapped values.
+     * @param <V> the type of mapped values
      */
     private static final class MapStrLookup<V> extends StrLookup<V> {
 
@@ -59,7 +59,7 @@ public abstract class StrLookup<V> {
         /**
          * Creates a new instance backed by a Map.
          *
-         * @param map  the map of keys to values, may be null.
+         * @param map the map of keys to values, may be null
          */
         MapStrLookup(final Map<String, V> map) {
             this.map = map;
@@ -72,8 +72,8 @@ public abstract class StrLookup<V> {
          * The map result object is converted to a string using toString().
          * </p>
          *
-         * @param key  the key to be looked up, may be null.
-         * @return the matching value, null if no match.
+         * @param key  the key to be looked up, may be null
+         * @return the matching value, null if no match
          */
         @Override
         public String lookup(final String key) {
@@ -115,9 +115,9 @@ public abstract class StrLookup<V> {
      * The map result object is converted to a string using toString().
      * </p>
      *
-     * @param <V> the type of the values supported by the lookup.
-     * @param map  the map of keys to values, may be null.
-     * @return a lookup using the map, not null.
+     * @param <V> the type of the values supported by the lookup
+     * @param map  the map of keys to values, may be null
+     * @return a lookup using the map, not null
      */
     public static <V> StrLookup<V> mapLookup(final Map<String, V> map) {
         return new MapStrLookup<>(map);
@@ -126,7 +126,7 @@ public abstract class StrLookup<V> {
     /**
      * Returns a lookup which always returns null.
      *
-     * @return a lookup that always returns null, not null.
+     * @return a lookup that always returns null, not null
      */
     public static StrLookup<?> noneLookup() {
         return NONE_LOOKUP;
@@ -143,7 +143,7 @@ public abstract class StrLookup<V> {
      * If a null key is used, this lookup will throw a NullPointerException.
      * </p>
      *
-     * @return a lookup using system properties, not null.
+     * @return a lookup using system properties, not null
      */
     public static StrLookup<String> systemPropertiesLookup() {
         return SYSTEM_PROPERTIES_LOOKUP;
@@ -179,8 +179,8 @@ public abstract class StrLookup<V> {
      * assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
      * }</pre>
      *
-     * @param key  the key to be looked up, may be null.
-     * @return the matching value, null if no match.
+     * @param key  the key to be looked up, may be null
+     * @return the matching value, null if no match
      */
     public abstract String lookup(String key);
 }

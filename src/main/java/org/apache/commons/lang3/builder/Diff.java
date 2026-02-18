@@ -30,7 +30,7 @@ import org.apache.commons.lang3.tuple.Pair;
  * Typically, {@link Diff}s are retrieved by using a {@link DiffBuilder} to produce a {@link DiffResult}, containing the differences between two objects.
  * </p>
  *
- * @param <T> The type of object contained within this {@link Diff}. Differences between primitive objects are stored as their Object wrapper equivalent.
+ * @param <T> the type of object contained within this {@link Diff}. Differences between primitive objects are stored as their Object wrapper equivalent.
  * @since 3.3
  */
 public abstract class Diff<T> extends Pair<T, T> {
@@ -47,7 +47,7 @@ public abstract class Diff<T> extends Pair<T, T> {
      * Constructs a new {@link Diff} for the given field name.
      *
      * @param fieldName
-     *            the field name.
+ *            the field name
      */
     protected Diff(final String fieldName) {
         this.fieldName = Objects.requireNonNull(fieldName);
@@ -62,7 +62,7 @@ public abstract class Diff<T> extends Pair<T, T> {
     /**
      * Gets the name of the field.
      *
-     * @return the field name.
+     * @return the field name
      */
     public final String getFieldName() {
         return fieldName;
@@ -71,7 +71,7 @@ public abstract class Diff<T> extends Pair<T, T> {
     /**
      * Gets the type of the field.
      *
-     * @return the field type.
+     * @return the field type
      * @deprecated Unused, will be removed in 4.0.0.
      */
     @Deprecated
@@ -83,8 +83,8 @@ public abstract class Diff<T> extends Pair<T, T> {
      * Throws {@link UnsupportedOperationException}.
      *
      * @param value
-     *            ignored.
-     * @return Throws {@link UnsupportedOperationException}.
+     *            ignored
+     * @return throws {@link UnsupportedOperationException}
      */
     @Override
     public final T setValue(final T value) {
@@ -99,7 +99,7 @@ public abstract class Diff<T> extends Pair<T, T> {
      * [fieldname: left-value, right-value]
      * </pre>
      *
-     * @return the string representation.
+     * @return the string representation
      */
     @Override
     public final String toString() {

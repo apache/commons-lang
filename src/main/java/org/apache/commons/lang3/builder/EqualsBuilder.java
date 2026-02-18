@@ -127,7 +127,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * Gets the registry of object pairs being traversed by the reflection
      * methods in the current thread.
      *
-     * @return Set the registry of objects being traversed
+     * @return set the registry of objects being traversed
      * @since 3.0
      */
     static Set<Pair<IDKey, IDKey>> getRegistry() {
@@ -144,7 +144,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs {@code this} object to lookup in registry
      * @param rhs the other object to lookup on registry
-     * @return boolean {@code true} if the registry contains the given object.
+     * @return boolean {@code true} if the registry contains the given object
      * @since 3.0
      */
     static boolean isRegistered(final Object lhs, final Object rhs) {
@@ -173,7 +173,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param lhs  {@code this} object
      * @param rhs  the other object
      * @param testTransients  whether to include transient fields
-     * @return {@code true} if the two Objects have tested equals.
+     * @return {@code true} if the two Objects have tested equals
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final boolean testTransients) {
@@ -209,9 +209,9 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param reflectUpToClass  the superclass to reflect up to (inclusive),
      *  may be {@code null}
      * @param testRecursive  whether to call reflection equals on non-primitive
-     *  fields recursively.
+     *  fields recursively
      * @param excludeFields  array of field names to exclude from testing
-     * @return {@code true} if the two Objects have tested equals.
+     * @return {@code true} if the two Objects have tested equals
      * @see EqualsExclude
      * @since 3.6
      */
@@ -258,7 +258,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param reflectUpToClass  the superclass to reflect up to (inclusive),
      *  may be {@code null}
      * @param excludeFields  array of field names to exclude from testing
-     * @return {@code true} if the two Objects have tested equals.
+     * @return {@code true} if the two Objects have tested equals
      * @see EqualsExclude
      * @since 2.0
      */
@@ -284,8 +284,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  {@code this} object
      * @param rhs  the other object
-     * @param excludeFields  Collection of String field names to exclude from testing
-     * @return {@code true} if the two Objects have tested equals.
+     * @param excludeFields  collection of String field names to exclude from testing
+     * @return {@code true} if the two Objects have tested equals
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final Collection<String> excludeFields) {
@@ -310,7 +310,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param lhs  {@code this} object
      * @param rhs  the other object
      * @param excludeFields  array of field names to exclude from testing
-     * @return {@code true} if the two Objects have tested equals.
+     * @return {@code true} if the two Objects have tested equals
      * @see EqualsExclude
      */
     public static boolean reflectionEquals(final Object lhs, final Object rhs, final String... excludeFields) {
@@ -381,8 +381,8 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code boolean}
      * @param rhs  the right-hand side {@code boolean}
-     * @return {@code this} instance.
-      */
+     * @return {@code this} instance
+     */
     public EqualsBuilder append(final boolean lhs, final boolean rhs) {
         if (!isEquals) {
             return this;
@@ -399,7 +399,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code boolean[]}
      * @param rhs  the right-hand side {@code boolean[]}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final boolean[] lhs, final boolean[] rhs) {
         if (!isEquals) {
@@ -427,7 +427,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code byte}
      * @param rhs  the right-hand side {@code byte}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final byte lhs, final byte rhs) {
         if (isEquals) {
@@ -444,7 +444,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code byte[]}
      * @param rhs  the right-hand side {@code byte[]}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final byte[] lhs, final byte[] rhs) {
         if (!isEquals) {
@@ -472,7 +472,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code char}
      * @param rhs  the right-hand side {@code char}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final char lhs, final char rhs) {
         if (isEquals) {
@@ -489,7 +489,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code char[]}
      * @param rhs  the right-hand side {@code char[]}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final char[] lhs, final char[] rhs) {
         if (!isEquals) {
@@ -523,7 +523,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code double}
      * @param rhs  the right-hand side {@code double}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final double lhs, final double rhs) {
         if (isEquals) {
@@ -540,7 +540,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code double[]}
      * @param rhs  the right-hand side {@code double[]}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final double[] lhs, final double[] rhs) {
         if (!isEquals) {
@@ -574,7 +574,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code float}
      * @param rhs  the right-hand side {@code float}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final float lhs, final float rhs) {
         if (isEquals) {
@@ -591,7 +591,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code float[]}
      * @param rhs  the right-hand side {@code float[]}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final float[] lhs, final float[] rhs) {
         if (!isEquals) {
@@ -619,7 +619,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code int}
      * @param rhs  the right-hand side {@code int}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final int lhs, final int rhs) {
         if (isEquals) {
@@ -636,7 +636,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code int[]}
      * @param rhs  the right-hand side {@code int[]}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final int[] lhs, final int[] rhs) {
         if (!isEquals) {
@@ -666,7 +666,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *                  the left-hand side {@code long}
      * @param rhs
      *                  the right-hand side {@code long}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final long lhs, final long rhs) {
         if (isEquals) {
@@ -683,7 +683,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code long[]}
      * @param rhs  the right-hand side {@code long[]}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final long[] lhs, final long[] rhs) {
         if (!isEquals) {
@@ -715,7 +715,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side object
      * @param rhs  the right-hand side object
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final Object lhs, final Object rhs) {
         if (!isEquals) {
@@ -753,7 +753,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code Object[]}
      * @param rhs  the right-hand side {@code Object[]}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final Object[] lhs, final Object[] rhs) {
         if (!isEquals) {
@@ -781,7 +781,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code short}
      * @param rhs  the right-hand side {@code short}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final short lhs, final short rhs) {
         if (isEquals) {
@@ -798,7 +798,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side {@code short[]}
      * @param rhs  the right-hand side {@code short[]}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder append(final short[] lhs, final short[] rhs) {
         if (!isEquals) {
@@ -859,7 +859,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * Adds the result of {@code super.equals()} to this builder.
      *
      * @param superEquals  the result of calling {@code super.equals()}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @since 2.0
      */
     public EqualsBuilder appendSuper(final boolean superEquals) {
@@ -875,8 +875,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * are all equal.
      *
      * @return {@code true} if all of the fields that have been checked
-     *         are equal, {@code false} otherwise.
-     *
+     *         are equal, {@code false} otherwise
      * @since 3.0
      */
     @Override
@@ -919,7 +918,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  the left-hand side object
      * @param rhs  the right-hand side object
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public EqualsBuilder reflectionAppend(final Object lhs, final Object rhs) {
         if (!isEquals) {
@@ -1038,7 +1037,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * your own set of classes here, remember to include {@link String} class, too.</p>
      *
      * @param bypassReflectionClasses  classes to bypass reflection test
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @see #setTestRecursive(boolean)
      * @since 3.8
      */
@@ -1050,7 +1049,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     /**
      * Sets the {@code isEquals} value.
      *
-     * @param isEquals The value to set.
+     * @param isEquals the value to set
      * @since 2.1
      */
     protected void setEquals(final boolean isEquals) {
@@ -1061,7 +1060,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * Sets field names to be excluded by reflection tests.
      *
      * @param excludeFields the fields to exclude
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @since 3.6
      */
     public EqualsBuilder setExcludeFields(final String... excludeFields) {
@@ -1073,7 +1072,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * Sets the superclass to reflect up to at reflective tests.
      *
      * @param reflectUpToClass the super class to reflect up to
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @since 3.6
      */
     public EqualsBuilder setReflectUpToClass(final Class<?> reflectUpToClass) {
@@ -1087,7 +1086,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * You may specify other exceptions by calling {@link #setBypassReflectionClasses(List)}.
      *
      * @param testRecursive whether to do a recursive test
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @see #setBypassReflectionClasses(List)
      * @since 3.6
      */
@@ -1100,7 +1099,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * Sets whether to include transient fields when reflectively comparing objects.
      *
      * @param testTransients whether to test transient fields
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @since 3.6
      */
     public EqualsBuilder setTestTransients(final boolean testTransients) {

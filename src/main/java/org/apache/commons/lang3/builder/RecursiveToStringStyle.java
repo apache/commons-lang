@@ -80,8 +80,8 @@ public class RecursiveToStringStyle extends ToStringStyle {
      * <li>{@link MutableBoolean}</li>
      * </ul>
      *
-     * @param clazz The class to test.
-     * @return Whether or not to recursively format instances of the given {@link Class}.
+     * @param clazz the class to test
+     * @return whether or not to recursively format instances of the given {@link Class}
      */
     protected boolean accept(final Class<?> clazz) {
         // @formatter:off

@@ -43,9 +43,9 @@ public final class LongRange extends NumberRange<Long> {
      * The arguments may be passed in the order (min, max) or (max,min). The getMinimum and getMaximum methods will return the correct values.
      * </p>
      *
-     * @param fromInclusive the first value that defines the edge of the range, inclusive.
-     * @param toInclusive the second value that defines the edge of the range, inclusive.
-     * @return the range object, not null.
+     * @param fromInclusive the first value that defines the edge of the range, inclusive
+     * @param toInclusive the second value that defines the edge of the range, inclusive
+     * @return the range object, not null
      */
     public static LongRange of(final long fromInclusive, final long toInclusive) {
         return of(Long.valueOf(fromInclusive), Long.valueOf(toInclusive));
@@ -62,10 +62,10 @@ public final class LongRange extends NumberRange<Long> {
      * The arguments may be passed in the order (min, max) or (max,min). The getMinimum and getMaximum methods will return the correct values.
      * </p>
      *
-     * @param fromInclusive the first value that defines the edge of the range, inclusive.
-     * @param toInclusive the second value that defines the edge of the range, inclusive.
-     * @return the range object, not null.
-     * @throws NullPointerException if either element is null.
+     * @param fromInclusive the first value that defines the edge of the range, inclusive
+     * @param toInclusive the second value that defines the edge of the range, inclusive
+     * @return the range object, not null
+     * @throws NullPointerException if either element is null
      */
     public static LongRange of(final Long fromInclusive, final Long toInclusive) {
         return new LongRange(fromInclusive, toInclusive);
@@ -74,10 +74,10 @@ public final class LongRange extends NumberRange<Long> {
     /**
      * Creates a new instance.
      *
-     * @param number1 the first element, not null.
-     * @param number2 the second element, not null.
-     * @throws NullPointerException when element1 is null.
-     * @throws NullPointerException when element2 is null.
+     * @param number1 the first element, not null
+     * @param number2 the second element, not null
+     * @throws NullPointerException when element1 is null
+     * @throws NullPointerException when element2 is null
      */
     private LongRange(final Long number1, final Long number2) {
         super(number1, number2, null);
@@ -100,8 +100,8 @@ public final class LongRange extends NumberRange<Long> {
      * range.fit(99) -->  64
      * }</pre>
      *
-     * @param element the element to test.
-     * @return the minimum, the element, or the maximum depending on the element's location relative to the range.
+     * @param element the element to test
+     * @return the minimum, the element, or the maximum depending on the element's location relative to the range
      * @since 3.19.0
      */
     public long fit(final long element) {

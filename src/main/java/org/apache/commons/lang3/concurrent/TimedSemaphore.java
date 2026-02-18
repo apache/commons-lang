@@ -139,8 +139,8 @@ public class TimedSemaphore {
         /**
          * Sets the limit.
          *
-         * @param limit The limit.
-         * @return {@code this} instance.
+         * @param limit the limit
+         * @return {@code this} instance
          */
         public Builder setLimit(final int limit) {
             this.limit = limit;
@@ -150,8 +150,8 @@ public class TimedSemaphore {
         /**
          * Sets the time period.
          *
-         * @param period The time period.
-         * @return {@code this} instance.
+         * @param period the time period
+         * @return {@code this} instance
          */
         public Builder setPeriod(final long period) {
             this.period = period;
@@ -161,8 +161,8 @@ public class TimedSemaphore {
         /**
          * Sets the executor service.
          *
-         * @param service The executor service.
-         * @return {@code this} instance.
+         * @param service the executor service
+         * @return {@code this} instance
          */
         public Builder setService(final ScheduledExecutorService service) {
             this.service = service;
@@ -172,8 +172,8 @@ public class TimedSemaphore {
         /**
          * Sets the time unit for the period.
          *
-         * @param timeUnit The time unit for the period.
-         * @return {@code this} instance.
+         * @param timeUnit the time unit for the period
+         * @return {@code this} instance
          */
         public Builder setTimeUnit(final TimeUnit timeUnit) {
             this.timeUnit = timeUnit;
@@ -193,7 +193,7 @@ public class TimedSemaphore {
     /**
      * Constructs a new Builder.
      *
-     * @return a new Builder.
+     * @return a new Builder
      * @since 3.20.0
      */
     public static Builder builder() {
@@ -255,10 +255,10 @@ public class TimedSemaphore {
     /**
      * Constructs a new instance of {@link TimedSemaphore} and initializes it with the given time period and the limit.
      *
-     * @param timePeriod the time period.
-     * @param timeUnit   the unit for the period.
-     * @param limit      the limit for the semaphore.
-     * @throws IllegalArgumentException if the period is less or equals 0.
+     * @param timePeriod the time period
+     * @param timeUnit   the unit for the period
+     * @param limit      the limit for the semaphore
+     * @throws IllegalArgumentException if the period is less or equals 0
      * @deprecated Use {@link #builder()} and {@link Builder}.
      */
     @Deprecated
@@ -270,11 +270,11 @@ public class TimedSemaphore {
      * Constructs a new instance of {@link TimedSemaphore} and initializes it with an executor service, the given time period, and the limit. The executor service
      * will be used for creating a periodic task for monitoring the time period. It can be <strong>null</strong>, then a default service will be created.
      *
-     * @param service    the executor service.
-     * @param timePeriod the time period.
-     * @param timeUnit   the unit for the period.
-     * @param limit      the limit for the semaphore.
-     * @throws IllegalArgumentException if the period is less or equals 0.
+     * @param service    the executor service
+     * @param timePeriod the time period
+     * @param timeUnit   the unit for the period
+     * @param limit      the limit for the semaphore
+     * @throws IllegalArgumentException if the period is less or equals 0
      * @deprecated Use {@link #builder()} and {@link Builder}.
      */
     @Deprecated
@@ -287,8 +287,8 @@ public class TimedSemaphore {
      * already been invoked, calling this method will cause an exception. The very first call of this method starts the timer task which monitors the time
      * period set for this {@link TimedSemaphore}. From now on the semaphore is active.
      *
-     * @throws InterruptedException  if the thread gets interrupted.
-     * @throws IllegalStateException if this semaphore is already shut down.
+     * @throws IllegalStateException if this semaphore is already shut down
+     * @throws InterruptedException  if the thread gets interrupted
      */
     public synchronized void acquire() throws InterruptedException {
         prepareAcquire();
@@ -305,7 +305,7 @@ public class TimedSemaphore {
      * Internal helper method for acquiring a permit. This method checks whether currently a permit can be acquired and - if so - increases the internal
      * counter. The return value indicates whether a permit could be acquired. This method must be called with the lock of this object held.
      *
-     * @return a flag whether a permit could be acquired.
+     * @return a flag whether a permit could be acquired
      */
     private boolean acquirePermit() {
         if (getLimit() <= NO_LIMIT || acquireCount < getLimit()) {
@@ -330,7 +330,7 @@ public class TimedSemaphore {
     /**
      * Gets the number of invocations of the {@link #acquire()} method for the current period. This may be useful for testing or debugging purposes.
      *
-     * @return the current number of {@link #acquire()} invocations.
+     * @return the current number of {@link #acquire()} invocations
      */
     public synchronized int getAcquireCount() {
         return acquireCount;
@@ -341,7 +341,7 @@ public class TimedSemaphore {
      * indication whether it is safe to call the {@link #acquire()} method without risking to be suspended. However, there is no guarantee that a subsequent
      * call to {@link #acquire()} actually is not-blocking because in the meantime other threads may have invoked the semaphore.
      *
-     * @return the current number of available {@link #acquire()} calls in the current period.
+     * @return the current number of available {@link #acquire()} calls in the current period
      */
     public synchronized int getAvailablePermits() {
         return getLimit() - getAcquireCount();
@@ -351,7 +351,7 @@ public class TimedSemaphore {
      * Gets the average number of successful (i.e. non-blocking) {@link #acquire()} invocations for the entire life-time of this {@code
      * TimedSemaphore}. This method can be used for instance for statistical calculations.
      *
-     * @return the average number of {@link #acquire()} invocations per time unit.
+     * @return the average number of {@link #acquire()} invocations per time unit
      */
     public synchronized double getAverageCallsPerPeriod() {
         return periodCount == 0 ? 0 : (double) totalAcquireCount / (double) periodCount;
@@ -360,7 +360,7 @@ public class TimedSemaphore {
     /**
      * Gets the executor service used by this instance.
      *
-     * @return the executor service.
+     * @return the executor service
      */
     protected ScheduledExecutorService getExecutorService() {
         return executorService;
@@ -371,7 +371,7 @@ public class TimedSemaphore {
      * blocking. This can be useful for testing or debugging purposes or to determine a meaningful threshold value. If a limit is set, the value returned by
      * this method won't be greater than this limit.
      *
-     * @return the number of non-blocking invocations of the {@link #acquire()} method.
+     * @return the number of non-blocking invocations of the {@link #acquire()} method
      */
     public synchronized int getLastAcquiresPerPeriod() {
         return lastCallsPerPeriod;
@@ -380,7 +380,7 @@ public class TimedSemaphore {
     /**
      * Gets the limit enforced by this semaphore. The limit determines how many invocations of {@link #acquire()} are allowed within the monitored period.
      *
-     * @return the limit.
+     * @return the limit
      */
     public final synchronized int getLimit() {
         return limit;
@@ -390,7 +390,7 @@ public class TimedSemaphore {
      * Gets the time period. This is the time monitored by this semaphore. Only a given number of invocations of the {@link #acquire()} method is possible in
      * this period.
      *
-     * @return the time period.
+     * @return the time period
      */
     public long getPeriod() {
         return period;
@@ -399,7 +399,7 @@ public class TimedSemaphore {
     /**
      * Gets the time unit. This is the unit used by {@link #getPeriod()}.
      *
-     * @return the time unit.
+     * @return the time unit
      */
     public TimeUnit getUnit() {
         return unit;
@@ -409,7 +409,7 @@ public class TimedSemaphore {
      * Tests whether the {@link #shutdown()} method has been called on this object. If this method returns <strong>true</strong>, this instance cannot be used
      * any longer.
      *
-     * @return a flag whether a shutdown has been performed.
+     * @return a flag whether a shutdown has been performed
      */
     public synchronized boolean isShutdown() {
         return shutdown;
@@ -433,7 +433,7 @@ public class TimedSemaphore {
      * further invocations of {@link #acquire()} will block. Setting the limit to a value &lt;= {@link #NO_LIMIT} will cause the limit to be disabled, i.e. an
      * arbitrary number of{@link #acquire()} invocations is allowed in the time period.
      *
-     * @param limit the limit.
+     * @param limit the limit
      */
     public final synchronized void setLimit(final int limit) {
         this.limit = limit;
@@ -461,7 +461,7 @@ public class TimedSemaphore {
      * Starts the timer. This method is called when {@link #acquire()} is called for the first time. It schedules a task to be executed at fixed rate to monitor
      * the time period specified.
      *
-     * @return a future object representing the task scheduled.
+     * @return a future object representing the task scheduled
      */
     protected ScheduledFuture<?> startTimer() {
         return getExecutorService().scheduleAtFixedRate(this::endOfPeriod, getPeriod(), getPeriod(), getUnit());
@@ -471,8 +471,8 @@ public class TimedSemaphore {
      * Tries to acquire a permit from this semaphore. If the limit of this semaphore has not yet been reached, a permit is acquired, and this method returns
      * <strong>true</strong>. Otherwise, this method returns immediately with the result <strong>false</strong>.
      *
-     * @return <strong>true</strong> if a permit could be acquired; <strong>false</strong> otherwise.
-     * @throws IllegalStateException if this semaphore is already shut down.
+     * @return <strong>true</strong> if a permit could be acquired; <strong>false</strong> otherwise
+     * @throws IllegalStateException if this semaphore is already shut down
      * @since 3.5
      */
     public synchronized boolean tryAcquire() {

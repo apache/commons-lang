@@ -31,11 +31,11 @@ public final class Functions {
     /**
      * Applies the {@link Function} on the object if the function is not {@code null}. Otherwise, does nothing and returns {@code null}.
      *
-     * @param function the function to apply.
-     * @param object   the object to apply the function.
-     * @param <T>      the type of the argument the function applies.
-     * @param <R>      the type of the result the function returns.
-     * @return the value the function returns if the function is not {@code null}; {@code null} otherwise.
+     * @param function the function to apply
+     * @param object   the object to apply the function
+     * @param <T>      the type of the argument the function applies
+     * @param <R>      the type of the result the function returns
+     * @return the value the function returns if the function is not {@code null}; {@code null} otherwise
      * @since 3.15.0
      */
     public static <T, R> R apply(final Function<T, R> function, final T object) {
@@ -56,11 +56,11 @@ public final class Functions {
      * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
      * </p>
      *
-     * @param <T>    The type of the input of this method and the function.
-     * @param <R>    The type of the result of the function and this method.
-     * @param value  The value to apply the function to, may be {@code null}.
-     * @param mapper The function to apply, must not be {@code null}.
-     * @return The result of the function (which may be {@code null}) or {@code null} if the input value is {@code null}.
+     * @param <T>    the type of the input of this method and the function
+     * @param <R>    the type of the result of the function and this method
+     * @param value  the value to apply the function to, may be {@code null}
+     * @param mapper the function to apply, must not be {@code null}
+     * @return the result of the function (which may be {@code null}) or {@code null} if the input value is {@code null}
      * @see #applyNonNull(Object, Function, Function)
      * @see #applyNonNull(Object, Function, Function, Function)
      * @since 3.19.0
@@ -84,13 +84,13 @@ public final class Functions {
      * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
      * </p>
      *
-     * @param <T>     The type of the input of this method and the first function.
-     * @param <U>     The type of the result of the first function and the input to the second function.
-     * @param <R>     The type of the result of the second function and this method.
-     * @param value1  The value to apply the functions to, may be {@code null}.
-     * @param mapper1 The first function to apply, must not be {@code null}.
-     * @param mapper2 The second function to apply, must not be {@code null}.
-     * @return The result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}.
+     * @param <T>     the type of the input of this method and the first function
+     * @param <U>     the type of the result of the first function and the input to the second function
+     * @param <R>     the type of the result of the second function and this method
+     * @param value1  the value to apply the functions to, may be {@code null}
+     * @param mapper1 the first function to apply, must not be {@code null}
+     * @param mapper2 the second function to apply, must not be {@code null}
+     * @return the result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}
      * @see #applyNonNull(Object, Function)
      * @see #applyNonNull(Object, Function, Function, Function)
      * @since 3.19.0
@@ -115,15 +115,15 @@ public final class Functions {
      * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
      * </p>
      *
-     * @param <T>     The type of the input of this method and the first function.
-     * @param <U>     The type of the result of the first function and the input to the second function.
-     * @param <V>     The type of the result of the second function and the input to the third function.
-     * @param <R>     The type of the result of the third function and this method.
-     * @param value1  The value to apply the first function, may be {@code null}.
-     * @param mapper1 The first function to apply, must not be {@code null}.
-     * @param mapper2 The second function to apply, must not be {@code null}.
-     * @param mapper3 The third function to apply, must not be {@code null}.
-     * @return The result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}.
+     * @param <T>     the type of the input of this method and the first function
+     * @param <U>     the type of the result of the first function and the input to the second function
+     * @param <V>     the type of the result of the second function and the input to the third function
+     * @param <R>     the type of the result of the third function and this method
+     * @param value1  the value to apply the first function, may be {@code null}
+     * @param mapper1 the first function to apply, must not be {@code null}
+     * @param mapper2 the second function to apply, must not be {@code null}
+     * @param mapper3 the third function to apply, must not be {@code null}
+     * @return the result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}
      * @see #applyNonNull(Object, Function)
      * @see #applyNonNull(Object, Function, Function)
      * @since 3.19.0
@@ -136,9 +136,9 @@ public final class Functions {
     /**
      * Starts a fluent chain like {@code function(foo::bar).andThen(...).andThen(...).apply(...);}
      *
-     * @param <T>      Input type.
-     * @param <R>      Return type.
-     * @param function the argument to return.
+     * @param <T>      input type
+     * @param <R>      return type
+     * @param function the argument to return
      * @return the argument
      */
     public static <T, R> Function<T, R> function(final Function<T, R> function) {

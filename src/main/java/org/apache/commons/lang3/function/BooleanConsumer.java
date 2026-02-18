@@ -29,13 +29,13 @@ import java.util.function.IntConsumer;
 @FunctionalInterface
 public interface BooleanConsumer {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     BooleanConsumer NOP = t -> { /* NOP */ };
 
     /**
      * Gets the NOP singleton.
      *
-     * @return The NOP singleton.
+     * @return the NOP singleton
      */
     static BooleanConsumer nop() {
         return NOP;

@@ -22,21 +22,21 @@ import java.util.function.IntToDoubleFunction;
 /**
  * A functional interface like {@link IntToDoubleFunction} that declares a {@link Throwable}.
  *
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableIntToDoubleFunction<E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableIntToDoubleFunction NOP = t -> 0d;
 
     /**
      * Gets the NOP singleton.
      *
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <E extends Throwable> FailableIntToDoubleFunction<E> nop() {
@@ -48,7 +48,7 @@ public interface FailableIntToDoubleFunction<E extends Throwable> {
      *
      * @param value the function argument
      * @return the function result
-     * @throws E Thrown when the function fails.
+     * @throws E thrown when the function fails
      */
     double applyAsDouble(int value) throws E;
 }

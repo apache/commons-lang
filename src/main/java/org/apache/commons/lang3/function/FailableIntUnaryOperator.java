@@ -23,19 +23,19 @@ import java.util.function.IntUnaryOperator;
 /**
  * A functional interface like {@link IntUnaryOperator} that declares a {@link Throwable}.
  *
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 public interface FailableIntUnaryOperator<E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableIntUnaryOperator NOP = t -> 0;
 
     /**
      * Returns a unary operator that always returns its input argument.
      *
-     * @param <E> The kind of thrown exception or error.
+     * @param <E> the kind of thrown exception or error
      * @return a unary operator that always returns its input argument
      */
     static <E extends Throwable> FailableIntUnaryOperator<E> identity() {
@@ -45,8 +45,8 @@ public interface FailableIntUnaryOperator<E extends Throwable> {
     /**
      * Gets the NOP singleton.
      *
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <E extends Throwable> FailableIntUnaryOperator<E> nop() {
@@ -56,9 +56,9 @@ public interface FailableIntUnaryOperator<E extends Throwable> {
     /**
      * Returns a composed {@link FailableDoubleUnaryOperator} like {@link IntUnaryOperator#andThen(IntUnaryOperator)}.
      *
-     * @param after the operator to apply after this one.
-     * @return a composed {@link FailableIntUnaryOperator} like {@link IntUnaryOperator#andThen(IntUnaryOperator)}.
-     * @throws NullPointerException if after is null.
+     * @param after the operator to apply after this one
+     * @return a composed {@link FailableIntUnaryOperator} like {@link IntUnaryOperator#andThen(IntUnaryOperator)}
+     * @throws NullPointerException if after is null
      * @see #compose(FailableIntUnaryOperator)
      */
     default FailableIntUnaryOperator<E> andThen(final FailableIntUnaryOperator<E> after) {
@@ -71,16 +71,16 @@ public interface FailableIntUnaryOperator<E extends Throwable> {
      *
      * @param operand the operand
      * @return the operator result
-     * @throws E Thrown when a consumer fails.
+     * @throws E thrown when a consumer fails
      */
     int applyAsInt(int operand) throws E;
 
     /**
      * Returns a composed {@link FailableIntUnaryOperator} like {@link IntUnaryOperator#compose(IntUnaryOperator)}.
      *
-     * @param before the operator to apply before this one.
-     * @return a composed {@link FailableIntUnaryOperator} like {@link IntUnaryOperator#compose(IntUnaryOperator)}.
-     * @throws NullPointerException if before is null.
+     * @param before the operator to apply before this one
+     * @return a composed {@link FailableIntUnaryOperator} like {@link IntUnaryOperator#compose(IntUnaryOperator)}
+     * @throws NullPointerException if before is null
      * @see #andThen(FailableIntUnaryOperator)
      */
     default FailableIntUnaryOperator<E> compose(final FailableIntUnaryOperator<E> before) {

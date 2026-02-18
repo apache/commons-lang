@@ -34,7 +34,7 @@ public class ComparableUtils {
     /**
      * Compares objects of a given generic type {@code A}.
      *
-     * @param <A> the type of objects that this object may be compared against.
+     * @param <A> the type of objects that this object may be compared against
      */
     public static class ComparableCheckBuilder<A extends Comparable<A>> {
 
@@ -212,10 +212,10 @@ public class ComparableUtils {
      * For three or more values, use {@link ObjectUtils#max(Comparable...)}.
      * </p>
      *
-     * @param <A> Type of what we are comparing.
-     * @param comparable1 the first comparable, may be null.
-     * @param comparable2 the second comparable, may be null.
-     * @return the largest of {@code comparable1} and {@code comparable2}.
+     * @param <A> type of what we are comparing
+     * @param comparable1 the first comparable, may be null
+     * @param comparable2 the second comparable, may be null
+     * @return the largest of {@code comparable1} and {@code comparable2}
      * @see ObjectUtils#max(Comparable...)
      * @since 3.13.0
      */
@@ -229,10 +229,10 @@ public class ComparableUtils {
      * For three or more values, use {@link ObjectUtils#min(Comparable...)}.
      * </p>
      *
-     * @param <A> Type of what we are comparing.
-     * @param comparable1 the first comparable, may be null.
-     * @param comparable2 the second comparable, may be null.
-     * @return the smallest of {@code comparable1} and {@code comparable2}.
+     * @param <A> type of what we are comparing
+     * @param comparable1 the first comparable, may be null
+     * @param comparable2 the second comparable, may be null
+     * @return the smallest of {@code comparable1} and {@code comparable2}
      * @see ObjectUtils#min(Comparable...)
      * @since 3.13.0
      */

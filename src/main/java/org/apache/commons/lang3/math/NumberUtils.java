@@ -49,7 +49,7 @@ public class NumberUtils {
     /** Reusable Integer constant for one. */
     public static final Integer INTEGER_ONE = Integer.valueOf(1);
 
-    /** Reusable Integer constant for two */
+    /** Reusable Integer constant for two. */
     public static final Integer INTEGER_TWO = Integer.valueOf(2);
 
     /** Reusable Integer constant for minus one. */
@@ -117,9 +117,9 @@ public class NumberUtils {
     /**
      * Compares two {@code byte} values numerically. This is the same functionality as provided in Java 7.
      *
-     * @param x the first {@code byte} to compare.
-     * @param y the second {@code byte} to compare.
-     * @return the value {@code 0} if {@code x == y}; a value less than {@code 0} if {@code x < y}; and a value greater than {@code 0} if {@code x > y}.
+     * @param x the first {@code byte} to compare
+     * @param y the second {@code byte} to compare
+     * @return the value {@code 0} if {@code x == y}; a value less than {@code 0} if {@code x < y}; and a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      * @deprecated Use {@link Byte#compare(byte, byte)}.
      */
@@ -131,9 +131,9 @@ public class NumberUtils {
     /**
      * Compares two {@code int} values numerically. This is the same functionality as provided in Java 7.
      *
-     * @param x the first {@code int} to compare.
-     * @param y the second {@code int} to compare.
-     * @return the value {@code 0} if {@code x == y}; a value less than {@code 0} if {@code x < y}; and a value greater than {@code 0} if {@code x > y}.
+     * @param x the first {@code int} to compare
+     * @param y the second {@code int} to compare
+     * @return the value {@code 0} if {@code x == y}; a value less than {@code 0} if {@code x < y}; and a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      * @deprecated Use {@link Integer#compare(int, int)}.
      */
@@ -145,9 +145,9 @@ public class NumberUtils {
     /**
      * Compares to {@code long} values numerically. This is the same functionality as provided in Java 7.
      *
-     * @param x the first {@code long} to compare.
-     * @param y the second {@code long} to compare.
-     * @return the value {@code 0} if {@code x == y}; a value less than {@code 0} if {@code x < y}; and a value greater than {@code 0} if {@code x > y}.
+     * @param x the first {@code long} to compare
+     * @param y the second {@code long} to compare
+     * @return the value {@code 0} if {@code x == y}; a value less than {@code 0} if {@code x < y}; and a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      * @deprecated Use {@link Long#compare(long, long)}.
      */
@@ -159,9 +159,9 @@ public class NumberUtils {
     /**
      * Compares to {@code short} values numerically. This is the same functionality as provided in Java 7.
      *
-     * @param x the first {@code short} to compare.
-     * @param y the second {@code short} to compare.
-     * @return the value {@code 0} if {@code x == y}; a value less than {@code 0} if {@code x < y}; and a value greater than {@code 0} if {@code x > y}.
+     * @param x the first {@code short} to compare
+     * @param y the second {@code short} to compare
+     * @return the value {@code 0} if {@code x == y}; a value less than {@code 0} if {@code x < y}; and a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      * @deprecated Use {@link Short#compare(short, short)}.
      */
@@ -178,8 +178,8 @@ public class NumberUtils {
      * </p>
      *
      * @param str a {@link String} to convert, may be null.Return
-     * @return converted {@link BigDecimal} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @return converted {@link BigDecimal} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
      */
     public static BigDecimal createBigDecimal(final String str) {
         if (str == null) {
@@ -201,9 +201,9 @@ public class NumberUtils {
      * Returns {@code null} if the string is {@code null}.
      * </p>
      *
-     * @param str a {@link String} to convert, may be null.
-     * @return converted {@link BigInteger} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @param str a {@link String} to convert, may be null
+     * @return converted {@link BigInteger} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
      * @since 3.2
      */
     public static BigInteger createBigInteger(final String str) {
@@ -244,9 +244,9 @@ public class NumberUtils {
      * Returns {@code null} if the string is {@code null}.
      * </p>
      *
-     * @param str a {@link String} to convert, may be null.
-     * @return converted {@link Double} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @param str a {@link String} to convert, may be null
+     * @return converted {@link Double} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
      */
     public static Double createDouble(final String str) {
         if (str == null) {
@@ -262,9 +262,9 @@ public class NumberUtils {
      * Returns {@code null} if the string is {@code null}.
      * </p>
      *
-     * @param str a {@link String} to convert, may be null.
-     * @return converted {@link Float} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @param str a {@link String} to convert, may be null
+     * @return converted {@link Float} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
      */
     public static Float createFloat(final String str) {
         if (str == null) {
@@ -282,9 +282,9 @@ public class NumberUtils {
      * Returns {@code null} if the string is {@code null}.
      * </p>
      *
-     * @param str a {@link String} to convert, may be null.
-     * @return converted {@link Integer} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @param str a {@link String} to convert, may be null
+     * @return converted {@link Integer} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
      */
     public static Integer createInteger(final String str) {
         if (str == null) {
@@ -303,9 +303,9 @@ public class NumberUtils {
      * Returns {@code null} if the string is {@code null}.
      * </p>
      *
-     * @param str a {@link String} to convert, may be null.
-     * @return converted {@link Long} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @param str a {@link String} to convert, may be null
+     * @return converted {@link Long} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
      * @since 3.1
      */
     public static Long createLong(final String str) {
@@ -344,9 +344,9 @@ public class NumberUtils {
      * This method does not trim the input string, i.e., strings with leading or trailing spaces will generate NumberFormatExceptions.
      * </p>
      *
-     * @param str String containing a number, may be null.
-     * @return Number created from the string (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @param str string containing a number, may be null
+     * @return number created from the string (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
      */
     public static Number createNumber(final String str) {
         if (str == null) {
@@ -518,10 +518,10 @@ public class NumberUtils {
      * Returns mantissa of the given number.
      * </p>
      *
-     * @param str     the string representation of the number.
-     * @param stopPos the position of the exponent or decimal point.
-     * @return mantissa of the given number.
-     * @throws NumberFormatException if no mantissa can be retrieved.
+     * @param str     the string representation of the number
+     * @param stopPos the position of the exponent or decimal point
+     * @return mantissa of the given number
+     * @throws NumberFormatException if no mantissa can be retrieved
      */
     private static String getMantissa(final String str, final int stopPos) {
         final char firstChar = str.charAt(0);
@@ -540,8 +540,8 @@ public class NumberUtils {
      * Returns {@code true} if s is {@code null} or empty.
      * </p>
      *
-     * @param str the String to check.
-     * @return if it is all zeros or {@code null}.
+     * @param str the String to check
+     * @return if it is all zeros or {@code null}
      */
     private static boolean isAllZeros(final String str) {
         if (str == null) {
@@ -576,8 +576,8 @@ public class NumberUtils {
      * Note, {@link #createNumber(String)} should return a number for every input resulting in {@code true}.
      * </p>
      *
-     * @param str the {@link String} to check.
-     * @return {@code true} if the string is a correctly formatted number.
+     * @param str the {@link String} to check
+     * @return {@code true} if the string is a correctly formatted number
      * @since 3.5
      */
     public static boolean isCreatable(final String str) {
@@ -721,9 +721,9 @@ public class NumberUtils {
      * Note, {@link #createNumber(String)} should return a number for every input resulting in {@code true}.
      * </p>
      *
-     * @param str the {@link String} to check.
-     * @return {@code true} if the string is a correctly formatted number.
-     * @since 3.3 the code supports hexadecimal {@code 0Xhhh} an octal {@code 0ddd} validation.
+     * @param str the {@link String} to check
+     * @return {@code true} if the string is a correctly formatted number
+     * @since 3.3 the code supports hexadecimal {@code 0Xhhh} an octal {@code 0ddd} validation
      * @deprecated This feature will be removed in Lang 4, use {@link NumberUtils#isCreatable(String)} instead.
      */
     @Deprecated
@@ -748,8 +748,8 @@ public class NumberUtils {
      * {@code null} and empty String will return {@code false}.
      * </p>
      *
-     * @param str the String to check.
-     * @return {@code true} if the string is a parsable number.
+     * @param str the String to check
+     * @return {@code true} if the string is a parsable number
      * @see Integer#parseInt(String)
      * @see Long#parseLong(String)
      * @see Double#parseDouble(String)
@@ -790,9 +790,9 @@ public class NumberUtils {
      * <li>{@code false} otherwise (this assumes {@code "."} is not possible)</li>
      * </ul>
      *
-     * @param mant the mantissa decimal digits before the decimal point (sign must be removed; never null).
+     * @param mant the mantissa decimal digits before the decimal point (sign must be removed; never null)
      * @param dec  the decimal digits after the decimal point (exponent and type specifier removed; can be null)
-     * @return true if the magnitude is zero.
+     * @return true if the magnitude is zero
      */
     private static boolean isZero(final String mant, final String dec) {
         return isAllZeros(mant) && isAllZeros(dec);
@@ -801,11 +801,11 @@ public class NumberUtils {
     /**
      * Returns the maximum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @since 3.4 Changed signature from max(byte[]) to max(byte...).
+     * @param array an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @since 3.4 Changed signature from max(byte[]) to max(byte...)
      */
     public static byte max(final byte... array) {
         // Validates input
@@ -823,10 +823,10 @@ public class NumberUtils {
     /**
      * Gets the maximum of three {@code byte} values.
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the largest of the values.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the largest of the values
      */
     public static byte max(byte a, final byte b, final byte c) {
         if (b > a) {
@@ -841,11 +841,11 @@ public class NumberUtils {
     /**
      * Returns the maximum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @see IEEE754rUtils#max(double[]) IEEE754rUtils for a version of this method that handles NaN differently.
+     * @param array an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @see IEEE754rUtils#max(double[]) IEEE754rUtils for a version of this method that handles NaN differently
      * @since 3.4 Changed signature from max(double[]) to max(double...)
      */
     public static double max(final double... array) {
@@ -871,11 +871,11 @@ public class NumberUtils {
      * If any value is {@code NaN}, {@code NaN} is returned. Infinity is handled.
      * </p>
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the largest of the values.
-     * @see IEEE754rUtils#max(double, double, double) for a version of this method that handles NaN differently.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the largest of the values
+     * @see IEEE754rUtils#max(double, double, double) for a version of this method that handles NaN differently
      */
     public static double max(final double a, final double b, final double c) {
         return Math.max(Math.max(a, b), c);
@@ -884,12 +884,12 @@ public class NumberUtils {
     /**
      * Returns the maximum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @see IEEE754rUtils#max(float[]) IEEE754rUtils for a version of this method that handles NaN differently.
-     * @since 3.4 Changed signature from max(float[]) to max(float...).
+     * @param array an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @see IEEE754rUtils#max(float[]) IEEE754rUtils for a version of this method that handles NaN differently
+     * @since 3.4 Changed signature from max(float[]) to max(float...)
      */
     public static float max(final float... array) {
         // Validates input
@@ -948,11 +948,11 @@ public class NumberUtils {
      * If any value is {@code NaN}, {@code NaN} is returned. Infinity is handled.
      * </p>
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the largest of the values.
-     * @see IEEE754rUtils#max(float, float, float) for a version of this method that handles NaN differently.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the largest of the values
+     * @see IEEE754rUtils#max(float, float, float) for a version of this method that handles NaN differently
      */
     public static float max(final float a, final float b, final float c) {
         return Math.max(Math.max(a, b), c);
@@ -961,11 +961,11 @@ public class NumberUtils {
     /**
      * Returns the maximum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @since 3.4 Changed signature from max(int[]) to max(int...).
+     * @param array an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @since 3.4 Changed signature from max(int[]) to max(int...)
      */
     public static int max(final int... array) {
         // Validates input
@@ -983,10 +983,10 @@ public class NumberUtils {
     /**
      * Gets the maximum of three {@code int} values.
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the largest of the values.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the largest of the values
      */
     public static int max(int a, final int b, final int c) {
         if (b > a) {
@@ -1001,11 +1001,11 @@ public class NumberUtils {
     /**
      * Returns the maximum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @since 3.4 Changed signature from max(long[]) to max(long...).
+     * @param array an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @since 3.4 Changed signature from max(long[]) to max(long...)
      */
     public static long max(final long... array) {
         // Validates input
@@ -1024,10 +1024,10 @@ public class NumberUtils {
     /**
      * Gets the maximum of three {@code long} values.
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the largest of the values.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the largest of the values
      */
     public static long max(long a, final long b, final long c) {
         if (b > a) {
@@ -1042,11 +1042,11 @@ public class NumberUtils {
     /**
      * Returns the maximum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @since 3.4 Changed signature from max(short[]) to max(short...).
+     * @param array an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @since 3.4 Changed signature from max(short[]) to max(short...)
      */
     public static short max(final short... array) {
         // Validates input
@@ -1064,10 +1064,10 @@ public class NumberUtils {
     /**
      * Gets the maximum of three {@code short} values.
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the largest of the values.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the largest of the values
      */
     public static short max(short a, final short b, final short c) {
         if (b > a) {
@@ -1082,11 +1082,11 @@ public class NumberUtils {
     /**
      * Returns the minimum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @since 3.4 Changed signature from min(byte[]) to min(byte...).
+     * @param array an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @since 3.4 Changed signature from min(byte[]) to min(byte...)
      */
     public static byte min(final byte... array) {
         // Validates input
@@ -1104,10 +1104,10 @@ public class NumberUtils {
     /**
      * Gets the minimum of three {@code byte} values.
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the smallest of the values.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the smallest of the values
      */
     public static byte min(byte a, final byte b, final byte c) {
         if (b < a) {
@@ -1122,12 +1122,12 @@ public class NumberUtils {
     /**
      * Returns the minimum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @see IEEE754rUtils#min(double[]) IEEE754rUtils for a version of this method that handles NaN differently.
-     * @since 3.4 Changed signature from min(double[]) to min(double...).
+     * @param array an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @see IEEE754rUtils#min(double[]) IEEE754rUtils for a version of this method that handles NaN differently
+     * @since 3.4 Changed signature from min(double[]) to min(double...)
      */
     public static double min(final double... array) {
         // Validates input
@@ -1152,11 +1152,11 @@ public class NumberUtils {
      * If any value is {@code NaN}, {@code NaN} is returned. Infinity is handled.
      * </p>
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the smallest of the values.
-     * @see IEEE754rUtils#min(double, double, double) for a version of this method that handles NaN differently.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the smallest of the values
+     * @see IEEE754rUtils#min(double, double, double) for a version of this method that handles NaN differently
      */
     public static double min(final double a, final double b, final double c) {
         return Math.min(Math.min(a, b), c);
@@ -1165,12 +1165,12 @@ public class NumberUtils {
     /**
      * Returns the minimum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @see IEEE754rUtils#min(float[]) IEEE754rUtils for a version of this method that handles NaN differently.
-     * @since 3.4 Changed signature from min(float[]) to min(float...).
+     * @param array an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @see IEEE754rUtils#min(float[]) IEEE754rUtils for a version of this method that handles NaN differently
+     * @since 3.4 Changed signature from min(float[]) to min(float...)
      */
     public static float min(final float... array) {
         // Validates input
@@ -1195,11 +1195,11 @@ public class NumberUtils {
      * If any value is {@code NaN}, {@code NaN} is returned. Infinity is handled.
      * </p>
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the smallest of the values.
-     * @see IEEE754rUtils#min(float, float, float) for a version of this method that handles NaN differently.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the smallest of the values
+     * @see IEEE754rUtils#min(float, float, float) for a version of this method that handles NaN differently
      */
     public static float min(final float a, final float b, final float c) {
         return Math.min(Math.min(a, b), c);
@@ -1208,11 +1208,11 @@ public class NumberUtils {
     /**
      * Returns the minimum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @since 3.4 Changed signature from min(int[]) to min(int...).
+     * @param array an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @since 3.4 Changed signature from min(int[]) to min(int...)
      */
     public static int min(final int... array) {
         // Validates input
@@ -1230,10 +1230,10 @@ public class NumberUtils {
     /**
      * Gets the minimum of three {@code int} values.
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the smallest of the values.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the smallest of the values
      */
     public static int min(int a, final int b, final int c) {
         if (b < a) {
@@ -1248,11 +1248,11 @@ public class NumberUtils {
     /**
      * Returns the minimum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @since 3.4 Changed signature from min(long[]) to min(long...).
+     * @param array an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @since 3.4 Changed signature from min(long[]) to min(long...)
      */
     public static long min(final long... array) {
         // Validates input
@@ -1271,10 +1271,10 @@ public class NumberUtils {
     /**
      * Gets the minimum of three {@code long} values.
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the smallest of the values.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the smallest of the values
      */
     public static long min(long a, final long b, final long c) {
         if (b < a) {
@@ -1289,11 +1289,11 @@ public class NumberUtils {
     /**
      * Returns the minimum value in an array.
      *
-     * @param array an array, must not be null or empty.
-     * @return the minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @since 3.4 Changed signature from min(short[]) to min(short...).
+     * @param array an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
+     * @since 3.4 Changed signature from min(short[]) to min(short...)
      */
     public static short min(final short... array) {
         // Validates input
@@ -1311,10 +1311,10 @@ public class NumberUtils {
     /**
      * Gets the minimum of three {@code short} values.
      *
-     * @param a value 1.
-     * @param b value 2.
-     * @param c value 3.
-     * @return the smallest of the values.
+     * @param a value 1
+     * @param b value 2
+     * @param c value 3
+     * @return the smallest of the values
      */
     public static short min(short a, final short b, final short c) {
         if (b < a) {
@@ -1339,8 +1339,8 @@ public class NumberUtils {
      *   NumberUtils.toByte("1")  = 1
      * </pre>
      *
-     * @param str the string to convert, may be null.
-     * @return the byte represented by the string, or {@code zero} if conversion fails.
+     * @param str the string to convert, may be null
+     * @return the byte represented by the string, or {@code zero} if conversion fails
      * @since 2.5
      */
     public static byte toByte(final String str) {
@@ -1360,9 +1360,9 @@ public class NumberUtils {
      *   NumberUtils.toByte("1", 0)  = 1
      * </pre>
      *
-     * @param str          the string to convert, may be null.
-     * @param defaultValue the default value.
-     * @return the byte represented by the string, or the default if conversion fails.
+     * @param str          the string to convert, may be null
+     * @param defaultValue the default value
+     * @return the byte represented by the string, or the default if conversion fails
      * @since 2.5
      */
     public static byte toByte(final String str, final byte defaultValue) {
@@ -1385,8 +1385,8 @@ public class NumberUtils {
      *   NumberUtils.toDouble(BigDecimal.valueOf(8.5d)) = 8.5d
      * </pre>
      *
-     * @param value the {@link BigDecimal} to convert, may be {@code null}.
-     * @return the double represented by the {@link BigDecimal} or {@code 0.0d} if the {@link BigDecimal} is {@code null}.
+     * @param value the {@link BigDecimal} to convert, may be {@code null}
+     * @return the double represented by the {@link BigDecimal} or {@code 0.0d} if the {@link BigDecimal} is {@code null}
      * @since 3.8
      */
     public static double toDouble(final BigDecimal value) {
@@ -1405,9 +1405,9 @@ public class NumberUtils {
      *   NumberUtils.toDouble(BigDecimal.valueOf(8.5d), 1.1d) = 8.5d
      * </pre>
      *
-     * @param value        the {@link BigDecimal} to convert, may be {@code null}.
-     * @param defaultValue the default value.
-     * @return the double represented by the {@link BigDecimal} or the defaultValue if the {@link BigDecimal} is {@code null}.
+     * @param value        the {@link BigDecimal} to convert, may be {@code null}
+     * @param defaultValue the default value
+     * @return the double represented by the {@link BigDecimal} or the defaultValue if the {@link BigDecimal} is {@code null}
      * @since 3.8
      */
     public static double toDouble(final BigDecimal value, final double defaultValue) {
@@ -1427,8 +1427,8 @@ public class NumberUtils {
      *   NumberUtils.toDouble("1.5")  = 1.5d
      * </pre>
      *
-     * @param str the string to convert, may be {@code null}.
-     * @return the double represented by the string, or {@code 0.0d} if conversion fails.
+     * @param str the string to convert, may be {@code null}
+     * @return the double represented by the string, or {@code 0.0d} if conversion fails
      * @since 2.1
      */
     public static double toDouble(final String str) {
@@ -1449,8 +1449,8 @@ public class NumberUtils {
      * </pre>
      *
      * @param str          the string to convert, may be {@code null}
-     * @param defaultValue the default value.
-     * @return the double represented by the string, or defaultValue if conversion fails.
+     * @param defaultValue the default value
+     * @return the double represented by the string, or defaultValue if conversion fails
      * @since 2.1
      */
     public static double toDouble(final String str, final double defaultValue) {
@@ -1474,8 +1474,8 @@ public class NumberUtils {
      *   NumberUtils.toFloat("1.5")  = 1.5f
      * </pre>
      *
-     * @param str the string to convert, may be {@code null}.
-     * @return the float represented by the string, or {@code 0.0f} if conversion fails.
+     * @param str the string to convert, may be {@code null}
+     * @return the float represented by the string, or {@code 0.0f} if conversion fails
      * @since 2.1
      */
     public static float toFloat(final String str) {
@@ -1495,9 +1495,9 @@ public class NumberUtils {
      *   NumberUtils.toFloat("1.5", 0.0f)  = 1.5f
      * </pre>
      *
-     * @param str          the string to convert, may be {@code null}.
-     * @param defaultValue the default value.
-     * @return the float represented by the string, or defaultValue if conversion fails.
+     * @param str          the string to convert, may be {@code null}
+     * @param defaultValue the default value
+     * @return the float represented by the string, or defaultValue if conversion fails
      * @since 2.1
      */
     public static float toFloat(final String str, final float defaultValue) {
@@ -1521,8 +1521,8 @@ public class NumberUtils {
      *   NumberUtils.toInt("1")  = 1
      * </pre>
      *
-     * @param str the string to convert, may be null.
-     * @return the int represented by the string, or {@code zero} if conversion fails.
+     * @param str the string to convert, may be null
+     * @return the int represented by the string, or {@code zero} if conversion fails
      * @since 2.1
      */
     public static int toInt(final String str) {
@@ -1542,9 +1542,9 @@ public class NumberUtils {
      *   NumberUtils.toInt("1", 0)  = 1
      * </pre>
      *
-     * @param str          the string to convert, may be null.
-     * @param defaultValue the default value.
-     * @return the int represented by the string, or the default if conversion fails.
+     * @param str          the string to convert, may be null
+     * @param defaultValue the default value
+     * @return the int represented by the string, or the default if conversion fails
      * @since 2.1
      */
     public static int toInt(final String str, final int defaultValue) {
@@ -1568,8 +1568,8 @@ public class NumberUtils {
      *   NumberUtils.toLong("1")  = 1L
      * </pre>
      *
-     * @param str the string to convert, may be null.
-     * @return the long represented by the string, or {@code 0} if conversion fails.
+     * @param str the string to convert, may be null
+     * @return the long represented by the string, or {@code 0} if conversion fails
      * @since 2.1
      */
     public static long toLong(final String str) {
@@ -1589,9 +1589,9 @@ public class NumberUtils {
      *   NumberUtils.toLong("1", 0L)  = 1L
      * </pre>
      *
-     * @param str          the string to convert, may be null.
-     * @param defaultValue the default value.
-     * @return the long represented by the string, or the default if conver sion fails.
+     * @param str          the string to convert, may be null
+     * @param defaultValue the default value
+     * @return the long represented by the string, or the default if conver sion fails
      * @since 2.1
      */
     public static long toLong(final String str, final long defaultValue) {
@@ -1610,8 +1610,8 @@ public class NumberUtils {
      * Note, the scale of a {@link BigDecimal} is the number of digits to the right of the decimal point.
      * </p>
      *
-     * @param value the {@link BigDecimal} to convert, may be null.
-     * @return the scaled, with appropriate rounding, {@link BigDecimal}.
+     * @param value the {@link BigDecimal} to convert, may be null
+     * @return the scaled, with appropriate rounding, {@link BigDecimal}
      * @since 3.8
      */
     public static BigDecimal toScaledBigDecimal(final BigDecimal value) {
@@ -1622,10 +1622,10 @@ public class NumberUtils {
      * Converts a {@link BigDecimal} to a {@link BigDecimal} whose scale is the specified value with a {@link RoundingMode} applied. If the input {@code value}
      * is {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
-     * @param value        the {@link BigDecimal} to convert, may be null.
-     * @param scale        the number of digits to the right of the decimal point.
-     * @param roundingMode a rounding behavior for numerical operations capable of discarding precision.
-     * @return the scaled, with appropriate rounding, {@link BigDecimal}.
+     * @param value        the {@link BigDecimal} to convert, may be null
+     * @param scale        the number of digits to the right of the decimal point
+     * @param roundingMode a rounding behavior for numerical operations capable of discarding precision
+     * @return the scaled, with appropriate rounding, {@link BigDecimal}
      * @since 3.8
      */
     public static BigDecimal toScaledBigDecimal(final BigDecimal value, final int scale, final RoundingMode roundingMode) {
@@ -1643,8 +1643,8 @@ public class NumberUtils {
      * Note, the scale of a {@link BigDecimal} is the number of digits to the right of the decimal point.
      * </p>
      *
-     * @param value the {@link Double} to convert, may be null.
-     * @return the scaled, with appropriate rounding, {@link BigDecimal}.
+     * @param value the {@link Double} to convert, may be null
+     * @return the scaled, with appropriate rounding, {@link BigDecimal}
      * @since 3.8
      */
     public static BigDecimal toScaledBigDecimal(final Double value) {
@@ -1655,10 +1655,10 @@ public class NumberUtils {
      * Converts a {@link Double} to a {@link BigDecimal} whose scale is the specified value with a {@link RoundingMode} applied. If the input {@code value} is
      * {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
-     * @param value        the {@link Double} to convert, may be null.
-     * @param scale        the number of digits to the right of the decimal point.
-     * @param roundingMode a rounding behavior for numerical operations capable of discarding precision.
-     * @return the scaled, with appropriate rounding, {@link BigDecimal}.
+     * @param value        the {@link Double} to convert, may be null
+     * @param scale        the number of digits to the right of the decimal point
+     * @param roundingMode a rounding behavior for numerical operations capable of discarding precision
+     * @return the scaled, with appropriate rounding, {@link BigDecimal}
      * @since 3.8
      */
     public static BigDecimal toScaledBigDecimal(final Double value, final int scale, final RoundingMode roundingMode) {
@@ -1676,8 +1676,8 @@ public class NumberUtils {
      * Note, the scale of a {@link BigDecimal} is the number of digits to the right of the decimal point.
      * </p>
      *
-     * @param value the {@link Float} to convert, may be null.
-     * @return the scaled, with appropriate rounding, {@link BigDecimal}.
+     * @param value the {@link Float} to convert, may be null
+     * @return the scaled, with appropriate rounding, {@link BigDecimal}
      * @since 3.8
      */
     public static BigDecimal toScaledBigDecimal(final Float value) {
@@ -1688,10 +1688,10 @@ public class NumberUtils {
      * Converts a {@link Float} to a {@link BigDecimal} whose scale is the specified value with a {@link RoundingMode} applied. If the input {@code value} is
      * {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
-     * @param value        the {@link Float} to convert, may be null.
-     * @param scale        the number of digits to the right of the decimal point.
-     * @param roundingMode a rounding behavior for numerical operations capable of discarding precision.
-     * @return the scaled, with appropriate rounding, {@link BigDecimal}.
+     * @param value        the {@link Float} to convert, may be null
+     * @param scale        the number of digits to the right of the decimal point
+     * @param roundingMode a rounding behavior for numerical operations capable of discarding precision
+     * @return the scaled, with appropriate rounding, {@link BigDecimal}
      * @since 3.8
      */
     public static BigDecimal toScaledBigDecimal(final Float value, final int scale, final RoundingMode roundingMode) {
@@ -1709,8 +1709,8 @@ public class NumberUtils {
      * Note, the scale of a {@link BigDecimal} is the number of digits to the right of the decimal point.
      * </p>
      *
-     * @param value the {@link String} to convert, may be null.
-     * @return the scaled, with appropriate rounding, {@link BigDecimal}.
+     * @param value the {@link String} to convert, may be null
+     * @return the scaled, with appropriate rounding, {@link BigDecimal}
      * @since 3.8
      */
     public static BigDecimal toScaledBigDecimal(final String value) {
@@ -1721,10 +1721,10 @@ public class NumberUtils {
      * Converts a {@link String} to a {@link BigDecimal} whose scale is the specified value with a {@link RoundingMode} applied. If the input {@code value} is
      * {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
-     * @param value        the {@link String} to convert, may be null.
-     * @param scale        the number of digits to the right of the decimal point.
-     * @param roundingMode a rounding behavior for numerical operations capable of discarding precision.
-     * @return the scaled, with appropriate rounding, {@link BigDecimal}.
+     * @param value        the {@link String} to convert, may be null
+     * @param scale        the number of digits to the right of the decimal point
+     * @param roundingMode a rounding behavior for numerical operations capable of discarding precision
+     * @return the scaled, with appropriate rounding, {@link BigDecimal}
      * @since 3.8
      */
     public static BigDecimal toScaledBigDecimal(final String value, final int scale, final RoundingMode roundingMode) {
@@ -1747,8 +1747,8 @@ public class NumberUtils {
      *   NumberUtils.toShort("1")  = 1
      * </pre>
      *
-     * @param str the string to convert, may be null.
-     * @return the short represented by the string, or {@code zero} if conversion fails.
+     * @param str the string to convert, may be null
+     * @return the short represented by the string, or {@code zero} if conversion fails
      * @since 2.5
      */
     public static short toShort(final String str) {
@@ -1768,9 +1768,9 @@ public class NumberUtils {
      *   NumberUtils.toShort("1", 0)  = 1
      * </pre>
      *
-     * @param str          the string to convert, may be null.
-     * @param defaultValue the default value.
-     * @return the short represented by the string, or the default if conversion fails.
+     * @param str          the string to convert, may be null
+     * @param defaultValue the default value
+     * @return the short represented by the string, or the default if conversion fails
      * @since 2.5
      */
     public static short toShort(final String str, final short defaultValue) {
@@ -1784,9 +1784,9 @@ public class NumberUtils {
     /**
      * Checks if the specified array is neither null nor empty.
      *
-     * @param array the array to check.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @throws NullPointerException     if {@code array} is {@code null}.
+     * @param array the array to check
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @throws NullPointerException     if {@code array} is {@code null}
      */
     private static void validateArray(final Object array) {
         Objects.requireNonNull(array, "array");

@@ -49,7 +49,7 @@ public class AnnotationUtils {
      */
     private static final ToStringStyle TO_STRING_STYLE = new ToStringStyle() {
 
-        /** Serialization version */
+        /** Serialization version. */
         private static final long serialVersionUID = 1L;
 
         {
@@ -232,10 +232,10 @@ public class AnnotationUtils {
      * @param a the Annotation for a hash code calculation is desired, not
      * {@code null}
      * @return the calculated hash code
-     * @throws RuntimeException if an {@link Exception} is encountered during
-     * annotation member access
      * @throws IllegalStateException if an annotation method invocation returns
      * {@code null}
+     * @throws RuntimeException if an {@link Exception} is encountered during
+     * annotation member access
      */
     public static int hashCode(final Annotation a) {
         int result = 0;

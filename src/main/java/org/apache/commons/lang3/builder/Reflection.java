@@ -28,10 +28,10 @@ final class Reflection {
     /**
      * Delegates to {@link Field#get(Object)} and rethrows {@link IllegalAccessException} as {@link IllegalArgumentException}.
      *
-     * @param field The receiver of the get call.
-     * @param obj   The argument of the get call.
-     * @return The result of the get call.
-     * @throws IllegalArgumentException Thrown after catching {@link IllegalAccessException}.
+     * @param field the receiver of the get call
+     * @param obj   the argument of the get call
+     * @return the result of the get call
+     * @throws IllegalArgumentException thrown after catching {@link IllegalAccessException}
      */
     static Object getUnchecked(final Field field, final Object obj) {
         try {

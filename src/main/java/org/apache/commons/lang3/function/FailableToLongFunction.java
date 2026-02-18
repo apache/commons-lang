@@ -23,13 +23,13 @@ import java.util.function.ToLongFunction;
  * A functional interface like {@link ToLongFunction} that declares a {@link Throwable}.
  *
  * @param <T> the type of the first argument to the function
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableToLongFunction<T, E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableToLongFunction NOP = t -> 0L;
 
@@ -37,8 +37,8 @@ public interface FailableToLongFunction<T, E extends Throwable> {
      * Gets the NOP singleton.
      *
      * @param <T> the type of the argument to the function
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, E extends Throwable> FailableToLongFunction<T, E> nop() {
@@ -50,7 +50,7 @@ public interface FailableToLongFunction<T, E extends Throwable> {
      *
      * @param t the first function argument
      * @return the function result
-     * @throws E Thrown when the function fails.
+     * @throws E thrown when the function fails
      */
     long applyAsLong(T t) throws E;
 }

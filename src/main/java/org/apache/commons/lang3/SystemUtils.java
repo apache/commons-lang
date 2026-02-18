@@ -31,8 +31,8 @@ import java.nio.file.Paths;
  * #ThreadSafe#
  * </p>
  *
- * @since 1.0
  * @see SystemProperties
+ * @since 1.0
  */
 public class SystemUtils {
 
@@ -2106,8 +2106,8 @@ public class SystemUtils {
      * called after this class is loaded, the value will be out of sync with that System property.
      * </p>
      *
-     * @since 2.1
      * @see SystemProperties#getAwtToolkit()
+     * @since 2.1
      * @deprecated Deprecated without replacement.
      */
     @Deprecated
@@ -2120,9 +2120,9 @@ public class SystemUtils {
      * If a {@link SecurityException} is caught, the return value is {@code defaultValue} and a message is written to {@code System.err}.
      * </p>
      *
-     * @param name         the environment variable name.
-     * @param defaultValue the default value.
-     * @return the environment variable value or {@code defaultValue} if a security problem occurs.
+     * @param name         the environment variable name
+     * @param defaultValue the default value
+     * @return the environment variable value or {@code defaultValue} if a security problem occurs
      * @since 3.8
      */
     public static String getEnvironmentVariable(final String name, final String defaultValue) {
@@ -2153,8 +2153,8 @@ public class SystemUtils {
     /**
      * Gets the current Java home directory as a {@link File}.
      *
-     * @return a directory.
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property
      * @see SystemProperties#getJavaHome()
      * @since 2.1
      */
@@ -2165,8 +2165,8 @@ public class SystemUtils {
     /**
      * Gets the current Java home directory as a {@link File}.
      *
-     * @return a directory.
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property
      * @see SystemProperties#getJavaHome()
      * @since 3.18.0
      */
@@ -2177,8 +2177,8 @@ public class SystemUtils {
     /**
      * Gets the current Java IO temporary directory as a {@link File}.
      *
-     * @return a directory.
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property
      * @see SystemProperties#getJavaIoTmpdir()
      * @since 2.1
      */
@@ -2189,8 +2189,8 @@ public class SystemUtils {
     /**
      * Gets the current Java IO temporary directory as a {@link Path}.
      *
-     * @return a directory.
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property
      * @see SystemProperties#getJavaIoTmpdir()
      * @since 3.18.0
      */
@@ -2204,8 +2204,8 @@ public class SystemUtils {
      * The result depends on the value of the {@link #JAVA_SPECIFICATION_VERSION} constant.
      * </p>
      *
-     * @param versionPrefix the prefix for the Java version.
-     * @return true if matches, or false if not or can't determine.
+     * @param versionPrefix the prefix for the Java version
+     * @return true if matches, or false if not or can't determine
      */
     private static boolean getJavaVersionMatches(final String versionPrefix) {
         return isJavaVersionMatch(JAVA_SPECIFICATION_VERSION, versionPrefix);
@@ -2220,9 +2220,9 @@ public class SystemUtils {
      * The method returns {@code false} if {@link #OS_NAME} or {@link #OS_VERSION} is {@code null}.
      * </p>
      *
-     * @param osNamePrefix    the prefix for the OS name.
-     * @param osVersionPrefix the prefix for the version.
-     * @return true if matches, or false if not or can't determine.
+     * @param osNamePrefix    the prefix for the OS name
+     * @param osVersionPrefix the prefix for the version
+     * @return true if matches, or false if not or can't determine
      */
     private static boolean getOsMatches(final String osNamePrefix, final String osVersionPrefix) {
         return isOsMatch(OS_NAME, OS_VERSION, osNamePrefix, osVersionPrefix);
@@ -2237,8 +2237,8 @@ public class SystemUtils {
      * The method returns {@code false} if {@link #OS_NAME} is {@code null}.
      * </p>
      *
-     * @param osNamePrefix the prefix for the OS name.
-     * @return true if matches, or false if not or can't determine.
+     * @param osNamePrefix the prefix for the OS name
+     * @return true if matches, or false if not or can't determine
      */
     private static boolean getOsNameMatches(final String osNamePrefix) {
         return isOsNameMatch(OS_NAME, osNamePrefix);
@@ -2250,8 +2250,8 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#USER_DIR}.
      * </p>
      *
-     * @return a directory.
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property
      * @see SystemProperties#getUserDir()
      * @since 2.1
      */
@@ -2265,8 +2265,8 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#USER_DIR}.
      * </p>
      *
-     * @return a directory.
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property
      * @see SystemProperties#getUserDir()
      * @since 3.18.0
      */
@@ -2280,8 +2280,8 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#USER_HOME}.
      * </p>
      *
-     * @return a directory.
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property
      * @see SystemProperties#getUserHome()
      * @since 2.1
      */
@@ -2295,8 +2295,8 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#USER_HOME}.
      * </p>
      *
-     * @return a directory.
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @return a directory
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property
      * @see SystemProperties#getUserHome()
      * @since 3.18.0
      */
@@ -2310,8 +2310,8 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#USER_NAME}.
      * </p>
      *
-     * @return a name.
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @return a name
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property
      * @see SystemProperties#getUserName()
      * @since 3.10
      * @deprecated Use {@link SystemProperties#getUserName()}.
@@ -2327,9 +2327,9 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#USER_NAME}.
      * </p>
      *
-     * @param defaultValue A default value.
-     * @return a name.
-     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
+     * @param defaultValue a default value
+     * @return a name
+     * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property
      * @see SystemProperties#getUserName()
      * @since 3.10
      * @deprecated Use {@link SystemProperties#getUserName(String)}.
@@ -2345,7 +2345,7 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#JAVA_AWT_HEADLESS}.
      * </p>
      *
-     * @return {@code true} if {@code JAVA_AWT_HEADLESS} is {@code "true"}, {@code false} otherwise.
+     * @return {@code true} if {@code JAVA_AWT_HEADLESS} is {@code "true"}, {@code false} otherwise
      * @see #JAVA_AWT_HEADLESS
      * @since 2.1
      * @since Java 1.4
@@ -2362,8 +2362,8 @@ public class SystemUtils {
      * The result is based on the system property saved in {@link #JAVA_SPECIFICATION_VERSION}.
      * </p>
      *
-     * @param requiredVersion the required version, for example 1.31f.
-     * @return {@code true} if the actual version is equal or greater than the required version.
+     * @param requiredVersion the required version, for example 1.31f
+     * @return {@code true} if the actual version is equal or greater than the required version
      */
     public static boolean isJavaVersionAtLeast(final JavaVersion requiredVersion) {
         return JAVA_SPECIFICATION_VERSION_ENUM != null && JAVA_SPECIFICATION_VERSION_ENUM.atLeast(requiredVersion);
@@ -2375,8 +2375,8 @@ public class SystemUtils {
      * The result is based on the system property saved in {@link #JAVA_SPECIFICATION_VERSION}.
      * </p>
      *
-     * @param requiredVersion the required version, for example 1.31f.
-     * @return {@code true} if the actual version is equal or less than the required version.
+     * @param requiredVersion the required version, for example 1.31f
+     * @return {@code true} if the actual version is equal or less than the required version
      * @since 3.9
      */
     public static boolean isJavaVersionAtMost(final JavaVersion requiredVersion) {
@@ -2390,9 +2390,9 @@ public class SystemUtils {
      * This method is package private instead of private to support unit test invocation.
      * </p>
      *
-     * @param version       the actual Java version.
-     * @param versionPrefix the prefix for the expected Java version.
-     * @return true if matches, or false if not or can't determine.
+     * @param version       the actual Java version
+     * @param versionPrefix the prefix for the expected Java version
+     * @return true if matches, or false if not or can't determine
      */
     static boolean isJavaVersionMatch(final String version, final String versionPrefix) {
         if (version == null) {
@@ -2407,11 +2407,11 @@ public class SystemUtils {
      * This method is package private instead of private to support unit test invocation.
      * </p>
      *
-     * @param osName          the actual OS name.
-     * @param osVersion       the actual OS version.
-     * @param osNamePrefix    the prefix for the expected OS name.
-     * @param osVersionPrefix the prefix for the expected OS version.
-     * @return true if matches, or false if not or can't determine.
+     * @param osName          the actual OS name
+     * @param osVersion       the actual OS version
+     * @param osNamePrefix    the prefix for the expected OS name
+     * @param osVersionPrefix the prefix for the expected OS version
+     * @return true if matches, or false if not or can't determine
      */
     static boolean isOsMatch(final String osName, final String osVersion, final String osNamePrefix, final String osVersionPrefix) {
         if (osName == null || osVersion == null) {
@@ -2426,9 +2426,9 @@ public class SystemUtils {
      * This method is package private instead of private to support unit test invocation.
      * </p>
      *
-     * @param osName       the actual OS name.
-     * @param osNamePrefix the prefix for the expected OS name.
-     * @return true for a case-insensitive match, or false if not.
+     * @param osName       the actual OS name
+     * @param osNamePrefix the prefix for the expected OS name
+     * @return true for a case-insensitive match, or false if not
      */
     static boolean isOsNameMatch(final String osName, final String osNamePrefix) {
         if (osName == null) {
@@ -2443,9 +2443,9 @@ public class SystemUtils {
      * This method is package private instead of private to support unit test invocation.
      * </p>
      *
-     * @param osVersion       the actual OS version.
-     * @param osVersionPrefix the prefix for the expected OS version.
-     * @return true if matches, or false if not or can't determine.
+     * @param osVersion       the actual OS version
+     * @param osVersionPrefix the prefix for the expected OS version
+     * @return true if matches, or false if not or can't determine
      */
     static boolean isOsVersionMatch(final String osVersion, final String osVersionPrefix) {
         if (StringUtils.isEmpty(osVersion)) {

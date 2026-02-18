@@ -70,7 +70,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     /**
      * Creates a new instance of {@link ThresholdCircuitBreaker} and initializes the threshold.
      *
-     * @param threshold the threshold.
+     * @param threshold the threshold
      */
     public ThresholdCircuitBreaker(final long threshold) {
         this.used = new AtomicLong(INITIAL_COUNT);

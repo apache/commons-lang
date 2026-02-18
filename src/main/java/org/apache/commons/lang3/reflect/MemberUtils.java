@@ -88,10 +88,10 @@ final class MemberUtils {
      * Compares the relative fitness of two Constructors in terms of how well they match a set of runtime parameter types, such that a list ordered by the
      * results of the comparison would return the best match first (least).
      *
-     * @param left   the "left" Constructor.
-     * @param right  the "right" Constructor.
+     * @param left   the "left" Constructor
+     * @param right  the "right" Constructor
      * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
-     * @return int consistent with {@code compare} semantics.
+     * @return int consistent with {@code compare} semantics
      */
     static int compareConstructorFit(final Constructor<?> left, final Constructor<?> right, final Class<?>[] actual) {
       return compareParameterTypes(Executable.of(left), Executable.of(right), actual);
@@ -101,10 +101,10 @@ final class MemberUtils {
      * Compares the relative fitness of two Methods in terms of how well they match a set of runtime parameter types, such that a list ordered by the results of
      * the comparison would return the best match first (least).
      *
-     * @param left   the "left" Method.
-     * @param right  the "right" Method.
+     * @param left   the "left" Method
+     * @param right  the "right" Method
      * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
-     * @return int consistent with {@code compare} semantics.
+     * @return int consistent with {@code compare} semantics
      */
     static int compareMethodFit(final Method left, final Method right, final Class<?>[] actual) {
       return compareParameterTypes(Executable.of(left), Executable.of(right), actual);
@@ -114,10 +114,10 @@ final class MemberUtils {
      * Compares the relative fitness of two Executables in terms of how well they match a set of runtime parameter types, such that a list ordered by the
      * results of the comparison would return the best match first (least).
      *
-     * @param left   the "left" Executable.
-     * @param right  the "right" Executable.
+     * @param left   the "left" Executable
+     * @param right  the "right" Executable
      * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
-     * @return int consistent with {@code compare} semantics.
+     * @return int consistent with {@code compare} semantics
      */
     private static int compareParameterTypes(final Executable left, final Executable right, final Class<?>[] actual) {
         final float leftCost = getTotalTransformationCost(actual, left);
@@ -128,9 +128,9 @@ final class MemberUtils {
     /**
      * Gets the number of steps needed to turn the source class into the destination class. This represents the number of steps in the object hierarchy graph.
      *
-     * @param srcClass  The source class.
-     * @param destClass The destination class.
-     * @return The cost of transforming an object.
+     * @param srcClass  the source class
+     * @param destClass the destination class
+     * @return the cost of transforming an object
      */
     private static float getObjectTransformationCost(Class<?> srcClass, final Class<?> destClass) {
         if (destClass.isPrimitive()) {
@@ -162,9 +162,9 @@ final class MemberUtils {
     /**
      * Gets the number of steps required to promote a primitive to another type.
      *
-     * @param srcClass  the (primitive) source class.
-     * @param destClass the (primitive) destination class.
-     * @return The cost of promoting the primitive.
+     * @param srcClass  the (primitive) source class
+     * @param destClass the (primitive) destination class
+     * @return the cost of promoting the primitive
      */
     private static float getPrimitivePromotionCost(final Class<?> srcClass, final Class<?> destClass) {
         if (srcClass == null) {
@@ -192,9 +192,9 @@ final class MemberUtils {
     /**
      * Gets the sum of the object transformation cost for each class in the source argument list.
      *
-     * @param srcArgs    The source arguments.
-     * @param executable The executable to calculate transformation costs for.
-     * @return The total transformation cost.
+     * @param srcArgs    the source arguments
+     * @param executable the executable to calculate transformation costs for
+     * @return the total transformation cost
      */
     private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Executable executable) {
         final Class<?>[] destArgs = executable.getParameterTypes();
@@ -236,8 +236,8 @@ final class MemberUtils {
     /**
      * Tests whether a {@link Member} is accessible.
      *
-     * @param member Member to test, may be null.
-     * @return {@code true} if {@code m} is accessible.
+     * @param member member to test, may be null
+     * @return {@code true} if {@code m} is accessible
      */
     static boolean isAccessible(final Member member) {
         return isPublic(member) && !member.isSynthetic();
@@ -277,7 +277,7 @@ final class MemberUtils {
     /**
      * Tests whether a given set of modifiers implies package access.
      *
-     * @param modifiers to test.
+     * @param modifiers to test
      * @return {@code true} unless {@code package}/{@code protected}/{@code private} modifier detected
      */
     static boolean isPackage(final int modifiers) {
@@ -287,8 +287,8 @@ final class MemberUtils {
     /**
      * Tests whether a {@link Member} is public.
      *
-     * @param member Member to test, may be null.
-     * @return {@code true} if {@code m} is public.
+     * @param member member to test, may be null
+     * @return {@code true} if {@code m} is public
      */
     static boolean isPublic(final Member member) {
         return member != null && Modifier.isPublic(member.getModifiers());
@@ -297,8 +297,8 @@ final class MemberUtils {
     /**
      * Tests whether a {@link Member} is static.
      *
-     * @param member Member to test, may be null.
-     * @return {@code true} if {@code m} is static.
+     * @param member member to test, may be null
+     * @return {@code true} if {@code m} is static
      */
     static boolean isStatic(final Member member) {
         return member != null && Modifier.isStatic(member.getModifiers());
@@ -316,8 +316,8 @@ final class MemberUtils {
      * accepted.
      * </p>
      *
-     * @param obj the AccessibleObject to set as accessible, may be null.
-     * @return a boolean indicating whether the accessibility of the object was set to true.
+     * @param obj the AccessibleObject to set as accessible, may be null
+     * @return a boolean indicating whether the accessibility of the object was set to true
      */
     static <T extends AccessibleObject> T setAccessibleWorkaround(final T obj) {
         if (AccessibleObjects.isAccessible(obj)) {

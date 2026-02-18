@@ -80,9 +80,9 @@ public class Functions {
      *
      * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
      *
-     * @param <O1> Consumed type 1.
-     * @param <O2> Consumed type 2.
-     * @param <T> Thrown exception.
+     * @param <O1> consumed type 1
+     * @param <O2> consumed type 2
+     * @param <T> thrown exception
      * @deprecated Use {@link org.apache.commons.lang3.function.FailableBiConsumer}.
      */
     @Deprecated
@@ -94,7 +94,7 @@ public class Functions {
          *
          * @param object1 the first parameter for the consumable to accept
          * @param object2 the second parameter for the consumable to accept
-         * @throws T Thrown when the consumer fails.
+         * @throws T thrown when the consumer fails
          */
         void accept(O1 object1, O2 object2) throws T;
     }
@@ -104,10 +104,10 @@ public class Functions {
      *
      * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
      *
-     * @param <O1> Input type 1.
-     * @param <O2> Input type 2.
-     * @param <R> Return type.
-     * @param <T> Thrown exception.
+     * @param <O1> input type 1
+     * @param <O2> input type 2
+     * @param <R> return type
+     * @param <T> thrown exception
      * @deprecated Use {@link org.apache.commons.lang3.function.FailableBiFunction}.
      */
     @Deprecated
@@ -120,7 +120,7 @@ public class Functions {
          * @param input1 the first input for the function
          * @param input2 the second input for the function
          * @return the result of the function
-         * @throws T Thrown when the function fails.
+         * @throws T thrown when the function fails
          */
         R apply(O1 input1, O2 input2) throws T;
     }
@@ -130,9 +130,9 @@ public class Functions {
      *
      * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
      *
-     * @param <O1> Predicate type 1.
-     * @param <O2> Predicate type 2.
-     * @param <T> Thrown exception.
+     * @param <O1> predicate type 1
+     * @param <O2> predicate type 2
+     * @param <T> thrown exception
      * @deprecated Use {@link org.apache.commons.lang3.function.FailableBiPredicate}.
      */
     @Deprecated
@@ -155,8 +155,8 @@ public class Functions {
      *
      * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
      *
-     * @param <R> Return type.
-     * @param <T> Thrown exception.
+     * @param <R> return type
+     * @param <T> thrown exception
      * @deprecated Use {@link org.apache.commons.lang3.function.FailableCallable}.
      */
     @Deprecated
@@ -166,7 +166,7 @@ public class Functions {
         /**
          * Calls the callable.
          *
-         * @return The value returned from the callable
+         * @return the value returned from the callable
          * @throws T if the callable fails
          */
         R call() throws T;
@@ -177,8 +177,8 @@ public class Functions {
      *
      * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
      *
-     * @param <O> Consumed type 1.
-     * @param <T> Thrown exception.
+     * @param <O> consumed type 1
+     * @param <T> thrown exception
      * @deprecated Use {@link org.apache.commons.lang3.function.FailableConsumer}.
      */
     @Deprecated
@@ -189,7 +189,7 @@ public class Functions {
          * Accepts the consumer.
          *
          * @param object the parameter for the consumable to accept
-         * @throws T Thrown when the consumer fails.
+         * @throws T thrown when the consumer fails
          */
         void accept(O object) throws T;
     }
@@ -199,9 +199,9 @@ public class Functions {
      *
      * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
      *
-     * @param <I> Input type 1.
-     * @param <R> Return type.
-     * @param <T> Thrown exception.
+     * @param <I> input type 1
+     * @param <R> return type
+     * @param <T> thrown exception
      * @deprecated Use {@link org.apache.commons.lang3.function.FailableFunction}.
      */
     @Deprecated
@@ -213,7 +213,7 @@ public class Functions {
          *
          * @param input the input for the function
          * @return the result of the function
-         * @throws T Thrown when the function fails.
+         * @throws T thrown when the function fails
          */
         R apply(I input) throws T;
     }
@@ -223,8 +223,8 @@ public class Functions {
      *
      * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
      *
-     * @param <I> Predicate type 1.
-     * @param <T> Thrown exception.
+     * @param <I> predicate type 1
+     * @param <T> thrown exception
      * @deprecated Use {@link org.apache.commons.lang3.function.FailablePredicate}.
      */
     @Deprecated
@@ -246,7 +246,7 @@ public class Functions {
      *
      * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
      *
-     * @param <T> Thrown exception.
+     * @param <T> thrown exception
      * @deprecated Use {@link org.apache.commons.lang3.function.FailableRunnable}.
      */
     @Deprecated
@@ -256,7 +256,7 @@ public class Functions {
         /**
          * Runs the function.
          *
-         * @throws T Thrown when the function fails.
+         * @throws T thrown when the function fails
          */
         void run() throws T;
     }
@@ -266,8 +266,8 @@ public class Functions {
      *
      * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
      *
-     * @param <R> Return type.
-     * @param <T> Thrown exception.
+     * @param <R> return type
+     * @param <T> thrown exception
      * @deprecated Use {@link org.apache.commons.lang3.function.FailableSupplier}.
      */
     @Deprecated
@@ -275,7 +275,7 @@ public class Functions {
     public interface FailableSupplier<R, T extends Throwable> {
 
         /**
-         * Supplies an object
+         * Supplies an object.
          *
          * @return a result
          * @throws T if the supplier fails
@@ -468,10 +468,10 @@ public class Functions {
     /**
      * Invokes a supplier, and returns the result.
      *
-     * @param supplier The supplier to invoke.
-     * @param <O> The suppliers output type.
-     * @param <T> The type of checked exception, which the supplier can throw.
-     * @return The object, which has been created by the supplier
+     * @param supplier the supplier to invoke
+     * @param <O> the suppliers output type
+     * @param <T> the type of checked exception, which the supplier can throw
+     * @return the object, which has been created by the supplier
      * @since 3.10
      */
     public static <O, T extends Throwable> O get(final FailableSupplier<O, T> supplier) {
@@ -485,9 +485,9 @@ public class Functions {
     /**
      * Invokes a boolean supplier, and returns the result.
      *
-     * @param supplier The boolean supplier to invoke.
-     * @param <T> The type of checked exception, which the supplier can throw.
-     * @return The boolean, which has been created by the supplier
+     * @param supplier the boolean supplier to invoke
+     * @param <T> the type of checked exception, which the supplier can throw
+     * @return the boolean, which has been created by the supplier
      */
     private static <T extends Throwable> boolean getAsBoolean(final FailableBooleanSupplier<T> supplier) {
         try {
@@ -518,8 +518,8 @@ public class Functions {
      * follow the method call, like a {@code return} statement from a value returning method.
      * </p>
      *
-     * @param throwable The throwable to rethrow possibly wrapped into an unchecked exception
-     * @return Never returns anything, this method never terminates normally.
+     * @param throwable the throwable to rethrow possibly wrapped into an unchecked exception
+     * @return never returns anything, this method never terminates normally
      */
     public static RuntimeException rethrow(final Throwable throwable) {
         Objects.requireNonNull(throwable, "throwable");
@@ -533,7 +533,7 @@ public class Functions {
     /**
      * Runs a runnable and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param runnable The runnable to run
+     * @param runnable the runnable to run
      * @param <T> the type of checked exception the runnable may throw
      */
     public static <T extends Throwable> void run(final FailableRunnable<T> runnable) {
@@ -551,9 +551,9 @@ public class Functions {
      * <pre>
      * Functions.stream(collection.stream());</pre>
      *
-     * @param collection The collection, which is being converted into a {@link FailableStream}.
-     * @param <O> The collections element type. (In turn, the result streams element type.)
-     * @return The created {@link FailableStream}.
+     * @param collection the collection, which is being converted into a {@link FailableStream}
+     * @param <O> the collections element type. (In turn, the result streams element type.)
+     * @return the created {@link FailableStream}
      * @since 3.10
      */
     public static <O> FailableStream<O> stream(final Collection<O> collection) {
@@ -566,9 +566,9 @@ public class Functions {
      * {@link FailableFunction}, and {@link FailableConsumer} may be applied, rather than {@link Predicate},
      * {@link Function}, {@link Consumer}, etc.
      *
-     * @param stream The stream, which is being converted into a {@link FailableStream}.
-     * @param <O> The streams element type.
-     * @return The created {@link FailableStream}.
+     * @param stream the stream, which is being converted into a {@link FailableStream}
+     * @param <O> the streams element type
+     * @return the created {@link FailableStream}
      * @since 3.10
      */
     public static <O> FailableStream<O> stream(final Stream<O> stream) {
@@ -617,10 +617,10 @@ public class Functions {
      *     Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
      * }</pre>
      *
-     * @param action The action to execute. This object <em>will</em> always be invoked.
-     * @param errorHandler An optional error handler, which will be invoked finally, if any error occurred. The error
+     * @param action the action to execute. This object <em>will</em> always be invoked.
+     * @param errorHandler an optional error handler, which will be invoked finally, if any error occurred. The error
      *        handler will receive the first error, AKA {@link Throwable}.
-     * @param resources The resource actions to execute. <em>All</em> resource actions will be invoked, in the given
+     * @param resources the resource actions to execute. <em>All</em> resource actions will be invoked, in the given
      *        order. A resource action is an instance of {@link FailableRunnable}, which will be executed.
      * @see #tryWithResources(FailableRunnable, FailableRunnable...)
      */
@@ -646,8 +646,8 @@ public class Functions {
      *     Functions.tryWithResources(useInputStream(fis), () -> fis.close());
      * }</pre>
      *
-     * @param action The action to execute. This object <em>will</em> always be invoked.
-     * @param resources The resource actions to execute. <em>All</em> resource actions will be invoked, in the given
+     * @param action the action to execute. This object <em>will</em> always be invoked.
+     * @param resources the resource actions to execute. <em>All</em> resource actions will be invoked, in the given
      *        order. A resource action is an instance of {@link FailableRunnable}, which will be executed.
      * @see #tryWithResources(FailableRunnable, FailableConsumer, FailableRunnable...)
      */

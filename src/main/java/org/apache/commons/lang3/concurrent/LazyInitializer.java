@@ -66,7 +66,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * method are pretty fast because no synchronization is needed (only an access to a <strong>volatile</strong> member field).
  * </p>
  *
- * @param <T> the type of the object managed by the initializer.
+ * @param <T> the type of the object managed by the initializer
  * @since 3.0
  */
 public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, ConcurrentException> {
@@ -74,8 +74,8 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
     /**
      * Builds a new instance.
      *
-     * @param <T> The type of results supplied by this builder.
-     * @param <I> The type of the initializer managed by this builder.
+     * @param <T> the type of results supplied by this builder
+     * @param <I> the type of the initializer managed by this builder
      * @since 3.14.0
      */
     public static class Builder<I extends LazyInitializer<T>, T> extends AbstractBuilder<I, T, Builder<I, T>, ConcurrentException> {
@@ -103,8 +103,8 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
     /**
      * Creates a new builder.
      *
-     * @param <T> the type of object to build.
-     * @return a new builder.
+     * @param <T> the type of object to build
+     * @return a new builder
      * @since 3.14.0
      */
     public static <T> Builder<LazyInitializer<T>, T> builder() {
@@ -125,8 +125,8 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
     /**
      * Constructs a new instance.
      *
-     * @param initializer the initializer supplier called by {@link #initialize()}.
-     * @param closer the closer consumer called by {@link #close()}.
+     * @param initializer the initializer supplier called by {@link #initialize()}
+     * @param closer the closer consumer called by {@link #close()}
      */
     private LazyInitializer(final FailableSupplier<T, ConcurrentException> initializer, final FailableConsumer<T, ConcurrentException> closer) {
         super(initializer, closer);
@@ -135,8 +135,8 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
     /**
      * Gets the object wrapped by this instance. On first access the object is created. After that it is cached and can be accessed pretty fast.
      *
-     * @return the object initialized by this {@link LazyInitializer}.
-     * @throws ConcurrentException if an error occurred during initialization of the object.
+     * @return the object initialized by this {@link LazyInitializer}
+     * @throws ConcurrentException if an error occurred during initialization of the object
      */
     @Override
     public T get() throws ConcurrentException {

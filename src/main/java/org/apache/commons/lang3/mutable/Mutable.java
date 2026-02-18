@@ -30,7 +30,7 @@ import java.util.function.Supplier;
  * Integer/Long wrapper objects.
  * </p>
  *
- * @param <T> the type to wrap.
+ * @param <T> the type to wrap
  * @since 2.1
  */
 public interface Mutable<T> extends Supplier<T> {
@@ -38,7 +38,7 @@ public interface Mutable<T> extends Supplier<T> {
     /**
      * Gets the value of this mutable.
      *
-     * @return the stored value.
+     * @return the stored value
      * @since 3.18.0
      */
     @Override
@@ -49,7 +49,7 @@ public interface Mutable<T> extends Supplier<T> {
     /**
      * Gets the value of this mutable.
      *
-     * @return the stored value.
+     * @return the stored value
      * @deprecated Use {@link #get()}.
      */
     @Deprecated
@@ -58,9 +58,9 @@ public interface Mutable<T> extends Supplier<T> {
     /**
      * Sets the value of this mutable.
      *
-     * @param value the value to store.
-     * @throws NullPointerException if the object is null and null is invalid.
-     * @throws ClassCastException   if the type is invalid.
+     * @param value the value to store
+     * @throws ClassCastException   if the type is invalid
+     * @throws NullPointerException if the object is null and null is invalid
      */
     void setValue(T value);
 }

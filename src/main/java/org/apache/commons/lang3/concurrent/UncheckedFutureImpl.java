@@ -27,7 +27,7 @@ import org.apache.commons.lang3.exception.UncheckedInterruptedException;
 /**
  * An {@link Future} implementation that throws unchecked instead of checked exceptions.
  *
- * @param <V> The result type returned by this UncheckedFuture's {@link #get()} and {@link #get(long, TimeUnit)} methods.
+ * @param <V> the result type returned by this UncheckedFuture's {@link #get()} and {@link #get(long, TimeUnit)} methods
  * @see Future
  * @since 3.13.0
  */

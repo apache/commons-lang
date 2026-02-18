@@ -45,7 +45,7 @@ public class SerializationException extends RuntimeException {
      * Constructs a new {@link SerializationException} with specified
      * detail message.
      *
-     * @param msg  The error message.
+     * @param msg the error message
      */
     public SerializationException(final String msg) {
         super(msg);
@@ -55,9 +55,9 @@ public class SerializationException extends RuntimeException {
      * Constructs a new {@link SerializationException} with specified
      * detail message and nested {@link Throwable}.
      *
-     * @param msg    The error message.
-     * @param cause  The {@link Exception} or {@link Error}
-     *  that caused this exception to be thrown.
+     * @param msg    the error message
+     * @param cause  the {@link Exception} or {@link Error}
+     *  that caused this exception to be thrown
      */
     public SerializationException(final String msg, final Throwable cause) {
         super(msg, cause);
@@ -67,8 +67,8 @@ public class SerializationException extends RuntimeException {
      * Constructs a new {@link SerializationException} with specified
      * nested {@link Throwable}.
      *
-     * @param cause  The {@link Exception} or {@link Error}
-     *  that caused this exception to be thrown.
+     * @param cause the {@link Exception} or {@link Error}
+     *  that caused this exception to be thrown
      */
     public SerializationException(final Throwable cause) {
         super(cause);

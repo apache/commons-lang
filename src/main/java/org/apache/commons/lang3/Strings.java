@@ -64,8 +64,8 @@ public abstract class Strings {
         /**
          * Sets the ignoreCase property for new Strings instances.
          *
-         * @param ignoreCase the ignoreCase property for new Strings instances.
-         * @return {@code this} instance.
+         * @param ignoreCase the ignoreCase property for new Strings instances
+         * @return {@code this} instance
          */
         public Builder setIgnoreCase(final boolean ignoreCase) {
             this.ignoreCase = ignoreCase;
@@ -75,8 +75,8 @@ public abstract class Strings {
         /**
          * Sets the nullIsLess property for new Strings instances.
          *
-         * @param nullIsLess the nullIsLess property for new Strings instances.
-         * @return {@code this} instance.
+         * @param nullIsLess the nullIsLess property for new Strings instances
+         * @return {@code this} instance
          */
         public Builder setNullIsLess(final boolean nullIsLess) {
             this.nullIsLess = nullIsLess;
@@ -275,7 +275,7 @@ public abstract class Strings {
     /**
      * Constructs a new {@link Builder} instance.
      *
-     * @return a new {@link Builder} instance.
+     * @return a new {@link Builder} instance
      */
     public static final Builder builder() {
         return new Builder();
@@ -288,8 +288,8 @@ public abstract class Strings {
      * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will return {@code false}.
      * </p>
      *
-     * @param cs                  The CharSequence to check, may be null
-     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be null as well.
+     * @param cs                  the CharSequence to check, may be null
+     * @param searchCharSequences the array of CharSequences to search for, may be null. Individual CharSequences may be null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      */
     private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test, final CharSequence cs,
@@ -327,8 +327,8 @@ public abstract class Strings {
     /**
      * Constructs a new instance.
      *
-     * @param ignoreCase Ignores case when possible.
-     * @param nullIsLess Compares null as less when possible.
+     * @param ignoreCase ignores case when possible
+     * @param nullIsLess compares null as less when possible
      */
     private Strings(final boolean ignoreCase, final boolean nullIsLess) {
         this.ignoreCase = ignoreCase;
@@ -396,10 +396,10 @@ public abstract class Strings {
      * Strings.CI.appendIfMissing("abcMNO", "xyz", "mno") = "abcMNO"
      * </pre>
      *
-     * @param str      The string.
-     * @param suffix   The suffix to append to the end of the string.
-     * @param suffixes Additional suffixes that are valid terminators (optional).
-     * @return A new String if suffix was appended, the same string otherwise.
+     * @param str      the string
+     * @param suffix   the suffix to append to the end of the string
+     * @param suffixes additional suffixes that are valid terminators (optional)
+     * @return a new String if suffix was appended, the same string otherwise
      */
     public String appendIfMissing(final String str, final CharSequence suffix, final CharSequence... suffixes) {
         if (str == null || StringUtils.isEmpty(suffix) || endsWith(str, suffix)) {
@@ -469,10 +469,10 @@ public abstract class Strings {
      * Strings.CI.compare("ab", "ABC")  < 0
      * }</pre>
      *
-     * @see String#compareTo(String)
      * @param str1 the String to compare from
      * @param str2 the String to compare to
      * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal or greater than {@code str2}
+     * @see String#compareTo(String)
      */
     public abstract int compare(String str1, String str2);
 
@@ -552,8 +552,8 @@ public abstract class Strings {
      * Strings.CI.containsAny("ABC", "d", "abc")  = true
      * </pre>
      *
-     * @param cs                  The CharSequence to check, may be null
-     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be null as well.
+     * @param cs                  the CharSequence to check, may be null
+     * @param searchCharSequences the array of CharSequences to search for, may be null. Individual CharSequences may be null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      */
     public boolean containsAny(final CharSequence cs, final CharSequence... searchCharSequences) {
@@ -590,9 +590,9 @@ public abstract class Strings {
      * Strings.CI.endsWith("ABCDEF", "cde") = false
      * </pre>
      *
-     * @param str    the CharSequence to check, may be null.
-     * @param suffix the suffix to find, may be null.
-     * @return {@code true} if the CharSequence starts with the prefix or both {@code null}.
+     * @param str    the CharSequence to check, may be null
+     * @param suffix the suffix to find, may be null
+     * @return {@code true} if the CharSequence starts with the prefix or both {@code null}
      * @see String#endsWith(String)
      */
     public boolean endsWith(final CharSequence str, final CharSequence suffix) {
@@ -626,9 +626,9 @@ public abstract class Strings {
      *
      * @param sequence      the CharSequence to check, may be null
      * @param searchStrings the CharSequence suffixes to find, may be empty or contain {@code null}
-     * @see Strings#endsWith(CharSequence, CharSequence)
      * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} ends in any
-     *         of the provided {@code searchStrings}.
+     *         of the provided {@code searchStrings}
+     * @see Strings#endsWith(CharSequence, CharSequence)
      */
     public boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
         if (StringUtils.isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
@@ -749,10 +749,10 @@ public abstract class Strings {
      * Strings.CI.equalsAny("abc", "ABC", "DEF") = true
      * </pre>
      *
-     * @param string        to compare, may be {@code null}.
-     * @param searchStrings a vararg of strings, may be {@code null}.
+     * @param string        to compare, may be {@code null}
+     * @param searchStrings a vararg of strings, may be {@code null}
      * @return {@code true} if the string is equal (case-sensitive) to any other element of {@code searchStrings}; {@code false} if {@code searchStrings} is
-     *         null or contains no matches.
+     *         null or contains no matches
      */
     public boolean equalsAny(final CharSequence string, final CharSequence... searchStrings) {
         if (ArrayUtils.isNotEmpty(searchStrings)) {
@@ -862,7 +862,7 @@ public abstract class Strings {
     /**
      * Tests whether to ignore case.
      *
-     * @return whether to ignore case.
+     * @return whether to ignore case
      */
     public boolean isCaseSensitive() {
         return !ignoreCase;
@@ -871,7 +871,7 @@ public abstract class Strings {
     /**
      * Tests whether null is less when comparing.
      *
-     * @return whether null is less when comparing.
+     * @return whether null is less when comparing
      */
     boolean isNullIsLess() {
         return nullIsLess;
@@ -1031,10 +1031,10 @@ public abstract class Strings {
      * Strings.CI.prependIfMissing("MNOabc", "xyz", "mno") = "MNOabc"
      * </pre>
      *
-     * @param str      The string.
-     * @param prefix   The prefix to prepend to the start of the string.
-     * @param prefixes Additional prefixes that are valid.
-     * @return A new String if prefix was prepended, the same string otherwise.
+     * @param str      the string
+     * @param prefix   the prefix to prepend to the start of the string
+     * @param prefixes additional prefixes that are valid
+     * @return a new String if prefix was prepended, the same string otherwise
      */
     public String prependIfMissing(final String str, final CharSequence prefix, final CharSequence... prefixes) {
         if (str == null || StringUtils.isEmpty(prefix) || startsWith(str, prefix)) {
@@ -1228,11 +1228,11 @@ public abstract class Strings {
      * Strings.CI.replace("aba", "A", "z")   = "zbz"
      * </pre>
      *
-     * @see #replace(String text, String searchString, String replacement, int max)
      * @param text         text to search and replace in, may be null
      * @param searchString the String to search for (case-insensitive), may be null
      * @param replacement  the String to replace it with, may be null
      * @return the text with any replacements processed, {@code null} if null String input
+     * @see #replace(String text, String searchString, String replacement, int max)
      */
     public String replace(final String text, final String searchString, final String replacement) {
         return replace(text, searchString, replacement, -1);
@@ -1354,11 +1354,11 @@ public abstract class Strings {
      * Strings.CI.replaceOnce("FoOFoofoo", "foo", "") = "Foofoo"
      * </pre>
      *
-     * @see #replace(String text, String searchString, String replacement, int max)
      * @param text         text to search and replace in, may be null
      * @param searchString the String to search for, may be null
      * @param replacement  the String to replace with, may be null
      * @return the text with any replacements processed, {@code null} if null String input
+     * @see #replace(String text, String searchString, String replacement, int max)
      */
     public String replaceOnce(final String text, final String searchString, final String replacement) {
         return replace(text, searchString, replacement, 1);
@@ -1395,10 +1395,10 @@ public abstract class Strings {
      * Strings.CI.startsWith("ABCDEF", "abc") = true
      * </pre>
      *
-     * @see String#startsWith(String)
      * @param str    the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
      * @return {@code true} if the CharSequence starts with the prefix, case-sensitive, or both {@code null}
+     * @see String#startsWith(String)
      */
     public boolean startsWith(final CharSequence str, final CharSequence prefix) {
         if (str == null || prefix == null) {
@@ -1446,9 +1446,9 @@ public abstract class Strings {
      *
      * @param sequence      the CharSequence to check, may be null
      * @param searchStrings the CharSequence prefixes, may be empty or contain {@code null}
-     * @see Strings#startsWith(CharSequence, CharSequence)
      * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} begins with
-     *         any of the provided {@code searchStrings}.
+     *         any of the provided {@code searchStrings}
+     * @see Strings#startsWith(CharSequence, CharSequence)
      */
     public boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
         if (StringUtils.isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {

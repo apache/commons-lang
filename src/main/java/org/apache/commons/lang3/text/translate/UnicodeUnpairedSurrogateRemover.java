@@ -47,4 +47,3 @@ public class UnicodeUnpairedSurrogateRemover extends CodePointTranslator {
         // It's not a surrogate. Don't translate it.
     }
 }
-

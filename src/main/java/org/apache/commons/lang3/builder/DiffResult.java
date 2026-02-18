@@ -33,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
  * Use a {@link DiffBuilder} to build a {@link DiffResult} comparing two objects.
  * </p>
  *
- * @param <T> type of the left and right object.
+ * @param <T> type of the left and right object
  * @since 3.3
  */
 public class DiffResult<T> implements Iterable<Diff<?>> {
@@ -65,8 +65,8 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      *            {@code null}, in which case
      *            {@link ToStringStyle#DEFAULT_STYLE} is used
      * @param toStringFormat
-     *            Two-argument format string for {@link String#format(String, Object...)}, for example {@code "%s differs from %s"}.
-     * @throws NullPointerException if {@code lhs}, {@code rhs} or {@code diffs} are {@code null}.
+     *            Two-argument format string for {@link String#format(String, Object...)}, for example {@code "%s differs from %s"}
+     * @throws NullPointerException if {@code lhs}, {@code rhs} or {@code diffs} are {@code null}
      */
     DiffResult(final T lhs, final T rhs, final List<Diff<?>> diffList, final ToStringStyle style, final String toStringFormat) {
         this.diffList = Objects.requireNonNull(diffList, "diffList");
@@ -161,7 +161,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      * use {@link #toString(ToStringStyle)}.
      * </p>
      *
-     * @return a {@link String} description of the differences.
+     * @return a {@link String} description of the differences
      */
     @Override
     public String toString() {
@@ -174,8 +174,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      *
      * @param style
      *            the {@link ToStringStyle} to use when outputting the objects
-     *
-     * @return a {@link String} description of the differences.
+     * @return a {@link String} description of the differences
      */
     public String toString(final ToStringStyle style) {
         if (diffList.isEmpty()) {

@@ -75,7 +75,7 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to accept, may be null for a noop.
+     * @param consumer the consumer to accept, may be null for a noop
      * @param object1 the first object to consume by {@code consumer}
      * @param object2 the second object to consume by {@code consumer}
      * @param <T> the type of the first argument the consumer accepts
@@ -90,7 +90,7 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to accept, may be null for a noop.
+     * @param consumer the consumer to accept, may be null for a noop
      * @param object the object to consume by {@code consumer}
      * @param <T> the type the consumer accepts
      * @param <E> the type of checked exception the consumer may throw
@@ -102,7 +102,7 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to accept, may be null for a noop.
+     * @param consumer the consumer to accept, may be null for a noop
      * @param value the value to consume by {@code consumer}
      * @param <E> the type of checked exception the consumer may throw
      */
@@ -113,7 +113,7 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to accept, may be null for a noop.
+     * @param consumer the consumer to accept, may be null for a noop
      * @param value the value to consume by {@code consumer}
      * @param <E> the type of checked exception the consumer may throw
      */
@@ -124,7 +124,7 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to accept, may be null for a noop.
+     * @param consumer the consumer to accept, may be null for a noop
      * @param value the value to consume by {@code consumer}
      * @param <E> the type of checked exception the consumer may throw
      */
@@ -191,13 +191,13 @@ public class Failable {
      * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
      * </p>
      *
-     * @param <T>    The type of the input of this method and the function.
-     * @param <R>    The type of the result of the function and this method.
-     * @param <E>    The type of thrown exception or error.
-     * @param value  The value to apply the function to, may be {@code null}.
-     * @param mapper The function to apply, must not be {@code null}.
-     * @return The result of the function (which may be {@code null}) or {@code null} if the input value is {@code null}.
-     * @throws E Thrown by the given function.
+     * @param <T>    the type of the input of this method and the function
+     * @param <R>    the type of the result of the function and this method
+     * @param <E>    the type of thrown exception or error
+     * @param value  the value to apply the function to, may be {@code null}
+     * @param mapper the function to apply, must not be {@code null}
+     * @return the result of the function (which may be {@code null}) or {@code null} if the input value is {@code null}
+     * @throws E thrown by the given function
      * @see #applyNonNull(Object, FailableFunction, FailableFunction)
      * @see #applyNonNull(Object, FailableFunction, FailableFunction, FailableFunction)
      * @since 3.19.0
@@ -221,17 +221,17 @@ public class Failable {
      * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
      * </p>
      *
-     * @param <T>     The type of the input of this method and the first function.
-     * @param <U>     The type of the result of the first function and the input to the second function.
-     * @param <R>     The type of the result of the second function and this method.
-     * @param <E1>    The type of thrown exception or error by the first function.
-     * @param <E2>    The type of thrown exception or error by the second function.
-     * @param value1  The value to apply the functions to, may be {@code null}.
-     * @param mapper1 The first function to apply, must not be {@code null}.
-     * @param mapper2 The second function to apply, must not be {@code null}.
-     * @return The result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}.
-     * @throws E1 Thrown by the first function.
-     * @throws E2 Thrown by the second function.
+     * @param <T>     the type of the input of this method and the first function
+     * @param <U>     the type of the result of the first function and the input to the second function
+     * @param <R>     the type of the result of the second function and this method
+     * @param <E1>    the type of thrown exception or error by the first function
+     * @param <E2>    the type of thrown exception or error by the second function
+     * @param value1  the value to apply the functions to, may be {@code null}
+     * @param mapper1 the first function to apply, must not be {@code null}
+     * @param mapper2 the second function to apply, must not be {@code null}
+     * @return the result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}
+     * @throws E1 thrown by the first function
+     * @throws E2 thrown by the second function
      * @see #applyNonNull(Object, FailableFunction)
      * @see #applyNonNull(Object, FailableFunction, FailableFunction, FailableFunction)
      * @since 3.19.0
@@ -257,21 +257,21 @@ public class Failable {
      * evaluating expressions twice. Provides an alternative to using {@link Optional} that is shorter and has less allocation.
      * </p>
      *
-     * @param <T>     The type of the input of this method and the first function.
-     * @param <U>     The type of the result of the first function and the input to the second function.
-     * @param <V>     The type of the result of the second function and the input to the third function.
-     * @param <R>     The type of the result of the third function and this method.
-     * @param <E1>    The type of thrown exception or error by the first function.
-     * @param <E2>    The type of thrown exception or error by the second function.
-     * @param <E3>    The type of thrown exception or error by the second function.
-     * @param value1  The value to apply the first function, may be {@code null}.
-     * @param mapper1 The first function to apply, must not be {@code null}.
-     * @param mapper2 The second function to apply, must not be {@code null}.
-     * @param mapper3 The third function to apply, must not be {@code null}.
-     * @return The result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}.
-     * @throws E1 Thrown by the first function.
-     * @throws E2 Thrown by the second function.
-     * @throws E3 Thrown by the third function.
+     * @param <T>     the type of the input of this method and the first function
+     * @param <U>     the type of the result of the first function and the input to the second function
+     * @param <V>     the type of the result of the second function and the input to the third function
+     * @param <R>     the type of the result of the third function and this method
+     * @param <E1>    the type of thrown exception or error by the first function
+     * @param <E2>    the type of thrown exception or error by the second function
+     * @param <E3>    the type of thrown exception or error by the second function
+     * @param value1  the value to apply the first function, may be {@code null}
+     * @param mapper1 the first function to apply, must not be {@code null}
+     * @param mapper2 the second function to apply, must not be {@code null}
+     * @param mapper3 the third function to apply, must not be {@code null}
+     * @return the result of the final function (which may be {@code null}) or {@code null} if the input value or any intermediate value is {@code null}
+     * @throws E1 thrown by the first function
+     * @throws E2 thrown by the second function
+     * @throws E3 thrown by the third function
      * @see #applyNonNull(Object, FailableFunction)
      * @see #applyNonNull(Object, FailableFunction, FailableFunction)
      * @since 3.19.0
@@ -400,10 +400,10 @@ public class Failable {
     /**
      * Invokes a supplier, and returns the result.
      *
-     * @param supplier The supplier to invoke.
-     * @param <T> The suppliers output type.
-     * @param <E> The type of checked exception, which the supplier can throw.
-     * @return The object, which has been created by the supplier
+     * @param supplier the supplier to invoke
+     * @param <T> the suppliers output type
+     * @param <E> the type of checked exception, which the supplier can throw
+     * @return the object, which has been created by the supplier
      */
     public static <T, E extends Throwable> T get(final FailableSupplier<T, E> supplier) {
         try {
@@ -416,9 +416,9 @@ public class Failable {
     /**
      * Invokes a boolean supplier, and returns the result.
      *
-     * @param supplier The boolean supplier to invoke.
-     * @param <E> The type of checked exception, which the supplier can throw.
-     * @return The boolean, which has been created by the supplier
+     * @param supplier the boolean supplier to invoke
+     * @param <E> the type of checked exception, which the supplier can throw
+     * @return the boolean, which has been created by the supplier
      */
     public static <E extends Throwable> boolean getAsBoolean(final FailableBooleanSupplier<E> supplier) {
         try {
@@ -431,9 +431,9 @@ public class Failable {
     /**
      * Invokes a double supplier, and returns the result.
      *
-     * @param supplier The double supplier to invoke.
-     * @param <E> The type of checked exception, which the supplier can throw.
-     * @return The double, which has been created by the supplier
+     * @param supplier the double supplier to invoke
+     * @param <E> the type of checked exception, which the supplier can throw
+     * @return the double, which has been created by the supplier
      */
     public static <E extends Throwable> double getAsDouble(final FailableDoubleSupplier<E> supplier) {
         try {
@@ -446,9 +446,9 @@ public class Failable {
     /**
      * Invokes an int supplier, and returns the result.
      *
-     * @param supplier The int supplier to invoke.
-     * @param <E> The type of checked exception, which the supplier can throw.
-     * @return The int, which has been created by the supplier
+     * @param supplier the int supplier to invoke
+     * @param <E> the type of checked exception, which the supplier can throw
+     * @return the int, which has been created by the supplier
      */
     public static <E extends Throwable> int getAsInt(final FailableIntSupplier<E> supplier) {
         try {
@@ -461,9 +461,9 @@ public class Failable {
     /**
      * Invokes a long supplier, and returns the result.
      *
-     * @param supplier The long supplier to invoke.
-     * @param <E> The type of checked exception, which the supplier can throw.
-     * @return The long, which has been created by the supplier
+     * @param supplier the long supplier to invoke
+     * @param <E> the type of checked exception, which the supplier can throw
+     * @return the long, which has been created by the supplier
      */
     public static <E extends Throwable> long getAsLong(final FailableLongSupplier<E> supplier) {
         try {
@@ -476,9 +476,9 @@ public class Failable {
     /**
      * Invokes a short supplier, and returns the result.
      *
-     * @param supplier The short supplier to invoke.
-     * @param <E> The type of checked exception, which the supplier can throw.
-     * @return The short, which has been created by the supplier
+     * @param supplier the short supplier to invoke
+     * @param <E> the type of checked exception, which the supplier can throw
+     * @return the short, which has been created by the supplier
      */
     public static <E extends Throwable> short getAsShort(final FailableShortSupplier<E> supplier) {
         try {
@@ -510,8 +510,8 @@ public class Failable {
      * follow the method call, like a {@code return} statement from a value returning method.
      * </p>
      *
-     * @param throwable The throwable to rethrow possibly wrapped into an unchecked exception
-     * @return Never returns anything, this method never terminates normally.
+     * @param throwable the throwable to rethrow possibly wrapped into an unchecked exception
+     * @return never returns anything, this method never terminates normally
      */
     public static RuntimeException rethrow(final Throwable throwable) {
         Objects.requireNonNull(throwable, "throwable");
@@ -525,8 +525,8 @@ public class Failable {
     /**
      * Runs a runnable and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param runnable The runnable to run, may be null for a noop.
-     * @param <E> the type of checked exception the runnable may throw.
+     * @param runnable the runnable to run, may be null for a noop
+     * @param <E> the type of checked exception the runnable may throw
      */
     public static <E extends Throwable> void run(final FailableRunnable<E> runnable) {
         if (runnable != null) {
@@ -556,9 +556,9 @@ public class Failable {
      * Functions.stream(collection.stream());
      * </pre>
      *
-     * @param collection The collection, which is being converted into a {@link FailableStream}.
-     * @param <E> The collections element type. (In turn, the result streams element type.)
-     * @return The created {@link FailableStream}.
+     * @param collection the collection, which is being converted into a {@link FailableStream}
+     * @param <E> the collections element type. (In turn, the result streams element type.)
+     * @return the created {@link FailableStream}
      */
     public static <E> FailableStream<E> stream(final Collection<E> collection) {
         return new FailableStream<>(collection.stream());
@@ -570,9 +570,9 @@ public class Failable {
      * {@link FailableFunction}, and {@link FailableConsumer} may be applied, rather than {@link Predicate},
      * {@link Function}, {@link Consumer}, etc.
      *
-     * @param stream The stream, which is being converted into a {@link FailableStream}.
-     * @param <T> The streams element type.
-     * @return The created {@link FailableStream}.
+     * @param stream the stream, which is being converted into a {@link FailableStream}
+     * @param <T> the streams element type
+     * @return the created {@link FailableStream}
      */
     public static <T> FailableStream<T> stream(final Stream<T> stream) {
         return new FailableStream<>(stream);
@@ -619,10 +619,10 @@ public class Failable {
      * Functions.tryWithResources(useInputStream(fis), null, () -> fis.close());
      * }</pre>
      *
-     * @param action The action to execute. This object <em>will</em> always be invoked.
-     * @param errorHandler An optional error handler, which will be invoked finally, if any error occurred. The error
+     * @param action the action to execute. This object <em>will</em> always be invoked.
+     * @param errorHandler an optional error handler, which will be invoked finally, if any error occurred. The error
      *        handler will receive the first error, AKA {@link Throwable}.
-     * @param resources The resource actions to execute. <em>All</em> resource actions will be invoked, in the given
+     * @param resources the resource actions to execute. <em>All</em> resource actions will be invoked, in the given
      *        order. A resource action is an instance of {@link FailableRunnable}, which will be executed.
      * @see #tryWithResources(FailableRunnable, FailableRunnable...)
      */
@@ -675,8 +675,8 @@ public class Failable {
      * Functions.tryWithResources(useInputStream(fis), () -> fis.close());
      * }</pre>
      *
-     * @param action The action to execute. This object <em>will</em> always be invoked.
-     * @param resources The resource actions to execute. <em>All</em> resource actions will be invoked, in the given
+     * @param action the action to execute. This object <em>will</em> always be invoked.
+     * @param resources the resource actions to execute. <em>All</em> resource actions will be invoked, in the given
      *        order. A resource action is an instance of {@link FailableRunnable}, which will be executed.
      * @see #tryWithResources(FailableRunnable, FailableConsumer, FailableRunnable...)
      */

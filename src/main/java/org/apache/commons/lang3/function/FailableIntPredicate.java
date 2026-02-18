@@ -23,25 +23,25 @@ import java.util.function.IntPredicate;
 /**
  * A functional interface like {@link IntPredicate} that declares a {@link Throwable}.
  *
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableIntPredicate<E extends Throwable> {
 
-    /** FALSE singleton */
+    /** FALSE singleton. */
     @SuppressWarnings("rawtypes")
     FailableIntPredicate FALSE = t -> false;
 
-    /** TRUE singleton */
+    /** TRUE singleton. */
     @SuppressWarnings("rawtypes")
     FailableIntPredicate TRUE = t -> true;
 
     /**
      * Gets the FALSE singleton.
      *
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <E extends Throwable> FailableIntPredicate<E> falsePredicate() {
@@ -51,8 +51,8 @@ public interface FailableIntPredicate<E extends Throwable> {
     /**
      * Gets the TRUE singleton.
      *
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <E extends Throwable> FailableIntPredicate<E> truePredicate() {
@@ -62,8 +62,8 @@ public interface FailableIntPredicate<E extends Throwable> {
     /**
      * Returns a composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
      *
-     * @param other a predicate that will be logically-ANDed with this predicate.
-     * @return a composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
+     * @param other a predicate that will be logically-ANDed with this predicate
+     * @return a composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}
      * @throws NullPointerException if other is null
      */
     default FailableIntPredicate<E> and(final FailableIntPredicate<E> other) {
@@ -74,7 +74,7 @@ public interface FailableIntPredicate<E extends Throwable> {
     /**
      * Returns a predicate that negates this predicate.
      *
-     * @return a predicate that negates this predicate.
+     * @return a predicate that negates this predicate
      */
     default FailableIntPredicate<E> negate() {
         return t -> !test(t);
@@ -83,8 +83,8 @@ public interface FailableIntPredicate<E extends Throwable> {
     /**
      * Returns a composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
      *
-     * @param other a predicate that will be logically-ORed with this predicate.
-     * @return a composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
+     * @param other a predicate that will be logically-ORed with this predicate
+     * @return a composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}
      * @throws NullPointerException if other is null
      */
     default FailableIntPredicate<E> or(final FailableIntPredicate<E> other) {
@@ -95,9 +95,9 @@ public interface FailableIntPredicate<E extends Throwable> {
     /**
      * Tests the predicate.
      *
-     * @param value the parameter for the predicate to accept.
-     * @return {@code true} if the input argument matches the predicate, {@code false} otherwise.
-     * @throws E Thrown when the consumer fails.
+     * @param value the parameter for the predicate to accept
+     * @return {@code true} if the input argument matches the predicate, {@code false} otherwise
+     * @throws E thrown when the consumer fails
      */
     boolean test(int value) throws E;
 }

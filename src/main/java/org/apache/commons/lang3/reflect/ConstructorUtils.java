@@ -51,14 +51,14 @@ public class ConstructorUtils {
      * This finds the constructor and ensures that it is accessible. The constructor signature must match the parameter types exactly.
      * </p>
      *
-     * @param <T>            the constructor type.
-     * @param cls            the class to find a constructor for, not {@code null}.
-     * @param parameterTypes the array of parameter types, {@code null} treated as empty.
-     * @return the constructor, {@code null} if no matching accessible constructor found.
+     * @param <T>            the constructor type
+     * @param cls            the class to find a constructor for, not {@code null}
+     * @param parameterTypes the array of parameter types, {@code null} treated as empty
+     * @return the constructor, {@code null} if no matching accessible constructor found
      * @throws NullPointerException if {@code cls} is {@code null}
-     * @throws SecurityException    Thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class loader
+     * @throws SecurityException    thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class loader
      *                              for the class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the package of the
-     *                              class.
+     *                              class
      * @see Class#getConstructor
      * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
      */
@@ -78,13 +78,13 @@ public class ConstructorUtils {
      * This simply ensures that the constructor is accessible.
      * </p>
      *
-     * @param <T>  the constructor type.
-     * @param ctor the prototype constructor object, not {@code null}.
-     * @return the constructor, {@code null} if no matching accessible constructor found.
-     * @see SecurityManager
+     * @param <T>  the constructor type
+     * @param ctor the prototype constructor object, not {@code null}
+     * @return the constructor, {@code null} if no matching accessible constructor found
      * @throws NullPointerException if {@code ctor} is {@code null}
-     * @throws SecurityException    Thrown if a security manager is present and a caller's class loader is not the same as or an ancestor of the class loader
-     *                              for a class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the package of the class.
+     * @throws SecurityException    thrown if a security manager is present and a caller's class loader is not the same as or an ancestor of the class loader
+     *                              for a class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the package of the class
+     * @see SecurityManager
      */
     public static <T> Constructor<T> getAccessibleConstructor(final Constructor<T> ctor) {
         Objects.requireNonNull(ctor, "ctor");
@@ -103,13 +103,13 @@ public class ConstructorUtils {
      * signatures are assignment-compatible with the parameter types. The first assignment-compatible matching constructor is returned.
      * </p>
      *
-     * @param <T>            the constructor type.
-     * @param cls            the class to find a constructor for, not {@code null}.
-     * @param parameterTypes find method with compatible parameters.
-     * @return the constructor, null if no matching accessible constructor found.
-     * @throws NullPointerException Thrown if {@code cls} is {@code null}
-     * @throws SecurityException    Thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class loader for the
-     *                              class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the package of the class.
+     * @param <T>            the constructor type
+     * @param cls            the class to find a constructor for, not {@code null}
+     * @param parameterTypes find method with compatible parameters
+     * @return the constructor, null if no matching accessible constructor found
+     * @throws NullPointerException thrown if {@code cls} is {@code null}
+     * @throws SecurityException    thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class loader for the
+     *                              class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the package of the class
      * @see SecurityManager#checkPackageAccess(String)
      */
     public static <T> Constructor<T> getMatchingAccessibleConstructor(final Class<T> cls, final Class<?>... parameterTypes) {
@@ -153,27 +153,27 @@ public class ConstructorUtils {
      * This locates and calls a constructor. The constructor signature must match the argument types by assignment compatibility.
      * </p>
      *
-     * @param <T>  the type to be constructed.
-     * @param cls  the class to be constructed, not {@code null}.
-     * @param args the array of arguments, {@code null} treated as empty.
-     * @return new instance of {@code cls}, not {@code null}.
-     * @throws NullPointerException        Thrown if {@code cls} is {@code null}.
-     * @throws NoSuchMethodException       Thrown if a matching constructor cannot be found.
-     * @throws IllegalAccessException      Thrown if the found {@code Constructor} is enforcing Java language access control and the underlying constructor is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param <T>  the type to be constructed
+     * @param cls  the class to be constructed, not {@code null}
+     * @param args the array of arguments, {@code null} treated as empty
+     * @return new instance of {@code cls}, not {@code null}
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if the found {@code Constructor} is enforcing Java language access control and the underlying constructor is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the number of actual and formal parameters differ; or</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion; if this constructor pertains to an enum type.</li>
      *                                     </ul>
-     * @throws InstantiationException      Thrown if the class that declares the underlying constructor represents an abstract class.
-     * @throws InvocationTargetException   Thrown if the underlying constructor throws an exception.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
-     * @throws SecurityException           Thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class
+     * @throws InstantiationException      thrown if the class that declares the underlying constructor represents an abstract class
+     * @throws InvocationTargetException   thrown if the underlying constructor throws an exception
+     * @throws NoSuchMethodException       thrown if a matching constructor cannot be found
+     * @throws NullPointerException        thrown if {@code cls} is {@code null}
+     * @throws SecurityException           thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class
      *                                     loader for the class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the
-     *                                     package of the class.
+     *                                     package of the class
      * @see #invokeConstructor(Class, Object[], Class[])
      */
     public static <T> T invokeConstructor(final Class<T> cls, final Object... args)
@@ -189,28 +189,28 @@ public class ConstructorUtils {
      * This locates and calls a constructor. The constructor signature must match the parameter types by assignment compatibility.
      * </p>
      *
-     * @param <T>            the type to be constructed.
-     * @param cls            the class to be constructed, not {@code null}.
-     * @param args           the array of arguments, {@code null} treated as empty.
-     * @param parameterTypes the array of parameter types, {@code null} treated as empty.
+     * @param <T>            the type to be constructed
+     * @param cls            the class to be constructed, not {@code null}
+     * @param args           the array of arguments, {@code null} treated as empty
+     * @param parameterTypes the array of parameter types, {@code null} treated as empty
      * @return new instance of {@code cls}, not {@code null}
-     * @throws NullPointerException        Thrown if {@code cls} is {@code null}.
-     * @throws NoSuchMethodException       Thrown if a matching constructor cannot be found.
-     * @throws IllegalAccessException      Thrown if the found {@code Constructor} is enforcing Java language access control and the underlying constructor is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if the found {@code Constructor} is enforcing Java language access control and the underlying constructor is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the number of actual and formal parameters differ; or</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion; if this constructor pertains to an enum type.</li>
      *                                     </ul>
-     * @throws InstantiationException      Thrown if the class that declares the underlying constructor represents an abstract class.
-     * @throws InvocationTargetException   Thrown if the underlying constructor throws an exception.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
-     * @throws SecurityException           Thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class
+     * @throws InstantiationException      thrown if the class that declares the underlying constructor represents an abstract class
+     * @throws InvocationTargetException   thrown if the underlying constructor throws an exception
+     * @throws NoSuchMethodException       thrown if a matching constructor cannot be found
+     * @throws NullPointerException        thrown if {@code cls} is {@code null}
+     * @throws SecurityException           thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class
      *                                     loader for the class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the
-     *                                     package of the class.
+     *                                     package of the class
      * @see Constructor#newInstance(Object...)
      * @see Constructor#newInstance
      */
@@ -231,27 +231,27 @@ public class ConstructorUtils {
      * This locates and calls a constructor. The constructor signature must match the argument types exactly.
      * </p>
      *
-     * @param <T>  the type to be constructed.
-     * @param cls  the class to be constructed, not {@code null}.
-     * @param args the array of arguments, {@code null} treated as empty.
-     * @return new instance of {@code cls}, not {@code null}.
-     * @throws NullPointerException        Thrown if {@code cls} is {@code null}.
-     * @throws NoSuchMethodException       Thrown if a matching constructor cannot be found.
-     * @throws IllegalAccessException      Thrown if the found {@code Constructor} is enforcing Java language access control and the underlying constructor is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param <T>  the type to be constructed
+     * @param cls  the class to be constructed, not {@code null}
+     * @param args the array of arguments, {@code null} treated as empty
+     * @return new instance of {@code cls}, not {@code null}
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if the found {@code Constructor} is enforcing Java language access control and the underlying constructor is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the number of actual and formal parameters differ; or</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion; if this constructor pertains to an enum type.</li>
      *                                     </ul>
-     * @throws InstantiationException      Thrown if the class that declares the underlying constructor represents an abstract class.
-     * @throws InvocationTargetException   Thrown if the underlying constructor throws an exception.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
-     * @throws SecurityException           Thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class
+     * @throws InstantiationException      thrown if the class that declares the underlying constructor represents an abstract class
+     * @throws InvocationTargetException   thrown if the underlying constructor throws an exception
+     * @throws NoSuchMethodException       thrown if a matching constructor cannot be found
+     * @throws NullPointerException        thrown if {@code cls} is {@code null}
+     * @throws SecurityException           thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class
      *                                     loader for the class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the
-     *                                     package of the class.
+     *                                     package of the class
      * @see Constructor#newInstance(Object...)
      * @see #invokeExactConstructor(Class, Object[], Class[])
      */
@@ -268,28 +268,28 @@ public class ConstructorUtils {
      * This locates and calls a constructor. The constructor signature must match the parameter types exactly.
      * </p>
      *
-     * @param <T>            the type to construct.
-     * @param cls            the class to construct, not {@code null}.
-     * @param args           the array of arguments, {@code null} treated as empty.
-     * @param parameterTypes the array of parameter types, {@code null} treated as empty.
-     * @return new instance of {@code cls}, not {@code null}.
-     * @throws NullPointerException        Thrown if {@code cls} is {@code null}.
-     * @throws NoSuchMethodException       Thrown if a matching constructor cannot be found.
-     * @throws IllegalAccessException      Thrown if the found {@code Constructor} is enforcing Java language access control and the underlying constructor is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param <T>            the type to construct
+     * @param cls            the class to construct, not {@code null}
+     * @param args           the array of arguments, {@code null} treated as empty
+     * @param parameterTypes the array of parameter types, {@code null} treated as empty
+     * @return new instance of {@code cls}, not {@code null}
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if the found {@code Constructor} is enforcing Java language access control and the underlying constructor is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the number of actual and formal parameters differ; or</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion; if this constructor pertains to an enum type.</li>
      *                                     </ul>
-     * @throws InstantiationException      Thrown if the class that declares the underlying constructor represents an abstract class.
-     * @throws InvocationTargetException   Thrown if the underlying constructor throws an exception.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
-     * @throws SecurityException           Thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class
+     * @throws InstantiationException      thrown if the class that declares the underlying constructor represents an abstract class
+     * @throws InvocationTargetException   thrown if the underlying constructor throws an exception
+     * @throws NoSuchMethodException       thrown if a matching constructor cannot be found
+     * @throws NullPointerException        thrown if {@code cls} is {@code null}
+     * @throws SecurityException           thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class
      *                                     loader for the class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the
-     *                                     package of the class.
+     *                                     package of the class
      * @see Constructor#newInstance(Object...)
      */
     public static <T> T invokeExactConstructor(final Class<T> cls, final Object[] args, final Class<?>[] parameterTypes)
@@ -304,10 +304,10 @@ public class ConstructorUtils {
     /**
      * Tests whether the specified class is generally accessible, i.e. is declared in an entirely {@code public} manner.
      *
-     * @param type to check.
-     * @return {@code true} if {@code type} and any enclosing classes are {@code public}.
-     * @throws SecurityException Thrown if a security manager is present and a caller's class loader is not the same as or an ancestor of the class loader for a
-     *                           class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the package of the class.
+     * @param type to check
+     * @return {@code true} if {@code type} and any enclosing classes are {@code public}
+     * @throws SecurityException thrown if a security manager is present and a caller's class loader is not the same as or an ancestor of the class loader for a
+     *                           class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the package of the class
      */
     private static boolean isAccessible(final Class<?> type) {
         Class<?> cls = type;

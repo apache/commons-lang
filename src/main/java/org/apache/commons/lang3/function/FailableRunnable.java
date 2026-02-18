@@ -20,7 +20,7 @@ package org.apache.commons.lang3.function;
 /**
  * A functional interface like {@link Runnable} that declares a kind of {@link Throwable}.
  *
- * @param <E> The kind of {@link Throwable}.
+ * @param <E> the kind of {@link Throwable}
  * @since 3.11
  */
 @FunctionalInterface
@@ -29,7 +29,7 @@ public interface FailableRunnable<E extends Throwable> {
     /**
      * Runs the function.
      *
-     * @throws E Thrown when the function fails.
+     * @throws E thrown when the function fails
      */
     void run() throws E;
 }

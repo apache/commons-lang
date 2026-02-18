@@ -52,7 +52,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Constructs a new MutableByte with the specified value.
      *
-     * @param value  the initial value to store
+     * @param value the initial value to store
      */
     public MutableByte(final byte value) {
         this.value = value;
@@ -61,8 +61,8 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Constructs a new MutableByte with the specified value.
      *
-     * @param value  the initial value to store, not null.
-     * @throws NullPointerException if the object is null.
+     * @param value  the initial value to store, not null
+     * @throws NullPointerException if the object is null
      */
     public MutableByte(final Number value) {
         this.value = value.byteValue();
@@ -71,8 +71,8 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Constructs a new MutableByte parsing the given string.
      *
-     * @param value  the string to parse, not null.
-     * @throws NumberFormatException if the string cannot be parsed into a byte, see {@link Byte#parseByte(String)}.
+     * @param value  the string to parse, not null
+     * @throws NumberFormatException if the string cannot be parsed into a byte, see {@link Byte#parseByte(String)}
      * @since 2.5
      */
     public MutableByte(final String value) {
@@ -82,7 +82,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Adds a value to the value of this instance.
      *
-     * @param operand  the value to add, not null.
+     * @param operand  the value to add, not null
      * @since 2.2
      */
     public void add(final byte operand) {
@@ -92,8 +92,8 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Adds a value to the value of this instance.
      *
-     * @param operand  the value to add, not null.
-     * @throws NullPointerException if the object is null.
+     * @param operand  the value to add, not null
+     * @throws NullPointerException if the object is null
      * @since 2.2
      */
     public void add(final Number operand) {
@@ -104,8 +104,8 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately after the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
-     * @return the value associated with this instance after adding the operand.
+     * @param operand the quantity to add, not null
+     * @return the value associated with this instance after adding the operand
      * @since 3.5
      */
     public byte addAndGet(final byte operand) {
@@ -117,9 +117,9 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately after the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
-     * @throws NullPointerException if {@code operand} is null.
-     * @return the value associated with this instance after adding the operand.
+     * @param operand the quantity to add, not null
+     * @return the value associated with this instance after adding the operand
+     * @throws NullPointerException if {@code operand} is null
      * @since 3.5
      */
     public byte addAndGet(final Number operand) {
@@ -131,7 +131,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Returns the value of this MutableByte as a byte.
      *
-     * @return the numeric value represented by this object after conversion to type byte.
+     * @return the numeric value represented by this object after conversion to type byte
      */
     @Override
     public byte byteValue() {
@@ -141,8 +141,8 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Compares this mutable to another in ascending order.
      *
-     * @param other  the other mutable to compare to, not null.
-     * @return negative if this is less, zero if equal, positive if greater.
+     * @param other  the other mutable to compare to, not null
+     * @return negative if this is less, zero if equal, positive if greater
      */
     @Override
     public int compareTo(final MutableByte other) {
@@ -162,7 +162,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Decrements this instance's value by 1; this method returns the value associated with the instance
      * immediately after the decrement operation. This method is not thread safe.
      *
-     * @return the value associated with the instance after it is decremented.
+     * @return the value associated with the instance after it is decremented
      * @since 3.5
      */
     public byte decrementAndGet() {
@@ -173,7 +173,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Returns the value of this MutableByte as a double.
      *
-     * @return the numeric value represented by this object after conversion to type double.
+     * @return the numeric value represented by this object after conversion to type double
      */
     @Override
     public double doubleValue() {
@@ -185,8 +185,8 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * not {@code null} and is a {@link MutableByte} object that contains the same {@code byte} value
      * as this object.
      *
-     * @param obj  the object to compare with, null returns false.
-     * @return {@code true} if the objects are the same; {@code false} otherwise.
+     * @param obj  the object to compare with, null returns false
+     * @return {@code true} if the objects are the same; {@code false} otherwise
      */
     @Override
     public boolean equals(final Object obj) {
@@ -199,7 +199,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Returns the value of this MutableByte as a float.
      *
-     * @return the numeric value represented by this object after conversion to type float.
+     * @return the numeric value represented by this object after conversion to type float
      */
     @Override
     public float floatValue() {
@@ -210,8 +210,8 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately prior to the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
-     * @return the value associated with this instance immediately before the operand was added.
+     * @param operand the quantity to add, not null
+     * @return the value associated with this instance immediately before the operand was added
      * @since 3.5
      */
     public byte getAndAdd(final byte operand) {
@@ -224,9 +224,9 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately prior to the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
-     * @throws NullPointerException if {@code operand} is null.
-     * @return the value associated with this instance immediately before the operand was added.
+     * @param operand the quantity to add, not null
+     * @return the value associated with this instance immediately before the operand was added
+     * @throws NullPointerException if {@code operand} is null
      * @since 3.5
      */
     public byte getAndAdd(final Number operand) {
@@ -239,7 +239,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Decrements this instance's value by 1; this method returns the value associated with the instance
      * immediately prior to the decrement operation. This method is not thread safe.
      *
-     * @return the value associated with the instance before it was decremented.
+     * @return the value associated with the instance before it was decremented
      * @since 3.5
      */
     public byte getAndDecrement() {
@@ -252,7 +252,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Increments this instance's value by 1; this method returns the value associated with the instance
      * immediately prior to the increment operation. This method is not thread safe.
      *
-     * @return the value associated with the instance before it was incremented.
+     * @return the value associated with the instance before it was incremented
      * @since 3.5
      */
     public byte getAndIncrement() {
@@ -264,7 +264,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Gets the value as a Byte instance.
      *
-     * @return the value as a Byte, never null.
+     * @return the value as a Byte, never null
      * @deprecated Use {@link #get()}.
      */
     @Deprecated
@@ -276,7 +276,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Returns a suitable hash code for this mutable.
      *
-     * @return a suitable hash code.
+     * @return a suitable hash code
      */
     @Override
     public int hashCode() {
@@ -296,7 +296,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Increments this instance's value by 1; this method returns the value associated with the instance
      * immediately after the increment operation. This method is not thread safe.
      *
-     * @return the value associated with the instance after it is incremented.
+     * @return the value associated with the instance after it is incremented
      * @since 3.5
      */
     public byte incrementAndGet() {
@@ -307,7 +307,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Returns the value of this MutableByte as an int.
      *
-     * @return the numeric value represented by this object after conversion to type int.
+     * @return the numeric value represented by this object after conversion to type int
      */
     @Override
     public int intValue() {
@@ -317,7 +317,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Returns the value of this MutableByte as a long.
      *
-     * @return the numeric value represented by this object after conversion to type long.
+     * @return the numeric value represented by this object after conversion to type long
      */
     @Override
     public long longValue() {
@@ -327,7 +327,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Sets the value.
      *
-     * @param value  the value to set.
+     * @param value the value to set
      */
     public void setValue(final byte value) {
         this.value = value;
@@ -336,8 +336,8 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Sets the value from any Number instance.
      *
-     * @param value  the value to set, not null.
-     * @throws NullPointerException if the object is null.
+     * @param value  the value to set, not null
+     * @throws NullPointerException if the object is null
      */
     @Override
     public void setValue(final Number value) {
@@ -347,7 +347,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Subtracts a value from the value of this instance.
      *
-     * @param operand  the value to subtract, not null.
+     * @param operand  the value to subtract, not null
      * @since 2.2
      */
     public void subtract(final byte operand) {
@@ -357,8 +357,8 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Subtracts a value from the value of this instance.
      *
-     * @param operand  the value to subtract, not null.
-     * @throws NullPointerException if the object is null.
+     * @param operand  the value to subtract, not null
+     * @throws NullPointerException if the object is null
      * @since 2.2
      */
     public void subtract(final Number operand) {
@@ -368,7 +368,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Gets this mutable as an instance of Byte.
      *
-     * @return a Byte instance containing the value from this mutable.
+     * @return a Byte instance containing the value from this mutable
      */
     public Byte toByte() {
         return Byte.valueOf(byteValue());
@@ -377,7 +377,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Returns the String value of this mutable.
      *
-     * @return the mutable value as a string.
+     * @return the mutable value as a string
      */
     @Override
     public String toString() {

@@ -30,7 +30,7 @@ import org.apache.commons.lang3.exception.UncheckedInterruptedException;
 /**
  * An {@link Future} that throws unchecked instead checked exceptions.
  *
- * @param <V> The result type returned by this Future's {@link #get()} and {@link #get(long, TimeUnit)} methods.
+ * @param <V> the result type returned by this Future's {@link #get()} and {@link #get(long, TimeUnit)} methods
  * @see Future
  * @see Exception
  * @since 3.13.0
@@ -40,9 +40,9 @@ public interface UncheckedFuture<V> extends Future<V> {
     /**
      * Maps the given instances as unchecked.
      *
-     * @param <T> The result type returned by the Futures' {@link #get()} and {@link #get(long, TimeUnit)} methods.
-     * @param futures The Futures to uncheck.
-     * @return a new stream.
+     * @param <T> the result type returned by the Futures' {@link #get()} and {@link #get(long, TimeUnit)} methods
+     * @param futures the Futures to uncheck
+     * @return a new stream
      */
     static <T> Stream<UncheckedFuture<T>> map(final Collection<Future<T>> futures) {
         return futures.stream().map(UncheckedFuture::on);
@@ -51,9 +51,9 @@ public interface UncheckedFuture<V> extends Future<V> {
     /**
      * Maps the given instances as unchecked.
      *
-     * @param <T> The result type returned by the Futures' {@link #get()} and {@link #get(long, TimeUnit)} methods.
-     * @param futures The Futures to uncheck.
-     * @return a new collection.
+     * @param <T> the result type returned by the Futures' {@link #get()} and {@link #get(long, TimeUnit)} methods
+     * @param futures the Futures to uncheck
+     * @return a new collection
      */
     static <T> Collection<UncheckedFuture<T>> on(final Collection<Future<T>> futures) {
         return map(futures).collect(Collectors.toList());
@@ -62,9 +62,9 @@ public interface UncheckedFuture<V> extends Future<V> {
     /**
      * Creates a new instance on the given Future.
      *
-     * @param <T> The result type returned by this Future's {@link #get()} and {@link #get(long, TimeUnit)} methods.
-     * @param future The Future to uncheck.
-     * @return a new instance.
+     * @param <T> the result type returned by this Future's {@link #get()} and {@link #get(long, TimeUnit)} methods
+     * @param future the Future to uncheck
+     * @return a new instance
      */
     static <T> UncheckedFuture<T> on(final Future<T> future) {
         return new UncheckedFutureImpl<>(future);
