@@ -933,13 +933,46 @@ public class EqualsBuilder implements Builder<Boolean> {
             return this;
         }
 
-        // Find the leaf class since there may be transients in the leaf
-        // class or in classes between the leaf and root.
-        // If we are not testing transients or a subclass has no ivars,
-        // then a subclass can test equals to a superclass.
+        final Class<?> testClass = determineCommonClass(lhs, rhs);
+
+        if (testClass == null) {
+            // The two classes are not related.
+            isEquals = false;
+            return this;
+        }
+
+        try {
+            if (testClass.isArray()) {
+                append(lhs, rhs);
+            } else if (isBypassRegistered(lhs.getClass(), rhs.getClass())) {
+                isEquals = lhs.equals(rhs);
+            } else {
+                appendFieldsInHierarchy(lhs, rhs, testClass);
+            }
+        } catch (final IllegalArgumentException e) {
+            // In this case, we tried to test a subclass vs. a superclass and
+            // the subclass has ivars or the ivars are transient and
+            // we are testing transients.
+            // If a subclass has ivars that we are trying to test them, we get an
+            // exception and we know that the objects are not equal.
+            isEquals = false;
+        }
+        return this;
+    }
+    /**
+     * Determines the class to use for comparison based on the left-hand and right-hand objects.
+     * <p>
+     * Helper method extracted from {@link #reflectionAppend(Object, Object)} to reduce complexity.
+     * </p>
+     * * @param lhs The left-hand side object
+     * @param rhs The right-hand side object
+     * @return The common class to use for reflection, or null if classes are unrelated.
+     */
+    private static Class<?> determineCommonClass(final Object lhs, final Object rhs) {
         final Class<?> lhsClass = lhs.getClass();
         final Class<?> rhsClass = rhs.getClass();
-        Class<?> testClass;
+        Class<?> testClass = null;
+
         if (lhsClass.isInstance(rhs)) {
             testClass = lhsClass;
             if (!rhsClass.isInstance(lhs)) {
@@ -952,35 +985,41 @@ public class EqualsBuilder implements Builder<Boolean> {
                 // lhsClass is a subclass of rhsClass
                 testClass = lhsClass;
             }
-        } else {
-            // The two classes are not related.
-            isEquals = false;
-            return this;
         }
 
-        try {
-            if (testClass.isArray()) {
-                append(lhs, rhs);
-            } else //If either class is being excluded, call normal object equals method on lhsClass.
-            if (bypassReflectionClasses != null
-                    && (bypassReflectionClasses.contains(lhsClass) || bypassReflectionClasses.contains(rhsClass))) {
-                isEquals = lhs.equals(rhs);
-            } else {
-                reflectionAppend(lhs, rhs, testClass);
-                while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
-                    testClass = testClass.getSuperclass();
-                    reflectionAppend(lhs, rhs, testClass);
-                }
-            }
-        } catch (final IllegalArgumentException e) {
-            // In this case, we tried to test a subclass vs. a superclass and
-            // the subclass has ivars or the ivars are transient and
-            // we are testing transients.
-            // If a subclass has ivars that we are trying to test them, we get an
-            // exception and we know that the objects are not equal.
-            isEquals = false;
+        return testClass;
+    }
+
+    /**
+     * Traverses the class hierarchy and appends fields for reflection comparison.
+     * <p>
+     * Helper method extracted from {@link #reflectionAppend(Object, Object)} to reduce complexity.
+     * </p>
+     * * @param lhs       The left-hand side object
+     * @param rhs       The right-hand side object
+     * @param testClass The starting class for traversal
+     */
+    private void appendFieldsInHierarchy(final Object lhs, final Object rhs, Class<?> testClass) {
+        reflectionAppend(lhs, rhs, testClass);
+        while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
+            testClass = testClass.getSuperclass();
+            reflectionAppend(lhs, rhs, testClass);
         }
-        return this;
+    }
+
+    /**
+     * Checks if either class is registered in the bypass list.
+     * <p>
+     * Helper method extracted from {@link #reflectionAppend(Object, Object)} to reduce complexity.
+     * </p>
+     *
+     * @param lhsClass The class of the left-hand side object
+     * @param rhsClass The class of the right-hand side object
+     * @return true if either class is in the bypass list
+     */
+    private boolean isBypassRegistered(final Class<?> lhsClass, final Class<?> rhsClass) {
+        return bypassReflectionClasses != null
+                && (bypassReflectionClasses.contains(lhsClass) || bypassReflectionClasses.contains(rhsClass));
     }
 
     /**
