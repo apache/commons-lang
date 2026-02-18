@@ -1503,12 +1503,13 @@ class EqualsBuilderTest extends AbstractLangTest {
      */
     @Test
     void testBypassReflectionNullAndCombinations() {
+        // Builder burada tekrar atand??? için (re-assigned) 'final' olamaz.
         EqualsBuilder builder = new EqualsBuilder();
 
         // 1. Handle explicitly set null bypass list safely
         builder.setBypassReflectionClasses(null);
-        TestObject o1 = new TestObject(1);
-        TestObject o2 = new TestObject(1);
+        final TestObject o1 = new TestObject(1);
+        final TestObject o2 = new TestObject(1);
 
         builder.reflectionAppend(o1, o2);
         assertTrue(builder.isEquals());
@@ -1520,8 +1521,8 @@ class EqualsBuilderTest extends AbstractLangTest {
         builder = new EqualsBuilder();
         builder.setBypassReflectionClasses(Collections.singletonList(Sub.class));
 
-        Base baseObj = new Base();
-        Sub subObj = new Sub();
+        final Base baseObj = new Base();
+        final Sub subObj = new Sub();
 
         // Should trigger bypass logic because at least one class (RHS) is in the list
         builder.reflectionAppend(baseObj, subObj);
@@ -1541,9 +1542,9 @@ class EqualsBuilderTest extends AbstractLangTest {
      */
     @Test
     void testCatchIllegalArgumentExceptionForce() {
-        EqualsBuilder builder = new EqualsBuilder();
-        TestObject parent = new TestObject(1);
-        TestSubObject child = new TestSubObject(1, 2);
+        final EqualsBuilder builder = new EqualsBuilder();
+        final TestObject parent = new TestObject(1);
+        final TestSubObject child = new TestSubObject(1, 2);
 
         builder.reset();
         builder.setTestTransients(true);
@@ -1573,13 +1574,13 @@ class EqualsBuilderTest extends AbstractLangTest {
             private int id = 3; // Shadows Parent.id
         }
 
-        Child c1 = new Child();
-        Child c2 = new Child();
+        final Child c1 = new Child();
+        final Child c2 = new Child();
 
         assertTrue(EqualsBuilder.reflectionEquals(c1, c2));
 
         // Modify field in the top-most ancestor to verify the loop reached it
-        Field grandParentField = GrandParent.class.getDeclaredField("id");
+        final Field grandParentField = GrandParent.class.getDeclaredField("id");
         grandParentField.setAccessible(true);
         grandParentField.set(c1, 99);
 
@@ -1589,7 +1590,7 @@ class EqualsBuilderTest extends AbstractLangTest {
         grandParentField.set(c1, 1);
         assertTrue(EqualsBuilder.reflectionEquals(c1, c2));
 
-        Field parentField = Parent.class.getDeclaredField("id");
+        final Field parentField = Parent.class.getDeclaredField("id");
         parentField.setAccessible(true);
         parentField.set(c1, 99);
 
@@ -1605,10 +1606,10 @@ class EqualsBuilderTest extends AbstractLangTest {
      */
     @Test
     void testReflectUpToStopsLoop() {
-        TestSubObject o1 = new TestSubObject(1, 2);
-        TestSubObject o2 = new TestSubObject(1, 2);
+        final TestSubObject o1 = new TestSubObject(1, 2);
+        final TestSubObject o2 = new TestSubObject(1, 2);
 
-        EqualsBuilder builder = new EqualsBuilder();
+        final EqualsBuilder builder = new EqualsBuilder();
 
         // Stop reflection at TestSubObject, ignoring TestObject fields
         builder.setReflectUpToClass(TestSubObject.class);
