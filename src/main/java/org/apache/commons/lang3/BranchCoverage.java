@@ -37,7 +37,7 @@ public final class BranchCoverage {
     }
 
     public static void report() {
-        final var all = new TreeSet<>(ALL);
+        final TreeSet<String> all = new TreeSet<>(ALL);
         int hit = 0;
         System.out.println("\n=== DIY BRANCH COVERAGE ===");
         for (final String id : all) {
