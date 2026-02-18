@@ -141,6 +141,25 @@ class FastDatePrinterTest extends AbstractLangTest {
 
 
 
+
+    /**
+    * Requirement: REQ-LARGE-VAL - Support exact-width formatting for large values.
+    * Targets: Yellow diamond 990 (False branch/Skip loop).
+    * Value 10001 (5 digits) with pattern width 5 ensures the while loop condition is false.
+    */
+   @Test
+   void testLargeValueWithoutZeroPadding() {
+       final Calendar cal = Calendar.getInstance();
+       cal.set(Calendar.YEAR, 10001);
+       final DatePrinter printer = getInstance("yyyyy");
+      
+       assertEquals("10001", printer.format(cal));
+   }
+
+
+
+
+
     @Test
     void test1806Argument() {
         assertIllegalArgumentException(() -> getInstance("XXXX"));
