@@ -206,7 +206,7 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
      * Creates a StringBuilder responsible for the indenting.
      *
      * @param spaces how far to indent
-     * @return a StringBuilder with {spaces} leading space characters.
+     * @return a StringBuilder with {spaces} leading space characters
      */
     private String spacer(final int spaces) {
         return StringUtils.repeat(' ', spaces);

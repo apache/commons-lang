@@ -94,8 +94,8 @@ public class BooleanUtils {
      * @param array  an array of {@code boolean}s
      * @return the result of the logical 'and' operation. That is {@code false}
      * if any of the parameters is {@code false} and {@code true} otherwise.
+     * @throws IllegalArgumentException if {@code array} is empty
      * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
      * @since 3.0.1
      */
     public static boolean and(final boolean... array) {
@@ -126,8 +126,8 @@ public class BooleanUtils {
      * @param array  an array of {@link Boolean}s
      * @return the result of the logical 'and' operation. That is {@code false}
      * if any of the parameters is {@code false} and {@code true} otherwise.
+     * @throws IllegalArgumentException if {@code array} is empty
      * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
      * @since 3.0.1
      */
     public static Boolean and(final Boolean... array) {
@@ -138,7 +138,7 @@ public class BooleanUtils {
     /**
      * Returns a new array of possible values (like an enum would).
      *
-     * @return a new array of possible values (like an enum would).
+     * @return a new array of possible values (like an enum would)
      * @since 3.12.0
      */
     public static Boolean[] booleanValues() {
@@ -165,7 +165,7 @@ public class BooleanUtils {
     /**
      * Performs the given action for each Boolean {@link BooleanUtils#values()}.
      *
-     * @param action The action to be performed for each element
+     * @param action the action to be performed for each element
      * @since 3.13.0
      */
     public static void forEach(final Consumer<Boolean> action) {
@@ -279,8 +279,8 @@ public class BooleanUtils {
      *
      * @param array  an array of {@code boolean}s
      * @return the result of the one-hot operations
+     * @throws IllegalArgumentException if {@code array} is empty
      * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
      */
     public static boolean oneHot(final boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
@@ -310,8 +310,8 @@ public class BooleanUtils {
      *
      * @param array  an array of {@code boolean}s
      * @return the result of the one-hot operations
+     * @throws IllegalArgumentException if {@code array} is empty
      * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
      */
     public static Boolean oneHot(final Boolean... array) {
         return Boolean.valueOf(oneHot(ArrayUtils.toPrimitive(array)));
@@ -330,9 +330,9 @@ public class BooleanUtils {
      * </pre>
      *
      * @param array  an array of {@code boolean}s
-     * @return {@code true} if any of the arguments is {@code true}, and it returns {@code false} otherwise.
+     * @return {@code true} if any of the arguments is {@code true}, and it returns {@code false} otherwise
+     * @throws IllegalArgumentException if {@code array} is empty
      * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
      * @since 3.0.1
      */
     public static boolean or(final boolean... array) {
@@ -363,9 +363,9 @@ public class BooleanUtils {
      * </p>
      *
      * @param array  an array of {@link Boolean}s
-     * @return {@code true} if any of the arguments is {@code true}, and it returns {@code false} otherwise.
+     * @return {@code true} if any of the arguments is {@code true}, and it returns {@code false} otherwise
+     * @throws IllegalArgumentException if {@code array} is empty
      * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
      * @since 3.0.1
      */
     public static Boolean or(final Boolean... array) {
@@ -376,7 +376,7 @@ public class BooleanUtils {
     /**
      * Returns a new array of possible values (like an enum would).
      *
-     * @return a new array of possible values (like an enum would).
+     * @return a new array of possible values (like an enum would)
      * @since 3.12.0
      */
     public static boolean[] primitiveValues() {
@@ -660,7 +660,7 @@ public class BooleanUtils {
      *
      * <p>The checks are done first for the {@code trueValue}, then for the {@code falseValue} and
      * finally for the {@code nullValue}.</p>
-     **
+     * *
      * <pre>
      *   BooleanUtils.toBooleanObject(Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(2), Integer.valueOf(3)) = Boolean.TRUE
      *   BooleanUtils.toBooleanObject(Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(3)) = Boolean.TRUE
@@ -1147,7 +1147,7 @@ public class BooleanUtils {
     /**
      * Returns an unmodifiable list of Booleans {@code [false, true]}.
      *
-     * @return an unmodifiable list of Booleans {@code [false, true]}.
+     * @return an unmodifiable list of Booleans {@code [false, true]}
      * @since 3.13.0
      */
     public static List<Boolean> values() {
@@ -1172,9 +1172,9 @@ public class BooleanUtils {
      * </pre>
      *
      * @param array  an array of {@code boolean}s
-     * @return true if the number of true values in the array is odd; otherwise returns false.
+     * @return true if the number of true values in the array is odd; otherwise returns false
+     * @throws IllegalArgumentException if {@code array} is empty
      * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
      */
     public static boolean xor(final boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
@@ -1203,8 +1203,8 @@ public class BooleanUtils {
      *
      * @param array  an array of {@link Boolean}s
      * @return the result of the xor operations
+     * @throws IllegalArgumentException if {@code array} is empty
      * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
      */
     public static Boolean xor(final Boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");

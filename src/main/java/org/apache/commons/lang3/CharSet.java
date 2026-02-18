@@ -79,7 +79,7 @@ public class CharSet implements Serializable {
 
     /**
      * A Map of the common cases used in the factory.
-     * Subclasses can add more common patterns if desired
+     * Subclasses can add more common patterns if desired.
      *
      * @since 2.0
      */
@@ -152,7 +152,7 @@ public class CharSet implements Serializable {
      *
      * <p>All CharSet objects returned by this method will be immutable.</p>
      *
-     * @param setStrs  Strings to merge into the set, may be null
+     * @param setStrs  strings to merge into the set, may be null
      * @return a CharSet instance
      * @since 2.4
      */
@@ -176,7 +176,7 @@ public class CharSet implements Serializable {
      * Constructs a new CharSet using the set syntax.
      * Each string is merged in with the set.
      *
-     * @param set  Strings to merge into the initial set
+     * @param set  strings to merge into the initial set
      * @throws NullPointerException if set is {@code null}
      */
     protected CharSet(final String... set) {
@@ -186,7 +186,7 @@ public class CharSet implements Serializable {
     /**
      * Add a set definition string to the {@link CharSet}.
      *
-     * @param str  set definition string
+     * @param str set definition string
      */
     protected void add(final String str) {
         if (str == null) {

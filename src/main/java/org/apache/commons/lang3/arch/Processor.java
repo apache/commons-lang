@@ -64,7 +64,7 @@ public class Processor {
         /**
          * Gets the label suitable for display.
          *
-         * @return the label.
+         * @return the label
          */
         public String getLabel() {
             return label;
@@ -131,7 +131,7 @@ public class Processor {
         /**
          * Gets the label suitable for display.
          *
-         * @return the label.
+         * @return the label
          * @since 3.13.0
          */
         public String getLabel() {
@@ -147,8 +147,8 @@ public class Processor {
      * Constructs a {@link Processor} object with the given
      * parameters.
      *
-     * @param arch The processor architecture.
-     * @param type The processor type.
+     * @param arch the processor architecture
+     * @param type the processor type
      */
     public Processor(final Arch arch, final Type type) {
         this.arch = arch;
@@ -160,7 +160,7 @@ public class Processor {
      * The processor architecture defines, if the processor has
      * a 32 or 64 bit architecture.
      *
-     * @return A {@link Arch} enum.
+     * @return a {@link Arch} enum
      */
     public Arch getArch() {
         return arch;
@@ -171,7 +171,7 @@ public class Processor {
      * The processor type defines, if the processor is for example
      * an x86 or PPA.
      *
-     * @return A {@link Type} enum.
+     * @return a {@link Type} enum
      */
     public Type getType() {
         return type;
@@ -180,7 +180,7 @@ public class Processor {
     /**
      * Tests if {@link Processor} is 32 bit.
      *
-     * @return {@code true}, if {@link Processor} is {@link Arch#BIT_32}, else {@code false}.
+     * @return {@code true}, if {@link Processor} is {@link Arch#BIT_32}, else {@code false}
      */
     public boolean is32Bit() {
         return Arch.BIT_32 == arch;
@@ -189,7 +189,7 @@ public class Processor {
     /**
      * Tests if {@link Processor} is 64 bit.
      *
-     * @return {@code true}, if {@link Processor} is {@link Arch#BIT_64}, else {@code false}.
+     * @return {@code true}, if {@link Processor} is {@link Arch#BIT_64}, else {@code false}
      */
     public boolean is64Bit() {
         return Arch.BIT_64 == arch;
@@ -198,7 +198,7 @@ public class Processor {
     /**
      * Tests if {@link Processor} is type of Aarch64.
      *
-     * @return {@code true}, if {@link Processor} is {@link Type#AARCH_64}, else {@code false}.
+     * @return {@code true}, if {@link Processor} is {@link Type#AARCH_64}, else {@code false}
      * @since 3.13.0
      */
     public boolean isAarch64() {
@@ -236,7 +236,7 @@ public class Processor {
     /**
      * Tests if {@link Processor} is type of x86.
      *
-     * @return {@code true}, if {@link Processor} is {@link Type#X86}, else {@code false}.
+     * @return {@code true}, if {@link Processor} is {@link Type#X86}, else {@code false}
      */
     public boolean isX86() {
         return Type.X86 == type;

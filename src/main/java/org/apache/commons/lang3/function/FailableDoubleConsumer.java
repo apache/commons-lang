@@ -23,21 +23,21 @@ import java.util.function.DoubleConsumer;
 /**
  * A functional interface like {@link DoubleConsumer} that declares a {@link Throwable}.
  *
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableDoubleConsumer<E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableDoubleConsumer NOP = t -> { /* NOP */ };
 
     /**
      * Gets the NOP singleton.
      *
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <E extends Throwable> FailableDoubleConsumer<E> nop() {
@@ -48,16 +48,16 @@ public interface FailableDoubleConsumer<E extends Throwable> {
      * Accepts the given arguments.
      *
      * @param value the parameter for the consumable to accept
-     * @throws E Thrown when the consumer fails.
+     * @throws E thrown when the consumer fails
      */
     void accept(double value) throws E;
 
     /**
      * Returns a composed {@link FailableDoubleConsumer} like {@link DoubleConsumer#andThen(DoubleConsumer)}.
      *
-     * @param after the operation to perform after this one.
-     * @return a composed {@link FailableDoubleConsumer} like {@link DoubleConsumer#andThen(DoubleConsumer)}.
-     * @throws NullPointerException when {@code after} is null.
+     * @param after the operation to perform after this one
+     * @return a composed {@link FailableDoubleConsumer} like {@link DoubleConsumer#andThen(DoubleConsumer)}
+     * @throws NullPointerException when {@code after} is null
      */
     default FailableDoubleConsumer<E> andThen(final FailableDoubleConsumer<E> after) {
         Objects.requireNonNull(after);

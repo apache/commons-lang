@@ -63,7 +63,7 @@ public class CompositeFormat extends Format {
      *
      * @param obj the object to format
      * @param toAppendTo the {@link StringBuffer} to append to
-     * @param pos the FieldPosition to use (or ignore).
+     * @param pos the FieldPosition to use (or ignore)
      * @return {@code toAppendTo}
      * @see Format#format(Object, StringBuffer, FieldPosition)
      */
@@ -109,8 +109,8 @@ public class CompositeFormat extends Format {
     /**
      * Utility method to parse and then reformat a String.
      *
-     * @param input String to reformat
-     * @return A reformatted String
+     * @param input string to reformat
+     * @return a reformatted String
      * @throws ParseException thrown by parseObject(String) call
      */
     public String reformat(final String input) throws ParseException {

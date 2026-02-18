@@ -237,7 +237,7 @@ public class BasicThreadFactory implements ThreadFactory {
     /**
      * Creates a new builder.
      *
-     * @return a new builder.
+     * @return a new builder
      * @since 3.18.0
      */
     public static Builder builder() {

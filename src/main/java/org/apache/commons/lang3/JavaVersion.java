@@ -220,8 +220,8 @@ public enum JavaVersion {
     /**
      * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
      *
-     * @param versionStr the Java version as string.
-     * @return the corresponding enumeration constant or <strong>null</strong> if the version is unknown.
+     * @param versionStr the Java version as string
+     * @return the corresponding enumeration constant or <strong>null</strong> if the version is unknown
      */
     static JavaVersion get(final String versionStr) {
         if (versionStr == null) {
@@ -302,8 +302,8 @@ public enum JavaVersion {
     /**
      * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
      *
-     * @param versionStr the Java version as string.
-     * @return the corresponding enumeration constant or <strong>null</strong> if the version is unknown.
+     * @param versionStr the Java version as string
+     * @return the corresponding enumeration constant or <strong>null</strong> if the version is unknown
      */
     static JavaVersion getJavaVersion(final String versionStr) {
         return get(versionStr);
@@ -312,7 +312,7 @@ public enum JavaVersion {
     /**
      * Gets the Java Version from the system or 99.0 if the {@code java.specification.version} system property is not set.
      *
-     * @return the value of {@code java.specification.version} system property or 99.0 if it is not set.
+     * @return the value of {@code java.specification.version} system property or 99.0 if it is not set
      */
     private static float maxVersion() {
         final float v = toFloatVersion(SystemProperties.getJavaSpecificationVersion("99.0"));
@@ -326,8 +326,8 @@ public enum JavaVersion {
     /**
      * Parses a float value from a String.
      *
-     * @param value the String to parse.
-     * @return the float value represented by the string or -1 if the given String cannot be parsed.
+     * @param value the String to parse
+     * @return the float value represented by the string or -1 if the given String cannot be parsed
      */
     private static float toFloatVersion(final String value) {
         final int defaultReturnValue = -1;
@@ -354,8 +354,8 @@ public enum JavaVersion {
     /**
      * Constructs a new instance.
      *
-     * @param value the float value.
-     * @param name  the standard name, not null.
+     * @param value the float value
+     * @param name  the standard name, not null
      */
     JavaVersion(final float value, final String name) {
         this.value = value;
@@ -374,8 +374,8 @@ public enum JavaVersion {
      * myVersion.atLeast(JavaVersion.JAVA_1_8)
      * }</pre>
      *
-     * @param requiredVersion the version to check against, not null.
-     * @return true if this version is equal to or greater than the specified version.
+     * @param requiredVersion the version to check against, not null
+     * @return true if this version is equal to or greater than the specified version
      */
     public boolean atLeast(final JavaVersion requiredVersion) {
         return this.value >= requiredVersion.value;
@@ -393,8 +393,8 @@ public enum JavaVersion {
      * myVersion.atMost(JavaVersion.JAVA_1_4)
      * }</pre>
      *
-     * @param requiredVersion the version to check against, not null.
-     * @return true if this version is equal to or greater than the specified version.
+     * @param requiredVersion the version to check against, not null
+     * @return true if this version is equal to or greater than the specified version
      * @since 3.9
      */
     public boolean atMost(final JavaVersion requiredVersion) {
@@ -408,7 +408,7 @@ public enum JavaVersion {
      * For example, {@code "1.5"}.
      * </p>
      *
-     * @return the name, not null.
+     * @return the name, not null
      */
     @Override
     public String toString() {

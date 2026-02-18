@@ -24,13 +24,13 @@ import java.util.function.ToIntBiFunction;
  *
  * @param <T> the type of the first argument to the function
  * @param <U> the type of the second argument to the function
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableToIntBiFunction<T, U, E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableToIntBiFunction NOP = (t, u) -> 0;
 
@@ -39,8 +39,8 @@ public interface FailableToIntBiFunction<T, U, E extends Throwable> {
      *
      * @param <T> the type of the first argument to the function
      * @param <U> the type of the second argument to the function
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, U, E extends Throwable> FailableToIntBiFunction<T, U, E> nop() {
@@ -53,7 +53,7 @@ public interface FailableToIntBiFunction<T, U, E extends Throwable> {
      * @param t the first function argument
      * @param u the second function argument
      * @return the function result
-     * @throws E Thrown when the function fails.
+     * @throws E thrown when the function fails
      */
     int applyAsInt(T t, U u) throws E;
 }

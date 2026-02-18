@@ -33,8 +33,8 @@ public class UnicodeEscaper extends CodePointTranslator {
     /**
      * Constructs a {@link UnicodeEscaper} above the specified value (exclusive).
      *
-     * @param codePoint above which to escape.
-     * @return the newly created {@link UnicodeEscaper} instance.
+     * @param codePoint above which to escape
+     * @return the newly created {@link UnicodeEscaper} instance
      */
     public static UnicodeEscaper above(final int codePoint) {
         return outsideOf(0, codePoint);
@@ -43,8 +43,8 @@ public class UnicodeEscaper extends CodePointTranslator {
     /**
      * Constructs a {@link UnicodeEscaper} below the specified value (exclusive).
      *
-     * @param codePoint below which to escape.
-     * @return the newly created {@link UnicodeEscaper} instance.
+     * @param codePoint below which to escape
+     * @return the newly created {@link UnicodeEscaper} instance
      */
     public static UnicodeEscaper below(final int codePoint) {
         return outsideOf(codePoint, Integer.MAX_VALUE);
@@ -53,9 +53,9 @@ public class UnicodeEscaper extends CodePointTranslator {
     /**
      * Constructs a {@link UnicodeEscaper} between the specified values (inclusive).
      *
-     * @param codePointLow above which to escape.
-     * @param codePointHigh below which to escape.
-     * @return the newly created {@link UnicodeEscaper} instance.
+     * @param codePointLow above which to escape
+     * @param codePointHigh below which to escape
+     * @return the newly created {@link UnicodeEscaper} instance
      */
     public static UnicodeEscaper between(final int codePointLow, final int codePointHigh) {
         return new UnicodeEscaper(codePointLow, codePointHigh, true);
@@ -64,9 +64,9 @@ public class UnicodeEscaper extends CodePointTranslator {
     /**
      * Constructs a {@link UnicodeEscaper} outside of the specified values (exclusive).
      *
-     * @param codePointLow below which to escape.
-     * @param codePointHigh above which to escape.
-     * @return the newly created {@link UnicodeEscaper} instance.
+     * @param codePointLow below which to escape
+     * @param codePointHigh above which to escape
+     * @return the newly created {@link UnicodeEscaper} instance
      */
     public static UnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh) {
         return new UnicodeEscaper(codePointLow, codePointHigh, false);
@@ -91,9 +91,9 @@ public class UnicodeEscaper extends CodePointTranslator {
      * and {@code above} boundaries are inclusive when {@code between} is
      * {@code true} and exclusive when it is {@code false}.
      *
-     * @param below int value representing the lowest code point boundary.
-     * @param above int value representing the highest code point boundary.
-     * @param between whether to escape between the boundaries or outside them.
+     * @param below int value representing the lowest code point boundary
+     * @param above int value representing the highest code point boundary
+     * @param between whether to escape between the boundaries or outside them
      */
     protected UnicodeEscaper(final int below, final int above, final boolean between) {
         this.below = below;
@@ -105,8 +105,8 @@ public class UnicodeEscaper extends CodePointTranslator {
      * Converts the given code point to a hexadecimal string of the form {@code "\\uXXXX"}
      *
      * @param codePoint
-     *            a Unicode code point.
-     * @return the hexadecimal string for the given code point.
+     *            a Unicode code point
+     * @return the hexadecimal string for the given code point
      * @since 3.2
      */
     protected String toUtf16Escape(final int codePoint) {

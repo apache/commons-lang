@@ -23,25 +23,25 @@ import java.util.function.BiConsumer;
 /**
  * A functional interface like {@link BiConsumer} that declares a {@link Throwable}.
  *
- * @param <T> Consumed type 1.
- * @param <U> Consumed type 2.
- * @param <E> The kind of thrown exception or error.
+ * @param <T> consumed type 1
+ * @param <U> consumed type 2
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableBiConsumer<T, U, E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableBiConsumer NOP = (t, u) -> { /* NOP */ };
 
     /**
      * Gets the NOP singleton.
      *
-     * @param <T> Consumed type 1.
-     * @param <U> Consumed type 2.
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <T> consumed type 1
+     * @param <U> consumed type 2
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, U, E extends Throwable> FailableBiConsumer<T, U, E> nop() {
@@ -53,16 +53,16 @@ public interface FailableBiConsumer<T, U, E extends Throwable> {
      *
      * @param t the first parameter for the consumable to accept
      * @param u the second parameter for the consumable to accept
-     * @throws E Thrown when the consumer fails.
+     * @throws E thrown when the consumer fails
      */
     void accept(T t, U u) throws E;
 
     /**
      * Returns a composed {@link FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
      *
-     * @param after the operation to perform after this one.
-     * @return a composed {@link FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
-     * @throws NullPointerException when {@code after} is null.
+     * @param after the operation to perform after this one
+     * @return a composed {@link FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}
+     * @throws NullPointerException when {@code after} is null
      */
     default FailableBiConsumer<T, U, E> andThen(final FailableBiConsumer<? super T, ? super U, E> after) {
         Objects.requireNonNull(after);

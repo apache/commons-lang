@@ -46,13 +46,13 @@ final class CachedRandomBits {
      */
     private static final int MAX_CACHE_SIZE = Integer.MAX_VALUE >> 3;
 
-    /** Maximum number of bits that can be generated (size of an int) */
+    /** Maximum number of bits that can be generated (size of an int). */
     private static final int MAX_BITS = 32;
 
-    /** Mask to extract the bit offset within a byte (0-7) */
+    /** Mask to extract the bit offset within a byte (0-7). */
     private static final int BIT_INDEX_MASK = 0x7;
 
-    /** Number of bits in a byte */
+    /** Number of bits in a byte. */
     private static final int BITS_PER_BYTE = 8;
     private final Random random;
     private final byte[] cache;

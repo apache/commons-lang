@@ -22,9 +22,9 @@ import org.apache.commons.lang3.function.FailableSupplier;
 /**
  * Abstracts supplying an instance of {@code T}. Use to implement the builder pattern.
  *
- * @param <T> The type of results supplied by this supplier.
- * @param <B> the type of builder.
- * @param <E> The kind of thrown exception or error.
+ * @param <T> the type of results supplied by this supplier
+ * @param <B> the type of builder
+ * @param <E> the kind of thrown exception or error
  * @since 3.14.0
  */
 public abstract class AbstractSupplier<T, B extends AbstractSupplier<T, B, E>, E extends Throwable> implements FailableSupplier<T, E> {
@@ -45,7 +45,7 @@ public abstract class AbstractSupplier<T, B extends AbstractSupplier<T, B, E>, E
      * (B) this
      * </pre>
      *
-     * @return {@code this} instance typed as the subclass type {@code B}.
+     * @return {@code this} instance typed as the subclass type {@code B}
      */
     @SuppressWarnings("unchecked")
     protected B asThis() {

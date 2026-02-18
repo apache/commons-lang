@@ -23,29 +23,29 @@ import java.util.function.BiPredicate;
 /**
  * A functional interface like {@link BiPredicate} that declares a {@link Throwable}.
  *
- * @param <T> Predicate type 1.
- * @param <U> Predicate type 2.
- * @param <E> The kind of thrown exception or error.
+ * @param <T> predicate type 1
+ * @param <U> predicate type 2
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableBiPredicate<T, U, E extends Throwable> {
 
-    /** FALSE singleton */
+    /** FALSE singleton. */
     @SuppressWarnings("rawtypes")
     FailableBiPredicate FALSE = (t, u) -> false;
 
-    /** TRUE singleton */
+    /** TRUE singleton. */
     @SuppressWarnings("rawtypes")
     FailableBiPredicate TRUE = (t, u) -> true;
 
     /**
      * Gets the FALSE singleton.
      *
-     * @param <T> Consumed type 1.
-     * @param <U> Consumed type 2.
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <T> consumed type 1
+     * @param <U> consumed type 2
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> falsePredicate() {
@@ -55,10 +55,10 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     /**
      * Gets the TRUE singleton.
      *
-     * @param <T> Consumed type 1.
-     * @param <U> Consumed type 2.
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <T> consumed type 1
+     * @param <U> consumed type 2
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> truePredicate() {
@@ -68,8 +68,8 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     /**
      * Returns a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
      *
-     * @param other a predicate that will be logically-ANDed with this predicate.
-     * @return a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     * @param other a predicate that will be logically-ANDed with this predicate
+     * @return a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}
      * @throws NullPointerException if other is null
      */
     default FailableBiPredicate<T, U, E> and(final FailableBiPredicate<? super T, ? super U, E> other) {
@@ -80,7 +80,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     /**
      * Returns a predicate that negates this predicate.
      *
-     * @return a predicate that negates this predicate.
+     * @return a predicate that negates this predicate
      */
     default FailableBiPredicate<T, U, E> negate() {
         return (final T t, final U u) -> !test(t, u);
@@ -89,8 +89,8 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     /**
      * Returns a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
      *
-     * @param other a predicate that will be logically-ORed with this predicate.
-     * @return a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
+     * @param other a predicate that will be logically-ORed with this predicate
+     * @return a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}
      * @throws NullPointerException if other is null
      */
     default FailableBiPredicate<T, U, E> or(final FailableBiPredicate<? super T, ? super U, E> other) {
@@ -104,7 +104,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
      * @param object1 the first object to test the predicate on
      * @param object2 the second object to test the predicate on
      * @return the predicate's evaluation
-     * @throws E Thrown when this predicate fails.
+     * @throws E thrown when this predicate fails
      */
     boolean test(T object1, U object2) throws E;
 }

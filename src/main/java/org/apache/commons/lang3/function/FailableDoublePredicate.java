@@ -23,25 +23,25 @@ import java.util.function.DoublePredicate;
 /**
  * A functional interface like {@link DoublePredicate} that declares a {@link Throwable}.
  *
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableDoublePredicate<E extends Throwable> {
 
-    /** FALSE singleton */
+    /** FALSE singleton. */
     @SuppressWarnings("rawtypes")
     FailableDoublePredicate FALSE = t -> false;
 
-    /** TRUE singleton */
+    /** TRUE singleton. */
     @SuppressWarnings("rawtypes")
     FailableDoublePredicate TRUE = t -> true;
 
     /**
      * Gets the FALSE singleton.
      *
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
    @SuppressWarnings("unchecked")
    static <E extends Throwable> FailableDoublePredicate<E> falsePredicate() {
@@ -51,8 +51,8 @@ public interface FailableDoublePredicate<E extends Throwable> {
     /**
      * Gets the TRUE singleton.
      *
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
    @SuppressWarnings("unchecked")
    static <E extends Throwable> FailableDoublePredicate<E> truePredicate() {
@@ -62,8 +62,8 @@ public interface FailableDoublePredicate<E extends Throwable> {
     /**
      * Returns a composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
      *
-     * @param other a predicate that will be logically-ANDed with this predicate.
-     * @return a composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
+     * @param other a predicate that will be logically-ANDed with this predicate
+     * @return a composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}
      * @throws NullPointerException if other is null
      */
     default FailableDoublePredicate<E> and(final FailableDoublePredicate<E> other) {
@@ -74,7 +74,7 @@ public interface FailableDoublePredicate<E extends Throwable> {
     /**
      * Returns a predicate that negates this predicate.
      *
-     * @return a predicate that negates this predicate.
+     * @return a predicate that negates this predicate
      */
     default FailableDoublePredicate<E> negate() {
         return t -> !test(t);
@@ -83,8 +83,8 @@ public interface FailableDoublePredicate<E extends Throwable> {
     /**
      * Returns a composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
      *
-     * @param other a predicate that will be logically-ORed with this predicate.
-     * @return a composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
+     * @param other a predicate that will be logically-ORed with this predicate
+     * @return a composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}
      * @throws NullPointerException if other is null
      */
     default FailableDoublePredicate<E> or(final FailableDoublePredicate<E> other) {
@@ -95,9 +95,9 @@ public interface FailableDoublePredicate<E extends Throwable> {
     /**
      * Tests the predicate.
      *
-     * @param value the parameter for the predicate to accept.
-     * @return {@code true} if the input argument matches the predicate, {@code false} otherwise.
-     * @throws E Thrown when the consumer fails.
+     * @param value the parameter for the predicate to accept
+     * @return {@code true} if the input argument matches the predicate, {@code false} otherwise
+     * @throws E thrown when the consumer fails
      */
     boolean test(double value) throws E;
 }

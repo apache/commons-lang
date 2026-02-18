@@ -29,9 +29,9 @@ public class FutureTasks {
     /**
      * Creates a {@link FutureTask} and runs the given {@link Callable}.
      *
-     * @param <V> The result type returned by this FutureTask's {@code get} methods.
-     * @param callable the Callable task.
-     * @return a new FutureTask.
+     * @param <V> the result type returned by this FutureTask's {@code get} methods
+     * @param callable the Callable task
+     * @return a new FutureTask
      */
     public static <V> FutureTask<V> run(final Callable<V> callable) {
         final FutureTask<V> futureTask = new FutureTask<>(callable);

@@ -97,7 +97,7 @@ public class RuntimeEnvironment {
      * </li>
      * </ol>
      *
-     * @return Whether we are running in a container like Docker or Podman.
+     * @return whether we are running in a container like Docker or Podman
      * @see <a href="https://github.com/systemd/systemd/blob/0747e3b60eb4496ee122066c844210ce818d76d9/src/basic/virt.c#L692">SystemD virt.c</a>
      */
     static boolean inContainer(final String dirPrefix) {
@@ -111,9 +111,9 @@ public class RuntimeEnvironment {
     /**
      * Tests whether the {@code /proc/N/environ} file at the given path string contains a specific line prefix.
      *
-     * @param envVarFile The path to a /proc/N/environ file.
-     * @param key        The env var key to find.
-     * @return value The env var value or null.
+     * @param envVarFile the path to a /proc/N/environ file
+     * @param key        the env var key to find
+     * @return value The env var value or null
      */
     private static String readFile(final String envVarFile, final String key) {
         try {

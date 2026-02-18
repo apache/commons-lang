@@ -56,7 +56,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Constructs a new MutableBoolean with the specified value.
      *
-     * @param value  the initial value to store
+     * @param value the initial value to store
      */
     public MutableBoolean(final boolean value) {
         this.value = value;
@@ -75,7 +75,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Returns the value of this MutableBoolean as a boolean.
      *
-     * @return the boolean value represented by this object.
+     * @return the boolean value represented by this object
      */
     public boolean booleanValue() {
         return value;
@@ -99,7 +99,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * {@code boolean} value as this object.
      *
      * @param obj  the object to compare with, null returns false
-     * @return {@code true} if the objects are the same; {@code false} otherwise.
+     * @return {@code true} if the objects are the same; {@code false} otherwise
      */
     @Override
     public boolean equals(final Object obj) {
@@ -112,7 +112,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Gets the value as a Boolean instance.
      *
-     * @return the value as a Boolean, never null.
+     * @return the value as a Boolean, never null
      * @deprecated Use {@link #get()}.
      */
     @Deprecated
@@ -172,7 +172,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Sets the value.
      *
-     * @param value  the value to set
+     * @param value the value to set
      */
     public void setValue(final boolean value) {
         this.value = value;

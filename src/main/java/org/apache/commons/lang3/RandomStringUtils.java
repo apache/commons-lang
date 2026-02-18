@@ -109,7 +109,7 @@ public class RandomStringUtils {
      * The method {@link ThreadLocalRandom#current()} is called on-demand.
      * </p>
      *
-     * @return the singleton instance based on {@link ThreadLocalRandom#current()}.
+     * @return the singleton instance based on {@link ThreadLocalRandom#current()}
      * @see ThreadLocalRandom#current()
      * @see #secure()
      * @see #secureStrong()
@@ -126,9 +126,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of all characters.
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @deprecated Use {@link #next(int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -143,11 +143,11 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of alpha-numeric characters as indicated by the arguments.
      * </p>
      *
-     * @param count   the length of random string to create.
-     * @param letters if {@code true}, generated string may include alphabetic characters.
-     * @param numbers if {@code true}, generated string may include numeric characters.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count   the length of random string to create
+     * @param letters if {@code true}, generated string may include alphabetic characters
+     * @param numbers if {@code true}, generated string may include numeric characters
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @deprecated Use {@link #next(int, boolean, boolean)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -162,10 +162,10 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of characters specified.
      * </p>
      *
-     * @param count the length of random string to create.
-     * @param chars the character array containing the set of characters to use, may be null.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @param chars the character array containing the set of characters to use, may be null
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @deprecated Use {@link #next(int, char...)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -180,13 +180,13 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of alpha-numeric characters as indicated by the arguments.
      * </p>
      *
-     * @param count   the length of random string to create.
-     * @param start   the position in set of chars to start at.
-     * @param end     the position in set of chars to end before.
-     * @param letters if {@code true}, generated string may include alphabetic characters.
-     * @param numbers if {@code true}, generated string may include numeric characters.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count   the length of random string to create
+     * @param start   the position in set of chars to start at
+     * @param end     the position in set of chars to end before
+     * @param letters if {@code true}, generated string may include alphabetic characters
+     * @param numbers if {@code true}, generated string may include numeric characters
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @deprecated Use {@link #next(int, int, int, boolean, boolean)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -204,15 +204,15 @@ public class RandomStringUtils {
      * instance.
      * </p>
      *
-     * @param count   the length of random string to create.
-     * @param start   the position in set of chars to start at.
-     * @param end     the position in set of chars to end before.
-     * @param letters if {@code true}, generated string may include alphabetic characters.
-     * @param numbers if {@code true}, generated string may include numeric characters.
+     * @param count   the length of random string to create
+     * @param start   the position in set of chars to start at
+     * @param end     the position in set of chars to end before
+     * @param letters if {@code true}, generated string may include alphabetic characters
+     * @param numbers if {@code true}, generated string may include numeric characters
      * @param chars   the set of chars to choose randoms from. If {@code null}, then it will use the set of all chars.
-     * @return the random string.
-     * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
-     * @throws IllegalArgumentException       if {@code count} &lt; 0.
+     * @return the random string
+     * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array
+     * @throws IllegalArgumentException       if {@code count} &lt; 0
      * @deprecated Use {@link #next(int, int, int, boolean, boolean, char...)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -239,17 +239,17 @@ public class RandomStringUtils {
      * generated repeatedly and predictably.
      * </p>
      *
-     * @param count   the length of random string to create.
-     * @param start   the position in set of chars to start at (inclusive).
-     * @param end     the position in set of chars to end before (exclusive).
-     * @param letters if {@code true}, generated string may include alphabetic characters.
-     * @param digits if {@code true}, generated string may include digit characters.
+     * @param count   the length of random string to create
+     * @param start   the position in set of chars to start at (inclusive)
+     * @param end     the position in set of chars to end before (exclusive)
+     * @param letters if {@code true}, generated string may include alphabetic characters
+     * @param digits if {@code true}, generated string may include digit characters
      * @param chars   the set of chars to choose randoms from, must not be empty. If {@code null}, then it will use the
      *                set of all chars.
-     * @param random  a source of randomness.
-     * @return the random string.
-     * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
-     * @throws IllegalArgumentException       if {@code count} &lt; 0 or the provided chars array is empty.
+     * @param random  a source of randomness
+     * @return the random string
+     * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array
+     * @throws IllegalArgumentException       if {@code count} &lt; 0 or the provided chars array is empty
      * @since 2.0
      */
     public static String random(int count, int start, int end, final boolean letters, final boolean digits,
@@ -401,10 +401,10 @@ public class RandomStringUtils {
      * of all characters is used.
      * </p>
      *
-     * @param count the length of random string to create.
-     * @param chars the String containing the set of characters to use, may be null, but must not be empty.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0 or the string is empty.
+     * @param count the length of random string to create
+     * @param chars the String containing the set of characters to use, may be null, but must not be empty
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0 or the string is empty
      * @deprecated Use {@link #next(int, String)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -419,9 +419,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of Latin alphabetic characters (a-z, A-Z).
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @deprecated Use {@link #nextAlphabetic(int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -436,9 +436,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of Latin alphabetic characters (a-z, A-Z).
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.5
      * @deprecated Use {@link #nextAlphabetic(int, int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -454,9 +454,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of Latin alphabetic characters (a-z, A-Z) and the digits 0-9.
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @deprecated Use {@link #nextAlphanumeric(int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -471,9 +471,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of Latin alphabetic characters (a-z, A-Z) and the digits 0-9.
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.5
      * @deprecated Use {@link #nextAlphanumeric(int, int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -490,9 +490,9 @@ public class RandomStringUtils {
      * (inclusive).
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @deprecated Use {@link #nextAscii(int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -508,9 +508,9 @@ public class RandomStringUtils {
      * (inclusive).
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.5
      * @deprecated Use {@link #nextAscii(int, int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -527,9 +527,9 @@ public class RandomStringUtils {
      * class. This class contains all visible ASCII characters (i.e. anything except spaces and control characters).
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @since 3.5
      * @deprecated Use {@link #nextGraph(int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -545,9 +545,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of \p{Graph} characters.
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.5
      * @deprecated Use {@link #nextGraph(int, int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -563,9 +563,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of numeric characters.
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @deprecated Use {@link #nextNumeric(int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -580,9 +580,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of \p{Digit} characters.
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.5
      * @deprecated Use {@link #nextNumeric(int, int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -599,9 +599,9 @@ public class RandomStringUtils {
      * class. This class includes all visible ASCII characters and spaces (i.e. anything except control characters).
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @since 3.5
      * @deprecated Use {@link #nextPrint(int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -617,9 +617,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of \p{Print} characters.
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.5
      * @deprecated Use {@link #nextPrint(int, int)} from {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -635,7 +635,7 @@ public class RandomStringUtils {
      * The method {@link SecureRandom#SecureRandom()} is called on-demand.
      * </p>
      *
-     * @return the singleton instance based on {@link SecureRandom#SecureRandom()}.
+     * @return the singleton instance based on {@link SecureRandom#SecureRandom()}
      * @see SecureRandom#SecureRandom()
      * @since 3.16.0
      */
@@ -650,7 +650,7 @@ public class RandomStringUtils {
      * The method {@link SecureRandom#getInstanceStrong()} is called on-demand.
      * </p>
      *
-     * @return the singleton instance based on {@link SecureRandom#getInstanceStrong()}.
+     * @return the singleton instance based on {@link SecureRandom#getInstanceStrong()}
      * @see SecureRandom#getInstanceStrong()
      * @since 3.17.0
      */
@@ -686,9 +686,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of all characters.
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @since 3.16.0
      */
     public String next(final int count) {
@@ -702,11 +702,11 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of alpha-numeric characters as indicated by the arguments.
      * </p>
      *
-     * @param count   the length of random string to create.
-     * @param letters if {@code true}, generated string may include alphabetic characters.
-     * @param numbers if {@code true}, generated string may include numeric characters.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count   the length of random string to create
+     * @param letters if {@code true}, generated string may include alphabetic characters
+     * @param numbers if {@code true}, generated string may include numeric characters
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @since 3.16.0
      */
     public String next(final int count, final boolean letters, final boolean numbers) {
@@ -720,10 +720,10 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of characters specified.
      * </p>
      *
-     * @param count the length of random string to create.
-     * @param chars the character array containing the set of characters to use, may be null.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @param chars the character array containing the set of characters to use, may be null
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @since 3.16.0
      */
     public String next(final int count, final char... chars) {
@@ -740,13 +740,13 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of alpha-numeric characters as indicated by the arguments.
      * </p>
      *
-     * @param count   the length of random string to create.
-     * @param start   the position in set of chars to start at.
-     * @param end     the position in set of chars to end before.
-     * @param letters if {@code true}, generated string may include alphabetic characters.
-     * @param numbers if {@code true}, generated string may include numeric characters.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count   the length of random string to create
+     * @param start   the position in set of chars to start at
+     * @param end     the position in set of chars to end before
+     * @param letters if {@code true}, generated string may include alphabetic characters
+     * @param numbers if {@code true}, generated string may include numeric characters
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @since 3.16.0
      */
     public String next(final int count, final int start, final int end, final boolean letters, final boolean numbers) {
@@ -762,15 +762,15 @@ public class RandomStringUtils {
      * instance.
      * </p>
      *
-     * @param count   the length of random string to create.
-     * @param start   the position in set of chars to start at.
-     * @param end     the position in set of chars to end before.
-     * @param letters if {@code true}, generated string may include alphabetic characters.
-     * @param numbers if {@code true}, generated string may include numeric characters.
+     * @param count   the length of random string to create
+     * @param start   the position in set of chars to start at
+     * @param end     the position in set of chars to end before
+     * @param letters if {@code true}, generated string may include alphabetic characters
+     * @param numbers if {@code true}, generated string may include numeric characters
      * @param chars   the set of chars to choose randoms from. If {@code null}, then it will use the set of all chars.
-     * @return the random string.
-     * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
-     * @throws IllegalArgumentException       if {@code count} &lt; 0.
+     * @return the random string
+     * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array
+     * @throws IllegalArgumentException       if {@code count} &lt; 0
      */
     public String next(final int count, final int start, final int end, final boolean letters, final boolean numbers,
             final char... chars) {
@@ -785,10 +785,10 @@ public class RandomStringUtils {
      * of all characters is used.
      * </p>
      *
-     * @param count the length of random string to create.
-     * @param chars the String containing the set of characters to use, may be null, but must not be empty.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0 or the string is empty.
+     * @param count the length of random string to create
+     * @param chars the String containing the set of characters to use, may be null, but must not be empty
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0 or the string is empty
      * @since 3.16.0
      */
     public String next(final int count, final String chars) {
@@ -805,9 +805,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of Latin alphabetic characters (a-z, A-Z).
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      */
     public String nextAlphabetic(final int count) {
         return next(count, true, false);
@@ -820,9 +820,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of Latin alphabetic characters (a-z, A-Z).
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.5
      */
     public String nextAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
@@ -836,9 +836,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of Latin alphabetic characters (a-z, A-Z) and the digits 0-9.
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      */
     public String nextAlphanumeric(final int count) {
         return next(count, true, true);
@@ -851,9 +851,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of Latin alphabetic characters (a-z, A-Z) and the digits 0-9.
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.5
      */
     public String nextAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
@@ -868,9 +868,9 @@ public class RandomStringUtils {
      * (inclusive).
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      */
     public String nextAscii(final int count) {
         return next(count, 32, 127, false, false);
@@ -884,9 +884,9 @@ public class RandomStringUtils {
      * (inclusive).
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.5
      */
     public String nextAscii(final int minLengthInclusive, final int maxLengthExclusive) {
@@ -901,9 +901,9 @@ public class RandomStringUtils {
      * class. This class contains all visible ASCII characters (i.e. anything except spaces and control characters).
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @since 3.5
      */
     public String nextGraph(final int count) {
@@ -917,9 +917,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of \p{Graph} characters.
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.5
      */
     public String nextGraph(final int minLengthInclusive, final int maxLengthExclusive) {
@@ -933,9 +933,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of numeric characters.
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      */
     public String nextNumeric(final int count) {
         return next(count, false, true);
@@ -948,9 +948,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of \p{Digit} characters.
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.5
      */
     public String nextNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
@@ -965,9 +965,9 @@ public class RandomStringUtils {
      * class. This class includes all visible ASCII characters and spaces (i.e. anything except control characters).
      * </p>
      *
-     * @param count the length of random string to create.
-     * @return the random string.
-     * @throws IllegalArgumentException if {@code count} &lt; 0.
+     * @param count the length of random string to create
+     * @return the random string
+     * @throws IllegalArgumentException if {@code count} &lt; 0
      * @since 3.5
      * @since 3.16.0
      */
@@ -982,9 +982,9 @@ public class RandomStringUtils {
      * Characters will be chosen from the set of \p{Print} characters.
      * </p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate.
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate.
-     * @return the random string.
+     * @param minLengthInclusive the inclusive minimum length of the string to generate
+     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @return the random string
      * @since 3.16.0
      */
     public String nextPrint(final int minLengthInclusive, final int maxLengthExclusive) {
@@ -994,7 +994,7 @@ public class RandomStringUtils {
     /**
      * Gets the Random.
      *
-     * @return the Random.
+     * @return the Random
      */
     private Random random() {
         return randomUtils().random();
@@ -1003,7 +1003,7 @@ public class RandomStringUtils {
     /**
      * Gets the RandomUtils.
      *
-     * @return the RandomUtils.
+     * @return the RandomUtils
      */
     private RandomUtils randomUtils() {
         return random.get();

@@ -245,8 +245,8 @@ public class CharUtils {
      *   CharUtils.isHex('&copy;') = false
      * </pre>
      *
-     * @param ch  the character to test.
-     * @return true if character is a hexadecimal character.
+     * @param ch  the character to test
+     * @return true if character is a hexadecimal character
      * @since 3.18.0
      */
     public static boolean isHex(final char ch) {
@@ -311,8 +311,8 @@ public class CharUtils {
      *
      * @param str  the character to convert
      * @return the char value of the first letter of the String
-     * @throws NullPointerException if the string is null
      * @throws IllegalArgumentException if the String is empty
+     * @throws NullPointerException if the string is null
      */
     public static char toChar(final String str) {
         Validate.notEmpty(str, "The String must not be empty");
@@ -342,7 +342,7 @@ public class CharUtils {
      * Delegates to {@link Character#valueOf(char)}.
      *
      * @param c the character to convert
-     * @return a {@code Character} representing {@code c}.
+     * @return a {@code Character} representing {@code c}
      * @deprecated Use {@link Character#valueOf(char)}.
      */
     @Deprecated
@@ -426,8 +426,8 @@ public class CharUtils {
      *
      * @param ch  the character to convert, not null
      * @return the int value of the character
-     * @throws NullPointerException if the Character is null
      * @throws IllegalArgumentException if the Character is not ASCII numeric
+     * @throws NullPointerException if the Character is null
      */
     public static int toIntValue(final Character ch) {
         return toIntValue(toChar(ch));

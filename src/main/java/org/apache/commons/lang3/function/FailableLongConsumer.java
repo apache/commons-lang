@@ -23,21 +23,21 @@ import java.util.function.LongConsumer;
 /**
  * A functional interface like {@link LongConsumer} that declares a {@link Throwable}.
  *
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableLongConsumer<E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableLongConsumer NOP = t -> { /* NOP */ };
 
     /**
      * Gets the NOP singleton.
      *
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <E extends Throwable> FailableLongConsumer<E> nop() {
@@ -48,15 +48,15 @@ public interface FailableLongConsumer<E extends Throwable> {
      * Accepts the given arguments.
      *
      * @param object the parameter for the consumable to accept
-     * @throws E Thrown when the consumer fails.
+     * @throws E thrown when the consumer fails
      */
     void accept(long object) throws E;
 
     /**
      * Returns a composed {@link FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}.
      *
-     * @param after the operation to perform after this one.
-     * @return a composed {@link FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}.
+     * @param after the operation to perform after this one
+     * @return a composed {@link FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}
      * @throws NullPointerException if {@code after} is null
      */
     default FailableLongConsumer<E> andThen(final FailableLongConsumer<E> after) {

@@ -23,13 +23,13 @@ import java.util.function.ToIntFunction;
  * A functional interface like {@link ToIntFunction} that declares a {@link Throwable}.
  *
  * @param <T> the type of the argument to the function
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableToIntFunction<T, E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableToIntFunction NOP = t -> 0;
 
@@ -37,8 +37,8 @@ public interface FailableToIntFunction<T, E extends Throwable> {
      * Gets the NOP singleton.
      *
      * @param <T> the type of the argument to the function
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, E extends Throwable> FailableToIntFunction<T, E> nop() {
@@ -50,7 +50,7 @@ public interface FailableToIntFunction<T, E extends Throwable> {
      *
      * @param t the first function argument
      * @return the function result
-     * @throws E Thrown when the function fails.
+     * @throws E thrown when the function fails
      */
     int applyAsInt(T t) throws E;
 }

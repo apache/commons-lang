@@ -24,27 +24,27 @@ import java.util.function.Function;
 /**
  * A functional interface like {@link BiFunction} that declares a {@link Throwable}.
  *
- * @param <T> Input type 1.
- * @param <U> Input type 2.
- * @param <R> Return type.
- * @param <E> The kind of thrown exception or error.
+ * @param <T> input type 1
+ * @param <U> input type 2
+ * @param <R> return type
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableBiFunction<T, U, R, E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableBiFunction NOP = (t, u) -> null;
 
     /**
      * Gets the NOP singleton.
      *
-     * @param <T> Consumed type 1.
-     * @param <U> Consumed type 2.
-     * @param <R> Return type.
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <T> consumed type 1
+     * @param <U> consumed type 2
+     * @param <R> return type
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> nop() {
@@ -54,10 +54,10 @@ public interface FailableBiFunction<T, U, R, E extends Throwable> {
     /**
      * Returns a composed {@link FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
      *
-     * @param <V> the output type of the {@code after} function, and of the composed function.
-     * @param after the operation to perform after this one.
-     * @return a composed {@link FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
-     * @throws NullPointerException when {@code after} is null.
+     * @param <V> the output type of the {@code after} function, and of the composed function
+     * @param after the operation to perform after this one
+     * @return a composed {@link FailableBiFunction} that like {@link BiFunction#andThen(Function)}
+     * @throws NullPointerException when {@code after} is null
      */
     default <V> FailableBiFunction<T, U, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
         Objects.requireNonNull(after);
@@ -70,7 +70,7 @@ public interface FailableBiFunction<T, U, R, E extends Throwable> {
      * @param input1 the first input for the function
      * @param input2 the second input for the function
      * @return the result of the function
-     * @throws E Thrown when the function fails.
+     * @throws E thrown when the function fails
      */
     R apply(T input1, U input2) throws E;
 }

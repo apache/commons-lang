@@ -73,9 +73,9 @@ public class MethodUtils {
      * Computes the aggregate number of inheritance hops between assignable argument class types.  Returns -1
      * if the arguments aren't assignable.  Fills a specific purpose for getMatchingMethod and is not generalized.
      *
-     * @param fromClassArray the Class array to calculate the distance from.
-     * @param toClassArray the Class array to calculate the distance to.
-     * @return the aggregate number of inheritance hops between assignable argument class types.
+     * @param fromClassArray the Class array to calculate the distance from
+     * @param toClassArray the Class array to calculate the distance to
+     * @return the aggregate number of inheritance hops between assignable argument class types
      */
     private static int distance(final Class<?>[] fromClassArray, final Class<?>[] toClassArray) {
         int answer = 0;
@@ -102,9 +102,9 @@ public class MethodUtils {
      * Gets an accessible method (that is, one that can be invoked via reflection) that implements the specified Method. If no such method can be found, return
      * {@code null}.
      *
-     * @param cls The implementing class, may be null.
-     * @param method The method that we wish to call, may be null.
-     * @return The accessible method or null.
+     * @param cls the implementing class, may be null
+     * @param method the method that we wish to call, may be null
+     * @return the accessible method or null
      * @since 3.19.0
      */
     public static Method getAccessibleMethod(final Class<?> cls, final Method method) {
@@ -127,10 +127,10 @@ public class MethodUtils {
      * Gets an accessible method (that is, one that can be invoked via reflection) with given name and parameters. If no such method can be found, return
      * {@code null}. This is just a convenience wrapper for {@link #getAccessibleMethod(Method)}.
      *
-     * @param cls            get method from this class.
-     * @param methodName     get method with this name.
-     * @param parameterTypes with these parameters types.
-     * @return The accessible method.
+     * @param cls            get method from this class
+     * @param methodName     get method with this name
+     * @param parameterTypes with these parameters types
+     * @return the accessible method
      */
     public static Method getAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
         return getAccessibleMethod(getMethodObject(cls, methodName, parameterTypes));
@@ -140,8 +140,8 @@ public class MethodUtils {
      * Gets an accessible method (that is, one that can be invoked via reflection) that implements the specified Method. If no such method can be found, return
      * {@code null}.
      *
-     * @param method The method that we wish to call, may be null.
-     * @return The accessible method
+     * @param method the method that we wish to call, may be null
+     * @return the accessible method
      */
     public static Method getAccessibleMethod(final Method method) {
         return method != null ? getAccessibleMethod(method.getDeclaringClass(), method) : null;
@@ -159,10 +159,10 @@ public class MethodUtils {
      * call this rather than the higher level methods.
      * </p>
      *
-     * @param cls Parent class for the interfaces to be checked.
-     * @param methodName Method name of the method we wish to call.
-     * @param parameterTypes The parameter type signatures.
-     * @return the accessible method or {@code null} if not found.
+     * @param cls parent class for the interfaces to be checked
+     * @param methodName method name of the method we wish to call
+     * @param parameterTypes the parameter type signatures
+     * @return the accessible method or {@code null} if not found
      */
     private static Method getAccessibleMethodFromInterfaceNest(Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
         // Search up the superclass chain
@@ -197,10 +197,10 @@ public class MethodUtils {
      * reflection) by scanning through the superclasses. If no such method
      * can be found, return {@code null}.
      *
-     * @param cls Class to be checked.
-     * @param methodName Method name of the method we wish to call.
-     * @param parameterTypes The parameter type signatures.
-     * @return the accessible method or {@code null} if not found.
+     * @param cls class to be checked
+     * @param methodName method name of the method we wish to call
+     * @param parameterTypes the parameter type signatures
+     * @return the accessible method or {@code null} if not found
      */
     private static Method getAccessibleMethodFromSuperclass(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
         Class<?> parentClass = cls.getSuperclass();
@@ -217,8 +217,8 @@ public class MethodUtils {
      * Gets a combination of {@link ClassUtils#getAllSuperclasses(Class)} and {@link ClassUtils#getAllInterfaces(Class)}, one from superclasses, one from
      * interfaces, and so on in a breadth first way.
      *
-     * @param cls the class to look up, may be {@code null}.
-     * @return the combined {@link List} of superclasses and interfaces in order going up from this one {@code null} if null input.
+     * @param cls the class to look up, may be {@code null}
+     * @return the combined {@link List} of superclasses and interfaces in order going up from this one {@code null} if null input
      */
     private static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls) {
         if (cls == null) {
@@ -250,15 +250,15 @@ public class MethodUtils {
      * silently ignored.
      * </p>
      *
-     * @param <A>           the annotation type.
-     * @param method        the {@link Method} to query, may be null.
-     * @param annotationCls the {@link Annotation} to check if is present on the method.
+     * @param <A>           the annotation type
+     * @param method        the {@link Method} to query, may be null
+     * @param annotationCls the {@link Annotation} to check if is present on the method
      * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class is performed if the annotation was not directly
-     *                      present.
-     * @param ignoreAccess  determines if underlying method has to be accessible.
-     * @return the first matching annotation, or {@code null} if not found.
-     * @throws NullPointerException if either the method or annotation class is {@code null}.
-     * @throws SecurityException    if an underlying accessible object's method denies the request.
+     *                      present
+     * @param ignoreAccess  determines if underlying method has to be accessible
+     * @return the first matching annotation, or {@code null} if not found
+     * @throws NullPointerException if either the method or annotation class is {@code null}
+     * @throws SecurityException    if an underlying accessible object's method denies the request
      * @see SecurityManager#checkPermission
      * @since 3.6
      */
@@ -309,11 +309,11 @@ public class MethodUtils {
      * This method can match primitive parameter by passing in wrapper classes. For example, a {@link Boolean} will match a primitive {@code boolean} parameter.
      * </p>
      *
-     * @param cls            find method in this class.
-     * @param methodName     find method with this name.
-     * @param requestTypes find method with most compatible parameters.
-     * @return The accessible method or null.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @param cls            find method in this class
+     * @param methodName     find method with this name
+     * @param requestTypes find method with most compatible parameters
+     * @return the accessible method or null
+     * @throws SecurityException if an underlying accessible object's method denies the request
      * @see SecurityManager#checkPermission
      */
     public static Method getMatchingAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... requestTypes) {
@@ -354,12 +354,12 @@ public class MethodUtils {
     /**
      * Gets a method whether or not it's accessible. If no such method can be found, return {@code null}.
      *
-     * @param cls            The class that will be subjected to the method search.
-     * @param methodName     The method that we wish to call.
-     * @param parameterTypes Argument class types.
-     * @throws IllegalStateException if there is no unique result.
-     * @throws NullPointerException  if the class is {@code null}.
-     * @return The method.
+     * @param cls            the class that will be subjected to the method search
+     * @param methodName     the method that we wish to call
+     * @param parameterTypes argument class types
+     * @return the method
+     * @throws IllegalStateException if there is no unique result
+     * @throws NullPointerException  if the class is {@code null}
      * @since 3.5
      */
     public static Method getMatchingMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
@@ -404,10 +404,10 @@ public class MethodUtils {
     /**
      * Gets a Method, or {@code null} if a checked {@link Class#getMethod(String, Class...) } exception is thrown.
      *
-     * @param cls            Receiver for {@link Class#getMethod(String, Class...)}.
-     * @param name           the name of the method.
-     * @param parameterTypes the list of parameters.
-     * @return a Method or {@code null}.
+     * @param cls            receiver for {@link Class#getMethod(String, Class...)}
+     * @param name           the name of the method
+     * @param parameterTypes the list of parameters
+     * @return a Method or {@code null}
      * @see SecurityManager#checkPermission
      * @see Class#getMethod(String, Class...)
      * @since 3.15.0
@@ -423,10 +423,10 @@ public class MethodUtils {
     /**
      * Gets all class level public methods of the given class that are annotated with the given annotation.
      *
-     * @param cls           the {@link Class} to query.
-     * @param annotationCls the {@link Annotation} that must be present on a method to be matched.
-     * @return a list of Methods (possibly empty).
-     * @throws NullPointerException if the class or annotation are {@code null}.
+     * @param cls           the {@link Class} to query
+     * @param annotationCls the {@link Annotation} that must be present on a method to be matched
+     * @return a list of Methods (possibly empty)
+     * @throws NullPointerException if the class or annotation are {@code null}
      * @since 3.4
      */
     public static List<Method> getMethodsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
@@ -436,12 +436,12 @@ public class MethodUtils {
     /**
      * Gets all methods of the given class that are annotated with the given annotation.
      *
-     * @param cls           the {@link Class} to query.
-     * @param annotationCls the {@link Annotation} that must be present on a method to be matched.
-     * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class should be performed.
-     * @param ignoreAccess  determines if non-public methods should be considered.
-     * @return a list of Methods (possibly empty).
-     * @throws NullPointerException if either the class or annotation class is {@code null}.
+     * @param cls           the {@link Class} to query
+     * @param annotationCls the {@link Annotation} that must be present on a method to be matched
+     * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class should be performed
+     * @param ignoreAccess  determines if non-public methods should be considered
+     * @return a list of Methods (possibly empty)
+     * @throws NullPointerException if either the class or annotation class is {@code null}
      * @since 3.6
      */
     public static List<Method> getMethodsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls, final boolean searchSupers,
@@ -461,9 +461,9 @@ public class MethodUtils {
     /**
      * Gets all class level public methods of the given class that are annotated with the given annotation.
      *
-     * @param cls           the {@link Class} to query.
-     * @param annotationCls the {@link java.lang.annotation.Annotation} that must be present on a method to be matched.
-     * @return an array of Methods (possibly empty).
+     * @param cls           the {@link Class} to query
+     * @param annotationCls the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
+     * @return an array of Methods (possibly empty)
      * @throws NullPointerException if the class or annotation are {@code null}
      * @since 3.4
      */
@@ -474,12 +474,12 @@ public class MethodUtils {
     /**
      * Gets all methods of the given class that are annotated with the given annotation.
      *
-     * @param cls           the {@link Class} to query.
-     * @param annotationCls the {@link java.lang.annotation.Annotation} that must be present on a method to be matched.
-     * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class should be performed.
-     * @param ignoreAccess  determines if non-public methods should be considered.
-     * @return an array of Methods (possibly empty).
-     * @throws NullPointerException if the class or annotation are {@code null}.
+     * @param cls           the {@link Class} to query
+     * @param annotationCls the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
+     * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class should be performed
+     * @param ignoreAccess  determines if non-public methods should be considered
+     * @return an array of Methods (possibly empty)
+     * @throws NullPointerException if the class or annotation are {@code null}
      * @since 3.6
      */
     public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls, final boolean searchSupers,
@@ -490,11 +490,11 @@ public class MethodUtils {
     /**
      * Gets the hierarchy of overridden methods down to {@code result} respecting generics.
      *
-     * @param method lowest to consider.
-     * @param interfacesBehavior whether to search interfaces, {@code null} {@code implies} false.
-     * @return a {@code Set<Method>} in ascending order from subclass to superclass.
-     * @throws NullPointerException if the specified method is {@code null}.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @param method lowest to consider
+     * @param interfacesBehavior whether to search interfaces, {@code null} {@code implies} false
+     * @return a {@code Set<Method>} in ascending order from subclass to superclass
+     * @throws NullPointerException if the specified method is {@code null}
+     * @throws SecurityException if an underlying accessible object's method denies the request
      * @see SecurityManager#checkPermission
      * @since 3.2
      */
@@ -539,21 +539,21 @@ public class MethodUtils {
      * This uses reflection to invoke the method obtained from a call to {@link #getAccessibleMethod(Class, String, Class[])}.
      * </p>
      *
-     * @param object     invoke method on this object.
-     * @param methodName get method with this name.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
-     * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param object     invoke method on this object
+     * @param methodName get method with this name
+     * @return the value returned by the invoked method
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
      *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
      *                                     <li>the number of actual and formal parameters differ;</li>
      *                                     </ul>
-     * @throws InvocationTargetException   Thrown if the underlying method throws an exception.
-     * @throws NullPointerException        Thrown if the specified {@code object} is null.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
+     * @throws InvocationTargetException   thrown if the underlying method throws an exception
+     * @throws NoSuchMethodException       thrown if there is no such accessible method
+     * @throws NullPointerException        thrown if the specified {@code object} is null
      * @since 3.4
      */
     public static Object invokeExactMethod(final Object object, final String methodName)
@@ -568,14 +568,14 @@ public class MethodUtils {
      * This uses reflection to invoke the method obtained from a call to {@link #getAccessibleMethod(Class, String, Class[])}.
      * </p>
      *
-     * @param object     invoke method on this object.
-     * @param methodName get method with this name.
-     * @param args       use these arguments - treat null as empty array.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
-     * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param object     invoke method on this object
+     * @param methodName get method with this name
+     * @param args       use these arguments - treat null as empty array
+     * @return the value returned by the invoked method
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
      *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
@@ -584,9 +584,9 @@ public class MethodUtils {
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion.</li>
      *                                     </ul>
-     * @throws InvocationTargetException   Thrown if the underlying method throws an exception.
-     * @throws NullPointerException        Thrown if the specified {@code object} is null.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
+     * @throws InvocationTargetException   thrown if the underlying method throws an exception
+     * @throws NoSuchMethodException       thrown if there is no such accessible method
+     * @throws NullPointerException        thrown if the specified {@code object} is null
      */
     public static Object invokeExactMethod(final Object object, final String methodName, final Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -601,15 +601,15 @@ public class MethodUtils {
      * This uses reflection to invoke the method obtained from a call to {@link #getAccessibleMethod(Class, String, Class[])}.
      * </p>
      *
-     * @param object         Invokes a method on this object.
-     * @param methodName     Gets a method with this name.
-     * @param args           Method arguments - treat null as empty array.
-     * @param parameterTypes Match these parameters - treat {@code null} as empty array.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
-     * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param object         invokes a method on this object
+     * @param methodName     gets a method with this name
+     * @param args           method arguments - treat null as empty array
+     * @param parameterTypes match these parameters - treat {@code null} as empty array
+     * @return the value returned by the invoked method
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
      *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
@@ -618,9 +618,9 @@ public class MethodUtils {
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion.</li>
      *                                     </ul>
-     * @throws InvocationTargetException   Thrown if the underlying method throws an exception.
-     * @throws NullPointerException        Thrown if the specified {@code object} is null.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
+     * @throws InvocationTargetException   thrown if the underlying method throws an exception
+     * @throws NoSuchMethodException       thrown if there is no such accessible method
+     * @throws NullPointerException        thrown if the specified {@code object} is null
      */
     public static Object invokeExactMethod(final Object object, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -638,14 +638,14 @@ public class MethodUtils {
      * This uses reflection to invoke the method obtained from a call to {@link #getAccessibleMethod(Class, String, Class[])}.
      * </p>
      *
-     * @param cls        invoke static method on this class.
-     * @param methodName get method with this name.
-     * @param args       use these arguments - treat {@code null} as empty array.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
-     * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param cls        invoke static method on this class
+     * @param methodName get method with this name
+     * @param args       use these arguments - treat {@code null} as empty array
+     * @return the value returned by the invoked method
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
      *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
@@ -654,8 +654,8 @@ public class MethodUtils {
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion.</li>
      *                                     </ul>
-     * @throws InvocationTargetException   Thrown if the underlying method throws an exception.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
+     * @throws InvocationTargetException   thrown if the underlying method throws an exception
+     * @throws NoSuchMethodException       thrown if there is no such accessible method
      */
     public static Object invokeExactStaticMethod(final Class<?> cls, final String methodName, final Object... args)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -670,15 +670,15 @@ public class MethodUtils {
      * This uses reflection to invoke the method obtained from a call to {@link #getAccessibleMethod(Class, String, Class[])}.
      * </p>
      *
-     * @param cls            invoke static method on this class.
-     * @param methodName     get method with this name.
-     * @param args           use these arguments - treat {@code null} as empty array.
-     * @param parameterTypes match these parameters - treat {@code null} as empty array.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
-     * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param cls            invoke static method on this class
+     * @param methodName     get method with this name
+     * @param args           use these arguments - treat {@code null} as empty array
+     * @param parameterTypes match these parameters - treat {@code null} as empty array
+     * @return the value returned by the invoked method
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
      *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
@@ -687,8 +687,8 @@ public class MethodUtils {
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion.</li>
      *                                     </ul>
-     * @throws InvocationTargetException   Thrown if the underlying method throws an exception.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
+     * @throws InvocationTargetException   thrown if the underlying method throws an exception
+     * @throws NoSuchMethodException       thrown if there is no such accessible method
      */
     public static Object invokeExactStaticMethod(final Class<?> cls, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -706,14 +706,14 @@ public class MethodUtils {
      * {@link #invokeMethod(Object object, boolean forceAccess, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
-     * @param object invoke method on this object.
-     * @param forceAccess force access to invoke method even if it's not accessible.
-     * @param methodName get method with this name.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
-     * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param object invoke method on this object
+     * @param forceAccess force access to invoke method even if it's not accessible
+     * @param methodName get method with this name
+     * @return the value returned by the invoked method
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
      *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
@@ -722,9 +722,9 @@ public class MethodUtils {
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion.</li>
      *                                     </ul>
-     * @throws InvocationTargetException   Thrown if the underlying method throws an exception.
-     * @throws NullPointerException        Thrown if the specified {@code object} is null.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
+     * @throws InvocationTargetException   thrown if the underlying method throws an exception
+     * @throws NoSuchMethodException       thrown if there is no such accessible method
+     * @throws NullPointerException        thrown if the specified {@code object} is null
      * @see SecurityManager#checkPermission
      * @since 3.5
      */
@@ -746,15 +746,15 @@ public class MethodUtils {
      * {@link #invokeMethod(Object object, boolean forceAccess, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
-     * @param object invoke method on this object.
-     * @param forceAccess force access to invoke method even if it's not accessible.
-     * @param methodName get method with this name.
-     * @param args use these arguments - treat null as empty array.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
-     * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param object invoke method on this object
+     * @param forceAccess force access to invoke method even if it's not accessible
+     * @param methodName get method with this name
+     * @param args use these arguments - treat null as empty array
+     * @return the value returned by the invoked method
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
      *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
@@ -763,9 +763,9 @@ public class MethodUtils {
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion.</li>
      *                                     </ul>
-     * @throws InvocationTargetException   Thrown if the underlying method throws an exception.
-     * @throws NullPointerException        Thrown if the specified {@code object} is null.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
+     * @throws InvocationTargetException   thrown if the underlying method throws an exception
+     * @throws NoSuchMethodException       thrown if there is no such accessible method
+     * @throws NullPointerException        thrown if the specified {@code object} is null
      * @see SecurityManager#checkPermission
      * @since 3.5
      */
@@ -784,16 +784,16 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.
      * </p>
      *
-     * @param object invoke method on this object.
-     * @param forceAccess force access to invoke method even if it's not accessible.
-     * @param methodName get method with this name.
-     * @param args use these arguments - treat null as empty array.
-     * @param parameterTypes match these parameters - treat null as empty array.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
-     * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param object invoke method on this object
+     * @param forceAccess force access to invoke method even if it's not accessible
+     * @param methodName get method with this name
+     * @param args use these arguments - treat null as empty array
+     * @param parameterTypes match these parameters - treat null as empty array
+     * @return the value returned by the invoked method
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
      *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
@@ -802,9 +802,9 @@ public class MethodUtils {
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion.</li>
      *                                     </ul>
-     * @throws InvocationTargetException   Thrown if the underlying method throws an exception.
-     * @throws NullPointerException        Thrown if the specified {@code object} is null.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
+     * @throws InvocationTargetException   thrown if the underlying method throws an exception
+     * @throws NoSuchMethodException       thrown if there is no such accessible method
+     * @throws NullPointerException        thrown if the specified {@code object} is null
      * @see SecurityManager#checkPermission
      * @since 3.5
      */
@@ -828,13 +828,13 @@ public class MethodUtils {
      * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
-     * @param object invoke method on this object.
-     * @param methodName get method with this name.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException if there is no such accessible method.
-     * @throws InvocationTargetException wraps an exception thrown by the method invoked.
-     * @throws IllegalAccessException if the requested method is not accessible via reflection.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @param object invoke method on this object
+     * @param methodName get method with this name
+     * @return the value returned by the invoked method
+     * @throws IllegalAccessException if the requested method is not accessible via reflection
+     * @throws InvocationTargetException wraps an exception thrown by the method invoked
+     * @throws NoSuchMethodException if there is no such accessible method
+     * @throws SecurityException if an underlying accessible object's method denies the request
      * @see SecurityManager#checkPermission
      * @since 3.4
      */
@@ -859,15 +859,15 @@ public class MethodUtils {
      * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
-     * @param object invoke method on this object.
-     * @param methodName get method with this name.
-     * @param args use these arguments - treat null as empty array.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException if there is no such accessible method.
-     * @throws InvocationTargetException wraps an exception thrown by the method invoked.
-     * @throws IllegalAccessException if the requested method is not accessible via reflection.
-     * @throws NullPointerException if the object or method name are {@code null}.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @param object invoke method on this object
+     * @param methodName get method with this name
+     * @param args use these arguments - treat null as empty array
+     * @return the value returned by the invoked method
+     * @throws IllegalAccessException if the requested method is not accessible via reflection
+     * @throws InvocationTargetException wraps an exception thrown by the method invoked
+     * @throws NoSuchMethodException if there is no such accessible method
+     * @throws NullPointerException if the object or method name are {@code null}
+     * @throws SecurityException if an underlying accessible object's method denies the request
      * @see SecurityManager#checkPermission
      */
     public static Object invokeMethod(final Object object, final String methodName, final Object... args)
@@ -888,15 +888,15 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.
      * </p>
      *
-     * @param object invoke method on this object.
-     * @param methodName get method with this name.
-     * @param args use these arguments - treat null as empty array.
-     * @param parameterTypes match these parameters - treat null as empty array.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
-     * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param object invoke method on this object
+     * @param methodName get method with this name
+     * @param args use these arguments - treat null as empty array
+     * @param parameterTypes match these parameters - treat null as empty array
+     * @return the value returned by the invoked method
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
      *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
@@ -905,9 +905,9 @@ public class MethodUtils {
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion.</li>
      *                                     </ul>
-     * @throws InvocationTargetException   Thrown if the underlying method throws an exception.
-     * @throws NullPointerException        Thrown if the specified {@code object} is null.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
+     * @throws InvocationTargetException   thrown if the underlying method throws an exception
+     * @throws NoSuchMethodException       thrown if there is no such accessible method
+     * @throws NullPointerException        thrown if the specified {@code object} is null
      * @see SecurityManager#checkPermission
      */
     public static Object invokeMethod(final Object object, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
@@ -931,14 +931,14 @@ public class MethodUtils {
      * {@link #invokeStaticMethod(Class, String, Object[], Class[])}.
      * </p>
      *
-     * @param cls invoke static method on this class.
-     * @param methodName get method with this name.
-     * @param args use these arguments - treat {@code null} as empty array.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
-     * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param cls invoke static method on this class
+     * @param methodName get method with this name
+     * @param args use these arguments - treat {@code null} as empty array
+     * @return the value returned by the invoked method
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
      *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
@@ -947,8 +947,8 @@ public class MethodUtils {
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion.</li>
      *                                     </ul>
-     * @throws InvocationTargetException   Thrown if the underlying method throws an exception.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
+     * @throws InvocationTargetException   thrown if the underlying method throws an exception
+     * @throws NoSuchMethodException       thrown if there is no such accessible method
      * @see SecurityManager#checkPermission
      */
     public static Object invokeStaticMethod(final Class<?> cls, final String methodName, final Object... args)
@@ -969,15 +969,15 @@ public class MethodUtils {
      * would match a {@code boolean} primitive.
      * </p>
      *
-     * @param cls invoke static method on this class.
-     * @param methodName get method with this name.
-     * @param args use these arguments - treat {@code null} as empty array.
-     * @param parameterTypes match these parameters - treat {@code null} as empty array.
-     * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
-     * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if:
+     * @param cls invoke static method on this class
+     * @param methodName get method with this name
+     * @param args use these arguments - treat {@code null} as empty array
+     * @param parameterTypes match these parameters - treat {@code null} as empty array
+     * @return the value returned by the invoked method
+     * @throws ExceptionInInitializerError thrown if the initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if:
      *                                     <ul>
      *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
      *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
@@ -986,8 +986,8 @@ public class MethodUtils {
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
      *                                     method invocation conversion.</li>
      *                                     </ul>
-     * @throws InvocationTargetException   Thrown if the underlying method throws an exception.
-     * @throws ExceptionInInitializerError Thrown if the initialization provoked by this method fails.
+     * @throws InvocationTargetException   thrown if the underlying method throws an exception
+     * @throws NoSuchMethodException       thrown if there is no such accessible method
      * @see SecurityManager#checkPermission
      */
     public static Object invokeStaticMethod(final Class<?> cls, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
@@ -1019,18 +1019,18 @@ public class MethodUtils {
      * We follow the <a href="https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html#jls-5.1.2">JLS 5.1.2. Widening Primitive Conversion</a> rules.
      * </p>
      *
-     * @param args                 the array of arguments passed to the varags method.
-     * @param methodParameterTypes the declared array of method parameter types.
-     * @return an array of the variadic arguments passed to the method.
-     * @throws NoSuchMethodException       Thrown if the constructor could not be found.
-     * @throws IllegalAccessException      Thrown if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if the number of actual and formal parameters differ; if an unwrapping conversion for primitive arguments
+     * @param args                 the array of arguments passed to the varags method
+     * @param methodParameterTypes the declared array of method parameter types
+     * @return an array of the variadic arguments passed to the method
+     * @throws ExceptionInInitializerError thrown if an initialization provoked by this method fails
+     * @throws IllegalAccessException      thrown if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is
+     *                                     inaccessible
+     * @throws IllegalArgumentException    thrown if the number of actual and formal parameters differ; if an unwrapping conversion for primitive arguments
      *                                     fails; or if, after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter
-     *                                     type by a method invocation conversion; if this constructor pertains to an enum type.
-     * @throws InstantiationException      Thrown if a class that declares the underlying constructor represents an abstract class.
-     * @throws InvocationTargetException   Thrown if an underlying constructor throws an exception.
-     * @throws ExceptionInInitializerError Thrown if an initialization provoked by this method fails.
+     *                                     type by a method invocation conversion; if this constructor pertains to an enum type
+     * @throws InstantiationException      thrown if a class that declares the underlying constructor represents an abstract class
+     * @throws InvocationTargetException   thrown if an underlying constructor throws an exception
+     * @throws NoSuchMethodException       thrown if the constructor could not be found
      * @see <a href="https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html#jls-5.1.2">JLS 5.1.2. Widening Primitive Conversion</a>
      */
     private static Object[] toVarArgs(final Object[] args, final Class<?>[] methodParameterTypes)

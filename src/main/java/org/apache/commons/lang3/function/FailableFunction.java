@@ -23,25 +23,25 @@ import java.util.function.Function;
 /**
  * A functional interface like {@link Function} that declares a {@link Throwable}.
  *
- * @param <T> Input type 1.
- * @param <R> Return type.
- * @param <E> The type of thrown exception or error.
+ * @param <T> input type 1
+ * @param <R> return type
+ * @param <E> the type of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableFunction<T, R, E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableFunction NOP = t -> null;
 
     /**
      * Starts a fluent chain like {@code function(foo::bar).andThen(...).andThen(...).apply(...);}
      *
-     * @param <T> Input type.
-     * @param <R> Return type.
-     * @param <E> The type of thrown exception or error.
-     * @param function   the argument to return.
+     * @param <T> input type
+     * @param <R> return type
+     * @param <E> the type of thrown exception or error
+     * @param function   the argument to return
      * @return the argument
      * @since 3.14.0
      */
@@ -53,7 +53,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * Returns a function that always returns its input argument.
      *
      * @param <T> the type of the input and output objects to the function
-     * @param <E> The type of thrown exception or error.
+     * @param <E> the type of thrown exception or error
      * @return a function that always returns its input argument
      */
     static <T, E extends Throwable> FailableFunction<T, T, E> identity() {
@@ -63,10 +63,10 @@ public interface FailableFunction<T, R, E extends Throwable> {
     /**
      * Gets the NOP singleton.
      *
-     * @param <T> Consumed type.
-     * @param <R> Return type.
-     * @param <E> The type of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <T> consumed type
+     * @param <R> return type
+     * @param <E> the type of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, R, E extends Throwable> FailableFunction<T, R, E> nop() {
@@ -76,10 +76,10 @@ public interface FailableFunction<T, R, E extends Throwable> {
     /**
      * Returns a composed {@link FailableFunction} like {@link Function#andThen(Function)}.
      *
-     * @param <V> the output type of the {@code after} function, and of the composed function.
-     * @return a composed {@link FailableFunction} like {@link Function#andThen(Function)}.
-     * @param after the operation to perform after this one.
-     * @throws NullPointerException when {@code after} is null.
+     * @param <V> the output type of the {@code after} function, and of the composed function
+     * @param after the operation to perform after this one
+     * @return a composed {@link FailableFunction} like {@link Function#andThen(Function)}
+     * @throws NullPointerException when {@code after} is null
      */
     default <V> FailableFunction<T, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
         Objects.requireNonNull(after);
@@ -91,17 +91,17 @@ public interface FailableFunction<T, R, E extends Throwable> {
      *
      * @param input the input for the function
      * @return the result of the function
-     * @throws E Thrown when the function fails.
+     * @throws E thrown when the function fails
      */
     R apply(T input) throws E;
 
     /**
      * Returns a composed {@link FailableFunction} like {@link Function#compose(Function)}.
      *
-     * @param <V> the input type to the {@code before} function, and to the composed function.
-     * @param before the operator to apply before this one.
-     * @return a composed {@link FailableFunction} like {@link Function#compose(Function)}.
-     * @throws NullPointerException if before is null.
+     * @param <V> the input type to the {@code before} function, and to the composed function
+     * @param before the operator to apply before this one
+     * @return a composed {@link FailableFunction} like {@link Function#compose(Function)}
+     * @throws NullPointerException if before is null
      * @see #andThen(FailableFunction)
      */
     default <V> FailableFunction<V, R, E> compose(final FailableFunction<? super V, ? extends T, E> before) {

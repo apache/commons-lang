@@ -29,14 +29,14 @@ import java.util.function.IntConsumer;
 @FunctionalInterface
 public interface ByteConsumer {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     ByteConsumer NOP = t -> {
         /* NOP */ };
 
     /**
      * Gets the NOP singleton.
      *
-     * @return The NOP singleton.
+     * @return the NOP singleton
      */
     static ByteConsumer nop() {
         return NOP;

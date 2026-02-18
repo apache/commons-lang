@@ -76,7 +76,7 @@ import org.apache.commons.lang3.ObjectUtils;
  *
  * <p>A typical implementation of {@code compareTo(Object)} using
  * {@code reflectionCompare} looks like:</p>
-
+ *
  * <pre>
  * public int compareTo(Object o) {
  *   return CompareToBuilder.reflectionCompare(this, o);
@@ -151,10 +151,10 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand side object
      * @return a negative integer, zero, or a positive integer as {@code lhs}
      *  is less than, equal to, or greater than {@code rhs}
-     * @throws NullPointerException  if either (but not both) parameters are
-     *  {@code null}
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
+     * @throws NullPointerException  if either (but not both) parameters are
+     *  {@code null}
      */
     public static int reflectionCompare(final Object lhs, final Object rhs) {
         return reflectionCompare(lhs, rhs, false, null);
@@ -183,10 +183,10 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param compareTransients  whether to compare transient fields
      * @return a negative integer, zero, or a positive integer as {@code lhs}
      *  is less than, equal to, or greater than {@code rhs}
-     * @throws NullPointerException  if either {@code lhs} or {@code rhs}
-     *  (but not both) is {@code null}
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
+     * @throws NullPointerException  if either {@code lhs} or {@code rhs}
+     *  (but not both) is {@code null}
      */
     public static int reflectionCompare(final Object lhs, final Object rhs, final boolean compareTransients) {
         return reflectionCompare(lhs, rhs, compareTransients, null);
@@ -218,10 +218,10 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param excludeFields  fields to exclude
      * @return a negative integer, zero, or a positive integer as {@code lhs}
      *  is less than, equal to, or greater than {@code rhs}
-     * @throws NullPointerException  if either {@code lhs} or {@code rhs}
-     *  (but not both) is {@code null}
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
+     * @throws NullPointerException  if either {@code lhs} or {@code rhs}
+     *  (but not both) is {@code null}
      * @since 2.2 (2.0 as {@code reflectionCompare(Object, Object, boolean, Class)})
      */
     public static int reflectionCompare(
@@ -270,13 +270,13 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side object
      * @param rhs  right-hand side object
-     * @param excludeFields  Collection of String fields to exclude
+     * @param excludeFields  collection of String fields to exclude
      * @return a negative integer, zero, or a positive integer as {@code lhs}
      *  is less than, equal to, or greater than {@code rhs}
-     * @throws NullPointerException  if either {@code lhs} or {@code rhs}
-     *  (but not both) is {@code null}
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
+     * @throws NullPointerException  if either {@code lhs} or {@code rhs}
+     *  (but not both) is {@code null}
      * @since 2.2
      */
     public static int reflectionCompare(final Object lhs, final Object rhs, final Collection<String> excludeFields) {
@@ -306,10 +306,10 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param excludeFields  array of fields to exclude
      * @return a negative integer, zero, or a positive integer as {@code lhs}
      *  is less than, equal to, or greater than {@code rhs}
-     * @throws NullPointerException  if either {@code lhs} or {@code rhs}
-     *  (but not both) is {@code null}
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
+     * @throws NullPointerException  if either {@code lhs} or {@code rhs}
+     *  (but not both) is {@code null}
      * @since 2.2
      */
     public static int reflectionCompare(final Object lhs, final Object rhs, final String... excludeFields) {
@@ -338,8 +338,8 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return {@code this} instance.
-      */
+     * @return {@code this} instance
+     */
     public CompareToBuilder append(final boolean lhs, final boolean rhs) {
         if (comparison != 0) {
             return this;
@@ -368,7 +368,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final boolean[] lhs, final boolean[] rhs) {
         if (comparison != 0) {
@@ -401,7 +401,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final byte lhs, final byte rhs) {
         if (comparison != 0) {
@@ -424,7 +424,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final byte[] lhs, final byte[] rhs) {
         if (comparison != 0) {
@@ -457,7 +457,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final char lhs, final char rhs) {
         if (comparison != 0) {
@@ -480,7 +480,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final char[] lhs, final char[] rhs) {
         if (comparison != 0) {
@@ -518,7 +518,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final double lhs, final double rhs) {
         if (comparison != 0) {
@@ -541,7 +541,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final double[] lhs, final double[] rhs) {
         if (comparison != 0) {
@@ -579,7 +579,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final float lhs, final float rhs) {
         if (comparison != 0) {
@@ -602,7 +602,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final float[] lhs, final float[] rhs) {
         if (comparison != 0) {
@@ -635,7 +635,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final int lhs, final int rhs) {
         if (comparison != 0) {
@@ -658,7 +658,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final int[] lhs, final int[] rhs) {
         if (comparison != 0) {
@@ -691,7 +691,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final long lhs, final long rhs) {
         if (comparison != 0) {
@@ -714,7 +714,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final long[] lhs, final long[] rhs) {
         if (comparison != 0) {
@@ -756,7 +756,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side object
      * @param rhs  right-hand side object
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      */
@@ -784,7 +784,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param rhs  right-hand side object
      * @param comparator  {@link Comparator} used to compare the objects,
      *  {@code null} means treat lhs as {@link Comparable}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      * @since 2.0
@@ -836,7 +836,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      */
@@ -861,8 +861,8 @@ public class CompareToBuilder implements Builder<Integer> {
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
      * @param comparator  {@link Comparator} to use to compare the array elements,
-     *  {@code null} means to treat {@code lhs} elements as {@link Comparable}.
-     * @return {@code this} instance.
+     *  {@code null} means to treat {@code lhs} elements as {@link Comparable}
+     * @return {@code this} instance
      * @throws ClassCastException  if {@code rhs} is not assignment-compatible
      *  with {@code lhs}
      * @since 2.0
@@ -898,7 +898,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side value
      * @param rhs  right-hand side value
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final short lhs, final short rhs) {
         if (comparison != 0) {
@@ -921,7 +921,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *
      * @param lhs  left-hand side array
      * @param rhs  right-hand side array
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public CompareToBuilder append(final short[] lhs, final short[] rhs) {
         if (comparison != 0) {
@@ -980,7 +980,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * result of the superclass.
      *
      * @param superCompareTo  result of calling {@code super.compareTo(Object)}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @since 2.0
      */
     public CompareToBuilder appendSuper(final int superCompareTo) {
@@ -1019,4 +1019,3 @@ public class CompareToBuilder implements Builder<Integer> {
         return comparison;
     }
 }
-

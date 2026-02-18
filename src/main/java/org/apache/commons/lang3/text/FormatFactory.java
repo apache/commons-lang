@@ -33,11 +33,11 @@ public interface FormatFactory {
     /**
      * Create or retrieve a format instance.
      *
-     * @param name      The format type name.
-     * @param arguments Arguments used to create the format instance. This allows the {@link FormatFactory} to implement the "format style" concept from
+     * @param name      the format type name
+     * @param arguments arguments used to create the format instance. This allows the {@link FormatFactory} to implement the "format style" concept from
      *                  {@link java.text.MessageFormat}.
-     * @param locale    The locale, may be null.
-     * @return The format instance.
+     * @param locale    the locale, may be null
+     * @return the format instance
      */
     Format getFormat(String name, String arguments, Locale locale);
 }

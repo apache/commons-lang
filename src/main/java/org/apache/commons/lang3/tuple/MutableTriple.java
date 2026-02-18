@@ -23,9 +23,9 @@ import java.util.Objects;
  *
  * <p>Not #ThreadSafe#</p>
  *
- * @param <L> the left element type.
- * @param <M> the middle element type.
- * @param <R> the right element type.
+ * @param <L> the left element type
+ * @param <M> the middle element type
+ * @param <R> the right element type
  * @since 3.2
  */
 public class MutableTriple<L, M, R> extends Triple<L, M, R> {
@@ -40,16 +40,16 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      */
     public static final MutableTriple<?, ?, ?>[] EMPTY_ARRAY = {};
 
-    /** Serialization version */
+    /** Serialization version. */
     private static final long serialVersionUID = 1L;
 
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
-     * @return the empty array singleton that can be assigned without compiler warning.
+     * @param <L> the left element type
+     * @param <M> the middle element type
+     * @param <R> the right element type
+     * @return the empty array singleton that can be assigned without compiler warning
      * @since 3.10
      */
     @SuppressWarnings("unchecked")
@@ -60,13 +60,13 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Obtains a mutable triple of three objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
-     * @param left  the left element, may be null.
-     * @param middle  the middle element, may be null.
-     * @param right  the right element, may be null.
-     * @return a mutable triple formed from the three parameters, not null.
+     * @param <L> the left element type
+     * @param <M> the middle element type
+     * @param <R> the right element type
+     * @param left  the left element, may be null
+     * @param middle  the middle element, may be null
+     * @param right  the right element, may be null
+     * @return a mutable triple formed from the three parameters, not null
      */
     public static <L, M, R> MutableTriple<L, M, R> of(final L left, final M middle, final R right) {
         return new MutableTriple<>(left, middle, right);
@@ -75,14 +75,14 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Obtains a mutable triple of three non-null objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
-     * @param left  the left element, may not be null.
-     * @param middle  the middle element, may not be null.
-     * @param right  the right element, may not be null.
-     * @return a mutable triple formed from the three parameters, not null.
-     * @throws NullPointerException if any input is null.
+     * @param <L> the left element type
+     * @param <M> the middle element type
+     * @param <R> the right element type
+     * @param left  the left element, may not be null
+     * @param middle  the middle element, may not be null
+     * @param right  the right element, may not be null
+     * @return a mutable triple formed from the three parameters, not null
+     * @throws NullPointerException if any input is null
      * @since 3.13.0
      */
     public static <L, M, R> MutableTriple<L, M, R> ofNonNull(final L left, final M middle, final R right) {
@@ -107,9 +107,9 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Create a new triple instance.
      *
-     * @param left  the left value, may be null.
-     * @param middle  the middle value, may be null.
-     * @param right  the right value, may be null.
+     * @param left  the left value, may be null
+     * @param middle  the middle value, may be null
+     * @param right  the right value, may be null
      */
     public MutableTriple(final L left, final M middle, final R right) {
         this.left = left;
@@ -144,7 +144,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Sets the left element of the triple.
      *
-     * @param left  the new value of the left element, may be null.
+     * @param left the new value of the left element, may be null
      */
     public void setLeft(final L left) {
         this.left = left;
@@ -153,7 +153,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Sets the middle element of the triple.
      *
-     * @param middle  the new value of the middle element, may be null.
+     * @param middle the new value of the middle element, may be null
      */
     public void setMiddle(final M middle) {
         this.middle = middle;
@@ -162,10 +162,9 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Sets the right element of the triple.
      *
-     * @param right  the new value of the right element, may be null.
+     * @param right the new value of the right element, may be null
      */
     public void setRight(final R right) {
         this.right = right;
     }
 }
-

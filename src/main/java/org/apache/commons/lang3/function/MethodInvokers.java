@@ -75,10 +75,10 @@ public final class MethodInvokers {
      * to a fluent setter). You call the BiConsumer with two arguments: (1) the object receiving the method call, and (2)
      * the method argument.
      *
-     * @param <T> the type of the first argument to the operation: The type containing the Method.
-     * @param <U> the type of the second argument to the operation: The type of the method argument.
-     * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @param <T> the type of the first argument to the operation: The type containing the Method
+     * @param <U> the type of the second argument to the operation: The type of the method argument
+     * @param method the method to invoke
+     * @return a correctly-typed wrapper for the given target
      */
     @SuppressWarnings("unchecked")
     public static <T, U> BiConsumer<T, U> asBiConsumer(final Method method) {
@@ -99,11 +99,11 @@ public final class MethodInvokers {
      * assertEquals('C', function.apply("ABC", 2));
      * }</pre>
      *
-     * @param <T> the type of the first argument to the function: The type containing the method.
-     * @param <U> the type of the second argument to the function: the method argument type.
-     * @param <R> the type of the result of the function: The method return type.
-     * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @param <T> the type of the first argument to the function: The type containing the method
+     * @param <U> the type of the second argument to the function: the method argument type
+     * @param <R> the type of the result of the function: The method return type
+     * @param method the method to invoke
+     * @return a correctly-typed wrapper for the given target
      */
     @SuppressWarnings("unchecked")
     public static <T, U, R> BiFunction<T, U, R> asBiFunction(final Method method) {
@@ -115,10 +115,10 @@ public final class MethodInvokers {
      * opposed to a fluent setter). You call the FailableBiConsumer with two arguments: (1) the object receiving the method
      * call, and (2) the method argument.
      *
-     * @param <T> the type of the first argument to the operation: The type containing the Method.
-     * @param <U> the type of the second argument to the operation: The type of the method argument.
-     * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @param <T> the type of the first argument to the operation: The type containing the Method
+     * @param <U> the type of the second argument to the operation: The type of the method argument
+     * @param method the method to invoke
+     * @return a correctly-typed wrapper for the given target
      */
     @SuppressWarnings("unchecked")
     public static <T, U> FailableBiConsumer<T, U, Throwable> asFailableBiConsumer(final Method method) {
@@ -130,11 +130,11 @@ public final class MethodInvokers {
      * two arguments: (1) the object receiving the method call, and (2) the method argument. The BiFunction return type must
      * match the method's return type.
      *
-     * @param <T> the type of the first argument to the function: The type containing the method.
-     * @param <U> the type of the second argument to the function: the method argument type.
-     * @param <R> the type of the result of the function: The method return type.
-     * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @param <T> the type of the first argument to the function: The type containing the method
+     * @param <U> the type of the second argument to the function: the method argument type
+     * @param <R> the type of the result of the function: The method return type
+     * @param method the method to invoke
+     * @return a correctly-typed wrapper for the given target
      */
     @SuppressWarnings("unchecked")
     public static <T, U, R> FailableBiFunction<T, U, R, Throwable> asFailableBiFunction(final Method method) {
@@ -145,10 +145,10 @@ public final class MethodInvokers {
      * Produces a {@link FailableFunction} for a given a <em>supplier</em> Method. You call the Function with one argument:
      * the object receiving the method call. The FailableFunction return type must match the method's return type.
      *
-     * @param <T> the type of the first argument to the function: The type containing the method.
-     * @param <R> the type of the result of the function: The method return type.
-     * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @param <T> the type of the first argument to the function: The type containing the method
+     * @param <R> the type of the result of the function: The method return type
+     * @param method the method to invoke
+     * @return a correctly-typed wrapper for the given target
      */
     @SuppressWarnings("unchecked")
     public static <T, R> FailableFunction<T, R, Throwable> asFailableFunction(final Method method) {
@@ -162,9 +162,9 @@ public final class MethodInvokers {
      * Only works with static methods.
      * </p>
      *
-     * @param <R> The Method return type.
-     * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @param <R> the Method return type
+     * @param method the method to invoke
+     * @return a correctly-typed wrapper for the given target
      */
     @SuppressWarnings("unchecked")
     public static <R> FailableSupplier<R, Throwable> asFailableSupplier(final Method method) {
@@ -184,10 +184,10 @@ public final class MethodInvokers {
      * assertEquals(3, function.apply("ABC"));
      * }</pre>
      *
-     * @param <T> the type of the first argument to the function: The type containing the method.
-     * @param <R> the type of the result of the function: The method return type.
-     * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @param <T> the type of the first argument to the function: The type containing the method
+     * @param <R> the type of the result of the function: The method return type
+     * @param method the method to invoke
+     * @return a correctly-typed wrapper for the given target
      */
     @SuppressWarnings("unchecked")
     public static <T, R> Function<T, R> asFunction(final Method method) {
@@ -200,10 +200,10 @@ public final class MethodInvokers {
      * For the definition of "single-method", see {@link MethodHandleProxies#asInterfaceInstance(Class, MethodHandle)}.
      * </p>
      *
-     * @param <T> The interface type.
-     * @param interfaceClass a class object representing {@code T}.
-     * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @param <T> the interface type
+     * @param interfaceClass a class object representing {@code T}
+     * @param method the method to invoke
+     * @return a correctly-typed wrapper for the given target
      * @see MethodHandleProxies#asInterfaceInstance(Class, MethodHandle)
      */
     public static <T> T asInterfaceInstance(final Class<T> interfaceClass, final Method method) {
@@ -217,9 +217,9 @@ public final class MethodInvokers {
      * Only works with static methods.
      * </p>
      *
-     * @param <R> The Method return type.
-     * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @param <R> the Method return type
+     * @param method the method to invoke
+     * @return a correctly-typed wrapper for the given target
      */
     @SuppressWarnings("unchecked")
     public static <R> Supplier<R> asSupplier(final Method method) {
@@ -229,9 +229,9 @@ public final class MethodInvokers {
     /**
      * Throws NullPointerException if {@code method} is {@code null}.
      *
-     * @param method The method to test.
-     * @return The given method.
-     * @throws NullPointerException if {@code method} is {@code null}.
+     * @param method the method to test
+     * @return the given method
+     * @throws NullPointerException if {@code method} is {@code null}
      */
     private static Method requireMethod(final Method method) {
         return Objects.requireNonNull(method, "method");

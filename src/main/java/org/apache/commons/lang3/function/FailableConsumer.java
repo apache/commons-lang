@@ -29,22 +29,22 @@ import java.util.function.Function;
  * </p>
  *
  * @param <T> the type of the input to the operation
- * @param <E> Thrown exception type.
+ * @param <E> thrown exception type
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableConsumer<T, E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableConsumer NOP = Function.identity()::apply;
 
     /**
      * Gets the NOP singleton.
      *
-     * @param <T> Consumed type 1.
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <T> consumed type 1
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, E extends Throwable> FailableConsumer<T, E> nop() {
@@ -55,7 +55,7 @@ public interface FailableConsumer<T, E extends Throwable> {
      * Accepts the given arguments.
      *
      * @param object the parameter for the consumable to accept
-     * @throws E Thrown when the consumer fails.
+     * @throws E thrown when the consumer fails
      */
     void accept(T object) throws E;
 
@@ -63,7 +63,7 @@ public interface FailableConsumer<T, E extends Throwable> {
      * Returns a composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
      *
      * @param after the operation to perform after this operation
-     * @return a composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
+     * @return a composed {@link Consumer} like {@link Consumer#andThen(Consumer)}
      * @throws NullPointerException when {@code after} is null
      */
     default FailableConsumer<T, E> andThen(final FailableConsumer<? super T, E> after) {

@@ -100,7 +100,7 @@ public class DurationFormatUtils {
         private static final Token[] EMPTY_ARRAY = {};
 
         /**
-         * Helper method to determine if a set of tokens contain a value
+         * Helper method to determine if a set of tokens contain a value.
          *
          * @param tokens set to look in
          * @param value to look for
@@ -117,7 +117,7 @@ public class DurationFormatUtils {
         /**
          * Wraps a token around a value. A value would be something like a 'Y'.
          *
-         * @param value value to wrap, non-null.
+         * @param value value to wrap, non-null
          * @param optional whether the token is optional
          * @param optionalIndex the index of the optional token within the pattern
          */
@@ -132,7 +132,7 @@ public class DurationFormatUtils {
         /**
          * Supports equality of this Token to another Token.
          *
-         * @param obj2 Object to consider equality of
+         * @param obj2 object to consider equality of
          * @return boolean {@code true} if equal
          */
         @Override
@@ -157,7 +157,7 @@ public class DurationFormatUtils {
         }
 
         /**
-         * Gets the current number of values represented
+         * Gets the current number of values represented.
          *
          * @return int number of values represented
          */
@@ -168,7 +168,7 @@ public class DurationFormatUtils {
         /**
          * Gets the particular value this token represents.
          *
-         * @return Object value, non-null.
+         * @return object value, non-null
          */
         Object getValue() {
             return value;
@@ -179,7 +179,7 @@ public class DurationFormatUtils {
          * hash code for the token's value. Thus 'TT' and 'TTTT'
          * will have the same hash code.
          *
-         * @return The hash code for the token
+         * @return the hash code for the token
          */
         @Override
         public int hashCode() {
@@ -187,7 +187,7 @@ public class DurationFormatUtils {
         }
 
         /**
-         * Adds another one of the value
+         * Adds another one of the value.
          */
         void increment() {
             count++;
@@ -196,7 +196,7 @@ public class DurationFormatUtils {
         /**
          * Represents this token as a String.
          *
-         * @return String representation of the token
+         * @return string representation of the token
          */
         @Override
         public String toString() {
@@ -683,7 +683,7 @@ public class DurationFormatUtils {
     }
 
     /**
-     * Parses a classic date format string into Tokens
+     * Parses a classic date format string into Tokens.
      *
      * @param format  the format to parse, not null
      * @return array of Token[]

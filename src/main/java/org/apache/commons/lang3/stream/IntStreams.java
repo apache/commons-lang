@@ -31,8 +31,8 @@ public class IntStreams {
     /**
      * Null-safe version of {@link IntStream#of(int[])}.
      *
-     * @param values the elements of the new stream, may be {@code null}.
-     * @return the new stream on {@code values} or {@link IntStream#empty()}.
+     * @param values the elements of the new stream, may be {@code null}
+     * @return the new stream on {@code values} or {@link IntStream#empty()}
      * @since 3.18.0
      */
     @SafeVarargs // Creating a stream from an array is safe
@@ -43,8 +43,8 @@ public class IntStreams {
     /**
      * Shorthand for {@code IntStream.range(0, i)}.
      *
-     * @param endExclusive the exclusive upper bound.
-     * @return a sequential {@link IntStream} for the range of {@code int} elements.
+     * @param endExclusive the exclusive upper bound
+     * @return a sequential {@link IntStream} for the range of {@code int} elements
      */
     public static IntStream range(final int endExclusive) {
         return IntStream.range(0, endExclusive);
@@ -53,8 +53,8 @@ public class IntStreams {
     /**
      * Shorthand for {@code IntStream.rangeClosed(0, i)}.
      *
-     * @param endInclusive the inclusive upper bound.
-     * @return a sequential {@link IntStream} for the range of {@code int} elements.
+     * @param endInclusive the inclusive upper bound
+     * @return a sequential {@link IntStream} for the range of {@code int} elements
      */
     public static IntStream rangeClosed(final int endInclusive) {
         return IntStream.rangeClosed(0, endInclusive);

@@ -37,7 +37,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * An implementation throws {@link ConcurrentException} if an error occurred during initialization of the object.
  * </p>
  *
- * @param <T> the type of the object managed by this initializer class.
+ * @param <T> the type of the object managed by this initializer class
  * @since 3.0
  */
 public interface ConcurrentInitializer<T> extends FailableSupplier<T, ConcurrentException> {

@@ -45,10 +45,10 @@ public class CharSetUtils {
      * CharSetUtils.containsAny("hello", "a-d") = false
      * </pre>
      *
-     * @see CharSet#getInstance(String...) for set-syntax.
-     * @param str  String to look for characters in, may be null
-     * @param set  String[] set of characters to identify, may be null
+     * @param str  string to look for characters in, may be null
+     * @param set  string[] set of characters to identify, may be null
      * @return whether or not the characters in the set are in the primary string
+     * @see CharSet#getInstance(String...) for set-syntax
      * @since 3.2
      */
     public static boolean containsAny(final String str, final String... set) {
@@ -77,10 +77,10 @@ public class CharSetUtils {
      * CharSetUtils.count("hello", "a-e") = 1
      * </pre>
      *
-     * @see CharSet#getInstance(String...) for set-syntax.
-     * @param str  String to count characters in, may be null
-     * @param set  String[] set of characters to count, may be null
+     * @param str  string to count characters in, may be null
+     * @param set  string[] set of characters to count, may be null
      * @return the character count, zero if null string input
+     * @see CharSet#getInstance(String...) for set-syntax
      */
     public static int count(final String str, final String... set) {
         if (isEmpty(str, set)) {
@@ -100,7 +100,7 @@ public class CharSetUtils {
      * Determines whether or not all the Strings in an array are
      * empty or not.
      *
-     * @param strings String[] whose elements are being checked for emptiness
+     * @param strings string[] whose elements are being checked for emptiness
      * @return whether or not the String is empty
      */
     private static boolean deepEmpty(final String[] strings) {
@@ -120,10 +120,10 @@ public class CharSetUtils {
      * CharSetUtils.delete("hello", "le")  = "ho"
      * </pre>
      *
-     * @see CharSet#getInstance(String...) for set-syntax.
-     * @param str  String to delete characters from, may be null
-     * @param set  String[] set of characters to delete, may be null
+     * @param str  string to delete characters from, may be null
+     * @param set  string[] set of characters to delete, may be null
      * @return the modified String, {@code null} if null string input
+     * @see CharSet#getInstance(String...) for set-syntax
      */
     public static String delete(final String str, final String... set) {
         if (isEmpty(str, set)) {
@@ -149,10 +149,10 @@ public class CharSetUtils {
      * CharSetUtils.keep("hello", "le")  = "ell"
      * </pre>
      *
-     * @see CharSet#getInstance(String...) for set-syntax.
-     * @param str  String to keep characters from, may be null
-     * @param set  String[] set of characters to keep, may be null
+     * @param str  string to keep characters from, may be null
+     * @param set  string[] set of characters to keep, may be null
      * @return the modified String, {@code null} if null string input
+     * @see CharSet#getInstance(String...) for set-syntax
      * @since 2.0
      */
     public static String keep(final String str, final String... set) {
@@ -168,8 +168,8 @@ public class CharSetUtils {
     /**
      * Implements delete and keep.
      *
-     * @param str String to modify characters within
-     * @param set String[] set of characters to modify
+     * @param str string to modify characters within
+     * @param set string[] set of characters to modify
      * @param expect whether to evaluate on match, or non-match
      * @return the modified String, not null
      */
@@ -198,10 +198,10 @@ public class CharSetUtils {
      * CharSetUtils.squeeze("hello", "a-e") = "hello"
      * </pre>
      *
-     * @see CharSet#getInstance(String...) for set-syntax.
      * @param str  the string to squeeze, may be null
      * @param set  the character set to use for manipulation, may be null
      * @return the modified String, {@code null} if null string input
+     * @see CharSet#getInstance(String...) for set-syntax
      */
     public static String squeeze(final String str, final String... set) {
         if (isEmpty(str, set)) {

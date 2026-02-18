@@ -98,7 +98,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Create a new ExtendedMessageFormat for the default locale.
      *
      * @param pattern  the pattern to use, not null
-     * @throws IllegalArgumentException in case of a bad pattern.
+     * @throws IllegalArgumentException in case of a bad pattern
      */
     public ExtendedMessageFormat(final String pattern) {
         this(pattern, Locale.getDefault());
@@ -109,7 +109,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @param pattern  the pattern to use, not null
      * @param locale  the locale to use, not null
-     * @throws IllegalArgumentException in case of a bad pattern.
+     * @throws IllegalArgumentException in case of a bad pattern
      */
     public ExtendedMessageFormat(final String pattern, final Locale locale) {
         this(pattern, locale, null);
@@ -118,10 +118,10 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Create a new ExtendedMessageFormat.
      *
-     * @param pattern  the pattern to use, not null.
-     * @param locale  the locale to use.
-     * @param registry  the registry of format factories, may be null.
-     * @throws IllegalArgumentException in case of a bad pattern.
+     * @param pattern  the pattern to use, not null
+     * @param locale  the locale to use
+     * @param registry  the registry of format factories, may be null
+     * @throws IllegalArgumentException in case of a bad pattern
      */
     public ExtendedMessageFormat(final String pattern, final Locale locale, final Map<String, ? extends FormatFactory> registry) {
         super(EMPTY_PATTERN);
@@ -135,7 +135,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @param pattern  the pattern to use, not null
      * @param registry  the registry of format factories, may be null
-     * @throws IllegalArgumentException in case of a bad pattern.
+     * @throws IllegalArgumentException in case of a bad pattern
      */
     public ExtendedMessageFormat(final String pattern, final Map<String, ? extends FormatFactory> registry) {
         this(pattern, Locale.getDefault(), registry);
@@ -178,7 +178,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Apply the specified pattern.
      *
-     * @param pattern String
+     * @param pattern string
      */
     @Override
     public final void applyPattern(final String pattern) {
@@ -251,7 +251,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Learn whether the specified Collection contains non-null elements.
      *
      * @param coll to check
-     * @return {@code true} if some Object was found, {@code false} otherwise.
+     * @return {@code true} if some Object was found, {@code false} otherwise
      */
     private boolean containsElements(final Collection<?> coll) {
         if (coll == null || coll.isEmpty()) {
@@ -278,8 +278,8 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Gets a custom format from a format description.
      *
-     * @param desc String
-     * @return Format
+     * @param desc string
+     * @return format
      */
     private Format getFormat(final String desc) {
         if (registry != null) {
@@ -299,7 +299,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Consume quoted string only
+     * Consume quoted string only.
      *
      * @param pattern pattern to parse
      * @param pos current parse position
@@ -319,7 +319,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Insert formats back into the pattern for toPattern() support.
      *
      * @param pattern source
-     * @param customPatterns The custom patterns to re-insert, if any
+     * @param customPatterns the custom patterns to re-insert, if any
      * @return full pattern
      */
     private String insertFormats(final String pattern, final ArrayList<String> customPatterns) {
@@ -360,7 +360,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Convenience method to advance parse position by 1
+     * Convenience method to advance parse position by 1.
      *
      * @param pos ParsePosition
      * @return {@code pos}
@@ -375,7 +375,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @param pattern string to parse
      * @param pos current parse position
-     * @return Format description String
+     * @return format description String
      */
     private String parseFormatDescription(final String pattern, final ParsePosition pos) {
         final int start = pos.getIndex();
@@ -405,7 +405,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Reads the argument index from the current format element
+     * Reads the argument index from the current format element.
      *
      * @param pattern pattern to parse
      * @param pos current parse position
@@ -449,7 +449,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Consume whitespace from the current parse position.
      *
-     * @param pattern String to read
+     * @param pattern string to read
      * @param pos current position
      */
     private void seekNonWs(final String pattern, final ParsePosition pos) {

@@ -34,7 +34,7 @@ public class FastTimeZone {
     /**
      * Gets the GMT TimeZone.
      *
-     * @return A TimeZone with a raw offset of zero.
+     * @return a TimeZone with a raw offset of zero
      */
     public static TimeZone getGmtTimeZone() {
         return GREENWICH;
@@ -44,8 +44,8 @@ public class FastTimeZone {
      * Gets a TimeZone with GMT offsets.  A GMT offset must be either 'Z', or 'UTC', or match
      * <em>(GMT)? hh?(:?mm?)?</em>, where h and m are digits representing hours and minutes.
      *
-     * @param pattern The GMT offset
-     * @return A TimeZone with offset from GMT or null, if pattern does not match.
+     * @param pattern the GMT offset
+     * @return a TimeZone with offset from GMT or null, if pattern does not match
      */
     public static TimeZone getGmtTimeZone(final String pattern) {
         if ("Z".equals(pattern) || "UTC".equals(pattern)) {
@@ -70,8 +70,8 @@ public class FastTimeZone {
      * followed by sign, hours digit(s), optional colon(':'), and optional minutes digits.
      * i.e. <em>[GMT] (+|-) Hours [[:] Minutes]</em>
      *
-     * @param id A GMT custom id (or Olson id
-     * @return A time zone
+     * @param id a GMT custom id (or Olson id
+     * @return a time zone
      */
     public static TimeZone getTimeZone(final String id) {
         final TimeZone tz = getGmtTimeZone(id);

@@ -215,7 +215,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * <p>This default style is obtained from {@link #getDefaultStyle()}.</p>
      *
-     * @param object  the Object to build a {@code toString} for, not recommended to be null
+     * @param object the Object to build a {@code toString} for, not recommended to be null
      */
     public ToStringBuilder(final Object object) {
         this(object, null, null);
@@ -263,7 +263,7 @@ public class ToStringBuilder implements Builder<String> {
      * value.
      *
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final boolean value) {
         style.append(buffer, null, value);
@@ -275,7 +275,7 @@ public class ToStringBuilder implements Builder<String> {
      * array.
      *
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final boolean[] array) {
         style.append(buffer, null, array, null);
@@ -287,7 +287,7 @@ public class ToStringBuilder implements Builder<String> {
      * value.
      *
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final byte value) {
         style.append(buffer, null, value);
@@ -299,7 +299,7 @@ public class ToStringBuilder implements Builder<String> {
      * array.
      *
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final byte[] array) {
         style.append(buffer, null, array, null);
@@ -311,7 +311,7 @@ public class ToStringBuilder implements Builder<String> {
      * value.
      *
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final char value) {
         style.append(buffer, null, value);
@@ -323,7 +323,7 @@ public class ToStringBuilder implements Builder<String> {
      * array.
      *
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final char[] array) {
         style.append(buffer, null, array, null);
@@ -335,7 +335,7 @@ public class ToStringBuilder implements Builder<String> {
      * value.
      *
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final double value) {
         style.append(buffer, null, value);
@@ -347,7 +347,7 @@ public class ToStringBuilder implements Builder<String> {
      * array.
      *
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final double[] array) {
         style.append(buffer, null, array, null);
@@ -359,7 +359,7 @@ public class ToStringBuilder implements Builder<String> {
      * value.
      *
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final float value) {
         style.append(buffer, null, value);
@@ -371,7 +371,7 @@ public class ToStringBuilder implements Builder<String> {
      * array.
      *
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final float[] array) {
         style.append(buffer, null, array, null);
@@ -383,7 +383,7 @@ public class ToStringBuilder implements Builder<String> {
      * value.
      *
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final int value) {
         style.append(buffer, null, value);
@@ -395,7 +395,7 @@ public class ToStringBuilder implements Builder<String> {
      * array.
      *
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final int[] array) {
         style.append(buffer, null, array, null);
@@ -407,7 +407,7 @@ public class ToStringBuilder implements Builder<String> {
      * value.
      *
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final long value) {
         style.append(buffer, null, value);
@@ -419,7 +419,7 @@ public class ToStringBuilder implements Builder<String> {
      * array.
      *
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final long[] array) {
         style.append(buffer, null, array, null);
@@ -431,7 +431,7 @@ public class ToStringBuilder implements Builder<String> {
      * value.
      *
      * @param obj  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final Object obj) {
         style.append(buffer, null, obj, null);
@@ -443,7 +443,7 @@ public class ToStringBuilder implements Builder<String> {
      * array.
      *
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final Object[] array) {
         style.append(buffer, null, array, null);
@@ -455,7 +455,7 @@ public class ToStringBuilder implements Builder<String> {
      * value.
      *
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final short value) {
         style.append(buffer, null, value);
@@ -467,7 +467,7 @@ public class ToStringBuilder implements Builder<String> {
      * array.
      *
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final short[] array) {
         style.append(buffer, null, array, null);
@@ -480,7 +480,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final boolean value) {
         style.append(buffer, fieldName, value);
@@ -493,7 +493,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param array  the array to add to the {@code hashCode}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final boolean[] array) {
         style.append(buffer, fieldName, array, null);
@@ -513,7 +513,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param array  the array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final boolean[] array, final boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
@@ -526,7 +526,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final byte value) {
         style.append(buffer, fieldName, value);
@@ -538,7 +538,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final byte[] array) {
         style.append(buffer, fieldName, array, null);
@@ -558,7 +558,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param array  the array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final byte[] array, final boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
@@ -571,7 +571,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final char value) {
         style.append(buffer, fieldName, value);
@@ -584,7 +584,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final char[] array) {
         style.append(buffer, fieldName, array, null);
@@ -604,7 +604,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param array  the array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final char[] array, final boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
@@ -617,7 +617,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final double value) {
         style.append(buffer, fieldName, value);
@@ -630,7 +630,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final double[] array) {
         style.append(buffer, fieldName, array, null);
@@ -650,7 +650,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param array  the array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final double[] array, final boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
@@ -663,7 +663,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final float value) {
         style.append(buffer, fieldName, value);
@@ -676,7 +676,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final float[] array) {
         style.append(buffer, fieldName, array, null);
@@ -696,7 +696,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param array  the array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final float[] array, final boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
@@ -709,7 +709,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final int value) {
         style.append(buffer, fieldName, value);
@@ -722,7 +722,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final int[] array) {
         style.append(buffer, fieldName, array, null);
@@ -742,7 +742,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param array  the array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final int[] array, final boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
@@ -755,7 +755,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final long value) {
         style.append(buffer, fieldName, value);
@@ -768,7 +768,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final long[] array) {
         style.append(buffer, fieldName, array, null);
@@ -788,7 +788,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param array  the array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final long[] array, final boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
@@ -801,7 +801,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param obj  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final Object obj) {
         style.append(buffer, fieldName, obj, null);
@@ -816,7 +816,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param obj  the value to add to the {@code toString}
      * @param fullDetail  {@code true} for detail,
      *  {@code false} for summary info
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final Object obj, final boolean fullDetail) {
         style.append(buffer, fieldName, obj, Boolean.valueOf(fullDetail));
@@ -829,7 +829,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final Object[] array) {
         style.append(buffer, fieldName, array, null);
@@ -849,7 +849,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param array  the array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final Object[] array, final boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
@@ -862,7 +862,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param value  the value to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final short value) {
         style.append(buffer, fieldName, value);
@@ -875,7 +875,7 @@ public class ToStringBuilder implements Builder<String> {
      *
      * @param fieldName  the field name
      * @param array  the array to add to the {@code toString}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final short[] array) {
         style.append(buffer, fieldName, array, null);
@@ -895,7 +895,7 @@ public class ToStringBuilder implements Builder<String> {
      * @param array  the array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
-     * @return {@code this} instance.
+     * @return {@code this} instance
      */
     public ToStringBuilder append(final String fieldName, final short[] array, final boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
@@ -908,7 +908,7 @@ public class ToStringBuilder implements Builder<String> {
      * {@link System#identityHashCode(Object)}.
      *
      * @param srcObject  the {@link Object} whose class name and id to output
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @throws NullPointerException if {@code srcObject} is {@code null}
      * @since 2.0
      */
@@ -926,7 +926,7 @@ public class ToStringBuilder implements Builder<String> {
      * <p>If {@code superToString} is {@code null}, no change is made.</p>
      *
      * @param superToString  the result of {@code super.toString()}
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @since 2.0
      */
     public ToStringBuilder appendSuper(final String superToString) {
@@ -960,7 +960,7 @@ public class ToStringBuilder implements Builder<String> {
      * <p>If the {@code toString} is {@code null}, no change is made.</p>
      *
      * @param toString  the result of {@code toString()} on another object
-     * @return {@code this} instance.
+     * @return {@code this} instance
      * @since 2.0
      */
     public ToStringBuilder appendToString(final String toString) {
@@ -986,7 +986,7 @@ public class ToStringBuilder implements Builder<String> {
     /**
      * Gets the {@link Object} being output.
      *
-     * @return The object being output.
+     * @return the object being output
      * @since 2.0
      */
     public Object getObject() {

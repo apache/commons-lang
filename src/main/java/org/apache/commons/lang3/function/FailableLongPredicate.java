@@ -23,25 +23,25 @@ import java.util.function.LongPredicate;
 /**
  * A functional interface like {@link LongPredicate} that declares a {@link Throwable}.
  *
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface
 public interface FailableLongPredicate<E extends Throwable> {
 
-    /** FALSE singleton */
+    /** FALSE singleton. */
     @SuppressWarnings("rawtypes")
     FailableLongPredicate FALSE = t -> false;
 
-    /** TRUE singleton */
+    /** TRUE singleton. */
     @SuppressWarnings("rawtypes")
     FailableLongPredicate TRUE = t -> true;
 
     /**
      * Gets the FALSE singleton.
      *
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
    @SuppressWarnings("unchecked")
    static <E extends Throwable> FailableLongPredicate<E> falsePredicate() {
@@ -51,8 +51,8 @@ public interface FailableLongPredicate<E extends Throwable> {
     /**
      * Gets the TRUE singleton.
      *
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <E extends Throwable> FailableLongPredicate<E> truePredicate() {
@@ -62,8 +62,8 @@ public interface FailableLongPredicate<E extends Throwable> {
     /**
      * Returns a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
      *
-     * @param other a predicate that will be logically-ANDed with this predicate.
-     * @return a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     * @param other a predicate that will be logically-ANDed with this predicate
+     * @return a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}
      * @throws NullPointerException if other is null
      */
     default FailableLongPredicate<E> and(final FailableLongPredicate<E> other) {
@@ -74,7 +74,7 @@ public interface FailableLongPredicate<E extends Throwable> {
     /**
      * Returns a predicate that negates this predicate.
      *
-     * @return a predicate that negates this predicate.
+     * @return a predicate that negates this predicate
      */
     default FailableLongPredicate<E> negate() {
         return t -> !test(t);
@@ -83,8 +83,8 @@ public interface FailableLongPredicate<E extends Throwable> {
     /**
      * Returns a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
      *
-     * @param other a predicate that will be logically-ORed with this predicate.
-     * @return a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     * @param other a predicate that will be logically-ORed with this predicate
+     * @return a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}
      * @throws NullPointerException if other is null
      */
     default FailableLongPredicate<E> or(final FailableLongPredicate<E> other) {
@@ -95,9 +95,9 @@ public interface FailableLongPredicate<E extends Throwable> {
     /**
      * Tests the predicate.
      *
-     * @param value the parameter for the predicate to accept.
-     * @return {@code true} if the input argument matches the predicate, {@code false} otherwise.
-     * @throws E Thrown when the consumer fails.
+     * @param value the parameter for the predicate to accept
+     * @return {@code true} if the input argument matches the predicate, {@code false} otherwise
+     * @throws E thrown when the consumer fails
      */
     boolean test(long value) throws E;
 }

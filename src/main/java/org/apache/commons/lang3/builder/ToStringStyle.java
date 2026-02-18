@@ -98,7 +98,7 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * Ensure Singleton after serialization.
          *
-         * @return the singleton.
+         * @return the singleton
          */
         private Object readResolve() {
             return DEFAULT_STYLE;
@@ -112,8 +112,8 @@ public abstract class ToStringStyle implements Serializable {
      * This is an inner class rather than using {@link StandardToStringStyle} to ensure its immutability.
      * </p>
      *
-     * @since 3.4
      * @see <a href="https://www.json.org/">json.org</a>
+     * @since 3.4
      */
     private static final class JsonToStringStyle extends ToStringStyle {
 
@@ -281,8 +281,8 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * Appends the given String enclosed in double-quotes to the given StringBuffer.
          *
-         * @param buffer the StringBuffer to append the value to.
-         * @param value  the value to append.
+         * @param buffer the StringBuffer to append the value to
+         * @param value  the value to append
          */
         private void appendValueAsString(final StringBuffer buffer, final String value) {
             buffer.append('"').append(StringEscapeUtils.escapeJson(value)).append('"');
@@ -351,7 +351,7 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * Ensure Singleton after serialization.
          *
-         * @return the singleton.
+         * @return the singleton
          */
         private Object readResolve() {
             return MULTI_LINE_STYLE;
@@ -449,7 +449,7 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * Ensure {@code Singleton} after serialization.
          *
-         * @return the singleton.
+         * @return the singleton
          */
         private Object readResolve() {
             return SHORT_PREFIX_STYLE;
@@ -570,8 +570,8 @@ public abstract class ToStringStyle implements Serializable {
      * is passed in while appending. Furthermore This ToStringStyle will only generate valid JSON if referenced objects also produce JSON when calling
      * {@code toString()} on them.
      *
-     * @since 3.4
      * @see <a href="https://www.json.org/">json.org</a>
+     * @since 3.4
      */
     public static final ToStringStyle JSON_STYLE = new JsonToStringStyle();
 
@@ -590,7 +590,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the registry of objects being traversed by the {@code reflectionToString} methods in the current thread.
      *
-     * @return Set the registry of objects being traversed.
+     * @return set the registry of objects being traversed
      */
     public static Map<Object, Object> getRegistry() {
         return REGISTRY.get();
@@ -599,8 +599,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Tests whether the registry contains the given object. Used by the reflection methods to avoid infinite loops.
      *
-     * @param value The object to lookup in the registry.
-     * @return boolean {@code true} if the registry contains the given object.
+     * @param value the object to lookup in the registry
+     * @return boolean {@code true} if the registry contains the given object
      */
     static boolean isRegistered(final Object value) {
         return getRegistry().containsKey(value);
@@ -609,7 +609,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Registers the given object. Used by the reflection methods to avoid infinite loops.
      *
-     * @param value The object to register.
+     * @param value the object to register
      */
     static void register(final Object value) {
         if (value != null) {
@@ -624,7 +624,7 @@ public abstract class ToStringStyle implements Serializable {
      * Used by the reflection methods to avoid infinite loops.
      * </p>
      *
-     * @param value The object to unregister.
+     * @param value the object to unregister
      */
     static void unregister(final Object value) {
         if (value != null) {
@@ -745,9 +745,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code boolean} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name
+     * @param value     the value to add to the {@code toString}
      */
     public void append(final StringBuffer buffer, final String fieldName, final boolean value) {
         appendFieldStart(buffer, fieldName);
@@ -758,10 +758,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code boolean} array.
      *
-     * @param buffer     the {@link StringBuffer} to populate.
-     * @param fieldName  the field name.
-     * @param array      the array to add to the toString.
-     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides.
+     * @param buffer     the {@link StringBuffer} to populate
+     * @param fieldName  the field name
+     * @param array      the array to add to the toString
+     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final boolean[] array, final Boolean fullDetail) {
         appendFieldStart(buffer, fieldName);
@@ -778,9 +778,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code byte} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name
+     * @param value     the value to add to the {@code toString}
      */
     public void append(final StringBuffer buffer, final String fieldName, final byte value) {
         appendFieldStart(buffer, fieldName);
@@ -791,10 +791,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code byte} array.
      *
-     * @param buffer     the {@link StringBuffer} to populate.
-     * @param fieldName  the field name.
-     * @param array      the array to add to the {@code toString}.
-     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides.
+     * @param buffer     the {@link StringBuffer} to populate
+     * @param fieldName  the field name
+     * @param array      the array to add to the {@code toString}
+     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final byte[] array, final Boolean fullDetail) {
         appendFieldStart(buffer, fieldName);
@@ -811,9 +811,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code char} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name
+     * @param value     the value to add to the {@code toString}
      */
     public void append(final StringBuffer buffer, final String fieldName, final char value) {
         appendFieldStart(buffer, fieldName);
@@ -824,10 +824,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code char} array.
      *
-     * @param buffer     the {@link StringBuffer} to populate.
-     * @param fieldName  the field name.
-     * @param array      the array to add to the {@code toString}.
-     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides.
+     * @param buffer     the {@link StringBuffer} to populate
+     * @param fieldName  the field name
+     * @param array      the array to add to the {@code toString}
+     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final char[] array, final Boolean fullDetail) {
         appendFieldStart(buffer, fieldName);
@@ -844,9 +844,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code double} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name
+     * @param value     the value to add to the {@code toString}
      */
     public void append(final StringBuffer buffer, final String fieldName, final double value) {
         appendFieldStart(buffer, fieldName);
@@ -857,10 +857,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code double} array.
      *
-     * @param buffer     the {@link StringBuffer} to populate.
-     * @param fieldName  the field name.
-     * @param array      the array to add to the toString.
-     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides.
+     * @param buffer     the {@link StringBuffer} to populate
+     * @param fieldName  the field name
+     * @param array      the array to add to the toString
+     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final double[] array, final Boolean fullDetail) {
         appendFieldStart(buffer, fieldName);
@@ -877,9 +877,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code float} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name
+     * @param value     the value to add to the {@code toString}
      */
     public void append(final StringBuffer buffer, final String fieldName, final float value) {
         appendFieldStart(buffer, fieldName);
@@ -890,10 +890,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code float} array.
      *
-     * @param buffer     the {@link StringBuffer} to populate.
-     * @param fieldName  the field name.
-     * @param array      the array to add to the toString.
-     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides.
+     * @param buffer     the {@link StringBuffer} to populate
+     * @param fieldName  the field name
+     * @param array      the array to add to the toString
+     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final float[] array, final Boolean fullDetail) {
         appendFieldStart(buffer, fieldName);
@@ -910,9 +910,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} an {@code int} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name
+     * @param value     the value to add to the {@code toString}
      */
     public void append(final StringBuffer buffer, final String fieldName, final int value) {
         appendFieldStart(buffer, fieldName);
@@ -923,10 +923,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} an {@code int} array.
      *
-     * @param buffer     the {@link StringBuffer} to populate.
-     * @param fieldName  the field name.
-     * @param array      the array to add to the {@code toString}.
-     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides.
+     * @param buffer     the {@link StringBuffer} to populate
+     * @param fieldName  the field name
+     * @param array      the array to add to the {@code toString}
+     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final int[] array, final Boolean fullDetail) {
         appendFieldStart(buffer, fieldName);
@@ -943,9 +943,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code long} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name
+     * @param value     the value to add to the {@code toString}
      */
     public void append(final StringBuffer buffer, final String fieldName, final long value) {
         appendFieldStart(buffer, fieldName);
@@ -956,10 +956,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code long} array.
      *
-     * @param buffer     the {@link StringBuffer} to populate.
-     * @param fieldName  the field name.
-     * @param array      the array to add to the {@code toString}.
-     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides.
+     * @param buffer     the {@link StringBuffer} to populate
+     * @param fieldName  the field name
+     * @param array      the array to add to the {@code toString}
+     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final long[] array, final Boolean fullDetail) {
         appendFieldStart(buffer, fieldName);
@@ -976,10 +976,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} an {@link Object} value, printing the full {@code toString} of the {@link Object} passed in.
      *
-     * @param buffer     the {@link StringBuffer} to populate.
-     * @param fieldName  the field name.
-     * @param value      the value to add to the {@code toString}.
-     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides.
+     * @param buffer     the {@link StringBuffer} to populate
+     * @param fieldName  the field name
+     * @param value      the value to add to the {@code toString}
+     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final Object value, final Boolean fullDetail) {
         appendFieldStart(buffer, fieldName);
@@ -994,10 +994,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} an {@link Object} array.
      *
-     * @param buffer     the {@link StringBuffer} to populate.
-     * @param fieldName  the field name.
-     * @param array      the array to add to the toString.
-     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides.
+     * @param buffer     the {@link StringBuffer} to populate
+     * @param fieldName  the field name
+     * @param array      the array to add to the toString
+     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final Object[] array, final Boolean fullDetail) {
         appendFieldStart(buffer, fieldName);
@@ -1014,9 +1014,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code short} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name
+     * @param value     the value to add to the {@code toString}
      */
     public void append(final StringBuffer buffer, final String fieldName, final short value) {
         appendFieldStart(buffer, fieldName);
@@ -1027,10 +1027,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code short} array.
      *
-     * @param buffer     the {@link StringBuffer} to populate.
-     * @param fieldName  the field name.
-     * @param array      the array to add to the {@code toString}.
-     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides.
+     * @param buffer     the {@link StringBuffer} to populate
+     * @param fieldName  the field name
+     * @param array      the array to add to the {@code toString}
+     * @param fullDetail {@code true} for detail, {@code false} for summary info, {@code null} for style decides
      */
     public void append(final StringBuffer buffer, final String fieldName, final short[] array, final Boolean fullDetail) {
         appendFieldStart(buffer, fieldName);
@@ -1047,8 +1047,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the class name.
      *
-     * @param buffer the {@link StringBuffer} to populate.
-     * @param object the {@link Object} whose name to output.
+     * @param buffer the {@link StringBuffer} to populate
+     * @param object the {@link Object} whose name to output
      */
     protected void appendClassName(final StringBuffer buffer, final Object object) {
         if (isUseClassName() && object != null) {
@@ -1064,7 +1064,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the content end.
      *
-     * @param buffer the {@link StringBuffer} to populate.
+     * @param buffer the {@link StringBuffer} to populate
      */
     protected void appendContentEnd(final StringBuffer buffer) {
         buffer.append(getContentEnd());
@@ -1073,7 +1073,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the content start.
      *
-     * @param buffer the {@link StringBuffer} to populate.
+     * @param buffer the {@link StringBuffer} to populate
      */
     protected void appendContentStart(final StringBuffer buffer) {
         buffer.append(getContentStart());
@@ -1083,9 +1083,9 @@ public abstract class ToStringStyle implements Serializable {
      * Appends to the {@code toString} an {@link Object} value that has been detected to participate in a cycle. This implementation will print the standard
      * string value of the value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
+     * @param buffer    the {@link StringBuffer} to populate
      * @param fieldName the field name, typically not used as already appended
-     * @param value     the value to add to the {@code toString}, not {@code null}.
+     * @param value     the value to add to the {@code toString}, not {@code null}
      * @since 2.2
      */
     protected void appendCyclicObject(final StringBuffer buffer, final String fieldName, final Object value) {
@@ -1095,9 +1095,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code boolean} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param value     the value to add to the {@code toString}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final boolean value) {
         buffer.append(value);
@@ -1106,9 +1106,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the detail of a {@code boolean} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final boolean[] array) {
         buffer.append(getArrayStart());
@@ -1124,9 +1124,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code byte} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param value     the value to add to the {@code toString}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final byte value) {
         buffer.append(value);
@@ -1135,9 +1135,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the detail of a {@code byte} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final byte[] array) {
         buffer.append(getArrayStart());
@@ -1153,9 +1153,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code char} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param value     the value to add to the {@code toString}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final char value) {
         buffer.append(value);
@@ -1164,9 +1164,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the detail of a {@code char} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final char[] array) {
         buffer.append(getArrayStart());
@@ -1182,9 +1182,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@link Collection}.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param coll      the {@link Collection} to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param coll      the {@link Collection} to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Collection<?> coll) {
         buffer.append(coll);
@@ -1193,9 +1193,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code double} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param value     the value to add to the {@code toString}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final double value) {
         buffer.append(value);
@@ -1204,9 +1204,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the detail of a {@code double} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
+     * @param buffer    the {@link StringBuffer} to populate
      * @param fieldName the field name, typically not used as already appended
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final double[] array) {
         buffer.append(getArrayStart());
@@ -1222,9 +1222,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code float} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param value     the value to add to the {@code toString}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final float value) {
         buffer.append(value);
@@ -1233,9 +1233,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the detail of a {@code float} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final float[] array) {
         buffer.append(getArrayStart());
@@ -1251,9 +1251,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} an {@code int} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param value     the value to add to the {@code toString}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final int value) {
         buffer.append(value);
@@ -1262,10 +1262,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the detail of an {@link Object} array item.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param i         the array item index to add.
-     * @param item      the array item to add.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param i         the array item index to add
+     * @param item      the array item to add
      * @since 3.11
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final int i, final Object item) {
@@ -1282,9 +1282,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the detail of an {@code int} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final int[] array) {
         buffer.append(getArrayStart());
@@ -1300,9 +1300,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code long} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param value     the value to add to the {@code toString}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final long value) {
         buffer.append(value);
@@ -1311,9 +1311,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the detail of a {@code long} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final long[] array) {
         buffer.append(getArrayStart());
@@ -1329,9 +1329,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@link Map}.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param map       the {@link Map} to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param map       the {@link Map} to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Map<?, ?> map) {
         buffer.append(map);
@@ -1340,9 +1340,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} an {@link Object} value, printing the full detail of the {@link Object}.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param value     the value to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param value     the value to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Object value) {
         buffer.append(value);
@@ -1351,9 +1351,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the detail of an {@link Object} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Object[] array) {
         buffer.append(getArrayStart());
@@ -1366,9 +1366,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a {@code short} value.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param value     the value to add to the {@code toString}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param value     the value to add to the {@code toString}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final short value) {
         buffer.append(value);
@@ -1377,9 +1377,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the detail of a {@code short} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final short[] array) {
         buffer.append(getArrayStart());
@@ -1395,8 +1395,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the end of data indicator.
      *
-     * @param buffer the {@link StringBuffer} to populate.
-     * @param object the {@link Object} to build a {@code toString} for.
+     * @param buffer the {@link StringBuffer} to populate
+     * @param object the {@link Object} to build a {@code toString} for
      */
     public void appendEnd(final StringBuffer buffer, final Object object) {
         if (!isFieldSeparatorAtEnd()) {
@@ -1409,8 +1409,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the field end.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
      */
     protected void appendFieldEnd(final StringBuffer buffer, final String fieldName) {
         appendFieldSeparator(buffer);
@@ -1419,7 +1419,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the field separator.
      *
-     * @param buffer the {@link StringBuffer} to populate.
+     * @param buffer the {@link StringBuffer} to populate
      */
     protected void appendFieldSeparator(final StringBuffer buffer) {
         buffer.append(getFieldSeparator());
@@ -1428,8 +1428,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the field start.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name
      */
     protected void appendFieldStart(final StringBuffer buffer, final String fieldName) {
         if (isUseFieldNames() && fieldName != null) {
@@ -1441,8 +1441,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends the {@link System#identityHashCode(java.lang.Object)}.
      *
-     * @param buffer the {@link StringBuffer} to populate.
-     * @param object the {@link Object} whose id to output.
+     * @param buffer the {@link StringBuffer} to populate
+     * @param object the {@link Object} whose id to output
      */
     protected void appendIdentityHashCode(final StringBuffer buffer, final Object object) {
         if (isUseIdentityHashCode() && object != null) {
@@ -1468,10 +1468,10 @@ public abstract class ToStringStyle implements Serializable {
      * If a cycle is detected, an object will be appended with the {@code Object.toString()} format.
      * </p>
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param value     the value to add to the {@code toString}, not {@code null}.
-     * @param detail    output detail or not.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param value     the value to add to the {@code toString}, not {@code null}
+     * @param detail    output detail or not
      */
     protected void appendInternal(final StringBuffer buffer, final String fieldName, final Object value, final boolean detail) {
         if (isRegistered(value) && !(value instanceof Number || value instanceof Boolean || value instanceof Character)) {
@@ -1563,8 +1563,8 @@ public abstract class ToStringStyle implements Serializable {
      * The default indicator is {@code "<null>"}.
      * </p>
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
      */
     protected void appendNullText(final StringBuffer buffer, final String fieldName) {
         buffer.append(getNullText());
@@ -1573,8 +1573,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the start of data indicator.
      *
-     * @param buffer the {@link StringBuffer} to populate.
-     * @param object the {@link Object} to build a {@code toString} for.
+     * @param buffer the {@link StringBuffer} to populate
+     * @param object the {@link Object} to build a {@code toString} for
      */
     public void appendStart(final StringBuffer buffer, final Object object) {
         if (object != null) {
@@ -1590,9 +1590,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a summary of a {@code boolean} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final boolean[] array) {
         appendSummarySize(buffer, fieldName, array.length);
@@ -1601,9 +1601,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a summary of a {@code byte} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final byte[] array) {
         appendSummarySize(buffer, fieldName, array.length);
@@ -1612,9 +1612,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a summary of a {@code char} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final char[] array) {
         appendSummarySize(buffer, fieldName, array.length);
@@ -1634,9 +1634,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a summary of a {@code float} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final float[] array) {
         appendSummarySize(buffer, fieldName, array.length);
@@ -1645,9 +1645,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a summary of an {@code int} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final int[] array) {
         appendSummarySize(buffer, fieldName, array.length);
@@ -1656,9 +1656,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a summary of a {@code long} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final long[] array) {
         appendSummarySize(buffer, fieldName, array.length);
@@ -1667,9 +1667,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} an {@link Object} value, printing a summary of the {@link Object}.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param value     the value to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param value     the value to add to the {@code toString}, not {@code null}
      */
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final Object value) {
         buffer.append(getSummaryObjectStartText());
@@ -1680,9 +1680,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a summary of an {@link Object} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final Object[] array) {
         appendSummarySize(buffer, fieldName, array.length);
@@ -1691,9 +1691,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} a summary of a {@code short} array.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      */
     protected void appendSummary(final StringBuffer buffer, final String fieldName, final short[] array) {
         appendSummarySize(buffer, fieldName, array.length);
@@ -1714,9 +1714,9 @@ public abstract class ToStringStyle implements Serializable {
      * The default format is {@code "<size=n>"}.
      * </p>
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param size      the size to append.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param size      the size to append
      */
     protected void appendSummarySize(final StringBuffer buffer, final String fieldName, final int size) {
         buffer.append(getSizeStartText());
@@ -1734,8 +1734,8 @@ public abstract class ToStringStyle implements Serializable {
      * A {@code null} {@code superToString} is ignored.
      * </p>
      *
-     * @param buffer        the {@link StringBuffer} to populate.
-     * @param superToString the {@code super.toString()}.
+     * @param buffer        the {@link StringBuffer} to populate
+     * @param superToString the {@code super.toString()}
      * @since 2.0
      */
     public void appendSuper(final StringBuffer buffer, final String superToString) {
@@ -1752,8 +1752,8 @@ public abstract class ToStringStyle implements Serializable {
      * A {@code null} {@code toString} is ignored.
      * </p>
      *
-     * @param buffer   the {@link StringBuffer} to populate.
-     * @param toString the additional {@code toString}.
+     * @param buffer   the {@link StringBuffer} to populate
+     * @param toString the additional {@code toString}
      * @since 2.0
      */
     public void appendToString(final StringBuffer buffer, final String toString) {
@@ -1773,7 +1773,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the array end text.
      *
-     * @return the current array end text.
+     * @return the current array end text
      */
     protected String getArrayEnd() {
         return arrayEnd;
@@ -1782,7 +1782,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the array separator text.
      *
-     * @return the current array separator text.
+     * @return the current array separator text
      */
     protected String getArraySeparator() {
         return arraySeparator;
@@ -1791,7 +1791,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the array start text.
      *
-     * @return the current array start text.
+     * @return the current array start text
      */
     protected String getArrayStart() {
         return arrayStart;
@@ -1800,7 +1800,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the content end text.
      *
-     * @return the current content end text.
+     * @return the current content end text
      */
     protected String getContentEnd() {
         return contentEnd;
@@ -1809,7 +1809,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the content start text.
      *
-     * @return the current content start text.
+     * @return the current content start text
      */
     protected String getContentStart() {
         return contentStart;
@@ -1818,7 +1818,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the field name value separator text.
      *
-     * @return the current field name value separator text.
+     * @return the current field name value separator text
      */
     protected String getFieldNameValueSeparator() {
         return fieldNameValueSeparator;
@@ -1827,7 +1827,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the field separator text.
      *
-     * @return the current field separator text.
+     * @return the current field separator text
      */
     protected String getFieldSeparator() {
         return fieldSeparator;
@@ -1836,7 +1836,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the text to output when {@code null} found.
      *
-     * @return the current text to output when null found.
+     * @return the current text to output when null found
      */
     protected String getNullText() {
         return nullText;
@@ -1849,8 +1849,8 @@ public abstract class ToStringStyle implements Serializable {
      * The short class name is the class name excluding the package name.
      * </p>
      *
-     * @param cls the {@link Class} to get the short name of.
-     * @return the short name.
+     * @param cls the {@link Class} to get the short name of
+     * @return the short name
      */
     protected String getShortClassName(final Class<?> cls) {
         return ClassUtils.getShortClassName(cls);
@@ -1863,7 +1863,7 @@ public abstract class ToStringStyle implements Serializable {
      * This is output after the size value.
      * </p>
      *
-     * @return the current end of size text.
+     * @return the current end of size text
      */
     protected String getSizeEndText() {
         return sizeEndText;
@@ -1876,7 +1876,7 @@ public abstract class ToStringStyle implements Serializable {
      * This is output before the size value.
      * </p>
      *
-     * @return the current start of size text.
+     * @return the current start of size text
      */
     protected String getSizeStartText() {
         return sizeStartText;
@@ -1889,7 +1889,7 @@ public abstract class ToStringStyle implements Serializable {
      * This is output after the size value.
      * </p>
      *
-     * @return the current end of summary text.
+     * @return the current end of summary text
      */
     protected String getSummaryObjectEndText() {
         return summaryObjectEndText;
@@ -1902,7 +1902,7 @@ public abstract class ToStringStyle implements Serializable {
      * This is output before the size value.
      * </p>
      *
-     * @return the current start of summary text.
+     * @return the current start of summary text
      */
     protected String getSummaryObjectStartText() {
         return summaryObjectStartText;
@@ -1911,7 +1911,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to output array content detail.
      *
-     * @return the current array content detail setting.
+     * @return the current array content detail setting
      */
     protected boolean isArrayContentDetail() {
         return arrayContentDetail;
@@ -1920,7 +1920,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to use full detail when the caller doesn't specify.
      *
-     * @return the current defaultFullDetail flag.
+     * @return the current defaultFullDetail flag
      */
     protected boolean isDefaultFullDetail() {
         return defaultFullDetail;
@@ -1929,7 +1929,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether the field separator should be added at the end of each buffer.
      *
-     * @return fieldSeparatorAtEnd flag.
+     * @return fieldSeparatorAtEnd flag
      * @since 2.0
      */
     protected boolean isFieldSeparatorAtEnd() {
@@ -1939,7 +1939,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether the field separator should be added at the start of each buffer.
      *
-     * @return the fieldSeparatorAtStart flag.
+     * @return the fieldSeparatorAtStart flag
      * @since 2.0
      */
     protected boolean isFieldSeparatorAtStart() {
@@ -1955,8 +1955,8 @@ public abstract class ToStringStyle implements Serializable {
      * detail level is used.
      * </p>
      *
-     * @param fullDetailRequest the detail level requested.
-     * @return whether full detail is to be shown.
+     * @param fullDetailRequest the detail level requested
+     * @return whether full detail is to be shown
      */
     protected boolean isFullDetail(final Boolean fullDetailRequest) {
         if (fullDetailRequest == null) {
@@ -1971,7 +1971,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to use the class name.
      *
-     * @return the current useClassName flag.
+     * @return the current useClassName flag
      */
     protected boolean isUseClassName() {
         return useClassName;
@@ -1980,7 +1980,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to use the field names passed in.
      *
-     * @return the current useFieldNames flag.
+     * @return the current useFieldNames flag
      */
     protected boolean isUseFieldNames() {
         return useFieldNames;
@@ -1989,7 +1989,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to use the identity hash code.
      *
-     * @return the current useIdentityHashCode flag.
+     * @return the current useIdentityHashCode flag
      */
     protected boolean isUseIdentityHashCode() {
         return useIdentityHashCode;
@@ -1998,7 +1998,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to output short or long class names.
      *
-     * @return the current useShortClassName flag.
+     * @return the current useShortClassName flag
      * @since 2.0
      */
     protected boolean isUseShortClassName() {
@@ -2008,9 +2008,9 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the detail of an array type.
      *
-     * @param buffer    the {@link StringBuffer} to populate.
-     * @param fieldName the field name, typically not used as already appended.
-     * @param array     the array to add to the {@code toString}, not {@code null}.
+     * @param buffer    the {@link StringBuffer} to populate
+     * @param fieldName the field name, typically not used as already appended
+     * @param array     the array to add to the {@code toString}, not {@code null}
      * @since 2.0
      */
     protected void reflectionAppendArrayDetail(final StringBuffer buffer, final String fieldName, final Object array) {
@@ -2025,7 +2025,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Remove the last field separator from the buffer.
      *
-     * @param buffer the {@link StringBuffer} to populate.
+     * @param buffer the {@link StringBuffer} to populate
      * @since 2.0
      */
     protected void removeLastFieldSeparator(final StringBuffer buffer) {
@@ -2037,7 +2037,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Sets whether to output array content detail.
      *
-     * @param arrayContentDetail the new arrayContentDetail flag.
+     * @param arrayContentDetail the new arrayContentDetail flag
      */
     protected void setArrayContentDetail(final boolean arrayContentDetail) {
         this.arrayContentDetail = arrayContentDetail;
@@ -2050,7 +2050,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param arrayEnd the new array end text.
+     * @param arrayEnd the new array end text
      */
     protected void setArrayEnd(final String arrayEnd) {
         this.arrayEnd = ObjectUtils.toString(arrayEnd);
@@ -2063,7 +2063,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param arraySeparator the new array separator text.
+     * @param arraySeparator the new array separator text
      */
     protected void setArraySeparator(final String arraySeparator) {
         this.arraySeparator = ObjectUtils.toString(arraySeparator);
@@ -2076,7 +2076,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param arrayStart the new array start text.
+     * @param arrayStart the new array start text
      */
     protected void setArrayStart(final String arrayStart) {
         this.arrayStart = ObjectUtils.toString(arrayStart);
@@ -2089,7 +2089,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param contentEnd the new content end text.
+     * @param contentEnd the new content end text
      */
     protected void setContentEnd(final String contentEnd) {
         this.contentEnd = ObjectUtils.toString(contentEnd);
@@ -2102,7 +2102,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param contentStart the new content start text.
+     * @param contentStart the new content start text
      */
     protected void setContentStart(final String contentStart) {
         this.contentStart = ObjectUtils.toString(contentStart);
@@ -2111,7 +2111,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Sets whether to use full detail when the caller doesn't specify.
      *
-     * @param defaultFullDetail the new defaultFullDetail flag.
+     * @param defaultFullDetail the new defaultFullDetail flag
      */
     protected void setDefaultFullDetail(final boolean defaultFullDetail) {
         this.defaultFullDetail = defaultFullDetail;
@@ -2124,7 +2124,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param fieldNameValueSeparator the new field name value separator text.
+     * @param fieldNameValueSeparator the new field name value separator text
      */
     protected void setFieldNameValueSeparator(final String fieldNameValueSeparator) {
         this.fieldNameValueSeparator = ObjectUtils.toString(fieldNameValueSeparator);
@@ -2137,7 +2137,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param fieldSeparator the new field separator text.
+     * @param fieldSeparator the new field separator text
      */
     protected void setFieldSeparator(final String fieldSeparator) {
         this.fieldSeparator = ObjectUtils.toString(fieldSeparator);
@@ -2146,7 +2146,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Sets whether the field separator should be added at the end of each buffer.
      *
-     * @param fieldSeparatorAtEnd the fieldSeparatorAtEnd flag.
+     * @param fieldSeparatorAtEnd the fieldSeparatorAtEnd flag
      * @since 2.0
      */
     protected void setFieldSeparatorAtEnd(final boolean fieldSeparatorAtEnd) {
@@ -2156,7 +2156,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Sets whether the field separator should be added at the start of each buffer.
      *
-     * @param fieldSeparatorAtStart the fieldSeparatorAtStart flag.
+     * @param fieldSeparatorAtStart the fieldSeparatorAtStart flag
      * @since 2.0
      */
     protected void setFieldSeparatorAtStart(final boolean fieldSeparatorAtStart) {
@@ -2170,7 +2170,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param nullText the new text to output when null found.
+     * @param nullText the new text to output when null found
      */
     protected void setNullText(final String nullText) {
         this.nullText = ObjectUtils.toString(nullText);
@@ -2187,7 +2187,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param sizeEndText the new end of size text.
+     * @param sizeEndText the new end of size text
      */
     protected void setSizeEndText(final String sizeEndText) {
         this.sizeEndText = ObjectUtils.toString(sizeEndText);
@@ -2204,7 +2204,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param sizeStartText the new start of size text.
+     * @param sizeStartText the new start of size text
      */
     protected void setSizeStartText(final String sizeStartText) {
         this.sizeStartText = ObjectUtils.toString(sizeStartText);
@@ -2221,7 +2221,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param summaryObjectEndText the new end of summary text.
+     * @param summaryObjectEndText the new end of summary text
      */
     protected void setSummaryObjectEndText(final String summaryObjectEndText) {
         this.summaryObjectEndText = ObjectUtils.toString(summaryObjectEndText);
@@ -2238,7 +2238,7 @@ public abstract class ToStringStyle implements Serializable {
      * {@code null} is accepted, but will be converted to an empty String.
      * </p>
      *
-     * @param summaryObjectStartText the new start of summary text.
+     * @param summaryObjectStartText the new start of summary text
      */
     protected void setSummaryObjectStartText(final String summaryObjectStartText) {
         this.summaryObjectStartText = ObjectUtils.toString(summaryObjectStartText);
@@ -2247,7 +2247,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Sets whether to use the class name.
      *
-     * @param useClassName the new useClassName flag.
+     * @param useClassName the new useClassName flag
      */
     protected void setUseClassName(final boolean useClassName) {
         this.useClassName = useClassName;
@@ -2256,7 +2256,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Sets whether to use the field names passed in.
      *
-     * @param useFieldNames the new useFieldNames flag.
+     * @param useFieldNames the new useFieldNames flag
      */
     protected void setUseFieldNames(final boolean useFieldNames) {
         this.useFieldNames = useFieldNames;
@@ -2265,7 +2265,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Sets whether to use the identity hash code.
      *
-     * @param useIdentityHashCode the new useIdentityHashCode flag.
+     * @param useIdentityHashCode the new useIdentityHashCode flag
      */
     protected void setUseIdentityHashCode(final boolean useIdentityHashCode) {
         this.useIdentityHashCode = useIdentityHashCode;
@@ -2274,7 +2274,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Sets whether to output short or long class names.
      *
-     * @param useShortClassName the new useShortClassName flag.
+     * @param useShortClassName the new useShortClassName flag
      * @since 2.0
      */
     protected void setUseShortClassName(final boolean useShortClassName) {

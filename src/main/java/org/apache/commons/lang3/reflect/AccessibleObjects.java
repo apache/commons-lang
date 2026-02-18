@@ -27,8 +27,8 @@ class AccessibleObjects {
     /**
      * Delegates to {@link AccessibleObject#isAccessible()} if {@code accessibleObject} isn't null.
      *
-     * @param accessibleObject The accessible object.
-     * @return The value of the object's {@code accessible} flag
+     * @param accessibleObject the accessible object
+     * @return the value of the object's {@code accessible} flag
      */
     static boolean isAccessible(final AccessibleObject accessibleObject) {
         return accessibleObject == null || accessibleObject.isAccessible();
@@ -38,8 +38,8 @@ class AccessibleObjects {
      * Delegates to {@link AccessibleObject#setAccessible(boolean)} only if {@link AccessibleObject#isAccessible()} returns false. This avoid a
      * permission check if there is a security manager.
      *
-     * @param accessibleObject The accessible object.
-     * @return Whether {@link AccessibleObject#setAccessible(boolean)} was called.
+     * @param accessibleObject the accessible object
+     * @return whether {@link AccessibleObject#setAccessible(boolean)} was called
      */
     static boolean setAccessible(final AccessibleObject accessibleObject) {
         if (!isAccessible(accessibleObject)) {

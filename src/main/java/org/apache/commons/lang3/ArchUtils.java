@@ -42,9 +42,9 @@ public class ArchUtils {
     /**
      * Adds the given {@link Processor} with the given key {@link String} to the map.
      *
-     * @param key       The key as {@link String}.
-     * @param processor The {@link Processor} to add.
-     * @throws IllegalStateException If the key already exists.
+     * @param key       the key as {@link String}
+     * @param processor the {@link Processor} to add
+     * @throws IllegalStateException if the key already exists
      */
     private static void addProcessor(final String key, final Processor processor) {
         if (ARCH_TO_PROCESSOR.containsKey(key)) {
@@ -56,9 +56,9 @@ public class ArchUtils {
     /**
      * Adds the given {@link Processor} with the given keys to the map.
      *
-     * @param keys      The keys.
-     * @param processor The {@link Processor} to add.
-     * @throws IllegalStateException If the key already exists.
+     * @param keys      the keys
+     * @param processor the {@link Processor} to add
+     * @throws IllegalStateException if the key already exists
      */
     private static void addProcessors(final Processor processor, final String... keys) {
         Streams.of(keys).forEach(e -> addProcessor(e, processor));
@@ -71,7 +71,7 @@ public class ArchUtils {
      * Important: The {@code "os.arch"} system property returns the architecture used by the JVM not of the operating system.
      * </p>
      *
-     * @return A {@link Processor} when supported, else {@code null}.
+     * @return a {@link Processor} when supported, else {@code null}
      */
     public static Processor getProcessor() {
         return getProcessor(SystemProperties.getOsArch());
@@ -81,8 +81,8 @@ public class ArchUtils {
      * Gets a {@link Processor} object the given value {@link String}. The {@link String} must be like a value returned by the {@code "os.arch"} system
      * property.
      *
-     * @param value A {@link String} like a value returned by the {@code os.arch} System Property.
-     * @return A {@link Processor} when it exists, else {@code null}.
+     * @param value a {@link String} like a value returned by the {@code os.arch} System Property
+     * @return a {@link Processor} when it exists, else {@code null}
      */
     public static Processor getProcessor(final String value) {
         return ARCH_TO_PROCESSOR.get(value);

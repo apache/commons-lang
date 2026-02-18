@@ -22,7 +22,7 @@ import java.util.function.LongSupplier;
 /**
  * A functional interface like {@link LongSupplier} that declares a {@link Throwable}.
  *
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.11
  */
 @FunctionalInterface

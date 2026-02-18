@@ -33,9 +33,9 @@ public class ClassPathUtils {
     /**
      * Converts a package name to a Java path ('/').
      *
-     * @param path the source path.
-     * @return a package name.
-     * @throws NullPointerException if {@code path} is null.
+     * @param path the source path
+     * @return a package name
+     * @throws NullPointerException if {@code path} is null
      * @since 3.13.0
      */
     public static String packageToPath(final String path) {
@@ -45,9 +45,9 @@ public class ClassPathUtils {
     /**
      * Converts a Java path ('/') to a package name.
      *
-     * @param path the source path.
-     * @return a package name.
-     * @throws NullPointerException if {@code path} is null.
+     * @param path the source path
+     * @return a package name
+     * @throws NullPointerException if {@code path} is null
      * @since 3.13.0
      */
     public static String pathToPackage(final String path) {
@@ -65,10 +65,10 @@ public class ClassPathUtils {
      * ClassPathUtils.toFullyQualifiedName(StringUtils.class, "StringUtils.properties") = "org.apache.commons.lang3.StringUtils.properties"
      * </pre>
      *
-     * @param context      The context for constructing the name.
-     * @param resourceName the resource name to construct the fully qualified name for.
-     * @return the fully qualified name of the resource with name {@code resourceName}.
-     * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
+     * @param context      the context for constructing the name
+     * @param resourceName the resource name to construct the fully qualified name for
+     * @return the fully qualified name of the resource with name {@code resourceName}
+     * @throws NullPointerException if either {@code context} or {@code resourceName} is null
      */
     public static String toFullyQualifiedName(final Class<?> context, final String resourceName) {
         Objects.requireNonNull(context, "context");
@@ -87,10 +87,10 @@ public class ClassPathUtils {
      * ClassPathUtils.toFullyQualifiedName(StringUtils.class.getPackage(), "StringUtils.properties") = "org.apache.commons.lang3.StringUtils.properties"
      * </pre>
      *
-     * @param context      The context for constructing the name.
-     * @param resourceName the resource name to construct the fully qualified name for.
-     * @return the fully qualified name of the resource with name {@code resourceName}.
-     * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
+     * @param context      the context for constructing the name
+     * @param resourceName the resource name to construct the fully qualified name for
+     * @return the fully qualified name of the resource with name {@code resourceName}
+     * @throws NullPointerException if either {@code context} or {@code resourceName} is null
      */
     public static String toFullyQualifiedName(final Package context, final String resourceName) {
         Objects.requireNonNull(context, "context");
@@ -109,10 +109,10 @@ public class ClassPathUtils {
      * ClassPathUtils.toFullyQualifiedPath(StringUtils.class, "StringUtils.properties") = "org/apache/commons/lang3/StringUtils.properties"
      * </pre>
      *
-     * @param context      The context for constructing the path.
-     * @param resourceName the resource name to construct the fully qualified path for.
-     * @return the fully qualified path of the resource with name {@code resourceName}.
-     * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
+     * @param context      the context for constructing the path
+     * @param resourceName the resource name to construct the fully qualified path for
+     * @return the fully qualified path of the resource with name {@code resourceName}
+     * @throws NullPointerException if either {@code context} or {@code resourceName} is null
      */
     public static String toFullyQualifiedPath(final Class<?> context, final String resourceName) {
         Objects.requireNonNull(context, "context");
@@ -131,10 +131,10 @@ public class ClassPathUtils {
      * ClassPathUtils.toFullyQualifiedPath(StringUtils.class.getPackage(), "StringUtils.properties") = "org/apache/commons/lang3/StringUtils.properties"
      * </pre>
      *
-     * @param context      The context for constructing the path.
-     * @param resourceName the resource name to construct the fully qualified path for.
-     * @return the fully qualified path of the resource with name {@code resourceName}.
-     * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
+     * @param context      the context for constructing the path
+     * @param resourceName the resource name to construct the fully qualified path for
+     * @return the fully qualified path of the resource with name {@code resourceName}
+     * @throws NullPointerException if either {@code context} or {@code resourceName} is null
      */
     public static String toFullyQualifiedPath(final Package context, final String resourceName) {
         Objects.requireNonNull(context, "context");

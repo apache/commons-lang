@@ -21,13 +21,13 @@ package org.apache.commons.lang3.function;
  * A functional interface like a {@code ToBooleanFunction} that declares a {@link Throwable}.
  *
  * @param <T> the type of the argument to the function
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.18
  */
 @FunctionalInterface
 public interface FailableToBooleanFunction<T, E extends Throwable> {
 
-    /** NOP singleton */
+    /** NOP singleton. */
     @SuppressWarnings("rawtypes")
     FailableToBooleanFunction NOP = t -> false;
 
@@ -35,8 +35,8 @@ public interface FailableToBooleanFunction<T, E extends Throwable> {
      * Gets the NOP singleton.
      *
      * @param <T> the type of the argument to the function
-     * @param <E> The kind of thrown exception or error.
-     * @return The NOP singleton.
+     * @param <E> the kind of thrown exception or error
+     * @return the NOP singleton
      */
     @SuppressWarnings("unchecked")
     static <T, E extends Throwable> FailableToBooleanFunction<T, E> nop() {
@@ -48,7 +48,7 @@ public interface FailableToBooleanFunction<T, E extends Throwable> {
      *
      * @param t the first function argument
      * @return the function result
-     * @throws E Thrown when the function fails.
+     * @throws E thrown when the function fails
      */
     boolean applyAsBoolean(T t) throws E;
 }

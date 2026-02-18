@@ -32,7 +32,7 @@ final class IDKey {
     /**
      * Constructs new instance.
      *
-     * @param value The value
+     * @param value the value
      */
     IDKey(final Object value) {
         // This is the Object hash code
@@ -46,7 +46,7 @@ final class IDKey {
     /**
      * Tests if instances are equal.
      *
-     * @param other The other object to compare to
+     * @param other the other object to compare to
      * @return if the instances are for the same object
      */
     @Override
@@ -65,7 +65,7 @@ final class IDKey {
     /**
      * Gets the hash code, the system identity hash code.
      *
-     * @return the hash code.
+     * @return the hash code
      */
     @Override
     public int hashCode() {

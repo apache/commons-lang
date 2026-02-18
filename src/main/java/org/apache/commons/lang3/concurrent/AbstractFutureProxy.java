@@ -25,7 +25,7 @@ import java.util.concurrent.TimeoutException;
 /**
  * Proxies to a {@link Future} for subclassing.
  *
- * @param <V> The result type returned by this Future's {@link #get()} and {@link #get(long, TimeUnit)} methods.
+ * @param <V> the result type returned by this Future's {@link #get()} and {@link #get(long, TimeUnit)} methods
  * @since 3.13.0
  */
 public abstract class AbstractFutureProxy<V> implements Future<V> {
@@ -35,7 +35,7 @@ public abstract class AbstractFutureProxy<V> implements Future<V> {
     /**
      * Constructs a new instance.
      *
-     * @param future the delegate.
+     * @param future the delegate
      */
     public AbstractFutureProxy(final Future<V> future) {
         this.future = Objects.requireNonNull(future, "future");
@@ -59,7 +59,7 @@ public abstract class AbstractFutureProxy<V> implements Future<V> {
     /**
      * Gets the delegate.
      *
-     * @return the delegate.
+     * @return the delegate
      */
     public Future<V> getFuture() {
         return future;

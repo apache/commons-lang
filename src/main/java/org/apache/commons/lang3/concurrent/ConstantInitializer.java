@@ -117,7 +117,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * As a {@link ConstantInitializer} is initialized on construction this will
      * always return true.
      *
-     * @return true.
+     * @return true
      * @since 3.14.0
      */
     public boolean isInitialized() {

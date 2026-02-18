@@ -22,7 +22,7 @@ import java.util.function.IntSupplier;
 /**
  * A functional interface like {@link IntSupplier} but for {@code short} that declares a {@link Throwable}.
  *
- * @param <E> The kind of thrown exception or error.
+ * @param <E> the kind of thrown exception or error
  * @since 3.12.0
  */
 @FunctionalInterface

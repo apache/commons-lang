@@ -51,7 +51,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     @SuppressWarnings("rawtypes")
     private static final ImmutablePair NULL = new ImmutablePair<>(null, null);
 
-    /** Serialization version */
+    /** Serialization version. */
     private static final long serialVersionUID = 4954918890077093841L;
 
     /**
@@ -59,7 +59,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      *
      * @param <L> the left element type
      * @param <R> the right element type
-     * @return the empty array singleton that can be assigned without compiler warning.
+     * @return the empty array singleton that can be assigned without compiler warning
      * @since 3.10
      */
     @SuppressWarnings("unchecked")
@@ -70,10 +70,10 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
-     * @param left  the left element, may be null.
-     * @return an immutable formed from the two parameters, not null.
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param left  the left element, may be null
+     * @return an immutable formed from the two parameters, not null
      * @since 3.11
      */
     public static <L, R> Pair<L, R> left(final L left) {
@@ -85,7 +85,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      *
      * @param <L> the left element of this pair. Value is {@code null}.
      * @param <R> the right element of this pair. Value is {@code null}.
-     * @return an immutable pair of nulls.
+     * @return an immutable pair of nulls
      * @since 3.6
      */
     @SuppressWarnings("unchecked")
@@ -96,11 +96,11 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
-     * @param left  the left element, may be null.
-     * @param right  the right element, may be null.
-     * @return an immutable formed from the two parameters, not null.
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param left  the left element, may be null
+     * @param right  the right element, may be null
+     * @return an immutable formed from the two parameters, not null
      */
     public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
         return left != null || right != null ? new ImmutablePair<>(left, right) : nullPair();
@@ -109,10 +109,10 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair from a map entry.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
-     * @param pair the existing map entry.
-     * @return an immutable formed from the map entry.
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param pair the existing map entry
+     * @return an immutable formed from the map entry
      * @since 3.10
      */
     public static <L, R> ImmutablePair<L, R> of(final Map.Entry<L, R> pair) {
@@ -122,12 +122,12 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two non-null objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
-     * @param left  the left element, may not be null.
-     * @param right  the right element, may not  be null.
-     * @return an immutable formed from the two parameters, not null.
-     * @throws NullPointerException if any input is null.
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param left  the left element, may not be null
+     * @param right  the right element, may not  be null
+     * @return an immutable formed from the two parameters, not null
+     * @throws NullPointerException if any input is null
      * @since 3.13.0
      */
     public static <L, R> ImmutablePair<L, R> ofNonNull(final L left, final R right) {
@@ -137,20 +137,20 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
-     * @param right  the right element, may be null.
-     * @return an immutable formed from the two parameters, not null.
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param right  the right element, may be null
+     * @return an immutable formed from the two parameters, not null
      * @since 3.11
      */
     public static <L, R> Pair<L, R> right(final R right) {
         return of(null, right);
     }
 
-    /** Left object */
+    /** Left object. */
     public final L left;
 
-    /** Right object */
+    /** Right object. */
     public final R right;
 
     /**
