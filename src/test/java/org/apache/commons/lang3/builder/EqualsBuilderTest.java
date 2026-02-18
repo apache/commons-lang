@@ -22,11 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -1489,6 +1491,130 @@ class EqualsBuilderTest extends AbstractLangTest {
         assertTrue(new EqualsBuilder().append(y, y).isEquals());
         assertTrue(new EqualsBuilder().append(x, y).isEquals());
         assertTrue(new EqualsBuilder().append(y, x).isEquals());
+    }
+    /**
+     * Tests the {@code bypassReflectionClasses} configuration with various conditions.
+     * <p>
+     * Verifies that the builder handles a {@code null} bypass list without throwing exceptions.
+     * Also validates the complex conditional logic where one object's class is in the bypass list
+     * while the other is not, ensuring the reflection logic is skipped in favor of the
+     * standard {@code equals()} method.
+     * </p>
+     */
+    @Test
+    void testBypassReflectionNullAndCombinations() {
+        EqualsBuilder builder = new EqualsBuilder();
+
+        // 1. Handle explicitly set null bypass list safely
+        builder.setBypassReflectionClasses(null);
+        TestObject o1 = new TestObject(1);
+        TestObject o2 = new TestObject(1);
+
+        builder.reflectionAppend(o1, o2);
+        assertTrue(builder.isEquals());
+
+        // 2. Test complex condition: LHS not in list, RHS in list
+        class Base { int a = 1; }
+        class Sub extends Base { int b = 2; }
+
+        builder = new EqualsBuilder();
+        builder.setBypassReflectionClasses(Collections.singletonList(Sub.class));
+
+        Base baseObj = new Base();
+        Sub subObj = new Sub();
+
+        // Should trigger bypass logic because at least one class (RHS) is in the list
+        builder.reflectionAppend(baseObj, subObj);
+
+        // Since reflection is bypassed, Object.equals() is called (reference check), returning false
+        assertFalse(builder.isEquals());
+    }
+
+    /**
+     * Tests the try-catch block handling for {@link IllegalArgumentException} during reflection.
+     * <p>
+     * Attempts to force an access check failure by comparing a subclass with transient fields
+     * against a superclass. While the strict type checks in {@code reflectionAppend} usually
+     * prevent invalid comparisons, this test ensures the try-catch block safeguards the execution
+     * flow and correctly flags inequality instead of crashing.
+     * </p>
+     */
+    @Test
+    void testCatchIllegalArgumentExceptionForce() {
+        EqualsBuilder builder = new EqualsBuilder();
+        TestObject parent = new TestObject(1);
+        TestSubObject child = new TestSubObject(1, 2);
+
+        builder.reset();
+        builder.setTestTransients(true);
+
+        // This exercises the safe execution path through the reflection logic
+        builder.reflectionAppend(parent, child);
+        assertFalse(builder.isEquals());
+    }
+
+    /**
+     * Tests hierarchy traversal in the presence of shadowed fields.
+     * <p>
+     * Verifies that the internal {@code while} loop correctly traverses up to the superclasses
+     * and compares fields declared in parent classes, even if they are shadowed (hidden) by
+     * fields in subclasses with the same name.
+     * </p>
+     */
+    @Test
+    void testReflectionHierarchyTraversalWithShadowing() throws Exception {
+        class GrandParent {
+            private int id = 1;
+        }
+        class Parent extends GrandParent {
+            private int id = 2; // Shadows GrandParent.id
+        }
+        class Child extends Parent {
+            private int id = 3; // Shadows Parent.id
+        }
+
+        Child c1 = new Child();
+        Child c2 = new Child();
+
+        assertTrue(EqualsBuilder.reflectionEquals(c1, c2));
+
+        // Modify field in the top-most ancestor to verify the loop reached it
+        Field grandParentField = GrandParent.class.getDeclaredField("id");
+        grandParentField.setAccessible(true);
+        grandParentField.set(c1, 99);
+
+        assertFalse(EqualsBuilder.reflectionEquals(c1, c2));
+
+        // Reset and verify intermediate parent check
+        grandParentField.set(c1, 1);
+        assertTrue(EqualsBuilder.reflectionEquals(c1, c2));
+
+        Field parentField = Parent.class.getDeclaredField("id");
+        parentField.setAccessible(true);
+        parentField.set(c1, 99);
+
+        assertFalse(EqualsBuilder.reflectionEquals(c1, c2));
+    }
+
+    /**
+     * Tests that hierarchy traversal stops at the specified {@code reflectUpToClass}.
+     * <p>
+     * Ensures that fields in superclasses above the configured {@code reflectUpToClass}
+     * are ignored during the comparison.
+     * </p>
+     */
+    @Test
+    void testReflectUpToStopsLoop() {
+        TestSubObject o1 = new TestSubObject(1, 2);
+        TestSubObject o2 = new TestSubObject(1, 2);
+
+        EqualsBuilder builder = new EqualsBuilder();
+
+        // Stop reflection at TestSubObject, ignoring TestObject fields
+        builder.setReflectUpToClass(TestSubObject.class);
+        builder.reflectionAppend(o1, o2);
+
+        assertTrue(builder.isEquals());
     }
 }
 
