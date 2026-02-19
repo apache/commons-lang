@@ -125,6 +125,7 @@ class FastDatePrinterTest extends AbstractLangTest {
 
 
     /**
+     * Branch Covarage
      * Requirement: Values >= 10,000 must support zero padding if width exceeds digit count.
      * Targets: Red lines 991-992 and Yellow diamond 990.
      * We are setting the minfieldwidth to 10 through getInstance and testing a value larger than 10 000. 
@@ -139,10 +140,8 @@ class FastDatePrinterTest extends AbstractLangTest {
         assertEquals("0000010001", printer.format(cal));
     }
 
-
-
-
     /**
+    * Path Coverage:
     * Requirement: REQ-LARGE-VAL - Support exact-width formatting for large values.
     * Targets: Yellow diamond 990 (False branch/Skip loop).
     * Value 10001 (5 digits) with pattern width 5 ensures the while loop condition is false.
@@ -155,6 +154,40 @@ class FastDatePrinterTest extends AbstractLangTest {
       
        assertEquals("10001", printer.format(cal));
    }
+
+
+
+  /**
+     * Path Coverage: The "Sparse Path" (With internal zeros).
+     * This test checks the "Hole in the Middle" scenario (like the number 1001).
+     * It ensures that when digits are missing in the hundreds or tens place, 
+     * the code correctly triggers the "Backup" logic (the ELSE blocks at 963 and 971) 
+     * to plug those holes with '0' instead of skipping them.
+     */
+    @Test
+    void testPathSparseInternalZeros() {
+    final Calendar cal = Calendar.getInstance();
+    cal.set(Calendar.YEAR, 1001); 
+    final DatePrinter printer = getInstance("yyyy"); 
+    
+    assertEquals("1001", printer.format(cal), "Path Coverage Failed: Middle zeros skipped.");
+}
+
+    /**
+     * Path Coverage: The "Dense Path" (No zeros).
+     * This test checks the "Full House" scenario where every digit is 1-9.
+     * It ensures that when we have a 'full' number like 1234, the code 
+     * correctly 'opens the gates' (the IF blocks at 960 and 968) 
+     * to print every digit instead of using the zero-padding backup.
+     */
+@Test
+void testPathDenseNonZeroDigits() {
+    final Calendar cal = Calendar.getInstance();
+    cal.set(Calendar.YEAR, 1234); 
+    final DatePrinter printer = getInstance("yyyy"); 
+    
+    assertEquals("1234", printer.format(cal), "Path Coverage Failed: Non-zero digits miscalculated.");
+}
 
 
 
