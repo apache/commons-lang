@@ -7586,22 +7586,38 @@ public class StringUtils {
      * @return an array of parsed Strings, {@code null} if null String input.
      */
     private static String[] splitWorker(final String str, final char separatorChar, final boolean preserveAllTokens) {
+        //CC COUNT where CC = (decision points) - (exit points) + 2
+        //   D1: if (str == null)
+        //   D2: if (len == 0)
+        //   D3: while (i < len)
+        //   D4: if (str.charAt(i) == separatorChar)
+        //   D5: if (match || preserveAllTokens)
+        //   D6: || in D5
+        //   D7: if (match || preserveAllTokens && lastMatch)
+        //   D8: || in D7
+        //   D9: && in D7
+        //   E1: return nul
+        //   E2: return ArrayUtils.EMPTY_STRING_ARRAY
+        //   E3: return  return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY)
+        //
+        // CC = 9 - 3 + 2 = 8
+
         // Performance tuned for 2.0 (JDK1.4)
-        if (str == null) {
-            return null;
+        if (str == null) { // D1
+            return null; // E1
         }
         final int len = str.length();
-        if (len == 0) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
+        if (len == 0) { // D2
+            return ArrayUtils.EMPTY_STRING_ARRAY; // E2
         }
         final List<String> list = new ArrayList<>();
         int i = 0;
         int start = 0;
         boolean match = false;
         boolean lastMatch = false;
-        while (i < len) {
-            if (str.charAt(i) == separatorChar) {
-                if (match || preserveAllTokens) {
+        while (i < len) { // D3
+            if (str.charAt(i) == separatorChar) { // D4
+                if (match || preserveAllTokens) { // D5, D6 (if and ||)
                     list.add(str.substring(start, i));
                     match = false;
                     lastMatch = true;
@@ -7613,10 +7629,10 @@ public class StringUtils {
             match = true;
             i++;
         }
-        if (match || preserveAllTokens && lastMatch) {
+        if (match || preserveAllTokens && lastMatch) { // D7, D8, D9 (if, ||, &&)
             list.add(str.substring(start, i));
         }
-        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY); // E3
     }
 
     /**
@@ -7630,15 +7646,44 @@ public class StringUtils {
      * @return an array of parsed Strings, {@code null} if null String input.
      */
     private static String[] splitWorker(final String str, final String separatorChars, final int max, final boolean preserveAllTokens) {
+        // CC COUNT where CC = (decision points) - (exit points) + 2
+        //   D1:  if (str == null)
+        //   D2:  if (len == 0)
+        //   D3:  if (separatorChars == null)
+        //   D4:  while (i < len) whitespace path
+        //   D5:  if (Character.isWhitespace(str.charAt(i)))
+        //   D6:  if (match || preserveAllTokens)
+        //   D7:  || in D6
+        //   D8:  if (sizePlus1++ == max)
+        //   D9:  else if (separatorChars.length() == 1)
+        //   D10: while (i < len) single-char path
+        //   D11: if (str.charAt(i) == sep)
+        //   D12: if (match || preserveAllTokens)
+        //   D13: || in D12
+        //   D14: if (sizePlus1++ == max)
+        //   D15: while (i < len) multi-char path
+        //   if (separatorChars.indexOf(str.charAt(i)) >= 0)
+        //   D17: if (match || preserveAllTokens)
+        //   D18: || in D17
+        //   D19: if (sizePlus1++ == max)
+        //   D20: if (match || preserveAllTokens && lastMatch)
+        //   D21: || in D20
+        //   D22: && in D20
+        //   E1: return null
+        //   E2: return ArrayUtils.EMPTY_STRING_ARRAY
+        //   return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY)
+        //
+        // CC = 22 - 3 + 2 = 21
+
         // Performance tuned for 2.0 (JDK1.4)
         // Direct code is quicker than StringTokenizer.
         // Also, StringTokenizer uses isSpace() not isWhitespace()
-        if (str == null) {
-            return null;
+        if (str == null) { // D1
+            return null; // E1
         }
         final int len = str.length();
-        if (len == 0) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
+        if (len == 0) { // D2
+            return ArrayUtils.EMPTY_STRING_ARRAY; // E2
         }
         final List<String> list = new ArrayList<>();
         int sizePlus1 = 1;
@@ -7646,13 +7691,13 @@ public class StringUtils {
         int start = 0;
         boolean match = false;
         boolean lastMatch = false;
-        if (separatorChars == null) {
+        if (separatorChars == null) { // D3
             // Null separator means use whitespace
-            while (i < len) {
-                if (Character.isWhitespace(str.charAt(i))) {
-                    if (match || preserveAllTokens) {
+            while (i < len) { // D4
+                if (Character.isWhitespace(str.charAt(i))) { // D5
+                    if (match || preserveAllTokens) { // D6, D7 (if and ||)
                         lastMatch = true;
-                        if (sizePlus1++ == max) {
+                        if (sizePlus1++ == max) { // D8
                             i = len;
                             lastMatch = false;
                         }
@@ -7666,14 +7711,14 @@ public class StringUtils {
                 match = true;
                 i++;
             }
-        } else if (separatorChars.length() == 1) {
+        } else if (separatorChars.length() == 1) { // D9
             // Optimize 1 character case
             final char sep = separatorChars.charAt(0);
-            while (i < len) {
-                if (str.charAt(i) == sep) {
-                    if (match || preserveAllTokens) {
+            while (i < len) { // D10
+                if (str.charAt(i) == sep) { // D11
+                    if (match || preserveAllTokens) { // D12, D13 (if and ||)
                         lastMatch = true;
-                        if (sizePlus1++ == max) {
+                        if (sizePlus1++ == max) { // D14
                             i = len;
                             lastMatch = false;
                         }
@@ -7689,11 +7734,11 @@ public class StringUtils {
             }
         } else {
             // standard case
-            while (i < len) {
-                if (separatorChars.indexOf(str.charAt(i)) >= 0) {
-                    if (match || preserveAllTokens) {
+            while (i < len) { // D15
+                if (separatorChars.indexOf(str.charAt(i)) >= 0) { // D16
+                    if (match || preserveAllTokens) { // D17, D18 (if and ||)
                         lastMatch = true;
-                        if (sizePlus1++ == max) {
+                        if (sizePlus1++ == max) { // D19
                             i = len;
                             lastMatch = false;
                         }
@@ -7708,10 +7753,10 @@ public class StringUtils {
                 i++;
             }
         }
-        if (match || preserveAllTokens && lastMatch) {
+        if (match || preserveAllTokens && lastMatch) { // D20, D21, D22 (if, || and &&)
             list.add(str.substring(start, i));
         }
-        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY); // E3
     }
 
     /**

@@ -6,11 +6,11 @@ cross-platform format.
 
 ## Project
 
-Name:
+Name: Apache Commons Lang
 
-URL:
+URL: https://github.com/apache/commons-lang
 
-One or two sentences describing it.
+Apache Commons Lang is a Java library that adds extra utility methods on top of the standard java.lang API. It covers things like string manipulation, basic math, object reflection, and system properties, and is maintained by the Apache Software Foundation.
 
 ## Onboarding Experience
 
@@ -146,13 +146,35 @@ with reasons why you changed to a different one.
 
 ## Complexity
 
-1. What are your results for five complex functions?
-2. Did all methods (tools vs. manual count) get the same result?
-3. Are the results clear?
-4. Are the functions just complex, or also long?
-5. What is the purpose of the functions?
-6. Are exceptions taken into account in the given measurements?
-7. Is the documentation clear with respect to all possible outcomes?
+### Function: `StringUtils::splitWorker`
+
+**Lizard tool results:**
+
+| Overload | NLOC | CCN (lizard) | Lines |
+|----------|------|--------------|-------|
+| `String, char, boolean` | 32 | 10 | 7588-7620 |
+| `String, String, int, boolean` | 78 | 23 | 7632-7715 |
+
+**Manual CC count:**
+
+Using the formula: **CC = (decision points) - (exit points) + 2**
+
+splitWorker(String, char, boolean) = 9 - 3 + 2 = 8 (Lizard CC = 10)
+splitWorker(String, String, int, boolean) = 22 - 3 + 2 = 21 (Lizard CC = 23)
+**Questions:**
+
+1. **Did tool and manual count get the same result?**  
+   No. Lizard reports CC=10 and CC=23, while manual counts give CC=8 and CC=21. There could be multiple explanations for the difference of 2, such as lizard could be counting the while loop exit condition as an additional decision point, or maybe uses a different formula.
+2. **Are the functions long as well as complex?**  
+   Yes. The first overload is 32 NLOC with CC=10, and the second is 78 NLOC with CC=23. Both are longer than average functions.
+3. **What is the purpose of the function?**  
+   `splitWorker` splits a string into an array of substrings based on a separator. It provides the logic for `split()` and  `splitPreserveAllTokens` methods in `StringUtils`. The high CC comes from handling three cases: whitespace, single-char, multi-char separators.
+
+4. **Are exceptions taken into account?**  
+   No exceptions are thrown or caught in `splitWorker`. The function handles edge cases via early returns rather than exceptions.
+
+5. **Is the documentation clear about all possible outcomes?**  
+   The Javadoc describes the main parameters and return value, but does not explicitly document all branch outcomes. For example, the exact behavior when `max` is reached mid-string is missing.
 
 ## Refactoring
 
