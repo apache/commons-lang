@@ -36,6 +36,7 @@ import java.text.ParseException;
 import java.util.function.Function;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.SystemProperties;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -108,7 +109,7 @@ class NumberUtilsTest extends AbstractLangTest {
             assertNotNull(function.apply(s));
             return true;
         } catch (final Exception e) {
-            if (!s.matches(".*\\s.*")) {
+            if (!s.matches(".*\\s.*") && SystemProperties.getBoolean(getClass(), "printStackTrace", () -> false)) {
                 e.printStackTrace();
             }
             return false;
