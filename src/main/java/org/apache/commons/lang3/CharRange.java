@@ -29,7 +29,7 @@ import java.util.Objects;
  * <p>#ThreadSafe#</p>
  *
  * @since 1.0
- * @since 3.20.1 {@code serialVersionUID} changed from {@code 8270183163158333422L} to {@code 2L}.
+ * @since 3.21.0 {@code serialVersionUID} changed from {@code 8270183163158333422L} to {@code 2L}.
  */
 // TODO: This is no longer public and will be removed later as CharSet is moved
 // to depend on Range.
@@ -136,7 +136,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * Required for serialization support. Lang version 2.0.
      *
      * @see java.io.Serializable
-     * @since 3.20.1 {@code serialVersionUID} changed from {@code 8270183163158333422L} to {@value}.
+     * @since 3.21.0 {@code serialVersionUID} changed from {@code 8270183163158333422L} to {@value}.
      */
     private static final long serialVersionUID = 2L;
 

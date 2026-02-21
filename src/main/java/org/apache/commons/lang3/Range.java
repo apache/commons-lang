@@ -30,7 +30,7 @@ import java.util.Objects;
  *
  * @param <T> The type of range values.
  * @since 3.0
- * @since 3.20.1 {@code serialVersionUID} changed from {@code 1L} to {@code 2L}.
+ * @since 3.21.0 {@code serialVersionUID} changed from {@code 1L} to {@code 2L}.
  */
 public class Range<T> implements Serializable {
 
@@ -55,7 +55,7 @@ public class Range<T> implements Serializable {
      * Serialization version.
      *
      * @see java.io.Serializable
-     * @since 3.20.1 {@code serialVersionUID} changed from {@code 1L} to {@value}.
+     * @since 3.21.0 {@code serialVersionUID} changed from {@code 1L} to {@value}.
      */
     private static final long serialVersionUID = 2L;
 
