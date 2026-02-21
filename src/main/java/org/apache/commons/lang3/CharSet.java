@@ -221,6 +221,17 @@ public class CharSet implements Serializable {
      * Does the {@link CharSet} contain the specified
      * character {@code ch}.
      *
+     * <p>Examples using the negation character:</p>
+     * <pre>
+     *     CharSet.getInstance("^a-c").contains('a') = false
+     *     CharSet.getInstance("^a-c").contains('d') = true
+     *     CharSet.getInstance("^^a-c").contains('a') = true // (only '^' is negated)
+     *     CharSet.getInstance("^^a-c").contains('^') = false
+     *     CharSet.getInstance("^a-cd-f").contains('d') = true
+     *     CharSet.getInstance("a-c^").contains('^') = true
+     *     CharSet.getInstance("^", "a-c").contains('^') = true
+     * </pre>
+     *
      * @param ch  the character to check for
      * @return {@code true} if the set contains the characters
      */
