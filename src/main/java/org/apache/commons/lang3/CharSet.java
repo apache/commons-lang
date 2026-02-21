@@ -98,7 +98,7 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * Factory method to create a new CharSet using a special syntax.
+     * Creates a new CharSet using the syntax described below.
      *
      * <ul>
      *  <li>{@code null} or empty string ("")
