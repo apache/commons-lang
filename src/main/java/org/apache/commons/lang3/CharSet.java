@@ -19,7 +19,7 @@ package org.apache.commons.lang3;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -79,7 +79,9 @@ public class CharSet implements Serializable {
 
     /**
      * A Map of the common cases used in the factory.
-     * Subclasses can add more common patterns if desired
+     * <p>
+     * Subclasses can add more common patterns if desired.
+     * </p>
      *
      * @since 2.0
      */
@@ -152,8 +154,8 @@ public class CharSet implements Serializable {
      *
      * <p>All CharSet objects returned by this method will be immutable.</p>
      *
-     * @param setStrs  Strings to merge into the set, may be null
-     * @return a CharSet instance
+     * @param setStrs  Strings to merge into the set, may be null.
+     * @return a CharSet instance.
      * @since 2.4
      */
     public static CharSet getInstance(final String... setStrs) {
@@ -170,14 +172,14 @@ public class CharSet implements Serializable {
     }
 
     /** The set of CharRange objects. */
-    private final Set<CharRange> set = Collections.synchronizedSet(new HashSet<>());
+    private final Set<CharRange> set = Collections.synchronizedSet(new LinkedHashSet<>());
 
     /**
      * Constructs a new CharSet using the set syntax.
      * Each string is merged in with the set.
      *
-     * @param set  Strings to merge into the initial set
-     * @throws NullPointerException if set is {@code null}
+     * @param set  Strings to merge into the initial set.
+     * @throws NullPointerException if set is {@code null}.
      */
     protected CharSet(final String... set) {
         Stream.of(set).forEach(this::add);
@@ -192,7 +194,6 @@ public class CharSet implements Serializable {
         if (str == null) {
             return;
         }
-
         final int len = str.length();
         int pos = 0;
         while (pos < len) {
@@ -218,10 +219,10 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * Does the {@link CharSet} contain the specified
-     * character {@code ch}.
-     *
-     * <p>Examples using the negation character:</p>
+     * Tests whether this {@link CharSet} contain the specified character {@code ch}.
+     * <p>
+     * Examples using the negation character:
+     * </p>
      * <pre>
      *     CharSet.getInstance("^a-c").contains('a') = false
      *     CharSet.getInstance("^a-c").contains('d') = true
@@ -232,8 +233,8 @@ public class CharSet implements Serializable {
      *     CharSet.getInstance("^", "a-c").contains('^') = true
      * </pre>
      *
-     * @param ch  the character to check for
-     * @return {@code true} if the set contains the characters
+     * @param ch the character to check.
+     * @return {@code true} if the set contains the characters.
      */
     public boolean contains(final char ch) {
         synchronized (set) {
@@ -248,8 +249,8 @@ public class CharSet implements Serializable {
      * <p>The two sets {@code abc} and {@code a-c} are <em>not</em>
      * equal according to this method.</p>
      *
-     * @param obj  the object to compare to
-     * @return true if equal
+     * @param obj  the object to compare.
+     * @return true if equal.
      * @since 2.0
      */
     @Override
@@ -265,21 +266,21 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * Gets the internal set as an array of CharRange objects.
+     * Gets the set of character ranges.
+     * <p>
+     * Package private for testing.
+     * </p>
      *
-     * @return an array of immutable CharRange objects
-     * @since 2.0
+     * @return the set of character ranges.
      */
-// NOTE: This is no longer public as CharRange is no longer a public class.
-//       It may be replaced when CharSet moves to Range.
-    /*public*/ CharRange[] getCharRanges() {
-        return set.toArray(CharRange.EMPTY_ARRAY);
+    Set<CharRange> getCharRanges() {
+        return set;
     }
 
     /**
      * Gets a hash code compatible with the equals method.
      *
-     * @return a suitable hash code
+     * @return a suitable hash code.
      * @since 2.0
      */
     @Override
@@ -290,7 +291,7 @@ public class CharSet implements Serializable {
     /**
      * Gets a string representation of the set.
      *
-     * @return string representation of the set
+     * @return string representation of the set.
      */
     @Override
     public String toString() {
