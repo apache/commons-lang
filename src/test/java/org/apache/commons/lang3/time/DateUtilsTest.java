@@ -532,9 +532,24 @@ class DateUtilsTest extends AbstractLangTest {
         assertEquals(dateTimeParser.parse("November 18, 2001 1:24:00.000"),
                 DateUtils.ceiling(date2, Calendar.MINUTE),
                 "ceiling minute-2 failed");
+        // Edge cases (LANG-771)
         assertEquals(dateTimeParser.parse("March 30, 2003 01:10:00.000"),
                 DateUtils.ceiling(date9, Calendar.MINUTE),
                 "ceiling minute boundary failed");
+        final Date epoch = new Date(0);
+        assertEquals(epoch,
+                DateUtils.ceiling(epoch, Calendar.MINUTE),
+                "ceiling minute epoch failed");
+        final Date negative = new Date(-1);
+        assertEquals(new Date(0),
+                DateUtils.ceiling(negative, Calendar.MINUTE),
+                "ceiling minute negative failed");
+        assertThrows(ArithmeticException.class,
+                () -> DateUtils.ceiling(new Date(Long.MIN_VALUE), Calendar.MINUTE),
+                "ceiling minute Long.MIN_VALUE failed");
+        assertThrows(ArithmeticException.class,
+                () -> DateUtils.ceiling(new Date(Long.MAX_VALUE), Calendar.MINUTE),
+                "ceiling minute Long.MAX_VALUE failed");
         assertEquals(dateTimeParser.parse("February 12, 2002 12:34:57.000"),
                 DateUtils.ceiling(date1, Calendar.SECOND),
                 "ceiling second-1 failed");
