@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
 
 class DateUtilsFragmentTest extends AbstractLangTest {
 
+    private static final Date MAX_DATE = new Date(Long.MAX_VALUE);
     private static final int months = 7; // second final prime before 12
     private static final int days = 23; // second final prime before 31 (and valid)
     private static final int hours = 19; // second final prime before 24
@@ -55,6 +56,7 @@ class DateUtilsFragmentTest extends AbstractLangTest {
     @Test
     void testDateFragmentInLargerUnitWithDate() {
         assertEquals(0, DateUtils.getFragmentInDays(aDate, Calendar.DATE));
+        assertEquals(0, DateUtils.getFragmentInDays(MAX_DATE, Calendar.DATE));
     }
 
     @Test
@@ -65,12 +67,12 @@ class DateUtilsFragmentTest extends AbstractLangTest {
     @Test
     void testDayOfYearFragmentInLargerUnitWithDate() {
         assertEquals(0, DateUtils.getFragmentInDays(aDate, Calendar.DAY_OF_YEAR));
+        assertEquals(0, DateUtils.getFragmentInDays(MAX_DATE, Calendar.DAY_OF_YEAR));
     }
 
     @Test
     void testDaysOfMonthWithCalendar() {
-        final long testResult = DateUtils.getFragmentInDays(aCalendar, Calendar.MONTH);
-        assertEquals(days, testResult);
+        assertEquals(days, DateUtils.getFragmentInDays(aCalendar, Calendar.MONTH));
     }
 
     @Test
@@ -105,6 +107,8 @@ class DateUtilsFragmentTest extends AbstractLangTest {
     void testHourOfDayFragmentInLargerUnitWithDate() {
         assertEquals(0, DateUtils.getFragmentInHours(aDate, Calendar.HOUR_OF_DAY));
         assertEquals(0, DateUtils.getFragmentInDays(aDate, Calendar.HOUR_OF_DAY));
+        assertEquals(0, DateUtils.getFragmentInHours(MAX_DATE, Calendar.HOUR_OF_DAY));
+        assertEquals(0, DateUtils.getFragmentInDays(MAX_DATE, Calendar.HOUR_OF_DAY));
     }
 
     @Test
