@@ -178,7 +178,7 @@ abstract class Test1<G> {
  */
 @SuppressWarnings({ "unused", "rawtypes" })
 // raw types, where used, are used purposely
-public class TypeUtilsTest<B> extends AbstractLangTest {
+class TypeUtilsTest<B> extends AbstractLangTest {
 
     public interface And<K, V> extends This<Number, Number> {
         // empty

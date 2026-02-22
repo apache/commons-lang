@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
  *
  * @param <U> itself
  */
-public class Lang1703Test<U extends Lang1703Test<U>> {
+class Lang1703Test<U extends Lang1703Test<U>> {
 
     @Test
     void testStackOverflowError() {

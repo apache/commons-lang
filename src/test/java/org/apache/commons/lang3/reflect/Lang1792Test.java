@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  *
  * @param <U> See https://issues.apache.org/jira/browse/LANG-1792
  */
-public class Lang1792Test<U extends Number> {
+class Lang1792Test<U extends Number> {
 
     @Test
     void testStackOverflowError() {

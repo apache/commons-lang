@@ -24,10 +24,10 @@ import org.apache.commons.lang3.arch.Processor.Arch;
 import org.apache.commons.lang3.arch.Processor.Type;
 import org.junit.jupiter.api.Test;
 
-public class ProcessorTest {
+class ProcessorTest {
 
     @Test
-    public void testIs32Bit() {
+    void testIs32Bit() {
         Processor processor = new Processor(Arch.BIT_32, Type.X86);
         assertTrue(processor.is32Bit());
         processor = new Processor(Arch.BIT_64, Type.X86);
@@ -35,7 +35,7 @@ public class ProcessorTest {
     }
 
     @Test
-    public void testIs64Bit() {
+    void testIs64Bit() {
         Processor processor = new Processor(Arch.BIT_64, Type.X86);
         assertTrue(processor.is64Bit());
         processor = new Processor(Arch.BIT_32, Type.X86);
@@ -43,7 +43,7 @@ public class ProcessorTest {
     }
 
     @Test
-    public void testIsAarch64() {
+    void testIsAarch64() {
         Processor processor = new Processor(Arch.BIT_64, Type.AARCH_64);
         assertTrue(processor.isAarch64());
         processor = new Processor(Arch.BIT_64, Type.X86);
@@ -51,7 +51,7 @@ public class ProcessorTest {
     }
 
     @Test
-    public void testIsIA64() {
+    void testIsIA64() {
         Processor processor = new Processor(Arch.BIT_64, Type.IA_64);
         assertTrue(processor.isIA64());
         processor = new Processor(Arch.BIT_64, Type.X86);
@@ -59,7 +59,7 @@ public class ProcessorTest {
     }
 
     @Test
-    public void testIsPPC() {
+    void testIsPPC() {
         Processor processor = new Processor(Arch.BIT_64, Type.PPC);
         assertTrue(processor.isPPC());
         processor = new Processor(Arch.BIT_64, Type.X86);
@@ -67,7 +67,7 @@ public class ProcessorTest {
     }
 
     @Test
-    public void testIsRISCV() {
+    void testIsRISCV() {
         Processor processor = new Processor(Arch.BIT_64, Type.RISC_V);
         assertTrue(processor.isRISCV());
         processor = new Processor(Arch.BIT_64, Type.X86);
@@ -75,7 +75,7 @@ public class ProcessorTest {
     }
 
     @Test
-    public void testIsX86() {
+    void testIsX86() {
         Processor processor = new Processor(Arch.BIT_32, Type.X86);
         assertTrue(processor.isX86());
         processor = new Processor(Arch.BIT_64, Type.AARCH_64);
