@@ -119,6 +119,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="TK_ENDO, Arnout Engelen, Gary Gregory">Add test coverage for negative-day adjustment in DurationFormatUtils #1596.</action>
     <action                   type="fix" dev="ggregory" due-to="Mohammad Bireybi, Gary Gregory">[Javadoc] Add usage examples to CharSet.contains(char) #1605.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">CharSet now maintains iteration order.</action>
+    <action issue="LANG-771"  type="fix" dev="ggregory" due-to="Ryan Holmes, Makarand Hinge, Gary Gregory">DateUtils.ceiling does not behave correctly for dates on the boundaries.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
