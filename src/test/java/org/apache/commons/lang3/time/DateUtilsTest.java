@@ -66,6 +66,7 @@ import org.junitpioneer.jupiter.WritesDefaultLocale;
 @WritesDefaultLocale
 class DateUtilsTest extends AbstractLangTest {
 
+    private static final Date MAX_DATE = new Date(Long.MAX_VALUE);
     private static final TimeZone TIME_ZONE_NY = TimeZones.getTimeZone("America/New_York");
     private static final TimeZone TIME_ZONE_DEFAULT = TimeZone.getDefault();
     private static final TimeZone TIME_ZONE_MET = TimeZones.getTimeZone("MET");
@@ -151,7 +152,7 @@ class DateUtilsTest extends AbstractLangTest {
                 Arguments.of(
                         // +292278994-08-17T07:12:55.807
                         LocalDateTime.of(292278994, 8, 17, 7, 12, 55, 807_000_000),
-                        new Date(Long.MAX_VALUE),
+                        MAX_DATE,
                         TimeZones.GMT
                 ),
                 // [3]
@@ -641,7 +642,7 @@ class DateUtilsTest extends AbstractLangTest {
     @Test
     void testCeiling_Bugzilla_31395() throws Exception {
         // Bug 31395, large dates
-        final Date endOfTime = new Date(Long.MAX_VALUE); // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
+        final Date endOfTime = MAX_DATE; // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
         final GregorianCalendar endCal = new GregorianCalendar();
         endCal.setTime(endOfTime);
         assertThrows(ArithmeticException.class, () -> DateUtils.ceiling(endCal, Calendar.DATE));
@@ -744,6 +745,7 @@ class DateUtilsTest extends AbstractLangTest {
         assertTrue(DateUtils.isSameDay(datea, dateb));
         dateb = new GregorianCalendar(2005, 6, 10, 13, 45).getTime();
         assertFalse(DateUtils.isSameDay(datea, dateb));
+        assertFalse(DateUtils.isSameDay(MAX_DATE, MAX_DATE));
     }
 
     @Test
@@ -1295,6 +1297,7 @@ class DateUtilsTest extends AbstractLangTest {
     @Test
     void testToCalendar() {
         assertEquals(date1, DateUtils.toCalendar(date1).getTime(), "Failed to convert to a Calendar and back");
+        assertEquals(MAX_DATE, DateUtils.toCalendar(MAX_DATE).getTime(), "Failed to convert to a Calendar and back");
         assertNullPointerException(() -> DateUtils.toCalendar(null));
     }
 
@@ -1558,7 +1561,7 @@ class DateUtilsTest extends AbstractLangTest {
     @Test
     void testTruncate_Bugzilla_31395() throws Exception {
         // Bug 31395, large dates
-        final Date endOfTime = new Date(Long.MAX_VALUE); // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
+        final Date endOfTime = MAX_DATE; // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
         final GregorianCalendar endCal = new GregorianCalendar();
         endCal.setTime(endOfTime);
         assertThrows(ArithmeticException.class, () -> DateUtils.truncate(endCal, Calendar.DATE));
