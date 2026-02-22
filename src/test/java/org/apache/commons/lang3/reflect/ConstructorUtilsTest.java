@@ -36,8 +36,12 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests ConstructorUtils
+ * <p>
+ * This is public for its own tests.
+ * </p>
  */
 public class ConstructorUtilsTest extends AbstractLangTest {
+
     private static class BaseClass {
     }
 
