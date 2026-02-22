@@ -736,16 +736,19 @@ class DateUtilsTest extends AbstractLangTest {
 
     @Test
     void testIsSameDay_Date() {
-        Date datea = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
-        Date dateb = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
-        assertTrue(DateUtils.isSameDay(datea, dateb));
-        dateb = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
-        assertFalse(DateUtils.isSameDay(datea, dateb));
-        datea = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
-        assertTrue(DateUtils.isSameDay(datea, dateb));
-        dateb = new GregorianCalendar(2005, 6, 10, 13, 45).getTime();
-        assertFalse(DateUtils.isSameDay(datea, dateb));
-        assertFalse(DateUtils.isSameDay(MAX_DATE, MAX_DATE));
+        Date dateA = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
+        Date dateB = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
+        assertTrue(DateUtils.isSameDay(dateA, dateB));
+        dateB = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
+        assertFalse(DateUtils.isSameDay(dateA, dateB));
+        dateA = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
+        assertTrue(DateUtils.isSameDay(dateA, dateB));
+        dateB = new GregorianCalendar(2005, 6, 10, 13, 45).getTime();
+        assertFalse(DateUtils.isSameDay(dateA, dateB));
+        assertTrue(DateUtils.isSameDay(dateA, dateA));
+        assertTrue(DateUtils.isSameDay(dateA, (Date) dateA.clone()));
+        assertTrue(DateUtils.isSameDay(MAX_DATE, MAX_DATE));
+        assertTrue(DateUtils.isSameDay(MAX_DATE, (Date) MAX_DATE.clone()));
     }
 
     @Test
