@@ -1163,7 +1163,7 @@ public class DateUtils {
             for (final int element : aField) {
                 if (element == field) {
                     //This is our field... we stop looping
-                    if ((modType == ModifyType.CEILING && originalMillis != val.getTimeInMillis())|| (modType == ModifyType.ROUND && roundUp)) {
+                    if (modType == ModifyType.CEILING && originalMillis != val.getTimeInMillis() || modType == ModifyType.ROUND && roundUp) {
                         if (field == SEMI_MONTH) {
                             //This is a special case that's hard to generalize
                             //If the date is 1, we round up to 16, otherwise
