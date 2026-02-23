@@ -135,6 +135,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * </ul>
  *
  * @since 3.5
+ * @deprecated use new {@link EventCounterCircuitBreaker}
  */
 public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
 
