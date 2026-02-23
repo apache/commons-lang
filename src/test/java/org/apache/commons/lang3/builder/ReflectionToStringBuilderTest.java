@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -31,4 +32,48 @@ class ReflectionToStringBuilderTest extends AbstractLangTest {
         assertEquals("<null>", new ReflectionToStringBuilder(null, ToStringStyle.DEFAULT_STYLE, new StringBuffer()).toString());
     }
 
+    @Test
+    void testFallsBackToCallingToStringMethodIfReflectiveAccessNotAllowed() {
+      final String data = "string-value";
+      final ReflectionToStringBuilder builder =  new ReflectionToStringBuilder(data, ToStringStyle.DEFAULT_STYLE, new StringBuffer());
+      builder.reflectiveAccess = new ReflectiveAccessUtil() {
+          @Override
+          boolean isAllowed(Class<?> targetClass) {
+              return false;
+          }
+      };
+      assertEquals(String.format("java.lang.String@%s[%s]", Integer.toHexString(System.identityHashCode(data)), data), builder.toString());
+    }
+
+    @Test
+    void testUsesReflectionToGetFieldsIfReflectiveAccessAllowed() {
+        final String data = "string-value";
+        final ReflectionToStringBuilder builder =  new ReflectionToStringBuilder(data, ToStringStyle.DEFAULT_STYLE, new StringBuffer());
+        builder.reflectiveAccess = new ReflectiveAccessUtil() {
+            @Override
+            boolean isAllowed(Class<?> targetClass) {
+                return true;
+            }
+        };
+        final String result = builder.toString();
+        assertTrue(result.startsWith(String.format("java.lang.String@%s[", Integer.toHexString(System.identityHashCode(data)))));
+        assertTrue(result.contains(String.format("hash=%s", data.hashCode())));
+        assertTrue(result.endsWith("]"));
+    }
+
+    @Test
+    void testUsesReflectionToGetFieldsIfJpmsNotSupported() {
+        final String data = "string-value";
+        final ReflectionToStringBuilder builder =  new ReflectionToStringBuilder(data, ToStringStyle.DEFAULT_STYLE, new StringBuffer());
+        builder.reflectiveAccess = new ReflectiveAccessUtil() {
+            @Override
+            boolean isJpmsSupported() {
+                return false;
+            }
+        };
+        final String result = builder.toString();
+        assertTrue(result.startsWith(String.format("java.lang.String@%s[", Integer.toHexString(System.identityHashCode(data)))));
+        assertTrue(result.contains(String.format("hash=%s", data.hashCode())));
+        assertTrue(result.endsWith("]"));
+    }
 }
