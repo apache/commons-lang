@@ -1806,4 +1806,24 @@ public class NumberUtils {
     public NumberUtils() {
         // empty
     }
+
+    /**
+     * Checks whether the specified {@link Number} is {@code null} or {@code 0} as value.
+     *
+     * @param number the {@code number} to check
+     * @return {@code true} if the Object of {@code number} is {@code null} or has the value {@code 0}.
+     */
+    public static boolean isNullOrZero(Number number) {
+        return null == number || number.doubleValue() == 0.0d;
+    }
+
+    /**
+     * Checks whether the specified {@link Number} is not {@code null} and is unlike {@code 0} as value.
+     *
+     * @param number number the {@code number} to check
+     * @return {@code true} is the Object of {@code number} is not {@code null} and has a value unlike {@code 0}
+     */
+    public static boolean isNoneNullOrZero(Number number) {
+        return ! isNullOrZero(number);
+    }
 }
