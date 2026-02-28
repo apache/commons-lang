@@ -170,8 +170,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      */
     @Override
     public int hashCode() {
-        // See Map.Entry API specification
-        return Objects.hashCode(getLeft()) ^ Objects.hashCode(getMiddle()) ^ Objects.hashCode(getRight());
+        return Objects.hash(getLeft(), getMiddle(), getRight());
     }
 
     /**
