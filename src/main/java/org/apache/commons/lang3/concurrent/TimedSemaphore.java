@@ -20,6 +20,7 @@ package org.apache.commons.lang3.concurrent;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -123,6 +124,7 @@ public class TimedSemaphore {
         private long period;
         private TimeUnit timeUnit;
         private int limit;
+        private boolean fair;
 
         /**
          * Constructs a new Builder.
@@ -134,6 +136,18 @@ public class TimedSemaphore {
         @Override
         public TimedSemaphore get() {
             return new TimedSemaphore(this);
+        }
+
+        /**
+         * Sets the fairness mode.
+         *
+         * @param fair whether to enable fairness.
+         * @return {@code this} instance.
+         * @since 3.21.0
+         */
+        public Builder setFair(final boolean fair) {
+            this.fair = fair;
+            return this;
         }
 
         /**
@@ -179,6 +193,7 @@ public class TimedSemaphore {
             this.timeUnit = timeUnit;
             return this;
         }
+
     }
 
     /**
@@ -235,10 +250,17 @@ public class TimedSemaphore {
     /** A flag whether shutdown() was called. */
     private boolean shutdown; // @GuardedBy("this")
 
+    /** Fairness mode checker */
+    private final boolean fair;
+
+    /** Backing semaphore that enforces blocking and (optionally) FIFO fairness. */
+    private final Semaphore semaphore;
+
     private TimedSemaphore(final Builder builder) {
         Validate.inclusiveBetween(1, Long.MAX_VALUE, builder.period, "Time period must be greater than 0.");
         period = builder.period;
         unit = builder.timeUnit;
+        this.fair = builder.fair;
         if (builder.service != null) {
             executorService = builder.service;
             ownExecutor = false;
@@ -249,7 +271,8 @@ public class TimedSemaphore {
             executorService = stpe;
             ownExecutor = true;
         }
-        setLimit(builder.limit);
+        updateLimit(builder.limit);
+        semaphore = new Semaphore(this.limit, fair);
     }
 
     /**
@@ -290,29 +313,33 @@ public class TimedSemaphore {
      * @throws InterruptedException  if the thread gets interrupted.
      * @throws IllegalStateException if this semaphore is already shut down.
      */
-    public synchronized void acquire() throws InterruptedException {
+    public void acquire() throws InterruptedException {
         prepareAcquire();
-        boolean canPass;
-        do {
-            canPass = acquirePermit();
-            if (!canPass) {
-                wait();
+        if (getLimit() <= NO_LIMIT) {
+            synchronized (this) {
+                acquireCount++;
             }
-        } while (!canPass);
+            return;
+        }
+        if (fairTryAcquire()) {
+            synchronized (this) {
+                acquireCount++;
+            }
+            return;
+        }
+        for (;;) {
+            synchronized (this) {
+                if (fairTryAcquire()) {
+                    acquireCount++;
+                    return;
+                }
+                this.wait();
+            }
+        }
     }
 
-    /**
-     * Internal helper method for acquiring a permit. This method checks whether currently a permit can be acquired and - if so - increases the internal
-     * counter. The return value indicates whether a permit could be acquired. This method must be called with the lock of this object held.
-     *
-     * @return a flag whether a permit could be acquired.
-     */
-    private boolean acquirePermit() {
-        if (getLimit() <= NO_LIMIT || acquireCount < getLimit()) {
-            acquireCount++;
-            return true;
-        }
-        return false;
+    private boolean fairTryAcquire() throws InterruptedException {
+        return fair ? semaphore.tryAcquire(0, TimeUnit.SECONDS) : semaphore.tryAcquire();
     }
 
     /**
@@ -324,7 +351,12 @@ public class TimedSemaphore {
         totalAcquireCount += acquireCount;
         periodCount++;
         acquireCount = 0;
-        notifyAll();
+        final int avail = semaphore.availablePermits();
+        final int toRelease = getLimit() - avail;
+        if (toRelease > 0) {
+            semaphore.release(toRelease);
+        }
+        this.notifyAll();
     }
 
     /**
@@ -420,12 +452,18 @@ public class TimedSemaphore {
      * object held.
      */
     private void prepareAcquire() {
-        if (isShutdown()) {
-            throw new IllegalStateException("TimedSemaphore is shut down!");
+        synchronized (this) {
+            if (isShutdown()) {
+                throw new IllegalStateException("TimedSemaphore is shut down!");
+            }
+            if (task == null) {
+                task = startTimer();
+            }
         }
-        if (task == null) {
-            task = startTimer();
-        }
+    }
+
+    private void updateLimit(int value) {
+        limit = Math.max(0, value);
     }
 
     /**
@@ -436,7 +474,15 @@ public class TimedSemaphore {
      * @param limit the limit.
      */
     public final synchronized void setLimit(final int limit) {
-        this.limit = limit;
+        updateLimit(limit);
+
+        final int used = Math.max(0, acquireCount);
+        final int toSeed = Math.max(0, limit - used);
+
+        semaphore.drainPermits();
+        if (toSeed > 0) {
+            semaphore.release(toSeed);
+        }
     }
 
     /**
@@ -469,14 +515,32 @@ public class TimedSemaphore {
 
     /**
      * Tries to acquire a permit from this semaphore. If the limit of this semaphore has not yet been reached, a permit is acquired, and this method returns
-     * <strong>true</strong>. Otherwise, this method returns immediately with the result <strong>false</strong>.
+     * <strong>true</strong>. Otherwise, this method returns immediately with the result <strong>false</strong>. Even when this semaphore has been set to use
+     * a fair ordering policy, a call to tryAcquire() will immediately acquire a permit if one is available, whether or not other threads are currently waiting.
+     * This "barging" behavior can be useful in certain circumstances, even though it breaks fairness. If you want to honor the fairness setting, then use
+     * tryAcquire(0, TimeUnit.SECONDS) which is almost equivalent (it also detects interruption).
      *
-     * @return <strong>true</strong> if a permit could be acquired; <strong>false</strong> otherwise.
+     * @return <strong>true</strong> if a permit could be acquired;
+     *         <strong>false</strong> otherwise.
      * @throws IllegalStateException if this semaphore is already shut down.
+     * @throws InterruptedException if the current thread is interrupted while waiting.
      * @since 3.5
      */
-    public synchronized boolean tryAcquire() {
+    public boolean tryAcquire() throws InterruptedException {
         prepareAcquire();
-        return acquirePermit();
+        if (getLimit() <= NO_LIMIT) {
+            synchronized (this) {
+                acquireCount++;
+            }
+            return true;
+        }
+
+        final boolean ok = fairTryAcquire();
+        if (ok) {
+            synchronized (this) {
+                acquireCount++;
+            }
+        }
+        return ok;
     }
 }
