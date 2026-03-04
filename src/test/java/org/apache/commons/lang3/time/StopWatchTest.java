@@ -426,7 +426,7 @@ class StopWatchTest extends AbstractLangTest {
     @Test
     void testSplitGetStopInstant() {
       final StopWatch watch = StopWatch.createStarted();
-      watch.split(); 
+      watch.split();
       assertNotNull(watch.getStopTime());
       assertNotNull(watch.getStopInstant());
     }
