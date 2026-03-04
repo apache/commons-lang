@@ -93,7 +93,7 @@ public class StopWatch {
         /**
          * Gets the duration of this split.
          *
-         * @return The duration of this split..
+         * @return The duration of this split.
          */
         public Duration getDuration() {
             return getRight();
