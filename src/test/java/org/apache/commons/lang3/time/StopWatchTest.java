@@ -19,6 +19,7 @@ package org.apache.commons.lang3.time;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -420,6 +421,22 @@ class StopWatchTest extends AbstractLangTest {
         watch.unsplit();
         assertEquals(2, watch.getSplits().size());
         assertThrows(IllegalStateException.class, watch::unsplit);
+    }
+
+    @Test
+    void testSplitGetStopInstant() {
+      final StopWatch watch = StopWatch.createStarted();
+      watch.split();
+      assertNotNull(watch.getStopTime());
+      assertNotNull(watch.getStopInstant());
+    }
+
+    @Test
+    void testSplitWithLabelGetStopInstant() {
+      final StopWatch watch = StopWatch.createStarted();
+      watch.split("one");
+      assertNotNull(watch.getStopTime());
+      assertNotNull(watch.getStopInstant());
     }
 
     @Test
