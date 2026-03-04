@@ -394,6 +394,14 @@ class StopWatchTest extends AbstractLangTest {
     }
 
     @Test
+    void testSplitGetStopInstant() {
+      final StopWatch watch = StopWatch.createStarted();
+      watch.split();
+      assertNotNull(watch.getStopTime());
+      assertNotNull(watch.getStopInstant());
+    }
+
+    @Test
     void testSplitsWithStringLabels() {
         final StopWatch watch = new StopWatch();
         final String firstLabel = "one";
@@ -424,14 +432,6 @@ class StopWatchTest extends AbstractLangTest {
     }
 
     @Test
-    void testSplitGetStopInstant() {
-      final StopWatch watch = StopWatch.createStarted();
-      watch.split();
-      assertNotNull(watch.getStopTime());
-      assertNotNull(watch.getStopInstant());
-    }
-
-    @Test
     void testSplitWithLabelGetStopInstant() {
       final StopWatch watch = StopWatch.createStarted();
       watch.split("one");
@@ -443,6 +443,12 @@ class StopWatchTest extends AbstractLangTest {
     void testStatic() {
         final StopWatch watch = StopWatch.createStarted();
         assertTrue(watch.isStarted());
+    }
+
+    @Test
+    void testGetStopTime() throws InterruptedException {
+        final StopWatch watch = StopWatch.createStarted();
+        assertEquals(0, watch.getStopTime());
     }
 
     @Test

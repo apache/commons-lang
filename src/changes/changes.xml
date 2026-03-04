@@ -129,6 +129,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayUtils.getDimensions(Object).</action>
     <action issue="LANG-1707" type="add" dev="ggregory" due-to="Ivan Malutin, Gilles Sadowski, Gary Gregory">Add ArrayUtils.concat() methods for concatenating multiple arrays #1519.</action>
     <action                   type="add" dev="ggregory" due-to="Lars Helge Øverland, Gary Gregory">Fix StopWatch's stopInstant match stopTimeNanos when split is called #1610.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in StopWatch.getStopTime().</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 97 #1498.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.14.0 to 1.15.0.</action>

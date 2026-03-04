@@ -519,7 +519,8 @@ public class StopWatch {
     @Deprecated
     public long getStopTime() {
         // stopTimeNanos stores System.nanoTime() for elapsed time
-        return getStopInstant().toEpochMilli();
+        final Instant stop = getStopInstant();
+        return stop != null ? stop.toEpochMilli() : 0;
     }
 
     /**
