@@ -52,6 +52,7 @@ import org.apache.commons.lang3.reflect.testbed.PrivatelyShadowedChild;
 import org.apache.commons.lang3.reflect.testbed.PublicChild;
 import org.apache.commons.lang3.reflect.testbed.PubliclyShadowedChild;
 import org.apache.commons.lang3.reflect.testbed.StaticContainer;
+import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
 import org.apache.commons.lang3.reflect.testbed.StaticContainerChild;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -342,6 +343,13 @@ class FieldUtilsTest extends AbstractLangTest {
     @Test
     void testGetFieldsListWithAnnotationNullPointerException2() {
         assertNullPointerException(() -> FieldUtils.getFieldsListWithAnnotation(null, Annotated.class));
+    }
+
+    @Test
+    void testCheckIsConstantField(){
+	    assertTrue(FieldUtils.checkIsConstantField(FieldUtils.getField(Foo.class, "VALUE")));
+	    assertFalse(FieldUtils.checkIsConstantField(FieldUtils.getField(GenericTypeHolder.class, "stringParent")));
+	    assertThrows(NullPointerException.class, () -> FieldUtils.checkIsConstantField(null));
     }
 
     @Test

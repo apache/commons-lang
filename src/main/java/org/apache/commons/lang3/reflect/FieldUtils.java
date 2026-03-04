@@ -261,6 +261,20 @@ public class FieldUtils {
     }
 
     /**
+     * Checks if the given field is a "public static final" constant or not.
+     * 
+     * @param field 
+     *          the field to check for said attributes
+     * @return {@code true} if {@code field} is public static final constant and {@code false} otherwise
+     * @throws NullPointerException
+     *          if the field is {@code null}
+     */
+    public static boolean checkIsConstantField(final Field field){
+	    final int mod = field.getModifiers();
+	    return (Modifier.isPublic(mod) && Modifier.isStatic(mod) && Modifier.isFinal(mod));
+    }
+
+    /**
      * Reads the named {@code public} {@link Field}. Only the class of the specified object will be considered.
      *
      * @param target
