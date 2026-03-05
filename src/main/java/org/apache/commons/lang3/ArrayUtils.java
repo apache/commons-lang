@@ -5276,7 +5276,7 @@ public class ArrayUtils {
      * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, an IndexOutOfBoundsException will be thrown, because in that case no valid index can be specified.
+     * If the input array is {@code null}, {@code null} will be returned.
      * </p>
      *
      * <pre>
