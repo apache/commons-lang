@@ -5286,8 +5286,8 @@ public class ArrayUtils {
      *
      * @param array   the array to remove the element from, may not be {@code null}.
      * @param indices the positions of the elements to be removed.
-     * @return A new array containing the existing elements except those at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @return A new array containing the existing elements except those at the specified positions or null if the input array is null.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length).
      * @since 3.0.1
      */
     public static boolean[] removeAll(final boolean[] array, final int... indices) {
@@ -5315,8 +5315,8 @@ public class ArrayUtils {
      *
      * @param array   the array to remove the element from, may not be {@code null}.
      * @param indices the positions of the elements to be removed.
-     * @return A new array containing the existing elements except those at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @return A new array containing the existing elements except those at the specified positions or null if the input array is null.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length).
      * @since 3.0.1
      */
     public static byte[] removeAll(final byte[] array, final int... indices) {
@@ -5344,8 +5344,8 @@ public class ArrayUtils {
      *
      * @param array   the array to remove the element from, may not be {@code null}.
      * @param indices the positions of the elements to be removed.
-     * @return A new array containing the existing elements except those at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @return A new array containing the existing elements except those at the specified positions or null if the input array is null.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length).
      * @since 3.0.1
      */
     public static char[] removeAll(final char[] array, final int... indices) {
@@ -5373,8 +5373,8 @@ public class ArrayUtils {
      *
      * @param array   the array to remove the element from, may not be {@code null}.
      * @param indices the positions of the elements to be removed.
-     * @return A new array containing the existing elements except those at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @return A new array containing the existing elements except those at the specified positions or null if the input array is null.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length).
      * @since 3.0.1
      */
     public static double[] removeAll(final double[] array, final int... indices) {
@@ -5402,8 +5402,8 @@ public class ArrayUtils {
      *
      * @param array   the array to remove the element from, may not be {@code null}.
      * @param indices the positions of the elements to be removed.
-     * @return A new array containing the existing elements except those at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @return A new array containing the existing elements except those at the specified positions or null if the input array is null.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length).
      * @since 3.0.1
      */
     public static float[] removeAll(final float[] array, final int... indices) {
@@ -5431,8 +5431,8 @@ public class ArrayUtils {
      *
      * @param array   the array to remove the element from, may not be {@code null}.
      * @param indices the positions of the elements to be removed.
-     * @return A new array containing the existing elements except those at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @return A new array containing the existing elements except those at the specified positions or null if the input array is null.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length).
      * @since 3.0.1
      */
     public static int[] removeAll(final int[] array, final int... indices) {
@@ -5460,8 +5460,8 @@ public class ArrayUtils {
      *
      * @param array   the array to remove the element from, may not be {@code null}.
      * @param indices the positions of the elements to be removed.
-     * @return A new array containing the existing elements except those at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @return A new array containing the existing elements except those at the specified positions or null if the input array is null.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length).
      * @since 3.0.1
      */
     public static long[] removeAll(final long[] array, final int... indices) {
@@ -5542,8 +5542,8 @@ public class ArrayUtils {
      *
      * @param array   the array to remove the element from, may not be {@code null}.
      * @param indices the positions of the elements to be removed.
-     * @return A new array containing the existing elements except those at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @return A new array containing the existing elements except those at the specified positions or null if the input array is null.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length).
      * @since 3.0.1
      */
     public static short[] removeAll(final short[] array, final int... indices) {
@@ -5568,8 +5568,8 @@ public class ArrayUtils {
      * @param <T>     the component type of the array.
      * @param array   the array to remove the element from, may not be {@code null}.
      * @param indices the positions of the elements to be removed.
-     * @return A new array containing the existing elements except those at the specified positions.
-     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length), or if the array is {@code null}.
+     * @return A new array containing the existing elements except those at the specified positions or null if the input array is null.
+     * @throws IndexOutOfBoundsException if any index is out of range (index &lt; 0 || index &gt;= array.length).
      * @since 3.0.1
      */
     @SuppressWarnings("unchecked") // removeAll() always creates an array of the same type as its input
