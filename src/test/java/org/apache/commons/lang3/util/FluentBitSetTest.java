@@ -1826,4 +1826,172 @@ class FluentBitSetTest extends AbstractLangTest {
         assertEquals("{63}", bs.toString(), "Test highest bit");
     }
 
+    @Test
+    void test_equalsEmptyBitSets() {
+        FluentBitSet bitSet1 = new FluentBitSet();
+        FluentBitSet bitSet2 = new FluentBitSet();
+
+        boolean result = bitSet1.equals(bitSet2);
+
+        assertTrue(result);
+        assertTrue(bitSet1.isEmpty());
+        assertTrue(bitSet2.isEmpty());
+        assertEquals(0, bitSet1.cardinality());
+        assertEquals(0, bitSet2.cardinality());
+        assertTrue(bitSet1.equals(bitSet2));
+        assertEquals(bitSet1.hashCode(), bitSet2.hashCode());
+    }
+
+    @Test
+    void test_equalsDifferentConstructors() {
+        FluentBitSet bitSet1 = new FluentBitSet();
+        bitSet1.set(1);
+
+        FluentBitSet bitSet2 = new FluentBitSet(10);
+        bitSet2.set(1);
+
+        boolean result = bitSet1.equals(bitSet2);
+
+        assertTrue(result);
+        assertTrue(bitSet1.get(1));
+        assertTrue(bitSet2.get(1));
+        assertEquals(1, bitSet1.cardinality());
+        assertEquals(1, bitSet2.cardinality());
+        assertTrue(bitSet1.equals(bitSet2));
+        assertEquals(bitSet1.hashCode(), bitSet2.hashCode());
+    }
+
+    @Test
+    void test_equalsAfterClone() {
+        FluentBitSet original = new FluentBitSet();
+        original.set(1);
+        original.set(5);
+
+        FluentBitSet cloned = (FluentBitSet) original.clone();
+
+        boolean result = original.equals(cloned);
+
+        assertTrue(result);
+        assertTrue(original.equals(cloned));
+        assertTrue(cloned.equals(original));
+        assertTrue(original.get(1));
+        assertTrue(cloned.get(1));
+        assertEquals(original.hashCode(), cloned.hashCode());
+    }
+
+    @Test
+    void test_equalsWithBitSetObject() {
+        FluentBitSet fluentBitSet = new FluentBitSet();
+        fluentBitSet.set(1);
+        fluentBitSet.set(5);
+
+        BitSet regularBitSet = new BitSet();
+        regularBitSet.set(1);
+        regularBitSet.set(5);
+
+        boolean result = fluentBitSet.equals(regularBitSet);
+
+        assertFalse(result);
+        assertTrue(fluentBitSet.get(1));
+        assertTrue(regularBitSet.get(1));
+        assertTrue(fluentBitSet.get(5));
+        assertTrue(regularBitSet.get(5));
+        assertFalse(fluentBitSet.equals(regularBitSet));
+    }
+
+    @Test
+    void test_equalsSymmetricProperty() {
+        FluentBitSet bitSet1 = new FluentBitSet();
+        bitSet1.set(3);
+        bitSet1.set(7);
+
+        FluentBitSet bitSet2 = new FluentBitSet();
+        bitSet2.set(3);
+        bitSet2.set(7);
+
+        boolean result1 = bitSet1.equals(bitSet2);
+        boolean result2 = bitSet2.equals(bitSet1);
+
+        assertTrue(result1);
+        assertTrue(result2);
+        assertTrue(bitSet1.equals(bitSet2));
+        assertTrue(bitSet2.equals(bitSet1));
+        assertTrue(bitSet1.get(3));
+        assertTrue(bitSet2.get(3));
+    }
+
+    @Test
+    void test_equalsTransitiveProperty() {
+        FluentBitSet bitSet1 = new FluentBitSet();
+        bitSet1.set(1);
+        bitSet1.set(10);
+
+        FluentBitSet bitSet2 = new FluentBitSet();
+        bitSet2.set(1);
+        bitSet2.set(10);
+
+        FluentBitSet bitSet3 = new FluentBitSet();
+        bitSet3.set(1);
+        bitSet3.set(10);
+
+        boolean result1 = bitSet1.equals(bitSet2);
+        boolean result2 = bitSet2.equals(bitSet3);
+        boolean result3 = bitSet1.equals(bitSet3);
+
+        assertTrue(result1);
+        assertTrue(result2);
+        assertTrue(result3);
+        assertTrue(bitSet1.equals(bitSet2));
+        assertTrue(bitSet2.equals(bitSet3));
+        assertTrue(bitSet1.equals(bitSet3));
+        assertEquals(2, bitSet1.cardinality());
+        assertEquals(2, bitSet2.cardinality());
+        assertEquals(2, bitSet3.cardinality());
+    }
+
+    @Test
+    void test_equalsPartiallyOverlapping() {
+        FluentBitSet bitSet1 = new FluentBitSet();
+        bitSet1.set(1);
+        bitSet1.set(2);
+        bitSet1.set(3);
+
+        FluentBitSet bitSet2 = new FluentBitSet();
+        bitSet2.set(1);
+        bitSet2.set(2);
+
+        boolean result = bitSet1.equals(bitSet2);
+
+        assertFalse(result);
+        assertTrue(bitSet1.get(1));
+        assertTrue(bitSet2.get(1));
+        assertTrue(bitSet1.get(2));
+        assertTrue(bitSet2.get(2));
+        assertTrue(bitSet1.get(3));
+        assertFalse(bitSet2.get(3));
+        assertFalse(bitSet1.equals(bitSet2));
+    }
+
+    @Test
+    void test_equalsSameCardinalityDifferentBits() {
+        FluentBitSet bitSet1 = new FluentBitSet();
+        bitSet1.set(1);
+        bitSet1.set(5);
+
+        FluentBitSet bitSet2 = new FluentBitSet();
+        bitSet2.set(1);
+        bitSet2.set(10);
+
+        boolean result = bitSet1.equals(bitSet2);
+
+        assertFalse(result);
+        assertEquals(2, bitSet1.cardinality());
+        assertEquals(2, bitSet2.cardinality());
+        assertTrue(bitSet1.get(1));
+        assertTrue(bitSet2.get(1));
+        assertTrue(bitSet1.get(5));
+        assertFalse(bitSet2.get(5));
+        assertFalse(bitSet1.equals(bitSet2));
+    }
+
 }
