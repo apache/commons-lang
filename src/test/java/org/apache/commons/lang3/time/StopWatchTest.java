@@ -555,7 +555,6 @@ class StopWatchTest extends AbstractLangTest {
 
     @Test
     void testToString() throws InterruptedException {
-        //
         final StopWatch watch = StopWatch.createStarted();
         sleepPlus1(MIN_DURATION);
         watch.split();
@@ -573,6 +572,29 @@ class StopWatchTest extends AbstractLangTest {
         watch.split();
         final String splitStr = watch.toString();
         assertEquals(SPLIT_CLOCK_STR_LEN + MESSAGE.length() + 1, splitStr.length(), "Formatted split string not the correct length");
+    }
+    
+    @Test
+    void testFluentPattern() {
+      final StopWatch watch = StopWatch.createStarted()
+          .split()
+          .stop();
+      assertTrue(watch.isStopped());
+      watch
+          .reset()
+          .start()
+          .split()
+          .suspend();
+      assertTrue(watch.isSuspended());
+      watch
+          .resume()
+          .split();
+      assertTrue(watch.isStarted());
+      assertTrue(watch
+          .split()
+          .stop()
+          .formatTime().startsWith(ZERO_HOURS_PREFIX));
+      assertTrue(watch.isStopped());
     }
 
     private int throwIOException() throws IOException {

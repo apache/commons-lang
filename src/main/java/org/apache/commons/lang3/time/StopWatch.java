@@ -619,11 +619,14 @@ public class StopWatch {
      * <p>
      * This method clears the internal values to allow the object to be reused.
      * </p>
+     * 
+     * @return this StopWatch.
      */
-    public void reset() {
+    public StopWatch reset() {
         runningState = State.UNSTARTED;
         splitState = SplitState.UNSPLIT;
         splits.clear();
+        return this;
     }
 
     /**
@@ -633,14 +636,16 @@ public class StopWatch {
      * This method resumes the watch after it was suspended. The watch will not include time between the suspend and resume calls in the total time.
      * </p>
      *
+     * @return this StopWatch.
      * @throws IllegalStateException if this StopWatch has not been suspended.
      */
-    public void resume() {
+    public StopWatch resume() {
         if (runningState != State.SUSPENDED) {
             throw new IllegalStateException("Stopwatch must be suspended to resume.");
         }
         startTimeNanos += System.nanoTime() - stopTimeNanos;
         runningState = State.RUNNING;
+        return this;
     }
 
     /**
@@ -683,15 +688,17 @@ public class StopWatch {
      * timing from the original start point.
      * </p>
      *
+     * @return this StopWatch.
      * @throws IllegalStateException if this StopWatch is not running.
      */
-    public void split() {
+    public StopWatch split() {
         if (runningState != State.RUNNING) {
             throw new IllegalStateException("Stopwatch is not running.");
         }
         stopSet();
         splitState = SplitState.SPLIT;
         splits.add(new Split(String.valueOf(splits.size()), Duration.ofNanos(stopTimeNanos - startTimeNanos)));
+        return this;
     }
 
     /**
@@ -702,17 +709,19 @@ public class StopWatch {
      * timing from the original start point.
      * </p>
      *
+     * @return this StopWatch.
      * @param label A message for string presentation.
      * @throws IllegalStateException if the StopWatch is not running.
      * @since 3.20.0
      */
-    public void split(final String label) {
+    public StopWatch split(final String label) {
         if (runningState != State.RUNNING) {
             throw new IllegalStateException("Stopwatch is not running.");
         }
         stopSet();
         splitState = SplitState.SPLIT;
         splits.add(new Split(label, Duration.ofNanos(stopTimeNanos - startTimeNanos)));
+        return this;
     }
 
     /**
@@ -722,9 +731,10 @@ public class StopWatch {
      * This method starts a new timing session, clearing any previous values.
      * </p>
      *
+     * @return this StopWatch.
      * @throws IllegalStateException if this StopWatch is already running.
      */
-    public void start() {
+    public StopWatch start() {
         if (runningState == State.STOPPED) {
             throw new IllegalStateException("Stopwatch must be reset before being restarted.");
         }
@@ -735,6 +745,7 @@ public class StopWatch {
         startInstant = Instant.now();
         runningState = State.RUNNING;
         splits.clear();
+        return this;
     }
 
     /**
@@ -755,9 +766,10 @@ public class StopWatch {
      * This method ends a new timing session, allowing the time to be retrieved.
      * </p>
      *
+     * @return this StopWatch.
      * @throws IllegalStateException if this StopWatch is not running.
      */
-    public void stop() {
+    public StopWatch stop() {
         if (runningState != State.RUNNING && runningState != State.SUSPENDED) {
             throw new IllegalStateException("Stopwatch is not running.");
         }
@@ -765,8 +777,12 @@ public class StopWatch {
             stopSet();
         }
         runningState = State.STOPPED;
+        return this;
     }
 
+    /**
+     * Sets the stop time.
+     */
     private void stopSet() {
         stopTimeNanos = System.nanoTime();
         stopInstant = Instant.now();
@@ -779,14 +795,16 @@ public class StopWatch {
      * This method suspends the watch until it is resumed. The watch will not include time between the suspend and resume calls in the total time.
      * </p>
      *
+     * @return this StopWatch.
      * @throws IllegalStateException if this StopWatch is not currently running.
      */
-    public void suspend() {
+    public StopWatch suspend() {
         if (runningState != State.RUNNING) {
             throw new IllegalStateException("Stopwatch must be running to suspend.");
         }
         stopSet();
         runningState = State.SUSPENDED;
+        return this;
     }
 
     /**
@@ -830,13 +848,15 @@ public class StopWatch {
      * This method clears the stop time. The start time is unaffected, enabling timing from the original start point to continue.
      * </p>
      *
+     * @return this StopWatch.
      * @throws IllegalStateException if this StopWatch has not been split.
      */
-    public void unsplit() {
+    public StopWatch unsplit() {
         if (splitState != SplitState.SPLIT) {
             throw new IllegalStateException("Stopwatch has not been split.");
         }
         splitState = SplitState.UNSPLIT;
         splits.remove(splits.size() - 1);
+        return this;
     }
 }
