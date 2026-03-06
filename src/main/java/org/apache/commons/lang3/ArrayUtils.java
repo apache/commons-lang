@@ -5276,7 +5276,7 @@ public class ArrayUtils {
      * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, {@code null} will be returned.
+     * If the input array is {@code null}, then return {@code null}.
      * </p>
      *
      * <pre>
@@ -5301,7 +5301,7 @@ public class ArrayUtils {
      * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, {@code null} will be returned.
+     * If the input array is {@code null}, then return {@code null}.
      * </p>
      *
      * <pre>
@@ -5330,7 +5330,7 @@ public class ArrayUtils {
      * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, {@code null} will be returned.
+     * If the input array is {@code null}, then return {@code null}.
      * </p>
      *
      * <pre>
@@ -5359,7 +5359,7 @@ public class ArrayUtils {
      * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, {@code null} will be returned.
+     * If the input array is {@code null}, then return {@code null}.
      * </p>
      *
      * <pre>
@@ -5388,7 +5388,7 @@ public class ArrayUtils {
      * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, {@code null} will be returned.
+     * If the input array is {@code null}, then return {@code null}.
      * </p>
      *
      * <pre>
@@ -5417,7 +5417,7 @@ public class ArrayUtils {
      * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, {@code null} will be returned.
+     * If the input array is {@code null}, then return {@code null}.
      * </p>
      *
      * <pre>
@@ -5446,7 +5446,7 @@ public class ArrayUtils {
      * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, {@code null} will be returned.
+     * If the input array is {@code null}, then return {@code null}.
      * </p>
      *
      * <pre>
@@ -5528,7 +5528,7 @@ public class ArrayUtils {
      * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, {@code null} will be returned.
+     * If the input array is {@code null}, then return {@code null}.
      * </p>
      *
      * <pre>
@@ -5557,7 +5557,7 @@ public class ArrayUtils {
      * array is always the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, {@code null} will be returned.
+     * If the input array is {@code null}, then return {@code null}.
      * </p>
      *
      * <pre>
