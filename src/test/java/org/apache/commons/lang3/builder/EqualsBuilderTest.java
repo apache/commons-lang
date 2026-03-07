@@ -27,6 +27,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -397,6 +399,11 @@ class EqualsBuilderTest extends AbstractLangTest {
         assertFalse(new EqualsBuilder().append(o1, Double.NaN).isEquals());
         assertTrue(new EqualsBuilder().append(Double.NaN, Double.NaN).isEquals());
         assertTrue(new EqualsBuilder().append(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY).isEquals());
+    }
+
+    @Test
+    void testReflectionEqualsCollectionsWithDifferentImplementations() {
+        assertTrue(new EqualsBuilder().reflectionEquals(new HashSet<>(), Collections.emptySet()));
     }
 
     @Test
