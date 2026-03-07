@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -222,6 +223,12 @@ public class EqualsBuilder implements Builder<Boolean> {
         }
         if (lhs == null || rhs == null) {
             return false;
+        }
+
+	// Delegate equality to Collection and Map implementations via equals().
+	// Only applied to top level objects to avoid altering recursive reflection behavior used by existing tests
+        if ((lhs instanceof Collection && rhs instanceof Collection) || (lhs instanceof Map && rhs instanceof Map)) {
+            return lhs.equals(rhs);
         }
         // @formatter:off
         return new EqualsBuilder()
@@ -932,6 +939,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             isEquals = false;
             return this;
         }
+
 
         // Find the leaf class since there may be transients in the leaf
         // class or in classes between the leaf and root.
