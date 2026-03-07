@@ -27,7 +27,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.reflect.MethodUtils;
@@ -69,6 +71,19 @@ class EqualsBuilderTest extends AbstractLangTest {
         }
     }
 
+    static class TestArrayList extends ArrayList<String> {
+
+        private static final long serialVersionUID = 1L;
+
+        private final int extra;
+
+        TestArrayList(final int extra, final String... elements) {
+            super(Arrays.asList(elements));
+            this.extra = extra;
+        }
+
+    }
+
     public static class TestBCanEqualA {
         private final int b;
 
@@ -104,6 +119,19 @@ class EqualsBuilderTest extends AbstractLangTest {
         TestEmptySubObject(final int a) {
             super(a);
         }
+    }
+
+    static class TestHashMap extends HashMap<String, String> {
+
+        private static final long serialVersionUID = 1L;
+
+        private final int extra;
+
+        TestHashMap(final int extra, final Map<String, String> map) {
+            super(map);
+            this.extra = extra;
+        }
+
     }
 
     static class TestObject {
@@ -1379,6 +1407,18 @@ class EqualsBuilderTest extends AbstractLangTest {
 
         assertFalse(EqualsBuilder.reflectionEquals(to1, ttlo));
         assertFalse(EqualsBuilder.reflectionEquals(tso1, this));
+    }
+
+    @Test
+    void testReflectionOnCustomArrayList() {
+        assertTrue(EqualsBuilder.reflectionEquals(new TestArrayList(1, "2", "3", "4"), new TestArrayList(1, "2", "3", "4")));
+        assertFalse(EqualsBuilder.reflectionEquals(new TestArrayList(1, "2", "3", "4"), new TestArrayList(2, "2", "3", "4")));
+    }
+
+    @Test
+    void testReflectionOnCustomHashMap() {
+        assertTrue(EqualsBuilder.reflectionEquals(new TestHashMap(1, new HashMap<>()), new TestHashMap(1, new HashMap<>())));
+        assertFalse(EqualsBuilder.reflectionEquals(new TestHashMap(1, new HashMap<>()), new TestHashMap(2, new HashMap<>())));
     }
 
     @Test
