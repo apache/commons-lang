@@ -2361,7 +2361,7 @@ public class StringUtils {
      *
      * <p>
      * This implementation follows from Algorithms on Strings, Trees and Sequences by Dan Gusfield and Chas Emerick's implementation of the Levenshtein distance
-     * algorithm from <a href="https://web.archive.org/web/20120212021906/http%3A//www.merriampark.com/ld.htm">http://www.merriampark.com/ld.htm</a>
+     * algorithm.
      * </p>
      *
      * <pre>
