@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,11 +17,14 @@
 package org.apache.commons.lang3.concurrent;
 
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 
 /**
+ * <p>
  * A simple implementation of the <a
- * href="https://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> pattern
+ * href="http://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> pattern
  * that opens if the requested increment amount is greater than a given threshold.
+ * </p>
  *
  * <p>
  * It contains an internal counter that starts in zero, and each call increments the counter by a given amount.
@@ -47,12 +50,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * </pre>
  *
  * <p>#Thread safe#</p>
- *
- * @since 3.5
- * @deprecated use new {@code SimpleThresholdCircuitBreaker}
+ * @since 3.11
  */
-public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
-
+public class SimpleThresholdCircuitBreaker extends BaseCircuitBreaker<Long> {
     /**
      * The initial value of the internal counter.
      */
@@ -69,13 +69,33 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     private final AtomicLong used;
 
     /**
-     * Creates a new instance of {@link ThresholdCircuitBreaker} and initializes the threshold.
+     * <p>Creates a new instance of {@code ThresholdCircuitBreaker} and initializes the threshold.</p>
+     *
+     * @param consumer a consumer called every time the circuit breaker state changes
+     * @param threshold the threshold.
+     */
+    public SimpleThresholdCircuitBreaker(Consumer<State> consumer, final long threshold) {
+        super(consumer);
+        this.used = new AtomicLong(INITIAL_COUNT);
+        this.threshold = threshold;
+    }
+
+    /**
+     * <p>Creates a new instance of {@code ThresholdCircuitBreaker} and initializes the threshold.</p>
      *
      * @param threshold the threshold.
      */
-    public ThresholdCircuitBreaker(final long threshold) {
-        this.used = new AtomicLong(INITIAL_COUNT);
-        this.threshold = threshold;
+    public SimpleThresholdCircuitBreaker(final long threshold) {
+        this(null, threshold);
+    }
+
+    /**
+     * Gets the threshold.
+     *
+     * @return the threshold
+     */
+    public long getThreshold() {
+        return threshold;
     }
 
     /**
@@ -83,7 +103,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
      */
     @Override
     public boolean checkState() {
-        return !isOpen();
+        return isOpen();
     }
 
     /**
@@ -95,15 +115,6 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     public void close() {
         super.close();
         this.used.set(INITIAL_COUNT);
-    }
-
-    /**
-     * Gets the threshold.
-     *
-     * @return the threshold
-     */
-    public long getThreshold() {
-        return threshold;
     }
 
     /**
