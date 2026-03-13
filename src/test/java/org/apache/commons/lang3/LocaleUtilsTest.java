@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.JavaVersion.JAVA_1_4;
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
+import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -516,6 +517,37 @@ class LocaleUtilsTest extends AbstractLangTest {
         assertEquals(Locale.getDefault(), LocaleUtils.toLocale((Locale) null));
         assertEquals(Locale.getDefault(), LocaleUtils.toLocale(Locale.getDefault()));
     }
+
+    @Test
+    void testToIso2ToGetNumericCountryCode() {
+        assertEquals("840", LocaleUtils.toNumeric("US"));
+        assertEquals("860", LocaleUtils.toNumeric("UZ"));
+        assertEquals("643", LocaleUtils.toNumeric("RU"));
+        assertEquals("826", LocaleUtils.toNumeric("GB"));
+        assertEquals("356", LocaleUtils.toNumeric("IN"));
+    }
+
+    @Test
+    void testToIso2ToGetNumericCountryCodeInvalid() {
+        assertEquals("US", LocaleUtils.numericToIso2("840"));
+        assertEquals("UZ", LocaleUtils.numericToIso2("860"));
+        assertEquals("RU", LocaleUtils.numericToIso2("643"));
+        assertEquals("GB", LocaleUtils.numericToIso2("826"));
+        assertEquals("IN", LocaleUtils.numericToIso2("356"));
+    }
+
+    @Test
+    void testToIso2ToGetNumericCountryCodeInvalid2() {
+        assertNullPointerException(() -> LocaleUtils.toNumeric(null), "Null country code");
+        assertNullPointerException(() -> LocaleUtils.numericToIso2(null), "Null numeric country");
+        assertNull(LocaleUtils.toNumeric(""), "Empty country code");
+        assertNull(LocaleUtils.numericToIso2(""), "Empty numeric country");
+        assertNull(LocaleUtils.numericToIso2("B"), "Empty numeric country");
+        assertNull(LocaleUtils.numericToIso2("A"), "Empty numeric country");
+    }
+
+
+
 
     @ParameterizedTest
     @MethodSource("java.util.Locale#getISOCountries")
