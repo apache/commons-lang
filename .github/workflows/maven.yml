@@ -53,3 +53,9 @@ jobs:
         java-version: ${{ matrix.java }}
     - name: Build with Maven
       run: mvn --errors --show-version --batch-mode --no-transfer-progress -Ddoclint=all
+    - name: Upload coverage to Qlty
+      if: matrix.os == 'ubuntu-latest' && matrix.java == 17
+      uses: qltysh/qlty-action/coverage@v2
+      with:
+        token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+        files: target/site/jacoco/jacoco.xml
