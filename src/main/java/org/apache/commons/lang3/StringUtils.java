@@ -3497,21 +3497,29 @@ public class StringUtils {
     }
 
     /**
-     * Tests if a CharSequence is empty ({@code "")}, null, or contains only whitespace as defined by {@link Character#isWhitespace(char)}.
-     *
-     * <pre>
-     * StringUtils.isBlank(null)      = true
-     * StringUtils.isBlank("")        = true
-     * StringUtils.isBlank(" ")       = true
-     * StringUtils.isBlank("bob")     = false
-     * StringUtils.isBlank("  bob  ") = false
-     * </pre>
-     *
-     * @param cs the CharSequence to check, may be null.
-     * @return {@code true} if the CharSequence is null, empty or whitespace only.
-     * @since 2.0
-     * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
-     */
+ * Checks if a CharSequence is empty (""), null, or consists only of whitespace characters.
+ * <p>
+ * Whitespace is determined by {@link Character#isWhitespace(char)}.
+ * </p>
+ * <p>
+ * Examples:
+ * <pre>
+ * StringUtils.isBlank(null)      = true
+ * StringUtils.isBlank("")        = true
+ * StringUtils.isBlank(" ")       = true
+ * StringUtils.isBlank("\t\n\r")  = true
+ * StringUtils.isBlank("bob")     = false
+ * StringUtils.isBlank("  bob  ") = false
+ * </pre>
+ * </p>
+ * <p>
+ * NOTE: This differs from {@link #isEmpty(CharSequence)} which does not check for whitespace.
+ * </p>
+ *
+ * @param cs the CharSequence to check, may be null
+ * @return {@code true} if the CharSequence is empty, null or whitespace only
+ * @since 3.0
+ */
     public static boolean isBlank(final CharSequence cs) {
         final int strLen = length(cs);
         for (int i = 0; i < strLen; i++) {
