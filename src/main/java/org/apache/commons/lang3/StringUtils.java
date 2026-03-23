@@ -3518,7 +3518,6 @@ public class StringUtils {
  *
  * @param cs the CharSequence to check, may be null
  * @return {@code true} if the CharSequence is empty, null or whitespace only
- * @since 3.0
  */
     public static boolean isBlank(final CharSequence cs) {
         final int strLen = length(cs);
