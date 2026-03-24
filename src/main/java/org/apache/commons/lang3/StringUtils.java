@@ -3497,28 +3497,14 @@ public class StringUtils {
     }
 
     /**
- * Checks if a CharSequence is empty (""), null, or consists only of whitespace characters.
- * <p>
- * Whitespace is determined by {@link Character#isWhitespace(char)}.
- * </p>
- * <p>
- * Examples:
- * <pre>
- * StringUtils.isBlank(null)      = true
- * StringUtils.isBlank("")        = true
- * StringUtils.isBlank(" ")       = true
- * StringUtils.isBlank("\t\n\r")  = true
- * StringUtils.isBlank("bob")     = false
- * StringUtils.isBlank("  bob  ") = false
- * </pre>
- * </p>
- * <p>
- * NOTE: This differs from {@link #isEmpty(CharSequence)} which does not check for whitespace.
- * </p>
- *
- * @param cs the CharSequence to check, may be null
- * @return {@code true} if the CharSequence is empty, null or whitespace only
- */
+     * Checks if a CharSequence is empty(""), null or whitespace only.
+     * <p>
+     * Whitespace is determined by {@link Charachter#isWhiteSpace(char)}
+     * </p>
+     * 
+     * @param cs the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence is empty, null or whitespace only
+     */
     public static boolean isBlank(final CharSequence cs) {
         final int strLen = length(cs);
         for (int i = 0; i < strLen; i++) {
