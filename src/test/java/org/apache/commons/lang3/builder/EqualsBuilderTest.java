@@ -16,12 +16,6 @@
  */
 package org.apache.commons.lang3.builder;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -33,6 +27,11 @@ import java.util.Map;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -41,6 +40,7 @@ import org.junit.jupiter.api.Test;
 class EqualsBuilderTest extends AbstractLangTest {
 
     public static class TestACanEqualB {
+
         private final int a;
 
         TestACanEqualB(final int a) {
@@ -85,6 +85,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     public static class TestBCanEqualA {
+
         private final int b;
 
         TestBCanEqualA(final int b) {
@@ -116,6 +117,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestEmptySubObject extends TestObject {
+
         TestEmptySubObject(final int a) {
             super(a);
         }
@@ -135,6 +137,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestObject {
+
         private int a;
 
         TestObject() {
@@ -175,6 +178,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestObjectEqualsExclude {
+
         @EqualsExclude
         private final int a;
         private final int b;
@@ -194,6 +198,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestObjectReference {
+
         @SuppressWarnings("unused")
         private TestObjectReference reference;
         @SuppressWarnings("unused")
@@ -219,6 +224,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestObjectWithMultipleFields {
+
         @SuppressWarnings("unused")
         private final TestObject one;
         @SuppressWarnings("unused")
@@ -234,6 +240,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestRecursiveCycleObject {
+
         private TestRecursiveCycleObject cycle;
         private final int n;
 
@@ -274,6 +281,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestRecursiveInnerObject {
+
         private final int n;
 
         TestRecursiveInnerObject(final int n) {
@@ -286,12 +294,13 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestRecursiveObject {
+
         private final TestRecursiveInnerObject a;
         private final TestRecursiveInnerObject b;
         private int z;
 
         TestRecursiveObject(final TestRecursiveInnerObject a,
-                            final TestRecursiveInnerObject b, final int z) {
+                final TestRecursiveInnerObject b, final int z) {
             this.a = a;
             this.b = b;
         }
@@ -311,6 +320,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestSubObject extends TestObject {
+
         private int b;
 
         TestSubObject() {
@@ -353,6 +363,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestTSubObject extends TestObject {
+
         @SuppressWarnings("unused")
         private final transient int t;
 
@@ -363,6 +374,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestTSubObject2 extends TestObject {
+
         private transient int t;
 
         TestTSubObject2(final int a, final int t) {
@@ -379,6 +391,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestTTLeafObject extends TestTTSubObject {
+
         @SuppressWarnings("unused")
         private final int leafValue;
 
@@ -389,6 +402,7 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     static class TestTTSubObject extends TestTSubObject {
+
         @SuppressWarnings("unused")
         private final transient int tt;
 
@@ -396,6 +410,22 @@ class EqualsBuilderTest extends AbstractLangTest {
             super(a, t);
             this.tt = tt;
         }
+    }
+
+    @Test
+    public void testReflectionEqualsBothNull() {
+        Object obj1 = null;
+        Object obj2 = null;
+
+        assertTrue(EqualsBuilder.reflectionEquals(obj1, obj2));
+    }
+
+    @Test
+    public void testReflectionEqualsOneNull() {
+        Object obj1 = new Object();
+        Object obj2 = null;
+
+        assertFalse(EqualsBuilder.reflectionEquals(obj1, obj2));
     }
 
     @Test
@@ -1261,11 +1291,11 @@ class EqualsBuilderTest extends AbstractLangTest {
      * <li>non-null reference</li>
      * </ul>
      *
-     * @param to             a TestObject
-     * @param toBis          a TestObject, equal to to and toTer
-     * @param toTer          left-hand side side, equal to to and toBis
-     * @param to2            a different TestObject
-     * @param oToChange      a TestObject that will be changed
+     * @param to a TestObject
+     * @param toBis a TestObject, equal to to and toTer
+     * @param toTer left-hand side side, equal to to and toBis
+     * @param to2 a different TestObject
+     * @param oToChange a TestObject that will be changed
      * @param testTransients whether to test transient instance variables
      */
     private void testReflectionEqualsEquivalenceRelationship(
@@ -1286,8 +1316,8 @@ class EqualsBuilderTest extends AbstractLangTest {
         // transitive test
         assertTrue(
                 EqualsBuilder.reflectionEquals(to, toBis, testTransients)
-                        && EqualsBuilder.reflectionEquals(toBis, toTer, testTransients)
-                        && EqualsBuilder.reflectionEquals(to, toTer, testTransients));
+                && EqualsBuilder.reflectionEquals(toBis, toTer, testTransients)
+                && EqualsBuilder.reflectionEquals(to, toTer, testTransients));
 
         // consistency test
         oToChange.setA(to.getA());
@@ -1337,7 +1367,7 @@ class EqualsBuilderTest extends AbstractLangTest {
 
         // still equal as long as both differing fields are among excluded
         assertTrue(EqualsBuilder.reflectionEquals(x1, x2, Arrays.asList("one", "two", "three")));
-        assertTrue(EqualsBuilder.reflectionEquals(x1, x2,  Arrays.asList("one", "two", "three", "xxx")));
+        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, Arrays.asList("one", "two", "three", "xxx")));
 
     }
 
@@ -1371,7 +1401,6 @@ class EqualsBuilderTest extends AbstractLangTest {
         testReflectionEqualsEquivalenceRelationship(tso1, tso1bis, tso1ter, tso2, new TestSubObject(), testTransients);
 
         // More sanity checks:
-
         // same values
         assertTrue(EqualsBuilder.reflectionEquals(ttlo, ttlo, testTransients));
         assertTrue(EqualsBuilder.reflectionEquals(new TestSubObject(1, 10), new TestSubObject(1, 10), testTransients));
@@ -1506,9 +1535,10 @@ class EqualsBuilderTest extends AbstractLangTest {
     }
 
     /**
-     * Tests two instances of classes that can be equal and that are not "related". The two classes are not subclasses
-     * of each other and do not share a parent aside from Object.
-     * See https://issues.apache.org/jira/browse/LANG-6
+     * Tests two instances of classes that can be equal and that are not
+     * "related". The two classes are not subclasses of each other and do not
+     * share a parent aside from Object. See
+     * https://issues.apache.org/jira/browse/LANG-6
      */
     @Test
     void testUnrelatedClasses() {
@@ -1531,4 +1561,3 @@ class EqualsBuilderTest extends AbstractLangTest {
         assertTrue(new EqualsBuilder().append(y, x).isEquals());
     }
 }
-
