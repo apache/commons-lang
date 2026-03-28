@@ -213,8 +213,8 @@ public class ObjectUtils {
      * </pre>
      *
      * @param values the values to test, may be {@code null} or empty.
-     * @return {@code true} if there is at least one {@code null} value in the array, {@code false} if all the values are non-null. If the array is {@code null}
-     *         or empty, {@code true} is also returned.
+     * @return {@code true} if there is at least one {@code null} value in the array, {@code false} if all the values are non-null or the array is empty. If the array is {@code null},
+     *         {@code true} is also returned.
      * @since 3.11
      */
     public static boolean anyNull(final Object... values) {
