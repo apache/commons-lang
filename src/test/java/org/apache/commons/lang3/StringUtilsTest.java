@@ -16,17 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -43,9 +32,19 @@ import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.regex.PatternSyntaxException;
 
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -55,8 +54,8 @@ import org.junitpioneer.jupiter.ReadsDefaultLocale;
 import org.junitpioneer.jupiter.WritesDefaultLocale;
 
 /**
- * Tests for methods of {@link StringUtils}
- * which been moved to their own test classes.
+ * Tests for methods of {@link StringUtils} which been moved to their own test
+ * classes.
  */
 @SuppressWarnings("deprecation") // deliberate use of deprecated code
 class StringUtilsTest extends AbstractLangTest {
@@ -97,12 +96,12 @@ class StringUtilsTest extends AbstractLangTest {
     private static final String[] EMPTY_ARRAY_LIST = {};
     private static final String[] NULL_ARRAY_LIST = {null};
     private static final Object[] NULL_TO_STRING_LIST = {
-            new Object() {
-                @Override
-                public String toString() {
-                    return null;
-                }
+        new Object() {
+            @Override
+            public String toString() {
+                return null;
             }
+        }
     };
     private static final String[] MIXED_ARRAY_LIST = {null, "", "foo"};
     private static final Object[] MIXED_TYPE_LIST = {"foo", Long.valueOf(2L)};
@@ -139,8 +138,8 @@ class StringUtilsTest extends AbstractLangTest {
     private static final boolean[] ARRAY_FALSE_TRUE_FALSE = {false, true, false};
 
     private void innerTestSplit(final char separator, final String sepStr, final char noMatch) {
-        final String msg = "Failed on separator hex(" + Integer.toHexString(separator) +
-                "), noMatch hex(" + Integer.toHexString(noMatch) + "), sepStr(" + sepStr + ")";
+        final String msg = "Failed on separator hex(" + Integer.toHexString(separator)
+                + "), noMatch hex(" + Integer.toHexString(noMatch) + "), sepStr(" + sepStr + ")";
 
         final String str = "a" + separator + "b" + separator + separator + noMatch + "c";
         String[] res;
@@ -179,8 +178,8 @@ class StringUtilsTest extends AbstractLangTest {
     }
 
     private void innerTestSplitPreserveAllTokens(final char separator, final String sepStr, final char noMatch) {
-        final String msg = "Failed on separator hex(" + Integer.toHexString(separator) +
-                "), noMatch hex(" + Integer.toHexString(noMatch) + "), sepStr(" + sepStr + ")";
+        final String msg = "Failed on separator hex(" + Integer.toHexString(separator)
+                + "), noMatch hex(" + Integer.toHexString(noMatch) + "), sepStr(" + sepStr + ")";
 
         final String str = "a" + separator + "b" + separator + separator + noMatch + "c";
         String[] res;
@@ -272,6 +271,13 @@ class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    public void testIsBlankWithUnicodeSpaces() {
+        String input = "\u2003"; // Unicode space (em space)
+
+        assertTrue(StringUtils.isBlank(input));
+    }
+
+    @Test
     void testCapitalize() {
         assertNull(StringUtils.capitalize(null));
 
@@ -344,22 +350,22 @@ class StringUtilsTest extends AbstractLangTest {
     void testChomp() {
 
         final String[][] chompCases = {
-                {FOO_UNCAP + "\r\n", FOO_UNCAP},
-                {FOO_UNCAP + "\n", FOO_UNCAP},
-                {FOO_UNCAP + "\r", FOO_UNCAP},
-                {FOO_UNCAP + " \r", FOO_UNCAP + " "},
-                {FOO_UNCAP, FOO_UNCAP},
-                {FOO_UNCAP + "\n\n", FOO_UNCAP + "\n"},
-                {FOO_UNCAP + "\r\n\r\n", FOO_UNCAP + "\r\n"},
-                {"foo\nfoo", "foo\nfoo"},
-                {"foo\n\rfoo", "foo\n\rfoo"},
-                {"\n", ""},
-                {"\r", ""},
-                {"a", "a"},
-                {"\r\n", ""},
-                {"", ""},
-                {null, null},
-                {FOO_UNCAP + "\n\r", FOO_UNCAP + "\n"}
+            {FOO_UNCAP + "\r\n", FOO_UNCAP},
+            {FOO_UNCAP + "\n", FOO_UNCAP},
+            {FOO_UNCAP + "\r", FOO_UNCAP},
+            {FOO_UNCAP + " \r", FOO_UNCAP + " "},
+            {FOO_UNCAP, FOO_UNCAP},
+            {FOO_UNCAP + "\n\n", FOO_UNCAP + "\n"},
+            {FOO_UNCAP + "\r\n\r\n", FOO_UNCAP + "\r\n"},
+            {"foo\nfoo", "foo\nfoo"},
+            {"foo\n\rfoo", "foo\n\rfoo"},
+            {"\n", ""},
+            {"\r", ""},
+            {"a", "a"},
+            {"\r\n", ""},
+            {"", ""},
+            {null, null},
+            {FOO_UNCAP + "\n\r", FOO_UNCAP + "\n"}
         };
         for (final String[] chompCase : chompCases) {
             final String original = chompCase[0];
@@ -387,19 +393,18 @@ class StringUtilsTest extends AbstractLangTest {
     void testChop() {
 
         final String[][] chopCases = {
-                {FOO_UNCAP + "\r\n", FOO_UNCAP},
-                {FOO_UNCAP + "\n", FOO_UNCAP},
-                {FOO_UNCAP + "\r", FOO_UNCAP},
-                {FOO_UNCAP + " \r", FOO_UNCAP + " "},
-                {"foo", "fo"},
-                {"foo\nfoo", "foo\nfo"},
-                {"\n", ""},
-                {"\r", ""},
-                {"\r\n", ""},
-                {null, null},
-                {"", ""},
-                {"a", ""},
-        };
+            {FOO_UNCAP + "\r\n", FOO_UNCAP},
+            {FOO_UNCAP + "\n", FOO_UNCAP},
+            {FOO_UNCAP + "\r", FOO_UNCAP},
+            {FOO_UNCAP + " \r", FOO_UNCAP + " "},
+            {"foo", "fo"},
+            {"foo\nfoo", "foo\nfo"},
+            {"\n", ""},
+            {"\r", ""},
+            {"\r\n", ""},
+            {null, null},
+            {"", ""},
+            {"a", ""},};
         for (final String[] chopCase : chopCases) {
             final String original = chopCase[0];
             final String expectedResult = chopCase[1];
@@ -612,16 +617,16 @@ class StringUtilsTest extends AbstractLangTest {
     @Test
     void testGeorgianSample() {
         final char[] arrayI = {
-                //Latin Small Letter dotless I
-                (char) 0x0131,
-                //Greek Capital Letter Theta
-                (char) 0x03F4
+            //Latin Small Letter dotless I
+            (char) 0x0131,
+            //Greek Capital Letter Theta
+            (char) 0x03F4
         };
         final char[] arrayJ = {
-                //Latin Capital Letter I with dot above
-                (char) 0x0130,
-                //Greek Theta Symbol
-                (char) 0x03D1
+            //Latin Capital Letter I with dot above
+            (char) 0x0130,
+            //Greek Theta Symbol
+            (char) 0x03D1
         };
         for (final char i : arrayI) {
             for (final char j : arrayJ) {
@@ -649,7 +654,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, StringUtils.getBytes(null, (Charset) null));
         assertArrayEquals(StringUtils.EMPTY.getBytes(), StringUtils.getBytes(StringUtils.EMPTY, (Charset) null));
         assertArrayEquals(StringUtils.EMPTY.getBytes(StandardCharsets.US_ASCII),
-            StringUtils.getBytes(StringUtils.EMPTY, StandardCharsets.US_ASCII));
+                StringUtils.getBytes(StringUtils.EMPTY, StandardCharsets.US_ASCII));
     }
 
     @Test
@@ -657,7 +662,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(ArrayUtils.EMPTY_BYTE_ARRAY, StringUtils.getBytes(null, (String) null));
         assertArrayEquals(StringUtils.EMPTY.getBytes(), StringUtils.getBytes(StringUtils.EMPTY, (String) null));
         assertArrayEquals(StringUtils.EMPTY.getBytes(StandardCharsets.US_ASCII.name()),
-            StringUtils.getBytes(StringUtils.EMPTY, StandardCharsets.US_ASCII.name()));
+                StringUtils.getBytes(StringUtils.EMPTY, StandardCharsets.US_ASCII.name()));
     }
 
     @Test
@@ -731,7 +736,7 @@ class StringUtilsTest extends AbstractLangTest {
     @Test
     void testGetIfBlank_StringStringSupplier() {
         assertEquals("NULL", StringUtils.getIfBlank(null, () -> "NULL"));
-        assertEquals("NULL", StringUtils.getIfBlank("",  () -> "NULL"));
+        assertEquals("NULL", StringUtils.getIfBlank("", () -> "NULL"));
         assertEquals("NULL", StringUtils.getIfBlank(" ", () -> "NULL"));
         assertEquals("abc", StringUtils.getIfBlank("abc", () -> "NULL"));
         assertNull(StringUtils.getIfBlank("", Suppliers.nul()));
@@ -1756,24 +1761,25 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("bcc", StringUtils.replaceEach("abc", new String[]{"a", "b"}, new String[]{"b", "c"}));
         assertEquals("q651.506bera", StringUtils.replaceEach("d216.102oren",
                 new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
-                        "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
-                        "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-                        "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9"},
+                    "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
+                    "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+                    "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9"},
                 new String[]{"n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "a",
-                        "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "N", "O", "P", "Q",
-                        "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "A", "B", "C", "D", "E", "F", "G",
-                        "H", "I", "J", "K", "L", "M", "5", "6", "7", "8", "9", "1", "2", "3", "4"}));
+                    "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "N", "O", "P", "Q",
+                    "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "A", "B", "C", "D", "E", "F", "G",
+                    "H", "I", "J", "K", "L", "M", "5", "6", "7", "8", "9", "1", "2", "3", "4"}));
 
         // Test null safety inside arrays - LANG-552
         assertEquals(StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{null}), "aba");
         assertEquals(StringUtils.replaceEach("aba", new String[]{"a", "b"}, new String[]{"c", null}), "cbc");
 
-        assertIllegalArgumentException(() -> StringUtils.replaceEach("abba", new String[] { "a" }, new String[] { "b", "a" }),
+        assertIllegalArgumentException(() -> StringUtils.replaceEach("abba", new String[]{"a"}, new String[]{"b", "a"}),
                 "StringUtils.replaceEach(String, String[], String[]) expecting IllegalArgumentException");
     }
 
     /**
-     * Test method for 'StringUtils.replaceEachRepeatedly(String, String[], String[])'
+     * Test method for 'StringUtils.replaceEachRepeatedly(String, String[],
+     * String[])'
      */
     @Test
     void testReplace_StringStringArrayStringArrayBoolean() {
@@ -1800,27 +1806,27 @@ class StringUtilsTest extends AbstractLangTest {
 
         // Test default TTL exceeded. 33 characters reduced to 17, then 9, 5, 3, 2 (still found).
         assertThrows(IllegalStateException.class,
-                () -> StringUtils.replaceEachRepeatedly("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new String[] { "aa" }, new String[] { "a" }),
+                () -> StringUtils.replaceEachRepeatedly("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new String[]{"aa"}, new String[]{"a"}),
                 "Cannot be resolved within the default time-to-live limit");
         // Test larger TTL for larger search lists. Replace repeatedly until there are no more possible replacements.
         assertEquals("000000000", StringUtils.replaceEachRepeatedly("aA0aA0aA0",
                 new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
-                        "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
-                        "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-                        "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9"},
+                    "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
+                    "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+                    "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9"},
                 new String[]{"b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
-                        "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E",
-                        "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
-                        "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}));
+                    "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E",
+                    "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+                    "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}));
 
         // Test long infinite cycle: a -> b -> ... -> 9 -> 0 -> a -> b -> ...
         assertThrows(IllegalStateException.class,
                 () -> StringUtils.replaceEachRepeatedly("a",
-                    new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+                        new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
                             "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
                             "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
                             "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"},
-                    new String[]{"b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
+                        new String[]{"b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
                             "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E",
                             "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
                             "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "a"}),
@@ -1828,8 +1834,8 @@ class StringUtilsTest extends AbstractLangTest {
 
         assertThrows(IllegalStateException.class,
                 () -> StringUtils.replaceEachRepeatedly("%{key1}",
-                    new String[] {"%{key1}", "%{key2}", "%{key3}"},
-                    new String[] {"Key1 %{key2}", "Key2 %{key3}", "Key3 %{key1}"}),
+                        new String[]{"%{key1}", "%{key2}", "%{key3}"},
+                        new String[]{"Key1 %{key2}", "Key2 %{key3}", "Key3 %{key1}"}),
                 "Should be a circular reference");
 
         assertThrows(IllegalStateException.class,
@@ -1906,7 +1912,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("ABC_123", StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", "_"));
         assertEquals("ABC123", StringUtils.replaceAll("ABCabc123", "[^A-Z0-9]+", ""));
         assertEquals("Lorem_ipsum_dolor_sit",
-                     StringUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
+                StringUtils.replaceAll("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
 
         assertThrows(PatternSyntaxException.class, () -> StringUtils.replaceAll("any", "{badRegexSyntax}", ""),
                 "StringUtils.replaceAll expecting PatternSyntaxException");
@@ -1985,7 +1991,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("ABC_123abc", StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", "_"));
         assertEquals("ABC123abc", StringUtils.replaceFirst("ABCabc123abc", "[^A-Z0-9]+", ""));
         assertEquals("Lorem_ipsum  dolor   sit",
-                     StringUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
+                StringUtils.replaceFirst("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
 
         assertThrows(PatternSyntaxException.class, () -> StringUtils.replaceFirst("any", "{badRegexSyntax}", ""),
                 "StringUtils.replaceFirst expecting PatternSyntaxException");
@@ -2030,7 +2036,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("", StringUtils.replaceIgnoreCase("", "any", null, 2));
         assertEquals("", StringUtils.replaceIgnoreCase("", "any", "any", 2));
 
-        final String str = new String(new char[] { 'o', 'o', 'f', 'o', 'o' });
+        final String str = new String(new char[]{'o', 'o', 'f', 'o', 'o'});
         assertSame(str, StringUtils.replaceIgnoreCase(str, "x", "", -1));
 
         assertEquals("f", StringUtils.replaceIgnoreCase("oofoo", "o", "", -1));
@@ -2116,7 +2122,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("ABC_123", StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", "_"));
         assertEquals("ABC123", StringUtils.replacePattern("ABCabc123", "[^A-Z0-9]+", ""));
         assertEquals("Lorem_ipsum_dolor_sit",
-                     StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
+                StringUtils.replacePattern("Lorem ipsum  dolor   sit", "( +)([a-z]+)", "_$2"));
     }
 
     @Test
@@ -2275,13 +2281,13 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(0, StringUtils.splitByCharacterType("").length);
 
         assertTrue(Objects.deepEquals(new String[]{"ab", " ", "de", " ",
-                "fg"}, StringUtils.splitByCharacterType("ab de fg")));
+            "fg"}, StringUtils.splitByCharacterType("ab de fg")));
 
         assertTrue(Objects.deepEquals(new String[]{"ab", "   ", "de", " ",
-                "fg"}, StringUtils.splitByCharacterType("ab   de fg")));
+            "fg"}, StringUtils.splitByCharacterType("ab   de fg")));
 
         assertTrue(Objects.deepEquals(new String[]{"ab", ":", "cd", ":",
-                "ef"}, StringUtils.splitByCharacterType("ab:cd:ef")));
+            "ef"}, StringUtils.splitByCharacterType("ab:cd:ef")));
 
         assertTrue(Objects.deepEquals(new String[]{"number", "5"},
                 StringUtils.splitByCharacterType("number5")));
@@ -2302,13 +2308,13 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(0, StringUtils.splitByCharacterTypeCamelCase("").length);
 
         assertTrue(Objects.deepEquals(new String[]{"ab", " ", "de", " ",
-                "fg"}, StringUtils.splitByCharacterTypeCamelCase("ab de fg")));
+            "fg"}, StringUtils.splitByCharacterTypeCamelCase("ab de fg")));
 
         assertTrue(Objects.deepEquals(new String[]{"ab", "   ", "de", " ",
-                "fg"}, StringUtils.splitByCharacterTypeCamelCase("ab   de fg")));
+            "fg"}, StringUtils.splitByCharacterTypeCamelCase("ab   de fg")));
 
         assertTrue(Objects.deepEquals(new String[]{"ab", ":", "cd", ":",
-                "ef"}, StringUtils.splitByCharacterTypeCamelCase("ab:cd:ef")));
+            "ef"}, StringUtils.splitByCharacterTypeCamelCase("ab:cd:ef")));
 
         assertTrue(Objects.deepEquals(new String[]{"number", "5"},
                 StringUtils.splitByCharacterTypeCamelCase("number5")));
@@ -2847,25 +2853,25 @@ class StringUtilsTest extends AbstractLangTest {
         final int orphanedHighSurrogate = 0xD801;
         final int orphanedLowSurrogate = 0xDC00;
         final int supplementary = 0x2070E;
-        final int[] codePoints = { 'a', orphanedHighSurrogate, 'b', 'c', supplementary, 'd', orphanedLowSurrogate, 'e' };
+        final int[] codePoints = {'a', orphanedHighSurrogate, 'b', 'c', supplementary, 'd', orphanedLowSurrogate, 'e'};
         final String s = new String(codePoints, 0, codePoints.length);
         assertArrayEquals(codePoints, StringUtils.toCodePoints(s));
         assertNull(StringUtils.toCodePoints(null));
         assertArrayEquals(ArrayUtils.EMPTY_INT_ARRAY, StringUtils.toCodePoints(""));
-        assertArrayEquals(new int[] { 'a' }, StringUtils.toCodePoints("a"));
-        assertArrayEquals(new int[] { 'a', 'b' }, StringUtils.toCodePoints("ab"));
-        assertArrayEquals(new int[] { 'a', 'b', 'c' }, StringUtils.toCodePoints("abc"));
+        assertArrayEquals(new int[]{'a'}, StringUtils.toCodePoints("a"));
+        assertArrayEquals(new int[]{'a', 'b'}, StringUtils.toCodePoints("ab"));
+        assertArrayEquals(new int[]{'a', 'b', 'c'}, StringUtils.toCodePoints("abc"));
     }
 
     @Test
     void testToCodePointsEmoji() {
         assertArrayEquals(ArrayFill.fill(new int[14], 129418), StringUtils.toCodePoints("🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊"));
-        assertArrayEquals(new int[] { 128105, 127995, 8205, 128104, 127995, 8205, 128102, 127995, 8205, 128102, 127995, 128105, 127996, 8205, 128104, 127996,
-                8205, 128102, 127996, 8205, 128102, 127996, 128105, 127997, 8205, 128104, 127997, 8205, 128102, 127997, 8205, 128102, 127997, 128105, 127998,
-                8205, 128104, 127998, 8205, 128102, 127998, 8205, 128102, 127998, 128105, 127999, 8205, 128104, 127999, 8205, 128102, 127999, 8205, 128102,
-                127999, 128105, 127995, 8205, 128104, 127995, 8205, 128102, 127995, 8205, 128102, 127995, 128105, 127996, 8205, 128104, 127996, 8205, 128102,
-                127996, 8205, 128102, 127996, 128105, 127997, 8205, 128104, 127997, 8205, 128102, 127997, 8205, 128102, 127997, 128105, 127998, 8205, 128104,
-                127998, 8205, 128102, 127998, 8205, 128102, 127998, 128105, 127999, 8205, 128104, 127999, 8205, 128102, 127999, 8205, 128102, 127999 },
+        assertArrayEquals(new int[]{128105, 127995, 8205, 128104, 127995, 8205, 128102, 127995, 8205, 128102, 127995, 128105, 127996, 8205, 128104, 127996,
+            8205, 128102, 127996, 8205, 128102, 127996, 128105, 127997, 8205, 128104, 127997, 8205, 128102, 127997, 8205, 128102, 127997, 128105, 127998,
+            8205, 128104, 127998, 8205, 128102, 127998, 8205, 128102, 127998, 128105, 127999, 8205, 128104, 127999, 8205, 128102, 127999, 8205, 128102,
+            127999, 128105, 127995, 8205, 128104, 127995, 8205, 128102, 127995, 8205, 128102, 127995, 128105, 127996, 8205, 128104, 127996, 8205, 128102,
+            127996, 8205, 128102, 127996, 128105, 127997, 8205, 128104, 127997, 8205, 128102, 127997, 8205, 128102, 127997, 128105, 127998, 8205, 128104,
+            127998, 8205, 128102, 127998, 8205, 128102, 127998, 128105, 127999, 8205, 128104, 127999, 8205, 128102, 127999, 8205, 128102, 127999},
                 StringUtils.toCodePoints(
                         "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿"));
     }
@@ -2936,7 +2942,8 @@ class StringUtilsTest extends AbstractLangTest {
     /**
      * Tests {@link StringUtils#toString(byte[], String)}
      *
-     * @throws UnsupportedEncodingException because the method under test max throw it
+     * @throws UnsupportedEncodingException because the method under test max
+     * throw it
      * @see StringUtils#toString(byte[], String)
      */
     @Test
