@@ -3503,6 +3503,8 @@ public class StringUtils {
      * StringUtils.isBlank(null)      = true
      * StringUtils.isBlank("")        = true
      * StringUtils.isBlank(" ")       = true
+     * StringUtils.isBlank("{@literal \}u2003") = true  // EM SPACE
+     * StringUtils.isBlank("{@literal \}u00A0") = true  // NO-BREAK SPACE
      * StringUtils.isBlank("bob")     = false
      * StringUtils.isBlank("  bob  ") = false
      * </pre>
