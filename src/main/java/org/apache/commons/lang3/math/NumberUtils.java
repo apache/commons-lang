@@ -508,7 +508,11 @@ public class NumberUtils {
         } catch (final NumberFormatException ignored) {
             // ignore the bad number
         }
-        return createBigDecimal(str);
+        try{
+            return createBigDecimal(str);
+        } catch (final NumberFormatException ignored) {
+            throw new NumberFormatException(str + " is not a valid number.");
+        }
     }
 
     /**
@@ -620,6 +624,7 @@ public class NumberUtils {
         sz--; // don't want to loop to the last char, check it afterwards
               // for type qualifiers
         int i = start;
+        int expPos = -1;
         // loop to the next to last char or to the last char if we need another digit to
         // make a valid number (e.g. chars[0..5] = "1234E")
         while (i < sz || i < sz + 1 && allowSigns && !foundDigit) {
@@ -643,6 +648,7 @@ public class NumberUtils {
                 }
                 hasExp = true;
                 allowSigns = true;
+                expPos = i;
             } else if (isSign(chars[i])) {
                 if (!allowSigns) {
                     return false;
@@ -653,6 +659,30 @@ public class NumberUtils {
                 return false;
             }
             i++;
+        }
+        if (expPos > -1 && expPos < chars.length - 1) {
+            int expEndPos = chars.length;
+            
+            final char lastChar = chars[expEndPos - 1];
+            if (lastChar == 'd' || lastChar == 'D'
+                || lastChar == 'f' || lastChar == 'F'
+                || lastChar == 'l' || lastChar == 'L') {
+                expEndPos--;
+            }
+
+            try{
+                final int exp=Integer.parseInt(str.substring(expPos + 1, expEndPos));
+                if(exp == Integer.MIN_VALUE) {
+                    return false;
+                }
+            } catch (final NumberFormatException ignored) {
+                // Overflow during parsing:
+                // Negative overflow => unrepresentable
+                // Positive overflow => representable (BigDecimal supports it)
+                    if (chars[0]=='-') {
+                        return false;
+                    }
+                }
         }
         if (i < chars.length) {
             if (CharUtils.isAsciiNumeric(chars[i])) {
