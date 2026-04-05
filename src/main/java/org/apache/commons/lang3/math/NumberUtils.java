@@ -508,11 +508,7 @@ public class NumberUtils {
         } catch (final NumberFormatException ignored) {
             // ignore the bad number
         }
-        try {
-            return createBigDecimal(str);
-        } catch (final NumberFormatException ignored) {
-            throw new NumberFormatException(str + " is not a valid number.");
-        }
+        return createBigDecimal(str);
     }
 
     /**
