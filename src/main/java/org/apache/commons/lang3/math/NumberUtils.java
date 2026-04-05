@@ -657,14 +657,13 @@ public class NumberUtils {
             i++;
         }
         if (expPos > -1 && expPos < chars.length - 1) {
-            int expEndPos = chars.length;            
+            int expEndPos = chars.length;
             final char lastChar = chars[expEndPos - 1];
             if (lastChar == 'd' || lastChar == 'D'
                 || lastChar == 'f' || lastChar == 'F'
                 || lastChar == 'l' || lastChar == 'L') {
                 expEndPos--;
             }
-
             try {
                 final int exp = Integer.parseInt(str.substring(expPos + 1, expEndPos));
                 if (exp == Integer.MIN_VALUE) {
