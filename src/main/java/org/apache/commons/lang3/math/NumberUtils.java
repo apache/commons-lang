@@ -508,7 +508,7 @@ public class NumberUtils {
         } catch (final NumberFormatException ignored) {
             // ignore the bad number
         }
-        try{
+        try {
             return createBigDecimal(str);
         } catch (final NumberFormatException ignored) {
             throw new NumberFormatException(str + " is not a valid number.");
@@ -661,8 +661,7 @@ public class NumberUtils {
             i++;
         }
         if (expPos > -1 && expPos < chars.length - 1) {
-            int expEndPos = chars.length;
-            
+            int expEndPos = chars.length;            
             final char lastChar = chars[expEndPos - 1];
             if (lastChar == 'd' || lastChar == 'D'
                 || lastChar == 'f' || lastChar == 'F'
@@ -670,19 +669,14 @@ public class NumberUtils {
                 expEndPos--;
             }
 
-            try{
-                final int exp=Integer.parseInt(str.substring(expPos + 1, expEndPos));
-                if(exp == Integer.MIN_VALUE) {
+            try {
+                final int exp = Integer.parseInt(str.substring(expPos + 1, expEndPos));
+                if (exp == Integer.MIN_VALUE) {
                     return false;
                 }
             } catch (final NumberFormatException ignored) {
-                // Overflow during parsing:
-                // Negative overflow => unrepresentable
-                // Positive overflow => representable (BigDecimal supports it)
-                    if (chars[0]=='-') {
-                        return false;
-                    }
-                }
+                return false;
+            }
         }
         if (i < chars.length) {
             if (CharUtils.isAsciiNumeric(chars[i])) {

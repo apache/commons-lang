@@ -888,8 +888,8 @@ class NumberUtilsTest extends AbstractLangTest {
         compareIsCreatableWithCreateNumber(".e10", false); // LANG-1646
         compareIsCreatableWithCreateNumber(".e10D", false); // LANG-1646
         compareIsCreatableWithCreateNumber("1E-2147483648", false);
-        compareIsCreatableWithCreateNumber("1E2147483648", true);
-        compareIsCreatableWithCreateNumber("1E+2147483648", true);
+        compareIsCreatableWithCreateNumber("1E2147483648", false);
+        compareIsCreatableWithCreateNumber("1E+2147483648", false);
     }
 
     @Test
