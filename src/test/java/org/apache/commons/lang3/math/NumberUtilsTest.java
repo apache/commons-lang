@@ -36,7 +36,9 @@ import java.text.ParseException;
 import java.util.function.Function;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemProperties;
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -888,8 +890,8 @@ class NumberUtilsTest extends AbstractLangTest {
         compareIsCreatableWithCreateNumber(".e10", false); // LANG-1646
         compareIsCreatableWithCreateNumber(".e10D", false); // LANG-1646
         compareIsCreatableWithCreateNumber("1E-2147483648", false);
-        compareIsCreatableWithCreateNumber("1E2147483648", false);
-        compareIsCreatableWithCreateNumber("1E+2147483648", false);
+        compareIsCreatableWithCreateNumber("1E2147483648", SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
+        compareIsCreatableWithCreateNumber("1E+2147483648", SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
     }
 
     @Test

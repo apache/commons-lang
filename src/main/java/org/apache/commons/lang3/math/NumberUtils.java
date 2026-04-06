@@ -24,7 +24,9 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 import org.apache.commons.lang3.CharUtils;
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -664,13 +666,14 @@ public class NumberUtils {
                 || lastChar == 'l' || lastChar == 'L') {
                 expEndPos--;
             }
+            final String expStr = str.substring(expPos + 1, expEndPos);
             try {
-                final int exp = Integer.parseInt(str.substring(expPos + 1, expEndPos));
+                final int exp = Integer.parseInt(expStr);
                 if (exp == Integer.MIN_VALUE) {
                     return false;
                 }
             } catch (final NumberFormatException ignored) {
-                return false;
+                return ("2147483648".equals(expStr) || "+2147483648".equals(expStr)) && SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21);
             }
         }
         if (i < chars.length) {
