@@ -202,7 +202,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
      * @param future the future
      */
     private void prepareStartTimer(final ScheduledExecutorService service,
-            final ScheduledFuture<?> future) {
+                                   final ScheduledFuture<?> future) {
         service.scheduleAtFixedRate((Runnable) EasyMock.anyObject(), EasyMock.eq(PERIOD_MILLIS), EasyMock.eq(PERIOD_MILLIS), EasyMock.eq(UNIT));
         EasyMock.expectLastCall().andReturn(future);
     }
@@ -527,4 +527,219 @@ class TimedSemaphoreTest extends AbstractLangTest {
         semaphore.shutdown();
         assertThrows(IllegalStateException.class, semaphore::tryAcquire);
     }
+
+    /**
+     * A thread that records acquisition order by adding its id to a shared queue once acquire() returns.
+     */
+    private static final class FairOrderThread extends Thread {
+
+        private final TimedSemaphore semaphore;
+        private final String id;
+        private final java.util.concurrent.BlockingQueue<String> order;
+
+        FairOrderThread(final TimedSemaphore semaphore, final String id, final java.util.concurrent.BlockingQueue<String> order) {
+            this.semaphore = semaphore;
+            this.id = id;
+            this.order = order;
+            setName("FairOrderThread-" + id);
+        }
+
+        @Override
+        public void run() {
+            try {
+                semaphore.acquire();
+                order.add(id);
+            } catch (final InterruptedException ignored) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    /**
+     * Verifies FIFO fairness when enabled: with limit=1 and manual period rollovers,
+     * threads that arrive earlier should acquire earlier across periods.
+     *
+     * Strategy:
+     *  - Build semaphore with fair=true and limit=1.
+     *  - Start T1; it should acquire immediately (first window).
+     *  - Start T2 and T3; both will block until we call endOfPeriod() twice.
+     *  - Check the order is T1, then T2, then T3 (arrival order).
+     */
+    @Test
+    void testFairnessFIFOOrdering_acrossPeriods() throws Exception {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
+        final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
+        prepareStartTimer(service, future);
+        EasyMock.replay(service, future);
+
+        final TimedSemaphore semaphore = TimedSemaphore.builder()
+                .setService(service)
+                .setPeriod(PERIOD_MILLIS)
+                .setTimeUnit(UNIT)
+                .setLimit(1)
+                .setFair(true)
+                .get();
+
+        final java.util.concurrent.ArrayBlockingQueue<String> order = new java.util.concurrent.ArrayBlockingQueue<>(3);
+
+        final FairOrderThread t1 = new FairOrderThread(semaphore, "T1", order);
+        t1.start();
+        final String first = order.poll(3, TimeUnit.SECONDS);
+        assertEquals("T1", first, "First acquirer should be T1");
+
+        final FairOrderThread t2 = new FairOrderThread(semaphore, "T2", order);
+        final FairOrderThread t3 = new FairOrderThread(semaphore, "T3", order);
+        t2.start();
+        ThreadUtils.sleepQuietly(Duration.ofMillis(10));
+        t3.start();
+
+        semaphore.endOfPeriod();
+        final String second = order.poll(3, TimeUnit.SECONDS);
+        assertEquals("T2", second, "Second acquirer should be T2 under FIFO fairness");
+
+        semaphore.endOfPeriod();
+        final String third = order.poll(3, TimeUnit.SECONDS);
+        assertEquals("T3", third, "Third acquirer should be T3 under FIFO fairness");
+
+        t1.join();
+        t2.join();
+        t3.join();
+        EasyMock.verify(service, future);
+    }
+
+    /**
+     * Verifies that changing the limit mid-period resizes the active bucket immediately:
+     * - Start with limit=3; acquire two permits.
+     * - Reduce limit to 1 in the same period.
+     * - Further tryAcquire() must fail until period ends (since acquiredCount >= new limit).
+     * - After endOfPeriod(), only 1 permit should be available per period.
+     */
+    @Test
+    void testSetLimitResizesBucketWithinPeriod() throws InterruptedException {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
+        final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
+        prepareStartTimer(service, future);
+        EasyMock.replay(service, future);
+
+        final TimedSemaphore semaphore = TimedSemaphore.builder()
+                .setService(service)
+                .setPeriod(PERIOD_MILLIS)
+                .setTimeUnit(UNIT)
+                .setLimit(3)
+                .get();
+
+        assertTrue(semaphore.tryAcquire(), "1st acquire should succeed (limit=3)");
+        assertTrue(semaphore.tryAcquire(), "2nd acquire should succeed (limit=3)");
+
+        semaphore.setLimit(1);
+
+        assertFalse(semaphore.tryAcquire(), "Further acquires should fail after limit is reduced within the same period");
+        semaphore.endOfPeriod();
+        assertTrue(semaphore.tryAcquire(), "Exactly 1 acquire should succeed in the next period with limit=1");
+        assertFalse(semaphore.tryAcquire(), "Second acquire in the same period must fail with limit=1");
+
+        EasyMock.verify(service, future);
+    }
+
+    /**
+     * Ensures endOfPeriod() actually tops up permits and releases waiters under the new semaphore-backed design.
+     * - limit=1
+     * - T1 acquires immediately; T2 blocks.
+     * - After endOfPeriod(), T2 should proceed promptly.
+     */
+    @Test
+    void testEndOfPeriodTopUpReleasesBlockedThreads() throws Exception {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
+        final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
+        prepareStartTimer(service, future);
+        EasyMock.replay(service, future);
+
+        final TimedSemaphore semaphore = TimedSemaphore.builder()
+                .setService(service)
+                .setPeriod(PERIOD_MILLIS)
+                .setTimeUnit(UNIT)
+                .setLimit(1)
+                .setFair(true)
+                .get();
+
+        final java.util.concurrent.ArrayBlockingQueue<String> order = new java.util.concurrent.ArrayBlockingQueue<>(2);
+        final FairOrderThread t1 = new FairOrderThread(semaphore, "T1", order);
+        final FairOrderThread t2 = new FairOrderThread(semaphore, "T2", order);
+
+        t1.start();
+        assertEquals("T1", order.poll(3, TimeUnit.SECONDS), "T1 should acquire first");
+
+        t2.start();
+        semaphore.endOfPeriod();
+        assertEquals("T2", order.poll(3, TimeUnit.SECONDS), "T2 should acquire after rollover");
+
+        t1.join();
+        t2.join();
+        EasyMock.verify(service, future);
+    }
+
+    /**
+     * Confirms NO_LIMIT short-circuits semaphore usage (no blocking even with fairness enabled).
+     * Mirrors testAcquireNoLimit but uses the builder and setFair(true) to ensure the new path
+     * coexists with fairness without interacting with the Semaphore.
+     */
+    @Test
+    void testAcquireNoLimitWithFairnessEnabled() throws InterruptedException {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
+        final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
+        prepareStartTimer(service, future);
+        EasyMock.replay(service, future);
+
+        final TimedSemaphore semaphore = TimedSemaphore.builder()
+                .setService(service)
+                .setPeriod(PERIOD_MILLIS)
+                .setTimeUnit(UNIT)
+                .setLimit(TimedSemaphore.NO_LIMIT)
+                .setFair(true)
+                .get();
+
+        final int count = 500;
+        final CountDownLatch latch = new CountDownLatch(count);
+        final SemaphoreThread t = new SemaphoreThread(semaphore, latch, count, count);
+        t.start();
+        assertTrue(latch.await(5, TimeUnit.SECONDS), "All acquires should complete without blocking under NO_LIMIT");
+        EasyMock.verify(service, future);
+    }
+
+    /**
+     * Ensures getAvailablePermits remains consistent after a dynamic limit increase within the same period:
+     * - Start with limit=1, acquire once.
+     * - Increase limit to 3; now 2 more should be available in this period.
+     * - Verify tryAcquire() succeeds exactly two more times.
+     */
+    @Test
+    void testGetAvailablePermitsAfterLimitIncreaseWithinPeriod() throws InterruptedException {
+        final ScheduledExecutorService service = EasyMock.createMock(ScheduledExecutorService.class);
+        final ScheduledFuture<?> future = EasyMock.createMock(ScheduledFuture.class);
+        prepareStartTimer(service, future);
+        EasyMock.replay(service, future);
+
+        final TimedSemaphore semaphore = TimedSemaphore.builder()
+                .setService(service)
+                .setPeriod(PERIOD_MILLIS)
+                .setTimeUnit(UNIT)
+                .setLimit(1)
+                .get();
+
+        assertEquals(1, semaphore.getAvailablePermits(), "Initially, 1 permit available");
+        assertTrue(semaphore.tryAcquire(), "First acquire should succeed");
+        assertEquals(0, semaphore.getAvailablePermits(), "After 1 acquire with limit=1, none left");
+
+        semaphore.setLimit(3);
+        assertEquals(2, semaphore.getAvailablePermits(), "After increasing limit to 3, two more should be available this period");
+
+        assertTrue(semaphore.tryAcquire(), "Second acquire should now succeed");
+        assertTrue(semaphore.tryAcquire(), "Third acquire should now succeed");
+        assertFalse(semaphore.tryAcquire(), "Fourth acquire should fail within same period (limit=3)");
+
+        EasyMock.verify(service, future);
+    }
+
+
+
 }
