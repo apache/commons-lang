@@ -889,7 +889,7 @@ class NumberUtilsTest extends AbstractLangTest {
         compareIsCreatableWithCreateNumber(".D", false); // LANG-1646
         compareIsCreatableWithCreateNumber(".e10", false); // LANG-1646
         compareIsCreatableWithCreateNumber(".e10D", false); // LANG-1646
-        
+
         compareIsCreatableWithCreateNumber("1E2147483647", true);
         compareIsCreatableWithCreateNumber("1E-2147483647", true);
         compareIsCreatableWithCreateNumber("1E-2147483648", false);
@@ -897,13 +897,12 @@ class NumberUtilsTest extends AbstractLangTest {
         compareIsCreatableWithCreateNumber("1E+2147483648", SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
         compareIsCreatableWithCreateNumber("1E+2147483649", false);
         compareIsCreatableWithCreateNumber("1E-2147483649", false);
-        
-        compareIsCreatableWithCreateNumber("1E2147483648D",SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
+
+        compareIsCreatableWithCreateNumber("1E2147483648D", SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
         compareIsCreatableWithCreateNumber("1E-2147483648D", false);
 
-        compareIsCreatableWithCreateNumber("1.0E2147483648",SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
+        compareIsCreatableWithCreateNumber("1.0E2147483648", SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
         compareIsCreatableWithCreateNumber("1.0E-2147483648", false);
-
     }
 
     @Test
