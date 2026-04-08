@@ -673,7 +673,10 @@ public class NumberUtils {
                     return false;
                 }
             } catch (final NumberFormatException ignored) {
-                return ("2147483648".equals(expStr) || "+2147483648".equals(expStr)) && SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21);
+                // Largest positive exponent of Integer.MAX_VALUE+1 which is supported by Java 21 and later.
+                final String largestPositiveExponent = String.valueOf(Integer.MAX_VALUE+1);
+                final boolean isLargestPositiveExponent = largestPositiveExponent.equals(expStr) || ("+" + largestPositiveExponent).equals(expStr);
+                return isLargestPositiveExponent && SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21);
             }
         }
         if (i < chars.length) {
