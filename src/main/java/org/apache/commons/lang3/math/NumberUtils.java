@@ -674,7 +674,7 @@ public class NumberUtils {
                 }
             } catch (final NumberFormatException ignored) {
                 // Largest positive exponent of Integer.MAX_VALUE + 1 which is supported by Java 21 and later.
-                final String largestPositiveExponent = String.valueOf(Integer.MAX_VALUE + 1);
+                final String largestPositiveExponent = "2147483648";
                 final boolean isLargestPositiveExponent = largestPositiveExponent.equals(expStr) || ("+" + largestPositiveExponent).equals(expStr);
                 return isLargestPositiveExponent && SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21);
             }
