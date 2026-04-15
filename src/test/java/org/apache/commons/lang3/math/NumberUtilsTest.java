@@ -36,7 +36,9 @@ import java.text.ParseException;
 import java.util.function.Function;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemProperties;
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -54,8 +56,7 @@ class NumberUtilsTest extends AbstractLangTest {
 
     private boolean checkCreateNumber(final String val) {
         try {
-            final Object obj = NumberUtils.createNumber(val);
-            return obj != null;
+            return NumberUtils.createNumber(val) != null;
         } catch (final NumberFormatException e) {
             return false;
         }
@@ -887,6 +888,23 @@ class NumberUtilsTest extends AbstractLangTest {
         compareIsCreatableWithCreateNumber(".D", false); // LANG-1646
         compareIsCreatableWithCreateNumber(".e10", false); // LANG-1646
         compareIsCreatableWithCreateNumber(".e10D", false); // LANG-1646
+        compareIsCreatableWithCreateNumber("1E2147483647", true);
+        compareIsCreatableWithCreateNumber("1E+2147483647", true);
+        compareIsCreatableWithCreateNumber("1E-2147483647", true);
+        compareIsCreatableWithCreateNumber("1E-2147483648", false);
+        compareIsCreatableWithCreateNumber("1E2147483648", SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
+        compareIsCreatableWithCreateNumber("1E+2147483648", SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
+        compareIsCreatableWithCreateNumber("1E+2147483649", false);
+        compareIsCreatableWithCreateNumber("1E-2147483649", false);
+        compareIsCreatableWithCreateNumber("1E2147483648D", SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
+        compareIsCreatableWithCreateNumber("1E-2147483648D", false);
+        compareIsCreatableWithCreateNumber("1E2147483648F", SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
+        compareIsCreatableWithCreateNumber("1E+2147483648F", SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
+        compareIsCreatableWithCreateNumber("1E-2147483648F", false);
+        compareIsCreatableWithCreateNumber("1.0E2147483648", SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_21));
+        compareIsCreatableWithCreateNumber("1.0E-2147483648", false);
+        compareIsCreatableWithCreateNumber("1E+999999999999999999999", false);
+        compareIsCreatableWithCreateNumber("1E-999999999999999999999", false);
     }
 
     @Test
