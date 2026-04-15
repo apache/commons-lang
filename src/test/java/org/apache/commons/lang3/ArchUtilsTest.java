@@ -37,6 +37,7 @@ class ArchUtilsTest extends AbstractLangTest {
     private static final String IA64_32 = "ia64_32";
     private static final String PPC = "ppc";
     private static final String PPC64 = "ppc64";
+    private static final String PPC64_LE = "ppc64le";
     private static final String X86 = "x86";
     private static final String X86_64 = "x86_64";
     private static final String AARCH_64 = "aarch64";
@@ -99,6 +100,10 @@ class ArchUtilsTest extends AbstractLangTest {
         processor = ArchUtils.getProcessor(PPC64);
         assertEqualsTypeNotNull(Processor.Type.PPC, processor);
         assertTrue(processor.isPPC());
+        // PPC64_LE
+        processor = ArchUtils.getProcessor(PPC64_LE);
+        assertEqualsTypeNotNull(Processor.Type.PPC, processor);
+        assertTrue(processor.isPPC());
         // AARCH_64
         processor = ArchUtils.getProcessor(AARCH_64);
         assertEqualsTypeNotNull(Processor.Type.AARCH_64, processor);
@@ -157,6 +162,10 @@ class ArchUtilsTest extends AbstractLangTest {
         processor = ArchUtils.getProcessor(PPC64);
         assertNotEqualsArchNotNull(Processor.Arch.BIT_32, processor);
         assertFalse(processor.is32Bit());
+        // PPC64_LE
+        processor = ArchUtils.getProcessor(PPC64_LE);
+        assertNotEqualsArchNotNull(Processor.Arch.BIT_32, processor);
+        assertFalse(processor.is32Bit());
         // IA64
         processor = ArchUtils.getProcessor(IA64);
         assertNotEqualsArchNotNull(Processor.Arch.BIT_32, processor);
@@ -175,6 +184,10 @@ class ArchUtilsTest extends AbstractLangTest {
         assertTrue(processor.is64Bit());
         // PPC64
         processor = ArchUtils.getProcessor(PPC64);
+        assertEqualsArchNotNull(Processor.Arch.BIT_64, processor);
+        assertTrue(processor.is64Bit());
+        // PPC64_LE
+        processor = ArchUtils.getProcessor(PPC64_LE);
         assertEqualsArchNotNull(Processor.Arch.BIT_64, processor);
         assertTrue(processor.is64Bit());
         // IA64

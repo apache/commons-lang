@@ -117,7 +117,7 @@ public class ArchUtils {
     }
 
     private static void init_PPC_64Bit() {
-        addProcessors(new Processor(Processor.Arch.BIT_64, Processor.Type.PPC), "ppc64", "power64", "powerpc64", "power_pc64", "power_rs64");
+        addProcessors(new Processor(Processor.Arch.BIT_64, Processor.Type.PPC), "ppc64", "ppc64le", "power64", "powerpc64", "power_pc64", "power_rs64");
     }
 
     private static void init_RISCV_32Bit() {
