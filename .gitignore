@@ -5,7 +5,9 @@ maven-eclipse.xml
 build.properties
 site-content
 *~
-.mvn/
+.mvn/*
+!.mvn/wrapper/
+!.mvn/wrapper/maven-wrapper.properties
 
 # IntelliJ IDEA files
 .idea
