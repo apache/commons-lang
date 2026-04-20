@@ -765,13 +765,11 @@ public class StringUtils {
         if (strLen < 2) {
             return EMPTY;
         }
-        final int lastIdx = strLen - 1;
-        final String ret = str.substring(0, lastIdx);
-        final char last = str.charAt(lastIdx);
-        if (last == CharUtils.LF && ret.charAt(lastIdx - 1) == CharUtils.CR) {
-            return ret.substring(0, lastIdx - 1);
+        int lastIdx = strLen - 1;
+        if (str.charAt(lastIdx) == CharUtils.LF && str.charAt(lastIdx - 1) == CharUtils.CR) {
+            --lastIdx;
         }
-        return ret;
+        return str.substring(0, lastIdx);
     }
 
     /**
