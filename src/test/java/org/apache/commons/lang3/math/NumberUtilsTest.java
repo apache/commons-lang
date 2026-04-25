@@ -1232,6 +1232,31 @@ class NumberUtilsTest extends AbstractLangTest {
         assertFalse(isParsableShort("１ ２ ３"));
     }
 
+    /**
+     * Tests <a href="https://issues.apache.org/jira/browse/LANG-1821">LANG-1821</a>.
+     */
+    @Test
+    void testLang1821() {
+        compareIsCreatableWithCreateNumber("123L", true);
+        compareIsCreatableWithCreateNumber("0xdef", true);
+        compareIsCreatableWithCreateNumber("0xdefL", true);
+        compareIsCreatableWithCreateNumber("0XDEFl", true);
+        // Integer.MAX_VALUE
+        compareIsCreatableWithCreateNumber("0x" + Integer.toHexString(Integer.MAX_VALUE), true);
+        compareIsCreatableWithCreateNumber("0x" + Integer.toHexString(Integer.MAX_VALUE) + "l", true);
+        compareIsCreatableWithCreateNumber("0x" + Integer.toHexString(Integer.MAX_VALUE) + "L", true);
+        compareIsCreatableWithCreateNumber("0X" + Integer.toHexString(Integer.MAX_VALUE), true);
+        compareIsCreatableWithCreateNumber("0X" + Integer.toHexString(Integer.MAX_VALUE) + "l", true);
+        compareIsCreatableWithCreateNumber("0X" + Integer.toHexString(Integer.MAX_VALUE) + "L", true);
+        // Long.MAX_VALUE
+        compareIsCreatableWithCreateNumber("0x" + Long.toHexString(Long.MAX_VALUE), true);
+        compareIsCreatableWithCreateNumber("0x" + Long.toHexString(Long.MAX_VALUE) + "l", true);
+        compareIsCreatableWithCreateNumber("0x" + Long.toHexString(Long.MAX_VALUE) + "L", true);
+        compareIsCreatableWithCreateNumber("0X" + Long.toHexString(Long.MAX_VALUE), true);
+        compareIsCreatableWithCreateNumber("0X" + Long.toHexString(Long.MAX_VALUE) + "l", true);
+        compareIsCreatableWithCreateNumber("0X" + Long.toHexString(Long.MAX_VALUE) + "L", true);
+    }
+
     @Test
     void testLang300() {
         NumberUtils.createNumber("-1l");

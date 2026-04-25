@@ -365,6 +365,7 @@ public class NumberUtils {
                 break;
             }
         }
+        final char lastChar = str.charAt(length - 1);
         if (pfxLen > 0) { // we have a hex number
             char firstSigDigit = 0; // strip leading zeroes
             for (int i = pfxLen; i < length; i++) {
@@ -374,16 +375,22 @@ public class NumberUtils {
                 }
                 pfxLen++;
             }
-            final int hexDigits = length - pfxLen;
+            final boolean isLongCh = lastChar == 'l' || lastChar == 'L';
+            int hexDigits = length - pfxLen;
+            if (isLongCh) {
+                hexDigits--;
+            }
             if (hexDigits > 16 || hexDigits == 16 && firstSigDigit > '7') { // too many for Long
                 return createBigInteger(str);
+            }
+            if (isLongCh) {
+                return createLong(str.substring(0, str.length() - 1));
             }
             if (hexDigits > 8 || hexDigits == 8 && firstSigDigit > '7') { // too many for an int
                 return createLong(str);
             }
             return createInteger(str);
         }
-        final char lastChar = str.charAt(length - 1);
         final String mant;
         final String dec;
         final String exp;
