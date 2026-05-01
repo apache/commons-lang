@@ -326,6 +326,7 @@ public class LocaleUtils {
      * @return a Locale parsed from the given String.
      * @throws IllegalArgumentException if the given String cannot be parsed.
      * @see Locale
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Locale.html#special_cases_constructor">Locale special cases</a>
      */
     private static Locale parseLocale(final String str) {
         if (isISO639LanguageCode(str)) {
@@ -343,6 +344,14 @@ public class LocaleUtils {
         } else if (segments.length == limit) {
             final String country = segments[1];
             final String variant = segments[2];
+            // Special case 1: https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Locale.html#special_cases_constructor
+            if (str.equals("th_TH_TH_#u-nu-thai")) {
+                return new Locale(language, country, "TH");
+            }
+            // Special case 2: https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Locale.html#special_cases_constructor
+            if (str.equals("ja_JP_JP_#u-ca-japanese")) {
+                return new Locale(language, country, "JP");
+            }
             if (isISO639LanguageCode(language) && (country.isEmpty() || isISO3166CountryCode(country) || isNumericAreaCode(country)) && !variant.isEmpty()) {
                 return new Locale(language, country, variant);
             }
@@ -396,6 +405,7 @@ public class LocaleUtils {
      * @throws IllegalArgumentException if the string is an invalid format.
      * @see Locale#forLanguageTag(String)
      * @see Locale#getISOCountries()
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Locale.html#special_cases_constructor">Locale special cases</a>
      */
     public static Locale toLocale(final String str) {
         if (str == null) {
@@ -404,9 +414,6 @@ public class LocaleUtils {
         }
         if (str.isEmpty()) { // LANG-941 - JDK 8 introduced an empty locale where all fields are blank
             return new Locale(StringUtils.EMPTY, StringUtils.EMPTY);
-        }
-        if (str.contains("#")) { // LANG-879 - Cannot handle Java 7 script & extensions
-            throw new IllegalArgumentException("Invalid locale format: " + str);
         }
         final int len = str.length();
         if (len < 2) {

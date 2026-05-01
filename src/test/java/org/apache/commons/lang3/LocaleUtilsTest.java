@@ -289,6 +289,14 @@ class LocaleUtilsTest extends AbstractLangTest {
     }
 
     /**
+     * Tests #LANG-1823
+     */
+    @Test
+    void testLang1823() {
+        assertValidToLocale("th_TH_#Thai", "th", "TH", "#Thai");
+    }
+
+    /**
      * Tests #LANG-328 - only language+variant
      */
     @Test
@@ -417,21 +425,32 @@ class LocaleUtilsTest extends AbstractLangTest {
         // Check if it's possible to recreate the Locale using just the standard constructor
         final Locale locale = new Locale(actualLocale.getLanguage(), actualLocale.getCountry(), actualLocale.getVariant());
         if (actualLocale.equals(locale)) { // it is possible for LocaleUtils.toLocale to handle these Locales
+            assertEquals(actualLocale, LocaleUtils.toLocale(actualLocale.toString()));
             final String str = actualLocale.toString();
             // Look for the script/extension suffix
             int suff = str.indexOf("_#");
-            if (suff == - 1) {
+            if (suff == -1) {
                 suff = str.indexOf("#");
             }
             String localeStr = str;
             if (suff >= 0) { // we have a suffix
-                assertIllegalArgumentException(() -> LocaleUtils.toLocale(str));
-                // try without suffix
                 localeStr = str.substring(0, suff);
             }
-            final Locale loc = LocaleUtils.toLocale(localeStr);
-            assertEquals(actualLocale, loc);
+            assertEquals(actualLocale, LocaleUtils.toLocale(localeStr));
         }
+    }
+
+    /**
+     * Special cases from https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Locale.html#special_cases_constructor
+     */
+    @Test
+    void testSpecialCases() {
+        assertValidToLocale("th_TH_TH", "th", "TH", "TH");
+        assertValidToLocale("ja_JP_JP", "ja", "JP", "JP");
+        // "th_TH_TH_#u-nu-thai" and friends
+        LocaleUtils.localeLookupList(new Locale("th", "TH", "TH")).forEach(locale -> assertEquals(locale, LocaleUtils.toLocale(locale.toString())));
+        // "ja_JP_JP_#u-ca-japanese" and friends
+        LocaleUtils.localeLookupList(new Locale("ja", "JP", "JP")).forEach(locale -> assertEquals(locale, LocaleUtils.toLocale(locale.toString())));
     }
 
     /**

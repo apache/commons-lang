@@ -133,6 +133,8 @@ java.lang.NullPointerException: Cannot invoke
     <action issue="LANG-1821" type="fix" dev="ggregory" due-to="FloydDsilva, Gary Gregory, Rob Tompkins">NumberUtils.isCreatable(String) should match NumberUtils.createNumber(String), exactly #1626.</action>
     <action                   type="fix" dev="ggregory" due-to="尹茂椿萱, Gary Gregory">NumberUtils.isCreatable fails for hexadecimal numbers with long type qualifier.</action>
     <action                   type="fix" dev="ggregory" due-to="ax1nch, Gary Gregory">NumberUtils.createNumber() performance: Short-circuit check based on pre-derived candidate Double #1628.</action>
+    <action issue="LANG-1823" type="fix" dev="ggregory" due-to="尹茂椿萱, Gary Gregory">LocaleUtils.toLocale cannot parse valid JDK Locale string containing '#' #1630.</action>
+    <action issue="LANG-879"  type="fix" dev="ggregory" due-to="Matthew T. Adams, Gary Gregory">LocaleUtils test fails with new Locale "ja_JP_JP_#u-ca-japanese" of JDK7.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
