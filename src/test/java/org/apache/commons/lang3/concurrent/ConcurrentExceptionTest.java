@@ -21,12 +21,13 @@ import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentExcep
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link ConcurrentException}.
  */
-class ConcurrentExceptionTest {
+class ConcurrentExceptionTest extends AbstractLangTest {
 
     /**
      * Tests creating a ConcurrentException with an error as cause.

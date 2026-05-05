@@ -28,7 +28,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 /**
  * Tests {@link CachedRandomBits}.
  */
-class CachedRandomBitsTest {
+class CachedRandomBitsTest extends AbstractLangTest {
 
     /** MockRandom mocks a Random class nextBytes to use a specific list of outputs */
     private static class MockRandom extends Random {

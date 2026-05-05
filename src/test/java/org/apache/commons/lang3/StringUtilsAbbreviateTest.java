@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link StringUtils#abbreviate(String, int)} and friends.
  */
-class StringUtilsAbbreviateTest {
+class StringUtilsAbbreviateTest extends AbstractLangTest {
 
     private void assertAbbreviateWithAbbrevMarkerAndOffset(final String expected, final String abbrevMarker, final int offset, final int maxWidth) {
         final String abcdefghijklmno = "abcdefghijklmno";

@@ -38,7 +38,7 @@ import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
 @SetSystemProperties({
     @SetSystemProperty(key = SystemPropertiesTest.KEY_SPACE_1, value = "value1"),
     @SetSystemProperty(key = SystemPropertiesTest.KEY_TAB_1, value = "value2") })
-class SystemPropertiesTest {
+class SystemPropertiesTest extends AbstractLangTest {
 
     private static final String SIMPLE_NAME = SystemPropertiesTest.class.getSimpleName();
     static final String KEY_SPACE_1 = " ";

@@ -27,7 +27,7 @@ class $trange {
 /**
  * Tests {@link ClassUtils#getShortClassName(Class)} for <a href="https://issues.apache.org/jira/browse/LANG-1818">LANG-1818</a>
  */
-public class ClassUtilsShortClassNameTest {
+public class ClassUtilsShortClassNameTest extends AbstractLangTest {
 
     class $Inner {
     }

@@ -20,10 +20,11 @@ import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentExcep
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.Conversion;
 import org.junit.jupiter.api.Test;
 
-class ConversionTest {
+class ConversionTest extends AbstractLangTest {
 
     @Test
     void testHexToByte() {

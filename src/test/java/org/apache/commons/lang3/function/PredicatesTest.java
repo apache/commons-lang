@@ -22,12 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.function.Predicate;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link Predicates}.
  */
-class PredicatesTest {
+class PredicatesTest extends AbstractLangTest {
 
     @Test
     void testFalsePredicate() {
