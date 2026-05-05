@@ -1224,10 +1224,10 @@ public final class SystemProperties {
     /**
      * The System property name {@value}.
      *
-     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">jdk.xml.entityReplacementLimi_t</a>
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/system-properties.html">jdk.xml.entityReplacementLimit</a>
      * @since 3.15.0
      */
-    public static final String JDK_XML_ENTITY_REPLACEMENT_LIMIT = "jdk.xml.entityReplacementLimi_t";
+    public static final String JDK_XML_ENTITY_REPLACEMENT_LIMIT = "jdk.xml.entityReplacementLimit";
 
     /**
      * The System property name {@value}.

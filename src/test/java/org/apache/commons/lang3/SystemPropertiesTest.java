@@ -259,6 +259,218 @@ class SystemPropertiesTest {
         basicKeyCheck(SystemProperties.USER_VARIANT);
     }
 
+    /**
+     * Tests that all names match expected system property names.
+     *
+     * @see #testEntityReplacementLimitConstantName
+     */
+    @Test
+    void testConstants() {
+        assertEquals("apple.awt.enableTemplateImages", SystemProperties.APPLE_AWT_ENABLE_TEMPLATE_IMAGES);
+        assertEquals("awt.toolkit", SystemProperties.AWT_TOOLKIT);
+        assertEquals("com.sun.jndi.ldap.object.trustSerialData", SystemProperties.COM_SUN_JNDI_LDAP_OBJECT_TRUST_SERIAL_DATA);
+        assertEquals("com.sun.net.httpserver.HttpServerProvider", SystemProperties.COM_SUN_NET_HTTP_SERVER_HTTP_SERVER_PROVIDER);
+        assertEquals("file.encoding", SystemProperties.FILE_ENCODING);
+        assertEquals("file.separator", SystemProperties.FILE_SEPARATOR);
+        assertEquals("ftp.nonProxyHosts", SystemProperties.FTP_NON_PROXY_HOST);
+        assertEquals("ftp.proxyHost", SystemProperties.FTP_PROXY_HOST);
+        assertEquals("ftp.proxyPort", SystemProperties.FTP_PROXY_PORT);
+        assertEquals("http.agent", SystemProperties.HTTP_AGENT);
+        assertEquals("http.auth.digest.cnonceRepeat", SystemProperties.HTTP_AUTH_DIGEST_CNONCE_REPEAT);
+        assertEquals("http.auth.digest.reEnabledAlgorithms", SystemProperties.HTTP_AUTH_DIGEST_RE_ENABLED_ALGORITHMS);
+        assertEquals("http.auth.digest.validateProxy", SystemProperties.HTTP_AUTH_DIGEST_VALIDATE_PROXY);
+        assertEquals("http.auth.digest.validateServer", SystemProperties.HTTP_AUTH_DIGEST_VALIDATE_SERVER);
+        assertEquals("http.auth.ntlm.domain", SystemProperties.HTTP_AUTH_NTLM_DOMAIN);
+        assertEquals("http.keepAlive", SystemProperties.HTTP_KEEP_ALIVE);
+        assertEquals("http.keepAlive.time.proxy", SystemProperties.HTTP_KEEP_ALIVE_TIME_PROXY);
+        assertEquals("http.keepAlive.time.server", SystemProperties.HTTP_KEEP_ALIVE_TIME_SERVER);
+        assertEquals("http.maxConnections", SystemProperties.HTTP_MAX_CONNECTIONS);
+        assertEquals("http.maxRedirects", SystemProperties.HTTP_MAX_REDIRECTS);
+        assertEquals("http.nonProxyHosts", SystemProperties.HTTP_NON_PROXY_HOSTS);
+        assertEquals("http.proxyHost", SystemProperties.HTTP_PROXY_HOST);
+        assertEquals("http.proxyPort", SystemProperties.HTTP_PROXY_PORT);
+        assertEquals("https.proxyHost", SystemProperties.HTTPS_PROXY_HOST);
+        assertEquals("https.proxyPort", SystemProperties.HTTPS_PROXY_PORT);
+        assertEquals("java.awt.fonts", SystemProperties.JAVA_AWT_FONTS);
+        assertEquals("java.awt.graphicsenv", SystemProperties.JAVA_AWT_GRAPHICSENV);
+        assertEquals("java.awt.headless", SystemProperties.JAVA_AWT_HEADLESS);
+        assertEquals("java.awt.printerjob", SystemProperties.JAVA_AWT_PRINTERJOB);
+        assertEquals("java.class.path", SystemProperties.JAVA_CLASS_PATH);
+        assertEquals("java.class.version", SystemProperties.JAVA_CLASS_VERSION);
+        assertEquals("java.compiler", SystemProperties.JAVA_COMPILER);
+        assertEquals("java.content.handler.pkgs", SystemProperties.JAVA_CONTENT_HANDLER_PKGS);
+        assertEquals("java.endorsed.dirs", SystemProperties.JAVA_ENDORSED_DIRS);
+        assertEquals("java.ext.dirs", SystemProperties.JAVA_EXT_DIRS);
+        assertEquals("java.home", SystemProperties.JAVA_HOME);
+        assertEquals("java.io.tmpdir", SystemProperties.JAVA_IO_TMPDIR);
+        assertEquals("java.library.path", SystemProperties.JAVA_LIBRARY_PATH);
+        assertEquals("java.locale.providers", SystemProperties.JAVA_LOCALE_PROVIDERS);
+        assertEquals("java.locale.useOldISOCodes", SystemProperties.JAVA_LOCALE_USE_OLD_ISO_CODES);
+        assertEquals("java.net.preferIPv4Stack", SystemProperties.JAVA_NET_PREFER_IPV4_STACK);
+        assertEquals("java.net.preferIPv6Addresses", SystemProperties.JAVA_NET_PREFER_IPV6_ADDRESSES);
+        assertEquals("java.net.socks.password", SystemProperties.JAVA_NET_SOCKS_PASSWORD);
+        assertEquals("java.net.socks.username", SystemProperties.JAVA_NET_SOCKS_USER_NAME);
+        assertEquals("java.net.useSystemProxies", SystemProperties.JAVA_NET_USE_SYSTEM_PROXIES);
+        assertEquals("java.nio.channels.DefaultThreadPool.initialSize", SystemProperties.JAVA_NIO_CHANNELS_DEFAULT_THREAD_POOL_INITIAL_SIZE);
+        assertEquals("java.nio.channels.DefaultThreadPool.threadFactory", SystemProperties.JAVA_NIO_CHANNELS_DEFAULT_THREAD_POOL_THREAD_FACTORY);
+        assertEquals("java.nio.channels.spi.AsynchronousChannelProvider", SystemProperties.JAVA_NIO_CHANNELS_SPI_ASYNCHRONOUS_CHANNEL_PROVIDER);
+        assertEquals("java.nio.channels.spi.SelectorProvider", SystemProperties.JAVA_NIO_CHANNELS_SPI_SELECTOR_PROVIDER);
+        assertEquals("java.nio.file.spi.DefaultFileSystemProvider", SystemProperties.JAVA_NIO_FILE_SPI_DEFAULT_FILE_SYSTEM_PROVIDER);
+        assertEquals("java.properties.date", SystemProperties.JAVA_PROPERTIES_DATE);
+        assertEquals("java.protocol.handler.pkgs", SystemProperties.JAVA_PROTOCOL_HANDLER_PKGS);
+        assertEquals("java.rmi.server.codebase", SystemProperties.JAVA_RMI_SERVER_CODEBASE);
+        assertEquals("java.rmi.server.hostname", SystemProperties.JAVA_RMI_SERVER_HOST_NAME);
+        assertEquals("java.rmi.server.randomIDs", SystemProperties.JAVA_RMI_SERVER_RANDOM_IDS);
+        assertEquals("java.rmi.server.RMIClassLoaderSpi", SystemProperties.JAVA_RMI_SERVER_RMI_CLASS_LOADER_SPI);
+        assertEquals("java.runtime.name", SystemProperties.JAVA_RUNTIME_NAME);
+        assertEquals("java.runtime.version", SystemProperties.JAVA_RUNTIME_VERSION);
+        assertEquals("java.security.auth.login.config", SystemProperties.JAVA_SECURITY_AUTH_LOGIN_CONFIG);
+        assertEquals("java.security.debug", SystemProperties.JAVA_SECURITY_DEBUG);
+        assertEquals("java.security.krb5.conf", SystemProperties.JAVA_SECURITY_KERBEROS_CONF);
+        assertEquals("java.security.krb5.kdc", SystemProperties.JAVA_SECURITY_KERBEROS_KDC);
+        assertEquals("java.security.krb5.realm", SystemProperties.JAVA_SECURITY_KERBEROS_REALM);
+        assertEquals("java.security.manager", SystemProperties.JAVA_SECURITY_MANAGER);
+        assertEquals("java.specification.maintenance.version", SystemProperties.JAVA_SPECIFICATION_MAINTENANCE_VERSION);
+        assertEquals("java.specification.name", SystemProperties.JAVA_SPECIFICATION_NAME);
+        assertEquals("java.specification.vendor", SystemProperties.JAVA_SPECIFICATION_VENDOR);
+        assertEquals("java.specification.version", SystemProperties.JAVA_SPECIFICATION_VERSION);
+        assertEquals("java.system.class.loader", SystemProperties.JAVA_SYSTEM_CLASS_LOADER);
+        assertEquals("java.time.zone.DefaultZoneRulesProvider", SystemProperties.JAVA_TIME_ZONE_DEFAULT_ZONE_RULES_PROVIDER);
+        assertEquals("java.util.concurrent.ForkJoinPool.common.exceptionHandler", SystemProperties.JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_EXCEPTION_HANDLER);
+        assertEquals("java.util.concurrent.ForkJoinPool.common.maximumSpares", SystemProperties.JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_MAXIMUM_SPARES);
+        assertEquals("java.util.concurrent.ForkJoinPool.common.parallelism", SystemProperties.JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_PARALLELISM);
+        assertEquals("java.util.concurrent.ForkJoinPool.common.threadFactory", SystemProperties.JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_THREAD_FACTORY);
+        assertEquals("java.util.currency.data", SystemProperties.JAVA_UTIL_CURRENCY_DATA);
+        assertEquals("java.util.logging.config.class", SystemProperties.JAVA_UTIL_LOGGING_CONFIG_CLASS);
+        assertEquals("java.util.logging.config.file", SystemProperties.JAVA_UTIL_LOGGING_CONFIG_FILE);
+        assertEquals("java.util.logging.simpleformatter.format", SystemProperties.JAVA_UTIL_LOGGING_SIMPLE_FORMATTER_FORMAT);
+        assertEquals("java.util.prefs.PreferencesFactory", SystemProperties.JAVA_UTIL_PREFS_PREFERENCES_FACTORY);
+        assertEquals("java.util.PropertyResourceBundle.encoding", SystemProperties.JAVA_UTIL_PROPERTY_RESOURCE_BUNDLE_ENCODING);
+        assertEquals("java.vendor", SystemProperties.JAVA_VENDOR);
+        assertEquals("java.vendor.url", SystemProperties.JAVA_VENDOR_URL);
+        assertEquals("java.vendor.version", SystemProperties.JAVA_VENDOR_VERSION);
+        assertEquals("java.version", SystemProperties.JAVA_VERSION);
+        assertEquals("java.version.date", SystemProperties.JAVA_VERSION_DATE);
+        assertEquals("java.vm.info", SystemProperties.JAVA_VM_INFO);
+        assertEquals("java.vm.name", SystemProperties.JAVA_VM_NAME);
+        assertEquals("java.vm.specification.name", SystemProperties.JAVA_VM_SPECIFICATION_NAME);
+        assertEquals("java.vm.specification.vendor", SystemProperties.JAVA_VM_SPECIFICATION_VENDOR);
+        assertEquals("java.vm.specification.version", SystemProperties.JAVA_VM_SPECIFICATION_VERSION);
+        assertEquals("java.vm.vendor", SystemProperties.JAVA_VM_VENDOR);
+        assertEquals("java.vm.version", SystemProperties.JAVA_VM_VERSION);
+        assertEquals("java.xml.config.file", SystemProperties.JAVA_XML_CONFIG_FILE);
+        assertEquals("javax.accessibility.assistive_technologies", SystemProperties.JAVAX_ACCESSIBILITY_ASSISTIVE_TECHNOLOGIES);
+        assertEquals("javax.net.ssl.sessionCacheSize", SystemProperties.JAVAX_NET_SSL_SESSION_CACHE_SIZE);
+        assertEquals("javax.rmi.ssl.client.enabledCipherSuites", SystemProperties.JAVAX_RMI_SSL_CLIENT_ENABLED_CIPHER_SUITES);
+        assertEquals("javax.rmi.ssl.client.enabledProtocols", SystemProperties.JAVAX_RMI_SSL_CLIENT_ENABLED_PROTOCOLS);
+        assertEquals("javax.security.auth.useSubjectCredsOnly", SystemProperties.JAVAX_SECURITY_AUTH_USE_SUBJECT_CREDS_ONLY);
+        assertEquals("javax.smartcardio.TerminalFactory.DefaultType", SystemProperties.JAVAX_SMART_CARD_IO_TERMINAL_FACTORY_DEFAULT_TYPE);
+        assertEquals("jdbc.drivers", SystemProperties.JDBC_DRIVERS);
+        assertEquals("jdk.http.auth.proxying.disabledSchemes", SystemProperties.JDK_HTTP_AUTH_PROXYING_DISABLED_SCHEMES);
+        assertEquals("jdk.http.auth.tunneling.disabledSchemes", SystemProperties.JDK_HTTP_AUTH_TUNNELING_DISABLED_SCHEMES);
+        assertEquals("jdk.httpclient.allowRestrictedHeaders", SystemProperties.JDK_HTTP_CLIENT_ALLOW_RESTRICTED_HEADERS);
+        assertEquals("jdk.httpclient.auth.retrylimit", SystemProperties.JDK_HTTP_CLIENT_AUTH_RETRY_LIMIT);
+        assertEquals("jdk.httpclient.bufsize", SystemProperties.JDK_HTTP_CLIENT_BUF_SIZE);
+        assertEquals("jdk.httpclient.connectionPoolSize", SystemProperties.JDK_HTTP_CLIENT_CONNECTION_POOL_SIZE);
+        assertEquals("jdk.httpclient.connectionWindowSize", SystemProperties.JDK_HTTP_CLIENT_CONNECTION_WINDOW_SIZE);
+        assertEquals("jdk.httpclient.disableRetryConnect", SystemProperties.JDK_HTTP_CLIENT_DISABLE_RETRY_CONNECT);
+        assertEquals("jdk.httpclient.enableAllMethodRetry", SystemProperties.JDK_HTTP_CLIENT_ENABLE_ALL_METHOD_RETRY);
+        assertEquals("jdk.httpclient.enablepush", SystemProperties.JDK_HTTP_CLIENT_ENABLE_PUSH);
+        assertEquals("jdk.httpclient.hpack.maxheadertablesize", SystemProperties.JDK_HTTP_CLIENT_HPACK_MAX_HEADER_TABLE_SIZE);
+        assertEquals("jdk.httpclient.HttpClient.log", SystemProperties.JDK_HTTP_CLIENT_HTTP_CLIENT_LOG);
+        assertEquals("jdk.httpclient.keepalive.timeout", SystemProperties.JDK_HTTP_CLIENT_KEEP_ALIVE_TIMEOUT);
+        assertEquals("jdk.httpclient.keepalive.timeout.h2", SystemProperties.JDK_HTTP_CLIENT_KEEP_ALIVE_TIMEOUT_H2);
+        assertEquals("jdk.httpclient.maxframesize", SystemProperties.JDK_HTTP_CLIENT_MAX_FRAME_SIZE);
+        assertEquals("jdk.httpclient.maxstreams", SystemProperties.JDK_HTTP_CLIENT_MAX_STREAMS);
+        assertEquals("jdk.httpclient.receiveBufferSize", SystemProperties.JDK_HTTP_CLIENT_RECEIVE_BUFFER_SIZE);
+        assertEquals("jdk.httpclient.redirects.retrylimit", SystemProperties.JDK_HTTP_CLIENT_REDIRECTS_RETRY_LIMIT);
+        assertEquals("jdk.httpclient.sendBufferSize", SystemProperties.JDK_HTTP_CLIENT_SEND_BUFFER_SIZE);
+        assertEquals("jdk.httpclient.websocket.writeBufferSize", SystemProperties.JDK_HTTP_CLIENT_WEB_SOCKET_WRITE_BUFFER_SIZE);
+        assertEquals("jdk.httpclient.windowsize", SystemProperties.JDK_HTTP_CLIENT_WINDOW_SIZE);
+        assertEquals("jdk.httpserver.maxConnections", SystemProperties.JDK_HTTP_SERVER_MAX_CONNECTIONS);
+        assertEquals("jdk.https.negotiate.cbt", SystemProperties.JDK_HTTPS_NEGOTIATE_CBT);
+        assertEquals("jdk.includeInExceptions", SystemProperties.JDK_INCLUDE_IN_EXCEPTIONS);
+        assertEquals("jdk.internal.httpclient.disableHostnameVerification", SystemProperties.JDK_INTERNAL_HTTP_CLIENT_DISABLE_HOST_NAME_VERIFICATION);
+        assertEquals("jdk.io.permissionsUseCanonicalPath", SystemProperties.JDK_IO_PERMISSIONS_USE_CANONICAL_PATH);
+        assertEquals("jdk.jndi.ldap.object.factoriesFilter", SystemProperties.JDK_JNDI_LDAP_OBJECT_FACTORIES_FILTER);
+        assertEquals("jdk.jndi.object.factoriesFilter", SystemProperties.JDK_JNDI_OBJECT_FACTORIES_FILTER);
+        assertEquals("jdk.jndi.rmi.object.factoriesFilter", SystemProperties.JDK_JNDI_RMI_OBJECT_FACTORIES_FILTER);
+        assertEquals("jdk.module.main", SystemProperties.JDK_MODULE_MAIN);
+        assertEquals("jdk.module.main.class", SystemProperties.JDK_MODULE_MAIN_CLASS);
+        assertEquals("jdk.module.path", SystemProperties.JDK_MODULE_PATH);
+        assertEquals("jdk.module.upgrade.path", SystemProperties.JDK_MODULE_UPGRADE_PATH);
+        assertEquals("jdk.net.unixdomain.tmpdir", SystemProperties.JDK_NET_UNIX_DOMAIN_TMPDIR);
+        assertEquals("jdk.net.URLClassPath.showIgnoredClassPathEntries", SystemProperties.JDK_NET_URL_CLASS_PATH_SHOW_IGNORED_CLASS_PATH_ENTRIES);
+        assertEquals("jdk.serialFilter", SystemProperties.JDK_SERIAL_FILTER);
+        assertEquals("jdk.serialFilterFactory", SystemProperties.JDK_SERIAL_FILTER_FACTORY);
+        assertEquals("jdk.tls.client.SignatureSchemes", SystemProperties.JDK_TLS_CLIENT_SIGNATURE_SCHEMES);
+        assertEquals("jdk.tls.namedGroups", SystemProperties.JDK_TLS_NAMED_GROUPS);
+        assertEquals("jdk.tls.server.SignatureSchemes", SystemProperties.JDK_TLS_SERVER_SIGNATURE_SCHEMES);
+        assertEquals("jdk.virtualThreadScheduler.maxPoolSize", SystemProperties.JDK_VIRTUAL_THREAD_SCHEDULER_MAXPOOLSIZE);
+        assertEquals("jdk.virtualThreadScheduler.parallelism", SystemProperties.JDK_VIRTUAL_THREAD_SCHEDULER_PARALLELISM);
+        assertEquals("jdk.xml.cdataChunkSize", SystemProperties.JDK_XML_CDATA_CHUNK_SIZE);
+        assertEquals("jdk.xml.dtd.support", SystemProperties.JDK_XML_DTD_SUPPORT);
+        assertEquals("jdk.xml.elementAttributeLimit", SystemProperties.JDK_XML_ELEMENT_ATTRIBUTE_LIMIT);
+        assertEquals("jdk.xml.enableExtensionFunctions", SystemProperties.JDK_XML_ENABLE_EXTENSION_FUNCTIONS);
+        assertEquals("jdk.xml.entityExpansionLimit", SystemProperties.JDK_XML_ENTITY_EXPANSION_LIMIT);
+        assertEquals("jdk.xml.entityReplacementLimit", SystemProperties.JDK_XML_ENTITY_REPLACEMENT_LIMIT);
+        assertEquals("jdk.xml.isStandalone", SystemProperties.JDK_XML_IS_STANDALONE);
+        assertEquals("jdk.xml.jdkcatalog.resolve", SystemProperties.JDK_XML_JDK_CATALOG_RESOLVE);
+        assertEquals("jdk.xml.maxElementDepth", SystemProperties.JDK_XML_MAX_ELEMENT_DEPTH);
+        assertEquals("jdk.xml.maxGeneralEntitySizeLimit", SystemProperties.JDK_XML_MAX_GENERAL_ENTITY_SIZE_LIMIT);
+        assertEquals("jdk.xml.maxOccurLimit", SystemProperties.JDK_XML_MAX_OCCUR_LIMIT);
+        assertEquals("jdk.xml.maxParameterEntitySizeLimit", SystemProperties.JDK_XML_MAX_PARAMETER_ENTITY_SIZE_LIMIT);
+        assertEquals("jdk.xml.maxXMLNameLimit", SystemProperties.JDK_XML_MAX_XML_NAME_LIMIT);
+        assertEquals("jdk.xml.overrideDefaultParser", SystemProperties.JDK_XML_OVERRIDE_DEFAULT_PARSER);
+        assertEquals("jdk.xml.resetSymbolTable", SystemProperties.JDK_XML_RESET_SYMBOL_TABLE);
+        assertEquals("jdk.xml.totalEntitySizeLimit", SystemProperties.JDK_XML_TOTAL_ENTITY_SIZE_LIMIT);
+        assertEquals("jdk.xml.xsltcIsStandalone", SystemProperties.JDK_XML_XSLTC_IS_STANDALONE);
+        assertEquals("line.separator", SystemProperties.LINE_SEPARATOR);
+        assertEquals("native.encoding", SystemProperties.NATIVE_ENCODING);
+        assertEquals("networkaddress.cache.negative.ttl", SystemProperties.NETWORK_ADDRESS_CACHE_NEGATIVE_TTL);
+        assertEquals("networkaddress.cache.stale.ttl", SystemProperties.NETWORK_ADDRESS_CACHE_STALE_TTL);
+        assertEquals("networkaddress.cache.ttl", SystemProperties.NETWORK_ADDRESS_CACHE_TTL);
+        assertEquals("org.jcp.xml.dsig.securevalidation", SystemProperties.ORG_JCP_XML_DSIG_SECURE_VALIDATION);
+        assertEquals("org.openjdk.java.util.stream.tripwire", SystemProperties.ORG_OPENJDK_JAVA_UTIL_STREAM_TRIPWIRE);
+        assertEquals("os.arch", SystemProperties.OS_ARCH);
+        assertEquals("os.name", SystemProperties.OS_NAME);
+        assertEquals("os.version", SystemProperties.OS_VERSION);
+        assertEquals("path.separator", SystemProperties.PATH_SEPARATOR);
+        assertEquals("socksProxyHost", SystemProperties.SOCKS_PROXY_HOST);
+        assertEquals("socksProxyPort", SystemProperties.SOCKS_PROXY_PORT);
+        assertEquals("socksProxyVersion", SystemProperties.SOCKS_PROXY_VERSION);
+        assertEquals("stderr.encoding", SystemProperties.STDERR_ENCODING);
+        assertEquals("stdout.encoding", SystemProperties.STDOUT_ENCODING);
+        assertEquals("sun.net.httpserver.drainAmount", SystemProperties.SUN_NET_HTTP_SERVER_DRAIN_AMOUNT);
+        assertEquals("sun.net.httpserver.idleInterval", SystemProperties.SUN_NET_HTTP_SERVER_IDLE_INTERVAL);
+        assertEquals("sun.net.httpserver.maxIdleConnections", SystemProperties.SUN_NET_HTTP_SERVER_MAX_IDLE_CONNECTIONS);
+        assertEquals("sun.net.httpserver.maxReqHeaders", SystemProperties.SUN_NET_HTTP_SERVER_MAX_REQ_HEADERS);
+        assertEquals("sun.net.httpserver.maxReqTime", SystemProperties.SUN_NET_HTTP_SERVER_MAX_REQ_TIME);
+        assertEquals("sun.net.httpserver.maxRspTime", SystemProperties.SUN_NET_HTTP_SERVER_MAX_RSP_TIME);
+        assertEquals("sun.net.httpserver.nodelay", SystemProperties.SUN_NET_HTTP_SERVER_NO_DELAY);
+        assertEquals("sun.security.krb5.principal", SystemProperties.SUN_SECURITY_KRB5_PRINCIPAL);
+        assertEquals("user.country", SystemProperties.USER_COUNTRY);
+        assertEquals("user.dir", SystemProperties.USER_DIR);
+        assertEquals("user.extensions", SystemProperties.USER_EXTENSIONS);
+        assertEquals("user.home", SystemProperties.USER_HOME);
+        assertEquals("user.language", SystemProperties.USER_LANGUAGE);
+        assertEquals("user.name", SystemProperties.USER_NAME);
+        assertEquals("user.region", SystemProperties.USER_REGION);
+        assertEquals("user.script", SystemProperties.USER_SCRIPT);
+        assertEquals("user.timezone", SystemProperties.USER_TIMEZONE);
+        assertEquals("user.variant", SystemProperties.USER_VARIANT);
+    }
+
+    /**
+     * Tests that {@link SystemProperties#JDK_XML_ENTITY_REPLACEMENT_LIMIT} is correct since it suffered from a typo when originally coded.
+     */
+    @Test
+    @SetSystemProperty(key = "jdk.xml.entityReplacementLimit", value = "1234")
+    void testEntityReplacementLimitConstantName() {
+        assertEquals("jdk.xml.entityReplacementLimit", SystemProperties.JDK_XML_ENTITY_REPLACEMENT_LIMIT);
+        assertEquals("1234", SystemProperties.getJdkXmlEntityReplacementLimit());
+    }
+
     @Test
     void testGetAwtToolkit() {
         assertDoesNotThrow(SystemProperties::getAwtToolkit);
