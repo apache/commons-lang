@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -65,8 +66,29 @@ class SerializationUtilsTest extends AbstractLangTest {
     static final String CLASS_NOT_FOUND_MESSAGE = "ClassNotFoundSerialization.readObject fake exception";
     protected static final String SERIALIZE_IO_EXCEPTION_MESSAGE = "Anonymous OutputStream I/O exception";
 
+    static byte[] intToBytes(final int v) {
+        return new byte[] { (byte) (v >>> 24), (byte) (v >>> 16), (byte) (v >>> 8), (byte) v };
+    }
+    static byte[] replaceLastInt(final byte[] src, final int from, final int to) {
+        final byte[] fromB = intToBytes(from);
+        final byte[] toB = intToBytes(to);
+        final byte[] out = src.clone();
+        for (int i = out.length - 4; i >= 0; i--) {
+            if (out[i] == fromB[0] && out[i + 1] == fromB[1] && out[i + 2] == fromB[2] && out[i + 3] == fromB[3]) {
+                out[i] = toB[0];
+                out[i + 1] = toB[1];
+                out[i + 2] = toB[2];
+                out[i + 3] = toB[3];
+                return out;
+            }
+        }
+        fail("No legitimate int in stream, serialization must keep hashCode in default field set");
+        return null;
+    }
     private String iString;
+
     private Integer iInteger;
+
     private HashMap<Object, Object> iMap;
 
     @BeforeEach
@@ -112,6 +134,7 @@ class SerializationUtilsTest extends AbstractLangTest {
         assertThrows(SerializationException.class, () -> SerializationUtils.clone(iMap));
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     void testConstructor() {
         assertNotNull(new SerializationUtils());

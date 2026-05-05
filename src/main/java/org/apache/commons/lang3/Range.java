@@ -16,6 +16,9 @@
  */
 package org.apache.commons.lang3;
 
+import java.io.IOException;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
@@ -104,6 +107,10 @@ public class Range<T> implements Serializable {
     @Deprecated
     public static <T> Range<T> between(final T fromInclusive, final T toInclusive, final Comparator<T> comparator) {
         return new Range<>(fromInclusive, toInclusive, comparator);
+    }
+
+    private static int hash(final Object value1, final Object value2) {
+        return Objects.hash(value1, value2);
     }
 
     /**
@@ -235,7 +242,7 @@ public class Range<T> implements Serializable {
             this.minimum = element2;
             this.maximum = element1;
         }
-        this.hashCode = Objects.hash(minimum, maximum);
+        this.hashCode = hash(minimum, maximum);
     }
 
     /**
@@ -525,6 +532,22 @@ public class Range<T> implements Serializable {
             return false;
         }
         return comparator.compare(element, minimum) == 0;
+    }
+
+    /**
+     * See {@link Serializable}.
+     *
+     * @param in See {@link Serializable}.
+     * @throws IOException See {@link Serializable}.
+     * @throws ClassNotFoundException See {@link Serializable}.
+     */
+    private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        // Reject streams whose cached hashCode does not match the canonical hash of the deserialized minimum/maximum: a crafted stream cannot supply a forged
+        // value.
+        if (hashCode != hash(minimum, maximum)) {
+            throw new InvalidObjectException("Range hashCode does not match minimum/maximum.");
+        }
     }
 
     /**
