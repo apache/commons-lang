@@ -135,6 +135,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="ax1nch, Gary Gregory">NumberUtils.createNumber() performance: Short-circuit check based on pre-derived candidate Double #1628.</action>
     <action issue="LANG-1823" type="fix" dev="ggregory" due-to="尹茂椿萱, Gary Gregory">LocaleUtils.toLocale cannot parse valid JDK Locale string containing '#' #1630.</action>
     <action issue="LANG-879"  type="fix" dev="ggregory" due-to="Matthew T. Adams, Gary Gregory">LocaleUtils test fails with new Locale "ja_JP_JP_#u-ca-japanese" of JDK7.</action>
+    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">Fix typo in SystemProperties.JDK_XML_ENTITY_REPLACEMENT_LIMIT (#1631).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
