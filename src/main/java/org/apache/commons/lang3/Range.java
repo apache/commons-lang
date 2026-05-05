@@ -535,11 +535,13 @@ public class Range<T> implements Serializable {
     }
 
     /**
-     * See {@link Serializable}.
+     * Validates the cached hashCode after deserialization. Throws a {@link InvalidObjectException} when the stored hashCode does not match the canonical hash
+     * of the deserialized minimum/maximum.
      *
      * @param in See {@link Serializable}.
-     * @throws IOException See {@link Serializable}.
+     * @throws IOException            See {@link Serializable}.
      * @throws ClassNotFoundException See {@link Serializable}.
+     * @throws InvalidObjectException If the hashCode doesn't match the minimum and maximum.
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();

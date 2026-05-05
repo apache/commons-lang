@@ -16,6 +16,9 @@
  */
 package org.apache.commons.lang3.math;
 
+import java.io.IOException;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Objects;
@@ -402,6 +405,10 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         return -u * (1 << k); // gcd is u*2^k
     }
 
+    private static int hash(final int value1, final int value2) {
+        return Objects.hash(value1, value2);
+    }
+
     /**
      * Multiplies two integers, checking for overflow.
      *
@@ -489,7 +496,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     private Fraction(final int numerator, final int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
-        this.hashCode = Objects.hash(denominator, numerator);
+        this.hashCode = hash(denominator, numerator);
     }
 
     /**
@@ -835,6 +842,22 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             return f.pow(power / 2);
         }
         return f.pow(power / 2).multiplyBy(this);
+    }
+
+    /**
+     * Validates the cached hashCode after deserialization. Throws a {@link InvalidObjectException} when the stored hashCode does not match the canonical hash
+     * of the deserialized numerator/denominator.
+     *
+     * @param in See {@link Serializable}.
+     * @throws IOException            See {@link Serializable}.
+     * @throws ClassNotFoundException See {@link Serializable}.
+     * @throws InvalidObjectException If the hashCode doesn't match the denominator and numerator.
+     */
+    private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        if (hashCode != hash(denominator, numerator)) {
+            throw new InvalidObjectException("Fraction hashCode does not match numerator/denominator.");
+        }
     }
 
     /**

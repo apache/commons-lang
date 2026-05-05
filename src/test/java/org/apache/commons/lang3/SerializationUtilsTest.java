@@ -61,15 +61,17 @@ interface SerializableSupplier<T> extends Supplier<T>, Serializable {
 /**
  * Tests {@link SerializationUtils}.
  */
-class SerializationUtilsTest extends AbstractLangTest {
+public class SerializationUtilsTest extends AbstractLangTest {
 
     static final String CLASS_NOT_FOUND_MESSAGE = "ClassNotFoundSerialization.readObject fake exception";
+
     protected static final String SERIALIZE_IO_EXCEPTION_MESSAGE = "Anonymous OutputStream I/O exception";
 
-    static byte[] intToBytes(final int v) {
+    public static byte[] intToBytes(final int v) {
         return new byte[] { (byte) (v >>> 24), (byte) (v >>> 16), (byte) (v >>> 8), (byte) v };
     }
-    static byte[] replaceLastInt(final byte[] src, final int from, final int to) {
+
+    public static byte[] replaceLastInt(final byte[] src, final int from, final int to) {
         final byte[] fromB = intToBytes(from);
         final byte[] toB = intToBytes(to);
         final byte[] out = src.clone();
@@ -85,6 +87,7 @@ class SerializationUtilsTest extends AbstractLangTest {
         fail("No legitimate int in stream, serialization must keep hashCode in default field set");
         return null;
     }
+
     private String iString;
 
     private Integer iInteger;

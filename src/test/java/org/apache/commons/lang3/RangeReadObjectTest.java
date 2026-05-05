@@ -27,7 +27,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests that a serialized Range can't store a bad cached hashCode.
+ * Tests that a serialized {@link Range} can't store a bad cached hashCode.
  */
 class RangeReadObjectTest {
 
