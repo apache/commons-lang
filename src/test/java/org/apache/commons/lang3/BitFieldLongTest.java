@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link BitField} constructed with long masks.
  */
-class BitFieldLongTest {
+class BitFieldLongTest extends AbstractLangTest {
 
     private static final BitField BF_MULTI  = new BitField(0x3F80L);
     private static final BitField BF_MULTI_L  = new BitField(0x3F80_0000_0000_0000L);

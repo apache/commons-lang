@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.builder;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -24,7 +25,7 @@ import org.objectweb.asm.Opcodes;
 /**
  * Builds classes dynamically for tests.
  */
-public class TestClassBuilder {
+public class TestClassBuilder extends AbstractLangTest {
 
     /**
      * Extends {@link ClassLoader} to make {@link ClassLoader#defineClass(String, byte[])} public.

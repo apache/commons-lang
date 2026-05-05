@@ -30,7 +30,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link Strings}.
  */
-class StringsTest {
+class StringsTest extends AbstractLangTest {
 
     public static Stream<Strings> stringsFactory() {
         return Stream.of(Strings.CS, Strings.CI);

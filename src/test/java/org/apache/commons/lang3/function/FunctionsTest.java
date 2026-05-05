@@ -26,13 +26,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link Functions}.
  */
-class FunctionsTest {
+class FunctionsTest extends AbstractLangTest {
 
     /**
      * Tests {@link Functions#apply(Function, Object)}.

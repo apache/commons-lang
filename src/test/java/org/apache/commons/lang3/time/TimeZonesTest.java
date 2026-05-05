@@ -21,12 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link TimeZones}.
  */
-class TimeZonesTest {
+class TimeZonesTest extends AbstractLangTest {
 
     static final String TIME_ZONE_GET_AVAILABLE_IDS = "java.util.TimeZone#getAvailableIDs()";
 

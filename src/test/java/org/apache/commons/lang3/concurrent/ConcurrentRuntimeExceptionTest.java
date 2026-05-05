@@ -19,12 +19,13 @@ package org.apache.commons.lang3.concurrent;
 
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link ConcurrentRuntimeException}.
  */
-class ConcurrentRuntimeExceptionTest {
+class ConcurrentRuntimeExceptionTest extends AbstractLangTest {
 
     /**
      * Tries to create a ConcurrentRuntimeException with an error as cause.

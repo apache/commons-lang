@@ -28,13 +28,14 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.stream.Streams.FailableStream;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link FailableStream}.
  */
-class FailableStreamTest {
+class FailableStreamTest extends AbstractLangTest {
 
     private Integer failable(final Map.Entry<String, AtomicInteger> value) throws IOException {
         if (value == new Object()) {

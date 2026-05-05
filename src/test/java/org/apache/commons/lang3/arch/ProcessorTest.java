@@ -20,11 +20,12 @@ package org.apache.commons.lang3.arch;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.arch.Processor.Arch;
 import org.apache.commons.lang3.arch.Processor.Type;
 import org.junit.jupiter.api.Test;
 
-class ProcessorTest {
+class ProcessorTest extends AbstractLangTest {
 
     @Test
     void testIs32Bit() {

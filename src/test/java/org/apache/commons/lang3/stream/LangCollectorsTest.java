@@ -26,12 +26,13 @@ import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link LangCollectors}
  */
-class LangCollectorsTest {
+class LangCollectorsTest extends AbstractLangTest {
 
     private static final class Fixture {
         int value;

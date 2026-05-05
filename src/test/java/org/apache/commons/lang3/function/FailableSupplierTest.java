@@ -19,12 +19,13 @@ package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link FailableSupplier}.
  */
-class FailableSupplierTest {
+class FailableSupplierTest extends AbstractLangTest {
 
     @Test
     void testNULL() throws Throwable {

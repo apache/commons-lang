@@ -33,7 +33,7 @@ import org.openjdk.jmh.annotations.Warmup;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Thread)
 @Warmup(iterations = 5, time = 10)
-public class StringUtilsIsMixedCaseTest {
+public class StringUtilsIsMixedCaseTest extends AbstractLangTest {
 
     public static final String LOWER_CASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
     public static final String END_MATCH = "at the enD";
