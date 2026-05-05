@@ -849,6 +849,12 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         validate();
 
         Class<?> clazz = getObject().getClass();
+
+        if (!reflectiveAccess.isAllowed(clazz)) {
+          appendToString(getStyle().getContentStart() + getObject().toString() + getStyle().getContentEnd());
+          return super.toString();
+        }
+
         appendFieldsIn(clazz);
         while (clazz.getSuperclass() != null && clazz != getUpToClass()) {
             clazz = clazz.getSuperclass();
@@ -856,6 +862,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         }
         return super.toString();
     }
+
+    ReflectiveAccessUtil reflectiveAccess = new ReflectiveAccessUtil();
 
     /**
      * Validates that include and exclude names do not intersect.
