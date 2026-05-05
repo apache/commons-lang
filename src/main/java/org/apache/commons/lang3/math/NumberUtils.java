@@ -501,8 +501,7 @@ public class NumberUtils {
         try {
             final Float f = createFloat(str);
             final Double d = createDouble(str);
-            if (!f.isInfinite() && !(f.floatValue() == 0.0F && !isZero(mant, dec))
-                    && ((double) d.floatValue() == d.doubleValue() || f.toString().equals(d.toString()))) {
+            if (!f.isInfinite() && !(f.floatValue() == 0.0F && !isZero(mant, dec)) && f.toString().equals(d.toString())) {
                 return f;
             }
             if (!d.isInfinite() && !(d.doubleValue() == 0.0D && !isZero(mant, dec))) {
