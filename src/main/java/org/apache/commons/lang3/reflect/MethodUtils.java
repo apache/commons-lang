@@ -272,11 +272,56 @@ public class MethodUtils {
         A annotation = method.getAnnotation(annotationCls);
         if (annotation == null && searchSupers) {
             final Class<?> mcls = method.getDeclaringClass();
+            final String methodName = method.getName();
+            final Class<?>[] paramTypes = method.getParameterTypes();
             final List<Class<?>> classes = getAllSuperclassesAndInterfaces(mcls);
             for (final Class<?> acls : classes) {
-                final Method equivalentMethod = ignoreAccess ? getMatchingMethod(acls, method.getName(), method.getParameterTypes())
-                        : getMatchingAccessibleMethod(acls, method.getName(), method.getParameterTypes());
-                if (equivalentMethod != null) {
+                // First, attempt an exact parameter-type match (getDeclaredMethod) to
+                // find a true override. This avoids matching unrelated overloads that
+                // are merely assignable-compatible (e.g. process(Integer) vs
+                // process(Number)).
+                Method equivalentMethod = null;
+                try {
+                    equivalentMethod = acls.getDeclaredMethod(methodName, paramTypes);
+                } catch (final NoSuchMethodException ignored) {
+                    // No exact match; check for generic-bridge scenario: the declaring
+                    // class may use a type variable whose erased form is Object (or
+                    // another bound). In that case the parent method's erased
+                    // parameter types differ from the child's concrete types, so we
+                    // scan declared methods for a same-name method whose *erased*
+                    // parameter count matches and whose erased types are assignable
+                    // from our concrete types.
+                    for (final Method candidate : acls.getDeclaredMethods()) {
+                        if (!candidate.getName().equals(methodName)) {
+                            continue;
+                        }
+                        final Class<?>[] candidateParams = candidate.getParameterTypes();
+                        if (candidateParams.length != paramTypes.length) {
+                            continue;
+                        }
+                        // Require that every concrete param type is assignable to the
+                        // candidate's (erased) param type AND that the candidate is
+                        // generic (has at least one TypeVariable in its generic
+                        // parameter types). This prevents matching plain overloads.
+                        boolean genericMatch = false;
+                        boolean paramsMatch = true;
+                        final java.lang.reflect.Type[] genericParams = candidate.getGenericParameterTypes();
+                        for (int i = 0; i < candidateParams.length; i++) {
+                            if (genericParams[i] instanceof java.lang.reflect.TypeVariable) {
+                                genericMatch = true;
+                            }
+                            if (!ClassUtils.isAssignable(paramTypes[i], candidateParams[i], true)) {
+                                paramsMatch = false;
+                                break;
+                            }
+                        }
+                        if (paramsMatch && genericMatch) {
+                            equivalentMethod = candidate;
+                            break;
+                        }
+                    }
+                }
+                if (equivalentMethod != null && (ignoreAccess || MemberUtils.isAccessible(equivalentMethod))) {
                     annotation = equivalentMethod.getAnnotation(annotationCls);
                     if (annotation != null) {
                         break;
