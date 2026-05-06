@@ -654,6 +654,15 @@ public class StringUtils {
         return rightPad(str, size, padStr);
     }
 
+    private static void checkFromToIndex(final int startIndex, final int endIndex, final int length) {
+        if (startIndex < 0) {
+            throw new ArrayIndexOutOfBoundsException(startIndex);
+        }
+        if (endIndex > length) {
+            throw new ArrayIndexOutOfBoundsException(endIndex);
+        }
+    }
+
     /**
      * Removes one newline from end of a String if it's there, otherwise leave it alone. A newline is &quot;{@code \n}&quot;, &quot;{@code \r}&quot;, or
      * &quot;{@code \r\n}&quot;.
@@ -3866,6 +3875,7 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
+        checkFromToIndex(startIndex, endIndex, array.length);
         final int count = endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
@@ -3943,6 +3953,7 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
+        checkFromToIndex(startIndex, endIndex, array.length);
         final int count = endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
@@ -4020,6 +4031,7 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
+        checkFromToIndex(startIndex, endIndex, array.length);
         final int count = endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
@@ -4097,6 +4109,7 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
+        checkFromToIndex(startIndex, endIndex, array.length);
         final int count = endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
@@ -4174,6 +4187,7 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
+        checkFromToIndex(startIndex, endIndex, array.length);
         final int count = endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
@@ -4251,6 +4265,7 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
+        checkFromToIndex(startIndex, endIndex, array.length);
         final int count = endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
@@ -4491,6 +4506,7 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
+        checkFromToIndex(startIndex, endIndex, array.length);
         final int count = endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
@@ -4687,6 +4703,7 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
+        checkFromToIndex(startIndex, endIndex, array.length);
         final int count = endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
