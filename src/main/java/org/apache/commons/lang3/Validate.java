@@ -93,7 +93,7 @@ public class Validate {
     @SuppressWarnings("boxing")
     public static void exclusiveBetween(final double start, final double end, final double value) {
         // TODO when breaking BC, consider returning value
-        if (value <= start || value >= end) {
+        if (value <= start || value >= end || Double.isNaN(value)) {
             throw new IllegalArgumentException(String.format(DEFAULT_EXCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
         }
     }
@@ -114,7 +114,7 @@ public class Validate {
      */
     public static void exclusiveBetween(final double start, final double end, final double value, final String message) {
         // TODO when breaking BC, consider returning value
-        if (value <= start || value >= end) {
+        if (value <= start || value >= end || Double.isNaN(value)) {
             throw new IllegalArgumentException(message);
         }
     }
@@ -270,7 +270,7 @@ public class Validate {
     @SuppressWarnings("boxing")
     public static void inclusiveBetween(final double start, final double end, final double value) {
         // TODO when breaking BC, consider returning value
-        if (value < start || value > end) {
+        if (value < start || value > end || Double.isNaN(value)) {
             throw new IllegalArgumentException(String.format(DEFAULT_INCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
         }
     }
@@ -291,7 +291,7 @@ public class Validate {
      */
     public static void inclusiveBetween(final double start, final double end, final double value, final String message) {
         // TODO when breaking BC, consider returning value
-        if (value < start || value > end) {
+        if (value < start || value > end || Double.isNaN(value)) {
             throw new IllegalArgumentException(message);
         }
     }
