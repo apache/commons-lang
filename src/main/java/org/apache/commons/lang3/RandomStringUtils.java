@@ -294,8 +294,8 @@ public class RandomStringUtils {
             }
             if (digits && end <= ASCII_0 || letters && end <= ASCII_A) {
                 throw new IllegalArgumentException(
-                        String.format("Parameter end (%,d) must be greater than (%,d) for generating digits or greater than (%,d) for generating letters.",
-                                end, ASCII_0, ASCII_A));
+                        String.format("Parameter end (%,d) must be greater than (%,d) for generating digits or greater than (%,d) for generating letters.", end,
+                                ASCII_0, ASCII_A));
             }
             // Optimize start and end when filtering by letters and/or numbers:
             // The range provided may be too large since we filter anyway afterward.
@@ -318,24 +318,49 @@ public class RandomStringUtils {
                 end = Math.min(ASCII_z + 1, end);
             }
         }
-        if (letters && !digits) {
-            for (int i = start; i < end; i++) {
-                if (Character.isLetter(i)) {
-                    break;
+        if (chars == null) {
+            // start/end are code points: validate using Character.isLetter/isDigit on the
+            // code-point range rather than on the loop index.
+            if (letters && !digits) {
+                boolean ok = false;
+                for (int i = start; i < end; i++) {
+                    if (Character.isLetter(i)) {
+                        ok = true;
+                        break;
+                    }
                 }
-                if (i == end - 1) {
+                if (!ok) {
                     throw new IllegalArgumentException(String.format("No letters exist between start %,d and end %,d.", start, end));
                 }
             }
-        }
-        if (!letters && digits) {
-            for (int i = start; i < end; i++) {
-                if (Character.isDigit(i)) {
-                    break;
+            if (!letters && digits) {
+                boolean ok = false;
+                for (int i = start; i < end; i++) {
+                    if (Character.isDigit(i)) {
+                        ok = true;
+                        break;
+                    }
                 }
-                if (i == end - 1) {
+                if (!ok) {
                     throw new IllegalArgumentException(String.format("No digits exist between start %,d and end %,d.", start, end));
                 }
+            }
+        } else if (letters || digits) {
+            // chars != null. start/end are indices into chars[]; validate the actual
+            // chars contain at least one element matching some requested letter/digit
+            // category to avoid an infinite generation loop when the array lacks every
+            // requested category.
+            boolean hasMatch = false;
+            for (int i = start; i < end; i++) {
+                final char c = chars[i];
+                if (letters && Character.isLetter(c) || digits && Character.isDigit(c)) {
+                    hasMatch = true;
+                    break;
+                }
+            }
+            if (!hasMatch) {
+                throw new IllegalArgumentException(String.format("No %s%s%s exist in chars[%,d..%,d).", letters ? "letters" : "",
+                        letters && digits ? " or " : "", digits ? "digits" : "", start, end));
             }
         }
         final StringBuilder builder = new StringBuilder(count);
@@ -352,16 +377,27 @@ public class RandomStringUtils {
         // 3. Divide by 5 to convert to bytes (normally this would be by 8, dividing by 5 allows for about 60% extra space)
         // 4. Add base padding (10) to handle small counts efficiently
         // 5. Ensure we don't exceed Integer.MAX_VALUE / 5 + 10 to provide a good balance between overflow prevention and
-        //    making the cache extremely large
+        // making the cache extremely large
         final long desiredCacheSize = ((long) count * gapBits + CACHE_PADDING_BITS) / BITS_TO_BYTES_DIVISOR + BASE_CACHE_SIZE_PADDING;
         final int cacheSize = (int) Math.min(desiredCacheSize, Integer.MAX_VALUE / BITS_TO_BYTES_DIVISOR + BASE_CACHE_SIZE_PADDING);
         final CachedRandomBits arb = new CachedRandomBits(cacheSize, random);
+        // Bound rejection retries so a range that rejects every sample
+        // (for example, entirely UNASSIGNED/PRIVATE_USE/SURROGATE) raises an
+        // IllegalArgumentException instead of looping indefinitely. Cap is
+        // (end - start) * 10 with a small floor so tiny gaps still get a
+        // reasonable budget. The counter resets on every accepted code point.
+        final int maxRejections = Math.max(64, gap * 10);
+        int rejections = 0;
         while (count-- != 0) {
             // Generate a random value between start (included) and end (excluded)
             final int randomValue = arb.nextBits(gapBits) + start;
             // Rejection sampling if value too large
             if (randomValue >= end) {
                 count++;
+                if (++rejections > maxRejections) {
+                    throw new IllegalArgumentException(
+                            String.format("No acceptable code points found in range [%,d, %,d) within %,d attempts.", start, end, maxRejections));
+                }
                 continue;
             }
             final int codePoint;
@@ -372,6 +408,10 @@ public class RandomStringUtils {
                 case Character.PRIVATE_USE:
                 case Character.SURROGATE:
                     count++;
+                    if (++rejections > maxRejections) {
+                        throw new IllegalArgumentException(
+                                String.format("No acceptable code points found in range [%,d, %,d) within %,d attempts.", start, end, maxRejections));
+                    }
                     continue;
                 }
             } else {
@@ -380,6 +420,10 @@ public class RandomStringUtils {
             final int numberOfChars = Character.charCount(codePoint);
             if (count == 0 && numberOfChars > 1) {
                 count++;
+                if (++rejections > maxRejections) {
+                    throw new IllegalArgumentException(
+                            String.format("No acceptable code points found in range [%,d, %,d) within %,d attempts.", start, end, maxRejections));
+                }
                 continue;
             }
             if (letters && Character.isLetter(codePoint) || digits && Character.isDigit(codePoint) || !letters && !digits) {
@@ -387,8 +431,13 @@ public class RandomStringUtils {
                 if (numberOfChars == 2) {
                     count--;
                 }
+                rejections = 0;
             } else {
                 count++;
+                if (++rejections > maxRejections) {
+                    throw new IllegalArgumentException(
+                            String.format("No acceptable code points found in range [%,d, %,d) within %,d attempts.", start, end, maxRejections));
+                }
             }
         }
         return builder.toString();
