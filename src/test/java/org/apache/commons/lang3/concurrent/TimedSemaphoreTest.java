@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
@@ -472,6 +473,66 @@ class TimedSemaphoreTest extends AbstractLangTest {
         semaphore.shutdown();
         assertTrue(semaphore.isShutdown(), "Not shutdown");
         EasyMock.verify(service, future);
+    }
+
+    /**
+     * TimedSemaphore.shutdown() must wake threads blocked in acquire().
+     *
+     * <p>
+     * Pre-patch ({@code shutdown()} sets the flag but does not call {@code notifyAll()}): a thread parked in {@code wait()} inside {@code acquire()} stays
+     * parked indefinitely — until the periodic {@code endOfPeriod()} task fires, which never happens here because we deliberately use a long period (60 s).
+     * </p>
+     *
+     * <p>
+     * Post-patch: {@code shutdown()} calls {@code notifyAll()} after setting the flag, and {@code acquire()} re-checks the flag on wake to throw
+     * {@link IllegalStateException}.
+     * </p>
+     *
+     * <p>
+     * Differences from the previous (vacuous) version of this PoC:
+     * </p>
+     * <ul>
+     * <li>Uses period = 60 s (was 1 s). With a 1-second period, the periodic {@code endOfPeriod()} task wakes the blocker on the next tick, hiding the
+     * bug.</li>
+     * <li>Asserts {@code !blocker.isAlive()} after the join. {@code Thread.join(timeout)} returns silently after the timeout regardless of whether the thread
+     * terminated, so the previous assertion ({@code assertTimeout(2s, () -> blocker.join(1500))}) was satisfied even when the blocker was still parked.</li>
+     * <li>Uses {@code assertTimeoutPreemptively} so the test framework forcibly interrupts a hanging test rather than hanging the JVM.</li>
+     * <li>Waits for the blocker to actually reach {@code Thread.State.WAITING} before calling {@code shutdown()}, removing the {@code Thread.sleep(100)}
+     * race.</li>
+     * </ul>
+     */
+    @Test
+    public void testShutdownWakesBlockedAcquireThreads() {
+        assertTimeoutPreemptively(Duration.ofSeconds(10), () -> {
+            // Period of 60s ensures endOfPeriod() does NOT fire during the test
+            // window. The only way the blocker can wake is via shutdown() calling
+            // notifyAll().
+            final TimedSemaphore sem = TimedSemaphore.builder().setPeriod(60).setTimeUnit(TimeUnit.SECONDS).setLimit(1).get();
+            sem.acquire(); // consume the only permit for this period.
+            final Thread blocker = new Thread(() -> {
+                try {
+                    sem.acquire(); // limit=1 already taken => blocks in wait().
+                } catch (final InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } catch (final IllegalStateException e) {
+                    // Acceptable post-patch outcome: re-check of shutdown flag throws.
+                }
+            }, "testShutdownWakesBlockedAcquireThreads");
+            blocker.setDaemon(true);
+            blocker.start();
+            // Wait until blocker is parked in Object.wait() inside acquire().
+            final long parkDeadline = System.nanoTime() + Duration.ofSeconds(2).toNanos();
+            while (System.nanoTime() < parkDeadline && blocker.getState() != Thread.State.WAITING) {
+                Thread.sleep(10);
+            }
+            sem.shutdown();
+            // At HEAD (patched): blocker wakes from notifyAll(), re-checks flag,
+            // throws ISE, and terminates within milliseconds.
+            // At baseline: blocker stays in WAITING for 60s — well past this join.
+            blocker.join(5000);
+            assertFalse(blocker.isAlive(), "TimedSemaphore.shutdown() failed to wake thread blocked in acquire(): blocker still alive in state="
+                    + blocker.getState() + " 5s after shutdown(). Bug present (shutdown() does not call notifyAll()).");
+        });
     }
 
     /**

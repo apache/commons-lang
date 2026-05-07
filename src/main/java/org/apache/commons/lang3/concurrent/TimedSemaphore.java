@@ -297,6 +297,9 @@ public class TimedSemaphore {
             canPass = acquirePermit();
             if (!canPass) {
                 wait();
+                if (shutdown) {
+                    throw new IllegalStateException("TimedSemaphore is shut down.");
+                }
             }
         } while (!canPass);
     }
@@ -454,6 +457,7 @@ public class TimedSemaphore {
                 task.cancel(false);
             }
             shutdown = true;
+            notifyAll();
         }
     }
 
