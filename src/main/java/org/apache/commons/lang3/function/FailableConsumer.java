@@ -28,8 +28,8 @@ import java.util.function.Function;
  * This is a functional interface whose functional method is {@link #accept(Object)}.
  * </p>
  *
- * @param <T> the type of the input to the operation
- * @param <E> Thrown exception type.
+ * @param <T> the type of the argument the consumer accepts.
+ * @param <E> The thrown exception type.
  * @since 3.11
  */
 @FunctionalInterface
@@ -40,10 +40,26 @@ public interface FailableConsumer<T, E extends Throwable> {
     FailableConsumer NOP = Function.identity()::apply;
 
     /**
+     * Applies the given {@link FailableConsumer} action to the object if the consumer is not {@code null}. Otherwise, does nothing.
+     *
+     * @param consumer the consumer to consume.
+     * @param object   the object to be consumed.
+     * @param <T>      the type of the argument the consumer accepts.
+     * @param <E>      The thrown exception type.
+     * @throws E Thrown when the consumer fails.
+     * @since 3.21.0
+     */
+    static <T, E extends Throwable> void accept(final FailableConsumer<T, E> consumer, final T object) throws E {
+        if (consumer != null) {
+            consumer.accept(object);
+        }
+    }
+
+    /**
      * Gets the NOP singleton.
      *
-     * @param <T> Consumed type 1.
-     * @param <E> The kind of thrown exception or error.
+     * @param <T> the type of the argument the consumer accepts.
+     * @param <E> The thrown exception type.
      * @return The NOP singleton.
      */
     @SuppressWarnings("unchecked")
