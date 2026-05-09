@@ -18,7 +18,6 @@
 package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
@@ -27,43 +26,23 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@link FailableSupplier}.
+ * Tests {@link FailableByteSupplier}.
  */
-class FailableSupplierTest extends AbstractLangTest {
+class FailableByteSupplierTest extends AbstractLangTest {
 
     @Test
-    void testGet_returnsValue() throws IOException {
-        final FailableSupplier<String, IOException> supplier = () -> "hello";
-        assertEquals("hello", supplier.get());
+    void testGetAsByte_returnsValue() throws IOException {
+        final FailableByteSupplier<IOException> supplier = () -> (byte) 5;
+        assertEquals((byte) 5, supplier.getAsByte());
     }
 
     @Test
-    void testGet_throwsException() {
+    void testGetAsByte_throwsException() {
         final IOException expected = new IOException("fail");
-        final FailableSupplier<String, IOException> supplier = () -> {
+        final FailableByteSupplier<IOException> supplier = () -> {
             throw expected;
         };
-        final IOException thrown = assertThrows(IOException.class, supplier::get);
+        final IOException thrown = assertThrows(IOException.class, supplier::getAsByte);
         assertEquals(expected, thrown);
-    }
-
-    @Test
-    void testNULL() throws Throwable {
-        assertNull(FailableSupplier.NUL.get());
-    }
-
-    @Test
-    void testNullSupplierDefaultException() throws Exception {
-        assertNull(FailableSupplier.nul().get());
-    }
-
-    @Test
-    void testNullSupplierException() throws Exception {
-        assertNull(FailableSupplier.<Object, Exception>nul().get());
-    }
-
-    @Test
-    void testNullSupplierRuntimeException() {
-        assertNull(FailableSupplier.<Object, RuntimeException>nul().get());
     }
 }

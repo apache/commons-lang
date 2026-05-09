@@ -18,7 +18,7 @@
 package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
@@ -27,43 +27,33 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@link FailableSupplier}.
+ * Tests {@link FailableDoubleToIntFunction}.
  */
-class FailableSupplierTest extends AbstractLangTest {
+class FailableDoubleToIntFunctionTest extends AbstractLangTest {
 
     @Test
-    void testGet_returnsValue() throws IOException {
-        final FailableSupplier<String, IOException> supplier = () -> "hello";
-        assertEquals("hello", supplier.get());
+    void testApplyAsInt_returnsResult() throws IOException {
+        final FailableDoubleToIntFunction<IOException> f = v -> (int) v;
+        assertEquals(3, f.applyAsInt(3.9));
     }
 
     @Test
-    void testGet_throwsException() {
+    void testApplyAsInt_throwsException() {
         final IOException expected = new IOException("fail");
-        final FailableSupplier<String, IOException> supplier = () -> {
+        final FailableDoubleToIntFunction<IOException> f = v -> {
             throw expected;
         };
-        final IOException thrown = assertThrows(IOException.class, supplier::get);
+        final IOException thrown = assertThrows(IOException.class, () -> f.applyAsInt(1.0));
         assertEquals(expected, thrown);
     }
 
     @Test
-    void testNULL() throws Throwable {
-        assertNull(FailableSupplier.NUL.get());
+    void testNop_applyAsIntReturnsZero() throws Throwable {
+        assertEquals(0, FailableDoubleToIntFunction.nop().applyAsInt(1.0));
     }
 
     @Test
-    void testNullSupplierDefaultException() throws Exception {
-        assertNull(FailableSupplier.nul().get());
-    }
-
-    @Test
-    void testNullSupplierException() throws Exception {
-        assertNull(FailableSupplier.<Object, Exception>nul().get());
-    }
-
-    @Test
-    void testNullSupplierRuntimeException() {
-        assertNull(FailableSupplier.<Object, RuntimeException>nul().get());
+    void testNop_returnsNonNull() {
+        assertNotNull(FailableDoubleToIntFunction.nop());
     }
 }

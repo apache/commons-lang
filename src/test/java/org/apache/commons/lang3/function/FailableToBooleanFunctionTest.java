@@ -18,8 +18,10 @@
 package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 
@@ -27,43 +29,34 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@link FailableSupplier}.
+ * Tests {@link FailableToBooleanFunction}.
  */
-class FailableSupplierTest extends AbstractLangTest {
+class FailableToBooleanFunctionTest extends AbstractLangTest {
 
     @Test
-    void testGet_returnsValue() throws IOException {
-        final FailableSupplier<String, IOException> supplier = () -> "hello";
-        assertEquals("hello", supplier.get());
+    void testApplyAsBoolean_returnsTrue() throws IOException {
+        final FailableToBooleanFunction<String, IOException> f = s -> !s.isEmpty();
+        assertTrue(f.applyAsBoolean("hello"));
+        assertFalse(f.applyAsBoolean(""));
     }
 
     @Test
-    void testGet_throwsException() {
+    void testApplyAsBoolean_throwsException() {
         final IOException expected = new IOException("fail");
-        final FailableSupplier<String, IOException> supplier = () -> {
+        final FailableToBooleanFunction<String, IOException> f = s -> {
             throw expected;
         };
-        final IOException thrown = assertThrows(IOException.class, supplier::get);
+        final IOException thrown = assertThrows(IOException.class, () -> f.applyAsBoolean("x"));
         assertEquals(expected, thrown);
     }
 
     @Test
-    void testNULL() throws Throwable {
-        assertNull(FailableSupplier.NUL.get());
+    void testNop_applyAsBooleanReturnsFalse() throws Throwable {
+        assertFalse(FailableToBooleanFunction.nop().applyAsBoolean("x"));
     }
 
     @Test
-    void testNullSupplierDefaultException() throws Exception {
-        assertNull(FailableSupplier.nul().get());
-    }
-
-    @Test
-    void testNullSupplierException() throws Exception {
-        assertNull(FailableSupplier.<Object, Exception>nul().get());
-    }
-
-    @Test
-    void testNullSupplierRuntimeException() {
-        assertNull(FailableSupplier.<Object, RuntimeException>nul().get());
+    void testNop_returnsNonNull() {
+        assertNotNull(FailableToBooleanFunction.nop());
     }
 }

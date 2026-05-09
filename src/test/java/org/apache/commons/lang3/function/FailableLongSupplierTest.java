@@ -18,7 +18,6 @@
 package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
@@ -27,43 +26,23 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@link FailableSupplier}.
+ * Tests {@link FailableLongSupplier}.
  */
-class FailableSupplierTest extends AbstractLangTest {
+class FailableLongSupplierTest extends AbstractLangTest {
 
     @Test
-    void testGet_returnsValue() throws IOException {
-        final FailableSupplier<String, IOException> supplier = () -> "hello";
-        assertEquals("hello", supplier.get());
+    void testGetAsLong_returnsValue() throws IOException {
+        final FailableLongSupplier<IOException> supplier = () -> 123L;
+        assertEquals(123L, supplier.getAsLong());
     }
 
     @Test
-    void testGet_throwsException() {
+    void testGetAsLong_throwsException() {
         final IOException expected = new IOException("fail");
-        final FailableSupplier<String, IOException> supplier = () -> {
+        final FailableLongSupplier<IOException> supplier = () -> {
             throw expected;
         };
-        final IOException thrown = assertThrows(IOException.class, supplier::get);
+        final IOException thrown = assertThrows(IOException.class, supplier::getAsLong);
         assertEquals(expected, thrown);
-    }
-
-    @Test
-    void testNULL() throws Throwable {
-        assertNull(FailableSupplier.NUL.get());
-    }
-
-    @Test
-    void testNullSupplierDefaultException() throws Exception {
-        assertNull(FailableSupplier.nul().get());
-    }
-
-    @Test
-    void testNullSupplierException() throws Exception {
-        assertNull(FailableSupplier.<Object, Exception>nul().get());
-    }
-
-    @Test
-    void testNullSupplierRuntimeException() {
-        assertNull(FailableSupplier.<Object, RuntimeException>nul().get());
     }
 }

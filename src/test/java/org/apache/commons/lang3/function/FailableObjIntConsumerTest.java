@@ -18,52 +18,51 @@
 package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@link FailableSupplier}.
+ * Tests {@link FailableObjIntConsumer}.
  */
-class FailableSupplierTest extends AbstractLangTest {
+class FailableObjIntConsumerTest extends AbstractLangTest {
 
     @Test
-    void testGet_returnsValue() throws IOException {
-        final FailableSupplier<String, IOException> supplier = () -> "hello";
-        assertEquals("hello", supplier.get());
+    void testAccept_invokesConsumer() throws IOException {
+        final AtomicReference<String> objRef = new AtomicReference<>();
+        final AtomicInteger valRef = new AtomicInteger();
+        final FailableObjIntConsumer<String, IOException> consumer = (o, v) -> {
+            objRef.set(o);
+            valRef.set(v);
+        };
+        consumer.accept("hello", 42);
+        assertEquals("hello", objRef.get());
+        assertEquals(42, valRef.get());
     }
 
     @Test
-    void testGet_throwsException() {
+    void testAccept_throwsException() {
         final IOException expected = new IOException("fail");
-        final FailableSupplier<String, IOException> supplier = () -> {
+        final FailableObjIntConsumer<String, IOException> consumer = (o, v) -> {
             throw expected;
         };
-        final IOException thrown = assertThrows(IOException.class, supplier::get);
+        final IOException thrown = assertThrows(IOException.class, () -> consumer.accept("x", 1));
         assertEquals(expected, thrown);
     }
 
     @Test
-    void testNULL() throws Throwable {
-        assertNull(FailableSupplier.NUL.get());
+    void testNop_acceptDoesNothing() throws Throwable {
+        FailableObjIntConsumer.nop().accept("x", 1);
     }
 
     @Test
-    void testNullSupplierDefaultException() throws Exception {
-        assertNull(FailableSupplier.nul().get());
-    }
-
-    @Test
-    void testNullSupplierException() throws Exception {
-        assertNull(FailableSupplier.<Object, Exception>nul().get());
-    }
-
-    @Test
-    void testNullSupplierRuntimeException() {
-        assertNull(FailableSupplier.<Object, RuntimeException>nul().get());
+    void testNop_returnsNonNull() {
+        assertNotNull(FailableObjIntConsumer.nop());
     }
 }

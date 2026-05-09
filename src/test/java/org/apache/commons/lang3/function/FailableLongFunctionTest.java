@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -27,43 +28,33 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@link FailableSupplier}.
+ * Tests {@link FailableLongFunction}.
  */
-class FailableSupplierTest extends AbstractLangTest {
+class FailableLongFunctionTest extends AbstractLangTest {
 
     @Test
-    void testGet_returnsValue() throws IOException {
-        final FailableSupplier<String, IOException> supplier = () -> "hello";
-        assertEquals("hello", supplier.get());
+    void testApply_returnsResult() throws IOException {
+        final FailableLongFunction<String, IOException> f = v -> "v=" + v;
+        assertEquals("v=5", f.apply(5L));
     }
 
     @Test
-    void testGet_throwsException() {
+    void testApply_throwsException() {
         final IOException expected = new IOException("fail");
-        final FailableSupplier<String, IOException> supplier = () -> {
+        final FailableLongFunction<String, IOException> f = v -> {
             throw expected;
         };
-        final IOException thrown = assertThrows(IOException.class, supplier::get);
+        final IOException thrown = assertThrows(IOException.class, () -> f.apply(1L));
         assertEquals(expected, thrown);
     }
 
     @Test
-    void testNULL() throws Throwable {
-        assertNull(FailableSupplier.NUL.get());
+    void testNop_applyReturnsNull() throws Throwable {
+        assertNull(FailableLongFunction.nop().apply(1L));
     }
 
     @Test
-    void testNullSupplierDefaultException() throws Exception {
-        assertNull(FailableSupplier.nul().get());
-    }
-
-    @Test
-    void testNullSupplierException() throws Exception {
-        assertNull(FailableSupplier.<Object, Exception>nul().get());
-    }
-
-    @Test
-    void testNullSupplierRuntimeException() {
-        assertNull(FailableSupplier.<Object, RuntimeException>nul().get());
+    void testNop_returnsNonNull() {
+        assertNotNull(FailableLongFunction.nop());
     }
 }
