@@ -87,12 +87,79 @@ import org.apache.commons.lang3.ObjectUtils;
  *
  * @since 1.0
  */
-public class ToStringBuilder implements Builder<String> {
+public class ToStringBuilder extends AbstractReflection implements Builder<String> {
+
+    /**
+     * Builds instances of CompareToBuilder.
+     *
+     * @since 3.21.0
+     */
+    public static class Builder extends AbstractBuilder<Builder> {
+
+        private Object object;
+        private ToStringStyle style;
+        private StringBuffer buffer;
+
+        /**
+         * Constructs a new Builder instance.
+         */
+        private Builder() {
+            // empty
+        }
+
+        @Override
+        public ToStringBuilder get() {
+            return new ToStringBuilder(this);
+        }
+
+        /**
+         * Sets the {@link StringBuffer} to populate, may be null.
+         *
+         * @param buffer the {@link StringBuffer} to populate, may be null
+         * @return {@code this} builder instance.
+         */
+        public Builder setBuffer(final StringBuffer buffer) {
+            this.buffer = buffer;
+            return asThis();
+        }
+
+        /**
+         * Sets the Object to build a {@code toString} for, not recommended to be null.
+         *
+         * @param object the Object to build a {@code toString} for, not recommended to be null.
+         * @return {@code this} builder instance.
+         */
+        public Builder setObject(final Object object) {
+            this.object = object;
+            return asThis();
+        }
+
+        /**
+         * Sets the style of the {@code toString} to create, null uses the default style.
+         *
+         * @param style the style of the {@code toString} to create, null uses the default style
+         * @return {@code this} builder instance.
+         */
+        public Builder setStyle(final ToStringStyle style) {
+            this.style = style;
+            return asThis();
+        }
+    }
 
     /**
      * The default style of output to use, not null.
      */
     private static volatile ToStringStyle defaultStyle = ToStringStyle.DEFAULT_STYLE;
+
+    /**
+     * Constructs a new Builder.
+     *
+     * @return a new Builder.
+     * @since 3.21.0
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
 
     /**
      * Gets the default {@link ToStringStyle} to use.
@@ -210,6 +277,14 @@ public class ToStringBuilder implements Builder<String> {
      */
     private final ToStringStyle style;
 
+    private ToStringBuilder(final Builder builder) {
+        super(builder);
+        this.style = builder.style != null ? builder.style : getDefaultStyle();
+        this.buffer = builder.buffer != null ? builder.buffer : new StringBuffer(512);
+        this.object = builder.object;
+        style.appendStart(buffer, object);
+    }
+
     /**
      * Constructs a builder for the specified object using the default output style.
      *
@@ -244,18 +319,8 @@ public class ToStringBuilder implements Builder<String> {
      * @param style  the style of the {@code toString} to create, null uses the default style
      * @param buffer  the {@link StringBuffer} to populate, may be null
      */
-    public ToStringBuilder(final Object object, ToStringStyle style, StringBuffer buffer) {
-        if (style == null) {
-            style = getDefaultStyle();
-        }
-        if (buffer == null) {
-            buffer = new StringBuffer(512);
-        }
-        this.buffer = buffer;
-        this.style = style;
-        this.object = object;
-
-        style.appendStart(buffer, object);
+    public ToStringBuilder(final Object object, final ToStringStyle style, final StringBuffer buffer) {
+        this(builder().setObject(object).setStyle(style).setBuffer(buffer));
     }
 
     /**

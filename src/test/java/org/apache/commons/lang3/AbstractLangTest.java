@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -34,5 +35,4 @@ public class AbstractLangTest {
         assertTrue(ToStringStyle.getRegistry().isEmpty(), "Expected null, actual: " + ToStringStyle.getRegistry());
         // TODO Do more to make sure memory is not retained, maybe like Log4j checks for it.
     }
-
 }

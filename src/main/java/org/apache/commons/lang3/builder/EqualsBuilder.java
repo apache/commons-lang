@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.builder;
 
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -86,7 +85,35 @@ import org.apache.commons.lang3.tuple.Pair;
  *
  * @since 1.0
  */
-public class EqualsBuilder implements Builder<Boolean> {
+public class EqualsBuilder extends AbstractReflection implements Builder<Boolean> {
+
+    /**
+     * Builds instances of CompareToBuilder.
+     */
+    public static class Builder extends AbstractBuilder<Builder> {
+
+        /**
+         * Constructs a new Builder instance.
+         */
+        private Builder() {
+            // empty
+        }
+
+        @Override
+        public EqualsBuilder get() {
+            return new EqualsBuilder(this);
+        }
+
+    }
+
+    /**
+     * Constructs a new Builder.
+     *
+     * @return a new Builder.
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
 
     /**
      * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
@@ -155,7 +182,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * This method uses reflection to determine if the two {@link Object}s
+     * Uses reflection to determine if the two {@link Object}s
      * are equal.
      *
      * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
@@ -181,7 +208,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * This method uses reflection to determine if the two {@link Object}s
+     * Uses reflection to determine if the two {@link Object}s
      * are equal.
      *
      * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
@@ -235,7 +262,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * This method uses reflection to determine if the two {@link Object}s
+     * Uses reflection to determine if the two {@link Object}s
      * are equal.
      *
      * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
@@ -268,7 +295,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * This method uses reflection to determine if the two {@link Object}s
+     * Uses reflection to determine if the two {@link Object}s
      * are equal.
      *
      * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
@@ -293,7 +320,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     }
 
     /**
-     * This method uses reflection to determine if the two {@link Object}s
+     * Uses reflection to determine if the two {@link Object}s
      * are equal.
      *
      * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
@@ -371,9 +398,14 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @see Object#equals(Object)
      */
     public EqualsBuilder() {
+        super(builder());
         // set up default classes to bypass reflection for
         bypassReflectionClasses = new ArrayList<>(1);
         bypassReflectionClasses.add(String.class); //hashCode field being lazy but not transient
+    }
+
+    private EqualsBuilder(Builder builder) {
+        super(builder);
     }
 
     /**
@@ -961,9 +993,8 @@ public class EqualsBuilder implements Builder<Boolean> {
         try {
             if (testClass.isArray()) {
                 append(lhs, rhs);
-            } else //If either class is being excluded, call normal object equals method on lhsClass.
-            if (bypassReflectionClasses != null
-                    && (bypassReflectionClasses.contains(lhsClass) || bypassReflectionClasses.contains(rhsClass))) {
+            } else // If either class is being excluded, call normal object equals method on lhsClass.
+            if (bypassReflectionClasses != null && (bypassReflectionClasses.contains(lhsClass) || bypassReflectionClasses.contains(rhsClass))) {
                 isEquals = lhs.equals(rhs);
             } else {
                 reflectionAppend(lhs, rhs, testClass);
@@ -991,19 +1022,14 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs  the right-hand side object
      * @param clazz  the class to append details of
      */
-    private void reflectionAppend(
-        final Object lhs,
-        final Object rhs,
-        final Class<?> clazz) {
-
+    private void reflectionAppend(final Object lhs, final Object rhs, final Class<?> clazz) {
         if (isRegistered(lhs, rhs)) {
             return;
         }
-
         try {
             register(lhs, rhs);
             final Field[] fields = clazz.getDeclaredFields();
-            AccessibleObject.setAccessible(fields, true);
+            setAccessible(fields);
             for (int i = 0; i < fields.length && isEquals; i++) {
                 final Field field = fields[i];
                 if (!ArrayUtils.contains(excludeFields, field.getName())

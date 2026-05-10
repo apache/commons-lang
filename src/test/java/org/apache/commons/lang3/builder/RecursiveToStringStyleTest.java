@@ -50,6 +50,7 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
          */
         String title;
     }
+
     static class Person {
 
         /**
@@ -211,9 +212,11 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
         p.job = new Job();
         p.job.title = "Manager";
         final String baseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
-        final String jobStr  = p.job.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p.job));
-        assertEquals(baseStr + "[age=33,job=" + jobStr + "[title=Manager],name=John Doe,smoker=false]",
-                     new ReflectionToStringBuilder(p, new RecursiveToStringStyle()).toString());
+        final String jobStr = p.job.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p.job));
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(p, new RecursiveToStringStyle());
+        final String expected = baseStr + (builder.isForceAccessible() ? "[age=33,job=" + jobStr + "[title=Manager],name=John Doe,smoker=false]"
+                : "[age=<null>,job=<null>,name=<null>,smoker=<null>]");
+        assertEquals(expected, builder.toString());
     }
 
     @Test

@@ -14,20 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.Field;
 
-import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@link ReflectionToStringBuilder} always uses {@link ReflectionToStringBuilder#getValue(Field)} to get the
- * value of every field in the class.
+ * Tests {@link ReflectionToStringBuilder} always uses {@link ReflectionToStringBuilder#getValue(Field)} to get the value of every field in the class.
  */
-class ReflectionToStringBuilderCustomImplementationTest extends AbstractLangTest {
+class ReflectionToStringBuilderCustomImplementationTest extends AbstractBuilderTest {
 
     public static class CustomReflectionToStringBuilder extends ReflectionToStringBuilder {
 
@@ -48,8 +47,7 @@ class ReflectionToStringBuilderCustomImplementationTest extends AbstractLangTest
 
     @Test
     void testBuild() {
-        assertEquals("[stringField=prefix:string]",
+        assertEquals("[stringField=" + accessibleString("prefix:string") + "]",
                 new CustomReflectionToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).build());
     }
-
 }

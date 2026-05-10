@@ -26,14 +26,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests {@link DiffBuilder}.
  */
-class DiffBuilderTest extends AbstractLangTest {
+class DiffBuilderTest extends AbstractBuilderTest {
 
     /**
      * Test fixture.
@@ -549,7 +548,7 @@ class DiffBuilderTest extends AbstractLangTest {
         final TypeTestClass testClass1 = new TypeTestClass();
         final TypeTestClass testClass2 = new TypeTestClass();
         final DiffResult<TypeTestClass> list = new DiffBuilder<>(testClass1, testClass2, SHORT_STYLE).append("ignored", false, true).build();
-        assertEquals(0, list.getNumberOfDiffs());
+        assertEquals(accessibleFlag() ? 0 : 1, list.getNumberOfDiffs());
     }
 
     @Test
