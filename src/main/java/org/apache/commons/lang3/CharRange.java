@@ -315,7 +315,8 @@ final class CharRange implements Iterable<Character>, Serializable {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(end, negated, start);
+        final int result = (start << 16) | (end & 0xFFFF);
+        return result ^ (negated ? 0x80000000 : 0);
     }
 
     /**
