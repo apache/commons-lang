@@ -351,7 +351,7 @@ public class StringUtils {
      * @throws IllegalArgumentException if the width is too small.
      * @since 3.6
      */
-    public static String abbreviate(final String str, String abbrevMarker, int offset, final int maxWidth) {
+    public static String abbreviate(final String str, String abbrevMarker, final int offset, final int maxWidth) {
         if (isEmpty(str)) {
             return str;
         }
@@ -6117,7 +6117,12 @@ public class StringUtils {
         if (inputLength == 1 && count <= PAD_LIMIT) {
             return repeat(repeat.charAt(0), count);
         }
-        final int outputLength = inputLength * count;
+        final int outputLength;
+        try {
+            outputLength = Math.multiplyExact(inputLength, count);
+        } catch (final Exception e) {
+            throw new IllegalArgumentException("The requested result is too large for a String.");
+        }
         switch (inputLength) {
         case 1:
             return repeat(repeat.charAt(0), count);

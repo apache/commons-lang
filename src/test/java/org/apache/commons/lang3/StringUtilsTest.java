@@ -1718,6 +1718,7 @@ class StringUtilsTest extends AbstractLangTest {
         final String str = StringUtils.repeat("a", 10000);  // bigger than pad limit
         assertEquals(10000, str.length());
         assertTrue(StringUtils.containsOnly(str, 'a'));
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.repeat("aa", 1_073_741_824));
     }
 
     @Test
@@ -1725,13 +1726,11 @@ class StringUtilsTest extends AbstractLangTest {
         assertNull(StringUtils.repeat(null, null, 2));
         assertNull(StringUtils.repeat(null, "x", 2));
         assertEquals("", StringUtils.repeat("", null, 2));
-
         assertEquals("", StringUtils.repeat("ab", "", 0));
         assertEquals("", StringUtils.repeat("", "", 2));
-
         assertEquals("xx", StringUtils.repeat("", "x", 3));
-
         assertEquals("?, ?, ?", StringUtils.repeat("?", ", ", 3));
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.repeat("?", ", ", 1_073_741_824));
     }
 
     /**
@@ -1739,7 +1738,7 @@ class StringUtilsTest extends AbstractLangTest {
      */
     @Test
     void testReplace_StringStringArrayStringArray() {
-        //JAVADOC TESTS START
+        // JAVADOC TESTS START
         assertNull(StringUtils.replaceEach(null, new String[]{"a"}, new String[]{"b"}));
         assertEquals(StringUtils.replaceEach("", new String[]{"a"}, new String[]{"b"}), "");
         assertEquals(StringUtils.replaceEach("aba", null, null), "aba");
@@ -1751,7 +1750,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"}), "aba");
         assertEquals(StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}), "wcte");
         assertEquals(StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}), "dcte");
-        //JAVADOC TESTS END
+        // JAVADOC TESTS END
 
         assertEquals("bcc", StringUtils.replaceEach("abc", new String[]{"a", "b"}, new String[]{"b", "c"}));
         assertEquals("q651.506bera", StringUtils.replaceEach("d216.102oren",
