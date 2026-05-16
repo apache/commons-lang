@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -30,33 +31,41 @@ import org.apache.commons.lang3.AbstractLangTest;
 class AbstractBuilderTest extends AbstractLangTest {
 
     /**
-     * Delegates to {@link AbstractReflection#getForceAccessible()}.
-     *
-     * @return {@link AbstractReflection#getForceAccessible()}.
-     */
-    protected static boolean accessibleFlag() {
-        return AbstractReflection.getForceAccessible();
-    }
-
-    /**
      * Helps test reflection classes.
      *
      * @param string An input string.
      * @return The given string or "<null>".
      */
     protected static String accessibleString(final String string) {
-        return accessibleFlag() ? string : "<null>";
+        return isForceAccessible() ? string : "<null>";
     }
 
     protected static void assertEqualsIfAccessible(final Object expected, final Object actual) {
-        assertEquals(accessibleFlag(), Objects.equals(expected, actual));
+        assertEquals(isForceAccessible(), Objects.equals(expected, actual));
+    }
+
+    protected static void assertFalseIfAccessible(final boolean test) {
+        assertNotEquals(isForceAccessible(), test);
+    }
+
+    protected static void assertNotEqualsIfAccessible(final Object expected, final Object actual) {
+        assertNotEquals(isForceAccessible(), Objects.equals(expected, actual));
     }
 
     protected static void assertTrueIfAccessible(final boolean test) {
-        assertEquals(accessibleFlag(), test);
+        assertEquals(isForceAccessible(), test);
     }
 
     protected static void assertTrueIfAccessible(final boolean test, final Supplier<String> messageSupplier) {
-        assertEquals(accessibleFlag(), test, messageSupplier);
+        assertEquals(isForceAccessible(), test, messageSupplier);
+    }
+
+    /**
+     * Delegates to {@link AbstractReflection#getForceAccessible()}.
+     *
+     * @return {@link AbstractReflection#getForceAccessible()}.
+     */
+    protected static boolean isForceAccessible() {
+        return AbstractReflection.getForceAccessible();
     }
 }

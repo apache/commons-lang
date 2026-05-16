@@ -612,18 +612,14 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             // Reject static fields.
             return false;
         }
-
-        if (this.excludeFieldNames != null
-            && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
+        if (this.excludeFieldNames != null && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
             // Reject fields from the getExcludeFieldNames list.
             return false;
         }
-
         if (ArrayUtils.isNotEmpty(includeFieldNames)) {
             // Accept fields from the getIncludeFieldNames list. {@code null} or empty means all fields are included. All fields are included by default.
             return Arrays.binarySearch(this.includeFieldNames, field.getName()) >= 0;
         }
-
         return !field.isAnnotationPresent(ToStringExclude.class);
     }
 
@@ -645,10 +641,10 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         }
         // The elements in the returned array are not sorted and are not in any particular order.
         final Field[] fields = ArraySorter.sort(clazz.getDeclaredFields(), Comparator.comparing(Field::getName));
-        setAccessible(fields);
         for (final Field field : fields) {
             final String fieldName = field.getName();
             if (accept(field)) {
+                setAccessible(field);
                 try {
                     // Warning: Field.get(Object) creates wrappers objects
                     // for primitive types.

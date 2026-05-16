@@ -24,6 +24,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
 
 /**
  * Assists in implementing {@link Comparable#compareTo(Object)} methods.
@@ -72,7 +73,9 @@ import org.apache.commons.lang3.ObjectUtils;
  * bypass normal access control checks. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly. It is also
  * slower than appending explicitly.</p>
- *
+ * <p>
+ * See also {@link AbstractBuilder#setForceAccessible(boolean)}
+ * </p>
  * <p>A typical implementation of {@code compareTo(Object)} using
  * {@code reflectionCompare} looks like:</p>
 
@@ -91,6 +94,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * @see Object#hashCode()
  * @see EqualsBuilder
  * @see HashCodeBuilder
+ * @see AbstractBuilder#setForceAccessible(boolean)
  * @since 1.0
  */
 public class CompareToBuilder extends AbstractReflection implements Builder<Integer> {
@@ -145,18 +149,18 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
         final boolean forceAccessible) {
 
         final Field[] fields = clazz.getDeclaredFields();
-        setAccessible(forceAccessible, fields);
         for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
             final Field field = fields[i];
             final String name = field.getName();
             if (!ArrayUtils.contains(excludeFields, name)
                 && !name.contains("$")
                 && (useTransients || !Modifier.isTransient(field.getModifiers()))
-                && !Modifier.isStatic(field.getModifiers())
-                && field.isAccessible()) {
-                // IllegalAccessException can't happen. Would get a Security exception instead.
-                // Throw a runtime exception in case the impossible happens.
-                builder.append(Reflection.getUnchecked(field, lhs), Reflection.getUnchecked(field, rhs));
+                && !Modifier.isStatic(field.getModifiers())) {
+                if (setAccessible(forceAccessible, field)) {
+                    // IllegalAccessException can't happen. Would get a Security exception instead.
+                    // Throw a runtime exception in case the impossible happens.
+                    builder.append(Reflection.getUnchecked(field, lhs), Reflection.getUnchecked(field, rhs));
+                }
             }
         }
     }

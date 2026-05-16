@@ -17,8 +17,6 @@
 
 package org.apache.commons.lang3.builder;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
@@ -32,13 +30,13 @@ public class EqualsBuilderNoForceTest extends EqualsBuilderTest {
 
     @Test
     void testReflectionOnCustomArrayList() {
-        assertFalse(EqualsBuilder.reflectionEquals(new TestArrayList(1, "2", "3", "4"), new TestArrayList(1, "2", "3", "4")));
-        assertFalse(EqualsBuilder.reflectionEquals(new TestArrayList(1, "2", "3", "4"), new TestArrayList(2, "2", "3", "4")));
+        assertFalseIfAccessible(EqualsBuilder.reflectionEquals(new TestArrayList(1, "2", "3", "4"), new TestArrayList(1, "2", "3", "4")));
+        assertFalseIfAccessible(EqualsBuilder.reflectionEquals(new TestArrayList(1, "2", "3", "4"), new TestArrayList(2, "2", "3", "4")));
     }
 
     @Test
     void testReflectionOnCustomHashMap() {
-        assertFalse(EqualsBuilder.reflectionEquals(new TestHashMap(1, new HashMap<>()), new TestHashMap(1, new HashMap<>())));
-        assertFalse(EqualsBuilder.reflectionEquals(new TestHashMap(1, new HashMap<>()), new TestHashMap(2, new HashMap<>())));
+        assertFalseIfAccessible(EqualsBuilder.reflectionEquals(new TestHashMap(1, new HashMap<>()), new TestHashMap(1, new HashMap<>())));
+        assertFalseIfAccessible(EqualsBuilder.reflectionEquals(new TestHashMap(1, new HashMap<>()), new TestHashMap(2, new HashMap<>())));
     }
 }

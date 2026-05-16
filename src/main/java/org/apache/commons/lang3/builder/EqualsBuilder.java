@@ -26,6 +26,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
@@ -72,6 +73,9 @@ import org.apache.commons.lang3.tuple.Pair;
  * manager, unless the appropriate permissions are set up correctly. It is
  * also slower than testing explicitly.  Non-primitive fields are compared using
  * {@code equals()}.</p>
+ * <p>
+ * See also {@link AbstractBuilder#setForceAccessible(boolean)}
+ * </p>
  *
  * <p>A typical invocation for this method would look like:</p>
  * <pre>
@@ -84,6 +88,7 @@ import org.apache.commons.lang3.tuple.Pair;
  * used by the {@code reflectionEquals} methods.</p>
  *
  * @since 1.0
+ * @see AbstractBuilder#setForceAccessible(boolean)
  */
 public class EqualsBuilder extends AbstractReflection implements Builder<Boolean> {
 
@@ -107,6 +112,13 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     }
 
     /**
+     * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
+     *
+     * @since 3.0
+     */
+    private static final ThreadLocal<Set<Pair<IDKey, IDKey>>> REGISTRY = ThreadLocal.withInitial(HashSet::new);
+
+    /**
      * Constructs a new Builder.
      *
      * @return a new Builder.
@@ -114,13 +126,6 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     public static Builder builder() {
         return new Builder();
     }
-
-    /**
-     * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
-     *
-     * @since 3.0
-     */
-    private static final ThreadLocal<Set<Pair<IDKey, IDKey>>> REGISTRY = ThreadLocal.withInitial(HashSet::new);
 
     /*
      * NOTE: we cannot store the actual objects in a HashSet, as that would use the very hashCode()
@@ -964,7 +969,6 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
             isEquals = false;
             return this;
         }
-
         // Find the leaf class since there may be transients in the leaf
         // class or in classes between the leaf and root.
         // If we are not testing transients or a subclass has no ivars,
@@ -989,7 +993,6 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
             isEquals = false;
             return this;
         }
-
         try {
             if (testClass.isArray()) {
                 append(lhs, rhs);
@@ -1018,9 +1021,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Appends the fields and values defined by the given object of the
      * given Class.
      *
-     * @param lhs  the left-hand side object
-     * @param rhs  the right-hand side object
-     * @param clazz  the class to append details of
+     * @param lhs  the left-hand side object.
+     * @param rhs  the right-hand side object.
+     * @param clazz  the class to append details of.
      */
     private void reflectionAppend(final Object lhs, final Object rhs, final Class<?> clazz) {
         if (isRegistered(lhs, rhs)) {
@@ -1029,7 +1032,6 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
         try {
             register(lhs, rhs);
             final Field[] fields = clazz.getDeclaredFields();
-            setAccessible(fields);
             for (int i = 0; i < fields.length && isEquals; i++) {
                 final Field field = fields[i];
                 if (!ArrayUtils.contains(excludeFields, field.getName())
@@ -1037,7 +1039,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
                     && (testTransients || !Modifier.isTransient(field.getModifiers()))
                     && !Modifier.isStatic(field.getModifiers())
                     && !field.isAnnotationPresent(EqualsExclude.class)) {
-                    append(Reflection.getUnchecked(field, lhs), Reflection.getUnchecked(field, rhs));
+                    if (setAccessible(field)) {
+                        append(Reflection.getUnchecked(field, lhs), Reflection.getUnchecked(field, rhs));
+                    }
                 }
             }
         } finally {
