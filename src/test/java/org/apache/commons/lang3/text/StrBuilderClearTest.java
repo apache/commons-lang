@@ -23,7 +23,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Reader;
-import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.SerializationUtils;
@@ -116,11 +115,7 @@ public class StrBuilderClearTest {
         try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(serialized))) {
             sb2 = (StrBuilder) ois.readObject();
         }
-        final Field bufField = StrBuilder.class.getDeclaredField("buffer");
-        bufField.setAccessible(true);
-        final Field sizeField = StrBuilder.class.getDeclaredField("size");
-        sizeField.setAccessible(true);
-        final char[] buf2 = (char[]) bufField.get(sb2);
+        final char[] buf2 = sb2.buffer;
         final String bufContent = new String(buf2);
         assertFalse(bufContent.contains("secret_password"), "Deserialized StrBuilder buffer must not contain stale chars: " + bufContent);
     }
