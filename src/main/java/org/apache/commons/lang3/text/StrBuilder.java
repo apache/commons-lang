@@ -1609,15 +1609,12 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * This method does not reduce the size of the internal character buffer.
      * To do that, call {@code clear()} followed by {@link #minimizeCapacity()}.
      * </p>
-     * <p>
-     * This method is the same as {@link #setLength(int)} called with zero
-     * and is provided to match the API of Collections.
-     * </p>
      *
      * @return {@code this} instance.
      */
     public StrBuilder clear() {
         size = 0;
+        Arrays.fill(buffer, '0');
         return this;
     }
 
