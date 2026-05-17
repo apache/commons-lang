@@ -155,6 +155,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">StrBuilder.readFrom(Readable) exposes stale internal buffer to Readable parameter (#1652).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">EqualsBuilder.reflectionEquals() array branch missing cycle guard causes stack overflow on self-referential Object arrays (#1653).</action>
     <action                   type="fix" dev="pkarwasz" due-to="Piotr Karwasz">WordUtils.wrap() leaves separator characters in the output when the wrapOn regex match is longer than one character (#1655).</action>
+    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">StringUtils.indexOfAny(CharSequence, int, char...) should not throw for a bad index (#1656).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
