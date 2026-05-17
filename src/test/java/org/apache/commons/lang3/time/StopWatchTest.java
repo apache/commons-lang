@@ -267,6 +267,12 @@ class StopWatchTest extends AbstractLangTest {
         assertThrows(IllegalStateException.class, watch::getStartTime, "Calling getStartTime on a reset, but unstarted StopWatch should throw an exception");
     }
 
+    @Test
+    void testGetStopTime() throws InterruptedException {
+        final StopWatch watch = StopWatch.createStarted();
+        assertEquals(0, watch.getStopTime());
+    }
+
     @RepeatedTest(10)
     void testGetTime() throws InterruptedException {
         final StopWatch watch = new StopWatch();
@@ -443,12 +449,6 @@ class StopWatchTest extends AbstractLangTest {
     void testStatic() {
         final StopWatch watch = StopWatch.createStarted();
         assertTrue(watch.isStarted());
-    }
-
-    @Test
-    void testGetStopTime() throws InterruptedException {
-        final StopWatch watch = StopWatch.createStarted();
-        assertEquals(0, watch.getStopTime());
     }
 
     @Test

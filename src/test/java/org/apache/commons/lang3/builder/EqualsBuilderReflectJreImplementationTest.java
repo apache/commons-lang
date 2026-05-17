@@ -17,7 +17,7 @@
 
 package org.apache.commons.lang3.builder;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
@@ -259,26 +259,45 @@ class EqualsBuilderReflectJreImplementationTest extends AbstractBuilderTest {
 
     }
 
+    private EqualsBuilder newRecursive() {
+        return new EqualsBuilder().setTestRecursive(true);
+    }
+
     @Test
     void testRecursive() {
+        // assertions are tricky to to the subclass
         final MyClass o1 = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"), new MyTemporalAmount("4"));
         // This gives you different instances of MyTemporalAccessor for 1 (and 2) that should be equals by reflection.
         final MyClass o1Bis = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"), new MyTemporalAmount("4"));
         final MyClass o2 = new MyClass(new MyCharSequence("5"), new MyTemporal("6"), new MyTemporalAccessor("7"), new MyTemporalAmount("8"));
         final MyClass o2Bis = new MyClass(new MyCharSequence("5"), new MyTemporal("6"), new MyTemporalAccessor("7"), new MyTemporalAmount("8"));
         // MyTemporal
-        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(new MyTemporal("1"), new MyTemporal("1")).isEquals());
+        final EqualsBuilder builder1 = newRecursive();
+        boolean defaultEq = builder1.isEquals();
+        assertEquals(defaultEq, builder1.append(new MyTemporal("1"), new MyTemporal("1")).isEquals());
         // MyTemporalAccessor
-        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(new MyTemporalAccessor("1"), new MyTemporalAccessor("1")).isEquals());
+        final EqualsBuilder builder2 = newRecursive();
+        defaultEq = builder2.isEquals();
+        assertEquals(defaultEq, builder2.append(new MyTemporalAccessor("1"), new MyTemporalAccessor("1")).isEquals());
         // MyCharSequence
-        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(new MyCharSequence("1"), new MyCharSequence("1")).isEquals());
+        final EqualsBuilder builder3 = newRecursive();
+        defaultEq = builder3.isEquals();
+        assertEquals(defaultEq, builder3.append(new MyCharSequence("1"), new MyCharSequence("1")).isEquals());
         // MyClass
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o1, o1).isEquals(), o1::toString);
-        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(o1, o1Bis).isEquals(), o1::toString);
-        assertTrue(new EqualsBuilder().setTestRecursive(true).append(o2, o2).isEquals(), o2::toString);
-        assertTrueIfAccessible(new EqualsBuilder().setTestRecursive(true).append(o2, o2Bis).isEquals(), o2::toString);
-        assertFalse(new EqualsBuilder().setTestRecursive(true).append(o1, o2).isEquals());
-        assertFalse(new EqualsBuilder().setTestRecursive(true).append(o2, o1).isEquals());
+        assertTrue(newRecursive().append(o1, o1).isEquals(), o1::toString);
+        final EqualsBuilder builder4 = newRecursive();
+        defaultEq = builder4.isEquals();
+        assertEquals(defaultEq, builder4.append(o1, o1Bis).isEquals(), o1::toString);
+        assertTrue(newRecursive().append(o2, o2).isEquals(), o2::toString);
+        final EqualsBuilder builder5 = newRecursive();
+        defaultEq = builder5.isEquals();
+        assertEquals(defaultEq, builder5.append(o2, o2Bis).isEquals(), o2::toString);
+        // not equal normally (see subclass)
+        final EqualsBuilder builder6 = newRecursive();
+        defaultEq = !isForceAccessible();
+        assertEquals(defaultEq, builder6.append(o1, o2).isEquals());
+        final EqualsBuilder builder7 = newRecursive();
+        assertEquals(defaultEq, builder7.append(o2, o1).isEquals());
     }
 
     @Test
@@ -286,7 +305,7 @@ class EqualsBuilderReflectJreImplementationTest extends AbstractBuilderTest {
         // The following should not retain memory.
         for (int i = 0; i < Integer.getInteger("testRetention", 10_000); i++) {
             final Class<?> clazz = TestClassBuilder.defineSimpleClass(getClass().getPackage().getName(), i);
-            assertTrue(new EqualsBuilder().setTestRecursive(true).append(clazz.newInstance(), clazz.newInstance()).isEquals());
+            assertTrue(newRecursive().append(clazz.newInstance(), clazz.newInstance()).isEquals());
         }
         // some retention is checked in super's after().
     }

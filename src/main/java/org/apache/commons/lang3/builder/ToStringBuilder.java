@@ -19,6 +19,7 @@ package org.apache.commons.lang3.builder;
 import java.util.Objects;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
 
 /**
  * Assists in implementing {@link Object#toString()} methods.
@@ -67,6 +68,9 @@ import org.apache.commons.lang3.ObjectUtils;
  * change the visibility of the fields. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly. It is also
  * slower than testing explicitly.</p>
+ * <p>
+ * See also {@link AbstractBuilder#setForceAccessible(boolean)}
+ * </p>
  *
  * <p>A typical invocation for this method would look like:</p>
  *
@@ -85,6 +89,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * <p>The exact format of the {@code toString} is determined by
  * the {@link ToStringStyle} passed into the constructor.</p>
  *
+ * @see AbstractBuilder#setForceAccessible(boolean)
  * @since 1.0
  */
 public class ToStringBuilder extends AbstractReflection implements Builder<String> {

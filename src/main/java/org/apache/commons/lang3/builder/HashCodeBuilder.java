@@ -29,6 +29,7 @@ import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
 
 /**
  * Assists in implementing {@link Object#hashCode()} methods.
@@ -85,6 +86,9 @@ import org.apache.commons.lang3.Validate;
  * to change the visibility of the fields. This will fail under a security manager, unless the appropriate permissions
  * are set up correctly. It is also slower than testing explicitly.
  * </p>
+ * <p>
+ * See also {@link AbstractBuilder#setForceAccessible(boolean)}
+ * </p>
  *
  * <p>
  * A typical invocation for this method would look like:
@@ -99,6 +103,7 @@ import org.apache.commons.lang3.Validate;
  * <p>The {@link HashCodeExclude} annotation can be used to exclude fields from being
  * used by the {@code reflectionHashCode} methods.</p>
  *
+ * @see AbstractBuilder#setForceAccessible(boolean)
  * @since 1.0
  */
 public class HashCodeBuilder extends AbstractReflection implements Builder<Integer> {
@@ -229,10 +234,10 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      *            whether to use transient fields
      * @param excludeFields
      *            Collection of String field names to exclude from use in calculation of hash code
-     * @param setAccessible Whether to set fields' accessible flags
+     * @param forceAccessible Whether to set fields' accessible flags
      */
     private static void reflectionAppend(final Object object, final Class<?> clazz, final HashCodeBuilder builder, final boolean useTransients,
-            final String[] excludeFields, final boolean setAccessible) {
+            final String[] excludeFields, final boolean forceAccessible) {
         if (isRegistered(object)) {
             return;
         }
@@ -240,14 +245,15 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
             register(object);
             // The elements in the returned array are not sorted and are not in any particular order.
             final Field[] fields = ArraySorter.sort(clazz.getDeclaredFields(), Comparator.comparing(Field::getName));
-            setAccessible(setAccessible, fields);
             for (final Field field : fields) {
                 if (!ArrayUtils.contains(excludeFields, field.getName())
                     && !field.getName().contains("$")
                     && (useTransients || !Modifier.isTransient(field.getModifiers()))
                     && !Modifier.isStatic(field.getModifiers())
                     && !field.isAnnotationPresent(HashCodeExclude.class)) {
-                    builder.append(Reflection.getUnchecked(field, object));
+                    if (setAccessible(forceAccessible, field)) {
+                        builder.append(Reflection.getUnchecked(field, object));
+                    }
                 }
             }
         } finally {

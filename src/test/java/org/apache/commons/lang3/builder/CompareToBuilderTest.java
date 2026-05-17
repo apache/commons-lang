@@ -135,10 +135,10 @@ class CompareToBuilderTest extends AbstractBuilderTest {
         // assertTrue(CompareToBuilder.reflectionCompare(x, y, testTransients) == 0 == EqualsBuilder.reflectionEquals(x, y, testTransients));
         //assertTrueIfAccessible(CompareToBuilder.reflectionCompare(x, y, testTransients) == 0 == EqualsBuilder.reflectionEquals(x, y, testTransients));
         final boolean actual = CompareToBuilder.reflectionCompare(x, y, testTransients) == 0 == EqualsBuilder.reflectionEquals(x, y, testTransients);
-        if (accessibleFlag()) {
+        if (isForceAccessible()) {
             assertEqualsIfAccessible(expectAccessibleFactor, actual);
         } else {
-            assertEqualsIfAccessible(accessibleFlag() || expectAccessibleFactor, actual);
+            assertEqualsIfAccessible(isForceAccessible() || expectAccessibleFactor, actual);
         }
     }
 
@@ -1059,10 +1059,10 @@ class CompareToBuilderTest extends AbstractBuilderTest {
         final TestSubObject tso2 = new TestSubObject(2, 2);
         final TestSubObject tso3 = new TestSubObject(3, 3);
 
-        assertReflectionCompareContract(to1, to1, to1, false, excludeFields, accessibleFlag());
-        assertReflectionCompareContract(to1, to2, to3, false, excludeFields, true);
-        assertReflectionCompareContract(tso1, tso1, tso1, false, excludeFields, accessibleFlag());
-        assertReflectionCompareContract(tso1, tso2, tso3, false, excludeFields, true);
+        assertReflectionCompareContract(to1, to1, to1, false, excludeFields, isForceAccessible());
+        assertReflectionCompareContract(to1, to2, to3, false, excludeFields, isForceAccessible());
+        assertReflectionCompareContract(tso1, tso1, tso1, false, excludeFields, isForceAccessible());
+        assertReflectionCompareContract(tso1, tso2, tso3, false, excludeFields, isForceAccessible());
         assertReflectionCompareContract("1", "2", "3", false, excludeFields, true);
 
         assertTrueIfAccessible(0 != CompareToBuilder.reflectionCompare(tso1, new TestSubObject(1, 0), testTransients));
