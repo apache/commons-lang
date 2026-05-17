@@ -26,7 +26,6 @@ import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
@@ -171,7 +170,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * <p>
      * Used by the reflection methods to avoid infinite loops.
      * Objects might be swapped therefore a check is needed if the object pair
-     * is registered in given or swapped order.
+     * is registered in the given or swapped order.
      * </p>
      *
      * @param lhs {@code this} object to lookup in registry
@@ -409,7 +408,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
         bypassReflectionClasses.add(String.class); //hashCode field being lazy but not transient
     }
 
-    private EqualsBuilder(Builder builder) {
+    private EqualsBuilder(final Builder builder) {
         super(builder);
     }
 
@@ -793,24 +792,29 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final Object[] lhs, final Object[] rhs) {
-        if (!isEquals) {
+        if (!isEquals || isRegistered(lhs, rhs)) {
             return this;
         }
-        if (lhs == rhs) {
+        try {
+            register(lhs, rhs);
+            if (lhs == rhs) {
+                return this;
+            }
+            if (lhs == null || rhs == null) {
+                setEquals(false);
+                return this;
+            }
+            if (lhs.length != rhs.length) {
+                setEquals(false);
+                return this;
+            }
+            for (int i = 0; i < lhs.length && isEquals; ++i) {
+                append(lhs[i], rhs[i]);
+            }
             return this;
+        } finally {
+            unregister(lhs, rhs);
         }
-        if (lhs == null || rhs == null) {
-            setEquals(false);
-            return this;
-        }
-        if (lhs.length != rhs.length) {
-            setEquals(false);
-            return this;
-        }
-        for (int i = 0; i < lhs.length && isEquals; ++i) {
-            append(lhs[i], rhs[i]);
-        }
-        return this;
     }
 
     /**
