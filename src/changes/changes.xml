@@ -151,6 +151,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">ToStringStyle.appendDetail(StringBuffer,String,Map) bypass cycle registry. #1648.</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">WordUtils.wrap() zero-width wrapOn regex match causes infinite loop (#1649).WordUtils.wrap() zero-width wrapOn regex match causes infinite loop (#1649).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">HashCodeBuilder.append(Object) StackOverflowError on mutually-referential objects (#1650).</action>
+    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">AtomicSafeInitializer.get() busy-spin without yield burns CPU during slow initialization (#1651).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
