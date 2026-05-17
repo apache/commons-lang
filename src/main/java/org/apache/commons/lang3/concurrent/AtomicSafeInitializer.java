@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.concurrent;
 
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.LockSupport;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
@@ -137,6 +138,9 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
                     final Throwable checked = ExceptionUtils.throwUnchecked(t);
                     throw checked instanceof ConcurrentException ? (ConcurrentException) checked : new ConcurrentException(checked);
                 }
+            } else {
+                // Another thread won the CAS; park 1 ms rather than busy-waiting.
+                LockSupport.parkNanos(1_000_000L);
             }
         }
         return result;
