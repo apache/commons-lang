@@ -652,21 +652,19 @@ public class WordUtils {
                 str.substring(offset, Math.min((int) Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));
             if (matcher.find()) {
                 if (matcher.start() == 0) {
-                    offset += matcher.end();
+                    // If the match is zero-width, advance by at least 1 to avoid infinite loop.
+                    offset += matcher.end() > 0 ? matcher.end() : 1;
                     continue;
                 }
                 spaceToWrapAt = matcher.start() + offset;
             }
-
             // only last line without leading spaces is left
             if (inputLineLength - offset <= wrapLength) {
                 break;
             }
-
             while (matcher.find()) {
                 spaceToWrapAt = matcher.start() + offset;
             }
-
             if (spaceToWrapAt >= offset) {
                 // normal case
                 wrappedLine.append(str, offset, spaceToWrapAt);
@@ -696,10 +694,8 @@ public class WordUtils {
                 }
             }
         }
-
         // Whatever is left in line is short enough to just pass through
         wrappedLine.append(str, offset, str.length());
-
         return wrappedLine.toString();
     }
 
