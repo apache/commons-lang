@@ -146,6 +146,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">TimedSemaphore.shutdown() must wake threads blocked in acquire() (#1639).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">NaN bypass in primitive double range validators (#1640).</action>
     <action issue="LANG-1826" type="fix" dev="ggregory" due-to="Cyl, Gary Gregory, Piotr Karwasz">StringUtils.repeat(String, [String,] int) now throws IllegalArgumentException instead of NegativeArraySizeException (#1644).</action>
+    <action issue="LANG-1825" type="fix" dev="ggregory" due-to="Daniel Skiles, Gary Gregory">EqualsBuilder.reflectionAppend ttries to set visibility on excluded fields #1647.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
