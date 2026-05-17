@@ -20,10 +20,10 @@ package org.apache.commons.lang3.builder;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -577,8 +577,10 @@ public abstract class ToStringStyle implements Serializable {
 
     /**
      * A registry of objects used by {@code reflectionToString} methods to detect cyclical object references and avoid infinite loops.
+     * Identity-based comparison is required so that cyclic objects (e.g. an ArrayList whose hashCode() would recurse) can be
+     * registered and looked up without triggering infinite recursion through equals/hashCode.
      */
-    private static final ThreadLocal<WeakHashMap<Object, Object>> REGISTRY = ThreadLocal.withInitial(WeakHashMap::new);
+    private static final ThreadLocal<IdentityHashMap<Object, Object>> REGISTRY = ThreadLocal.withInitial(IdentityHashMap::new);
     /*
      * Note that objects of this class are generally shared between threads, so an instance variable would not be suitable here.
      *
@@ -1187,7 +1189,20 @@ public abstract class ToStringStyle implements Serializable {
      * @param coll      the {@link Collection} to add to the {@code toString}, not {@code null}.
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Collection<?> coll) {
-        buffer.append(coll);
+        buffer.append('['); // backward compatibility
+        boolean first = true;
+        for (final Object item : coll) {
+            if (!first) {
+                buffer.append(", "); // backward compatibility
+            }
+            first = false;
+            if (item == null) {
+                appendNullText(buffer, fieldName);
+            } else {
+                appendInternal(buffer, fieldName, item, true);
+            }
+        }
+        buffer.append(']'); // backward compatibility
     }
 
     /**
@@ -1334,7 +1349,23 @@ public abstract class ToStringStyle implements Serializable {
      * @param map       the {@link Map} to add to the {@code toString}, not {@code null}.
      */
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Map<?, ?> map) {
-        buffer.append(map);
+        buffer.append('{'); // backward compatibility
+        boolean first = true;
+        for (final Map.Entry<?, ?> item : map.entrySet()) {
+            if (!first) {
+                buffer.append(getArraySeparator());
+                buffer.append(' '); // backward compatibility
+            }
+            first = false;
+            if (item == null) {
+                appendNullText(buffer, fieldName);
+            } else {
+                appendInternal(buffer, fieldName, item.getKey(), true);
+                buffer.append(getFieldNameValueSeparator());
+                appendInternal(buffer, fieldName, item.getValue(), true);
+            }
+        }
+        buffer.append('}'); // backward compatibility
     }
 
     /**
