@@ -648,15 +648,17 @@ public class WordUtils {
 
         while (offset < inputLineLength) {
             int spaceToWrapAt = -1;
+            int endOfWrapAt = -1;
             Matcher matcher = patternToWrapOn.matcher(
                 str.substring(offset, Math.min((int) Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));
             if (matcher.find()) {
-                if (matcher.start() == 0) {
-                    // If the match is zero-width, advance by at least 1 to avoid infinite loop.
-                    offset += matcher.end() > 0 ? matcher.end() : 1;
+                spaceToWrapAt = matcher.start() + offset;
+                endOfWrapAt = matcher.end() + offset;
+                // Skip leading match, if it is not zero-width
+                if (spaceToWrapAt == offset && endOfWrapAt != offset) {
+                    offset = endOfWrapAt;
                     continue;
                 }
-                spaceToWrapAt = matcher.start() + offset;
             }
             // only last line without leading spaces is left
             if (inputLineLength - offset <= wrapLength) {
@@ -664,13 +666,13 @@ public class WordUtils {
             }
             while (matcher.find()) {
                 spaceToWrapAt = matcher.start() + offset;
+                endOfWrapAt = matcher.end() + offset;
             }
-            if (spaceToWrapAt >= offset) {
+            if (endOfWrapAt > offset) {
                 // normal case
                 wrappedLine.append(str, offset, spaceToWrapAt);
                 wrappedLine.append(newLineStr);
-                offset = spaceToWrapAt + 1;
-
+                offset = endOfWrapAt;
             } else // really long word or URL
             if (wrapLongWords) {
                 // wrap really long word one line at a time
@@ -680,14 +682,17 @@ public class WordUtils {
             } else {
                 // do not wrap really long word, just extend beyond limit
                 matcher = patternToWrapOn.matcher(str.substring(offset + wrapLength));
+                spaceToWrapAt = -1;
                 if (matcher.find()) {
                     spaceToWrapAt = matcher.start() + offset + wrapLength;
+                    endOfWrapAt = matcher.end() + offset + wrapLength;
                 }
 
                 if (spaceToWrapAt >= 0) {
                     wrappedLine.append(str, offset, spaceToWrapAt);
                     wrappedLine.append(newLineStr);
-                    offset = spaceToWrapAt + 1;
+                    // at least offset + wrapLength >= offset + 1
+                    offset = endOfWrapAt;
                 } else {
                     wrappedLine.append(str, offset, str.length());
                     offset = inputLineLength;

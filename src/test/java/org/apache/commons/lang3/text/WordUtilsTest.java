@@ -20,21 +20,61 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-import java.time.Duration;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Tests for WordUtils class.
  */
 @Deprecated
 class WordUtilsTest extends AbstractLangTest {
+
+    static Stream<Arguments> testWrapStringIntStringBooleanString() {
+        return Stream.of(
+                // null passthrough
+                arguments(null, -1, false, "/", null),
+                // no changes test
+                arguments("flammable/inflammable", 30, false, "/", "flammable/inflammable"),
+                // wrap on / and small width
+                arguments("flammable/inflammable", 2, false, "/", "flammable\ninflammable"),
+                // wrap long words on / 1
+                arguments("flammable/inflammable", 9, true, "/", "flammable\ninflammab\nle"),
+                // wrap long words on / 2
+                arguments("flammable/inflammable", 15, true, "/", "flammable\ninflammable"),
+                // wrap long words on / 3
+                arguments("flammableinflammable", 15, true, "/", "flammableinflam\nmable"),
+                // default values
+                arguments("a/a/a/a", -1, false, "/", "a\na\na\na"),
+                arguments("a a a a", 1, false, null, "a\na\na\na"),
+                // strip leading / keep trailing
+                arguments("///abc///def///ghi", 3, false, "/", "abc\ndef\nghi"),
+                arguments("///abc///def///ghi", 4, false, "/", "abc/\ndef/\nghi"),
+                arguments("///abc///def///ghi", 5, false, "/", "abc//\ndef//\nghi"),
+                // keep only two trailing, wrap on third
+                arguments("///abc///def///ghi", 6, false, "/", "abc//\ndef//\nghi"),
+                // zero-width regex match must advance to avoid an infinite loop
+                arguments("abcabc", 3, false, "(?=a)", "abc\nabc"),
+                arguments("abcdefabcdef", 4, false, "(?=a)", "abcdef\nabcdef"),
+                arguments("abcdefabcdef", 4, true, "(?=a)", "abcd\nef\nabcd\nef"),
+                // width two regex
+                arguments("abc\\/abc", 3, false, "\\\\/", "abc\nabc"),
+                arguments("abcdef\\/abcdef", 4, false, "\\\\/", "abcdef\nabcdef"),
+                arguments("abcdef\\/abcdef", 4, true, "\\\\/", "abcd\nef\nabcd\nef"),
+                // variable-width regex
+                arguments(".abc.-def.--ghi", 5, false, "[.]-*", "abc\ndef\nghi")
+                );
+    }
 
     @Test
     void testCapitalize_String() {
@@ -406,34 +446,14 @@ class WordUtilsTest extends AbstractLangTest {
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
     }
 
-    @Test
-    void testWrap_StringIntStringBooleanString() {
-
-        //no changes test
-        String input = "flammable/inflammable";
-        String expected = "flammable/inflammable";
-        assertEquals(expected, WordUtils.wrap(input, 30, "\n", false, "/"));
-
-        // wrap on / and small width
-        expected = "flammable\ninflammable";
-        assertEquals(expected, WordUtils.wrap(input, 2, "\n", false, "/"));
-
-        // wrap long words on / 1
-        expected = "flammable\ninflammab\nle";
-        assertEquals(expected, WordUtils.wrap(input, 9, "\n", true, "/"));
-
-        // wrap long words on / 2
-        expected = "flammable\ninflammable";
-        assertEquals(expected, WordUtils.wrap(input, 15, "\n", true, "/"));
-
-        // wrap long words on / 3
-        input = "flammableinflammable";
-        expected = "flammableinflam\nmable";
-        assertEquals(expected, WordUtils.wrap(input, 15, "\n", true, "/"));
-    }
-
-    @Test
-    void testZeroWidthWrapOnRegex() {
-        assertTimeout(Duration.ofSeconds(2), () -> assertNotNull(WordUtils.wrap("abcdef", 3, "\n", false, "(?=a)")));
+    @ParameterizedTest
+    @MethodSource
+    @Timeout(2)
+    void testWrapStringIntStringBooleanString(final String str, final int wrapLength, final boolean wrapLongWords, final String wrapOn, final String expected) {
+        assertEquals(expected, WordUtils.wrap(str, wrapLength, "\n", wrapLongWords, wrapOn));
+        final String sep = System.lineSeparator();
+        if (!sep.equals("\n")) {
+            assertEquals(expected != null ? expected.replace("\n", sep) : null, WordUtils.wrap(str, wrapLength, null, wrapLongWords, wrapOn));
+        }
     }
 }
