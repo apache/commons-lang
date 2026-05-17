@@ -153,6 +153,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">HashCodeBuilder.append(Object) StackOverflowError on mutually-referential objects (#1650).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">AtomicSafeInitializer.get() busy-spin without yield burns CPU during slow initialization (#1651).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">StrBuilder.readFrom(Readable) exposes stale internal buffer to Readable parameter (#1652).</action>
+    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">EqualsBuilder.reflectionEquals() array branch missing cycle guard causes stack overflow on self-referential Object arrays (#1653).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
