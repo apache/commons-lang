@@ -19,9 +19,14 @@ package org.apache.commons.lang3.text;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Reader;
+import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 
+import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -86,6 +91,40 @@ public class StrBuilderClearTest {
         }
     }
 
+    /** Search for a string encoded as UTF-16BE (2 bytes per char) in a byte array. */
+    private static boolean containsUtf16Be(final byte[] haystack, final String needle) throws IOException {
+        final byte[] needleBytes = needle.getBytes(StandardCharsets.UTF_16BE);
+        outer: for (int i = 0; i <= haystack.length - needleBytes.length; i++) {
+            for (int j = 0; j < needleBytes.length; j++) {
+                if (haystack[i + j] != needleBytes[j]) {
+                    continue outer;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Test
+    public void testDeserializedStrBuilderHasNoStaleBufferContent() throws Exception {
+        final StrBuilder sb = new StrBuilder("secret_password_xyzzy");
+        sb.clear();
+        sb.append("safe");
+        final byte[] serialized = SerializationUtils.serialize(sb);
+        final StrBuilder sb2;
+        // Deserialize and inspect the buffer
+        try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(serialized))) {
+            sb2 = (StrBuilder) ois.readObject();
+        }
+        final Field bufField = StrBuilder.class.getDeclaredField("buffer");
+        bufField.setAccessible(true);
+        final Field sizeField = StrBuilder.class.getDeclaredField("size");
+        sizeField.setAccessible(true);
+        final char[] buf2 = (char[]) bufField.get(sb2);
+        final String bufContent = new String(buf2);
+        assertFalse(bufContent.contains("secret_password"), "Deserialized StrBuilder buffer must not contain stale chars: " + bufContent);
+    }
+
     @Test
     public void testReadFromReaderDoesNotExposeStaleInternalBuffer() throws IOException {
         final StrBuilder sb = new StrBuilder();
@@ -103,5 +142,26 @@ public class StrBuilderClearTest {
             // Post-patch: stale chars must NOT be visible to the Reader
             assertFalse(spy.observedStaleChars("_DATA_SHOULD_NOT_LEAK"));
         }
+    }
+
+    @Test
+    public void testStaleCharsNotLeakedAfterClear() throws Exception {
+        final StrBuilder sb = new StrBuilder("secret_password_xyzzy_leak");
+        // clear() resets logical size to 0 but leaves chars in buffer
+        sb.clear();
+        // append something shorter than the original
+        sb.append("ok");
+        // Stale content is serialized as UTF-16BE char[] data.
+        // "xyzzy_leak" was at positions 15+, well beyond "ok" (len=2), so must not appear.
+        assertFalse(containsUtf16Be(SerializationUtils.serialize(sb), "xyzzy_leak"));
+    }
+
+    @Test
+    public void testStaleCharsNotLeakedAfterTruncate() throws Exception {
+        final StrBuilder sb = new StrBuilder("top_secret_key_material");
+        // truncate to a short length – tail remains in buffer
+        sb.delete(6, sb.length());
+        // sb now logically contains "top_se"
+        assertFalse(containsUtf16Be(SerializationUtils.serialize(sb), "secret_key_material"));
     }
 }
