@@ -830,12 +830,23 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     public HashCodeBuilder append(final Object object) {
         if (object == null) {
             total = total * constant;
+        } else if (isRegistered(object)) {
+            // Cycle detected: skip to avoid infinite recursion (mirrors reflectionAppend).
+            total = total * constant;
         } else if (ObjectUtils.isArray(object)) {
-            // factor out array case in order to keep method small enough
-            // to be inlined
-            appendArray(object);
+            try {
+                register(object);
+                appendArray(object);
+            } finally {
+                unregister(object);
+            }
         } else {
-            total = total * constant + object.hashCode();
+            try {
+                register(object);
+                total = total * constant + object.hashCode();
+            } finally {
+                unregister(object);
+            }
         }
         return this;
     }
