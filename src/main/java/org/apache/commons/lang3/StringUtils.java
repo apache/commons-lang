@@ -2811,7 +2811,7 @@ public class StringUtils {
         final int csLast = csLen - 1;
         final int searchLen = searchChars.length;
         final int searchLast = searchLen - 1;
-        for (int i = csStart; i < csLen; i++) {
+        for (int i = Math.max(csStart, 0); i < csLen; i++) {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
