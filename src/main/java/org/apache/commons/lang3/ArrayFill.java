@@ -151,17 +151,19 @@ public final class ArrayFill {
     }
 
     /**
-     * Fills and returns the given array, using the provided generator supplier to compute each element. Like
-     * {@link Arrays#setAll(Object[], IntFunction)} with exception support.
+     * Fills and returns the given array, using the provided generator function to compute each element. Like {@link Arrays#setAll(Object[], IntFunction)} with
+     * exception support.
      * <p>
-     * If the generator supplier throws an exception, it is relayed to the caller and the array is left in an indeterminate
-     * state.
+     * If the generator function throws an exception, it is relayed to the caller and the array is left in an indeterminate state.
+     * </p>
+     * <p>
+     * If the input array or generator function is null, nothing happens.
      * </p>
      *
-     * @param <T> type of elements of the array.
-     * @param array array to be initialized.
+     * @param <T>       type of elements of the array.
+     * @param array     array to be filled (may be null).
      * @param generator a function accepting an index and producing the desired value for that position.
-     * @return the input array
+     * @return the input array.
      * @param <E> The kind of thrown exception or error.
      * @throws E Thrown by the given {@code generator}.
      * @see Arrays#setAll(Object[], IntFunction)
