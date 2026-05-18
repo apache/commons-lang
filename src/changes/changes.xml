@@ -157,6 +157,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="pkarwasz" due-to="Piotr Karwasz">WordUtils.wrap() leaves separator characters in the output when the wrapOn regex match is longer than one character (#1655).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">StringUtils.indexOfAny(CharSequence, int, char...) should not throw for a bad index (#1656).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">StrBuilder.deleteImpl(int, int, int) doesn't clear its unused bytes. (#1654).</action>
+    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">LocaleUtils.parseLocale(String) operator precedence bug allows invalid language with numeric country (#1658).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
