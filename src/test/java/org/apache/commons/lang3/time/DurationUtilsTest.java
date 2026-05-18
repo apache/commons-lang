@@ -194,6 +194,17 @@ class DurationUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testToMillisIntOverflowToMaxInteger() {
+        // Duration.ofSeconds(Long.MAX_VALUE / 1000 + 1) will overflow when toMillis() is called
+        assertEquals(Integer.MAX_VALUE, DurationUtils.toMillisInt(Duration.ofSeconds(Long.MAX_VALUE / 1000 + 1)));
+    }
+
+    @Test
+    void testToMillisIntUnderflowToMinInteger() {
+        assertEquals(Integer.MIN_VALUE, DurationUtils.toMillisInt(Duration.ofSeconds(Long.MIN_VALUE / 1000 - 1)));
+    }
+
+    @Test
     void testZeroIfNull() {
         assertEquals(Duration.ZERO, DurationUtils.zeroIfNull(null));
         assertEquals(Duration.ofDays(1), DurationUtils.zeroIfNull(Duration.ofDays(1)));
