@@ -235,7 +235,7 @@ public class DurationUtils {
     }
 
     /**
-     * Converts a Duration to milliseconds bound to an int (instead of a long).
+     * Converts a Duration to milliseconds bound to an {@code int} (instead of a {@code long}).
      * <p>
      * Handy for low-level APIs that take millisecond timeouts in ints rather than longs.
      * </p>
@@ -252,7 +252,13 @@ public class DurationUtils {
     public static int toMillisInt(final Duration duration) {
         Objects.requireNonNull(duration, "duration");
         // intValue() does not do a narrowing conversion here
-        return LONG_TO_INT_RANGE.fit(Long.valueOf(duration.toMillis())).intValue();
+        final long millis;
+        try {
+            millis = duration.toMillis();
+        } catch (final ArithmeticException e) {
+            return duration.isNegative() ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        }
+        return LONG_TO_INT_RANGE.fit(Long.valueOf(millis)).intValue();
     }
 
     /**

@@ -327,7 +327,7 @@ public class StopWatch {
      * @since 3.10
      */
     public String formatSplitTime() {
-        return DurationFormatUtils.formatDurationHMS(getSplitDuration().toMillis());
+        return DurationFormatUtils.formatDurationHMS(DurationUtils.toMillisInt(getSplitDuration()));
     }
 
     /**
