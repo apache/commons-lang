@@ -110,6 +110,36 @@ class FastDateFormatTest extends AbstractLangTest {
         return totalElapsed;
     }
 
+    /**
+     * Pre-patch: UnsupportedOperationException when formatting a Japanese Imperial Calendar with 'Y' (week-year) pattern.
+     * <p>
+     * Post-patch: falls back to Calendar.YEAR and formats successfully.
+     * </p>
+     */
+    @Test
+    void testJapaneseImperialCalendarWeekYearDoesNotThrow() {
+        final Locale japaneseImperial = new Locale("ja", "JP", "JP");
+        final Calendar japaneseCal = Calendar.getInstance(japaneseImperial);
+        final FastDateFormat fdp = FastDateFormat.getInstance("YYYY-MM-dd");
+        assertNotNull(fdp.format(japaneseCal), "Formatting JapaneseImperialCalendar with YYYY pattern must not throw UnsupportedOperationException");
+    }
+
+    /**
+     * Pre-patch: UnsupportedOperationException when formatting a Japanese Imperial
+     * <p>
+     * Calendar with 'Y' (week-year) pattern. Post-patch: falls back to Calendar.YEAR and formats successfully.
+     * </p>
+     * <p>
+     * Also test that a regular Gregorian calendar works fine with YYYY.
+     * </p>
+     */
+    @Test
+    void testGregorianCalendarWeekYearWorks() {
+        final Calendar cal = Calendar.getInstance();
+        final FastDateFormat fdp = FastDateFormat.getInstance("YYYY-MM-dd");
+        assertNotNull(fdp.format(cal), "Formatting Gregorian Calendar with YYYY pattern should always work");
+    }
+
     @DefaultLocale(language = "en", country = "US")
     @Test
     void test_changeDefault_Locale_DateInstance() {
