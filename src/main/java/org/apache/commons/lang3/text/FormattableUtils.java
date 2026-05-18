@@ -104,8 +104,7 @@ public class FormattableUtils {
         for (int i = buf.length(); i < width; i++) {
             buf.insert(leftJustify ? i : 0, padChar);
         }
-        formatter.format(buf.toString());
-        return formatter;
+        return formatter.format(SIMPLEST_FORMAT, buf.toString());
     }
 
     /**
