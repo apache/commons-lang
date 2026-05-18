@@ -862,7 +862,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
         @Override
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
-            rule.appendTo(buffer, calendar.getWeekYear());
+            // Some Calendar implementations (JapaneseImperialCalendar) do not support week-dates.
+            // Fall back to Calendar.YEAR in that case.
+            rule.appendTo(buffer, calendar.isWeekDateSupported() ? calendar.getWeekYear() : calendar.get(Calendar.YEAR));
         }
 
         @Override
