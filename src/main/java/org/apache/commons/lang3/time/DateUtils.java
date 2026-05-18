@@ -1350,6 +1350,10 @@ public class DateUtils {
         for (final String parsePattern : parsePatterns) {
             final FastDateParser fdp = new FastDateParser(parsePattern, tz, lcl);
             calendar.clear();
+            // Calendar.clear() does not reset the time zone. A previous TZ-aware pattern (for example, "z", "zz", "Z", "X..") that partially parsed could have
+            // mutated the calendar's time zone via Calendar.setTimeZone(...) before failing on the remaining tokens. Restore the caller-supplied zone for each
+            // attempt so the outcome of pattern N+1 does not depend on the partial state left by pattern N.
+            calendar.setTimeZone(tz);
             try {
                 if (fdp.parse(dateStr, pos, calendar) && pos.getIndex() == dateStr.length()) {
                     return calendar.getTime();
