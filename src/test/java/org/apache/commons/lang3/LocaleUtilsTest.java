@@ -256,6 +256,16 @@ class LocaleUtilsTest extends AbstractLangTest {
         assertCountriesByLanguage("it", new String[]{"IT", "CH"});
     }
 
+    @Test
+    void testIllegalLanguageWithNumericCountry() {
+        assertIllegalArgumentException(() -> LocaleUtils.toLocale("../../unexpected_001"));
+    }
+
+    @Test
+    void testIllegalSingleCharLanguageWithNumericCountry() {
+        assertIllegalArgumentException(() -> LocaleUtils.toLocale("x_001"));
+    }
+
     /**
      * Test availableLocaleSet() method.
      */

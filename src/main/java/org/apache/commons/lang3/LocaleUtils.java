@@ -338,7 +338,7 @@ public class LocaleUtils {
         final String language = segments[0];
         if (segments.length == 2) {
             final String country = segments[1];
-            if (isISO639LanguageCode(language) && isISO3166CountryCode(country) || isNumericAreaCode(country)) {
+            if (isISO639LanguageCode(language) && (isISO3166CountryCode(country) || isNumericAreaCode(country))) {
                 return new Locale(language, country);
             }
         } else if (segments.length == limit) {
