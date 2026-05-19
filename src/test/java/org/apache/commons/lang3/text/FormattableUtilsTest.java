@@ -115,4 +115,14 @@ class FormattableUtilsTest extends AbstractLangTest {
         assertIllegalArgumentException(() -> FormattableUtils.append("foo", new Formatter(), 0, -1, 1, "xx"));
     }
 
+    @Test
+    void testPercentLiteral() {
+        assertEquals("100% done", FormattableUtils.append("100% done", new Formatter(), 0, -1, -1).toString());
+    }
+
+    @Test
+    void testPercentLiteralX2() {
+        assertEquals("50% off 100% items", FormattableUtils.append("50% off 100% items", new Formatter(), 0, -1, -1).toString());
+    }
+
 }
