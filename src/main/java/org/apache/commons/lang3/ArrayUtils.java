@@ -2949,15 +2949,7 @@ public class ArrayUtils {
      * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final int[] array, final int valueToFind, final int startIndex) {
-        if (isEmpty(array)) {
-            return INDEX_NOT_FOUND;
-        }
-        for (int i = max0(startIndex); i < array.length; i++) {
-            if (valueToFind == array[i]) {
-                return i;
-            }
-        }
-        return INDEX_NOT_FOUND;
+        return indexOfGeneric(array, valueToFind, startIndex);
     }
 
     /**
@@ -2989,11 +2981,18 @@ public class ArrayUtils {
      * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final long[] array, final long valueToFind, final int startIndex) {
-        if (isEmpty(array)) {
-            return INDEX_NOT_FOUND;
-        }
-        for (int i = max0(startIndex); i < array.length; i++) {
-            if (valueToFind == array[i]) {
+        return indexOfGeneric(array, valueToFind, startIndex);
+    }
+
+    private static int indexOfGeneric(final Object array, final long valueToFind, final int startIndex) {
+        
+        if (array == null) return INDEX_NOT_FOUND;
+    
+        int length = Array.getLength(array);
+        if (length == 0) return INDEX_NOT_FOUND;
+    
+        for (int i = Math.max(0, startIndex); i < length; i++) {
+            if (Array.getLong(array, i) == valueToFind) {
                 return i;
             }
         }
