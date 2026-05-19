@@ -78,6 +78,117 @@ public class Conversion {
     private static final boolean[] TFFF = { true, false, false, false };
     private static final boolean[] FFFF = { false, false, false, false };
 
+
+    /**
+     * Internal enum for hexadecimal digit mappings.
+     * Replaces switch statements with O(1) array lookups.
+     */
+    private enum HexDigit {
+        ZERO('0', 0x0, 
+            new boolean[]{false, false, false, false},
+            new boolean[]{false, false, false, false}),
+        ONE('1', 0x8,
+            new boolean[]{true, false, false, false},
+            new boolean[]{false, false, false, true}),
+        TWO('2', 0x4,
+            new boolean[]{false, true, false, false},
+            new boolean[]{false, false, true, false}),
+        THREE('3', 0xC,
+            new boolean[]{true, true, false, false},
+            new boolean[]{false, false, true, true}),
+        FOUR('4', 0x2,
+            new boolean[]{false, false, true, false},
+            new boolean[]{false, true, false, false}),
+        FIVE('5', 0xA,
+            new boolean[]{true, false, true, false},
+            new boolean[]{false, true, false, true}),
+        SIX('6', 0x6,
+            new boolean[]{false, true, true, false},
+            new boolean[]{false, true, true, false}),
+        SEVEN('7', 0xE,
+            new boolean[]{true, true, true, false},
+            new boolean[]{false, true, true, true}),
+        EIGHT('8', 0x1,
+            new boolean[]{false, false, false, true},
+            new boolean[]{true, false, false, false}),
+        NINE('9', 0x9,
+            new boolean[]{true, false, false, true},
+            new boolean[]{true, false, false, true}),
+        A('A', 0x5,
+            new boolean[]{false, true, false, true},
+            new boolean[]{true, false, true, false}),
+        B('B', 0xD,
+            new boolean[]{true, true, false, true},
+            new boolean[]{true, false, true, true}),
+        C('C', 0x3,
+            new boolean[]{false, false, true, true},
+            new boolean[]{true, true, false, false}),
+        D('D', 0xB,
+            new boolean[]{true, false, true, true},
+            new boolean[]{true, true, false, true}),
+        E('E', 0x7,
+            new boolean[]{false, true, true, true},
+            new boolean[]{true, true, true, false}),
+        F('F', 0xF,
+            new boolean[]{true, true, true, true},
+            new boolean[]{true, true, true, true});
+        
+        private static final HexDigit[] CHAR_LOOKUP = new HexDigit[128];
+        private static final HexDigit[] NIBBLE_LOOKUP = new HexDigit[16];
+        
+        static {
+            // Char lookup (maiúsculas e minúsculas)
+            for (HexDigit digit : values()) {
+                CHAR_LOOKUP[digit.hexChar] = digit;
+                CHAR_LOOKUP[Character.toLowerCase(digit.hexChar)] = digit;
+            }
+            // Nibble lookup (0-15)
+            HexDigit[] values = values();
+            for (int i = 0; i < values.length; i++) {
+                NIBBLE_LOOKUP[i] = values[i];
+            }
+        }
+        
+        private final char hexChar;
+        private final int msb0IntValue;
+        private final boolean[] lsb0Binary;
+        private final boolean[] msb0Binary;
+        
+        HexDigit(char hexChar, int msb0IntValue, boolean[] lsb0Binary, boolean[] msb0Binary) {
+            this.hexChar = hexChar;
+            this.msb0IntValue = msb0IntValue;
+            this.lsb0Binary = lsb0Binary;
+            this.msb0Binary = msb0Binary;
+        }
+        
+        static HexDigit fromChar(char c) {
+            if (c >= CHAR_LOOKUP.length) {
+                throw new IllegalArgumentException("Cannot convert '" + c + "' to a hexadecimal digit");
+            }
+            HexDigit digit = CHAR_LOOKUP[c];
+            if (digit == null) {
+                throw new IllegalArgumentException("Cannot convert '" + c + "' to a hexadecimal digit");
+            }
+            return digit;
+        }
+        
+        static HexDigit fromInt(int nibble) {
+            if (nibble < 0 || nibble >= NIBBLE_LOOKUP.length) {
+                throw new IllegalArgumentException("nibble value not between 0 and 15: " + nibble);
+            }
+            HexDigit digit = NIBBLE_LOOKUP[nibble];
+            if (digit == null) {
+                throw new IllegalArgumentException("nibble value not between 0 and 15: " + nibble);
+            }
+            return digit;
+        }
+        
+        char getHexChar() { return hexChar; }
+        int getMsb0IntValue() { return msb0IntValue; }
+        boolean[] getLsb0Binary() { return lsb0Binary.clone(); }
+        boolean[] getMsb0Binary() { return msb0Binary.clone(); }
+    }
+
     /**
      * Converts the first 4 bits of a binary (represented as boolean array) in big-endian MSB0 bit ordering to a hexadecimal digit.
      *
@@ -559,48 +670,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit.
      */
     public static boolean[] hexDigitMsb0ToBinary(final char hexChar) {
-        switch (hexChar) {
-        case '0':
-            return FFFF.clone();
-        case '1':
-            return FFFT.clone();
-        case '2':
-            return FFTF.clone();
-        case '3':
-            return FFTT.clone();
-        case '4':
-            return FTFF.clone();
-        case '5':
-            return FTFT.clone();
-        case '6':
-            return FTTF.clone();
-        case '7':
-            return FTTT.clone();
-        case '8':
-            return TFFF.clone();
-        case '9':
-            return TFFT.clone();
-        case 'a':// fall through
-        case 'A':
-            return TFTF.clone();
-        case 'b':// fall through
-        case 'B':
-            return TFTT.clone();
-        case 'c':// fall through
-        case 'C':
-            return TTFF.clone();
-        case 'd':// fall through
-        case 'D':
-            return TTFT.clone();
-        case 'e':// fall through
-        case 'E':
-            return TTTF.clone();
-        case 'f':// fall through
-        case 'F':
-            return TTTT.clone();
-        default:
-            throw new IllegalArgumentException("Cannot convert '" + hexChar + "' to a hexadecimal digit");
-        }
+        return HexDigit.fromChar(hexChar).getMsb0Binary().clone();
     }
 
     /**
@@ -615,48 +685,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit.
      */
     public static int hexDigitMsb0ToInt(final char hexChar) {
-        switch (hexChar) {
-        case '0':
-            return 0x0;
-        case '1':
-            return 0x8;
-        case '2':
-            return 0x4;
-        case '3':
-            return 0xC;
-        case '4':
-            return 0x2;
-        case '5':
-            return 0xA;
-        case '6':
-            return 0x6;
-        case '7':
-            return 0xE;
-        case '8':
-            return 0x1;
-        case '9':
-            return 0x9;
-        case 'a':// fall through
-        case 'A':
-            return 0x5;
-        case 'b':// fall through
-        case 'B':
-            return 0xD;
-        case 'c':// fall through
-        case 'C':
-            return 0x3;
-        case 'd':// fall through
-        case 'D':
-            return 0xB;
-        case 'e':// fall through
-        case 'E':
-            return 0x7;
-        case 'f':// fall through
-        case 'F':
-            return 0xF;
-        default:
-            throw new IllegalArgumentException("Cannot convert '" + hexChar + "' to a hexadecimal digit");
-        }
+        return HexDigit.fromChar(hexChar).getMsb0IntValue();
     }
 
     /**
@@ -671,48 +700,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit.
      */
     public static boolean[] hexDigitToBinary(final char hexChar) {
-        switch (hexChar) {
-        case '0':
-            return FFFF.clone();
-        case '1':
-            return TFFF.clone();
-        case '2':
-            return FTFF.clone();
-        case '3':
-            return TTFF.clone();
-        case '4':
-            return FFTF.clone();
-        case '5':
-            return TFTF.clone();
-        case '6':
-            return FTTF.clone();
-        case '7':
-            return TTTF.clone();
-        case '8':
-            return FFFT.clone();
-        case '9':
-            return TFFT.clone();
-        case 'a':// fall through
-        case 'A':
-            return FTFT.clone();
-        case 'b':// fall through
-        case 'B':
-            return TTFT.clone();
-        case 'c':// fall through
-        case 'C':
-            return FFTT.clone();
-        case 'd':// fall through
-        case 'D':
-            return TFTT.clone();
-        case 'e':// fall through
-        case 'E':
-            return FTTT.clone();
-        case 'f':// fall through
-        case 'F':
-            return TTTT.clone();
-        default:
-            throw new IllegalArgumentException("Cannot convert '" + hexChar + "' to a hexadecimal digit");
-        }
+        return HexDigit.fromChar(hexChar).getLsb0Binary().clone();
     }
 
     /**
@@ -1007,42 +995,7 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code nibble < 0} or {@code nibble > 15}.
      */
     public static char intToHexDigitMsb0(final int nibble) {
-        switch (nibble) {
-        case 0x0:
-            return '0';
-        case 0x1:
-            return '8';
-        case 0x2:
-            return '4';
-        case 0x3:
-            return 'c';
-        case 0x4:
-            return '2';
-        case 0x5:
-            return 'a';
-        case 0x6:
-            return '6';
-        case 0x7:
-            return 'e';
-        case 0x8:
-            return '1';
-        case 0x9:
-            return '9';
-        case 0xA:
-            return '5';
-        case 0xB:
-            return 'd';
-        case 0xC:
-            return '3';
-        case 0xD:
-            return 'b';
-        case 0xE:
-            return '7';
-        case 0xF:
-            return 'f';
-        default:
-            throw new IllegalArgumentException("nibble value not between 0 and 15: " + nibble);
-        }
+        return HexDigit.fromInt(nibble).getHexChar();
     }
 
     /**
