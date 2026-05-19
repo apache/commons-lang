@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.mutable;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -28,7 +29,7 @@ import org.apache.commons.lang3.BooleanUtils;
  * This class was created before the introduction of the {@link java.util.concurrent.atomic} package and the {@link AtomicBoolean} class.
  * </p>
  * <p>
- * Note that as MutableBoolean does not extend {@link Boolean}, it is not treated by {@link String#format(String, Object...)} as a Boolean parameter.
+ * Note that as MutableBoolean does not extend {@link Boolean}, it is not treated by {@link String#formatted(Object)} as a Boolean parameter.
  * </p>
  *
  * @see Boolean
@@ -42,7 +43,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = -4830728138360036487L;
+    @Serial private static final long serialVersionUID = -4830728138360036487L;
 
     /** The mutable value. */
     private boolean value;
@@ -103,8 +104,8 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof MutableBoolean) {
-            return value == ((MutableBoolean) obj).booleanValue();
+        if (obj instanceof MutableBoolean boolean1) {
+            return value == boolean1.booleanValue();
         }
         return false;
     }

@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3;
 
+import java.io.Serial;
 import java.util.stream.IntStream;
 
 /**
@@ -30,7 +31,7 @@ import java.util.stream.IntStream;
  */
 public final class IntegerRange extends NumberRange<Integer> {
 
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Creates a closed range with the specified minimum and maximum values (both inclusive).

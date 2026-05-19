@@ -114,8 +114,8 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
 
         @Override
         public boolean equals(final Object other) {
-            if (other instanceof CloseableCounter) {
-                return initializeCalls == ((CloseableCounter) other).getInitializeCalls();
+            if (other instanceof CloseableCounter closeableCounter) {
+                return initializeCalls == closeableCounter.getInitializeCalls();
             }
             return false;
         }

@@ -88,7 +88,7 @@ class RandomStringUtilsTest extends AbstractLangTest {
 
         final String result = RandomStringUtils.random(2, start, end, false, false, null, fixedRandom);
         final int c = result.codePointAt(0);
-        assertTrue(c >= start && c < end, String.format("Character '%d' not in range [%d,%d).", c, start, end));
+        assertTrue(c >= start && c < end, "Character '%d' not in range [%d,%d).".formatted(c, start, end));
     }
 
     @Test

@@ -17,9 +17,11 @@
 
 package org.apache.commons.lang3.exception;
 
+import java.io.Serial;
+
 public class CustomUncheckedException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     public CustomUncheckedException() {
     }

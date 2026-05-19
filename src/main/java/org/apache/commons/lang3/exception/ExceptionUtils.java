@@ -1027,11 +1027,11 @@ public class ExceptionUtils {
      */
     @Deprecated
     public static <T> T throwUnchecked(final T throwable) {
-        if (throwable instanceof RuntimeException) {
-            throw (RuntimeException) throwable;
+        if (throwable instanceof RuntimeException exception) {
+            throw exception;
         }
-        if (throwable instanceof Error) {
-            throw (Error) throwable;
+        if (throwable instanceof Error error) {
+            throw error;
         }
         return throwable;
     }

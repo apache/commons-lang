@@ -50,14 +50,14 @@ public class CharSequenceUtils {
         if (cs == null || searchChar == null) {
             return StringUtils.INDEX_NOT_FOUND;
         }
-        if (cs instanceof String) {
-            return ((String) cs).indexOf(searchChar.toString(), start);
+        if (cs instanceof String string) {
+            return string.indexOf(searchChar.toString(), start);
         }
-        if (cs instanceof StringBuilder) {
-            return ((StringBuilder) cs).indexOf(searchChar.toString(), start);
+        if (cs instanceof StringBuilder builder) {
+            return builder.indexOf(searchChar.toString(), start);
         }
-        if (cs instanceof StringBuffer) {
-            return ((StringBuffer) cs).indexOf(searchChar.toString(), start);
+        if (cs instanceof StringBuffer buffer) {
+            return buffer.indexOf(searchChar.toString(), start);
         }
         return cs.toString().indexOf(searchChar.toString(), start);
 //        if (cs instanceof String && searchChar instanceof String) {
@@ -108,8 +108,8 @@ public class CharSequenceUtils {
      * @since 3.6 updated to behave more like {@link String}.
      */
     static int indexOf(final CharSequence cs, final int searchChar, int start) {
-        if (cs instanceof String) {
-            return ((String) cs).indexOf(searchChar, start);
+        if (cs instanceof String string) {
+            return string.indexOf(searchChar, start);
         }
         final int sz = cs.length();
         if (start < 0) {
@@ -150,14 +150,14 @@ public class CharSequenceUtils {
             return NOT_FOUND;
         }
         if (searchChar instanceof String) {
-            if (cs instanceof String) {
-                return ((String) cs).lastIndexOf((String) searchChar, start);
+            if (cs instanceof String string) {
+                return string.lastIndexOf((String) searchChar, start);
             }
-            if (cs instanceof StringBuilder) {
-                return ((StringBuilder) cs).lastIndexOf((String) searchChar, start);
+            if (cs instanceof StringBuilder builder) {
+                return builder.lastIndexOf((String) searchChar, start);
             }
-            if (cs instanceof StringBuffer) {
-                return ((StringBuffer) cs).lastIndexOf((String) searchChar, start);
+            if (cs instanceof StringBuffer buffer) {
+                return buffer.lastIndexOf((String) searchChar, start);
             }
         }
 
@@ -177,14 +177,14 @@ public class CharSequenceUtils {
         }
 
         if (len2 <= TO_STRING_LIMIT) {
-            if (cs instanceof String) {
-                return ((String) cs).lastIndexOf(searchChar.toString(), start);
+            if (cs instanceof String string1) {
+                return string1.lastIndexOf(searchChar.toString(), start);
             }
-            if (cs instanceof StringBuilder) {
-                return ((StringBuilder) cs).lastIndexOf(searchChar.toString(), start);
+            if (cs instanceof StringBuilder builder1) {
+                return builder1.lastIndexOf(searchChar.toString(), start);
             }
-            if (cs instanceof StringBuffer) {
-                return ((StringBuffer) cs).lastIndexOf(searchChar.toString(), start);
+            if (cs instanceof StringBuffer buffer1) {
+                return buffer1.lastIndexOf(searchChar.toString(), start);
             }
         }
 
@@ -240,8 +240,8 @@ public class CharSequenceUtils {
      * @since 3.6 updated to behave more like {@link String}.
      */
     static int lastIndexOf(final CharSequence cs, final int searchChar, int start) {
-        if (cs instanceof String) {
-            return ((String) cs).lastIndexOf(searchChar, start);
+        if (cs instanceof String string) {
+            return string.lastIndexOf(searchChar, start);
         }
         final int sz = cs.length();
         if (start < 0) {
@@ -292,8 +292,8 @@ public class CharSequenceUtils {
     static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart, final CharSequence substring, final int start,
             final int length) {
         // Green implementation of regionMatches.
-        if (cs instanceof String && substring instanceof String) {
-            return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
+        if (cs instanceof String string && substring instanceof String string1) {
+            return string.regionMatches(ignoreCase, thisStart, string1, start, length);
         }
         int index1 = thisStart;
         int index2 = start;
@@ -359,17 +359,17 @@ public class CharSequenceUtils {
         if (len == 0) {
             return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
-        if (source instanceof String) {
-            return ((String) source).toCharArray();
+        if (source instanceof String string) {
+            return string.toCharArray();
         }
-        if (source instanceof StringBuilder) {
+        if (source instanceof StringBuilder builder) {
             final char[] array = new char[len];
-            ((StringBuilder) source).getChars(0, len, array, 0);
+            builder.getChars(0, len, array, 0);
             return array;
         }
-        if (source instanceof StringBuffer) {
+        if (source instanceof StringBuffer buffer) {
             final char[] array = new char[len];
-            ((StringBuffer) source).getChars(0, len, array, 0);
+            buffer.getChars(0, len, array, 0);
             return array;
         }
         final char[] array = new char[len];

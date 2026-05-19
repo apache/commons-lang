@@ -65,7 +65,7 @@ class DiffTest extends AbstractLangTest {
 
     @Test
     void testToString() {
-        assertEquals(String.format("[%s: %s, %s]", FIELD_NAME, booleanDiff.getLeft(),
+        assertEquals("[%s: %s, %s]".formatted(FIELD_NAME, booleanDiff.getLeft(),
                 booleanDiff.getRight()), booleanDiff.toString());
     }
 }

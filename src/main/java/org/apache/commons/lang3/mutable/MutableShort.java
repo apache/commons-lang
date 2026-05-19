@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.io.Serial;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -38,7 +39,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = -2135791679L;
+    @Serial private static final long serialVersionUID = -2135791679L;
 
     /** The mutable value. */
     private short value;
@@ -179,8 +180,8 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof MutableShort) {
-            return value == ((MutableShort) obj).shortValue();
+        if (obj instanceof MutableShort short1) {
+            return value == short1.shortValue();
         }
         return false;
     }

@@ -136,7 +136,7 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
                     factory.set(null);
                     // Rethrow preserving original semantics: unchecked as-is, checked wrapped.
                     final Throwable checked = ExceptionUtils.throwUnchecked(t);
-                    throw checked instanceof ConcurrentException ? (ConcurrentException) checked : new ConcurrentException(checked);
+                    throw checked instanceof ConcurrentException ce ? ce : new ConcurrentException(checked);
                 }
             } else {
                 // Another thread won the CAS; park 1 ms rather than busy-waiting.

@@ -65,7 +65,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      *            {@code null}, in which case
      *            {@link ToStringStyle#DEFAULT_STYLE} is used
      * @param toStringFormat
-     *            Two-argument format string for {@link String#format(String, Object...)}, for example {@code "%s differs from %s"}.
+     *            Two-argument format string for {@link String#formatted(Object)}, for example {@code "%s differs from %s"}.
      * @throws NullPointerException if {@code lhs}, {@code rhs} or {@code diffs} are {@code null}.
      */
     DiffResult(final T lhs, final T rhs, final List<Diff<?>> diffList, final ToStringStyle style, final String toStringFormat) {
@@ -190,6 +190,6 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
             rhsBuilder.append(diff.getFieldName(), diff.getRight());
         });
 
-        return String.format(toStringFormat, lhsBuilder.build(), rhsBuilder.build());
+        return toStringFormat.formatted(lhsBuilder.build(), rhsBuilder.build());
     }
 }

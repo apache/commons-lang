@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -138,7 +139,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @see java.io.Serializable
      * @since 3.21.0 {@code serialVersionUID} changed from {@code 8270183163158333422L} to {@value}.
      */
-    private static final long serialVersionUID = 2L;
+    @Serial private static final long serialVersionUID = 2L;
 
     /** Empty array. */
     static final CharRange[] EMPTY_ARRAY = {};

@@ -137,7 +137,7 @@ public class SerializationUtils {
             return (T) in.readObject();
 
         } catch (final ClassNotFoundException | IOException ex) {
-            throw new SerializationException(String.format("%s while reading cloned object data", ex.getClass().getSimpleName()), ex);
+            throw new SerializationException("%s while reading cloned object data".formatted(ex.getClass().getSimpleName()), ex);
         }
     }
 

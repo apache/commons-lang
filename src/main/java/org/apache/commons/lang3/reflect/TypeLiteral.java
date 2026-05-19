@@ -91,7 +91,7 @@ public abstract class TypeLiteral<T> implements Typed<T> {
     protected TypeLiteral() {
         this.value = Validate.notNull(TypeUtils.getTypeArguments(getClass(), TypeLiteral.class).get(T),
                 "%s does not assign type parameter %s", getClass(), TypeUtils.toLongString(T));
-        this.toString = String.format("%s<%s>", TypeLiteral.class.getSimpleName(), TypeUtils.toString(value));
+        this.toString = "%s<%s>".formatted(TypeLiteral.class.getSimpleName(), TypeUtils.toString(value));
     }
 
     @Override

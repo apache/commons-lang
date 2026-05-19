@@ -30,7 +30,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.NumericEntityEscaper;
@@ -372,7 +372,7 @@ class StringEscapeUtilsTest extends AbstractLangTest {
      */
     @Test
     void testLang708() throws IOException {
-        final byte[] inputBytes = Files.readAllBytes(Paths.get("src/test/resources/lang-708-input.txt"));
+        final byte[] inputBytes = Files.readAllBytes(Path.of("src/test/resources/lang-708-input.txt"));
         final String input = new String(inputBytes, StandardCharsets.UTF_8);
         final String escaped = StringEscapeUtils.escapeEcmaScript(input);
         // just the end:

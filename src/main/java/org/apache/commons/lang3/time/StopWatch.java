@@ -115,7 +115,7 @@ public class StopWatch {
          */
         @Override
         public String toString() {
-            return String.format("Split [%s, %s])", getLabel(), getDuration());
+            return "Split [%s, %s])".formatted(getLabel(), getDuration());
         }
     }
 

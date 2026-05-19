@@ -100,13 +100,13 @@ class TripleTest extends AbstractLangTest {
     @Test
     void testFormattable_padded() {
         final Triple<String, String, String> triple = Triple.of("Key", "Something", "Value");
-        assertEquals("         (Key,Something,Value)", String.format("%1$30s", triple));
+        assertEquals("         (Key,Something,Value)", "%1$30s".formatted(triple));
     }
 
     @Test
     void testFormattable_simple() {
         final Triple<String, String, String> triple = Triple.of("Key", "Something", "Value");
-        assertEquals("(Key,Something,Value)", String.format("%1$s", triple));
+        assertEquals("(Key,Something,Value)", "%1$s".formatted(triple));
     }
 
     @Test

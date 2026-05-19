@@ -18,6 +18,7 @@ package org.apache.commons.lang3.time;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
@@ -437,8 +438,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
             if (this == obj) {
                 return true;
             }
-            if (obj instanceof TimeZoneDisplayKey) {
-                final TimeZoneDisplayKey other = (TimeZoneDisplayKey) obj;
+            if (obj instanceof TimeZoneDisplayKey other) {
                 return
                     timeZone.equals(other.timeZone) &&
                     style == other.style &&
@@ -886,7 +886,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * FULL locale dependent date or time style.
@@ -1223,14 +1223,14 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @since 3.5
      */
     String format(final Object obj) {
-        if (obj instanceof Date) {
-            return format((Date) obj);
+        if (obj instanceof Date date) {
+            return format(date);
         }
-        if (obj instanceof Calendar) {
-            return format((Calendar) obj);
+        if (obj instanceof Calendar calendar) {
+            return format(calendar);
         }
-        if (obj instanceof Long) {
-            return format(((Long) obj).longValue());
+        if (obj instanceof Long long1) {
+            return format(long1.longValue());
         }
         throw new IllegalArgumentException("Unknown class: " + ClassUtils.getName(obj, "<null>"));
     }
@@ -1248,14 +1248,14 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     @Deprecated
     @Override
     public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
-        if (obj instanceof Date) {
-            return format((Date) obj, toAppendTo);
+        if (obj instanceof Date date) {
+            return format(date, toAppendTo);
         }
-        if (obj instanceof Calendar) {
-            return format((Calendar) obj, toAppendTo);
+        if (obj instanceof Calendar calendar) {
+            return format(calendar, toAppendTo);
         }
-        if (obj instanceof Long) {
-            return format(((Long) obj).longValue(), toAppendTo);
+        if (obj instanceof Long long1) {
+            return format(long1.longValue(), toAppendTo);
         }
         throw new IllegalArgumentException("Unknown class: " + ClassUtils.getName(obj, "<null>"));
     }

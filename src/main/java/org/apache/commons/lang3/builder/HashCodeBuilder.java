@@ -908,22 +908,22 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     private void appendArray(final Object object) {
         // 'Switch' on type of array, to dispatch to the correct handler
         // This handles multidimensional arrays
-        if (object instanceof long[]) {
-            append((long[]) object);
-        } else if (object instanceof int[]) {
-            append((int[]) object);
-        } else if (object instanceof short[]) {
-            append((short[]) object);
-        } else if (object instanceof char[]) {
-            append((char[]) object);
-        } else if (object instanceof byte[]) {
-            append((byte[]) object);
-        } else if (object instanceof double[]) {
-            append((double[]) object);
-        } else if (object instanceof float[]) {
-            append((float[]) object);
-        } else if (object instanceof boolean[]) {
-            append((boolean[]) object);
+        if (object instanceof long[] longs) {
+            append(longs);
+        } else if (object instanceof int[] ints) {
+            append(ints);
+        } else if (object instanceof short[] shorts) {
+            append(shorts);
+        } else if (object instanceof char[] chars) {
+            append(chars);
+        } else if (object instanceof byte[] bytes) {
+            append(bytes);
+        } else if (object instanceof double[] doubles) {
+            append(doubles);
+        } else if (object instanceof float[] floats) {
+            append(floats);
+        } else if (object instanceof boolean[] booleans) {
+            append(booleans);
         } else {
             // Not an array of primitives
             append((Object[]) object);

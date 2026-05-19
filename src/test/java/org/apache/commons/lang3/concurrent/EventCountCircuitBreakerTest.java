@@ -316,7 +316,7 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
                 TimeUnit.SECONDS);
         final long nowNanos = breaker.nanoTime();
         final long deltaNanos = Math.abs(System.nanoTime() - nowNanos);
-        assertTrue(deltaNanos < 100_000, String.format("Delta %,d ns to current time too large", deltaNanos));
+        assertTrue(deltaNanos < 100_000, "Delta %,d ns to current time too large".formatted(deltaNanos));
     }
 
     /**

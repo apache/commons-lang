@@ -18,7 +18,6 @@
 package org.apache.commons.lang3;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.function.BooleanSupplier;
 import java.util.function.IntSupplier;
 import java.util.function.LongSupplier;
@@ -3877,7 +3876,7 @@ public final class SystemProperties {
      */
     public static Path getPath(final String key, final Supplier<Path> defaultIfAbsent) {
         final String str = getProperty(key);
-        return str == null ? defaultIfAbsent != null ? defaultIfAbsent.get() : null : Paths.get(str);
+        return str == null ? defaultIfAbsent != null ? defaultIfAbsent.get() : null : Path.of(str);
     }
 
     /**

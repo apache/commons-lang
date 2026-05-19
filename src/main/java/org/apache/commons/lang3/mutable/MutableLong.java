@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.io.Serial;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -24,7 +25,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * This class was created before the introduction of the {@link java.util.concurrent.atomic} package and the {@link AtomicLong} class.
  * </p>
  * <p>
- * Note that as MutableLong does not extend {@link Long}, it is not treated by {@link String#format(String, Object...)} as a Long parameter.
+ * Note that as MutableLong does not extend {@link Long}, it is not treated by {@link String#formatted(Object)} as a Long parameter.
  * </p>
  *
  * @see Long
@@ -38,7 +39,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 62986528375L;
+    @Serial private static final long serialVersionUID = 62986528375L;
 
     /** The mutable value. */
     private long value;
@@ -179,8 +180,8 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof MutableLong) {
-            return value == ((MutableLong) obj).longValue();
+        if (obj instanceof MutableLong long1) {
+            return value == long1.longValue();
         }
         return false;
     }

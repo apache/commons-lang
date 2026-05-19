@@ -226,13 +226,13 @@ class PairTest extends AbstractLangTest {
     @Test
     void testFormattable_padded() {
         final Pair<String, String> pair = Pair.of("Key", "Value");
-        assertEquals("         (Key,Value)", String.format("%1$20s", pair));
+        assertEquals("         (Key,Value)", "%1$20s".formatted(pair));
     }
 
     @Test
     void testFormattable_simple() {
         final Pair<String, String> pair = Pair.of("Key", "Value");
-        assertEquals("(Key,Value)", String.format("%1$s", pair));
+        assertEquals("(Key,Value)", "%1$s".formatted(pair));
     }
 
     @ParameterizedTest()

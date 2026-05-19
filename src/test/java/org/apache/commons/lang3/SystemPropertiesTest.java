@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
@@ -976,9 +976,9 @@ class SystemPropertiesTest extends AbstractLangTest {
         assertNull(SystemProperties.getPath(null, null));
         assertNull(SystemProperties.getPath(null, () -> null));
         assertNull(SystemProperties.getPath(StringUtils.EMPTY, null));
-        assertEquals(Paths.get("value1"), SystemProperties.getPath(KEY_SPACE_1, null));
-        assertEquals(Paths.get("value2"), SystemProperties.getPath(KEY_TAB_1, null));
-        assertEquals(Paths.get("value1"), SystemProperties.getPath(null, () -> Paths.get("value1")));
+        assertEquals(Path.of("value1"), SystemProperties.getPath(KEY_SPACE_1, null));
+        assertEquals(Path.of("value2"), SystemProperties.getPath(KEY_TAB_1, null));
+        assertEquals(Path.of("value1"), SystemProperties.getPath(null, () -> Path.of("value1")));
     }
 
     @Test

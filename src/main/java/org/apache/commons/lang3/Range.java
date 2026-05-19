@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
@@ -60,7 +61,7 @@ public class Range<T> implements Serializable {
      * @see java.io.Serializable
      * @since 3.21.0 {@code serialVersionUID} changed from {@code 1L} to {@value}.
      */
-    private static final long serialVersionUID = 2L;
+    @Serial private static final long serialVersionUID = 2L;
 
     /**
      * Creates a range with the specified minimum and maximum values (both inclusive).
@@ -406,8 +407,7 @@ public class Range<T> implements Serializable {
      */
     public Range<T> intersectionWith(final Range<T> other) {
         if (!this.isOverlappedBy(other)) {
-            throw new IllegalArgumentException(String.format(
-                "Cannot calculate intersection with non-overlapping range %s", other));
+            throw new IllegalArgumentException("Cannot calculate intersection with non-overlapping range %s".formatted(other));
         }
         if (this.equals(other)) {
             return this;
@@ -580,7 +580,7 @@ public class Range<T> implements Serializable {
      * @return the formatted string, not null.
      */
     public String toString(final String format) {
-        return String.format(format, minimum, maximum, comparator);
+        return format.formatted(minimum, maximum, comparator);
     }
 
 }

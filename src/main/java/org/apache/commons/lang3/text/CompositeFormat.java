@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.text;
 
+import java.io.Serial;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParseException;
@@ -38,7 +39,7 @@ public class CompositeFormat extends Format {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = -4329119827877627683L;
+    @Serial private static final long serialVersionUID = -4329119827877627683L;
 
     /** The parser to use. */
     private final Format parser;

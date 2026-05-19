@@ -17,6 +17,9 @@
 
 package org.apache.commons.lang3.builder;
 
+import java.io.Serial;
+
+
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -69,7 +72,7 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /** Indenting of inner lines. */
     private static final int INDENT = 2;

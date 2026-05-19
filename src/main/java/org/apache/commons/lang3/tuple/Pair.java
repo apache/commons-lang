@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
@@ -42,7 +43,7 @@ import org.apache.commons.lang3.function.FailableBiFunction;
 public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Serializable {
 
     /** Serialization version */
-    private static final long serialVersionUID = 4954918890077093841L;
+    @Serial private static final long serialVersionUID = 4954918890077093841L;
 
     /**
      * An empty array.
@@ -169,8 +170,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
         if (obj == this) {
             return true;
         }
-        if (obj instanceof Map.Entry<?, ?>) {
-            final Map.Entry<?, ?> other = (Map.Entry<?, ?>) obj;
+        if (obj instanceof Map.Entry<?, ?> other) {
             return Objects.equals(getKey(), other.getKey())
                     && Objects.equals(getValue(), other.getValue());
         }
@@ -249,16 +249,16 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * Formats the receiver using the given format.
      *
      * <p>
-     * This uses {@link String#format(String, Object...)} to the format. Two variables may be used to embed the left and right elements. Use {@code %1$s} for
+     * This uses {@link String#formatted(Object)} to the format. Two variables may be used to embed the left and right elements. Use {@code %1$s} for
      * the left element (key) and {@code %2$s} for the right element (value).
      * </p>
      *
      * @param format the format string, optionally containing {@code %1$s} and {@code %2$s}, not null.
      * @return the formatted string, not null.
-     * @see String#format(String, Object...)
+     * @see String#formatted(Object)
      */
     public String toString(final String format) {
-        return String.format(format, getLeft(), getRight());
+        return format.formatted(getLeft(), getRight());
     }
 
 }

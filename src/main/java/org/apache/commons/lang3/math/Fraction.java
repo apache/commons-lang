@@ -19,6 +19,7 @@ package org.apache.commons.lang3.math;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Objects;
@@ -42,7 +43,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @see Serializable
      */
-    private static final long serialVersionUID = 65382027393090L;
+    @Serial private static final long serialVersionUID = 65382027393090L;
 
     /**
      * {@link Fraction} representation of 0.

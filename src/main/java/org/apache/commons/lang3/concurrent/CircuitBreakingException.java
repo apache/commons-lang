@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import java.io.Serial;
+
 /**
  * An exception class used for reporting runtime error conditions related to
  * circuit breakers.
@@ -27,7 +29,7 @@ public class CircuitBreakingException extends RuntimeException {
     /**
      * The serial version UID.
      */
-    private static final long serialVersionUID = 1408176654686913340L;
+    @Serial private static final long serialVersionUID = 1408176654686913340L;
 
     /**
      * Creates a new, uninitialized instance of {@link CircuitBreakingException}.

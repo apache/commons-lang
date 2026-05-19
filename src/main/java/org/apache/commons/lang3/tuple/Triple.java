@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -39,7 +40,7 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Serializable {
 
     /** Serialization version */
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * An empty array.
@@ -130,8 +131,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
         if (obj == this) {
             return true;
         }
-        if (obj instanceof Triple<?, ?, ?>) {
-            final Triple<?, ?, ?> other = (Triple<?, ?, ?>) obj;
+        if (obj instanceof Triple<?, ?, ?> other) {
             return Objects.equals(getLeft(), other.getLeft())
                 && Objects.equals(getMiddle(), other.getMiddle())
                 && Objects.equals(getRight(), other.getRight());
@@ -196,7 +196,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @return the formatted string, not null.
      */
     public String toString(final String format) {
-        return String.format(format, getLeft(), getMiddle(), getRight());
+        return format.formatted(getLeft(), getMiddle(), getRight());
     }
 
 }

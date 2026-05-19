@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.builder;
 
+import java.io.Serial;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Constructs a new instance.

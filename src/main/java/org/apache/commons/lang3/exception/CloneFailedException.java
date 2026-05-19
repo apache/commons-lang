@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.exception;
 
+import java.io.Serial;
+
 /**
  * Exception thrown when a clone cannot be created. In contrast to
  * {@link CloneNotSupportedException} this is a {@link RuntimeException}.
@@ -24,7 +26,7 @@ package org.apache.commons.lang3.exception;
  */
 public class CloneFailedException extends RuntimeException {
 
-    private static final long serialVersionUID = 20091223L;
+    @Serial private static final long serialVersionUID = 20091223L;
 
     /**
      * Constructs a CloneFailedException.

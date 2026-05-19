@@ -49,7 +49,7 @@ class ClassLoaderUtilsTest extends AbstractLangTest {
         try (URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { url })) {
             @SuppressWarnings("resource")
             final ClassLoader classLoader = urlClassLoader;
-            assertEquals(String.format("%s[%s]", classLoader, url), ClassLoaderUtils.toString(classLoader));
+            assertEquals("%s[%s]".formatted(classLoader, url), ClassLoaderUtils.toString(classLoader));
         }
         assertEquals("null", ClassLoaderUtils.toString((ClassLoader) null));
     }
@@ -58,7 +58,7 @@ class ClassLoaderUtilsTest extends AbstractLangTest {
     void testToString_URLClassLoader() throws IOException {
         final URL url = new URL("http://localhost");
         try (URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { url })) {
-            assertEquals(String.format("%s[%s]", urlClassLoader, url), ClassLoaderUtils.toString(urlClassLoader));
+            assertEquals("%s[%s]".formatted(urlClassLoader, url), ClassLoaderUtils.toString(urlClassLoader));
         }
         assertEquals("null", ClassLoaderUtils.toString((URLClassLoader) null));
     }

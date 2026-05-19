@@ -441,7 +441,7 @@ public class MethodUtils {
                 bestCandidates.get(1).getDeclaringClass())) {
             return bestCandidates.get(0);
         }
-        throw new IllegalStateException(String.format("Found multiple candidates for method %s on class %s : %s",
+        throw new IllegalStateException("Found multiple candidates for method %s on class %s : %s".formatted(
                 methodName + Stream.of(parameterTypes).map(String::valueOf).collect(Collectors.joining(",", "(", ")")), cls.getName(),
                 bestCandidates.stream().map(Method::toString).collect(Collectors.joining(",", "[", "]"))));
     }
@@ -1046,7 +1046,7 @@ public class MethodUtils {
     private static Method requireNonNull(final Method method, final Class<?> cls, final String methodName, final Class<?>[] parameterTypes)
             throws NoSuchMethodException {
         if (method == null) {
-            throw new NoSuchMethodException(String.format("No method: %s.%s(%s)", ClassUtils.getName(cls), methodName,
+            throw new NoSuchMethodException("No method: %s.%s(%s)".formatted(ClassUtils.getName(cls), methodName,
                     Streams.of(parameterTypes).map(ClassUtils::getName).collect(LangCollectors.joining(", "))));
         }
         return method;

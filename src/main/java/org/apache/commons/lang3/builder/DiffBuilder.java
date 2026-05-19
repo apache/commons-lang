@@ -153,7 +153,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         }
 
         /**
-         * Sets the two-argument format string for {@link String#format(String, Object...)}, for example {@code "%s differs from %s"}.
+         * Sets the two-argument format string for {@link String#formatted(Object)}, for example {@code "%s differs from %s"}.
          *
          * @param toStringFormat {@code null} uses the default.
          * @return {@code this} instance.

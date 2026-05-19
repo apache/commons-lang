@@ -524,8 +524,8 @@ public class Functions {
     public static RuntimeException rethrow(final Throwable throwable) {
         Objects.requireNonNull(throwable, "throwable");
         ExceptionUtils.throwUnchecked(throwable);
-        if (throwable instanceof IOException) {
-            throw new UncheckedIOException((IOException) throwable);
+        if (throwable instanceof IOException exception) {
+            throw new UncheckedIOException(exception);
         }
         throw new UndeclaredThrowableException(throwable);
     }

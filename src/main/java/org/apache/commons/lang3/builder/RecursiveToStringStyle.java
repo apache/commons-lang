@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.builder;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -59,7 +60,7 @@ public class RecursiveToStringStyle extends ToStringStyle {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Constructs a new instance.

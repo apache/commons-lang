@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.exception;
 
+import java.io.Serial;
+
 /**
  * Abstracts the concept of wrapping a checked exception as unchecked.
  * <p>
@@ -26,7 +28,7 @@ package org.apache.commons.lang3.exception;
  */
 public class UncheckedException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Constructs an instance initialized to the given {@code cause}.

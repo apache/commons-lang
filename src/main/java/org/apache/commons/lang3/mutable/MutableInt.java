@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.io.Serial;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -24,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * This class was created before the introduction of the {@link java.util.concurrent.atomic} package and the {@link AtomicInteger} class.
  * </p>
  * <p>
- * Note that as MutableInt does not extend {@link Integer}, it is not treated by {@link String#format(String, Object...)} as an Integer parameter.
+ * Note that as MutableInt does not extend {@link Integer}, it is not treated by {@link String#formatted(Object)} as an Integer parameter.
  * </p>
  *
  * @see Integer
@@ -38,7 +39,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 512176391864L;
+    @Serial private static final long serialVersionUID = 512176391864L;
 
     /** The mutable value. */
     private int value;
@@ -179,8 +180,8 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof MutableInt) {
-            return value == ((MutableInt) obj).intValue();
+        if (obj instanceof MutableInt int1) {
+            return value == int1.intValue();
         }
         return false;
     }

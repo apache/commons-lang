@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import java.io.Serial;
+
 /**
  * Exception thrown when the Serialization process fails.
  *
@@ -32,7 +34,7 @@ public class SerializationException extends RuntimeException {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 4029025366392702726L;
+    @Serial private static final long serialVersionUID = 4029025366392702726L;
 
     /**
      * Constructs a new {@link SerializationException} without specified

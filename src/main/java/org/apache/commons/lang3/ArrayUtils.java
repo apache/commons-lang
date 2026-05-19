@@ -8988,11 +8988,9 @@ public class ArrayUtils {
         final Map<Object, Object> map = new HashMap<>((int) (array.length * 1.5));
         for (int i = 0; i < array.length; i++) {
             final Object object = array[i];
-            if (object instanceof Map.Entry<?, ?>) {
-                final Map.Entry<?, ?> entry = (Map.Entry<?, ?>) object;
+            if (object instanceof Map.Entry<?, ?> entry) {
                 map.put(entry.getKey(), entry.getValue());
-            } else if (object instanceof Object[]) {
-                final Object[] entry = (Object[]) object;
+            } else if (object instanceof Object[] entry) {
                 if (entry.length < 2) {
                     throw new IllegalArgumentException("Array element " + i + ", '"
                         + object

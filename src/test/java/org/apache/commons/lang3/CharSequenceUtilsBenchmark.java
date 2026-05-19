@@ -112,18 +112,18 @@ public class CharSequenceUtilsBenchmark {
         if (len == 0) {
             return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
-        if (source instanceof String) {
-            return ((String) source).toCharArray();
+        if (source instanceof String string) {
+            return string.toCharArray();
         }
         // NEW: Uses bulk getChars() for StringBuilder/StringBuffer
-        if (source instanceof StringBuilder) {
+        if (source instanceof StringBuilder builder) {
             final char[] array = new char[len];
-            ((StringBuilder) source).getChars(0, len, array, 0);
+            builder.getChars(0, len, array, 0);
             return array;
         }
-        if (source instanceof StringBuffer) {
+        if (source instanceof StringBuffer buffer) {
             final char[] array = new char[len];
-            ((StringBuffer) source).getChars(0, len, array, 0);
+            buffer.getChars(0, len, array, 0);
             return array;
         }
         final char[] array = new char[len];
@@ -141,8 +141,8 @@ public class CharSequenceUtilsBenchmark {
         if (len == 0) {
             return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
-        if (source instanceof String) {
-            return ((String) source).toCharArray();
+        if (source instanceof String string) {
+            return string.toCharArray();
         }
         // OLD: Always uses charAt() loop, even for StringBuilder/StringBuffer
         final char[] array = new char[len];

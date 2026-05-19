@@ -70,8 +70,8 @@ public class AnnotationUtils {
          */
         @Override
         protected void appendDetail(final StringBuffer buffer, final String fieldName, Object value) {
-            if (value instanceof Annotation) {
-                value = AnnotationUtils.toString((Annotation) value);
+            if (value instanceof Annotation annotation) {
+                value = AnnotationUtils.toString(annotation);
             }
             super.appendDetail(buffer, fieldName, value);
         }
@@ -244,7 +244,7 @@ public class AnnotationUtils {
             try {
                 final Object value = m.invoke(a);
                 if (value == null) {
-                    throw new IllegalStateException(String.format("Annotation method %s returned null", m));
+                    throw new IllegalStateException("Annotation method %s returned null".formatted(m));
                 }
                 result += hashMember(m.getName(), value);
             } catch (final ReflectiveOperationException ex) {
@@ -267,8 +267,8 @@ public class AnnotationUtils {
         if (ObjectUtils.isArray(value)) {
             return part1 ^ arrayMemberHash(value.getClass().getComponentType(), value);
         }
-        if (value instanceof Annotation) {
-            return part1 ^ hashCode((Annotation) value);
+        if (value instanceof Annotation annotation) {
+            return part1 ^ hashCode(annotation);
         }
         return part1 ^ value.hashCode();
     }

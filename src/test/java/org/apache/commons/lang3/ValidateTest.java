@@ -740,7 +740,7 @@ class ValidateTest extends AbstractLangTest {
             @Test
             void shouldThrowExceptionWithDoubleInsertedIntoTemplateMessageForFalseExpression() {
                 final IllegalArgumentException ex = assertIllegalArgumentException(
-                    () -> Validate.isTrue(false, () -> String.format("MSG %s %s", "Object 1", "Object 2")));
+                    () -> Validate.isTrue(false, () -> "MSG %s %s".formatted("Object 1", "Object 2")));
                 assertEquals("MSG Object 1 Object 2", ex.getMessage());
             }
         }

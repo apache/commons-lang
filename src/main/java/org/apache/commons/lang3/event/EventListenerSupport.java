@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -132,7 +133,7 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /** Serialization version */
-    private static final long serialVersionUID = 3593265990380473632L;
+    @Serial private static final long serialVersionUID = 3593265990380473632L;
 
     /**
      * Creates an EventListenerSupport object which supports the specified

@@ -509,11 +509,11 @@ public class ClassUtils {
         while (dim < len && className.charAt(dim) == '[') {
             dim++;
             if (dim > MAX_DIMENSIONS) {
-                throw new IllegalArgumentException(String.format("Maximum array dimension %d exceeded", MAX_DIMENSIONS));
+                throw new IllegalArgumentException("Maximum array dimension %d exceeded".formatted(MAX_DIMENSIONS));
             }
         }
         if (dim >= len) {
-            throw new IllegalArgumentException(String.format("Invalid class name %s", name));
+            throw new IllegalArgumentException("Invalid class name %s".formatted(name));
         }
         if (dim < 1) {
             return className;
@@ -521,17 +521,17 @@ public class ClassUtils {
         className = className.substring(dim);
         if (className.startsWith("L")) {
             if (!className.endsWith(";") || className.length() < 3) {
-                throw new IllegalArgumentException(String.format("Invalid class name %s", name));
+                throw new IllegalArgumentException("Invalid class name %s".formatted(name));
             }
             className = className.substring(1, className.length() - 1);
         } else if (className.length() == 1) {
             final String primitive = REVERSE_ABBREVIATION_MAP.get(className.substring(0, 1));
             if (primitive == null) {
-                throw new IllegalArgumentException(String.format("Invalid class name %s", name));
+                throw new IllegalArgumentException("Invalid class name %s".formatted(name));
             }
             className = primitive;
         } else {
-            throw new IllegalArgumentException(String.format("Invalid class name %s", name));
+            throw new IllegalArgumentException("Invalid class name %s".formatted(name));
         }
         final StringBuilder canonicalClassNameBuffer = new StringBuilder(className.length() + dim * 2);
         canonicalClassNameBuffer.append(className);
@@ -1625,7 +1625,7 @@ public class ClassUtils {
             }
             final int cnLen = canonicalName.length() - (arrIdx + 2); // account for the ending ';'
             if (cnLen > MAX_CLASS_NAME_LENGTH) {
-                throw new IllegalArgumentException(String.format("Class name greater than maxium length %,d", MAX_CLASS_NAME_LENGTH));
+                throw new IllegalArgumentException("Class name greater than maxium length %,d".formatted(MAX_CLASS_NAME_LENGTH));
             }
         }
         final String arrayMarker = "[]";
@@ -1633,7 +1633,7 @@ public class ClassUtils {
         // The class name length without array markers.
         final int cnLen = arrIdx > 0 ? arrIdx : canonicalName.length();
         if (cnLen > MAX_CLASS_NAME_LENGTH && !encodedName) {
-            throw new IllegalArgumentException(String.format("Class name greater than maxium length %,d", MAX_CLASS_NAME_LENGTH));
+            throw new IllegalArgumentException("Class name greater than maxium length %,d".formatted(MAX_CLASS_NAME_LENGTH));
         }
         if (canonicalName.endsWith(arrayMarker)) {
             final int dims =  (canonicalName.length() - arrIdx) / 2;

@@ -176,6 +176,6 @@ class DiffResultTest extends AbstractLangTest {
                 .build();
         // @formatter:on
 
-        assertEquals(String.format("%s differs from %s", lhsString, rhsString), result.toString(ToStringStyle.MULTI_LINE_STYLE));
+        assertEquals("%s differs from %s".formatted(lhsString, rhsString), result.toString(ToStringStyle.MULTI_LINE_STYLE));
     }
 }

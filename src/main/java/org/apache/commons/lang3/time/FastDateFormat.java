@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.time;
 
+import java.io.Serial;
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.Format;
@@ -82,7 +83,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 2L;
+    @Serial private static final long serialVersionUID = 2L;
 
     /**
      * FULL locale dependent date or time style.

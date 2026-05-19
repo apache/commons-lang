@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.io.Serial;
 import java.util.concurrent.atomic.DoubleAccumulator;
 import java.util.concurrent.atomic.DoubleAdder;
 
@@ -40,7 +41,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 5787169186L;
+    @Serial private static final long serialVersionUID = 5787169186L;
 
     /** The mutable value. */
     private float value;
@@ -202,8 +203,8 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      */
     @Override
     public boolean equals(final Object obj) {
-        return obj instanceof MutableFloat
-            && Float.floatToIntBits(((MutableFloat) obj).value) == Float.floatToIntBits(value);
+        return obj instanceof MutableFloat mf
+            && Float.floatToIntBits(mf.value) == Float.floatToIntBits(value);
     }
 
     /**

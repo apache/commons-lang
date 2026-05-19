@@ -54,7 +54,7 @@ class HashCodeBuilderCycleTest {
 
         @Override
         public boolean equals(final Object o) {
-            return o instanceof CyclicNode && label.equals(((CyclicNode) o).label);
+            return o instanceof CyclicNode cn && label.equals(cn.label);
         }
     }
 

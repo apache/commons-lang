@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import java.io.Serial;
+
 /**
  * An exception class used for reporting runtime error conditions related to
  * accessing data of background tasks.
@@ -36,7 +38,7 @@ public class ConcurrentRuntimeException extends RuntimeException {
     /**
      * The serial version UID.
      */
-    private static final long serialVersionUID = -6582182735562919670L;
+    @Serial private static final long serialVersionUID = -6582182735562919670L;
 
     /**
      * Creates a new, uninitialized instance of {@code

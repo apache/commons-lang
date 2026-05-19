@@ -110,6 +110,7 @@
     </site>
   </distributionManagement>
   <properties>
+  <javaVersion>17</javaVersion>
     <!-- TEMP HACK START -->
     <!-- Something is broken in 3.11.3 and 3.12.0 on Windows, see Maven user mailing list. -->
     <commons.javadoc.version>3.11.2</commons.javadoc.version>
@@ -123,8 +124,8 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
     <project.build.outputTimestamp>2025-11-16T12:58:18Z</project.build.outputTimestamp>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <!--
        This is also  used to generate download_xxx file name.
        To override this when generating the download page:

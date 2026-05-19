@@ -990,22 +990,22 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
         // switch on type of array, to dispatch to the correct handler
         // handles multidimensional arrays
         // throws a ClassCastException if rhs is not the correct array type
-        if (lhs instanceof long[]) {
-            append((long[]) lhs, (long[]) rhs);
-        } else if (lhs instanceof int[]) {
-            append((int[]) lhs, (int[]) rhs);
-        } else if (lhs instanceof short[]) {
-            append((short[]) lhs, (short[]) rhs);
-        } else if (lhs instanceof char[]) {
-            append((char[]) lhs, (char[]) rhs);
-        } else if (lhs instanceof byte[]) {
-            append((byte[]) lhs, (byte[]) rhs);
-        } else if (lhs instanceof double[]) {
-            append((double[]) lhs, (double[]) rhs);
-        } else if (lhs instanceof float[]) {
-            append((float[]) lhs, (float[]) rhs);
-        } else if (lhs instanceof boolean[]) {
-            append((boolean[]) lhs, (boolean[]) rhs);
+        if (lhs instanceof long[] longs) {
+            append(longs, (long[]) rhs);
+        } else if (lhs instanceof int[] ints) {
+            append(ints, (int[]) rhs);
+        } else if (lhs instanceof short[] shorts) {
+            append(shorts, (short[]) rhs);
+        } else if (lhs instanceof char[] chars) {
+            append(chars, (char[]) rhs);
+        } else if (lhs instanceof byte[] bytes) {
+            append(bytes, (byte[]) rhs);
+        } else if (lhs instanceof double[] doubles) {
+            append(doubles, (double[]) rhs);
+        } else if (lhs instanceof float[] floats) {
+            append(floats, (float[]) rhs);
+        } else if (lhs instanceof boolean[] booleans) {
+            append(booleans, (boolean[]) rhs);
         } else {
             // not an array of primitives
             // throws a ClassCastException if rhs is not an array

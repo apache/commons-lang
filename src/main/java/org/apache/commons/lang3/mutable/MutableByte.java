@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.io.Serial;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -38,7 +39,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = -1585823265L;
+    @Serial private static final long serialVersionUID = -1585823265L;
 
     /** The mutable value. */
     private byte value;
@@ -190,8 +191,8 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof MutableByte) {
-            return value == ((MutableByte) obj).byteValue();
+        if (obj instanceof MutableByte byte1) {
+            return value == byte1.byteValue();
         }
         return false;
     }

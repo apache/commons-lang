@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.compare;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -39,7 +40,7 @@ public final class ObjectToStringComparator implements Comparator<Object>, Seria
     /**
      * For {@link Serializable}.
      */
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Constructs a new instance.

@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3;
 
+import java.io.Serial;
+
 /**
  * Specializes {@link NumberRange} for {@link Double}s.
  *
@@ -28,7 +30,7 @@ package org.apache.commons.lang3;
  */
 public final class DoubleRange extends NumberRange<Double> {
 
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Creates a range with the specified minimum and maximum values (both inclusive).

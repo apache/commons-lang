@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import java.io.Serial;
 import java.util.Map;
 import java.util.Objects;
 
@@ -52,7 +53,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     private static final ImmutablePair NULL = new ImmutablePair<>(null, null);
 
     /** Serialization version */
-    private static final long serialVersionUID = 4954918890077093841L;
+    @Serial private static final long serialVersionUID = 4954918890077093841L;
 
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.

@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3;
 
+import java.io.Serial;
 import java.util.Comparator;
 
 /**
@@ -30,7 +31,7 @@ import java.util.Comparator;
  */
 public class NumberRange<N extends Number> extends Range<N> {
 
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Creates an instance.

@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import java.io.Serial;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -34,7 +35,7 @@ public class ConcurrentException extends Exception {
     /**
      * The serial version UID.
      */
-    private static final long serialVersionUID = 6622707671812226130L;
+    @Serial private static final long serialVersionUID = 6622707671812226130L;
 
     /**
      * Creates a new, uninitialized instance of {@link ConcurrentException}.

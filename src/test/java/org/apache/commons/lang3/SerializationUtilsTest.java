@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -47,7 +48,7 @@ import org.junit.jupiter.api.Test;
 
 final class ClassNotFoundSerialization implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     private void readObject(final ObjectInputStream in) throws ClassNotFoundException    {
         throw new ClassNotFoundException(SerializationUtilsTest.CLASS_NOT_FOUND_MESSAGE);

@@ -18,7 +18,6 @@ package org.apache.commons.lang3;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Helpers for {@link System}.
@@ -2171,7 +2170,7 @@ public class SystemUtils {
      * @since 3.18.0
      */
     public static Path getJavaHomePath() {
-        return Paths.get(SystemProperties.getJavaHome());
+        return Path.of(SystemProperties.getJavaHome());
     }
 
     /**
@@ -2195,7 +2194,7 @@ public class SystemUtils {
      * @since 3.18.0
      */
     public static Path getJavaIoTmpDirPath() {
-        return Paths.get(SystemProperties.getJavaIoTmpdir());
+        return Path.of(SystemProperties.getJavaIoTmpdir());
     }
 
     /**
@@ -2271,7 +2270,7 @@ public class SystemUtils {
      * @since 3.18.0
      */
     public static Path getUserDirPath() {
-        return Paths.get(SystemProperties.getUserDir());
+        return Path.of(SystemProperties.getUserDir());
     }
 
     /**
@@ -2301,7 +2300,7 @@ public class SystemUtils {
      * @since 3.18.0
      */
     public static Path getUserHomePath() {
-        return Paths.get(SystemProperties.getUserHome());
+        return Path.of(SystemProperties.getUserHome());
     }
 
     /**

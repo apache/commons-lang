@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import java.io.Serial;
 import java.util.Objects;
 
 /**
@@ -52,7 +53,7 @@ public class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     private static final ImmutableTriple NULL = new ImmutableTriple<>(null, null, null);
 
     /** Serialization version. */
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Gets the empty array singleton that can be assigned without compiler warning.

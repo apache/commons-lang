@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.mutable;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
@@ -38,7 +39,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 86241875189L;
+    @Serial private static final long serialVersionUID = 86241875189L;
 
     /** The mutable value. */
     private T value;

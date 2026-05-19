@@ -111,7 +111,7 @@ public class BasicThreadFactory implements ThreadFactory {
         /**
          * The naming pattern for newly created threads.
          * <p>
-         * The naming pattern is a {@link String#format(String, Object...) format string} that expects a single argument. This argument is the number of the
+         * The naming pattern is a {@link String#formatted(Object) format string} that expects a single argument. This argument is the number of the
          * thread to be created. For instance, if the naming pattern is {@code "MyThread-%d"}, the first thread created by this factory will be named
          * {@code "MyThread-1"}, the second one {@code "MyThread-2"} and so on.
          * </p>
@@ -175,7 +175,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * Sets the naming pattern to be used by the new {@code
          * BasicThreadFactory}.
          * <p>
-         * The naming pattern is a {@link String#format(String, Object...) format string} that expects a single argument. This argument is the number of the
+         * The naming pattern is a {@link String#formatted(Object) format string} that expects a single argument. This argument is the number of the
          * thread to be created. For instance, if the naming pattern is {@code "MyThread-%d"}, the first thread created by this factory will be named
          * {@code "MyThread-1"}, the second one {@code "MyThread-2"} and so on.
          * </p>
@@ -264,7 +264,7 @@ public class BasicThreadFactory implements ThreadFactory {
     /**
      * The naming pattern for newly created threads.
      * <p>
-     * The naming pattern is a {@link String#format(String, Object...) format string} that expects a single argument. This argument is the number of the thread
+     * The naming pattern is a {@link String#formatted(Object) format string} that expects a single argument. This argument is the number of the thread
      * to be created. For instance, if the naming pattern is {@code "MyThread-%d"}, the first thread created by this factory will be named {@code "MyThread-1"},
      * the second one {@code "MyThread-2"} and so on.
      * </p>
@@ -307,7 +307,7 @@ public class BasicThreadFactory implements ThreadFactory {
     /**
      * Gets the naming pattern for naming newly created threads. Result can be {@code null} if no naming pattern was provided.
      * <p>
-     * The naming pattern is a {@link String#format(String, Object...) format string} that expects a single argument. This argument is the number of the thread
+     * The naming pattern is a {@link String#formatted(Object) format string} that expects a single argument. This argument is the number of the thread
      * to be created. For instance, if the naming pattern is {@code "MyThread-%d"}, the first thread created by this factory will be named {@code "MyThread-1"},
      * the second one {@code "MyThread-2"} and so on.
      * </p>
@@ -372,7 +372,7 @@ public class BasicThreadFactory implements ThreadFactory {
     private void initializeThread(final Thread thread) {
         if (getNamingPattern() != null) {
             final Long count = Long.valueOf(threadCounter.incrementAndGet());
-            thread.setName(String.format(getNamingPattern(), count));
+            thread.setName(getNamingPattern().formatted(count));
         }
         if (getUncaughtExceptionHandler() != null) {
             thread.setUncaughtExceptionHandler(getUncaughtExceptionHandler());

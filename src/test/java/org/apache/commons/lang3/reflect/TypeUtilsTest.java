@@ -398,7 +398,7 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         // It should NOT be assignable to MyComparator<? super MyNonTransientException>
         // because Iterable<MyNonTransientException> is NOT a supertype of MyNonTransientException
         assertFalse(TypeUtils.isAssignable(from, to),
-                () -> String.format("Type %s should not be assignable to %s", TypeUtils.toString(from), TypeUtils.toString(to)));
+                () -> "Type %s should not be assignable to %s".formatted(TypeUtils.toString(from), TypeUtils.toString(to)));
     }
 
     @Test
@@ -823,9 +823,9 @@ class TypeUtilsTest<B> extends AbstractLangTest {
 
         final Type testType = Object.class;
         assertTrue(TypeUtils.isAssignable(paramType, testType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
+                () -> "TypeUtils.isAssignable(%s, %s)".formatted(paramType, testType));
         assertFalse(TypeUtils.isAssignable(testType, paramType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", testType, paramType));
+                () -> "TypeUtils.isAssignable(%s, %s)".formatted(testType, paramType));
     }
 
     @Test
@@ -842,9 +842,9 @@ class TypeUtilsTest<B> extends AbstractLangTest {
 
         final GenericArrayType testType = TypeUtils.genericArrayType(paramType);
         assertFalse(TypeUtils.isAssignable(paramType, testType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
+                () -> "TypeUtils.isAssignable(%s, %s)".formatted(paramType, testType));
         assertFalse(TypeUtils.isAssignable(testType, paramType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", testType, paramType));
+                () -> "TypeUtils.isAssignable(%s, %s)".formatted(testType, paramType));
     }
 
     @Test
@@ -864,9 +864,9 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         // TODO This test returns true unlike the test above.
         // Is this a bug in this test or in the main code?
         assertFalse(TypeUtils.isAssignable(paramType, testType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", paramType, testType));
+                () -> "TypeUtils.isAssignable(%s, %s)".formatted(paramType, testType));
         assertFalse(TypeUtils.isAssignable(testType, paramType),
-                () -> String.format("TypeUtils.isAssignable(%s, %s)", testType, paramType));
+                () -> "TypeUtils.isAssignable(%s, %s)".formatted(testType, paramType));
     }
 
     @Test
@@ -1058,13 +1058,13 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     @Test
     void testLowerBoundedWildcardType() {
        final WildcardType lowerBounded = TypeUtils.wildcardType().withLowerBounds(java.sql.Date.class).build();
-       assertEquals(String.format("? super %s", java.sql.Date.class.getName()), TypeUtils.toString(lowerBounded));
-       assertEquals(String.format("? super %s", java.sql.Date.class.getName()), lowerBounded.toString());
+       assertEquals("? super %s".formatted(java.sql.Date.class.getName()), TypeUtils.toString(lowerBounded));
+       assertEquals("? super %s".formatted(java.sql.Date.class.getName()), lowerBounded.toString());
 
        final TypeVariable<Class<Iterable>> iterableT0 = Iterable.class.getTypeParameters()[0];
        final WildcardType lowerTypeVariable = TypeUtils.wildcardType().withLowerBounds(iterableT0).build();
-       assertEquals(String.format("? super %s", iterableT0.getName()), TypeUtils.toString(lowerTypeVariable));
-       assertEquals(String.format("? super %s", iterableT0.getName()), lowerTypeVariable.toString());
+       assertEquals("? super %s".formatted(iterableT0.getName()), TypeUtils.toString(lowerTypeVariable));
+       assertEquals("? super %s".formatted(iterableT0.getName()), lowerTypeVariable.toString());
     }
 
     @Test
@@ -1231,8 +1231,8 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         final WildcardType simpleWildcard = TypeUtils.wildcardType().withUpperBounds(String.class).build();
         final Field cClass = AClass.class.getField("cClass");
         assertTrue(TypeUtils.equals(((ParameterizedType) cClass.getGenericType()).getActualTypeArguments()[0], simpleWildcard));
-        assertEquals(String.format("? extends %s", String.class.getName()), TypeUtils.toString(simpleWildcard));
-        assertEquals(String.format("? extends %s", String.class.getName()), simpleWildcard.toString());
+        assertEquals("? extends %s".formatted(String.class.getName()), TypeUtils.toString(simpleWildcard));
+        assertEquals("? extends %s".formatted(String.class.getName()), simpleWildcard.toString());
         assertNotEquals(0, simpleWildcard.hashCode());
         assertEquals(simpleWildcard, simpleWildcard);
         assertFalse(simpleWildcard.equals(null));

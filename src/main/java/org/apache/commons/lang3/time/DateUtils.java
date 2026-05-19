@@ -391,11 +391,11 @@ public class DateUtils {
      */
     public static Date ceiling(final Object date, final int field) {
         Objects.requireNonNull(date, "date");
-        if (date instanceof Date) {
-            return ceiling((Date) date, field);
+        if (date instanceof Date date1) {
+            return ceiling(date1, field);
         }
-        if (date instanceof Calendar) {
-            return ceiling((Calendar) date, field).getTime();
+        if (date instanceof Calendar calendar) {
+            return ceiling(calendar, field).getTime();
         }
         throw new ClassCastException("Could not find ceiling of for type: " + date.getClass());
     }
@@ -1088,11 +1088,11 @@ public class DateUtils {
      */
     public static Iterator<?> iterator(final Object calendar, final int rangeStyle) {
         Objects.requireNonNull(calendar, "calendar");
-        if (calendar instanceof Date) {
-            return iterator((Date) calendar, rangeStyle);
+        if (calendar instanceof Date date) {
+            return iterator(date, rangeStyle);
         }
-        if (calendar instanceof Calendar) {
-            return iterator((Calendar) calendar, rangeStyle);
+        if (calendar instanceof Calendar calendar1) {
+            return iterator(calendar1, rangeStyle);
         }
         throw new ClassCastException("Could not iterate based on " + calendar);
     }
@@ -1459,11 +1459,11 @@ public class DateUtils {
      */
     public static Date round(final Object date, final int field) {
         Objects.requireNonNull(date, "date");
-        if (date instanceof Date) {
-            return round((Date) date, field);
+        if (date instanceof Date date1) {
+            return round(date1, field);
         }
-        if (date instanceof Calendar) {
-            return round((Calendar) date, field).getTime();
+        if (date instanceof Calendar calendar) {
+            return round(calendar, field).getTime();
         }
         throw new ClassCastException("Could not round " + date);
     }
@@ -1759,11 +1759,11 @@ public class DateUtils {
      */
     public static Date truncate(final Object date, final int field) {
         Objects.requireNonNull(date, "date");
-        if (date instanceof Date) {
-            return truncate((Date) date, field);
+        if (date instanceof Date date1) {
+            return truncate(date1, field);
         }
-        if (date instanceof Calendar) {
-            return truncate((Calendar) date, field).getTime();
+        if (date instanceof Calendar calendar) {
+            return truncate(calendar, field).getTime();
         }
         throw new ClassCastException("Could not truncate " + date);
     }

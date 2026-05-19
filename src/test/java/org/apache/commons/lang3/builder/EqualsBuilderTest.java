@@ -51,11 +51,11 @@ class EqualsBuilderTest extends AbstractBuilderTest {
             if (o == this) {
                 return true;
             }
-            if (o instanceof TestACanEqualB) {
-                return this.a == ((TestACanEqualB) o).getA();
+            if (o instanceof TestACanEqualB equalB) {
+                return this.a == equalB.getA();
             }
-            if (o instanceof TestBCanEqualA) {
-                return this.a == ((TestBCanEqualA) o).getB();
+            if (o instanceof TestBCanEqualA equalA) {
+                return this.a == equalA.getB();
             }
             return false;
         }
@@ -95,11 +95,11 @@ class EqualsBuilderTest extends AbstractBuilderTest {
             if (o == this) {
                 return true;
             }
-            if (o instanceof TestACanEqualB) {
-                return this.b == ((TestACanEqualB) o).getA();
+            if (o instanceof TestACanEqualB equalB) {
+                return this.b == equalB.getA();
             }
-            if (o instanceof TestBCanEqualA) {
-                return this.b == ((TestBCanEqualA) o).getB();
+            if (o instanceof TestBCanEqualA equalA) {
+                return this.b == equalA.getB();
             }
             return false;
         }
@@ -1285,14 +1285,14 @@ class EqualsBuilderTest extends AbstractBuilderTest {
                 && EqualsBuilder.reflectionEquals(to, toTer, testTransients));
         // consistency test
         oToChange.setA(to.getA());
-        if (oToChange instanceof TestSubObject) {
-            ((TestSubObject) oToChange).setB(((TestSubObject) to).getB());
+        if (oToChange instanceof TestSubObject object) {
+            object.setB(((TestSubObject) to).getB());
         }
         assertTrue(EqualsBuilder.reflectionEquals(oToChange, to, testTransients));
         assertTrue(EqualsBuilder.reflectionEquals(oToChange, to, testTransients));
         oToChange.setA(to.getA() + 1);
-        if (oToChange instanceof TestSubObject) {
-            ((TestSubObject) oToChange).setB(((TestSubObject) to).getB() + 1);
+        if (oToChange instanceof TestSubObject object1) {
+            object1.setB(((TestSubObject) to).getB() + 1);
         }
         assertFalseIfAccessible(EqualsBuilder.reflectionEquals(oToChange, to, testTransients));
         assertFalseIfAccessible(EqualsBuilder.reflectionEquals(oToChange, to, testTransients));

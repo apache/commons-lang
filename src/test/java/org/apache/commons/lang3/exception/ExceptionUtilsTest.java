@@ -400,11 +400,13 @@ class ExceptionUtilsTest extends AbstractLangTest {
             // provide static stack trace to make test stable
             @Override
             public void printStackTrace(final PrintWriter s) {
-                s.write("org.apache.commons.lang3.exception.ExceptionUtilsTest$1\n" +
-                    "\tat org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)\n" +
-                    "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n" +
-                    "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)\n" +
-                    "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)\n");
+                s.write("""
+                    org.apache.commons.lang3.exception.ExceptionUtilsTest$1
+                    	at org.apache.commons.lang3.exception.ExceptionUtilsTest.testgetStackFramesGappyPath(ExceptionUtilsTest.java:706)
+                    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+                    	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)
+                    	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)
+                    """);
             }
         });
 

@@ -20,7 +20,7 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.Arrays;
 
 /**
@@ -31,7 +31,7 @@ import java.util.Arrays;
 public class RuntimeEnvironment {
 
     private static boolean fileExists(final String path) {
-        return Files.exists(Paths.get(path));
+        return Files.exists(Path.of(path));
     }
 
     /**
@@ -117,7 +117,7 @@ public class RuntimeEnvironment {
      */
     private static String readFile(final String envVarFile, final String key) {
         try {
-            final byte[] bytes = Files.readAllBytes(Paths.get(envVarFile));
+            final byte[] bytes = Files.readAllBytes(Path.of(envVarFile));
             final String content = new String(bytes, Charset.defaultCharset());
             // Split by null byte character
             final String[] lines = content.split(String.valueOf(CharUtils.NUL));

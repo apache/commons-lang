@@ -133,7 +133,7 @@ public class FormattableUtils {
      * @return the resulting string, not null.
      */
     public static String toString(final Formattable formattable) {
-        return String.format(SIMPLEST_FORMAT, formattable);
+        return SIMPLEST_FORMAT.formatted(formattable);
     }
 
     /**

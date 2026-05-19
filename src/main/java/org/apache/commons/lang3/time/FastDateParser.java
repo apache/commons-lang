@@ -18,6 +18,7 @@ package org.apache.commons.lang3.time;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -613,7 +614,7 @@ public class FastDateParser implements DateParser, Serializable {
                     if (tzInfo == null) {
                         // show chars in case this is multiple byte character issue
                         final char[] charArray = timeZone.toCharArray();
-                        throw new IllegalStateException(String.format("Can't find time zone '%s' (%d %s) in %s", timeZone, charArray.length,
+                        throw new IllegalStateException("Can't find time zone '%s' (%d %s) in %s".formatted(timeZone, charArray.length,
                                 Arrays.toString(charArray), new TreeSet<>(tzNames.keySet())));
                     }
                 }
@@ -639,7 +640,7 @@ public class FastDateParser implements DateParser, Serializable {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 3L;
+    @Serial private static final long serialVersionUID = 3L;
 
     static final Locale JAPANESE_IMPERIAL = new Locale("ja", "JP", "JP");
 
@@ -1027,9 +1028,9 @@ public class FastDateParser implements DateParser, Serializable {
         if (date == null) {
             // Add a note regarding supported date range
             final int errorIndex = pp.getErrorIndex();
-            final String msg = String.format("Unparseable date: '%s', parse position = %s", source, pp);
+            final String msg = "Unparseable date: '%s', parse position = %s".formatted(source, pp);
             if (locale.equals(JAPANESE_IMPERIAL)) {
-                throw new ParseException(String.format("; the %s locale does not support dates before 1868-01-01.", locale, msg), errorIndex);
+                throw new ParseException("; the %s locale does not support dates before 1868-01-01.".formatted(locale, msg), errorIndex);
             }
             throw new ParseException(msg, errorIndex);
         }

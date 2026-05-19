@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import java.io.Serial;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.lang3.exception.UncheckedException;
@@ -27,7 +28,7 @@ import org.apache.commons.lang3.exception.UncheckedException;
  */
 public class UncheckedExecutionException extends UncheckedException {
 
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Constructs an instance initialized to the given {@code cause}.

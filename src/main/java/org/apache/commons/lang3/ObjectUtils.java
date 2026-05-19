@@ -960,21 +960,21 @@ public class ObjectUtils {
         if (object == null) {
             return true;
         }
-        if (object instanceof CharSequence) {
-            return ((CharSequence) object).length() == 0;
+        if (object instanceof CharSequence sequence) {
+            return sequence.length() == 0;
         }
         if (isArray(object)) {
             return Array.getLength(object) == 0;
         }
-        if (object instanceof Collection<?>) {
-            return ((Collection<?>) object).isEmpty();
+        if (object instanceof Collection<?> collection) {
+            return collection.isEmpty();
         }
-        if (object instanceof Map<?, ?>) {
-            return ((Map<?, ?>) object).isEmpty();
+        if (object instanceof Map<?, ?> map) {
+            return map.isEmpty();
         }
-        if (object instanceof Optional<?>) {
+        if (object instanceof Optional<?> optional) {
             // TODO Java 11 Use Optional#isEmpty()
-            return !((Optional<?>) object).isPresent();
+            return optional.isEmpty();
         }
         return false;
     }

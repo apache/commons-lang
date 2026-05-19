@@ -18,6 +18,7 @@ package org.apache.commons.lang3.text;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Serial;
 import java.io.Serializable;
 import java.io.Writer;
 import java.nio.CharBuffer;
@@ -271,7 +272,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 7628716375283629643L;
+    @Serial private static final long serialVersionUID = 7628716375283629643L;
 
     /** Internal data storage. */
     protected char[] buffer; // TODO make private?
@@ -477,17 +478,17 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (seq == null) {
             return appendNull();
         }
-        if (seq instanceof StrBuilder) {
-            return append((StrBuilder) seq);
+        if (seq instanceof StrBuilder builder) {
+            return append(builder);
         }
-        if (seq instanceof StringBuilder) {
-            return append((StringBuilder) seq);
+        if (seq instanceof StringBuilder builder1) {
+            return append(builder1);
         }
-        if (seq instanceof StringBuffer) {
-            return append((StringBuffer) seq);
+        if (seq instanceof StringBuffer stringBuffer) {
+            return append(stringBuffer);
         }
-        if (seq instanceof CharBuffer) {
-            return append((CharBuffer) seq);
+        if (seq instanceof CharBuffer charBuffer) {
+            return append(charBuffer);
         }
         return append(seq.toString());
     }
@@ -561,8 +562,8 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (obj == null) {
             return appendNull();
         }
-        if (obj instanceof CharSequence) {
-            return append((CharSequence) obj);
+        if (obj instanceof CharSequence sequence) {
+            return append(sequence);
         }
         return append(obj.toString());
     }
@@ -666,16 +667,16 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Calls {@link String#format(String, Object...)} and appends the result.
+     * Calls {@link String#formatted(Object)} and appends the result.
      *
      * @param format the format string
      * @param objs the objects to use in the format string
      * @return {@code this} to enable chaining
-     * @see String#format(String, Object...)
+     * @see String#formatted(Object)
      * @since 3.2
      */
     public StrBuilder append(final String format, final Object... objs) {
-        return append(String.format(format, objs));
+        return append(format.formatted(objs));
     }
 
     /**
@@ -1083,12 +1084,12 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Calls {@link String#format(String, Object...)} and appends the result.
+     * Calls {@link String#formatted(Object)} and appends the result.
      *
      * @param format the format string
      * @param objs the objects to use in the format string
      * @return {@code this} to enable chaining
-     * @see String#format(String, Object...)
+     * @see String#formatted(Object)
      * @since 3.2
      */
     public StrBuilder appendln(final String format, final Object... objs) {
@@ -1387,14 +1388,14 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @see #readFrom(Readable)
      */
     public void appendTo(final Appendable appendable) throws IOException {
-        if (appendable instanceof Writer) {
-            ((Writer) appendable).write(buffer, 0, size);
-        } else if (appendable instanceof StringBuilder) {
-            ((StringBuilder) appendable).append(buffer, 0, size);
-        } else if (appendable instanceof StringBuffer) {
-            ((StringBuffer) appendable).append(buffer, 0, size);
-        } else if (appendable instanceof CharBuffer) {
-            ((CharBuffer) appendable).put(buffer, 0, size);
+        if (appendable instanceof Writer writer) {
+            writer.write(buffer, 0, size);
+        } else if (appendable instanceof StringBuilder builder) {
+            builder.append(buffer, 0, size);
+        } else if (appendable instanceof StringBuffer stringBuffer) {
+            stringBuffer.append(buffer, 0, size);
+        } else if (appendable instanceof CharBuffer charBuffer) {
+            charBuffer.put(buffer, 0, size);
         } else {
             appendable.append(this);
         }
@@ -1864,7 +1865,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     @Override
     public boolean equals(final Object obj) {
-        return obj instanceof StrBuilder && equals((StrBuilder) obj);
+        return obj instanceof StrBuilder sb && equals(sb);
     }
 
     /**
@@ -2501,16 +2502,14 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public int readFrom(final Readable readable) throws IOException {
         final int oldSize = size;
-        if (readable instanceof Reader) {
-            final Reader r = (Reader) readable;
+        if (readable instanceof Reader r) {
             ensureCapacity(size + 1);
             int read;
             while ((read = r.read(buffer, size, buffer.length - size)) != -1) {
                 size += read;
                 ensureCapacity(size + 1);
             }
-        } else if (readable instanceof CharBuffer) {
-            final CharBuffer cb = (CharBuffer) readable;
+        } else if (readable instanceof CharBuffer cb) {
             final int remaining = cb.remaining();
             ensureCapacity(size + remaining);
             cb.get(buffer, size, remaining);

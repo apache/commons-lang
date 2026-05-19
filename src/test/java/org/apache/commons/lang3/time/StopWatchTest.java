@@ -499,11 +499,11 @@ class StopWatchTest extends AbstractLangTest {
         final long stopTimeMillis = watch.getStopTime();
         final Instant stopInstant = watch.getStopInstant();
 
-        assertTrue(testStartMillis <= stopTimeMillis, () -> String.format("testStartMillis %s <= stopTimeMillis %s", testStartMillis, stopTimeMillis));
-        assertTrue(testStartInstant.isBefore(stopInstant), () -> String.format("testStartInstant %s < stopInstant %s", testStartInstant, stopInstant));
-        assertTrue(testSuspendMillis <= stopTimeMillis, () -> String.format("testSuspendMillis %s <= stopTimeMillis %s", testSuspendMillis, stopTimeMillis));
+        assertTrue(testStartMillis <= stopTimeMillis, () -> "testStartMillis %s <= stopTimeMillis %s".formatted(testStartMillis, stopTimeMillis));
+        assertTrue(testStartInstant.isBefore(stopInstant), () -> "testStartInstant %s < stopInstant %s".formatted(testStartInstant, stopInstant));
+        assertTrue(testSuspendMillis <= stopTimeMillis, () -> "testSuspendMillis %s <= stopTimeMillis %s".formatted(testSuspendMillis, stopTimeMillis));
         assertTrue(testSuspendMillis <= stopInstant.toEpochMilli(),
-                () -> String.format("testSuspendMillis %s <= stopInstant %s", testSuspendMillis, stopInstant));
+                () -> "testSuspendMillis %s <= stopInstant %s".formatted(testSuspendMillis, stopInstant));
 
         sleepPlus1(sleepDuration);
         watch.resume();
@@ -512,25 +512,25 @@ class StopWatchTest extends AbstractLangTest {
         final long totalTimeFromNanos = watch.getTime();
         final Duration totalDuration = watch.getDuration();
 
-        assertTrue(suspendTimeFromNanos >= sleepMillis, () -> String.format("suspendTimeFromNanos %s >= sleepMillis %s", suspendTimeFromNanos, sleepMillis));
+        assertTrue(suspendTimeFromNanos >= sleepMillis, () -> "suspendTimeFromNanos %s >= sleepMillis %s".formatted(suspendTimeFromNanos, sleepMillis));
         assertTrue(suspendDuration.compareTo(Duration.ofMillis(sleepMillis)) >= 0,
-                () -> String.format("suspendDuration %s >= sleepMillis %s", suspendDuration, sleepMillis));
+                () -> "suspendDuration %s >= sleepMillis %s".formatted(suspendDuration, sleepMillis));
         assertTrue(suspendTimeFromNanos <= testSuspendTimeNanos,
-                () -> String.format("suspendTimeFromNanos %s <= testSuspendTimeNanos %s", suspendTimeFromNanos, testSuspendTimeNanos));
+                () -> "suspendTimeFromNanos %s <= testSuspendTimeNanos %s".formatted(suspendTimeFromNanos, testSuspendTimeNanos));
         assertTrue(suspendDuration.compareTo(testSuspendDuration) <= 0,
-                () -> String.format("suspendDuration %s <= testSuspendDuration %s", suspendDuration, testSuspendDuration));
+                () -> "suspendDuration %s <= testSuspendDuration %s".formatted(suspendDuration, testSuspendDuration));
 
         final long sleepMillisX2 = sleepMillis + sleepMillis;
-        assertTrue(totalTimeFromNanos >= sleepMillisX2, () -> String.format("totalTimeFromNanos %s >= sleepMillisX2 %s", totalTimeFromNanos, sleepMillisX2));
+        assertTrue(totalTimeFromNanos >= sleepMillisX2, () -> "totalTimeFromNanos %s >= sleepMillisX2 %s".formatted(totalTimeFromNanos, sleepMillisX2));
         assertTrue(totalDuration.compareTo(Duration.ofMillis(sleepMillisX2)) >= 0,
-                () -> String.format("totalDuration >= sleepMillisX2", totalDuration, sleepMillisX2));
+                () -> "totalDuration >= sleepMillisX2".formatted(totalDuration, sleepMillisX2));
 
         // Be lenient for slow running builds
         final long testTooLongMillis = sleepMillis * 100;
         assertTrue(totalTimeFromNanos < testTooLongMillis,
-                () -> String.format("totalTimeFromNanos %s < testTooLongMillis %s", totalTimeFromNanos, testTooLongMillis));
+                () -> "totalTimeFromNanos %s < testTooLongMillis %s".formatted(totalTimeFromNanos, testTooLongMillis));
         assertTrue(totalDuration.compareTo(Duration.ofMillis(testTooLongMillis)) < 0,
-                () -> String.format("totalDuration %s < testTooLongMillis %s", totalDuration, testTooLongMillis));
+                () -> "totalDuration %s < testTooLongMillis %s".formatted(totalDuration, testTooLongMillis));
 
     }
 

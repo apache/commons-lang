@@ -258,7 +258,7 @@ public class RandomStringUtils {
             return StringUtils.EMPTY;
         }
         if (count < 0) {
-            throw new IllegalArgumentException(String.format("Requested random string length %,d is less than 0.", end));
+            throw new IllegalArgumentException("Requested random string length %,d is less than 0.".formatted(end));
         }
         if (chars != null && chars.length == 0) {
             throw new IllegalArgumentException("The chars array must not be empty");
@@ -273,7 +273,7 @@ public class RandomStringUtils {
                 start = ' ';
             }
         } else if (end <= start) {
-            throw new IllegalArgumentException(String.format("Parameter end (%,d) must be greater than start (%,d)", end, start));
+            throw new IllegalArgumentException("Parameter end (%,d) must be greater than start (%,d)".formatted(end, start));
         } else if (start < 0 || end < 0) {
             throw new IllegalArgumentException("Character positions MUST be >= 0");
         }
@@ -294,7 +294,7 @@ public class RandomStringUtils {
             }
             if (digits && end <= ASCII_0 || letters && end <= ASCII_A) {
                 throw new IllegalArgumentException(
-                        String.format("Parameter end (%,d) must be greater than (%,d) for generating digits or greater than (%,d) for generating letters.", end,
+                        "Parameter end (%,d) must be greater than (%,d) for generating digits or greater than (%,d) for generating letters.".formatted(end,
                                 ASCII_0, ASCII_A));
             }
             // Optimize start and end when filtering by letters and/or numbers:
@@ -330,7 +330,7 @@ public class RandomStringUtils {
                     }
                 }
                 if (!ok) {
-                    throw new IllegalArgumentException(String.format("No letters exist between start %,d and end %,d.", start, end));
+                    throw new IllegalArgumentException("No letters exist between start %,d and end %,d.".formatted(start, end));
                 }
             }
             if (!letters && digits) {
@@ -342,7 +342,7 @@ public class RandomStringUtils {
                     }
                 }
                 if (!ok) {
-                    throw new IllegalArgumentException(String.format("No digits exist between start %,d and end %,d.", start, end));
+                    throw new IllegalArgumentException("No digits exist between start %,d and end %,d.".formatted(start, end));
                 }
             }
         } else if (letters || digits) {
@@ -359,7 +359,7 @@ public class RandomStringUtils {
                 }
             }
             if (!hasMatch) {
-                throw new IllegalArgumentException(String.format("No %s%s%s exist in chars[%,d..%,d).", letters ? "letters" : "",
+                throw new IllegalArgumentException("No %s%s%s exist in chars[%,d..%,d).".formatted(letters ? "letters" : "",
                         letters && digits ? " or " : "", digits ? "digits" : "", start, end));
             }
         }
@@ -396,7 +396,7 @@ public class RandomStringUtils {
                 count++;
                 if (++rejections > maxRejections) {
                     throw new IllegalArgumentException(
-                            String.format("No acceptable code points found in range [%,d, %,d) within %,d attempts.", start, end, maxRejections));
+                            "No acceptable code points found in range [%,d, %,d) within %,d attempts.".formatted(start, end, maxRejections));
                 }
                 continue;
             }
@@ -410,7 +410,7 @@ public class RandomStringUtils {
                     count++;
                     if (++rejections > maxRejections) {
                         throw new IllegalArgumentException(
-                                String.format("No acceptable code points found in range [%,d, %,d) within %,d attempts.", start, end, maxRejections));
+                                "No acceptable code points found in range [%,d, %,d) within %,d attempts.".formatted(start, end, maxRejections));
                     }
                     continue;
                 }
@@ -422,7 +422,7 @@ public class RandomStringUtils {
                 count++;
                 if (++rejections > maxRejections) {
                     throw new IllegalArgumentException(
-                            String.format("No acceptable code points found in range [%,d, %,d) within %,d attempts.", start, end, maxRejections));
+                            "No acceptable code points found in range [%,d, %,d) within %,d attempts.".formatted(start, end, maxRejections));
                 }
                 continue;
             }
@@ -436,7 +436,7 @@ public class RandomStringUtils {
                 count++;
                 if (++rejections > maxRejections) {
                     throw new IllegalArgumentException(
-                            String.format("No acceptable code points found in range [%,d, %,d) within %,d attempts.", start, end, maxRejections));
+                            "No acceptable code points found in range [%,d, %,d) within %,d attempts.".formatted(start, end, maxRejections));
                 }
             }
         }

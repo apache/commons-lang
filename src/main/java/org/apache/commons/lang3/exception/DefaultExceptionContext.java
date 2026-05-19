@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.exception;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ import org.apache.commons.lang3.tuple.Pair;
 public class DefaultExceptionContext implements ExceptionContext, Serializable {
 
     /** The serialization version. */
-    private static final long serialVersionUID = 20110706L;
+    @Serial private static final long serialVersionUID = 20110706L;
 
     /** The list storing the label-data pairs. */
     private final List<Pair<String, Object>> contextValues = new ArrayList<>();

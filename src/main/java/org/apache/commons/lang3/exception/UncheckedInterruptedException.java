@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3.exception;
 
+import java.io.Serial;
+
 /**
  * Unchecked {@link InterruptedException}.
  *
@@ -23,7 +25,7 @@ package org.apache.commons.lang3.exception;
  */
 public class UncheckedInterruptedException extends UncheckedException {
 
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Constructs an instance initialized to the given {@code cause}.

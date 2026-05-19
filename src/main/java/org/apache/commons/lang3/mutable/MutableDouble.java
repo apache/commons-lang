@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.mutable;
 
+import java.io.Serial;
 import java.util.concurrent.atomic.DoubleAccumulator;
 import java.util.concurrent.atomic.DoubleAdder;
 
@@ -40,7 +41,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 1587163916L;
+    @Serial private static final long serialVersionUID = 1587163916L;
 
     /** The mutable value. */
     private double value;
@@ -198,8 +199,8 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      */
     @Override
     public boolean equals(final Object obj) {
-        return obj instanceof MutableDouble
-            && Double.doubleToLongBits(((MutableDouble) obj).value) == Double.doubleToLongBits(value);
+        return obj instanceof MutableDouble md
+            && Double.doubleToLongBits(md.value) == Double.doubleToLongBits(value);
     }
 
     /**

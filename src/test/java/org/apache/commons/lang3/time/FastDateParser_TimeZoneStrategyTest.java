@@ -200,7 +200,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
                         continue;
                     }
                     // Hack End
-                    fail(String.format("%s: with locale = %s, zIndex = %,d, tzDisplay = '%s', parser = '%s'", e,
+                    fail("%s: with locale = %s, zIndex = %,d, tzDisplay = '%s', parser = '%s'".formatted(e,
                             localeStr, zIndex, tzDisplay, parser), e);
                 }
             }
@@ -225,7 +225,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
             } catch (final ParseException e) {
                 // Missing "Zulu" or something else in broken JDK's GH builds?
                 // Call LocaleUtils again
-                fail(String.format("%s: with id = '%s', displayName = '%s', %s, parser = '%s'", e, id, displayName,
+                fail("%s: with id = '%s', displayName = '%s', %s, parser = '%s'".formatted(e, id, displayName,
                         toFailureMessage(locale, null, timeZone), parser.toStringAll()), e);
             }
         }
@@ -289,7 +289,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     }
 
     private String toFailureMessage(final Locale locale, final String languageTag, final TimeZone timeZone) {
-        return String.format("locale = %s, languageTag = '%s', isAvailableLocale = %s, isLanguageUndetermined = %s, timeZone = %s", languageTag, locale,
+        return "locale = %s, languageTag = '%s', isAvailableLocale = %s, isLanguageUndetermined = %s, timeZone = %s".formatted(languageTag, locale,
                 LocaleUtils.isAvailableLocale(locale), LocaleUtils.isLanguageUndetermined(locale), TimeZones.toTimeZone(timeZone));
     }
 }

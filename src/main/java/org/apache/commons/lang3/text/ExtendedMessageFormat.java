@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.text;
 
+import java.io.Serial;
 import java.text.Format;
 import java.text.MessageFormat;
 import java.text.ParsePosition;
@@ -77,7 +78,7 @@ import org.apache.commons.lang3.Validate;
 @Deprecated
 public class ExtendedMessageFormat extends MessageFormat {
 
-    private static final long serialVersionUID = -2362048321261811743L;
+    @Serial private static final long serialVersionUID = -2362048321261811743L;
     private static final String EMPTY_PATTERN = StringUtils.EMPTY;
     private static final char START_FMT = ',';
     private static final char END_FE = '}';

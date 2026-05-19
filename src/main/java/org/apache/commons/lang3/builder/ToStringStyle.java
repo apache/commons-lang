@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.builder;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
@@ -83,7 +84,7 @@ public abstract class ToStringStyle implements Serializable {
          *
          * @see Serializable
          */
-        private static final long serialVersionUID = 1L;
+        @Serial private static final long serialVersionUID = 1L;
 
         /**
          * Constructs a new instance.
@@ -117,7 +118,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     private static final class JsonToStringStyle extends ToStringStyle {
 
-        private static final long serialVersionUID = 1L;
+        @Serial private static final long serialVersionUID = 1L;
         private static final String FIELD_NAME_QUOTE = "\"";
 
         /**
@@ -332,7 +333,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     private static final class MultiLineToStringStyle extends ToStringStyle {
 
-        private static final long serialVersionUID = 1L;
+        @Serial private static final long serialVersionUID = 1L;
 
         /**
          * Constructs a new instance.
@@ -367,7 +368,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     private static final class NoClassNameToStringStyle extends ToStringStyle {
 
-        private static final long serialVersionUID = 1L;
+        @Serial private static final long serialVersionUID = 1L;
 
         /**
          * Constructs a new instance.
@@ -400,7 +401,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     private static final class NoFieldNameToStringStyle extends ToStringStyle {
 
-        private static final long serialVersionUID = 1L;
+        @Serial private static final long serialVersionUID = 1L;
 
         /**
          * Constructs a new instance.
@@ -432,7 +433,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     private static final class ShortPrefixToStringStyle extends ToStringStyle {
 
-        private static final long serialVersionUID = 1L;
+        @Serial private static final long serialVersionUID = 1L;
 
         /**
          * Constructs a new instance.
@@ -465,7 +466,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     private static final class SimpleToStringStyle extends ToStringStyle {
 
-        private static final long serialVersionUID = 1L;
+        @Serial private static final long serialVersionUID = 1L;
 
         /**
          * Constructs a new instance.
@@ -495,7 +496,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Serialization version ID.
      */
-    private static final long serialVersionUID = -2587890625525655916L;
+    @Serial private static final long serialVersionUID = -2587890625525655916L;
 
     /**
      * The default toString style. Using the {@code Person} example from {@link ToStringBuilder}, the output would look like this:
@@ -1511,65 +1512,65 @@ public abstract class ToStringStyle implements Serializable {
         }
         register(value);
         try {
-            if (value instanceof Collection<?>) {
+            if (value instanceof Collection<?> collection) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (Collection<?>) value);
+                    appendDetail(buffer, fieldName, collection);
                 } else {
-                    appendSummarySize(buffer, fieldName, ((Collection<?>) value).size());
+                    appendSummarySize(buffer, fieldName, collection.size());
                 }
-            } else if (value instanceof Map<?, ?>) {
+            } else if (value instanceof Map<?, ?> map) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (Map<?, ?>) value);
+                    appendDetail(buffer, fieldName, map);
                 } else {
-                    appendSummarySize(buffer, fieldName, ((Map<?, ?>) value).size());
+                    appendSummarySize(buffer, fieldName, map.size());
                 }
-            } else if (value instanceof long[]) {
+            } else if (value instanceof long[] longs) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (long[]) value);
+                    appendDetail(buffer, fieldName, longs);
                 } else {
-                    appendSummary(buffer, fieldName, (long[]) value);
+                    appendSummary(buffer, fieldName, longs);
                 }
-            } else if (value instanceof int[]) {
+            } else if (value instanceof int[] ints) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (int[]) value);
+                    appendDetail(buffer, fieldName, ints);
                 } else {
-                    appendSummary(buffer, fieldName, (int[]) value);
+                    appendSummary(buffer, fieldName, ints);
                 }
-            } else if (value instanceof short[]) {
+            } else if (value instanceof short[] shorts) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (short[]) value);
+                    appendDetail(buffer, fieldName, shorts);
                 } else {
-                    appendSummary(buffer, fieldName, (short[]) value);
+                    appendSummary(buffer, fieldName, shorts);
                 }
-            } else if (value instanceof byte[]) {
+            } else if (value instanceof byte[] bytes) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (byte[]) value);
+                    appendDetail(buffer, fieldName, bytes);
                 } else {
-                    appendSummary(buffer, fieldName, (byte[]) value);
+                    appendSummary(buffer, fieldName, bytes);
                 }
-            } else if (value instanceof char[]) {
+            } else if (value instanceof char[] chars) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (char[]) value);
+                    appendDetail(buffer, fieldName, chars);
                 } else {
-                    appendSummary(buffer, fieldName, (char[]) value);
+                    appendSummary(buffer, fieldName, chars);
                 }
-            } else if (value instanceof double[]) {
+            } else if (value instanceof double[] doubles) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (double[]) value);
+                    appendDetail(buffer, fieldName, doubles);
                 } else {
-                    appendSummary(buffer, fieldName, (double[]) value);
+                    appendSummary(buffer, fieldName, doubles);
                 }
-            } else if (value instanceof float[]) {
+            } else if (value instanceof float[] floats) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (float[]) value);
+                    appendDetail(buffer, fieldName, floats);
                 } else {
-                    appendSummary(buffer, fieldName, (float[]) value);
+                    appendSummary(buffer, fieldName, floats);
                 }
-            } else if (value instanceof boolean[]) {
+            } else if (value instanceof boolean[] booleans) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (boolean[]) value);
+                    appendDetail(buffer, fieldName, booleans);
                 } else {
-                    appendSummary(buffer, fieldName, (boolean[]) value);
+                    appendSummary(buffer, fieldName, booleans);
                 }
             } else if (ObjectUtils.isArray(value)) {
                 if (detail) {

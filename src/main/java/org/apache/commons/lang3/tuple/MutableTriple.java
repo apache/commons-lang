@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.tuple;
 
+import java.io.Serial;
 import java.util.Objects;
 
 /**
@@ -41,7 +42,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     public static final MutableTriple<?, ?, ?>[] EMPTY_ARRAY = {};
 
     /** Serialization version */
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.

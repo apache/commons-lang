@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.builder;
 
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.util.Objects;
 
@@ -35,7 +36,7 @@ import org.apache.commons.lang3.tuple.Pair;
  */
 public abstract class Diff<T> extends Pair<T, T> {
 
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /** The field type. */
     private final Type type;
@@ -103,6 +104,6 @@ public abstract class Diff<T> extends Pair<T, T> {
      */
     @Override
     public final String toString() {
-        return String.format("[%s: %s, %s]", fieldName, getLeft(), getRight());
+        return "[%s: %s, %s]".formatted(fieldName, getLeft(), getRight());
     }
 }

@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class CharSet implements Serializable {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 5947847346149275958L;
+    @Serial private static final long serialVersionUID = 5947847346149275958L;
 
     /**
      * A CharSet defining no characters.

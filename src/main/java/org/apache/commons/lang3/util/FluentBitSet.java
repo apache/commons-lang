@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.BitSet;
 import java.util.Objects;
@@ -31,7 +32,7 @@ import java.util.stream.IntStream;
  */
 public final class FluentBitSet implements Cloneable, Serializable {
 
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /**
      * Working BitSet.

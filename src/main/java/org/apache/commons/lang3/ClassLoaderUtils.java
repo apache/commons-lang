@@ -52,7 +52,7 @@ public class ClassLoaderUtils {
     }
 
     private static URL[] getURLs(final ClassLoader cl) {
-        return cl instanceof URLClassLoader ? ((URLClassLoader) cl).getURLs() : EMPTY_URL_ARRAY;
+        return cl instanceof URLClassLoader urlcl ? urlcl.getURLs() : EMPTY_URL_ARRAY;
     }
 
     /**
@@ -62,8 +62,8 @@ public class ClassLoaderUtils {
      * @return the formatted string.
      */
     public static String toString(final ClassLoader classLoader) {
-        if (classLoader instanceof URLClassLoader) {
-            return toString((URLClassLoader) classLoader);
+        if (classLoader instanceof URLClassLoader loader) {
+            return toString(loader);
         }
         return Objects.toString(classLoader);
     }
