@@ -161,6 +161,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">DurationUtils.toMillisInt() throws ArithmeticException on long overflows before clamping (#1657).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">FastDatePrinter WeekYear rule calls Calendar.getWeekYear() may throw UnsupportedOperationException (#1659).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">DateUtils.parseDateWithLeniency() doesn't reset its time zone (#1660).</action>
+    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">FormattableUtils.append re-parses literal output as format string (#1661).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
