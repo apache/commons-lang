@@ -1027,18 +1027,25 @@ public class ClassUtils {
             dim++;
             c = c.getComponentType();
         }
-        final String base;
-        // Preserve legacy behavior for anonymous/local classes (keeps compiler ordinals: $13, $10Named, etc.)
-        if (c.isAnonymousClass() || c.isLocalClass()) {
-            base = getShortClassName(c.getName());
-        } else {
-            final Deque<String> parts = new ArrayDeque<>();
-            Class<?> x = c;
-            while (x != null) {
-                parts.push(x.getSimpleName());
-                x = x.getDeclaringClass();
+        String base;
+        // c.isAnonymousClass() / isLocalClass() and the getDeclaringClass() chain
+        // can both throw NoClassDefFoundError when the enclosing class is
+        // missing from the classpath, so the try/catch wraps the whole block.
+        try {
+            // Preserve legacy behavior for anonymous/local classes (keeps compiler ordinals: $13, $10Named, etc.)
+            if (c.isAnonymousClass() || c.isLocalClass()) {
+                base = getShortClassName(c.getName());
+            } else {
+                final Deque<String> parts = new ArrayDeque<>();
+                Class<?> x = c;
+                while (x != null) {
+                    parts.push(x.getSimpleName());
+                    x = x.getDeclaringClass();
+                }
+                base = String.join(".", parts);
             }
-            base = String.join(".", parts);
+        } catch (final NoClassDefFoundError ignored) {
+            base = getShortClassName(c.getName());
         }
         return base + StringUtils.repeat("[]", dim);
     }
