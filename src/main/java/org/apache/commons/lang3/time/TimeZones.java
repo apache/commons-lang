@@ -27,7 +27,7 @@ import org.apache.commons.lang3.SystemProperties;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
- * Helps dealing with {@link java.util.TimeZone}s.
+ * Helps work with {@link java.util.TimeZone}s.
  *
  * @since 3.7
  */
@@ -43,7 +43,7 @@ public class TimeZones {
      *
      * @since 3.13.0
      */
-    public static final TimeZone GMT = TimeZones.getTimeZone(GMT_ID);
+    public static final TimeZone GMT = new ImmutableTimeZone(TimeZones.getTimeZone(GMT_ID));
 
     private static final boolean JAVA_25 = SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25);
 
