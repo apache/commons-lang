@@ -36,5 +36,11 @@ class TimeZonesTest extends AbstractLangTest {
         assertEquals(TimeZone.getDefault(), TimeZones.toTimeZone(null));
         assertEquals(TimeZone.getDefault(), TimeZones.toTimeZone(TimeZone.getDefault()));
         assertEquals(TimeZones.GMT, TimeZones.toTimeZone(TimeZones.GMT));
+        final TimeZone timeZone = TimeZones.toTimeZone(TimeZones.GMT);
+        assertEquals(TimeZones.GMT.getID(), timeZone.getID());
+        assertEquals(TimeZones.GMT.toString(), timeZone.toString());
+        final TimeZone unwrap = ((ImmutableTimeZone) TimeZones.GMT).unwrap();
+        assertEquals(unwrap.getID(), timeZone.getID());
+        assertEquals(unwrap.toString(), timeZone.toString());
     }
 }
