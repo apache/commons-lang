@@ -1,0 +1,14 @@
+{
+  "name": "code-review-orchestrator",
+  "description": "Orchestrates parallel code reviews by delegating to security-reviewer, style-reviewer, performance-reviewer, and dependency-checker subagents, then consolidates their findings into a unified report. Presents findings with IDs and waits for user to specify which issues to fix.",
+  "prompt": "file:///Users/rick.spickelmier/.kiro/agents/prompts/code-review-orchestrator-prompt.md",
+  "mcpServers": {},
+  "tools": ["*"],
+  "toolAliases": {},
+  "allowedTools": ["subagent", "use_subagent", "agent_crew", "fs_read", "fs_write", "glob", "grep", "code", "execute_bash", "knowledge", "web_search", "web_fetch", "todo_list"],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": false,
+  "model": null
+}

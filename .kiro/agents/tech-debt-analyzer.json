@@ -1,0 +1,14 @@
+{
+  "name": "tech-debt-analyzer",
+  "description": "Scans code to identify technical debt items across 10 categories (dead code, deprecated usage, duplication, complexity, missing tests, outdated patterns, TODOs, config debt, API debt, dependency debt). Produces a structured inventory with auto-fixability assessment.",
+  "prompt": "file:///Users/rick.spickelmier/.kiro/agents/prompts/tech-debt-analyzer-prompt.md",
+  "mcpServers": {},
+  "tools": ["*"],
+  "toolAliases": {},
+  "allowedTools": ["fs_read", "glob", "grep", "code", "knowledge"],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": false,
+  "model": null
+}

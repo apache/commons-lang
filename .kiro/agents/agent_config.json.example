@@ -1,0 +1,29 @@
+{
+  "name": "example",
+  "description": "This is an example agent config (and will not be loaded unless you change it to have .json extension)",
+  "prompt": null,
+  "mcpServers": {},
+  "tools": [
+    "read",
+    "write",
+    "shell",
+    "aws",
+    "report",
+    "introspect",
+    "knowledge",
+    "thinking",
+    "todo",
+    "delegate",
+    "grep",
+    "glob",
+    "@mcp_server_name/mcp_tool_name",
+    "@mcp_server_name_without_tool_specification_to_include_all_tools"
+  ],
+  "toolAliases": {},
+  "allowedTools": [],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": true,
+  "model": null
+}

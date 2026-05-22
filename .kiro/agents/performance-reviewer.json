@@ -1,0 +1,16 @@
+{
+  "name": "performance-reviewer",
+  "description": "Reviews code for performance issues including CPU waste, memory leaks, I/O blocking, concurrency contention, and JVM-specific inefficiencies. Rates findings by throughput/latency impact.",
+  "prompt": "file:///Users/rick.spickelmier/.kiro/agents/prompts/performance-reviewer-prompt.md",
+  "mcpServers": {},
+  "tools": [
+    "*"
+  ],
+  "toolAliases": {},
+  "allowedTools": ["fs_read", "glob", "grep", "code", "web_search", "web_fetch", "execute_bash", "knowledge"],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": false,
+  "model": null
+}

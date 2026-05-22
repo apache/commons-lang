@@ -1,0 +1,16 @@
+{
+  "name": "dependency-checker",
+  "description": "Audits third-party dependencies for license compliance (GPL/AGPL violations, LGPL flags), end-of-life/unmaintained status, and known CVE vulnerabilities. Produces a structured report with actionable findings.",
+  "prompt": "file:///Users/rick.spickelmier/.kiro/agents/prompts/dependency-checker-prompt.md",
+  "mcpServers": {},
+  "tools": [
+    "*"
+  ],
+  "toolAliases": {},
+  "allowedTools": ["fs_read", "glob", "grep", "code", "web_search", "web_fetch", "execute_bash", "knowledge"],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": false,
+  "model": null
+}

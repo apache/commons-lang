@@ -1,0 +1,16 @@
+{
+  "name": "style-reviewer",
+  "description": "Reviews code for style consistency including naming conventions, formatting, documentation, code organization, language idioms, and codebase-wide consistency. Rates findings by readability impact.",
+  "prompt": "file:///Users/rick.spickelmier/.kiro/agents/prompts/style-reviewer-prompt.md",
+  "mcpServers": {},
+  "tools": [
+    "*"
+  ],
+  "toolAliases": {},
+  "allowedTools": ["fs_read", "glob", "grep", "code", "web_search", "web_fetch", "execute_bash", "knowledge"],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": false,
+  "model": null
+}

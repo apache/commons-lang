@@ -1,0 +1,14 @@
+{
+  "name": "tech-debt-fixer",
+  "description": "Automatically fixes safe, low-risk technical debt items from the auto-fix queue. Applies mechanical fixes, verifies builds, and reports results. Only touches items confirmed as auto-fixable.",
+  "prompt": "file:///Users/rick.spickelmier/.kiro/agents/prompts/tech-debt-fixer-prompt.md",
+  "mcpServers": {},
+  "tools": ["*"],
+  "toolAliases": {},
+  "allowedTools": ["fs_read", "fs_write", "glob", "grep", "code", "execute_bash", "subagent", "use_subagent"],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": false,
+  "model": null
+}

@@ -1,0 +1,14 @@
+{
+  "name": "tech-debt-prioritizer",
+  "description": "Prioritizes technical debt findings by risk, effort, and impact. Scores each item and produces a ranked action plan separating auto-fixable items from those requiring human review.",
+  "prompt": "file:///Users/rick.spickelmier/.kiro/agents/prompts/tech-debt-prioritizer-prompt.md",
+  "mcpServers": {},
+  "tools": ["*"],
+  "toolAliases": {},
+  "allowedTools": ["fs_read", "glob", "grep", "code", "knowledge"],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": false,
+  "model": null
+}

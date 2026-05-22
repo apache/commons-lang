@@ -1,0 +1,16 @@
+{
+  "name": "security-reviewer",
+  "description": "Reviews code for security vulnerabilities including injection, auth, cryptography, data exposure, input validation, dependency CVEs, and insecure configuration. Rates findings by severity with CWE references.",
+  "prompt": "file:///Users/rick.spickelmier/.kiro/agents/prompts/security-reviewer-prompt.md",
+  "mcpServers": {},
+  "tools": [
+    "*"
+  ],
+  "toolAliases": {},
+  "allowedTools": ["fs_read", "glob", "grep", "code", "web_search", "web_fetch", "execute_bash", "knowledge"],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": false,
+  "model": null
+}

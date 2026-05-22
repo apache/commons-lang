@@ -27,3 +27,7 @@ site-content
 # NetBeans files
 nb-configuration.xml
 nbactions.xml
+
+.kiro/.DS_Store
+
+.kiro/skills/.DS_Store

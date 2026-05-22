@@ -1,0 +1,14 @@
+{
+  "name": "code-fixer",
+  "description": "Fixes code review findings by applying targeted changes, verifying builds, and iterating until critical/high/medium issues are resolved. Invoked by the code-review-orchestrator.",
+  "prompt": "file:///Users/rick.spickelmier/.kiro/agents/prompts/code-fixer-prompt.md",
+  "mcpServers": {},
+  "tools": ["*"],
+  "toolAliases": {},
+  "allowedTools": ["fs_read", "fs_write", "glob", "grep", "code", "execute_bash", "subagent", "use_subagent"],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": false,
+  "model": null
+}

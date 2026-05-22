@@ -1,0 +1,14 @@
+{
+  "name": "tech-debt-orchestrator",
+  "description": "Orchestrates the full technical debt workflow: delegates analysis to tech-debt-analyzer, prioritization to tech-debt-prioritizer, then auto-fixes safe items via tech-debt-fixer. Presents human-review items separately.",
+  "prompt": "file:///Users/rick.spickelmier/.kiro/agents/prompts/tech-debt-orchestrator-prompt.md",
+  "mcpServers": {},
+  "tools": ["*"],
+  "toolAliases": {},
+  "allowedTools": ["subagent", "use_subagent", "agent_crew", "fs_read", "fs_write", "glob", "grep", "code", "execute_bash", "knowledge", "todo_list"],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": false,
+  "model": null
+}

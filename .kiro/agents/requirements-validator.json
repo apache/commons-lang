@@ -1,0 +1,20 @@
+{
+  "name": "requirements-validator",
+  "description": "Validates that implementation satisfies all spec-driven design requirements and acceptance criteria. Produces a traceability matrix mapping each requirement to code and tests.",
+  "prompt": "file:///Users/rick.spickelmier/.kiro/agents/prompts/requirements-validator-prompt.md",
+  "mcpServers": {},
+  "tools": [
+    "*"
+  ],
+  "toolAliases": {},
+  "allowedTools": ["glob", "code", "fs_read", "grep", "execute_bash"],
+  "resources": [
+    "file://.kiro/steering/structure.md",
+    "file://.kiro/steering/tech.md",
+    "file://.kiro/steering/product.md"
+  ],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": false,
+  "model": null
+}
