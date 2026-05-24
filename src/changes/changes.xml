@@ -176,6 +176,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add FailableConsumer.accept(FailableConsumer, T) (#1641).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add AutoCloseables #1643.</action>
     <action issue="LANG-1711" type="add" dev="ggregory" due-to="Gary Gregory">Make object accessibility optional with AbstractReflection.AbstractBuilder.setForceAccessible(boolean) (#1558).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayFill.clear(char[]) (#1667).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 100 #1498.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.14.0 to 1.15.0.</action>
