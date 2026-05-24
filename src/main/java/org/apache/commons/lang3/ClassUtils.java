@@ -1643,6 +1643,13 @@ public class ClassUtils {
             throw new IllegalArgumentException(String.format("Class name greater than maxium length %,d", MAX_CLASS_NAME_LENGTH));
         }
         if (canonicalName.endsWith(arrayMarker)) {
+            // Reject malformed inputs like "java.lang.String[]junk[]" or
+            // "java.lang.String[]][]" where the suffix is not composed of
+            // repeated "[]" pairs.
+            final String tail = canonicalName.substring(arrIdx);
+            if (!tail.matches("(?:\\[\\])+")) {
+                throw new IllegalArgumentException("Malformed array name: " + canonicalName);
+            }
             final int dims =  (canonicalName.length() - arrIdx) / 2;
             if (dims > MAX_JVM_ARRAY_DIMENSION) {
                 throw new IllegalArgumentException("Array dimension greater than JVM specification maximum of 255.");

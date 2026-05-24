@@ -1320,6 +1320,34 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals(void.class, ClassUtils.getClass("void"));
     }
 
+    /**
+     * Pre-patch: getClass("java.lang.String[]junk[]") silently returns String[][][][] (4 dims, because (24 - 16)/2 = 4 — junk is 4 chars). Post-patch: must
+     * throw IllegalArgumentException.
+     */
+    @Test
+    public void testGetClassStringMalformedMiddleJunkRejected() {
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getClass("java.lang.String[]junk[]"));
+    }
+
+    /**
+     * Mutation control: suffix ends with "[]" so the array-branch is entered, and the suffix from arrIdx contains only '[' and ']' chars but NOT as well-formed
+     * pairs ("[]][]"). A char-class-only patch would accept this; the correct pair-validating patch must reject. Without this case, a weaker patch would still
+     * pass.
+     */
+    @Test
+    public void testGetClassStringMalformedUnpairedBracketsRejected() {
+        assertThrows(IllegalArgumentException.class, () -> ClassUtils.getClass("java.lang.String[]][]"));
+    }
+
+    /**
+     * Negative control: well-formed multi-dim array still resolves. Confirms the fix is minimal and does not over-reject.
+     */
+    @Test
+    public void testGetClassStringWellFormedArrayStillResolves() throws Exception {
+        assertNotNull(ClassUtils.getClass("java.lang.String[]"));
+        assertNotNull(ClassUtils.getClass("java.lang.String[][]"));
+    }
+
     @Test
     void testGetClassWithArrayClasses() throws Exception {
         assertGetClassReturnsClass(String[].class);
