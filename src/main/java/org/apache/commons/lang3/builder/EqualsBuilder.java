@@ -111,9 +111,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     }
 
     /**
-     * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
-     *
-     * @since 3.0
+     * A registry of objects to detect cyclical object references, avoid infinite loops, and stack overflows.
      */
     private static final ThreadLocal<Set<Pair<IDKey, IDKey>>> REGISTRY = ThreadLocal.withInitial(HashSet::new);
 

@@ -165,9 +165,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     private static final int DEFAULT_MULTIPLIER_VALUE = 37;
 
     /**
-     * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
-     *
-     * @since 2.3
+     * A registry of objects to detect cyclical object references, avoid infinite loops, and stack overflows.
      */
     private static final ThreadLocal<Set<IDKey>> REGISTRY = ThreadLocal.withInitial(HashSet::new);
 
@@ -201,7 +199,6 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * Gets the registry of objects being traversed by the reflection methods in the current thread.
      *
      * @return Set the registry of objects being traversed
-     * @since 2.3
      */
     static Set<IDKey> getRegistry() {
         return REGISTRY.get();
@@ -214,7 +211,6 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * @param value
      *            The object to lookup in the registry.
      * @return boolean {@code true} if the registry contains the given object.
-     * @since 2.3
      */
     static boolean isRegistered(final Object value) {
         final Set<IDKey> registry = getRegistry();
@@ -296,7 +292,6 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      *             if the Object is {@code null}
      * @throws IllegalArgumentException
      *             if the number is zero or even
-     *
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final int initialNonZeroOddNumber, final int multiplierNonZeroOddNumber, final Object object) {
@@ -340,7 +335,6 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      *             if the Object is {@code null}
      * @throws IllegalArgumentException
      *             if the number is zero or even
-     *
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final int initialNonZeroOddNumber, final int multiplierNonZeroOddNumber, final Object object,
@@ -392,7 +386,6 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      *             if the Object is {@code null}
      * @throws IllegalArgumentException
      *             if the number is zero or even
-     *
      * @see HashCodeExclude
      * @since 2.0
      */
@@ -439,7 +432,6 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * @return int hash code
      * @throws NullPointerException
      *             if the object is {@code null}
-     *
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final Object object, final boolean testTransients) {
@@ -477,7 +469,6 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * @return int hash code
      * @throws NullPointerException
      *             if the object is {@code null}
-     *
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final Object object, final Collection<String> excludeFields) {
@@ -514,7 +505,6 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * @return int hash code
      * @throws NullPointerException
      *             if the object is {@code null}
-     *
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final Object object, final String... excludeFields) {
@@ -595,7 +585,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code boolean}.
+     * Appends a {@code hashCode} for a {@code boolean}.
      *
      * <p>
      * This adds {@code 1} when true, and {@code 0} when false to the {@code hashCode}.
@@ -620,7 +610,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code boolean} array.
+     * Appends a {@code hashCode} for a {@code boolean} array.
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -638,7 +628,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code byte}.
+     * Appends a {@code hashCode} for a {@code byte}.
      *
      * @param value
      *            the byte to add to the {@code hashCode}
@@ -650,7 +640,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code byte} array.
+     * Appends a {@code hashCode} for a {@code byte} array.
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -668,7 +658,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code char}.
+     * Appends a {@code hashCode} for a {@code char}.
      *
      * @param value
      *            the char to add to the {@code hashCode}
@@ -680,7 +670,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code char} array.
+     * Appends a {@code hashCode} for a {@code char} array.
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -698,7 +688,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code double}.
+     * Appends a {@code hashCode} for a {@code double}.
      *
      * @param value
      *            the double to add to the {@code hashCode}
@@ -709,7 +699,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code double} array.
+     * Appends a {@code hashCode} for a {@code double} array.
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -727,7 +717,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code float}.
+     * Appends a {@code hashCode} for a {@code float}.
      *
      * @param value
      *            the float to add to the {@code hashCode}
@@ -739,7 +729,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code float} array.
+     * Appends a {@code hashCode} for a {@code float} array.
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -757,7 +747,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for an {@code int}.
+     * Appends a {@code hashCode} for an {@code int}.
      *
      * @param value
      *            the int to add to the {@code hashCode}
@@ -769,7 +759,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for an {@code int} array.
+     * Appends a {@code hashCode} for an {@code int} array.
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -787,7 +777,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code long}.
+     * Appends a {@code hashCode} for a {@code long}.
      *
      * @param value
      *            the long to add to the {@code hashCode}
@@ -803,7 +793,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code long} array.
+     * Appends a {@code hashCode} for a {@code long} array.
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -821,7 +811,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for an {@link Object}.
+     * Appends a {@code hashCode} for an {@link Object}.
      *
      * @param object
      *            the Object to add to the {@code hashCode}
@@ -852,7 +842,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for an {@link Object} array.
+     * Appends a {@code hashCode} for an {@link Object} array.
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -870,7 +860,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code short}.
+     * Appends a {@code hashCode} for a {@code short}.
      *
      * @param value
      *            the short to add to the {@code hashCode}
@@ -882,7 +872,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for a {@code short} array.
+     * Appends a {@code hashCode} for a {@code short} array.
      *
      * @param array
      *            the array to add to the {@code hashCode}
@@ -900,7 +890,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * Append a {@code hashCode} for an array.
+     * Appends a {@code hashCode} for an array.
      *
      * @param object
      *            the array to add to the {@code hashCode}
@@ -972,9 +962,8 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
-     * The computed {@code hashCode} from toHashCode() is returned due to the likelihood
-     * of bugs in mis-calling toHashCode() and the unlikeliness of it mattering what the hashCode for
-     * HashCodeBuilder itself is.
+     * Returns the computed {@code hashCode} from {@link #toHashCode()} due to the likelihood of bugs in mis-calling {@link #toHashCode()} and the unlikeliness
+     * of it mattering what the hashCode for {@link HashCodeBuilder} itself is.
      *
      * @return {@code hashCode} based on the fields appended
      * @since 2.5

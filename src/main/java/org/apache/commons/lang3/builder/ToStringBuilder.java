@@ -329,7 +329,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code boolean}
+     * Appends to the {@code toString} a {@code boolean}
      * value.
      *
      * @param value  the value to add to the {@code toString}
@@ -341,7 +341,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code boolean}
+     * Appends to the {@code toString} a {@code boolean}
      * array.
      *
      * @param array  the array to add to the {@code toString}
@@ -353,7 +353,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code byte}
+     * Appends to the {@code toString} a {@code byte}
      * value.
      *
      * @param value  the value to add to the {@code toString}
@@ -365,7 +365,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code byte}
+     * Appends to the {@code toString} a {@code byte}
      * array.
      *
      * @param array  the array to add to the {@code toString}
@@ -377,7 +377,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code char}
+     * Appends to the {@code toString} a {@code char}
      * value.
      *
      * @param value  the value to add to the {@code toString}
@@ -389,7 +389,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code char}
+     * Appends to the {@code toString} a {@code char}
      * array.
      *
      * @param array  the array to add to the {@code toString}
@@ -401,7 +401,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code double}
+     * Appends to the {@code toString} a {@code double}
      * value.
      *
      * @param value  the value to add to the {@code toString}
@@ -413,7 +413,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code double}
+     * Appends to the {@code toString} a {@code double}
      * array.
      *
      * @param array  the array to add to the {@code toString}
@@ -425,7 +425,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code float}
+     * Appends to the {@code toString} a {@code float}
      * value.
      *
      * @param value  the value to add to the {@code toString}
@@ -437,7 +437,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code float}
+     * Appends to the {@code toString} a {@code float}
      * array.
      *
      * @param array  the array to add to the {@code toString}
@@ -449,7 +449,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@code int}
+     * Appends to the {@code toString} an {@code int}
      * value.
      *
      * @param value  the value to add to the {@code toString}
@@ -461,7 +461,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@code int}
+     * Appends to the {@code toString} an {@code int}
      * array.
      *
      * @param array  the array to add to the {@code toString}
@@ -473,7 +473,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code long}
+     * Appends to the {@code toString} a {@code long}
      * value.
      *
      * @param value  the value to add to the {@code toString}
@@ -485,7 +485,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code long}
+     * Appends to the {@code toString} a {@code long}
      * array.
      *
      * @param array  the array to add to the {@code toString}
@@ -497,7 +497,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@link Object}
+     * Appends to the {@code toString} an {@link Object}
      * value.
      *
      * @param obj  the value to add to the {@code toString}
@@ -509,7 +509,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@link Object}
+     * Appends to the {@code toString} an {@link Object}
      * array.
      *
      * @param array  the array to add to the {@code toString}
@@ -521,7 +521,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code short}
+     * Appends to the {@code toString} a {@code short}
      * value.
      *
      * @param value  the value to add to the {@code toString}
@@ -533,7 +533,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code short}
+     * Appends to the {@code toString} a {@code short}
      * array.
      *
      * @param array  the array to add to the {@code toString}
@@ -545,7 +545,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code boolean}
+     * Appends to the {@code toString} a {@code boolean}
      * value.
      *
      * @param fieldName  the field name
@@ -558,7 +558,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code boolean}
+     * Appends to the {@code toString} a {@code boolean}
      * array.
      *
      * @param fieldName  the field name
@@ -571,7 +571,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code boolean}
+     * Appends to the {@code toString} a {@code boolean}
      * array.
      *
      * <p>A boolean parameter controls the level of detail to show.
@@ -591,7 +591,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@code byte}
+     * Appends to the {@code toString} an {@code byte}
      * value.
      *
      * @param fieldName  the field name
@@ -604,7 +604,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code byte} array.
+     * Appends to the {@code toString} a {@code byte} array.
      *
      * @param fieldName  the field name
      * @param array  the array to add to the {@code toString}
@@ -616,7 +616,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code byte}
+     * Appends to the {@code toString} a {@code byte}
      * array.
      *
      * <p>A boolean parameter controls the level of detail to show.
@@ -636,7 +636,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code char}
+     * Appends to the {@code toString} a {@code char}
      * value.
      *
      * @param fieldName  the field name
@@ -649,7 +649,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code char}
+     * Appends to the {@code toString} a {@code char}
      * array.
      *
      * @param fieldName  the field name
@@ -662,7 +662,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code char}
+     * Appends to the {@code toString} a {@code char}
      * array.
      *
      * <p>A boolean parameter controls the level of detail to show.
@@ -682,7 +682,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code double}
+     * Appends to the {@code toString} a {@code double}
      * value.
      *
      * @param fieldName  the field name
@@ -695,7 +695,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code double}
+     * Appends to the {@code toString} a {@code double}
      * array.
      *
      * @param fieldName  the field name
@@ -708,7 +708,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code double}
+     * Appends to the {@code toString} a {@code double}
      * array.
      *
      * <p>A boolean parameter controls the level of detail to show.
@@ -728,7 +728,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@code float}
+     * Appends to the {@code toString} an {@code float}
      * value.
      *
      * @param fieldName  the field name
@@ -741,7 +741,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code float}
+     * Appends to the {@code toString} a {@code float}
      * array.
      *
      * @param fieldName  the field name
@@ -754,7 +754,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code float}
+     * Appends to the {@code toString} a {@code float}
      * array.
      *
      * <p>A boolean parameter controls the level of detail to show.
@@ -774,7 +774,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@code int}
+     * Appends to the {@code toString} an {@code int}
      * value.
      *
      * @param fieldName  the field name
@@ -787,7 +787,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@code int}
+     * Appends to the {@code toString} an {@code int}
      * array.
      *
      * @param fieldName  the field name
@@ -800,7 +800,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@code int}
+     * Appends to the {@code toString} an {@code int}
      * array.
      *
      * <p>A boolean parameter controls the level of detail to show.
@@ -820,7 +820,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code long}
+     * Appends to the {@code toString} a {@code long}
      * value.
      *
      * @param fieldName  the field name
@@ -833,7 +833,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code long}
+     * Appends to the {@code toString} a {@code long}
      * array.
      *
      * @param fieldName  the field name
@@ -846,7 +846,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code long}
+     * Appends to the {@code toString} a {@code long}
      * array.
      *
      * <p>A boolean parameter controls the level of detail to show.
@@ -866,7 +866,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@link Object}
+     * Appends to the {@code toString} an {@link Object}
      * value.
      *
      * @param fieldName  the field name
@@ -879,7 +879,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@link Object}
+     * Appends to the {@code toString} an {@link Object}
      * value.
      *
      * @param fieldName  the field name
@@ -894,7 +894,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@link Object}
+     * Appends to the {@code toString} an {@link Object}
      * array.
      *
      * @param fieldName  the field name
@@ -907,7 +907,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@link Object}
+     * Appends to the {@code toString} an {@link Object}
      * array.
      *
      * <p>A boolean parameter controls the level of detail to show.
@@ -927,7 +927,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} an {@code short}
+     * Appends to the {@code toString} an {@code short}
      * value.
      *
      * @param fieldName  the field name
@@ -940,7 +940,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code short}
+     * Appends to the {@code toString} a {@code short}
      * array.
      *
      * @param fieldName  the field name
@@ -953,7 +953,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
-     * Append to the {@code toString} a {@code short}
+     * Appends to the {@code toString} a {@code short}
      * array.
      *
      * <p>A boolean parameter controls the level of detail to show.
