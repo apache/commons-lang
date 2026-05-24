@@ -17,7 +17,9 @@
 
 package org.apache.commons.lang3.text;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -25,6 +27,7 @@ import java.io.ObjectInputStream;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 
@@ -158,5 +161,25 @@ public class StrBuilderClearTest {
         sb.delete(6, sb.length());
         // sb now logically contains "top_se"
         assertFalse(containsUtf16Be(SerializationUtils.serialize(sb), "secret_key_material"));
+    }
+
+    @Test
+    void testSetLengthShrinkLeavesResidual() throws Exception {
+        final String string = "CONFIDENTIAL_TOKEN_VALUE";
+        final int len = string.length();
+        final StrBuilder sb = new StrBuilder(string);
+        assertEquals(len, sb.length());
+        // setLength(5) shrinks: size = 5, but [5..24) is NOT cleared.
+        sb.setLength(5);
+        assertEquals(5, sb.length());
+        assertEquals("CONFI", sb.toString());
+        final char[] buf = sb.getBuffer();
+        assertTrue(buf.length >= len);
+        // Probe offset 10: original was 'L' (CONFIDENTIA*L*_TOKEN_VALUE).
+        assertEquals(CharUtils.NUL, buf[10]);
+        final StringBuilder dump = new StringBuilder();
+        for (int i = 5; i < len; i++) {
+            assertEquals(CharUtils.NUL, buf[i]);
+        }
     }
 }
