@@ -31,6 +31,42 @@ import org.junit.jupiter.api.Test;
 class ArrayFillTest extends AbstractLangTest {
 
     @Test
+    void testClearByteArray() {
+        final byte[] array = new byte[3];
+        final byte val = 0;
+        final byte[] actual = ArrayFill.clear(array);
+        assertSame(array, actual);
+        for (final byte v : actual) {
+            assertEquals(val, v);
+        }
+    }
+
+    @Test
+    void testClearByteArrayNull() {
+        final byte[] array = null;
+        final byte[] actual = ArrayFill.clear(array);
+        assertSame(array, actual);
+    }
+
+    @Test
+    void testClearCharArray() {
+        final char[] array = new char[3];
+        final char val = 0;
+        final char[] actual = ArrayFill.clear(array);
+        assertSame(array, actual);
+        for (final char v : actual) {
+            assertEquals(val, v);
+        }
+    }
+
+    @Test
+    void testClearCharArrayNull() {
+        final char[] array = null;
+        final char[] actual = ArrayFill.clear(array);
+        assertSame(array, actual);
+    }
+
+    @Test
     void testFillBooleanArray() {
         final boolean[] array = new boolean[3];
         final boolean val = true;
