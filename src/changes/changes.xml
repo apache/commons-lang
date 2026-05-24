@@ -164,7 +164,8 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">FormattableUtils.append re-parses literal output as format string (#1661).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">ClassUtils.getShortClassName(String) can throw NoClassDefFoundError on malformed inner classes (#1665).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">TimeZones.GMT is a mutable public static final field (#1666).</action>
-    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">CompareToBuilder lacks cycle guard on Object[] recursion. (#1669).</action>    
+    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">CompareToBuilder lacks cycle guard on Object[] recursion. (#1669).</action>
+    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">ClassUtils.toCleanName(String) resolves malformed array suffixes (#1670).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
