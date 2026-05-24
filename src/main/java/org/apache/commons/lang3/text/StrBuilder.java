@@ -26,8 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.lang3.ArrayFill;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
@@ -1614,7 +1614,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder clear() {
         size = 0;
-        Arrays.fill(buffer, CharUtils.NUL);
+        ArrayFill.clear(buffer);
         return this;
     }
 
@@ -1810,7 +1810,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     private void deleteImpl(final int startIndex, final int endIndex, final int len) {
         System.arraycopy(buffer, endIndex, buffer, startIndex, size - endIndex);
         size -= len;
-        Arrays.fill(buffer, size, size + len, CharUtils.NUL);
+        ArrayFill.clear(buffer, size, size + len);
     }
 
     /**
@@ -1918,6 +1918,15 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             }
         }
         return true;
+    }
+
+    /**
+     * Gets the internal buffer for testing.
+     *
+     * @return the internal buffer.
+     */
+    char[] getBuffer() {
+        return buffer;
     }
 
     /**
@@ -2682,14 +2691,14 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Internal method to delete a range without validation.
+     * Internal method to replace a range without validation.
      *
-     * @param startIndex  the start index, must be valid
-     * @param endIndex  the end index (exclusive), must be valid
-     * @param removeLen  the length to remove (endIndex - startIndex), must be valid
-     * @param insertStr  the string to replace with, null means delete range
-     * @param insertLen  the length of the insert string, must be valid
-     * @throws IndexOutOfBoundsException if any index is invalid
+     * @param startIndex  the start index (inclusive), must be valid.
+     * @param endIndex  the end index (exclusive), must be valid.
+     * @param removeLen  the length to remove (endIndex - startIndex), must be valid.
+     * @param insertStr  the string to replace with, null means delete range.
+     * @param insertLen  the length of the insert string, must be valid.
+     * @throws IndexOutOfBoundsException if any index is invalid.
      */
     private void replaceImpl(final int startIndex, final int endIndex, final int removeLen, final String insertStr, final int insertLen) {
         final int newSize = size - removeLen + insertLen;
@@ -2815,12 +2824,12 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             throw new StringIndexOutOfBoundsException(length);
         }
         if (length < size) {
-            size = length;
+            ArrayFill.clear(buffer, length, size);
         } else if (length > size) {
             ensureCapacity(length);
-            Arrays.fill(buffer, size, length, CharUtils.NUL);
-            size = length;
+            ArrayFill.clear(buffer, size, length);
         }
+        size = length;
         return this;
     }
 
