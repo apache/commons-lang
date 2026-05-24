@@ -2705,6 +2705,9 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (insertLen != removeLen) {
             ensureCapacity(newSize);
             System.arraycopy(buffer, endIndex, buffer, startIndex + insertLen, size - endIndex);
+            if (size > newSize) {
+                ArrayFill.clear(buffer, newSize, size);
+            }
             size = newSize;
         }
         if (insertLen > 0) {
