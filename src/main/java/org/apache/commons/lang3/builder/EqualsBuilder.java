@@ -157,7 +157,6 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * methods in the current thread.
      *
      * @return Set the registry of objects being traversed
-     * @since 3.0
      */
     static Set<Pair<IDKey, IDKey>> getRegistry() {
         return REGISTRY.get();
@@ -366,7 +365,6 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      *
      * @param lhs {@code this} object to unregister
      * @param rhs the other object to unregister
-     * @since 3.0
      */
     private static void unregister(final Object lhs, final Object rhs) {
         final Set<Pair<IDKey, IDKey>> registry = getRegistry();
