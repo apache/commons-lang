@@ -30,6 +30,22 @@ import org.apache.commons.lang3.function.FailableIntFunction;
 public final class ArrayFill {
 
     /**
+     * Fills and returns the given array, assigning {@code 0} to each element of the array.
+     * <pre>
+     * ArrayFill.fill(a, (byte) 0);
+     * </pre>
+     *
+     * @param a   the array to fill (may be null).
+     * @return the given array.
+     * @see Arrays#fill(byte[],byte)
+     * @see ArrayFill#fill(byte[],byte)
+     * @since 3.21.0
+     */
+    public static byte[] clear(final byte[] a) {
+        return fill(a, (byte) 0);
+    }
+
+    /**
      * Fills and returns the given array, assigning {@code '\0'} to each element of the array.
      * <p>
      * Equivalent to:
@@ -50,19 +66,23 @@ public final class ArrayFill {
     }
 
     /**
-     * Fills and returns the given array, assigning {@code 0} to each element of the array.
+     * Fills and returns the given array, assigning {@code '\0'} to each element of the array.
+     * <p>
+     * Equivalent to:
+     * </p>
      * <pre>
-     * ArrayFill.fill(a, (byte) 0);
+     * ArrayFill.fill(a, fromIndex, toIndex, '\0'); // and not '0'!
      * </pre>
      *
-     * @param a   the array to fill (may be null).
+     * @param a         the array to fill (may be null).
+     * @param fromIndex the index of the first element (inclusive) to be filled with {@code '\0'}.
+     * @param toIndex   the index of the last element (exclusive) to be filled with {@code '\0'}.
      * @return the given array.
-     * @see Arrays#fill(byte[],byte)
-     * @see ArrayFill#fill(byte[],byte)
+     * @see Arrays#fill(char[], int, int, char)
      * @since 3.21.0
      */
-    public static byte[] clear(final byte[] a) {
-        return fill(a, (byte) 0);
+    public static char[] clear(char[] a, int fromIndex, int toIndex) {
+        return fill(a, fromIndex, toIndex, CharUtils.NUL);
     }
 
     /**
@@ -107,6 +127,24 @@ public final class ArrayFill {
     public static char[] fill(final char[] a, final char val) {
         if (a != null) {
             Arrays.fill(a, val);
+        }
+        return a;
+    }
+
+    /**
+     * Fills and returns the given array, assigning the given {@code char} value to each element of the array.
+     *
+     * @param a         the array to fill (may be null).
+     * @param val       the value to store in all elements of the array.
+     * @param fromIndex the index of the first element (inclusive) to be filled with the specified value.
+     * @param toIndex   the index of the last element (exclusive) to be filled with the specified value.
+     * @return the given array.
+     * @see Arrays#fill(char[], int, int, char)
+     * @since 3.21.0
+     */
+    public static char[] fill(char[] a, int fromIndex, int toIndex, char val) {
+        if (a != null) {
+            Arrays.fill(a, fromIndex, toIndex, val);
         }
         return a;
     }
