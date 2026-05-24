@@ -3063,7 +3063,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             endIndex = size;
         }
         if (startIndex > endIndex) {
-            throw new StringIndexOutOfBoundsException("end < start");
+            throw new StringIndexOutOfBoundsException("startIndex > endIndex");
         }
         return endIndex;
     }
