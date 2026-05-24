@@ -20,11 +20,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Assists in implementing {@link Comparable#compareTo(Object)} methods.
@@ -119,12 +122,43 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
     }
 
     /**
+     * A registry of objects to detect cyclical object references, avoid infinite loops, and stack overflows.
+     */
+    private static final ThreadLocal<Set<Pair<IDKey, IDKey>>> REGISTRY = ThreadLocal.withInitial(HashSet::new);
+
+    /**
      * Constructs a new Builder.
      *
      * @return a new Builder.
      */
     public static Builder builder() {
         return new Builder();
+    }
+
+    /**
+     * Gets the registry of object pairs being traversed by the reflection
+     * methods in the current thread.
+     *
+     * @return Set the registry of objects being traversed
+     */
+    static Set<Pair<IDKey, IDKey>> getRegistry() {
+        return REGISTRY.get();
+    }
+
+    /**
+     * Tests whether the registry contains the given object pair.
+     * <p>
+     * Used by the reflection methods to avoid infinite loops.
+     * Objects might be swapped therefore a check is needed if the object pair
+     * is registered in the given or swapped order.
+     * </p>
+     *
+     * @param lhs {@code this} object to lookup in registry
+     * @param rhs the other object to lookup on registry
+     * @return boolean {@code true} if the registry contains the given object.
+     */
+    static boolean isRegistered(final Object lhs, final Object rhs) {
+        return isRegistered(lhs, rhs, getRegistry());
     }
 
     /**
@@ -347,6 +381,31 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      */
     public static int reflectionCompare(final Object lhs, final Object rhs, final String... excludeFields) {
         return reflectionCompare(lhs, rhs, false, null, excludeFields);
+    }
+
+    /**
+     * Registers the given object pair.
+     * Used by the reflection methods to avoid infinite loops.
+     *
+     * @param lhs {@code this} object to register
+     * @param rhs the other object to register
+     */
+    private static void register(final Object lhs, final Object rhs) {
+        register(lhs, rhs, getRegistry());
+    }
+
+    /**
+     * Unregisters the given object pair.
+     *
+     * <p>
+     * Used by the reflection methods to avoid infinite loops.
+     * </p>
+     *
+     * @param lhs {@code this} object to unregister
+     * @param rhs the other object to unregister
+     */
+    private static void unregister(final Object lhs, final Object rhs) {
+        unregister(lhs, rhs, getRegistry(), REGISTRY);
     }
 
     /**
@@ -842,20 +901,28 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
             comparison = 1;
             return this;
         }
-        if (ObjectUtils.isArray(lhs)) {
-            // factor out array case in order to keep method small enough to be inlined
-            appendArray(lhs, rhs, comparator);
-        } else // the simple case, not an array, just test the element
-        if (comparator == null) {
-            @SuppressWarnings("unchecked") // assume this can be done; if not throw CCE as per Javadoc
-            final Comparable<Object> comparable = (Comparable<Object>) lhs;
-            comparison = comparable.compareTo(rhs);
-        } else {
-            @SuppressWarnings("unchecked") // assume this can be done; if not throw CCE as per Javadoc
-            final Comparator<Object> comparator2 = (Comparator<Object>) comparator;
-            comparison = comparator2.compare(lhs, rhs);
+        if (isRegistered(lhs, rhs)) {
+            return this;
         }
-        return this;
+        try {
+            register(lhs, rhs);
+            if (ObjectUtils.isArray(lhs)) {
+                // factor out array case in order to keep method small enough to be inlined
+                appendArray(lhs, rhs, comparator);
+            } else // the simple case, not an array, just test the element
+            if (comparator == null) {
+                @SuppressWarnings("unchecked") // assume this can be done; if not throw CCE as per Javadoc
+                final Comparable<Object> comparable = (Comparable<Object>) lhs;
+                comparison = comparable.compareTo(rhs);
+            } else {
+                @SuppressWarnings("unchecked") // assume this can be done; if not throw CCE as per Javadoc
+                final Comparator<Object> comparator2 = (Comparator<Object>) comparator;
+                comparison = comparator2.compare(lhs, rhs);
+            }
+            return this;
+        } finally {
+            unregister(lhs, rhs);
+        }
     }
 
     /**

@@ -96,6 +96,35 @@ class CompareToBuilderTest extends AbstractBuilderTest {
         }
     }
 
+    /**
+     * Mutually-referential {@code Object[]}s: {@code a[0] = b}, {@code b[0] = a}, with {@code a != b}. The recursion is
+     * {@code append(a,b) -> append(a[0]=b, b[0]=a) -> append(b,a) ->
+     * append(b[0]=a, a[0]=b) -> append(a,b)}, never terminating.
+     */
+    @Test
+    void testCycleMutuallyReferentialObjectArrays() {
+        final Object[] a = new Object[1];
+        final Object[] b = new Object[1];
+        a[0] = b;
+        b[0] = a;
+        assertEquals(0, new CompareToBuilder().append(a, b, null).toComparison());
+        assertEquals(0, new CompareToBuilder().append((Object) a, (Object) b, null).toComparison());
+    }
+
+    /**
+     * Two distinct self-referential {@code Object[]}s: {@code a[0] = a}, {@code b[0] = b}, with {@code a != b}. The recursion is
+     * {@code append(a,b) -> append(a[0]=a, b[0]=b) -> append(a,b)}, never terminating.
+     */
+    @Test
+    void testCycleTwoDistinctSelfReferentialObjectArrays() {
+        final Object[] a = new Object[1];
+        final Object[] b = new Object[1];
+        a[0] = a;
+        b[0] = b;
+        assertEquals(0, new CompareToBuilder().append(a, b, null).toComparison());
+        assertEquals(0, new CompareToBuilder().append((Object) a, (Object) b, null).toComparison());
+    }
+
     static class TestTransientSubObject extends TestObject {
         @SuppressWarnings("unused")
         private final transient int t;

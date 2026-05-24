@@ -142,17 +142,6 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      */
 
     /**
-     * Converters value pair into a register pair.
-     *
-     * @param lhs {@code this} object
-     * @param rhs the other object
-     * @return the pair
-     */
-    static Pair<IDKey, IDKey> getRegisterPair(final Object lhs, final Object rhs) {
-        return Pair.of(new IDKey(lhs), new IDKey(rhs));
-    }
-
-    /**
      * Gets the registry of object pairs being traversed by the reflection
      * methods in the current thread.
      *
@@ -173,13 +162,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @param lhs {@code this} object to lookup in registry
      * @param rhs the other object to lookup on registry
      * @return boolean {@code true} if the registry contains the given object.
-     * @since 3.0
      */
     static boolean isRegistered(final Object lhs, final Object rhs) {
-        final Set<Pair<IDKey, IDKey>> registry = getRegistry();
-        final Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
-        final Pair<IDKey, IDKey> swappedPair = Pair.of(pair.getRight(), pair.getLeft());
-        return registry != null && (registry.contains(pair) || registry.contains(swappedPair));
+        return isRegistered(lhs, rhs, getRegistry());
     }
 
     /**
@@ -353,7 +338,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @param rhs the other object to register
      */
     private static void register(final Object lhs, final Object rhs) {
-        getRegistry().add(getRegisterPair(lhs, rhs));
+        register(lhs, rhs, getRegistry());
     }
 
     /**
@@ -367,11 +352,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @param rhs the other object to unregister
      */
     private static void unregister(final Object lhs, final Object rhs) {
-        final Set<Pair<IDKey, IDKey>> registry = getRegistry();
-        registry.remove(getRegisterPair(lhs, rhs));
-        if (registry.isEmpty()) {
-            REGISTRY.remove();
-        }
+        unregister(lhs, rhs, getRegistry(), REGISTRY);
     }
 
     /**

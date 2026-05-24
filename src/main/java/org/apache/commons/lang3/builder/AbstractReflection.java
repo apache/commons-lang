@@ -19,9 +19,11 @@ package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.SystemProperties;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Abstracts reflection access for reflection-based classes in this package.
@@ -111,6 +113,16 @@ public abstract class AbstractReflection {
         return SystemProperties.getBoolean(AbstractReflection.class, "forceAccessible", () -> true);
     }
 
+    static boolean isRegistered(final Object lhs, final Object rhs, final Set<Pair<IDKey, IDKey>> registry) {
+        final Pair<IDKey, IDKey> pair = toRegisterPair(lhs, rhs);
+        final Pair<IDKey, IDKey> swappedPair = Pair.of(pair.getRight(), pair.getLeft());
+        return registry != null && (registry.contains(pair) || registry.contains(swappedPair));
+    }
+
+    static void register(final Object lhs, final Object rhs, final Set<Pair<IDKey, IDKey>> registry) {
+        registry.add(toRegisterPair(lhs, rhs));
+    }
+
     /**
      * If {@code forceAccessible} flag is true, then the field is made accessible by calling {@link AccessibleObject#setAccessible(boolean)
      * AccessibleObject#setAccessible(true)} but <em>only</em> if a field is not already accessible.
@@ -145,6 +157,24 @@ public abstract class AbstractReflection {
             return field.isAccessible();
         }
         return false;
+    }
+
+    /**
+     * Converters value pair into a register pair.
+     *
+     * @param lhs {@code this} object.
+     * @param rhs the other object.
+     * @return the pair.
+     */
+    static Pair<IDKey, IDKey> toRegisterPair(final Object lhs, final Object rhs) {
+        return Pair.of(new IDKey(lhs), new IDKey(rhs));
+    }
+
+    static void unregister(final Object lhs, final Object rhs, final Set<Pair<IDKey, IDKey>> registry, final ThreadLocal<Set<Pair<IDKey, IDKey>>> registryTL) {
+        registry.remove(toRegisterPair(lhs, rhs));
+        if (registry.isEmpty()) {
+            registryTL.remove();
+        }
     }
 
     /**
