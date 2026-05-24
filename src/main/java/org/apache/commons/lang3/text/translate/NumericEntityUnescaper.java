@@ -110,26 +110,21 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
         if (input.charAt(index) == '&' && index < seqEnd - 2 && input.charAt(index + 1) == '#') {
             int start = index + 2;
             boolean isHex = false;
-
             final char firstChar = input.charAt(start);
             if (firstChar == 'x' || firstChar == 'X') {
                 start++;
                 isHex = true;
-
                 // Check there's more than just an x after the &#
                 if (start == seqEnd) {
                     return 0;
                 }
             }
-
             int end = start;
             // Note that this supports character codes without a ; on the end
             while (end < seqEnd && CharUtils.isHex(input.charAt(end))) {
                 end++;
             }
-
             final boolean semiNext = end != seqEnd && input.charAt(end) == ';';
-
             if (!semiNext) {
                 if (isSet(OPTION.semiColonRequired)) {
                     return 0;
@@ -138,7 +133,6 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
                     throw new IllegalArgumentException("Semi-colon required at end of numeric entity");
                 }
             }
-
             final int entityValue;
             try {
                 if (isHex) {
@@ -149,7 +143,9 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
             } catch (final NumberFormatException nfe) {
                 return 0;
             }
-
+            if (entityValue < Character.MIN_CODE_POINT || entityValue > Character.MAX_CODE_POINT) {
+                return 0;
+            }
             if (entityValue > 0xFFFF) {
                 final char[] chars = Character.toChars(entityValue);
                 out.write(chars[0]);
@@ -157,7 +153,6 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
             } else {
                 out.write(entityValue);
             }
-
             return 2 + end - start + (isHex ? 1 : 0) + (semiNext ? 1 : 0);
         }
         return 0;
