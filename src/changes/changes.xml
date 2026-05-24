@@ -169,6 +169,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">StrBuilder.setLength(int) shrink-branch leaves residual chars in buffer tail (#1671).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">StrBuilder.replaceImpl() shrink-branch leaves residual chars in buffer tail (#1672).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">NumericEntityUnescaper.translate() throws IllegalArgumentException for values out of range (#1673).</action>
+    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">FastTimeZone.getGmtTimeZone() Javadoc promises null on no-match; regex always matches (#1674).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
