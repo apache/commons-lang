@@ -19,6 +19,8 @@ package org.apache.commons.lang3.text.translate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.StringWriter;
+
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +33,6 @@ class NumericEntityEscaperTest extends AbstractLangTest {
     @Test
     void testAbove() {
         final NumericEntityEscaper nee = NumericEntityEscaper.above('F');
-
         final String input = "ADFGZ";
         final String result = nee.translate(input);
         assertEquals("ADF&#71;&#90;", result, "Failed to escape numeric entities via the above method");
@@ -40,7 +41,6 @@ class NumericEntityEscaperTest extends AbstractLangTest {
     @Test
     void testBelow() {
         final NumericEntityEscaper nee = NumericEntityEscaper.below('F');
-
         final String input = "ADFGZ";
         final String result = nee.translate(input);
         assertEquals("&#65;&#68;FGZ", result, "Failed to escape numeric entities via the below method");
@@ -49,7 +49,6 @@ class NumericEntityEscaperTest extends AbstractLangTest {
     @Test
     void testBetween() {
         final NumericEntityEscaper nee = NumericEntityEscaper.between('F', 'L');
-
         final String input = "ADFGZ";
         final String result = nee.translate(input);
         assertEquals("AD&#70;&#71;Z", result, "Failed to escape numeric entities via the between method");
@@ -61,10 +60,32 @@ class NumericEntityEscaperTest extends AbstractLangTest {
         final NumericEntityEscaper nee = new NumericEntityEscaper();
         final String input = "\uD803\uDC22";
         final String expected = "&#68642;";
-
         final String result = nee.translate(input);
         assertEquals(expected, result, "Failed to escape numeric entities supplementary characters");
-
     }
 
+    @Test
+    void testNumericEntityOverflow() throws Exception {
+        // cp = 1234567890 > Character.MAX_CODE_POINT (0x10FFFF = 1114111).
+        // Pre-patch: IAE escapes from Character.toChars.
+        // Post-patch: return 0, no write, no exception.
+        final NumericEntityUnescaper u = new NumericEntityUnescaper();
+        final StringWriter sw = new StringWriter();
+        int consumed = u.translate("&#1234567890;", 0, sw);
+        assertEquals(0, consumed);
+        assertEquals("", sw.toString());
+        consumed = u.translate("---&#1234567890;---", 0, sw);
+        assertEquals(0, consumed);
+        assertEquals("", sw.toString());
+    }
+
+    @Test
+    void testValidCodePoint() throws Exception {
+        // Negative control: '&#65;' = 'A' must translate successfully.
+        final NumericEntityUnescaper u = new NumericEntityUnescaper();
+        final StringWriter sw = new StringWriter();
+        final int consumed = u.translate("&#65;", 0, sw);
+        assertEquals("A", sw.toString());
+        assertEquals(5, consumed);
+    }
 }
