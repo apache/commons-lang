@@ -193,6 +193,7 @@ public class AnnotationUtils {
      * {@code false} unless both are {@code null}
      * @return {@code true} if the two annotations are {@code equal} or both
      * {@code null}
+     * @throws IllegalStateException if an annotation member cannot be accessed
      */
     public static boolean equals(final Annotation a1, final Annotation a2) {
         if (a1 == a2) {
@@ -212,6 +213,12 @@ public class AnnotationUtils {
             for (final Method m : type1.getDeclaredMethods()) {
                 if (m.getParameterTypes().length == 0
                         && isValidAnnotationMemberType(m.getReturnType())) {
+                    try {
+                        m.setAccessible(true);
+                    } catch (final RuntimeException ex) {
+                        throw new IllegalStateException(
+                                String.format("Could not make annotation method %s accessible", m), ex);
+                    }
                     final Object v1 = m.invoke(a1);
                     final Object v2 = m.invoke(a2);
                     if (!memberEquals(m.getReturnType(), v1, v2)) {
@@ -220,7 +227,7 @@ public class AnnotationUtils {
                 }
             }
         } catch (final ReflectiveOperationException ex) {
-            return false;
+            throw new IllegalStateException("Could not read annotation member value", ex);
         }
         return true;
     }
