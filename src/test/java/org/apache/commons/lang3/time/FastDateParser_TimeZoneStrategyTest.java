@@ -223,10 +223,18 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
             try {
                 parser.parse(displayName);
             } catch (final ParseException e) {
-                // Missing "Zulu" or something else in broken JDK's GH builds?
-                // Call LocaleUtils again
-                fail(String.format("%s: with id = '%s', displayName = '%s', %s, parser = '%s'", e, id, displayName,
-                        toFailureMessage(locale, null, timeZone), parser.toStringAll()), e);
+                final StringBuilder sb = new StringBuilder("chars: [");
+                displayName.chars().forEach(c -> sb.append(c).append(", "));
+                sb.append("], code points: [");
+                displayName.codePoints().forEach(c -> sb.append(c).append(", "));
+                sb.append("]");
+                if (displayName.contains("\uFFFD")) {
+                    System.err.printf("TimeZone ID %s displayName contains Unicode character 'REPLACEMENT CHARACTER' (U+FFFD) in '%s'%n", id, displayName);
+                } else {
+                    // Missing "Zulu" or something else in broken JDK's GH builds?
+                    fail(String.format("displayName: '%s' for id: '%s', %s, exception: %s, %s, parser = %s", displayName, id, sb.toString(), e,
+                            toFailureMessage(locale, null, timeZone), parser.toStringAll()));
+                }
             }
         }
     }
