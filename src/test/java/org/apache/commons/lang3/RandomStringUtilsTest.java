@@ -77,7 +77,6 @@ class RandomStringUtilsTest extends AbstractLangTest {
         final int start = Character.MAX_VALUE;
         final int end = Integer.MAX_VALUE;
 
-        @SuppressWarnings("serial")
         final Random fixedRandom = new Random() {
             @Override
             public int nextInt(final int n) {
