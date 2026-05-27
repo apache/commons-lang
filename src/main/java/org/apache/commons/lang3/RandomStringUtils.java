@@ -276,6 +276,10 @@ public class RandomStringUtils {
             throw new IllegalArgumentException(String.format("Parameter end (%,d) must be greater than start (%,d)", end, start));
         } else if (start < 0 || end < 0) {
             throw new IllegalArgumentException("Character positions MUST be >= 0");
+        } else if (chars != null && start >= chars.length) {
+            throw new IllegalArgumentException("start >= chars.length");
+        } else if (chars != null && end > chars.length) {
+            throw new IllegalArgumentException("end > chars.length");
         }
         if (end > Character.MAX_CODE_POINT) {
             // Technically, it should be `Character.MAX_CODE_POINT+1` as `end` is excluded
