@@ -172,6 +172,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">FastTimeZone.getGmtTimeZone() Javadoc promises null on no-match; regex always matches (#1674).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">Range.readObject() does not null-check comparator, minimum, or maximum (#1675).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make the StopWatch more reliable for tracking nanos, adjust suspend test (#1677).</action>
+    <action issue="LANG-1801" type="fix" dev="ggregory" due-to="Zhongxin Yan, Gary Gregory">RandomStringUtils.random() does not strictly validate start and end (#1682).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
