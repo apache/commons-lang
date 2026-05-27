@@ -8752,7 +8752,7 @@ public class StringUtils {
     }
 
     /**
-     * Removes control characters (char &lt;= 32) from both ends of this String, handling {@code null} by returning {@code null}.
+     * Removes control characters plus space (char &lt;= 32) from both ends of this String, handling {@code null} by returning {@code null}.
      *
      * <p>
      * The String is trimmed using {@link String#trim()}. Trim removes start and end characters &lt;= 32. To strip whitespace use {@link #strip(String)}.
@@ -8775,6 +8775,41 @@ public class StringUtils {
      */
     public static String trim(final String str) {
         return str == null ? null : str.trim();
+    }
+
+    /**
+     * Removes control characters (char &lt;= 31) from both ends of this String, handling {@code null} by returning {@code null}.
+     *
+     * <p>
+     * To trim your choice of characters, use the {@link #strip(String, String)} methods.
+     * </p>
+     *
+     * <pre>{@code
+     * StringUtils.trim(null)          = null
+     * StringUtils.trim("")            = ""
+     * StringUtils.trim("abc\u0000")   = "abc"
+     * StringUtils.trim("abc")         = "abc"
+     * StringUtils.trim(" abc ")       = " abc "
+     * }</pre>
+     *
+     * @param str the String to be trimmed, may be null.
+     * @return the trimmed string, {@code null} if null String input.
+     * @since 3.21.0
+     */
+    public static String trimControl(final String str) {
+        if (str == null) {
+            return null;
+        }
+        int len = str.length();
+        int st = 0;
+
+        while (st < len && str.charAt(st) < ' ') {
+            st++;
+        }
+        while (st < len && str.charAt(len - 1) < ' ') {
+            len--;
+        }
+        return st > 0 || len < str.length() ? str.substring(st, len) : str;
     }
 
     /**
