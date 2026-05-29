@@ -43,6 +43,32 @@ class StringUtilsTrimTest extends AbstractLangTest {
     }
 
     @Test
+    void testTrimControl() {
+        // null input returns null
+        assertNull(StringUtils.trimControl(null));
+        // empty string stays empty
+        assertEquals("", StringUtils.trimControl(""));
+        // no control chars: unchanged
+        assertEquals(FOO, StringUtils.trimControl(FOO));
+        // spaces are NOT stripped (space is char 32, not a control char)
+        assertEquals(" " + FOO + " ", StringUtils.trimControl(" " + FOO + " "));
+        // trailing NUL (\u0000) is stripped
+        assertEquals(FOO, StringUtils.trimControl(FOO + "\u0000"));
+        // leading NUL (\u0000) is stripped
+        assertEquals(FOO, StringUtils.trimControl("\u0000" + FOO));
+        // control chars on both ends are stripped
+        assertEquals(FOO, StringUtils.trimControl("\t\r\n" + FOO + "\t\r\n"));
+        // only control chars becomes empty string
+        assertEquals("", StringUtils.trimControl("\u0001\u0002\u001F"));
+        // embedded control chars are NOT stripped
+        assertEquals("a\u0001b", StringUtils.trimControl("a\u0001b"));
+        // space in the middle preserved, control chars on ends stripped
+        assertEquals(" " + FOO + " ", StringUtils.trimControl("\u0001 " + FOO + " \u0001"));
+        // char 31 (unit separator) is stripped; char 32 (space) is not
+        assertEquals(" abc ", StringUtils.trimControl("\u001F abc \u001F"));
+    }
+
+    @Test
     void testTrimToEmpty() {
         assertEquals(FOO, StringUtils.trimToEmpty(FOO + "  "));
         assertEquals(FOO, StringUtils.trimToEmpty(" " + FOO + "  "));
