@@ -176,6 +176,7 @@ class DurationUtilsTest extends AbstractLangTest {
     void testToMillisInt() {
         assertEquals(0, DurationUtils.toMillisInt(Duration.ZERO));
         assertEquals(1, DurationUtils.toMillisInt(Duration.ofMillis(1)));
+        assertEquals(-1, DurationUtils.toMillisInt(Duration.ofMillis(-1)));
         //
         assertEquals(Integer.MIN_VALUE, DurationUtils.toMillisInt(Duration.ofMillis(Integer.MIN_VALUE)));
         assertEquals(Integer.MAX_VALUE, DurationUtils.toMillisInt(Duration.ofMillis(Integer.MAX_VALUE)));
@@ -202,6 +203,21 @@ class DurationUtilsTest extends AbstractLangTest {
     @Test
     void testToMillisIntUnderflowToMinInteger() {
         assertEquals(Integer.MIN_VALUE, DurationUtils.toMillisInt(Duration.ofSeconds(Long.MIN_VALUE / 1000 - 1)));
+    }
+
+    @Test
+    void testToMillisLong() {
+        assertEquals(0, DurationUtils.toMillisLong(Duration.ZERO));
+        assertEquals(1, DurationUtils.toMillisLong(Duration.ofMillis(1)));
+        assertEquals(-1, DurationUtils.toMillisLong(Duration.ofMillis(-1)));
+        assertEquals(Long.MIN_VALUE, DurationUtils.toMillisLong(Duration.ofMillis(Long.MIN_VALUE)));
+        assertEquals(Long.MAX_VALUE, DurationUtils.toMillisLong(Duration.ofMillis(Long.MAX_VALUE)));
+        assertEquals(Long.MAX_VALUE, DurationUtils.toMillisLong(Duration.ofSeconds(Long.MAX_VALUE)));
+    }
+
+    @Test
+    void testToMillisLongNullDuration() {
+        assertNullPointerException(() -> DurationUtils.toMillisLong(null));
     }
 
     @Test

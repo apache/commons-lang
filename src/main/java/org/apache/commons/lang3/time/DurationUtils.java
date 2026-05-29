@@ -240,25 +240,43 @@ public class DurationUtils {
      * Handy for low-level APIs that take millisecond timeouts in ints rather than longs.
      * </p>
      * <ul>
-     * <li>If the duration milliseconds are greater than {@link Integer#MAX_VALUE}, then return
-     * {@link Integer#MAX_VALUE}.</li>
-     * <li>If the duration milliseconds are lesser than {@link Integer#MIN_VALUE}, then return
-     * {@link Integer#MIN_VALUE}.</li>
+     * <li>If the duration milliseconds are greater than {@link Integer#MAX_VALUE}, then return {@link Integer#MAX_VALUE}.</li>
+     * <li>If the duration milliseconds are lesser than {@link Integer#MIN_VALUE}, then return {@link Integer#MIN_VALUE}.</li>
      * </ul>
      *
      * @param duration The duration to convert, not null.
      * @return int milliseconds.
+     * @see Duration#toMillis()
+     * @see Integer#MIN_VALUE
+     * @see Integer#MAX_VALUE
      */
     public static int toMillisInt(final Duration duration) {
         Objects.requireNonNull(duration, "duration");
         // intValue() does not do a narrowing conversion here
-        final long millis;
+        return LONG_TO_INT_RANGE.fit(Long.valueOf(toMillisLong(duration))).intValue();
+    }
+
+    /**
+     * Converts a Duration to milliseconds bound to a {@code long} without throwing {@link ArithmeticException}.
+     * <ul>
+     * <li>If the duration milliseconds are greater than {@link Long#MAX_VALUE}, then return {@link Long#MAX_VALUE}.</li>
+     * <li>If the duration milliseconds are lesser than {@link Long#MIN_VALUE}, then return {@link Long#MIN_VALUE}.</li>
+     * </ul>
+     *
+     * @param duration The duration to convert, not null.
+     * @return long milliseconds.
+     * @see Duration#toMillis()
+     * @see Long#MIN_VALUE
+     * @see Long#MAX_VALUE
+     * @since 3.21.0
+     */
+    public static long toMillisLong(final Duration duration) {
+        Objects.requireNonNull(duration, "duration");
         try {
-            millis = duration.toMillis();
+            return duration.toMillis();
         } catch (final ArithmeticException e) {
-            return duration.isNegative() ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+            return duration.isNegative() ? Long.MIN_VALUE : Long.MAX_VALUE;
         }
-        return LONG_TO_INT_RANGE.fit(Long.valueOf(millis)).intValue();
     }
 
     /**
