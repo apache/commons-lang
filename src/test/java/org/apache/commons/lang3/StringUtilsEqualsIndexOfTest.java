@@ -610,6 +610,13 @@ class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         assertEquals(5, StringUtils.lastIndexOf("aabaabaa", 'b'));
 
         assertEquals(5, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), 'b'));
+
+        // LANG-1300: supplementary code points searched in a non-String CharSequence must agree with String
+        final int supp = 0x2070E;
+        final String suppStr = new String(Character.toChars(supp));
+        assertEquals(suppStr.lastIndexOf(supp), StringUtils.lastIndexOf(new StringBuilder(suppStr), supp));
+        assertEquals(("x" + suppStr).lastIndexOf(supp), StringUtils.lastIndexOf(new StringBuilder("x" + suppStr), supp));
+        assertEquals((suppStr + "y").lastIndexOf(supp), StringUtils.lastIndexOf(new StringBuilder(suppStr + "y"), supp));
     }
 
     @Test
