@@ -40,6 +40,14 @@ class NumericEntityUnescaperTest extends AbstractLangTest {
     }
 
     @Test
+    void testOutOfRangeCodePoint() {
+        final NumericEntityUnescaper neu = new NumericEntityUnescaper();
+        assertEquals("&#x110000;", neu.translate("&#x110000;"), "Failed to ignore code point above 0x10FFFF");
+        assertEquals("&#1114112;", neu.translate("&#1114112;"), "Failed to ignore code point above 0x10FFFF");
+        assertEquals("&#x7FFFFFFF;", neu.translate("&#x7FFFFFFF;"), "Failed to ignore code point above 0x10FFFF");
+    }
+
+    @Test
     void testSupplementaryUnescaping() {
         final NumericEntityUnescaper neu = new NumericEntityUnescaper();
         final String input = "&#68642;";
