@@ -559,6 +559,9 @@ public class Range<T> implements Serializable {
         if (comparator == null) {
             throw new InvalidObjectException("comparator null");
         }
+        if (comparator.compare(minimum, maximum) > 0) {
+            throw new InvalidObjectException("Range minimum is greater than maximum under the comparator.");
+        }
     }
 
     /**
