@@ -180,6 +180,23 @@ class CharUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testIsAsciiNumeric_int() {
+        assertFalse(CharUtils.isAsciiNumeric((int) 'a'));
+        assertFalse(CharUtils.isAsciiNumeric((int) 'A'));
+        assertTrue(CharUtils.isAsciiNumeric((int) '3'));
+        assertFalse(CharUtils.isAsciiNumeric((int) '-'));
+        assertFalse(CharUtils.isAsciiNumeric((int) '\n'));
+        assertFalse(CharUtils.isAsciiNumeric((int) CHAR_COPY));
+        for (int i = 0; i < 196; i++) {
+            if (i >= '0' && i <= '9') {
+                assertTrue(CharUtils.isAsciiNumeric(i));
+            } else {
+                assertFalse(CharUtils.isAsciiNumeric(i));
+            }
+        }
+    }
+
+    @Test
     void testIsAsciiPrintable_char() {
         assertTrue(CharUtils.isAsciiPrintable('a'));
         assertTrue(CharUtils.isAsciiPrintable('A'));
@@ -193,6 +210,50 @@ class CharUtilsTest extends AbstractLangTest {
                 assertTrue(CharUtils.isAsciiPrintable((char) i));
             } else {
                 assertFalse(CharUtils.isAsciiPrintable((char) i));
+            }
+        }
+    }
+
+    @Test
+    void testIsHex_int() {
+        assertTrue(CharUtils.isHex((int) '0'));
+        assertTrue(CharUtils.isHex((int) '3'));
+        assertTrue(CharUtils.isHex((int) '9'));
+        assertTrue(CharUtils.isHex((int) 'a'));
+        assertTrue(CharUtils.isHex((int) 'f'));
+        assertFalse(CharUtils.isHex((int) 'g'));
+        assertTrue(CharUtils.isHex((int) 'A'));
+        assertTrue(CharUtils.isHex((int) 'F'));
+        assertFalse(CharUtils.isHex((int) 'G'));
+        assertFalse(CharUtils.isHex((int) '#'));
+        assertFalse(CharUtils.isHex((int) '-'));
+        assertFalse(CharUtils.isHex((int) '\n'));
+        assertFalse(CharUtils.isHex((int) CHAR_COPY));
+        for (int i = 0; i < 196; i++) {
+            if (i >= '0' && i <= '9' || i >= 'a' && i <= 'f' || i >= 'A' && i <= 'F') {
+                assertTrue(CharUtils.isHex(i));
+            } else {
+                assertFalse(CharUtils.isHex(i));
+            }
+        }
+    }
+
+    @Test
+    void testIsOctal_byte() {
+        assertFalse(CharUtils.isOctal((byte) 'a'));
+        assertFalse(CharUtils.isOctal((byte) 'A'));
+        assertTrue(CharUtils.isOctal((byte) '0'));
+        assertTrue(CharUtils.isOctal((byte) '3'));
+        assertTrue(CharUtils.isOctal((byte) '7'));
+        assertFalse(CharUtils.isOctal((byte) '8'));
+        assertFalse(CharUtils.isOctal((byte) '9'));
+        assertFalse(CharUtils.isOctal((byte) '-'));
+        assertFalse(CharUtils.isOctal((byte) '\n'));
+        for (byte i = 0; i < 127; i++) {
+            if (i >= '0' && i <= '7') {
+                assertTrue(CharUtils.isOctal(i));
+            } else {
+                assertFalse(CharUtils.isOctal(i));
             }
         }
     }

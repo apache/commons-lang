@@ -208,6 +208,26 @@ public class CharUtils {
     }
 
     /**
+     * Tests whether the character is ASCII 7 bit numeric.
+     *
+     * <pre>
+     *   CharUtils.isAsciiNumeric('a')  = false
+     *   CharUtils.isAsciiNumeric('A')  = false
+     *   CharUtils.isAsciiNumeric('3')  = true
+     *   CharUtils.isAsciiNumeric('-')  = false
+     *   CharUtils.isAsciiNumeric('\n') = false
+     *   CharUtils.isAsciiNumeric('&copy;') = false
+     * </pre>
+     *
+     * @param ch  the code point to check.
+     * @return true if between 48 and 57 inclusive.
+     * @since 3.21.0
+     */
+    public static boolean isAsciiNumeric(final int ch) {
+        return ch >= '0' && ch <= '9';
+    }
+
+    /**
      * Tests whether the character is ASCII 7 bit printable.
      *
      * <pre>
@@ -254,10 +274,48 @@ public class CharUtils {
     }
 
     /**
+     * Tests whether a character is a hexadecimal character.
+     *
+     * <pre>
+     *   CharUtils.isHex('0')  = true
+     *   CharUtils.isHex('3')  = true
+     *   CharUtils.isHex('9')  = true
+     *   CharUtils.isHex('a')  = true
+     *   CharUtils.isHex('f')  = true
+     *   CharUtils.isHex('g')  = false
+     *   CharUtils.isHex('A')  = true
+     *   CharUtils.isHex('F')  = true
+     *   CharUtils.isHex('G')  = false
+     *   CharUtils.isHex('#')  = false
+     *   CharUtils.isHex('-')  = false
+     *   CharUtils.isHex('\n') = false
+     *   CharUtils.isHex('&copy;') = false
+     * </pre>
+     *
+     * @param ch  the code point to test.
+     * @return true if character is a hexadecimal character.
+     * @since 3.21.0
+     */
+    public static boolean isHex(final int ch) {
+        return isAsciiNumeric(ch) || ch >= 'a' && ch <= 'f' || ch >= 'A' && ch <= 'F';
+    }
+
+    /**
      * Tests if the given char is an octal digit. Octal digits are the character representations of the digits 0 to 7.
      *
-     * @param ch the char to check
-     * @return true if the given char is the character representation of one of the digits from 0 to 7
+     * @param ch the byte to check.
+     * @return true if the given char is the character representation of one of the digits from 0 to 7.
+     * @since 3.21.0
+     */
+    public static boolean isOctal(final byte ch) {
+        return ch >= '0' && ch <= '7';
+    }
+
+    /**
+     * Tests if the given char is an octal digit. Octal digits are the character representations of the digits 0 to 7.
+     *
+     * @param ch the char to check.
+     * @return true if the given char is the character representation of one of the digits from 0 to 7.
      * @since 3.18.0
      */
     public static boolean isOctal(final char ch) {
