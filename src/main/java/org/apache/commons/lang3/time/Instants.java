@@ -26,6 +26,10 @@ import java.time.Instant;
  */
 public class Instants {
 
+    private static long toBound(final Instant instant, final long negBound, final long posBound) {
+        return instant.getEpochSecond() < 0 ? negBound : posBound;
+    }
+
     /**
      * Converts an Instant to milliseconds bound to a {@code long} without throwing {@link ArithmeticException}.
      * <ul>
@@ -34,7 +38,7 @@ public class Instants {
      * </ul>
      *
      * @param instant The instant to convert, not null.
-     * @return long milliseconds.
+     * @return long The given Instant in milliseconds.
      * @see Instant#toEpochMilli()
      * @see Long#MIN_VALUE
      * @see Long#MAX_VALUE
@@ -43,7 +47,25 @@ public class Instants {
         try {
             return instant.toEpochMilli();
         } catch (final ArithmeticException e) {
-            return instant.getEpochSecond() < 0 ? Long.MIN_VALUE : Long.MAX_VALUE;
+            return toBound(instant, Long.MIN_VALUE, Long.MAX_VALUE);
+        }
+    }
+
+    /**
+     * Converts an Instant to milliseconds sicne that Instant bound to a {@code long} without throwing {@link ArithmeticException}.
+     * <ul>
+     * <li>If the duration milliseconds are greater than {@link Long#MAX_VALUE}, then return {@link Long#MAX_VALUE}.</li>
+     * <li>If the duration milliseconds are lesser than {@link Long#MIN_VALUE}, then return {@link Long#MIN_VALUE}.</li>
+     * </ul>
+     *
+     * @param instant The instant to convert, not null.
+     * @return long The duration in milliseconds since the given Instant.
+     */
+    public static long toMillisSince(final Instant instant) {
+        try {
+            return DurationUtils.since(instant).toMillis();
+        } catch (final ArithmeticException e) {
+            return toBound(instant, Long.MIN_VALUE, Long.MAX_VALUE);
         }
     }
 

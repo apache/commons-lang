@@ -18,6 +18,7 @@
 package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Instant;
 
@@ -55,14 +56,12 @@ class InstantsTest extends AbstractLangTest {
 
     @Test
     void testToEpochMillisNegativeMillis() {
-        final Instant instant = Instant.ofEpochMilli(-1_000_000L);
-        assertEquals(-1_000_000L, Instants.toEpochMillis(instant));
+        assertEquals(-1_000_000L, Instants.toEpochMillis(Instant.ofEpochMilli(-1_000_000L)));
     }
 
     @Test
     void testToEpochMillisNormalInstant() {
-        final Instant instant = Instant.ofEpochMilli(1_000_000L);
-        assertEquals(1_000_000L, Instants.toEpochMillis(instant));
+        assertEquals(1_000_000L, Instants.toEpochMillis(Instant.ofEpochMilli(1_000_000L)));
     }
 
     @Test
@@ -79,5 +78,68 @@ class InstantsTest extends AbstractLangTest {
     @Test
     void testToEpochMillisUnderflowReturnsMinValue() {
         assertEquals(Long.MIN_VALUE, Instants.toEpochMillis(INSTANT_FAR_PAST));
+    }
+
+    /**
+     * Epoch instant (time zero): milliseconds since epoch should be positive and equal to
+     * roughly the current time in millis (with a generous lower bound).
+     */
+    @Test
+    void testToMillisSinceEpoch() {
+        // As of 2026, ~1.7 trillion ms have elapsed since epoch.
+        assertTrue(Instants.toMillisSince(Instant.EPOCH) > 0);
+    }
+
+    /**
+     * A future instant one second from now; milliseconds since it should be negative (roughly -1_000).
+     */
+    @Test
+    void testToMillisSinceFutureInstantIsNegative() {
+        final Instant oneSecondFuture = Instant.now().plusMillis(1_000);
+        final long millis = Instants.toMillisSince(oneSecondFuture);
+        // Duration from a future instant to now is negative.
+        assertTrue(millis <= -900, "Expected millis <= -900 but was " + millis);
+    }
+
+    /**
+     * {@link Instant#MAX} (positive epoch second): the huge negative duration from Instant.MAX to now
+     * overflows {@code long} millis; the bound is {@link Long#MAX_VALUE} because the instant's epoch
+     * second is positive.
+     */
+    @Test
+    void testToMillisSinceInstantMaxOverflowReturnsMaxValue() {
+        assertEquals(Long.MAX_VALUE, Instants.toMillisSince(Instant.MAX));
+    }
+
+    /**
+     * {@link Instant#MIN} (negative epoch second): the huge positive duration from Instant.MIN to now
+     * overflows {@code long} millis; the bound is {@link Long#MIN_VALUE} because the instant's epoch
+     * second is negative.
+     */
+    @Test
+    void testToMillisSinceInstantMinOverflowReturnsMinValue() {
+        assertEquals(Long.MIN_VALUE, Instants.toMillisSince(Instant.MIN));
+    }
+
+    /**
+     * Instant.now(); milliseconds since should be very close to zero (within a generous tolerance).
+     */
+    @Test
+    void testToMillisSinceNowIsNearZero() {
+        final Instant now = Instant.now();
+        final long millis = Instants.toMillisSince(now);
+        // Allow a generous 5_000 ms window for slow test environments.
+        assertTrue(millis >= 0 && millis < 5_000, "Expected millis in [0, 5000) but was " + millis);
+    }
+
+    /**
+     * A past instant one second ago; milliseconds since it should be approximately 1_000.
+     */
+    @Test
+    void testToMillisSincePastInstantIsPositive() {
+        final Instant oneSecondAgo = Instant.now().minusMillis(1_000);
+        final long millis = Instants.toMillisSince(oneSecondAgo);
+        // Should be at least 1_000 ms (wall time may have advanced slightly more).
+        assertTrue(millis >= 1_000, "Expected millis >= 1000 but was " + millis);
     }
 }
