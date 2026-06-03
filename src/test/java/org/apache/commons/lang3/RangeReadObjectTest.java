@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,6 +29,8 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Objects;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -118,6 +121,23 @@ class RangeReadObjectTest {
     }
 
     /**
+     * Forged stream: minimum=1, maximum=10, hashCode=hash(1,10) (all legitimate), but comparator replaced with a reversed ordering. The hashCode gate passes
+     * (comparator excluded from the hash) and the null gates pass (comparator is non-null); the ordering invariant is the only one violated. The deserialized
+     * Range still reports endpoints [1,10] but {@code contains(5)} returns false because it trusts the reversed comparator.
+     */
+    @Test
+    void testForgedReversedComparatorBreaksContains() throws Exception {
+        final Range<Integer> reference = Range.of(Integer.valueOf(1), Integer.valueOf(10));
+        final Range<Integer> forged = Range.of(Integer.valueOf(1), Integer.valueOf(10));
+        final Comparator<Integer> reversed = Collections.reverseOrder();
+        FieldUtils.writeDeclaredField(forged, "comparator", reversed, true);
+        assertThrows(InvalidObjectException.class, () -> deserialize(SerializationUtils.serialize(forged)));
+        assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(SerializationUtils.serialize(forged)));
+        assertThrows(SerializationException.class, () -> SerializationUtils.roundtrip(forged));
+        assertTrue(reference.contains(Integer.valueOf(5)));
+    }
+
+    /**
      * Forged stream with {@code maximum == null}; symmetric to F-061b.
      */
     @Test
@@ -152,4 +172,5 @@ class RangeReadObjectTest {
         assertEquals(range.hashCode(), roundtrip.hashCode(), "Round-trip serialization must preserve the correct hashCode");
         assertEquals(range, roundtrip);
     }
+
 }
