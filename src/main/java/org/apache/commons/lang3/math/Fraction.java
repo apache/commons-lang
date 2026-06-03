@@ -121,6 +121,12 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         return (int) s;
     }
 
+    private static void checkDenominator(final int denominator) {
+        if (denominator == 0) {
+            throw new ArithmeticException("The denominator must not be zero");
+        }
+    }
+
     /**
      * Creates a {@link Fraction} instance from a {@code double} value.
      * <p>
@@ -194,9 +200,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the denominator is {@code zero} or the denominator is {@code negative} and the numerator is {@code Integer#MIN_VALUE}
      */
     public static Fraction getFraction(int numerator, int denominator) {
-        if (denominator == 0) {
-            throw new ArithmeticException("The denominator must not be zero");
-        }
+        checkDenominator(denominator);
         if (denominator < 0) {
             if (numerator == Integer.MIN_VALUE || denominator == Integer.MIN_VALUE) {
                 throw new ArithmeticException("overflow: can't negate");
@@ -223,9 +227,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the resulting numerator exceeds {@code Integer.MAX_VALUE}
      */
     public static Fraction getFraction(final int whole, final int numerator, final int denominator) {
-        if (denominator == 0) {
-            throw new ArithmeticException("The denominator must not be zero");
-        }
+        checkDenominator(denominator);
         if (denominator < 0) {
             throw new ArithmeticException("The denominator must not be negative");
         }
@@ -313,9 +315,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException if the denominator is {@code zero}
      */
     public static Fraction getReducedFraction(int numerator, int denominator) {
-        if (denominator == 0) {
-            throw new ArithmeticException("The denominator must not be zero");
-        }
+        checkDenominator(denominator);
         if (numerator == 0) {
             return ZERO; // normalize zero.
         }
@@ -855,6 +855,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
+        checkDenominator(denominator);
         if (hashCode != hash(denominator, numerator)) {
             throw new InvalidObjectException("Fraction hashCode does not match numerator/denominator.");
         }
