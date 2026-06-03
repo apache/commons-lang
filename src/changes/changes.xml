@@ -173,6 +173,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">Range.readObject() does not null-check comparator, minimum, or maximum (#1675).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make the StopWatch more reliable for tracking nanos, adjust suspend test (#1677).</action>
     <action issue="LANG-1801" type="fix" dev="ggregory" due-to="Zhongxin Yan, Gary Gregory">RandomStringUtils.random() does not strictly validate start and end (#1682).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Fix CharSequenceUtils.lastIndexOf for supplementary code points #1684.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
@@ -188,6 +189,8 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.toMillisLong(Duration) (#1679).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Instants.toEpochMillis(Instant) (#1680).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.trimControl(String) (#1681).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Instants.toMillisSince(Instant) (#1683).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add CharUtils isHex(int), isAsciiNumeric(int), isOctal(int) (#1685).</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 100 #1498.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.14.0 to 1.15.0.</action>
