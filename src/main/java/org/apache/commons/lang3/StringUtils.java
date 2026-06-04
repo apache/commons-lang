@@ -8796,17 +8796,16 @@ public class StringUtils {
      * @return the trimmed string, {@code null} if null String input.
      * @since 3.21.0
      */
-    public static String trimControl(final String str) {
+    public static String trimAsciiControl(final String str) {
         if (str == null) {
             return null;
         }
         int len = str.length();
         int st = 0;
-
-        while (st < len && str.charAt(st) < ' ') {
+        while (st < len && CharUtils.isAsciiControl(str.charAt(st))) {
             st++;
         }
-        while (st < len && str.charAt(len - 1) < ' ') {
+        while (st < len && CharUtils.isAsciiControl(str.charAt(len - 1))) {
             len--;
         }
         return st > 0 || len < str.length() ? str.substring(st, len) : str;
