@@ -190,7 +190,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add ArrayFill.clear(char[]) (#1667).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add DurationUtils.toMillisLong(Duration) (#1679).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Instants.toEpochMillis(Instant) (#1680).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.trimControl(String) (#1681).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add StringUtils.trimAsciiControl(String) (#1681).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add Instants.toMillisSince(Instant) (#1683).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add CharUtils isHex(int), isAsciiNumeric(int), isOctal(int) (#1685).</action>
     <!-- UPDATE -->
