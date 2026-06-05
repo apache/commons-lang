@@ -18,6 +18,8 @@
 package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Instant;
@@ -78,6 +80,81 @@ class InstantsTest extends AbstractLangTest {
     @Test
     void testToEpochMillisUnderflowReturnsMinValue() {
         assertEquals(Long.MIN_VALUE, Instants.toEpochMillis(INSTANT_FAR_PAST));
+    }
+
+    @Test
+    void testToInstantEpochReturnsSameInstance() {
+        assertSame(Instant.EPOCH, Instants.toInstant(Instant.EPOCH));
+    }
+
+    @Test
+    void testToInstantMaxReturnsSameInstance() {
+        assertSame(Instant.MAX, Instants.toInstant(Instant.MAX));
+    }
+
+    @Test
+    void testToInstantMinReturnsSameInstance() {
+        assertSame(Instant.MIN, Instants.toInstant(Instant.MIN));
+    }
+
+    @Test
+    void testToInstantNonNullIsNotNull() {
+        assertNotNull(Instants.toInstant(Instant.now()));
+    }
+
+    @Test
+    void testToInstantNonNullReturnsSameInstance() {
+        final Instant now = Instant.now();
+        assertSame(now, Instants.toInstant(now));
+    }
+
+    @Test
+    void testToInstantNullReturnsEpoch() {
+        assertEquals(Instant.EPOCH, Instants.toInstant(null));
+    }
+
+    @Test
+    void testToInstantWithDefaultEpochReturnsSameInstance() {
+        assertSame(Instant.EPOCH, Instants.toInstant(Instant.EPOCH, Instant.MAX));
+    }
+
+    @Test
+    void testToInstantWithDefaultMaxReturnsSameInstance() {
+        assertSame(Instant.MAX, Instants.toInstant(Instant.MAX, Instant.MIN));
+    }
+
+    @Test
+    void testToInstantWithDefaultMinReturnsSameInstance() {
+        assertSame(Instant.MIN, Instants.toInstant(Instant.MIN, Instant.MAX));
+    }
+
+    @Test
+    void testToInstantWithDefaultNonNullIgnoresDefault() {
+        final Instant value = Instant.ofEpochMilli(1_000L);
+        final Instant defaultInstant = Instant.ofEpochMilli(9_999L);
+        assertSame(value, Instants.toInstant(value, defaultInstant));
+    }
+
+    @Test
+    void testToInstantWithDefaultNonNullReturnsSameInstance() {
+        final Instant now = Instant.now();
+        assertSame(now, Instants.toInstant(now, Instant.EPOCH));
+    }
+
+    @Test
+    void testToInstantWithDefaultNullAndEpochDefaultReturnsEpoch() {
+        assertSame(Instant.EPOCH, Instants.toInstant(null, Instant.EPOCH));
+    }
+
+    @Test
+    void testToInstantWithDefaultNullReturnsDefault() {
+        final Instant defaultInstant = Instant.ofEpochMilli(12345L);
+        assertSame(defaultInstant, Instants.toInstant(null, defaultInstant));
+    }
+
+    @Test
+    void testToInstantWithDefaultNullReturnsNullDefault() {
+        assertSame(null, Instants.toInstant(null, null));
     }
 
     /**
