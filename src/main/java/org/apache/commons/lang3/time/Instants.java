@@ -35,6 +35,7 @@ public class Instants {
      * <ul>
      * <li>If the duration milliseconds are greater than {@link Long#MAX_VALUE}, then return {@link Long#MAX_VALUE}.</li>
      * <li>If the duration milliseconds are lesser than {@link Long#MIN_VALUE}, then return {@link Long#MIN_VALUE}.</li>
+     * <li>If the instant is null, treat it as {@link Instant#EPOCH}.</li>
      * </ul>
      *
      * @param instant The instant to convert, not null.
@@ -44,28 +45,52 @@ public class Instants {
      * @see Long#MAX_VALUE
      */
     public static long toEpochMillis(final Instant instant) {
+        final Instant instant2 = toInstant(instant);
         try {
-            return instant.toEpochMilli();
+            return instant2.toEpochMilli();
         } catch (final ArithmeticException e) {
-            return toBound(instant, Long.MIN_VALUE, Long.MAX_VALUE);
+            return toBound(instant2, Long.MIN_VALUE, Long.MAX_VALUE);
         }
     }
 
     /**
-     * Converts an Instant to milliseconds sicne that Instant bound to a {@code long} without throwing {@link ArithmeticException}.
+     * Returns the given non-null instant, or {@link Instant#EPOCH} if null.
+     *
+     * @param instant the instant to test, may be null.
+     * @return the given non-null instant, or {@link Instant#EPOCH} if null.
+     */
+    public static Instant toInstant(final Instant instant) {
+        return toInstant(instant, Instant.EPOCH);
+    }
+
+    /**
+     * Returns the given non-null instant, or {@code defaultInstant} if instant is null.
+     *
+     * @param instant the instant to test, may be null.
+     * @param defaultInstant The default instant to use if the given instant is null, may be null.
+     * @return the given non-null instant, or {@code defaultInstant} if null.
+     */
+    public static Instant toInstant(final Instant instant, final Instant defaultInstant) {
+        return instant != null ? instant : defaultInstant;
+    }
+
+    /**
+     * Converts an Instant to milliseconds since that Instant bound to a {@code long} without throwing {@link ArithmeticException}.
      * <ul>
      * <li>If the duration milliseconds are greater than {@link Long#MAX_VALUE}, then return {@link Long#MAX_VALUE}.</li>
      * <li>If the duration milliseconds are lesser than {@link Long#MIN_VALUE}, then return {@link Long#MIN_VALUE}.</li>
+     * <li>If the instant is null, treat it as {@link Instant#EPOCH}.</li>
      * </ul>
      *
      * @param instant The instant to convert, not null.
      * @return long The duration in milliseconds since the given Instant.
      */
     public static long toMillisSince(final Instant instant) {
+        final Instant instant2 = toInstant(instant);
         try {
-            return DurationUtils.since(instant).toMillis();
+            return DurationUtils.since(instant2).toMillis();
         } catch (final ArithmeticException e) {
-            return toBound(instant, Long.MIN_VALUE, Long.MAX_VALUE);
+            return toBound(instant2, Long.MIN_VALUE, Long.MAX_VALUE);
         }
     }
 
