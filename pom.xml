@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>100</version>
+    <version>101</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
@@ -41,7 +41,6 @@
   Starting with Commons Lang 3.9, we target Java 8 and use those features.
 
   For advice on upgrading from 2.x to 3.x, see https://commons.apache.org/lang/article3_0.html
-
   </description>
   <url>https://commons.apache.org/proper/commons-lang/</url>
   <ciManagement>
