@@ -550,15 +550,9 @@ public class Range<T> implements Serializable {
         if (hashCode != hash(minimum, maximum)) {
             throw new InvalidObjectException("Range hashCode does not match minimum/maximum.");
         }
-        if (maximum == null) {
-            throw new InvalidObjectException("maximum null");
-        }
-        if (minimum == null) {
-            throw new InvalidObjectException("minimum null");
-        }
-        if (comparator == null) {
-            throw new InvalidObjectException("comparator null");
-        }
+        SerializationUtils.requireNonNull(maximum, "maximum null");
+        SerializationUtils.requireNonNull(minimum, "minimum null");
+        SerializationUtils.requireNonNull(comparator, "comparator null");
         if (comparator.compare(minimum, maximum) > 0) {
             throw new InvalidObjectException("Range minimum is greater than maximum under the comparator.");
         }
