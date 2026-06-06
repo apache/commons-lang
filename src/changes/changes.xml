@@ -176,6 +176,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Fix CharSequenceUtils.lastIndexOf for supplementary code points #1684.</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">Range.readObject() does not re-assert the comparator/ordering invariant (#1686).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">Fraction.readObject() does not re-assert denominator != 0 (#1688).</action>
+    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">FastDateParser.readObject(ObjectInputStream) now validates the same (#1692).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
