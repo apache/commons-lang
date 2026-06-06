@@ -36,6 +36,10 @@ import java.util.Map;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junitpioneer.jupiter.cartesian.ArgumentSets;
+import org.junitpioneer.jupiter.cartesian.CartesianTest;
 
 /**
  * Test case for {@link ExtendedMessageFormat}.
@@ -127,7 +131,13 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
         }
     }
 
-    private final Map<String, FormatFactory> registry = new HashMap<>();
+    static ArgumentSets testBuiltInChoiceFormatFactory() {
+        // @formatter:off
+        return ArgumentSets
+                .argumentsForFirstParameter(Integer.valueOf(1), Double.valueOf("2.2"), Double.valueOf("1234.5"))
+                .argumentsForNextParameter(DateFormat.getAvailableLocales());
+        // @formatter:on
+    }
 
 //    /**
 //     * Test extended formats with choice format.
@@ -184,6 +194,53 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
 //        }
 //    }
 
+    static ArgumentSets testBuiltInDateTimeFormatFactory() {
+        // @formatter:off
+        return ArgumentSets
+                .argumentsForFirstParameter(
+                        "1: {0,date,short}",
+                        "2: {0,date,medium}",
+                        "3: {0,date,long}",
+                        "4: {0,date,full}",
+                        "5: {0,date,d MMM yy}",
+                        "6: {0,time,short}",
+                        "7: {0,time,medium}",
+                        "8: {0,time,long}",
+                        "9: {0,time,full}",
+                        "10: {0,time,HH:mm}",
+                        "11: {0,date}", "12: {0,time}")
+                .argumentsForNextParameter(DateFormat.getAvailableLocales());
+        // @formatter:on
+    }
+
+    static ArgumentSets testBuiltInNumberFormatFactory() {
+        // @formatter:off
+        return ArgumentSets
+                .argumentsForFirstParameter(
+                        "1: {0,number}",
+                        "2: {0,number,integer}",
+                        "3: {0,number,currency}",
+                        "4: {0,number,percent}",
+                        "5: {0,number,00000.000}")
+                .argumentsForNextParameter(DateFormat.getAvailableLocales());
+        // @formatter:on
+    }
+
+    static ArgumentSets testOverriddenBuiltinFormatFactory() {
+        // @formatter:off
+        return ArgumentSets
+                .argumentsForFirstParameter(
+                        "1: {0,date}",
+                        "2: {0,date,medium}",
+                        "3: {0,date,long}",
+                        "4: {0,date,full}",
+                        "5: {0,date,d MMM yy}")
+                .argumentsForNextParameter(DateFormat.getAvailableLocales());
+        // @formatter:on
+    }
+
+    private final Map<String, FormatFactory> registry = new HashMap<>();
+
     /**
      * Create an ExtendedMessageFormat for the specified pattern and locale and check the
      * formatted output matches the expected result for the parameters.
@@ -211,30 +268,6 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
-     * Test a built-in format for the specified Locales, plus {@code null} Locale.
-     * @param pattern MessageFormat pattern
-     * @param fmtRegistry FormatFactory registry to use
-     * @param args MessageFormat arguments
-     * @param locales to test
-     */
-    private void checkBuiltInFormat(final String pattern, final Map<String, ?> fmtRegistry, final Object[] args, final Locale[] locales) {
-        checkBuiltInFormat(pattern, fmtRegistry, args, (Locale) null);
-        for (final Locale locale : locales) {
-            checkBuiltInFormat(pattern, fmtRegistry, args, locale);
-        }
-    }
-
-    /**
-     * Test a built-in format for the specified Locales, plus {@code null} Locale.
-     * @param pattern MessageFormat pattern
-     * @param args MessageFormat arguments
-     * @param locales to test
-     */
-    private void checkBuiltInFormat(final String pattern, final Object[] args, final Locale[] locales) {
-        checkBuiltInFormat(pattern, null, args, locales);
-    }
-
-    /**
      * Replace MessageFormat(String, Locale) constructor (not available until JDK 1.4).
      * @param pattern string
      * @param locale Locale
@@ -258,59 +291,41 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
     /**
      * Test the built-in choice format.
      */
-    @Test
-    void testBuiltInChoiceFormat() {
-        final Object[] values = new Number[] {Integer.valueOf(1), Double.valueOf("2.2"), Double.valueOf("1234.5")};
+    @CartesianTest
+    @CartesianTest.MethodFactory("testBuiltInChoiceFormatFactory")
+    void testBuiltInChoiceFormat(final Object value, final Locale locale) {
         String choicePattern;
-        final Locale[] availableLocales = NumberFormat.getAvailableLocales();
-
         choicePattern = "{0,choice,1#One|2#Two|3#Many {0,number}}";
-        for (final Object value : values) {
-            checkBuiltInFormat(value + ": " + choicePattern, new Object[] {value}, availableLocales);
-        }
-
+        checkBuiltInFormat(value + ": " + choicePattern, null, new Object[] { value }, (Locale) null);
+        checkBuiltInFormat(value + ": " + choicePattern, null, new Object[] { value }, locale);
+        //
         choicePattern = "{0,choice,1#''One''|2#\"Two\"|3#''{Many}'' {0,number}}";
-        for (final Object value : values) {
-            checkBuiltInFormat(value + ": " + choicePattern, new Object[] {value}, availableLocales);
-        }
+        checkBuiltInFormat(value + ": " + choicePattern, null, new Object[] { value }, (Locale) null);
+        checkBuiltInFormat(value + ": " + choicePattern, null, new Object[] { value }, locale);
     }
 
     /**
      * Test the built-in date/time formats
      */
-    @Test
-    void testBuiltInDateTimeFormat() {
+    @CartesianTest
+    @CartesianTest.MethodFactory("testBuiltInDateTimeFormatFactory")
+    void testBuiltInDateTimeFormat(final String pattern, final Locale locale) {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 5);
-        final Object[] args = {cal.getTime()};
-        final Locale[] availableLocales = DateFormat.getAvailableLocales();
-
-        checkBuiltInFormat("1: {0,date,short}",    args, availableLocales);
-        checkBuiltInFormat("2: {0,date,medium}",   args, availableLocales);
-        checkBuiltInFormat("3: {0,date,long}",     args, availableLocales);
-        checkBuiltInFormat("4: {0,date,full}",     args, availableLocales);
-        checkBuiltInFormat("5: {0,date,d MMM yy}", args, availableLocales);
-        checkBuiltInFormat("6: {0,time,short}",    args, availableLocales);
-        checkBuiltInFormat("7: {0,time,medium}",   args, availableLocales);
-        checkBuiltInFormat("8: {0,time,long}",     args, availableLocales);
-        checkBuiltInFormat("9: {0,time,full}",     args, availableLocales);
-        checkBuiltInFormat("10: {0,time,HH:mm}",   args, availableLocales);
-        checkBuiltInFormat("11: {0,date}",         args, availableLocales);
-        checkBuiltInFormat("12: {0,time}",         args, availableLocales);
+        final Object[] args = { cal.getTime() };
+        checkBuiltInFormat(pattern, null, args, (Locale) null);
+        checkBuiltInFormat(pattern, null, args, locale);
     }
 
     /**
      * Test the built-in number formats.
      */
-    @Test
-    void testBuiltInNumberFormat() {
-        final Object[] args = {Double.valueOf("6543.21")};
-        final Locale[] availableLocales = NumberFormat.getAvailableLocales();
-        checkBuiltInFormat("1: {0,number}",            args, availableLocales);
-        checkBuiltInFormat("2: {0,number,integer}",    args, availableLocales);
-        checkBuiltInFormat("3: {0,number,currency}",   args, availableLocales);
-        checkBuiltInFormat("4: {0,number,percent}",    args, availableLocales);
-        checkBuiltInFormat("5: {0,number,00000.000}",  args, availableLocales);
+    @CartesianTest
+    @CartesianTest.MethodFactory("testBuiltInNumberFormatFactory")
+    void testBuiltInNumberFormat(final String pattern, final Locale locale) {
+        final Object[] args = { Double.valueOf("6543.21") };
+        checkBuiltInFormat(pattern, null, args, (Locale) null);
+        checkBuiltInFormat(pattern, null, args, locale);
     }
 
     /**
@@ -471,30 +486,30 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
         assertEquals(emf.format(new Object[] {"foo", "BAR"}), "Lower: foo Upper: BAR");
     }
 
-    @Test
-    void testOverriddenBuiltinFormat() {
+    @CartesianTest
+    @CartesianTest.MethodFactory("testOverriddenBuiltinFormatFactory")
+    void testOverriddenBuiltinFormat(final String pattern, final Locale locale) {
         final Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23);
-        final Object[] args = {cal.getTime()};
-        final Locale[] availableLocales = DateFormat.getAvailableLocales();
+        final Object[] args = { cal.getTime() };
+        // check the non-overridden builtins:
+        checkBuiltInFormat(pattern, null, args, (Locale) null);
+        checkBuiltInFormat(pattern, null, args, locale);
+    }
+
+    @ParameterizedTest
+    @MethodSource("java.text.DateFormat#getAvailableLocales")
+    void testOverriddenBuiltinFormat2(final Locale locale) {
+        final Calendar cal = Calendar.getInstance();
+        cal.set(2007, Calendar.JANUARY, 23);
+        final Object[] args = { cal.getTime() };
         final Map<String, ? extends FormatFactory> dateRegistry = Collections.singletonMap("date", new OverrideShortDateFormatFactory());
-
-        //check the non-overridden builtins:
-        checkBuiltInFormat("1: {0,date}", dateRegistry,          args, availableLocales);
-        checkBuiltInFormat("2: {0,date,medium}", dateRegistry,   args, availableLocales);
-        checkBuiltInFormat("3: {0,date,long}", dateRegistry,     args, availableLocales);
-        checkBuiltInFormat("4: {0,date,full}", dateRegistry,     args, availableLocales);
-        checkBuiltInFormat("5: {0,date,d MMM yy}", dateRegistry, args, availableLocales);
-
-        //check the overridden format:
-        for (int i = -1; i < availableLocales.length; i++) {
-            final Locale locale = i < 0 ? null : availableLocales[i];
-            final MessageFormat dateDefault = createMessageFormat("{0,date}", locale);
-            final String pattern = "{0,date,short}";
-            final ExtendedMessageFormat dateShort = new ExtendedMessageFormat(pattern, locale, dateRegistry);
-            assertEquals(dateDefault.format(args), dateShort.format(args), "overridden date,short format");
-            assertEquals(pattern, dateShort.toPattern(), "overridden date,short pattern");
-        }
+        // check the overridden format:
+        final MessageFormat dateDefault = createMessageFormat("{0,date}", locale);
+        final String pattern = "{0,date,short}";
+        final ExtendedMessageFormat dateShort = new ExtendedMessageFormat(pattern, locale, dateRegistry);
+        assertEquals(dateDefault.format(args), dateShort.format(args), "overridden date,short format");
+        assertEquals(pattern, dateShort.toPattern(), "overridden date,short pattern");
     }
 
 }
