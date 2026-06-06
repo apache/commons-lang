@@ -46,6 +46,7 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.LocaleUtils;
+import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -105,7 +106,6 @@ public class FastDateParser implements DateParser, Serializable {
         CaseInsensitiveTextStrategy(final int field, final Calendar definingCalendar, final Locale locale) {
             this.field = field;
             this.locale = LocaleUtils.toLocale(locale);
-
             final StringBuilder regex = new StringBuilder();
             regex.append("((?iu)");
             lKeyValues = appendDisplayNames(definingCalendar, locale, field, regex);
@@ -219,7 +219,7 @@ public class FastDateParser implements DateParser, Serializable {
             case 3:
                 return ISO_8601_3_STRATEGY;
             default:
-                throw new IllegalArgumentException("invalid number of X");
+                throw new IllegalArgumentException("Invalid number of X");
             }
         }
 
@@ -280,7 +280,6 @@ public class FastDateParser implements DateParser, Serializable {
         boolean parse(final FastDateParser parser, final Calendar calendar, final String source, final ParsePosition pos, final int maxWidth) {
             int idx = pos.getIndex();
             int last = source.length();
-
             if (maxWidth == 0) {
                 // if no maxWidth, strip leading white space
                 for (; idx < last; ++idx) {
@@ -296,22 +295,18 @@ public class FastDateParser implements DateParser, Serializable {
                     last = end;
                 }
             }
-
             for (; idx < last; ++idx) {
                 final char c = source.charAt(idx);
                 if (!Character.isDigit(c)) {
                     break;
                 }
             }
-
             if (pos.getIndex() == idx) {
                 pos.setErrorIndex(idx);
                 return false;
             }
-
             final int value = Integer.parseInt(source.substring(pos.getIndex(), idx));
             pos.setIndex(idx);
-
             calendar.set(field, modify(parser, value));
             return true;
         }
@@ -458,7 +453,6 @@ public class FastDateParser implements DateParser, Serializable {
 
         private StrategyAndWidth literal() {
             boolean activeQuote = false;
-
             final StringBuilder sb = new StringBuilder();
             while (currentIdx < pattern.length()) {
                 final char c = pattern.charAt(currentIdx);
@@ -540,12 +534,9 @@ public class FastDateParser implements DateParser, Serializable {
          */
         TimeZoneStrategy(final Locale locale) {
             this.locale = LocaleUtils.toLocale(locale);
-
             final StringBuilder sb = new StringBuilder();
             sb.append("((?iu)" + RFC_822_TIME_ZONE + "|" + GMT_OPTION);
-
             final Set<String> sorted = new TreeSet<>(LONGER_FIRST_LOWERCASE);
-
             // Order is undefined.
             // TODO Use of getZoneStrings() is discouraged per its Javadoc.
             final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();
@@ -1107,8 +1098,9 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        final Calendar definingCalendar = Calendar.getInstance(timeZone, locale);
-        init(definingCalendar);
+        SerializationUtils.requireNonNull(pattern, "pattern null");
+        SerializationUtils.requireNonNull(timeZone, "timeZone null");
+        init(Calendar.getInstance(timeZone, locale));
     }
 
     /**
