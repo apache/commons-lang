@@ -411,6 +411,10 @@ class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         assertEquals(2, StringUtils.indexOfAny(CharU20000 + CharU20001, CharU20001.toCharArray()));
         assertEquals(0, StringUtils.indexOfAny(CharU20000, CharU20000.toCharArray()));
         assertEquals(-1, StringUtils.indexOfAny(CharU20000, CharU20001.toCharArray()));
+        // An unpaired trailing high surrogate must not match a supplementary code point, matching containsAny.
+        assertEquals(-1, StringUtils.indexOfAny(CharUSuppCharHigh, CharU20001.toCharArray()));
+        assertFalse(StringUtils.containsAny(CharUSuppCharHigh, CharU20001.toCharArray()));
+        assertEquals(-1, StringUtils.indexOfAny("abc" + CharUSuppCharHigh, CharU20000.toCharArray()));
     }
 
     @Test

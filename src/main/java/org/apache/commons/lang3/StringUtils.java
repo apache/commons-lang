@@ -2815,8 +2815,7 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    // ch is a supplementary character
-                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch) || searchChars[j + 1] == cs.charAt(i + 1)) {
+                    if (!Character.isHighSurrogate(ch) || j == searchLast || i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
                         return i;
                     }
                 }
