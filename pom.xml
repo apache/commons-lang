@@ -114,7 +114,7 @@
     <commons.javadoc.version>3.11.2</commons.javadoc.version>
     <!-- TEMP HACK END -->
 
-    <heapSize>-Xmx512m</heapSize>
+    <heapSize>-Xmx1G</heapSize>
     <extraArgs/>
     <systemProperties/>
     <argLine>${heapSize} ${extraArgs} ${systemProperties}</argLine>
