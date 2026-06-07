@@ -42,19 +42,11 @@ import org.junit.jupiter.api.Test;
 public class TimeZonesGmtTest {
 
     @Test
-    public void testGmtTimeZoneIsImmutableSetRawOffset() {
-        assertThrows(UnsupportedOperationException.class, () -> TimeZones.GMT.setRawOffset(3600000));
-    }
-
-    @Test
-    public void testGmtTimeZoneIsImmutableSetId() {
-        assertThrows(UnsupportedOperationException.class, () -> TimeZones.GMT.setID("Etc/UTC"));
-    }
-
-    @Test
-    public void testGmtOffsetRemainsZeroAfterAttemptedMutation() {
-        assertThrows(UnsupportedOperationException.class, () -> TimeZones.GMT.setRawOffset(3600000));
-        assertEquals(0, TimeZones.GMT.getRawOffset());
+    public void testCloneReturnsSelfForImmutableSingleton() {
+        // For an immutable singleton, clone() should return the same instance,
+        // and there must be no need to defensively copy the value.
+        final Object copy = TimeZones.GMT.clone();
+        assertSame(TimeZones.GMT, copy, "clone() of an immutable singleton should return the same instance");
     }
 
     @Test
@@ -64,19 +56,19 @@ public class TimeZonesGmtTest {
     }
 
     @Test
-    public void testCloneReturnsSelfForImmutableSingleton() {
-        // For an immutable singleton, clone() should return the same instance,
-        // and there must be no need to defensively copy the value.
-        final Object copy = TimeZones.GMT.clone();
-        assertSame(TimeZones.GMT, copy, "clone() of an immutable singleton should return the same instance");
+    public void testGmtOffsetRemainsZeroAfterAttemptedMutation() {
+        assertThrows(UnsupportedOperationException.class, () -> TimeZones.GMT.setRawOffset(3600000));
+        assertEquals(0, TimeZones.GMT.getRawOffset());
     }
 
     @Test
-    public void testSerializedFormUsesNamedClass() throws Exception {
-        // Wire-format hazard guard: ensure the implementation class is a named static
-        // nested type, not an anonymous inner class whose synthetic name (TimeZones$1)
-        // is brittle across non-functional code reorderings.
-        assertEquals(ImmutableTimeZone.class.getName(), TimeZones.GMT.getClass().getName());
+    public void testGmtTimeZoneIsImmutableSetId() {
+        assertThrows(UnsupportedOperationException.class, () -> TimeZones.GMT.setID("Etc/UTC"));
+    }
+
+    @Test
+    public void testGmtTimeZoneIsImmutableSetRawOffset() {
+        assertThrows(UnsupportedOperationException.class, () -> TimeZones.GMT.setRawOffset(3600000));
     }
 
     @Test
@@ -86,5 +78,13 @@ public class TimeZonesGmtTest {
         assertNotNull(roundtrip, "Round-tripped TimeZone must not be null");
         assertEquals("GMT", roundtrip.getID(), "Round-tripped TimeZone id must remain \"GMT\"");
         assertEquals(0, roundtrip.getRawOffset(), "Round-tripped TimeZone offset must remain 0");
+    }
+
+    @Test
+    public void testSerializedFormUsesNamedClass() throws Exception {
+        // Wire-format hazard guard: ensure the implementation class is a named static
+        // nested type, not an anonymous inner class whose synthetic name (TimeZones$1)
+        // is brittle across non-functional code reorderings.
+        assertEquals(ImmutableTimeZone.class.getName(), TimeZones.GMT.getClass().getName());
     }
 }

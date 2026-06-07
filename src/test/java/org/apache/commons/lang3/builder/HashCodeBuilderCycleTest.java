@@ -48,14 +48,22 @@ class HashCodeBuilderCycleTest {
         }
 
         @Override
-        public int hashCode() {
-            return new HashCodeBuilder(17, 37).append(label).append(peer).toHashCode();
-        }
-
-        @Override
         public boolean equals(final Object o) {
             return o instanceof CyclicNode && label.equals(((CyclicNode) o).label);
         }
+
+        @Override
+        public int hashCode() {
+            return new HashCodeBuilder(17, 37).append(label).append(peer).toHashCode();
+        }
+    }
+
+    @Test
+    void acyclicChainProducesValue() {
+        final CyclicNode a = new CyclicNode("a");
+        final CyclicNode b = new CyclicNode("b");
+        a.peer = b; // b.peer is null, no cycle
+        assertNotEquals(0, a.hashCode());
     }
 
     @Test
@@ -72,13 +80,5 @@ class HashCodeBuilderCycleTest {
         final CyclicNode self = new CyclicNode("self");
         self.peer = self;
         assertNotEquals(0, self.hashCode());
-    }
-
-    @Test
-    void acyclicChainProducesValue() {
-        final CyclicNode a = new CyclicNode("a");
-        final CyclicNode b = new CyclicNode("b");
-        a.peer = b; // b.peer is null, no cycle
-        assertNotEquals(0, a.hashCode());
     }
 }

@@ -37,6 +37,16 @@ import org.junit.jupiter.api.Test;
 class EqualsBuilderReflectionEqualsCycleTest {
 
     @Test
+    void testCrossReferentialObjectArrays() {
+        final Object[] a = new Object[1];
+        final Object[] b = new Object[1];
+        // a[0] -> b, b[0] -> a: mutual cycle
+        a[0] = b;
+        b[0] = a;
+        assertTrue(EqualsBuilder.reflectionEquals(a, b));
+    }
+
+    @Test
     void testSelfReferentialObjectArrays() {
         final Object[] a = new Object[1];
         final Object[] b = new Object[1];
@@ -46,16 +56,6 @@ class EqualsBuilderReflectionEqualsCycleTest {
         // With cycle detection, comparing a[0]=a vs b[0]=b sees (a,b) already registered
         // and treats the cycle as equal, so the overall result is true (structurally isomorphic).
         // The key assertion is that NO StackOverflowError is thrown.
-        assertTrue(EqualsBuilder.reflectionEquals(a, b));
-    }
-
-    @Test
-    void testCrossReferentialObjectArrays() {
-        final Object[] a = new Object[1];
-        final Object[] b = new Object[1];
-        // a[0] -> b, b[0] -> a: mutual cycle
-        a[0] = b;
-        b[0] = a;
         assertTrue(EqualsBuilder.reflectionEquals(a, b));
     }
 }

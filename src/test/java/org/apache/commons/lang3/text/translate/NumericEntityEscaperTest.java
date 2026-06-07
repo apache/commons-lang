@@ -54,16 +54,6 @@ class NumericEntityEscaperTest extends AbstractLangTest {
         assertEquals("AD&#70;&#71;Z", result, "Failed to escape numeric entities via the between method");
     }
 
-    // See LANG-617
-    @Test
-    void testSupplementary() {
-        final NumericEntityEscaper nee = new NumericEntityEscaper();
-        final String input = "\uD803\uDC22";
-        final String expected = "&#68642;";
-        final String result = nee.translate(input);
-        assertEquals(expected, result, "Failed to escape numeric entities supplementary characters");
-    }
-
     @Test
     void testNumericEntityOverflow() throws Exception {
         // cp = 1234567890 > Character.MAX_CODE_POINT (0x10FFFF = 1114111).
@@ -77,6 +67,16 @@ class NumericEntityEscaperTest extends AbstractLangTest {
         consumed = u.translate("---&#1234567890;---", 0, sw);
         assertEquals(0, consumed);
         assertEquals("", sw.toString());
+    }
+
+    // See LANG-617
+    @Test
+    void testSupplementary() {
+        final NumericEntityEscaper nee = new NumericEntityEscaper();
+        final String input = "\uD803\uDC22";
+        final String expected = "&#68642;";
+        final String result = nee.translate(input);
+        assertEquals(expected, result, "Failed to escape numeric entities supplementary characters");
     }
 
     @Test

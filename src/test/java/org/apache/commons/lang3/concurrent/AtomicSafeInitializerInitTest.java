@@ -53,6 +53,11 @@ class AtomicSafeInitializerInitTest {
     private static final int INIT_MS = 100;
     private static final int SPINNER_THREADS = 8;
 
+    private static long threadCpuTimeNanos() {
+        final ThreadMXBean mx = ManagementFactory.getThreadMXBean();
+        return mx.isCurrentThreadCpuTimeSupported() ? mx.getCurrentThreadCpuTime() : 0;
+    }
+
     @Test
     void testSpinningThreadsYieldDuringSlowInit() throws Exception {
         final CountDownLatch startLatch = new CountDownLatch(1);
@@ -92,10 +97,5 @@ class AtomicSafeInitializerInitTest {
         // Re-express as a blocking assertion: if cpuMs > threshold, fail.
         assertTimeout(Duration.ofMillis(INIT_MS * SPINNER_THREADS / 4), () -> assertFalse(cpuMs > INIT_MS * SPINNER_THREADS / 4,
                 () -> "Spinner threads consumed " + cpuMs + " ms CPU during " + INIT_MS + " ms init — missing Thread.yield() in get() spin loop"));
-    }
-
-    private static long threadCpuTimeNanos() {
-        final ThreadMXBean mx = ManagementFactory.getThreadMXBean();
-        return mx.isCurrentThreadCpuTimeSupported() ? mx.getCurrentThreadCpuTime() : 0;
     }
 }
