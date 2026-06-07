@@ -31,15 +31,17 @@ class FastDatePrinterTimeZonesTest extends AbstractLangTest {
 
     private static final String PATTERN = "h:mma z";
 
-    public static Stream<TimeZone> data() {
+    /*
+     * A @MethodSource.
+     */
+    static Stream<TimeZone> getTimeZonesSorted() {
         return Stream.of(TimeZones.SORTED_AVAILABLE_IDS).map(TimeZones::getTimeZone);
     }
 
     @ParameterizedTest
-    @MethodSource("data")
+    @MethodSource("getTimeZonesSorted")
     void testCalendarTimezoneRespected(final TimeZone timeZone) {
         final Calendar cal = Calendar.getInstance(timeZone);
-
         final SimpleDateFormat sdf = new SimpleDateFormat(PATTERN);
         sdf.setTimeZone(timeZone);
         final String expectedValue = sdf.format(cal.getTime());
