@@ -178,6 +178,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">Fraction.readObject() does not re-assert denominator != 0 (#1688).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">FastDateParser.readObject(ObjectInputStream) now validates the same (#1692).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix indexOfAny matching an unpaired trailing high surrogate (#1687).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix LookupTranslator code point consumption for supplementary keys (#1691).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
