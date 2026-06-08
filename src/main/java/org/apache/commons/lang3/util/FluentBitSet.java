@@ -16,10 +16,16 @@
  */
 package org.apache.commons.lang3.util;
 
+import java.io.IOException;
+import java.io.InvalidObjectException;
+import java.io.NotActiveException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.BitSet;
 import java.util.Objects;
 import java.util.stream.IntStream;
+
+import org.apache.commons.lang3.SerializationUtils;
 
 /**
  * A fluent {@link BitSet} with additional operations.
@@ -414,6 +420,20 @@ public final class FluentBitSet implements Cloneable, Serializable {
      */
     public int previousSetBit(final int fromIndex) {
         return bitSet.previousSetBit(fromIndex);
+    }
+
+    /**
+     * Reads and restores the state of the object.
+     *
+     * @param in the source stream.
+     * @throws ClassNotFoundException if the class of a serialized object could not be found.
+     * @throws IOException            if an I/O error occurs.
+     * @throws NotActiveException     if the stream is not currently reading objects.
+     * @throws InvalidObjectException if {@code bitSet} is {@code null}.
+     */
+    private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        SerializationUtils.requireNonNull(bitSet, "bitSet null");
     }
 
     /**
