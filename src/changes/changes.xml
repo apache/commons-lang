@@ -181,6 +181,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix LookupTranslator code point consumption for supplementary keys (#1691).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Re-assert CharRange start &lt;= end invariant in readObject (#1693).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">FluentBitSet.readObject(ObjectInputStream) should validate constructor invariants (#1694).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">EventListenerSupport.readObject(ObjectInputStream) should validate constructor invariants (#1695).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
