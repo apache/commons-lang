@@ -32,6 +32,7 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
@@ -313,13 +314,14 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Deserializes the next object into this instance.
      *
-     * @param objectInputStream the input stream
-     * @throws IOException if an IO error occurs
-     * @throws ClassNotFoundException if the class cannot be resolved
+     * @param objectInputStream the input stream.
+     * @throws IOException if an IO error occurs.
+     * @throws ClassNotFoundException if the class cannot be resolved.
      */
     private void readObject(final ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
         final L[] srcListeners = (L[]) objectInputStream.readObject();
+        SerializationUtils.requireNonNull(srcListeners, "srcListeners"); // fail-fast with a better message
         this.listeners = new CopyOnWriteArrayList<>(srcListeners);
         final Class<L> listenerInterface = ArrayUtils.getComponentType(srcListeners);
         initializeTransientFields(listenerInterface, Thread.currentThread().getContextClassLoader());
