@@ -16,6 +16,9 @@
  */
 package org.apache.commons.lang3;
 
+import java.io.IOException;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -341,6 +344,22 @@ final class CharRange implements Iterable<Character>, Serializable {
     @Override
     public Iterator<Character> iterator() {
         return new CharacterIterator(this);
+    }
+
+    /**
+     * Re-asserts the {@code start <= end} invariant after default deserialization. The constructor reverses reversed endpoints, so a legitimately serialized
+     * instance always has {@code start <= end}; a stream that violates this did not come from the constructor and is rejected.
+     *
+     * @param in See {@link Serializable}.
+     * @throws IOException            See {@link Serializable}.
+     * @throws ClassNotFoundException See {@link Serializable}.
+     * @throws InvalidObjectException If {@code start} is greater than {@code end}.
+     */
+    private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        if (start > end) {
+            throw new InvalidObjectException("CharRange start is greater than end.");
+        }
     }
 
     /**
