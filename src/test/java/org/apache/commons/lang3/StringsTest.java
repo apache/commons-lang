@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,6 +27,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
  * Tests {@link Strings}.
@@ -76,6 +78,19 @@ class StringsTest extends AbstractLangTest {
 
         assertTrue(Strings.CI.startsWithAny("AbCxYz", new StringBuilder("XyZ"), new StringBuffer("aBc")));
         assertTrue(Strings.CI.startsWithAny(new StringBuffer("AbCxYz"), new StringBuilder("XyZ"), new StringBuffer("abc")));
+    }
+
+    /**
+     * {@code U+0130} lower-cases to the two-char sequence {@code "i̇"} outside Turkish locales, so pre-lower-casing the
+     * search argument made the case-insensitive replace look for a two-char needle that no longer matches the single source
+     * character.
+     */
+    @Test
+    @DefaultLocale("en")
+    void testCaseInsensitiveReplaceLengthChangingLowerCase() {
+        assertEquals("aXb", Strings.CI.replace("aİb", "İ", "X", -1));
+        assertEquals("x_y_z", Strings.CI.replace("xİyİz", "İ", "_", -1));
+        assertEquals("X", Strings.CI.replaceOnce("İ", "İ", "X"));
     }
 
     @Test
