@@ -238,11 +238,8 @@ class StringUtilsContainsTest extends AbstractLangTest {
     @WritesDefaultLocale
     void testContainsIgnoreCase_LocaleIndependence() {
         final Locale[] locales = { Locale.ENGLISH, new Locale("tr"), Locale.getDefault() };
-
         final String[][] tdata = { { "i", "I" }, { "I", "i" }, { "\u03C2", "\u03C3" }, { "\u03A3", "\u03C2" }, { "\u03A3", "\u03C3" }, };
-
         final String[][] fdata = { { "\u00DF", "SS" }, };
-
         for (final Locale testLocale : locales) {
             Locale.setDefault(testLocale);
             for (int j = 0; j < tdata.length; j++) {

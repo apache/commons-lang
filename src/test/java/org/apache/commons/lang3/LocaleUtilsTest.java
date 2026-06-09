@@ -42,6 +42,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junitpioneer.jupiter.DefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
 
 /**
  * Tests for {@link LocaleUtils}.
@@ -194,6 +195,7 @@ class LocaleUtilsTest extends AbstractLangTest {
     }
 
     @BeforeEach
+    @ReadsDefaultLocale
     public void setUp() {
         // Testing #LANG-304. Must be called before availableLocaleSet is called.
         LocaleUtils.isAvailableLocale(Locale.getDefault());
@@ -540,6 +542,7 @@ class LocaleUtilsTest extends AbstractLangTest {
      * Test toLocale(Locale) method.
      */
     @Test
+    @ReadsDefaultLocale
     void testToLocale_Locale_defaults() {
         assertNull(LocaleUtils.toLocale((String) null));
         assertEquals(Locale.getDefault(), LocaleUtils.toLocale((Locale) null));

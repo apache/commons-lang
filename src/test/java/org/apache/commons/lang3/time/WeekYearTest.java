@@ -29,6 +29,8 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
 class WeekYearTest extends AbstractLangTest {
 
@@ -57,6 +59,8 @@ class WeekYearTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("data")
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testParser(final Calendar vulgar, final String isoForm) {
         final DateParser parser = new FastDateParser("YYYY-'W'ww-u", TimeZone.getDefault(), Locale.getDefault());
 
@@ -71,6 +75,8 @@ class WeekYearTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource("data")
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testPrinter(final Calendar vulgar, final String isoForm) {
         final FastDatePrinter printer = new FastDatePrinter("YYYY-'W'ww-u", TimeZone.getDefault(), Locale.getDefault());
 

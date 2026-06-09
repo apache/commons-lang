@@ -95,6 +95,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      */
     @ParameterizedTest
     @ValueSource(strings = { "ACT", "CST" })
+    @ReadsDefaultLocale
     void testJava25DeprecatedZoneId(final String shortId) throws ParseException {
         final FastDateParser parser = new FastDateParser("dd.MM.yyyy HH:mm:ss z", TimeZone.getTimeZone(shortId), Locale.getDefault());
         final Date date1 = parser.parse("26.10.2014 02:00:00 " + shortId);

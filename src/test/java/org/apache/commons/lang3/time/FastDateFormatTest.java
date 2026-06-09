@@ -46,6 +46,8 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
 /**
  * Tests {@link FastDateFormat}.
@@ -218,14 +220,14 @@ class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testCheckDefaults() {
         final FastDateFormat format = FastDateFormat.getInstance();
         final FastDateFormat medium = FastDateFormat.getDateTimeInstance(FastDateFormat.SHORT, FastDateFormat.SHORT);
         assertEquals(medium, format);
-
         final SimpleDateFormat sdf = new SimpleDateFormat();
         assertEquals(sdf.toPattern(), format.getPattern());
-
         assertEquals(Locale.getDefault(), format.getLocale());
         assertEquals(TimeZone.getDefault(), format.getTimeZone());
     }
@@ -246,13 +248,13 @@ class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testDateDefaults() {
         assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, Locale.CANADA),
                 FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.CANADA));
-
         assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZones.getTimeZone("America/New_York")),
                 FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZones.getTimeZone("America/New_York"), Locale.getDefault()));
-
         assertEquals(FastDateFormat.getDateInstance(FastDateFormat.LONG),
                 FastDateFormat.getDateInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.getDefault()));
     }
@@ -424,25 +426,25 @@ class FastDateFormatTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testTimeDateDefaults() {
         assertEquals(FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, Locale.CANADA),
                 FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, TimeZone.getDefault(), Locale.CANADA));
-
         assertEquals(FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, TimeZones.getTimeZone("America/New_York")),
                 FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, TimeZones.getTimeZone("America/New_York"), Locale.getDefault()));
-
         assertEquals(FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM),
                 FastDateFormat.getDateTimeInstance(FastDateFormat.LONG, FastDateFormat.MEDIUM, TimeZone.getDefault(), Locale.getDefault()));
     }
 
     @Test
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testTimeDefaults() {
         assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG, Locale.CANADA),
                 FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.CANADA));
-
         assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZones.getTimeZone("America/New_York")),
                 FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZones.getTimeZone("America/New_York"), Locale.getDefault()));
-
         assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG),
                 FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.getDefault()));
     }
