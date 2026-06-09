@@ -1288,12 +1288,9 @@ public abstract class Strings {
      * @param max          maximum number of values to replace, or {@code -1} if no maximum
      * @return the text with any replacements processed, {@code null} if null String input
      */
-    public String replace(final String text, String searchString, final String replacement, int max) {
+    public String replace(final String text, final String searchString, final String replacement, int max) {
         if (StringUtils.isEmpty(text) || StringUtils.isEmpty(searchString) || replacement == null || max == 0) {
             return text;
-        }
-        if (ignoreCase) {
-            searchString = searchString.toLowerCase();
         }
         int start = 0;
         int end = indexOf(text, searchString, start);
