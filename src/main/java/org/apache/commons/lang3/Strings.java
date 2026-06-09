@@ -674,7 +674,7 @@ public abstract class Strings {
      *
      * @param cs1 the first CharSequence, may be {@code null}
      * @param cs2 the second CharSequence, may be {@code null}
-     * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
+     * @return {@code true} if the CharSequences are equal or both {@code null}
      * @see Object#equals(Object)
      * @see String#compareTo(String)
      * @see String#equalsIgnoreCase(String)
@@ -713,7 +713,7 @@ public abstract class Strings {
      *
      * @param str1 the first CharSequence, may be {@code null}
      * @param str2 the second CharSequence, may be {@code null}
-     * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
+     * @return {@code true} if the CharSequences are equal or both {@code null}
      * @see Object#equals(Object)
      * @see String#compareTo(String)
      * @see String#equalsIgnoreCase(String)
@@ -751,7 +751,7 @@ public abstract class Strings {
      *
      * @param string        to compare, may be {@code null}.
      * @param searchStrings a vararg of strings, may be {@code null}.
-     * @return {@code true} if the string is equal (case-sensitive) to any other element of {@code searchStrings}; {@code false} if {@code searchStrings} is
+     * @return {@code true} if the string is equal to any other element of {@code searchStrings}; {@code false} if {@code searchStrings} is
      *         null or contains no matches.
      */
     public boolean equalsAny(final CharSequence string, final CharSequence... searchStrings) {
@@ -1095,7 +1095,7 @@ public abstract class Strings {
     }
 
     /**
-     * Case-insensitive removal of a substring if it is at the end of a source string, otherwise returns the source string.
+     * Removal of a substring if it is at the end of a source string, otherwise returns the source string.
      *
      * <p>
      * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string. A {@code null} search string will return
@@ -1132,7 +1132,7 @@ public abstract class Strings {
      * </pre>
      *
      * @param str    the source String to search, may be null
-     * @param remove the String to search for (case-insensitive) and remove, may be null
+     * @param remove the String to search for and remove, may be null
      * @return the substring with the string removed if found, {@code null} if null String input
      */
     public String removeEnd(final String str, final CharSequence remove) {
@@ -1146,7 +1146,7 @@ public abstract class Strings {
     }
 
     /**
-     * Case-insensitive removal of a substring if it is at the beginning of a source string, otherwise returns the source string.
+     * Removal of a substring if it is at the beginning of a source string, otherwise returns the source string.
      *
      * <p>
      * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string. A {@code null} search string will return
@@ -1182,7 +1182,7 @@ public abstract class Strings {
      * </pre>
      *
      * @param str    the source String to search, may be null
-     * @param remove the String to search for (case-insensitive) and remove, may be null
+     * @param remove the String to search for and remove, may be null
      * @return the substring with the string removed if found, {@code null} if null String input
      */
     public String removeStart(final String str, final CharSequence remove) {
@@ -1193,7 +1193,7 @@ public abstract class Strings {
     }
 
     /**
-     * Case insensitively replaces all occurrences of a String within another String.
+     * Replaces all occurrences of a String within another String.
      *
      * <p>
      * A {@code null} reference passed to this method is a no-op.
@@ -1230,7 +1230,7 @@ public abstract class Strings {
      *
      * @see #replace(String text, String searchString, String replacement, int max)
      * @param text         text to search and replace in, may be null
-     * @param searchString the String to search for (case-insensitive), may be null
+     * @param searchString the String to search for, may be null
      * @param replacement  the String to replace it with, may be null
      * @return the text with any replacements processed, {@code null} if null String input
      */
@@ -1283,7 +1283,7 @@ public abstract class Strings {
      * </pre>
      *
      * @param text         text to search and replace in, may be null
-     * @param searchString the String to search for (case-insensitive), may be null
+     * @param searchString the String to search for, may be null
      * @param replacement  the String to replace it with, may be null
      * @param max          maximum number of values to replace, or {@code -1} if no maximum
      * @return the text with any replacements processed, {@code null} if null String input
@@ -1398,7 +1398,7 @@ public abstract class Strings {
      * @see String#startsWith(String)
      * @param str    the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
-     * @return {@code true} if the CharSequence starts with the prefix, case-sensitive, or both {@code null}
+     * @return {@code true} if the CharSequence starts with the prefix or both {@code null}
      */
     public boolean startsWith(final CharSequence str, final CharSequence prefix) {
         if (str == null || prefix == null) {
