@@ -253,22 +253,17 @@ class FastDateParserTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
     void test1806() throws ParseException {
         final String formatStub = "yyyy-MM-dd'T'HH:mm:ss.SSS";
         final String dateStub = "2001-02-04T12:08:56.235";
-
         for (final Expected1806 trial : Expected1806.values()) {
             final Calendar cal = initializeCalendar(trial.zone);
-
             final String message = trial.zone.getDisplayName() + ";";
-
             DateParser parser = getInstance(formatStub + "X", trial.zone);
-            assertEquals(cal.getTime().getTime(), parser.parse(dateStub + trial.one).getTime() - trial.offset,
-                message + trial.one);
-
+            assertEquals(cal.getTime().getTime(), parser.parse(dateStub + trial.one).getTime() - trial.offset, message + trial.one);
             parser = getInstance(formatStub + "XX", trial.zone);
             assertEquals(cal.getTime(), parser.parse(dateStub + trial.two), message + trial.two);
-
             parser = getInstance(formatStub + "XXX", trial.zone);
             assertEquals(cal.getTime(), parser.parse(dateStub + trial.three), message + trial.three);
         }
@@ -442,13 +437,12 @@ class FastDateParserTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
     void testLang538() throws ParseException {
         final DateParser parser = getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", TimeZones.GMT);
-
         final Calendar cal = Calendar.getInstance(TimeZones.getTimeZone("GMT-8"));
         cal.clear();
         cal.set(2009, Calendar.OCTOBER, 16, 8, 42, 16);
-
         assertEquals(cal.getTime(), parser.parse("2009-10-16T16:42:16.000Z"));
     }
 
@@ -671,6 +665,8 @@ class FastDateParserTest extends AbstractLangTest {
      * @throws ParseException so we don't have to catch it
      */
     @Test
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testShortDateStyleWithLocales() throws ParseException {
         DateParser fdf = getDateInstance(FastDateFormat.SHORT, Locale.US);
         final Calendar cal = Calendar.getInstance();
@@ -704,15 +700,14 @@ class FastDateParserTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
     void testTimeZoneMatches() {
-        final DateParser parser = getInstance(yMdHmsSZ, REYKJAVIK);
-        assertEquals(REYKJAVIK, parser.getTimeZone());
+        assertEquals(REYKJAVIK, getInstance(yMdHmsSZ, REYKJAVIK).getTimeZone());
     }
 
     @Test
     void testToStringContainsName() {
-        final DateParser parser = getInstance(YMD_SLASH);
-        assertTrue(parser.toString().startsWith("FastDate"));
+        assertTrue(getInstance(YMD_SLASH).toString().startsWith("FastDate"));
     }
 
     // we cannot use historic dates to test time zone parsing, some time zones have second offsets

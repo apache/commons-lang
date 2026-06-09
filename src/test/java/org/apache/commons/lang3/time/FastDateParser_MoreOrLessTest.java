@@ -28,12 +28,16 @@ import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 
 class FastDateParser_MoreOrLessTest extends AbstractLangTest {
 
     private static final TimeZone NEW_YORK = TimeZones.getTimeZone("America/New_York");
 
     @Test
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testInputHasLessCharacters() {
         final FastDateParser parser = new FastDateParser("MM/dd/yyy", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
@@ -42,6 +46,8 @@ class FastDateParser_MoreOrLessTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testInputHasMoreCharacters() {
         final FastDateParser parser = new FastDateParser("MM/dd", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
@@ -55,6 +61,8 @@ class FastDateParser_MoreOrLessTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testInputHasPrecedingCharacters() {
         final FastDateParser parser = new FastDateParser("MM/dd", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
@@ -65,6 +73,8 @@ class FastDateParser_MoreOrLessTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testInputHasWhitespace() {
         final FastDateParser parser = new FastDateParser("M/d/y", TimeZone.getDefault(), Locale.getDefault());
         //SimpleDateFormat parser = new SimpleDateFormat("M/d/y");
@@ -80,6 +90,8 @@ class FastDateParser_MoreOrLessTest extends AbstractLangTest {
     }
 
     @Test
+    @ReadsDefaultLocale
+    @ReadsDefaultTimeZone
     void testInputHasWrongCharacters() {
         final FastDateParser parser = new FastDateParser("MM-dd-yyy", TimeZone.getDefault(), Locale.getDefault());
         final ParsePosition parsePosition = new ParsePosition(0);
