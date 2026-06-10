@@ -1177,6 +1177,8 @@ class StrBuilderTest extends AbstractLangTest {
         assertEquals("", sb.midString(0, -1));
         assertEquals("", sb.midString(20, 2));
         assertEquals("hello", sb.midString(14, 22));
+        // a length that overflows index + length must still return the rest
+        assertEquals("hello", sb.midString(14, Integer.MAX_VALUE));
     }
 
     @Test

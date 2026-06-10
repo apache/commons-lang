@@ -5377,7 +5377,7 @@ public class StringUtils {
         if (pos < 0) {
             pos = 0;
         }
-        if (str.length() <= pos + len) {
+        if (str.length() - pos <= len) {
             return str.substring(pos);
         }
         return str.substring(pos, pos + len);

@@ -2479,7 +2479,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (length <= 0 || index >= size) {
             return StringUtils.EMPTY;
         }
-        if (size <= index + length) {
+        if (size - index <= length) {
             return new String(buffer, index, size - index);
         }
         return new String(buffer, index, length);
