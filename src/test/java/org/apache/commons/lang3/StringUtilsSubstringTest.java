@@ -102,6 +102,9 @@ class StringUtilsSubstringTest extends AbstractLangTest {
         assertEquals(BAR, StringUtils.mid(FOOBAR, 3, 80));
         assertEquals("", StringUtils.mid(FOOBAR, 9, 3));
         assertEquals(FOO, StringUtils.mid(FOOBAR, -1, 3));
+        // LANG: a len that overflows pos + len must still return the rest
+        assertEquals(BAR, StringUtils.mid(FOOBAR, 3, Integer.MAX_VALUE));
+        assertEquals(FOOBAR, StringUtils.mid(FOOBAR, 0, Integer.MAX_VALUE));
     }
 
     @Test
