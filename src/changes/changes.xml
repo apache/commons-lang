@@ -184,6 +184,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">EventListenerSupport.readObject(ObjectInputStream) should validate constructor invariants (#1695).</action>
     <action                   type="fix" dev="ggregory" due-to="mfg92">Correct JavaDoc in Strings.java concerning case-sensitivity (#1696).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix case-insensitive Strings.replace() dropping length-changing matches (#1697).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhudz">Fix int overflow in StringUtils.midString() and StrBuilder.midString() length handling (#1699).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
