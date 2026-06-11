@@ -48,13 +48,13 @@ Getting Started
 ---------------
 
 + Make sure you have a [JIRA account](https://issues.apache.org/jira/).
-+ Make sure you have a [GitHub account](https://github.com/signup/free). This is not essential, but makes providing patches much easier.
++ Make sure you have a [GitHub account](https://github.com/signup). This is not essential, but makes providing patches much easier.
 + If you're planning to implement a new feature it makes sense to discuss your changes on the [dev list](https://commons.apache.org/mail-lists.html) first. This way you can make sure you're not wasting your time on something that isn't considered to be in Apache Commons Lang's scope.
 + Submit a [Jira Ticket][jira] for your issue, assuming one does not already exist.
   + Clearly describe the issue including steps to reproduce when it is a bug.
   + Make sure you fill in the earliest version that you know has the issue.
 + Find the corresponding [repository on GitHub](https://github.com/apache/?query=commons-),
-[fork](https://help.github.com/articles/fork-a-repo/) and check out your forked repository. If you don't have a GitHub account, you can still clone the Commons repository.
+[fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) and check out your forked repository. If you don't have a GitHub account, you can still clone the Commons repository.
 
 Making Changes
 --------------
@@ -108,8 +108,8 @@ Additional Resources
 + [Contributing patches](https://commons.apache.org/patches.html)
 + [Apache Commons Lang JIRA project page][jira]
 + [Contributor License Agreement][cla]
-+ [General GitHub documentation](https://help.github.com/)
-+ [GitHub pull request documentation](https://help.github.com/articles/creating-a-pull-request/)
++ [General GitHub documentation](https://docs.github.com/)
++ [GitHub pull request documentation](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
 + [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
 
 [cla]:https://www.apache.org/licenses/#clas
