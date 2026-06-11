@@ -461,7 +461,7 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         cal.set(Calendar.MILLISECOND, 0);
         time = cal.getTime().getTime();
         assertEquals("40", DurationFormatUtils.formatPeriod(time1970, time, "yM"));
-        assertEquals("4 years 0 months", DurationFormatUtils.formatPeriod(time1970, time, "y' ''years' M 'months'"));
+        assertEquals("4 'years 0 months", DurationFormatUtils.formatPeriod(time1970, time, "y' ''years' M 'months'"));
         assertEquals("4 years 0 months", DurationFormatUtils.formatPeriod(time1970, time, "y' years 'M' months'"));
         assertEquals("4years 0months", DurationFormatUtils.formatPeriod(time1970, time, "y'years 'M'months'"));
         assertEquals("04/00", DurationFormatUtils.formatPeriod(time1970, time, "yy/MM"));
@@ -470,7 +470,7 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertEquals("048", DurationFormatUtils.formatPeriod(time1970, time, "MMM"));
         // no date in result
         assertEquals("hello", DurationFormatUtils.formatPeriod(time1970, time, "'hello'"));
-        assertEquals("helloworld", DurationFormatUtils.formatPeriod(time1970, time, "'hello''world'"));
+        assertEquals("hello'world", DurationFormatUtils.formatPeriod(time1970, time, "'hello''world'"));
     }
 
     @Test
@@ -584,6 +584,24 @@ class DurationFormatUtilsTest extends AbstractLangTest {
     void testLANG981() { // unmatched quote char in lexx
         assertIllegalArgumentException(() -> DurationFormatUtils.lexx("'yMdHms''S"));
     }
+
+    @Test
+    void testLANG1827() {
+        final long twoHours = Duration.ofHours(2).toMillis();
+        final long twoHoursThirtyMin = Duration.ofHours(2).plusMinutes(30).toMillis();
+        final long oneDayTwoHours = Duration.ofDays(1).plusHours(2).toMillis();
+
+        assertEquals("2 o'clock", DurationFormatUtils.formatDuration(twoHours, "H' o''clock'"));
+        assertEquals("it's 2 hours", DurationFormatUtils.formatDuration(twoHours, "'it''s 'H' hours'"));
+        assertEquals("2'30", DurationFormatUtils.formatDuration(twoHoursThirtyMin, "H''m"));
+        assertEquals("it's been 1 day's and 2 hour's",
+                DurationFormatUtils.formatDuration(oneDayTwoHours, "'it''s been 'd' day''s and 'H' hour''s'"));
+        assertEquals("2h'30m", DurationFormatUtils.formatDuration(twoHoursThirtyMin, "H'h'''m'm'"));
+        assertEquals("2 hour's", DurationFormatUtils.formatDuration(twoHours, "[d' day''s ']H' hour''s'"));
+        assertEquals("2 hours 30 minutes", DurationFormatUtils.formatDuration(twoHoursThirtyMin, "H' hours 'm' minutes'"));
+        assertIllegalArgumentException(() -> DurationFormatUtils.lexx("'unmatched"));
+    }
+
     @Test
     void testLANG982() { // More than 3 millisecond digits following a second
         assertEquals("61.999", DurationFormatUtils.formatDuration(61999, "s.S"));
