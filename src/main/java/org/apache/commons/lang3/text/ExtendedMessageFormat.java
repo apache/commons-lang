@@ -420,6 +420,9 @@ public class ExtendedMessageFormat extends MessageFormat {
             char c = pattern.charAt(pos.getIndex());
             if (Character.isWhitespace(c)) {
                 seekNonWs(pattern, pos);
+                if (pos.getIndex() >= pattern.length()) {
+                    break;
+                }
                 c = pattern.charAt(pos.getIndex());
                 if (c != START_FMT && c != END_FE) {
                     error = true;
@@ -438,12 +441,9 @@ public class ExtendedMessageFormat extends MessageFormat {
             result.append(c);
         }
         if (error) {
-            throw new IllegalArgumentException(
-                    "Invalid format argument index at position " + start + ": "
-                            + pattern.substring(start, pos.getIndex()));
+            throw new IllegalArgumentException("Invalid format argument index at position " + start + ": " + pattern.substring(start, pos.getIndex()));
         }
-        throw new IllegalArgumentException(
-                "Unterminated format element at position " + start);
+        throw new IllegalArgumentException("Unterminated format element at position " + start);
     }
 
     /**
