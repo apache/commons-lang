@@ -18,6 +18,7 @@ package org.apache.commons.lang3.text;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -286,6 +287,11 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
     public void setUp() {
         registry.put("lower", new LowerCaseFormatFactory());
         registry.put("upper", new UpperCaseFormatFactory());
+    }
+
+    @Test
+    void testArgumentIndexTrailingWhitespaceAtEnd() {
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ExtendedMessageFormat("{0 ", new HashMap<>()));
     }
 
     /**
