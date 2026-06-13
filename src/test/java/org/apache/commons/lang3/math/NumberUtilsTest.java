@@ -483,6 +483,13 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(new BigInteger("+FFFFFFFFFFFFFFFF", 16), NumberUtils.createBigInteger("+0xFFFFFFFFFFFFFFFF"));
         assertEquals(new BigInteger("+FFFFFFFFFFFFFFFF", 16), NumberUtils.createBigInteger("+#FFFFFFFFFFFFFFFF"));
         assertEquals(new BigInteger("+1234567", 8), NumberUtils.createBigInteger("+01234567"));
+        // a doubled sign is not a valid number
+        testCreateBigIntegerFailure("--1");
+        testCreateBigIntegerFailure("-+1");
+        testCreateBigIntegerFailure("+-1");
+        testCreateBigIntegerFailure("++1");
+        testCreateBigIntegerFailure("--010");
+        testCreateBigIntegerFailure("-0x-1");
     }
 
     protected void testCreateBigIntegerFailure(final String str) {
@@ -790,6 +797,10 @@ class NumberUtilsTest extends AbstractLangTest {
         compareIsCreatableWithCreateNumber(" ", false);
         compareIsCreatableWithCreateNumber("\r\n\t", false);
         compareIsCreatableWithCreateNumber("--2.3", false);
+        compareIsCreatableWithCreateNumber("--2", false);
+        compareIsCreatableWithCreateNumber("-+2", false);
+        compareIsCreatableWithCreateNumber("+-2", false);
+        compareIsCreatableWithCreateNumber("++2", false);
         compareIsCreatableWithCreateNumber(".12.3", false);
         compareIsCreatableWithCreateNumber("-123E", false);
         compareIsCreatableWithCreateNumber("-123E+-212", false);
