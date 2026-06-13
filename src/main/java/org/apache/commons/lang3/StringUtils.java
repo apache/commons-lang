@@ -3055,7 +3055,7 @@ public class StringUtils {
     }
 
     /**
-     * Case in-sensitive find of the first index within a CharSequence.
+     * Case insensitive find of the first index within a CharSequence.
      *
      * <p>
      * A {@code null} CharSequence will return {@code -1}. A negative start position is treated as zero. An empty ("") search CharSequence always matches. A
@@ -3085,7 +3085,7 @@ public class StringUtils {
     }
 
     /**
-     * Case in-sensitive find of the first index within a CharSequence from the specified position.
+     * Case insensitive find of the first index within a CharSequence from the specified position.
      *
      * <p>
      * A {@code null} CharSequence will return {@code -1}. A negative start position is treated as zero. An empty ("") search CharSequence always matches. A
@@ -4973,7 +4973,7 @@ public class StringUtils {
     }
 
     /**
-     * Case in-sensitive find of the last index within a CharSequence.
+     * Case insensitive find of the last index within a CharSequence.
      *
      * <p>
      * A {@code null} CharSequence will return {@code -1}. A negative start position returns {@code -1}. An empty ("") search CharSequence always matches unless
@@ -5001,7 +5001,7 @@ public class StringUtils {
     }
 
     /**
-     * Case in-sensitive find of the last index within a CharSequence from the specified position.
+     * Case insensitive find of the last index within a CharSequence from the specified position.
      *
      * <p>
      * A {@code null} CharSequence will return {@code -1}. A negative start position returns {@code -1}. An empty ("") search CharSequence always matches unless
