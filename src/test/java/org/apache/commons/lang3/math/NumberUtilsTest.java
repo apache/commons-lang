@@ -537,13 +537,17 @@ class NumberUtilsTest extends AbstractLangTest {
     void testCreateFloat() {
         assertEquals(Float.valueOf("1234.5"), NumberUtils.createFloat("1234.5"), "createFloat(String) failed");
         assertNull(NumberUtils.createFloat(null), "createFloat(null) failed");
-        testCreateFloatFailure("");
-        testCreateFloatFailure(" ");
-        testCreateFloatFailure("\b\t\n\f\r");
-        // Funky whitespaces
-        testCreateFloatFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {
+            // @formatter:off
+            "",
+            " ",
+            "\b\t\n\f\r",
+            // Funky whitespaces
+            "\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F" })
+            // @formatter:on
     protected void testCreateFloatFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createFloat(str), "createFloat(\"" + str + "\") should have failed.");
     }
