@@ -436,25 +436,31 @@ class NumberUtilsTest extends AbstractLangTest {
         final String string2 = "0.100000001490116121";
         assertEquals(new BigDecimal(string2), NumberUtils.createBigDecimal(string2));
         assertNull(NumberUtils.createBigDecimal(null), "createBigDecimal(null) failed");
-        testCreateBigDecimalFailure("");
-        testCreateBigDecimalFailure(" ");
-        testCreateBigDecimalFailure("\b\t\n\f\r");
-        // Funky whitespaces
-        testCreateBigDecimalFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
-        // sign alone not valid
-        testCreateBigDecimalFailure("-");
-        // comment in NumberUtils suggests some implementations may incorrectly allow this
-        testCreateBigDecimalFailure("--");
-        testCreateBigDecimalFailure("--0");
-        // sign alone not valid
-        testCreateBigDecimalFailure("+");
-        // in case this was also allowed by some JVMs
-        testCreateBigDecimalFailure("++");
-        testCreateBigDecimalFailure("++0");
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {
+            // @formatter:off
+            "",
+            " ",
+            "\b\t\n\f\r",
+            // Funky whitespaces
+            "\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F",
+            // sign alone not valid
+            "-",
+            // comment in NumberUtils suggests some implementations may incorrectly allow this
+            "--",
+            "--0",
+            // sign alone not valid
+            "+",
+            // in case this was also allowed by some JVMs
+            "++",
+            "++0" })
+            // @formatter:on
     protected void testCreateBigDecimalFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createBigDecimal(str), "createBigDecimal(\"" + str + "\") should have failed.");
+        // Should match java.math.BigInteger.BigInteger(String)
+        assertThrows(NumberFormatException.class, () -> new BigDecimal(str));
     }
 
     @Test
