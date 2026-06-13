@@ -232,6 +232,11 @@ public class NumberUtils {
             radix = 8;
             pos++;
         } // default is to treat as decimal
+        if (str.startsWith("-", pos) || str.startsWith("+", pos)) {
+            // a second sign here (e.g. "--1") is not a number; new BigInteger(String) would otherwise
+            // consume it and silently flip the sign. Integer.decode/Long.decode reject this the same way.
+            throw new NumberFormatException("Sign character in wrong position");
+        }
         final BigInteger value = new BigInteger(str.substring(pos), radix);
         return negate ? value.negate() : value;
     }
