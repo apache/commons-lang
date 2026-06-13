@@ -517,15 +517,20 @@ class NumberUtilsTest extends AbstractLangTest {
         final String string2 = "0.100000001490116121";
         assertEquals(Double.valueOf(string2), NumberUtils.createDouble(string2));
         assertNull(NumberUtils.createDouble(null), "createDouble(null) failed");
-        testCreateDoubleFailure("");
-        testCreateDoubleFailure(" ");
-        testCreateDoubleFailure("\b\t\n\f\r");
-        // Funky whitespaces
-        testCreateDoubleFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {
+            // @formatter:off
+            "",
+            " ",
+            "\b\t\n\f\r",
+            // Funky whitespaces
+            "\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F" })
+            // @formatter:on
     protected void testCreateDoubleFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createDouble(str), "createDouble(\"" + str + "\") should have failed.");
+        assertThrows(NumberFormatException.class, () -> Double.valueOf(str));
     }
 
     @Test
