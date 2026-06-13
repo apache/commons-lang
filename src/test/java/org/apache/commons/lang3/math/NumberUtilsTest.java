@@ -461,11 +461,7 @@ class NumberUtilsTest extends AbstractLangTest {
     void testCreateBigInteger() {
         assertEquals(new BigInteger("12345"), NumberUtils.createBigInteger("12345"), "createBigInteger(String) failed");
         assertNull(NumberUtils.createBigInteger(null), "createBigInteger(null) failed");
-        testCreateBigIntegerFailure("");
-        testCreateBigIntegerFailure(" ");
-        testCreateBigIntegerFailure("\b\t\n\f\r");
         // Funky whitespaces
-        testCreateBigIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
         assertEquals(new BigInteger("255"), NumberUtils.createBigInteger("0xff"), "createBigInteger(String) failed");
         assertEquals(new BigInteger("255"), NumberUtils.createBigInteger("0Xff"), "createBigInteger(String) failed");
         assertEquals(new BigInteger("255"), NumberUtils.createBigInteger("#ff"), "createBigInteger(String) failed");
@@ -475,24 +471,34 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(new BigInteger("-255"), NumberUtils.createBigInteger("-0377"), "createBigInteger(String) failed");
         assertEquals(new BigInteger("-0"), NumberUtils.createBigInteger("-0"), "createBigInteger(String) failed");
         assertEquals(new BigInteger("0"), NumberUtils.createBigInteger("0"), "createBigInteger(String) failed");
-        testCreateBigIntegerFailure("#");
-        testCreateBigIntegerFailure("-#");
-        testCreateBigIntegerFailure("0x");
-        testCreateBigIntegerFailure("-0x");
         // LANG-1645
         assertEquals(new BigInteger("+FFFFFFFFFFFFFFFF", 16), NumberUtils.createBigInteger("+0xFFFFFFFFFFFFFFFF"));
         assertEquals(new BigInteger("+FFFFFFFFFFFFFFFF", 16), NumberUtils.createBigInteger("+#FFFFFFFFFFFFFFFF"));
         assertEquals(new BigInteger("+1234567", 8), NumberUtils.createBigInteger("+01234567"));
         // a doubled sign is not a valid number
-        testCreateBigIntegerFailure("--1");
-        testCreateBigIntegerFailure("-+1");
-        testCreateBigIntegerFailure("+-1");
-        testCreateBigIntegerFailure("++1");
-        testCreateBigIntegerFailure("--010");
-        testCreateBigIntegerFailure("-0x-1");
     }
 
-    protected void testCreateBigIntegerFailure(final String str) {
+    @ParameterizedTest
+    @ValueSource(strings = {
+            // @formatter:off
+            "",
+            " ",
+            "\b\t\n\f\r",
+            // Funky whitespaces
+            "\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F",
+            "#",
+            "-#",
+            "0x",
+            "-0x",
+            // a doubled sign is not a valid number
+            "--1",
+            "-+1",
+            "+-1",
+            "++1",
+            "--010",
+            "-0x-1" })
+            // @formatter:on
+    void testCreateBigIntegerFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createBigInteger(str), "createBigInteger(\"" + str + "\") should have failed.");
         // Should match java.math.BigInteger.BigInteger(String)
         assertThrows(NumberFormatException.class, () -> new BigInteger(str));
