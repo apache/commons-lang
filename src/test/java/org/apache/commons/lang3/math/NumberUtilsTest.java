@@ -457,7 +457,7 @@ class NumberUtilsTest extends AbstractLangTest {
             "++",
             "++0" })
             // @formatter:on
-    protected void testCreateBigDecimalFailure(final String str) {
+    void testCreateBigDecimalFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createBigDecimal(str), "createBigDecimal(\"" + str + "\") should have failed.");
         // Should match java.math.BigInteger.BigInteger(String)
         assertThrows(NumberFormatException.class, () -> new BigDecimal(str));
@@ -528,7 +528,7 @@ class NumberUtilsTest extends AbstractLangTest {
             // Funky whitespaces
             "\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F" })
             // @formatter:on
-    protected void testCreateDoubleFailure(final String str) {
+    void testCreateDoubleFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createDouble(str), "createDouble(\"" + str + "\") should have failed.");
         assertThrows(NumberFormatException.class, () -> Double.valueOf(str));
     }
@@ -548,7 +548,7 @@ class NumberUtilsTest extends AbstractLangTest {
             // Funky whitespaces
             "\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F" })
             // @formatter:on
-    protected void testCreateFloatFailure(final String str) {
+    void testCreateFloatFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createFloat(str), "createFloat(\"" + str + "\") should have failed.");
         assertThrows(NumberFormatException.class, () -> Float.valueOf(str));
     }
@@ -570,7 +570,7 @@ class NumberUtilsTest extends AbstractLangTest {
             // Funky whitespaces
             "\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F" })
             // @formatter:on
-    protected void testCreateIntegerFailure(final String str) {
+    void testCreateIntegerFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createInteger(str), "createInteger(\"" + str + "\") should have failed.");
         assertThrows(NumberFormatException.class, () -> Integer.valueOf(str));
     }
