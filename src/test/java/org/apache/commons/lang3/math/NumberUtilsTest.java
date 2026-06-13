@@ -494,6 +494,8 @@ class NumberUtilsTest extends AbstractLangTest {
 
     protected void testCreateBigIntegerFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createBigInteger(str), "createBigInteger(\"" + str + "\") should have failed.");
+        // Should match java.math.BigInteger.BigInteger(String)
+        assertThrows(NumberFormatException.class, () -> new BigInteger(str));
     }
 
     @Test
