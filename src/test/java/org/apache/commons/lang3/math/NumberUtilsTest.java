@@ -556,15 +556,19 @@ class NumberUtilsTest extends AbstractLangTest {
     void testCreateInteger() {
         assertEquals(Integer.valueOf("12345"), NumberUtils.createInteger("12345"), "createInteger(String) failed");
         assertNull(NumberUtils.createInteger(null), "createInteger(null) failed");
-        testCreateIntegerFailure("");
-        testCreateIntegerFailure(" ");
-        testCreateIntegerFailure("\b\t\n\f\r");
-        // Funky whitespaces
-        testCreateIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
         // LANG-1645
         assertEquals(Integer.decode("+0xF"), NumberUtils.createInteger("+0xF"));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {
+            // @formatter:off
+            "",
+            " ",
+            "\b\t\n\f\r",
+            // Funky whitespaces
+            "\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F" })
+            // @formatter:on
     protected void testCreateIntegerFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createInteger(str), "createInteger(\"" + str + "\") should have failed.");
     }
