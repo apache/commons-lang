@@ -550,6 +550,7 @@ class NumberUtilsTest extends AbstractLangTest {
             // @formatter:on
     protected void testCreateFloatFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createFloat(str), "createFloat(\"" + str + "\") should have failed.");
+        assertThrows(NumberFormatException.class, () -> Float.valueOf(str));
     }
 
     @Test
