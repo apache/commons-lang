@@ -119,6 +119,22 @@ class RandomStringUtilsTest extends AbstractLangTest {
         }, "RandomStringUtils.random() threw IAE for valid letter chars array - pre-patch behavior");
     }
 
+    /**
+     * Asking for {@code letters && digits} must never be stricter than asking for {@code digits} alone. The range
+     * {@code ['0', 'A')} holds the digits but no letters, so {@code random(count, '0', 'A', true, true, ...)} must
+     * generate digits like the digits-only call over the same range, not throw IllegalArgumentException.
+     */
+    @Test
+    void testLettersAndDigitsOverDigitOnlyRange() {
+        final String both = RandomStringUtils.random(100, '0', 'A', true, true, null, new Random(42));
+        assertEquals(100, both.length());
+        for (final char c : both.toCharArray()) {
+            assertTrue(c >= '0' && c <= '9', () -> "Expected a digit but got: " + c);
+        }
+        // digits alone already works over this range, so letters && digits must not reject it
+        assertDoesNotThrow(() -> RandomStringUtils.random(100, '0', 'A', false, true, null, new Random(42)));
+    }
+
     @Test
     void testExceptionsRandom() {
         assertIllegalArgumentException(() -> RandomStringUtils.random(-1));

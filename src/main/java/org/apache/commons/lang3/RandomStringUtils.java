@@ -296,7 +296,9 @@ public class RandomStringUtils {
             if (letters && digits && start <= ASCII_0 && end >= ASCII_z + 1) {
                 return random(count, 0, 0, false, false, ALPHANUMERICAL_CHARS, random);
             }
-            if (digits && end <= ASCII_0 || letters && end <= ASCII_A) {
+            // Only reject when none of the requested categories is reachable; otherwise a letters && digits
+            // request would throw on a range that holds one category but not the other (e.g. [ASCII_0, ASCII_A)).
+            if ((!digits || end <= ASCII_0) && (!letters || end <= ASCII_A) && (digits || letters)) {
                 throw new IllegalArgumentException(
                         String.format("Parameter end (%,d) must be greater than (%,d) for generating digits or greater than (%,d) for generating letters.", end,
                                 ASCII_0, ASCII_A));
