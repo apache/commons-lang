@@ -572,6 +572,7 @@ class NumberUtilsTest extends AbstractLangTest {
             // @formatter:on
     protected void testCreateIntegerFailure(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createInteger(str), "createInteger(\"" + str + "\") should have failed.");
+        assertThrows(NumberFormatException.class, () -> Integer.valueOf(str));
     }
 
     @Test
