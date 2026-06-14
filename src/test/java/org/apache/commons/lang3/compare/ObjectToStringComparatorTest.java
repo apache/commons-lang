@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -44,6 +45,29 @@ class ObjectToStringComparatorTest extends AbstractLangTest {
         public String toString() {
             return string;
         }
+    }
+
+    @Test
+    void testCompareNulls() {
+        final Comparator<Object> comp = ObjectToStringComparator.INSTANCE;
+        assertEquals(0, comp.compare(null, null));
+        final Object o1 = new Thing(null);
+        final Object o2 = new Thing(null);
+        assertEquals(0, comp.compare(o1, o1));
+        assertEquals(0, comp.compare(o1, o2));
+    }
+
+    @Test
+    void testCompareNullWithNonNull() {
+        final Comparator<Object> comp = ObjectToStringComparator.INSTANCE;
+        final Object o1 = new Thing(null);
+        final Object o2 = new Thing("");
+        assertEquals(0, comp.compare(o1, o1));
+        assertEquals(0, comp.compare(o2, o2));
+        assertEquals(1, comp.compare(o1, o2));
+        assertEquals(-1, comp.compare(o2, o1));
+        assertEquals(1, comp.compare(null, o2));
+        assertEquals(-1, comp.compare(o2, null));
     }
 
     @Test
