@@ -3838,7 +3838,38 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
-        return join(array, delimiter, 0, array.length);
+        return join(array, delimiter, 0, array.length, null).toString();
+    }
+
+    /**
+     * Appends the elements of the provided array into the provided StringBuilder separated by the provided delimiter. If provided StringBuilder is null, then a new one is created.
+     *
+     * <p>
+     * No delimiter is appended before or after the list. Null objects or empty strings within the array are represented by empty strings.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.join(null, *, null)                      = null
+     * StringUtils.join(null, *, stringBuilder)             = stringBuilder
+     * StringUtils.join([], *, null)                        = StringUtils.join([], *)
+     * StringUtils.join([], *, stringBuilder)               = stringBuilder.append(StringUtils.join([], *)
+     * StringUtils.join([null], *, null)                    = new StringBuilder()
+     * StringUtils.join([null], *, stringBuilder)           = stringBuilder
+     * StringUtils.join([false, false], ';', null)          = new StringBuilder().append("false;false")
+     * StringUtils.join([false, false], ';', stringBuilder) = stringBuilder.append("false;false")
+     * </pre>
+     *
+     * @param array         the array of values to join together, may be null.
+     * @param delimiter     the separator character to use.
+     * @param stringBuilder the string builder to aggregate the joined String.
+     * @return Either provided or a new StringBuilder with the joined String appended to it, provided StringBuilder if null array input.
+     * @since 3.21.0
+     */
+    public static StringBuilder join(final boolean[] array, final char delimiter, StringBuilder stringBuilder) {
+        if (array == null) {
+            return stringBuilder;
+        }
+        return join(array, delimiter, 0, array.length, stringBuilder);
     }
 
     /**
@@ -3874,18 +3905,63 @@ public class StringUtils {
         if (array == null) {
             return null;
         }
+        return join(array, delimiter, startIndex, endIndex, null).toString();
+    }
+
+    /**
+     * Appends the elements of the provided array into the provided StringBuilder separated by the provided
+     * delimiter. If provided StringBuilder is null, then a new one is created.
+     *
+     * <p>
+     * No delimiter is added before or after the list. Null objects or empty strings within the array are
+     * represented by empty strings.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.join(null, *, null)                      = null
+     * StringUtils.join(null, *, stringBuilder)             = stringBuilder
+     * StringUtils.join([], *, null)                        = StringUtils.join([], *)
+     * StringUtils.join([], *, stringBuilder)               = stringBuilder.append(StringUtils.join([], *)
+     * StringUtils.join([null], *, null)                    = new StringBuilder()
+     * StringUtils.join([null], *, stringBuilder)           = stringBuilder
+     * StringUtils.join([false, false], ';', null)          = new StringBuilder().append("false;false")
+     * StringUtils.join([false, false], ';', stringBuilder) = stringBuilder.append("false;false")
+     * </pre>
+     *
+     * @param array
+     *            the array of values to join together, may be null.
+     * @param delimiter
+     *            the separator character to use.
+     * @param startIndex
+     *            the first index to start joining from. It is an error to pass in a start index past the end of the
+     *            array.
+     * @param endIndex
+     *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
+     *            the array.
+     * @param stringBuilder
+     *            the string builder to aggregate the joined String.
+     * @return Either provided or a new StringBuilder with the joined String appended to it, provided StringBuilder
+     * if null array input.
+     * @since 3.21.0
+     */
+    public static StringBuilder join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex, StringBuilder stringBuilder) {
+        // See StringUtilsJoinBenchmark
+        if (array == null) {
+            return stringBuilder;
+        }
         checkFromToIndex(startIndex, endIndex, array.length);
         final int count = endIndex - startIndex;
         if (count <= 0) {
-            return EMPTY;
+            return stringBuilder != null ? stringBuilder : new StringBuilder();
         }
         final byte maxElementChars = 5; // "false"
-        final StringBuilder stringBuilder = capacity(count, maxElementChars);
-        stringBuilder.append(array[startIndex]);
+        final StringBuilder internalStringBuilder = stringBuilder != null
+            ? stringBuilder : capacity(count, maxElementChars);
+        internalStringBuilder.append(array[startIndex]);
         for (int i = startIndex + 1; i < endIndex; i++) {
-            stringBuilder.append(delimiter).append(array[i]);
+            internalStringBuilder.append(delimiter).append(array[i]);
         }
-        return stringBuilder.toString();
+        return internalStringBuilder;
     }
 
     /**

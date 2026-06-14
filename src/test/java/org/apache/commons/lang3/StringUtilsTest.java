@@ -988,12 +988,29 @@ class StringUtilsTest extends AbstractLangTest {
     void testJoin_ArrayOfBooleans() {
         assertNull(StringUtils.join((boolean[]) null, COMMA_SEPARATOR_CHAR));
         assertEquals("false;false", StringUtils.join(ARRAY_FALSE_FALSE, SEPARATOR_CHAR));
-        assertEquals("", StringUtils.join(EMPTY, SEPARATOR_CHAR));
+        assertEquals(StringUtils.EMPTY, StringUtils.join(EMPTY, SEPARATOR_CHAR));
         assertEquals("false,true,false", StringUtils.join(ARRAY_FALSE_TRUE_FALSE, COMMA_SEPARATOR_CHAR));
         assertEquals("true", StringUtils.join(ARRAY_FALSE_TRUE, SEPARATOR_CHAR, 1, 2));
         assertNull(StringUtils.join((boolean[]) null, SEPARATOR_CHAR, 0, 1));
         assertEquals(StringUtils.EMPTY, StringUtils.join(ARRAY_FALSE_FALSE, SEPARATOR_CHAR, 0, 0));
         assertEquals(StringUtils.EMPTY, StringUtils.join(ARRAY_FALSE_TRUE_FALSE, SEPARATOR_CHAR, 1, 0));
+
+        assertNull(StringUtils.join((boolean[]) null, COMMA_SEPARATOR_CHAR, null));
+        assertEquals(StringUtils.EMPTY, StringUtils.join((boolean[]) null, COMMA_SEPARATOR_CHAR, new StringBuilder()).toString());
+        assertEquals("false;false", StringUtils.join(ARRAY_FALSE_FALSE, SEPARATOR_CHAR, null).toString());
+        assertEquals(SENTENCE_CAP + "false;false", StringUtils.join(ARRAY_FALSE_FALSE, SEPARATOR_CHAR, new StringBuilder(SENTENCE_CAP)).toString());
+        assertEquals(StringUtils.EMPTY, StringUtils.join(EMPTY, SEPARATOR_CHAR, null).toString());
+        assertEquals(SENTENCE_CAP, StringUtils.join(EMPTY, SEPARATOR_CHAR, new StringBuilder(SENTENCE_CAP)).toString());
+        assertEquals("false,true,false", StringUtils.join(ARRAY_FALSE_TRUE_FALSE, COMMA_SEPARATOR_CHAR, null).toString());
+        assertEquals(SENTENCE_CAP + "false,true,false", StringUtils.join(ARRAY_FALSE_TRUE_FALSE, COMMA_SEPARATOR_CHAR, new StringBuilder(SENTENCE_CAP)).toString());
+        assertEquals("true", StringUtils.join(ARRAY_FALSE_TRUE, SEPARATOR_CHAR, 1, 2, null).toString());
+        assertEquals(SENTENCE_CAP + "true", StringUtils.join(ARRAY_FALSE_TRUE, SEPARATOR_CHAR, 1, 2, new StringBuilder(SENTENCE_CAP)).toString());
+        assertNull(StringUtils.join((boolean[]) null, SEPARATOR_CHAR, 0, 1, null));
+        assertEquals(SENTENCE_CAP, StringUtils.join((boolean[]) null, SEPARATOR_CHAR, 0, 1, new StringBuilder(SENTENCE_CAP)).toString());
+        assertEquals(StringUtils.EMPTY, StringUtils.join(ARRAY_FALSE_FALSE, SEPARATOR_CHAR, 0, 0, null).toString());
+        assertEquals(SENTENCE_CAP, StringUtils.join(ARRAY_FALSE_FALSE, SEPARATOR_CHAR, 0, 0, new StringBuilder(SENTENCE_CAP)).toString());
+        assertEquals(StringUtils.EMPTY, StringUtils.join(ARRAY_FALSE_TRUE_FALSE, SEPARATOR_CHAR, 1, 0, null).toString());
+        assertEquals(SENTENCE_CAP, StringUtils.join(ARRAY_FALSE_TRUE_FALSE, SEPARATOR_CHAR, 1, 0, new StringBuilder(SENTENCE_CAP)).toString());
     }
 
     @Test
