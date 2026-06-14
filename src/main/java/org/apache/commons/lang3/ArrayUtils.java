@@ -4978,12 +4978,18 @@ public class ArrayUtils {
     }
 
     /**
-     * Gets the {@link ThreadLocalRandom} for {@code shuffle} methods that don't take a {@link Random} argument.
-     *
-     * @return the current ThreadLocalRandom.
+     * A SecureRandom instance for {@code shuffle} methods that don't take a {@link Random} argument.
+     * SecureRandom is used instead of ThreadLocalRandom to avoid predictable sequences.
      */
-    private static ThreadLocalRandom random() {
-        return ThreadLocalRandom.current();
+    private static final Random RANDOM = new SecureRandom();
+
+    /**
+     * Gets the {@link Random} for {@code shuffle} methods that don't take a {@link Random} argument.
+     *
+     * @return the shared SecureRandom instance.
+     */
+    private static Random random() {
+        return RANDOM;
     }
 
     /**
