@@ -64,15 +64,16 @@ public final class ObjectToStringComparator implements Comparator<Object>, Seria
         }
         final String string1 = o1.toString();
         final String string2 = o2.toString();
-        // No guarantee that toString() returns a non-null value, despite what Spotbugs thinks.
-        if (string1 == string2) {
-            return 0;
-        }
+        // No guarantee that toString() returns a non-null value, despite what Spotbugs
+        // thinks.
         if (string1 == null) {
             return 1;
         }
         if (string2 == null) {
             return -1;
+        }
+        if (string1.equals(string2)) {
+            return 0;
         }
         return string1.compareTo(string2);
     }
