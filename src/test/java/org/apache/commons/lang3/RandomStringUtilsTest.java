@@ -108,7 +108,7 @@ class RandomStringUtilsTest extends AbstractLangTest {
      * </p>
      */
     @Test
-    public void testCustomLetterCharsArrayDoesNotThrowIAE() {
+    void testCustomLetterCharsArrayDoesNotThrowIAE() {
         final char[] letters = { 'a', 'b', 'c' };
         assertDoesNotThrow(() -> {
             final String result = RandomStringUtils.random(5, 0, 0, true, false, letters, new Random(42));
@@ -450,7 +450,7 @@ class RandomStringUtilsTest extends AbstractLangTest {
      * </ul>
      */
     @Test
-    public void testOnlyRejectedCodePoints() {
+    void testOnlyRejectedCodePoints() {
         assertTimeout(Duration.ofSeconds(2),
                 () -> assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(1, 0xE000, 0xF900, false, false, null, new Random(42))));
     }
