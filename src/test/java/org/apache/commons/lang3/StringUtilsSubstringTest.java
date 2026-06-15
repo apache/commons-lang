@@ -175,6 +175,12 @@ class StringUtilsSubstringTest extends AbstractLangTest {
         assertEquals("cba", StringUtils.substringAfter("abcba", 'b'));
         assertEquals("", StringUtils.substringAfter("abc", 'c'));
         assertEquals("", StringUtils.substringAfter("abc", 'd'));
+
+        // a supplementary code point occupies two chars
+        final int grin = 0x1F600;
+        final String s = new String(Character.toChars(grin));
+        assertEquals("world", StringUtils.substringAfter("hello" + s + "world", grin));
+        assertEquals("", StringUtils.substringAfter("hello" + s, grin));
     }
 
     @Test
@@ -211,6 +217,13 @@ class StringUtilsSubstringTest extends AbstractLangTest {
         assertEquals("a", StringUtils.substringAfterLast("abcba", 'b'));
         assertEquals("", StringUtils.substringAfterLast("abc", 'c'));
         assertEquals("", StringUtils.substringAfterLast("", 'd'));
+
+        // a supplementary code point occupies two chars
+        final int grin = 0x1F600;
+        final String s = new String(Character.toChars(grin));
+        assertEquals("", StringUtils.substringAfterLast("hello" + s, grin));
+        assertEquals("x", StringUtils.substringAfterLast(s + "a" + s + "x", grin));
+        assertEquals("world", StringUtils.substringAfterLast("a" + s + "world", grin));
     }
 
     @Test
