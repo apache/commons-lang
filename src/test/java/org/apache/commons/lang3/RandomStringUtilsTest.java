@@ -135,6 +135,8 @@ class RandomStringUtilsTest extends AbstractLangTest {
         assertIllegalArgumentException(() -> RandomStringUtils.random(1, Integer.MIN_VALUE, -10, false, false, null));
         assertIllegalArgumentException(() -> RandomStringUtils.random(2, 4, 5, false, false, new char[] { 'a', 'b', 'c', 'd' }, new Random()));
         assertIllegalArgumentException(() -> RandomStringUtils.random(2, 1, 5, false, false, new char[] { 'a', 'b', 'c', 'd' }, new Random()));
+        // From the mailing list
+        assertIllegalArgumentException(() -> RandomStringUtils.random(5, 0x80, 0xA0, true, false, null, new Random()));
     }
 
     @ParameterizedTest
