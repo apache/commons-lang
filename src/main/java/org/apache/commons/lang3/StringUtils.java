@@ -8260,7 +8260,7 @@ public class StringUtils {
         if (pos == INDEX_NOT_FOUND) {
             return EMPTY;
         }
-        return str.substring(pos + 1);
+        return str.substring(pos + Character.charCount(find));
     }
 
     /**
@@ -8337,10 +8337,10 @@ public class StringUtils {
             return str;
         }
         final int pos = str.lastIndexOf(find);
-        if (pos == INDEX_NOT_FOUND || pos == str.length() - 1) {
+        if (pos == INDEX_NOT_FOUND || pos == str.length() - Character.charCount(find)) {
             return EMPTY;
         }
-        return str.substring(pos + 1);
+        return str.substring(pos + Character.charCount(find));
     }
 
     /**
