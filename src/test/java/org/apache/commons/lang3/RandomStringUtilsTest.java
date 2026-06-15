@@ -135,6 +135,20 @@ class RandomStringUtilsTest extends AbstractLangTest {
         assertDoesNotThrow(() -> RandomStringUtils.random(100, '0', 'A', false, true, null, new Random(42)));
     }
 
+    /**
+     * The {@code letters && digits} ASCII fast path clamps {@code start} up to {@code '0'} and {@code end} down to
+     * {@code 'z' + 1}. A range sitting entirely above the alphanumerics, e.g. {@code ['z' + 1, 0x7f)}, collapses to
+     * {@code start >= end} after that clamp. It must throw a clear range IllegalArgumentException, not fall through to
+     * {@code nextBits(0)} which reports the unrelated "number of bits must be between 1 and 32".
+     */
+    @Test
+    void testLettersAndDigitsOverEmptyAsciiRange() {
+        final IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> RandomStringUtils.random(10, 'z' + 1, 0x7f, true, true, null, new Random(42)));
+        assertTrue(e.getMessage() != null && !e.getMessage().contains("number of bits"),
+                () -> "Expected a range-validation message but got: " + e.getMessage());
+    }
+
     @Test
     void testExceptionsRandom() {
         assertIllegalArgumentException(() -> RandomStringUtils.random(-1));

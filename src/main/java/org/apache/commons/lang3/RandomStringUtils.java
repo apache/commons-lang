@@ -314,6 +314,12 @@ public class RandomStringUtils {
             if (letters && digits) {
                 start = Math.max(ASCII_0, start);
                 end = Math.min(ASCII_z + 1, end);
+                // The clamp can empty the range when it sits above the alphanumerics (e.g. [ASCII_z + 1, 0x7f)),
+                // unlike the single-category branches below which are validated by the reachability loops further
+                // down. Reject here so the caller gets a clear range error instead of nextBits(0) failing later.
+                if (start >= end) {
+                    throw new IllegalArgumentException(String.format("No letters or digits exist between start %,d and end %,d.", start, end));
+                }
             } else if (digits) {
                 // just numbers, no letters
                 start = Math.max(ASCII_0, start);
