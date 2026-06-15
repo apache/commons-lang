@@ -119,36 +119,6 @@ class RandomStringUtilsTest extends AbstractLangTest {
         }, "RandomStringUtils.random() threw IAE for valid letter chars array - pre-patch behavior");
     }
 
-    /**
-     * Asking for {@code letters && digits} must never be stricter than asking for {@code digits} alone. The range
-     * {@code ['0', 'A')} holds the digits but no letters, so {@code random(count, '0', 'A', true, true, ...)} must
-     * generate digits like the digits-only call over the same range, not throw IllegalArgumentException.
-     */
-    @Test
-    void testLettersAndDigitsOverDigitOnlyRange() {
-        final String both = RandomStringUtils.random(100, '0', 'A', true, true, null, new Random(42));
-        assertEquals(100, both.length());
-        for (final char c : both.toCharArray()) {
-            assertTrue(c >= '0' && c <= '9', () -> "Expected a digit but got: " + c);
-        }
-        // digits alone already works over this range, so letters && digits must not reject it
-        assertDoesNotThrow(() -> RandomStringUtils.random(100, '0', 'A', false, true, null, new Random(42)));
-    }
-
-    /**
-     * The {@code letters && digits} ASCII fast path clamps {@code start} up to {@code '0'} and {@code end} down to
-     * {@code 'z' + 1}. A range sitting entirely above the alphanumerics, e.g. {@code ['z' + 1, 0x7f)}, collapses to
-     * {@code start >= end} after that clamp. It must throw a clear range IllegalArgumentException, not fall through to
-     * {@code nextBits(0)} which reports the unrelated "number of bits must be between 1 and 32".
-     */
-    @Test
-    void testLettersAndDigitsOverEmptyAsciiRange() {
-        final IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
-                () -> RandomStringUtils.random(10, 'z' + 1, 0x7f, true, true, null, new Random(42)));
-        assertTrue(e.getMessage() != null && !e.getMessage().contains("number of bits"),
-                () -> "Expected a range-validation message but got: " + e.getMessage());
-    }
-
     @Test
     void testExceptionsRandom() {
         assertIllegalArgumentException(() -> RandomStringUtils.random(-1));
@@ -365,6 +335,36 @@ class RandomStringUtilsTest extends AbstractLangTest {
         final String msg = ex.getMessage();
         assertTrue(msg.contains("start"), "Message (" + msg + ") must contain 'start'");
         assertTrue(msg.contains("end"), "Message (" + msg + ") must contain 'end'");
+    }
+
+    /**
+     * Asking for {@code letters && digits} must never be stricter than asking for {@code digits} alone. The range
+     * {@code ['0', 'A')} holds the digits but no letters, so {@code random(count, '0', 'A', true, true, ...)} must
+     * generate digits like the digits-only call over the same range, not throw IllegalArgumentException.
+     */
+    @Test
+    void testLettersAndDigitsOverDigitOnlyRange() {
+        final String both = RandomStringUtils.random(100, '0', 'A', true, true, null, new Random(42));
+        assertEquals(100, both.length());
+        for (final char c : both.toCharArray()) {
+            assertTrue(c >= '0' && c <= '9', () -> "Expected a digit but got: " + c);
+        }
+        // digits alone already works over this range, so letters && digits must not reject it
+        assertDoesNotThrow(() -> RandomStringUtils.random(100, '0', 'A', false, true, null, new Random(42)));
+    }
+
+    /**
+     * The {@code letters && digits} ASCII fast path clamps {@code start} up to {@code '0'} and {@code end} down to
+     * {@code 'z' + 1}. A range sitting entirely above the alphanumerics, e.g. {@code ['z' + 1, 0x7f)}, collapses to
+     * {@code start >= end} after that clamp. It must throw a clear range IllegalArgumentException, not fall through to
+     * {@code nextBits(0)} which reports the unrelated "number of bits must be between 1 and 32".
+     */
+    @Test
+    void testLettersAndDigitsOverEmptyAsciiRange() {
+        final IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> RandomStringUtils.random(10, 'z' + 1, 0x7f, true, true, null, new Random(42)));
+        assertTrue(e.getMessage() != null && !e.getMessage().contains("number of bits"),
+                () -> "Expected a range-validation message but got: " + e.getMessage());
     }
 
     /**
