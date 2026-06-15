@@ -34,6 +34,9 @@ import java.util.TimeZone;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.time.DurationFormatUtils.Token;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
@@ -585,20 +588,30 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertIllegalArgumentException(() -> DurationFormatUtils.lexx("'yMdHms''S"));
     }
 
-    @Test
-    void testLANG1827() {
+    private static Arguments[] testLANG1827() {
         final long twoHours = Duration.ofHours(2).toMillis();
         final long twoHoursThirtyMin = Duration.ofHours(2).plusMinutes(30).toMillis();
         final long oneDayTwoHours = Duration.ofDays(1).plusHours(2).toMillis();
+        return new Arguments[] {
+                Arguments.of("escaped quote inside literal", "2 o'clock", twoHours, "H' o''clock'"),
+                Arguments.of("escaped quote at start of literal", "it's 2 hours", twoHours, "'it''s 'H' hours'"),
+                Arguments.of("escaped quote outside literal", "2'30", twoHoursThirtyMin, "H''m"),
+                Arguments.of("multiple escaped quotes", "it's been 1 day's and 2 hour's", oneDayTwoHours,
+                        "'it''s been 'd' day''s and 'H' hour''s'"),
+                Arguments.of("standalone escaped quote", "2h'30m", twoHoursThirtyMin, "H'h'''m'm'"),
+                Arguments.of("escaped quote inside optional block", "2 hour's", twoHours, "[d' day''s ']H' hour''s'"),
+                Arguments.of("existing literal behavior", "2 hours 30 minutes", twoHoursThirtyMin, "H' hours 'm' minutes'")
+        };
+    }
 
-        assertEquals("2 o'clock", DurationFormatUtils.formatDuration(twoHours, "H' o''clock'"));
-        assertEquals("it's 2 hours", DurationFormatUtils.formatDuration(twoHours, "'it''s 'H' hours'"));
-        assertEquals("2'30", DurationFormatUtils.formatDuration(twoHoursThirtyMin, "H''m"));
-        assertEquals("it's been 1 day's and 2 hour's",
-                DurationFormatUtils.formatDuration(oneDayTwoHours, "'it''s been 'd' day''s and 'H' hour''s'"));
-        assertEquals("2h'30m", DurationFormatUtils.formatDuration(twoHoursThirtyMin, "H'h'''m'm'"));
-        assertEquals("2 hour's", DurationFormatUtils.formatDuration(twoHours, "[d' day''s ']H' hour''s'"));
-        assertEquals("2 hours 30 minutes", DurationFormatUtils.formatDuration(twoHoursThirtyMin, "H' hours 'm' minutes'"));
+    @ParameterizedTest
+    @MethodSource
+    void testLANG1827(final String label, final String expected, final long durationMillis, final String format) {
+        assertEquals(expected, DurationFormatUtils.formatDuration(durationMillis, format), label);
+    }
+
+    @Test
+    void testLANG1827UnmatchedQuote() {
         assertIllegalArgumentException(() -> DurationFormatUtils.lexx("'unmatched"));
     }
 
