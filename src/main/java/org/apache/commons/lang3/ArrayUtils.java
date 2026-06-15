@@ -4978,7 +4978,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Gets the {@link ThreadLocalRandom} for {@code shuffle} methods that don't take a {@link Random} argument.
+     * Gets the current thread's {@link ThreadLocalRandom} for {@code shuffle} methods that don't take a {@link Random} argument.
      *
      * @return the current ThreadLocalRandom.
      */
