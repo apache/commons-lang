@@ -162,6 +162,19 @@ class FractionTest extends AbstractLangTest {
         final Fraction f3 = Fraction.getFraction(3, 327680);
         final Fraction f4 = Fraction.getFraction(2, 59049);
         assertThrows(ArithmeticException.class, () -> f3.add(f4)); // should overflow
+
+        // the cross products u*v' and u'*v overflow an int, but the reduced result fits.
+        f1 = Fraction.getFraction(Integer.MAX_VALUE, 2);
+        f2 = Fraction.getFraction(-Integer.MAX_VALUE, 1);
+        f = f1.add(f2);
+        assertEquals(-Integer.MAX_VALUE, f.getNumerator());
+        assertEquals(2, f.getDenominator());
+
+        f1 = Fraction.getFraction(2, 1);
+        f2 = Fraction.getFraction(-Integer.MAX_VALUE, 2114962910);
+        f = f1.add(f2);
+        assertEquals(2082442173, f.getNumerator());
+        assertEquals(2114962910, f.getDenominator());
     }
 
     @Test
@@ -1065,6 +1078,13 @@ class FractionTest extends AbstractLangTest {
 
         // Should overflow
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(3, 327680).subtract(Fraction.getFraction(2, 59049)));
+
+        // the cross products u*v' and u'*v overflow an int, but the reduced result fits.
+        f1 = Fraction.getFraction(Integer.MAX_VALUE, 2);
+        f2 = Fraction.getFraction(Integer.MAX_VALUE, 1);
+        f = f1.subtract(f2);
+        assertEquals(-Integer.MAX_VALUE, f.getNumerator());
+        assertEquals(2, f.getDenominator());
     }
 
     @Test
