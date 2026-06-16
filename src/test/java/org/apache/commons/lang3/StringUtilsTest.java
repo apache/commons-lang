@@ -2436,6 +2436,13 @@ class StringUtilsTest extends AbstractLangTest {
         for (int i = 0; i < splitWithMultipleSeparatorExpectedResults.length; i++) {
             assertEquals(splitWithMultipleSeparatorExpectedResults[i], splitWithMultipleSeparator[i]);
         }
+
+        // a trailing separator must not leak an empty token (it is dropped, like leading and adjacent ones)
+        assertArrayEquals(new String[] {"a", "b"}, StringUtils.splitByWholeSeparator("a:b:", ":"));
+        assertArrayEquals(new String[] {"a"}, StringUtils.splitByWholeSeparator("a:", ":"));
+        assertArrayEquals(new String[] {"ab", "cd"}, StringUtils.splitByWholeSeparator("ab-!-cd-!-", "-!-"));
+        // the preserve-all-tokens variant still keeps the trailing empty token
+        assertArrayEquals(new String[] {"a", "b", ""}, StringUtils.splitByWholeSeparatorPreserveAllTokens("a:b:", ":"));
     }
 
     @Test

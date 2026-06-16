@@ -7447,7 +7447,11 @@ public class StringUtils {
                 }
             } else {
                 // String.substring( beg ) goes from 'beg' to the end of the String.
-                substrings.add(str.substring(beg));
+                // beg == len means the String ended on a separator, so the trailing
+                // token is empty and must be dropped unless empty tokens are preserved.
+                if (preserveAllTokens || beg < len) {
+                    substrings.add(str.substring(beg));
+                }
                 end = len;
             }
         }
