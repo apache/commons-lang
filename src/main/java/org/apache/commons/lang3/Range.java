@@ -189,6 +189,8 @@ public class Range<T> implements Serializable {
      * @since 3.13.0
      */
     public static <T> Range<T> of(final T fromInclusive, final T toInclusive, final Comparator<T> comparator) {
+        Objects.requireNonNull(fromInclusive, "fromInclusive");
+        Objects.requireNonNull(toInclusive, "toInclusive");
         return new Range<>(fromInclusive, toInclusive, comparator);
     }
 
@@ -228,8 +230,7 @@ public class Range<T> implements Serializable {
      */
     @SuppressWarnings("unchecked")
     Range(final T element1, final T element2, final Comparator<T> comp) {
-        Objects.requireNonNull(element1, "element1");
-        Objects.requireNonNull(element2, "element2");
+       
         if (comp == null) {
             this.comparator = ComparableComparator.INSTANCE;
         } else {

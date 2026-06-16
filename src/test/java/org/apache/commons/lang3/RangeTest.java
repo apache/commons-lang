@@ -404,4 +404,21 @@ class RangeTest extends AbstractLangTest {
         final String str = intRange.toString("From %1$s to %2$s");
         assertEquals("From 10 to 20", str);
     }
+
+    @Test
+    void testOfNullFromInclusive() {
+        assertNullPointerException(() -> Range.of(null, "b"));
+    }
+
+    @Test
+    void testOfNullToInclusive() {
+        assertNullPointerException(() -> Range.of("a", null));
+    }
+
+    @Test
+    void testOfNullBothWithComparator() {
+        final Comparator<String> c = Comparator.comparingInt(String::length);
+        assertNullPointerException(() -> Range.of(null, "b", c));
+        assertNullPointerException(() -> Range.of("a", null, c));
+    }
 }
