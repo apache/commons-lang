@@ -3002,6 +3002,12 @@ public class StringUtils {
                 break;
             }
         }
+        if (firstDiff > 0 && Character.isLowSurrogate(css[0].charAt(firstDiff))
+                && Character.isHighSurrogate(css[0].charAt(firstDiff - 1))) {
+            // the difference splits a surrogate pair whose high half is common; report the start of the
+            // pair so getCommonPrefix never slices it in half and leaves a stray high surrogate.
+            firstDiff--;
+        }
         if (firstDiff == -1 && shortestStrLen != longestStrLen) {
             // we compared all of the characters up to the length of the
             // shortest string and didn't find a match, but the string lengths
@@ -3047,6 +3053,12 @@ public class StringUtils {
             if (cs1.charAt(i) != cs2.charAt(i)) {
                 break;
             }
+        }
+        if (i > 0 && i < cs1.length() && i < cs2.length() && Character.isHighSurrogate(cs1.charAt(i - 1))
+                && (Character.isLowSurrogate(cs1.charAt(i)) || Character.isLowSurrogate(cs2.charAt(i)))) {
+            // the difference splits a surrogate pair whose high half is common; report the start of the
+            // pair so difference does not return a string that begins with a stray low surrogate.
+            i--;
         }
         if (i < cs2.length() || i < cs1.length()) {
             return i;
