@@ -84,12 +84,16 @@ public class BooleanUtils {
      * Performs an 'and' operation on a set of booleans.
      *
      * <pre>
-     *   BooleanUtils.and(true, true)         = true
-     *   BooleanUtils.and(false, false)       = false
-     *   BooleanUtils.and(true, false)        = false
-     *   BooleanUtils.and(true, true, false)  = false
-     *   BooleanUtils.and(true, true, true)   = true
+     *   BooleanUtils.and(new boolean[]{true, true})        = true
+     *   BooleanUtils.and(new boolean[]{false, false})      = false
+     *   BooleanUtils.and(new boolean[]{true, false})       = false
+     *   BooleanUtils.and(new boolean[]{true, true, false}) = false
+     *   BooleanUtils.and(new boolean[]{true, true, true})  = true
      * </pre>
+     *
+     * <p>
+     * Loose-argument calls like {@code BooleanUtils.and(true, false)} now resolve to {@code BooleanUtils.and(Boolean...)}.
+     * </p>
      *
      * @param array  an array of {@code boolean}s
      * @return the result of the logical 'and' operation. That is {@code false}
@@ -98,7 +102,7 @@ public class BooleanUtils {
      * @throws IllegalArgumentException if {@code array} is empty.
      * @since 3.0.1
      */
-    public static boolean and(final boolean... array) {
+    public static boolean and(final boolean[] array) {
         ObjectUtils.requireNonEmpty(array, "array");
         for (final boolean element : array) {
             if (!element) {
@@ -111,6 +115,11 @@ public class BooleanUtils {
     /**
      * Performs an 'and' operation on an array of Booleans.
      * <pre>
+     *   BooleanUtils.and(true, true)                                 = Boolean.TRUE
+     *   BooleanUtils.and(false, false)                               = Boolean.FALSE
+     *   BooleanUtils.and(true, false)                                = Boolean.FALSE
+     *   BooleanUtils.and(true, true, false)                          = Boolean.FALSE
+     *   BooleanUtils.and(true, true, true)                           = Boolean.TRUE
      *   BooleanUtils.and(Boolean.TRUE, Boolean.TRUE)                 = Boolean.TRUE
      *   BooleanUtils.and(Boolean.FALSE, Boolean.FALSE)               = Boolean.FALSE
      *   BooleanUtils.and(Boolean.TRUE, Boolean.FALSE)                = Boolean.FALSE
@@ -276,13 +285,16 @@ public class BooleanUtils {
      * <p>
      * See also <a href="https://en.wikipedia.org/wiki/One-hot">One-hot</a>.
      * </p>
+     * <p>
+     * Loose-argument calls like {@code BooleanUtils.oneHot(true, false)} now resolve to {@code BooleanUtils.oneHot(Boolean...)}.
+     * </p>
      *
      * @param array  an array of {@code boolean}s
      * @return the result of the one-hot operations
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
      */
-    public static boolean oneHot(final boolean... array) {
+    public static boolean oneHot(final boolean[] array) {
         ObjectUtils.requireNonEmpty(array, "array");
         boolean result = false;
         for (final boolean element: array) {
@@ -321,13 +333,17 @@ public class BooleanUtils {
      * Performs an 'or' operation on a set of booleans.
      *
      * <pre>
-     *   BooleanUtils.or(true, true)          = true
-     *   BooleanUtils.or(false, false)        = false
-     *   BooleanUtils.or(true, false)         = true
-     *   BooleanUtils.or(true, true, false)   = true
-     *   BooleanUtils.or(true, true, true)    = true
-     *   BooleanUtils.or(false, false, false) = false
+     *   BooleanUtils.or(new boolean[]{true, true})          = true
+     *   BooleanUtils.or(new boolean[]{false, false})        = false
+     *   BooleanUtils.or(new boolean[]{true, false})         = true
+     *   BooleanUtils.or(new boolean[]{true, true, false})   = true
+     *   BooleanUtils.or(new boolean[]{true, true, true})    = true
+     *   BooleanUtils.or(new boolean[]{false, false, false}) = false
      * </pre>
+     *
+     * <p>
+     * Loose-argument calls like {@code BooleanUtils.or(true, false)} now resolve to {@code BooleanUtils.or(Boolean...)}.
+     * </p>
      *
      * @param array  an array of {@code boolean}s
      * @return {@code true} if any of the arguments is {@code true}, and it returns {@code false} otherwise.
@@ -335,7 +351,7 @@ public class BooleanUtils {
      * @throws IllegalArgumentException if {@code array} is empty.
      * @since 3.0.1
      */
-    public static boolean or(final boolean... array) {
+    public static boolean or(final boolean[] array) {
         ObjectUtils.requireNonEmpty(array, "array");
         for (final boolean element : array) {
             if (element) {
@@ -348,6 +364,12 @@ public class BooleanUtils {
     /**
      * Performs an 'or' operation on an array of Booleans.
      * <pre>
+     *   BooleanUtils.or(true, true)                                  = Boolean.TRUE
+     *   BooleanUtils.or(false, false)                                = Boolean.FALSE
+     *   BooleanUtils.or(true, false)                                 = Boolean.TRUE
+     *   BooleanUtils.or(true, true, false)                           = Boolean.TRUE
+     *   BooleanUtils.or(true, true, true)                            = Boolean.TRUE
+     *   BooleanUtils.or(false, false, false)                         = Boolean.FALSE
      *   BooleanUtils.or(Boolean.TRUE, Boolean.TRUE)                  = Boolean.TRUE
      *   BooleanUtils.or(Boolean.FALSE, Boolean.FALSE)                = Boolean.FALSE
      *   BooleanUtils.or(Boolean.TRUE, Boolean.FALSE)                 = Boolean.TRUE
@@ -1163,20 +1185,24 @@ public class BooleanUtils {
      * </p>
      *
      * <pre>
-     *   BooleanUtils.xor(true, true)             = false
-     *   BooleanUtils.xor(false, false)           = false
-     *   BooleanUtils.xor(true, false)            = true
-     *   BooleanUtils.xor(true, false, false)     = true
-     *   BooleanUtils.xor(true, true, true)       = true
-     *   BooleanUtils.xor(true, true, true, true) = false
+     *   BooleanUtils.xor(new boolean[]{true, true})             = false
+     *   BooleanUtils.xor(new boolean[]{false, false})           = false
+     *   BooleanUtils.xor(new boolean[]{true, false})            = true
+     *   BooleanUtils.xor(new boolean[]{true, false, false})     = true
+     *   BooleanUtils.xor(new boolean[]{true, true, true})       = true
+     *   BooleanUtils.xor(new boolean[]{true, true, true, true}) = false
      * </pre>
+     *
+     * <p>
+     * Loose-argument calls like {@code BooleanUtils.xor(true, false)} now resolve to {@code BooleanUtils.xor(Boolean...)}.
+     * </p>
      *
      * @param array  an array of {@code boolean}s
      * @return true if the number of true values in the array is odd; otherwise returns false.
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
      */
-    public static boolean xor(final boolean... array) {
+    public static boolean xor(final boolean[] array) {
         ObjectUtils.requireNonEmpty(array, "array");
         // false if the neutral element of the xor operator
         boolean result = false;
@@ -1190,6 +1216,12 @@ public class BooleanUtils {
     /**
      * Performs an xor on an array of Booleans.
      * <pre>
+     *   BooleanUtils.xor(true, true)                                 = Boolean.FALSE
+     *   BooleanUtils.xor(false, false)                               = Boolean.FALSE
+     *   BooleanUtils.xor(true, false)                                = Boolean.TRUE
+     *   BooleanUtils.xor(true, false, false)                         = Boolean.TRUE
+     *   BooleanUtils.xor(true, true, true)                           = Boolean.TRUE
+     *   BooleanUtils.xor(true, true, true, true)                     = Boolean.FALSE
      *   BooleanUtils.xor(Boolean.TRUE, Boolean.TRUE)                 = Boolean.FALSE
      *   BooleanUtils.xor(Boolean.FALSE, Boolean.FALSE)               = Boolean.FALSE
      *   BooleanUtils.xor(Boolean.TRUE, Boolean.FALSE)                = Boolean.TRUE

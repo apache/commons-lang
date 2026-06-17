@@ -630,6 +630,141 @@ class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testAnd_primitive_varargs_2items() {
+        assertTrue(
+                BooleanUtils.and(true, true),
+                "False result for (true, true)");
+
+        assertFalse(
+                BooleanUtils.and(false, false),
+                "True result for (false, false)");
+
+        assertFalse(
+                BooleanUtils.and(true, false),
+                "True result for (true, false)");
+
+        assertFalse(
+                BooleanUtils.and(false, true),
+                "True result for (false, true)");
+    }
+
+    @Test
+    void testAnd_primitive_varargs_3items() {
+        assertFalse(
+                BooleanUtils.and(false, false, true),
+                "True result for (false, false, true)");
+
+        assertFalse(
+                BooleanUtils.and(false, true, false),
+                "True result for (false, true, false)");
+
+        assertFalse(
+                BooleanUtils.and(true, false, false),
+                "True result for (true, false, false)");
+
+        assertTrue(
+                BooleanUtils.and(true, true, true),
+                "False result for (true, true, true)");
+
+        assertFalse(
+                BooleanUtils.and(false, false, false),
+                "True result for (false, false, false)");
+
+        assertFalse(
+                BooleanUtils.and(true, true, false),
+                "True result for (true, true, false)");
+
+        assertFalse(
+                BooleanUtils.and(true, false, true),
+                "True result for (true, false, true)");
+
+        assertFalse(
+                BooleanUtils.and(false, true, true),
+                "True result for (false, true, true)");
+    }
+
+    @Test
+    void testAnd_object_varargs_2items() {
+        assertTrue(
+                BooleanUtils
+                        .and(Boolean.TRUE, Boolean.TRUE)
+                        .booleanValue(),
+                "False result for (true, true)");
+
+        assertFalse(
+                BooleanUtils
+                        .and(Boolean.FALSE, Boolean.FALSE)
+                        .booleanValue(),
+                "True result for (false, false)");
+
+        assertFalse(
+                BooleanUtils
+                        .and(Boolean.TRUE, Boolean.FALSE)
+                        .booleanValue(),
+                "True result for (true, false)");
+
+        assertFalse(
+                BooleanUtils
+                        .and(Boolean.FALSE, Boolean.TRUE)
+                        .booleanValue(),
+                "True result for (false, true)");
+    }
+
+    @Test
+    void testAnd_object_varargs_3items() {
+        assertFalse(
+                BooleanUtils
+                        .and(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE)
+                        .booleanValue(),
+                "True result for (false, false, true)");
+
+        assertFalse(
+                BooleanUtils
+                        .and(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE)
+                        .booleanValue(),
+                "True result for (false, true, false)");
+
+        assertFalse(
+                BooleanUtils
+                        .and(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE)
+                        .booleanValue(),
+                "True result for (true, false, false)");
+
+        assertTrue(
+                BooleanUtils
+                        .and(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE)
+                        .booleanValue(),
+                "False result for (true, true, true)");
+
+        assertFalse(
+                BooleanUtils.and(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE)
+                        .booleanValue(),
+                "True result for (false, false, false)");
+
+        assertFalse(
+                BooleanUtils.and(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE)
+                        .booleanValue(),
+                "True result for (true, true, false)");
+
+        assertFalse(
+                BooleanUtils.and(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE)
+                        .booleanValue(),
+                "True result for (true, false, true)");
+
+        assertFalse(
+                BooleanUtils.and(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE)
+                        .booleanValue(),
+                "True result for (false, true, true)");
+    }
+
+    @Test
+    void testAnd_object_varargs_nullElement() {
+        assertFalse(
+                BooleanUtils.and(null, null).booleanValue(),
+                "True result for (null, null)");
+    }
+
+    @Test
     void testCompare() {
         assertTrue(BooleanUtils.compare(true, false) > 0);
         assertEquals(0, BooleanUtils.compare(true, true));
@@ -763,6 +898,79 @@ class BooleanUtilsTest extends AbstractLangTest {
 
         // three true
         assertFalse(BooleanUtils.oneHot(new boolean[]{true, true, true}), "all true");
+    }
+
+    @Test
+    void testOneHot_primitive_varargs_2items() {
+        assertFalse(BooleanUtils.oneHot(false, false), "all false");
+
+        assertTrue(BooleanUtils.oneHot(true, false), "first true");
+
+        assertTrue(BooleanUtils.oneHot(false, true), "last true");
+
+        assertFalse(BooleanUtils.oneHot(true, true), "all true");
+    }
+
+    @Test
+    void testOneHot_primitive_varargs_3items() {
+        // none true
+        assertFalse(BooleanUtils.oneHot(false, false, false), "all false");
+
+        // one true
+        assertTrue(BooleanUtils.oneHot(true, false, false), "first true");
+
+        assertTrue(BooleanUtils.oneHot(false, true, false), "middle true");
+
+        assertTrue(BooleanUtils.oneHot(false, false, true), "last true");
+
+        // two true
+        assertFalse(BooleanUtils.oneHot(false, true, true), "first false");
+
+        assertFalse(BooleanUtils.oneHot(true, false, true), "middle false");
+
+        assertFalse(BooleanUtils.oneHot(true, true, false), "last false");
+
+        // three true
+        assertFalse(BooleanUtils.oneHot(true, true, true), "all true");
+    }
+
+    @Test
+    void testOneHot_object_varargs_2items() {
+        assertFalse(BooleanUtils.oneHot(Boolean.FALSE, Boolean.FALSE), "all false");
+
+        assertTrue(BooleanUtils.oneHot(Boolean.TRUE, Boolean.FALSE), "first true");
+
+        assertTrue(BooleanUtils.oneHot(Boolean.FALSE, Boolean.TRUE), "last true");
+
+        assertFalse(BooleanUtils.oneHot(Boolean.TRUE, Boolean.TRUE), "all true");
+    }
+
+    @Test
+    void testOneHot_object_varargs_3items() {
+        // none true
+        assertFalse(BooleanUtils.oneHot(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE), "all false");
+
+        // one true
+        assertTrue(BooleanUtils.oneHot(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE), "first true");
+
+        assertTrue(BooleanUtils.oneHot(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE), "middle true");
+
+        assertTrue(BooleanUtils.oneHot(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE), "last true");
+
+        // two true
+        assertFalse(BooleanUtils.oneHot(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE), "first false");
+
+        assertFalse(BooleanUtils.oneHot(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE), "middle false");
+
+        assertFalse(BooleanUtils.oneHot(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE), "last false");
+
+        // three true
+        assertFalse(BooleanUtils.oneHot(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE), "all true");
+    }
+
+    @Test
+    void testOneHot_object_varargs_nullElement() {
+        assertFalse(BooleanUtils.oneHot(null, null), "True result for (null, null)");
     }
 
     @Test
@@ -944,6 +1152,141 @@ class BooleanUtilsTest extends AbstractLangTest {
         assertTrue(
                 BooleanUtils.or(new boolean[] { false, true, true }),
                 "False result for (false, true, true)");
+    }
+
+    @Test
+    void testOr_primitive_varargs_2items() {
+        assertTrue(
+                BooleanUtils.or(true, true),
+                "False result for (true, true)");
+
+        assertFalse(
+                BooleanUtils.or(false, false),
+                "True result for (false, false)");
+
+        assertTrue(
+                BooleanUtils.or(true, false),
+                "False result for (true, false)");
+
+        assertTrue(
+                BooleanUtils.or(false, true),
+                "False result for (false, true)");
+    }
+
+    @Test
+    void testOr_primitive_varargs_3items() {
+        assertTrue(
+                BooleanUtils.or(false, false, true),
+                "False result for (false, false, true)");
+
+        assertTrue(
+                BooleanUtils.or(false, true, false),
+                "False result for (false, true, false)");
+
+        assertTrue(
+                BooleanUtils.or(true, false, false),
+                "False result for (true, false, false)");
+
+        assertTrue(
+                BooleanUtils.or(true, true, true),
+                "False result for (true, true, true)");
+
+        assertFalse(
+                BooleanUtils.or(false, false, false),
+                "True result for (false, false, false)");
+
+        assertTrue(
+                BooleanUtils.or(true, true, false),
+                "False result for (true, true, false)");
+
+        assertTrue(
+                BooleanUtils.or(true, false, true),
+                "False result for (true, false, true)");
+
+        assertTrue(
+                BooleanUtils.or(false, true, true),
+                "False result for (false, true, true)");
+    }
+
+    @Test
+    void testOr_object_varargs_2items() {
+        assertTrue(
+                BooleanUtils
+                        .or(Boolean.TRUE, Boolean.TRUE)
+                        .booleanValue(),
+                "False result for (true, true)");
+
+        assertFalse(
+                BooleanUtils
+                        .or(Boolean.FALSE, Boolean.FALSE)
+                        .booleanValue(),
+                "True result for (false, false)");
+
+        assertTrue(
+                BooleanUtils
+                        .or(Boolean.TRUE, Boolean.FALSE)
+                        .booleanValue(),
+                "False result for (true, false)");
+
+        assertTrue(
+                BooleanUtils
+                        .or(Boolean.FALSE, Boolean.TRUE)
+                        .booleanValue(),
+                "False result for (false, true)");
+    }
+
+    @Test
+    void testOr_object_varargs_3items() {
+        assertTrue(
+                BooleanUtils
+                        .or(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE)
+                        .booleanValue(),
+                "False result for (false, false, true)");
+
+        assertTrue(
+                BooleanUtils
+                        .or(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE)
+                        .booleanValue(),
+                "False result for (false, true, false)");
+
+        assertTrue(
+                BooleanUtils
+                        .or(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE)
+                        .booleanValue(),
+                "False result for (true, false, false)");
+
+        assertTrue(
+                BooleanUtils
+                        .or(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE)
+                        .booleanValue(),
+                "False result for (true, true, true)");
+
+        assertFalse(
+                BooleanUtils.or(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE)
+                        .booleanValue(),
+                "True result for (false, false, false)");
+
+        assertTrue(
+                BooleanUtils.or(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE)
+                        .booleanValue(),
+                "False result for (true, true, false)");
+
+        assertTrue(
+                BooleanUtils.or(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE)
+                        .booleanValue(),
+                "False result for (true, false, true)");
+
+        assertTrue(
+                BooleanUtils.or(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE)
+                        .booleanValue(),
+                "False result for (false, true, true)");
+    }
+
+    @Test
+    void testOr_object_varargs_nullElement() {
+        assertFalse(
+                BooleanUtils.or(null, null).booleanValue(),
+                "True result for (null, null)");
     }
 
     @Test
@@ -1170,5 +1513,145 @@ class BooleanUtilsTest extends AbstractLangTest {
                 true ^ true ^ true,
                 BooleanUtils.xor(new boolean[] { true, true, true }),
                 "true ^ true ^ true");
+    }
+
+    @Test
+    void testXor_primitive_varargs_2items() {
+        assertEquals(
+                false ^ false,
+                BooleanUtils.xor(false, false),
+                "false ^ false");
+
+        assertEquals(
+                false ^ true,
+                BooleanUtils.xor(false, true),
+                "false ^ true");
+
+        assertEquals(
+                true ^ false,
+                BooleanUtils.xor(true, false),
+                "true ^ false");
+
+        assertEquals(
+                true ^ true,
+                BooleanUtils.xor(true, true),
+                "true ^ true");
+    }
+
+    @Test
+    void testXor_primitive_varargs_3items() {
+        assertEquals(
+                false ^ false ^ false,
+                BooleanUtils.xor(false, false, false),
+                "false ^ false ^ false");
+
+        assertEquals(
+                false ^ false ^ true,
+                BooleanUtils.xor(false, false, true),
+                "false ^ false ^ true");
+
+        assertEquals(
+                false ^ true ^ false,
+                BooleanUtils.xor(false, true, false),
+                "false ^ true ^ false");
+
+        assertEquals(
+                false ^ true ^ true,
+                BooleanUtils.xor(false, true, true),
+                "false ^ true ^ true");
+
+        assertEquals(
+                true ^ false ^ false,
+                BooleanUtils.xor(true, false, false),
+                "true ^ false ^ false");
+
+        assertEquals(
+                true ^ false ^ true,
+                BooleanUtils.xor(true, false, true),
+                "true ^ false ^ true");
+
+        assertEquals(
+                true ^ true ^ false,
+                BooleanUtils.xor(true, true, false),
+                "true ^ true ^ false");
+
+        assertEquals(
+                true ^ true ^ true,
+                BooleanUtils.xor(true, true, true),
+                "true ^ true ^ true");
+    }
+
+    @Test
+    void testXor_object_varargs_2items() {
+        assertEquals(
+                false ^ false,
+                BooleanUtils.xor(Boolean.FALSE, Boolean.FALSE).booleanValue(),
+                "FALSE ^ FALSE");
+
+        assertEquals(
+                false ^ true,
+                BooleanUtils.xor(Boolean.FALSE, Boolean.TRUE).booleanValue(),
+                "FALSE ^ TRUE");
+
+        assertEquals(
+                true ^ false,
+                BooleanUtils.xor(Boolean.TRUE, Boolean.FALSE).booleanValue(),
+                "TRUE ^ FALSE");
+
+        assertEquals(
+                true ^ true,
+                BooleanUtils.xor(Boolean.TRUE, Boolean.TRUE).booleanValue(),
+                "TRUE ^ TRUE");
+    }
+
+    @Test
+    void testXor_object_varargs_3items() {
+        assertEquals(
+                false ^ false ^ false,
+                BooleanUtils.xor(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE).booleanValue(),
+                "FALSE ^ FALSE ^ FALSE");
+
+        assertEquals(
+                false ^ false ^ true,
+                BooleanUtils.xor(Boolean.FALSE, Boolean.FALSE, Boolean.TRUE).booleanValue(),
+                "FALSE ^ FALSE ^ TRUE");
+
+        assertEquals(
+                false ^ true ^ false,
+                BooleanUtils.xor(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE).booleanValue(),
+                "FALSE ^ TRUE ^ FALSE");
+
+        assertEquals(
+                false ^ true ^ true,
+                BooleanUtils.xor(Boolean.FALSE, Boolean.TRUE, Boolean.TRUE).booleanValue(),
+                "FALSE ^ TRUE ^ TRUE");
+
+        assertEquals(
+                true ^ false ^ false,
+                BooleanUtils.xor(Boolean.TRUE, Boolean.FALSE, Boolean.FALSE).booleanValue(),
+                "TRUE ^ FALSE ^ FALSE");
+
+        assertEquals(
+                true ^ false ^ true,
+                BooleanUtils.xor(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE).booleanValue(),
+                "TRUE ^ FALSE ^ TRUE");
+
+        assertEquals(
+                true ^ true ^ false,
+                BooleanUtils.xor(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE).booleanValue(),
+                "TRUE ^ TRUE ^ FALSE");
+
+        assertEquals(
+                true ^ true ^ true,
+                BooleanUtils.xor(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE).booleanValue(),
+                "TRUE ^ TRUE ^ TRUE");
+    }
+
+    @Test
+    void testXor_object_varargs_nullElement() {
+        assertEquals(
+                Boolean.FALSE,
+                BooleanUtils.xor(null, null),
+                "True result for (null, null)");
     }
 }
