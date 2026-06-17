@@ -105,22 +105,11 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     public static final Fraction FOUR_FIFTHS = new Fraction(4, 5);
 
     /**
-     * Adds two integers, checking for overflow.
+     * Checks that a denominator is not zero.
      *
-     * @param x an addend
-     * @param y an addend
-     * @return the sum {@code x+y}
-     * @throws ArithmeticException if the result cannot be represented as
-     * an int
+     * @param denominator the denominator to check
+     * @throws ArithmeticException if the denominator is zero
      */
-    private static int addAndCheck(final int x, final int y) {
-        final long s = (long) x + (long) y;
-        if (s < Integer.MIN_VALUE || s > Integer.MAX_VALUE) {
-            throw new ArithmeticException("overflow: add");
-        }
-        return (int) s;
-    }
-
     private static void checkDenominator(final int denominator) {
         if (denominator == 0) {
             throw new ArithmeticException("The denominator must not be zero");
@@ -445,23 +434,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
-     * Subtracts two integers, checking for overflow.
-     *
-     * @param x the minuend
-     * @param y the subtrahend
-     * @return the difference {@code x-y}
-     * @throws ArithmeticException if the result cannot be represented as
-     * an int
-     */
-    private static int subAndCheck(final int x, final int y) {
-        final long s = (long) x - (long) y;
-        if (s < Integer.MIN_VALUE || s > Integer.MAX_VALUE) {
-            throw new ArithmeticException("overflow: add");
-        }
-        return (int) s;
-    }
-
-    /**
      * The numerator number part of the fraction (the three in three sevenths).
      */
     private final int numerator;
@@ -556,10 +528,12 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         final int d1 = greatestCommonDivisor(denominator, fraction.denominator);
         if (d1 == 1) {
             // result is ((u*v' +/- u'v) / u'v')
-            final int uvp = mulAndCheck(numerator, fraction.denominator);
-            final int upv = mulAndCheck(fraction.numerator, denominator);
-            return new Fraction(isAdd ? addAndCheck(uvp, upv) : subAndCheck(uvp, upv), mulPosAndCheck(denominator,
-                    fraction.denominator));
+            // the int cross products u*v' and u'*v can overflow even when the reduced result
+            // fits an int, so widen to long and let Math narrow the final numerator back.
+            final long uvp = (long) numerator * fraction.denominator;
+            final long upv = (long) fraction.numerator * denominator;
+            final long t = isAdd ? Math.addExact(uvp, upv) : Math.subtractExact(uvp, upv);
+            return new Fraction(Math.toIntExact(t), mulPosAndCheck(denominator, fraction.denominator));
         }
         // the quantity 't' requires 65 bits of precision; see knuth 4.5.1
         // exercise 7. we're going to use a BigInteger.
