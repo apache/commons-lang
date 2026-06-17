@@ -528,15 +528,12 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         final int d1 = greatestCommonDivisor(denominator, fraction.denominator);
         if (d1 == 1) {
             // result is ((u*v' +/- u'v) / u'v')
-            // both denominators are positive and below 2^31, so the cross products and their
-            // sum stay within long range; only the reduced numerator has to fit in an int.
-            final long uvp = (long) numerator * (long) fraction.denominator;
-            final long upv = (long) fraction.numerator * (long) denominator;
-            final long t = isAdd ? uvp + upv : uvp - upv;
-            if (t < Integer.MIN_VALUE || t > Integer.MAX_VALUE) {
-                throw new ArithmeticException("overflow: numerator too large after multiply");
-            }
-            return new Fraction((int) t, mulPosAndCheck(denominator, fraction.denominator));
+            // the int cross products u*v' and u'*v can overflow even when the reduced result
+            // fits an int, so widen to long and let Math narrow the final numerator back.
+            final long uvp = (long) numerator * fraction.denominator;
+            final long upv = (long) fraction.numerator * denominator;
+            final long t = isAdd ? Math.addExact(uvp, upv) : Math.subtractExact(uvp, upv);
+            return new Fraction(Math.toIntExact(t), mulPosAndCheck(denominator, fraction.denominator));
         }
         // the quantity 't' requires 65 bits of precision; see knuth 4.5.1
         // exercise 7. we're going to use a BigInteger.
