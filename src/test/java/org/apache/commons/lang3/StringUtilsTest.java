@@ -49,6 +49,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
@@ -2436,6 +2437,20 @@ class StringUtilsTest extends AbstractLangTest {
         for (int i = 0; i < splitWithMultipleSeparatorExpectedResults.length; i++) {
             assertEquals(splitWithMultipleSeparatorExpectedResults[i], splitWithMultipleSeparator[i]);
         }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "a:b:,       :,   'a,b'",
+        "a:,         :,   a",
+        "ab-!-cd-!-, -!-, 'ab,cd'",
+    })
+    void testSplitByWholeStringDropsTrailingEmpty(final String str, final String separator, final String expected) {
+        final String[] expectedTokens = expected.split(",");
+        // a trailing separator must not leak an empty token (it is dropped, like leading and adjacent ones)
+        assertArrayEquals(expectedTokens, StringUtils.splitByWholeSeparator(str, separator));
+        // the preserve-all-tokens variant still keeps the trailing empty token
+        assertArrayEquals(ArrayUtils.add(expectedTokens, ""), StringUtils.splitByWholeSeparatorPreserveAllTokens(str, separator));
     }
 
     @Test
