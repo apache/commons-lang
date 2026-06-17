@@ -189,6 +189,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Reject doubled leading sign in NumberUtils.createBigInteger (#1702).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix RandomStringUtils.random() false rejection of letters and digits (#1703).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix substringAfter(Last) for supplementary code points (#1707).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Strip L suffix for oversized hex literals in createNumber (#1712).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
