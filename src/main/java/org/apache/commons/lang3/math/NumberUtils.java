@@ -386,7 +386,7 @@ public class NumberUtils {
                 hexDigits--;
             }
             if (hexDigits > 16 || hexDigits == 16 && firstSigDigit > '7') { // too many for Long
-                return createBigInteger(str);
+                return createBigInteger(isLongCh ? str.substring(0, length - 1) : str);
             }
             if (isLongCh) {
                 return createLong(str.substring(0, str.length() - 1));

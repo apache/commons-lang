@@ -661,6 +661,13 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(Integer.decode("+0xF"), NumberUtils.createNumber("+0xF"), "createNumber(String) LANG-1645a failed");
         assertEquals(Long.decode("+0xFFFFFFFF"), NumberUtils.createNumber("+0xFFFFFFFF"), "createNumber(String) LANG-1645b failed");
         assertEquals(new BigInteger("+FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("+0xFFFFFFFFFFFFFFFF"), "createNumber(String) LANG-1645c failed");
+        // A hex literal too large for a Long but carrying an explicit 'L'/'l' type suffix must drop the suffix
+        // before falling back to BigInteger, matching the decimal path (e.g. "12345678901234567890L").
+        assertEquals(new BigInteger("FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("0xFFFFFFFFFFFFFFFFL"));
+        assertEquals(new BigInteger("FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("0xFFFFFFFFFFFFFFFFl"));
+        assertEquals(new BigInteger("8000000000000000", 16), NumberUtils.createNumber("0x8000000000000000L"));
+        assertEquals(new BigInteger("-FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("-0xFFFFFFFFFFFFFFFFL"));
+        assertEquals(new BigInteger("FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("#FFFFFFFFFFFFFFFFL"));
         // Map to a BigDecimal, not a Float.
         assertEquals(new BigDecimal("0.100000001490116121"), NumberUtils.createNumber("0.100000001490116121"));
     }
