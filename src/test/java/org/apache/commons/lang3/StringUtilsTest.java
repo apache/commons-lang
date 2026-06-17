@@ -2439,20 +2439,6 @@ class StringUtilsTest extends AbstractLangTest {
         }
     }
 
-    @ParameterizedTest
-    @CsvSource({
-        "a:b:,       :,   'a,b'",
-        "a:,         :,   a",
-        "ab-!-cd-!-, -!-, 'ab,cd'",
-    })
-    void testSplitByWholeStringDropsTrailingEmpty(final String str, final String separator, final String expected) {
-        final String[] expectedTokens = expected.split(",");
-        // a trailing separator must not leak an empty token (it is dropped, like leading and adjacent ones)
-        assertArrayEquals(expectedTokens, StringUtils.splitByWholeSeparator(str, separator));
-        // the preserve-all-tokens variant still keeps the trailing empty token
-        assertArrayEquals(ArrayUtils.add(expectedTokens, ""), StringUtils.splitByWholeSeparatorPreserveAllTokens(str, separator));
-    }
-
     @Test
     void testSplitByWholeString_StringStringBooleanInt() {
         assertArrayEquals(null, StringUtils.splitByWholeSeparator(null, ".", 3));
@@ -2478,6 +2464,20 @@ class StringUtilsTest extends AbstractLangTest {
         for (int i = 0; i < splitOnStringExpectedResults.length; i++) {
             assertEquals(splitOnStringExpectedResults[i], splitOnStringResults[i]);
         }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "a:b:,       :,   'a,b'",
+        "a:,         :,   a",
+        "ab-!-cd-!-, -!-, 'ab,cd'",
+    })
+    void testSplitByWholeStringDropsTrailingEmpty(final String str, final String separator, final String expected) {
+        final String[] expectedTokens = expected.split(",");
+        // a trailing separator must not leak an empty token (it is dropped, like leading and adjacent ones)
+        assertArrayEquals(expectedTokens, StringUtils.splitByWholeSeparator(str, separator));
+        // the preserve-all-tokens variant still keeps the trailing empty token
+        assertArrayEquals(ArrayUtils.add(expectedTokens, ""), StringUtils.splitByWholeSeparatorPreserveAllTokens(str, separator));
     }
 
     @Test
