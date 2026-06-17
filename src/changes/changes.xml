@@ -192,6 +192,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Strip L suffix for oversized hex literals in createNumber (#1712).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix spurious overflow in Fraction.add/subtract for coprime denominators (#1709).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Drop trailing empty token from splitByWholeSeparator (#1710).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix indexOfDifference splitting a surrogate pair (#1713).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
