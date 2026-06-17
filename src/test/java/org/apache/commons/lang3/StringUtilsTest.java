@@ -543,6 +543,11 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("robot", StringUtils.difference("i am a machine", "i am a robot"));
         assertEquals("", StringUtils.difference("abc", "abc"));
         assertEquals("you are a robot", StringUtils.difference("i am a robot", "you are a robot"));
+        // 0x10400 and 0x10401 share the same high surrogate; the difference must not begin with a lone low surrogate
+        final String cp10400 = new String(Character.toChars(0x10400));
+        final String cp10401 = new String(Character.toChars(0x10401));
+        assertEquals(cp10401, StringUtils.difference(cp10400, cp10401));
+        assertEquals("Y", StringUtils.difference(cp10400 + "X", cp10400 + "Y"));
     }
 
     @Test
@@ -564,6 +569,11 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(0, StringUtils.indexOfDifference("abcde", "xyz"));
         assertEquals(0, StringUtils.indexOfDifference("xyz", "abcde"));
         assertEquals(7, StringUtils.indexOfDifference("i am a machine", "i am a robot"));
+        // a difference that falls inside a shared surrogate pair is reported at the start of the pair, not mid-pair
+        final String cp10400 = new String(Character.toChars(0x10400));
+        final String cp10401 = new String(Character.toChars(0x10401));
+        assertEquals(0, StringUtils.indexOfDifference(new String[] {cp10400, cp10401}));
+        assertEquals(2, StringUtils.indexOfDifference(new String[] {cp10400 + "X", cp10400 + "Y"}));
     }
 
     @Test
@@ -577,6 +587,11 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(7, StringUtils.indexOfDifference("i am a machine", "i am a robot"));
         assertEquals(-1, StringUtils.indexOfDifference("foo", "foo"));
         assertEquals(0, StringUtils.indexOfDifference("i am a robot", "you are a robot"));
+        // a difference that falls inside a shared surrogate pair is reported at the start of the pair, not mid-pair
+        final String cp10400 = new String(Character.toChars(0x10400));
+        final String cp10401 = new String(Character.toChars(0x10401));
+        assertEquals(0, StringUtils.indexOfDifference(cp10400, cp10401));
+        assertEquals(2, StringUtils.indexOfDifference(cp10400 + "X", cp10400 + "Y"));
     }
 
     /**
@@ -680,6 +695,11 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("", StringUtils.getCommonPrefix("abcde", "xyz"));
         assertEquals("", StringUtils.getCommonPrefix("xyz", "abcde"));
         assertEquals("i am a ", StringUtils.getCommonPrefix("i am a machine", "i am a robot"));
+        // 0x10400 and 0x10401 share the high surrogate but differ; the common prefix must not be a lone high surrogate
+        final String cp10400 = new String(Character.toChars(0x10400));
+        final String cp10401 = new String(Character.toChars(0x10401));
+        assertEquals("", StringUtils.getCommonPrefix(cp10400, cp10401));
+        assertEquals(cp10400, StringUtils.getCommonPrefix(cp10400 + "X", cp10400 + "Y"));
     }
 
     @Test
