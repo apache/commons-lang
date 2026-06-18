@@ -307,6 +307,8 @@ class ObjectUtilsTest extends AbstractLangTest {
         assertSame(baz, ObjectUtils.median(cmp, foo, bar, baz));
         assertSame(baz, ObjectUtils.median(cmp, foo, bar, baz, blah));
         assertSame(blah, ObjectUtils.median(cmp, foo, bar, baz, blah, wah));
+        // duplicates are counted, not collapsed
+        assertSame(foo, ObjectUtils.median(cmp, foo, foo, bar));
     }
 
     @Test
@@ -736,6 +738,12 @@ class ObjectUtilsTest extends AbstractLangTest {
                 Integer.valueOf(9)));
         assertEquals(Integer.valueOf(6),
             ObjectUtils.median(Integer.valueOf(5), Integer.valueOf(6), Integer.valueOf(7), Integer.valueOf(8)));
+        // duplicates are counted, not collapsed
+        assertEquals(Integer.valueOf(3),
+            ObjectUtils.median(Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(3),
+                Integer.valueOf(3), Integer.valueOf(4)));
+        assertEquals(Integer.valueOf(5),
+            ObjectUtils.median(Integer.valueOf(5), Integer.valueOf(5), Integer.valueOf(5), Integer.valueOf(1)));
     }
 
     @Test
