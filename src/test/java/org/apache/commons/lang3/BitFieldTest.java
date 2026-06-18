@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,8 +28,10 @@ import org.junit.jupiter.api.Test;
  */
 class BitFieldTest extends AbstractLangTest {
 
-    private static final BitField BF_MULTI  = new BitField(0x3F80);
+    private static final BitField BF_MULTI = new BitField(0x3F80);
+
     private static final BitField BF_SINGLE = new BitField(0x4000);
+
     private static final BitField BF_ZERO = new BitField(0);
 
     @Test
@@ -52,7 +55,7 @@ class BitFieldTest extends AbstractLangTest {
         assertEquals(0, new BitField(64).setByteBoolean((byte) 64, false));
         assertEquals(0, new BitField(128).setByteBoolean((byte) 128, false));
         assertEquals(-2, new BitField(1).setByteBoolean((byte) 255, false));
-        final byte clearedBit = new BitField(0x40).setByteBoolean((byte) - 63, false);
+        final byte clearedBit = new BitField(0x40).setByteBoolean((byte) -63, false);
         assertFalse(new BitField(0x40).isSet(clearedBit));
     }
 
@@ -81,8 +84,8 @@ class BitFieldTest extends AbstractLangTest {
      */
     @Test
     void testClearShort() {
-        assertEquals(BF_MULTI.clearShort((short) - 1), (short) 0xC07F);
-        assertEquals(BF_SINGLE.clearShort((short) - 1), (short) 0xBFFF);
+        assertEquals(BF_MULTI.clearShort((short) -1), (short) 0xC07F);
+        assertEquals(BF_SINGLE.clearShort((short) -1), (short) 0xBFFF);
         assertEquals(BF_ZERO.clearShort((short) -1), (short) 0xFFFF);
     }
 
@@ -104,9 +107,9 @@ class BitFieldTest extends AbstractLangTest {
      */
     @Test
     void testGetShortRawValue() {
-        assertEquals(BF_MULTI.getShortRawValue((short) - 1), (short) 0x3F80);
+        assertEquals(BF_MULTI.getShortRawValue((short) -1), (short) 0x3F80);
         assertEquals(BF_MULTI.getShortRawValue((short) 0), (short) 0);
-        assertEquals(BF_SINGLE.getShortRawValue((short) - 1), (short) 0x4000);
+        assertEquals(BF_SINGLE.getShortRawValue((short) -1), (short) 0x4000);
         assertEquals(BF_SINGLE.getShortRawValue((short) 0), (short) 0);
         assertEquals(BF_ZERO.getShortRawValue((short) -1), (short) 0);
         assertEquals(BF_ZERO.getShortRawValue((short) 0), (short) 0);
@@ -117,9 +120,9 @@ class BitFieldTest extends AbstractLangTest {
      */
     @Test
     void testGetShortValue() {
-        assertEquals(BF_MULTI.getShortValue((short) - 1), (short) 127);
+        assertEquals(BF_MULTI.getShortValue((short) -1), (short) 127);
         assertEquals(BF_MULTI.getShortValue((short) 0), (short) 0);
-        assertEquals(BF_SINGLE.getShortValue((short) - 1), (short) 1);
+        assertEquals(BF_SINGLE.getShortValue((short) -1), (short) 1);
         assertEquals(BF_SINGLE.getShortValue((short) 0), (short) 0);
         assertEquals(BF_ZERO.getShortValue((short) -1), (short) 0);
         assertEquals(BF_ZERO.getShortValue((short) 0), (short) 0);
@@ -150,7 +153,6 @@ class BitFieldTest extends AbstractLangTest {
         assertEquals(bit31.set(0L), 0x80000000L);
         assertTrue(bit31.isSet(0x80000000L));
         assertTrue(bit31.isAllSet(0x80000000L));
-
         final BitField topByte = new BitField(0xFF000000);
         assertEquals(topByte.getRawValue(-1L), 0xFF000000L);
         assertEquals(topByte.getValue(-1L), 0xFFL);
@@ -229,8 +231,8 @@ class BitFieldTest extends AbstractLangTest {
         assertEquals(BF_MULTI.setShort((short) 0), BF_MULTI.setShortBoolean((short) 0, true));
         assertEquals(BF_SINGLE.setShort((short) 0), BF_SINGLE.setShortBoolean((short) 0, true));
         assertEquals(BF_ZERO.setShort((short) 0), BF_ZERO.setShortBoolean((short) 0, true));
-        assertEquals(BF_MULTI.clearShort((short) - 1), BF_MULTI.setShortBoolean((short) - 1, false));
-        assertEquals(BF_SINGLE.clearShort((short) - 1), BF_SINGLE.setShortBoolean((short) - 1, false));
+        assertEquals(BF_MULTI.clearShort((short) -1), BF_MULTI.setShortBoolean((short) -1, false));
+        assertEquals(BF_SINGLE.clearShort((short) -1), BF_SINGLE.setShortBoolean((short) -1, false));
         assertEquals(BF_ZERO.clearShort((short) -1), BF_ZERO.setShortBoolean((short) -1, false));
     }
 
@@ -247,14 +249,12 @@ class BitFieldTest extends AbstractLangTest {
             assertEquals(BF_ZERO.getShortValue(BF_ZERO.setShortValue((short) 0, (short) j)), (short) 0);
             assertEquals(BF_ZERO.setShortValue((short) 0, (short) j), (short) 0);
         }
-
         // verify that excess bits are stripped off
         assertEquals(BF_MULTI.setShortValue((short) 0x3f80, (short) 128), (short) 0);
         for (int j = 0; j < 2; j++) {
             assertEquals(BF_SINGLE.getShortValue(BF_SINGLE.setShortValue((short) 0, (short) j)), (short) j);
             assertEquals(BF_SINGLE.setShortValue((short) 0, (short) j), (short) (j << 14));
         }
-
         // verify that excess bits are stripped off
         assertEquals(BF_SINGLE.setShortValue((short) 0x4000, (short) 2), (short) 0);
     }
@@ -269,19 +269,16 @@ class BitFieldTest extends AbstractLangTest {
             assertEquals(BF_MULTI.setValue(0, j), j << 7);
         }
         for (int j = 0; j < 128; j++) {
-          assertEquals(BF_ZERO.getValue(BF_ZERO.setValue(0, j)), 0);
-          assertEquals(BF_ZERO.setValue(0, j), 0);
-      }
-
+            assertEquals(BF_ZERO.getValue(BF_ZERO.setValue(0, j)), 0);
+            assertEquals(BF_ZERO.setValue(0, j), 0);
+        }
         // verify that excess bits are stripped off
         assertEquals(BF_MULTI.setValue(0x3f80, 128), 0);
         for (int j = 0; j < 2; j++) {
             assertEquals(BF_SINGLE.getValue(BF_SINGLE.setValue(0, j)), j);
             assertEquals(BF_SINGLE.setValue(0, j), j << 14);
         }
-
         // verify that excess bits are stripped off
         assertEquals(BF_SINGLE.setValue(0x4000, 2), 0);
     }
-
 }
