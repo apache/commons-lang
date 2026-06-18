@@ -241,11 +241,12 @@ class BitFieldTest extends AbstractLangTest {
      */
     @Test
     void testSetShortValue() {
-        for (int j = 0; j < 128; j++) {
+        final int limit = 128;
+        for (int j = 0; j < limit; j++) {
             assertEquals(BF_MULTI.getShortValue(BF_MULTI.setShortValue((short) 0, (short) j)), (short) j);
             assertEquals(BF_MULTI.setShortValue((short) 0, (short) j), (short) (j << 7));
         }
-        for (int j = 0; j < 128; j++) {
+        for (int j = 0; j < limit; j++) {
             assertEquals(BF_ZERO.getShortValue(BF_ZERO.setShortValue((short) 0, (short) j)), (short) 0);
             assertEquals(BF_ZERO.setShortValue((short) 0, (short) j), (short) 0);
         }
@@ -264,11 +265,12 @@ class BitFieldTest extends AbstractLangTest {
      */
     @Test
     void testSetValue() {
-        for (int j = 0; j < 128; j++) {
+        final int limit = 128;
+        for (int j = 0; j < limit; j++) {
             assertEquals(BF_MULTI.getValue(BF_MULTI.setValue(0, j)), j);
             assertEquals(BF_MULTI.setValue(0, j), j << 7);
         }
-        for (int j = 0; j < 128; j++) {
+        for (int j = 0; j < limit; j++) {
             assertEquals(BF_ZERO.getValue(BF_ZERO.setValue(0, j)), 0);
             assertEquals(BF_ZERO.setValue(0, j), 0);
         }
