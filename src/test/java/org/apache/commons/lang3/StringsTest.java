@@ -72,6 +72,18 @@ class StringsTest extends AbstractLangTest {
         assertEquals("X", Strings.CI.replaceOnce("İ", "İ", "X"));
     }
 
+    @Test
+    void testComputeInitialCapacityReplacementGrowthDoesNotOverflowInt() {
+        final int capacity = Strings.computeInitialCapacity(0, 0, 50_000_000, 64);
+        assertEquals(ArrayUtils.SAFE_MAX_ARRAY_LENGTH, capacity);
+    }
+
+    @Test
+    void testComputeInitialCapacityNeverOverflowsForMaxValueInputs() {
+        final int capacity = Strings.computeInitialCapacity(Integer.MAX_VALUE, 0, Integer.MAX_VALUE, 64);
+        assertEquals(ArrayUtils.SAFE_MAX_ARRAY_LENGTH, capacity);
+    }
+
     /**
      * Expanding the existing test group {@link StringUtilsStartsEndsWithTest#testStartsWithAny()} to include case-insensitive cases
      */
