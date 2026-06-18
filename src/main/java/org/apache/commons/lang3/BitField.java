@@ -82,8 +82,8 @@ public class BitField {
      * @param mask the mask specifying which bits apply to this BitField. Bits that are set in this mask are the bits that this BitField operates on.
      */
     public BitField(final int mask) {
-        this.mask = mask;
-        this.shiftCount = mask == 0 ? 0 : Integer.numberOfTrailingZeros(mask);
+        this.mask = Integer.toUnsignedLong(mask);
+        this.shiftCount = this.mask == 0 ? 0 : Long.numberOfTrailingZeros(this.mask);
     }
 
     /**

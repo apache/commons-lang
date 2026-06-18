@@ -153,6 +153,25 @@ class BitFieldTest extends AbstractLangTest {
     }
 
     /**
+     * Tests that an int mask with the high bit set is treated as 32 unsigned bits on the long methods, instead of being sign-extended into bits 32-63.
+     */
+    @Test
+    void testIntMaskHighBitOnLongHolder() {
+        final BitField bit31 = new BitField(0x80000000);
+        assertEquals(bit31.getRawValue(-1L), 0x80000000L);
+        assertEquals(bit31.getValue(-1L), 1L);
+        assertEquals(bit31.clear(-1L), 0xFFFFFFFF7FFFFFFFL);
+        assertEquals(bit31.set(0L), 0x80000000L);
+        assertTrue(bit31.isSet(0x80000000L));
+        assertTrue(bit31.isAllSet(0x80000000L));
+
+        final BitField topByte = new BitField(0xFF000000);
+        assertEquals(topByte.getRawValue(-1L), 0xFF000000L);
+        assertEquals(topByte.getValue(-1L), 0xFFL);
+        assertEquals(topByte.clear(-1L), 0xFFFFFFFF00FFFFFFL);
+    }
+
+    /**
      * test the isSet() method.
      */
     @Test
