@@ -21,15 +21,14 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.TreeSet;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -1058,9 +1057,9 @@ public class ObjectUtils {
         Validate.notEmpty(items, "null/empty items");
         Validate.noNullElements(items);
         Objects.requireNonNull(comparator, "comparator");
-        final TreeSet<T> treeSet = new TreeSet<>(comparator);
-        Collections.addAll(treeSet, items);
-        return (T) treeSet.toArray()[(treeSet.size() - 1) / 2];
+        final T[] sorted = items.clone();
+        Arrays.sort(sorted, comparator);
+        return sorted[(sorted.length - 1) / 2];
     }
 
     /**
@@ -1077,9 +1076,9 @@ public class ObjectUtils {
     public static <T extends Comparable<? super T>> T median(final T... items) {
         Validate.notEmpty(items);
         Validate.noNullElements(items);
-        final TreeSet<T> sort = new TreeSet<>();
-        Collections.addAll(sort, items);
-        return (T) sort.toArray()[(sort.size() - 1) / 2];
+        final T[] sorted = items.clone();
+        Arrays.sort(sorted);
+        return sorted[(sorted.length - 1) / 2];
     }
 
     /**
