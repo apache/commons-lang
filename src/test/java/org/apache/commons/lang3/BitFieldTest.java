@@ -139,20 +139,6 @@ class BitFieldTest extends AbstractLangTest {
     }
 
     /**
-     * Tests the {@link BitField#isAllSet()} method.
-     */
-    @Test
-    void testIsAllSet() {
-        for (int j = 0; j < 0x3F80; j += 0x80) {
-            assertFalse(BF_MULTI.isAllSet(j));
-            assertTrue(BF_ZERO.isAllSet(j));
-        }
-        assertTrue(BF_MULTI.isAllSet(0x3F80));
-        assertFalse(BF_SINGLE.isAllSet(0));
-        assertTrue(BF_SINGLE.isAllSet(0x4000));
-    }
-
-    /**
      * Tests that an int mask with the high bit set is treated as 32 unsigned bits on the long methods, instead of being sign-extended into bits 32-63.
      */
     @Test
@@ -169,6 +155,20 @@ class BitFieldTest extends AbstractLangTest {
         assertEquals(topByte.getRawValue(-1L), 0xFF000000L);
         assertEquals(topByte.getValue(-1L), 0xFFL);
         assertEquals(topByte.clear(-1L), 0xFFFFFFFF00FFFFFFL);
+    }
+
+    /**
+     * Tests the {@link BitField#isAllSet()} method.
+     */
+    @Test
+    void testIsAllSet() {
+        for (int j = 0; j < 0x3F80; j += 0x80) {
+            assertFalse(BF_MULTI.isAllSet(j));
+            assertTrue(BF_ZERO.isAllSet(j));
+        }
+        assertTrue(BF_MULTI.isAllSet(0x3F80));
+        assertFalse(BF_SINGLE.isAllSet(0));
+        assertTrue(BF_SINGLE.isAllSet(0x4000));
     }
 
     /**
