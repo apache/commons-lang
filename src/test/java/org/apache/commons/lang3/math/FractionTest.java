@@ -334,6 +334,10 @@ class FractionTest extends AbstractLangTest {
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Double.POSITIVE_INFINITY));
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Double.NEGATIVE_INFINITY));
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction((double) Integer.MAX_VALUE + 1));
+        // near Integer.MAX_VALUE with a fractional part: numerator overflows an int, so it must throw
+        // rather than silently return a wrong fraction (previously -3/2 and -2147483647/2 respectively)
+        assertThrows(ArithmeticException.class, () -> Fraction.getFraction(2147483646.5d));
+        assertThrows(ArithmeticException.class, () -> Fraction.getFraction(1073741824.5d));
 
         // zero
         Fraction f = Fraction.getFraction(0.0d);

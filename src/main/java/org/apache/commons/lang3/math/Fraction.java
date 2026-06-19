@@ -174,7 +174,10 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (i == 25) {
             throw new ArithmeticException("Unable to convert double to fraction");
         }
-        return getReducedFraction((numer0 + wholeNumber * denom0) * sign, denom0);
+        // wholeNumber can be up to Integer.MAX_VALUE while denom0 > 1 for any non-integer value,
+        // so the int product overflows for values near the limit; check it instead of wrapping silently.
+        final int numerator = Math.addExact(numer0, mulAndCheck(wholeNumber, denom0));
+        return getReducedFraction(numerator * sign, denom0);
     }
 
     /**
