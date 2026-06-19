@@ -3055,6 +3055,18 @@ class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testTruncate_StringIntInt_surrogatePair() {
+        // U+1F600 GRINNING FACE is a single supplementary code point stored as a surrogate pair
+        final String grin = "😀";
+        // a cut that would land between the two halves keeps the result well formed instead of emitting a lone surrogate
+        assertEquals("a", StringUtils.truncate("a" + grin + "b", 0, 2));
+        assertEquals(grin, StringUtils.truncate("a" + grin + "b", 1, 2));
+        assertEquals("ab", StringUtils.truncate("ab" + grin, 0, 3));
+        // an offset that lands inside a pair skips the orphaned low surrogate
+        assertEquals("a", StringUtils.truncate(grin + "ab", 1, 2));
+    }
+
+    @Test
     void testUnCapitalize() {
         assertNull(StringUtils.uncapitalize(null));
 

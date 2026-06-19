@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -168,6 +169,31 @@ class StringUtilsAbbreviateTest extends AbstractLangTest {
         // abbreviating a shorter string allows maxWidth < abbrevMarker.length * 2 + 1
         assertEquals("..de", StringUtils.abbreviate("abcde", "..", 4, 4));
         assertEquals("....fg", StringUtils.abbreviate("abcdefg", "....", 5, 6));
+    }
+
+    @Test
+    void testAbbreviateSurrogatePair() {
+        // U+1F600 GRINNING FACE is a single supplementary code point stored as a surrogate pair
+        final String grin = "😀";
+        // the head cut backs off the pair so the marker is never preceded by a lone high surrogate
+        assertEquals("...", StringUtils.abbreviate(grin + "abcdef", 4));
+        assertEquals(grin + "...", StringUtils.abbreviate(grin + "abcdef", 5));
+        // a trailing supplementary code point is kept whole rather than sliced into a lone low surrogate
+        assertEquals("..." + grin, StringUtils.abbreviate("abcdef" + grin, 6, 5));
+        // results stay within maxWidth and never contain an unpaired surrogate
+        for (int width = 4; width <= 8; width++) {
+            final String result = StringUtils.abbreviate("a" + grin + "b" + grin + "cd", width);
+            assertTrue(result.length() <= width, () -> "result longer than maxWidth: " + result);
+            for (int i = 0; i < result.length(); i++) {
+                final char ch = result.charAt(i);
+                if (Character.isHighSurrogate(ch)) {
+                    assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)), "lone high surrogate in: " + result);
+                    i++; // skip the paired low surrogate
+                } else {
+                    assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+                }
+            }
+        }
     }
 
     // Fixed LANG-1463

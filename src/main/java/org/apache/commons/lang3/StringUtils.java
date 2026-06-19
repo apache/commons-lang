@@ -370,15 +370,39 @@ public class StringUtils {
             return str;
         }
         if (strLen - offset <= maxWidth - abbrevMarkerLength) {
-            return abbrevMarker + str.substring(strLen - (maxWidth - abbrevMarkerLength));
+            int tailStart = strLen - (maxWidth - abbrevMarkerLength);
+            if (splitsSurrogatePair(str, tailStart)) {
+                tailStart++;
+            }
+            return abbrevMarker + str.substring(tailStart);
         }
         if (offset <= abbrevMarkerLength + 1) {
-            return str.substring(0, maxWidth - abbrevMarkerLength) + abbrevMarker;
+            int headEnd = maxWidth - abbrevMarkerLength;
+            if (splitsSurrogatePair(str, headEnd)) {
+                headEnd--;
+            }
+            return str.substring(0, headEnd) + abbrevMarker;
         }
         if (maxWidth < minAbbrevWidthOffset) {
             throw new IllegalArgumentException(String.format("Minimum abbreviation width with offset is %d", minAbbrevWidthOffset));
         }
-        return abbrevMarker + abbreviate(str.substring(offset), abbrevMarker, maxWidth - abbrevMarkerLength);
+        int from = offset;
+        if (splitsSurrogatePair(str, from)) {
+            from++;
+        }
+        return abbrevMarker + abbreviate(str.substring(from), abbrevMarker, maxWidth - abbrevMarkerLength);
+    }
+
+    /**
+     * Tests whether a {@link String#substring} boundary at {@code index} would fall between the two halves of a surrogate pair, that is the char before
+     * {@code index} is a high surrogate and the char at {@code index} is its low surrogate. Slicing there leaves a lone surrogate in the result.
+     *
+     * @param str   the String being sliced.
+     * @param index a candidate substring boundary, in {@code char} units.
+     * @return whether slicing at {@code index} would split a surrogate pair.
+     */
+    private static boolean splitsSurrogatePair(final String str, final int index) {
+        return index > 0 && index < str.length() && Character.isHighSurrogate(str.charAt(index - 1)) && Character.isLowSurrogate(str.charAt(index));
     }
 
     /**
@@ -8978,9 +9002,16 @@ public class StringUtils {
             return null;
         }
         final int len = str.length();
-        final int start = Math.min(offset, len);
-        final int end = offset > len - maxWidth ? len : offset + maxWidth;
-        return str.substring(start, Math.min(end, len));
+        int start = Math.min(offset, len);
+        int end = Math.min(offset > len - maxWidth ? len : offset + maxWidth, len);
+        // keep both edges off the middle of a surrogate pair so the result is never left holding a lone surrogate
+        if (splitsSurrogatePair(str, start)) {
+            start++;
+        }
+        if (splitsSurrogatePair(str, end)) {
+            end--;
+        }
+        return str.substring(start, Math.max(start, end));
     }
 
     /**
