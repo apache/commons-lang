@@ -1825,6 +1825,16 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testLastIndexOfDoubleNaN() {
+        final double[] array = { Double.NaN, Double.NEGATIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY };
+        assertEquals(2, ArrayUtils.lastIndexOf(array, Double.NaN));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, Double.NaN, (double) 0));
+        assertEquals(0, ArrayUtils.lastIndexOf(array, Double.NaN, 1));
+        assertEquals(0, ArrayUtils.lastIndexOf(array, Double.NaN, 1, (double) 0));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, Double.NaN, -1));
+    }
+
+    @Test
     void testLastIndexOfDoubleTolerance() {
         double[] array = null;
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, (double) 0));
@@ -1882,6 +1892,14 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertEquals(2, ArrayUtils.lastIndexOf(array, 2));
         assertEquals(3, ArrayUtils.lastIndexOf(array, 3));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
+    }
+
+    @Test
+    void testLastIndexOfFloatNaN() {
+        final float[] array = { Float.NaN, Float.NEGATIVE_INFINITY, Float.NaN, Float.POSITIVE_INFINITY };
+        assertEquals(2, ArrayUtils.lastIndexOf(array, Float.NaN));
+        assertEquals(0, ArrayUtils.lastIndexOf(array, Float.NaN, 1));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, Float.NaN, -1));
     }
 
     @Test

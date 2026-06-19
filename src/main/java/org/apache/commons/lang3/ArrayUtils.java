@@ -4265,6 +4265,9 @@ public class ArrayUtils {
      * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex) {
+        if (Double.isNaN(valueToFind)) {
+            return lastIndexOfNaN(array, startIndex);
+        }
         if (isEmpty(array) || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
@@ -4296,6 +4299,9 @@ public class ArrayUtils {
      * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
+        if (Double.isNaN(valueToFind)) {
+            return lastIndexOfNaN(array, startIndex);
+        }
         if (isEmpty(array) || startIndex < 0) {
             return INDEX_NOT_FOUND;
         }
@@ -4347,8 +4353,10 @@ public class ArrayUtils {
         if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
+        final boolean searchNaN = Float.isNaN(valueToFind);
         for (int i = startIndex; i >= 0; i--) {
-            if (valueToFind == array[i]) {
+            final float element = array[i];
+            if (valueToFind == element || searchNaN && Float.isNaN(element)) {
                 return i;
             }
         }
@@ -4529,6 +4537,24 @@ public class ArrayUtils {
         }
         for (int i = startIndex; i >= 0; i--) {
             if (valueToFind == array[i]) {
+                return i;
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Finds the last index of the NaN value in a double array.
+     * @param array the array to traverse backwards for NaN, may be {@code null}.
+     * @param startIndex the start index to traverse backwards from.
+     * @return the last index of the NaN value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     */
+    private static int lastIndexOfNaN(final double[] array, final int startIndex) {
+        if (isEmpty(array) || startIndex < 0) {
+            return INDEX_NOT_FOUND;
+        }
+        for (int i = Math.min(startIndex, array.length - 1); i >= 0; i--) {
+            if (Double.isNaN(array[i])) {
                 return i;
             }
         }
