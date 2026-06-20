@@ -31,7 +31,6 @@ class UnicodeEscaperTest extends AbstractLangTest {
     @Test
     void testAbove() {
         final UnicodeEscaper ue = UnicodeEscaper.above('F');
-
         final String input = "ADFGZ";
         final String result = ue.translate(input);
         assertEquals("ADF\\u0047\\u005A", result, "Failed to escape Unicode characters via the above method");
@@ -40,7 +39,6 @@ class UnicodeEscaperTest extends AbstractLangTest {
     @Test
     void testBelow() {
         final UnicodeEscaper ue = UnicodeEscaper.below('F');
-
         final String input = "ADFGZ";
         final String result = ue.translate(input);
         assertEquals("\\u0041\\u0044FGZ", result, "Failed to escape Unicode characters via the below method");
@@ -49,7 +47,6 @@ class UnicodeEscaperTest extends AbstractLangTest {
     @Test
     void testBetween() {
         final UnicodeEscaper ue = UnicodeEscaper.between('F', 'L');
-
         final String input = "ADFGZ";
         final String result = ue.translate(input);
         assertEquals("AD\\u0046\\u0047Z", result, "Failed to escape Unicode characters via the between method");

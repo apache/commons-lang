@@ -31,8 +31,9 @@ import org.junit.jupiter.api.Test;
  */
 @Deprecated
 class UnicodeUnpairedSurrogateRemoverTest extends AbstractLangTest {
-    final UnicodeUnpairedSurrogateRemover subject = new UnicodeUnpairedSurrogateRemover();
-    final CharArrayWriter writer = new CharArrayWriter(); // nothing is ever written to it
+
+    private final UnicodeUnpairedSurrogateRemover subject = new UnicodeUnpairedSurrogateRemover();
+    private final CharArrayWriter writer = new CharArrayWriter(); // nothing is ever written to it
 
     @Test
     void testInvalidCharacters() throws IOException {

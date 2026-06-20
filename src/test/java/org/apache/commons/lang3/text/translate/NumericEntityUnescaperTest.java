@@ -32,7 +32,6 @@ class NumericEntityUnescaperTest extends AbstractLangTest {
     @Test
     void testOutOfBounds() {
         final NumericEntityUnescaper neu = new NumericEntityUnescaper();
-
         assertEquals("Test &", neu.translate("Test &"), "Failed to ignore when last character is &");
         assertEquals("Test &#", neu.translate("Test &#"), "Failed to ignore when last character is &");
         assertEquals("Test &#x", neu.translate("Test &#x"), "Failed to ignore when last character is &");
