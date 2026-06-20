@@ -478,6 +478,38 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertIllegalArgumentException(() -> DurationFormatUtils.formatPeriod(5000, 2500, "yy/MM"));
     }
 
+    @Test
+    void testFormatPeriodLargeFunnelledValue() {
+        final TimeZone gmt = TimeZones.getTimeZone("GMT");
+        // ~69 years, chosen so the seconds count exceeds Integer.MAX_VALUE once days/hours/minutes are
+        // funnelled into the single requested field.
+        final long endMillis = 2_175_984_000_000L;
+        assertEquals("2175984000", DurationFormatUtils.formatPeriod(0, endMillis, "s", true, gmt));
+        assertEquals("2175984000000", DurationFormatUtils.formatPeriod(0, endMillis, "S", true, gmt));
+        // formatPeriod must agree with formatDuration, which reduces the same span in long arithmetic.
+        assertEquals(DurationFormatUtils.formatDuration(endMillis, "s"),
+                DurationFormatUtils.formatPeriod(0, endMillis, "s", true, gmt));
+    }
+
+    @Test
+    void testFormatPeriodLongRangeBounds() {
+        // A one-millisecond span sitting at the extremes of the long input range must still reduce
+        // correctly, confirming formatPeriod handles the whole range of millisecond inputs.
+        assertFormatPeriodOneMilli(Long.MAX_VALUE - 1, Long.MAX_VALUE);
+        assertFormatPeriodOneMilli(Long.MIN_VALUE, Long.MIN_VALUE + 1);
+        assertFormatPeriodOneMilli((long) Integer.MIN_VALUE - 1, Integer.MIN_VALUE);
+    }
+
+    private void assertFormatPeriodOneMilli(final long startMillis, final long endMillis) {
+        final TimeZone gmt = TimeZones.getTimeZone("GMT");
+        assertEquals("1", DurationFormatUtils.formatPeriod(startMillis, endMillis, "S", true, gmt));
+        assertEquals("0/0/0/0/0/0.001",
+                DurationFormatUtils.formatPeriod(startMillis, endMillis, "y/M/d/H/m/s.S", true, gmt));
+        // formatPeriod must agree with formatDuration over the full range, not just spans near the epoch.
+        assertEquals(DurationFormatUtils.formatDuration(endMillis - startMillis, "S"),
+                DurationFormatUtils.formatPeriod(startMillis, endMillis, "S", true, gmt));
+    }
+
     @SuppressWarnings("deprecation")
     @Test
     void testFormatPeriodISO() {
