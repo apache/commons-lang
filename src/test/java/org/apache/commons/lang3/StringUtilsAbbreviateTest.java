@@ -180,6 +180,14 @@ class StringUtilsAbbreviateTest extends AbstractLangTest {
         assertEquals(grin + "...", StringUtils.abbreviate(grin + "abcdef", 5));
         // a trailing supplementary code point is kept whole rather than sliced into a lone low surrogate
         assertEquals("..." + grin, StringUtils.abbreviate("abcdef" + grin, 6, 5));
+        // an input that is only the pair is kept whole or dropped, never split into a lone surrogate
+        assertEquals(grin, StringUtils.abbreviate(grin, 4));
+        assertEquals(grin, StringUtils.abbreviate(grin, 0, 5));
+        assertEquals(grin, StringUtils.abbreviate(grin, 1, 4));
+        assertEquals(grin, StringUtils.abbreviate(grin, "x", 0, 2));
+        assertEquals(grin, StringUtils.abbreviate(grin, "x", 1, 2));
+        assertEquals(grin, StringUtils.abbreviate(grin, "", 0, 2));
+        assertEquals("", StringUtils.abbreviate(grin, "", 0, 1));
         // results stay within maxWidth and never contain an unpaired surrogate
         for (int width = 4; width <= 8; width++) {
             final String result = StringUtils.abbreviate("a" + grin + "b" + grin + "cd", width);

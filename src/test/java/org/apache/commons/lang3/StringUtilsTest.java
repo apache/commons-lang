@@ -3064,6 +3064,14 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("ab", StringUtils.truncate("ab" + grin, 0, 3));
         // an offset that lands inside a pair skips the orphaned low surrogate
         assertEquals("a", StringUtils.truncate(grin + "ab", 1, 2));
+        // an input that is only the pair stays whole or drops to empty, never a lone surrogate
+        assertEquals(grin, StringUtils.truncate(grin, 0, 2));
+        assertEquals(grin, StringUtils.truncate(grin, 0, 3));
+        assertEquals("", StringUtils.truncate(grin, 0, 0));
+        assertEquals("", StringUtils.truncate(grin, 0, 1));
+        assertEquals("", StringUtils.truncate(grin, 1, 1));
+        assertEquals("", StringUtils.truncate(grin, 1, 2));
+        assertEquals("", StringUtils.truncate(grin, 2, 2));
     }
 
     @Test
