@@ -478,6 +478,19 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertIllegalArgumentException(() -> DurationFormatUtils.formatPeriod(5000, 2500, "yy/MM"));
     }
 
+    @Test
+    void testFormatPeriodLargeFunnelledValue() {
+        final TimeZone gmt = TimeZones.getTimeZone("GMT");
+        // ~69 years, chosen so the seconds count exceeds Integer.MAX_VALUE once days/hours/minutes are
+        // funnelled into the single requested field.
+        final long endMillis = 2_175_984_000_000L;
+        assertEquals("2175984000", DurationFormatUtils.formatPeriod(0, endMillis, "s", true, gmt));
+        assertEquals("2175984000000", DurationFormatUtils.formatPeriod(0, endMillis, "S", true, gmt));
+        // formatPeriod must agree with formatDuration, which reduces the same span in long arithmetic.
+        assertEquals(DurationFormatUtils.formatDuration(endMillis, "s"),
+                DurationFormatUtils.formatPeriod(0, endMillis, "s", true, gmt));
+    }
+
     @SuppressWarnings("deprecation")
     @Test
     void testFormatPeriodISO() {

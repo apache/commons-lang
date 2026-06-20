@@ -540,12 +540,12 @@ public class DurationFormatUtils {
         end.setTime(new Date(endMillis));
         // initial estimates
         long milliseconds = end.get(Calendar.MILLISECOND) - start.get(Calendar.MILLISECOND);
-        int seconds = end.get(Calendar.SECOND) - start.get(Calendar.SECOND);
-        int minutes = end.get(Calendar.MINUTE) - start.get(Calendar.MINUTE);
-        int hours = end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY);
-        int days = end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);
-        int months = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
-        int years = end.get(Calendar.YEAR) - start.get(Calendar.YEAR);
+        long seconds = end.get(Calendar.SECOND) - start.get(Calendar.SECOND);
+        long minutes = end.get(Calendar.MINUTE) - start.get(Calendar.MINUTE);
+        long hours = end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY);
+        long days = end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);
+        long months = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
+        long years = end.get(Calendar.YEAR) - start.get(Calendar.YEAR);
         // each initial estimate is adjusted in case it is under 0
         while (milliseconds < 0) {
             milliseconds += DateUtils.MILLIS_PER_SECOND;
