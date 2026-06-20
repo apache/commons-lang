@@ -59,6 +59,11 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
                 // Get 4 hex digits
                 final CharSequence unicode = input.subSequence(index + i, index + i + 4);
 
+                final char firstChar = unicode.charAt(0);
+                if (firstChar == '+' || firstChar == '-') {
+                    // Integer.parseInt accepts a leading sign, but a Unicode value is unsigned hex.
+                    throw new IllegalArgumentException("Sign character in unicode value: '" + unicode + "'");
+                }
                 try {
                     final int value = Integer.parseInt(unicode.toString(), 16);
                     out.write((char) value);

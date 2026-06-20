@@ -40,6 +40,23 @@ class UnicodeUnescaperTest extends AbstractLangTest {
                 "A lack of digits in a Unicode escape sequence failed to throw an exception");
     }
 
+    @Test
+    void testSignedValue() {
+        final UnicodeUnescaper uu = new UnicodeUnescaper();
+
+        // Integer.parseInt accepts a leading sign, so these used to decode to a bogus char instead of throwing.
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> uu.translate("\\u-047"),
+                "A signed Unicode escape sequence failed to throw an exception");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> uu.translate("\\u++0047"),
+                "A signed Unicode escape sequence failed to throw an exception");
+        // The documented u+ notation is still accepted.
+        assertEquals("G", uu.translate("\\u+0047"), "Failed to unescape Unicode characters with 'u+' notation");
+    }
+
     // Requested in LANG-507
     @Test
     void testUPlus() {
