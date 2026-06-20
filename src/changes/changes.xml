@@ -196,6 +196,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix int mask sign extension in BitField long methods (#1711).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Account for duplicate values in ObjectUtils.median() (#1715).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix silent int overflow in Fraction.getFraction(double) (#1717).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Find NaN in ArrayUtils.lastIndexOf for double and float arrays (#1718).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
