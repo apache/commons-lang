@@ -14,20 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang3.text.translate;
 
 import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Translates escaped Unicode values of the form \\u+\d\d\d\d back to
- * Unicode. It supports multiple 'u' characters and will work with or
- * without the +.
+ * Translates escaped Unicode values of the form \\u+\d\d\d\d back to Unicode. It supports multiple 'u' characters and will work with or without the +.
  *
  * @since 3.0
  * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
- * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/UnicodeUnescaper.html">
- * UnicodeUnescaper</a>.
+ *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/translate/UnicodeUnescaper.html">
+ *             UnicodeUnescaper</a>.
  */
 @Deprecated
 public class UnicodeUnescaper extends CharSequenceTranslator {
@@ -50,15 +49,12 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
             while (index + i < input.length() && input.charAt(index + i) == 'u') {
                 i++;
             }
-
             if (index + i < input.length() && input.charAt(index + i) == '+') {
                 i++;
             }
-
             if (index + i + 4 <= input.length()) {
                 // Get 4 hex digits
                 final CharSequence unicode = input.subSequence(index + i, index + i + 4);
-
                 final char firstChar = unicode.charAt(0);
                 if (firstChar == '+' || firstChar == '-') {
                     // Integer.parseInt accepts a leading sign, but a Unicode value is unsigned hex.
@@ -72,8 +68,8 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
                 }
                 return i + 4;
             }
-            throw new IllegalArgumentException("Less than 4 hex digits in unicode value: '" + input.subSequence(index, input.length())
-                    + "' due to end of CharSequence");
+            throw new IllegalArgumentException(
+                    "Less than 4 hex digits in unicode value: '" + input.subSequence(index, input.length()) + "' due to end of CharSequence");
         }
         return 0;
     }

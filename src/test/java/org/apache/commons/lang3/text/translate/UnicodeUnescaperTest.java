@@ -32,27 +32,16 @@ class UnicodeUnescaperTest extends AbstractLangTest {
     @Test
     void testLessThanFour() {
         final UnicodeUnescaper uu = new UnicodeUnescaper();
-
         final String input = "\\0047\\u006";
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> uu.translate(input),
-                "A lack of digits in a Unicode escape sequence failed to throw an exception");
+        assertThrows(IllegalArgumentException.class, () -> uu.translate(input), "A lack of digits in a Unicode escape sequence failed to throw an exception");
     }
 
     @Test
     void testSignedValue() {
         final UnicodeUnescaper uu = new UnicodeUnescaper();
-
         // Integer.parseInt accepts a leading sign, so these used to decode to a bogus char instead of throwing.
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> uu.translate("\\u-047"),
-                "A signed Unicode escape sequence failed to throw an exception");
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> uu.translate("\\u++0047"),
-                "A signed Unicode escape sequence failed to throw an exception");
+        assertThrows(IllegalArgumentException.class, () -> uu.translate("\\u-047"), "A signed Unicode escape sequence failed to throw an exception");
+        assertThrows(IllegalArgumentException.class, () -> uu.translate("\\u++0047"), "A signed Unicode escape sequence failed to throw an exception");
         // The documented u+ notation is still accepted.
         assertEquals("G", uu.translate("\\u+0047"), "Failed to unescape Unicode characters with 'u+' notation");
     }
@@ -61,7 +50,6 @@ class UnicodeUnescaperTest extends AbstractLangTest {
     @Test
     void testUPlus() {
         final UnicodeUnescaper uu = new UnicodeUnescaper();
-
         final String input = "\\u+0047";
         assertEquals("G", uu.translate(input), "Failed to unescape Unicode characters with 'u+' notation");
     }
@@ -69,7 +57,6 @@ class UnicodeUnescaperTest extends AbstractLangTest {
     @Test
     void testUuuuu() {
         final UnicodeUnescaper uu = new UnicodeUnescaper();
-
         final String input = "\\uuuuuuuu0047";
         final String result = uu.translate(input);
         assertEquals("G", result, "Failed to unescape Unicode characters with many 'u' characters");
