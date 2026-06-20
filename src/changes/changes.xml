@@ -199,6 +199,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Find NaN in ArrayUtils.lastIndexOf for double and float arrays (#1718).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Reject sign characters in UnicodeUnescaper hex values (#1721).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Keep abbreviate and truncate off surrogate pair boundaries (#1719).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Keep initials from splitting a supplementary code point (#1722).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
