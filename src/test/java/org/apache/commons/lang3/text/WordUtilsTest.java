@@ -186,6 +186,14 @@ class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testInitials_SupplementaryCodePoint() {
+        final String emoji = new String(Character.toChars(0x1F600));
+        assertEquals("B" + emoji + "L", WordUtils.initials("Ben " + emoji + "mile Lee"));
+        assertEquals(emoji, WordUtils.initials(emoji + "abc"));
+        assertEquals("B" + emoji + "L", WordUtils.initials("Ben." + emoji + "mile.Lee", '.'));
+    }
+
+    @Test
     void testInitials_String_charArray() {
         char[] array = null;
         assertNull(WordUtils.initials(null, array));

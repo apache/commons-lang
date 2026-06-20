@@ -265,7 +265,7 @@ public class WordUtils {
             return StringUtils.EMPTY;
         }
         final int strLen = str.length();
-        final char[] buf = new char[strLen / 2 + 1];
+        final char[] buf = new char[strLen];
         int count = 0;
         boolean lastWasGap = true;
         for (int i = 0; i < strLen; i++) {
@@ -276,6 +276,10 @@ public class WordUtils {
             }
             if (lastWasGap) {
                 buf[count++] = ch;
+                // keep a supplementary code point's low surrogate with its high half
+                if (Character.isHighSurrogate(ch) && i + 1 < strLen && Character.isLowSurrogate(str.charAt(i + 1))) {
+                    buf[count++] = str.charAt(++i);
+                }
                 lastWasGap = false;
             }
         }
