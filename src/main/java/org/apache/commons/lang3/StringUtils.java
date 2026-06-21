@@ -394,18 +394,6 @@ public class StringUtils {
     }
 
     /**
-     * Tests whether a {@link String#substring} boundary at {@code index} would fall between the two halves of a surrogate pair, that is the char before
-     * {@code index} is a high surrogate and the char at {@code index} is its low surrogate. Slicing there leaves a lone surrogate in the result.
-     *
-     * @param str   the String being sliced.
-     * @param index a candidate substring boundary, in {@code char} units.
-     * @return whether slicing at {@code index} would split a surrogate pair.
-     */
-    private static boolean splitsSurrogatePair(final String str, final int index) {
-        return index > 0 && index < str.length() && Character.isHighSurrogate(str.charAt(index - 1)) && Character.isLowSurrogate(str.charAt(index));
-    }
-
-    /**
      * Abbreviates a String to the length passed, replacing the middle characters with the supplied replacement String.
      *
      * <p>
@@ -7635,6 +7623,18 @@ public class StringUtils {
      */
     public static String[] splitPreserveAllTokens(final String str, final String separatorChars, final int max) {
         return splitWorker(str, separatorChars, max, true);
+    }
+
+    /**
+     * Tests whether a {@link String#substring} boundary at {@code index} would fall between the two halves of a surrogate pair, that is the char before
+     * {@code index} is a high surrogate and the char at {@code index} is its low surrogate. Slicing there leaves a lone surrogate in the result.
+     *
+     * @param str   the String being sliced.
+     * @param index a candidate substring boundary, in {@code char} units.
+     * @return whether slicing at {@code index} would split a surrogate pair.
+     */
+    private static boolean splitsSurrogatePair(final String str, final int index) {
+        return index > 0 && index < str.length() && Character.isHighSurrogate(str.charAt(index - 1)) && Character.isLowSurrogate(str.charAt(index));
     }
 
     /**
