@@ -430,6 +430,9 @@ class StringEscapeUtilsTest extends AbstractLangTest {
         assertNull(StringEscapeUtils.unescapeCsv(null));
 
         assertEquals("\"foo.bar\"", StringEscapeUtils.unescapeCsv("\"foo.bar\""));
+
+        // a single quote is not an enclosing pair, so it passes through unchanged
+        assertEquals("\"", StringEscapeUtils.unescapeCsv("\""));
     }
 
     @Test
