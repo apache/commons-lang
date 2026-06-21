@@ -81,7 +81,7 @@ public class StringEscapeUtils {
             if (index != 0) {
                 throw new IllegalStateException("CsvUnescaper should never reach the [1] index");
             }
-            if (input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE) {
+            if (input.length() < 2 || input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE) {
                 out.write(input.toString());
                 return Character.codePointCount(input, 0, input.length());
             }
