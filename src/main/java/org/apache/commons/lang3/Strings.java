@@ -315,6 +315,30 @@ public abstract class Strings {
     }
 
     /**
+     * Computes a safe initial capacity for the {@link StringBuilder} used by {@link #replace(String, String, String, int)}.
+     * <p>
+     * Uses {@code long} arithmetic so that the estimated growth cannot overflow {@code int} when {@code replacementLength} is much greater than
+     * {@code searchLength}, and clamps the result to {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH} so that {@code new StringBuilder(int)} is never invoked with a
+     * value that exceeds the VM's array-size limit.
+     * </p>
+     * <p>
+     * The estimated number of matches is {@code 16} when {@code max} is negative (unbounded), otherwise {@code Math.min(max, 64)}. These multipliers preserve
+     * the historical behavior of the inlined estimate.
+     * </p>
+     *
+     * @param textLen        The length of the input text, in characters.
+     * @param searchLen      The length of the search string, in characters.
+     * @param replacementLen The length of the replacement string, in characters.
+     * @param max               The maximum number of replacements, or {@code -1} for no maximum.
+     * @return A non-negative initial capacity, never greater than {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
+     */
+    static int initialCapacity(final int textLen, final int searchLen, final int replacementLen, final int max) {
+        final long perReplacementGrowth = Math.max((long) replacementLen - searchLen, 0L);
+        final long totalGrowth = perReplacementGrowth * (max < 0 ? 16 : Math.min(max, 64));
+        return (int) Math.min((long) textLen + totalGrowth, ArrayUtils.SAFE_MAX_ARRAY_LENGTH);
+    }
+
+    /**
      * Ignores case when possible.
      */
     private final boolean ignoreCase;
@@ -1297,12 +1321,11 @@ public abstract class Strings {
         if (end == INDEX_NOT_FOUND) {
             return text;
         }
-        final int replLength = searchString.length();
-        final int initialCapacity = computeInitialCapacity(text.length(), replLength, replacement.length(), max);
-        final StringBuilder buf = new StringBuilder(initialCapacity);
+        final int searchLen = searchString.length();
+        final StringBuilder buf = new StringBuilder(initialCapacity(text.length(), searchLen, replacement.length(), max));
         while (end != INDEX_NOT_FOUND) {
             buf.append(text, start, end).append(replacement);
-            start = end + replLength;
+            start = end + searchLen;
             if (--max == 0) {
                 break;
             }
@@ -1310,37 +1333,6 @@ public abstract class Strings {
         }
         buf.append(text, start, text.length());
         return buf.toString();
-    }
-
-    /**
-     * Computes a safe initial capacity for the {@link StringBuilder} used by
-     * {@link #replace(String, String, String, int)}.
-     *
-     * <p>
-     * Uses {@code long} arithmetic so that the estimated growth cannot overflow
-     * {@code int} when {@code replacementLength} is much greater than
-     * {@code searchLength}, and clamps the result to
-     * {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH} so that
-     * {@code new StringBuilder(int)} is never invoked with a value that exceeds
-     * the VM's array-size limit.
-     * </p>
-     *
-     * <p>
-     * The estimated number of matches is {@code 16} when {@code max} is negative
-     * (unbounded), otherwise {@code Math.min(max, 64)}. These multipliers
-     * preserve the historical behavior of the inlined estimate.
-     * </p>
-     *
-     * @param textLength        the length of the input text, in characters.
-     * @param searchLength      the length of the search string, in characters.
-     * @param replacementLength the length of the replacement string, in characters.
-     * @param max               the maximum number of replacements, or {@code -1} for no maximum.
-     * @return a non-negative initial capacity, never greater than {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
-     */
-    static int computeInitialCapacity(final int textLength, final int searchLength, final int replacementLength, final int max) {
-        final long perReplacementGrowth = Math.max((long) replacementLength - searchLength, 0L);
-        final long totalGrowth = perReplacementGrowth * (max < 0 ? 16 : Math.min(max, 64));
-        return (int) Math.min((long) textLength + totalGrowth, ArrayUtils.SAFE_MAX_ARRAY_LENGTH);
     }
 
     /**

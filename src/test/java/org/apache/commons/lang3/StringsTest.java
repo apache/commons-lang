@@ -72,18 +72,6 @@ class StringsTest extends AbstractLangTest {
         assertEquals("X", Strings.CI.replaceOnce("İ", "İ", "X"));
     }
 
-    @Test
-    void testComputeInitialCapacityReplacementGrowthDoesNotOverflowInt() {
-        final int capacity = Strings.computeInitialCapacity(0, 0, 50_000_000, 64);
-        assertEquals(ArrayUtils.SAFE_MAX_ARRAY_LENGTH, capacity);
-    }
-
-    @Test
-    void testComputeInitialCapacityNeverOverflowsForMaxValueInputs() {
-        final int capacity = Strings.computeInitialCapacity(Integer.MAX_VALUE, 0, Integer.MAX_VALUE, 64);
-        assertEquals(ArrayUtils.SAFE_MAX_ARRAY_LENGTH, capacity);
-    }
-
     /**
      * Expanding the existing test group {@link StringUtilsStartsEndsWithTest#testStartsWithAny()} to include case-insensitive cases
      */
@@ -109,6 +97,49 @@ class StringsTest extends AbstractLangTest {
     void testCaseSensitiveConstant() {
         assertNotNull(Strings.CS);
         assertTrue(Strings.CS.isCaseSensitive());
+    }
+
+    @Test
+    void testComputeInitialCapacityDoesNotReturnSafeMaxDueToOverflow() {
+        final int textLength = 100;
+        final int searchLength = 0;
+        final int replacementLength = Integer.MAX_VALUE;
+        final int max = 1;
+        // Expected mathematical result:
+        // 100 + (2147483647 - 0) * 1 = 2147483747
+        // which exceeds SAFE_MAX_ARRAY_LENGTH (2147483639)
+        final int expected = Integer.MAX_VALUE - 8;
+        assertEquals(expected, Strings.initialCapacity(textLength, searchLength, replacementLength, max));
+    }
+
+    @Test
+    void testComputeInitialCapacityLargeInputsDoNotIncorrectlyClampToSafeMax() {
+        final int result = Strings.initialCapacity(Integer.MAX_VALUE - 1000, Integer.MAX_VALUE - 500, Integer.MAX_VALUE, 1);
+        // Growth = 500
+        // Expected = Integer.MAX_VALUE - 500
+        assertEquals(Integer.MAX_VALUE - 500, result);
+    }
+
+    @Test
+    void testComputeInitialCapacityNeverOverflowsForMaxValueInputs() {
+        final int capacity = Strings.initialCapacity(Integer.MAX_VALUE, 0, Integer.MAX_VALUE, 64);
+        assertEquals(ArrayUtils.SAFE_MAX_ARRAY_LENGTH, capacity);
+    }
+
+    @Test
+    void testComputeInitialCapacityReplacementGrowthDoesNotOverflowInt() {
+        final int capacity = Strings.initialCapacity(0, 0, 50_000_000, 64);
+        assertEquals(ArrayUtils.SAFE_MAX_ARRAY_LENGTH, capacity);
+    }
+
+    @Test
+    void testComputeInitialCapacityReturnsSmallerValueWhenResultIsBelowSafeMax() {
+        final int textLength = 100;
+        final int searchLength = 0;
+        final int replacementLength = 1000;
+        final int max = 1;
+        final int expected = 1100;
+        assertEquals(expected, Strings.initialCapacity(textLength, searchLength, replacementLength, max));
     }
 
     @ParameterizedTest
