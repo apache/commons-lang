@@ -293,9 +293,6 @@ public class CharSequenceUtils {
         if (cs instanceof String && substring instanceof String) {
             return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
         }
-        int index1 = thisStart;
-        int index2 = start;
-        int tmpLen = length;
         // Extract these first so we detect NPEs the same as the java.lang.String version
         final int srcLen = cs.length() - thisStart;
         final int otherLen = substring.length() - start;
@@ -307,23 +304,64 @@ public class CharSequenceUtils {
         if (srcLen < length || otherLen < length) {
             return false;
         }
-        while (tmpLen-- > 0) {
-            final char c1 = cs.charAt(index1++);
-            final char c2 = substring.charAt(index2++);
+        final int end1 = thisStart + length;
+        final int end2 = start + length;
+        int index1 = thisStart;
+        int index2 = start;
+        while (index1 < end1 && index2 < end2) {
+            final char c1 = cs.charAt(index1);
+            final char c2 = substring.charAt(index2);
             if (c1 == c2) {
+                index1++;
+                index2++;
                 continue;
             }
             if (!ignoreCase) {
                 return false;
             }
-            // The real same check as in String#regionMatches(boolean, int, String, int, int):
-            final char u1 = Character.toUpperCase(c1);
-            final char u2 = Character.toUpperCase(c2);
-            if (u1 != u2 && Character.toLowerCase(u1) != Character.toLowerCase(u2)) {
-                return false;
+            // The same case-insensitive check as String#regionMatches(boolean, int, String, int, int),
+            // which also folds case of a supplementary code point split across a surrogate pair.
+            if (!equalsIgnoreCase(c1, c2)) {
+                int cp1 = c1;
+                if (Character.isHighSurrogate(c1)) {
+                    if (index1 + 1 < end1 && Character.isLowSurrogate(cs.charAt(index1 + 1))) {
+                        cp1 = Character.toCodePoint(c1, cs.charAt(index1 + 1));
+                        index1++;
+                    }
+                } else if (Character.isLowSurrogate(c1) && index1 > thisStart && Character.isHighSurrogate(cs.charAt(index1 - 1))) {
+                    cp1 = Character.toCodePoint(cs.charAt(index1 - 1), c1);
+                }
+                int cp2 = c2;
+                if (Character.isHighSurrogate(c2)) {
+                    if (index2 + 1 < end2 && Character.isLowSurrogate(substring.charAt(index2 + 1))) {
+                        cp2 = Character.toCodePoint(c2, substring.charAt(index2 + 1));
+                        index2++;
+                    }
+                } else if (Character.isLowSurrogate(c2) && index2 > start && Character.isHighSurrogate(substring.charAt(index2 - 1))) {
+                    cp2 = Character.toCodePoint(substring.charAt(index2 - 1), c2);
+                }
+                if (!equalsIgnoreCase(cp1, cp2)) {
+                    return false;
+                }
             }
+            index1++;
+            index2++;
         }
         return true;
+    }
+
+    /**
+     * Tests whether two code points are equal ignoring case, matching the folding used by
+     * {@link String#regionMatches(boolean, int, String, int, int)}.
+     *
+     * @param cp1 the first code point.
+     * @param cp2 the second code point.
+     * @return whether the code points are equal ignoring case.
+     */
+    private static boolean equalsIgnoreCase(final int cp1, final int cp2) {
+        final int u1 = Character.toUpperCase(cp1);
+        final int u2 = Character.toUpperCase(cp2);
+        return u1 == u2 || Character.toLowerCase(u1) == Character.toLowerCase(u2);
     }
 
     /**

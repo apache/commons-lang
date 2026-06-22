@@ -161,6 +161,13 @@ class CharSequenceUtilsTest extends AbstractLangTest {
             new TestData("Abc",  false,      1,     "abc",  1,     2,    true),
             new TestData("Abcd", true,       1,     "abcD", 1,     2,    true),
             new TestData("Abcd", false,      1,     "abcD", 1,     2,    true),
+            // Deseret CAPITAL LONG I (U+10400) folds to SMALL LONG I (U+10428): a supplementary
+            // code point split across a surrogate pair must fold like java.lang.String does.
+            new TestData("\uD801\uDC00",  true,  0, "\uD801\uDC28", 0, 2, true),
+            new TestData("\uD801\uDC00",  false, 0, "\uD801\uDC28", 0, 2, false),
+            new TestData("\uD801\uDC28",  true,  0, "\uD801\uDC00", 0, 2, true),
+            new TestData("x\uD801\uDC00", true,  1, "\uD801\uDC28", 0, 2, true),
+            new TestData("\uD801\uDC00",  true,  0, "\uD801\uDC29", 0, 2, false),
             // @formatter:on
     };
 
