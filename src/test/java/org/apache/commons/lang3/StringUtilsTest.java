@@ -946,6 +946,9 @@ class StringUtilsTest extends AbstractLangTest {
         assertFalse(StringUtils.isAllLowerCase("ab c"));
         assertFalse(StringUtils.isAllLowerCase("ab1c"));
         assertFalse(StringUtils.isAllLowerCase("ab/c"));
+        // U+10428 DESERET SMALL LETTER LONG I is a lowercase supplementary letter
+        assertTrue(StringUtils.isAllLowerCase(new String(Character.toChars(0x10428))));
+        assertFalse(StringUtils.isAllLowerCase(new String(Character.toChars(0x10400)))); // uppercase supplementary letter
     }
 
     /**
@@ -963,6 +966,9 @@ class StringUtilsTest extends AbstractLangTest {
         assertFalse(StringUtils.isAllUpperCase("A C"));
         assertFalse(StringUtils.isAllUpperCase("A1C"));
         assertFalse(StringUtils.isAllUpperCase("A/C"));
+        // U+10400 DESERET CAPITAL LETTER LONG I is an uppercase supplementary letter
+        assertTrue(StringUtils.isAllUpperCase(new String(Character.toChars(0x10400))));
+        assertFalse(StringUtils.isAllUpperCase(new String(Character.toChars(0x10428)))); // lowercase supplementary letter
     }
 
     /**
@@ -986,6 +992,9 @@ class StringUtilsTest extends AbstractLangTest {
         assertTrue(StringUtils.isMixedCase("aBc\n"));
         assertTrue(StringUtils.isMixedCase("A1c"));
         assertTrue(StringUtils.isMixedCase("a/C"));
+        // lowercase 'a' mixed with the uppercase supplementary letter U+10400
+        assertTrue(StringUtils.isMixedCase("a" + new String(Character.toChars(0x10400))));
+        assertFalse(StringUtils.isMixedCase(new String(Character.toChars(0x10400)))); // single supplementary letter
     }
 
     @Test

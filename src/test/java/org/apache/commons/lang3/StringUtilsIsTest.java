@@ -39,6 +39,9 @@ class StringUtilsIsTest extends AbstractLangTest {
         assertFalse(StringUtils.isAlpha("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
         assertFalse(StringUtils.isAlpha("_"));
         assertFalse(StringUtils.isAlpha("hkHKHik*khbkuh"));
+        // a supplementary letter (U+10400 DESERET CAPITAL LETTER LONG I) is a Unicode letter
+        assertTrue(StringUtils.isAlpha(new String(Character.toChars(0x10400))));
+        assertFalse(StringUtils.isAlpha(new String(Character.toChars(0x1D7CE)))); // supplementary digit
     }
 
     @Test
@@ -54,6 +57,8 @@ class StringUtilsIsTest extends AbstractLangTest {
         assertTrue(StringUtils.isAlphanumeric("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
         assertFalse(StringUtils.isAlphanumeric("_"));
         assertFalse(StringUtils.isAlphanumeric("hkHKHik*khbkuh"));
+        assertTrue(StringUtils.isAlphanumeric(new String(Character.toChars(0x10400)))); // supplementary letter
+        assertTrue(StringUtils.isAlphanumeric(new String(Character.toChars(0x1D7CE)))); // supplementary digit
     }
 
     @Test
@@ -69,6 +74,7 @@ class StringUtilsIsTest extends AbstractLangTest {
         assertTrue(StringUtils.isAlphanumericSpace("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
         assertFalse(StringUtils.isAlphanumericSpace("_"));
         assertFalse(StringUtils.isAlphanumericSpace("hkHKHik*khbkuh"));
+        assertTrue(StringUtils.isAlphanumericSpace(new String(Character.toChars(0x10400)) + " " + new String(Character.toChars(0x1D7CE))));
     }
 
     @Test
@@ -84,6 +90,8 @@ class StringUtilsIsTest extends AbstractLangTest {
         assertFalse(StringUtils.isAlphaSpace("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
         assertFalse(StringUtils.isAlphaSpace("_"));
         assertFalse(StringUtils.isAlphaSpace("hkHKHik*khbkuh"));
+        assertTrue(StringUtils.isAlphaSpace(new String(Character.toChars(0x10400)) + " a")); // supplementary letter
+        assertFalse(StringUtils.isAlphaSpace(new String(Character.toChars(0x1D7CE)))); // supplementary digit
     }
 
     @Test
@@ -132,6 +140,9 @@ class StringUtilsIsTest extends AbstractLangTest {
         assertFalse(StringUtils.isNumeric("hkHKHik*khbkuh"));
         assertFalse(StringUtils.isNumeric("+123"));
         assertFalse(StringUtils.isNumeric("-123"));
+        // a supplementary digit (U+1D7CE MATHEMATICAL BOLD DIGIT ZERO) is a Unicode digit
+        assertTrue(StringUtils.isNumeric(new String(Character.toChars(0x1D7CE))));
+        assertFalse(StringUtils.isNumeric(new String(Character.toChars(0x10400)))); // supplementary letter
     }
 
     @Test
@@ -152,6 +163,8 @@ class StringUtilsIsTest extends AbstractLangTest {
         assertFalse(StringUtils.isNumericSpace("hkHKHik6iUGHKJgU7tUJgKJGI87GIkug"));
         assertFalse(StringUtils.isNumericSpace("_"));
         assertFalse(StringUtils.isNumericSpace("hkHKHik*khbkuh"));
+        assertTrue(StringUtils.isNumericSpace(new String(Character.toChars(0x1D7CE)) + " " + new String(Character.toChars(0x1D7CE))));
+        assertFalse(StringUtils.isNumericSpace(new String(Character.toChars(0x10400)))); // supplementary letter
     }
 
     @Test
