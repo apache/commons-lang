@@ -90,7 +90,12 @@ public class MethodUtils {
                 continue;
             }
             if (ClassUtils.isAssignable(aClass, toClass, true) && !ClassUtils.isAssignable(aClass, toClass, false)) {
+                // Autoboxing/unboxing conversion. When a primitive is boxed, rank the exact
+                // wrapper ahead of any of its supertypes so the most specific overload wins.
                 answer++;
+                if (aClass.isPrimitive() && !ClassUtils.primitiveToWrapper(aClass).equals(toClass)) {
+                    answer += 2;
+                }
             } else {
                 answer += 2;
             }

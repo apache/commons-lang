@@ -118,6 +118,12 @@ class MethodUtilsTest extends AbstractLangTest {
 
         public void testMethod4(final Long aLong, final Long anotherLong) {
         }
+
+        public void testMethod5(final Integer anInteger) {
+        }
+
+        public void testMethod5(final Number aNumber) {
+        }
     }
 
     private static final class GetMatchingMethodImpl extends AbstractGetMatchingMethod {
@@ -813,6 +819,11 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod3", Long.TYPE, null),
                 GetMatchingMethodClass.class.getMethod("testMethod3", Long.TYPE, Long.class));
         assertThrows(IllegalStateException.class, () -> MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod4", null, null));
+        // A primitive argument boxes to the exact wrapper overload, not to one of its supertypes.
+        assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod5", Integer.TYPE),
+                GetMatchingMethodClass.class.getMethod("testMethod5", Integer.class));
+        assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodClass.class, "testMethod5", Integer.class),
+                GetMatchingMethodClass.class.getMethod("testMethod5", Integer.class));
         assertEquals(MethodUtils.getMatchingMethod(GetMatchingMethodImpl.class, "testMethod5", RuntimeException.class),
                 GetMatchingMethodImpl.class.getMethod("testMethod5", Exception.class));
         assertEquals(GetMatchingMethodImpl.class.getMethod("testMethod6"), MethodUtils.getMatchingMethod(GetMatchingMethodImpl.class, "testMethod6"));
