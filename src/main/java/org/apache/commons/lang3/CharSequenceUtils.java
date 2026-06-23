@@ -319,9 +319,14 @@ public class CharSequenceUtils {
             if (!ignoreCase) {
                 return false;
             }
-            // The same case-insensitive check as String#regionMatches(boolean, int, String, int, int),
-            // which also folds case of a supplementary code point split across a surrogate pair.
+            // The same case-insensitive check as String#regionMatches(boolean, int, String, int, int).
             if (!equalsIgnoreCase(c1, c2)) {
+                // String only folds a supplementary code point split across a surrogate pair from Java 9
+                // on; on Java 8 it stays char-by-char. Track the running JDK so every CharSequence type
+                // gives the same result that String does there.
+                if (SystemUtils.IS_JAVA_1_8) {
+                    return false;
+                }
                 int cp1 = c1;
                 if (Character.isHighSurrogate(c1)) {
                     if (index1 + 1 < end1 && Character.isLowSurrogate(cs.charAt(index1 + 1))) {
