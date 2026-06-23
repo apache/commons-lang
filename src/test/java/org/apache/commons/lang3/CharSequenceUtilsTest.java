@@ -161,13 +161,6 @@ class CharSequenceUtilsTest extends AbstractLangTest {
             new TestData("Abc",  false,      1,     "abc",  1,     2,    true),
             new TestData("Abcd", true,       1,     "abcD", 1,     2,    true),
             new TestData("Abcd", false,      1,     "abcD", 1,     2,    true),
-            // Deseret CAPITAL LONG I (U+10400) folds to SMALL LONG I (U+10428): a supplementary
-            // code point split across a surrogate pair must fold like java.lang.String does.
-            new TestData("\uD801\uDC00",  true,  0, "\uD801\uDC28", 0, 2, true),
-            new TestData("\uD801\uDC00",  false, 0, "\uD801\uDC28", 0, 2, false),
-            new TestData("\uD801\uDC28",  true,  0, "\uD801\uDC00", 0, 2, true),
-            new TestData("x\uD801\uDC00", true,  1, "\uD801\uDC28", 0, 2, true),
-            new TestData("\uD801\uDC00",  true,  0, "\uD801\uDC29", 0, 2, false),
             // @formatter:on
     };
 
@@ -281,6 +274,22 @@ class CharSequenceUtilsTest extends AbstractLangTest {
                 }
             }.run(data, "CSNonString");
         }
+    }
+
+    /**
+     * The green path for a non-String CharSequence must fold a supplementary code point as one unit, not as two bare
+     * surrogates, so the case-insensitive result no longer depends on the argument's runtime type. Deseret CAPITAL LONG I
+     * (U+10400) folds to SMALL LONG I (U+10428). These cases are kept out of {@link #TEST_DATA} because
+     * {@link String#regionMatches(boolean, int, String, int, int)} only folds supplementary code points from Java 9
+     * onward, so the shared String-parity rows would fail on Java 8.
+     */
+    @Test
+    void testRegionMatchesSupplementaryCaseFold() {
+        assertTrue(CharSequenceUtils.regionMatches(new StringBuilder("\uD801\uDC00"), true, 0, "\uD801\uDC28", 0, 2));
+        assertFalse(CharSequenceUtils.regionMatches(new StringBuilder("\uD801\uDC00"), false, 0, "\uD801\uDC28", 0, 2));
+        assertTrue(CharSequenceUtils.regionMatches(new StringBuilder("\uD801\uDC28"), true, 0, "\uD801\uDC00", 0, 2));
+        assertTrue(CharSequenceUtils.regionMatches(new StringBuilder("x\uD801\uDC00"), true, 1, "\uD801\uDC28", 0, 2));
+        assertFalse(CharSequenceUtils.regionMatches(new StringBuilder("\uD801\uDC00"), true, 0, "\uD801\uDC29", 0, 2));
     }
 
     @Test
