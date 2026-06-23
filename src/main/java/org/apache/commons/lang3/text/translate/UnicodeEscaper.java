@@ -102,7 +102,8 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * Converts the given code point to a hexadecimal string of the form {@code "\\uXXXX"}
+     * Converts the given code point to a hexadecimal string of the form {@code "\\uXXXX"}, or the
+     * surrogate pair form {@code "\\uXXXX\\uXXXX"} for a supplementary code point.
      *
      * @param codePoint
      *            a Unicode code point.
@@ -110,7 +111,11 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @since 3.2
      */
     protected String toUtf16Escape(final int codePoint) {
-        return "\\u" + hex(codePoint);
+        if (Character.isBmpCodePoint(codePoint)) {
+            return "\\u" + hex(codePoint);
+        }
+        final char[] surrogatePair = Character.toChars(codePoint);
+        return "\\u" + hex(surrogatePair[0]) + "\\u" + hex(surrogatePair[1]);
     }
 
     /**
