@@ -585,9 +585,9 @@ class ValidateTest extends AbstractLangTest {
 
             @Test
             void shouldThrowIllegalArgumentExceptionWithGivenMessageWhenClassIsNotAssignable() {
-                final IllegalArgumentException ex = assertIllegalArgumentException(
+                final IllegalArgumentException e = assertIllegalArgumentException(
                     () -> Validate.isAssignableFrom(List.class, String.class, "MSG"));
-                assertEquals("MSG", ex.getMessage());
+                assertEquals("MSG", e.getMessage());
             }
         }
 
