@@ -3237,10 +3237,12 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isLowerCase(cs.charAt(i))) {
+        for (int i = 0; i < sz;) {
+            final int codePoint = Character.codePointAt(cs, i);
+            if (!Character.isLowerCase(codePoint)) {
                 return false;
             }
+            i += Character.charCount(codePoint);
         }
         return true;
     }
@@ -3272,10 +3274,12 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isUpperCase(cs.charAt(i))) {
+        for (int i = 0; i < sz;) {
+            final int codePoint = Character.codePointAt(cs, i);
+            if (!Character.isUpperCase(codePoint)) {
                 return false;
             }
+            i += Character.charCount(codePoint);
         }
         return true;
     }
@@ -3306,10 +3310,12 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isLetter(cs.charAt(i))) {
+        for (int i = 0; i < sz;) {
+            final int codePoint = Character.codePointAt(cs, i);
+            if (!Character.isLetter(codePoint)) {
                 return false;
             }
+            i += Character.charCount(codePoint);
         }
         return true;
     }
@@ -3341,10 +3347,12 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isLetterOrDigit(cs.charAt(i))) {
+        for (int i = 0; i < sz;) {
+            final int codePoint = Character.codePointAt(cs, i);
+            if (!Character.isLetterOrDigit(codePoint)) {
                 return false;
             }
+            i += Character.charCount(codePoint);
         }
         return true;
     }
@@ -3375,11 +3383,12 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            final char nowChar = cs.charAt(i);
-            if (nowChar != ' ' && !Character.isLetterOrDigit(nowChar)) {
+        for (int i = 0; i < sz;) {
+            final int codePoint = Character.codePointAt(cs, i);
+            if (codePoint != ' ' && !Character.isLetterOrDigit(codePoint)) {
                 return false;
             }
+            i += Character.charCount(codePoint);
         }
         return true;
     }
@@ -3410,11 +3419,12 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            final char nowChar = cs.charAt(i);
-            if (nowChar != ' ' && !Character.isLetter(nowChar)) {
+        for (int i = 0; i < sz;) {
+            final int codePoint = Character.codePointAt(cs, i);
+            if (codePoint != ' ' && !Character.isLetter(codePoint)) {
                 return false;
             }
+            i += Character.charCount(codePoint);
         }
         return true;
     }
@@ -3608,16 +3618,17 @@ public class StringUtils {
         boolean containsUppercase = false;
         boolean containsLowercase = false;
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            final char nowChar = cs.charAt(i);
-            if (Character.isUpperCase(nowChar)) {
+        for (int i = 0; i < sz;) {
+            final int codePoint = Character.codePointAt(cs, i);
+            if (Character.isUpperCase(codePoint)) {
                 containsUppercase = true;
-            } else if (Character.isLowerCase(nowChar)) {
+            } else if (Character.isLowerCase(codePoint)) {
                 containsLowercase = true;
             }
             if (containsUppercase && containsLowercase) {
                 return true;
             }
+            i += Character.charCount(codePoint);
         }
         return false;
     }
@@ -3755,10 +3766,12 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isDigit(cs.charAt(i))) {
+        for (int i = 0; i < sz;) {
+            final int codePoint = Character.codePointAt(cs, i);
+            if (!Character.isDigit(codePoint)) {
                 return false;
             }
+            i += Character.charCount(codePoint);
         }
         return true;
     }
@@ -3792,11 +3805,12 @@ public class StringUtils {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++) {
-            final char nowChar = cs.charAt(i);
-            if (nowChar != ' ' && !Character.isDigit(nowChar)) {
+        for (int i = 0; i < sz;) {
+            final int codePoint = Character.codePointAt(cs, i);
+            if (codePoint != ' ' && !Character.isDigit(codePoint)) {
                 return false;
             }
+            i += Character.charCount(codePoint);
         }
         return true;
     }
