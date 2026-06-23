@@ -94,10 +94,10 @@ class AppendableJoinerTest extends AbstractLangTest {
         final Appendable sbuilder = clazz.newInstance();
         sbuilder.append("A");
         // throws IOException
-        assertEquals("AB.C", joiner.joinA(sbuilder, "B", "C").toString());
+        assertEquals("AB.C", joiner.join(sbuilder, "B", "C").toString());
         sbuilder.append("1");
         // throws IOException
-        assertEquals("AB.C1D.E", joiner.joinA(sbuilder, Arrays.asList("D", "E")).toString());
+        assertEquals("AB.C1D.E", joiner.join(sbuilder, Arrays.asList("D", "E")).toString());
     }
 
     @Test
