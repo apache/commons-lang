@@ -27,6 +27,17 @@ public class CharSequenceUtils {
 
     private static final int NOT_FOUND = -1;
 
+    /**
+     * Whether the running JDK folds a supplementary code point split across a surrogate pair when comparing case
+     * insensitively in {@link String#regionMatches(boolean, int, String, int, int)}. JDKs up to and including Java 11
+     * compare surrogate by surrogate and never match such a pair; later JDKs fold the whole code point. Probing what
+     * {@link String} actually does (rather than gating on a version constant) keeps every {@link CharSequence} type in
+     * step with {@link String} on whatever JDK is running. DESERET CAPITAL LETTER LONG I (U+10400) folds to its small
+     * form (U+10428).
+     */
+    private static final boolean STRING_FOLDS_SUPPLEMENTARY_CASE =
+            new String(Character.toChars(0x10400)).regionMatches(true, 0, new String(Character.toChars(0x10428)), 0, 2);
+
     static final int TO_STRING_LIMIT = 16;
 
     private static boolean checkLaterThan1(final CharSequence cs, final CharSequence searchChar, final int len2, final int start1) {
@@ -321,10 +332,9 @@ public class CharSequenceUtils {
             }
             // The same case-insensitive check as String#regionMatches(boolean, int, String, int, int).
             if (!equalsIgnoreCase(c1, c2)) {
-                // String only folds a supplementary code point split across a surrogate pair from Java 9
-                // on; on Java 8 it stays char-by-char. Track the running JDK so every CharSequence type
-                // gives the same result that String does there.
-                if (SystemUtils.IS_JAVA_1_8) {
+                // Only fold a supplementary code point split across a surrogate pair where String itself does, so
+                // every CharSequence type gives the same result that String does on the running JDK (see field).
+                if (!STRING_FOLDS_SUPPLEMENTARY_CASE) {
                     return false;
                 }
                 int cp1 = c1;
