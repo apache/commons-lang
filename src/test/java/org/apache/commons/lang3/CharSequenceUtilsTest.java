@@ -165,6 +165,17 @@ class CharSequenceUtilsTest extends AbstractLangTest {
             // @formatter:on
     };
 
+    private static void assertRegionMatchesParity(final String source, final boolean ignoreCase, final int toffset, final String other,
+            final int ooffset, final int len) {
+        // String is the reference: whatever the running JDK does for String, every CharSequence type must match.
+        final boolean expected = source.regionMatches(ignoreCase, toffset, other, ooffset, len);
+        final CharSequence[] sources = {source, new StringBuilder(source), new StringBuffer(source), CharBuffer.wrap(source)};
+        for (final CharSequence cs : sources) {
+            assertEquals(expected, CharSequenceUtils.regionMatches(cs, ignoreCase, toffset, other, ooffset, len),
+                    cs.getClass().getSimpleName() + " differs from String for " + source + " vs " + other);
+        }
+    }
+
     static Stream<Arguments> lastIndexWithStandardCharSequence() {
         // @formatter:off
         return Stream.of(
@@ -274,17 +285,6 @@ class CharSequenceUtilsTest extends AbstractLangTest {
                     return CharSequenceUtils.regionMatches(new StringBuilder(data.source), data.ignoreCase, data.toffset, data.other, data.ooffset, data.len);
                 }
             }.run(data, "CSNonString");
-        }
-    }
-
-    private static void assertRegionMatchesParity(final String source, final boolean ignoreCase, final int toffset, final String other,
-            final int ooffset, final int len) {
-        // String is the reference: whatever the running JDK does for String, every CharSequence type must match.
-        final boolean expected = source.regionMatches(ignoreCase, toffset, other, ooffset, len);
-        final CharSequence[] sources = {source, new StringBuilder(source), new StringBuffer(source), CharBuffer.wrap(source)};
-        for (final CharSequence cs : sources) {
-            assertEquals(expected, CharSequenceUtils.regionMatches(cs, ignoreCase, toffset, other, ooffset, len),
-                    cs.getClass().getSimpleName() + " differs from String for " + source + " vs " + other);
         }
     }
 

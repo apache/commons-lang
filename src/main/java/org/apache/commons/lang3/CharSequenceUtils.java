@@ -28,15 +28,14 @@ public class CharSequenceUtils {
     private static final int NOT_FOUND = -1;
 
     /**
-     * Whether the running JDK folds a supplementary code point split across a surrogate pair when comparing case
-     * insensitively in {@link String#regionMatches(boolean, int, String, int, int)}. JDKs up to and including Java 11
-     * compare surrogate by surrogate and never match such a pair; later JDKs fold the whole code point. Probing what
-     * {@link String} actually does (rather than gating on a version constant) keeps every {@link CharSequence} type in
-     * step with {@link String} on whatever JDK is running. DESERET CAPITAL LETTER LONG I (U+10400) folds to its small
-     * form (U+10428).
+     * Whether the running JDK folds a supplementary code point split across a surrogate pair when comparing case insensitively in
+     * {@link String#regionMatches(boolean, int, String, int, int)}. JDKs up to and including Java 11 compare surrogate by surrogate and never match such a
+     * pair; later JDKs fold the whole code point. Probing what {@link String} actually does (rather than gating on a version constant) keeps every
+     * {@link CharSequence} type in step with {@link String} on whatever JDK is running. DESERET CAPITAL LETTER LONG I (U+10400) folds to its small form
+     * (U+10428).
      */
-    private static final boolean STRING_FOLDS_SUPPLEMENTARY_CASE =
-            new String(Character.toChars(0x10400)).regionMatches(true, 0, new String(Character.toChars(0x10428)), 0, 2);
+    private static final boolean STRING_FOLDS_SUPPLEMENTARY_CASE = new String(Character.toChars(0x10400)).regionMatches(true, 0,
+            new String(Character.toChars(0x10428)), 0, 2);
 
     static final int TO_STRING_LIMIT = 16;
 
@@ -47,6 +46,19 @@ public class CharSequenceUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * Tests whether two code points are equal ignoring case, matching the folding used by {@link String#regionMatches(boolean, int, String, int, int)}.
+     *
+     * @param cp1 the first code point.
+     * @param cp2 the second code point.
+     * @return whether the code points are equal ignoring case.
+     */
+    private static boolean equalsIgnoreCase(final int cp1, final int cp2) {
+        final int u1 = Character.toUpperCase(cp1);
+        final int u2 = Character.toUpperCase(cp2);
+        return u1 == u2 || Character.toLowerCase(u1) == Character.toLowerCase(u2);
     }
 
     /**
@@ -289,12 +301,12 @@ public class CharSequenceUtils {
     /**
      * Tests if two string regions are equal.
      *
-     * @param cs the {@link CharSequence} to be processed.
+     * @param cs         the {@link CharSequence} to be processed.
      * @param ignoreCase whether or not to be case-insensitive.
-     * @param thisStart the index to start on the {@code cs} CharSequence.
-     * @param substring the {@link CharSequence} to be looked for.
-     * @param start the index to start on the {@code substring} CharSequence.
-     * @param length character length of the region.
+     * @param thisStart  the index to start on the {@code cs} CharSequence.
+     * @param substring  the {@link CharSequence} to be looked for.
+     * @param start      the index to start on the {@code substring} CharSequence.
+     * @param length     character length of the region.
      * @return whether the region matched.
      * @see String#regionMatches(boolean, int, String, int, int)
      */
@@ -363,20 +375,6 @@ public class CharSequenceUtils {
             index2++;
         }
         return true;
-    }
-
-    /**
-     * Tests whether two code points are equal ignoring case, matching the folding used by
-     * {@link String#regionMatches(boolean, int, String, int, int)}.
-     *
-     * @param cp1 the first code point.
-     * @param cp2 the second code point.
-     * @return whether the code points are equal ignoring case.
-     */
-    private static boolean equalsIgnoreCase(final int cp1, final int cp2) {
-        final int u1 = Character.toUpperCase(cp1);
-        final int u2 = Character.toUpperCase(cp2);
-        return u1 == u2 || Character.toLowerCase(u1) == Character.toLowerCase(u2);
     }
 
     /**

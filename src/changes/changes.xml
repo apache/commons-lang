@@ -206,6 +206,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Classify supplementary code points in StringUtils is* predicates (#1724).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Emit surrogate pair for supplementary code points in UnicodeEscaper (#1726).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix MethodUtils.getMatchingMethod false ambiguity on boxed arguments (#1727).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fold supplementary code points in CharSequenceUtils.regionMatches (#1725).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
