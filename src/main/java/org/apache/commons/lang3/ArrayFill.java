@@ -74,15 +74,17 @@ public final class ArrayFill {
      * ArrayFill.fill(a, fromIndex, toIndex, '\0'); // and not '0'!
      * </pre>
      *
-     * @param a         the array to fill (may be null).
+     //* @param a         the array to fill (may be null).
      * @param fromIndex the index of the first element (inclusive) to be filled with {@code '\0'}.
      * @param toIndex   the index of the last element (exclusive) to be filled with {@code '\0'}.
      * @return the given array.
      * @see Arrays#fill(char[], int, int, char)
      * @since 3.21.0
      */
-    public static char[] clear(char[] a, int fromIndex, int toIndex) {
-        return fill(a, fromIndex, toIndex, CharUtils.NUL);
+    public static char[] clear(final char[] array,
+                               final int fromIndex,
+                               final int toIndex) {
+        return fill(array, fromIndex, toIndex, CharUtils.NUL);
     }
 
     /**
@@ -269,7 +271,8 @@ public final class ArrayFill {
     }
 
     private ArrayFill() {
-        // no instances
+        throw new UnsupportedOperationException(
+                "Utility class cannot be instantiated");
     }
 
 }
