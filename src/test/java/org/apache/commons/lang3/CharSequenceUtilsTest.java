@@ -28,6 +28,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.nio.CharBuffer;
 import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -274,6 +275,33 @@ class CharSequenceUtilsTest extends AbstractLangTest {
                 }
             }.run(data, "CSNonString");
         }
+    }
+
+    private static void assertRegionMatchesParity(final String source, final boolean ignoreCase, final int toffset, final String other,
+            final int ooffset, final int len) {
+        // String is the reference: whatever the running JDK does for String, every CharSequence type must match.
+        final boolean expected = source.regionMatches(ignoreCase, toffset, other, ooffset, len);
+        final CharSequence[] sources = {source, new StringBuilder(source), new StringBuffer(source), CharBuffer.wrap(source)};
+        for (final CharSequence cs : sources) {
+            assertEquals(expected, CharSequenceUtils.regionMatches(cs, ignoreCase, toffset, other, ooffset, len),
+                    cs.getClass().getSimpleName() + " differs from String for " + source + " vs " + other);
+        }
+    }
+
+    /**
+     * A supplementary code point split across a surrogate pair must fold the same way for every {@link CharSequence}
+     * type that it does for {@link String} on the running JDK. {@link String#regionMatches(boolean, int, String, int, int)}
+     * only folds such a code point from Java 9 on, so these rows are checked against {@link String} itself rather than a
+     * fixed result: {@link String}, {@link StringBuilder}, {@link StringBuffer} and {@link CharBuffer} all have to agree.
+     * Deseret CAPITAL LONG I (U+10400) folds to SMALL LONG I (U+10428).
+     */
+    @Test
+    void testRegionMatchesSupplementaryCaseFold() {
+        assertRegionMatchesParity("\uD801\uDC00", true, 0, "\uD801\uDC28", 0, 2);
+        assertRegionMatchesParity("\uD801\uDC00", false, 0, "\uD801\uDC28", 0, 2);
+        assertRegionMatchesParity("\uD801\uDC28", true, 0, "\uD801\uDC00", 0, 2);
+        assertRegionMatchesParity("x\uD801\uDC00", true, 1, "\uD801\uDC28", 0, 2);
+        assertRegionMatchesParity("\uD801\uDC00", true, 0, "\uD801\uDC29", 0, 2);
     }
 
     @Test
