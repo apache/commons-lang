@@ -2758,10 +2758,25 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
 
         final int half = size / 2;
         final char[] buf = buffer;
+        boolean hasSurrogates = false;
         for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++, rightIdx--) {
-            final char swap = buf[leftIdx];
-            buf[leftIdx] = buf[rightIdx];
-            buf[rightIdx] = swap;
+            final char left = buf[leftIdx];
+            final char right = buf[rightIdx];
+            buf[leftIdx] = right;
+            buf[rightIdx] = left;
+            hasSurrogates |= Character.isSurrogate(left) || Character.isSurrogate(right);
+        }
+        if (hasSurrogates) {
+            // The plain swap leaves each surrogate pair in low-high order; restore the high-low order so a
+            // reversed supplementary code point stays a valid pair, matching StringBuilder#reverse().
+            for (int i = 0; i < size - 1; i++) {
+                if (Character.isLowSurrogate(buf[i]) && Character.isHighSurrogate(buf[i + 1])) {
+                    final char low = buf[i];
+                    buf[i] = buf[i + 1];
+                    buf[i + 1] = low;
+                    i++;
+                }
+            }
         }
         return this;
     }

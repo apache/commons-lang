@@ -1634,6 +1634,21 @@ class StrBuilderTest extends AbstractLangTest {
     }
 
     @Test
+    void testReverseSurrogatePairs() {
+        // U+1F600 GRINNING FACE is a supplementary code point encoded as a surrogate pair; reversing
+        // must keep the pair intact (high before low) like StringBuilder, not split it into garbage.
+        final String emoji = "😀";
+        assertEquals(new StringBuilder("a" + emoji + "b").reverse().toString(), new StrBuilder("a" + emoji + "b").reverse().toString());
+        assertEquals("b" + emoji + "a", new StrBuilder("a" + emoji + "b").reverse().toString());
+
+        final String emoji2 = "😁";
+        assertEquals(emoji2 + emoji, new StrBuilder(emoji + emoji2).reverse().toString());
+
+        // An unpaired high surrogate has no partner and is left where it lands.
+        assertEquals("b\uD800a", new StrBuilder("a\uD800b").reverse().toString());
+    }
+
+    @Test
     void testRightString() {
         final StrBuilder sb = new StrBuilder("left right");
         assertEquals("right", sb.rightString(5));
