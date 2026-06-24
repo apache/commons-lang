@@ -18,6 +18,7 @@
 package org.apache.commons.lang3;
 
 import java.io.Closeable;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import org.apache.commons.lang3.function.Consumers;
@@ -32,7 +33,7 @@ import org.apache.commons.lang3.function.FailableConsumer;
  *
  * @since 3.21.0
  */
-public class AutoCloseables {
+public final class AutoCloseables {
 
     /**
      * Closes the given {@link AutoCloseable} as a null-safe operation.
@@ -65,15 +66,11 @@ public class AutoCloseables {
 
     /**
      * Closes an {@link AutoCloseable}, never throwing an {@link Exception}.
-     * <p>
-     * Equivalent to {@link AutoCloseable#close()}, except any exceptions will be ignored.
-     * </p>
      *
      * @param closeable the objects to close, may be null or already closed.
-     * @see Throwable#addSuppressed(Throwable)
      */
     public static void closeQuietly(final AutoCloseable closeable) {
-        closeQuietly(closeable, (Consumer<Exception>) null);
+        closeQuietly(closeable, null);
     }
 
     /**
@@ -94,46 +91,27 @@ public class AutoCloseables {
 
     /**
      * Closes an iterable of {@link AutoCloseable}, never throwing an {@link Exception}.
-     * <p>
-     * Equivalent calling {@link AutoCloseable#close()} on each element, except any exceptions will be ignored.
-     * </p>
      *
      * @param closeables the objects to close, may be null or already closed.
-     * @see #closeQuietly(AutoCloseable)
      */
-    public static void closeQuietly(final Iterable<AutoCloseable> closeables) {
+    public static void closeQuietly(final Iterable<? extends AutoCloseable> closeables) {
         if (closeables != null) {
             closeables.forEach(AutoCloseables::closeQuietly);
         }
     }
 
     /**
-     * Closes a {@link Closeable} unconditionally and adds any exception thrown by the {@code close()} to the given Throwable.
-     * <p>
-     * For example:
-     * </p>
-     *
-     * <pre>
-     * AutoCloseable autoCloseable = ...;
-     * try {
-     *     // process autoCloseable.
-     * } catch (Exception e) {
-     *     // Handle exception.
-     *     throw AutoCloseables.closeQuietlySuppress(autoCloseable, e);
-     * }
-     * </pre>
-     * <p>
-     * Also consider using a try-with-resources statement where appropriate.
-     * </p>
+     * Closes an {@link AutoCloseable} and adds any exception thrown to the given Throwable.
      *
      * @param <T>       The Throwable type.
      * @param closeable The object to close, may be null or already closed.
      * @param throwable Add the exception throw by the closeable to the given Throwable.
      * @return The given Throwable.
-     * @see Throwable#addSuppressed(Throwable)
      */
-    public static <T extends Throwable> T closeQuietlySuppress(final Closeable closeable, final T throwable) {
-        closeQuietly(closeable, throwable::addSuppressed);
+    public static <T extends Throwable> T closeQuietlySuppress(final AutoCloseable closeable, final T throwable) {
+        if (throwable != null) {
+            closeQuietly(closeable, throwable::addSuppressed);
+        }
         return throwable;
     }
 
