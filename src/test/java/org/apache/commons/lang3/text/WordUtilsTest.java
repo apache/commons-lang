@@ -479,6 +479,14 @@ class WordUtilsTest extends AbstractLangTest {
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", false));
         expected = "Click here,\nhttps://commons.apac\nhe.org, to jump to\nthe commons website";
         assertEquals(expected, WordUtils.wrap(input, 20, "\n", true));
+
+        // a hard break for a long word must not split a surrogate pair across the new line
+        input = "a\uD83D\uDE00\uD83D\uDE00\uD83D\uDE00\uD83D\uDE00";
+        expected = "a\uD83D\uDE00\uD83D\uDE00\n\uD83D\uDE00\uD83D\uDE00";
+        assertEquals(expected, WordUtils.wrap(input, 4, "\n", true));
+        input = "\uD83D\uDE00\uD83D\uDE00\uD83D\uDE00";
+        expected = "\uD83D\uDE00\uD83D\uDE00\n\uD83D\uDE00";
+        assertEquals(expected, WordUtils.wrap(input, 3, "\n", true));
     }
 
     @ParameterizedTest

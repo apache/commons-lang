@@ -704,10 +704,14 @@ public class WordUtils {
                 offset = endOfWrapAt;
             } else // really long word or URL
             if (wrapLongWords) {
-                // wrap really long word one line at a time
-                wrappedLine.append(str, offset, wrapLength + offset);
+                // wrap really long word one line at a time, but keep a surrogate pair whole
+                int wrapAt = wrapLength + offset;
+                if (Character.isHighSurrogate(str.charAt(wrapAt - 1)) && Character.isLowSurrogate(str.charAt(wrapAt))) {
+                    wrapAt++;
+                }
+                wrappedLine.append(str, offset, wrapAt);
                 wrappedLine.append(newLineStr);
-                offset += wrapLength;
+                offset = wrapAt;
             } else {
                 // do not wrap really long word, just extend beyond limit
                 matcher = patternToWrapOn.matcher(str.substring(offset + wrapLength));
