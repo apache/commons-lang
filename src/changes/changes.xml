@@ -208,6 +208,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix MethodUtils.getMatchingMethod false ambiguity on boxed arguments (#1727).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fold supplementary code points in CharSequenceUtils.regionMatches (#1725).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix WordUtils.containsAllWords missing words across line breaks (#1732).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Handle supplementary code points in WordUtils case methods (#1728).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
