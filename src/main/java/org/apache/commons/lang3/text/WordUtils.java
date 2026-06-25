@@ -301,8 +301,11 @@ public class WordUtils {
     /**
      * Tests if the code point is a delimiter.
      *
+     * <p>A {@code null} {@code delimiters} array treats any whitespace code point, as defined by
+     * {@link Character#isWhitespace(int)}, as a delimiter.</p>
+     *
      * @param codePoint  the code point to check.
-     * @param delimiters  the delimiters.
+     * @param delimiters  the delimiters, {@code null} matches whitespace.
      * @return true if it is a delimiter.
      */
     private static boolean isDelimiter(final int codePoint, final char[] delimiters) {
