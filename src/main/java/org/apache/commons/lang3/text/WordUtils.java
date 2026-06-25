@@ -99,14 +99,15 @@ public class WordUtils {
         }
         final char[] buffer = str.toCharArray();
         boolean capitalizeNext = true;
-        for (int i = 0; i < buffer.length; i++) {
-            final char ch = buffer[i];
-            if (isDelimiter(ch, delimiters)) {
+        for (int i = 0; i < buffer.length;) {
+            final int codePoint = Character.codePointAt(buffer, i);
+            if (isDelimiter(codePoint, delimiters)) {
                 capitalizeNext = true;
             } else if (capitalizeNext) {
-                buffer[i] = Character.toTitleCase(ch);
+                Character.toChars(Character.toTitleCase(codePoint), buffer, i);
                 capitalizeNext = false;
             }
+            i += Character.charCount(codePoint);
         }
         return new String(buffer);
     }
@@ -298,6 +299,28 @@ public class WordUtils {
     }
 
     /**
+     * Tests if the code point is a delimiter.
+     *
+     * <p>A {@code null} {@code delimiters} array treats any whitespace code point, as defined by
+     * {@link Character#isWhitespace(int)}, as a delimiter.</p>
+     *
+     * @param codePoint  the code point to check.
+     * @param delimiters  the delimiters, {@code null} matches whitespace.
+     * @return true if it is a delimiter.
+     */
+    private static boolean isDelimiter(final int codePoint, final char[] delimiters) {
+        if (delimiters == null) {
+            return Character.isWhitespace(codePoint);
+        }
+        for (final char delimiter : delimiters) {
+            if (codePoint == delimiter) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Swaps the case of a String using a word based algorithm.
      *
      * <ul>
@@ -327,21 +350,22 @@ public class WordUtils {
 
         boolean whitespace = true;
 
-        for (int i = 0; i < buffer.length; i++) {
-            final char ch = buffer[i];
-            if (Character.isUpperCase(ch) || Character.isTitleCase(ch)) {
-                buffer[i] = Character.toLowerCase(ch);
+        for (int i = 0; i < buffer.length;) {
+            final int codePoint = Character.codePointAt(buffer, i);
+            if (Character.isUpperCase(codePoint) || Character.isTitleCase(codePoint)) {
+                Character.toChars(Character.toLowerCase(codePoint), buffer, i);
                 whitespace = false;
-            } else if (Character.isLowerCase(ch)) {
+            } else if (Character.isLowerCase(codePoint)) {
                 if (whitespace) {
-                    buffer[i] = Character.toTitleCase(ch);
+                    Character.toChars(Character.toTitleCase(codePoint), buffer, i);
                     whitespace = false;
                 } else {
-                    buffer[i] = Character.toUpperCase(ch);
+                    Character.toChars(Character.toUpperCase(codePoint), buffer, i);
                 }
             } else {
-                whitespace = Character.isWhitespace(ch);
+                whitespace = Character.isWhitespace(codePoint);
             }
+            i += Character.charCount(codePoint);
         }
         return new String(buffer);
     }
@@ -399,14 +423,15 @@ public class WordUtils {
         }
         final char[] buffer = str.toCharArray();
         boolean uncapitalizeNext = true;
-        for (int i = 0; i < buffer.length; i++) {
-            final char ch = buffer[i];
-            if (isDelimiter(ch, delimiters)) {
+        for (int i = 0; i < buffer.length;) {
+            final int codePoint = Character.codePointAt(buffer, i);
+            if (isDelimiter(codePoint, delimiters)) {
                 uncapitalizeNext = true;
             } else if (uncapitalizeNext) {
-                buffer[i] = Character.toLowerCase(ch);
+                Character.toChars(Character.toLowerCase(codePoint), buffer, i);
                 uncapitalizeNext = false;
             }
+            i += Character.charCount(codePoint);
         }
         return new String(buffer);
     }
