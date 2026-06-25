@@ -171,6 +171,14 @@ class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testContainsAllWordsWithNewline() {
+        assertTrue(WordUtils.containsAllWords("foo\nbar", "bar"));
+        assertTrue(WordUtils.containsAllWords("foo\nbar", "foo"));
+        assertTrue(WordUtils.containsAllWords("lorem ipsum\ndolor sit\namet", "ipsum", "amet", "lorem"));
+        assertFalse(WordUtils.containsAllWords("foo\nbar", "baz"));
+    }
+
+    @Test
     void testInitials_String() {
         assertNull(WordUtils.initials(null));
         assertEquals("", WordUtils.initials(""));
