@@ -2076,11 +2076,12 @@ public class StringUtils {
         final char[] buffer = new char[len];
         int count = 0;
 
-        for (int i = 0; i < len; i++) {
-            final char tempChar = str.charAt(i);
-            if (Character.isDigit(tempChar)) {
-                buffer[count++] = tempChar;
+        for (int i = 0; i < len;) {
+            final int codePoint = str.codePointAt(i);
+            if (Character.isDigit(codePoint)) {
+                count += Character.toChars(codePoint, buffer, count);
             }
+            i += Character.charCount(codePoint);
         }
         return new String(buffer, 0, count);
     }

@@ -719,6 +719,14 @@ class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testGetDigitsSupplementary() {
+        // U+1D7CF MATHEMATICAL BOLD DIGIT ONE: Character.isDigit is true but it is a surrogate pair
+        final String mathOne = new String(Character.toChars(0x1D7CF));
+        assertEquals(mathOne, StringUtils.getDigits(mathOne));
+        assertEquals(mathOne + "9", StringUtils.getDigits("a" + mathOne + "9"));
+    }
+
+    @Test
     void testGetFuzzyDistance() {
         assertEquals(0, StringUtils.getFuzzyDistance("", "", Locale.ENGLISH));
         assertEquals(0, StringUtils.getFuzzyDistance("Workshop", "b", Locale.ENGLISH));
