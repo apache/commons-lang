@@ -761,12 +761,7 @@ public class NumberUtils {
         // Finds and returns max
         double max = array[0];
         for (int j = 1; j < array.length; j++) {
-            if (Double.isNaN(array[j])) {
-                return Double.NaN;
-            }
-            if (array[j] > max) {
-                max = array[j];
-            }
+            max = Math.max(max, array[j]);
         }
         return max;
     }
@@ -804,12 +799,7 @@ public class NumberUtils {
         // Finds and returns max
         float max = array[0];
         for (int j = 1; j < array.length; j++) {
-            if (Float.isNaN(array[j])) {
-                return Float.NaN;
-            }
-            if (array[j] > max) {
-                max = array[j];
-            }
+            max = Math.max(max, array[j]);
         }
         return max;
     }
@@ -1042,12 +1032,7 @@ public class NumberUtils {
         // Finds and returns min
         double min = array[0];
         for (int i = 1; i < array.length; i++) {
-            if (Double.isNaN(array[i])) {
-                return Double.NaN;
-            }
-            if (array[i] < min) {
-                min = array[i];
-            }
+            min = Math.min(min, array[i]);
         }
         return min;
     }
@@ -1085,12 +1070,7 @@ public class NumberUtils {
         // Finds and returns min
         float min = array[0];
         for (int i = 1; i < array.length; i++) {
-            if (Float.isNaN(array[i])) {
-                return Float.NaN;
-            }
-            if (array[i] < min) {
-                min = array[i];
-            }
+            min = Math.min(min, array[i]);
         }
         return min;
     }
