@@ -1309,6 +1309,24 @@ class NumberUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testMinMaxSignedZero() {
+        // The varargs overloads must agree with Math.min/Math.max (and the three-argument
+        // overloads, which delegate to them) on the sign of zero. -0.0 is distinct from 0.0,
+        // e.g. 1 / -0.0 is -Infinity, so the raw bits are asserted here.
+        assertEquals(Double.doubleToRawLongBits(0.0d), Double.doubleToRawLongBits(NumberUtils.max(-0.0d, 0.0d)));
+        assertEquals(Double.doubleToRawLongBits(0.0d), Double.doubleToRawLongBits(NumberUtils.max(0.0d, -0.0d)));
+        assertEquals(Double.doubleToRawLongBits(-0.0d), Double.doubleToRawLongBits(NumberUtils.min(-0.0d, 0.0d)));
+        assertEquals(Double.doubleToRawLongBits(-0.0d), Double.doubleToRawLongBits(NumberUtils.min(0.0d, -0.0d)));
+        assertEquals(Float.floatToRawIntBits(0.0f), Float.floatToRawIntBits(NumberUtils.max(-0.0f, 0.0f)));
+        assertEquals(Float.floatToRawIntBits(0.0f), Float.floatToRawIntBits(NumberUtils.max(0.0f, -0.0f)));
+        assertEquals(Float.floatToRawIntBits(-0.0f), Float.floatToRawIntBits(NumberUtils.min(-0.0f, 0.0f)));
+        assertEquals(Float.floatToRawIntBits(-0.0f), Float.floatToRawIntBits(NumberUtils.min(0.0f, -0.0f)));
+        // the varargs result matches the three-argument overload
+        assertEquals(Double.doubleToRawLongBits(NumberUtils.max(-0.0d, 0.0d, 0.0d)), Double.doubleToRawLongBits(NumberUtils.max(-0.0d, 0.0d)));
+        assertEquals(Double.doubleToRawLongBits(NumberUtils.min(0.0d, -0.0d, 0.0d)), Double.doubleToRawLongBits(NumberUtils.min(0.0d, -0.0d)));
+    }
+
+    @Test
     void testLang747() {
         assertEquals(Integer.valueOf(0x8000), NumberUtils.createNumber("0x8000"));
         assertEquals(Integer.valueOf(0x80000), NumberUtils.createNumber("0x80000"));
