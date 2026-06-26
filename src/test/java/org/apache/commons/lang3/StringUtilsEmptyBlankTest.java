@@ -21,6 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Supplier;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -54,6 +57,66 @@ class StringUtilsEmptyBlankTest extends AbstractLangTest {
         assertEquals("abc", StringUtils.firstNonEmpty("abc"));
         assertEquals("xyz", StringUtils.firstNonEmpty(null, "xyz"));
         assertEquals("xyz", StringUtils.firstNonEmpty(null, "xyz", "abc"));
+    }
+
+    @Test
+    void testFirstNonBlankSupplier() {
+        assertNull(StringUtils.firstNonBlankSupplier());
+        assertNull(StringUtils.firstNonBlankSupplier((Supplier<String>[]) null));
+        assertNull(StringUtils.firstNonBlankSupplier(() -> null, () -> "", () -> " "));
+        assertEquals("a", StringUtils.firstNonBlankSupplier(() -> null, () -> "a"));
+        assertEquals("abc", StringUtils.firstNonBlankSupplier(() -> "abc"));
+        assertEquals("xyz", StringUtils.firstNonBlankSupplier(() -> null, () -> "xyz"));
+        assertEquals("xyz", StringUtils.firstNonBlankSupplier(() -> null, () -> "xyz", () -> "abc"));
+    }
+
+    @Test
+    void testFirstNonEmptySupplier() {
+        assertNull(StringUtils.firstNonEmptySupplier());
+        assertNull(StringUtils.firstNonEmptySupplier((Supplier<String>[]) null));
+        assertEquals(" ", StringUtils.firstNonEmptySupplier(() -> null, () -> "", () -> " "));
+        assertEquals("a", StringUtils.firstNonEmptySupplier(() -> null, () -> "a"));
+        assertEquals("abc", StringUtils.firstNonEmptySupplier(() -> "abc"));
+        assertEquals("xyz", StringUtils.firstNonEmptySupplier(() -> null, () -> "xyz"));
+        assertEquals("xyz", StringUtils.firstNonEmptySupplier(() -> null, () -> "xyz", () -> "abc"));
+    }
+
+    @Test
+    void testFirstNonBlankSupplierLazyEvaluation() {
+        final AtomicBoolean secondCalled = new AtomicBoolean(false);
+        final AtomicBoolean thirdCalled = new AtomicBoolean(false);
+
+        final String result = StringUtils.firstNonBlankSupplier(
+                () -> "first",
+                () -> {
+                    secondCalled.set(true);
+                    return "second";
+                },
+                () -> {
+                    thirdCalled.set(true);
+                    return "third";
+                }
+        );
+
+        assertEquals("first", result);
+        assertFalse(secondCalled.get(), "Second supplier should not have been called");
+        assertFalse(thirdCalled.get(), "Third supplier should not have been called");
+    }
+
+    @Test
+    void testFirstNonEmptySupplierLazyEvaluation() {
+        final AtomicBoolean secondCalled = new AtomicBoolean(false);
+
+        final String result = StringUtils.firstNonEmptySupplier(
+                () -> "value",
+                () -> {
+                    secondCalled.set(true);
+                    return "should not run";
+                }
+        );
+
+        assertEquals("value", result);
+        assertFalse(secondCalled.get(), "Second supplier should not have been called");
     }
 
     @Test
