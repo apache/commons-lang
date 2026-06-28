@@ -7259,14 +7259,17 @@ public class StringUtils {
         final char[] c = str.toCharArray();
         final List<String> list = new ArrayList<>();
         int tokenStart = 0;
-        int currentType = Character.getType(c[tokenStart]);
-        for (int pos = tokenStart + 1; pos < c.length; pos++) {
-            final int type = Character.getType(c[pos]);
+        int currentType = Character.getType(Character.codePointAt(c, tokenStart));
+        for (int pos = tokenStart + Character.charCount(Character.codePointAt(c, tokenStart)); pos < c.length;) {
+            final int codePoint = Character.codePointAt(c, pos);
+            final int type = Character.getType(codePoint);
+            final int count = Character.charCount(codePoint);
             if (type == currentType) {
+                pos += count;
                 continue;
             }
             if (camelCase && type == Character.LOWERCASE_LETTER && currentType == Character.UPPERCASE_LETTER) {
-                final int newTokenStart = pos - 1;
+                final int newTokenStart = pos - Character.charCount(Character.codePointBefore(c, pos));
                 if (newTokenStart != tokenStart) {
                     list.add(new String(c, tokenStart, newTokenStart - tokenStart));
                     tokenStart = newTokenStart;
@@ -7276,6 +7279,7 @@ public class StringUtils {
                 tokenStart = pos;
             }
             currentType = type;
+            pos += count;
         }
         list.add(new String(c, tokenStart, c.length - tokenStart));
         return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
