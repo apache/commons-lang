@@ -2926,17 +2926,34 @@ public class StringUtils {
         if (isEmpty(seq) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        final Set<Integer> searchSetCodePoints = searchChars.codePoints()
-                .boxed().collect(Collectors.toSet());
         // advance character index from one interpreted codepoint to the next
         for (int curSeqCharIdx = 0; curSeqCharIdx < seq.length();) {
             final int curSeqCodePoint = Character.codePointAt(seq, curSeqCharIdx);
-            if (!searchSetCodePoints.contains(curSeqCodePoint)) {
+            if (!containsCodePoint(searchChars, curSeqCodePoint)) {
                 return curSeqCharIdx;
             }
             curSeqCharIdx += Character.charCount(curSeqCodePoint); // skip indices to paired low-surrogates
         }
         return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Tests whether the given code point appears in the CharSequence, comparing by Unicode code point so that
+     * supplementary characters are matched correctly.
+     *
+     * @param searchChars the characters to search, not null.
+     * @param codePoint   the code point to find.
+     * @return whether the code point is present.
+     */
+    private static boolean containsCodePoint(final CharSequence searchChars, final int codePoint) {
+        for (int i = 0; i < searchChars.length();) {
+            final int searchCodePoint = Character.codePointAt(searchChars, i);
+            if (searchCodePoint == codePoint) {
+                return true;
+            }
+            i += Character.charCount(searchCodePoint);
+        }
+        return false;
     }
 
     /**
