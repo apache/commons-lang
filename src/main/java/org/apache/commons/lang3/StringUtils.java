@@ -7215,7 +7215,7 @@ public class StringUtils {
     }
 
     /**
-     * Splits a String by Character type as returned by {@code java.lang.Character.getType(char)}. Groups of contiguous characters of the same type are returned
+     * Splits a String by Character type as returned by {@link Character#getType(int)}. Groups of contiguous characters of the same type are returned
      * as complete tokens.
      *
      * <pre>
@@ -7232,6 +7232,7 @@ public class StringUtils {
      *
      * @param str the String to split, may be {@code null}.
      * @return an array of parsed Strings, {@code null} if null String input.
+     * @see Character#getType(int)
      * @since 2.4
      */
     public static String[] splitByCharacterType(final String str) {
@@ -7240,9 +7241,9 @@ public class StringUtils {
 
     /**
      * Splits a String by Character type as returned by {@code java.lang.Character.getType(char)}. Groups of contiguous characters of the same type are returned
-     * as complete tokens, with the following exception: if {@code camelCase} is {@code true}, the character of type {@code Character.UPPERCASE_LETTER}, if any,
-     * immediately preceding a token of type {@code Character.LOWERCASE_LETTER} will belong to the following token rather than to the preceding, if any,
-     * {@code Character.UPPERCASE_LETTER} token.
+     * as complete tokens, with the following exception: if {@code camelCase} is {@code true}, the character of type {@link Character#UPPERCASE_LETTER}, if any,
+     * immediately preceding a token of type {@link Character#LOWERCASE_LETTER} will belong to the following token rather than to the preceding, if any,
+     * {@link Character#UPPERCASE_LETTER} token.
      *
      * @param str       the String to split, may be {@code null}.
      * @param camelCase whether to use so-called "camel-case" for letter types.
@@ -7286,9 +7287,9 @@ public class StringUtils {
     }
 
     /**
-     * Splits a String by Character type as returned by {@code java.lang.Character.getType(char)}. Groups of contiguous characters of the same type are returned
-     * as complete tokens, with the following exception: the character of type {@code Character.UPPERCASE_LETTER}, if any, immediately preceding a token of type
-     * {@code Character.LOWERCASE_LETTER} will belong to the following token rather than to the preceding, if any, {@code Character.UPPERCASE_LETTER} token.
+     * Splits a String by Character type as returned by {@link Character#getType(int)}. Groups of contiguous characters of the same type are returned
+     * as complete tokens, with the following exception: the character of type {@link Character#UPPERCASE_LETTER}, if any, immediately preceding a token of type
+     * {@link Character#LOWERCASE_LETTER} will belong to the following token rather than to the preceding, if any, {@link Character#UPPERCASE_LETTER} token.
      *
      * <pre>
      * StringUtils.splitByCharacterTypeCamelCase(null)         = null
@@ -7304,6 +7305,7 @@ public class StringUtils {
      *
      * @param str the String to split, may be {@code null}.
      * @return an array of parsed Strings, {@code null} if null String input.
+     * @see Character#getType(int)
      * @since 2.4
      */
     public static String[] splitByCharacterTypeCamelCase(final String str) {
