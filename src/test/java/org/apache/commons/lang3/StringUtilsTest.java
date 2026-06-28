@@ -2334,76 +2334,40 @@ class StringUtilsTest extends AbstractLangTest {
     void testSplitByCharacterType() {
         assertNull(StringUtils.splitByCharacterType(null));
         assertEquals(0, StringUtils.splitByCharacterType("").length);
-
-        assertTrue(Objects.deepEquals(new String[]{"ab", " ", "de", " ",
-                "fg"}, StringUtils.splitByCharacterType("ab de fg")));
-
-        assertTrue(Objects.deepEquals(new String[]{"ab", "   ", "de", " ",
-                "fg"}, StringUtils.splitByCharacterType("ab   de fg")));
-
-        assertTrue(Objects.deepEquals(new String[]{"ab", ":", "cd", ":",
-                "ef"}, StringUtils.splitByCharacterType("ab:cd:ef")));
-
-        assertTrue(Objects.deepEquals(new String[]{"number", "5"},
-                StringUtils.splitByCharacterType("number5")));
-
-        assertTrue(Objects.deepEquals(new String[]{"foo", "B", "ar"},
-                StringUtils.splitByCharacterType("fooBar")));
-
-        assertTrue(Objects.deepEquals(new String[]{"foo", "200", "B", "ar"},
-                StringUtils.splitByCharacterType("foo200Bar")));
-
-        assertTrue(Objects.deepEquals(new String[]{"ASFR", "ules"},
-                StringUtils.splitByCharacterType("ASFRules")));
-
+        assertArrayEquals(new String[] { "ab", " ", "de", " ", "fg" }, StringUtils.splitByCharacterType("ab de fg"));
+        assertArrayEquals(new String[] { "ab", "   ", "de", " ", "fg" }, StringUtils.splitByCharacterType("ab   de fg"));
+        assertArrayEquals(new String[] { "ab", ":", "cd", ":", "ef" }, StringUtils.splitByCharacterType("ab:cd:ef"));
+        assertArrayEquals(new String[] { "number", "5" }, StringUtils.splitByCharacterType("number5"));
+        assertArrayEquals(new String[] { "foo", "B", "ar" }, StringUtils.splitByCharacterType("fooBar"));
+        assertArrayEquals(new String[] { "foo", "200", "B", "ar" }, StringUtils.splitByCharacterType("foo200Bar"));
+        assertArrayEquals(new String[] { "ASFR", "ules" }, StringUtils.splitByCharacterType("ASFRules"));
         // Supplementary code points are classified by their own type, not split apart as surrogates.
         // U+1D400 MATHEMATICAL BOLD CAPITAL A is an upper-case letter, like ASCII 'A'.
         final String boldA = new String(Character.toChars(0x1D400));
         // U+1D7D3 MATHEMATICAL BOLD DIGIT FIVE is a decimal digit, like ASCII '5'.
         final String boldFive = new String(Character.toChars(0x1D7D3));
-        assertTrue(Objects.deepEquals(new String[]{"A" + boldA},
-                StringUtils.splitByCharacterType("A" + boldA)));
-        assertTrue(Objects.deepEquals(new String[]{"5" + boldFive},
-                StringUtils.splitByCharacterType("5" + boldFive)));
-        assertTrue(Objects.deepEquals(new String[]{boldA, "5" + boldFive, "z"},
-                StringUtils.splitByCharacterType(boldA + "5" + boldFive + "z")));
+        assertArrayEquals(new String[] { "A" + boldA }, StringUtils.splitByCharacterType("A" + boldA));
+        assertArrayEquals(new String[] { "5" + boldFive }, StringUtils.splitByCharacterType("5" + boldFive));
+        assertArrayEquals(new String[] { boldA, "5" + boldFive, "z" }, StringUtils.splitByCharacterType(boldA + "5" + boldFive + "z"));
     }
 
     @Test
     void testSplitByCharacterTypeCamelCase() {
         assertNull(StringUtils.splitByCharacterTypeCamelCase(null));
         assertEquals(0, StringUtils.splitByCharacterTypeCamelCase("").length);
-
-        assertTrue(Objects.deepEquals(new String[]{"ab", " ", "de", " ",
-                "fg"}, StringUtils.splitByCharacterTypeCamelCase("ab de fg")));
-
-        assertTrue(Objects.deepEquals(new String[]{"ab", "   ", "de", " ",
-                "fg"}, StringUtils.splitByCharacterTypeCamelCase("ab   de fg")));
-
-        assertTrue(Objects.deepEquals(new String[]{"ab", ":", "cd", ":",
-                "ef"}, StringUtils.splitByCharacterTypeCamelCase("ab:cd:ef")));
-
-        assertTrue(Objects.deepEquals(new String[]{"number", "5"},
-                StringUtils.splitByCharacterTypeCamelCase("number5")));
-
-        assertTrue(Objects.deepEquals(new String[]{"foo", "Bar"},
-                StringUtils.splitByCharacterTypeCamelCase("fooBar")));
-
-        assertTrue(Objects.deepEquals(new String[]{"foo", "200", "Bar"},
-                StringUtils.splitByCharacterTypeCamelCase("foo200Bar")));
-
-        assertTrue(Objects.deepEquals(new String[]{"ASF", "Rules"},
-                StringUtils.splitByCharacterTypeCamelCase("ASFRules")));
-
+        assertArrayEquals(new String[] { "ab", " ", "de", " ", "fg" }, StringUtils.splitByCharacterTypeCamelCase("ab de fg"));
+        assertArrayEquals(new String[] { "ab", "   ", "de", " ", "fg" }, StringUtils.splitByCharacterTypeCamelCase("ab   de fg"));
+        assertArrayEquals(new String[] { "ab", ":", "cd", ":", "ef" }, StringUtils.splitByCharacterTypeCamelCase("ab:cd:ef"));
+        assertArrayEquals(new String[] { "number", "5" }, StringUtils.splitByCharacterTypeCamelCase("number5"));
+        assertArrayEquals(new String[] { "foo", "Bar" }, StringUtils.splitByCharacterTypeCamelCase("fooBar"));
+        assertArrayEquals(new String[] { "foo", "200", "Bar" }, StringUtils.splitByCharacterTypeCamelCase("foo200Bar"));
+        assertArrayEquals(new String[] { "ASF", "Rules" }, StringUtils.splitByCharacterTypeCamelCase("ASFRules"));
         // A supplementary upper-case letter immediately before a lower-case run joins the following token,
         // exactly as a BMP upper-case letter does. U+1D400 MATHEMATICAL BOLD CAPITAL A is an upper-case letter.
         final String boldA = new String(Character.toChars(0x1D400));
-        assertTrue(Objects.deepEquals(new String[]{boldA + "bc"},
-                StringUtils.splitByCharacterTypeCamelCase(boldA + "bc")));
-        assertTrue(Objects.deepEquals(new String[]{"AB", boldA + "cd"},
-                StringUtils.splitByCharacterTypeCamelCase("AB" + boldA + "cd")));
-        assertTrue(Objects.deepEquals(new String[]{"foo", boldA + "bar"},
-                StringUtils.splitByCharacterTypeCamelCase("foo" + boldA + "bar")));
+        assertArrayEquals(new String[] { boldA + "bc" }, StringUtils.splitByCharacterTypeCamelCase(boldA + "bc"));
+        assertArrayEquals(new String[] { "AB", boldA + "cd" }, StringUtils.splitByCharacterTypeCamelCase("AB" + boldA + "cd"));
+        assertArrayEquals(new String[] { "foo", boldA + "bar" }, StringUtils.splitByCharacterTypeCamelCase("foo" + boldA + "bar"));
     }
 
     @Test
