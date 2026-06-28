@@ -2355,6 +2355,18 @@ class StringUtilsTest extends AbstractLangTest {
 
         assertTrue(Objects.deepEquals(new String[]{"ASFR", "ules"},
                 StringUtils.splitByCharacterType("ASFRules")));
+
+        // Supplementary code points are classified by their own type, not split apart as surrogates.
+        // U+1D400 MATHEMATICAL BOLD CAPITAL A is an upper-case letter, like ASCII 'A'.
+        final String boldA = new String(Character.toChars(0x1D400));
+        // U+1D7D3 MATHEMATICAL BOLD DIGIT FIVE is a decimal digit, like ASCII '5'.
+        final String boldFive = new String(Character.toChars(0x1D7D3));
+        assertTrue(Objects.deepEquals(new String[]{"A" + boldA},
+                StringUtils.splitByCharacterType("A" + boldA)));
+        assertTrue(Objects.deepEquals(new String[]{"5" + boldFive},
+                StringUtils.splitByCharacterType("5" + boldFive)));
+        assertTrue(Objects.deepEquals(new String[]{boldA, "5" + boldFive, "z"},
+                StringUtils.splitByCharacterType(boldA + "5" + boldFive + "z")));
     }
 
     @Test
@@ -2382,6 +2394,16 @@ class StringUtilsTest extends AbstractLangTest {
 
         assertTrue(Objects.deepEquals(new String[]{"ASF", "Rules"},
                 StringUtils.splitByCharacterTypeCamelCase("ASFRules")));
+
+        // A supplementary upper-case letter immediately before a lower-case run joins the following token,
+        // exactly as a BMP upper-case letter does. U+1D400 MATHEMATICAL BOLD CAPITAL A is an upper-case letter.
+        final String boldA = new String(Character.toChars(0x1D400));
+        assertTrue(Objects.deepEquals(new String[]{boldA + "bc"},
+                StringUtils.splitByCharacterTypeCamelCase(boldA + "bc")));
+        assertTrue(Objects.deepEquals(new String[]{"AB", boldA + "cd"},
+                StringUtils.splitByCharacterTypeCamelCase("AB" + boldA + "cd")));
+        assertTrue(Objects.deepEquals(new String[]{"foo", boldA + "bar"},
+                StringUtils.splitByCharacterTypeCamelCase("foo" + boldA + "bar")));
     }
 
     @Test
