@@ -1323,6 +1323,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("     ", StringUtils.leftPad("", 5));
         assertEquals("  abc", StringUtils.leftPad("abc", 5));
         assertEquals("abc", StringUtils.leftPad("abc", 2));
+        assertEquals("abc", StringUtils.leftPad("abc", Integer.MIN_VALUE));
     }
 
     @Test
@@ -1333,6 +1334,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("xxabc", StringUtils.leftPad("abc", 5, 'x'));
         assertEquals("\uffff\uffffabc", StringUtils.leftPad("abc", 5, '\uffff'));
         assertEquals("abc", StringUtils.leftPad("abc", 2, ' '));
+        assertEquals("abc", StringUtils.leftPad("abc", Integer.MIN_VALUE, ' '));
         final String str = StringUtils.leftPad("aaa", 10000, 'a');  // bigger than pad length
         assertEquals(10000, str.length());
         assertTrue(StringUtils.containsOnly(str, 'a'));
@@ -1350,6 +1352,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("abc", StringUtils.leftPad("abc", -1, " "));
         assertEquals("  abc", StringUtils.leftPad("abc", 5, null));
         assertEquals("  abc", StringUtils.leftPad("abc", 5, ""));
+        assertEquals("abc", StringUtils.leftPad("abc", Integer.MIN_VALUE, " "));
     }
 
     @Test
@@ -2202,6 +2205,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("abc  ", StringUtils.rightPad("abc", 5));
         assertEquals("abc", StringUtils.rightPad("abc", 2));
         assertEquals("abc", StringUtils.rightPad("abc", -1));
+        assertEquals("abc", StringUtils.rightPad("abc", Integer.MIN_VALUE));
     }
 
     @Test
@@ -2212,6 +2216,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("abc", StringUtils.rightPad("abc", 2, ' '));
         assertEquals("abc", StringUtils.rightPad("abc", -1, ' '));
         assertEquals("abcxx", StringUtils.rightPad("abc", 5, 'x'));
+        assertEquals("abc", StringUtils.rightPad("abc", Integer.MIN_VALUE, ' '));
         final String str = StringUtils.rightPad("aaa", 10000, 'a');  // bigger than pad length
         assertEquals(10000, str.length());
         assertTrue(StringUtils.containsOnly(str, 'a'));
@@ -2229,6 +2234,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("abc", StringUtils.rightPad("abc", -1, " "));
         assertEquals("abc  ", StringUtils.rightPad("abc", 5, null));
         assertEquals("abc  ", StringUtils.rightPad("abc", 5, ""));
+        assertEquals("abc", StringUtils.rightPad("abc", Integer.MIN_VALUE, " "));
     }
 
     @Test

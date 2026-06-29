@@ -5197,6 +5197,9 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
+        if (size <= str.length()) {
+            return str;
+        }
         final int pads = size - str.length();
         if (pads <= 0) {
             return str; // returns original String when possible
@@ -5234,6 +5237,9 @@ public class StringUtils {
     public static String leftPad(final String str, final int size, String padStr) {
         if (str == null) {
             return null;
+        }
+        if (size <= str.length()) {
+            return str;
         }
         if (isEmpty(padStr)) {
             padStr = SPACE;
@@ -6991,6 +6997,9 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
+        if (size <= str.length()) {
+            return str;
+        }
         final int pads = size - str.length();
         if (pads <= 0) {
             return str; // returns original String when possible
@@ -7028,6 +7037,9 @@ public class StringUtils {
     public static String rightPad(final String str, final int size, String padStr) {
         if (str == null) {
             return null;
+        }
+        if (size <= str.length()) {
+            return str;
         }
         if (isEmpty(padStr)) {
             padStr = SPACE;
