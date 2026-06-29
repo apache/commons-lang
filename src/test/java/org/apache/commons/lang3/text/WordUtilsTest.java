@@ -141,6 +141,25 @@ class WordUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testCase_SupplementaryCodePoint() {
+        // Deseret long-i: capital U+10400, small U+10428 (each a surrogate pair)
+        final String cap = new String(Character.toChars(0x10400));
+        final String small = new String(Character.toChars(0x10428));
+
+        assertEquals(cap + "bc", WordUtils.capitalize(small + "bc"));
+        assertEquals("Ben " + cap + "ee", WordUtils.capitalize("ben " + small + "ee"));
+        assertEquals("Ben." + cap + "ee", WordUtils.capitalize("ben." + small + "ee", '.'));
+        assertEquals(cap + "bc", WordUtils.capitalizeFully(cap + "BC"));
+
+        assertEquals(small + "BC", WordUtils.uncapitalize(cap + "BC"));
+        assertEquals("a." + small + "BC", WordUtils.uncapitalize("a." + cap + "BC", '.'));
+
+        assertEquals(small, WordUtils.swapCase(cap));
+        assertEquals(cap, WordUtils.swapCase(small));
+        assertEquals("A" + small, WordUtils.swapCase("a" + cap));
+    }
+
+    @Test
     void testConstructor() {
         assertNotNull(new WordUtils());
         final Constructor<?>[] cons = WordUtils.class.getDeclaredConstructors();
@@ -283,25 +302,6 @@ class WordUtilsTest extends AbstractLangTest {
         assertEquals("B" + emoji + "L", WordUtils.initials("Ben " + emoji + "mile Lee"));
         assertEquals(emoji, WordUtils.initials(emoji + "abc"));
         assertEquals("B" + emoji + "L", WordUtils.initials("Ben." + emoji + "mile.Lee", '.'));
-    }
-
-    @Test
-    void testCase_SupplementaryCodePoint() {
-        // Deseret long-i: capital U+10400, small U+10428 (each a surrogate pair)
-        final String cap = new String(Character.toChars(0x10400));
-        final String small = new String(Character.toChars(0x10428));
-
-        assertEquals(cap + "bc", WordUtils.capitalize(small + "bc"));
-        assertEquals("Ben " + cap + "ee", WordUtils.capitalize("ben " + small + "ee"));
-        assertEquals("Ben." + cap + "ee", WordUtils.capitalize("ben." + small + "ee", '.'));
-        assertEquals(cap + "bc", WordUtils.capitalizeFully(cap + "BC"));
-
-        assertEquals(small + "BC", WordUtils.uncapitalize(cap + "BC"));
-        assertEquals("a." + small + "BC", WordUtils.uncapitalize("a." + cap + "BC", '.'));
-
-        assertEquals(small, WordUtils.swapCase(cap));
-        assertEquals(cap, WordUtils.swapCase(small));
-        assertEquals("A" + small, WordUtils.swapCase("a" + cap));
     }
 
     @Test
