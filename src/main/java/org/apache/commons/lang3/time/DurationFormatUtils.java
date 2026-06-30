@@ -44,9 +44,10 @@ import org.apache.commons.lang3.Validate;
  *  <tr><td>s</td><td>seconds</td></tr>
  *  <tr><td>S</td><td>milliseconds</td></tr>
  *  <tr><td>'text'</td><td>arbitrary text content</td></tr>
+ *  <tr><td>''</td><td>literal single quote (apostrophe)</td></tr>
  * </table>
  *
- * <strong>Note: It's not currently possible to include a single-quote in a format.</strong>
+ * A literal single quote is represented by a pair of consecutive single quotes ({@code ''}).
  * <p>
  * Token values are printed using decimal digits.
  * A token character can be repeated to ensure that the field occupies a certain minimum
@@ -669,7 +670,6 @@ public class DurationFormatUtils {
             }
             String value = null;
             switch (ch) {
-            // TODO: Need to handle escaping of '
             case '[':
                 if (inOptional) {
                     throw new IllegalArgumentException("Nested optional block at index: " + i);
@@ -685,12 +685,27 @@ public class DurationFormatUtils {
                 break;
             case '\'':
                 if (inLiteral) {
-                    buffer = null;
-                    inLiteral = false;
+                    if (i + 1 < format.length() && format.charAt(i + 1) == '\'') {
+                        // escaped quote '' ? append literal apostrophe, stay in literal
+                        buffer.append('\'');
+                        i++;
+                    } else {
+                        // end of literal
+                        buffer = null;
+                        inLiteral = false;
+                    }
                 } else {
-                    buffer = new StringBuilder();
-                    list.add(new Token(buffer, inOptional, optionalIndex));
-                    inLiteral = true;
+                    if (i + 1 < format.length() && format.charAt(i + 1) == '\'') {
+                        // standalone '' outside a literal ? emit a single apostrophe
+                        buffer = new StringBuilder("'");
+                        list.add(new Token(buffer, inOptional, optionalIndex));
+                        buffer = null;
+                        i++;
+                    } else {
+                        buffer = new StringBuilder();
+                        list.add(new Token(buffer, inOptional, optionalIndex));
+                        inLiteral = true;
+                    }
                 }
                 break;
             case 'y':

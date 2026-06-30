@@ -34,6 +34,9 @@ import java.util.TimeZone;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.time.DurationFormatUtils.Token;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junitpioneer.jupiter.DefaultTimeZone;
 
 /**
@@ -471,7 +474,7 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         cal.set(Calendar.MILLISECOND, 0);
         time = cal.getTime().getTime();
         assertEquals("40", DurationFormatUtils.formatPeriod(time1970, time, "yM"));
-        assertEquals("4 years 0 months", DurationFormatUtils.formatPeriod(time1970, time, "y' ''years' M 'months'"));
+        assertEquals("4 'years 0 months", DurationFormatUtils.formatPeriod(time1970, time, "y' ''years' M 'months'"));
         assertEquals("4 years 0 months", DurationFormatUtils.formatPeriod(time1970, time, "y' years 'M' months'"));
         assertEquals("4years 0months", DurationFormatUtils.formatPeriod(time1970, time, "y'years 'M'months'"));
         assertEquals("04/00", DurationFormatUtils.formatPeriod(time1970, time, "yy/MM"));
@@ -480,7 +483,7 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertEquals("048", DurationFormatUtils.formatPeriod(time1970, time, "MMM"));
         // no date in result
         assertEquals("hello", DurationFormatUtils.formatPeriod(time1970, time, "'hello'"));
-        assertEquals("helloworld", DurationFormatUtils.formatPeriod(time1970, time, "'hello''world'"));
+        assertEquals("hello'world", DurationFormatUtils.formatPeriod(time1970, time, "'hello''world'"));
     }
 
     @Test
@@ -616,6 +619,34 @@ class DurationFormatUtilsTest extends AbstractLangTest {
     void testLANG981() { // unmatched quote char in lexx
         assertIllegalArgumentException(() -> DurationFormatUtils.lexx("'yMdHms''S"));
     }
+
+    private static Arguments[] testLANG1827() {
+        final long twoHours = Duration.ofHours(2).toMillis();
+        final long twoHoursThirtyMin = Duration.ofHours(2).plusMinutes(30).toMillis();
+        final long oneDayTwoHours = Duration.ofDays(1).plusHours(2).toMillis();
+        return new Arguments[] {
+                Arguments.of("escaped quote inside literal", "2 o'clock", twoHours, "H' o''clock'"),
+                Arguments.of("escaped quote at start of literal", "it's 2 hours", twoHours, "'it''s 'H' hours'"),
+                Arguments.of("escaped quote outside literal", "2'30", twoHoursThirtyMin, "H''m"),
+                Arguments.of("multiple escaped quotes", "it's been 1 day's and 2 hour's", oneDayTwoHours,
+                        "'it''s been 'd' day''s and 'H' hour''s'"),
+                Arguments.of("standalone escaped quote", "2h'30m", twoHoursThirtyMin, "H'h'''m'm'"),
+                Arguments.of("escaped quote inside optional block", "2 hour's", twoHours, "[d' day''s ']H' hour''s'"),
+                Arguments.of("existing literal behavior", "2 hours 30 minutes", twoHoursThirtyMin, "H' hours 'm' minutes'")
+        };
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void testLANG1827(final String label, final String expected, final long durationMillis, final String format) {
+        assertEquals(expected, DurationFormatUtils.formatDuration(durationMillis, format), label);
+    }
+
+    @Test
+    void testLANG1827UnmatchedQuote() {
+        assertIllegalArgumentException(() -> DurationFormatUtils.lexx("'unmatched"));
+    }
+
     @Test
     void testLANG982() { // More than 3 millisecond digits following a second
         assertEquals("61.999", DurationFormatUtils.formatDuration(61999, "s.S"));
