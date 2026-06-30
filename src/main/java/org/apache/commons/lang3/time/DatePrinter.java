@@ -54,7 +54,7 @@ public interface DatePrinter {
      *
      * @param calendar  the calendar to format.
      * @param buf  the buffer to format into.
-     * @param <B> the Appendable class type, usually StringBuilder or StringBuffer.
+     * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
      * @return the specified string buffer.
      * @since 3.5
      */
@@ -88,7 +88,7 @@ public interface DatePrinter {
      *
      * @param date  the date to format.
      * @param buf  the buffer to format into.
-     * @param <B> the Appendable class type, usually StringBuilder or StringBuffer.
+     * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
      * @return the specified string buffer.
      * @since 3.5
      */
@@ -121,7 +121,7 @@ public interface DatePrinter {
      *
      * @param millis  the millisecond value to format.
      * @param buf  the buffer to format into.
-     * @param <B> the Appendable class type, usually StringBuilder or StringBuffer.
+     * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
      * @return the specified string buffer.
      * @since 3.5
      */

@@ -53,7 +53,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * case.
  * </p>
  *
- * @param <T> the type of the object managed by this initializer class
+ * @param <T> The type of the object managed by this initializer class
  * @since 3.0
  */
 public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, ConcurrentException> {
@@ -87,7 +87,7 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
     /**
      * Creates a new builder.
      *
-     * @param <T> the type of object to build.
+     * @param <T> The type of object to build.
      * @return a new builder.
      * @since 3.14.0
      */

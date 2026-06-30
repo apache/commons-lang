@@ -23,9 +23,9 @@ import java.util.Objects;
  *
  * <p>Not #ThreadSafe#</p>
  *
- * @param <L> the left element type.
- * @param <M> the middle element type.
- * @param <R> the right element type.
+ * @param <L> The left element type.
+ * @param <M> The middle element type.
+ * @param <R> The right element type.
  * @since 3.2
  */
 public class MutableTriple<L, M, R> extends Triple<L, M, R> {
@@ -46,9 +46,9 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <M> The middle element type.
+     * @param <R> The right element type.
      * @return the empty array singleton that can be assigned without compiler warning.
      * @since 3.10
      */
@@ -60,9 +60,9 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Obtains a mutable triple of three objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <M> The middle element type.
+     * @param <R> The right element type.
      * @param left  the left element, may be null.
      * @param middle  the middle element, may be null.
      * @param right  the right element, may be null.
@@ -75,9 +75,9 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Obtains a mutable triple of three non-null objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <M> The middle element type.
+     * @param <R> The right element type.
      * @param left  the left element, may not be null.
      * @param middle  the middle element, may not be null.
      * @param right  the right element, may not be null.

@@ -138,8 +138,8 @@ public class LockingVisitors {
     /**
      * Wraps a domain object and a lock for access by lambdas.
      *
-     * @param <O> the wrapped object type.
-     * @param <L> the wrapped lock type.
+     * @param <O> The wrapped object type.
+     * @param <L> The wrapped lock type.
      * @see LockingVisitors
      */
     public static class LockVisitor<O, L> {
@@ -147,9 +147,9 @@ public class LockingVisitors {
         /**
          * Builds {@link LockVisitor} instances.
          *
-         * @param <O> the wrapped object type.
-         * @param <L> the wrapped lock type.
-         * @param <B> the builder type.
+         * @param <O> The wrapped object type.
+         * @param <L> The wrapped lock type.
+         * @param <B> The builder type.
          * @since 3.18.0
          */
         public static class LVBuilder<O, L, B extends LVBuilder<O, L, B>> extends AbstractSupplier<LockVisitor<O, L>, B, RuntimeException> {
@@ -477,7 +477,7 @@ public class LockingVisitors {
         /**
          * Builds {@link LockVisitor} instances.
          *
-         * @param <O> the wrapped object type.
+         * @param <O> The wrapped object type.
          * @since 3.18.0
          */
         public static class Builder<O> extends LVBuilder<O, ReadWriteLock, Builder<O>> {
@@ -505,7 +505,7 @@ public class LockingVisitors {
         /**
          * Creates a new builder.
          *
-         * @param <O> the wrapped object type.
+         * @param <O> The wrapped object type.
          * @return a new builder.
          * @since 3.18.0
          */
@@ -549,7 +549,7 @@ public class LockingVisitors {
         /**
          * Builds {@link LockVisitor} instances.
          *
-         * @param <O> the wrapped object type.
+         * @param <O> The wrapped object type.
          * @since 3.18.0
          */
         public static class Builder<O> extends LVBuilder<O, ReentrantLock, Builder<O>> {
@@ -578,7 +578,7 @@ public class LockingVisitors {
         /**
          * Creates a new builder.
          *
-         * @param <O> the wrapped object type.
+         * @param <O> The wrapped object type.
          * @return a new builder.
          * @since 3.18.0
          */
@@ -624,7 +624,7 @@ public class LockingVisitors {
         /**
          * Builds {@link LockVisitor} instances.
          *
-         * @param <O> the wrapped object type.
+         * @param <O> The wrapped object type.
          * @since 3.18.0
          */
         public static class Builder<O> extends LVBuilder<O, StampedLock, Builder<O>> {
@@ -653,7 +653,7 @@ public class LockingVisitors {
         /**
          * Creates a new builder.
          *
-         * @param <O> the wrapped object type.
+         * @param <O> The wrapped object type.
          * @return a new builder.
          * @since 3.18.0
          */

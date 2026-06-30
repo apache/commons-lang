@@ -129,7 +129,7 @@ public class ArraySorter {
     /**
      * Sorts the given array into ascending order and returns it.
      *
-     * @param <T> the array type.
+     * @param <T> The array type.
      * @param array the array to sort (may be null).
      * @return the given array.
      * @see Arrays#sort(Object[])
@@ -144,7 +144,7 @@ public class ArraySorter {
     /**
      * Sorts the given array into ascending order and returns it.
      *
-     * @param <T> the array type.
+     * @param <T> The array type.
      * @param array the array to sort (may be null).
      * @param comparator the comparator to determine the order of the array. A {@code null} value uses the elements'
      *        {@link Comparable natural ordering}.

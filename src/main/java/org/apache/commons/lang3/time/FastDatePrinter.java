@@ -1068,7 +1068,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      *
      * @param calendar  the calendar to format.
      * @param buf  the buffer to format into.
-     * @param <B> the Appendable class type, usually StringBuilder or StringBuffer.
+     * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
      * @return the specified string buffer.
      */
     private <B extends Appendable> B applyRules(final Calendar calendar, final B buf) {

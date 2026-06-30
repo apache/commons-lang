@@ -24,8 +24,8 @@ import java.util.Objects;
  *
  * <p>Not #ThreadSafe#</p>
  *
- * @param <L> the left element type.
- * @param <R> the right element type.
+ * @param <L> The left element type.
+ * @param <R> The right element type.
  * @since 3.0
  */
 public class MutablePair<L, R> extends Pair<L, R> {
@@ -46,8 +46,8 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @return the empty array singleton that can be assigned without compiler warning.
      * @since 3.10
      */
@@ -59,8 +59,8 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates a mutable pair of two objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @param left  the left element, may be null.
      * @param right  the right element, may be null.
      * @return a mutable pair formed from the two parameters, not null.
@@ -72,8 +72,8 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates a mutable pair from a map entry.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @param pair the existing map entry.
      * @return a mutable pair formed from the map entry.
      */
@@ -93,8 +93,8 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates a mutable pair of two non-null objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @param left  the left element, may not be null.
      * @param right  the right element, may not be null.
      * @return a mutable pair formed from the two parameters, not null.
@@ -108,8 +108,8 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates a mutable pair from a map entry.
      *
-     * @param <L> the left element type
-     * @param <R> the right element type
+     * @param <L> The left element type
+     * @param <R> The right element type
      * @param pair the existing map entry.
      * @return a mutable pair formed from the map entry
      * @throws NullPointerException if the pair is null.

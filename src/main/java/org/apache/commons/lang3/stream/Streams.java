@@ -286,8 +286,8 @@ public class Streams {
          * }
          * </pre>
          *
-         * @param <R> the type of the result
-         * @param <A> the intermediate accumulation type of the {@link Collector}
+         * @param <R> The type of the result
+         * @param <A> The intermediate accumulation type of the {@link Collector}
          * @param collector the {@link Collector} describing the reduction
          * @return the result of the reduction
          * @see #collect(Supplier, BiConsumer, BiConsumer)
@@ -569,7 +569,7 @@ public class Streams {
     /**
      * Shorthand for {@code Streams.failableStream(value == null ? Stream.empty() : Stream.of(value))}.
      *
-     * @param <T> the type of stream elements.
+     * @param <T> The type of stream elements.
      * @param value the single element of the new stream, may be {@code null}.
      * @return the new FailableStream on {@code value} or an empty stream.
      * @since 3.15.0
@@ -581,7 +581,7 @@ public class Streams {
     /**
      * Shorthand for {@code Streams.failableStream(Streams.of(arrayValues))}.
      *
-     * @param <T> the type of stream elements.
+     * @param <T> The type of stream elements.
      * @param values the elements of the new stream, may be {@code null}.
      * @return the new FailableStream on {@code values} or an empty stream.
      * @since 3.14.0
@@ -600,7 +600,7 @@ public class Streams {
      * {@code (Stream<E>) Streams.toStream(collection).filter(collection, SomeClass.class::isInstance);}
      * </pre>
      *
-     * @param <E> the type of elements in the collection we want to stream.
+     * @param <E> The type of elements in the collection we want to stream.
      * @param clazz the type of elements in the collection we want to stream.
      * @param collection the collection to stream or null.
      * @return A non-null stream that only provides instances we want.
@@ -618,7 +618,7 @@ public class Streams {
     /**
      * Streams the non-null elements of a collection.
      *
-     * @param <E> the type of elements in the collection.
+     * @param <E> The type of elements in the collection.
      * @param collection the collection to stream or null.
      * @return A non-null stream that filters out null elements.
      * @since 3.13.0
@@ -630,7 +630,7 @@ public class Streams {
     /**
      * Streams the non-null element.
      *
-     * @param <E> the type of elements in the collection.
+     * @param <E> The type of elements in the collection.
      * @param array the element to stream or null.
      * @return A non-null stream that filters out a null element.
      * @since 3.15.0
@@ -642,7 +642,7 @@ public class Streams {
     /**
      * Streams the non-null elements of an array.
      *
-     * @param <E> the type of elements in the collection.
+     * @param <E> The type of elements in the collection.
      * @param array the array to stream or null.
      * @return A non-null stream that filters out null elements.
      * @since 3.13.0
@@ -655,7 +655,7 @@ public class Streams {
     /**
      * Streams the non-null elements of a stream.
      *
-     * @param <E> the type of elements in the collection.
+     * @param <E> The type of elements in the collection.
      * @param stream the stream to stream or null.
      * @return A non-null stream that filters out null elements.
      * @since 3.13.0
@@ -667,7 +667,7 @@ public class Streams {
     /**
      * Delegates to {@link Collection#stream()} or returns {@link Stream#empty()} if the collection is null.
      *
-     * @param <E> the type of elements in the collection.
+     * @param <E> The type of elements in the collection.
      * @param collection the collection to stream or null.
      * @return {@link Collection#stream()} or {@link Stream#empty()} if the collection is null.
      * @since 3.13.0
@@ -691,7 +691,7 @@ public class Streams {
     /**
      * Creates a sequential stream on the given Iterable.
      *
-     * @param <E> the type of elements in the Iterable.
+     * @param <E> The type of elements in the Iterable.
      * @param iterable the Iterable to stream or null.
      * @return a new Stream or {@link Stream#empty()} if the Iterable is null.
      * @since 3.13.0
@@ -703,7 +703,7 @@ public class Streams {
     /**
      * Creates a sequential stream on the given Iterator.
      *
-     * @param <E> the type of elements in the Iterator.
+     * @param <E> The type of elements in the Iterator.
      * @param iterator the Iterator to stream or null.
      * @return a new Stream or {@link Stream#empty()} if the Iterator is null.
      * @since 3.13.0
@@ -715,7 +715,7 @@ public class Streams {
     /**
      * Returns the stream or {@link Stream#empty()} if the stream is null.
      *
-     * @param <E> the type of elements in the collection.
+     * @param <E> The type of elements in the collection.
      * @param stream the stream to stream or null.
      * @return the stream or {@link Stream#empty()} if the stream is null.
      * @since 3.13.0
@@ -727,7 +727,7 @@ public class Streams {
     /**
      * Null-safe version of {@link Stream#of(Object[])}.
      *
-     * @param <T> the type of stream elements.
+     * @param <T> The type of stream elements.
      * @param values the elements of the new stream, may be {@code null}.
      * @return the new stream on {@code values} or {@link Stream#empty()}.
      * @since 3.13.0
@@ -834,7 +834,7 @@ public class Streams {
     /**
      * Returns a {@link Collector} that accumulates the input elements into a new array.
      *
-     * @param <T> the type of the input elements
+     * @param <T> The type of the input elements
      * @param elementType Type of an element in the array.
      * @return a {@link Collector} which collects all the input elements into an array, in encounter order
      */

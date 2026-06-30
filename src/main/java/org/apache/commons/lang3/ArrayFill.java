@@ -255,7 +255,7 @@ public final class ArrayFill {
     /**
      * Fills and returns the given array, assigning the given {@code T} value to each element of the array.
      *
-     * @param <T> the array type.
+     * @param <T> The array type.
      * @param a   the array to fill (may be null).
      * @param val the value to store in all elements of the array.
      * @return the given array.

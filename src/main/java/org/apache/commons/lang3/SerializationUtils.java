@@ -230,7 +230,7 @@ public class SerializationUtils {
     /**
      * Performs a serialization roundtrip. Serializes and deserializes the given object, great for testing objects that implement {@link Serializable}.
      *
-     * @param <T> the type of the object involved.
+     * @param <T> The type of the object involved.
      * @param obj the object to roundtrip.
      * @return the serialized and deserialized object.
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>

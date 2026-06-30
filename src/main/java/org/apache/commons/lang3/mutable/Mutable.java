@@ -30,7 +30,7 @@ import java.util.function.Supplier;
  * Integer/Long wrapper objects.
  * </p>
  *
- * @param <T> the type to wrap.
+ * @param <T> The type to wrap.
  * @since 2.1
  */
 public interface Mutable<T> extends Supplier<T> {

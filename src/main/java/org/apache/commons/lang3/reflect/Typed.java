@@ -21,7 +21,7 @@ import java.lang.reflect.Type;
 /**
  * Generalization of "has a type."
  *
- * @param <T> the type
+ * @param <T> The type
  * @see TypeLiteral
  * @since 3.2
  */

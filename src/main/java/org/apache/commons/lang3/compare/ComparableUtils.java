@@ -34,7 +34,7 @@ public class ComparableUtils {
     /**
      * Compares objects of a given generic type {@code A}.
      *
-     * @param <A> the type of objects that this object may be compared against.
+     * @param <A> The type of objects that this object may be compared against.
      */
     public static class ComparableCheckBuilder<A extends Comparable<A>> {
 

@@ -47,7 +47,7 @@ public class EnumUtils {
     /**
      * Validate {@code enumClass}.
      *
-     * @param <E> the type of the enumeration.
+     * @param <E> The type of the enumeration.
      * @param enumClass to check.
      * @return {@code enumClass}.
      * @throws NullPointerException if {@code enumClass} is {@code null}.
@@ -63,7 +63,7 @@ public class EnumUtils {
     /**
      * Validate that {@code enumClass} is compatible with representation in a {@code long}.
      *
-     * @param <E> the type of the enumeration.
+     * @param <E> The type of the enumeration.
      * @param enumClass to check.
      * @return {@code enumClass}.
      * @throws NullPointerException if {@code enumClass} is {@code null}.
@@ -194,7 +194,7 @@ public class EnumUtils {
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name.</p>
      *
-     * @param <E> the type of the enumeration.
+     * @param <E> The type of the enumeration.
      * @param enumClass  the class of the enum to query, not null.
      * @param enumName   the enum name, null returns null.
      * @return the enum, null if not found.
@@ -209,7 +209,7 @@ public class EnumUtils {
      * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
      * for an invalid enum name.</p>
      *
-     * @param <E> the type of the enumeration.
+     * @param <E> The type of the enumeration.
      * @param enumClass   the class of the enum to query, null returns default enum.
      * @param enumName    the enum name, null returns default enum.
      * @param defaultEnum the default enum.
@@ -266,7 +266,7 @@ public class EnumUtils {
      *
      * <p>This method is useful when you need a list of enums rather than an array.</p>
      *
-     * @param <E> the type of the enumeration.
+     * @param <E> The type of the enumeration.
      * @param enumClass  the class of the enum to query, not null.
      * @return the modifiable list of enums, never null.
      */
@@ -279,7 +279,7 @@ public class EnumUtils {
      *
      * <p>This method is useful when you need a map of enums by name.</p>
      *
-     * @param <E> the type of the enumeration.
+     * @param <E> The type of the enumeration.
      * @param enumClass  the class of the enum to query, not null.
      * @return the modifiable map of enum names to enums, never null.
      */

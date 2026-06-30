@@ -71,7 +71,7 @@ public class Range<T> implements Serializable {
      * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
-     * @param <T> the type of the elements in this range.
+     * @param <T> The type of the elements in this range.
      * @param fromInclusive  the first value that defines the edge of the range, inclusive.
      * @param toInclusive  the second value that defines the edge of the range, inclusive.
      * @return the range object, not null.
@@ -94,7 +94,7 @@ public class Range<T> implements Serializable {
      * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
-     * @param <T> the type of the elements in this range.
+     * @param <T> The type of the elements in this range.
      * @param fromInclusive  the first value that defines the edge of the range, inclusive.
      * @param toInclusive  the second value that defines the edge of the range, inclusive.
      * @param comparator  the comparator to be used, null for natural ordering.
@@ -120,7 +120,7 @@ public class Range<T> implements Serializable {
      * <p>The range uses the natural ordering of the elements to determine where
      * values lie in the range.</p>
      *
-     * @param <T> the type of the elements in this range.
+     * @param <T> The type of the elements in this range.
      * @param element  the value to use for this range, not null.
      * @return the range object, not null.
      * @throws NullPointerException if the element is null.
@@ -137,7 +137,7 @@ public class Range<T> implements Serializable {
      * <p>The range uses the specified {@link Comparator} to determine where
      * values lie in the range.</p>
      *
-     * @param <T> the type of the elements in this range.
+     * @param <T> The type of the elements in this range.
      * @param element  the value to use for this range, must not be {@code null}.
      * @param comparator  the comparator to be used, null for natural ordering.
      * @return the range object, not null.
@@ -157,7 +157,7 @@ public class Range<T> implements Serializable {
      * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
-     * @param <T> the type of the elements in this range.
+     * @param <T> The type of the elements in this range.
      * @param fromInclusive  the first value that defines the edge of the range, inclusive.
      * @param toInclusive  the second value that defines the edge of the range, inclusive.
      * @return the range object, not null.
@@ -178,7 +178,7 @@ public class Range<T> implements Serializable {
      * <p>The arguments may be passed in the order (min, max) or (max, min).
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
-     * @param <T> the type of the elements in this range.
+     * @param <T> The type of the elements in this range.
      * @param fromInclusive  the first value that defines the edge of the range, inclusive.
      * @param toInclusive  the second value that defines the edge of the range, inclusive.
      * @param comparator  the comparator to be used, null for natural ordering.

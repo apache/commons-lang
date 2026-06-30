@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * This class was created before the introduction of the {@link java.util.concurrent.atomic} package and the {@link AtomicReference} class.
  * </p>
  *
- * @param <T> the type to set and get.
+ * @param <T> The type to set and get.
  * @see AtomicReference
  * @since 2.1
  */

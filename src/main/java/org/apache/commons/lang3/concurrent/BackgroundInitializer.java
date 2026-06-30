@@ -82,7 +82,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * operation is complete or to cancel the operation.
  * </p>
  *
- * @param <T> the type of the object managed by this initializer class
+ * @param <T> The type of the object managed by this initializer class
  * @since 3.0
  */
 public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, Exception> {
@@ -164,7 +164,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     /**
      * Creates a new builder.
      *
-     * @param <T> the type of object to build.
+     * @param <T> The type of object to build.
      * @return a new builder.
      * @since 3.14.0
      */

@@ -32,7 +32,7 @@ public class Predicates {
     /**
      * Gets the Predicate singleton that always returns false.
      *
-     * @param <T> the type of the input to the predicate.
+     * @param <T> The type of the input to the predicate.
      * @return the Predicate singleton.
      */
     @SuppressWarnings("unchecked")
@@ -44,7 +44,7 @@ public class Predicates {
     /**
      * Gets the Predicate singleton that always returns true.
      *
-     * @param <T> the type of the input to the predicate.
+     * @param <T> The type of the input to the predicate.
      * @return the Predicate singleton.
      */
     @SuppressWarnings("unchecked")

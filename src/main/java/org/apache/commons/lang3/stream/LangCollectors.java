@@ -45,8 +45,8 @@ public final class LangCollectors {
     /**
      * Simple implementation class for {@code Collector}.
      *
-     * @param <T> the type of elements to be collected
-     * @param <R> the type of the result
+     * @param <T> The type of elements to be collected
+     * @param <R> The type of the result
      */
     private static final class SimpleCollector<T, A, R> implements Collector<T, A, R> {
 

@@ -73,7 +73,7 @@ import org.apache.commons.lang3.function.FailableBiConsumer;
  * This class is immutable and thread-safe.
  * </p>
  *
- * @param <T> the type of elements to join.
+ * @param <T> The type of elements to join.
  * @see Appendable
  * @see StringBuilder
  * @see String#join(CharSequence, CharSequence...)
@@ -86,7 +86,7 @@ public final class AppendableJoiner<T> {
     /**
      * Builds instances of {@link AppendableJoiner}.
      *
-     * @param <T> the type of elements to join.
+     * @param <T> The type of elements to join.
      */
     public static final class Builder<T> implements Supplier<AppendableJoiner<T>> {
 

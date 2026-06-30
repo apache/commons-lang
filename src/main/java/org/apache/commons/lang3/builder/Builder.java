@@ -69,7 +69,7 @@ package org.apache.commons.lang3.builder;
  *                                                              .build();
  * }</pre>
  *
- * @param <T> the type of object that the builder will construct or compute.
+ * @param <T> The type of object that the builder will construct or compute.
  * @since 3.0
  */
 @FunctionalInterface

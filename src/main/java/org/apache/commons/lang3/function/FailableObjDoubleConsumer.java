@@ -22,7 +22,7 @@ import java.util.function.ObjDoubleConsumer;
 /**
  * A functional interface like {@link ObjDoubleConsumer} that declares a {@link Throwable}.
  *
- * @param <T> the type of the object argument to the operation.
+ * @param <T> The type of the object argument to the operation.
  * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
@@ -36,7 +36,7 @@ public interface FailableObjDoubleConsumer<T, E extends Throwable> {
     /**
      * Gets the NOP singleton.
      *
-     * @param <T> the type of the object argument to the operation.
+     * @param <T> The type of the object argument to the operation.
      * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */

@@ -22,8 +22,8 @@ import java.util.function.ToDoubleBiFunction;
 /**
  * A functional interface like {@link ToDoubleBiFunction} that declares a {@link Throwable}.
  *
- * @param <T> the type of the first argument to the function
- * @param <U> the type of the second argument to the function
+ * @param <T> The type of the first argument to the function
+ * @param <U> The type of the second argument to the function
  * @param <E> The kind of thrown exception or error.
  * @since 3.11
  */
@@ -37,8 +37,8 @@ public interface FailableToDoubleBiFunction<T, U, E extends Throwable> {
     /**
      * Gets the NOP singleton.
      *
-     * @param <T> the type of the first argument to the function
-     * @param <U> the type of the second argument to the function
+     * @param <T> The type of the first argument to the function
+     * @param <U> The type of the second argument to the function
      * @param <E> The kind of thrown exception or error.
      * @return The NOP singleton.
      */

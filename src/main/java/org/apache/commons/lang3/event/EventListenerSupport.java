@@ -62,7 +62,7 @@ import org.apache.commons.lang3.function.FailableConsumer;
  * Serializing an {@link EventListenerSupport} instance will result in any non-{@link Serializable} listeners being silently dropped.
  * </p>
  *
- * @param <L> the type of event listener that is supported by this proxy.
+ * @param <L> The type of event listener that is supported by this proxy.
  * @since 3.0
  */
 public class EventListenerSupport<L> implements Serializable {
@@ -139,7 +139,7 @@ public class EventListenerSupport<L> implements Serializable {
      * Creates an EventListenerSupport object which supports the specified
      * listener type.
      *
-     * @param <T> the type of the listener interface
+     * @param <T> The type of the listener interface
      * @param listenerInterface the type of listener interface that will receive
      *        events posted using this class.
      *

@@ -257,8 +257,8 @@ public class Streams {
          *                                                      Collectors.groupingBy(Person::getCity)));
          * }</pre>
          *
-         * @param <R> the type of the result.
-         * @param <A> the intermediate accumulation type of the {@link Collector}.
+         * @param <R> The type of the result.
+         * @param <A> The intermediate accumulation type of the {@link Collector}.
          * @param collector the {@link Collector} describing the reduction.
          * @return the result of the reduction.
          * @see #collect(Supplier, BiConsumer, BiConsumer)
@@ -559,7 +559,7 @@ public class Streams {
      * new array.
      *
      * @param elementType Type of an element in the array.
-     * @param <O> the type of the input elements.
+     * @param <O> The type of the input elements.
      * @return a {@link Collector} which collects all the input elements into an
      * array, in encounter order.
      */

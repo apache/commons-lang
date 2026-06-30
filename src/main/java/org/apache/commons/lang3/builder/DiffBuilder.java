@@ -191,7 +191,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Private interface while we still have to support serialization.
      *
-     * @param <T> the type of results supplied by this supplier.
+     * @param <T> The type of results supplied by this supplier.
      */
     private interface SerializableSupplier<T> extends Supplier<T>, Serializable {
         // empty

@@ -900,7 +900,7 @@ public class ExceptionUtils {
     /**
      * Worker method for the {@code throwableOfType} methods.
      *
-     * @param <T> the type of Throwable you are searching.
+     * @param <T> The type of Throwable you are searching.
      * @param throwable  the throwable to inspect, may be null.
      * @param type  the type to search, subclasses match, null returns null.
      * @param fromIndex  the (zero-based) index of the starting position,
@@ -946,7 +946,7 @@ public class ExceptionUtils {
      * A {@code null} type returns {@code null}.
      * No match in the chain returns {@code null}.</p>
      *
-     * @param <T> the type of Throwable you are searching.
+     * @param <T> The type of Throwable you are searching.
      * @param throwable  the throwable to inspect, may be null.
      * @param clazz  the class to search for, subclasses do not match, null returns null.
      * @return the first matching throwable from the throwable chain, null if no match or null input.
@@ -986,7 +986,7 @@ public class ExceptionUtils {
      * A {@code null} type returns {@code null}.
      * No match in the chain returns {@code null}.</p>
      *
-     * @param <T> the type of Throwable you are searching.
+     * @param <T> The type of Throwable you are searching.
      * @param throwable  the throwable to inspect, may be null.
      * @param type  the type to search for, subclasses match, null returns null.
      * @return the first matching throwable from the throwable chain, null if no match or null input.

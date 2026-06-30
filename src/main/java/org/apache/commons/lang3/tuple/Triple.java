@@ -31,9 +31,9 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  * However, there is no restriction on the type of the stored objects that may be stored.
  * If mutable objects are stored in the triple, then the triple itself effectively becomes mutable.</p>
  *
- * @param <L> the left element type.
- * @param <M> the middle element type.
- * @param <R> the right element type.
+ * @param <L> The left element type.
+ * @param <M> The middle element type.
+ * @param <R> The right element type.
  * @since 3.2
  */
 public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Serializable {
@@ -54,9 +54,9 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <M> The middle element type.
+     * @param <R> The right element type.
      * @return the empty array singleton that can be assigned without compiler warning.
      * @since 3.10
      */
@@ -68,9 +68,9 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     /**
      * Obtains an immutable triple of three objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <M> The middle element type.
+     * @param <R> The right element type.
      * @param left  the left element, may be null.
      * @param middle the middle element, may be null.
      * @param right  the right element, may be null.
@@ -83,9 +83,9 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     /**
      * Obtains an immutable triple of three non-null objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <M> The middle element type.
+     * @param <R> The right element type.
      * @param left  the left element, may not be null.
      * @param middle  the middle element, may not be null.
      * @param right  the right element, may not be null.

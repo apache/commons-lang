@@ -28,7 +28,7 @@ import java.util.function.Function;
  * This is a functional interface whose functional method is {@link #accept(Object)}.
  * </p>
  *
- * @param <T> the type of the argument the consumer accepts.
+ * @param <T> The type of the argument the consumer accepts.
  * @param <E> The thrown exception type.
  * @since 3.11
  */
@@ -58,7 +58,7 @@ public interface FailableConsumer<T, E extends Throwable> {
     /**
      * Gets the NOP singleton.
      *
-     * @param <T> the type of the argument the consumer accepts.
+     * @param <T> The type of the argument the consumer accepts.
      * @param <E> The thrown exception type.
      * @return The NOP singleton.
      */

@@ -35,7 +35,7 @@ public class ConcurrentUtils {
     /**
      * A specialized {@link Future} implementation which wraps a constant value.
      *
-     * @param <T> the type of the value wrapped by this class
+     * @param <T> The type of the value wrapped by this class
      */
     static final class ConstantFuture<T> implements Future<T> {
 
@@ -122,7 +122,7 @@ public class ConcurrentUtils {
      * A constant future can also be useful in testing.
      * </p>
      *
-     * @param <T> the type of the value used by this {@link Future} object
+     * @param <T> The type of the value used by this {@link Future} object
      * @param value  the constant value to return, may be null
      * @return an instance of Future that will return the value, never null
      */
@@ -141,8 +141,8 @@ public class ConcurrentUtils {
      * the map. Both the map and the initializer can be {@code null}; in this
      * case this method simply returns {@code null}.
      *
-     * @param <K> the type of the keys of the map
-     * @param <V> the type of the values of the map
+     * @param <K> The type of the keys of the map
+     * @param <V> The type of the values of the map
      * @param map the map to be modified
      * @param key the key of the value to be added
      * @param init the {@link ConcurrentInitializer} for creating the value
@@ -169,8 +169,8 @@ public class ConcurrentUtils {
      * {@code createIfAbsent()}. If a {@link ConcurrentException} is thrown, it
      * is caught and re-thrown as a {@link ConcurrentRuntimeException}.
      *
-     * @param <K> the type of the keys of the map
-     * @param <V> the type of the values of the map
+     * @param <K> The type of the keys of the map
+     * @param <V> The type of the values of the map
      * @param map the map to be modified
      * @param key the key of the value to be added
      * @param init the {@link ConcurrentInitializer} for creating the value
@@ -280,7 +280,7 @@ public class ConcurrentUtils {
      * {@code null}-safe: if the argument is {@code null}, result is also
      * {@code null}.
      *
-     * @param <T> the type of the object produced by the initializer
+     * @param <T> The type of the object produced by the initializer
      * @param initializer the {@link ConcurrentInitializer} to be invoked
      * @return the object managed by the {@link ConcurrentInitializer}
      * @throws ConcurrentException if the {@link ConcurrentInitializer} throws
@@ -299,7 +299,7 @@ public class ConcurrentUtils {
      * caught, and the cause is wrapped in a {@link ConcurrentRuntimeException}.
      * So client code does not have to deal with checked exceptions.
      *
-     * @param <T> the type of the object produced by the initializer
+     * @param <T> The type of the object produced by the initializer
      * @param initializer the {@link ConcurrentInitializer} to be invoked
      * @return the object managed by the {@link ConcurrentInitializer}
      * @throws ConcurrentRuntimeException if the initializer throws an exception
@@ -337,8 +337,8 @@ public class ConcurrentUtils {
      * {@code null}, too.
      * </p>
      *
-     * @param <K> the type of the keys of the map
-     * @param <V> the type of the values of the map
+     * @param <K> The type of the keys of the map
+     * @param <V> The type of the values of the map
      * @param map the map to be modified
      * @param key the key of the value to be added
      * @param value the value to be added

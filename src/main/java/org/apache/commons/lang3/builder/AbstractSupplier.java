@@ -23,7 +23,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * Abstracts supplying an instance of {@code T}. Use to implement the builder pattern.
  *
  * @param <T> The type of results supplied by this supplier.
- * @param <B> the type of builder.
+ * @param <B> The type of builder.
  * @param <E> The kind of thrown exception or error.
  * @since 3.14.0
  */

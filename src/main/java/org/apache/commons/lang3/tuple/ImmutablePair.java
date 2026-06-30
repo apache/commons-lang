@@ -28,8 +28,8 @@ import java.util.Objects;
  *
  * <p>#ThreadSafe# if both paired objects are thread-safe</p>
  *
- * @param <L> the left element type
- * @param <R> the right element type
+ * @param <L> The left element type
+ * @param <R> The right element type
  * @since 3.0
  */
 public class ImmutablePair<L, R> extends Pair<L, R> {
@@ -57,8 +57,8 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.
      *
-     * @param <L> the left element type
-     * @param <R> the right element type
+     * @param <L> The left element type
+     * @param <R> The right element type
      * @return the empty array singleton that can be assigned without compiler warning.
      * @since 3.10
      */
@@ -70,8 +70,8 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @param left  the left element, may be null.
      * @return an immutable formed from the two parameters, not null.
      * @since 3.11
@@ -83,8 +83,8 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Returns an immutable pair of nulls.
      *
-     * @param <L> the left element of this pair. Value is {@code null}.
-     * @param <R> the right element of this pair. Value is {@code null}.
+     * @param <L> The left element of this pair. Value is {@code null}.
+     * @param <R> The right element of this pair. Value is {@code null}.
      * @return an immutable pair of nulls.
      * @since 3.6
      */
@@ -96,8 +96,8 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @param left  the left element, may be null.
      * @param right  the right element, may be null.
      * @return an immutable formed from the two parameters, not null.
@@ -109,8 +109,8 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair from a map entry.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @param pair the existing map entry.
      * @return an immutable formed from the map entry.
      * @since 3.10
@@ -122,8 +122,8 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two non-null objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @param left  the left element, may not be null.
      * @param right  the right element, may not  be null.
      * @return an immutable formed from the two parameters, not null.
@@ -137,8 +137,8 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @param right  the right element, may be null.
      * @return an immutable formed from the two parameters, not null.
      * @since 3.11

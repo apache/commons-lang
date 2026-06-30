@@ -223,7 +223,7 @@ public class ObjectUtils {
     /**
      * Clones an object.
      *
-     * @param <T> the type of the object.
+     * @param <T> The type of the object.
      * @param obj the object to clone, null returns null.
      * @return the clone if the object implements {@link Cloneable} otherwise {@code null}.
      * @throws CloneFailedException if the object is cloneable and the clone operation fails.
@@ -266,7 +266,7 @@ public class ObjectUtils {
      * have to change.
      * </p>
      *
-     * @param <T> the type of the object.
+     * @param <T> The type of the object.
      * @param obj the object to clone, null returns null.
      * @return the clone if the object implements {@link Cloneable} otherwise the object itself.
      * @throws CloneFailedException if the object is cloneable and the clone operation fails.
@@ -464,7 +464,7 @@ public class ObjectUtils {
      *
      * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
-     * @param <T> the Object type.
+     * @param <T> The Object type.
      * @param v   the genericized Object value to return (typically a String).
      * @return the genericized Object v, unchanged (typically a String).
      * @since 3.2
@@ -526,7 +526,7 @@ public class ObjectUtils {
      * ObjectUtils.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
      * </pre>
      *
-     * @param <T> the type of the object.
+     * @param <T> The type of the object.
      * @param object  the {@link Object} to test, may be {@code null}.
      * @param defaultValue  the default value to return, may be {@code null}.
      * @return {@code object} if it is not {@code null}, defaultValue otherwise.
@@ -581,7 +581,7 @@ public class ObjectUtils {
      * ObjectUtils.firstNonNull()                = null
      * </pre>
      *
-     * @param <T> the component type of the array.
+     * @param <T> The component type of the array.
      * @param values  the values to test, may be {@code null} or empty.
      * @return the first value from {@code values} which is not {@code null},
      *  or {@code null} if there are no non-null values.
@@ -654,7 +654,7 @@ public class ObjectUtils {
      * See also {@link Consumers#accept(Consumer, Object)} and {@link Suppliers#get(Supplier)}.
      * </p>
      *
-     * @param <T> the type of the object.
+     * @param <T> The type of the object.
      * @param object the {@link Object} to test, may be {@code null}.
      * @param defaultSupplier the default value to return, may be {@code null}.
      * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise.
@@ -681,7 +681,7 @@ public class ObjectUtils {
      * See also {@link Consumers#accept(Consumer, Object)} and {@link Suppliers#get(Supplier)}.
      * </p>
      *
-     * @param <T> the type of the object.
+     * @param <T> The type of the object.
      * @param object  the {@link Object} to test, may be {@code null}.
      * @param defaultValue  the default value to return, may be {@code null}.
      * @return {@code object} if it is not {@code null}, defaultValue otherwise.
@@ -1174,7 +1174,7 @@ public class ObjectUtils {
      * }
      * </pre>
      *
-     * @param <T> the type of the reference.
+     * @param <T> The type of the reference.
      * @param obj the object reference to check for nullity.
      * @return {@code obj} if not {@code null}.
      * @throws NullPointerException     if {@code obj} is {@code null}.
@@ -1196,7 +1196,7 @@ public class ObjectUtils {
      * }
      * </pre>
      *
-     * @param <T> the type of the reference.
+     * @param <T> The type of the reference.
      * @param obj the object reference to check for nullity.
      * @param message the exception message.
      * @return {@code obj} if not {@code null}.
@@ -1303,7 +1303,7 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE, () -> expensive()) = "true"
      * }</pre>
      *
-     * @param <T> the obj type (used to provide better source compatibility in 3.14.0).
+     * @param <T> The obj type (used to provide better source compatibility in 3.14.0).
      * @param obj  the Object to {@code toString}, may be null.
      * @param supplier  the Supplier of String used on {@code null} input, may be null.
      * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.

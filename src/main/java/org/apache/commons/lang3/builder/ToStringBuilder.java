@@ -231,7 +231,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Uses {@link ReflectionToStringBuilder} to generate a
      * {@code toString} for the specified object.
      *
-     * @param <T> the type of the object
+     * @param <T> The type of the object
      * @param object  the Object to be output
      * @param style  the style of the {@code toString} to create, may be {@code null}
      * @param outputTransients  whether to include transient fields

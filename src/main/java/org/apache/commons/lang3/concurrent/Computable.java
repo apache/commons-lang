@@ -25,8 +25,8 @@ import org.apache.commons.lang3.function.FailableFunction;
  *
  * <p>See also {@code FailableFunction<I, O, InterruptedException>}.</p>
  *
- * @param <I> the type of the input to the calculation
- * @param <O> the type of the output of the calculation
+ * @param <I> The type of the input to the calculation
+ * @param <O> The type of the output of the calculation
  * @see FailableFunction
  * @since 3.6
  */

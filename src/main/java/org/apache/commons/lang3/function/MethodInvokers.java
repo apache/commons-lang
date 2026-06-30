@@ -75,8 +75,8 @@ public final class MethodInvokers {
      * to a fluent setter). You call the BiConsumer with two arguments: (1) the object receiving the method call, and (2)
      * the method argument.
      *
-     * @param <T> the type of the first argument to the operation: The type containing the Method.
-     * @param <U> the type of the second argument to the operation: The type of the method argument.
+     * @param <T> The type of the first argument to the operation: The type containing the Method.
+     * @param <U> The type of the second argument to the operation: The type of the method argument.
      * @param method the method to invoke.
      * @return a correctly-typed wrapper for the given target.
      */
@@ -99,9 +99,9 @@ public final class MethodInvokers {
      * assertEquals('C', function.apply("ABC", 2));
      * }</pre>
      *
-     * @param <T> the type of the first argument to the function: The type containing the method.
-     * @param <U> the type of the second argument to the function: the method argument type.
-     * @param <R> the type of the result of the function: The method return type.
+     * @param <T> The type of the first argument to the function: The type containing the method.
+     * @param <U> The type of the second argument to the function: the method argument type.
+     * @param <R> The type of the result of the function: The method return type.
      * @param method the method to invoke.
      * @return a correctly-typed wrapper for the given target.
      */
@@ -115,8 +115,8 @@ public final class MethodInvokers {
      * opposed to a fluent setter). You call the FailableBiConsumer with two arguments: (1) the object receiving the method
      * call, and (2) the method argument.
      *
-     * @param <T> the type of the first argument to the operation: The type containing the Method.
-     * @param <U> the type of the second argument to the operation: The type of the method argument.
+     * @param <T> The type of the first argument to the operation: The type containing the Method.
+     * @param <U> The type of the second argument to the operation: The type of the method argument.
      * @param method the method to invoke.
      * @return a correctly-typed wrapper for the given target.
      */
@@ -130,9 +130,9 @@ public final class MethodInvokers {
      * two arguments: (1) the object receiving the method call, and (2) the method argument. The BiFunction return type must
      * match the method's return type.
      *
-     * @param <T> the type of the first argument to the function: The type containing the method.
-     * @param <U> the type of the second argument to the function: the method argument type.
-     * @param <R> the type of the result of the function: The method return type.
+     * @param <T> The type of the first argument to the function: The type containing the method.
+     * @param <U> The type of the second argument to the function: the method argument type.
+     * @param <R> The type of the result of the function: The method return type.
      * @param method the method to invoke.
      * @return a correctly-typed wrapper for the given target.
      */
@@ -145,8 +145,8 @@ public final class MethodInvokers {
      * Produces a {@link FailableFunction} for a given a <em>supplier</em> Method. You call the Function with one argument:
      * the object receiving the method call. The FailableFunction return type must match the method's return type.
      *
-     * @param <T> the type of the first argument to the function: The type containing the method.
-     * @param <R> the type of the result of the function: The method return type.
+     * @param <T> The type of the first argument to the function: The type containing the method.
+     * @param <R> The type of the result of the function: The method return type.
      * @param method the method to invoke.
      * @return a correctly-typed wrapper for the given target.
      */
@@ -184,8 +184,8 @@ public final class MethodInvokers {
      * assertEquals(3, function.apply("ABC"));
      * }</pre>
      *
-     * @param <T> the type of the first argument to the function: The type containing the method.
-     * @param <R> the type of the result of the function: The method return type.
+     * @param <T> The type of the first argument to the function: The type containing the method.
+     * @param <R> The type of the result of the function: The method return type.
      * @param method the method to invoke.
      * @return a correctly-typed wrapper for the given target.
      */

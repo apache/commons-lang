@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * Base class for circuit breakers.
  *
- * @param <T> the type of the value monitored by this circuit breaker
+ * @param <T> The type of the value monitored by this circuit breaker
  * @since 3.5
  */
 public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {

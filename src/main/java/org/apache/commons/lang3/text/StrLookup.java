@@ -49,7 +49,7 @@ public abstract class StrLookup<V> {
     /**
      * Lookup implementation that uses a Map.
      *
-     * @param <V> the type of mapped values.
+     * @param <V> The type of mapped values.
      */
     private static final class MapStrLookup<V> extends StrLookup<V> {
 
@@ -115,7 +115,7 @@ public abstract class StrLookup<V> {
      * The map result object is converted to a string using toString().
      * </p>
      *
-     * @param <V> the type of the values supported by the lookup.
+     * @param <V> The type of the values supported by the lookup.
      * @param map  the map of keys to values, may be null.
      * @return a lookup using the map, not null.
      */

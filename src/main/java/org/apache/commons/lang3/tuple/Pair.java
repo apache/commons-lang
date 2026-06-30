@@ -35,8 +35,8 @@ import org.apache.commons.lang3.function.FailableBiFunction;
  * However, there is no restriction on the type of the stored objects that may be stored.
  * If mutable objects are stored in the pair, then the pair itself effectively becomes mutable.</p>
  *
- * @param <L> the left element type.
- * @param <R> the right element type.
+ * @param <L> The left element type.
+ * @param <R> The right element type.
  * @since 3.0
  */
 public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Serializable {
@@ -57,8 +57,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Returns the empty array singleton that can be assigned without compiler warning.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @return the empty array singleton that can be assigned without compiler warning.
      * @since 3.10
      */
@@ -70,8 +70,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Creates an immutable pair of two objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @param left  the left element, may be null.
      * @param right  the right element, may be null.
      * @return an immutable pair formed from the two parameters, not null.
@@ -83,8 +83,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Creates an immutable pair from a map entry.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @param pair the map entry.
      * @return an immutable pair formed from the map entry.
      * @since 3.10
@@ -96,8 +96,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Creates an immutable pair of two non-null objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <R> The right element type.
      * @param left  the left element, may not be null.
      * @param right  the right element, may not  be null.
      * @return an immutable pair formed from the two parameters, not null.

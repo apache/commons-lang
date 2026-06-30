@@ -27,7 +27,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
 /**
  * Abstracts and defines operations for {@link ConcurrentInitializer} implementations.
  *
- * @param <T> the type of the object managed by this initializer class.
+ * @param <T> The type of the object managed by this initializer class.
  * @param <E> The exception type thrown by {@link #initialize()}.
  * @since 3.14.0
  */

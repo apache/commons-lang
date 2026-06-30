@@ -782,7 +782,7 @@ public class ArrayUtils {
      * ArrayUtils.add(["a", "b"], 3, "c") = ["a", "b", "c"]
      * </pre>
      *
-     * @param <T> the component type of the array.
+     * @param <T> The component type of the array.
      * @param array  the array to add the element to, may be {@code null}.
      * @param index  the position of the new object.
      * @param element  the object to add.
@@ -826,7 +826,7 @@ public class ArrayUtils {
      * ArrayUtils.add(["a", "b"], "c") = ["a", "b", "c"]
      * </pre>
      *
-     * @param <T> the component type of the array.
+     * @param <T> The component type of the array.
      * @param array  the array to "add" the element to, may be {@code null}.
      * @param element  the object to add, may be {@code null}.
      * @return A new array containing the existing elements plus the new element
@@ -1125,7 +1125,7 @@ public class ArrayUtils {
      * ArrayUtils.addAll(["a", "b", "c"], ["1", "2", "3"]) = ["a", "b", "c", "1", "2", "3"]
      * </pre>
      *
-     * @param <T> the component type of the array.
+     * @param <T> The component type of the array.
      * @param array1  the first array whose elements are added to the new array, may be {@code null}.
      * @param array2  the second array whose elements are added to the new array, may be {@code null}.
      * @return The new array, {@code null} if both arrays are {@code null}.
@@ -1407,7 +1407,7 @@ public class ArrayUtils {
      * ArrayUtils.addFirst(["a", "b"], "c") = ["c", "a", "b"]
      * </pre>
      *
-     * @param <T> the component type of the array.
+     * @param <T> The component type of the array.
      * @param array the array to "add" the element to, may be {@code null}.
      * @param element the object to add, may be {@code null}.
      * @return A new array containing the existing elements plus the new element The returned array type will be that of
@@ -3506,7 +3506,7 @@ public class ArrayUtils {
      * ArrayUtils.isArrayIndexValid(["a"], 0)      = true
      * </pre>
      *
-     * @param <T> the component type of the array.
+     * @param <T> The component type of the array.
      * @param array the array to inspect, may be {@code null}.
      * @param index the index of the array to be inspected.
      * @return Whether the given index is safely-accessible in the given array.
@@ -3724,7 +3724,7 @@ public class ArrayUtils {
     /**
      * Tests whether an array of Objects is not empty and not {@code null}.
      *
-     * @param <T> the component type of the array
+     * @param <T> The component type of the array
      * @param array  the array to test.
      * @return {@code true} if the array is not empty and not {@code null}.
      * @since 2.5
@@ -4054,7 +4054,7 @@ public class ArrayUtils {
      * {@code compareTo} method.
      *
      * @param array the array to check.
-     * @param <T> the datatype of the array to check, it must implement {@link Comparable}.
+     * @param <T> The datatype of the array to check, it must implement {@link Comparable}.
      * @return whether the array is sorted.
      * @since 3.4
      */
@@ -4067,7 +4067,7 @@ public class ArrayUtils {
      *
      * @param array the array to check.
      * @param comparator the {@link Comparator} to compare over.
-     * @param <T> the datatype of the array.
+     * @param <T> The datatype of the array.
      * @return whether the array is sorted.
      * @throws NullPointerException if {@code comparator} is {@code null}.
      * @since 3.4
@@ -5764,7 +5764,7 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param <T> the type of object in the array, may be {@code null}.
+     * @param <T> The type of object in the array, may be {@code null}.
      * @param array the input array, will not be modified, and may be {@code null}.
      * @param element the element to remove, may be {@code null}.
      * @return A new array containing the existing elements except the occurrences of the specified element.
@@ -5920,7 +5920,7 @@ public class ArrayUtils {
      * {@code null} will be returned if the input array is {@code null}.
      * </p>
      *
-     * @param <T> the type of object in the array, may be {@code null}.
+     * @param <T> The type of object in the array, may be {@code null}.
      * @param array the input array, will not be modified, and may be {@code null}.
      * @param element the element to remove, may be {@code null}.
      * @return A new array containing the existing elements except the occurrences of the specified element.
@@ -6229,7 +6229,7 @@ public class ArrayUtils {
      * ArrayUtils.removeElement(["a", "b", "a"], "a") = ["b", "a"]
      * </pre>
      *
-     * @param <T> the component type of the array
+     * @param <T> The component type of the array
      * @param array the input array, may be {@code null}.
      * @param element  the element to be removed, may be {@code null}.
      * @return A new array containing the existing elements except the first
@@ -6654,7 +6654,7 @@ public class ArrayUtils {
      * ArrayUtils.removeElements(["a", "b", "a"], "a", "a") = ["b"]
      * </pre>
      *
-     * @param <T> the component type of the array
+     * @param <T> The component type of the array
      * @param array the input array, will not be modified, and may be {@code null}.
      * @param values  the values to be removed.
      * @return A new array containing the existing elements except the

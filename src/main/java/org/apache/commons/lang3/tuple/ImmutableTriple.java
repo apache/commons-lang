@@ -27,9 +27,9 @@ import java.util.Objects;
  *
  * <p>#ThreadSafe# if all three objects are thread-safe.</p>
  *
- * @param <L> the left element type.
- * @param <M> the middle element type.
- * @param <R> the right element type.
+ * @param <L> The left element type.
+ * @param <M> The middle element type.
+ * @param <R> The right element type.
  * @since 3.2
  */
 public class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
@@ -57,9 +57,9 @@ public class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Gets the empty array singleton that can be assigned without compiler warning.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <M> The middle element type.
+     * @param <R> The right element type.
      * @return the empty array singleton that can be assigned without compiler warning.
      * @since 3.10
      */
@@ -71,9 +71,9 @@ public class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Gets the immutable triple of nulls singleton.
      *
-     * @param <L> the left element of this triple. Value is {@code null}.
-     * @param <M> the middle element of this triple. Value is {@code null}.
-     * @param <R> the right element of this triple. Value is {@code null}.
+     * @param <L> The left element of this triple. Value is {@code null}.
+     * @param <M> The middle element of this triple. Value is {@code null}.
+     * @param <R> The right element of this triple. Value is {@code null}.
      * @return an immutable triple of nulls.
      * @since 3.6
      */
@@ -85,9 +85,9 @@ public class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Creates an immutable triple of three objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <M> The middle element type.
+     * @param <R> The right element type.
      * @param left  the left element, may be null.
      * @param middle  the middle element, may be null.
      * @param right  the right element, may be null.
@@ -100,9 +100,9 @@ public class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
     /**
      * Creates an immutable triple of three non-null objects inferring the generic types.
      *
-     * @param <L> the left element type.
-     * @param <M> the middle element type.
-     * @param <R> the right element type.
+     * @param <L> The left element type.
+     * @param <M> The middle element type.
+     * @param <R> The right element type.
      * @param left  the left element, may not be null.
      * @param middle  the middle element, may not be null.
      * @param right  the right element, may not be null.

@@ -54,7 +54,7 @@ public interface FailableBiFunction<T, U, R, E extends Throwable> {
     /**
      * Returns a composed {@link FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
      *
-     * @param <V> the output type of the {@code after} function, and of the composed function.
+     * @param <V> The output type of the {@code after} function, and of the composed function.
      * @param after the operation to perform after this one.
      * @return a composed {@link FailableBiFunction} that like {@link BiFunction#andThen(Function)}.
      * @throws NullPointerException when {@code after} is null.

@@ -36,7 +36,7 @@ package org.apache.commons.lang3.builder;
  * Assert.assertEquals(expected.diff(result), expected, result);
  * </pre>
  *
- * @param <T> the type of objects that this object may be differentiated against
+ * @param <T> The type of objects that this object may be differentiated against
  * @since 3.3
  */
 @FunctionalInterface
