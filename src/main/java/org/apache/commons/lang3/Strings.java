@@ -152,7 +152,7 @@ public abstract class Strings {
                 startPos = 0;
             }
             final int endLimit = str.length() - searchStr.length() + 1;
-            if (startPos > endLimit) {
+            if (startPos >= endLimit) {
                 return INDEX_NOT_FOUND;
             }
             if (searchStr.length() == 0) {

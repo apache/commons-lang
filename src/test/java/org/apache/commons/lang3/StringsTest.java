@@ -60,6 +60,26 @@ class StringsTest extends AbstractLangTest {
     }
 
     /**
+     * For an empty search the case-insensitive {@code indexOf} returned {@code startPos} unchanged once it reached
+     * {@code str.length() + 1}, so a start position one past the end yielded an index beyond the string instead of
+     * {@code -1}.
+     */
+    @Test
+    void testCaseInsensitiveIndexOfEmptyOutOfRange() {
+        // repro: returned 4 (past the end of a length-3 string) before the fix
+        final String emptySearch = StringUtils.EMPTY;
+        assertEquals(-1, Strings.CI.indexOf("abc", emptySearch, 4));
+        // documented out-of-range example, also -1
+        assertEquals(-1, Strings.CI.indexOf("abc", emptySearch, 9));
+        // the end position is still a valid empty match
+        assertEquals(3, Strings.CI.indexOf("abc", emptySearch, 3));
+        assertEquals(2, Strings.CI.indexOf("aabaabaa", emptySearch, 2));
+        assertEquals(0, Strings.CI.indexOf(emptySearch, emptySearch, 0));
+        assertEquals(0, Strings.CI.indexOf(emptySearch, emptySearch, -1));
+        assertEquals(0, Strings.CI.indexOf("a", emptySearch, -1));
+    }
+
+    /**
      * {@code U+0130} lower-cases to the two-char sequence {@code "i̇"} outside Turkish locales, so pre-lower-casing the
      * search argument made the case-insensitive replace look for a two-char needle that no longer matches the single source
      * character.
