@@ -676,12 +676,14 @@ public class DurationFormatUtils {
                 }
                 optionalIndex++;
                 inOptional = true;
+                previous = null;
                 break;
             case ']':
                 if (!inOptional) {
                     throw new IllegalArgumentException("Attempting to close unopened optional block at index: " + i);
                 }
                 inOptional = false;
+                previous = null;
                 break;
             case '\'':
                 if (inLiteral) {
@@ -707,6 +709,7 @@ public class DurationFormatUtils {
                         inLiteral = true;
                     }
                 }
+                previous = null;
                 break;
             case 'y':
                 value = y;
@@ -735,6 +738,7 @@ public class DurationFormatUtils {
                     list.add(new Token(buffer, inOptional, optionalIndex));
                 }
                 buffer.append(ch);
+                previous = null;
             }
             if (value != null) {
                 if (previous != null && previous.getValue().equals(value)) {
