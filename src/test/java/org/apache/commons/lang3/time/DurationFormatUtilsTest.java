@@ -123,6 +123,21 @@ class DurationFormatUtilsTest extends AbstractLangTest {
                 DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).plusMinutes(1).plusSeconds(1).plusMillis(1).toMillis(), format));
     }
 
+    @Test
+    void testRepeatedTokenSeparatedByLiteral() {
+        final long fiveHours = Duration.ofHours(5).toMillis();
+        // the same field letter on either side of a literal are two separate fields, not one padded field
+        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "HxH", false));
+        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "H'x'H", false));
+        // each H is a single-width field, so padding does not turn either into "05"
+        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "HxH", true));
+        // separated by an optional block
+        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "H[x]H", false));
+        assertEquals("2-2", DurationFormatUtils.formatDuration(Duration.ofDays(2).toMillis(), "d-d", false));
+        // adjacent repeats still collapse into a single padded field
+        assertEquals("05", DurationFormatUtils.formatDuration(fiveHours, "HH", true));
+    }
+
     /** See https://issues.apache.org/bugzilla/show_bug.cgi?id=38401 */
     @Test
     void testBugzilla38401() {
