@@ -49,6 +49,22 @@ class DurationFormatUtilsTest extends AbstractLangTest {
 
     private static final int FOUR_YEARS = 365 * 3 + 366;
 
+    private static Arguments[] testLANG1827() {
+        final long twoHours = Duration.ofHours(2).toMillis();
+        final long twoHoursThirtyMin = Duration.ofHours(2).plusMinutes(30).toMillis();
+        final long oneDayTwoHours = Duration.ofDays(1).plusHours(2).toMillis();
+        return new Arguments[] {
+                Arguments.of("escaped quote inside literal", "2 o'clock", twoHours, "H' o''clock'"),
+                Arguments.of("escaped quote at start of literal", "it's 2 hours", twoHours, "'it''s 'H' hours'"),
+                Arguments.of("escaped quote outside literal", "2'30", twoHoursThirtyMin, "H''m"),
+                Arguments.of("multiple escaped quotes", "it's been 1 day's and 2 hour's", oneDayTwoHours,
+                        "'it''s been 'd' day''s and 'H' hour''s'"),
+                Arguments.of("standalone escaped quote", "2h'30m", twoHoursThirtyMin, "H'h'''m'm'"),
+                Arguments.of("escaped quote inside optional block", "2 hour's", twoHours, "[d' day''s ']H' hour''s'"),
+                Arguments.of("existing literal behavior", "2 hours 30 minutes", twoHoursThirtyMin, "H' hours 'm' minutes'")
+        };
+    }
+
     private void assertEqualDuration(final String expected, final int[] start, final int[] end, final String format) {
         assertEqualDuration(null, expected, start, end, format);
     }
@@ -123,21 +139,6 @@ class DurationFormatUtilsTest extends AbstractLangTest {
                 DurationFormatUtils.formatDuration(Duration.ofDays(1).plusHours(1).plusMinutes(1).plusSeconds(1).plusMillis(1).toMillis(), format));
     }
 
-    @Test
-    void testRepeatedTokenSeparatedByLiteral() {
-        final long fiveHours = Duration.ofHours(5).toMillis();
-        // the same field letter on either side of a literal are two separate fields, not one padded field
-        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "HxH", false));
-        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "H'x'H", false));
-        // each H is a single-width field, so padding does not turn either into "05"
-        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "HxH", true));
-        // separated by an optional block
-        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "H[x]H", false));
-        assertEquals("2-2", DurationFormatUtils.formatDuration(Duration.ofDays(2).toMillis(), "d-d", false));
-        // adjacent repeats still collapse into a single padded field
-        assertEquals("05", DurationFormatUtils.formatDuration(fiveHours, "HH", true));
-    }
-
     /** See https://issues.apache.org/bugzilla/show_bug.cgi?id=38401 */
     @Test
     void testBugzilla38401() {
@@ -178,24 +179,17 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertEqualDuration("12", new int[] { 2005, 0, 15, 0, 0, 0 }, new int[] { 2006, 0, 15, 0, 0, 0 }, "MM");
         assertEqualDuration("12", new int[] { 2005, 0, 15, 0, 0, 0 }, new int[] { 2006, 0, 16, 0, 0, 0 }, "MM");
         assertEqualDuration("11", new int[] { 2005, 0, 15, 0, 0, 0 }, new int[] { 2006, 0, 14, 0, 0, 0 }, "MM");
-
         assertEqualDuration("01 26", new int[] { 2006, 0, 15, 0, 0, 0 }, new int[] { 2006, 2, 10, 0, 0, 0 }, "MM dd");
         assertEqualDuration("54", new int[] { 2006, 0, 15, 0, 0, 0 }, new int[] { 2006, 2, 10, 0, 0, 0 }, "dd");
-
         assertEqualDuration("09 12", new int[] { 2006, 1, 20, 0, 0, 0 }, new int[] { 2006, 11, 4, 0, 0, 0 }, "MM dd");
         assertEqualDuration("287", new int[] { 2006, 1, 20, 0, 0, 0 }, new int[] { 2006, 11, 4, 0, 0, 0 }, "dd");
-
         assertEqualDuration("11 30", new int[] { 2006, 0, 2, 0, 0, 0 }, new int[] { 2007, 0, 1, 0, 0, 0 }, "MM dd");
         assertEqualDuration("364", new int[] { 2006, 0, 2, 0, 0, 0 }, new int[] { 2007, 0, 1, 0, 0, 0 }, "dd");
-
         assertEqualDuration("12 00", new int[] { 2006, 0, 1, 0, 0, 0 }, new int[] { 2007, 0, 1, 0, 0, 0 }, "MM dd");
         assertEqualDuration("365", new int[] { 2006, 0, 1, 0, 0, 0 }, new int[] { 2007, 0, 1, 0, 0, 0 }, "dd");
-
         assertEqualDuration("31", new int[] { 2006, 0, 1, 0, 0, 0 }, new int[] { 2006, 1, 1, 0, 0, 0 }, "dd");
-
         assertEqualDuration("92", new int[] { 2005, 9, 1, 0, 0, 0 }, new int[] { 2006, 0, 1, 0, 0, 0 }, "dd");
         assertEqualDuration("77", new int[] { 2005, 9, 16, 0, 0, 0 }, new int[] { 2006, 0, 1, 0, 0, 0 }, "dd");
-
         // test month larger in start than end
         assertEqualDuration("136", new int[] { 2005, 9, 16, 0, 0, 0 }, new int[] { 2006, 2, 1, 0, 0, 0 }, "dd");
         // test when start in leap year
@@ -204,30 +198,21 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertEqualDuration("137", new int[] { 2003, 9, 16, 0, 0, 0 }, new int[] { 2004, 2, 1, 0, 0, 0 }, "dd");
         // test when end in leap year but less than end of feb
         assertEqualDuration("135", new int[] { 2003, 9, 16, 0, 0, 0 }, new int[] { 2004, 1, 28, 0, 0, 0 }, "dd");
-
         assertEqualDuration("364", new int[] { 2007, 0, 2, 0, 0, 0 }, new int[] { 2008, 0, 1, 0, 0, 0 }, "dd");
         assertEqualDuration("729", new int[] { 2006, 0, 2, 0, 0, 0 }, new int[] { 2008, 0, 1, 0, 0, 0 }, "dd");
-
         assertEqualDuration("365", new int[] { 2007, 2, 2, 0, 0, 0 }, new int[] { 2008, 2, 1, 0, 0, 0 }, "dd");
         assertEqualDuration("333", new int[] { 2007, 1, 2, 0, 0, 0 }, new int[] { 2008, 0, 1, 0, 0, 0 }, "dd");
-
         assertEqualDuration("28", new int[] { 2008, 1, 2, 0, 0, 0 }, new int[] { 2008, 2, 1, 0, 0, 0 }, "dd");
         assertEqualDuration("393", new int[] { 2007, 1, 2, 0, 0, 0 }, new int[] { 2008, 2, 1, 0, 0, 0 }, "dd");
-
         assertEqualDuration("369", new int[] { 2004, 0, 29, 0, 0, 0 }, new int[] { 2005, 1, 1, 0, 0, 0 }, "dd");
-
         assertEqualDuration("338", new int[] { 2004, 1, 29, 0, 0, 0 }, new int[] { 2005, 1, 1, 0, 0, 0 }, "dd");
-
         assertEqualDuration("28", new int[] { 2004, 2, 8, 0, 0, 0 }, new int[] { 2004, 3, 5, 0, 0, 0 }, "dd");
-
         assertEqualDuration("48", new int[] { 1992, 1, 29, 0, 0, 0 }, new int[] { 1996, 1, 29, 0, 0, 0 }, "M");
-
         // this seems odd - and will fail if I throw it in as a brute force
         // below as it expects the answer to be 12. It's a tricky edge case
         assertEqualDuration("11", new int[] { 1996, 1, 29, 0, 0, 0 }, new int[] { 1997, 1, 28, 0, 0, 0 }, "M");
         // again - this seems odd
         assertEqualDuration("11 28", new int[] { 1996, 1, 29, 0, 0, 0 }, new int[] { 1997, 1, 28, 0, 0, 0 }, "M d");
-
     }
 
     @Test
@@ -278,28 +263,20 @@ class DurationFormatUtilsTest extends AbstractLangTest {
     void testFormatDurationHMS() {
         long time = 0;
         assertEquals("00:00:00.000", DurationFormatUtils.formatDurationHMS(time));
-
         time = 1;
         assertEquals("00:00:00.001", DurationFormatUtils.formatDurationHMS(time));
-
         time = 15;
         assertEquals("00:00:00.015", DurationFormatUtils.formatDurationHMS(time));
-
         time = 165;
         assertEquals("00:00:00.165", DurationFormatUtils.formatDurationHMS(time));
-
         time = 1675;
         assertEquals("00:00:01.675", DurationFormatUtils.formatDurationHMS(time));
-
         time = 13465;
         assertEquals("00:00:13.465", DurationFormatUtils.formatDurationHMS(time));
-
         time = 72789;
         assertEquals("00:01:12.789", DurationFormatUtils.formatDurationHMS(time));
-
         time = 12789 + 32 * 60000;
         assertEquals("00:32:12.789", DurationFormatUtils.formatDurationHMS(time));
-
         time = 12789 + 62 * 60000;
         assertEquals("01:02:12.789", DurationFormatUtils.formatDurationHMS(time));
     }
@@ -618,6 +595,17 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertEqualDuration("09", new int[] { 2005, 11, 31, 0, 0, 0 }, new int[] { 2006, 9, 6, 0, 0, 0 }, "MM");
     }
 
+    @ParameterizedTest
+    @MethodSource
+    void testLANG1827(final String label, final String expected, final long durationMillis, final String format) {
+        assertEquals(expected, DurationFormatUtils.formatDuration(durationMillis, format), label);
+    }
+
+    @Test
+    void testLANG1827UnmatchedQuote() {
+        assertIllegalArgumentException(() -> DurationFormatUtils.lexx("'unmatched"));
+    }
+
     @Test
     void testLANG815() {
         final Calendar calendar = Calendar.getInstance();
@@ -633,33 +621,6 @@ class DurationFormatUtilsTest extends AbstractLangTest {
     @Test
     void testLANG981() { // unmatched quote char in lexx
         assertIllegalArgumentException(() -> DurationFormatUtils.lexx("'yMdHms''S"));
-    }
-
-    private static Arguments[] testLANG1827() {
-        final long twoHours = Duration.ofHours(2).toMillis();
-        final long twoHoursThirtyMin = Duration.ofHours(2).plusMinutes(30).toMillis();
-        final long oneDayTwoHours = Duration.ofDays(1).plusHours(2).toMillis();
-        return new Arguments[] {
-                Arguments.of("escaped quote inside literal", "2 o'clock", twoHours, "H' o''clock'"),
-                Arguments.of("escaped quote at start of literal", "it's 2 hours", twoHours, "'it''s 'H' hours'"),
-                Arguments.of("escaped quote outside literal", "2'30", twoHoursThirtyMin, "H''m"),
-                Arguments.of("multiple escaped quotes", "it's been 1 day's and 2 hour's", oneDayTwoHours,
-                        "'it''s been 'd' day''s and 'H' hour''s'"),
-                Arguments.of("standalone escaped quote", "2h'30m", twoHoursThirtyMin, "H'h'''m'm'"),
-                Arguments.of("escaped quote inside optional block", "2 hour's", twoHours, "[d' day''s ']H' hour''s'"),
-                Arguments.of("existing literal behavior", "2 hours 30 minutes", twoHoursThirtyMin, "H' hours 'm' minutes'")
-        };
-    }
-
-    @ParameterizedTest
-    @MethodSource
-    void testLANG1827(final String label, final String expected, final long durationMillis, final String format) {
-        assertEquals(expected, DurationFormatUtils.formatDuration(durationMillis, format), label);
-    }
-
-    @Test
-    void testLANG1827UnmatchedQuote() {
-        assertIllegalArgumentException(() -> DurationFormatUtils.lexx("'unmatched"));
     }
 
     @Test
@@ -695,7 +656,6 @@ class DurationFormatUtilsTest extends AbstractLangTest {
             createTokenWithCount(DurationFormatUtils.m, 1),
             createTokenWithCount(DurationFormatUtils.s, 1),
             createTokenWithCount(DurationFormatUtils.S, 1) }, DurationFormatUtils.lexx("yMdHmsS"));
-
         // tests the ISO 8601-like
         assertArrayEquals(new DurationFormatUtils.Token[] {
             createTokenWithCount(DurationFormatUtils.H, 2),
@@ -705,7 +665,6 @@ class DurationFormatUtilsTest extends AbstractLangTest {
             createTokenWithCount(DurationFormatUtils.s, 2),
             createTokenWithCount(new StringBuilder("."), 1),
             createTokenWithCount(DurationFormatUtils.S, 3) }, DurationFormatUtils.lexx("HH:mm:ss.SSS"));
-
         // test the iso extended format
         assertArrayEquals(new DurationFormatUtils.Token[] {
             createTokenWithCount(new StringBuilder("P"), 1),
@@ -723,7 +682,6 @@ class DurationFormatUtilsTest extends AbstractLangTest {
             createTokenWithCount(new StringBuilder("."), 1),
             createTokenWithCount(DurationFormatUtils.S, 3),
             createTokenWithCount(new StringBuilder("S"), 1) }, DurationFormatUtils.lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN));
-
         // test failures in equals
         final DurationFormatUtils.Token token = createTokenWithCount(DurationFormatUtils.y, 4);
         assertEquals(token, token);
@@ -772,59 +730,58 @@ class DurationFormatUtilsTest extends AbstractLangTest {
 
     @Test
     void testOptionalToken() {
-
-        //make sure optional formats match corresponding adjusted non-optional formats
+        // make sure optional formats match corresponding adjusted non-optional formats
         assertEquals(
                 DurationFormatUtils.formatDuration(915361000L, "d'd'H'h'm'm's's'"),
                 DurationFormatUtils.formatDuration(915361000L, "[d'd'H'h'm'm']s's'"));
-
         assertEquals(
                 DurationFormatUtils.formatDuration(9153610L, "H'h'm'm's's'"),
                 DurationFormatUtils.formatDuration(9153610L, "[d'd'H'h'm'm']s's'"));
-
         assertEquals(
                 DurationFormatUtils.formatDuration(915361L, "m'm's's'"),
                 DurationFormatUtils.formatDuration(915361L, "[d'd'H'h'm'm']s's'"));
-
         assertEquals(
                 DurationFormatUtils.formatDuration(9153L, "s's'"),
                 DurationFormatUtils.formatDuration(9153L, "[d'd'H'h'm'm']s's'"));
-
         assertEquals(
                 DurationFormatUtils.formatDuration(9153L, "s's'"),
                 DurationFormatUtils.formatDuration(9153L, "[d'd'H'h'm'm']s's'"));
-
         assertEquals(
                 DurationFormatUtils.formatPeriod(9153610L, 915361000L, "d'd'H'h'm'm's's'"),
                 DurationFormatUtils.formatPeriod(9153610L, 915361000L, "[d'd'H'h'm'm']s's'"));
-
         assertEquals(
                 DurationFormatUtils.formatPeriod(915361L, 9153610L, "H'h'm'm's's'"),
                 DurationFormatUtils.formatPeriod(915361L, 9153610L, "[d'd'H'h'm'm']s's'"));
-
         assertEquals(
                 DurationFormatUtils.formatPeriod(9153L, 915361L, "m'm's's'"),
                 DurationFormatUtils.formatPeriod(9153L, 915361L, "[d'd'H'h'm'm']s's'"));
-
         assertEquals(
                 DurationFormatUtils.formatPeriod(0L, 9153L, "s's'"),
                 DurationFormatUtils.formatPeriod(0L, 9153L, "[d'd'H'h'm'm']s's'"));
-
-        //make sure optional parts are actually omitted when zero
-
+        // make sure optional parts are actually omitted when zero
         assertEquals("2h32m33s610ms", DurationFormatUtils.formatDuration(9153610L, "[d'd'H'h'm'm's's']S'ms'"));
-
         assertEquals("15m15s361ms", DurationFormatUtils.formatDuration(915361L, "[d'd'H'h'm'm's's']S'ms'"));
-
         assertEquals("9s153ms", DurationFormatUtils.formatDuration(9153L, "[d'd'H'h'm'm's's']S'ms'"));
-
         assertEquals("915ms", DurationFormatUtils.formatDuration(915L, "[d'd'H'h'm'm's's']S'ms'"));
-
-        //make sure we can handle omitting multiple literals after a token
-
+        // make sure we can handle omitting multiple literals after a token
         assertEquals(
                 DurationFormatUtils.formatPeriod(915361L, 9153610L, "H'h''h2'm'm's's'"),
                 DurationFormatUtils.formatPeriod(915361L, 9153610L, "[d'd''d2'H'h''h2'm'm']s's'"));
+    }
+
+    @Test
+    void testRepeatedTokenSeparatedByLiteral() {
+        final long fiveHours = Duration.ofHours(5).toMillis();
+        // the same field letter on either side of a literal are two separate fields, not one padded field
+        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "HxH", false));
+        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "H'x'H", false));
+        // each H is a single-width field, so padding does not turn either into "05"
+        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "HxH", true));
+        // separated by an optional block
+        assertEquals("5x5", DurationFormatUtils.formatDuration(fiveHours, "H[x]H", false));
+        assertEquals("2-2", DurationFormatUtils.formatDuration(Duration.ofDays(2).toMillis(), "d-d", false));
+        // adjacent repeats still collapse into a single padded field
+        assertEquals("05", DurationFormatUtils.formatDuration(fiveHours, "HH", true));
     }
 
     @Test

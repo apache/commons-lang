@@ -216,6 +216,7 @@ java.lang.NullPointerException: Cannot invoke
     <action issue="LANG-1828" type="fix" dev="ggregory" due-to="Dhruv Aggarwal, Gary Gregory">Fix OOM in StringUtils.leftPad/rightPad when size is Integer.MIN_VALUE (#1736).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix Strings.CI.indexOf() returning out-of-range index for empty search (#1737).</action>
     <action issue="LANG-1827" type="fix" dev="ggregory" due-to="Sarankumar Baskar, Gary Gregory">Support escaped single quotes ('') in DurationFormatUtils format patterns (#1700).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Keep DurationFormatUtils.lexx() from merging repeated fields split by a literal (#1738).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
