@@ -294,6 +294,21 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
         assertThrowsExactly(IllegalArgumentException.class, () -> new ExtendedMessageFormat("{0 ", new HashMap<>()));
     }
 
+    @Test
+    void testTruncatedFormatElementWithRegistry() {
+        // Sanity check to match JRE
+        assertThrowsExactly(IllegalArgumentException.class, () -> new MessageFormat("{"));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new MessageFormat("{0,"));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new MessageFormat("{0}extra{"));
+        // A format element left unterminated at the end of the pattern used to make the
+        // registry-based constructor seek one past the buffer and throw
+        // ArrayIndexOutOfBoundsException; it should report the documented
+        // IllegalArgumentException, as the plain constructor already does.
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ExtendedMessageFormat("{", new HashMap<>()));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ExtendedMessageFormat("{0,", new HashMap<>()));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ExtendedMessageFormat("{0}extra{", new HashMap<>()));
+    }
+
     /**
      * Test the built-in choice format.
      */
