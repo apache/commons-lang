@@ -120,8 +120,10 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
                 }
             }
             int end = start;
-            // Note that this supports character codes without a ; on the end
-            while (end < seqEnd && CharUtils.isHex(input.charAt(end))) {
+            // Note that this supports character codes without a ; on the end.
+            // A decimal entity (&#...) only holds decimal digits; a-f are hex digits and must
+            // not be consumed here, otherwise the following text is swallowed into a failed parse.
+            while (end < seqEnd && (isHex ? CharUtils.isHex(input.charAt(end)) : CharUtils.isAsciiNumeric(input.charAt(end)))) {
                 end++;
             }
             final boolean semiNext = end != seqEnd && input.charAt(end) == ';';
