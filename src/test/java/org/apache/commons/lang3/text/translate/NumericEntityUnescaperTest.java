@@ -56,6 +56,15 @@ class NumericEntityUnescaperTest extends AbstractLangTest {
     }
 
     @Test
+    void testDecimalEntityFollowedByHexLetter() {
+        // A decimal entity ends at the first non-decimal character, so a following a-f letter is text, not part of the number.
+        final NumericEntityUnescaper neu = new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.semiColonOptional);
+        assertEquals("0abc", neu.translate("&#48abc"), "Failed to stop a decimal entity at a trailing hex letter");
+        assertEquals("Test 0 not test", neu.translate("Test &#48 not test"), "Failed on a decimal entity terminated by a space");
+        assertEquals("0xyz", neu.translate("&#48xyz"), "Failed on a decimal entity terminated by a non-hex letter");
+    }
+
+    @Test
     void testUnfinishedEntity() {
         // parse it
         NumericEntityUnescaper neu = new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.semiColonOptional);
