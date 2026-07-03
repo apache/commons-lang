@@ -30,6 +30,15 @@ import org.junit.jupiter.api.Test;
 class NumericEntityUnescaperTest extends AbstractLangTest {
 
     @Test
+    void testDecimalEntityFollowedByHexLetter() {
+        // A decimal entity ends at the first non-decimal character, so a following a-f letter is text, not part of the number.
+        final NumericEntityUnescaper neu = new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.semiColonOptional);
+        assertEquals("0abc", neu.translate("&#48abc"), "Failed to stop a decimal entity at a trailing hex letter");
+        assertEquals("Test 0 not test", neu.translate("Test &#48 not test"), "Failed on a decimal entity terminated by a space");
+        assertEquals("0xyz", neu.translate("&#48xyz"), "Failed on a decimal entity terminated by a non-hex letter");
+    }
+
+    @Test
     void testOutOfBounds() {
         final NumericEntityUnescaper neu = new NumericEntityUnescaper();
         assertEquals("Test &", neu.translate("Test &"), "Failed to ignore when last character is &");
@@ -53,15 +62,6 @@ class NumericEntityUnescaperTest extends AbstractLangTest {
         final String expected = "\uD803\uDC22";
         final String result = neu.translate(input);
         assertEquals(expected, result, "Failed to unescape numeric entities supplementary characters");
-    }
-
-    @Test
-    void testDecimalEntityFollowedByHexLetter() {
-        // A decimal entity ends at the first non-decimal character, so a following a-f letter is text, not part of the number.
-        final NumericEntityUnescaper neu = new NumericEntityUnescaper(NumericEntityUnescaper.OPTION.semiColonOptional);
-        assertEquals("0abc", neu.translate("&#48abc"), "Failed to stop a decimal entity at a trailing hex letter");
-        assertEquals("Test 0 not test", neu.translate("Test &#48 not test"), "Failed on a decimal entity terminated by a space");
-        assertEquals("0xyz", neu.translate("&#48xyz"), "Failed on a decimal entity terminated by a non-hex letter");
     }
 
     @Test
