@@ -305,7 +305,15 @@ public class FastDateParser implements DateParser, Serializable {
                 pos.setErrorIndex(idx);
                 return false;
             }
-            final int value = Integer.parseInt(source.substring(pos.getIndex(), idx));
+            final int value;
+            try {
+                value = Integer.parseInt(source.substring(pos.getIndex(), idx));
+            } catch (final NumberFormatException nfe) {
+                // A run of digits that overflows int cannot be represented by this field; signal a parse failure
+                // rather than letting NumberFormatException escape the ParsePosition-based parse methods.
+                pos.setErrorIndex(pos.getIndex());
+                return false;
+            }
             pos.setIndex(idx);
             calendar.set(field, modify(parser, value));
             return true;

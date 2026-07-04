@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -409,6 +410,20 @@ class FastDateParserTest extends AbstractLangTest {
         // Thu Mar 16 00:00:00 KST 81724
         actual = fdp.parse("20150429113100");
         assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest
+    @MethodSource(DATE_PARSER_PARAMETERS)
+    void testLang1359(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) {
+        // A trailing numeric field is unbounded, so a digit run that overflows int must fail the parse
+        // through the ParsePosition/ParseException contract, not escape as a NumberFormatException.
+        final DateParser fdp = getInstance(dpProvider, "yyyy", TimeZones.GMT, Locale.US);
+        final String overflow = "99999999999";
+        assertThrows(ParseException.class, () -> fdp.parse(overflow));
+        final ParsePosition pos = new ParsePosition(0);
+        assertNull(fdp.parseObject(overflow, pos));
+        assertTrue(pos.getErrorIndex() >= 0);
+        assertEquals(0, pos.getIndex());
     }
 
     @ParameterizedTest
