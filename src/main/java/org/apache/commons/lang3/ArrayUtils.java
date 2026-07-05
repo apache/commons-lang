@@ -9666,7 +9666,7 @@ public class ArrayUtils {
      * @since 3.6
      */
     public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
-        if (null == array) {
+        if (array == null) {
             return null;
         }
         if (array.length == 0) {
