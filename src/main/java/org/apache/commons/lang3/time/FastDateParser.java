@@ -1028,7 +1028,7 @@ public class FastDateParser implements DateParser, Serializable {
             final int errorIndex = pp.getErrorIndex();
             final String msg = String.format("Unparseable date: '%s', parse position = %s", source, pp);
             if (locale.equals(JAPANESE_IMPERIAL)) {
-                throw new ParseException(String.format("; the %s locale does not support dates before 1868-01-01.", locale, msg), errorIndex);
+                throw new ParseException(String.format("%s; the %s locale does not support dates before 1868-01-01.", msg, locale), errorIndex);
             }
             throw new ParseException(msg, errorIndex);
         }
