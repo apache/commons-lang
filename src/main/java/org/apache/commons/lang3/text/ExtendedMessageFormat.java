@@ -382,21 +382,24 @@ public class ExtendedMessageFormat extends MessageFormat {
         seekNonWs(pattern, pos);
         final int text = pos.getIndex();
         int depth = 1;
-        for (; pos.getIndex() < pattern.length(); next(pos)) {
+        while (pos.getIndex() < pattern.length()) {
             switch (pattern.charAt(pos.getIndex())) {
             case START_FE:
                 depth++;
+                next(pos);
                 break;
             case END_FE:
                 depth--;
                 if (depth == 0) {
                     return pattern.substring(text, pos.getIndex());
                 }
+                next(pos);
                 break;
             case QUOTE:
                 getQuotedString(pattern, pos);
                 break;
             default:
+                next(pos);
                 break;
             }
         }

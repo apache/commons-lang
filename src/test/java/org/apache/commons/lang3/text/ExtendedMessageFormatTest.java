@@ -345,6 +345,19 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
+     * A format element whose format style ends with a quoted literal immediately before the closing brace is a valid
+     * pattern (accepted by {@link MessageFormat} and by this class when no registry is supplied), but the registry
+     * parsing path rejected it with "Unterminated format element".
+     */
+    @Test
+    void testQuotedLiteralAtEndOfFormatElement() {
+        assertEquals("ABC", new ExtendedMessageFormat("{0,upper,'x'}", registry).format(new Object[] {"abc"}));
+        assertEquals("ABC", new ExtendedMessageFormat("{0,upper,'}'}", registry).format(new Object[] {"abc"}));
+        // a built-in format style ending in a quote only reaches the registry parser because the registry is non-null
+        assertEquals("5%", new ExtendedMessageFormat("{0,number,0'%'}", registry).format(new Object[] {Integer.valueOf(5)}));
+    }
+
+    /**
      * Test equals() and hashCode().
      */
     @Test
