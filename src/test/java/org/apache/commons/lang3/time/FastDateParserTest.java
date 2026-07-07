@@ -428,19 +428,6 @@ class FastDateParserTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource(DATE_PARSER_PARAMETERS)
-    void testParseErrorMessageJapaneseImperial(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) {
-        // The Japanese imperial branch of parse(String) must keep the "Unparseable date" diagnostic
-        // (source text and parse position), not drop it and emit a message starting with a stray ';'.
-        final DateParser fdp = getInstance(dpProvider, "yyyy", TimeZones.GMT, FastDateParser.JAPANESE_IMPERIAL);
-        final String source = "not-a-date";
-        final ParseException e = assertThrows(ParseException.class, () -> fdp.parse(source));
-        final String message = e.getMessage();
-        assertTrue(message.startsWith("Unparseable date: '" + source + "'"), message);
-        assertTrue(message.contains("does not support dates before 1868-01-01."), message);
-    }
-
-    @ParameterizedTest
-    @MethodSource(DATE_PARSER_PARAMETERS)
     void testLang1380(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) throws ParseException {
         final Calendar expected = Calendar.getInstance(TimeZones.GMT, Locale.FRANCE);
         expected.clear();
@@ -522,6 +509,19 @@ class FastDateParserTest extends AbstractLangTest {
 
         cal.set(1000, Calendar.JANUARY, 1);
         assertEquals(cal.getTime(), parser.parse("01.01.1000"));
+    }
+
+    @ParameterizedTest
+    @MethodSource(DATE_PARSER_PARAMETERS)
+    void testParseErrorMessageJapaneseImperial(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) {
+        // The Japanese imperial branch of parse(String) must keep the "Unparseable date" diagnostic
+        // (source text and parse position), not drop it and emit a message starting with a stray ';'.
+        final DateParser fdp = getInstance(dpProvider, "yyyy", TimeZones.GMT, FastDateParser.JAPANESE_IMPERIAL);
+        final String source = "not-a-date";
+        final ParseException e = assertThrows(ParseException.class, () -> fdp.parse(source));
+        final String message = e.getMessage();
+        assertTrue(message.startsWith("Unparseable date: '" + source + "'"), message);
+        assertTrue(message.contains("does not support dates before 1868-01-01."), message);
     }
 
     @ParameterizedTest
