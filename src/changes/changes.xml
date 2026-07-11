@@ -999,7 +999,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="update" dev="ggregory">org.junit.jupiter:junit-jupiter 5.6.0 -> 5.6.2.</action>
     <action                   type="update" dev="ggregory">com.github.spotbugs:spotbugs 4.0.0 -> 4.0.6.</action>
     <action                   type="update" dev="ggregory">com.puppycrawl.tools:checkstyle 8.29 -> 8.34.</action>
-    <action                   type="update" dev="ggregory">commons.surefire.version 3.0.0-M4 -> 3.0.0-M5..</action>
+    <action                   type="update" dev="ggregory">commons.surefire.version 3.0.0-M4 -> 3.0.0-M5.</action>
   </release>
 
   <release version="3.10" date="2020-03-22" description="New features and bug fixes. Requires Java 8 or above, supports Java 9, 10, 11.">
@@ -1840,7 +1840,7 @@ java.lang.NullPointerException: Cannot invoke
     <action type="fix" issue="LANG-42">EqualsBuilder.append(Object[], Object[]) crashes with a NullPointerException if an element of the first array is null.</action>
     <action type="fix" issue="LANG-286">Serialization - not backwards compatible.</action>
     <action type="fix" issue="LANG-50"> Replace Clover with Cobertura.</action>
-    <action type="fix" issue="LANG-259">ValuedEnum.compareTo(Object other) not typesafe - it easily could be...</action>
+    <action type="fix" issue="LANG-259">ValuedEnum.compareTo(Object other) not typesafe - it easily could be..</action>
     <action type="fix" issue="LANG-271">LocaleUtils test fails under Mustang.</action>
     <action type="fix" issue="LANG-2">Javadoc example for StringUtils.splitByWholeSeparator incorrect.</action>
     <action type="fix" issue="LANG-3">PADDING array in StringUtils overflows on '\uffff'.</action>
